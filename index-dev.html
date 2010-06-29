@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://sage.com/gobi/mobile">
+<head>      
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    
+    <title>SLX Mobile</title> 
+
+    <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
+    <link rel="apple-touch-startup-image" href="content/images/loading.png">
+
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/libraries/reui/themes/iui/iui.css" />
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/libraries/reui/themes/iui/default/default-theme.css" />
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/libraries/reui/themes/iui/default/default-panel-list.css" />
+    
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/app.css" />        
+    <link type="text/css" rel="stylesheet" href="content/css/app.css" />
+   
+    <script type="text/javascript" src="../../argos-sdk/libraries/ext/ext-core.js"></script>          
+    <script type="text/javascript" src="../../argos-sdk/libraries/reui/reui.js"></script>
+    <script type="text/javascript">ReUI.autoInit = false;</script> 
+        
+    <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
+
+    <script type="text/javascript" src="../../argos-sdk/libraries/datejs/src/core.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/ObjTree.js"></script>     
+    <script type="text/javascript" src="../../argos-sdk/libraries/Base64.js"></script>   
+    <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
+    
+    <script type="text/javascript" src="../../argos-sdk/src/Application.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/Utility.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/Format.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/Toolbar.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/MainToolbar.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/FloatToolbar.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/View.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/List.js"></script>    
+    <script type="text/javascript" src="../../argos-sdk/src/Detail.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/Edit.js"></script>
+
+    <script type="text/javascript" src="src/Application.js"></script>
+    <script type="text/javascript" src="src/Format.js"></script>
+    <script type="text/javascript" src="src/Template.js"></script>    
+    <script type="text/javascript" src="src/views/LoginDialog.js"></script>
+    <script type="text/javascript" src="src/views/SearchDialog.js"></script>
+    <script type="text/javascript" src="src/views/Home.js"></script>
+    <script type="text/javascript" src="src/views/account/List.js"></script>
+    <script type="text/javascript" src="src/views/account/Detail.js"></script>
+    <script type="text/javascript" src="src/views/account/Edit.js"></script>
+    <script type="text/javascript" src="src/views/contact/List.js"></script>
+    <script type="text/javascript" src="src/views/contact/Detail.js"></script>
+    <script type="text/javascript" src="src/views/opportunity/List.js"></script>
+    <script type="text/javascript" src="src/views/opportunity/Detail.js"></script>
+
+    <script type="text/javascript" src="../argos-gcrm/src/views/tradingaccount/List.js"></script>
+    <script type="text/javascript" src="../argos-gcrm/src/views/tradingaccount/Detail.js"></script>
+    <script type="text/javascript" src="../argos-gcrm/src/views/salesinvoice/List.js"></script>
+    <script type="text/javascript" src="../argos-gcrm/src/views/salesinvoice/Detail.js"></script>
+    
+    <!-- uncomment one of the following to force the app to connect to the specified sdata environment -->    
+    <!-- <script type="text/javascript" src="products/slx/environment/cloud-mobile.js"></script> -->
+    <script type="text/javascript" src="environment/cloud-integration.js"></script>    
+
+    <script type="text/javascript">
+    Ext.onReady(function() {  
+        App.init();         
+        ReUI.init();      
+
+        Ext.getBody().on('swipe', function(evt, el, o) {
+            console.log('%s: %s', evt.browserEvent.direction, el.id);
+        });     
+    });
+    </script>
+</head>
+<body>
+</body>
+</html>

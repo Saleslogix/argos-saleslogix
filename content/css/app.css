@@ -1,0 +1,85 @@
+﻿/* adjust input positions for search dialog */
+#search_dialog input:not(input[type|=radio]):not(input[type|=checkbox])
+{
+	padding: 6px 6px 6px 50px;
+}
+
+/* same as above, but for chrome fix */
+#search_dialog input:not([type|=radio]):not([type|=checkbox]) 
+{
+	padding: 6px 6px 6px 50px;
+}
+
+/* hid text on floating toolbar */
+.toolbar-float-container a span
+{	
+	display: none;
+}
+
+.tool-note
+{
+	margin-bottom: 3px;
+}
+
+li.is-linked
+{
+	background: url('../images/associate_16x16.gif') no-repeat 10px 50%;
+}
+
+body > ul > li > a 
+{
+	padding: 8px 32px 8px 36px;
+}
+
+#opportunity_list li.o-stage h3,
+#opportunity_list li.o-stage h4
+{
+	margin: 0 64px 0 0;
+}
+
+#opportunity_list li.o-stage div
+{
+	background: url('../images/meter-empty.png') no-repeat center right;
+}
+
+#opportunity_list li.o-stage-1 div
+{
+	background: 
+		url('../images/meter-full-1.png') no-repeat center right,
+		url('../images/meter-empty.png') no-repeat center right;
+}
+
+#opportunity_list li.o-stage-2 div
+{
+	background: 
+		url('../images/meter-full-2.png') no-repeat center right,
+		url('../images/meter-empty.png') no-repeat center right;
+}
+
+#opportunity_list li.o-stage-3 div
+{
+	background: 
+		url('../images/meter-full-3.png') no-repeat center right,
+		url('../images/meter-empty.png') no-repeat center right;
+}
+
+#opportunity_list li.o-stage-4 div
+{
+	background: 
+		url('../images/meter-full-4.png') no-repeat center right,
+		url('../images/meter-empty.png') no-repeat center right;
+}
+
+#opportunity_list li.o-stage-5 div
+{
+	background: 
+		url('../images/meter-full-5.png') no-repeat center right,
+		url('../images/meter-empty.png') no-repeat center right;
+}
+
+#opportunity_list li.o-stage-6 div
+{
+	background: 
+		url('../images/meter-full-6.png') no-repeat center right,
+		url('../images/meter-empty.png') no-repeat center right;
+}
