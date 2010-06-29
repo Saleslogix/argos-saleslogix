@@ -19,4 +19,21 @@
 
 		http://localhost/mobile/products/argos-saleslogix/index-dev.html
 
+### Building A Release Version 
+
+#### Requirements
+*	Windows 
+*	The Java Runtime (JRE)
+*	The environment variable, `JAVA_HOME`, pointing to the JRE base path, eg
+
+		c:\Program Files (x86)\Java\jre6
+#### Steps
+*	Save this [gist](http://gist.github.com/457984) as `build-product.cmd` to directory where you cloned [Argos SDK][argos-sdk]
+*	Open a command prompt and excute the following, changing paths as appropriate
+
+		cd \projects\sage\mobile
+		build-product saleslogix
+*	The deployed product will be in a `deploy` folder in the directory where you cloned [Argos SDK][argos-sdk]
+
+
 [argos-sdk]: https://github.com/SageScottsdalePlatform/argos-sdk "Argos SDK Source"

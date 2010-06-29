@@ -1,0 +1,79 @@
+{
+	projectName: 'SalesLogix Mobile',
+	licenseText: '',
+	deployDir: 'deploy/',
+	pkgs: [{
+		name: 'SalesLogix Mobile',
+		file: 'app/content/javascript/argos-saleslogix.js',
+		isDebug: true,
+		fileIncludes: [{
+			text: 'Application.js',
+			path: '../src/'
+		},{
+			text: 'Format.js',
+			path: '../src/'
+		},{
+			text: 'Template.js',
+			path: '../src/'
+		},{
+			text: 'Home.js',
+			path: '../src/views/'
+		},{
+			text: 'LoginDialog.js',
+			path: '../src/views/'
+		},{
+			text: 'SearchDialog.js',
+			path: '../src/views/'
+		},{
+			text: 'Detail.js',
+			path: '../src/views/account/'
+		},{
+			text: 'Edit.js',
+			path: '../src/views/account/'
+		},{
+			text: 'List.js',
+			path: '../src/views/account/'
+		},{
+			text: 'Detail.js',
+			path: '../src/views/contact/'
+		},{
+			text: 'List.js',
+			path: '../src/views/contact/'
+		},{
+			text: 'Detail.js',
+			path: '../src/views/opportunity/'
+		},{
+			text: 'List.js',
+			path: '../src/views/opportunity/'
+		},{
+			text: 'List.js',
+			path: '../../argos-gcrm/src/views/salesinvoice/'
+		},{
+			text: 'Detail.js',
+			path: '../../argos-gcrm/src/views/salesinvoice/'
+		},{
+			text: 'List.js',
+			path: '../../argos-gcrm/src/views/tradingaccount/'
+		},{
+			text: 'Detail.js',
+			path: '../../argos-gcrm/src/views/tradingaccount/'
+		}]
+	}],
+	resources: [{
+		src: '../src/',
+		dest: 'src/argos-saleslogix',
+		filters: ".*\\.js"
+	},{
+		src: '../../argos-gcrm/src/views',
+		dest: 'src/argos-gcrm',
+		filters: ".*\\.js"
+	},{
+		src: '../content/',
+		dest: 'app/content',
+		filters: ".*[\\.css|\\.jpg|\\.png|\\.gif]"
+	},{
+		src: '../environment',
+		dest: 'app/environment/',
+		filters: ".*\\.js"
+	}]
+}
