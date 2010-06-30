@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
 
 Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {   
     itemTemplate: new Simplate([
-        '<li class="{%= $["GlobalSyncID"] ? "is-linked" : "" %}">',
+        '<li>',
         '<a href="#account_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%: $["AccountName"] %}</h3>',
         '<h4>{%: $["Address"] ? $["Address"]["City"] : "" %}</h4>',
@@ -54,7 +54,7 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
             .setQueryArgs({
                 'include': 'Address',
                 'orderby': 'AccountName',
-                'select': 'AccountName,Address/City,GlobalSyncID'                
+                'select': 'AccountName,Address/City'                
             });
 
         return request;

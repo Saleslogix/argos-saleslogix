@@ -45,27 +45,11 @@
 		},{
 			text: 'List.js',
 			path: '../src/views/opportunity/'
-		},{
-			text: 'List.js',
-			path: '../../argos-gcrm/src/views/salesinvoice/'
-		},{
-			text: 'Detail.js',
-			path: '../../argos-gcrm/src/views/salesinvoice/'
-		},{
-			text: 'List.js',
-			path: '../../argos-gcrm/src/views/tradingaccount/'
-		},{
-			text: 'Detail.js',
-			path: '../../argos-gcrm/src/views/tradingaccount/'
 		}]
 	}],
 	resources: [{
 		src: '../src/',
 		dest: 'src/argos-saleslogix',
-		filters: ".*\\.js"
-	},{
-		src: '../../argos-gcrm/src/views',
-		dest: 'src/argos-gcrm',
 		filters: ".*\\.js"
 	},{
 		src: '../content/',

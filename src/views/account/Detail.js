@@ -44,15 +44,6 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     label: 'Opportunities',
                     icon: 'content/images/Opportunity_List_24x24.gif'
                 }
-            ]}, 
-            {options: {title: 'ERP Related Items', list: true}, as: [
-                {
-                    view: 'gcrm_salesinvoice_related',
-                    resourceKind: 'tradingAccounts',
-                    resourcePredicate: this.formatRelatedQuery.createDelegate(this, ["'{0}'", 'GlobalSyncID'], true),
-                    label: 'Sales Invoices',
-                    icon: 'content/images/Opportunity_List_24x24.gif'
-                }
             ]}
         ];
     },
