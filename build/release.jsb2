@@ -45,6 +45,12 @@
 		},{
 			text: 'List.js',
 			path: '../src/views/opportunity/'
+		},{
+			text: 'Detail.js',
+			path: '../src/views/leads/'
+		},{
+			text: 'List.js',
+			path: '../src/views/leads/'
 		}]
 	}],
 	resources: [{
