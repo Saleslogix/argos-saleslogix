@@ -53,7 +53,17 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Opportunity.List({
             id: 'opportunity_related',
             expose: false
-        }));        
+        }));      
+        
+               
+	this.registerView(new Mobile.SalesLogix.Lead.List());
+ 	this.registerView(new Mobile.SalesLogix.Lead.Detail());
+	this.registerView(new Mobile.SalesLogix.Lead.Edit());
+        this.registerView(new Mobile.SalesLogix.Lead.List({
+            id: 'lead_related',
+            expose: false
+        }));    
+        
 
         /*
         this.registerView(new Mobile.SalesLogix.Activity.List({
