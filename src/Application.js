@@ -55,22 +55,13 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));      
         
-        this.registerView(new Mobile.SalesLogix.Ticket.List());
-        this.registerView(new Mobile.SalesLogix.Ticket.Detail());
-        this.registerView(new Mobile.SalesLogix.Ticket.Edit());
-        this.registerView(new Mobile.SalesLogix.Ticket.List({
-            id: 'ticket_related',
-            expose: false
-        }));  
-        
-            
 	this.registerView(new Mobile.SalesLogix.Lead.List());
  	this.registerView(new Mobile.SalesLogix.Lead.Detail());
-	this.registerView(new Mobile.SalesLogix.Lead.Edit());
-        this.registerView(new Mobile.SalesLogix.Lead.List({
+	this.registerView(new Mobile.SalesLogix.Lead.List({
             id: 'lead_related',
             expose: false
-        }));            
+        }));    
+        
 
         /*
         this.registerView(new Mobile.SalesLogix.Activity.List({

@@ -4,7 +4,7 @@
 /// <reference path="../../../../sdata/SDataService.js"/>
 /// <reference path="../../../../platform/View.js"/>
 /// <reference path="../../../../platform/List.js"/>
-//Rajkumar. G
+
 Ext.namespace("Mobile.SalesLogix.Lead");
 
 Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {   
@@ -43,4 +43,3 @@ Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
         return request;
     }
 });
-//Rajkumar. G
