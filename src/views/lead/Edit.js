@@ -5,7 +5,7 @@
 /// <reference path="../../../../platform/View.js"/>
 /// <reference path="../../../../platform/Detail.js"/>
 /// <reference path="../../Format.js"/>
-
+//Rajkumar. G 05-07-2010
 Ext.namespace("Mobile.SalesLogix.Lead");
 
 Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
@@ -18,12 +18,13 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             resourceKind: 'leads'
         });
 
-       this.layout = [
-            {name: 'LeadNameFirstLast', label: 'leadNameFirstLast', type: 'text'},
-	    {name: 'Company', label: 'company', type: 'text'},
-            {name: 'Email', label: 'email', type: 'text'},
-            {name: 'Address', label: 'address', type: 'text'}
-            //{name: 'Type', label: 'type', type: 'text'}           
+        this.layout = [
+            {name: 'FirstName', label: 'firstname', type: 'text'},
+            {name: 'LastName', label: 'lastname', type: 'text'}, 
+ 	    {name: 'Company', label: 'company', type: 'text'},
+            {name: 'WorkPhone', label: 'workphone', type: 'text'}, 
+ 	    {name: 'Email', label: 'email', type: 'text'},
+            {name: 'WebAddress', label: 'webaddress', type: 'text'}          
         ];
     },
     init: function() {     
@@ -33,19 +34,17 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
-                'include': 'Owner,CreateUser',                
+                'include': 'Account,Address,AccountManager,AccountManager/UserInfo,Owner',
                 'select': [
-                    'LeadNameFirstLast',
+		    'FirstName',
+                    'LastName',	
                     'Company',
                     'WorkPhone',
                     'Email',
-                    'Address',
-                    'WebAddress',
-                    'Owner',
-                    'CreateDate',
-                    'CreateUser'
-                ].join(',')                          
+                    'WebAddress'
+                ].join(',')                  
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
 });
+//Rajkumar. G 05-07-2010
