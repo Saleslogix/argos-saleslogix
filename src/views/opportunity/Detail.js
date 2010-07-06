@@ -16,6 +16,7 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         Ext.apply(this, o, {
             id: 'opportunity_detail',
             title: 'Opportunity',
+	    editor: 'opportunity_edit',	
             resourceKind: 'opportunities'
         });
 

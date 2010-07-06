@@ -41,7 +41,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
 
-	this.registerView(new Mobile.SalesLogix.Account.Edit());
+	this.registerView(new Mobile.SalesLogix.Contact.Edit());
         this.registerView(new Mobile.SalesLogix.Contact.List());
         this.registerView(new Mobile.SalesLogix.Contact.Detail());
         this.registerView(new Mobile.SalesLogix.Contact.List({
@@ -49,6 +49,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
 
+        this.registerView(new Mobile.SalesLogix.Opportunity.Edit());
         this.registerView(new Mobile.SalesLogix.Opportunity.List());
         this.registerView(new Mobile.SalesLogix.Opportunity.Detail());
         this.registerView(new Mobile.SalesLogix.Opportunity.List({
