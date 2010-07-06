@@ -29,20 +29,16 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'ReceivedDate', label: 'receiveddated', renderer: Mobile.SalesLogix.Format.date},
             {name: 'AssignedTo.OwnerDescription', label: 'AssignedTo'},
             {name: 'StatusCode', label: 'statuscode'},
-            {name: 'CreateUser.OwnerDescription', label: 'createuser'},
+            {name: 'AccountManager.UserInfo.OwnerDescription', label: 'createuser'},
             {name: 'CreateDate', label: 'createdate', renderer: Mobile.SalesLogix.Format.date},
-            
-            
             {options: {title: 'Related Items', list: true}, as: [
                 {
-                    view: 'account_related', 
-                    where: this.formatRelatedQuery.createDelegate(this, ['Ticket eq "{0}"'], true),
-                    label: 'Accounts',
-                    icon: 'content/images/Accounts_24x24.gif'
+                    view: 'return_related', 
+                    where: this.formatRelatedQuery.createDelegate(this, ['Account.Id eq "{0}"'], true),
+                    label: 'Returns',
+                    icon: 'content/images/return_detail_24x24.gif'
                 }
-            ]}
-            
-   
+            ]}              
         ];
     },
     
@@ -54,7 +50,7 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         
         request                     
             .setQueryArgs({
-                'include': 'Account,AssignedTo,CreateUser',
+                'include': 'Account,AssignedTo,AccountManager/UserInfo,Owner',
                 'select': [
                     'TicketNumber',
                     'Account/AccountName',
@@ -65,11 +61,13 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'ReceivedDate',
                     'AssignedTo/OwnerDescription',
                     'StatusCode',
-                    'CreateUser/OwnerDescription',
-                    'CreateDate'
-                ].join(',')                  
+                    'AccountManager/UserInfo/OwnerDescription',
+                    'CreateDate',
+                    'Category',
+                    'Issue'
+                   ].join(',')                  
             });     
         
-        return request;                   
+        return request;                               
     } 
 });
