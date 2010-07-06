@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
+/// <reference path="../../../../ext/ext-core-debug.js"/>
 /// <reference path="../../../../Simplate.js"/>
 /// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
 /// <reference path="../../../../sdata/SDataService.js"/>
@@ -16,6 +16,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         Ext.apply(this, o, {
             id: 'contact_detail',
             title: 'Contact',
+	    editor: 'contact_edit',//Added by Rajkumar. G to enable edit functionality
             resourceKind: 'contacts'
         });
 
