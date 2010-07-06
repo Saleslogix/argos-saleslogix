@@ -16,16 +16,16 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         Ext.apply(this, o, {
             id: 'lead_detail',
             title: 'Lead',
-            editor: 'lead_edit',//Rajkumar. G added for enabling edit functionality
-            resourceKind: 'leads'//Resource specification
+            editor: 'lead_edit',
+            resourceKind: 'leads'
         });
-//Editable fields are mentioned below
+        //Editable fields are mentioned below
         this.layout = [
 	    {name: 'LeadNameFirstLast', label: 'leadNameFirstLast'},
 	    {name: 'Company', label: 'company'},
             {name: 'WorkPhone', label: 'work', renderer: Mobile.SalesLogix.Format.phone},
 	    {name: 'Email', label: 'email', renderer: Mobile.SalesLogix.Format.mail},
-	    {name: 'Address', label: 'address'},
+	    //{name: 'Address', label: 'address', renderer: Mobile.SalesLogix.Format.address},
             {name: 'WebAddress', label: 'web', renderer: Mobile.SalesLogix.Format.link},
             {name: 'Owner.OwnerDescription', label: 'owner'},
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
@@ -38,27 +38,28 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 }
             ]}           
         ];
-    },        
+    },
     init: function() {     
         Mobile.SalesLogix.Lead.Detail.superclass.init.call(this);   
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Lead.Detail.superclass.createRequest.call(this); 
-//query args are mentioned here
+        //query args are mentioned here
         request            
             .setQueryArgs({
-                'include': 'Owner,CreateUser',                
+                'include': 'Address,AccountManager,AccountManager/UserInfo,Owner',                
                 'select': [
-                    'Description',
                     'LeadNameFirstLast',
+	            'FirstName',
+                    'LastName',	
                     'Company',
                     'WorkPhone',
                     'Email',
-                    'Address',
+                    'Address/*',
                     'WebAddress',
-                    'Owner',
-                    'CreateDate',
-                    'CreateUser'
+                    'Owner/OwnerDescription',
+                    'CreateUser',
+                    'CreateDate'
                 ].join(',')             
             });
 
