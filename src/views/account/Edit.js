@@ -20,7 +20,11 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         this.layout = [
             {name: 'AccountName', label: 'name', type: 'text'},
-            {name: 'Type', label: 'type', type: 'text'}           
+            {name: 'MainPhone', label: 'mainphone', type: 'text'},
+            {name: 'WebAddress', label: 'webaddress', type: 'text'},
+            {name: 'Type', label: 'type', type: 'text'},
+            {name: 'SubType', label: 'subtype', type: 'text'},
+            {name: 'Status', label: 'status', type: 'text'}           
         ];
     },
     init: function() {     
@@ -30,21 +34,14 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
-                'include': 'Address,AccountManager,AccountManager/UserInfo,Owner',
                 'select': [
                     'AccountName',
                     'MainPhone',
-                    'Address/*',
                     'WebAddress',
                     'Type',
                     'SubType',
-                    'AccountManager/UserInfo/FirstName',
-                    'AccountManager/UserInfo/LastName',
-                    'Owner/OwnerDescription',
-                    'Status',
-                    'CreateDate',
-                    'CreateUser'
-                ].join(',')                  
+                    'Status'
+                  ]
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
