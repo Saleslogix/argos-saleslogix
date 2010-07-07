@@ -81,7 +81,15 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'lead_related',
             expose: false
         }));    
-        
+     
+      this.registerView(new Mobile.SalesLogix.Return.List());
+    this.registerView(new Mobile.SalesLogix.Return.Detail());
+    this.registerView(new Mobile.SalesLogix.Return.Edit());
+ 	this.registerView(new Mobile.SalesLogix.Return.List({
+            id: 'return_related',
+           expose: false
+      }));
+         
     this.registerView(new Mobile.SalesLogix.Ticket.List());
     this.registerView(new Mobile.SalesLogix.Ticket.Detail());
     this.registerView(new Mobile.SalesLogix.Ticket.Edit());
