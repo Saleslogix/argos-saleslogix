@@ -57,6 +57,14 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'contact_related',
             expose: false
         }));
+        
+         this.registerView(new Mobile.SalesLogix.Salesorder.Edit());
+	     this.registerView(new Mobile.SalesLogix.Salesorder.List());
+ 	     this.registerView(new Mobile.SalesLogix.Salesorder.Detail());
+	     this.registerView(new Mobile.SalesLogix.Salesorder.List({
+            id: 'salesorder_related',
+            expose: false
+        }));  
 
 	this.registerView(new Mobile.SalesLogix.Contract.Edit());
         this.registerView(new Mobile.SalesLogix.Contract.List());
