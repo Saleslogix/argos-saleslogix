@@ -19,11 +19,11 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'AccountName', label: 'name', type: 'text'},
-            {name: 'MainPhone', label: 'mainphone', type: 'text'},
-            {name: 'WebAddress', label: 'webaddress', type: 'text'},
+            {name: 'AccountName', label: 'account', type: 'text'},
+            {name: 'MainPhone', label: 'phone', type: 'text'},
+            {name: 'WebAddress', label: 'web', type: 'text'},
             {name: 'Type', label: 'type', type: 'text'},
-            {name: 'SubType', label: 'subtype', type: 'text'},
+            {name: 'SubType', label: 'sub-type', type: 'text'},
             {name: 'Status', label: 'status', type: 'text'}           
         ];
     },

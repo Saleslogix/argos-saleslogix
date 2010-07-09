@@ -20,17 +20,18 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
 
         this.layout = [
-            {name: 'TicketNumber', label: 'ticketNumber'},
-            {name: 'Account.AccountName', label: 'name'},
+            {name: 'TicketNumber', label: 'ticket id'},
+            {name: 'Account.AccountName', label: 'account'},
+            {name: 'Contact.FullName', label: 'name'},
+            {name: 'Contact.WorkPhone', label: 'phone', renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Subject', label: 'subject'},
-            {name: 'Account.MainPhone', label: 'phone', renderer: Mobile.SalesLogix.Format.phone},
-            {name: 'UrgencyCode', label: 'urgencycode'},
+            {name: 'UrgencyCode', label: 'urgency'},
             {name: 'Area', label: 'area'},
-            {name: 'ReceivedDate', label: 'receiveddated', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'AssignedTo.OwnerDescription', label: 'AssignedTo'},
-            {name: 'StatusCode', label: 'statuscode'},
-            {name: 'AccountManager.UserInfo.OwnerDescription', label: 'createuser'},
-            {name: 'CreateDate', label: 'createdate', renderer: Mobile.SalesLogix.Format.date},
+            {name: 'ReceivedDate', label: 'received', renderer: Mobile.SalesLogix.Format.date},
+            {name: 'AssignedTo.OwnerDescription', label: 'assigned to'},
+            {name: 'StatusCode', label: 'status'},
+            {name: 'CreateUser', label: 'create user'},
+            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
             {options: {title: 'Related Items', list: true}, as: [
                 {
                     view: 'return_related', 
@@ -50,18 +51,19 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         
         request                     
             .setQueryArgs({
-                'include': 'Account,AssignedTo,AccountManager/UserInfo,Owner',
+                'include': 'Account,Contact,AssignedTo,AccountManager/UserInfo,Owner',
                 'select': [
                     'TicketNumber',
                     'Account/AccountName',
+                    'Contact/FullName',
+                    'Contact/WorkPhone',
                     'Subject',
-                    'Account/MainPhone',
                     'UrgencyCode',
                     'Area',
                     'ReceivedDate',
                     'AssignedTo/OwnerDescription',
                     'StatusCode',
-                    'AccountManager/UserInfo/OwnerDescription',
+                    'CreateUser',
                     'CreateDate',
                     'Category',
                     'Issue'

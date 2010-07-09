@@ -19,11 +19,10 @@ Mobile.SalesLogix.Campaign.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'CampaignName', label: 'campaignname', type: 'text'},
-            {name: 'CampaignCode', label: 'campaigncode', type: 'text'},
-            {name: 'StartDate', label: 'start date', type: 'text'},
-            //{name: 'AccountManager', label: 'accountmanager', type: 'text'},
-          ];
+            {name: 'CampaignName', label: 'name', type: 'text'},
+            {name: 'CampaignCode', label: 'code', type: 'text'},
+            {name: 'StartDate', label: 'start', type: 'text'},
+           ];
     },
     init: function() {     
         Mobile.SalesLogix.Campaign.Edit.superclass.init.call(this);   
@@ -35,8 +34,7 @@ Mobile.SalesLogix.Campaign.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                 'select': [
                     'CampaignName',
                     'CampaignCode',
-                    'StartDate'//,
-                    //'AccountManager'
+                    'StartDate'
                    ]
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));

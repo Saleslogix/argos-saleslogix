@@ -20,10 +20,10 @@ Mobile.SalesLogix.Campaign.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
 
         this.layout = [
-            {name: 'CampaignName', label: 'campaignname'},
-            {name: 'CampaignCode', label: 'campaigncode'},
-            {name: 'StartDate', label: 'start date', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'AccountManager.UserInfo', label: 'acct mgr', tpl: Mobile.SalesLogix.Template.nameLF},
+            {name: 'CampaignName', label: 'name'},
+            {name: 'CampaignCode', label: 'code'},
+            {name: 'StartDate', label: 'start', renderer: Mobile.SalesLogix.Format.date},
+            {name: 'AccountManager.UserInfo.UserName', label: 'acct mgr'},
             {name: 'CreateUser', label: 'create user'},
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
           ];
@@ -41,8 +41,7 @@ Mobile.SalesLogix.Campaign.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'CampaignName',
                     'CampaignCode',
                     'StartDate',
-                    'AccountManager/UserInfo/FirstName',
-                    'AccountManager/UserInfo/LastName',
+                    'AccountManager/UserInfo/UserName',
                     'CreateUser',
                     'CreateDate'
                   ].join(',')                  

@@ -20,14 +20,14 @@ Mobile.SalesLogix.Return.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
 
         this.layout = [
-            {name: 'ReturnNumber', label: 'returnnumber'},
-            {name: 'Account.AccountName', label: 'name'},
+            {name: 'ReturnNumber', label: 'return id'},
+            {name: 'Account.AccountName', label: 'account'},
             {name: 'Priority', label: 'priority'},
-            {name: 'ReturnType', label: 'returntype'},
-            {name: 'ExpectedDate', label: 'expected date', renderer: Mobile.SalesLogix.Format.date},
+            {name: 'ReturnType', label: 'type'},
+            {name: 'ExpectedDate', label: 'reg date', renderer: Mobile.SalesLogix.Format.date},
             {name: 'AssignedTo.OwnerDescription', label: 'AssignedTo'},
-            {name: 'ReturnedBy.FullName', label: 'returnedby'},
-            {name: 'ShipTo.FullName', label: 'shipto fullname'},
+            {name: 'ReturnedBy.FullName', label: 'returned by'},
+            {name: 'ShipTo.FullName', label: 'ship to'},
             {name: 'CreateUser', label: 'create user'},
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
           ];

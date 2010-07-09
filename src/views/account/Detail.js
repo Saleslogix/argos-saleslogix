@@ -20,17 +20,18 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
 
         this.layout = [
-            {name: 'AccountName', label: 'name'},
+            {name: 'AccountName', label: 'account'},
             {name: 'MainPhone', label: 'phone', renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Address', label: 'address', renderer: Mobile.SalesLogix.Format.address},
             {name: 'WebAddress', label: 'web', renderer: Mobile.SalesLogix.Format.link},
             {name: 'Type', label: 'type'},
             {name: 'SubType', label: 'sub-type'}, 
             {name: 'AccountManager.UserInfo', label: 'acct mgr', tpl: Mobile.SalesLogix.Template.nameLF},
+            {name: 'Notes', label: 'notes'}, 
             {name: 'Owner.OwnerDescription', label: 'owner'},
             {name: 'Status', label: 'status'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
             {name: 'CreateUser', label: 'create user'},
+            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
             {options: {title: 'Related Items', list: true}, as: [
                 {
                     view: 'contact_related', 
@@ -49,6 +50,12 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     where: this.formatRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
                     label: 'Tickets',
                     icon: 'content/images/Ticket_List_3D_32x32.gif'
+                },
+                {
+                    view: 'activity_related', 
+                    where: this.formatRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
+                    label: 'Activity',
+                    icon: 'content/images/Task_List_3D_24x24.gif'
                 }
                 
             ]}
@@ -72,12 +79,12 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'SubType',
                     'AccountManager/UserInfo/FirstName',
                     'AccountManager/UserInfo/LastName',
+                    'Notes',
                     'Owner/OwnerDescription',
                     'Status',
-                    'CreateDate',
                     'CreateUser',
-                    'GlobalSyncID'
-                ].join(',')                  
+                    'CreateDate',
+                  ].join(',')                  
             });     
         
         return request;                   

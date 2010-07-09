@@ -19,11 +19,11 @@ Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'ReturnNumber', label: 'returnnumber', type: 'text'},
+            {name: 'ReturnNumber', label: 'return id', type: 'text'},
             {name: 'Priority', label: 'priority', type: 'text'},
-            {name: 'ReturnType', label: 'returntype', type: 'text'},
-            {name: 'ExpectedDate', label: 'expected date', type: 'text'},
-            {name: 'ReturnedBy.FullName', label: 'returnedby', type: 'text'},
+            {name: 'ReturnType', label: 'type', type: 'text'},
+            {name: 'ExpectedDate', label: 'reg date', type: 'text'},
+            {name: 'ReturnedBy.FullName', label: 'returned by', type: 'text'},
             
         ];
     },

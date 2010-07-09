@@ -12,7 +12,7 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
         '<li>',
         '<a href="#account_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%: $["AccountName"] %}</h3>',
-        '<h4>{%: $["Address"] ? $["Address"]["City"] : "" %}</h4>',
+        '<h4>{%: $["AccountManager"] ? $ ["AccountManager"]["UserInfo"]["UserName"] : "" %}</h4>',
         '</a>',
         '</li>'
     ]),    
@@ -52,10 +52,14 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         request
             .setQueryArgs({
-                'include': 'Address',
-                'orderby': 'AccountName',
-                'select': 'AccountName,Address/City'                
-            });
+                'include': 'AccountManager/UserInfo',
+                //'orderby': 'UserName',
+                //'orderby': 'AccountManager/UserInfo/UserName',
+                'select': [
+                            'AccountName',
+                            'AccountManager/UserInfo/UserName'
+                            ].join(',')
+                        });
 
         return request;
     }

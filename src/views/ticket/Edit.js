@@ -19,7 +19,7 @@ Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'TicketNumber', label: 'ticketnumber', type: 'text'},
+            {name: 'TicketNumber', label: 'ticket id', type: 'text'},
             {name: 'Subject', label: 'subject', type: 'text'},
             {name: 'Area', label: 'area', type: 'text'},
             {name: 'Category', label: 'category', type: 'text'},
