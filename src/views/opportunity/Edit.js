@@ -19,11 +19,11 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-	    {name: 'Description', label: 'description', type: 'text'},
+	    {name: 'Description', label: 'opportunity', type: 'text'},
  	    //{name: 'LastName', label: 'lastname', type: 'text'},    
-            {name: 'EstimatedClose', label: 'estimatedclose', type: 'text'},
-            {name: 'SalesPotential', label: 'salespotential', type: 'text'}, 
-	    {name: 'CloseProbability', label: 'closeprobability', type: 'text'},
+            {name: 'EstimatedClose', label: 'est close', type: 'text'},
+            {name: 'SalesPotential', label: 'potential', type: 'text'}, 
+	    {name: 'CloseProbability', label: 'probability', type: 'text'},
             {name: 'Weighted', label: 'weighted', type: 'text'},
 	    {name: 'Stage', label: 'stage', type: 'text'},
  	    {name: 'Status', label: 'status', type: 'text'}

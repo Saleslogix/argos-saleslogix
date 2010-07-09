@@ -21,16 +21,16 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
 
         this.layout = [
-            {name: 'ReferenceNumber', label: 'referenceNumber'},
+            {name: 'ReferenceNumber', label: 'ref num'},
             {name: 'Account.AccountName', label: 'account', view: 'account_detail', key: 'Account.$key', property: true},
-            {name: 'Contact.FullName', label: 'fullname'},
-            {name: 'ServiceCode', label: 'servicecode'},
-            {name: 'TypeCode', label: 'typecode'},
-            {name: 'Period', label: 'period'},
+            {name: 'Contact.FullName', label: 'contact'},
+            {name: 'ServiceCode', label: 'svc type'},
+            {name: 'TypeCode', label: 'contract type'},
+            {name: 'Period', label: 'quantity'},
             {name: 'Remaining', label: 'remaining'},
-            {name: 'StartDate', label: 'startdate', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'EndingDate', label: 'endingdate' , renderer: Mobile.SalesLogix.Format.date},
-	    {name: 'IsActive', label: 'isactive'},
+            {name: 'StartDate', label: 'start', renderer: Mobile.SalesLogix.Format.date},
+            {name: 'EndingDate', label: 'end' , renderer: Mobile.SalesLogix.Format.date},
+	    {name: 'IsActive', label: 'active'},
 	    {name: 'CreateUser', label: 'create user'},
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
             {options: {title: 'Related Items', list: true}, as: [                

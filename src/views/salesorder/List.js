@@ -26,7 +26,7 @@ Mobile.SalesLogix.Salesorder.List = Ext.extend(Sage.Platform.Mobile.List, {
             title: 'Salesorders',
             resourceKind: 'salesorders',
             pageSize: 10,
-            icon: 'content/images/contract_16x16.gif'
+            icon: 'content/images/salesorder.gif'
         });
     },   
     formatSearchQuery: function(query) {

@@ -21,10 +21,10 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         this.layout = [
             {name: 'FirstName', label: 'firstname', type: 'text'},
             {name: 'LastName', label: 'lastname', type: 'text'}, 
- 	    {name: 'Company', label: 'company', type: 'text'},
-            {name: 'WorkPhone', label: 'workphone', type: 'text'}, 
- 	    {name: 'Email', label: 'email', type: 'text'},
-            {name: 'WebAddress', label: 'webaddress', type: 'text'}          
+ 	    {name: 'Company', label: 'account', type: 'text'},
+            {name: 'WorkPhone', label: 'work', type: 'text'}, 
+ 	    {name: 'Email', label: 'e-mail', type: 'text'},
+            {name: 'WebAddress', label: 'web', type: 'text'}          
         ];
     },
     init: function() {     

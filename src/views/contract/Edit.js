@@ -19,9 +19,9 @@ Mobile.SalesLogix.Contract.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'ReferenceNumber', label: 'referencenumber', type: 'text'},
-            {name: 'Period', label: 'period', type: 'text'}, 
-	    {name: 'IsActive', label: 'isactive', type: 'text'},
+            {name: 'ReferenceNumber', label: 'ref num', type: 'text'},
+            {name: 'Period', label: 'quantity', type: 'text'}, 
+	    {name: 'IsActive', label: 'active', type: 'text'},
                
         ];
     },

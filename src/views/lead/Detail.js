@@ -21,20 +21,21 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
         //Editable fields are mentioned below
         this.layout = [
-	    {name: 'LeadNameFirstLast', label: 'leadNameFirstLast'},
-	    {name: 'Company', label: 'company'},
+	    {name: 'LeadNameFirstLast', label: 'name'},
+	    {name: 'Company', label: 'account'},
             {name: 'WorkPhone', label: 'work', renderer: Mobile.SalesLogix.Format.phone},
-	    {name: 'Email', label: 'email', renderer: Mobile.SalesLogix.Format.mail},
+	    {name: 'Email', label: 'e-mail', renderer: Mobile.SalesLogix.Format.mail},
 	    //{name: 'Address', label: 'address', renderer: Mobile.SalesLogix.Format.address},
             {name: 'WebAddress', label: 'web', renderer: Mobile.SalesLogix.Format.link},
             {name: 'Owner.OwnerDescription', label: 'owner'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
             {name: 'CreateUser', label: 'create user'},
+            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
+            
             {options: {title: 'Related Items', list: true}, as: [                
                 {
                     view: 'lead_related', 
                     label: 'leads',
-                    icon: 'content/images/lead_List_24x24.gif'
+                    icon: 'content/images/Leads_24x24.gif'
                 }
             ]}           
         ];

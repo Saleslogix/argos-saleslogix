@@ -21,7 +21,7 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
 
         this.layout = [
-            {name: 'Description', label: 'name'},
+            {name: 'Description', label: 'opportunity'},
             {name: 'Account.AccountName', label: 'account', view: 'account_detail', key: 'Account.$key', property: true},
             {name: 'EstimatedClose', label: 'est. close', renderer: Mobile.SalesLogix.Format.date},
             {name: 'SalesPotential', label: 'potential', renderer: Mobile.SalesLogix.Format.currency},
@@ -31,10 +31,22 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'AccountManager.UserInfo', label: 'acct mgr', tpl: Mobile.SalesLogix.Template.nameLF},
             {name: 'Owner.OwnerDescription', label: 'owner'},
             {name: 'Status', label: 'status'},
+            {name: 'CreateUser', label: 'create user'},  
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'CreateUser', label: 'create user'}            
+      
+      {options: {title: 'Related Items', list: true}, as: [                
+                {
+                    view: 'activity_related', 
+                    where: this.formatAccountRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
+                    label: 'Activities',
+                    icon: 'content/images/Task_List_3D_24x24.gif'
+                }
+            ]}         
         ];
     },        
+    formatAccountRelatedQuery: function(entry, fmt) {
+        return String.format(fmt, entry['Account']['$key']);
+    },
     init: function() {     
         Mobile.SalesLogix.Opportunity.Detail.superclass.init.call(this);   
     },

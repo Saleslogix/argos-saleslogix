@@ -97,7 +97,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'return_related',
            expose: false
       }));
-         
+      
+           
     this.registerView(new Mobile.SalesLogix.Ticket.List());
     this.registerView(new Mobile.SalesLogix.Ticket.Detail());
     this.registerView(new Mobile.SalesLogix.Ticket.Edit());

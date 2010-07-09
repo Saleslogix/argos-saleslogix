@@ -30,21 +30,22 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'WebAddress', label: 'web', renderer: Mobile.SalesLogix.Format.link},
             {name: 'AccountManager.UserInfo', label: 'acct mgr', tpl: Mobile.SalesLogix.Template.nameLF},
             {name: 'Owner.OwnerDescription', label: 'owner'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
             {name: 'CreateUser', label: 'create user'},
-            {options: {title: 'Related Items', list: true}, as: [                
-                {
-                    view: 'opportunity_related', 
-                    where: this.formatAccountRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
-                    label: 'Opportunities',
-                    icon: 'content/images/Opportunity_List_24x24.gif'
-                }
-            ]}           
+            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
+            
+//         {options: {title: 'Related Items', list: true}, as: [
+//               
+//                {
+//                    view: 'activity_related', 
+////                    where: this.formatRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
+//                    label: 'Activities',
+//                    icon: 'content/images/Ticket_List_3D_32x32.gif'
+//                }
+//                
+//            ]} 
         ];
     },        
-    formatAccountRelatedQuery: function(entry, fmt) {
-        return String.format(fmt, entry['Account']['$key']);
-    },
+    
     init: function() {     
         Mobile.SalesLogix.Contact.Detail.superclass.init.call(this);   
     },
