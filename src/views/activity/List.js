@@ -10,9 +10,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {   
     itemTemplate: new Simplate([
         '<li>',
-        '<a href="#activity_detail" target="_detail" m:key="{%= $key %}">',
-        '<h3>{%= $["Description"] %}</h3>',
-        '<h4>{%= $["Category"] %}</h4>',
+        '<a href="#activity_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
+        '<h3>{%= $["StartDate"], [" , "], $["AccountName"] %}</h3>',
+        '<h4>{%= $["Type"], [" , "], $["Description"] %}</h4>',
         '</a>',
         '</li>'
     ]),    
@@ -34,10 +34,15 @@ Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
         var request = Mobile.SalesLogix.Activity.List.superclass.createRequest.call(this);
 
         request
-            .setQueryArgs({                
-                'orderby': 'Description',
-                'select': 'Description,Category'                
-            });
+            .setQueryArgs({
+                'group by'  : 'StartDate',                   
+                'select': [
+                    'StartDate',
+                    'AccountName',
+                    'Type',
+                    'Description'
+                   ]
+            })  
 
         return request;
     }

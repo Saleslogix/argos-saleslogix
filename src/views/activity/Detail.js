@@ -15,12 +15,25 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         Ext.apply(this, o, {
             id: 'activity_detail',
             title: 'Activity',
+            editor: 'activity_edit',
             resourceKind: 'activities'
         });
 
         this.layout = [
-            
-        ];
+            {name: 'Type', label: 'type'},
+            {name: 'AccountName', label: 'account'},
+            {name: 'StartDate', label: 'starting',renderer: Mobile.SalesLogix.Format.date},
+            {name: 'EndDate', label: 'ending',renderer: Mobile.SalesLogix.Format.date},
+            //{name: 'EndDate - StartDate', label: 'duration',renderer: Mobile.SalesLogix.Format.date},
+            {name: 'Timeless', label: 'timeless'},
+            {name: 'ContactName', label: 'name'},
+            {name: 'Description', label: 'regarding'},
+            {name: 'Priority', label: 'priority'},
+            {name: 'Recurring', label: 'recurring'},
+            {name: 'Alarm', label: 'alarm'},
+            {name: 'CreateUser', label: 'create user'},
+            {name: 'CreateDate', label: 'create date',renderer: Mobile.SalesLogix.Format.date},
+           ];
     },
     init: function() {     
         Mobile.SalesLogix.Activity.Detail.superclass.init.call(this);   
@@ -30,8 +43,21 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         
         request            
             .setQueryArgs({                
-                'orderby': 'Description',
-                'select': 'Description,Category'                
+                //'select': 'Type,AccountName,StartDate,EndDate,EndDate - StartDate,Timeless,ContactName,Description,Priority,Recurring,Alarm,CreateUser,CreateDate'                
+                'select': [
+                        'Type',
+                        'AccountName',
+                        'StartDate',
+                        'EndDate',
+                        'Timeless',
+                        'ContactName',
+                        'Description',
+                        'Priority',
+                        'Recurring',
+                        'Alarm',
+                        'CreateUser',
+                        'CreateDate'
+                        ]
             });
         
         return request;            
