@@ -41,13 +41,13 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
 
-        this.registerView(new Mobile.SalesLogix.Campaign.List());
+         this.registerView(new Mobile.SalesLogix.Campaign.List());
         this.registerView(new Mobile.SalesLogix.Campaign.Detail());
         this.registerView(new Mobile.SalesLogix.Campaign.Edit());
- 	    //this.registerView(new Mobile.SalesLogix.Campaign.List({
-        //        id: 'return_related',
-        //       expose: false
-        //  }));  
+ 	    this.registerView(new Mobile.SalesLogix.Campaign.List({
+               id: 'campaign_related',
+               expose: false
+        }));  
     
     
 	    this.registerView(new Mobile.SalesLogix.Contact.Edit());
@@ -106,6 +106,17 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'ticket_related',
             expose: false
         }));    
+        
+        
+        
+         //this.registerView(new Mobile.SalesLogix.Activity.List());
+        //this.registerView(new Mobile.SalesLogix.Activity.Detail());
+        //this.registerView(new Mobile.SalesLogix.Activity.Edit());
+ 	    this.registerView(new Mobile.SalesLogix.Activity.List({
+            id: 'activity_related',
+            expose: false
+        }));   
+        
         
         /*
         this.registerView(new Mobile.SalesLogix.Activity.List({
