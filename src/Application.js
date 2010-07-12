@@ -118,6 +118,15 @@ this.registerView(new Mobile.SalesLogix.Lead.List({
         }));
         
         
+        this.registerView(new Mobile.SalesLogix.Defect.List());
+        this.registerView(new Mobile.SalesLogix.Defect.Detail());
+        this.registerView(new Mobile.SalesLogix.Defect.Edit());
+ 	    this.registerView(new Mobile.SalesLogix.Defect.List({
+            id: 'defect_related',
+            expose: false
+        }));
+        
+        
         /*
 this.registerView(new Mobile.SalesLogix.Activity.List({
 title: 'My Activities',
