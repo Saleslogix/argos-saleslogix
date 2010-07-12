@@ -35,7 +35,10 @@ Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         request
             .setQueryArgs({
-                'group by'  : 'StartDate',                   
+                //'include': 'Account',
+               // 'include': 'Account,Opportunity,Contact',
+                'groupby'  : 'StartDate',
+                'orderby'  : 'StartDate',                   
                 'select': [
                     'StartDate',
                     'AccountName',

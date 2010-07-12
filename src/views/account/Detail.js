@@ -27,11 +27,12 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'Type', label: 'type'},
             {name: 'SubType', label: 'sub-type'}, 
             {name: 'AccountManager.UserInfo', label: 'acct mgr', tpl: Mobile.SalesLogix.Template.nameLF},
-            {name: 'Notes', label: 'notes'}, 
+            {name: 'Notes', label: 'notes'},
             {name: 'Owner.OwnerDescription', label: 'owner'},
             {name: 'Status', label: 'status'},
             {name: 'CreateUser', label: 'create user'},
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
+            
             {options: {title: 'Related Items', list: true}, as: [
                 {
                     view: 'contact_related', 
@@ -53,8 +54,8 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 },
                 {
                     view: 'activity_related', 
-                    where: this.formatRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
-                    label: 'Activity',
+                    where: this.formatRelatedQuery.createDelegate(this, ['AccountId eq "{0}"'], true),
+                    label: 'Activities',
                     icon: 'content/images/Task_List_3D_24x24.gif'
                 }
                 
@@ -82,9 +83,10 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'Notes',
                     'Owner/OwnerDescription',
                     'Status',
-                    'CreateUser',
                     'CreateDate',
-                  ].join(',')                  
+                    'CreateUser',
+                    'GlobalSyncID'
+                ].join(',')                  
             });     
         
         return request;                   

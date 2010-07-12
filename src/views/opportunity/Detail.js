@@ -34,10 +34,10 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'CreateUser', label: 'create user'},  
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
       
-      {options: {title: 'Related Items', list: true}, as: [                
+            {options: {title: 'Related Items', list: true}, as: [                
                 {
                     view: 'activity_related', 
-                    where: this.formatAccountRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
+                    where: this.formatRelatedQuery.createDelegate(this, ['OpportunityId eq "{0}"'], true),
                     label: 'Activities',
                     icon: 'content/images/Task_List_3D_24x24.gif'
                 }

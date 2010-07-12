@@ -33,16 +33,16 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'CreateUser', label: 'create user'},
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
             
-//         {options: {title: 'Related Items', list: true}, as: [
-//               
-//                {
-//                    view: 'activity_related', 
-////                    where: this.formatRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
-//                    label: 'Activities',
-//                    icon: 'content/images/Ticket_List_3D_32x32.gif'
-//                }
-//                
-//            ]} 
+         {options: {title: 'Related Items', list: true}, as: [
+               
+                {
+                    view: 'activity_related', 
+                    where: this.formatRelatedQuery.createDelegate(this, ['ContactId eq "{0}"'], true),
+                    label: 'Activities',
+                    icon: 'content/images/Task_List_3D_24x24.gif'
+                }
+                
+            ]} 
         ];
     },        
     
