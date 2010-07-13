@@ -5,25 +5,23 @@
 /// <reference path="../../../../platform/View.js"/>
 /// <reference path="../../../../platform/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Salesorder");
+Ext.namespace("Mobile.SalesLogix.SalesOrder");
 
-Mobile.SalesLogix.Salesorder.List = Ext.extend(Sage.Platform.Mobile.List, {   
+Mobile.SalesLogix.SalesOrder.List = Ext.extend(Sage.Platform.Mobile.List, {   
     itemTemplate: new Simplate([
-        '<li class="o-stage o-stage-{%= ($["Stage"] || "1").charAt(0) %}">', /* quick method since there are only six stages */        
+        '<li>',
         '<a href="#salesorder_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
-        '<div>',
         '<h3>{%= $["Account"]["AccountName"] %}</h3>',
-	'<h4>{%= SalesOrderNumber %}</h4>',        
-        '</div>',
+        '<h4>{%= SalesOrderNumber %}</h4>',
         '</a>',
         '</li>'
-    ]),       
+    ]),      
     constructor: function(o) {
-        Mobile.SalesLogix.Salesorder.List.superclass.constructor.call(this);        
+        Mobile.SalesLogix.SalesOrder.List.superclass.constructor.call(this);        
         
         Ext.apply(this, o, {
             id: 'salesorder_list',
-            title: 'Salesorders',
+            title: 'SalesOrder',
             resourceKind: 'salesorders',
             pageSize: 10,
             icon: 'content/images/salesorder.gif'
@@ -37,16 +35,15 @@ Mobile.SalesLogix.Salesorder.List = Ext.extend(Sage.Platform.Mobile.List, {
         //return String.format('(SalesorderNumber like "%{0}%" or Account.AccountName like "%{0}%")', query);
     },
     createRequest: function() {
-        var request = Mobile.SalesLogix.Salesorder.List.superclass.createRequest.call(this);
+        var request = Mobile.SalesLogix.SalesOrder.List.superclass.createRequest.call(this);
 
 	 request
          .setResourceKind('salesorders')
             .setQueryArgs({
-		'include': 'Account/AccountName,SalesOrderNumber',
-                'orderby': 'SalesOrderNumber',
-                'select': 'Account/AccountName,SalesOrderNumber'                             
+		          'include': 'Account/AccountName,SalesOrderNumber',
+                  'orderby': 'SalesOrderNumber',
+                  'select': 'Account/AccountName,SalesOrderNumber'                             
             });                       
-
 
         return request;
     }
