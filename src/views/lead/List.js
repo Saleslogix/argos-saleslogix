@@ -11,7 +11,7 @@ Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
     itemTemplate: new Simplate([
         '<li>',
         '<a href="#lead_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
-        '<h3>{%= LeadNameFirstLast %}</h3>',
+        '<h3>{%= LeadNameLastFirst %}</h3>',
         '<h4>{%= Company %}</h4>',
         '</a>',
         '</li>'
@@ -28,7 +28,7 @@ Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
         });
     },   
     formatSearchQuery: function(query) {
-        return String.format('(LeadNameFirstLast like "%{0}%")', query);
+        return String.format('(LeadNameLastFirst like "%{0}%")', query);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Lead.List.superclass.createRequest.call(this);
@@ -37,7 +37,7 @@ Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
             .setResourceKind('leads')
             .setQueryArgs({
                 'orderby': 'Company',
-                'select': 'LeadNameFirstLast,Company'                             
+                'select': 'LeadNameLastFirst,Company'                             
             });                       
 
         return request;

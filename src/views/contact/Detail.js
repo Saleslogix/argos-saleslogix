@@ -21,7 +21,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
 
         this.layout = [
-            {label: 'name', tpl: Mobile.SalesLogix.Template.nameLF},
+            {name: 'Name', label: 'name'},
             {name: 'AccountName', label: 'account', view: 'account_detail', key: 'Account.$key', property: true},
             {name: 'WorkPhone', label: 'work', renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Mobile', label: 'mobile', renderer: Mobile.SalesLogix.Format.phone},
@@ -57,6 +57,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 'include': 'Account,Address,AccountManager,AccountManager/UserInfo',                
                 'select': [
                     'Account/AccountName',
+                    'Name',
                     'FirstName',
                     'LastName',
                     'AccountName',

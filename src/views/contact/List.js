@@ -11,7 +11,7 @@ Mobile.SalesLogix.Contact.List = Ext.extend(Sage.Platform.Mobile.List, {
     itemTemplate: new Simplate([
         '<li>',
         '<a href="#contact_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
-        '<h3>{%= LastName %}, {%= FirstName %}</h3>',
+        '<h3>{%= NameLF %}</h3>',
         '<h4>{%= AccountName %}</h4>',
         '</a>',
         '</li>'
@@ -37,7 +37,7 @@ Mobile.SalesLogix.Contact.List = Ext.extend(Sage.Platform.Mobile.List, {
             .setResourceKind('contacts')
             .setQueryArgs({
                 'orderby': 'LastName,FirstName',
-                'select': 'LastName,FirstName,AccountName'                             
+                'select': 'NameLF,AccountName'                             
             });                       
 
         return request;
