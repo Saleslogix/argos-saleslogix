@@ -21,7 +21,7 @@ Mobile.SalesLogix.Contract.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         this.layout = [
             {name: 'ReferenceNumber', label: 'ref num', type: 'text'},
             {name: 'Period', label: 'quantity', type: 'text'}, 
-	    {name: 'IsActive', label: 'active', type: 'text'},
+	        {name: 'IsActive', label: 'active', type: 'text'},
                
         ];
     },
@@ -34,18 +34,18 @@ Mobile.SalesLogix.Contract.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
            .setQueryArgs({
                 'include': 'Account,Address,AccountManager,AccountManager/UserInfo',                
                 'select': [
-                  'ReferenceNumber',
-	          'Account/AccountName',
-		  'Contact/FullName',
-		  'ServiceCode',
-		  'TypeCode',
-		  'Period',
-		  'Remaining',
-		  'StartDate',
-		  'EndingDate',
-		  'IsActive',
-		  'CreateUser',
-		  'CreateDate'
+                      'ReferenceNumber',
+	                  'Account/AccountName',
+            		  'Contact/FullName',
+            		  'ServiceCode',
+            		  'TypeCode',
+            		  'Period',
+            		  'Remaining',
+            		  'StartDate',
+            		  'EndingDate',
+            		  'IsActive',
+            		  'CreateUser',
+            		  'CreateDate'
                 ].join(',')               
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));

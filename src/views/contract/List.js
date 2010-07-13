@@ -9,11 +9,11 @@ Ext.namespace("Mobile.SalesLogix.Contract");
 
 Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {   
     itemTemplate: new Simplate([
-        '<li class="o-stage o-stage-{%= ($["Stage"] || "1").charAt(0) %}">', /* quick method since there are only six stages */        
+        '<li>',
         '<a href="#contract_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<div>',
         '<h3>{%= $["Account"]["AccountName"] %}</h3>',
-	'<h4>{%= ReferenceNumber %}</h4>',        
+	    '<h4>{%= ReferenceNumber %}</h4>',        
         '</div>',
         '</a>',
         '</li>'
@@ -42,7 +42,7 @@ Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
 	 request
          .setResourceKind('contracts')
             .setQueryArgs({
-		'include': 'Account/AccountName,Contact/FullName',
+		        'include': 'Account/AccountName,Contact/FullName',
                 'orderby': 'ReferenceNumber',
                 'select': 'Account/AccountName,ReferenceNumber,Contact/FullName'                             
             });                       

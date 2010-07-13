@@ -41,16 +41,16 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
 
-         this.registerView(new Mobile.SalesLogix.Campaign.List());
+        this.registerView(new Mobile.SalesLogix.Campaign.List());
         this.registerView(new Mobile.SalesLogix.Campaign.Detail());
         this.registerView(new Mobile.SalesLogix.Campaign.Edit());
-  this.registerView(new Mobile.SalesLogix.Campaign.List({
+        this.registerView(new Mobile.SalesLogix.Campaign.List({
                id: 'campaign_related',
                expose: false
         }));
     
     
-this.registerView(new Mobile.SalesLogix.Contact.Edit());
+        this.registerView(new Mobile.SalesLogix.Contact.Edit());
         this.registerView(new Mobile.SalesLogix.Contact.List());
         this.registerView(new Mobile.SalesLogix.Contact.Detail());
         this.registerView(new Mobile.SalesLogix.Contact.List({
@@ -58,15 +58,15 @@ this.registerView(new Mobile.SalesLogix.Contact.Edit());
             expose: false
         }));
         
-         this.registerView(new Mobile.SalesLogix.Salesorder.Edit());
-this.registerView(new Mobile.SalesLogix.Salesorder.List());
-  this.registerView(new Mobile.SalesLogix.Salesorder.Detail());
-this.registerView(new Mobile.SalesLogix.Salesorder.List({
+        this.registerView(new Mobile.SalesLogix.SalesOrder.Edit());
+        this.registerView(new Mobile.SalesLogix.SalesOrder.List());
+        this.registerView(new Mobile.SalesLogix.SalesOrder.Detail());
+        this.registerView(new Mobile.SalesLogix.SalesOrder.List({
             id: 'salesorder_related',
             expose: false
         }));
 
-this.registerView(new Mobile.SalesLogix.Contract.Edit());
+        this.registerView(new Mobile.SalesLogix.Contract.Edit());
         this.registerView(new Mobile.SalesLogix.Contract.List());
         this.registerView(new Mobile.SalesLogix.Contract.Detail());
         this.registerView(new Mobile.SalesLogix.Contract.List({
@@ -82,27 +82,27 @@ this.registerView(new Mobile.SalesLogix.Contract.Edit());
             expose: false
         }));
         
-this.registerView(new Mobile.SalesLogix.Lead.Edit());
-this.registerView(new Mobile.SalesLogix.Lead.List());
-  this.registerView(new Mobile.SalesLogix.Lead.Detail());
-this.registerView(new Mobile.SalesLogix.Lead.List({
+        this.registerView(new Mobile.SalesLogix.Lead.Edit());
+        this.registerView(new Mobile.SalesLogix.Lead.List());
+        this.registerView(new Mobile.SalesLogix.Lead.Detail());
+        this.registerView(new Mobile.SalesLogix.Lead.List({
             id: 'lead_related',
             expose: false
         }));
      
-      this.registerView(new Mobile.SalesLogix.Return.List());
-    this.registerView(new Mobile.SalesLogix.Return.Detail());
-    this.registerView(new Mobile.SalesLogix.Return.Edit());
-  this.registerView(new Mobile.SalesLogix.Return.List({
+        this.registerView(new Mobile.SalesLogix.Return.List());
+        this.registerView(new Mobile.SalesLogix.Return.Detail());
+        this.registerView(new Mobile.SalesLogix.Return.Edit());
+        this.registerView(new Mobile.SalesLogix.Return.List({
             id: 'return_related',
            expose: false
       }));
       
            
-    this.registerView(new Mobile.SalesLogix.Ticket.List());
-    this.registerView(new Mobile.SalesLogix.Ticket.Detail());
-    this.registerView(new Mobile.SalesLogix.Ticket.Edit());
-  this.registerView(new Mobile.SalesLogix.Ticket.List({
+        this.registerView(new Mobile.SalesLogix.Ticket.List());
+        this.registerView(new Mobile.SalesLogix.Ticket.Detail());
+        this.registerView(new Mobile.SalesLogix.Ticket.Edit());
+        this.registerView(new Mobile.SalesLogix.Ticket.List({
             id: 'ticket_related',
             expose: false
         }));
@@ -112,7 +112,7 @@ this.registerView(new Mobile.SalesLogix.Lead.List({
          //this.registerView(new Mobile.SalesLogix.Activity.List());
         this.registerView(new Mobile.SalesLogix.Activity.Detail());
         this.registerView(new Mobile.SalesLogix.Activity.Edit());
-  this.registerView(new Mobile.SalesLogix.Activity.List({
+        this.registerView(new Mobile.SalesLogix.Activity.List({
             id: 'activity_related',
             expose: false
         }));
@@ -141,4 +141,3 @@ where: function() { return String.format('UserId eq "{0}"', App.context['user'])
 // instantiate application instance
 
 var App = new Mobile.SalesLogix.Application();
-
