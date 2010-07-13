@@ -30,8 +30,8 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'Remaining', label: 'remaining'},
             {name: 'StartDate', label: 'start', renderer: Mobile.SalesLogix.Format.date},
             {name: 'EndingDate', label: 'end' , renderer: Mobile.SalesLogix.Format.date},
-	    {name: 'IsActive', label: 'active'},
-	    {name: 'CreateUser', label: 'create user'},
+	        {name: 'IsActive', label: 'active'},
+	        {name: 'CreateUser', label: 'create user'},
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
             {options: {title: 'Related Items', list: true}, as: [                
                 {
@@ -56,18 +56,18 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             .setQueryArgs({
                 'include': 'Account,Address,AccountManager,AccountManager/UserInfo',                
                 'select': [
-                  'ReferenceNumber',
-	          'Account/AccountName',
-		  'Contact/FullName',
-		  'ServiceCode',
-		  'TypeCode',
-		  'Period',
-		  'Remaining',
-		  'StartDate',
-		  'EndingDate',
-		  'IsActive',
-		  'CreateUser',
-		  'CreateDate'
+                      'ReferenceNumber',
+	                  'Account/AccountName',
+            		  'Contact/FullName',
+            		  'ServiceCode',
+            		  'TypeCode',
+            		  'Period',
+            		  'Remaining',
+            		  'StartDate',
+            		  'EndingDate',
+            		  'IsActive',
+            		  'CreateUser',
+            		  'CreateDate'
                 ].join(',')             
             });
         
