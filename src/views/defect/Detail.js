@@ -5,6 +5,7 @@
 /// <reference path="../../../../platform/View.js"/>
 /// <reference path="../../../../platform/Detail.js"/>
 /// <reference path="../../Format.js"/>
+/// <reference path="../../Template.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Defect");
 
@@ -20,7 +21,7 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
 
         this.layout = [
-            {name: ('AlternateKeyPrefix' , '-' , 'AlternateKeySuffix'), label: 'defect id'},
+            {label: 'defect id', tpl: Mobile.SalesLogix.Template.alternatekeyPrefixSuffix},
             {name: 'PriorityCode', label: 'priority'},
             {name: 'SeverityCode', label: 'severity'},
             {name: 'Area', label: 'area'},
@@ -50,7 +51,7 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         
         request                     
             .setQueryArgs({
-                'include': 'defects,AssignedTo',
+                'include': 'AssignedTo',
                 'select': [
                     'AlternateKeyPrefix',
                     'AlternateKeySuffix',
@@ -63,7 +64,7 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'AssignedTo/OwnerDescription',
                     'StatusCode',
                     'CreateUser',
-                    'CreateDate',
+                    'CreateDate'
                   ].join(',')                  
             });     
         

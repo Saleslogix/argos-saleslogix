@@ -11,4 +11,11 @@ Mobile.SalesLogix.Template = (function() {
             '{%= $["FirstName"] %}, {%= $["LastName"] %}'
         ])
     };
+})();    
+Mobile.SalesLogix.Template = (function() {    
+    return {
+        alternatekeyPrefixSuffix: new Simplate([
+            '{%= $["AlternateKeyPrefix"] %}-{%= $["AlternateKeySuffix"] %}'
+        ])
+    };
 })();
