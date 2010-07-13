@@ -18,7 +18,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             title: 'Contact',
 	    editor: 'contact_edit',//Added by Rajkumar. G to enable edit functionality
             resourceKind: 'contacts'
-        });
+        }); 
 
         this.layout = [
             {name: 'Name', label: 'name'},

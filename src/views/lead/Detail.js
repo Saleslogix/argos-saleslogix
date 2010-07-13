@@ -19,7 +19,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             editor: 'lead_edit',
             resourceKind: 'leads'
         });
-        //Editable fields are mentioned below
+         //Editable fields are mentioned below
         this.layout = [
 	        {name: 'LeadNameFirstLast', label: 'name'},
 	        {name: 'Company', label: 'account'},
@@ -38,7 +38,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Lead.Detail.superclass.createRequest.call(this); 
-        //query args are mentioned here
+         //query args are mentioned here
         request            
             .setQueryArgs({
                 'include': 'Address,AccountManager,AccountManager/UserInfo,Owner',                

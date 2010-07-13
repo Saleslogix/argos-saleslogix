@@ -21,12 +21,12 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         this.layout = [
             {name: 'FirstName', label: 'firstname', type: 'text'},
             {name: 'LastName', label: 'lastname', type: 'text'}, 
-	    {name: 'WorkPhone', label: 'work', type: 'text'},
-	    {name: 'Mobile', label: 'mobile', type: 'text'},
+	        {name: 'WorkPhone', label: 'work', type: 'text'},
+	        {name: 'Mobile', label: 'mobile', type: 'text'},
             {name: 'Email', label: 'email', type: 'text'},
-	    {name: 'WebAddress', label: 'web', type: 'text'},
-           // {name: 'LastName', label: 'type', type: 'text'}          
-        ];
+	        {name: 'WebAddress', label: 'web', type: 'text'},
+                    
+        ]; 
     },
     init: function() {     
         Mobile.SalesLogix.Contact.Edit.superclass.init.call(this);   

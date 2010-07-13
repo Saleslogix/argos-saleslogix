@@ -15,7 +15,7 @@ Mobile.SalesLogix.Contact.List = Ext.extend(Sage.Platform.Mobile.List, {
         '<h4>{%= AccountName %}</h4>',
         '</a>',
         '</li>'
-    ]),    
+    ]),     
     constructor: function(o) {
         Mobile.SalesLogix.Contact.List.superclass.constructor.call(this);        
         

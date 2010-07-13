@@ -32,7 +32,7 @@ Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Lead.List.superclass.createRequest.call(this);
-    //forming query arguments here
+      //forming query arguments here
         request
             .setResourceKind('leads')
             .setQueryArgs({

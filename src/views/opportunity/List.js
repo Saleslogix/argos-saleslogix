@@ -12,8 +12,8 @@ Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
         '<li class="o-stage o-stage-{%= ($["Stage"] || "1").charAt(0) %}">', /* quick method since there are only six stages */        
         '<a href="#opportunity_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<div>',
-        '<h3>{%= $["Description"] %}</h3>',
-        '<h4>{%= $["Account"]["AccountName"] %}</h4>',        
+        '<h3>{%= $["Account"]["AccountName"] %}</h3>',
+        '<h4>{%= $["Description"] %}</h4>',        
         '</div>',
         '</a>',
         '</li>'
