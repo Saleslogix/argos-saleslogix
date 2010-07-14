@@ -31,10 +31,9 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'Owner.OwnerDescription', label: 'owner'},
             {name: 'Status', label: 'status'},
             {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
-            
+            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},            
             {options: {title: 'Related Items', list: true}, as: [
-                {
+                {                    
                     view: 'contact_related', 
                     where: this.formatRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
                     label: 'Contacts',

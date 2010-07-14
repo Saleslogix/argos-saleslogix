@@ -53,13 +53,12 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
         request
             .setQueryArgs({
                 'include': 'AccountManager/UserInfo',
-                //'orderby': 'UserName',
-                //'orderby': 'AccountManager/UserInfo/UserName',
+                'orderby': 'AccountName',                
                 'select': [
-                            'AccountName',
-                            'AccountManager/UserInfo/UserName'
-                            ].join(',')
-                        });
+                    'AccountName',
+                    'AccountManager/UserInfo/UserName'
+                ].join(',')
+            });
 
         return request;
     }
