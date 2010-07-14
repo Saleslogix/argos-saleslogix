@@ -9,13 +9,11 @@ Mobile.SalesLogix.Template = (function() {
     return {
         nameLF: new Simplate([
             '{%= $["FirstName"] %}, {%= $["LastName"] %}'
-        ])
-    };
-})();    
-Mobile.SalesLogix.Template = (function() {    
-    return {
-        alternatekeyPrefixSuffix: new Simplate([
+        ]),
+        alternateKeyPrefixSuffix: new Simplate([
             '{%= $["AlternateKeyPrefix"] %}-{%= $["AlternateKeySuffix"] %}'
         ])
     };
-})();
+})();    
+
+
