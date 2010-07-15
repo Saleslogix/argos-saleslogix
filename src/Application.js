@@ -48,8 +48,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
                id: 'campaign_related',
                expose: false
         }));
-    
-    
+
         this.registerView(new Mobile.SalesLogix.Contact.Edit());
         this.registerView(new Mobile.SalesLogix.Contact.List());
         this.registerView(new Mobile.SalesLogix.Contact.Detail());
@@ -57,7 +56,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'contact_related',
             expose: false
         }));
-        
+ 
         this.registerView(new Mobile.SalesLogix.SalesOrder.Edit());
         this.registerView(new Mobile.SalesLogix.SalesOrder.List());
         this.registerView(new Mobile.SalesLogix.SalesOrder.Detail());
@@ -95,10 +94,9 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Return.Edit());
         this.registerView(new Mobile.SalesLogix.Return.List({
             id: 'return_related',
-           expose: false
-      }));
+            expose: false
+        }));
       
-           
         this.registerView(new Mobile.SalesLogix.Ticket.List());
         this.registerView(new Mobile.SalesLogix.Ticket.Detail());
         this.registerView(new Mobile.SalesLogix.Ticket.Edit());
@@ -107,9 +105,6 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
         
-        
-        
-         //this.registerView(new Mobile.SalesLogix.Activity.List());
         this.registerView(new Mobile.SalesLogix.Activity.Detail());
         this.registerView(new Mobile.SalesLogix.Activity.Edit());
         this.registerView(new Mobile.SalesLogix.Activity.List({
@@ -117,24 +112,37 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
         
-        
         this.registerView(new Mobile.SalesLogix.Defect.List());
         this.registerView(new Mobile.SalesLogix.Defect.Detail());
         this.registerView(new Mobile.SalesLogix.Defect.Edit());
- 	    this.registerView(new Mobile.SalesLogix.Defect.List({
+        this.registerView(new Mobile.SalesLogix.Defect.List({
             id: 'defect_related',
             expose: false
         }));
+       
+        this.registerView(new Mobile.SalesLogix.DefectProblem.Detail());
+        this.registerView(new Mobile.SalesLogix.DefectProblem.Edit());
+        this.registerView(new Mobile.SalesLogix.DefectProblem.Detail({
+            id: 'defectproblem_related',
+            expose: false
+        }));
         
-        
+        this.registerView(new Mobile.SalesLogix.DefectSolution.Detail());
+        this.registerView(new Mobile.SalesLogix.DefectSolution.Edit());
+        this.registerView(new Mobile.SalesLogix.DefectSolution.Detail({
+            id: 'defectsolution_related',
+            expose: false
+        }));
+
+     
         /*
-this.registerView(new Mobile.SalesLogix.Activity.List({
-title: 'My Activities',
-context: {
-where: function() { return String.format('UserId eq "{0}"', App.context['user']); }
-}
-}));
-*/
+        this.registerView(new Mobile.SalesLogix.Activity.List({
+        title: 'My Activities',
+        context: {
+            where: function() { return String.format('UserId eq "{0}"', App.context['user']); }
+        }
+        }));
+        */
     }
 });
 
