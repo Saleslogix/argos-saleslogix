@@ -16,13 +16,13 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         Ext.apply(this, o, {
             id: 'contact_detail',
             title: 'Contact',
-	    editor: 'contact_edit',//Added by Rajkumar. G to enable edit functionality
+	        editor: 'contact_edit',
             resourceKind: 'contacts'
         }); 
 
         this.layout = [
             {name: 'Name', label: 'name'},
-            {name: 'AccountName', label: 'account', view: 'account_detail', key: 'Account.$key', property: true},
+            {name: 'AccountName', descriptor: 'AccountName', label: 'account', view: 'account_detail', key: 'Account.$key', property: true},
             {name: 'WorkPhone', label: 'work', renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Mobile', label: 'mobile', renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Email', label: 'email', renderer: Mobile.SalesLogix.Format.mail},
@@ -31,9 +31,8 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'AccountManager.UserInfo', label: 'acct mgr', tpl: Mobile.SalesLogix.Template.nameLF},
             {name: 'Owner.OwnerDescription', label: 'owner'},
             {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
-            
-         {options: {title: 'Related Items', list: true}, as: [
+            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},            
+            {options: {title: 'Related Items', list: true}, as: [
                
                 {
                     view: 'activity_related', 
