@@ -83,3 +83,46 @@ body > ul > li > a
 		url('../images/meter-full-6.png') no-repeat center right,
 		url('../images/meter-empty.png') no-repeat center right;
 }
+
+.defect-text-row
+{
+	position: relative;
+	min-height: inherit;
+}
+
+.defect-text-wrap
+{
+	overflow: hidden;
+	font-size: 1em;
+	max-height: 3.5em;
+	margin: 12px;
+}
+
+.defect-text-wrap a
+{
+	 text-decoration: none; 
+	 color: #000;
+	 display: inline-block;
+}
+
+.defect-text-more
+{
+	visibility: hidden;
+	border-top: solid 1px #aaa;
+	border-left: solid 1px #aaa;
+	background: #38689E;
+	z-index: 1;
+	position: absolute;
+	bottom: -13px;
+	right: -1px;
+	line-height: 1.5em;
+	height: 1.5em;
+	color: white;
+	display: inline-block;
+	padding: 0 8px 0 8px;
+	text-align: center;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+}
