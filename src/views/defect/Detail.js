@@ -43,19 +43,30 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {options: {title: 'Problem'}, as: [
                 {
                     cls: 'defect-text-limit',
-                    name: 'DefectSolution.Notes',
+                    name: 'DefectProblem.Notes',
                     wrap: this.textBlockTemplate,
+                    renderer: Mobile.SalesLogix.Format.notes,
                     view: 'defectproblem_detail', key: 'DefectProblem.$key'
                 }
             ]},
-            {options: {title: 'Related Items', list: true}, as: [
+            {options: {title: 'Solution'}, as: [
                 {
-                    view: 'defectproblem_related', 
-                    where: this.formatRelatedQuery.createDelegate(this, ['CreateUser eq "{0}"'], true),
-                    label: 'Problem',
-                    icon: 'content/images/defect_detail_24x24.gif'
-                }               
-            ]} 
+                    cls: 'defect-text-limit',
+                    name: 'DefectSolution.Notes',
+                    wrap: this.textBlockTemplate,
+                    renderer: Mobile.SalesLogix.Format.notes,
+                    view: 'defectsolution_detail', key: 'DefectSolution.$key'
+                    
+                }
+            ]},
+//            {options: {title: 'Related Items', list: true}, as: [
+//                {
+//                    view: 'defectproblem_related', 
+//                    where: this.formatRelatedQuery.createDelegate(this, ['CreateUser eq "{0}"'], true),
+//                    label: 'Problem',
+//                    icon: 'content/images/defect_detail_24x24.gif'
+//                }               
+//            ]} 
         ];
     },
     init: function() {     

@@ -62,6 +62,39 @@ Mobile.SalesLogix.Format = (function() {
                     : f.toString()
             );        
         },
+         notes : function(st)
+      {
+         var b = '';
+         var s = st;
+         if (s==null)
+         {
+            return;
+         }
+         var n = 30;
+         var cnt = 0;
+         while (s.length > n)
+         {
+            var c = s.substring(0, n);
+            var d = c.lastIndexOf(' ');
+            var e = c.lastIndexOf('\n');
+            if (e != - 1) d = e;
+            if (d == - 1) d = n;
+            b += c.substring(0, d) + '<br>';
+            s = s.substring(d + 1);
+            cnt = cnt + 1;
+            if (cnt > 2)
+            {
+                var b1=b.lastIndexOf('<br>')
+                var b2=b.substring(0,b1)
+                return b2 + '...';
+            }
+         }
+         //if (cnt <= 3)
+         //   {
+                return b+s;
+          //  }
+           
+      },
         date: function(val, fmt) {
             // 2007-04-12T00:00:00-07:00
             var match = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(Z|(-|\+)(\d{2}):(\d{2}))/.exec(val);
