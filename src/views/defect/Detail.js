@@ -68,7 +68,7 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     init: function() {     
         Mobile.SalesLogix.Defect.Detail.superclass.init.call(this);   
 
-        Ext.EventManager.on(window, 'resize', this.onResize, this, {buffer: 250});
+        App.on('resize', this.onResize, this);
     },    
     onResize: function() {  
         this.el.select('.defect-text-row').each(function(el) {

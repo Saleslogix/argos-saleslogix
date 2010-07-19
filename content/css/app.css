@@ -84,7 +84,7 @@ body > ul > li > a
 		url('../images/meter-empty.png') no-repeat center right;
 }
 
-.defect-text-row
+div.defect-text-row
 {
 	position: relative;
 	min-height: inherit;
@@ -104,7 +104,6 @@ div.defect-text-wrap a[target="_related"]
 	 text-decoration: none; 
 	 color: #000;
 	 display: block;
-	 min-height: 3.5em;
 }
 
 .defect-text-more
