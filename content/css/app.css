@@ -98,11 +98,13 @@ body > ul > li > a
 	margin: 12px;
 }
 
-.defect-text-wrap a
+div.defect-text-wrap a[target="_related"]
 {
+	 background: none;
 	 text-decoration: none; 
 	 color: #000;
-	 display: inline-block;
+	 display: block;
+	 min-height: 3.5em;
 }
 
 .defect-text-more

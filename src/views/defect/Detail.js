@@ -13,7 +13,7 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     textBlockTemplate: new Simplate([
         '<div class="row defect-text-row">',
         '<div class="defect-text-wrap">',
-        '<a href="#{%= $["view"] %}" m:context={%= $["context"] %}>{%= $["value"] %}</a>',        
+        '<a href="#{%= $["view"] %}" target="_related" m:context={%= $["context"] %}>{%= $["value"] %}</a>',        
         '</div>',
         '<div class="defect-text-more">more &gt;&gt;</div>',
         '</div>'
@@ -42,19 +42,15 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
             {options: {title: 'Problem'}, as: [
                 {
-                    cls: 'defect-text-limit',
                     name: 'DefectProblem.Notes',
                     wrap: this.textBlockTemplate,
-                    renderer: Mobile.SalesLogix.Format.notes,
                     view: 'defectproblem_detail', key: 'DefectProblem.$key'
                 }
             ]},
             {options: {title: 'Solution'}, as: [
                 {
-                    cls: 'defect-text-limit',
                     name: 'DefectSolution.Notes',
                     wrap: this.textBlockTemplate,
-                    renderer: Mobile.SalesLogix.Format.notes,
                     view: 'defectsolution_detail', key: 'DefectSolution.$key'
                     
                 }
