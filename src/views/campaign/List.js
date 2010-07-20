@@ -8,12 +8,10 @@
 Ext.namespace("Mobile.SalesLogix.Campaign");
 
 Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {   
-    itemTemplate: new Simplate([
-        '<li>',
+    contentTemplate: new Simplate([
         '<a href="#campaign_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%: $["CampaignName"] %}</h3>',
-        '</a>',
-        '</li>'
+        '</a>'
     ]),    
     constructor: function(o) {
         Mobile.SalesLogix.Campaign.List.superclass.constructor.call(this);        

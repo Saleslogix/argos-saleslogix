@@ -8,13 +8,11 @@
 Ext.namespace("Mobile.SalesLogix.SalesOrder");
 
 Mobile.SalesLogix.SalesOrder.List = Ext.extend(Sage.Platform.Mobile.List, {   
-    itemTemplate: new Simplate([
-        '<li>',
+    contentTemplate: new Simplate([        
         '<a href="#salesorder_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%= $["Account"]["AccountName"] %}</h3>',
         '<h4>{%= SalesOrderNumber %}</h4>',
-        '</a>',
-        '</li>'
+        '</a>'
     ]),      
     constructor: function(o) {
         Mobile.SalesLogix.SalesOrder.List.superclass.constructor.call(this);        

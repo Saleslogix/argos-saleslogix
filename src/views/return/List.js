@@ -8,13 +8,11 @@
 Ext.namespace("Mobile.SalesLogix.Return");
 
 Mobile.SalesLogix.Return.List = Ext.extend(Sage.Platform.Mobile.List, {   
-    itemTemplate: new Simplate([
-        '<li>',
+    contentTemplate: new Simplate([        
         '<a href="#return_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%: $["Account"] ? $["Account"]["AccountName"] : "" %}</h3>',
         '<h4>{%: $["ReturnNumber"] %}</h4>',
-        '</a>',
-        '</li>'
+        '</a>'        
     ]),    
     constructor: function(o) {
         Mobile.SalesLogix.Return.List.superclass.constructor.call(this);        

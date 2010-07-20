@@ -31,53 +31,53 @@ body > ul > li > a
 	padding: 8px 32px 8px 36px;
 }
 
-#opportunity_list li.o-stage h3,
-#opportunity_list li.o-stage h4
+.o-stage h3,
+.o-stage h4
 {
 	margin: 0 64px 0 0;
 }
 
-#opportunity_list li.o-stage div
+.o-stage div.o-meter
 {
 	background: url('../images/meter-empty.png') no-repeat center right;
 }
 
-#opportunity_list li.o-stage-1 div
+.o-stage-1 div.o-meter
 {
 	background: 
 		url('../images/meter-full-1.png') no-repeat center right,
 		url('../images/meter-empty.png') no-repeat center right;
 }
 
-#opportunity_list li.o-stage-2 div
+.o-stage-2 div.o-meter
 {
 	background: 
 		url('../images/meter-full-2.png') no-repeat center right,
 		url('../images/meter-empty.png') no-repeat center right;
 }
 
-#opportunity_list li.o-stage-3 div
+.o-stage-3 div.o-meter
 {
 	background: 
 		url('../images/meter-full-3.png') no-repeat center right,
 		url('../images/meter-empty.png') no-repeat center right;
 }
 
-#opportunity_list li.o-stage-4 div
+.o-stage-4 div.o-meter
 {
 	background: 
 		url('../images/meter-full-4.png') no-repeat center right,
 		url('../images/meter-empty.png') no-repeat center right;
 }
 
-#opportunity_list li.o-stage-5 div
+.o-stage-5 div.o-meter
 {
 	background: 
 		url('../images/meter-full-5.png') no-repeat center right,
 		url('../images/meter-empty.png') no-repeat center right;
 }
 
-#opportunity_list li.o-stage-6 div
+.o-stage-6 div.o-meter
 {
 	background: 
 		url('../images/meter-full-6.png') no-repeat center right,
@@ -131,8 +131,4 @@ div.defect-text-wrap a[target="_related"]
 input.field-error
 {
 	color: #f00;
-}
-
-input.list_view_selector {
-    float: left;
 }

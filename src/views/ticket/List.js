@@ -8,13 +8,11 @@
 Ext.namespace("Mobile.SalesLogix.Ticket");
 
 Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {   
-    itemTemplate: new Simplate([
-        '<li>',
+    contentTemplate: new Simplate([
         '<a href="#ticket_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%: $["Account"] ? $["Account"]["AccountName"] : "" %}</h3>',
         '<h4>{%: $["TicketNumber"] %}</h4>',
-        '</a>',
-        '</li>'
+        '</a>'
     ]),    
     constructor: function(o) {
         Mobile.SalesLogix.Ticket.List.superclass.constructor.call(this);        

@@ -8,13 +8,11 @@
 Ext.namespace("Mobile.SalesLogix.Lead");
 
 Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {   
-    itemTemplate: new Simplate([
-        '<li>',
+    contentTemplate: new Simplate([
         '<a href="#lead_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%= LeadNameLastFirst %}</h3>',
         '<h4>{%= Company %}</h4>',
-        '</a>',
-        '</li>'
+        '</a>'
     ]),    
     constructor: function(o) {
         Mobile.SalesLogix.Lead.List.superclass.constructor.call(this);        

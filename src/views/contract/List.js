@@ -8,15 +8,13 @@
 Ext.namespace("Mobile.SalesLogix.Contract");
 
 Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {   
-    itemTemplate: new Simplate([
-        '<li>',
+    contentTemplate: new Simplate([
         '<a href="#contract_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<div>',
         '<h3>{%= $["Account"]["AccountName"] %}</h3>',
 	    '<h4>{%= ReferenceNumber %}</h4>',        
         '</div>',
-        '</a>',
-        '</li>'
+        '</a>'
     ]),       
     constructor: function(o) {
         Mobile.SalesLogix.Contract.List.superclass.constructor.call(this);        

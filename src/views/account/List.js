@@ -8,14 +8,11 @@
 Ext.namespace("Mobile.SalesLogix.Account");
 
 Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {   
-    itemTemplate: new Simplate([
-        '<li>',
-		'<input type="checkbox" m:key="{%= $key %}" class="list_view_selector"/>',
+    contentTemplate: new Simplate([		
         '<a href="#account_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%: $["AccountName"] %}</h3>',
         '<h4>{%: $["AccountManager"] ? $ ["AccountManager"]["UserInfo"]["UserName"] : "" %}</h4>',
-        '</a>',
-        '</li>'
+        '</a>'
     ]),    
     constructor: function(o) {
         Mobile.SalesLogix.Account.List.superclass.constructor.call(this);        
@@ -47,14 +44,7 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
                 title: 'starIt',
                 icon: 'content/images/To_Do_32x32.gif',
                 fn: function() {
-					if (this.isActive()) {
-					    var checked_records = this.el.query("input.list_view_selector:checked");
-						var checked_keys = [];
-						for (var i = 0, len = checked_records.length; i < len; i++) {
-						    checked_keys.push(checked_records[i].getAttribute("m:key"));
-						}
-						alert(checked_keys.join(","));
-					}
+					alert(this.getSelected().join(','));
 				},
                 scope: this
             }]            

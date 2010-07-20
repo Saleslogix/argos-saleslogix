@@ -7,16 +7,15 @@
 
 Ext.namespace("Mobile.SalesLogix.Opportunity");
 
-Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {   
-    itemTemplate: new Simplate([
-        '<li class="o-stage o-stage-{%= ($["Stage"] || "1").charAt(0) %}">', /* quick method since there are only six stages */        
-        '<a href="#opportunity_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
-        '<div>',
+Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {            
+    contentTemplate: new Simplate([        
+        /* quick method since there are only six stages */        
+        '<a href="#opportunity_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}" class="o-stage o-stage-{%= ($["Stage"] || "1").charAt(0) %}">',
+        '<div class="o-meter">',
         '<h3>{%= $["Account"]["AccountName"] %}</h3>',
         '<h4>{%= $["Description"] %}</h4>',        
         '</div>',
-        '</a>',
-        '</li>'
+        '</a>'
     ]),       
     constructor: function(o) {
         Mobile.SalesLogix.Opportunity.List.superclass.constructor.call(this);        

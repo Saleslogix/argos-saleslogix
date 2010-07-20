@@ -8,12 +8,10 @@
 Ext.namespace("Mobile.SalesLogix.Defect");
 
 Mobile.SalesLogix.Defect.List = Ext.extend(Sage.Platform.Mobile.List, {   
-    itemTemplate: new Simplate([
-        '<li>',
+    contentTemplate: new Simplate([
         '<a href="#defect_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%= $["AlternateKeyPrefix"] %}-{%= $["AlternateKeySuffix"] %}</h3>',
-        '</a>',
-        '</li>'
+        '</a>'
     ]),    
     constructor: function(o) {
         Mobile.SalesLogix.Defect.List.superclass.constructor.call(this);        
