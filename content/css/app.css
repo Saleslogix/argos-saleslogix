@@ -132,3 +132,7 @@ input.field-error
 {
 	color: #f00;
 }
+
+input.list_view_selector {
+    float: left;
+}
