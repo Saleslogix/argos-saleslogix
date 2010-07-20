@@ -127,3 +127,8 @@ div.defect-text-wrap a[target="_related"]
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-bottom-right-radius: 10px;
 }
+
+input.field-error
+{
+	color: #f00;
+}
