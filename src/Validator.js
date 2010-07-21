@@ -9,15 +9,15 @@ Mobile.SalesLogix.Validator = (function() {
     return {                
         notEmpty: {
             test: /.+/,
-            message: "'{0}' cannot be empty."
+            message: "'{1}' cannot be empty."
         },
         hasText: {
             test: /\w+/,
-            message: "'{0}' cannot be empty."
+            message: "'{1}' cannot be empty."
         },
         isInteger: {
             test: /^\d+$/,
-            message: "'{1}' is not an integer."
+            message: "'{0}' is not an integer."
         }
     };
 })();    
