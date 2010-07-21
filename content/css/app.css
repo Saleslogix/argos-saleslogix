@@ -26,7 +26,7 @@ li.is-linked
 	background: url('../images/associate_16x16.gif') no-repeat 10px 50%;
 }
 
-body > ul > li > a 
+body > ul > li > a, body > ul > li > * > a   
 {
 	padding: 8px 32px 8px 36px;
 }
@@ -90,6 +90,15 @@ div.defect-text-row
 	min-height: inherit;
 }
 
+#note_related div.defect-text-row{
+    border-bottom: none;
+    clear:none;
+}
+
+#note_related div.defect-text-row h3{
+    white-space : normal ;
+}
+
 .defect-text-wrap
 {
 	overflow: hidden;
@@ -98,12 +107,33 @@ div.defect-text-row
 	margin: 12px;
 }
 
+#note_related div.defect-text-wrap{
+    max-height: 2.5em;
+    margin-top:0;
+    padding-left:10px;
+}
+
+#note_related div.defect-text-more{
+   -moz-border-radius-bottomright:none;
+   bottom:-20px;
+}
+
+
 div.defect-text-wrap a[target="_related"]
 {
 	 background: none;
 	 text-decoration: none; 
 	 color: #000;
 	 display: block;
+}
+
+#note_related div.defect-text-wrap a[target="_detail"]
+{
+     background-image:url("listArrowSel.png"), url("selection.png");
+	 text-decoration: none; 
+	 color: #000;
+	 display: block;
+	 
 }
 
 .defect-text-more

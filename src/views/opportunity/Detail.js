@@ -40,6 +40,12 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     where: this.formatRelatedQuery.createDelegate(this, ['OpportunityId eq "{0}"'], true),
                     label: 'Activities',
                     icon: 'content/images/Task_List_3D_24x24.gif'
+                },
+                {
+                    view: 'note_related', 
+                    where: this.formatRelatedQuery.createDelegate(this, ['OpportunityId eq "{0}" and Type eq "atNote"'], true),
+                    label: 'Notes',
+                    icon: 'content/images/note_24x24.gif'
                 }
             ]}         
         ];
