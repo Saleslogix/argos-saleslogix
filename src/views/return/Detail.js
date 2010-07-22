@@ -26,8 +26,8 @@ Mobile.SalesLogix.Return.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'ReturnType', label: 'type'},
             {name: 'ExpectedDate', label: 'reg date', renderer: Mobile.SalesLogix.Format.date},
             {name: 'AssignedTo.OwnerDescription', label: 'AssignedTo'},
-            {name: 'ReturnedBy.FullName', label: 'returned by'},
-            {name: 'ShipTo.FullName', label: 'ship to'},
+            {name: 'ReturnedBy.NameLF', label: 'returned by'},
+            {name: 'ShipTo.NameLF', label: 'ship to'},
             {name: 'CreateUser', label: 'create user'},
             {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
           ];
@@ -48,8 +48,8 @@ Mobile.SalesLogix.Return.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'ReturnType',
                     'ExpectedDate',
                     'AssignedTo/OwnerDescription',
-                    'ReturnedBy/FullName',
-                    'ShipTo/FullName',
+                    'ReturnedBy/NameLF',
+                    'ShipTo/NameLF',
                     'CreateUser',
                     'CreateDate'
                   ].join(',')                  
