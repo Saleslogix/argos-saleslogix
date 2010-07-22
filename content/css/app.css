@@ -166,3 +166,9 @@ input.field-error
 {
     color: #f00;
 }
+
+.row > input:not([type|=radio]):not([type|=checkbox])
+{
+    height: auto;
+    padding: 10px 10px 0 110px;
+}
