@@ -1,4 +1,4 @@
-﻿/// <reference path="../../ext/ext-core-debug.js"/>
+﻿﻿/// <reference path="../../ext/ext-core-debug.js"/>
 /// <reference path="../../platform/Application.js"/>
 /// <reference path="../../platform/Format.js"/>
 /// <reference path="../../sdata/SDataService.js"/>
@@ -10,8 +10,9 @@ Mobile.SalesLogix.Format = (function() {
    
     return Ext.apply({}, {
         address: function(val, nl) {
+            if (val === null || typeof val == "undefined") return "";
+            
             var lines = [];
-
             if (!F.isEmpty(val['Address1'])) lines.push(F.encode(val['Address1']));
             if (!F.isEmpty(val['Address2'])) lines.push(F.encode(val['Address2']));
             if (!F.isEmpty(val['Address3'])) lines.push(F.encode(val['Address3']));
