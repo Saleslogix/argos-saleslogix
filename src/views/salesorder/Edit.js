@@ -22,7 +22,7 @@ Mobile.SalesLogix.SalesOrder.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'SalesOrderNumber', label: 'sales order id', type: 'text'},
             {name: 'OrderType', label: 'type', type: 'text'}, 
             {name: 'Status', label: 'status', type: 'text'},
-            {name: 'OrderTotal', label: 'total', type: 'text'},
+            {name: 'OrderTotal', label: 'total', type: 'text', validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup'},
             {name: 'DatePromised', label: 'req date', type: 'text', renderer: Mobile.SalesLogix.Format.date},
             {name: 'Comments', label: 'comments', type: 'text'},       
         ];
