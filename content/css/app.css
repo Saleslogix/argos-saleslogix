@@ -1,119 +1,123 @@
 ﻿/* adjust input positions for search dialog */
 #search_dialog input:not(input[type|=radio]):not(input[type|=checkbox])
 {
-	padding: 6px 6px 6px 50px;
+    padding: 6px 6px 6px 50px;
 }
 
 /* same as above, but for chrome fix */
 #search_dialog input:not([type|=radio]):not([type|=checkbox]) 
 {
-	padding: 6px 6px 6px 50px;
+    padding: 6px 6px 6px 50px;
 }
 
 /* hid text on floating toolbar */
 .toolbar-float-container a span
-{	
-	display: none;
+{    
+    display: none;
 }
 
 .tool-note
 {
-	margin-bottom: 3px;
+    margin-bottom: 3px;
 }
 
 li.is-linked
 {
-	background: url('../images/associate_16x16.gif') no-repeat 10px 50%;
+    background: url('../images/associate_16x16.gif') no-repeat 10px 50%;
 }
 
 body > ul > li > a, body > ul > li > * > a   
 {
-	padding: 8px 32px 8px 36px;
+    padding: 8px 32px 8px 36px;
 }
 
 .o-stage h3,
 .o-stage h4
 {
-	margin: 0 64px 0 0;
+    margin: 0 64px 0 0;
 }
 
 .o-stage div.o-meter
 {
-	background: url('../images/meter-empty.png') no-repeat center right;
+    background: url('../images/meter-empty.png') no-repeat center right;
 }
 
 .o-stage-1 div.o-meter
 {
-	background: 
-		url('../images/meter-full-1.png') no-repeat center right,
-		url('../images/meter-empty.png') no-repeat center right;
+    background: 
+        url('../images/meter-full-1.png') no-repeat center right,
+        url('../images/meter-empty.png') no-repeat center right;
 }
 
 .o-stage-2 div.o-meter
 {
-	background: 
-		url('../images/meter-full-2.png') no-repeat center right,
-		url('../images/meter-empty.png') no-repeat center right;
+    background: 
+        url('../images/meter-full-2.png') no-repeat center right,
+        url('../images/meter-empty.png') no-repeat center right;
 }
 
 .o-stage-3 div.o-meter
 {
-	background: 
-		url('../images/meter-full-3.png') no-repeat center right,
-		url('../images/meter-empty.png') no-repeat center right;
+    background: 
+        url('../images/meter-full-3.png') no-repeat center right,
+        url('../images/meter-empty.png') no-repeat center right;
 }
 
 .o-stage-4 div.o-meter
 {
-	background: 
-		url('../images/meter-full-4.png') no-repeat center right,
-		url('../images/meter-empty.png') no-repeat center right;
+    background: 
+        url('../images/meter-full-4.png') no-repeat center right,
+        url('../images/meter-empty.png') no-repeat center right;
 }
 
 .o-stage-5 div.o-meter
 {
-	background: 
-		url('../images/meter-full-5.png') no-repeat center right,
-		url('../images/meter-empty.png') no-repeat center right;
+    background: 
+        url('../images/meter-full-5.png') no-repeat center right,
+        url('../images/meter-empty.png') no-repeat center right;
 }
 
 .o-stage-6 div.o-meter
 {
-	background: 
-		url('../images/meter-full-6.png') no-repeat center right,
-		url('../images/meter-empty.png') no-repeat center right;
+    background: 
+        url('../images/meter-full-6.png') no-repeat center right,
+        url('../images/meter-empty.png') no-repeat center right;
 }
 
 div.defect-text-row
 {
-	position: relative;
-	min-height: inherit;
+    position: relative;
+    min-height: inherit;
 }
 
-#note_related div.defect-text-row{
+#note_related div.defect-text-row
+{
     border-bottom: none;
     clear:none;
 }
 
-#note_related div.defect-text-row h3{
+#note_related div.defect-text-row h3
+{
     white-space : normal ;
 }
 
 .defect-text-wrap
 {
-	overflow: hidden;
-	font-size: 1em;
-	max-height: 3.5em;
-	margin: 12px;
+    overflow: hidden;
+    font-size: 1em;
+    max-height: 3.5em;
+    margin: 12px;
 }
 
-#note_related div.defect-text-wrap{
+#note_related div.defect-text-wrap
+{
     max-height: 2.5em;
     margin-top:0;
     padding-left:10px;
 }
 
-#note_related div.defect-text-more{
+#note_related div.defect-text-more
+{
    -moz-border-radius-bottomright:none;
    bottom:-20px;
 }
@@ -121,44 +125,44 @@ div.defect-text-row
 
 div.defect-text-wrap a[target="_related"]
 {
-	 background: none;
-	 text-decoration: none; 
-	 color: #000;
-	 display: block;
+     background: none;
+     text-decoration: none; 
+     color: #000;
+     display: block;
 }
 
 #note_related div.defect-text-wrap a[target="_detail"]
 {
      background-image:url("listArrowSel.png"), url("selection.png");
-	 text-decoration: none; 
-	 color: #000;
-	 display: block;
-	 
+     text-decoration: none; 
+     color: #000;
+     display: block;
+     
 }
 
 .defect-text-more
 {
-	visibility: hidden;
-	border-top: solid 1px #aaa;
-	border-left: solid 1px #aaa;
-	background: #38689E;
-	z-index: 1;
-	position: absolute;
-	bottom: -13px;
-	right: -1px;
-	line-height: 1.5em;
-	height: 1.5em;
-	color: white;
-	display: inline-block;
-	padding: 0 8px 0 8px;
-	text-align: center;
-	-moz-border-radius-topleft: 10px;
-	-moz-border-radius-bottomright: 10px;
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-bottom-right-radius: 10px;
+    visibility: hidden;
+    border-top: solid 1px #aaa;
+    border-left: solid 1px #aaa;
+    background: #38689E;
+    z-index: 1;
+    position: absolute;
+    bottom: -13px;
+    right: -1px;
+    line-height: 1.5em;
+    height: 1.5em;
+    color: white;
+    display: inline-block;
+    padding: 0 8px 0 8px;
+    text-align: center;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
 }
 
 input.field-error
 {
-	color: #f00;
+    color: #f00;
 }
