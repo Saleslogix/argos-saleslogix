@@ -18,6 +18,10 @@ Mobile.SalesLogix.Validator = (function() {
         isInteger: {
             test: /^\d+$/,
             message: "'{0}' is not an integer."
+        },
+        isDecimal: {
+            test: /^[\d,.]+$/,
+            message: "'{0}' is not a decimal."
         }
     };
 })();    
