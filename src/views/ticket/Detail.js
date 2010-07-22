@@ -22,7 +22,7 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         this.layout = [
             {name: 'TicketNumber', label: 'ticket id'},
             {name: 'Account.AccountName', label: 'account'},
-            {name: 'Contact.FullName', label: 'name'},
+            {name: 'Contact.NameLF', label: 'contact'},
             {name: 'Contact.WorkPhone', label: 'phone', renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Subject', label: 'subject'},
             {name: 'UrgencyCode', label: 'urgency'},
@@ -55,7 +55,7 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 'select': [
                     'TicketNumber',
                     'Account/AccountName',
-                    'Contact/FullName',
+                    'Contact/NameLF',
                     'Contact/WorkPhone',
                     'Subject',
                     'UrgencyCode',
