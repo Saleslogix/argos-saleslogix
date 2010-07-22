@@ -8,59 +8,78 @@
 
 Ext.namespace("Mobile.SalesLogix.Account");
 
-Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {   
+    titleText: 'Account',  
+    accountText: 'account',
+    phoneText: 'phone',
+    addressText: 'address',
+    webText: 'web',
+    typeText: 'type',
+    subTypeText: 'sub-type',
+    acctMgrText: 'acct mgr',
+    notesText: 'notes',
+    ownerText: 'owner',
+    statusText: 'status',
+    createUserText: 'create user',
+    createDateText: 'create date',
+    relatedItemsText: 'Related Items',
+    relatedContactsText: 'Contacts',
+    relatedOpportunitiesText: 'Opportunities',
+    relatedTicketsText: 'Tickets',
+    relatedActivitiesText: 'Activities',
+    relatedNotesText: 'Notes',
     constructor: function(o) {
         Mobile.SalesLogix.Account.Detail.superclass.constructor.call(this);        
         
         Ext.apply(this, o, {
             id: 'account_detail',
-            title: 'Account',
+            title: this.titleText,
             editor: 'account_edit',
             resourceKind: 'accounts'
         });
 
         this.layout = [
-            {name: 'AccountName', label: 'account'},
-            {name: 'MainPhone', label: 'phone', renderer: Mobile.SalesLogix.Format.phone},
-            {name: 'Address', label: 'address', renderer: Mobile.SalesLogix.Format.address},
-            {name: 'WebAddress', label: 'web', renderer: Mobile.SalesLogix.Format.link},
-            {name: 'Type', label: 'type'},
-            {name: 'SubType', label: 'sub-type'}, 
-            {name: 'AccountManager.UserInfo', label: 'acct mgr', tpl: Mobile.SalesLogix.Template.nameLF},
-            {name: 'Notes', label: 'notes'},
-            {name: 'Owner.OwnerDescription', label: 'owner'},
-            {name: 'Status', label: 'status'},
-            {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},            
-            {options: {title: 'Related Items', list: true}, as: [
+            {name: 'AccountName', label: this.accountText},
+            {name: 'MainPhone', label: this.phoneText, renderer: Mobile.SalesLogix.Format.phone},
+            {name: 'Address', label: this.addressText, renderer: Mobile.SalesLogix.Format.address},
+            {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
+            {name: 'Type', label: this.typeText},
+            {name: 'SubType', label: this.subTypeText}, 
+            {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
+            {name: 'Notes', label: this.notesText},
+            {name: 'Owner.OwnerDescription', label: this.ownerText},
+            {name: 'Status', label: this.statusText},
+            {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},            
+            {options: {title: this.relatedItemsText, list: true}, as: [
                 {                    
                     view: 'contact_related', 
                     where: this.formatRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
-                    label: 'Contacts',
+                    label: this.relatedContactsText,
                     icon: 'content/images/Contacts_24x24.gif'
                 },
                 {
                     view: 'opportunity_related', 
                     where: this.formatRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
-                    label: 'Opportunities',
+                    label: this.relatedOpportunitiesText,
                     icon: 'content/images/Opportunity_List_24x24.gif'
                 },
                 {
                     view: 'ticket_related', 
                     where: this.formatRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
-                    label: 'Tickets',
+                    label: this.relatedTicketsText,
                     icon: 'content/images/Ticket_List_3D_32x32.gif'
                 },
                 {
                     view: 'activity_related', 
                     where: this.formatRelatedQuery.createDelegate(this, ['AccountId eq "{0}"'], true),
-                    label: 'Activities',
+                    label: this.relatedActivitiesText,
                     icon: 'content/images/Task_List_3D_24x24.gif'
                 },
                 {
                     view: 'note_related', 
                     where: this.formatRelatedQuery.createDelegate(this, ['AccountId eq "{0}" and Type eq "atNote"'], true),
-                    label: 'Notes',
+                    label: this.relatedNotesText,
                     icon: 'content/images/note_24x24.gif'
                 }
                 
