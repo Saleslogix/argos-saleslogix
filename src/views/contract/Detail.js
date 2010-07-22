@@ -23,7 +23,7 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         this.layout = [
             {name: 'ReferenceNumber', label: 'ref num'},
             {name: 'Account.AccountName', label: 'account', view: 'account_detail', key: 'Account.$key', property: true},
-            {name: 'Contact.FullName', label: 'contact'},
+            {name: 'Contact.NameLF', label: 'contact'},
             {name: 'ServiceCode', label: 'svc type'},
             {name: 'TypeCode', label: 'contract type'},
             {name: 'Period', label: 'quantity'},
@@ -58,7 +58,7 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 'select': [
                       'ReferenceNumber',
 	                  'Account/AccountName',
-            		  'Contact/FullName',
+            		  'Contact/NameLF',
             		  'ServiceCode',
             		  'TypeCode',
             		  'Period',
