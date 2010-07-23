@@ -20,7 +20,7 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         this.layout = [
             {name: 'AccountName', label: 'account', type: 'text'},
-            {name: 'MainPhone', label: 'phone', type: 'text'},
+            {name: 'MainPhone', label: 'phone', type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'WebAddress', label: 'web', type: 'text'},
             {name: 'Type', label: 'type', type: 'text'},
             {name: 'SubType', label: 'sub-type', type: 'text'},

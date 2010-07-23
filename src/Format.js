@@ -46,10 +46,24 @@ Mobile.SalesLogix.Format = (function() {
             if (typeof val !== 'string') 
                 return val;
             
-            if (val.length != 10)
-                return String.format('<a href="tel:{0}">{0}</a>', val);
+            var formatNumber = function (number, extn, phNumber) {
+                var numString = "", extnString = "";
+                if (extn) extnString = 'x' + extn;
+                if (number.length < 7) {
+                    numString = number + "";
+                }
+                else {
+                    numString = String.format('({0}) {1}-{2}', number.substring(0, 3), number.substring(3, 6), number.substring(6));
+                }
 
-            return String.format('<a href="tel:{0}">({1}) {2}-{3}</a>', val, val.substring(0, 3), val.substring(3, 6), val.substring(6));
+                return String.format('<a href="tel:{0}">{1}{2}</a>', phNumber, numString, extnString);
+            };
+
+            if (/x/i.test(val)) {
+                var numbers = val.split(/x/i);
+                return formatNumber(numbers[0], numbers[1], val);
+            }
+            return formatNumber(val, "", val);
         },
         currency: function(val) {
             // todo: add localization support
