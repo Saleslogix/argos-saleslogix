@@ -42,7 +42,7 @@ Mobile.SalesLogix.Format = (function() {
             
             return nl ? lines.join('\n') : lines.join('<br />');
         },
-        phone: function(val) {
+        phone: function(val, withLink) {
             if (typeof val !== 'string') 
                 return val;
             
@@ -55,7 +55,9 @@ Mobile.SalesLogix.Format = (function() {
                 else {
                     numString = String.format('({0}) {1}-{2}', number.substring(0, 3), number.substring(3, 6), number.substring(6));
                 }
-
+                if (withLink === false) {
+                    return String.format('{0}{1}', numString, extnString);
+                }
                 return String.format('<a href="tel:{0}">{1}{2}</a>', phNumber, numString, extnString);
             };
 
