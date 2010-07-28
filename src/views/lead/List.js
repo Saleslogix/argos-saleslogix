@@ -8,7 +8,7 @@
 Ext.namespace("Mobile.SalesLogix.Lead");
 
 Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
-    titleText: 'Defect',
+    titleText: 'Lead',
     contentTemplate: new Simplate([
         '<a href="#lead_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%= LeadNameLastFirst %}</h3>',
