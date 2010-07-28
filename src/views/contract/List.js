@@ -7,26 +7,27 @@
 
 Ext.namespace("Mobile.SalesLogix.Contract");
 
-Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {   
+Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
+    titleText: 'Contract',
     contentTemplate: new Simplate([
         '<a href="#contract_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<div>',
         '<h3>{%= $["Account"]["AccountName"] %}</h3>',
-	    '<h4>{%= ReferenceNumber %}</h4>',        
+        '<h4>{%= ReferenceNumber %}</h4>',
         '</div>',
         '</a>'
-    ]),       
+    ]),
     constructor: function(o) {
-        Mobile.SalesLogix.Contract.List.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Contract.List.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'contract_list',
-            title: 'Contracts',
+            title: this.titleText,
             resourceKind: 'contracts',
             pageSize: 10,
             icon: 'content/images/contract_16x16.gif'
         });
-    },   
+    },
     formatSearchQuery: function(query) {
         return String.format('(ReferenceNumber like "%{0}%")', query);
 
@@ -37,13 +38,13 @@ Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
     createRequest: function() {
         var request = Mobile.SalesLogix.Contract.List.superclass.createRequest.call(this);
 
-	 request
+        request
          .setResourceKind('contracts')
             .setQueryArgs({
-		        'include': 'Account/AccountName,Contact/FullName',
+                'include': 'Account/AccountName,Contact/FullName',
                 'orderby': 'ReferenceNumber',
-                'select': 'Account/AccountName,ReferenceNumber,Contact/FullName'                             
-            });                       
+                'select': 'Account/AccountName,ReferenceNumber,Contact/FullName'
+            });
 
 
         return request;

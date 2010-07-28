@@ -8,29 +8,36 @@
 
 Ext.namespace("Mobile.SalesLogix.Defect");
 
-Mobile.SalesLogix.Defect.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.Defect.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    idPrefixText: 'id prefix',
+    idSuffixText: 'id suffix',
+    titleText: 'Defect',
+    areaText: 'area',
+    categoryText: 'category',
+    subjectText: 'subject',
+
     constructor: function(o) {
-        Mobile.SalesLogix.Defect.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Defect.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'defect_edit',
-            title: 'Defect',
+            title: this.titleText,
             resourceKind: 'defects'
         });
 
         this.layout = [
-            {name: 'AlternateKeyPrefix', label: 'id prefix', type: 'text'},
-            {name: 'AlternateKeySuffix', label: 'id suffix', type: 'text'},
-            {name: 'Area', label: 'area', type: 'text'},
-            {name: 'Category', label: 'category', type: 'text'},
-            {name: 'Subject', label: 'subject', type: 'text'}
+            {name: 'AlternateKeyPrefix', label: this.idPrefixText, type: 'text'},
+            {name: 'AlternateKeySuffix', label: this.idSuffixText, type: 'text'},
+            {name: 'Area', label: this.areaText, type: 'text'},
+            {name: 'Category', label: this.categoryText, type: 'text'},
+            {name: 'Subject', label: this.subjectText, type: 'text'},
            ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Defect.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Defect.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [

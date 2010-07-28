@@ -8,38 +8,42 @@
 
 Ext.namespace("Mobile.SalesLogix.DefectSolution");
 
-Mobile.SalesLogix.DefectSolution.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.DefectSolution.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    titleText: 'DefectSolution',
+    notesText: 'notes',
+    createUserText: 'create user',
+    createDateText: 'create date',
     constructor: function(o) {
-        Mobile.SalesLogix.DefectSolution.Detail.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.DefectSolution.Detail.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'defectsolution_detail',
-            title: 'DefectSolution',
+            title: this.titleText,
             editor: 'defectsolution_edit',
             resourceKind: 'defectsolutions'
         });
 
         this.layout = [
-            {name: 'Notes', label: 'notes'},
-            {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
-            ];
+            {name: 'Notes', label: this.notesText},
+            {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date}
+        ];
     },
-    init: function() {     
-        Mobile.SalesLogix.DefectSolution.Detail.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.DefectSolution.Detail.superclass.init.call(this);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.DefectSolution.Detail.superclass.createRequest.call(this);
-        
-        request                     
+
+        request
             .setQueryArgs({
                 'select': [
                     'Notes',
                     'CreateUser',
                     'CreateDate'
                   ]
-            });     
-        
-        return request;                   
-    } 
+            });
+
+        return request;
+    }
 });

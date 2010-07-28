@@ -8,27 +8,31 @@
 
 Ext.namespace("Mobile.SalesLogix.Campaign");
 
-Mobile.SalesLogix.Campaign.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.Campaign.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'Campaign',
+    nameText: 'name',
+    codeText: 'code',
+    startText: 'start',
     constructor: function(o) {
-        Mobile.SalesLogix.Campaign.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Campaign.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'campaign_edit',
-            title: 'Campaign',
+            title: this.titleText,
             resourceKind: 'campaigns'
         });
 
         this.layout = [
-            {name: 'CampaignName', label: 'name', type: 'text'},
-            {name: 'CampaignCode', label: 'code', type: 'text'},
-            {name: 'StartDate', label: 'start', type: 'text'},
-           ];
+            {name: 'CampaignName', label: this.nameText, type: 'text'},
+            {name: 'CampaignCode', label: this.codeText, type: 'text'},
+            {name: 'StartDate', label: this.startText, renderer: Mobile.SalesLogix.Format.date, type: 'text'}
+        ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Campaign.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Campaign.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [

@@ -8,25 +8,27 @@
 
 Ext.namespace("Mobile.SalesLogix.Note");
 
-Mobile.SalesLogix.Note.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.Note.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'Note',
+    notesText: 'notes',
     constructor: function(o) {
-        Mobile.SalesLogix.Note.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Note.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'note_edit',
-            title: 'Note',
+            title: this.titleText,
             resourceKind: 'history'
         });
 
         this.layout = [
-            {name: 'Notes', label: 'notes', type: 'text'},
+            {name: 'Notes', label: this.notesText, type: 'text'}
            ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Note.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Note.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [

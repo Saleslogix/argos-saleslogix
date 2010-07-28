@@ -8,34 +8,41 @@
 
 Ext.namespace("Mobile.SalesLogix.Contact");
 
-Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'Contact',
+    firstNameText: 'first',
+    lastNameText: 'last',
+    workText: 'work',
+    mobileText: 'mobile',
+    emailText: 'email',
+    webText: 'web',
+
     constructor: function(o) {
-        Mobile.SalesLogix.Contact.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Contact.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'contact_edit',
-            title: 'Contact',
+            title: this.titleText,
             resourceKind: 'contacts'
         });
 
         this.layout = [
-            {name: 'FirstName', label: 'first', type: 'text'},
-            {name: 'LastName', label: 'last', type: 'text'}, 
-	        {name: 'WorkPhone', label: 'work', type: 'text'},
-	        {name: 'Mobile', label: 'mobile', type: 'text'},
-            {name: 'Email', label: 'email', type: 'text'},
-	        {name: 'WebAddress', label: 'web', type: 'text'},
-                    
-        ]; 
+            {name: 'FirstName', label: this.firstNameText, type: 'text'},
+            {name: 'LastName',  label: this.lastNameText, type: 'text'},
+	        {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+	        {name: 'Mobile', label: this.mobileText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+            {name: 'Email', label: this.emailText, type: 'text'},
+	        {name: 'WebAddress', label: this.webText, type: 'text'}
+        ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Contact.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Contact.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
            .setQueryArgs({
-                'include': 'Account,Address,AccountManager,AccountManager/UserInfo',                
+                'include': 'Account,Address,AccountManager,AccountManager/UserInfo',
                 'select': [
                     'Account/AccountName',
                     'FirstName',
@@ -51,7 +58,7 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'Owner/OwnerDescription',
                     'CreateDate',
                     'CreateUser'
-                ].join(',')                      
+                ].join(',')
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }

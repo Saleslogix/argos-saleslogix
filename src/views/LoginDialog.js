@@ -9,14 +9,17 @@ Ext.namespace("Mobile.SalesLogix");
 
 /// this is a very simple home view.
 Mobile.SalesLogix.LoginDialog = Ext.extend(Sage.Platform.Mobile.View, {
+    titleText: 'Login',
+    userText: 'user:',
+    passText: 'pass:',
     viewTemplate: new Simplate([
         '<form id="{%= id %}" class="dialog">',
         '<fieldset>',
         '<h1>{%= title %}</h1>',
-        '<a class="button blueButton" target="_none"><span>Login</span></a>',
-        '<label>user:</label>',
+        '<a class="button blueButton" target="_none"><span>{%= $.titleText %}</span></a>',
+        '<label>{%= $.userText %}</label>',
         '<input id="{%= id %}_user" type="text" name="user" value="lee" /><br />',
-        '<label>pass:</label>',
+        '<label>{%= $.passText %}</label>',
         '<input id="{%= id %}_pass" type="text" name="password" />',
         '</fieldset>',
         '</form>'
@@ -26,7 +29,7 @@ Mobile.SalesLogix.LoginDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
         Ext.apply(this, o, {
             id: 'login_dialog',
-            title: 'Login',
+            title: this.titleText,
             expose: false
         });
 
@@ -84,8 +87,8 @@ Mobile.SalesLogix.LoginDialog = Ext.extend(Sage.Platform.Mobile.View, {
                 }
                 else {
                     App.context['user'] = feed['$resources'][0]['$key'];
-                    
-                    // todo: add successful login eventing                    
+
+                    // todo: add successful login eventing
 
                     this.el.dom.removeAttribute('selected');
                 }
@@ -101,7 +104,7 @@ Mobile.SalesLogix.LoginDialog = Ext.extend(Sage.Platform.Mobile.View, {
                 if (response.status == 403)
                     alert('Username or password is invalid.');
                 else
-                    alert('A problem occured on the server.');                                   
+                    alert('A problem occured on the server.');
             },
             scope: this
         });

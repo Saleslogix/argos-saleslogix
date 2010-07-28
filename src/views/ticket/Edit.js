@@ -8,30 +8,36 @@
 
 Ext.namespace("Mobile.SalesLogix.Ticket");
 
-Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'Ticket',
+    ticketIdText: 'ticket id',
+    subjectText: 'subject',
+    areaText: 'area',
+    categoryText: 'category',
+    issueText: 'issue',
     constructor: function(o) {
-        Mobile.SalesLogix.Ticket.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Ticket.Edit.superclass.constructor.call(this);
+
        Ext.apply(this, o, {
             id: 'ticket_edit',
-            title: 'Ticket',
+            title: this.titleText,
             resourceKind: 'tickets'
         });
 
         this.layout = [
-            {name: 'TicketNumber', label: 'ticket id', type: 'text'},
-            {name: 'Subject', label: 'subject', type: 'text'},
-            {name: 'Area', label: 'area', type: 'text'},
-            {name: 'Category', label: 'category', type: 'text'},
-            {name: 'Issue', label: 'issue', type: 'text'},
-                  
+            {name: 'TicketNumber', label: this.ticketIdText, type: 'text'},
+            {name: 'Subject', label: this.subjectText, type: 'text'},
+            {name: 'Area', label: this.areaText, type: 'text'},
+            {name: 'Category', label: this.categoryText, type: 'text'},
+            {name: 'Issue', label: this.issueText, type: 'text'},
+
         ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Ticket.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Ticket.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [
@@ -40,7 +46,7 @@ Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'Area',
                     'Category',
                     'Issue'
-                 ]                  
+                 ]
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }

@@ -8,30 +8,36 @@
 
 Ext.namespace("Mobile.SalesLogix.Return");
 
-Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'Return',
+    returnIdText: 'return id',
+    priorityText: 'priority',
+    typeText: 'type',
+    regDateText: 'reg date',
+    returnedByText: 'returned by',
     constructor: function(o) {
-        Mobile.SalesLogix.Return.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Return.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'return_edit',
-            title: 'Return',
+            title: this.titleText,
             resourceKind: 'returns'
         });
 
         this.layout = [
-            {name: 'ReturnNumber', label: 'return id', type: 'text'},
-            {name: 'Priority', label: 'priority', type: 'text'},
-            {name: 'ReturnType', label: 'type', type: 'text'},
-            {name: 'ExpectedDate', label: 'reg date', type: 'text'},
-            {name: 'ReturnedBy.FullName', label: 'returned by', type: 'text'},
-            
+            {name: 'ReturnNumber', label: this.returnIdText, type: 'text'},
+            {name: 'Priority', label: this.priorityText, type: 'text'},
+            {name: 'ReturnType', label: this.typeText, type: 'text'},
+            {name: 'ExpectedDate', label: this.regDateText, renderer: Mobile.SalesLogix.Format.date, type: 'text'},
+            {name: 'ReturnedBy.NameLF', label: this.returnedByText, type: 'text'},
+
         ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Return.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Return.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'include': 'ReturnedBy',
@@ -41,7 +47,7 @@ Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'ReturnType',
                     'ExpectedDate',
                     'ReturnedBy/FullName'
-                  ].join(',') 
+                  ].join(',')
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }

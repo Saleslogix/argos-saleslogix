@@ -8,33 +8,40 @@
 
 Ext.namespace("Mobile.SalesLogix.SalesOrder");
 
-Mobile.SalesLogix.SalesOrder.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.SalesOrder.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'SalesOrder',
+    salesOrderIdText: 'sales order id',
+    typeText: 'type',
+    statusText: 'status',
+    totalText: 'total',
+    reqDateText: 'req date',
+    commentsText: 'comments',
     constructor: function(o) {
-        Mobile.SalesLogix.SalesOrder.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.SalesOrder.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'salesorder_edit',
-            title: 'SalesOrder',
+            title: this.titleText,
             resourceKind: 'salesorders'
         });
 
         this.layout = [
-            {name: 'SalesOrderNumber', label: 'sales order id', type: 'text'},
-            {name: 'OrderType', label: 'type', type: 'text'}, 
-            {name: 'Status', label: 'status', type: 'text'},
-            {name: 'OrderTotal', label: 'total', type: 'text', validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup'},
-            {name: 'DatePromised', label: 'req date', type: 'text', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'Comments', label: 'comments', type: 'text'},       
+            {name: 'SalesOrderNumber', label: this.salesOrderIdText, type: 'text'},
+            {name: 'OrderType', label: this.typeText, type: 'text'},
+            {name: 'Status', label: this.statusText, type: 'text'},
+            {name: 'OrderTotal', label: this.totalText, validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup', type: 'text'},
+            {name: 'DatePromised', label: this.reqDateText, type: 'text', renderer: Mobile.SalesLogix.Format.date},
+            {name: 'Comments', label: this.commentsText, type: 'text'},
         ];
     },
-    init: function() {     
-        Mobile.SalesLogix.SalesOrder.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.SalesOrder.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
-                'include': 'User,Account,Address,AccountManager,AccountManager/UserInfo',                
+                'include': 'User,Account,Address,AccountManager,AccountManager/UserInfo',
                 'select': [
                     'SalesOrderNumber',
                     'Account/AccountName',
@@ -47,7 +54,7 @@ Mobile.SalesLogix.SalesOrder.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'User/UserInfo/UserName',
                     'CreateUser',
                     'CreateDate'
-       ].join(',')          
+       ].join(',')
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }

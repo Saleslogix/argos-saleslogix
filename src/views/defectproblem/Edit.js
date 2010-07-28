@@ -8,25 +8,27 @@
 
 Ext.namespace("Mobile.SalesLogix.DefectProblem");
 
-Mobile.SalesLogix.DefectProblem.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.DefectProblem.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'DefectSolution',
+    notesText: 'notes',
     constructor: function(o) {
-        Mobile.SalesLogix.DefectProblem.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.DefectProblem.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'defectproblem_edit',
-            title: 'DefectProblem',
+            title: this.titleText,
             resourceKind: 'defectproblems'
         });
 
         this.layout = [
-            {name: 'Notes', label: 'notes', type: 'text'},
-           ];
+            {name: 'Notes', label: this.notesText, type: 'text'}
+        ];
     },
-    init: function() {     
-        Mobile.SalesLogix.DefectProblem.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.DefectProblem.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [

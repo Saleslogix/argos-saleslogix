@@ -7,27 +7,28 @@
 
 Ext.namespace("Mobile.SalesLogix.Opportunity");
 
-Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {            
-    contentTemplate: new Simplate([        
-        /* quick method since there are only six stages */        
+Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
+    titleText: 'Opportunity',
+    contentTemplate: new Simplate([
+        /* quick method since there are only six stages */
         '<a href="#opportunity_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}" class="o-stage o-stage-{%= ($["Stage"] || "1").charAt(0) %}">',
         '<div class="o-meter">',
         '<h3>{%= $["Account"]["AccountName"] %}</h3>',
-        '<h4>{%= $["Description"] %}</h4>',        
+        '<h4>{%= $["Description"] %}</h4>',
         '</div>',
         '</a>'
-    ]),       
+    ]),
     constructor: function(o) {
-        Mobile.SalesLogix.Opportunity.List.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Opportunity.List.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'opportunity_list',
-            title: 'Opportunities',
+            title: this.titleText,
             resourceKind: 'opportunities',
             pageSize: 10,
             icon: 'content/images/Opportunity_List_24x24.gif'
         });
-    },   
+    },
     formatSearchQuery: function(query) {
         return String.format('(Description like "%{0}%")', query);
 
@@ -38,11 +39,11 @@ Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
     createRequest: function() {
         var request = Mobile.SalesLogix.Opportunity.List.superclass.createRequest.call(this);
 
-        request           
+        request
             .setQueryArgs({
                 'include': 'Account',
                 'orderby': 'Description',
-                'select': 'Description,Account/AccountName,Stage'                             
+                'select': 'Description,Account/AccountName,Stage'
             });
 
         return request;

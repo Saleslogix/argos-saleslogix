@@ -8,30 +8,37 @@
 
 Ext.namespace("Mobile.SalesLogix.Account");
 
-Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'Account',
+    accountText: 'account',
+    phoneText: 'phone',
+    webText: 'web',
+    typeText: 'type',
+    subTypeText: 'sub-type',
+    statusText: 'status',
     constructor: function(o) {
-        Mobile.SalesLogix.Account.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Account.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'account_edit',
-            title: 'Account',
+            title: this.titleText,
             resourceKind: 'accounts'
         });
 
         this.layout = [
-            {name: 'AccountName', label: 'account', type: 'text'},
-            {name: 'MainPhone', label: 'phone', type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
-            {name: 'WebAddress', label: 'web', type: 'text'},
-            {name: 'Type', label: 'type', type: 'text'},
-            {name: 'SubType', label: 'sub-type', type: 'text'},
-            {name: 'Status', label: 'status', type: 'text'}           
+            {name: 'AccountName', label: this.accountText, type: 'text'},
+            {name: 'MainPhone', label: this.phoneText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+            {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link, type: 'text'},
+            {name: 'Type', label: this.typeText, type: 'text'},
+            {name: 'SubType', label: this.subTypeText, type: 'text'},
+            {name: 'Status', label: this.statusText, type: 'text'}
         ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Account.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Account.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [
