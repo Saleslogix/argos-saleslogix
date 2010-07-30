@@ -8,6 +8,7 @@
 Ext.namespace("Mobile.SalesLogix.Activity");
 
 Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {   
+    titleText: 'Activity', 
     contentTemplate: new Simplate([
         '<a href="#activity_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%= $["StartDate"], [" , "], $["AccountName"] %}</h3>',
@@ -19,7 +20,7 @@ Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
         
         Ext.apply(this, o, {
             id: 'activity_list',
-            title: 'Activities',
+            title: this.titleText,
             resourceKind: 'activities',
             pageSize: 10,
             icon: 'content/images/Task_List_3D_24x24.gif'

@@ -82,7 +82,6 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     label: this.relatedNotesText,
                     icon: 'content/images/note_24x24.gif'
                 }
-                
             ]}
         ];
     },

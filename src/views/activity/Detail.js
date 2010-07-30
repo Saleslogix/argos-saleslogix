@@ -8,42 +8,55 @@
 
 Ext.namespace("Mobile.SalesLogix.Activity");
 
-Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    titleText: 'Activity',
+    typeText: 'type',
+    accountText: 'account',
+    startingText: 'starting',
+    endingText: 'ending',
+    timelessText: 'timeless',
+    nameText: 'name',
+    regardingText: 'regarding',
+    priorityText: 'priority',
+    recurringText: 'recurring',
+    alarmText: 'alarm',
+    createUserText: 'create user',
+    createDateText: 'create date',
     constructor: function(o) {
-        Mobile.SalesLogix.Activity.Detail.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Activity.Detail.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'activity_detail',
-            title: 'Activity',
+            title: this.titleText,
             editor: 'activity_edit',
             resourceKind: 'activities'
         });
 
         this.layout = [
-            {name: 'Type', label: 'type'},
-            {name: 'AccountName', label: 'account'},
-            {name: 'StartDate', label: 'starting',renderer: Mobile.SalesLogix.Format.date},
-            {name: 'EndDate', label: 'ending',renderer: Mobile.SalesLogix.Format.date},
+            {name: 'Type', label: this.typeText},
+            {name: 'AccountName', label: this.accountText},
+            {name: 'StartDate', label: this.startingText,renderer: Mobile.SalesLogix.Format.date},
+            {name: 'EndDate', label: this.endingText,renderer: Mobile.SalesLogix.Format.date},
             //{name: 'EndDate - StartDate', label: 'duration',renderer: Mobile.SalesLogix.Format.date},
-            {name: 'Timeless', label: 'timeless'},
-            {name: 'ContactName', label: 'name'},
-            {name: 'Description', label: 'regarding'},
-            {name: 'Priority', label: 'priority'},
-            {name: 'Recurring', label: 'recurring'},
-            {name: 'Alarm', label: 'alarm'},
-            {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date',renderer: Mobile.SalesLogix.Format.date},
+            {name: 'Timeless', label: this.timelessText},
+            {name: 'ContactName', label: this.nameText},
+            {name: 'Description', label: this.regardingText},
+            {name: 'Priority', label: this.priorityText},
+            {name: 'Recurring', label: this.recurringText},
+            {name: 'Alarm', label: this.alarmText},
+            {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText,renderer: Mobile.SalesLogix.Format.date}
            ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Activity.Detail.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Activity.Detail.superclass.init.call(this);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Activity.Detail.superclass.createRequest.call(this);
-        
-        request            
-            .setQueryArgs({                
-                //'select': 'Type,AccountName,StartDate,EndDate,EndDate - StartDate,Timeless,ContactName,Description,Priority,Recurring,Alarm,CreateUser,CreateDate'                
+
+        request
+            .setQueryArgs({
+                //'select': 'Type,AccountName,StartDate,EndDate,EndDate - StartDate,Timeless,ContactName,Description,Priority,Recurring,Alarm,CreateUser,CreateDate'
                 'select': [
                         'Type',
                         'AccountName',
@@ -59,7 +72,7 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                         'CreateDate'
                         ]
             });
-        
-        return request;            
-    } 
+
+        return request;
+    }
 });

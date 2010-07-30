@@ -7,40 +7,42 @@
 
 Ext.namespace("Mobile.SalesLogix.Campaign");
 
-Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {   
+Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
+    titleText: 'Campaign',
+    fbartitleText: 'note',
     contentTemplate: new Simplate([
         '<a href="#campaign_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%: $["CampaignName"] %}</h3>',
         '</a>'
-    ]),    
+    ]),
     constructor: function(o) {
-        Mobile.SalesLogix.Campaign.List.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Campaign.List.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'campaign_list',
-            title: 'Campaigns',
+            title: this.titleText,
             resourceKind: 'campaigns',
             pageSize: 10,
             icon: 'content/images/campaigns_detail_24x24.gif'
         });
 
-        Ext.apply(this.tools || {}, {            
+        Ext.apply(this.tools || {}, {
             fbar: [{
                 name: 'test',
-                title: 'note',                        
-                cls: 'tool-note',  
-                icon: 'content/images/Note_32x32.gif',               
+                title: this.titleText,
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
                 fn: function() { alert("one"); },
-                scope: this                
+                scope: this
             },{
                 name: 'test2',
-                title: 'note',                        
-                icon: 'content/images/Whats_New_3D_Files_32x32.gif',             
+                title: this.titleText,
+                icon: 'content/images/Whats_New_3D_Files_32x32.gif',
                 fn: function() { alert("two");},
-                scope: this                
-            }]            
+                scope: this
+            }]
         })
-    },  
+    },
     formatSearchQuery: function(query) {
         return String.format('CampaignName like "%{0}%"', query);
     },
@@ -50,7 +52,7 @@ Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
         request
             .setQueryArgs({
                 'orderby': 'CampaignName',
-                'select': 'CampaignName'                
+                'select': 'CampaignName'
             });
 
         return request;

@@ -9,52 +9,67 @@
 
 Ext.namespace("Mobile.SalesLogix.Contract");
 
-Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    titleText: 'Contract',
+    refNumText: 'refNum',
+    accountText: 'account',
+    contactText: 'contact',
+    svcTypeText: 'svc-Type',
+    contractTypeText: 'contractType',
+    quantityText: 'quantity',
+    remainingText: 'remaining',
+    startText: 'start',
+    endText: 'end',
+    activeText: 'active',
+    createUserText: 'create user',
+    createDateText: 'create date',
+    relatedItemsText: 'Related Items',
+    relatedTicketsText: 'Tickets',
     constructor: function(o) {
-        Mobile.SalesLogix.Contract.Detail.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Contract.Detail.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'contract_detail',
-            title: 'Contract',
-	    editor: 'contract_edit',//Added by Rajkumar. G to enable edit functionality
+            title: this.titleText,
+            editor: 'contract_edit',
             resourceKind: 'contracts'
         });
 
         this.layout = [
-            {name: 'ReferenceNumber', label: 'ref num'},
-            {name: 'Account.AccountName', label: 'account', view: 'account_detail', key: 'Account.$key', property: true},
-            {name: 'Contact.NameLF', label: 'contact'},
-            {name: 'ServiceCode', label: 'svc type'},
-            {name: 'TypeCode', label: 'contract type'},
-            {name: 'Period', label: 'quantity'},
-            {name: 'Remaining', label: 'remaining'},
-            {name: 'StartDate', label: 'start', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'EndingDate', label: 'end' , renderer: Mobile.SalesLogix.Format.date},
-	        {name: 'IsActive', label: 'active'},
-	        {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
-            {options: {title: 'Related Items', list: true}, as: [                
+            {name: 'ReferenceNumber', label: this.refNumText},
+            {name: 'Account.AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
+            {name: 'Contact.NameLF', label: this.contactText},
+            {name: 'ServiceCode', label: this.svcTypeText},
+            {name: 'TypeCode', label: this.contractTypeText},
+            {name: 'Period', label: this.quantityText},
+            {name: 'Remaining', label: this.remainingText},
+            {name: 'StartDate', label: this.startText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'EndingDate', label: this.endText , renderer: Mobile.SalesLogix.Format.date},
+	        {name: 'IsActive', label: this.activeText},
+	        {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
+            {options: {title: this.relatedItemsText, list: true}, as: [
                 {
-                    view: 'ticket_related', 
+                    view: 'ticket_related',
                     where: this.formatAccountRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
-                    label: 'tickets',
+                    label: this.relatedTicketsText,
                     icon: 'content/images/ticket_16x16.gif'
                 }
-            ]}           
+            ]}
         ];
-    },        
+    },
     formatAccountRelatedQuery: function(entry, fmt) {
         return String.format(fmt, entry['Account']['$key']);
     },
-    init: function() {     
-        Mobile.SalesLogix.Contract.Detail.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Contract.Detail.superclass.init.call(this);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Contract.Detail.superclass.createRequest.call(this);
-        
-        request         
+
+        request
             .setQueryArgs({
-                'include': 'Account,Address,AccountManager,AccountManager/UserInfo',                
+                'include': 'Account,Address,AccountManager,AccountManager/UserInfo',
                 'select': [
                       'ReferenceNumber',
 	                  'Account/AccountName',
@@ -68,9 +83,9 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             		  'IsActive',
             		  'CreateUser',
             		  'CreateDate'
-                ].join(',')             
+                ].join(',')
             });
-        
-        return request;            
-    } 
+
+        return request;
+    }
 });

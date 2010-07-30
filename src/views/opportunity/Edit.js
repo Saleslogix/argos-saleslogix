@@ -8,35 +8,43 @@
 //Rajkumar. G 05-07-2010
 Ext.namespace("Mobile.SalesLogix.Opportunity");
 
-Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'Opportunity',
+    opportunityText: 'opportunity',
+    estCloseText: 'est. close',
+    potentialText: 'potential',
+    probabilityText: 'probability',
+    weightedText: 'weighted',
+    stageText: 'stage',
+    statusText: 'status',
     constructor: function(o) {
-        Mobile.SalesLogix.Opportunity.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Opportunity.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'opportunity_edit',
-            title: 'Opportunity',
+            title: this.titleText,
             resourceKind: 'Opportunities'
         });
 
         this.layout = [
-            {name: 'Description', label: 'opportunity', type: 'text'},
-            {name: 'EstimatedClose', label: 'est close', type: 'text'},
-            {name: 'SalesPotential', label: 'potential', type: 'text', validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup'}, 
-            {name: 'CloseProbability', label: 'probability', type: 'text', validator: Mobile.SalesLogix.Validator.isInteger, validationTrigger: 'keyup'},
-            {name: 'Weighted', label: 'weighted', type: 'text', validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup'},
-            {name: 'Stage', label: 'stage', type: 'text'},
-            {name: 'Status', label: 'status', type: 'text'}
-                  
+            {name: 'Description', label: this.DescriptionText, type: 'text'},
+            {name: 'EstimatedClose', label: this.estCloseText, type: 'text'},
+            {name: 'SalesPotential', label: this.potentialText, validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup', type: 'text'},
+            {name: 'CloseProbability', label: this.probabilityText, validator: Mobile.SalesLogix.Validator.isInteger, validationTrigger: 'keyup', type: 'text'},
+            {name: 'Weighted', label: this.weightedText, validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup', type: 'text'},
+            {name: 'Stage', label: this.stageText, type: 'text'},
+            {name: 'Status', label: this.statusText, type: 'text'}
+
         ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Opportunity.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Opportunity.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
           .setQueryArgs({
-                'include': 'Account,AccountManager,AccountManager/UserInfo',                
+                'include': 'Account,AccountManager,AccountManager/UserInfo',
                 'select': [
                     'Description',
                     'Account/AccountName',
@@ -51,7 +59,7 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'Status',
                     'CreateDate',
                     'CreateUser'
-                ].join(',')              
+                ].join(',')
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }

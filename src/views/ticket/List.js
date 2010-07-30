@@ -7,41 +7,43 @@
 
 Ext.namespace("Mobile.SalesLogix.Ticket");
 
-Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {   
+Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
+    titleText: 'Ticket',
+    fbartitleText: 'note',
     contentTemplate: new Simplate([
         '<a href="#ticket_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%: $["Account"] ? $["Account"]["AccountName"] : "" %}</h3>',
         '<h4>{%: $["TicketNumber"] %}</h4>',
         '</a>'
-    ]),    
+    ]),
     constructor: function(o) {
-        Mobile.SalesLogix.Ticket.List.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Ticket.List.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'ticket_list',
-            title: 'Tickets',
+            title: this.titleText,
             resourceKind: 'tickets',
             pageSize: 10,
             icon: 'content/images/Ticket_List_3D_32x32.gif'
         });
 
-        Ext.apply(this.tools || {}, {            
+        Ext.apply(this.tools || {}, {
             fbar: [{
                 name: 'test',
-                title: 'note',                        
-                cls: 'tool-note',  
-                icon: 'content/images/Note_32x32.gif',               
+                title: this.titleText,
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
                 fn: function() { alert("one"); },
-                scope: this                
+                scope: this
             },{
                 name: 'test2',
-                title: 'note',                        
-                icon: 'content/images/Whats_New_3D_Files_32x32.gif',             
+                title: this.titleText,
+                icon: 'content/images/Whats_New_3D_Files_32x32.gif',
                 fn: function() { alert("two");},
-                scope: this                
-            }]            
+                scope: this
+            }]
         })
-    },  
+    },
     formatSearchQuery: function(query) {
         return String.format('TicketNumber like "%{0}%"', query);
     },
@@ -52,9 +54,9 @@ Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
             .setQueryArgs({
                 'include': 'Account',
                 'orderby': 'TicketNumber',
-                'select':  'Account/AccountName,TicketNumber'                
+                'select':  'Account/AccountName,TicketNumber'
             });
-           
+
        return request;
     }
 });

@@ -8,26 +8,39 @@
 
 Ext.namespace("Mobile.SalesLogix.Lead");
 
-Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {  
+    titleText: 'Lead', 
+    nameText: 'name',
+    accountText: 'account',
+    workText: 'work',
+    eMailText: 'e-mail',
+    addressText: 'address',
+    webText: 'web',
+    ownerText: 'owner',
+    createUserText: 'create user',
+    createDateText: 'create date',
+    relatedItemsText: 'Related Items',
+    relatedProblemsText: 'Activities',
+    relatedSolutionsText: 'Notes',
     constructor: function(o) {
         Mobile.SalesLogix.Lead.Detail.superclass.constructor.call(this);        
         
         Ext.apply(this, o, {
             id: 'lead_detail',
-            title: 'Lead',
+            title: this.titleText,
             editor: 'lead_edit',
             resourceKind: 'leads'
         });
         this.layout = [
-            {name: 'LeadNameFirstLast', label: 'name'},
-	        {name: 'Company', label: 'account'},
-            {name: 'WorkPhone', label: 'work', renderer: Mobile.SalesLogix.Format.phone},
-	        {name: 'Email', label: 'e-mail', renderer: Mobile.SalesLogix.Format.mail},
-	        {name: 'Address', label: 'address', renderer: Mobile.SalesLogix.Format.address},
-	        {name: 'WebAddress', label: 'web', renderer: Mobile.SalesLogix.Format.link},
-            {name: 'Owner.OwnerDescription', label: 'owner'},
-            {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
+            {name: 'LeadNameFirstLast', label: this.nameText },
+	        {name: 'Company', label: this.accountText},
+            {name: 'WorkPhone', label: this.workText, renderer: Mobile.SalesLogix.Format.phone},
+	        {name: 'Email', label: this.eMailText, renderer: Mobile.SalesLogix.Format.mail},
+	        {name: 'Address', label: this.addressText, renderer: Mobile.SalesLogix.Format.address},
+	        {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
+            {name: 'Owner.OwnerDescription', label: this.ownerText},
+            {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
          ]; 
        },
     init: function() {     

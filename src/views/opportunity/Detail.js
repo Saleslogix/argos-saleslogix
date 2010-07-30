@@ -9,59 +9,76 @@
 
 Ext.namespace("Mobile.SalesLogix.Opportunity");
 
-Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    titleText: 'Opportunity',
+    opportunityText: 'opportunity',
+    accountText: 'account',
+    estCloseText: 'est. close',
+    potentialText: 'potential',
+    probabilityText: 'probability',
+    weightedText: 'weighted',
+    stageText: 'stage',
+    acctMgrText: 'acct mgr',
+    ownerText: 'owner',
+    statusText: 'status',
+    createUserText: 'create user',
+    createDateText: 'create date',
+    relatedItemsText: 'Related Items',
+    relatedActivitiesText: 'Activities',
+    relatedNotesText: 'Notes',
+
     constructor: function(o) {
-        Mobile.SalesLogix.Opportunity.Detail.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Opportunity.Detail.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
-            id: 'opportunity_detail',
-            title: 'Opportunity',
-	    editor: 'opportunity_edit',	
-            resourceKind: 'opportunities'
+        id: 'opportunity_detail',
+        title: this.titleText,
+        editor: 'opportunity_edit',
+        resourceKind: 'opportunities'
         });
 
         this.layout = [
-            {name: 'Description', label: 'opportunity'},
-            {name: 'Account.AccountName', label: 'account', view: 'account_detail', key: 'Account.$key', property: true},
-            {name: 'EstimatedClose', label: 'est. close', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'SalesPotential', label: 'potential', renderer: Mobile.SalesLogix.Format.currency},
-            {name: 'CloseProbability', label: 'probability'},
-            {name: 'Weighted', label: 'weighted', renderer: Mobile.SalesLogix.Format.currency},
-            {name: 'Stage', label: 'stage'},
-            {name: 'AccountManager.UserInfo', label: 'acct mgr', tpl: Mobile.SalesLogix.Template.nameLF},
-            {name: 'Owner.OwnerDescription', label: 'owner'},
-            {name: 'Status', label: 'status'},
-            {name: 'CreateUser', label: 'create user'},  
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
-      
-            {options: {title: 'Related Items', list: true}, as: [                
+            {name: 'Description', label: this.opportunityText},
+            {name: 'Account.AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
+            {name: 'EstimatedClose', label: this.estCloseText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'SalesPotential', label: this.potentialText, renderer: Mobile.SalesLogix.Format.currency},
+            {name: 'CloseProbability', label: this.probabilityText},
+            {name: 'Weighted', label: this.weightedText, renderer: Mobile.SalesLogix.Format.currency},
+            {name: 'Stage', label: this.stageText},
+            {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
+            {name: 'Owner.OwnerDescription', label: this.ownerText},
+            {name: 'Status', label: this.statusText},
+            {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
+
+            {options: {title: this.relatedItemsText, list: true}, as: [
                 {
-                    view: 'activity_related', 
+                    view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(this, ['OpportunityId eq "{0}"'], true),
-                    label: 'Activities',
+                    label: this.relatedActivitiesText,
                     icon: 'content/images/Task_List_3D_24x24.gif'
                 },
                 {
-                    view: 'note_related', 
+                    view: 'note_related',
                     where: this.formatRelatedQuery.createDelegate(this, ['OpportunityId eq "{0}" and Type eq "atNote"'], true),
-                    label: 'Notes',
+                    label: this.relatedNotesText,
                     icon: 'content/images/note_24x24.gif'
                 }
-            ]}         
+            ]}
         ];
-    },        
+    },
     formatAccountRelatedQuery: function(entry, fmt) {
         return String.format(fmt, entry['Account']['$key']);
     },
-    init: function() {     
-        Mobile.SalesLogix.Opportunity.Detail.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Opportunity.Detail.superclass.init.call(this);
     },
     createRequest: function() {
-        var request = Mobile.SalesLogix.Opportunity.Detail.superclass.createRequest.call(this); 
+        var request = Mobile.SalesLogix.Opportunity.Detail.superclass.createRequest.call(this);
 
-        request            
+        request
             .setQueryArgs({
-                'include': 'Account,AccountManager,AccountManager/UserInfo',                
+                'include': 'Account,AccountManager,AccountManager/UserInfo',
                 'select': [
                     'Description',
                     'Account/AccountName',
@@ -76,9 +93,9 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'Status',
                     'CreateDate',
                     'CreateUser'
-                ].join(',')             
+                ].join(',')
             });
 
         return request;
-    } 
+    }
 });

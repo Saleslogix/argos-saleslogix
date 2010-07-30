@@ -8,41 +8,48 @@
 //Rajkumar. G 05-07-2010
 Ext.namespace("Mobile.SalesLogix.Lead");
 
-Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {       
+Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    titleText: 'Lead',
+    firstNameText: 'first',
+    lastNameText: 'last',
+    accountText: 'account',
+    workText: 'work',
+    eMailText: 'e-mail',
+    webText: 'web',
     constructor: function(o) {
-        Mobile.SalesLogix.Lead.Edit.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Lead.Edit.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'lead_edit',
-            title: 'Lead',
+            title: this.titleText,
             resourceKind: 'leads'
         });
 
         this.layout = [
-            {name: 'FirstName', label: 'firstname', type: 'text'},
-            {name: 'LastName', label: 'lastname', type: 'text'}, 
-            {name: 'Company', label: 'account', type: 'text'},
-            {name: 'WorkPhone', label: 'work', type: 'text'}, 
-            {name: 'Email', label: 'e-mail', type: 'text'},
-            {name: 'WebAddress', label: 'web', type: 'text'}          
+            {name: 'FirstName', label: this.firstNameText, type: 'text'},
+            {name: 'LastName',  label: this.lastNameText, type: 'text'},
+            {name: 'Company', label: this.accountText, type: 'text'},
+            {name: 'WorkPhone', label: this.workText, type: 'text'},
+            {name: 'Email', label: this.eMailText, type: 'text'},
+            {name: 'WebAddress', label: this.webText, type: 'text'}
         ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Lead.Edit.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Lead.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'include': 'Account,Address,AccountManager,AccountManager/UserInfo,Owner',
                 'select': [
 		    'FirstName',
-                    'LastName',	
+                    'LastName',
                     'Company',
                     'WorkPhone',
                     'Email',
                     'WebAddress'
-                ].join(',')                  
+                ].join(',')
             })
             .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }

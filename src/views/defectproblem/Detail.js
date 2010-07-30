@@ -8,38 +8,42 @@
 
 Ext.namespace("Mobile.SalesLogix.DefectProblem");
 
-Mobile.SalesLogix.DefectProblem.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.DefectProblem.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    titleText: 'DefectProblem',
+    notesText: 'notes',
+    createUserText: 'create user',
+    createDateText: 'create date',
     constructor: function(o) {
-        Mobile.SalesLogix.DefectProblem.Detail.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.DefectProblem.Detail.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'defectproblem_detail',
-            title: 'DefectProblem',
+            title: this.titleText,
             editor: 'defectproblem_edit',
             resourceKind: 'defectproblems'
         });
 
         this.layout = [
-            {name: 'Notes', label: 'notes'},
-            {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
-            ];
+            {name: 'Notes', label: this.notesText},
+            {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date}
+        ];
     },
-    init: function() {     
-        Mobile.SalesLogix.DefectProblem.Detail.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.DefectProblem.Detail.superclass.init.call(this);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.DefectProblem.Detail.superclass.createRequest.call(this);
-        
-        request                     
+
+        request
             .setQueryArgs({
                 'select': [
                     'Notes',
                     'CreateUser',
                     'CreateDate'
                   ]
-            });     
-        
-        return request;                   
-    } 
+            });
+
+        return request;
+    }
 });

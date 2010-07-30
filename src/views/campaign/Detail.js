@@ -8,33 +8,41 @@
 
 Ext.namespace("Mobile.SalesLogix.Campaign");
 
-Mobile.SalesLogix.Campaign.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.Campaign.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    titleText: 'Campaign',
+    nameText: 'name',
+    codeText: 'code',
+    startText: 'start',
+    acctMgrText: 'acct mgr',
+    createUserText: 'create user',
+    createDateText: 'create date',
+
     constructor: function(o) {
-        Mobile.SalesLogix.Campaign.Detail.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Campaign.Detail.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'campaign_detail',
-            title: 'Campaign',
+            title: this.titleText,
             editor: 'campaign_edit',
             resourceKind: 'campaigns'
         });
 
         this.layout = [
-            {name: 'CampaignName', label: 'name'},
-            {name: 'CampaignCode', label: 'code'},
-            {name: 'StartDate', label: 'start', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'AccountManager.UserInfo.UserName', label: 'acct mgr'},
-            {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
+            {name: 'CampaignName', label: this.nameText},
+            {name: 'CampaignCode', label: this.codeText},
+            {name: 'StartDate', label: this.startText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
+            {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
           ];
     },
-    init: function() {     
-        Mobile.SalesLogix.Campaign.Detail.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.Campaign.Detail.superclass.init.call(this);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Campaign.Detail.superclass.createRequest.call(this);
-        
-        request                     
+
+        request
             .setQueryArgs({
                 'include': 'Address,AccountManager/UserInfo',
                 'select': [
@@ -42,11 +50,13 @@ Mobile.SalesLogix.Campaign.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'CampaignCode',
                     'StartDate',
                     'AccountManager/UserInfo/UserName',
+                    'AccountManager/UserInfo/FirstName',
+                    'AccountManager/UserInfo/LastName',
                     'CreateUser',
                     'CreateDate'
-                  ].join(',')                  
-            });     
-        
-        return request;                   
-    } 
+                  ].join(',')
+            });
+
+        return request;
+    }
 });

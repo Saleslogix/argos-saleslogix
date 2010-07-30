@@ -8,48 +8,63 @@
 
 Ext.namespace("Mobile.SalesLogix.Ticket");
 
-Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    titleText: 'Ticket',
+    ticketIdText: 'ticket id',
+    accountText: 'account',
+    contactText: 'contact',
+    phoneText: 'phone',
+    subjectText: 'subject',
+    urgencyText: 'urgency',
+    areaText: 'area',
+    receivedText: 'received',
+    assignedToText: 'assigned to',
+    statusText: 'status',
+    createUserText: 'create user',
+    createDateText: 'create date',
+    relatedItemsText: 'Related Items',
+    relatedReturnsText: 'Returns',
     constructor: function(o) {
-        Mobile.SalesLogix.Ticket.Detail.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.Ticket.Detail.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'ticket_detail',
-            title: 'Ticket',
+            title: this.titleText,
             editor: 'ticket_edit',
             resourceKind: 'tickets'
         });
 
         this.layout = [
-            {name: 'TicketNumber', label: 'ticket id'},
-            {name: 'Account.AccountName', label: 'account'},
-            {name: 'Contact.NameLF', label: 'contact'},
-            {name: 'Contact.WorkPhone', label: 'phone', renderer: Mobile.SalesLogix.Format.phone},
-            {name: 'Subject', label: 'subject'},
-            {name: 'UrgencyCode', label: 'urgency'},
-            {name: 'Area', label: 'area'},
-            {name: 'ReceivedDate', label: 'received', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'AssignedTo.OwnerDescription', label: 'assigned to'},
-            {name: 'StatusCode', label: 'status'},
-            {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
-            {options: {title: 'Related Items', list: true}, as: [
+            {name: 'TicketNumber', label: this.ticketIdText},
+            {name: 'Account.AccountName', label: this.accountText},
+            {name: 'Contact.NameLF', label: this.contactText},
+            {name: 'Contact.WorkPhone', label: this.phoneText, renderer: Mobile.SalesLogix.Format.phone},
+            {name: 'Subject', label: this.subjectText},
+            {name: 'UrgencyCode', label: this.urgencyText},
+            {name: 'Area', label: this.areaText},
+            {name: 'ReceivedDate', label: this.receivedText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'AssignedTo.OwnerDescription', label: this.assignedToText},
+            {name: 'StatusCode', label: this.statusText},
+            {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
+            {options: {title: this.relatedItemsText, list: true}, as: [
                 {
-                    view: 'return_related', 
+                    view: 'return_related',
                     where: this.formatRelatedQuery.createDelegate(this, ['Account.Id eq "{0}"'], true),
-                    label: 'Returns',
+                    label: this.relatedReturnsText,
                     icon: 'content/images/return_detail_24x24.gif'
                 }
-            ]}              
+            ]}
         ];
     },
-    
-    init: function() {     
-        Mobile.SalesLogix.Ticket.Detail.superclass.init.call(this);   
+
+    init: function() {
+        Mobile.SalesLogix.Ticket.Detail.superclass.init.call(this);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Ticket.Detail.superclass.createRequest.call(this);
-        
-        request                     
+
+        request
             .setQueryArgs({
                 'include': 'Account,Contact,AssignedTo,AccountManager/UserInfo,Owner',
                 'select': [
@@ -67,9 +82,9 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'CreateDate',
                     'Category',
                     'Issue'
-                   ].join(',')                  
-            });     
-        
-        return request;                               
-    } 
+                   ].join(',')
+            });
+
+        return request;
+    }
 });

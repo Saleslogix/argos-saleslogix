@@ -21,25 +21,43 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         Ext.apply(this, o, {
             id: 'account_edit',
-            title: this.titleText,
+<<<<<<< HEAD
+            title: 'Account',
             resourceKind: 'accounts',
             entityName: 'Account'
         });
 
         this.layout = [
+            {name: 'AccountName', label: 'account', type: 'text'},
+            {name: 'MainPhone', label: 'phone', type: 'phone'},
+            {name: 'WebAddress', label: 'web', type: 'text'},
+            {name: 'Type', label: 'type', type: 'text'},
+            {name: 'SubType', label: 'sub-type', type: 'text'},
+            {name: 'Status', label: 'status', type: 'text'}           
+=======
+            title: this.titleText,
+            resourceKind: 'accounts'
+        });
+
+        this.layout = [
             {name: 'AccountName', label: this.accountText, type: 'text'},
-            {name: 'MainPhone', label: this.phoneText, type: 'phone'},
+            {name: 'MainPhone', label: this.phoneText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link, type: 'text'},
             {name: 'Type', label: this.typeText, type: 'text'},
             {name: 'SubType', label: this.subTypeText, type: 'text'},
             {name: 'Status', label: this.statusText, type: 'text'}
+>>>>>>> aaa051aa39bf290f150ec43d650213090fe27e49
         ];
     },
     init: function() {
         Mobile.SalesLogix.Account.Edit.superclass.init.call(this);
     },
     createRequest: function() {
+<<<<<<< HEAD
         return Mobile.SalesLogix.Account.Edit.superclass.createRequest.call(this)    
+=======
+        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+>>>>>>> aaa051aa39bf290f150ec43d650213090fe27e49
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [

@@ -9,58 +9,69 @@
 
 Ext.namespace("Mobile.SalesLogix.SalesOrder");
 
-Mobile.SalesLogix.SalesOrder.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
+Mobile.SalesLogix.SalesOrder.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    titleText: 'SalesOrder',
+    salesOrderIdText: 'sales order id',
+    accountText: 'account',
+    typeText: 'type',
+    statusText: 'status',
+    totalText: 'total',
+    reqDateText: 'req date',
+    commentsText: 'comments',
+    acctMgrText: 'acct mgr',
+    createUserText: 'create user',
+    createDateText: 'create date',
     constructor: function(o) {
-        Mobile.SalesLogix.SalesOrder.Detail.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.SalesOrder.Detail.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'salesorder_detail',
-            title: 'SalesOrder',
+            title: this.titleText,
 	        editor: 'salesorder_edit',//Added by Rajkumar. G to enable edit functionality
             resourceKind: 'salesorders'
         });
 
         this.layout = [
-            {name: 'SalesOrderNumber', label: 'sales order id'},
-            {name: 'Account.AccountName', label: 'account', view: 'account_detail', key: 'Account.$key', property: true},
-            {name: 'OrderType', label: 'type'},
-            {name: 'Status', label: 'status'},
-            {name: 'OrderTotal', label: 'total'},
-            {name: 'DatePromised', label: 'req date', renderer: Mobile.SalesLogix.Format.date},
-            {name: 'Comments', label: 'comments'},
-            {name: 'AccountManager.UserInfo.UserName', label: 'acct mgr'},
-            {name: 'CreateUser', label: 'create user'},
-            {name: 'CreateDate', label: 'create date', renderer: Mobile.SalesLogix.Format.date},
-       
+            {name: 'SalesOrderNumber', label: this.salesOrderIdText},
+            {name: 'Account.AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
+            {name: 'OrderType', label: this.typeText},
+            {name: 'Status', label: this.statusText},
+            {name: 'OrderTotal', label: this.totalText},
+            {name: 'DatePromised', label: this.reqDateText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'Comments', label: this.commentsText},
+            {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
+            {name: 'CreateUser', label: this.createUserText},
+            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
         ];
-    },        
+    },
     formatAccountRelatedQuery: function(entry, fmt) {
         return String.format(fmt, entry['Account']['$key']);
     },
-    init: function() {     
-        Mobile.SalesLogix.SalesOrder.Detail.superclass.init.call(this);   
+    init: function() {
+        Mobile.SalesLogix.SalesOrder.Detail.superclass.init.call(this);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.SalesOrder.Detail.superclass.createRequest.call(this);
-        
-        request         
+
+        request
             .setQueryArgs({
-                'include': 'User/UserInfo,Account,Address,AccountManager,AccountManager/UserInfo',                
+                'include': 'User/UserInfo,Account,Address,AccountManager,AccountManager/UserInfo',
                 'select': [
-                'SalesOrderNumber',
-	            'Account/AccountName',
-		        'OrderType',
-		        'Status',
-		        'OrderTotal',
-		        'DatePromised',
-		        'Comments',
-		        'StartDate',
-		        'AccountManager/UserInfo/UserName',
-		        'CreateUser',
-		        'CreateDate'
-                ].join(',')             
+                'SalesOrderNumber','Account/AccountName',
+                'OrderType',
+                'Status',
+                'OrderTotal',
+                'DatePromised',
+                'Comments',
+                'StartDate',
+                'AccountManager/UserInfo/UserName',
+                'AccountManager/UserInfo/FirstName',
+                'AccountManager/UserInfo/LastName',
+                'CreateUser',
+                'CreateDate'
+                ].join(',')
             });
-        
-        return request;            
-    } 
+
+        return request;
+    }
 });

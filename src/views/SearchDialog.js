@@ -7,30 +7,34 @@
 Ext.namespace("Mobile.SalesLogix");
 
 /// this is a very simple home view.
-Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {   
+Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
+    titleText: 'Search',
+    cancelText: 'Cancel',
+    searchText: 'Search',
+    queryText: 'query',
     viewTemplate: new Simplate([
         '<form id="{%= id %}" class="dialog">',
         '<fieldset>',
         '<h1>{%= title %}</h1>',
-        '<a type="cancel" class="button leftButton">Cancel</a>',
-        '<a class="button blueButton" target="_none">Search</a>',
-        '<label>query:</label>',
+        '<a type="cancel" class="button leftButton">{%= $.titleText %}</a>',
+        '<a class="button blueButton" target="_none">{%= $.searchText %}</a>',
+        '<label>{%= $.queryText %}</label>',
         '<input id="{%= id %}_query" type="text" name="query" />',
         '</fieldset>',
         '</form>'
-    ]),    
+    ]),
     constructor: function(o) {
-        Mobile.SalesLogix.SearchDialog.superclass.constructor.call(this);        
-        
+        Mobile.SalesLogix.SearchDialog.superclass.constructor.call(this);
+
         Ext.apply(this, o, {
             id: 'search_dialog',
-            title: 'Search',
+            title: this.titleText,
             expose: false
-        });        
-    },        
-    init: function() {                                            
+        });
+    },
+    init: function() {
         Mobile.SalesLogix.SearchDialog.superclass.init.call(this);
-        
+
         this.el
             .on('submit', function(evt, el, o) {
                 return false;
@@ -40,27 +44,27 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
         this.el.select('.leftButton')
             .on('click', function(evt, el, o) {
                 this.el.dom.removeAttribute('selected');
-            }, this, { preventDefault: true, stopPropagation: true });    
+            }, this, { preventDefault: true, stopPropagation: true });
 
         this.el.select('.blueButton')
-            .on('click', function(evt, el, o) {    
-                this.search();         
-            }, this, { preventDefault: true, stopPropagation: true });    
-        
+            .on('click', function(evt, el, o) {
+                this.search();
+            }, this, { preventDefault: true, stopPropagation: true });
+
         this.el.select('input[name="query"]')
             .on('keypress', function(evt, el, o) {
-                if (evt.getKey() == 13 || evt.getKey() == 10)  
+                if (evt.getKey() == 13 || evt.getKey() == 10)
                 {
-                    evt.stopEvent();                    
+                    evt.stopEvent();
 
                     /* fix to hide iphone keyboard when go is pressed */
                     if (/(iphone|ipad)/i.test(navigator.userAgent))
                         Ext.get('backButton').focus();
-                    
-                    this.search();                
+
+                    this.search();
                 }
-            }, this);            
-    },    
+            }, this);
+    },
     show: function(context) {
         this.context = context;
         this.el
@@ -69,7 +73,7 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
         Mobile.SalesLogix.SearchDialog.superclass.show.call(this);
 
-        this.el 
+        this.el
             .child('input[name="query"]')
             .focus();
     },
@@ -82,7 +86,7 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
         if (this.context && this.context.fn)
             this.context.fn.call(this.context.scope || this, query);
-     
+
         this.el.dom.removeAttribute('selected');
     }
 });
