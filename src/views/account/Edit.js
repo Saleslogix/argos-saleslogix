@@ -15,12 +15,13 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Ext.apply(this, o, {
             id: 'account_edit',
             title: 'Account',
-            resourceKind: 'accounts'
+            resourceKind: 'accounts',
+            entityName: 'Account'
         });
 
         this.layout = [
             {name: 'AccountName', label: 'account', type: 'text'},
-            {name: 'MainPhone', label: 'phone', type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+            {name: 'MainPhone', label: 'phone', type: 'phone'},
             {name: 'WebAddress', label: 'web', type: 'text'},
             {name: 'Type', label: 'type', type: 'text'},
             {name: 'SubType', label: 'sub-type', type: 'text'},
@@ -31,7 +32,7 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Account.Edit.superclass.init.call(this);   
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())            
+        return Mobile.SalesLogix.Account.Edit.superclass.createRequest.call(this)    
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [
@@ -42,7 +43,6 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'SubType',
                     'Status'
                   ]
-            })
-            .setResourceSelector(String.format("'{0}'", this.entry['$key']));
+            });
     }
 });

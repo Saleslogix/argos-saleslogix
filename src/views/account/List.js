@@ -20,6 +20,7 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'account_list',
             title: 'Accounts',
+            editor: 'account_edit',
             resourceKind: 'accounts',
             pageSize: 10,
             icon: 'content/images/Accounts_24x24.gif'
@@ -27,11 +28,11 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         Ext.apply(this.tools || {}, {            
             fbar: [{
-                name: 'test',
-                title: 'note',                        
+                name: 'new',
+                title: 'new',                        
                 cls: 'tool-note',  
                 icon: 'content/images/Note_32x32.gif',               
-                fn: function() { alert("one"); },
+                fn: this.navigateToInsert,
                 scope: this                
             },{
                 name: 'test2',
