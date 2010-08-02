@@ -22,6 +22,7 @@ Mobile.SalesLogix.Return.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'return_list',
             title: this.titleText,
+            editor: 'return_edit',
             resourceKind: 'returns',
             pageSize: 10,
             icon: 'content/images/return_detail_24x24.gif'
@@ -29,11 +30,11 @@ Mobile.SalesLogix.Return.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         Ext.apply(this.tools || {}, {
             fbar: [{
-                name: 'test',
-                title: this.titleText,
+                name: 'new',
+                title: 'new',
                 cls: 'tool-note',
                 icon: 'content/images/Note_32x32.gif',
-                fn: function() { alert("one"); },
+                fn: this.navigateToInsert,
                 scope: this
             },{
                 name: 'test2',

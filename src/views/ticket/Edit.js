@@ -21,7 +21,8 @@ Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
        Ext.apply(this, o, {
             id: 'ticket_edit',
             title: this.titleText,
-            resourceKind: 'tickets'
+            resourceKind: 'tickets',
+            entityName: 'Ticket'
         });
 
         this.layout = [
@@ -37,7 +38,7 @@ Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Ticket.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+        return Mobile.SalesLogix.Ticket.Edit.superclass.createRequest.call(this) 
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [
@@ -48,6 +49,5 @@ Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'Issue'
                  ]
             })
-            .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
 });

@@ -19,7 +19,8 @@ Mobile.SalesLogix.Campaign.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Ext.apply(this, o, {
             id: 'campaign_edit',
             title: this.titleText,
-            resourceKind: 'campaigns'
+            resourceKind: 'campaigns',
+            entityName: 'Campaign'
         });
 
         this.layout = [
@@ -32,7 +33,7 @@ Mobile.SalesLogix.Campaign.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Campaign.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+        return Mobile.SalesLogix.Campaign.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [
@@ -41,6 +42,5 @@ Mobile.SalesLogix.Campaign.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'StartDate'
                    ]
             })
-            .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
 });

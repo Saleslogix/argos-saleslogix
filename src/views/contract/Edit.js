@@ -19,7 +19,8 @@ Mobile.SalesLogix.Contract.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Ext.apply(this, o, {
             id: 'contract_edit',
             title: this.titleText,
-            resourceKind: 'contracts'
+            resourceKind: 'contracts',
+            entityName: 'Contract'
         });
 
         this.layout = [
@@ -33,7 +34,7 @@ Mobile.SalesLogix.Contract.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Contract.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+        return Mobile.SalesLogix.Contract.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
            .setQueryArgs({
                 'include': 'Account,Address,AccountManager,AccountManager/UserInfo',
@@ -52,6 +53,5 @@ Mobile.SalesLogix.Contract.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                       'CreateDate'
                 ].join(',')
             })
-            .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
 });

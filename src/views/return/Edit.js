@@ -21,7 +21,8 @@ Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Ext.apply(this, o, {
             id: 'return_edit',
             title: this.titleText,
-            resourceKind: 'returns'
+            resourceKind: 'returns',
+            entityName: 'Return'
         });
 
         this.layout = [
@@ -37,7 +38,7 @@ Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Return.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+        return Mobile.SalesLogix.Return.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'include': 'ReturnedBy',
@@ -49,6 +50,5 @@ Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'ReturnedBy/FullName'
                   ].join(',')
             })
-            .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
 });

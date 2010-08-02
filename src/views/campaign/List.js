@@ -21,6 +21,7 @@ Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'campaign_list',
             title: this.titleText,
+            editor: 'campaign_edit',
             resourceKind: 'campaigns',
             pageSize: 10,
             icon: 'content/images/campaigns_detail_24x24.gif'
@@ -28,11 +29,11 @@ Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         Ext.apply(this.tools || {}, {
             fbar: [{
-                name: 'test',
-                title: this.titleText,
+                name: 'new',
+                title: 'new',
                 cls: 'tool-note',
                 icon: 'content/images/Note_32x32.gif',
-                fn: function() { alert("one"); },
+                fn: this.navigateToInsert,
                 scope: this
             },{
                 name: 'test2',

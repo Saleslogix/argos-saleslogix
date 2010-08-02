@@ -23,7 +23,8 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Ext.apply(this, o, {
             id: 'contact_edit',
             title: this.titleText,
-            resourceKind: 'contacts'
+            resourceKind: 'contacts',
+            entityName: 'Contact'
         });
 
         this.layout = [
@@ -39,7 +40,7 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Contact.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+        return Mobile.SalesLogix.Contact.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
            .setQueryArgs({
                 'include': 'Account,Address,AccountManager,AccountManager/UserInfo',
@@ -60,6 +61,5 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'CreateUser'
                 ].join(',')
             })
-            .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
 });

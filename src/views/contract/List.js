@@ -9,6 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Contract");
 
 Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Contract',
+    fbartitleText: 'note',
     contentTemplate: new Simplate([
         '<a href="#contract_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<div>',
@@ -23,10 +24,22 @@ Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'contract_list',
             title: this.titleText,
+            editor: 'contract_edit',
             resourceKind: 'contracts',
             pageSize: 10,
             icon: 'content/images/contract_16x16.gif'
         });
+        
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: this.navigateToInsert,
+                scope: this
+            }]
+        })
     },
     formatSearchQuery: function(query) {
         return String.format('(ReferenceNumber like "%{0}%")', query);

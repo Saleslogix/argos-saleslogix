@@ -9,6 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
 Mobile.SalesLogix.Contact.List = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Contact',
+    fbartitleText: 'note',
     contentTemplate: new Simplate([
         '<a href="#contact_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
         '<h3>{%= NameLF %}</h3>',
@@ -21,10 +22,28 @@ Mobile.SalesLogix.Contact.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'contact_list',
             title: this.titleText,
+            editor: 'contact_edit',
             resourceKind: 'contacts',
             pageSize: 10,
             icon: 'content/images/Contacts_24x24.gif'
         });
+        
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'new',
+                title: 'new',
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: this.navigateToInsert,
+                scope: this
+            },{
+                name: 'test2',
+                title: this.titleText,
+                icon: 'content/images/Whats_New_3D_Files_32x32.gif',
+                fn: function() { alert("two");},
+                scope: this
+            }]
+        })
     },
     formatSearchQuery: function(query) {
         return String.format('(LastName like "%{0}%" or FirstName like "%{0}%")', query);

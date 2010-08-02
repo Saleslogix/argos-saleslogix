@@ -22,6 +22,7 @@ Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'ticket_list',
             title: this.titleText,
+            editor: 'ticket_edit',
             resourceKind: 'tickets',
             pageSize: 10,
             icon: 'content/images/Ticket_List_3D_32x32.gif'
@@ -29,11 +30,11 @@ Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         Ext.apply(this.tools || {}, {
             fbar: [{
-                name: 'test',
-                title: this.titleText,
+                name: 'new',
+                title: 'new',
                 cls: 'tool-note',
                 icon: 'content/images/Note_32x32.gif',
-                fn: function() { alert("one"); },
+                fn: this.navigateToInsert,
                 scope: this
             },{
                 name: 'test2',

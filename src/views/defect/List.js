@@ -21,6 +21,7 @@ Mobile.SalesLogix.Defect.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'defect_list',
             title: this.titleText,
+            editor: 'defect_edit',
             resourceKind: 'defects',
             pageSize: 10,
             icon: 'content/images/defect_detail_24x24.gif'
@@ -28,11 +29,11 @@ Mobile.SalesLogix.Defect.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         Ext.apply(this.tools || {}, {
             fbar: [{
-                name: 'test',
-                title: this.titleText,
+                name: 'new',
+                title: 'new', 
                 cls: 'tool-note',
                 icon: 'content/images/Note_32x32.gif',
-                fn: function() { alert("one"); },
+                fn: this.navigateToInsert,
                 scope: this
             },{
                 name: 'test2',

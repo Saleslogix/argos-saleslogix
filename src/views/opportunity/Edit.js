@@ -10,7 +10,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
 
 Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     titleText: 'Opportunity',
-    opportunityText: 'opportunity',
+    descriptionText: 'description',
     estCloseText: 'est. close',
     potentialText: 'potential',
     probabilityText: 'probability',
@@ -23,11 +23,12 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Ext.apply(this, o, {
             id: 'opportunity_edit',
             title: this.titleText,
-            resourceKind: 'Opportunities'
+            resourceKind: 'Opportunities',
+            entityName: 'Opportunity'
         });
 
         this.layout = [
-            {name: 'Description', label: this.DescriptionText, type: 'text'},
+            {name: 'Description', label: this.descriptionText, type: 'text'},
             {name: 'EstimatedClose', label: this.estCloseText, type: 'text'},
             {name: 'SalesPotential', label: this.potentialText, validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup', type: 'text'},
             {name: 'CloseProbability', label: this.probabilityText, validator: Mobile.SalesLogix.Validator.isInteger, validationTrigger: 'keyup', type: 'text'},
@@ -41,7 +42,7 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Opportunity.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+        return Mobile.SalesLogix.Opportunity.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
           .setQueryArgs({
                 'include': 'Account,AccountManager,AccountManager/UserInfo',
@@ -61,7 +62,6 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'CreateUser'
                 ].join(',')
             })
-            .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
 });
 //Rajkumar. G

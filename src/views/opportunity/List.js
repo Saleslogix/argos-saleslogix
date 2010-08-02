@@ -24,10 +24,28 @@ Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'opportunity_list',
             title: this.titleText,
+            editor: 'opportunity_edit',
             resourceKind: 'opportunities',
             pageSize: 10,
             icon: 'content/images/Opportunity_List_24x24.gif'
         });
+        
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'new',
+                title: 'new',
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: this.navigateToInsert,
+                scope: this
+            },{
+                name: 'test2',
+                title: this.titleText,
+                icon: 'content/images/Whats_New_3D_Files_32x32.gif',
+                fn: function() { alert("two");},
+                scope: this
+            }]
+        })
     },
     formatSearchQuery: function(query) {
         return String.format('(Description like "%{0}%")', query);

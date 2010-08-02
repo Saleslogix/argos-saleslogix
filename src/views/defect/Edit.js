@@ -22,7 +22,8 @@ Mobile.SalesLogix.Defect.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Ext.apply(this, o, {
             id: 'defect_edit',
             title: this.titleText,
-            resourceKind: 'defects'
+            resourceKind: 'defects',
+            entityName: 'Defect'
         });
 
         this.layout = [
@@ -37,7 +38,7 @@ Mobile.SalesLogix.Defect.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Defect.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+        return Mobile.SalesLogix.Defect.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [
@@ -48,6 +49,5 @@ Mobile.SalesLogix.Defect.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'Subject'
                    ]
             })
-            .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
 });

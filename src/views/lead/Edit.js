@@ -22,7 +22,8 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Ext.apply(this, o, {
             id: 'lead_edit',
             title: this.titleText,
-            resourceKind: 'leads'
+            resourceKind: 'leads',
+            entityName: 'Lead'
         });
 
         this.layout = [
@@ -38,7 +39,7 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Lead.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+        return Mobile.SalesLogix.Lead.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'include': 'Account,Address,AccountManager,AccountManager/UserInfo,Owner',
@@ -51,7 +52,6 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'WebAddress'
                 ].join(',')
             })
-            .setResourceSelector(String.format("'{0}'", this.entry['$key']));
     }
 });
 //Rajkumar. G 05-07-2010
