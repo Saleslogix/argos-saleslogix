@@ -1,4 +1,4 @@
-﻿@import url(base.css);
+@import url(base.css);
 
 body
 {
@@ -83,4 +83,11 @@ body > .dialog[selected="true"]
 		color-stop(1, #aaaaaa)
 	);  
 	background: -moz-linear-gradient(top, #e6e6e6, #aaaaaa);
+}
+
+.dialog > fieldset > hr
+{
+    border-style: inset;
+    margin: 0 0 6px 0;
+    border-color: #eeeeee;
 }
