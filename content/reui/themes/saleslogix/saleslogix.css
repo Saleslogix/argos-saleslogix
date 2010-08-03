@@ -1,0 +1,86 @@
+﻿@import url(base.css);
+
+body
+{
+	font-family: Arial, Helvetica;
+	background: #fff;
+	color: #000;
+}
+
+body > .toolbar {
+    border-bottom: 1px solid #2d3642;
+    border-top: 1px solid #6d84a2;  
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);  
+	background: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+}
+
+.toolbar > h1
+{
+	color: #000;
+	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+}
+
+.toolbar > .button
+{
+	text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
+}
+
+/* TESTING */
+/*
+body > .dialog[selected="true"]
+{
+	display: none;
+}
+*/
+
+.button 
+{
+	color: #fff;
+	text-align: center;
+	text-decoration: none;	
+	
+	font-weight: bold;
+	font-size: .8em;
+	
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;   
+    border-radius: 5px; 
+    
+    border: solid 2px #fff;
+    
+    -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+    -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+    
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, rgb(42,101,80)),
+		color-stop(1, rgb(6,74,52))
+	);
+	background: -moz-linear-gradient(
+		center top,
+		rgb(42,101,80) 0%,
+		rgb(6,74,52) 100%
+	);
+}
+
+.dialog > fieldset
+{
+	border-bottom: 1px solid #2d3642;
+    border-top: 1px solid #6d84a2;  
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #aaaaaa)
+	);  
+	background: -moz-linear-gradient(top, #e6e6e6, #aaaaaa);
+}
