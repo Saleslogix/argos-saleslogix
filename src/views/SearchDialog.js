@@ -13,11 +13,10 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
     searchText: 'Search',
     queryText: 'query',
     viewTemplate: new Simplate([
-        '<form id="{%= id %}" class="dialog">',
+        '<form id="{%= id %}" class="dialog search">',
         '<fieldset>',
-        '<h1>{%= title %}</h1>',
-        '<a type="cancel" class="button leftButton">{%= $.titleText %}</a>',
-        '<a class="button blueButton" target="_none">{%= $.searchText %}</a>',
+        '<a type="cancel" class="dismissButton">{%= $.cancelText %}</a>',
+        '<a class="searchButton" target="_none">{%= $.searchText %}</a>',
         '<label>{%= $.queryText %}</label>',
         '<input id="{%= id %}_query" type="text" name="query" />',
         '</fieldset>',
@@ -41,12 +40,16 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
             }, this, { preventDefault: true, stopPropagation: true })
             .dom.onsubmit = false; // fix for iui shenanigans
 
-        this.el.select('.leftButton')
+        this.el.select('.dismissButton')
             .on('click', function(evt, el, o) {
-                this.el.dom.removeAttribute('selected');
+                var searchBox = this.el.select('input[name="query"]').elements[0];
+                if (searchBox.value != "") {
+                    searchBox.value = "";
+                    this.search();
+                }
             }, this, { preventDefault: true, stopPropagation: true });
 
-        this.el.select('.blueButton')
+        this.el.select('.searchButton')
             .on('click', function(evt, el, o) {
                 this.search();
             }, this, { preventDefault: true, stopPropagation: true });
