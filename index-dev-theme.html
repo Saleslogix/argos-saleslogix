@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://sage.com/gobi/mobile">
+<head>      
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    
+    <title>SLX Mobile</title> 
+
+    <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
+    <link rel="apple-touch-startup-image" href="content/images/loading.png">
+
+    <link type="text/css" rel="stylesheet" href="content/reui/themes/saleslogix/saleslogix.css" />        
+    <link type="text/css" rel="stylesheet" href="content/css/app.css" />
+   
+    <script type="text/javascript" src="../../argos-sdk/libraries/ext/ext-core.js"></script>          
+    <script type="text/javascript" src="../../argos-sdk/libraries/reui/reui.js"></script>
+    <script type="text/javascript">ReUI.autoInit = false;</script> 
+        
+    <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
+
+    <script type="text/javascript" src="../../argos-sdk/libraries/datejs/src/core.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/ObjTree.js"></script>     
+    <script type="text/javascript" src="../../argos-sdk/libraries/Base64.js"></script>   
+    <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
+    
+    <script type="text/javascript" src="../../argos-sdk/src/Application.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/Utility.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/Format.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/Toolbar.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/MainToolbar.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/FloatToolbar.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/View.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/List.js"></script>    
+    <script type="text/javascript" src="../../argos-sdk/src/Detail.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/Edit.js"></script>
+
+    <script type="text/javascript" src="src/Application.js"></script>
+    <script type="text/javascript" src="src/Format.js"></script>
+    <script type="text/javascript" src="src/Template.js"></script>
+    <script type="text/javascript" src="src/Validator.js"></script>
+    <script type="text/javascript" src="src/views/LoginDialog.js"></script>
+    <script type="text/javascript" src="src/views/SearchDialog.js"></script>
+    <script type="text/javascript" src="src/views/Home.js"></script>
+    <script type="text/javascript" src="src/views/account/List.js"></script>
+    <script type="text/javascript" src="src/views/account/Detail.js"></script>
+    <script type="text/javascript" src="src/views/account/Edit.js"></script>
+    <script type="text/javascript" src="src/views/activity/List.js"></script>
+    <script type="text/javascript" src="src/views/activity/Detail.js"></script>
+    <script type="text/javascript" src="src/views/activity/Edit.js"></script>
+    <script type="text/javascript" src="src/views/campaign/List.js"></script>
+    <script type="text/javascript" src="src/views/campaign/Detail.js"></script>
+    <script type="text/javascript" src="src/views/campaign/Edit.js"></script>
+    <script type="text/javascript" src="src/views/contact/List.js"></script>
+    <script type="text/javascript" src="src/views/contact/Detail.js"></script>
+    <script type="text/javascript" src="src/views/contact/Edit.js"></script>
+    <script type="text/javascript" src="src/views/contract/List.js"></script>
+    <script type="text/javascript" src="src/views/contract/Detail.js"></script>
+    <script type="text/javascript" src="src/views/contract/Edit.js"></script>
+    <script type="text/javascript" src="src/views/opportunity/List.js"></script>
+    <script type="text/javascript" src="src/views/opportunity/Detail.js"></script>
+    <script type="text/javascript" src="src/views/opportunity/Edit.js"></script>
+    <script type="text/javascript" src="src/views/salesorder/List.js"></script>
+    <script type="text/javascript" src="src/views/salesorder/Detail.js"></script>
+    <script type="text/javascript" src="src/views/salesorder/Edit.js"></script>
+    <script type="text/javascript" src="src/views/lead/List.js"></script>
+    <script type="text/javascript" src="src/views/lead/Detail.js"></script>
+    <script type="text/javascript" src="src/views/lead/Edit.js"></script>
+    <script type="text/javascript" src="src/views/return/List.js"></script>
+    <script type="text/javascript" src="src/views/return/Detail.js"></script>
+    <script type="text/javascript" src="src/views/return/Edit.js"></script>
+    <script type="text/javascript" src="src/views/ticket/List.js"></script>
+    <script type="text/javascript" src="src/views/ticket/Detail.js"></script>
+    <script type="text/javascript" src="src/views/ticket/Edit.js"></script>
+    <script type="text/javascript" src="src/views/defect/List.js"></script>
+    <script type="text/javascript" src="src/views/defect/Detail.js"></script>
+    <script type="text/javascript" src="src/views/defect/Edit.js"></script>
+    <script type="text/javascript" src="src/views/defectproblem/Detail.js"></script>
+    <script type="text/javascript" src="src/views/defectproblem/Edit.js"></script>
+    <script type="text/javascript" src="src/views/defectsolution/Detail.js"></script>
+    <script type="text/javascript" src="src/views/defectsolution/Edit.js"></script>
+    <script type="text/javascript" src="src/views/note/List.js"></script>
+    <script type="text/javascript" src="src/views/note/Detail.js"></script>
+    <script type="text/javascript" src="src/views/note/Edit.js"></script>
+  
+    
+    
+
+    <script type="text/javascript" src="environment/cloud-mobile.js"></script>    
+
+    <script type="text/javascript">
+    Ext.onReady(function() {  
+        App.init();         
+        ReUI.init();      
+
+        Ext.getBody().on('swipe', function(evt, el, o) {
+            console.log('%s: %s', evt.browserEvent.direction, el.id);
+        });     
+    });
+    </script>
+</head>
+<body>
+</body>
+</html>
