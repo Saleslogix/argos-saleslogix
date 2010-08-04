@@ -87,6 +87,8 @@ body > .dialog[selected="true"]
 
 .dialog > fieldset > hr
 {
+    display: inline-block;
+    width: 100%;
     border-style: inset;
     margin: 0 0 6px 0;
     border-color: #eeeeee;
