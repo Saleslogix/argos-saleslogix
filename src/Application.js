@@ -17,6 +17,16 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             context: {}
         });
     },
+    init: function() {
+        Mobile.SalesLogix.Application.superclass.init.call(this);
+        var home;
+        Ext.get("backButton").on("clicklong", function() {
+            home = App.getView('home');
+            if (home) {
+                home.show();
+            }
+        });
+    },
     setup: function () {
         Mobile.SalesLogix.Application.superclass.setup.apply(this, arguments);
        
