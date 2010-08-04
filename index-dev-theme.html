@@ -82,13 +82,64 @@
     <script type="text/javascript" src="src/views/note/List.js"></script>
     <script type="text/javascript" src="src/views/note/Detail.js"></script>
     <script type="text/javascript" src="src/views/note/Edit.js"></script>
-  
-    
-    
-
     <script type="text/javascript" src="environment/cloud-mobile.js"></script>    
 
     <script type="text/javascript">
+    /* theme fixes */
+    ReUI.legacyMode = false;
+    ReUI.updateBackButtonText = false;
+
+    Ext.apply(Sage.Platform.Mobile.MainToolbar.prototype, {
+       barTemplate: new Simplate([
+            '<div class="{%= cls %}">',
+            '<a id="backButton" class="button" href="#">&lt;&lt; Back</a>',
+            '<h1 id="pageTitle">{%= title %}</h1>',
+            '</div>'
+        ])
+    });
+
+    Ext.apply(Mobile.SalesLogix.LoginDialog.prototype, {
+       viewTemplate: new Simplate([
+            '<form id="{%= id %}" class="dialog">',
+            '<fieldset>',
+            '<div class="toolbar">',
+            '<h1>{%= title %}</h1>',
+            '<a class="button blueButton" target="_none"><span>{%= $.titleText %}</span></a>',
+            '</div>',
+            '<hr />',
+            '<label>{%= $.userText %}</label>',
+            '<input id="{%= id %}_user" type="text" name="user" value="lee" />',
+            '<br />',
+            '<label>{%= $.passText %}</label>',
+            '<input id="{%= id %}_pass" type="text" name="password" />',
+            '</fieldset>',
+            '</form>'
+        ])
+    });
+
+    Ext.apply(App, {
+        beforeViewTransitionAway: function(view) {
+            this.fireEvent('beforeviewtransitionaway', view);
+
+            view.beforeTransitionAway();
+        },
+        viewTransitionTo: function(view) {
+            this.fireEvent('viewtransitionto', view);
+
+            for (var n in this.bars)
+                this.bars[n].clear();
+
+            if (view.tools)
+            {
+                for (var n in view.tools)
+                    if (this.bars[n])
+                        this.bars[n].display(view.tools[n]);
+            }
+
+            view.transitionTo();
+        }
+    });
+
     Ext.onReady(function() {  
         App.init();         
         ReUI.init();      
