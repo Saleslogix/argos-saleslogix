@@ -79,5 +79,8 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
             }
                 //ReUI.show("login_dialog");
         }
+    },
+    transitionTo: function() {
+        App.getView("search_dialog").el.hide();
     }
 });
