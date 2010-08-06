@@ -8,6 +8,7 @@ Ext.namespace("Mobile.SalesLogix");
 /// this is a very simple home view.
 Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
     titleText: 'Home',
+    configureText: 'Configure',
     itemTemplate: new Simplate([
         '<li>',
         '<a href="#{%= id %}" target="_view">',
@@ -26,6 +27,19 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
             title: this.titleText,
             selected: true
         });
+        var homeViewScope = this;
+        Ext.apply(this, {
+            tools: {
+                tbar: [{
+                    name: 'configure',
+                    title: this.configureText,
+                    cls: 'configure button',
+                    fn: this.navigateToConfigure,
+                    scope: homeViewScope
+                }]
+            }
+        });
+
     },
     render: function() {
         Mobile.SalesLogix.Home.superclass.render.call(this);
@@ -37,6 +51,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
                 o.push(this.itemTemplate.apply(v[i]));
 
         Ext.DomHelper.append(this.el, o.join(''));
+
     },
     init: function() {
         Mobile.SalesLogix.Home.superclass.init.call(this);
@@ -51,6 +66,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
 
             }, this, { preventDefault: true, stopPropagation: true });
 
+        this.displayTools();
         App.on('registered', this.viewRegistered, this);
     },
     navigateToView: function(el) {
@@ -61,6 +77,9 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
             if (view)
                 view.show();
         }
+    },
+    navigateToConfigure: function() {
+        console.log("Configure...")
     },
     viewRegistered: function(view) {
         Ext.DomHelper.append(this.el, this.itemTemplate.apply(view));
@@ -79,8 +98,19 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
             }
                 //ReUI.show("login_dialog");
         }
+
+    },
+    displayTools: function() {
+        if (this.tools) {
+            for (var n in this.tools)
+                if (App.bars[n])
+                    App.bars[n].display(this.tools[n]);
+        }
     },
     transitionTo: function() {
+        Mobile.SalesLogix.Home.superclass.transitionTo.call(this);
+
         App.getView("search_dialog").el.hide();
+        this.displayTools();
     }
 });
