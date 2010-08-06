@@ -234,3 +234,26 @@ body > form.search.dialog  .dismissButton  {
     top:18px;
     width:16px;
 }
+
+#context_dialog ul {
+    padding-left: 0;
+}
+
+#context_dialog ul > li {
+    font-size:20px;
+    font-weight:bold;
+    list-style:none outside none;
+    margin:0;
+    padding:8px 0;
+    position:relative;
+}
+
+#context_dialog ul > li a.button {
+    position: static;
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    line-height: 40px;
+    height: auto;
+    padding: 0 3px;
+}
