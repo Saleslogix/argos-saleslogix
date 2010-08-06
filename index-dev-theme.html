@@ -92,9 +92,12 @@
     Ext.apply(Sage.Platform.Mobile.MainToolbar.prototype, {
        barTemplate: new Simplate([
             '<div class="{%= cls %}">',
-            '<a id="backButton" class="button" href="#">&lt;&lt; Back</a>',
+            '<a id="backButton" class="button" href="#">&lt;&lt;&nbsp;Back</a>',
             '<h1 id="pageTitle">{%= title %}</h1>',
             '</div>'
+        ]),
+        toolTemplate: new Simplate([
+            '<a target="_tool" class="{%= cls %}" style="visibility: {%= $["hidden"] ? "hidden" : "visible" %}"><span>{%= title %}</span></a>'
         ])
     });
 
@@ -105,8 +108,7 @@
             '<div class="toolbar">',
             '<h1>{%= title %}</h1>',
             '<a class="button blueButton" target="_none"><span>{%= $.titleText %}</span></a>',
-            '</div>',
-            '<hr />',
+            '</div>',            
             '<label>{%= $.userText %}</label>',
             '<input id="{%= id %}_user" type="text" name="user" value="lee" />',
             '<br />',

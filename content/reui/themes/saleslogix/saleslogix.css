@@ -18,6 +18,8 @@ body > .toolbar {
 		color-stop(1, #cccccc)
 	);  
 	background: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 }
 
 .toolbar > h1
@@ -30,14 +32,6 @@ body > .toolbar {
 {
 	text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
 }
-
-/* TESTING */
-/*
-body > .dialog[selected="true"]
-{
-	display: none;
-}
-*/
 
 .button 
 {
@@ -87,9 +81,91 @@ body > .dialog[selected="true"]
 
 .dialog > fieldset > hr
 {
-    display: inline-block;
+    display: block;
     width: 100%;
     border-style: inset;
-    margin: 0 0 6px 0;
     border-color: #eeeeee;
+}
+
+body > div.toolbar-float[open],
+body[orient] > div.toolbar-float[open]
+{
+	background-image: url(../images/arrow-right.png), -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(44,44,44)),
+		color-stop(0.5, rgb(21,21,21)),
+		color-stop(0.5, rgb(49,49,49)),
+		color-stop(1, rgb(79,79,79))
+	);
+	background-image: url(../images/arrow-right.png), -moz-linear-gradient(
+		center bottom,
+		rgb(44,44,44) 0%,
+		rgb(21,21,21) 50%,
+		rgb(49,49,49) 50%,
+		rgb(79,79,79) 100%
+	);
+}
+
+
+.toolbar-float
+{
+	background-image: url(../images/arrow-left.png), -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(44,44,44)),
+		color-stop(0.5, rgb(21,21,21)),
+		color-stop(0.5, rgb(49,49,49)),
+		color-stop(1, rgb(79,79,79))
+	);
+	background-image: url(../images/arrow-left.png), -moz-linear-gradient(
+		center bottom,
+		rgb(44,44,44) 0%,
+		rgb(21,21,21) 50%,
+		rgb(49,49,49) 50%,
+		rgb(79,79,79) 100%
+	);
+
+	background-position: 6px center, top left;
+	background-repeat: no-repeat, no-repeat;
+}
+
+.toolbar-float-container a
+{
+    color: #fff;
+}
+
+h2
+{
+    border-bottom: 1px solid #34491d;
+    border-top: 1px solid #c1d6a9;
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #83ae53),
+		color-stop(1, #69933a)
+	);
+	background: -moz-linear-gradient(top, #83ae53, #69933a);
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    color: white;
+    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0px;
+    font-weight: normal;
+}
+
+.panel > fieldset
+{
+    border-style: none solid solid solid;
+    border-color: #024731;
+    border-width: 0 2px 2px 2px;
+    background: #f2f2f2;    
+}
+
+input:focus
+{
+	outline: none;
+	background-color: #FDFFDD;
 }
