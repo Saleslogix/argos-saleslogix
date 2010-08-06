@@ -40,7 +40,8 @@ Mobile.SalesLogix.Format = (function() {
 
             if (!F.isEmpty(val['Country'])) lines.push(F.encode(val['Country']));
             
-            return nl ? lines.join('\n') : lines.join('<br />');
+            //return nl ? lines.join('\n') : lines.join('<br />');
+            return String.format('<a target="_blank" href="http://maps.google.com/maps?f=s&utm_campaign=en&utm_source=en-ha-na-us-bk-gm&utm_medium=ha&utm_term=google%20maps">{0}</a>',nl ? lines.join('\n') : lines.join('<br />'));
         },
         phone: function(val, withLink) {
             if (typeof val !== 'string') 
