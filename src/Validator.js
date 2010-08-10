@@ -23,6 +23,10 @@ Mobile.SalesLogix.Validator = (function() {
             test: /^[\d,.]+$/,
             message: "'{0}' is not a decimal."
         },
+        isCurrency: {
+            test: /^[\d,]+(\.\d{1,2})?$/,
+            message: "'{0}' is not a valid currency number."
+        },
         isPhoneNumber: {
             fn: function(phoneNumber) {
                 var phoneRegExp = /^[\w\d)( ]+$/i;
