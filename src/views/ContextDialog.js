@@ -12,6 +12,8 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     cancelText: 'Cancel',
     activitiesText: 'Activities',
     notesText: 'Notes',
+    detailView: '',
+    relatedKey: '',
     viewTemplate: new Simplate([
         '<form id="{%= id %}" class="dialog">',
             '<fieldset>',
@@ -34,6 +36,31 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     },
     init: function() {
         Mobile.SalesLogix.ContextDialog.superclass.init.call(this);
+        var getRelatedOptionsFromLayout = function(detailView, type) {
+            for (var i = detailView.layout.length - 1; i >= 0; i--) {
+                var as = detailView.layout[i].as;
+                if (!as) continue;
+                for (var j = as.length - 1; j >= 0; j--) {
+                    if (as[j].view == type) {
+                        return as[j];
+                    }
+                }
+            }
+        };
+
+        var handlerForRelatedType = function(evt, el, o, scope, related_view) {
+            scope.dismissDialog();
+
+            var detailView = App.getView(scope.detailView),
+                o = {},
+                activityRelatedOptions = getRelatedOptionsFromLayout(detailView, related_view);
+            o.where = detailView.expandExpression(activityRelatedOptions.where, {"$key": scope.relatedKey});
+
+            detailView.navigateToRelated(related_view, o);
+            //Reset key and descriptor
+            scope.detailView = '';
+            scope.relatedKey = '';
+        };
 
         this.el
             .on('submit', function(evt, el, o) {
@@ -48,14 +75,23 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
         this.el.select('.activities')
             .on('click', function(evt, el, o) {
-                this.dismissDialog();
+                handlerForRelatedType(evt, el, o, this, "activity_related");
             }, this, { preventDefault: true, stopPropagation: true });
 
         this.el.select('.notes')
             .on('click', function(evt, el, o) {
-                this.dismissDialog();
+                handlerForRelatedType(evt, el, o, this, "note_related");
             }, this, { preventDefault: true, stopPropagation: true });
     },
+
+    show: function(el) {
+        Mobile.SalesLogix.ContextDialog.superclass.show.call(this);
+        el = new Ext.Element(el);
+        var link = el.parent('a');
+        this.detailView = link.dom.hash.substring(1);
+        this.relatedKey = link.getAttribute("m:key");
+    },
+
     dismissDialog: function() {
         this.el.dom.removeAttribute('selected');
         // UGLY Hack... Find another way to show/hide Search box.

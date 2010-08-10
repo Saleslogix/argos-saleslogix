@@ -11,7 +11,7 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
     titleText: 'Search',
     cancelText: 'Cancel',
     searchText: 'Search',
-    queryText: 'query',
+    queryText: 'Search',
     viewTemplate: new Simplate([
         '<form id="{%= id %}" class="dialog search">',
         '<fieldset>',
@@ -33,7 +33,8 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
     },
     init: function() {
         Mobile.SalesLogix.SearchDialog.superclass.init.call(this);
-
+        
+        this.el.setVisibilityMode(Ext.Element.DISPLAY);
         this.el
             .on('submit', function(evt, el, o) {
                 return false;
@@ -45,8 +46,8 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
                 var searchBox = this.el.select('input[name="query"]').elements[0];
                 if (searchBox.value != "") {
                     searchBox.value = "";
-                    this.search();
                 }
+                Ext.get(el).hide();
             }, this, { preventDefault: true, stopPropagation: true });
 
         this.el.select('.searchButton')
@@ -67,18 +68,35 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
                     this.search();
                 }
             }, this);
+
+        this.el.select('input[name="query"]')
+            .on('keyup', function(evt, el, o) {
+                if (el.value == "") {
+                    this.el.select('.dismissButton').hide();
+                    this.el.select('label').show();
+                }
+                else {
+                    this.el.select('.dismissButton').show();
+                    this.el.select('label').hide();
+                }
+            }, this);
     },
     show: function(context) {
         this.context = context;
-        this.el
-            .child('input[name="query"]')
-            .dom.value = typeof this.context.query === 'string' ? this.context.query : '';
+        var searchBox = this.el
+            .child('input[name="query"]').dom;
+        searchBox.value = typeof this.context.query === 'string' ? this.context.query : '';
+
+        if (searchBox.value == "") {
+            this.el.select('.dismissButton').hide();
+            this.el.select('label').show();
+        }
+        else {
+            this.el.select('.dismissButton').show();
+            this.el.select('label').hide();
+         }
 
         Mobile.SalesLogix.SearchDialog.superclass.show.call(this);
-
-        this.el
-            .child('input[name="query"]')
-            .focus();
     },
     search: function() {
         // todo: get actual parameters and validate them by requesting a simple feed (i.e. $service)
