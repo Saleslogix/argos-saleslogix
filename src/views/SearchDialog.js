@@ -11,7 +11,7 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
     titleText: 'Search',
     cancelText: 'Cancel',
     searchText: 'Search',
-    queryText: 'query',
+    queryText: 'Search',
     viewTemplate: new Simplate([
         '<form id="{%= id %}" class="dialog search">',
         '<fieldset>',
@@ -33,7 +33,8 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
     },
     init: function() {
         Mobile.SalesLogix.SearchDialog.superclass.init.call(this);
-
+        
+        this.el.setVisibilityMode(Ext.Element.DISPLAY);
         this.el
             .on('submit', function(evt, el, o) {
                 return false;
@@ -46,6 +47,7 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
                 if (searchBox.value != "") {
                     searchBox.value = "";
                 }
+                Ext.get(el).hide();
             }, this, { preventDefault: true, stopPropagation: true });
 
         this.el.select('.searchButton')
@@ -66,17 +68,17 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
                     this.search();
                 }
             }, this);
-        var showOrHideDismissButton = function(el, context) {
-            if (el.value == "") {
-                context.el.select('.dismissButton').hide();
-            }
-            else {
-                context.el.select('.dismissButton').show();
-            }
-        };
+
         this.el.select('input[name="query"]')
             .on('keyup', function(evt, el, o) {
-                showOrHideDismissButton(el, this);
+                if (el.value == "") {
+                    this.el.select('.dismissButton').hide();
+                    this.el.select('label').show();
+                }
+                else {
+                    this.el.select('.dismissButton').show();
+                    this.el.select('label').hide();
+                }
             }, this);
     },
     show: function(context) {
@@ -87,9 +89,11 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
         if (searchBox.value == "") {
             this.el.select('.dismissButton').hide();
+            this.el.select('label').show();
         }
         else {
             this.el.select('.dismissButton').show();
+            this.el.select('label').hide();
          }
 
         Mobile.SalesLogix.SearchDialog.superclass.show.call(this);
