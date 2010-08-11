@@ -103,8 +103,10 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
     displayTools: function() {
         if (this.tools) {
             for (var n in this.tools)
-                if (App.bars[n])
+                if (App.bars[n]) {
+                    App.bars[n].clear();
                     App.bars[n].display(this.tools[n]);
+                }
         }
     },
     transitionTo: function() {
