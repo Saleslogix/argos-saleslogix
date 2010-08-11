@@ -30,9 +30,9 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         this.layout = [
             {name: 'Description', label: this.descriptionText, type: 'text'},
             {name: 'EstimatedClose', label: this.estCloseText, type: 'text'},
-            {name: 'SalesPotential', label: this.potentialText, validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup', type: 'text'},
+            {name: 'SalesPotential', label: this.potentialText, validator: Mobile.SalesLogix.Validator.isCurrency, validationTrigger: 'keyup', type: 'text'},
             {name: 'CloseProbability', label: this.probabilityText, validator: Mobile.SalesLogix.Validator.isInteger, validationTrigger: 'keyup', type: 'text'},
-            {name: 'Weighted', label: this.weightedText, validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup', type: 'text'},
+            {name: 'Weighted', label: this.weightedText, validator: Mobile.SalesLogix.Validator.isCurrency, validationTrigger: 'keyup', type: 'text'},
             {name: 'Stage', label: this.stageText, type: 'text'},
             {name: 'Status', label: this.statusText, type: 'text'}
 

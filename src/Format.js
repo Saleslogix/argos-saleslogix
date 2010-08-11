@@ -71,14 +71,39 @@ Mobile.SalesLogix.Format = (function() {
         currency: function(val) {
             // todo: add localization support
             var v = Mobile.SalesLogix.Format.fixed(val); 
-            var f = Math.floor(100 * (v - Math.floor(v)));
+            
+            //below code is to split decimal part and round off it
+            
+            var roundoffVal = v;
+            n = roundoffVal.toString();
+    
+            var temp = new Array();
+            temp = null;
+            
+            temp = n.split('.');
+            var arrcnt = temp.length;
+            
+            if(arrcnt > 1)
+            {            
+                a = temp[0];
+                b = temp[1];
+                c = temp[1].substr(0,2);
+                c = Math.round(c);
+            }
+            else
+            {
+                a = temp[0];
+                c = 0
+            }
+            
+            var f = c;//Math.floor(100 * (v - Math.floor(v)));
             
             return String.format('${0}.{1}',
                 (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
                 (f.toString().length < 2)
                     ? '0' + f.toString()
                     : f.toString()
-            );        
+            );  
         },
          notes : function(st)
       {
