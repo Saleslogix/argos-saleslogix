@@ -1,7 +1,8 @@
-module("Home View", {
+module("Home", {
     setup: function() {
         //Configured in Saleslogix.html
         S.open(Saleslogix.URL);
+        Saleslogix.Common.Login();
     }
 });
 
