@@ -79,7 +79,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
         }
     },
     navigateToConfigure: function() {
-        console.log("Configure...")
+        App.getView('configure').show();
     },
     viewRegistered: function(view) {
         Ext.DomHelper.append(this.el, this.itemTemplate.apply(view));
