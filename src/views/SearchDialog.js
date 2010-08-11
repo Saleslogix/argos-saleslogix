@@ -107,7 +107,5 @@ Mobile.SalesLogix.SearchDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
         if (this.context && this.context.fn)
             this.context.fn.call(this.context.scope || this, query);
-
-        this.el.dom.removeAttribute('selected');
     }
 });

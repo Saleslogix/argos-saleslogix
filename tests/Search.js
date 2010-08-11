@@ -31,7 +31,7 @@ var navigateToAccountDetail = function(callback) {
 };
 
 test('Search box default properties', function() {
-    expect(9);
+    expect(10);
     
     S('#home').visible(function(){
         equals(S('#search_dialog').css('display'), 'none', 'Search box must not be visible on Home screen');
@@ -40,9 +40,16 @@ test('Search box default properties', function() {
             S('#search_dialog_query').visible(function(){
                 equals(S('#search_dialog .dismissButton').css('visibility'), 'hidden', 'Dismiss Button must not be visible if search box is empty');
                 equals(S('#search_dialog label').css('visibility'), 'visible', 'Search label must be visible if search box is empty');
+                FuncUnit._window.Ext.get('search_dialog_query').dom.value = '';
                 S('#search_dialog_query').type("search", function(){
                     equals(S('#search_dialog .dismissButton').css('visibility'), 'visible', 'Dismiss Button must be visible if search box is not empty');
                     equals(S('#search_dialog label').css('visibility'), 'hidden', 'Search label must be visible if search box is not empty');
+                });
+                FuncUnit._window.Ext.get('search_dialog_query').dom.value = '';
+                S('#search_dialog_query').type("Abbot", function(){
+                    S('#search_dialog .searchButton').click(function(){
+                        equals(S('#search_dialog').css('display'), 'block', 'Search box must be visible after search is performed');
+                    });
                 });
             });
         });
@@ -77,5 +84,3 @@ test('Search box while using back button', function() {
         });
     });
 });
-
-
