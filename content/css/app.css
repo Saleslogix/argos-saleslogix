@@ -257,3 +257,39 @@ body > form.search.dialog  .dismissButton  {
     height: auto;
     padding: 0 3px;
 }
+
+ul#configure > li > .resource {
+    display: block;
+    margin: -8px 0 -8px -10px;
+    padding: 8px 32px 8px 36px;
+}
+
+ul#configure > li > .moveup,
+ul#configure > li > .movedown {
+    float: right;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+}
+
+ul#configure > li:first-child > .moveup,
+ul#configure > li:last-child > .movedown {
+    visibility: hidden;
+}
+
+ul#configure > li > .moveup {
+    background-image: url(../images/Previous_16x16.gif);
+    margin-right:20px;
+}
+
+ul#configure > li > .movedown {
+    background-image: url(../images/Next_16x16.gif);
+}
+
+ul#configure > li > .list-selector {
+    margin-top:12px;
+}
