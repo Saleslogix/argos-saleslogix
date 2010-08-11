@@ -111,8 +111,6 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
     },
     transitionTo: function() {
         Mobile.SalesLogix.Home.superclass.transitionTo.call(this);
-
-        App.getView("search_dialog").el.hide();
         this.displayTools();
     }
 });
