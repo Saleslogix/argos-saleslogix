@@ -20,8 +20,8 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     createUserText: 'create user',
     createDateText: 'create date',
     relatedItemsText: 'Related Items',
-    relatedProblemsText: 'Activities',
-    relatedSolutionsText: 'Notes',
+    relatedActivitiesText: 'Activities',
+    relatedNotesText: 'Notes',
     constructor: function(o) {
         Mobile.SalesLogix.Lead.Detail.superclass.constructor.call(this);        
         
@@ -33,14 +33,28 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
         this.layout = [
             {name: 'LeadNameFirstLast', label: this.nameText },
-	        {name: 'Company', label: this.accountText},
+            {name: 'Company', label: this.accountText},
             {name: 'WorkPhone', label: this.workText, renderer: Mobile.SalesLogix.Format.phone},
-	        {name: 'Email', label: this.eMailText, renderer: Mobile.SalesLogix.Format.mail},
-	        {name: 'Address', label: this.addressText, renderer: Mobile.SalesLogix.Format.address},
-	        {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
+            {name: 'Email', label: this.eMailText, renderer: Mobile.SalesLogix.Format.mail},
+            {name: 'Address', label: this.addressText, renderer: Mobile.SalesLogix.Format.address},
+            {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
             {name: 'Owner.OwnerDescription', label: this.ownerText},
             {name: 'CreateUser', label: this.createUserText},
             {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
+            {options: {title: this.relatedItemsText, list: true}, as: [
+                {
+                    view: 'activity_related',
+                    where: this.formatRelatedQuery.createDelegate(this, ['LeadId eq "{0}"'], true),
+                    label: this.relatedActivitiesText,
+                    icon: 'content/images/Task_List_3D_24x24.gif'
+                },
+                {
+                    view: 'note_related',
+                    where: this.formatRelatedQuery.createDelegate(this, ['LeadId eq "{0}" and Type eq "atNote"'], true),
+                    label: this.relatedNotesText,
+                    icon: 'content/images/note_24x24.gif'
+                }
+            ]}
          ]; 
        },
     init: function() {     
@@ -54,7 +68,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 'include': 'Address,AccountManager,AccountManager/UserInfo,Owner',
                 'select': [
                     'LeadNameFirstLast',
-	                'FirstName',
+                    'FirstName',
                     'LastName',	
                     'Company',
                     'WorkPhone',
