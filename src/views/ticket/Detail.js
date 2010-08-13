@@ -24,6 +24,8 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     createDateText: 'create date',
     relatedItemsText: 'Related Items',
     relatedReturnsText: 'Returns',
+    relatedActivitiesText: 'Activities',
+    relatedNotesText: 'Notes',
     constructor: function(o) {
         Mobile.SalesLogix.Ticket.Detail.superclass.constructor.call(this);
 
@@ -53,6 +55,18 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     where: this.formatRelatedQuery.createDelegate(this, ['Account.Id eq "{0}"'], true),
                     label: this.relatedReturnsText,
                     icon: 'content/images/return_detail_24x24.gif'
+                },
+                {
+                    view: 'activity_related',
+                    where: this.formatRelatedQuery.createDelegate(this, ['Account.Id eq "{0}"'], true),
+                    label: this.relatedActivitiesText,
+                    icon: 'content/images/Task_List_3D_24x24.gif'
+                },
+                {
+                    view: 'note_related',
+                    where: this.formatRelatedQuery.createDelegate(this, ['Account.Id eq "{0}" and Type eq "atNote"'], true),
+                    label: this.relatedNotesText,
+                    icon: 'content/images/note_24x24.gif'
                 }
             ]}
         ];
