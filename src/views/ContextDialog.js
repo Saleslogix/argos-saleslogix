@@ -94,8 +94,5 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
     dismissDialog: function() {
         this.el.dom.removeAttribute('selected');
-        // UGLY Hack... Find another way to show/hide Search box.
-        // May be it should not use "selected" attribute.
-        Ext.select('#search_dialog').item(0).dom.setAttribute('selected', 'true');
     }
 });
