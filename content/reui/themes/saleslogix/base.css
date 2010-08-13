@@ -405,11 +405,6 @@ body[orient] > div.toolbar-float[open]
     position: relative;
 }
 
-.panel > h2:first-child
-{
-    border-top: none 0 black;
-}
-
 .panel > fieldset
 {
     -moz-border-radius-bottomleft: 8px;
