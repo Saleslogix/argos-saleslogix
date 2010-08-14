@@ -229,16 +229,19 @@ input.field-error
 .search .dismissButton  {
     background-image: url("../images/dismiss.gif");
     background-repeat: no-repeat;
+    background-position: 8px 8px;
     color:transparent;
     cursor:pointer;
     display:inline-block;
-    height:16px;
+    height:32px;
     overflow:hidden;
     position:absolute;
-    right:50px;
-    top:18px;
-    width:16px;
+    right:43px;
+    top:8px;
+    width:32px;
     visibility:hidden;
+    z-index: 13;
+    cursor: auto;
 }
 
 #context_dialog ul {
