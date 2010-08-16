@@ -2,7 +2,7 @@
 
 body
 {
-	font-family: Arial, Helvetica;
+	font-family: Helvetica, Arial;
 	background: #fff;
 	color: #000;
 }
@@ -42,11 +42,12 @@ body > .toolbar {
 	font-weight: bold;
 	font-size: .8em;
 	
-	-webkit-border-radius: 5px;
-    -moz-border-radius: 5px;   
-    border-radius: 5px; 
+	-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
     
     border: solid 2px #fff;
+    cursor: pointer;
     
     -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
     -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
@@ -79,6 +80,12 @@ body > .toolbar {
 		color-stop(1, #aaaaaa)
 	);  
 	background: -moz-linear-gradient(top, #e6e6e6, #aaaaaa);
+    -moz-border-radius-bottomleft: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
 }
 
 .dialog > fieldset > hr
@@ -188,12 +195,10 @@ li.search
 		color-stop(1, #69933a)
 	);
 	background: -moz-linear-gradient(top, #83ae53, #69933a);
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 	border-bottom: 1px solid #34491d;
     border-top: 1px solid #83ae53;
-}
-
-li.search > div
-{
 }
 
 li.search input
@@ -204,10 +209,12 @@ li.search input
     /* these are marked !important due to Chrome CSS fix */
     /* todo: needed still? */
     padding: 0 128px 0 5px !important;
-    -moz-border-radius: 5px !important;
-    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 3px !important;
+    -webkit-border-radius: 3px !important;
     border: 1px solid rgba(6, 74, 52, 1) !important;
-    background: #fff;   
+    background: #fff;
+    -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+    -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
@@ -222,8 +229,8 @@ li.search .searchButton
 		color-stop(1, #cccccc)
 	);
 	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
-    -moz-border-radius:0 5px 5px 0;
-    -webkit-border-radius:0 5px 5px 0;
+    -moz-border-radius:0 3px 3px 0;
+    -webkit-border-radius:0 3px 3px 0;
     color: #555;
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
     font-size: .6em;
@@ -282,6 +289,11 @@ li.search label
 .panel > ul > li
 {
     border-bottom: solid 1px #ddd;
+}
+
+.panel > ul > li:last-child
+{
+    border-bottom: none 0 black;
 }
 
 .panel > ul > li > a,
