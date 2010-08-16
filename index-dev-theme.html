@@ -17,13 +17,18 @@
     <script type="text/javascript" src="../../argos-sdk/libraries/reui/reui.js"></script>
     <script type="text/javascript">ReUI.autoInit = false;</script> 
         
+    <script type="text/javascript" src="../../argos-sdk/libraries/sage/sage.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/sage/class.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/sage/deferred.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/sage/event.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/sage/evented.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
 
     <script type="text/javascript" src="../../argos-sdk/libraries/datejs/src/core.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/ObjTree.js"></script>     
-    <script type="text/javascript" src="../../argos-sdk/libraries/Base64.js"></script>   
+    <script type="text/javascript" src="../../argos-sdk/libraries/ObjTree.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/Base64.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
-    
+
     <script type="text/javascript" src="../../argos-sdk/src/Application.js"></script>
     <script type="text/javascript" src="../../argos-sdk/src/Utility.js"></script>
     <script type="text/javascript" src="../../argos-sdk/src/Format.js"></script>
@@ -31,7 +36,7 @@
     <script type="text/javascript" src="../../argos-sdk/src/MainToolbar.js"></script>
     <script type="text/javascript" src="../../argos-sdk/src/FloatToolbar.js"></script>
     <script type="text/javascript" src="../../argos-sdk/src/View.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/List.js"></script>    
+    <script type="text/javascript" src="../../argos-sdk/src/List.js"></script>
     <script type="text/javascript" src="../../argos-sdk/src/Detail.js"></script>
     <script type="text/javascript" src="../../argos-sdk/src/Edit.js"></script>
 
@@ -39,9 +44,10 @@
     <script type="text/javascript" src="src/Format.js"></script>
     <script type="text/javascript" src="src/Template.js"></script>
     <script type="text/javascript" src="src/Validator.js"></script>
+    <script type="text/javascript" src="src/views/ContextDialog.js"></script>
     <script type="text/javascript" src="src/views/LoginDialog.js"></script>
-    <script type="text/javascript" src="src/views/SearchDialog.js"></script>
     <script type="text/javascript" src="src/views/Home.js"></script>
+    <script type="text/javascript" src="src/views/Configure.js"></script>
     <script type="text/javascript" src="src/views/account/List.js"></script>
     <script type="text/javascript" src="src/views/account/Detail.js"></script>
     <script type="text/javascript" src="src/views/account/Edit.js"></script>
@@ -116,6 +122,17 @@
             '<input id="{%= id %}_pass" type="text" name="password" />',
             '</fieldset>',
             '</form>'
+        ])
+    });
+
+    Ext.apply(Sage.Platform.Mobile.List.prototype, {
+        searchTemplate: new Simplate([
+            '<li class="search">',
+            '<input type="text" name="query" class="query" />',
+            '<div class="dismissButton">X</div>',
+            '<div class="searchButton">Search</div>',
+            '<label>{%= $.searchText %}</label>',            
+            '</li>'
         ])
     });
 

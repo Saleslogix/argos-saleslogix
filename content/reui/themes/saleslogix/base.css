@@ -236,7 +236,7 @@ h4
 	font-size: .5em;
 	margin: 0;
 	padding: 0;
-	color: #999999;
+	color: #556382;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -461,4 +461,112 @@ div.row a[target=_related]
 .no-data
 {
 	text-align: center;
+}
+
+li.search
+{
+    padding: 6px;
+    position: relative;
+}
+
+li.search input
+{    
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    height: 32px;
+    margin: 0 !important;
+}
+
+li.search .searchButton
+{    
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: absolute;
+    display: inline-block;    
+    height: 32px;
+    width: 64px;
+    right: 6px;
+    top: 6px;
+    border: solid 1px black;
+}
+
+li.search .dismissButton {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: absolute;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    right: 70px;
+    top: 6px;
+    border: solid 1px black;
+}
+
+li.search label
+{
+    position: absolute;
+    top: 6px;
+    left: 6px;
+}
+
+.panel > ul
+{
+    margin: 0 12px 24px 12px;
+    padding: 0;
+}
+
+.panel > ul > li
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.panel > ul > li > a,
+.panel > ul > * > a
+{
+    padding: 8px;
+    margin: 0px;
+    display: block;
+}
+
+.panel > ul > li > a > img.icon,
+.panel > ul > * > a > img.icon
+{
+    border: none 0 black;
+    margin: 0 .5em 0 0;
+    width: 24px;
+    height: 24px;
+}
+
+div.row-edit > label
+{
+	position: absolute;
+    height: 32px;
+    line-height: 32px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.row > input:not([type|=radio]):not([type|=checkbox])
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+    margin: 0;
+    border: none 0px black;
+    padding: 0px 10px 0 110px !important;
+    height: 32px !important;
+    border: none 0px transparent;
+    background: transparent;
+}
+
+.row > input[type|=radio], .row > input[type|=checkbox]
+{
+  margin: 7px 7px 0 0;
+  height: 25px;
+  width: 25px;
 }

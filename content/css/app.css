@@ -1,11 +1,11 @@
-﻿/* adjust input positions for search dialog */
-#search_dialog input:not(input[type|=radio]):not(input[type|=checkbox])
+/* adjust input positions for search dialog */
+.search input:not(input[type|=radio]):not(input[type|=checkbox])
 {
     padding: 6px 6px 6px 50px;
 }
 
 /* same as above, but for chrome fix */
-#search_dialog input:not([type|=radio]):not([type|=checkbox]) 
+.search input:not([type|=radio]):not([type|=checkbox]) 
 {
     padding: 6px;
 }
@@ -172,42 +172,43 @@ input.field-error
     height: auto;
     padding: 10px 10px 0 110px;
 }
-
-body > .List {
-    top: 96px;
+/*
+.search.toolbar {
+  width: auto;
+  padding-top: 0;
+  background-image: none;
 }
-
-body > form.search.dialog {
-    height: auto;
-    min-height: 0;
-    top: 45px;
-    z-index: 0;
-}
-
-body > form.search.dialog  fieldset {
+*/
+/*
+.search fieldset {
     background-position: 0 52px;
-    border-top-width: 0;
-    padding-bottom: 10px;
-    padding-top: 0;
-    padding-right: 40px;
+    border: none;
+    padding: 0 40px 10px 0;
     text-align: left;
 }
+.search label {
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: -24px;
+    margin-left: 7px;
+    color: gray;
+    display: block;
+}
 
-body > #search_dialog  fieldset input {
+.search input.query {
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
     padding-right: 35px;
 }
 
-body > #search_dialog  #search_dialog_query {
-    -moz-border-radius: 5px 0 0 5px;
-}
-
-body > form.search.dialog  .searchButton {
+.search .searchButton {
     -moz-border-radius:0 5px 5px 0;
+    -webkit-border-radius:0 5px 5px 0;
     background-color: #FFF;
     background-image: url("../images/Find_32x32.gif");
     background-position: 2px 3px;
     background-repeat: no-repeat;
-    border-left:2px solid #999;
+    border-left-width: 2px solid gray;
     color:transparent;
     cursor:pointer;
     display:inline-block;
@@ -221,7 +222,12 @@ body > form.search.dialog  .searchButton {
     width:24px;
 }
 
-body > form.search.dialog  .dismissButton  {
+.ext-webkit .search .searchButton {
+  height: 23px;
+  background-position: 0 0;
+}
+
+.search .dismissButton  {
     background-image: url("../images/dismiss.gif");
     background-repeat: no-repeat;
     color:transparent;
@@ -233,8 +239,9 @@ body > form.search.dialog  .dismissButton  {
     right:50px;
     top:18px;
     width:16px;
+    visibility:hidden;
 }
-
+*/
 #context_dialog ul {
     padding-left: 0;
 }

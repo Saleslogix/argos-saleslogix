@@ -33,7 +33,7 @@ body > .toolbar {
 	text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
 }
 
-.button 
+.toolbar > .button 
 {
 	color: #fff;
 	text-align: center;
@@ -63,6 +63,8 @@ body > .toolbar {
 		rgb(42,101,80) 0%,
 		rgb(6,74,52) 100%
 	);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
 }
 
 .dialog > fieldset
@@ -174,4 +176,123 @@ input:focus
 {
 	outline: none;
 	background-color: #FDFFDD;
+}
+
+li.search
+{        
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #83ae53),
+		color-stop(1, #69933a)
+	);
+	background: -moz-linear-gradient(top, #83ae53, #69933a);
+	border-bottom: 1px solid #34491d;
+    border-top: 1px solid #83ae53;
+}
+
+li.search > div
+{
+}
+
+li.search input
+{
+    font-size: .6em;
+    line-height: 30px;
+
+    /* these are marked !important due to Chrome CSS fix */
+    /* todo: needed still? */
+    padding: 0 128px 0 5px !important;
+    -moz-border-radius: 5px !important;
+    -webkit-border-radius: 5px !important;
+    border: 1px solid rgba(6, 74, 52, 1) !important;
+    background: #fff;   
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+li.search .searchButton
+{
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    -moz-border-radius:0 5px 5px 0;
+    -webkit-border-radius:0 5px 5px 0;
+    color: #555;
+	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+    font-size: .6em;
+    line-height: 30px;
+    padding: 0 8px 0 6px;
+    border: solid 1px rgb(6,74,52);
+    text-align: center;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+li.search .dismissButton
+{
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    color: #555;
+	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+    font-size: .6em;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    border-style: solid;
+    border-color: rgb(6,74,52);
+    border-width: 1px 0 1px 1px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;  
+}
+
+li.search label
+{
+    color: #aaa;
+    font-size: .6em !important;
+    line-height: 32px;
+    padding: 0 8px 0 6px;
+    font-weight: normal;
+}
+
+.panel > ul
+{
+    border-style: none solid solid solid;
+    border-color: #024731;
+    border-width: 0 2px 2px 2px;
+    background: #f2f2f2;
+    -moz-border-radius-bottomleft: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+}
+
+.panel > ul > li
+{
+    border-bottom: solid 1px #ddd;
+}
+
+.panel > ul > li > a,
+.panel > ul > * > a
+{
+    color: inherit;
+    text-decoration: none;
+}
+
+div.row-edit > input:focus
+{    
+    -webkit-box-shadow: 0 0 5px #00AAFF;
+    -moz-box-shadow: 0 0 5px #00AAFF;
 }
