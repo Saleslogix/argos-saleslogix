@@ -412,6 +412,7 @@ body[orient] > div.toolbar-float[open]
     -moz-border-radius-bottomright: 8px;
     -webkit-border-bottom-right-radius: 8px;
     margin: 0 12px 24px 12px;
+    padding: 0;
 }
 
 div.row > label
@@ -432,6 +433,7 @@ div.row
 	text-align: left;
 	clear: both;
     line-height: 1.5em;
+    padding: 0 .75em;
 }
 
 div.panel > ul,

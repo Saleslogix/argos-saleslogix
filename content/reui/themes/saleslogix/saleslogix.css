@@ -308,3 +308,13 @@ div.row-edit > input:focus
     -webkit-box-shadow: 0 0 5px #00AAFF;
     -moz-box-shadow: 0 0 5px #00AAFF;
 }
+
+div.row-edit
+{
+    border-bottom: solid 1px #ddd;
+}
+
+div.row-edit:last-child
+{
+    border-bottom: none 0 black;
+}
