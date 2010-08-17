@@ -62,7 +62,7 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'Fax', label: this.faxText, type: 'text'},
             {name: 'Type', label: this.typeText, type: 'text'},
             {name: 'SubType', label: this.subTypeText, type: 'text'},
-            {name: 'Status', label: this.statusText, type: 'text'},
+            {name: 'Status', label: this.statusText, type: 'boolean', onText: 'Active', offText: 'Inactive'},
             {name: 'Industry', label: this.industryText, type: 'text'},
             {name: 'BusinessDescription', label: this.businessDescriptionText, type: 'text'},
             {name: 'User.UserInfo.UserName', label: this.acctMgrText, type: 'text'},

@@ -44,13 +44,11 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
     render: function() {
         Mobile.SalesLogix.Home.superclass.render.call(this);
 
-        var v = App.getViews();
-        var o = [];
-        for (var i = 0; i < v.length; i++)
-            if (v[i] != this && v[i].expose != false)
-                o.push(this.itemTemplate.apply(v[i]));
-
-        Ext.DomHelper.append(this.el, o.join(''));
+        this.renderAvailableViews();
+    },
+    renderAvailableViews: function() {
+        var views = App.getAvailableViews(this);
+        Ext.DomHelper.append(this.el, views.join(''));
 
     },
     init: function() {

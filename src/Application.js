@@ -26,6 +26,52 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             }
         });
     },
+    getAvailableViews: function(scope, onlyUserPref) {
+
+        var selectedViews = [],
+            v = this.getViews(),
+            selectedRegEx,
+            check = function(k) {
+                return /^\[userpref\]$/i.test(k);
+            };
+                
+        /* todo: find a better way to detect */
+        for (var i = window.localStorage.length - 1; i >= 0 ; i--) 
+        {
+            var key = window.localStorage.key(i);
+            if (check(key))
+            {
+                selectedViews = Ext.decode(window.localStorage.getItem(key));
+                break;
+            }
+        }
+    
+        if (onlyUserPref === true) {
+            return Ext.isArray(selectedViews) ? selectedViews : [];
+        }
+
+        if (selectedViews.length == 0) selectedViews = null;
+
+        if (selectedViews === null) {
+            selectedRegEx = '.*';
+        }
+        else {
+            selectedRegEx = [];
+            for (var j = 0; j < selectedViews.length; j++) {
+                selectedRegEx.push(selectedViews[j]);
+            }
+            selectedRegEx = '^(' + selectedRegEx.join(')|(') + ')$';
+        }
+        
+        selectedRegEx = new RegExp(selectedRegEx, 'i');
+        selectedViews = [];
+        for (var i = 0; i < v.length; i++)
+            if (v[i].title != 'Home' && v[i].expose != false 
+                && selectedRegEx.test(v[i].resourceKind))
+                    selectedViews.push(scope.itemTemplate.apply(v[i]));
+                
+        return selectedViews;
+    },
     setup: function () {
         Mobile.SalesLogix.Application.superclass.setup.apply(this, arguments);
        
