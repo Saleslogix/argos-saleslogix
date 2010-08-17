@@ -43,8 +43,10 @@ Mobile.SalesLogix.Format = (function() {
             //return nl ? lines.join('\n') : lines.join('<br />');
             //return String.format('<a target="_blank" href="http://maps.google.com/maps?f=s&utm_campaign=en&utm_source=en-ha-na-us-bk-gm&utm_medium=ha&utm_term=google%20maps">{0}</a>',nl ? lines.join('\n') : lines.join('<br />'));
             var address = lines.join('<br />');
-            var encoded_address = encodeURIComponent(lines.join(','));
-            return String.format('<a target="_blank" href="index-gmap.html?address={1}">{0}</a>', address, encoded_address);
+            //var encoded_address = encodeURIComponent(lines.join('+'));
+            var encoded_address = unescape(lines.join(','));
+            //alert(lines.join('&'));
+            return String.format('<a target="_blank" href="index-gmap1.html?address={1}">{0}</a>', address, encoded_address);
         },
         phone: function(val, withLink) {
             if (typeof val !== 'string') 
