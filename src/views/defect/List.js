@@ -23,7 +23,7 @@ Mobile.SalesLogix.Defect.List = Ext.extend(Sage.Platform.Mobile.List, {
             title: this.titleText,
             editor: 'defect_edit',
             resourceKind: 'defects',
-            pageSize: 10,
+            pageSize: 25,
             icon: 'content/images/defect_detail_24x24.gif'
         });
 

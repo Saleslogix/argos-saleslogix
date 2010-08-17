@@ -24,7 +24,7 @@ Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
             title: this.titleText,
             editor: 'lead_edit',
             resourceKind: 'leads',
-            pageSize: 10,
+            pageSize: 25,
             icon: 'content/images/Leads_24x24.gif'
         });
         

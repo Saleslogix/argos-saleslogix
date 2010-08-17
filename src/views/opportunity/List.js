@@ -26,7 +26,7 @@ Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
             title: this.titleText,
             editor: 'opportunity_edit',
             resourceKind: 'opportunities',
-            pageSize: 10,
+            pageSize: 25,
             icon: 'content/images/Opportunity_List_24x24.gif'
         });
         

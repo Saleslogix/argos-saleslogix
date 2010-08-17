@@ -23,7 +23,7 @@ Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
             title: this.titleText,
             editor: 'campaign_edit',
             resourceKind: 'campaigns',
-            pageSize: 10,
+            pageSize: 25,
             icon: 'content/images/campaigns_detail_24x24.gif'
         });
 

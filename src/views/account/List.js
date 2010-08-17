@@ -25,7 +25,7 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
             title: this.titleText,
             editor: 'account_edit',
             resourceKind: 'accounts',
-            pageSize: 10,
+            pageSize: 25,
             icon: 'content/images/Accounts_24x24.gif'
         });
 

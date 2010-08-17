@@ -24,7 +24,7 @@ Mobile.SalesLogix.Return.List = Ext.extend(Sage.Platform.Mobile.List, {
             title: this.titleText,
             editor: 'return_edit',
             resourceKind: 'returns',
-            pageSize: 10,
+            pageSize: 25,
             icon: 'content/images/return_detail_24x24.gif'
         });
 
