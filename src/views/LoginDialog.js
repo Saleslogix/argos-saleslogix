@@ -78,7 +78,7 @@ Mobile.SalesLogix.LoginDialog = Ext.extend(Sage.Platform.Mobile.View, {
                 this.busy = false;
                 this.el.removeClass('dialog-busy');
 
-                if (feed['$resources'].length <= 0) {
+                if (feed['$resources'] && feed['$resources'].length <= 0) {
                     service
                         .setUserName(false)
                         .setPassword(false);

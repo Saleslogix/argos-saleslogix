@@ -13,8 +13,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         Mobile.SalesLogix.Application.superclass.constructor.call(this);
 
         Ext.apply(this, o, {
-            enableCaching: true,
-            context: {}
+            enableCaching: true
         });
     },
     init: function() {
