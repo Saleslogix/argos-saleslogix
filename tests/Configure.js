@@ -51,5 +51,22 @@ test('On Configure screen', function() {
                 equal(firstItem, newSecondItem, 'Clicking move up must push the element one step up');
             });
         });
-    });    
+    });
+
+    //Clear local storage for next test
+    FuncUnit._window.localStorage.setItem('[userpref]', '[]');
+});
+
+test("On configure screen save,", function(){
+    S.wait(100, function(){
+
+        S('#configure li:nth-child(1) .list-selector').click();
+        S('#configure li:nth-child(2) .list-selector').click(function(){
+            S('.save.button').click(function(){
+                S.wait(500, function(){
+                    equal(S('#home li').size(), 2, 'Home screen shows only configured lists');
+                });
+            });
+        })
+    });
 });
