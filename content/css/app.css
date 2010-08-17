@@ -109,37 +109,6 @@ div.defect-text-row
     margin: 12px;
 }
 
-#note_related div.defect-text-wrap
-{
-    max-height: 2.5em;
-    margin-top:0;
-    padding-left:10px;
-}
-
-#note_related div.defect-text-more
-{
-   -moz-border-radius-bottomright:none;
-   bottom:-20px;
-}
-
-
-div.defect-text-wrap a[target="_related"]
-{
-     background: none;
-     text-decoration: none; 
-     color: #000;
-     display: block;
-}
-
-#note_related div.defect-text-wrap a[target="_detail"]
-{
-     background-image:url("listArrowSel.png"), url("selection.png");
-     text-decoration: none; 
-     color: #000;
-     display: block;
-     
-}
-
 .defect-text-more
 {
     visibility: hidden;
@@ -161,6 +130,55 @@ div.defect-text-wrap a[target="_related"]
     -webkit-border-top-left-radius: 10px;
     -webkit-border-bottom-right-radius: 10px;
 }
+
+.defect-text-more a[target="_related"]
+{
+    color: white;
+    display:block;
+    text-decoration:none;
+    background:url('') !important;
+}
+
+
+#note_related div.defect-text-wrap
+{
+    max-height: 2.5em;
+    margin-top:0;
+    padding-left:10px;
+}
+
+#note_related div.defect-text-more
+{
+   -moz-border-radius-bottomright: none;
+   bottom:-20px;
+}
+
+#note_related div.defect-text-more a
+{
+   bottom:-20px;
+   text-decoration: none;
+   font-weight: normal;
+   font-size: 0.75em;
+   color: white;
+}
+
+div.defect-text-wrap a[target="_related"]
+{
+     background: none;
+     text-decoration: none; 
+     color: #000;
+     display: block;
+}
+
+#note_related div.defect-text-wrap a[target="_detail"]
+{
+     background-image:url("listArrowSel.png"), url("selection.png");
+     text-decoration: none; 
+     color: #000;
+     display: block;
+     
+}
+
 
 input.field-error
 {

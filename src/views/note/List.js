@@ -10,15 +10,17 @@ Ext.namespace("Mobile.SalesLogix.Note");
 Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Note',
     fbartitleText: 'note',
-    moreText:'more &gt;&gt;',
+    moveToNextPage: 'more &gt;&gt;',
     contentTemplate: new Simplate([
         '<div class="row defect-text-row">',
         '<div class="defect-text-wrap">',
         '<a href="#note_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
-        '<h3>{%= Notes %}</h3>',
+        '<h3>{%= $["Notes"] %}</h3>',
         '</a>',
         '</div>',
-        '<div class="defect-text-more">{%= this.moreText %}</div>',
+        '<div class="defect-text-more">',
+        '<a href="#note_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">more &gt;&gt;</a>',
+        '</div>',
         '</div>'
     ]),
     constructor: function(o) {
@@ -28,7 +30,7 @@ Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
             id: 'note_list',
             title: this.titleText,
             resourceKind: 'history',
-            pageSize: 10,
+            pageSize: 25,
             icon: 'content/images/note_24x24.gif'
         });
 

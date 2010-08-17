@@ -33,7 +33,9 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         '<div class="defect-text-wrap">',
         '<a href="#{%= $["view"] %}" target="_related" m:context={%= $["context"] %}>{%= $["value"] %}</a>',
         '</div>',
-        '<div class="defect-text-more">{%= this.moreText %}</div>',
+        '<div class="defect-text-more">',
+        '<a href="#{%= $["view"] %}" target="_related" m:context={%= $["context"] %}>more &gt;&gt;</a>',
+        '</div>',
         '</div>'
     ]),
     constructor: function(o) {
