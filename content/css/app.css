@@ -88,6 +88,8 @@ div.defect-text-row
 {
     position: relative;
     min-height: inherit;
+    padding: 1em;
+    line-height: 1.25em;
 }
 
 #note_related div.defect-text-row
@@ -98,7 +100,7 @@ div.defect-text-row
 
 #note_related div.defect-text-row h3
 {
-    white-space : normal ;
+    white-space : normal;
 }
 
 .defect-text-wrap
@@ -106,7 +108,6 @@ div.defect-text-row
     overflow: hidden;
     font-size: 1em;
     max-height: 3.5em;
-    margin: 12px;
 }
 
 #note_related div.defect-text-wrap
@@ -121,7 +122,6 @@ div.defect-text-row
    -moz-border-radius-bottomright:none;
    bottom:-20px;
 }
-
 
 div.defect-text-wrap a[target="_related"]
 {
@@ -143,23 +143,24 @@ div.defect-text-wrap a[target="_related"]
 .defect-text-more
 {
     visibility: hidden;
-    border-top: solid 1px #aaa;
-    border-left: solid 1px #aaa;
-    background: #38689E;
+    border-style: none solid solid solid;
+    border-color: #024731;
+    border-width: 2px 0 0 2px;
+    background: #024731;
     z-index: 1;
     position: absolute;
-    bottom: -13px;
-    right: -1px;
+    bottom: -2px;
+    right: -2px;
     line-height: 1.5em;
     height: 1.5em;
     color: white;
     display: inline-block;
     padding: 0 8px 0 8px;
     text-align: center;
-    -moz-border-radius-topleft: 10px;
-    -moz-border-radius-bottomright: 10px;
-    -webkit-border-top-left-radius: 10px;
-    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
 }
 
 input.field-error

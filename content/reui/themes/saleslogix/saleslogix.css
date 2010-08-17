@@ -7,6 +7,15 @@ body
 	color: #000;
 }
 
+h3
+{
+}
+
+h4
+{
+    color: #07A;
+}
+
 body > .toolbar {
     border-bottom: 1px solid #2d3642;
     border-top: 1px solid #6d84a2;  
@@ -28,11 +37,6 @@ body > .toolbar {
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
 }
 
-.toolbar > .button
-{
-	text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
-}
-
 .toolbar > .button 
 {
 	color: #fff;
@@ -48,6 +52,8 @@ body > .toolbar {
     
     border: solid 2px #fff;
     cursor: pointer;
+
+    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
     
     -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
     -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
@@ -96,6 +102,11 @@ body > .toolbar {
     border-color: #eeeeee;
 }
 
+.dialog > fieldset > label
+{
+    color: #999999;
+}
+
 body > div.toolbar-float[open],
 body[orient] > div.toolbar-float[open]
 {
@@ -116,7 +127,6 @@ body[orient] > div.toolbar-float[open]
 		rgb(79,79,79) 100%
 	);
 }
-
 
 .toolbar-float
 {
@@ -186,7 +196,7 @@ input:focus
 }
 
 li.search
-{        
+{    
     background: -webkit-gradient(
 		linear,
 		left top,
@@ -195,10 +205,22 @@ li.search
 		color-stop(1, #69933a)
 	);
 	background: -moz-linear-gradient(top, #83ae53, #69933a);
-    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
-    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 	border-bottom: 1px solid #34491d;
     border-top: 1px solid #83ae53;
+    /*
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    border-bottom: 1px solid #2d3642;
+    border-top: 1px solid #e6e6e6;
+    */
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 }
 
 li.search input
@@ -211,10 +233,14 @@ li.search input
     padding: 0 128px 0 5px !important;
     -moz-border-radius: 3px !important;
     -webkit-border-radius: 3px !important;
-    border: 1px solid rgba(6, 74, 52, 1) !important;
+    border: inset 1px #000 !important;
     background: #fff;
+    /*
     -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
     -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+    */
+    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
@@ -229,14 +255,14 @@ li.search .searchButton
 		color-stop(1, #cccccc)
 	);
 	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
-    -moz-border-radius:0 3px 3px 0;
-    -webkit-border-radius:0 3px 3px 0;
+    -moz-border-radius: 0px 3px 3px 0px;
+    -webkit-border-radius: 0px 3px 3px 0px;
     color: #555;
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
     font-size: .6em;
     line-height: 30px;
     padding: 0 8px 0 6px;
-    border: solid 1px rgb(6,74,52);
+    border: inset 1px #000;
     text-align: center;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
@@ -254,12 +280,14 @@ li.search .dismissButton
 	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
     color: #555;
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+    -moz-border-radius: 3px 0px 0px 3px;
+    -webkit-border-radius: 3px 0px 0px 3px;
     font-size: .6em;
     font-weight: bold;
     line-height: 30px;
     text-align: center;
-    border-style: solid;
-    border-color: rgb(6,74,52);
+    border-style: inset;
+    border-color: #000;
     border-width: 1px 0 1px 1px;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;  
@@ -303,10 +331,15 @@ li.search label
     text-decoration: none;
 }
 
+div.row > label
+{
+    color: #07A;
+}
+
 div.row-edit > input:focus
 {    
-    -webkit-box-shadow: 0 0 5px #00AAFF;
-    -moz-box-shadow: 0 0 5px #00AAFF;
+    -webkit-box-shadow: 0 0 5px #00AAFF !important;
+    -moz-box-shadow: 0 0 5px #00AAFF !important;
 }
 
 div.row-edit
@@ -317,4 +350,41 @@ div.row-edit
 div.row-edit:last-child
 {
     border-bottom: none 0 black;
+}
+
+.more > a
+{
+    margin: 0;
+}
+
+.whiteButton
+{
+    color: #444;
+	text-align: center;
+	text-decoration: none;
+
+	font-weight: bold;
+	font-size: .8em;
+
+	-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    border: solid 2px #fff;
+    cursor: pointer;
+
+    -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+    -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
 }

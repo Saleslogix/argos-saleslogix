@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
+/// <reference path="../../../../ext/ext-core-debug.js"/>
 /// <reference path="../../../../Simplate.js"/>
 /// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
 /// <reference path="../../../../sdata/SDataService.js"/>
@@ -63,7 +63,7 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     name: 'DefectProblem.Notes',
                     label: this.relatedDefectProblemsText,
                     wrap: this.textBlockTemplate,
-                    view: 'defectproblem_detail', key: 'DefectProblem.$key',
+                    view: 'defectproblem_detail', key: 'DefectProblem.$key'
                 }
             ]},
             {options: {title: this.relatedDefectSolutionsText}, as: [
@@ -71,7 +71,7 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     name: 'DefectSolution.Notes',
                     label: this.relatedDefectSolutionsText,
                     wrap: this.textBlockTemplate,
-                    view: 'defectsolution_detail', key: 'DefectSolution.$key',
+                    view: 'defectsolution_detail', key: 'DefectSolution.$key'
 
                 }
             ]},
