@@ -41,15 +41,43 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
         });
 
     },
-    render: function() {
-        Mobile.SalesLogix.Home.superclass.render.call(this);
-
-        this.renderAvailableViews();
-    },
     renderAvailableViews: function() {
-        var views = App.getAvailableViews(this);
-        Ext.DomHelper.append(this.el, views.join(''));
+        var visibleItems = App.preferences.home.visible,
+            views = [], v;
 
+        for (var i = 0, len = visibleItems.length; i < len; i++)
+        {
+            v = App.getView(visibleItems[i]);
+            views.push(this.itemTemplate.apply(v));
+        }
+        
+        this.el.select('li').remove();
+        Ext.DomHelper.append(this.el, views.join(''));
+    },
+    show : function() {
+        Mobile.SalesLogix.Home.superclass.show.call(this);
+        
+        if (this.refreshRequired === true)
+            this.renderAvailableViews();
+    },    
+    refreshRequiredFor: function() {        
+        //If Visible home list changes, or if its order changes, 
+        //refresh the view.
+        
+        //For the first time, there will be no visible list cache,
+        //So refresh it. 
+        if (!this._visibleList) {
+            return true;
+        }
+        
+        var visibleList = App.preferences.home.visible;
+        if (this._visibleList.length != visibleList.length &&
+            Ext.encode(this._visibleList) != Ext.encode(visibleList))
+        {
+            return true;
+        }
+        
+        return false;
     },
     init: function() {
         Mobile.SalesLogix.Home.superclass.init.call(this);

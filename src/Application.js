@@ -18,59 +18,82 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     },
     init: function() {
         Mobile.SalesLogix.Application.superclass.init.call(this);
-        var home;
+        
+        var home = App.getView('home');
         Ext.get("backButton").on("clicklong", function() {
-            home = App.getView('home');
+            
             if (home) {
                 home.show();
             }
         });
+        App.fetchPreferences();
     },
-    getAvailableViews: function(scope, onlyUserPref) {
+    fetchPreferences: function() {
+        var views = this.getExposedViews(),
+            appConfigureOrder;
+        
+        try {
+            App.preferences = Ext.decode(window.localStorage.getItem('[preferences]'));
+        }
+        catch(e) {}
 
-        var selectedViews = [],
-            v = this.getViews(),
-            selectedRegEx,
-            check = function(k) {
-                return /^\[userpref\]$/i.test(k);
-            };
-                
-        /* todo: find a better way to detect */
-        for (var i = window.localStorage.length - 1; i >= 0 ; i--) 
+        //Probably, the first time, its being accessed, or user cleared 
+        //the data. So lets initialize the object, with default ones.
+        if (App.preferences === null)
         {
-            var key = window.localStorage.key(i);
-            if (check(key))
-            {
-                selectedViews = Ext.decode(window.localStorage.getItem(key));
-                break;
-            }
-        }
-    
-        if (onlyUserPref === true) {
-            return Ext.isArray(selectedViews) ? selectedViews : [];
-        }
-
-        if (selectedViews.length == 0) selectedViews = null;
-
-        if (selectedViews === null) {
-            selectedRegEx = '.*';
-        }
-        else {
-            selectedRegEx = [];
-            for (var j = 0; j < selectedViews.length; j++) {
-                selectedRegEx.push(selectedViews[j]);
-            }
-            selectedRegEx = '^(' + selectedRegEx.join(')|(') + ')$';
+            App.preferences = {};
+            
+            App.preferences.home = {
+                visible: views
+            };
+            
+            //Just create a clone of views, we don't want the same reference
+            App.preferences.configure = {
+                order: Ext.decode(Ext.encode(views))
+            };
+            
+            //Render Home view, to populate it.
+            App.getView('home').renderAvailableViews();
+            
+            return;
         }
         
-        selectedRegEx = new RegExp(selectedRegEx, 'i');
-        selectedViews = [];
-        for (var i = 0; i < v.length; i++)
-            if (v[i].title != 'Home' && v[i].expose != false 
-                && selectedRegEx.test(v[i].resourceKind))
-                    selectedViews.push(scope.itemTemplate.apply(v[i]));
-                
-        return selectedViews;
+        //Render Home view, to populate it.
+        App.getView('home').renderAvailableViews();
+        
+        //Update Configure List, to include any new views 
+        //not included in local storage.
+        //Find out whats new, and append them to user's configure list. 
+        appConfigureOrder = App.preferences.configure.order;
+        
+        if (appConfigureOrder.length != views.length)
+        {
+            var appViewsRegex = new RegExp('^(' + appConfigureOrder.join(')|(') + ')$', 'i');
+            for (var i = 0, len = views.length; i < len; i++)
+            {
+                if (!appViewsRegex.test(views[i]))
+                    appConfigureOrder.push(views[i]);
+            }
+        }
+    },
+    persistPreferences: function(preferences) {
+        try {
+            window.localStorage.setItem('[preferences]', Ext.encode(preferences));
+        }
+        catch(e) {}
+    },
+    getExposedViews : function() {
+        var exposedViews = [],
+            view;
+        
+        for (var v in this.views)
+        {
+            view = App.getView(v);
+            if (view.expose != false && view.id != 'home')
+                exposedViews.push(v);
+        }
+        
+        return exposedViews;
     },
     setup: function () {
         Mobile.SalesLogix.Application.superclass.setup.apply(this, arguments);
@@ -211,3 +234,4 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 // instantiate application instance
 
 var App = new Mobile.SalesLogix.Application();
+
