@@ -37,43 +37,6 @@ body > .toolbar {
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
 }
 
-.toolbar > .button 
-{
-	color: #fff;
-	text-align: center;
-	text-decoration: none;	
-	
-	font-weight: bold;
-	font-size: .8em;
-	
-	-webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    
-    border: solid 2px #fff;
-    cursor: pointer;
-
-    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
-    
-    -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
-    -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
-    
-    background: -webkit-gradient(
-		linear,
-		left top,
-		left bottom,
-		color-stop(0, rgb(42,101,80)),
-		color-stop(1, rgb(6,74,52))
-	);
-	background: -moz-linear-gradient(
-		center top,
-		rgb(42,101,80) 0%,
-		rgb(6,74,52) 100%
-	);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-}
-
 .dialog > fieldset
 {
 	border-bottom: 1px solid #2d3642;
@@ -110,45 +73,62 @@ body > .toolbar {
 body > div.toolbar-float[open],
 body[orient] > div.toolbar-float[open]
 {
-	background-image: url(../images/arrow-right.png), -webkit-gradient(
+	background-image: url(../../../images/arrow-right.png), -webkit-gradient(
 		linear,
-		left bottom,
 		left top,
-		color-stop(0, rgb(44,44,44)),
-		color-stop(0.5, rgb(21,21,21)),
-		color-stop(0.5, rgb(49,49,49)),
-		color-stop(1, rgb(79,79,79))
+		left bottom,
+		color-stop(0, rgb(42,101,80)),
+		color-stop(1, rgb(6,74,52))
 	);
-	background-image: url(../images/arrow-right.png), -moz-linear-gradient(
-		center bottom,
-		rgb(44,44,44) 0%,
-		rgb(21,21,21) 50%,
-		rgb(49,49,49) 50%,
-		rgb(79,79,79) 100%
+	background-image: url(../../../images/arrow-right.png), -moz-linear-gradient(
+		center top,
+		rgb(42,101,80) 0%,
+		rgb(6,74,52) 100%
 	);
+
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
 }
 
 .toolbar-float
 {
-	background-image: url(../images/arrow-left.png), -webkit-gradient(
+	background-image: url(../../../images/arrow-left.png), -webkit-gradient(
 		linear,
-		left bottom,
 		left top,
-		color-stop(0, rgb(44,44,44)),
-		color-stop(0.5, rgb(21,21,21)),
-		color-stop(0.5, rgb(49,49,49)),
-		color-stop(1, rgb(79,79,79))
+		left bottom,
+		color-stop(0, rgb(42,101,80)),
+		color-stop(1, rgb(6,74,52))
 	);
-	background-image: url(../images/arrow-left.png), -moz-linear-gradient(
-		center bottom,
-		rgb(44,44,44) 0%,
-		rgb(21,21,21) 50%,
-		rgb(49,49,49) 50%,
-		rgb(79,79,79) 100%
+	background-image: url(../../../images/arrow-left.png), -moz-linear-gradient(
+		center top,
+		rgb(42,101,80) 0%,
+		rgb(6,74,52) 100%
 	);
 
 	background-position: 6px center, top left;
 	background-repeat: no-repeat, no-repeat;
+    
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+
+    border-style: solid;
+    border-width: 2px 0 2px 2px;
+    border-color: white;
+    cursor: pointer;
+
+    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
+
+    -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+    -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+}
+
+.toolbar-float-container
+{
+    height: 46px;
 }
 
 .toolbar-float-container a
@@ -207,18 +187,7 @@ li.search
 	background: -moz-linear-gradient(top, #83ae53, #69933a);
 	border-bottom: 1px solid #34491d;
     border-top: 1px solid #83ae53;
-    /*
-    background: -webkit-gradient(
-		linear,
-		left top,
-		left bottom,
-		color-stop(0, #e6e6e6),
-		color-stop(1, #cccccc)
-	);
-	background: -moz-linear-gradient(top, #e6e6e6, #cccccc);
-    border-bottom: 1px solid #2d3642;
-    border-top: 1px solid #e6e6e6;
-    */
+
     -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
     -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 }
@@ -235,10 +204,7 @@ li.search input
     -webkit-border-radius: 3px !important;
     border: inset 1px #000 !important;
     background: #fff;
-    /*
-    -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
-    -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
-    */
+
     -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
     -webkit-background-clip: padding-box;
@@ -357,9 +323,9 @@ div.row-edit:last-child
     margin: 0;
 }
 
-.whiteButton
+.button 
 {
-    color: #444;
+	color: #fff;
 	text-align: center;
 	text-decoration: none;
 
@@ -373,8 +339,32 @@ div.row-edit:last-child
     border: solid 2px #fff;
     cursor: pointer;
 
+    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
+
     -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
     -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, rgb(42,101,80)),
+		color-stop(1, rgb(6,74,52))
+	);
+	background: -moz-linear-gradient(
+		center top,
+		rgb(42,101,80) 0%,
+		rgb(6,74,52) 100%
+	);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.whiteButton
+{
+    color: #444;
+    border: solid 2px #fff;
+    text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
 
     background-image: -webkit-gradient(
 		linear,
@@ -386,5 +376,40 @@ div.row-edit:last-child
 	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
-    text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+}
+
+.blueButton
+{
+    color: #fff;
+    border: solid 2px #fff;
+    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
+
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #2ca0d1),
+		color-stop(1, #07a)
+	);
+	background-image: -moz-linear-gradient(top, #2ca0d1, #07a);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.redButton
+{
+    color: #fff;
+    border: solid 2px #fff;
+    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
+
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #de6464),
+		color-stop(1, #b33737)
+	);
+	background-image: -moz-linear-gradient(top, #de6464, #b33737);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
 }

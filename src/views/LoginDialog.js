@@ -38,7 +38,7 @@ Mobile.SalesLogix.LoginDialog = Ext.extend(Sage.Platform.Mobile.View, {
     init: function () {
         Mobile.SalesLogix.LoginDialog.superclass.init.call(this);
 
-        this.el.select('.blueButton')
+        this.el.select('.button')
             .on('click', function (evt, el, o) {
                 this.login();
             }, this, { preventDefault: true, stopPropagation: true });

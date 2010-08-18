@@ -113,7 +113,7 @@
             '<fieldset>',
             '<div class="toolbar">',
             '<h1>{%= title %}</h1>',
-            '<a class="button blueButton" target="_none"><span>{%= $.titleText %}</span></a>',
+            '<a class="button" target="_none"><span>{%= $.titleText %}</span></a>',
             '</div>',            
             '<label>{%= $.userText %}</label>',
             '<input id="{%= id %}_user" type="text" name="user" value="lee" />',
@@ -133,6 +133,10 @@
             '<div class="searchButton">Search</div>',
             '<label>{%= $.searchText %}</label>',            
             '</li>'
+        ]),
+        loadingTemplate: new Simplate([
+            '<li class="loading"><div class="loading-indicator">{%= loadingText %}</div></li>',
+            '<li class="more" style="display: none;"><a href="#" target="_none" class="button whiteButton moreButton"><span>{%= moreText %}</span></a></li>'
         ]),
         moreText: 'Retreive More Records'
     });
