@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
+/// <reference path="../../../../ext/ext-core-debug.js"/>
 /// <reference path="../../../../Simplate.js"/>
 /// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
 /// <reference path="../../../../sdata/SDataService.js"/>
@@ -33,7 +33,8 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
 	        {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
 	        {name: 'Mobile', label: this.mobileText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Email', label: this.emailText, type: 'text'},
-	        {name: 'WebAddress', label: this.webText, type: 'text'}
+	        {name: 'WebAddress', label: this.webText, type: 'text'},
+            {name: 'AccountManager.UserInfo', label: 'acct. mgr.', type: 'lookup', view: 'user_list'}
         ];
     },
     init: function() {

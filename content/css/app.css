@@ -1,4 +1,4 @@
-﻿/* adjust input positions for search dialog */
+/* adjust input positions for search dialog */
 .search input:not(input[type|=radio]):not(input[type|=checkbox])
 {
     padding: 6px 6px 6px 50px;
@@ -179,7 +179,6 @@ div.defect-text-wrap a[target="_related"]
      
 }
 
-
 input.field-error
 {
     color: #f00;
@@ -189,6 +188,11 @@ input.field-error
 {
     height: auto;
     padding: 10px 10px 0 110px;
+}
+
+.row-edit > div.field-lookup
+{
+    padding: 10px 10px 0px 110px;    
 }
 
 .search.toolbar {
