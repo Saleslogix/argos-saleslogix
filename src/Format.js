@@ -46,7 +46,8 @@ Mobile.SalesLogix.Format = (function() {
             //var encoded_address = encodeURIComponent(lines.join('+'));
             var encoded_address = unescape(lines.join(','));
             //alert(lines.join('&'));
-            return String.format('<a target="_blank" href="index-gmap1.html?address={1}">{0}</a>', address, encoded_address);
+            //return String.format('<a target="_blank" href="index-gmap.html?address={1}">{0}</a>', address, encoded_address);
+            return String.format('<a target="_blank" href="http://maps.google.com/maps?q={1}">{0}</a>',address, encoded_address);
         },
         phone: function(val, withLink) {
             if (typeof val !== 'string') 
