@@ -83,7 +83,7 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
             if (el.dom.checked) visibleHomeList.push(el.dom.value);
         }, this);
          
-        App.persistPreferences(App.preferences);
+        App.persistPreferences();
         App.getView('home').show();
     },
     displayTools: function() {
@@ -96,32 +96,63 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
         }
     },
     renderView: function() {
-        var views = [],
-            o = [], v,
-            LIs = this.el.select('li');
-        
+        var appConfigureOrder,
+            viewLookup = {},
+            exposedViews,
+            o = [],
+            LIs, v, i, j;
+            
         //App.preferences.configure.order will not be available, 
         //when App calls it's init. 
         try {
-            views = App.preferences.configure.order;
+            appConfigureOrder = App.preferences.configure.order;
         }
         catch(e) {
             return;
         }
+
+        // Run this only once
+        if (this.viewRendered === true) return;
         
-        //Lets not process this, for second time.
+        //Defer initialization, until we need them.
+        exposedViews = App.getExposedViews();
+        LIs = this.el.select('li'); 
         
-        if (views.length == LIs.elements.length)
-            return;
+        //Update Configure List, to include any new views 
+        //not included in local storage.
+        //Find out whats new, and append them to user's configure list. 
+
+        // Create a lookup cache for all exposed views. 
+        for (j = exposedViews.length - 1; j >= 0; j--)
+            viewLookup[exposedViews[j]] = true;
         
-        for (var i = 0; i < views.length; i++)
+        // Delete existing views from lookup.  
+        for (i = 0, len = appConfigureOrder.length; i < len; i++)
+            if (viewLookup[appConfigureOrder[i]] === true)
+                delete viewLookup[appConfigureOrder[i]];
+        
+        for (v in viewLookup) 
+            appConfigureOrder.push(v);
+        
+        for (var i = appConfigureOrder.length - 1; i >= 0; i--)
         {
-            v = App.getView(views[i]);
-            o.push(this.itemTemplate.apply(v));
+            v = App.getView(appConfigureOrder[i]);
+            
+            // If a persisted view is not loaded/unavailable/removed
+            // we have to remove it from persistence.
+            if (!v) appConfigureOrder.splice(i, 1);
+            
+            o.unshift(this.itemTemplate.apply(v));
         }
+        
+        //Persist this back to local storage.
+        App.persistPreferences();
         
         LIs.remove();
         Ext.DomHelper.append(this.el, o.join(''));
+        
+        //Set the flag, so we don't have to do this again.
+        this.viewRendered = true;
     },
     show: function() { 
         this.renderView();

@@ -53,31 +53,9 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
         
         this.el.select('li').remove();
         Ext.DomHelper.append(this.el, views.join(''));
-    },
-    show : function() {
-        Mobile.SalesLogix.Home.superclass.show.call(this);
         
-        if (this.refreshRequired === true)
-            this.renderAvailableViews();
-    },    
-    refreshRequiredFor: function() {        
-        //If Visible home list changes, or if its order changes, 
-        //refresh the view.
-        
-        //For the first time, there will be no visible list cache,
-        //So refresh it. 
-        if (!this._visibleList) {
-            return true;
-        }
-        
-        var visibleList = App.preferences.home.visible;
-        if (this._visibleList.length != visibleList.length &&
-            Ext.encode(this._visibleList) != Ext.encode(visibleList))
-        {
-            return true;
-        }
-        
-        return false;
+        //Cache the list, for comparison later.
+        this._visibleList = visibleItems;
     },
     init: function() {
         Mobile.SalesLogix.Home.superclass.init.call(this);
@@ -124,7 +102,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
             }
                 //ReUI.show("login_dialog");
         }
-
+        this.renderAvailableViews();
     },
     displayTools: function() {
         if (this.tools) {
@@ -138,5 +116,16 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
     transitionTo: function() {
         Mobile.SalesLogix.Home.superclass.transitionTo.call(this);
         this.displayTools();
+    },
+    beforeTransitionTo: function() {
+        //If Visible home list changes, or if its order changes, 
+        //refresh the view.
+
+        var visibleList = App.preferences.home.visible;
+        if (this._visibleList.length != visibleList.length ||
+            Ext.encode(this._visibleList) != Ext.encode(visibleList))
+        {
+            this.renderAvailableViews();
+        }
     }
 });

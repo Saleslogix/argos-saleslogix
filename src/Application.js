@@ -26,14 +26,14 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
                 home.show();
             }
         });
-        App.fetchPreferences();
+        this.fetchPreferences();
     },
     fetchPreferences: function() {
         var views = this.getExposedViews(),
             appConfigureOrder;
         
         try {
-            App.preferences = Ext.decode(window.localStorage.getItem('[preferences]'));
+            App.preferences = Ext.decode(window.localStorage.getItem('preferences'));
         }
         catch(e) {}
 
@@ -51,34 +51,11 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             App.preferences.configure = {
                 order: Ext.decode(Ext.encode(views))
             };
-            
-            //Render Home view, to populate it.
-            App.getView('home').renderAvailableViews();
-            
-            return;
-        }
-        
-        //Render Home view, to populate it.
-        App.getView('home').renderAvailableViews();
-        
-        //Update Configure List, to include any new views 
-        //not included in local storage.
-        //Find out whats new, and append them to user's configure list. 
-        appConfigureOrder = App.preferences.configure.order;
-        
-        if (appConfigureOrder.length != views.length)
-        {
-            var appViewsRegex = new RegExp('^(' + appConfigureOrder.join(')|(') + ')$', 'i');
-            for (var i = 0, len = views.length; i < len; i++)
-            {
-                if (!appViewsRegex.test(views[i]))
-                    appConfigureOrder.push(views[i]);
-            }
         }
     },
-    persistPreferences: function(preferences) {
+    persistPreferences: function() {
         try {
-            window.localStorage.setItem('[preferences]', Ext.encode(preferences));
+            window.localStorage.setItem('preferences', Ext.encode(App.preferences));
         }
         catch(e) {}
     },
