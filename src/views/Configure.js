@@ -11,10 +11,10 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
     savePrefs: 'Save',
     itemTemplate: new Simplate([
         '<li>',
-        '<input type="checkbox" value="{%= $["resourceKind"] %}" class="list-selector" />',
+        '<input type="checkbox" value="{%= $["id"] %}" class="list-selector" />',
         '<span class="moveup"></span>',
         '<span class="movedown"></span>',
-        '<span class="resource" m:resource="{%= $["resourceKind"] %}">',
+        '<span class="resource">',
         '{% if ($["icon"]) { %}',
         '<img src="{%= $["icon"] %}" alt="icon" class="icon" />',
         '{% } %}',
@@ -48,41 +48,43 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
         Mobile.SalesLogix.Configure.superclass.init.call(this);
 
         this.el
-            .select('.moveup')
             .on('click', function(evt, el, o) {
-                var Li = Ext.get(el).parent('li');
-                Li.insertBefore(Li.prev('li', true));
-            }, this, { preventDefault: true, stopPropagation: true });
-
-        this.el
-        .select('.movedown')
-        .on('click', function(evt, el, o) {
-            var Li = Ext.get(el).parent('li');
-            Li.insertAfter(Li.next('li', true));
-        }, this, { preventDefault: true, stopPropagation: true });
+                var Li;
+                el = Ext.get(el);
+                
+                if (el.is('.moveup'))
+                {
+                    evt.stopEvent();
+                    Li = el.parent('li');
+                    Li.insertBefore(Li.prev('li', true));
+                }
+                else if (el.is('.movedown'))
+                {
+                    evt.stopEvent();
+                    Li = el.parent('li');
+                    Li.insertAfter(Li.next('li', true));
+                }
+            }, this);
     },
     savePreferences: function() {
-        var checked = [];
-        var homeView = App.getView('home');
+        //Make sure the object hierarchy is defined.
+        Ext.namespace("App.preferences.home");
+        Ext.namespace("App.preferences.configure");
         
-        this.el.select("input.list-selector:checked").each(function(el) {
-            checked.push(el.dom.value);
+        //Clear App Preferences
+        App.preferences.home.visible = []; 
+        App.preferences.configure.order = [];
+        
+        var visibleHomeList = App.preferences.home.visible;
+        var configureListOrder = App.preferences.configure.order;
+        
+        this.el.select("input.list-selector").each(function(el) {
+            configureListOrder.push(el.dom.value);
+            if (el.dom.checked) visibleHomeList.push(el.dom.value);
         }, this);
          
-        window.localStorage.setItem('[userpref]', Ext.encode(checked));
-        
-        homeView.show();
-        homeView.el.select('li').remove();
-        homeView.renderAvailableViews();
-    },
-    getAllViews: function() {
-        var v = App.getViews();
-        var o = [];
-        for (var i = 0; i < v.length; i++)
-            if (v[i] != this && v[i].title != 'Home' && v[i].expose != false)
-                o.push(this.itemTemplate.apply(v[i]));
-
-        return o;
+        App.persistPreferences(App.preferences);
+        App.getView('home').show();
     },
     displayTools: function() {
         if (this.tools) {
@@ -93,17 +95,41 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
                 }
         }
     },
-    render: function() {
-        Mobile.SalesLogix.Configure.superclass.render.call(this);
- 
-        var o = this.getAllViews();
+    renderView: function() {
+        var views = [],
+            o = [], v,
+            LIs = this.el.select('li');
+        
+        //App.preferences.configure.order will not be available, 
+        //when App calls it's init. 
+        try {
+            views = App.preferences.configure.order;
+        }
+        catch(e) {
+            return;
+        }
+        
+        //Lets not process this, for second time.
+        
+        if (views.length == LIs.elements.length)
+            return;
+        
+        for (var i = 0; i < views.length; i++)
+        {
+            v = App.getView(views[i]);
+            o.push(this.itemTemplate.apply(v));
+        }
+        
+        LIs.remove();
         Ext.DomHelper.append(this.el, o.join(''));
     },
-    show: function() {
+    show: function() { 
+        this.renderView();
+        
         Mobile.SalesLogix.Configure.superclass.show.call(this);
         
-        var selectedViews = App.getAvailableViews(this, true);
-        var selectedRegEx = [];
+        var selectedViews = App.preferences.home.visible,
+            selectedRegEx = [];
         
         for (var j = 0; j < selectedViews.length; j++) {
             selectedRegEx.push(selectedViews[j]);

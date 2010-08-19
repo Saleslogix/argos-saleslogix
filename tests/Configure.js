@@ -1,3 +1,5 @@
+var homeListSize;
+
 module("Configure", {
     setup: function() {
         //Configured in Saleslogix.html
@@ -16,8 +18,10 @@ var navigateToConfigureScreen = function(callback) {
     //This is just a work around. We have to find a fix for this.
     //S("ul#home li:nth-child(2) a").click(function(){});
     var win = FuncUnit._window;
+    homeListSize = S('#home li').size();
     win.App.getView('home').navigateToConfigure();
 };
+
 
 
 test('On Configure screen', function() {
@@ -52,9 +56,6 @@ test('On Configure screen', function() {
             });
         });
     });
-
-    //Clear local storage for next test
-    FuncUnit._window.localStorage.setItem('[userpref]', '[]');
 });
 
 test("On configure screen save,", function(){
@@ -64,7 +65,7 @@ test("On configure screen save,", function(){
         S('#configure li:nth-child(2) .list-selector').click(function(){
             S('.save.button').click(function(){
                 S.wait(500, function(){
-                    equal(S('#home li').size(), 2, 'Home screen shows only configured lists');
+                    equal(S('#home li').size(), (homeListSize - 2), 'Home screen shows only configured lists');
                 });
             });
         })
