@@ -70,6 +70,17 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
 
             }, this, { preventDefault: true, stopPropagation: true });
 
+        this.el
+            .on('clicklong', function(evt, el, o) {
+                var source = Ext.get(el);
+                var target;
+
+                if (source.is('a[href="#contact_list"]'))
+                {
+                    App.getView('Add_Account_Contact').show();
+                }
+            }, this, { preventDefault: true, stopPropagation: true });    
+            
         this.displayTools();
         App.on('registered', this.viewRegistered, this);
     },

@@ -92,6 +92,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Account.List());
         this.registerView(new Mobile.SalesLogix.Account.Detail());
         this.registerView(new Mobile.SalesLogix.Account.Edit());
+        this.registerView(new Mobile.SalesLogix.Account.Address_Edit());
+        this.registerView(new Mobile.SalesLogix.Account.Add_Account_Contact());
         this.registerView(new Mobile.SalesLogix.Account.List({
             id: 'account_related',
             expose: false
