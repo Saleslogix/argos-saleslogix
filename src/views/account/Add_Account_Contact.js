@@ -9,13 +9,23 @@
 Ext.namespace("Mobile.SalesLogix.Account");
 
 Mobile.SalesLogix.Account.Add_Account_Contact = Ext.extend(Sage.Platform.Mobile.Edit, {
-    titleText: 'Add Account/Contact',
+    titleText: 'Add Account / Contact',
+    detailsText: 'Contact / Account Info',
+    detailsContactText: 'Contact Info',
+    detailsAccountText: 'Account Info',
     accountText: 'Account',
-    firstNameText: 'FirstName',
-    lastNameText: 'LastName',
-    phoneText: 'Phone - Main',
+    firstNameText: 'firstName',
+    lastNameText: 'lastName',
+    phoneText: 'phone',
     webText: 'Web',
-
+    workText: 'workPhone',
+    mobileText: 'mobile',
+    faxText: 'fax',
+    typeText: 'type',
+    subTypeText: 'subtype',
+    industryText: 'industry',
+    description: 'description',
+    statusText: 'status',
     constructor: function(o) {
         Mobile.SalesLogix.Account.Add_Account_Contact.superclass.constructor.call(this);
 
@@ -30,22 +40,45 @@ Mobile.SalesLogix.Account.Add_Account_Contact = Ext.extend(Sage.Platform.Mobile.
             {name: 'AccountManager.UserInfo.FirstName', label: this.firstNameText, type: 'text'},
             {name: 'AccountManager.UserInfo.LastName', label: this.lastNameText, type: 'text'},
             {name: 'MainPhone', label: this.phoneText, type: 'text'},
-            {name: 'WebAddress', label: this.webText, type: 'text'}
-        ];
+            {name: 'WebAddress', label: this.webText, type: 'text'},
+            {options: {title: this.detailsContactText}, as: [
+                {name: 'WorkPhone', label: this.workText, type: 'text'},
+                {name: 'Mobile', label: this.mobileText, type: 'text'},
+                {name: 'Fax', label: this.faxText, type: 'text'}
+            ]},
+            {options: {title: this.detailsAccountText}, as: [
+                {name: 'Fax', label: this.faxText, type: 'text'},
+                {name: 'Type', label: this.typeText, type: 'text'},
+                {name: 'SubType', label: this.subTypeText, type: 'text'},
+                {name: 'Status', label: this.statusText, type: 'text'},
+                {name: 'Industry', label: this.industryText, type: 'text'},
+                {name: 'BusinessDescription', label: this.description, type: 'text'}
+            ]}
+        ]
     },
     init: function() {
         Mobile.SalesLogix.Account.Add_Account_Contact.superclass.init.call(this);
     },
     createRequest: function() {
-        return Mobile.SalesLogix.Account.Add_Account_Contact.superclass.createRequest.call(this)    
+        return Mobile.SalesLogix.Account.Add_Account_Contact.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
+                'include': 'Account,Address,AccountManager,AccountManager/UserInfo',
                 'select': [
                     'AccountName',
                     'MainPhone',
                     'WebAddress',
                     'AccountManager/UserInfo/FirstName',
-                    'AccountManager/UserInfo/LastName'
+                    'AccountManager/UserInfo/LastName',
+                    'WorkPhone',
+                    'Mobile',
+                    'Fax',
+                    'Type',
+                    'SubType',
+                    'Status',
+                    'Industry',
+                    'BusinessDescription',
+
                 ]
             });
     }
