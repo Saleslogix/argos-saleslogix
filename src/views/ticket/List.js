@@ -23,6 +23,7 @@ Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
             id: 'ticket_list',
             title: this.titleText,
             editor: 'ticket_edit',
+            contextDialog: 'context_dialog',
             resourceKind: 'tickets',
             pageSize: 25,
             icon: 'content/images/Ticket_List_3D_32x32.gif'

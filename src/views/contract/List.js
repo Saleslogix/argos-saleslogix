@@ -25,6 +25,7 @@ Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
             id: 'contract_list',
             title: this.titleText,
             editor: 'contract_edit',
+            contextDialog: 'context_dialog',
             resourceKind: 'contracts',
             pageSize: 25,
             icon: 'content/images/contract_16x16.gif'
