@@ -190,9 +190,10 @@ input.field-error
     padding: 10px 10px 0 110px;
 }
 
-.row-edit > div.field-lookup
+.row-edit > div.field-lookup > a
 {
-    padding: 10px 10px 0px 110px;    
+    padding: 10px 10px 0px 110px;
+    display: block;
 }
 
 .search.toolbar {
@@ -266,6 +267,16 @@ input.field-error
     cursor: auto;
 }
 
+ul.list .list-selector
+{
+    visibility: hidden;
+}
+
+ul.list-show-selectors .list-selector
+{
+    visibility: visible;
+}
+
 #context_dialog ul {
     padding-left: 0;
 }
@@ -322,9 +333,11 @@ ul#configure > li > .movedown {
 }
 
 ul#configure > li > .list-selector {
+    visibility: visible;
     margin-top:12px;
 }
 
 .row > .toggle, .toggle .thumb, .toggle .toggleOn, .toggle .toggleOff {
     width: auto;
 }
+

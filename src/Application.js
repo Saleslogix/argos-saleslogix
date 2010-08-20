@@ -219,6 +219,10 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'note_related',
             expose: false
         }));
+
+        this.registerView(new Mobile.SalesLogix.User.List({
+            expose: false        
+        }));
      
         /*
         this.registerView(new Mobile.SalesLogix.Activity.List({
