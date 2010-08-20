@@ -8,7 +8,6 @@ Ext.namespace("Mobile.SalesLogix");
 
 /// this is a very simple home view.
 Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
-    titleText: '',
     cancelText: 'Cancel',
     activitiesText: 'Activities',
     notesText: 'Notes',
@@ -30,7 +29,6 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
         Ext.apply(this, o, {
             id: 'context_dialog',
-            title: this.titleText,
             expose: false
         });
     },
@@ -84,12 +82,11 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
             }, this, { preventDefault: true, stopPropagation: true });
     },
 
-    show: function(el) {
+    show: function(options) {
         Mobile.SalesLogix.ContextDialog.superclass.show.call(this);
-        el = new Ext.Element(el);
-        var link = el.parent('a');
-        this.detailView = link.dom.hash.substring(1);
-        this.relatedKey = link.getAttribute("m:key");
+
+        this.detailView = App.getView(options.detailView);
+        this.relatedKey = options.key;
     },
 
     dismissDialog: function() {
