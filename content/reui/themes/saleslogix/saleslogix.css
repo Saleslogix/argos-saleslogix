@@ -1,0 +1,171 @@
+@import url(base.css);
+
+body
+{
+	font-family: Arial, Helvetica;
+	background: #fff;
+	color: #000;
+}
+
+body > .toolbar {
+    border-bottom: 1px solid #2d3642;
+    border-top: 1px solid #6d84a2;  
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);  
+	background: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+}
+
+.toolbar > h1
+{
+	color: #000;
+	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+}
+
+.toolbar > .button
+{
+	text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
+}
+
+.button 
+{
+	color: #fff;
+	text-align: center;
+	text-decoration: none;	
+	
+	font-weight: bold;
+	font-size: .8em;
+	
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;   
+    border-radius: 5px; 
+    
+    border: solid 2px #fff;
+    
+    -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+    -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
+    
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, rgb(42,101,80)),
+		color-stop(1, rgb(6,74,52))
+	);
+	background: -moz-linear-gradient(
+		center top,
+		rgb(42,101,80) 0%,
+		rgb(6,74,52) 100%
+	);
+}
+
+.dialog > fieldset
+{
+	border-bottom: 1px solid #2d3642;
+    border-top: 1px solid #6d84a2;  
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #aaaaaa)
+	);  
+	background: -moz-linear-gradient(top, #e6e6e6, #aaaaaa);
+}
+
+.dialog > fieldset > hr
+{
+    display: block;
+    width: 100%;
+    border-style: inset;
+    border-color: #eeeeee;
+}
+
+body > div.toolbar-float[open],
+body[orient] > div.toolbar-float[open]
+{
+	background-image: url(../images/arrow-right.png), -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(44,44,44)),
+		color-stop(0.5, rgb(21,21,21)),
+		color-stop(0.5, rgb(49,49,49)),
+		color-stop(1, rgb(79,79,79))
+	);
+	background-image: url(../images/arrow-right.png), -moz-linear-gradient(
+		center bottom,
+		rgb(44,44,44) 0%,
+		rgb(21,21,21) 50%,
+		rgb(49,49,49) 50%,
+		rgb(79,79,79) 100%
+	);
+}
+
+
+.toolbar-float
+{
+	background-image: url(../images/arrow-left.png), -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(44,44,44)),
+		color-stop(0.5, rgb(21,21,21)),
+		color-stop(0.5, rgb(49,49,49)),
+		color-stop(1, rgb(79,79,79))
+	);
+	background-image: url(../images/arrow-left.png), -moz-linear-gradient(
+		center bottom,
+		rgb(44,44,44) 0%,
+		rgb(21,21,21) 50%,
+		rgb(49,49,49) 50%,
+		rgb(79,79,79) 100%
+	);
+
+	background-position: 6px center, top left;
+	background-repeat: no-repeat, no-repeat;
+}
+
+.toolbar-float-container a
+{
+    color: #fff;
+}
+
+h2
+{
+    border-bottom: 1px solid #34491d;
+    border-top: 1px solid #c1d6a9;
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #83ae53),
+		color-stop(1, #69933a)
+	);
+	background: -moz-linear-gradient(top, #83ae53, #69933a);
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    color: white;
+    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0px;
+    font-weight: normal;
+}
+
+.panel > fieldset
+{
+    border-style: none solid solid solid;
+    border-color: #024731;
+    border-width: 0 2px 2px 2px;
+    background: #f2f2f2;    
+}
+
+input:focus
+{
+	outline: none;
+	background-color: #FDFFDD;
+}

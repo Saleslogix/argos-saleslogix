@@ -1,0 +1,469 @@
+body 
+{
+	margin: 0;
+	overflow-x: hidden;
+	-webkit-user-select: none;
+	-webkit-text-size-adjust: none;
+}
+
+body > *
+{
+    display: none;
+    position: absolute;
+    margin: 0;
+    padding : 0;
+}
+
+body > ul,
+body > div.panel
+{
+    left: 0;
+    top: 45px;
+    width: 100%;
+    height: auto;
+    -webkit-transform: translateX(0%);
+    -webkit-transition-duration: 300ms;
+    -webkit-transition-property: -webkit-transform;
+}
+
+body[orient="landscape"] > *:not(.toolbar) {
+    height: auto;
+    min-height: 268px;
+}
+
+body > *[selected="true"] {
+    display: block;
+}
+
+body > .toolbar,
+.dialog > fieldset > .toolbar {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+        
+    height: 45px;
+    width: 100%;
+    position: relative;
+    padding: 6px;
+
+    display: block;
+    z-index: 10;
+}
+
+.toolbar > h1 {
+    overflow: hidden; 
+    display: block;
+    margin: 0;
+    padding: 0;    
+    font-size: 1.2em;
+    line-height: 30px;
+    font-weight: bold;    
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #FFFFFF;
+
+    position: absolute;
+    left: 25%;
+    right: 25%;
+
+    -webkit-box-flex: 2;	
+	-moz-box-flex: 2;
+	box-flex: 2;    
+}
+
+.toolbar > .button
+{	    
+	display: inline-block;
+    position: absolute;
+	max-width: 200px;
+	overflow: hidden;
+    width: 20%;
+	text-overflow: ellipsis;
+	
+	-webkit-box-flex: 1;	
+	-moz-box-flex: 1;
+	box-flex: 1;
+
+    margin: 0 6px;
+    z-index: 15;
+}
+
+.dialog > fieldset > .toolbar > .button
+{
+    margin: 0px;
+}
+
+.toolbar > .button
+{
+    
+}
+
+.toolbar > .button:first-child
+{
+    left: 0;
+}
+
+.toolbar > .button:last-child
+{
+    right: 0;
+}
+
+.button
+{
+	height: 28px;
+	line-height: 28px;		
+	padding: 0px 2px 0px 2px;
+}
+
+body > .dialog {
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0;
+    text-align: right;
+}
+
+.dialog > fieldset {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-top: 1px solid #6d84a2;
+    padding: 0px 6px;
+    -webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-bottom-left-radius: 5px;
+	-moz-border-bottom-right-radius: 5px;
+}
+
+.dialog > fieldset > label {
+    position: absolute;
+    margin: 8px 0 0 6px;
+    font-size: 14px;
+    color: #999999;
+    display: inline-block;
+}
+
+input:not([type|=radio]):not([type|=checkbox]) {
+    -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    margin: 0 0 8px 0;
+    padding: 6px 6px 6px 44px;
+    font-size: 16px;
+    font-weight: normal;
+    border: 1px inset gray;
+}
+
+.row > input:not([type|=radio]):not([type|=checkbox]) 
+{	
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+    margin: 0;
+    border: none 0px black;
+    padding: 12px 10px 0 110px;
+    height: 42px;
+    border: none 0px transparent;
+    background: transparent;
+}
+
+.row > input[type|=radio], .row > input[type|=checkbox] 
+{
+    margin: 7px 7px 0 0;
+    height: 25px;
+    width: 25px;
+}
+
+body > ul > li
+{
+    font-size: 1.25em;
+    font-weight: bold;
+    list-style: none;
+    margin: 0;
+    padding: 8px 0px 8px 10px;
+    position: relative;
+    border-bottom: solid 1px #ddd;
+}
+
+body > ul > li > a,
+body > ul > * > a
+{
+    color: inherit;
+    padding: 8px 32px 8px 36px;
+    margin: -8px 0px -8px -10px;
+    display: block;
+    text-decoration: none;
+}
+
+body > ul > li > a > img.icon,
+body > ul > * > a > img.icon
+{
+    border: none 0 black;
+    margin: 0 .5em 0 0;
+    width: 24px;
+    height: 24px;
+}
+
+body > ul > li > input.list-selector
+{
+    float: left;
+    margin: 2px 0 0 0px;
+}
+
+h3
+{
+	font-size: .75em;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+h4
+{
+	font-size: .5em;
+	margin: 0;
+	padding: 0;
+	color: #999999;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+li.more
+{
+	padding: 1em;
+}
+
+li.more-loading a.whiteButton span
+{
+	background: url('../images/loading-indicator-white-button.gif') no-repeat scroll 0 50%;
+	padding: 0 0 0 20px;
+	color: #999999;
+}
+
+li.loading
+{
+	text-align: center;
+}
+
+li.loading .loading-indicator
+{
+	display: inline-block;
+}
+
+.loading-indicator
+{
+	background: url('../images/loading-indicator-white.gif') no-repeat scroll 0 50%;
+	padding: 0 0 0 20px;
+}
+
+fieldset.loading .row
+{
+	text-align: center !important;
+	padding: 1em !important;
+	min-height: 1em !important;
+}
+
+fieldset.loading .loading-indicator
+{
+	display: inline-block;
+}
+
+img
+{
+	border: none 0 black;
+}
+
+body > div.toolbar-float,
+body[orient] > div.toolbar-float
+{
+	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	display: block;
+	height: 50px;
+	width: 36px; /* was auto */
+	min-width: 36px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	left: auto;
+	min-height: 0;
+	z-index: 1;
+	padding: 0 0 0 36px;
+}
+
+body > div.toolbar-float[open],
+body[orient] > div.toolbar-float[open]
+{
+	width: auto;
+}
+
+
+.toolbar-float
+{
+	overflow: hidden;
+
+    -moz-border-radius-topleft: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+
+	/* note: there is a bug with webkit with transitioning to 'auto' */
+	-webkit-transition-property: -webkit-transform;
+	-webkit-transition-duration: 300ms;
+	-webkit-transition-delay: 0;
+	-webkit-transition-timing-function: ease-in-out;
+
+	-moz-transition-property: -moz-transform;
+	-moz-transition-duration: 300ms;
+	-moz-transition-delay: 0;
+	-moz-transition-timing-function: ease-in-out;
+
+	transition-property: transform;
+	transition-duration: 300ms;
+	transition-delay: 0;
+	transition-timing-function: ease-in-out;
+}
+
+.toolbar-float-container
+{
+	/* use with column-count (and width) for alternate layout method */
+	-webkit-column-gap: 0px;
+	-moz-column-gap: 0px;
+	column-gap: 0px;
+
+	height: 50px;
+
+	display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+
+    display: box;
+    box-orient: horizontal;
+    box-pack: center;
+    box-align: center;
+}
+
+.toolbar-float-container a
+{
+    width: 48px;
+    text-align: center;
+}
+
+.toolbar-float-container a span
+{
+	display: block;
+	font-size: .6em;
+}
+
+.panel > .loading
+{
+	display: none;
+}
+
+.panel-loading > .loading
+{
+	display: block;
+}
+
+.panel-loading > *:not(.loading)
+{
+	display: none;
+}
+
+.panel > h2
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    line-height: 32px;
+    margin: 0;
+    padding: 0 0 0 6px;
+    font-size: 1em;
+    z-index: 5;
+    position: relative;
+}
+
+.panel > h2:first-child
+{
+    border-top: none 0 black;
+}
+
+.panel > fieldset
+{
+    -moz-border-radius-bottomleft: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    margin: 0 12px 24px 12px;
+}
+
+div.row > label
+{
+	margin: 0px;
+	padding: 0;
+	position: relative;
+	float: left;	
+	width: 100px;
+	text-align: right;
+	color: #556382;
+	font-size: 0.9em;
+}
+
+div.panel > ul li,
+div.row
+{
+	text-align: left;
+	clear: both;
+    line-height: 1.5em;
+}
+
+div.panel > ul,
+div.panel > fieldset
+{
+	text-align: left;
+	font-size: 14px;
+}
+
+div.row > span,
+div.row > a
+{
+	display: block;
+	margin: 0 0 0 0;
+	padding: 0 0 0 12px;
+	position: relative;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+div.row a[target=_related]
+{
+	background:url(../../libraries/reui/themes/iui/default/listArrow.png) center right no-repeat;
+	font-size: inherit;
+}
+
+.no-data
+{
+	text-align: center;
+}
