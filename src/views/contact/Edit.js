@@ -16,7 +16,7 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     mobileText: 'mobile',
     emailText: 'email',
     webText: 'web',
-
+    acctMgrText: 'acct mgr',
     constructor: function(o) {
         Mobile.SalesLogix.Contact.Edit.superclass.constructor.call(this);
 
@@ -34,7 +34,7 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
 	        {name: 'Mobile', label: this.mobileText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Email', label: this.emailText, type: 'text'},
 	        {name: 'WebAddress', label: this.webText, type: 'text'},
-            {name: 'AccountManager.UserInfo', label: 'acct. mgr.', type: 'lookup', view: 'user_list'}
+            {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF}
         ];
     },
     init: function() {

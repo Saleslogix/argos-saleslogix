@@ -10,7 +10,7 @@ Ext.namespace("Mobile.SalesLogix.User");
 Mobile.SalesLogix.User.List = Ext.extend(Sage.Platform.Mobile.List, {
     contentTemplate: new Simplate([
         '<a href="#account_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
-        '<h3>{%: $.UserInfo.LastName, $.UserInfo.LastName %}</h3>',
+        '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
         '<h4>{%: $.UserInfo.Title %}</h4>',
         '</a>'
     ]),
