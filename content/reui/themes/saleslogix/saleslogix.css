@@ -336,14 +336,26 @@ div.row-edit:last-child
     -moz-border-radius: 3px;
     border-radius: 3px;
 
-    border: solid 2px #fff;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #fff;
+
+    /*
+    border-style: solid;
+    border-width: 1px;
+    border-color: #fff;
+    */
     cursor: pointer;
 
     text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
-
+    
     -moz-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
     -webkit-box-shadow: rgba(0,0,0,0.75) 0px 0px 4px;
 
+    /*
+    -moz-box-shadow: rgba(0,0,0,0.75) 0px 1px 1px inset, rgba(0,0,0,0.75) 0px 0px 4px;
+    -webkit-box-shadow: rgba(0,0,0,0.75) 0px 1px 1px inset, rgba(0,0,0,0.75) 0px 0px 4px;
+    */
     background: -webkit-gradient(
 		linear,
 		left top,
@@ -363,7 +375,6 @@ div.row-edit:last-child
 .whiteButton
 {
     color: #444;
-    border: solid 2px #fff;
     text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
 
     background-image: -webkit-gradient(
@@ -380,10 +391,6 @@ div.row-edit:last-child
 
 .blueButton
 {
-    color: #fff;
-    border: solid 2px #fff;
-    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
-
     background-image: -webkit-gradient(
 		linear,
 		left top,
@@ -398,10 +405,6 @@ div.row-edit:last-child
 
 .redButton
 {
-    color: #fff;
-    border: solid 2px #fff;
-    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
-
     background-image: -webkit-gradient(
 		linear,
 		left top,
