@@ -1,4 +1,4 @@
-﻿/* adjust input positions for search dialog */
+/* adjust input positions for search dialog */
 .search input:not(input[type|=radio]):not(input[type|=checkbox])
 {
     padding: 6px 6px 6px 50px;
@@ -179,7 +179,6 @@ div.defect-text-wrap a[target="_related"]
      
 }
 
-
 input.field-error
 {
     color: #f00;
@@ -189,6 +188,12 @@ input.field-error
 {
     height: auto;
     padding: 10px 10px 0 110px;
+}
+
+.row-edit > div.field-lookup > a
+{
+    padding: 10px 10px 0px 110px;
+    display: block;
 }
 
 .search.toolbar {
@@ -262,6 +267,38 @@ input.field-error
     cursor: auto;
 }
 
+ul.list .list-item-selector
+{
+    visibility: hidden;
+    width: 24px;
+    height: 24px;
+    color: #ff0;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+ul.list-show-selectors .list-item-selector
+{
+    visibility: visible;
+}
+
+ul.list .list-item-selected
+{ 
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(255,241,84)),
+        color-stop(1, rgb(204,193,71))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(255,241,84) 0%,
+        rgb(204,193,71) 100%
+    );
+}
+
 #context_dialog ul {
     padding-left: 0;
 }
@@ -318,9 +355,11 @@ ul#configure > li > .movedown {
 }
 
 ul#configure > li > .list-selector {
+    visibility: visible;
     margin-top:12px;
 }
 
 .row > .toggle, .toggle .thumb, .toggle .toggleOn, .toggle .toggleOff {
     width: auto;
 }
+
