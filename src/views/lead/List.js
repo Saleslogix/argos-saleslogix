@@ -11,7 +11,7 @@ Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Lead',
     fbartitleText: 'note',
     contentTemplate: new Simplate([
-        '<a href="#lead_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
+        '<a href="#lead_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
         '<h3>{%= LeadNameLastFirst %}</h3>',
         '<h4>{%= $.Company %}</h4>',
         '</a>'

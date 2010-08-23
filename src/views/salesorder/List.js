@@ -10,7 +10,7 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
 Mobile.SalesLogix.SalesOrder.List = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'SalesOrder',
     contentTemplate: new Simplate([
-        '<a href="#salesorder_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
+        '<a href="#salesorder_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
         '<h3>{%= $["Account"]["AccountName"] %}</h3>',
         '<h4>{%= SalesOrderNumber %}</h4>',
         '</a>'

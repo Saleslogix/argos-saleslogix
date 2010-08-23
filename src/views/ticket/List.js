@@ -11,7 +11,7 @@ Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Ticket',
     fbartitleText: 'note',
     contentTemplate: new Simplate([
-        '<a href="#ticket_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
+        '<a href="#ticket_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
         '<h3>{%: $["Account"] ? $["Account"]["AccountName"] : "" %}</h3>',
         '<h4>{%: $["TicketNumber"] %}</h4>',
         '</a>'

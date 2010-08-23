@@ -35,10 +35,10 @@ test('On Configure screen', function() {
     
     // Just form a closure.
     S.wait(100, function(){
-        var firstItem = S('#configure li:nth-child(1) .resource').attr('m:resource');
+        var firstItem = S('#configure li:nth-child(1) .resource').attr('data-resource');
         S('#configure li:nth-child(1) .movedown').click(function(){
             S.wait(100, function() {
-                var newSecondItem = S('#configure li:nth-child(2) .resource').attr('m:resource');
+                var newSecondItem = S('#configure li:nth-child(2) .resource').attr('data-resource');
                 
                 equal(firstItem, newSecondItem, 'Clicking move down must push the element one step down');
             });
@@ -47,10 +47,10 @@ test('On Configure screen', function() {
     
     // Just form a closure.
     S.wait(100, function(){
-        var firstItem = S('#configure li:nth-child(1) .resource').attr('m:resource');
+        var firstItem = S('#configure li:nth-child(1) .resource').attr('data-resource');
         S('#configure li:nth-child(2) .moveup').click(function(){
             S.wait(100, function() {
-                var newSecondItem = S('#configure li:nth-child(2) .resource').attr('m:resource');
+                var newSecondItem = S('#configure li:nth-child(2) .resource').attr('data-resource');
                 
                 equal(firstItem, newSecondItem, 'Clicking move up must push the element one step up');
             });

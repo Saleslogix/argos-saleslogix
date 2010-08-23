@@ -11,7 +11,7 @@ Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Contract',
     fbartitleText: 'note',
     contentTemplate: new Simplate([
-        '<a href="#contract_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
+        '<a href="#contract_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
         '<div>',
         '<h3>{%= $["Account"]["AccountName"] %}</h3>',
         '<h4>{%= ReferenceNumber %}</h4>',

@@ -31,10 +31,10 @@ Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     textBlockTemplate: new Simplate([
         '<div class="row defect-text-row">',
         '<div class="defect-text-wrap">',
-        '<a href="#{%= $["view"] %}" target="_related" m:context={%= $["context"] %}>{%= $["value"] %}</a>',
+        '<a href="#{%= $["view"] %}" target="_related" data-context={%= $["context"] %}>{%= $["value"] %}</a>',
         '</div>',
         '<div class="defect-text-more">',
-        '<a href="#{%= $["view"] %}" target="_related" m:context={%= $["context"] %}>more &gt;&gt;</a>',
+        '<a href="#{%= $["view"] %}" target="_related" data-context={%= $["context"] %}>more &gt;&gt;</a>',
         '</div>',
         '</div>'
     ]),

@@ -11,7 +11,7 @@ Mobile.SalesLogix.Return.List = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Return',
     fbartitleText: 'note',
     contentTemplate: new Simplate([
-        '<a href="#return_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
+        '<a href="#return_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
         '<h3>{%: $["Account"] ? $["Account"]["AccountName"] : "" %}</h3>',
         '<h4>{%: $["ReturnNumber"] %}</h4>',
         '</a>'

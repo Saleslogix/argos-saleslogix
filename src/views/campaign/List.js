@@ -11,7 +11,7 @@ Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Campaign',
     fbartitleText: 'note',
     contentTemplate: new Simplate([
-        '<a href="#campaign_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
+        '<a href="#campaign_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
         '<h3>{%: $["CampaignName"] %}</h3>',
         '</a>'
     ]),

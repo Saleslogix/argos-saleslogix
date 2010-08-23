@@ -14,12 +14,12 @@ Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
     contentTemplate: new Simplate([
         '<div class="row defect-text-row">',
         '<div class="defect-text-wrap">',
-        '<a href="#note_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">',
+        '<a href="#note_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
         '<h3>{%= $["Notes"] %}</h3>',
         '</a>',
         '</div>',
         '<div class="defect-text-more">',
-        '<a href="#note_detail" target="_detail" m:key="{%= $key %}" m:descriptor="{%: $descriptor %}">more &gt;&gt;</a>',
+        '<a href="#note_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">more &gt;&gt;</a>',
         '</div>',
         '</div>'
     ]),
