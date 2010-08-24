@@ -1,36 +1,160 @@
-/* adjust input positions for search dialog */
-.search input:not(input[type|=radio]):not(input[type|=checkbox])
+body > ul > li > a, body > ul > li > * > a
 {
-    padding: 6px 6px 6px 50px;
+    padding: 8px 32px 8px 36px;
 }
 
-/* same as above, but for chrome fix */
-.search input:not([type|=radio]):not([type|=checkbox]) 
+/* search */
+li.search
 {
-    padding: 6px;
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #83ae53),
+		color-stop(1, #69933a)
+	);
+	background: -moz-linear-gradient(top, #83ae53, #69933a);
+	border-bottom: 1px solid #34491d;
+    border-top: 1px solid #83ae53;
+
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 }
 
-/* hid text on floating toolbar */
-.toolbar-float-container a span
-{    
-    display: none;
-}
-
-.tool-note
+li.search input
 {
-    margin-bottom: 3px;
+    font-size: .6em;
+    line-height: 30px;
+
+    /* these are marked !important due to Chrome CSS fix */
+    /* todo: needed still? */
+    padding: 0 128px 0 5px !important;
+    -moz-border-radius: 3px !important;
+    -webkit-border-radius: 3px !important;
+    border: inset 1px #000 !important;
+    background: #fff;
+
+    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
 }
 
+li.search .searchButton
+{
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    -moz-border-radius: 0px 3px 3px 0px;
+    -webkit-border-radius: 0px 3px 3px 0px;
+    color: #555;
+	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+    font-size: .6em;
+    line-height: 30px;
+    padding: 0 8px 0 6px;
+    border: inset 1px #000;
+    text-align: center;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+li.search .dismissButton
+{
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    color: #555;
+	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+    -moz-border-radius: 3px 0px 0px 3px;
+    -webkit-border-radius: 3px 0px 0px 3px;
+    font-size: .6em;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    border-style: inset;
+    border-color: #000;
+    border-width: 1px 0 1px 1px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+li.search label
+{
+    color: #aaa;
+    font-size: .6em !important;
+    line-height: 32px;
+    padding: 0 8px 0 6px;
+    font-weight: normal;
+}
+
+/* edit/insert */
+input.field-error
+{
+    color: #f00;
+}
+
+.row > input:not([type|=radio]):not([type|=checkbox])
+{
+    height: auto;
+    padding: 10px 10px 0 110px;
+}
+
+.row-edit > div.field-lookup > a
+{
+    padding: 10px 10px 0px 110px;
+    display: block;
+}
+
+/* list selection */
+.list .list-item-selector
+{
+    visibility: hidden;
+    width: 24px;
+    height: 24px;
+    color: #ff0;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+.list-show-selectors .list-item-selector
+{
+    visibility: visible;
+}
+
+.list .list-item-selected
+{
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(255,241,84)),
+        color-stop(1, rgb(204,193,71))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(255,241,84) 0%,
+        rgb(204,193,71) 100%
+    );
+}
+
+/* misc. */
 li.is-linked
 {
     background: url('../images/associate_16x16.gif') no-repeat 10px 50%;
 }
 
-body > ul > li > a, body > ul > li > * > a   
-{
-    padding: 8px 32px 8px 36px;
-}
-
+/* opportunity view */
 .o-stage h3,
 .o-stage h4
 {
@@ -84,21 +208,36 @@ body > ul > li > a, body > ul > li > * > a
         url('../images/meter-empty.png') no-repeat center right;
 }
 
-div.defect-text-row
+/* defect view */
+.defect-text-row
 {
     position: relative;
     min-height: inherit;
+    padding: 1em;
+    line-height: 1.25em;
 }
 
-#note_related div.defect-text-row
+.defect-text-more
 {
-    border-bottom: none;
-    clear:none;
-}
-
-#note_related div.defect-text-row h3
-{
-    white-space : normal ;
+    visibility: hidden;
+    border-style: none solid solid solid;
+    border-color: #024731;
+    border-width: 2px 0 0 2px;
+    background: #024731;
+    z-index: 1;
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    line-height: 1.5em;
+    height: 1.5em;
+    color: white;
+    display: inline-block;
+    padding: 0 8px 0 8px;
+    text-align: center;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
 }
 
 .defect-text-wrap
@@ -106,29 +245,6 @@ div.defect-text-row
     overflow: hidden;
     font-size: 1em;
     max-height: 3.5em;
-    margin: 12px;
-}
-
-.defect-text-more
-{
-    visibility: hidden;
-    border-top: solid 1px #aaa;
-    border-left: solid 1px #aaa;
-    background: #38689E;
-    z-index: 1;
-    position: absolute;
-    bottom: -13px;
-    right: -1px;
-    line-height: 1.5em;
-    height: 1.5em;
-    color: white;
-    display: inline-block;
-    padding: 0 8px 0 8px;
-    text-align: center;
-    -moz-border-radius-topleft: 10px;
-    -moz-border-radius-bottomright: 10px;
-    -webkit-border-top-left-radius: 10px;
-    -webkit-border-bottom-right-radius: 10px;
 }
 
 .defect-text-more a[target="_related"]
@@ -139,6 +255,17 @@ div.defect-text-row
     background:url('') !important;
 }
 
+/* note view */
+#note_related div.defect-text-row
+{
+    border-bottom: none;
+    clear:none;
+}
+
+#note_related div.defect-text-row h3
+{
+    white-space : normal;
+}
 
 #note_related div.defect-text-wrap
 {
@@ -162,14 +289,6 @@ div.defect-text-row
    color: white;
 }
 
-div.defect-text-wrap a[target="_related"]
-{
-     background: none;
-     text-decoration: none; 
-     color: #000;
-     display: block;
-}
-
 #note_related div.defect-text-wrap a[target="_detail"]
 {
      background-image:url("listArrowSel.png"), url("selection.png");
@@ -179,126 +298,7 @@ div.defect-text-wrap a[target="_related"]
      
 }
 
-input.field-error
-{
-    color: #f00;
-}
-
-.row > input:not([type|=radio]):not([type|=checkbox])
-{
-    height: auto;
-    padding: 10px 10px 0 110px;
-}
-
-.row-edit > div.field-lookup > a
-{
-    padding: 10px 10px 0px 110px;
-    display: block;
-}
-
-.search.toolbar {
-  width: auto;
-  padding-top: 0;
-  background-image: none;
-}
-
-.search fieldset {
-    background-position: 0 52px;
-    border: none;
-    padding: 0 40px 10px 0;
-    text-align: left;
-}
-.search label {
-    font-size: 16px;
-    font-weight: normal;
-    margin-top: -24px;
-    margin-left: 7px;
-    color: gray;
-    display: block;
-}
-
-.search input.query {
-    -moz-border-radius: 5px 0 0 5px;
-    -webkit-border-radius: 5px 0 0 5px;
-    padding-right: 35px;
-}
-
-.search .searchButton {
-    -moz-border-radius:0 5px 5px 0;
-    -webkit-border-radius:0 5px 5px 0;
-    background-color: #FFF;
-    background-image: url("../images/Find_32x32.gif");
-    background-position: 2px 3px;
-    background-repeat: no-repeat;
-    border-left-width: 2px solid gray;
-    color:transparent;
-    cursor:pointer;
-    display:inline-block;
-    height:26px;
-    margin-top: 2px;
-    overflow:hidden;
-    padding: 3px 6px 4px 4px;
-    position:absolute;
-    right:8px;
-    top: 7px;
-    width:24px;
-}
-
-.ext-webkit .search .searchButton {
-  height: 23px;
-  background-position: 0 0;
-}
-
-.search .dismissButton  {
-    background-image: url("../images/dismiss.gif");
-    background-repeat: no-repeat;
-    background-position: 8px 8px;
-    color:transparent;
-    cursor:pointer;
-    display:inline-block;
-    height:32px;
-    overflow:hidden;
-    position:absolute;
-    right:43px;
-    top:8px;
-    width:32px;
-    visibility:hidden;
-    z-index: 13;
-    cursor: auto;
-}
-
-ul.list .list-item-selector
-{
-    visibility: hidden;
-    width: 24px;
-    height: 24px;
-    color: #ff0;
-    position: absolute;
-    top: 8px;
-    left: 8px;
-}
-
-ul.list-show-selectors .list-item-selector
-{
-    visibility: visible;
-}
-
-ul.list .list-item-selected
-{ 
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, rgb(255,241,84)),
-        color-stop(1, rgb(204,193,71))
-    );
-    background-image: -moz-linear-gradient(
-        center top,
-        rgb(255,241,84) 0%,
-        rgb(204,193,71) 100%
-    );
-}
-
+/* context dialog */
 #context_dialog ul {
     padding-left: 0;
 }

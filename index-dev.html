@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://sage.com/gobi/mobile">
 <head>      
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
@@ -10,16 +10,18 @@
     <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/libraries/reui/themes/iui/iui.css" />
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/libraries/reui/themes/iui/default/default-theme.css" />
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/libraries/reui/themes/iui/default/default-panel-list.css" />
-    
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/base.css" />        
+    <link type="text/css" rel="stylesheet" href="content/reui/themes/sage-green/theme.css" />
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/base.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.css" />
    
     <script type="text/javascript" src="../../argos-sdk/libraries/ext/ext-core.js"></script>          
     <script type="text/javascript" src="../../argos-sdk/libraries/reui/reui.js"></script>
-    <script type="text/javascript">ReUI.autoInit = false;</script> 
+    <script type="text/javascript">
+    ReUI.autoInit = false;
+    ReUI.legacyMode = false;
+    ReUI.updateBackButtonText = false;
+    </script>
 
     <script type="text/javascript" src="../../argos-sdk/libraries/sage/sage.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sage/class.js"></script>

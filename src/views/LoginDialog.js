@@ -15,10 +15,13 @@ Mobile.SalesLogix.LoginDialog = Ext.extend(Sage.Platform.Mobile.View, {
     viewTemplate: new Simplate([
         '<form id="{%= id %}" class="dialog">',
         '<fieldset>',
+        '<div class="toolbar">',
         '<h1>{%= title %}</h1>',
-        '<a class="button blueButton" target="_none"><span>{%= $.titleText %}</span></a>',
+        '<a class="button actionButton" target="_none"><span>{%= $.titleText %}</span></a>',
+        '</div>',
         '<label>{%= $.userText %}</label>',
-        '<input id="{%= id %}_user" type="text" name="user" value="lee" /><br />',
+        '<input id="{%= id %}_user" type="text" name="user" value="lee" />',
+        '<br />',
         '<label>{%= $.passText %}</label>',
         '<input id="{%= id %}_pass" type="text" name="password" />',
         '</fieldset>',
@@ -38,7 +41,7 @@ Mobile.SalesLogix.LoginDialog = Ext.extend(Sage.Platform.Mobile.View, {
     init: function () {
         Mobile.SalesLogix.LoginDialog.superclass.init.call(this);
 
-        this.el.select('.blueButton')
+        this.el.select('.button')
             .on('click', function (evt, el, o) {
                 this.login();
             }, this, { preventDefault: true, stopPropagation: true });

@@ -1,0 +1,310 @@
+@import "base.css";
+
+body
+{
+	font-family: Helvetica, Arial;
+	background: #fff;
+	color: #000;
+}
+
+h3
+{
+}
+
+h4
+{
+    color: #07A;
+}
+
+body > .toolbar {
+    border-bottom: 1px solid #2d3642;
+    border-top: 1px solid #6d84a2;  
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);  
+	background: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+}
+
+.toolbar > h1
+{
+	color: #000;
+	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+}
+
+.dialog > fieldset
+{
+	border-bottom: 1px solid #2d3642;
+    border-top: 1px solid #6d84a2;  
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #aaaaaa)
+	);  
+	background: -moz-linear-gradient(top, #e6e6e6, #aaaaaa);
+    -moz-border-radius-bottomleft: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.dialog > fieldset > hr
+{
+    display: block;
+    width: 100%;
+    border-style: inset;
+    border-color: #eeeeee;
+}
+
+.dialog > fieldset > label
+{
+    color: #999999;
+}
+
+.panel > h2
+{
+    border-bottom: 1px solid #34491d;
+    border-top: 1px solid #c1d6a9;
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #83ae53),
+		color-stop(1, #69933a)
+	);
+	background: -moz-linear-gradient(top, #83ae53, #69933a);
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    color: white;
+    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0px;
+    font-weight: normal;
+}
+
+.panel > h2:first-child
+{
+    border-top: none 0 black;
+}
+
+.panel > fieldset
+{
+    border-style: none solid solid solid;
+    border-color: #024731;
+    border-width: 0 2px 2px 2px;
+    background: #f2f2f2;    
+}
+
+input:focus
+{
+	outline: none;
+	background-color: #FDFFDD;
+}
+
+.panel > ul
+{
+    border-style: none solid solid solid;
+    border-color: #024731;
+    border-width: 0 2px 2px 2px;
+    background: #f2f2f2;
+    -moz-border-radius-bottomleft: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+}
+
+.panel > ul > li
+{
+    border-bottom: solid 1px #ddd;
+}
+
+.panel > ul > li:last-child
+{
+    border-bottom: none 0 black;
+}
+
+.panel > ul > li > a,
+.panel > ul > * > a
+{
+    color: inherit;
+    text-decoration: none;
+}
+
+div.row > label
+{
+    color: #07A;
+}
+
+div.row-edit > input:focus
+{    
+    -webkit-box-shadow: 0 0 5px #00AAFF !important;
+    -moz-box-shadow: 0 0 5px #00AAFF !important;
+}
+
+div.row-edit
+{
+    border-bottom: solid 1px #ddd;
+}
+
+div.row-edit:last-child
+{
+    border-bottom: none 0 black;
+}
+
+.more > a
+{
+    margin: 0;
+}
+
+.button 
+{
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+
+	font-weight: bold;
+	font-size: .8em;
+
+	-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000;
+
+    cursor: pointer;
+
+    text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
+    
+    -moz-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset, rgba(255,255,255,0.6) 0px 1px 1px inset, rgba(0,0,0,0.75) 0px 0px 4px;
+    -webkit-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset, rgba(255,255,255,0.6) 0px 1px 1px inset, rgba(0,0,0,0.75) 0px 0px 4px;
+    
+    background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, rgb(42,101,80)),
+		color-stop(1, rgb(6,74,52))
+	);
+	background: -moz-linear-gradient(
+		center top,
+		rgb(42,101,80) 0%,
+		rgb(6,74,52) 100%
+	);
+
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.button:active
+{
+    background: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(42,101,80)),
+		color-stop(1, rgb(6,74,52))
+	);
+	background: -moz-linear-gradient(
+		center bottom,
+		rgb(42,101,80) 0%,
+		rgb(6,74,52) 100%
+	);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.whiteButton
+{
+    color: #444;
+    text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.whiteButton:active
+{
+    background-image: -webkit-gradient(
+		linear,
+		left bottom
+		left top,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.blueButton
+{
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #2ca0d1),
+		color-stop(1, #07a)
+	);
+	background-image: -moz-linear-gradient(top, #2ca0d1, #07a);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.blueButton:active
+{
+    background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #2ca0d1),
+		color-stop(1, #07a)
+	);
+	background-image: -moz-linear-gradient(bottom, #2ca0d1, #07a);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.redButton
+{
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #de6464),
+		color-stop(1, #b33737)
+	);
+	background-image: -moz-linear-gradient(top, #de6464, #b33737);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.redButton:active
+{
+    background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #de6464),
+		color-stop(1, #b33737)
+	);
+	background-image: -moz-linear-gradient(bottom, #de6464, #b33737);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}

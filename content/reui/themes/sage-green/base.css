@@ -111,8 +111,8 @@ body > .toolbar,
 
 .button
 {
-	height: 28px;
-	line-height: 28px;		
+	height: 30px;
+	line-height: 30px;		
 	padding: 0px 2px 0px 2px;
 }
 
@@ -145,13 +145,14 @@ body > .dialog {
     position: absolute;
     margin: 8px 0 0 6px;
     font-size: 14px;
-    color: #999999;
     display: inline-block;
 }
 
 input:not([type|=radio]):not([type|=checkbox]) {
-    -webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
+    -webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -160,29 +161,7 @@ input:not([type|=radio]):not([type|=checkbox]) {
     padding: 6px 6px 6px 44px;
     font-size: 16px;
     font-weight: normal;
-    border: 1px inset gray;
-}
-
-.row > input:not([type|=radio]):not([type|=checkbox]) 
-{	
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-    margin: 0;
-    border: none 0px black;
-    padding: 12px 10px 0 110px;
-    height: 42px;
-    border: none 0px transparent;
-    background: transparent;
-}
-
-.row > input[type|=radio], .row > input[type|=checkbox] 
-{
-    margin: 7px 7px 0 0;
-    height: 25px;
-    width: 25px;
+    border: 1px inset #000;
 }
 
 body > ul > li
@@ -235,39 +214,10 @@ h4
 {
 	font-size: .5em;
 	margin: 0;
-	padding: 0;
-	color: #999999;
+	padding: 0;	
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-}
-
-li.more
-{
-	padding: 1em;
-}
-
-li.more-loading a.whiteButton span
-{
-	background: url('../images/loading-indicator-white-button.gif') no-repeat scroll 0 50%;
-	padding: 0 0 0 20px;
-	color: #999999;
-}
-
-li.loading
-{
-	text-align: center;
-}
-
-li.loading .loading-indicator
-{
-	display: inline-block;
-}
-
-.loading-indicator
-{
-	background: url('../images/loading-indicator-white.gif') no-repeat scroll 0 50%;
-	padding: 0 0 0 20px;
 }
 
 fieldset.loading .row
@@ -405,11 +355,6 @@ body[orient] > div.toolbar-float[open]
     position: relative;
 }
 
-.panel > h2:first-child
-{
-    border-top: none 0 black;
-}
-
 .panel > fieldset
 {
     -moz-border-radius-bottomleft: 8px;
@@ -417,6 +362,7 @@ body[orient] > div.toolbar-float[open]
     -moz-border-radius-bottomright: 8px;
     -webkit-border-bottom-right-radius: 8px;
     margin: 0 12px 24px 12px;
+    padding: 0;
 }
 
 div.row > label
@@ -427,7 +373,6 @@ div.row > label
 	float: left;	
 	width: 100px;
 	text-align: right;
-	color: #556382;
 	font-size: 0.9em;
 }
 
@@ -437,6 +382,7 @@ div.row
 	text-align: left;
 	clear: both;
     line-height: 1.5em;
+    padding: 0 .75em;
 }
 
 div.panel > ul,
@@ -466,4 +412,121 @@ div.row a[target=_related]
 .no-data
 {
 	text-align: center;
+}
+
+li.search
+{
+    padding: 6px;
+    position: relative;
+}
+
+li.search input
+{    
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    height: 32px;
+    margin: 0 !important;
+}
+
+li.search .searchButton
+{    
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: absolute;
+    display: inline-block;    
+    height: 32px;
+    width: 64px;
+    right: 6px;
+    top: 6px;
+    border: solid 1px black;
+}
+
+li.search .dismissButton {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: absolute;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    right: 70px;
+    top: 6px;
+    border: solid 1px black;
+}
+
+li.search label
+{
+    position: absolute;
+    top: 6px;
+    left: 6px;
+}
+
+.panel > ul
+{
+    margin: 0 12px 24px 12px;
+    padding: 0;
+}
+
+.panel > ul > li
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.panel > ul > li > a,
+.panel > ul > * > a
+{
+    padding: 8px;
+    margin: 0px;
+    display: block;
+}
+
+.panel > ul > li > a > img.icon,
+.panel > ul > * > a > img.icon
+{
+    border: none 0 black;
+    margin: 0 .5em 0 0;
+    width: 24px;
+    height: 24px;
+}
+
+div.row-edit > label
+{
+	position: absolute;
+    height: 32px;
+    line-height: 32px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.row > input[type|=radio], .row > input[type|=checkbox]
+{
+    margin: 7px 7px 0 0;
+    height: 25px;
+    width: 25px;
+}
+
+.row > input:not([type|=radio]):not([type|=checkbox])
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+    margin: 0;
+    border: none 0px black;
+    padding: 0px 10px 0 110px !important;
+    height: 32px !important;
+    border: none 0px transparent;
+    background: transparent;
+}
+
+.row > input[type|=radio], .row > input[type|=checkbox]
+{
+  margin: 7px 7px 0 0;
+  height: 25px;
+  width: 25px;
 }

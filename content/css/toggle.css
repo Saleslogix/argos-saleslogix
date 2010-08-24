@@ -1,0 +1,77 @@
+.row > .toggle {
+    width: 100px;
+    height: 28px;
+    margin: 0px 0px 0px 110px;
+    position: relative;
+    right: auto;
+}
+
+.toggle {
+    border: 1px solid #888888;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.toggle[toggled="true"] {
+    border: 1px solid #143fae;
+}
+
+.toggleOn {
+    display: none;
+    position: absolute;
+    width: 60px;
+    text-align: center;
+    left: 0;
+    top: 0;
+    color: #FFFFFF;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+}
+
+.toggleOff {
+    position: absolute;
+    width: 60px;
+    text-align: center;
+    right: 0;
+    top: 0;
+    color: #666666;
+}
+
+.toggle[toggled="true"] > .toggleOn {
+    display: block;
+}
+
+.toggle[toggled="true"] > .toggleOff {
+    display: none;
+}
+
+.thumb {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 40px;
+    height: 28px;
+    border: 1px solid #888888;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+}
+
+.toggle[toggled="true"] > .thumb {
+    left: auto;
+    right: -1px;
+}
+
+.toggle {
+    border: 1px solid #888888;
+    background: #FFFFFF url(../images/toggle/toggle.png) repeat-x;
+}
+
+.toggle[toggled="true"] {
+    background: #194fdb url(../images/toggle/toggleOn.png) repeat-x;
+}
+
+.thumb {
+    background: #ffffff url(../images/toggle/thumb.png) repeat-x;
+}
