@@ -10,12 +10,24 @@ Ext.namespace("Mobile.SalesLogix.Lead");
 
 Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     titleText: 'Lead',
-    firstNameText: 'first',
-    lastNameText: 'last',
+    leadnamelastfirstText: 'name',
+    nameText: 'name',
     accountText: 'account',
-    workText: 'work',
-    eMailText: 'e-mail',
+    workText: 'phone',
+    emailText: 'email',
     webText: 'web',
+    companyText: 'Company',
+    tollfreetext: 'toll free',
+    faxText: 'fax',
+    addressText: 'address',
+    titlText: 'title',
+    ownerText: 'owner',
+    notesText: 'comments',
+    businessText: 'bus desc',
+    cityText: 'sic code',
+    industryText: 'industry',
+    interestsText: 'interests',
+    importText : 'lead source',
     constructor: function(o) {
         Mobile.SalesLogix.Lead.Edit.superclass.constructor.call(this);
 
@@ -27,12 +39,21 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'FirstName', label: this.firstNameText, type: 'text'},
-            {name: 'LastName',  label: this.lastNameText, type: 'text'},
-            {name: 'Company', label: this.accountText, type: 'text'},
-            {name: 'WorkPhone', label: this.workText, type: 'text'},
-            {name: 'Email', label: this.eMailText, type: 'text'},
-            {name: 'WebAddress', label: this.webText, type: 'text'}
+            {name: 'LeadNameLastFirst', label: this.leadnamelastfirstText, type: 'text'},
+            {name: 'Company', label: this.companyText, type: 'text'},
+            {name: 'WebAddress', label: this.webText, type: 'text'},
+            {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+            {name: 'Email', label: this.emailText, type: 'text'},
+            {name: 'Title', label: this.titlText, type: 'text'},
+            {name: 'Address.FullAddress', label: this.addressText, type: 'text'},
+            {name: 'TollFree', label: this.tollfreetext, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+            {name: 'ImportSource', label: this.importText, type: 'text'},
+            {name: 'Interests', label: this.interestsText, type: 'text'},
+            {name: 'Industry', label: this.industryText, type: 'text'},
+            {name: 'City', label: this.cityText, type: 'text'},
+            {name: 'BusinessDescription', label: this.businessText, type: 'text'},
+            {name: 'Notes', label: this.notesText, type: 'text'},
+            {name: 'Owner.OwnerDescription', label: this.ownerText, type: 'text'},
         ];
     },
     init: function() {
@@ -44,12 +65,22 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             .setQueryArgs({
                 'include': 'Account,Address,AccountManager,AccountManager/UserInfo,Owner',
                 'select': [
-		    'FirstName',
+                    'LeadNameLastFirst',
+                    'FirstName',
                     'LastName',
                     'Company',
                     'WorkPhone',
                     'Email',
-                    'WebAddress'
+                    'WebAddress',
+                    'Title',
+                    'FullAddress',
+                    'TollFree',
+                    'ImportSource',
+                    'Interests',
+                    'Industry',
+                    'SICCode ',
+                    'BusinessDescription',
+                    'Notes',
                 ].join(',')
             })
     }

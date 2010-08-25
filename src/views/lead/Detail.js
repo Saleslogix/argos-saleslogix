@@ -32,7 +32,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             resourceKind: 'leads'
         });
         this.layout = [
-            {name: 'LeadNameFirstLast', label: this.nameText },
+            {name: 'LeadNameLastFirst', label: this.nameText },
             {name: 'Company', label: this.accountText},
             {name: 'WorkPhone', label: this.workText, renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Email', label: this.eMailText, renderer: Mobile.SalesLogix.Format.mail},
@@ -67,9 +67,9 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             .setQueryArgs({
                 'include': 'Address,AccountManager,AccountManager/UserInfo,Owner',
                 'select': [
-                    'LeadNameFirstLast',
+                    'LeadNameLastFirst',
                     'FirstName',
-                    'LastName',	
+                    'LastName',
                     'Company',
                     'WorkPhone',
                     'Email',
@@ -77,7 +77,17 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'WebAddress',
                     'Owner/OwnerDescription',
                     'CreateUser',
-                    'CreateDate'
+                    'CreateDate',
+                    'Title',
+                    'FullAddress',
+                    'TollFree',
+                    'ImportSource',
+                    'Interests',
+                    'Industry',
+                    'SICCode ',
+                    'BusinessDescription',
+                    'Notes',
+                    
                 ].join(',')                  
             });     
         
