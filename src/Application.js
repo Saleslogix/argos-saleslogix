@@ -203,6 +203,10 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false        
         }));
      
+        this.registerView(new Mobile.SalesLogix.Owner.List({
+            expose: false        
+        }));
+        
         /*
         this.registerView(new Mobile.SalesLogix.Activity.List({
         title: 'My Activities',
