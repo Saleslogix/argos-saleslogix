@@ -1,5 +1,7 @@
 module("Search", {
     setup: function() {
+        //Clear Preferences for testing. Just to control our test environment.
+        window.localStorage.removeItem('preferences');
         //Configured in Saleslogix.html
         S.open(Saleslogix.URL);
         Saleslogix.Common.Login();
