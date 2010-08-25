@@ -26,7 +26,7 @@ Mobile.SalesLogix.Contract.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         this.layout = [
             {name: 'ReferenceNumber', label: this.refNumText, type: 'text'},
             {name: 'Period', label: this.quantityText, validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup', type: 'text'},
-            {name: 'IsActive', label: this.activeText, type: 'boolean', onText: 'true', offText: 'false'},
+            {name: 'IsActive', label: this.activeText, type: 'text'},
 
         ];
     },

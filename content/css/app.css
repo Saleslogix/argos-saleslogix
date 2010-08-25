@@ -359,7 +359,3 @@ ul#configure > li > .list-selector {
     margin-top:12px;
 }
 
-.row > .toggle, .toggle .thumb, .toggle .toggleOn, .toggle .toggleOff {
-    width: auto;
-}
-
