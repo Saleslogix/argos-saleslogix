@@ -77,7 +77,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
 
                 if (source.is('a[href="#contact_list"]'))
                 {
-                    App.getView('Add_Account_Contact').show();
+                    App.getView('Add_Account_Contact').show({insert: true});
                 }
             }, this, { preventDefault: true, stopPropagation: true });    
             
