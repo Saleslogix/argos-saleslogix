@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  * include this file in order to force the application to connect
  * to the cloud instance used for the Mobile Demo @ Insights 2010.
  */

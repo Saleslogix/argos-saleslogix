@@ -187,14 +187,14 @@ div.row-edit:last-child
     -moz-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset, rgba(255,255,255,0.6) 0px 1px 1px inset, rgba(0,0,0,0.75) 0px 0px 4px;
     -webkit-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset, rgba(255,255,255,0.6) 0px 1px 1px inset, rgba(0,0,0,0.75) 0px 0px 4px;
     
-    background: -webkit-gradient(
+    background-image: -webkit-gradient(
 		linear,
 		left top,
 		left bottom,
 		color-stop(0, rgb(42,101,80)),
 		color-stop(1, rgb(6,74,52))
 	);
-	background: -moz-linear-gradient(
+	background-image: -moz-linear-gradient(
 		center top,
 		rgb(42,101,80) 0%,
 		rgb(6,74,52) 100%
@@ -218,37 +218,6 @@ div.row-edit:last-child
 		rgb(42,101,80) 0%,
 		rgb(6,74,52) 100%
 	);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-}
-
-.whiteButton
-{
-    color: #444;
-    text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
-
-    background-image: -webkit-gradient(
-		linear,
-		left top,
-		left bottom,
-		color-stop(0, #e6e6e6),
-		color-stop(1, #cccccc)
-	);
-	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-}
-
-.whiteButton:active
-{
-    background-image: -webkit-gradient(
-		linear,
-		left bottom
-		left top,
-		color-stop(0, #e6e6e6),
-		color-stop(1, #cccccc)
-	);
-	background-image: -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
@@ -305,6 +274,37 @@ div.row-edit:last-child
 		color-stop(1, #b33737)
 	);
 	background-image: -moz-linear-gradient(bottom, #de6464, #b33737);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.whiteButton
+{
+    color: #444;
+    text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
+
+    background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+.whiteButton:active
+{
+    background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
