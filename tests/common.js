@@ -8,7 +8,7 @@ Saleslogix.Common.Login = function (callback) {
     } catch(e) {}
     
     callback = typeof callback == "function" ? callback : function(){};
-    S('#login_dialog .blueButton').visible(function() {
-        S('#login_dialog .blueButton').click(callback);
+    S('#login_dialog .actionButton').visible(function() {
+        S('#login_dialog .actionButton').click(callback);
     });
 };
