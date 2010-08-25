@@ -6,9 +6,10 @@
 Ext.namespace("Mobile.SalesLogix");
 
 /// this is a simple configure screen for Home View.
-Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
+Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Configure',
     savePrefs: 'Save',
+    emptyTemplate: new Simplate(['']),
     itemTemplate: new Simplate([
         '<li>',
         '<input type="checkbox" value="{%= $["id"] %}" class="list-selector" />',
@@ -31,17 +32,15 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
             selected: false,
             expose: false
         });
-        var confViewScope = this;
-        Ext.apply(this, {
-            tools: {
-                tbar: [{
-                    name: 'save',
-                    title: this.savePrefs,
-                    cls: 'save button',
-                    fn: this.savePreferences,
-                    scope: confViewScope
-                }]
-            }
+
+        Ext.apply(this.tools || {}, {
+            tbar: [{
+                name: 'save',
+                title: this.savePrefs,
+                cls: 'save button',
+                fn: this.savePreferences,
+                scope: this
+            }]
         });
     },
     init: function() {
@@ -86,21 +85,18 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
         App.persistPreferences();
         App.getView('home').show();
     },
-    displayTools: function() {
-        if (this.tools) {
-            for (var n in this.tools)
-                if (App.bars[n]) {
-                    App.bars[n].clear();
-                    App.bars[n].display(this.tools[n]);
-                }
-        }
-    },
-    renderView: function() {
+    // We dont have a feed to subscribe to for this List view. 
+    // So let's override "refresh" to do our logic, where we 
+    // display items stored in Application preferences (local storage).
+    
+    // Later when we persist this on server, we will as usual override
+    // formatSearchQuery and createRequest, rather than refresh method.
+    refresh: function() {
         var appConfigureOrder,
             viewLookup = {},
             exposedViews,
             o = [],
-            LIs, v, i, j;
+            v, i, j;
             
         //App.preferences.configure.order will not be available, 
         //when App calls it's init. 
@@ -110,13 +106,9 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
         catch(e) {
             return;
         }
-
-        // Run this only once
-        if (this.viewRendered === true) return;
         
-        //Defer initialization, until we need them.
+        //Defered initialization.
         exposedViews = App.getExposedViews();
-        LIs = this.el.select('li'); 
         
         //Update Configure List, to include any new views 
         //not included in local storage.
@@ -134,7 +126,7 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
         for (v in viewLookup) 
             appConfigureOrder.push(v);
         
-        for (var i = appConfigureOrder.length - 1; i >= 0; i--)
+        for (i = appConfigureOrder.length - 1; i >= 0; i--)
         {
             v = App.getView(appConfigureOrder[i]);
             
@@ -142,38 +134,36 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.View, {
             // we have to remove it from persistence.
             if (!v) appConfigureOrder.splice(i, 1);
             
-            o.unshift(this.itemTemplate.apply(v));
+            o.unshift(this.itemTemplate.apply(v, this));
         }
-        
         //Persist this back to local storage.
         App.persistPreferences();
         
-        LIs.remove();
-        Ext.DomHelper.append(this.el, o.join(''));
-        
-        //Set the flag, so we don't have to do this again.
-        this.viewRendered = true;
+        Ext.DomHelper.append(Ext.get('configure'), o.join(''));
+        this.selectPersistedItems();
     },
-    show: function() { 
-        this.renderView();
-        
-        Mobile.SalesLogix.Configure.superclass.show.call(this);
-        
+    selectPersistedItems: function() {
         var selectedViews = App.preferences.home.visible,
             selectedRegEx = [];
-        
+
         for (var j = 0; j < selectedViews.length; j++) {
             selectedRegEx.push(selectedViews[j]);
         }
         selectedRegEx = '^(' + selectedRegEx.join(')|(') + ')$';
         selectedRegEx = new RegExp(selectedRegEx, 'i');
-        
+
         this.el.select('li').each(function(li){
-            var chkbox = li.child('input.list-selector').dom;
+            var chkbox = li.child('input.list-selector');
+            if (!chkbox) return;
+            chkbox = chkbox.dom;
             if (selectedRegEx.test(chkbox.value))
             {
                 chkbox.checked = true;
             }
         });
+    },
+    show: function() {
+        Mobile.SalesLogix.Configure.superclass.show.call(this);
+        this.selectPersistedItems();
     }
 });
