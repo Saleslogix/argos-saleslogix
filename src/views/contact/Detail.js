@@ -74,10 +74,11 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
         request
             .setQueryArgs({
-                'include': 'Account,Address,AccountManager,AccountManager/UserInfo',
+                'include': 'Account,Address,AccountManager,AccountManager/UserInfo,Owner',
                 'select': [
                     'Account/AccountName',
                     'Name',
+                    'NameLF',
                     'FirstName',
                     'LastName',
                     'AccountName',
@@ -90,7 +91,12 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'AccountManager/UserInfo/LastName',
                     'Owner/OwnerDescription',
                     'CreateDate',
-                    'CreateUser'
+                    'CreateUser',
+                    'Title',
+                    'HomePhone',
+                    'Mobile',
+                    'Fax'
+                    
                 ].join(',')
             });
 

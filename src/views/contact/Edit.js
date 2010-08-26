@@ -10,13 +10,19 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
 Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     titleText: 'Contact',
-    firstNameText: 'first',
+    firstNameText: 'contact',
     lastNameText: 'last',
-    workText: 'work',
+    workText: 'phone',
     mobileText: 'mobile',
     emailText: 'email',
     webText: 'web',
     acctMgrText: 'acct mgr',
+    acctnameText: 'account',
+    hometext: 'home phone',
+    faxText: 'fax',
+    addressText: 'address',
+    titlText: 'title',
+    contactownerText: 'owner',
     constructor: function(o) {
         Mobile.SalesLogix.Contact.Edit.superclass.constructor.call(this);
 
@@ -28,13 +34,19 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'FirstName', label: this.firstNameText, type: 'text'},
-            {name: 'LastName',  label: this.lastNameText, type: 'text'},
-	        {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
-	        {name: 'Mobile', label: this.mobileText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+            {name: 'NameLF', label: this.firstNameText, type: 'text'},
+            {name: 'Account.AccountName', label: this.acctnameText, type: 'text'},
+            {name: 'WebAddress', label: this.webText, type: 'text'},
+            {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Email', label: this.emailText, type: 'text'},
-	        {name: 'WebAddress', label: this.webText, type: 'text'},
-            {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF}
+            {name: 'Title', label: this.titlText, type: 'text'},
+            {name: 'Address.FullAddress', label: this.addressText, type: 'text'},
+            {name: 'HomePhone', label: this.hometext, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+            {name: 'Mobile', label: this.mobileText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+            {name: 'Fax', label: this.faxText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+            {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF},
+            {name: 'Owner', label: this.contactownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
+             
         ];
     },
     init: function() {
@@ -44,9 +56,9 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         return Mobile.SalesLogix.Contact.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
            .setQueryArgs({
-                'include': 'Account,Address,AccountManager,AccountManager/UserInfo',
                 'select': [
                     'Account/AccountName',
+                    'NameLF',
                     'FirstName',
                     'LastName',
                     'AccountName',
@@ -59,7 +71,11 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'AccountManager/UserInfo/LastName',
                     'Owner/OwnerDescription',
                     'CreateDate',
-                    'CreateUser'
+                    'CreateUser',
+                    'Title',
+                    'HomePhone',
+                    'Mobile',
+                    'Fax'
                 ].join(',')
             })
     }

@@ -21,7 +21,7 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     faxText: 'fax',
     addressText: 'address',
     titlText: 'title',
-    ownerText: 'owner',
+    leadownerText: 'owner',
     notesText: 'comments',
     businessText: 'bus desc',
     cityText: 'sic code',
@@ -53,7 +53,7 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'City', label: this.cityText, type: 'text'},
             {name: 'BusinessDescription', label: this.businessText, type: 'text'},
             {name: 'Notes', label: this.notesText, type: 'text'},
-            {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
+            {name: 'Owner', label: this.leadownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
         ];
     },
     init: function() {
@@ -63,7 +63,6 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         return Mobile.SalesLogix.Lead.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
-                'include': 'Account,Address,AccountManager,AccountManager/UserInfo,Owner',
                 'select': [
                     'LeadNameLastFirst',
                     'FirstName',
