@@ -68,7 +68,7 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF},
             //{name: 'Owner.OwnerDescription', label: this.ownerText, type: 'text'},
             {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
-            {name: 'ImportSource', label: this.importSourceText, type: 'text'}
+            {name: 'LeadSource', label: this.importSourceText, type: 'lookup', view: 'leadsource_list', keyProperty: '$key', textProperty: 'Description'}
         ];
     },
     init: function() {
@@ -106,7 +106,8 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'SubType',
                     'Status',
                     'Industry',
-                    'BusinessDescription'
+                    'BusinessDescription',
+                    'LeadSource/Description'
                   ]
             });
     }

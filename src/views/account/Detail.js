@@ -93,7 +93,7 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
         request
             .setQueryArgs({
-                'include': 'Address,AccountManager,AccountManager/UserInfo,Owner',
+                'include': 'Address,AccountManager,AccountManager/UserInfo,Owner,LeadSource',
                 'select': [
                     'AccountName',
                     'Description',
@@ -128,7 +128,8 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'BusinessDescription',
                     'CreateDate',
                     'CreateUser',
-                    'GlobalSyncID'
+                    'GlobalSyncID',
+                    'LeadSource/Description'
                 ].join(',')
             });
 
