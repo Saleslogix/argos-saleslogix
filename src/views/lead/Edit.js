@@ -53,7 +53,7 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'City', label: this.cityText, type: 'text'},
             {name: 'BusinessDescription', label: this.businessText, type: 'text'},
             {name: 'Notes', label: this.notesText, type: 'text'},
-            {name: 'Owner.OwnerDescription', label: this.ownerText, type: 'text'},
+            {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
         ];
     },
     init: function() {

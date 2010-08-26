@@ -35,7 +35,7 @@ Mobile.SalesLogix.Owner.List = Ext.extend(Sage.Platform.Mobile.List, {
                 'include': 'owner',
                 'orderby': 'OwnerDescription',
                 'select': [
-                    'owner/OwnerDescription',
+                    'OwnerDescription',
                 ].join(',')
             });
 
