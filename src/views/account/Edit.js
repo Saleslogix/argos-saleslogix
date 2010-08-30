@@ -66,7 +66,6 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'Industry', label: this.industryText, type: 'text'},
             {name: 'BusinessDescription', label: this.businessDescriptionText, type: 'text'},
             {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF},
-            //{name: 'Owner.OwnerDescription', label: this.ownerText, type: 'text'},
             {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
             {name: 'LeadSource', label: this.importSourceText, type: 'lookup', view: 'leadsource_list', keyProperty: '$key', textProperty: 'Description'}
         ];
@@ -75,7 +74,7 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Account.Edit.superclass.init.call(this);
     },
     createRequest: function() {
-        return Mobile.SalesLogix.Account.Edit.superclass.createRequest.call(this)    
+        return Mobile.SalesLogix.Account.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'select': [
