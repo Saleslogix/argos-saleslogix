@@ -59,7 +59,7 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'Address.State', label: this.stateText, type: 'text'},
             {name: 'Address.PostalCode', label: this.postalCodeText, type: 'text'},
             {name: 'Address.Country', label: this.countryText, type: 'text'},
-            {name: 'Fax', label: this.faxText, type: 'text'},
+            {name: 'Fax', label: this.faxText, type: 'phone'},
             {name: 'Type', label: this.typeText, type: 'text'},
             {name: 'SubType', label: this.subTypeText, type: 'text'},
             {name: 'Status', label: this.statusText, type: 'lookup', view: 'account_status_list', keyProperty: '$key', textProperty: 'text'},
