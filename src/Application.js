@@ -18,10 +18,10 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     },
     init: function() {
         Mobile.SalesLogix.Application.superclass.init.call(this);
-        
+
         var home = App.getView('home');
         Ext.get("backButton").on("clicklong", function() {
-            
+
             if (home) {
                 home.show();
             }
@@ -29,24 +29,23 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.fetchPreferences();
     },
     fetchPreferences: function() {
-        var views = this.getExposedViews(),
-            appConfigureOrder;
-        
+        var views = this.getExposedViews();
+
         try {
             App.preferences = Ext.decode(window.localStorage.getItem('preferences'));
         }
         catch(e) {}
 
-        //Probably, the first time, its being accessed, or user cleared 
+        //Probably, the first time, its being accessed, or user cleared
         //the data. So lets initialize the object, with default ones.
         if (App.preferences === null)
         {
             App.preferences = {};
-            
+
             App.preferences.home = {
                 visible: views
             };
-            
+
             //Just create a clone of views, we don't want the same reference
             App.preferences.configure = {
                 order: Ext.decode(Ext.encode(views))
@@ -62,24 +61,24 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     getExposedViews : function() {
         var exposedViews = [],
             view;
-        
+
         for (var v in this.views)
         {
             view = App.getView(v);
             if (view.expose != false && view.id != 'home')
                 exposedViews.push(v);
         }
-        
+
         return exposedViews;
     },
     setup: function () {
         Mobile.SalesLogix.Application.superclass.setup.apply(this, arguments);
-       
+
         this.registerToolbar(new Sage.Platform.Mobile.MainToolbar({
             name: 'tbar',
             title: this.titleText
         }));
-        
+
         this.registerToolbar(new Sage.Platform.Mobile.FloatToolbar({
             name: 'fbar'
         }));
@@ -94,6 +93,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Account.Edit());
         this.registerView(new Mobile.SalesLogix.Account.Address_Edit());
         this.registerView(new Mobile.SalesLogix.Account.Add_Account_Contact());
+        this.registerView(new Mobile.SalesLogix.Account.StatusList());
         this.registerView(new Mobile.SalesLogix.Account.List({
             id: 'account_related',
             expose: false
@@ -114,7 +114,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'contact_related',
             expose: false
         }));
- 
+
         this.registerView(new Mobile.SalesLogix.SalesOrder.Edit());
         this.registerView(new Mobile.SalesLogix.SalesOrder.List());
         this.registerView(new Mobile.SalesLogix.SalesOrder.Detail());
@@ -138,7 +138,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'opportunity_related',
             expose: false
         }));
-        
+
         this.registerView(new Mobile.SalesLogix.Lead.Edit());
         this.registerView(new Mobile.SalesLogix.Lead.List());
         this.registerView(new Mobile.SalesLogix.Lead.Detail());
@@ -146,7 +146,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'lead_related',
             expose: false
         }));
-     
+
         this.registerView(new Mobile.SalesLogix.Return.List());
         this.registerView(new Mobile.SalesLogix.Return.Detail());
         this.registerView(new Mobile.SalesLogix.Return.Edit());
@@ -154,7 +154,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'return_related',
             expose: false
         }));
-      
+
         this.registerView(new Mobile.SalesLogix.Ticket.List());
         this.registerView(new Mobile.SalesLogix.Ticket.Detail());
         this.registerView(new Mobile.SalesLogix.Ticket.Edit());
@@ -162,14 +162,14 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'ticket_related',
             expose: false
         }));
-        
+
         this.registerView(new Mobile.SalesLogix.Activity.Detail());
         this.registerView(new Mobile.SalesLogix.Activity.Edit());
         this.registerView(new Mobile.SalesLogix.Activity.List({
             id: 'activity_related',
             expose: false
         }));
-        
+
         this.registerView(new Mobile.SalesLogix.Defect.List());
         this.registerView(new Mobile.SalesLogix.Defect.Detail());
         this.registerView(new Mobile.SalesLogix.Defect.Edit());
@@ -177,14 +177,14 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             id: 'defect_related',
             expose: false
         }));
-       
+
         this.registerView(new Mobile.SalesLogix.DefectProblem.Detail());
         this.registerView(new Mobile.SalesLogix.DefectProblem.Edit());
         this.registerView(new Mobile.SalesLogix.DefectProblem.Detail({
             id: 'defectproblem_related',
             expose: false
         }));
-        
+
         this.registerView(new Mobile.SalesLogix.DefectSolution.Detail());
         this.registerView(new Mobile.SalesLogix.DefectSolution.Edit());
         this.registerView(new Mobile.SalesLogix.DefectSolution.Detail({
@@ -200,17 +200,17 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         }));
 
         this.registerView(new Mobile.SalesLogix.User.List({
-            expose: false        
+            expose: false
         }));
-     
+
         this.registerView(new Mobile.SalesLogix.Owner.List({
-            expose: false        
+            expose: false
         }));
-        
+
         this.registerView(new Mobile.SalesLogix.LeadSource.List({
-            expose: false        
+            expose: false
         }));
-        
+
         /*
         this.registerView(new Mobile.SalesLogix.Activity.List({
         title: 'My Activities',
