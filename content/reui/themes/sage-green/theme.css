@@ -9,11 +9,14 @@ body
 
 h3
 {
+    font-size: 0.8em;
 }
 
 h4
 {
-    color: #00478c;
+    color: #00338D;
+    font-weight: normal;
+    font-size: 0.7em;
 }
 
 body > .toolbar {
@@ -154,7 +157,7 @@ input:focus
 
 div.row > label
 {
-    color: #00478c;
+    color: #00338D;
 }
 
 div.row-edit > input:focus
