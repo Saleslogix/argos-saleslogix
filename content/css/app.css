@@ -6,19 +6,19 @@ body > ul > li > a, body > ul > li > * > a
 /* search */
 li.search
 {
-    background: -webkit-gradient(
-		linear,
-		left top,
-		left bottom,
-		color-stop(0, #83ae53),
-		color-stop(1, #69933a)
-	);
-	background: -moz-linear-gradient(top, #83ae53, #69933a);
-	border-bottom: 1px solid #34491d;
-    border-top: 1px solid #83ae53;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #e6e6e6),
+        color-stop(1, #cccccc)
+    );
+    background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+	border-bottom: 1px solid black;
+    border-top: 1px solid transparent;
 
-    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
-    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px, rgba(255,255,255,0.25) 0px 22px 0px inset;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px, rgba(255,255,255,0.25) 0px 22px 0px inset;
 }
 
 li.search input
@@ -42,6 +42,7 @@ li.search input
 
 li.search .searchButton
 {
+    /*
     background-image: -webkit-gradient(
 		linear,
 		left top,
@@ -50,21 +51,38 @@ li.search .searchButton
 		color-stop(1, #cccccc)
 	);
 	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    */
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(218,237,190)),
+        color-stop(1, rgb(190,207,166))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(218,237,190) 0%,
+        rgb(190,207,166) 100%
+    );
+
     -moz-border-radius: 0px 3px 3px 0px;
     -webkit-border-radius: 0px 3px 3px 0px;
-    color: #555;
+    color: #000;
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
     font-size: .6em;
     line-height: 30px;
     padding: 0 8px 0 6px;
     border: inset 1px #000;
     text-align: center;
+    -webkit-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
+    -moz-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
 
 li.search .dismissButton
 {
+    /*
     background-image: -webkit-gradient(
 		linear,
 		left top,
@@ -73,7 +91,20 @@ li.search .dismissButton
 		color-stop(1, #cccccc)
 	);
 	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
-    color: #555;
+	*/
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(218,237,190)),
+        color-stop(1, rgb(190,207,166))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(218,237,190) 0%,
+        rgb(190,207,166) 100%
+    );
+    color: #000;
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
     -moz-border-radius: 3px 0px 0px 3px;
     -webkit-border-radius: 3px 0px 0px 3px;
@@ -84,6 +115,8 @@ li.search .dismissButton
     border-style: inset;
     border-color: #000;
     border-width: 1px 0 1px 1px;
+    -webkit-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
+    -moz-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
@@ -146,6 +179,12 @@ input.field-error
         rgb(255,241,84) 0%,
         rgb(204,193,71) 100%
     );
+}
+
+li.more .button
+{
+    -moz-box-shadow: rgba(255,255,255,0.25) 0px 20px 0px inset, rgba(255,255,255,1.0) 0px 0px 1px inset;
+    -webkit-box-shadow: rgba(255,255,255,0.25) 0px 20px 0px inset, rgba(255,255,255,1.0) 0px 0px 1px inset;
 }
 
 /* misc. */

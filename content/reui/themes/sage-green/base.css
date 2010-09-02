@@ -27,8 +27,7 @@ body > div.panel
 }
 
 body[orient="landscape"] > *:not(.toolbar) {
-    height: auto;
-    min-height: 268px;
+    height: auto;   
 }
 
 body > *[selected="true"] {
