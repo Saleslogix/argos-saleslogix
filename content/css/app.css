@@ -31,7 +31,7 @@ li.search input
     padding: 0 128px 0 5px !important;
     -moz-border-radius: 3px !important;
     -webkit-border-radius: 3px !important;
-    border: inset 1px #000 !important;
+    border: solid 1px #000 !important;
     background: #fff;
 
     -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
@@ -72,7 +72,7 @@ li.search .searchButton
     font-size: .6em;
     line-height: 30px;
     padding: 0 8px 0 6px;
-    border: inset 1px #000;
+    border: solid 1px #000;
     text-align: center;
     -webkit-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
     -moz-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
@@ -112,7 +112,7 @@ li.search .dismissButton
     font-weight: bold;
     line-height: 30px;
     text-align: center;
-    border-style: inset;
+    border-style: solid;
     border-color: #000;
     border-width: 1px 0 1px 1px;
     -webkit-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;

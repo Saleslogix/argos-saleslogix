@@ -160,7 +160,7 @@ input:not([type|=radio]):not([type|=checkbox]) {
     padding: 6px 6px 6px 44px;
     font-size: 16px;
     font-weight: normal;
-    border: 1px inset #000;
+    border: 1px solid #000;
 }
 
 body > ul > li
