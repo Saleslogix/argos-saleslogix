@@ -208,8 +208,8 @@ div.row-edit:last-child
     );
     background-image: -moz-linear-gradient(
         center top,
-        rgb(3,84,57) 0%,
-        rgb(2,54,37) 100%
+        rgb(18,99,72) 0%,
+        rgb(17,69,52) 100%
     );
     -moz-box-shadow: rgba(255,255,255,0.05) 0px 15px 0px inset, rgba(255,255,255,1.0) 0px 0px 1px inset;
     -webkit-box-shadow: rgba(255,255,255,0.05) 0px 15px 0px inset, rgba(255,255,255,1.0) 0px 0px 1px inset;
@@ -229,8 +229,8 @@ div.row-edit:last-child
     );
     background-image: -moz-linear-gradient(
         center bottom,
-        rgb(3,84,57) 0%,
-        rgb(2,54,37) 100%
+        rgb(18,99,72) 0%,
+        rgb(17,69,52) 100%
     );
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
