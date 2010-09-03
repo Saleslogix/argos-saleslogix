@@ -10,15 +10,15 @@ Ext.namespace("Mobile.SalesLogix.Account");
 
 Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     titleText: 'Account',
-    accountText: 'Account',
-    phoneText: 'Phone - Main',
-    addressText: 'Address',
-    webText: 'Web',
-    typeText: 'Type',
-    subTypeText: 'Subtype',
-    acctMgrText: 'AccountManager',
-    notesText: 'Notes',
-    ownerText: 'Owner',
+    accountText: 'account',
+    phoneText: 'phone',
+    addressText: 'address',
+    webText: 'web',
+    typeText: 'type',
+    subTypeText: 'subtype',
+    acctMgrText: 'acct mgr',
+    notesText: 'notes',
+    ownerText: 'owner',
     statusText: 'status',
     createUserText: 'create user',
     createDateText: 'create date',
@@ -28,6 +28,7 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     relatedTicketsText: 'Tickets',
     relatedActivitiesText: 'Activities',
     relatedNotesText: 'Notes',
+    importSourceText: 'lead source',
     constructor: function(o) {
         Mobile.SalesLogix.Account.Detail.superclass.constructor.call(this);
 
@@ -40,17 +41,20 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
         this.layout = [
             {name: 'AccountName', label: this.accountText},
+            {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
             {name: 'MainPhone', label: this.phoneText, renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Address', label: this.addressText, renderer: Mobile.SalesLogix.Format.address},
-            {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
+            {name: 'Fax', label: this.faxText, renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Type', label: this.typeText},
             {name: 'SubType', label: this.subTypeText},
+            {name: 'Status', label: this.statusText},
+            {name: 'Industry', label: this.industryText, type: 'text'},
+            {name: 'BusinessDescription', label: this.businessDescriptionText, type: 'text'},
             {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
             {name: 'Notes', label: this.notesText},
             {name: 'Owner.OwnerDescription', label: this.ownerText},
             {name: 'Status', label: this.statusText},
-            {name: 'CreateUser', label: this.createUserText},
-            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'LeadSource', label: this.importSourceText},
             {options: {title: this.relatedItemsText, list: true}, as: [
                 {
                     view: 'activity_related',
