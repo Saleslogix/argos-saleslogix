@@ -61,7 +61,7 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'Address.Country', label: this.countryText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Country"', textProperty: 'text', title: 'Country'},
             {name: 'Fax', label: this.faxText, type: 'phone'},
             {name: 'Type', label: this.typeText, type: 'pickup', view: 'pick_list', textProperty: 'text', resourcePredicate: 'name eq "Account Type"', title: 'Account Type'},
-            {name: 'SubType', label: this.subTypeText, type: 'text'},
+            {name: 'SubType', label: this.subTypeText, type: 'pickup', view: 'pick_list', textProperty: 'text', resourcePredicate: new Simplate(['name eq "Account {%= Type %}"']), title: 'Account SubType', dependsOn: 'Type', errMsg: 'A "Type" is required for "SubType"'},
             {name: 'Status', label: this.statusText, type: 'pickup', view: 'pick_list', textProperty: 'text', resourcePredicate: 'name eq "Account Status"', title: 'Account Status'},
             {name: 'Industry', label: this.industryText, type: 'text'},
             {name: 'BusinessDescription', label: this.businessDescriptionText, type: 'text'},
