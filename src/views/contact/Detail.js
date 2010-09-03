@@ -11,20 +11,23 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
 Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     titleText: 'Contact',
-    nameText: 'name',
+    nameText: 'contact',
     accountText: 'account',
-    workText: 'work',
+    workText: 'phone',
+    homeText: 'home phone',
     mobileText: 'mobile',
     emailText: 'email',
     addressText: 'address',
     webText: 'web',
     acctMgrText: 'acct mgr',
     ownerText: 'owner',
+    titlText: 'title',
     createUserText: 'create user',
     createDateText: 'create date',
     relatedItemsText: 'Related Items',
     relatedActivitiesText: 'Activities',
     relatedNotesText: 'Notes',
+    faxText: 'fax',
     constructor: function(o) {
         Mobile.SalesLogix.Contact.Detail.superclass.constructor.call(this);
 
@@ -36,17 +39,18 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
 
         this.layout = [
-            {name: 'Name', label: this.nameText},
+            {name: 'NameLF', label: this.nameText},
             {name: 'AccountName', descriptor: 'AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
-            {name: 'WorkPhone', label: this.workText, renderer: Mobile.SalesLogix.Format.phone},
-            {name: 'Mobile', label: this.mobileText, renderer: Mobile.SalesLogix.Format.phone},
-            {name: 'Email', label: this.emailText, renderer: Mobile.SalesLogix.Format.mail},
-            {name: 'Address', label: this.addressText, renderer: Mobile.SalesLogix.Format.address},
             {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
+            {name: 'WorkPhone', label: this.workText, renderer: Mobile.SalesLogix.Format.phone},
+            {name: 'Email', label: this.emailText, renderer: Mobile.SalesLogix.Format.mail},
+            {name: 'Title', label: this.titlText},
+            {name: 'Address', label: this.addressText, renderer: Mobile.SalesLogix.Format.address},
+            {name: 'HomePhone', label: this.homeText, renderer: Mobile.SalesLogix.Format.phone},
+            {name: 'Mobile', label: this.mobileText, renderer: Mobile.SalesLogix.Format.phone},
+            {name: 'Fax', label: this.faxText, renderer: Mobile.SalesLogix.Format.phone},
             {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
             {name: 'Owner.OwnerDescription', label: this.ownerText},
-            {name: 'CreateUser', label: this.createUserText},
-            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
             {options: {title: this.relatedItemsText, list: true}, as: [
 
                 {
