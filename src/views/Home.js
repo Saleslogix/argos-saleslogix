@@ -50,10 +50,10 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
             v = App.getView(visibleItems[i]);
             views.push(this.itemTemplate.apply(v));
         }
-        
+
         this.el.select('li').remove();
         Ext.DomHelper.append(this.el, views.join(''));
-        
+
         //Cache the list, for comparison later.
         this._visibleList = visibleItems;
     },
@@ -77,10 +77,10 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
 
                 if (source.is('a[href="#contact_list"]'))
                 {
-                    App.getView('Add_Account_Contact').show({insert: true});
+                    App.getView('AddAccountContact').show({insert: true});
                 }
-            }, this, { preventDefault: true, stopPropagation: true });    
-            
+            }, this, { preventDefault: true, stopPropagation: true });
+
         this.displayTools();
         App.on('registered', this.viewRegistered, this);
     },
@@ -129,7 +129,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
         this.displayTools();
     },
     beforeTransitionTo: function() {
-        //If Visible home list changes, or if its order changes, 
+        //If Visible home list changes, or if its order changes,
         //refresh the view.
 
         var visibleList = App.preferences.home.visible;

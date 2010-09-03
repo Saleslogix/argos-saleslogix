@@ -8,7 +8,7 @@
 
 Ext.namespace("Mobile.SalesLogix.Account");
 
-Mobile.SalesLogix.Account.Add_Account_Contact = Ext.extend(Sage.Platform.Mobile.Edit, {
+Mobile.SalesLogix.Account.AddAccountContact = Ext.extend(Sage.Platform.Mobile.Edit, {
     titleText: 'Add Account / Contact',
     detailsText: 'Contact / Account Info',
     detailsContactText: 'Contact Info',
@@ -27,10 +27,10 @@ Mobile.SalesLogix.Account.Add_Account_Contact = Ext.extend(Sage.Platform.Mobile.
     description: 'description',
     statusText: 'status',
     constructor: function(o) {
-        Mobile.SalesLogix.Account.Add_Account_Contact.superclass.constructor.call(this);
+        Mobile.SalesLogix.Account.AddAccountContact.superclass.constructor.call(this);
 
         Ext.apply(this, o, {
-            id: 'Add_Account_Contact',
+            id: 'AddAccountContact',
             title: this.titleText,
             resourceKind: 'accounts',
             entityName: 'Account'
@@ -57,10 +57,10 @@ Mobile.SalesLogix.Account.Add_Account_Contact = Ext.extend(Sage.Platform.Mobile.
         ]
     },
     init: function() {
-        Mobile.SalesLogix.Account.Add_Account_Contact.superclass.init.call(this);
+        Mobile.SalesLogix.Account.AddAccountContact.superclass.init.call(this);
     },
     createRequest: function() {
-        return Mobile.SalesLogix.Account.Add_Account_Contact.superclass.createRequest.call(this)
+        return Mobile.SalesLogix.Account.AddAccountContact.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
             .setQueryArgs({
                 'include': 'Account,Address,AccountManager,AccountManager/UserInfo',
