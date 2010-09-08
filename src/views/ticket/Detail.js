@@ -10,22 +10,22 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
 Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     titleText: 'Ticket',
-    ticketIdText: 'ticket id',
-    accountText: 'account',
+    ticketIdText: 'ticket number',
+    accountText: 'acct name',
     contactText: 'contact',
     phoneText: 'phone',
     subjectText: 'subject',
+    notesText: 'comments',
     urgencyText: 'urgency',
     areaText: 'area',
-    receivedText: 'received',
-    assignedToText: 'assigned to',
+    categoryText: 'category',
+    issueText: 'issue',
     statusText: 'status',
-    createUserText: 'create user',
-    createDateText: 'create date',
+    assignedDateText: 'assigned date',
+    needbyText: 'needed date',
     relatedItemsText: 'Related Items',
-    relatedReturnsText: 'Returns',
     relatedActivitiesText: 'Activities',
-    relatedNotesText: 'Notes',
+    assignedToText: 'assigned to',
     constructor: function(o) {
         Mobile.SalesLogix.Ticket.Detail.superclass.constructor.call(this);
 
@@ -40,33 +40,22 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'TicketNumber', label: this.ticketIdText},
             {name: 'Account.AccountName', label: this.accountText},
             {name: 'Contact.NameLF', label: this.contactText},
-            {name: 'Contact.WorkPhone', label: this.phoneText, renderer: Mobile.SalesLogix.Format.phone},
-            {name: 'Subject', label: this.subjectText},
-            {name: 'UrgencyCode', label: this.urgencyText},
             {name: 'Area', label: this.areaText},
-            {name: 'ReceivedDate', label: this.receivedText, renderer: Mobile.SalesLogix.Format.date},
-            {name: 'AssignedTo.OwnerDescription', label: this.assignedToText},
+            {name: 'Category', label: this.categoryText},
+            {name: 'Issue', label: this.issueText},
             {name: 'StatusCode', label: this.statusText},
-            {name: 'CreateUser', label: this.createUserText},
-            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'UrgencyCode', label: this.urgencyText},
+            {name: 'NeededByDate', label: this.needbyText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'AssignedDate', label: this.assignedDateText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'AssignedTo.OwnerDescription', label: this.assignedToText},
+            {name: 'Subject', label: this.subjectText},
+            {name: 'Notes', label: this.notesText},
             {options: {title: this.relatedItemsText, list: true}, as: [
-                {
-                    view: 'return_related',
-                    where: this.formatRelatedQuery.createDelegate(this, ['Account.Id eq "{0}"'], true),
-                    label: this.relatedReturnsText,
-                    icon: 'content/images/return_detail_24x24.gif'
-                },
                 {
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(this, ['Account.Id eq "{0}"'], true),
                     label: this.relatedActivitiesText,
                     icon: 'content/images/Task_List_3D_24x24.gif'
-                },
-                {
-                    view: 'note_related',
-                    where: this.formatRelatedQuery.createDelegate(this, ['Account.Id eq "{0}" and Type eq "atNote"'], true),
-                    label: this.relatedNotesText,
-                    icon: 'content/images/note_24x24.gif'
                 }
             ]}
         ];
@@ -85,17 +74,16 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'TicketNumber',
                     'Account/AccountName',
                     'Contact/NameLF',
-                    'Contact/WorkPhone',
-                    'Subject',
-                    'UrgencyCode',
                     'Area',
-                    'ReceivedDate',
-                    'AssignedTo/OwnerDescription',
-                    'StatusCode',
-                    'CreateUser',
-                    'CreateDate',
                     'Category',
-                    'Issue'
+                    'Issue',
+                    'StatusCode',
+                    'UrgencyCode',
+                    'NeededByDate',
+                    'AssignedDate',
+                    'AssignedTo/OwnerDescription',
+                    'Subject',
+                    'Notes'
                    ].join(',')
             });
 

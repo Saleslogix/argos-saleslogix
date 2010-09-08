@@ -10,11 +10,22 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
 Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     titleText: 'Ticket',
-    ticketIdText: 'ticket id',
+    ticketIdText: 'ticket number',
+    accountText: 'acct name',
+    contactText: 'contact',
+    phoneText: 'phone',
     subjectText: 'subject',
+    notesText: 'comments',
+    urgencyText: 'urgency',
     areaText: 'area',
     categoryText: 'category',
     issueText: 'issue',
+    statusText: 'status',
+    assignedDateText: 'assigned date',
+    needbyText: 'needed date',
+    relatedItemsText: 'Related Items',
+    relatedActivitiesText: 'Activities',
+    assignedToText: 'assigned to',
     constructor: function(o) {
         Mobile.SalesLogix.Ticket.Edit.superclass.constructor.call(this);
 
@@ -26,12 +37,19 @@ Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'TicketNumber', label: this.ticketIdText, type: 'text'},
-            {name: 'Subject', label: this.subjectText, type: 'text'},
-            {name: 'Area', label: this.areaText, type: 'text'},
-            {name: 'Category', label: this.categoryText, type: 'text'},
-            {name: 'Issue', label: this.issueText, type: 'text'},
-
+            {name: 'TicketNumber', label: this.ticketIdText,type: 'text'},
+            {name: 'Account.AccountName', label: this.accountText,type: 'text'},
+            {name: 'Contact.NameLF', label: this.contactText,type: 'text'},
+            {name: 'Area', label: this.areaText,type: 'text'},
+            {name: 'Category', label: this.categoryText,type: 'text'},
+            {name: 'Issue', label: this.issueText,type: 'text'},
+            {name: 'StatusCode', label: this.statusText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Ticket Status"', title: 'Ticket Status'},
+            {name: 'UrgencyCode', label: this.urgencyText,type: 'text'},
+            {name: 'NeededByDate', label: this.needbyText, renderer: Mobile.SalesLogix.Format.date,type: 'text'},
+            {name: 'AssignedDate', label: this.assignedDateText, renderer: Mobile.SalesLogix.Format.date,type: 'text'},
+            {name: 'AssignedTo', label: this.assignedToText,type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
+            {name: 'Subject', label: this.subjectText,type: 'text'},
+            {name: 'Notes', label: this.notesText,type: 'text'},
         ];
     },
     init: function() {
