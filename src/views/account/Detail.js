@@ -29,6 +29,8 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     relatedActivitiesText: 'Activities',
     relatedNotesText: 'Notes',
     importSourceText: 'lead source',
+    faxText: 'fax',
+    industryText: 'industry',
     constructor: function(o) {
         Mobile.SalesLogix.Account.Detail.superclass.constructor.call(this);
 
@@ -54,7 +56,7 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'Notes', label: this.notesText},
             {name: 'Owner.OwnerDescription', label: this.ownerText},
             {name: 'Status', label: this.statusText},
-            {name: 'LeadSource', label: this.importSourceText},
+            {name: 'LeadSource.Description', label: this.importSourceText},
             {options: {title: this.relatedItemsText, list: true}, as: [
                 {
                     view: 'activity_related',
