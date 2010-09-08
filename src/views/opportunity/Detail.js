@@ -12,21 +12,18 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
 Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     titleText: 'Opportunity',
     opportunityText: 'opportunity',
-    accountText: 'account',
-    estCloseText: 'est. close',
-    potentialText: 'potential',
-    probabilityText: 'probability',
-    weightedText: 'weighted',
-    stageText: 'stage',
+    accountText: 'acct',
     acctMgrText: 'acct mgr',
-    ownerText: 'owner',
+    estCloseText: 'est close',
+    potentialText: 'sales potential',
     statusText: 'status',
-    createUserText: 'create user',
-    createDateText: 'create date',
+    typeText: 'type',
+    probabilityText: 'close prob',
+    importSourceText: 'lead source',
     relatedItemsText: 'Related Items',
     relatedActivitiesText: 'Activities',
     relatedNotesText: 'Notes',
-
+    relatedContactsText: 'Contacts',
     constructor: function(o) {
         Mobile.SalesLogix.Opportunity.Detail.superclass.constructor.call(this);
 
@@ -40,17 +37,13 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         this.layout = [
             {name: 'Description', label: this.opportunityText},
             {name: 'Account.AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
+            {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
             {name: 'EstimatedClose', label: this.estCloseText, renderer: Mobile.SalesLogix.Format.date},
             {name: 'SalesPotential', label: this.potentialText, renderer: Mobile.SalesLogix.Format.currency},
-            {name: 'CloseProbability', label: this.probabilityText},
-            {name: 'Weighted', label: this.weightedText, renderer: Mobile.SalesLogix.Format.currency},
-            {name: 'Stage', label: this.stageText},
-            {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
-            {name: 'Owner.OwnerDescription', label: this.ownerText},
             {name: 'Status', label: this.statusText},
-            {name: 'CreateUser', label: this.createUserText},
-            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
-
+            {name: 'Type', label: this.typeText},
+            {name: 'LeadSource.Description', label: this.importSourceText},
+            {name: 'CloseProbability', label: this.probabilityText},
             {options: {title: this.relatedItemsText, list: true}, as: [
                 {
                     view: 'activity_related',
@@ -63,7 +56,13 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     where: this.formatRelatedQuery.createDelegate(this, ['OpportunityId eq "{0}" and Type eq "atNote"'], true),
                     label: this.relatedNotesText,
                     icon: 'content/images/note_24x24.gif'
-                }
+                },
+                {
+                    view: 'contact_related',
+                    where: this.formatRelatedQuery.createDelegate(this, ['OpportunityId eq "{0}"'], true),
+                    label: this.relatedContactsText,
+                    icon: 'content/images/Contacts_24x24.gif'
+                },
             ]}
         ];
     },
@@ -78,7 +77,7 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
         request
             .setQueryArgs({
-                'include': 'Account,AccountManager,AccountManager/UserInfo',
+                'include': 'Account,AccountManager,AccountManager/UserInfo,LeadSource',
                 'select': [
                     'Description',
                     'Account/AccountName',
@@ -91,8 +90,8 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'AccountManager/UserInfo/LastName',
                     'Owner/OwnerDescription',
                     'Status',
-                    'CreateDate',
-                    'CreateUser'
+                    'Type',
+                    'LeadSource/Description'
                 ].join(',')
             });
 

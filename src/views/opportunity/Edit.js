@@ -10,13 +10,15 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
 
 Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     titleText: 'Opportunity',
-    descriptionText: 'description',
-    estCloseText: 'est. close',
-    potentialText: 'potential',
-    probabilityText: 'probability',
-    weightedText: 'weighted',
-    stageText: 'stage',
+    opportunityText: 'opportunity',
+    accountText: 'acct',
+    acctMgrText: 'acct mgr',
+    estCloseText: 'est close',
+    potentialText: 'sales potential',
     statusText: 'status',
+    typeText: 'type',
+    probabilityText: 'close prob',
+    importSourceText: 'lead source',
     constructor: function(o) {
         Mobile.SalesLogix.Opportunity.Edit.superclass.constructor.call(this);
 
@@ -28,14 +30,15 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'Description', label: this.descriptionText, type: 'text'},
+            {name: 'Description', label: this.opportunityText, type: 'text'},
+            {name: 'Account.AccountName', label: this.accountText, type: 'text'},
+            {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF},
             {name: 'EstimatedClose', label: this.estCloseText, type: 'text'},
             {name: 'SalesPotential', label: this.potentialText, validator: Mobile.SalesLogix.Validator.isCurrency, validationTrigger: 'keyup', type: 'text'},
-            {name: 'CloseProbability', label: this.probabilityText, validator: Mobile.SalesLogix.Validator.isInteger, validationTrigger: 'keyup', type: 'text'},
-            {name: 'Weighted', label: this.weightedText, validator: Mobile.SalesLogix.Validator.isCurrency, validationTrigger: 'keyup', type: 'text'},
-            {name: 'Stage', label: this.stageText, type: 'text'},
-            {name: 'Status', label: this.statusText, type: 'text'}
-
+            {name: 'Type', label: this.typeText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Opportunity Type"', title: 'Opportunity Type'},
+            {name: 'Status', label: this.statusText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Opportunity Status"', title: 'Opportunity Status'},
+            {name: 'LeadSource', label: this.importSourceText, type: 'lookup', view: 'leadsource_list', keyProperty: '$key', textProperty: 'Description'},
+            {name: 'CloseProbability', label: this.probabilityText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Opportunity Probability"', title: 'Opportunity Probability'},
         ];
     },
     init: function() {
@@ -45,7 +48,7 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         return Mobile.SalesLogix.Opportunity.Edit.superclass.createRequest.call(this)
             .setResourceKind(this.resourceKind)
           .setQueryArgs({
-                'include': 'Account,AccountManager,AccountManager/UserInfo',
+                'include': 'Account,AccountManager,AccountManager/UserInfo,LeadSource',
                 'select': [
                     'Description',
                     'Account/AccountName',
@@ -58,8 +61,8 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
                     'AccountManager/UserInfo/LastName',
                     'Owner/OwnerDescription',
                     'Status',
-                    'CreateDate',
-                    'CreateUser'
+                    'Type',
+                    'LeadSource/Description'
                 ].join(',')
             })
     }
