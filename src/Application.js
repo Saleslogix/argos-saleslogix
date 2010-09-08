@@ -88,11 +88,11 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Home());
         this.registerView(new Mobile.SalesLogix.Configure());
         this.registerView(new Mobile.SalesLogix.PickList());
+        this.registerView(new Mobile.SalesLogix.AddressEdit());
 
         this.registerView(new Mobile.SalesLogix.Account.List());
         this.registerView(new Mobile.SalesLogix.Account.Detail());
         this.registerView(new Mobile.SalesLogix.Account.Edit());
-        this.registerView(new Mobile.SalesLogix.Account.Address_Edit());
         this.registerView(new Mobile.SalesLogix.Account.AddAccountContact());
         this.registerView(new Mobile.SalesLogix.Account.List({
             id: 'account_related',

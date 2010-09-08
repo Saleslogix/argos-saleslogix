@@ -142,7 +142,8 @@ input.field-error
     padding: 10px 10px 0 110px;
 }
 
-.row-edit > div.field-lookup > a
+.row-edit > div.field-lookup > a,
+.row-edit > div.field-address > a
 {
     padding: 10px 10px 0px 110px;
     display: block;

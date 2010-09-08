@@ -45,7 +45,7 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Email', label: this.emailText, type: 'text'},
             {name: 'Title', label: this.titlText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Title"', title: 'Title'},
-            {name: 'Address.FullAddress', label: this.addressText, type: 'text'},
+            {name: 'Address', label: this.addressText, view: 'address_edit', type: 'address', resourceKind: 'leads', title: 'Address'},
             {name: 'TollFree', label: this.tollfreetext, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'ImportSource', label: this.importText, type: 'text'},
             {name: 'Interests', label: this.interestsText, type: 'text'},
