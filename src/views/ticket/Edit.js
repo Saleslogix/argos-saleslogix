@@ -38,8 +38,8 @@ Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         this.layout = [
             {name: 'TicketNumber', label: this.ticketIdText,type: 'text'},
-            {name: 'Account.AccountName', label: this.accountText,type: 'text'},
-            {name: 'Contact.NameLF', label: this.contactText,type: 'text'},
+            {name: 'Account', label: this.accountText, type: 'lookup', view: 'acc_list', keyProperty: '$key', textProperty: 'AccountName'},
+            {name: 'Contact', label: this.contactText, type: 'lookup', view: 'con_list', keyProperty: '$key', textProperty: 'NameLF'},
             {name: 'Area', label: this.areaText,type: 'text'},
             {name: 'Category', label: this.categoryText,type: 'text'},
             {name: 'Issue', label: this.issueText,type: 'text'},
