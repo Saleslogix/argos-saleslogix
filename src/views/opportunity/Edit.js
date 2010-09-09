@@ -31,7 +31,8 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         this.layout = [
             {name: 'Description', label: this.opportunityText, type: 'text'},
-            {name: 'Account.AccountName', label: this.accountText, type: 'text'},
+            //{name: 'Account.AccountName', label: this.accountText, type: 'text'},
+            {name: 'Account', label: this.accountText, type: 'lookup', view: 'acc_list', keyProperty: '$key', textProperty: 'AccountName'},
             {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF},
             {name: 'EstimatedClose', label: this.estCloseText, type: 'text'},
             {name: 'SalesPotential', label: this.potentialText, validator: Mobile.SalesLogix.Validator.isCurrency, validationTrigger: 'keyup', type: 'text'},
