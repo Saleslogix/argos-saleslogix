@@ -27,6 +27,9 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     relatedItemsText: 'Related Items',
     relatedActivitiesText: 'Activities',
     relatedNotesText: 'Notes',
+    relatedAccountsText: 'Accounts',
+    relatedOpportunitiesText: 'Opportunities',
+    relatedTicketsText: 'Tickets',
     faxText: 'fax',
     constructor: function(o) {
         Mobile.SalesLogix.Contact.Detail.superclass.constructor.call(this);
@@ -64,8 +67,25 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     where: this.formatRelatedQuery.createDelegate(this, ['ContactId eq "{0}" and Type eq "atNote"'], true),
                     label: this.relatedNotesText,
                     icon: 'content/images/note_24x24.gif'
-                }
-
+                },
+                {
+                    view: 'account_related',
+                    where: this.formatRelatedQuery.createDelegate(this, ['Contact.Id eq "{0}"'], true),
+                    label: this.relatedAccountsText,
+                    icon: 'content/images/Accounts_24x24.gif'
+                },
+                {
+                    view: 'opportunity_related',
+                    where: this.formatRelatedQuery.createDelegate(this, ['ContactId eq "{0}"'], true),
+                    label: this.relatedOpportunitiesText,
+                    icon: 'content/images/Opportunity_List_24x24.gif'
+                },
+                {
+                    view: 'ticket_related',
+                    where: this.formatRelatedQuery.createDelegate(this, ['Contact.Id eq "{0}"'], true),
+                    label: this.relatedTicketsText,
+                    icon: 'content/images/Ticket_List_3D_32x32.gif'
+                },
             ]}
         ];
     },
