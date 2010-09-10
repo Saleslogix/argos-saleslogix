@@ -88,7 +88,8 @@ body > ul
     color: #999999;
 }
 
-.panel > h2
+.panel > h2,
+.panel-content > h2
 {
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
@@ -107,12 +108,14 @@ body > ul
     font-weight: bold;
 }
 
-.panel > h2:first-child
+.panel > h2:first-child,
+.panel-content > h2:first-child
 {
     border-top: none 0 black;
 }
 
-.panel > fieldset
+.panel > fieldset,
+.panel-content > fieldset
 {
     border-style: none solid solid solid;
     border-color: #024731;
@@ -126,7 +129,8 @@ input:focus
 	background-color: #FDFFDD;
 }
 
-.panel > ul
+.panel > ul,
+.panel-content > ul
 {
     border-style: none solid solid solid;
     border-color: #024731;
@@ -138,18 +142,22 @@ input:focus
     -webkit-border-bottom-right-radius: 8px;
 }
 
-.panel > ul > li
+.panel > ul > li,
+.panel-content > ul > li
 {
     border-bottom: solid 1px #ddd;
 }
 
-.panel > ul > li:last-child
+.panel > ul > li:last-child,
+.panel-content > ul > li:last-child
 {
     border-bottom: none 0 black;
 }
 
 .panel > ul > li > a,
-.panel > ul > * > a
+.panel > ul > * > a,
+.panel-content > ul > li > a,
+.panel-content > ul > * > a
 {
     color: inherit;
     text-decoration: none;

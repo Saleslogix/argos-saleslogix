@@ -20,6 +20,7 @@
     <script type="text/javascript">
     ReUI.autoInit = false;
     ReUI.legacyMode = false;
+    ReUI.showInitialPage = false;
     ReUI.updateBackButtonText = false;
     </script>
 
@@ -51,6 +52,7 @@
     <script type="text/javascript" src="src/Template.js"></script>
     <script type="text/javascript" src="src/Validator.js"></script>
     <script type="text/javascript" src="src/views/ContextDialog.js"></script>
+    <script type="text/javascript" src="src/views/Login.js"></script>
     <script type="text/javascript" src="src/views/LoginDialog.js"></script>
     <script type="text/javascript" src="src/views/PickList.js"></script>
     <script type="text/javascript" src="src/views/AddressEdit.js"></script>
@@ -107,11 +109,16 @@
     <script type="text/javascript">
     Ext.onReady(function() {
         App.init();
-        ReUI.init();
 
+        ReUI.init();
+        
+        App.run();
+
+        /*
         Ext.getBody().on('swipe', function(evt, el, o) {
             console.log('%s: %s', evt.browserEvent.direction, el.id);
         });
+        */
     });
     </script>
 </head>

@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../ext/ext-core-debug.js"/>
+/// <reference path="../../../ext/ext-core-debug.js"/>
 /// <reference path="../../../reui/reui.js"/>
 /// <reference path="../../../platform/View.js"/>
 /// <reference path="Application.js"/>
@@ -25,7 +25,8 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
         Ext.apply(this, o, {
             id: 'home',
             title: this.titleText,
-            selected: true
+            selected: false,
+            expose: false
         });
         var homeViewScope = this;
         Ext.apply(this, {
@@ -81,7 +82,6 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
                 }
             }, this, { preventDefault: true, stopPropagation: true });
 
-        this.displayTools();
         App.on('registered', this.viewRegistered, this);
     },
     navigateToView: function(el) {
@@ -114,27 +114,14 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
                 //ReUI.show("login_dialog");
         }
         this.renderAvailableViews();
-    },
-    displayTools: function() {
-        if (this.tools) {
-            for (var n in this.tools)
-                if (App.bars[n]) {
-                    App.bars[n].clear();
-                    App.bars[n].display(this.tools[n]);
-                }
-        }
-    },
-    transitionTo: function() {
-        Mobile.SalesLogix.Home.superclass.transitionTo.call(this);
-        this.displayTools();
-    },
+    },       
     beforeTransitionTo: function() {
-        //If Visible home list changes, or if its order changes,
+        Mobile.SalesLogix.Home.superclass.beforeTransitionTo.call(this);
+        //if visible home list changes, or if its order changes,
         //refresh the view.
 
-        var visibleList = App.preferences.home.visible;
-        if (this._visibleList.length != visibleList.length ||
-            Ext.encode(this._visibleList) != Ext.encode(visibleList))
+        var visible = App.preferences.home.visible;
+        if (this._visibleList.length != visible.length || Ext.encode(this._visibleList) != Ext.encode(visible))
         {
             this.renderAvailableViews();
         }

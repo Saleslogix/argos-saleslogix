@@ -28,6 +28,14 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         });
         this.fetchPreferences();
     },
+    run: function() {
+        if (App.isOnline() || !App.enableCaching)
+        {
+            var login = App.getView('login');
+            if (login)
+                login.show();
+        }
+    },
     fetchPreferences: function() {
         var views = this.getExposedViews();
 
@@ -84,6 +92,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         }));
 
         this.registerView(new Mobile.SalesLogix.LoginDialog());
+        this.registerView(new Mobile.SalesLogix.Login());
         this.registerView(new Mobile.SalesLogix.ContextDialog());
         this.registerView(new Mobile.SalesLogix.Home());
         this.registerView(new Mobile.SalesLogix.Configure());
@@ -210,7 +219,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.LeadSource.List({
             expose: false
         }));
-        
+
         this.registerView(new Mobile.SalesLogix.Account.LookupList({
             expose: false
         }));
@@ -218,14 +227,6 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Contact.LookupList({
             expose: false
         }));
-        /*
-        this.registerView(new Mobile.SalesLogix.Activity.List({
-        title: 'My Activities',
-        context: {
-            where: function() { return String.format('UserId eq "{0}"', App.context['user']); }
-        }
-        }));
-        */
     }
 });
 

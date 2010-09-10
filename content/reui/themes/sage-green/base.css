@@ -340,7 +340,8 @@ body[orient] > div.toolbar-float[open]
 	display: none;
 }
 
-.panel > h2
+.panel > h2,
+.panel-content > h2
 {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -354,7 +355,8 @@ body[orient] > div.toolbar-float[open]
     position: relative;
 }
 
-.panel > fieldset
+.panel > fieldset,
+.panel-content > fieldset
 {
     -moz-border-radius-bottomleft: 8px;
     -webkit-border-bottom-left-radius: 8px;
