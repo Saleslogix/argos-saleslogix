@@ -11,17 +11,23 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     titleText: 'Activity',
     typeText: 'type',
+    categoryText: 'category',
     accountText: 'account',
-    startingText: 'starting',
-    endingText: 'ending',
+    startingText: 'start time',
     timelessText: 'timeless',
-    nameText: 'name',
+    durationText: 'duration',
+    alarmText: 'reminder',
+    alarmTimeText: 'reminder',
+    rolloverText: 'auto rollover',
+    leadIdText: 'leader',
+    opportunityText: 'opportunity',
+    ticketNumberText: 'ticket',
+    leadText: 'lead',
+    longNotesText: 'notes',
+    contactText: 'contact',
     regardingText: 'regarding',
+    companyText: 'company',
     priorityText: 'priority',
-    recurringText: 'recurring',
-    alarmText: 'alarm',
-    createUserText: 'create user',
-    createDateText: 'create date',
     constructor: function(o) {
         Mobile.SalesLogix.Activity.Detail.superclass.constructor.call(this);
 
@@ -34,18 +40,23 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
         this.layout = [
             {name: 'Type', label: this.typeText},
-            {name: 'AccountName', label: this.accountText},
-            {name: 'StartDate', label: this.startingText,renderer: Mobile.SalesLogix.Format.date},
-            {name: 'EndDate', label: this.endingText,renderer: Mobile.SalesLogix.Format.date},
-            //{name: 'EndDate - StartDate', label: 'duration',renderer: Mobile.SalesLogix.Format.date},
-            {name: 'Timeless', label: this.timelessText},
-            {name: 'ContactName', label: this.nameText},
-            {name: 'Description', label: this.regardingText},
+            {name: 'Regarding', label: this.regardingText},
             {name: 'Priority', label: this.priorityText},
-            {name: 'Recurring', label: this.recurringText},
+            {name: 'Category', label: this.categoryText},
+            {name: 'StartDate', label: this.startingText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'Timeless', label: this.timelessText},
+            {name: 'Duration', label: this.durationText},
             {name: 'Alarm', label: this.alarmText},
-            {name: 'CreateUser', label: this.createUserText},
-            {name: 'CreateDate', label: this.createDateText,renderer: Mobile.SalesLogix.Format.date}
+            {name: 'AlarmTime', label: this.alarmTimeText},
+            {name: 'Rollover', label: this.rolloverText},
+            {name: 'LeadId', label: this.leadIdText},
+            {name: 'ContactName', label: this.contactText},
+            {name: 'AccountName', label: this.accountText},
+            {name: 'OpportunityName', label: this.opportunityText},
+            {name: 'TicketNumber', label: this.ticketNumberText},
+            {name: 'LeadName', label: this.leadText},
+            {name: 'Company', label: this.companyText},
+            {name: 'LongNotes', label: this.longNotesText}
            ];
     },
     init: function() {
@@ -56,21 +67,26 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
         request
             .setQueryArgs({
-                //'select': 'Type,AccountName,StartDate,EndDate,EndDate - StartDate,Timeless,ContactName,Description,Priority,Recurring,Alarm,CreateUser,CreateDate'
                 'select': [
-                        'Type',
-                        'AccountName',
-                        'StartDate',
-                        'EndDate',
-                        'Timeless',
-                        'ContactName',
-                        'Description',
-                        'Priority',
-                        'Recurring',
-                        'Alarm',
-                        'CreateUser',
-                        'CreateDate'
-                        ]
+                    'Type',
+                    'Regarding',
+                    'Priority',
+                    'Category',
+                    'StartDate',
+                    'Timeless',
+                    'Duration',
+                    'Alarm',
+                    'AlarmTime',
+                    'Rollover',
+                    'LeadId',
+                    'ContactName',
+                    'AccountName',
+                    'OpportunityName',
+                    'TicketNumber',
+                    'LeadName',
+                    'Company',
+                    'LongNotes'
+                ]
             });
 
         return request;
