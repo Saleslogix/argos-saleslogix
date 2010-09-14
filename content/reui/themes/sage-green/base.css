@@ -15,7 +15,8 @@ body > *
 }
 
 body > ul,
-body > div.panel
+body > div.panel,
+body > div.list
 {
     left: 0;
     top: 45px;
@@ -163,7 +164,14 @@ input:not([type|=radio]):not([type|=checkbox]) {
     border: 1px solid #000;
 }
 
-body > ul > li
+ul.list-content
+{
+    margin: 0;
+    padding: 0;
+}
+
+body > ul > li,
+ul.list-content > li
 {
     font-size: 1.25em;
     font-weight: bold;
@@ -174,8 +182,8 @@ body > ul > li
     border-bottom: solid 1px #ddd;
 }
 
-body > ul > li > a,
-body > ul > * > a
+body > ul > * > a,
+ul.list-content > * > a
 {
     color: inherit;
     padding: 8px 32px 8px 36px;
@@ -184,8 +192,8 @@ body > ul > * > a
     text-decoration: none;
 }
 
-body > ul > li > a > img.icon,
-body > ul > * > a > img.icon
+body > ul > * > a > img.icon,
+ul.list-content > * > a > img.icon
 {
     border: none 0 black;
     margin: 0 .5em 0 0;
@@ -193,7 +201,8 @@ body > ul > * > a > img.icon
     height: 24px;
 }
 
-body > ul > li > input.list-selector
+body > ul > li > input.list-selector,
+ul.list-content > li > input.list-selector
 {
     float: left;
     margin: 2px 0 0 0px;
@@ -415,13 +424,13 @@ div.row a[target=_related]
 	text-align: center;
 }
 
-li.search
+.list-search
 {
     padding: 6px;
     position: relative;
 }
 
-li.search input
+.list-search input
 {    
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -429,7 +438,7 @@ li.search input
     margin: 0 !important;
 }
 
-li.search .searchButton
+.list-search .searchButton
 {    
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -442,7 +451,7 @@ li.search .searchButton
     border: solid 1px black;
 }
 
-li.search .dismissButton {
+.list-search .dismissButton {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     position: absolute;
@@ -454,20 +463,22 @@ li.search .dismissButton {
     border: solid 1px black;
 }
 
-li.search label
+.list-search label
 {
     position: absolute;
     top: 6px;
     left: 6px;
 }
 
-.panel > ul
+.panel > ul,
+.panel-content > ul
 {
     margin: 0 12px 24px 12px;
     padding: 0;
 }
 
-.panel > ul > li
+.panel > ul > li,
+.panel-content > ul > li,
 {
     list-style: none;
     margin: 0;
@@ -475,16 +486,16 @@ li.search label
     position: relative;
 }
 
-.panel > ul > li > a,
-.panel > ul > * > a
+.panel > ul > * > a,
+.panel-content > ul > * > a
 {
     padding: 8px;
     margin: 0px;
     display: block;
 }
 
-.panel > ul > li > a > img.icon,
-.panel > ul > * > a > img.icon
+.panel > ul > * > a > img.icon,
+.panel-content > ul > * > a > img.icon,
 {
     border: none 0 black;
     margin: 0 .5em 0 0;

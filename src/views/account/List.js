@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
+/// <reference path="../../../../ext/ext-core-debug.js"/>
 /// <reference path="../../../../Simplate.js"/>
 /// <reference path="../../../../sdata/SDataResourceCollectionRequest.js"/>
 /// <reference path="../../../../sdata/SDataService.js"/>
@@ -12,7 +12,7 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
     fbartitleText: 'note',
 
     contentTemplate: new Simplate([
-        '<a href="#account_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
+        '<a data-action="navigateToDetail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
         '<h3>{%: $["AccountName"] %}</h3>',
         '<h4>{%: $["AccountManager"] ? $ ["AccountManager"]["UserInfo"]["UserName"] : "" %}</h4>',
         '</a>'
@@ -23,6 +23,7 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'account_list',
             title: this.titleText,
+            detail: 'account_detail',
             editor: 'account_edit',
             contextDialog: 'context_dialog',
             resourceKind: 'accounts',

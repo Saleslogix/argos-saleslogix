@@ -1,10 +1,11 @@
-body > ul > li > a, body > ul > li > * > a
+body > ul > li > a,
+ul.list-content > li > a
 {
     padding: 8px 32px 8px 36px;
 }
 
 /* search */
-li.search
+.list-search
 {
     background-image: -webkit-gradient(
         linear,
@@ -21,7 +22,7 @@ li.search
     -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px, rgba(255,255,255,0.25) 0px 22px 0px inset;
 }
 
-li.search input
+.list-search input
 {
     font-size: .6em;
     line-height: 30px;
@@ -40,7 +41,7 @@ li.search input
     -moz-background-clip: padding-box;
 }
 
-li.search .searchButton
+.list-search .searchButton
 {
     /*
     background-image: -webkit-gradient(
@@ -80,7 +81,7 @@ li.search .searchButton
     -moz-background-clip: padding-box;
 }
 
-li.search .dismissButton
+.list-search .dismissButton
 {
     /*
     background-image: -webkit-gradient(
@@ -121,7 +122,7 @@ li.search .dismissButton
     -moz-background-clip: padding-box;
 }
 
-li.search label
+.list-search label
 {
     color: #aaa;
     font-size: .6em !important;
@@ -299,7 +300,6 @@ li.is-linked
 #login .button
 {
     margin: 0 12px 12px 12px;
-    display: block;
 }
 
 #login h2

@@ -44,7 +44,8 @@ body > .toolbar {
 	text-shadow: rgba(0, 0, 0, 1) 1px 1px 0;
 }
 
-body > ul
+body > ul,
+body > div.list
 {
     background: #fff;
 }
@@ -184,13 +185,10 @@ div.row-edit:last-child
     border-bottom: none 0 black;
 }
 
-.more > a
-{
-    margin: 0;
-}
-
 .button 
 {
+    display: block;
+    
 	color: #fff;
 	text-align: center;
 	text-decoration: none;
