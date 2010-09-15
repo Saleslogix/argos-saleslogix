@@ -21,6 +21,7 @@ Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
         Ext.apply(this, o, {
             id: 'activity_list',
             title: this.titleText,
+            editor: 'activity_edit',
             resourceKind: 'activities',
             pageSize: 25,
             icon: 'content/images/Task_List_3D_24x24.gif'
@@ -34,8 +35,6 @@ Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         request
             .setQueryArgs({
-                //'include': 'Account',
-               // 'include': 'Account,Opportunity,Contact',
                 'groupby'  : 'StartDate',
                 'orderby'  : 'StartDate',                   
                 'select': [

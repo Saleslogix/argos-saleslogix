@@ -7,7 +7,13 @@
 /// <reference path="../../Format.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Activity");
-
+Mobile.SalesLogix.Activity.TypesMap = {
+    "atToDo": "To-Do",
+    "atPhoneCall": "Phone Call",
+    "atAppointment": "Meeting",
+    "atLiterature": "Literature Request",
+    "atPersonal": "Personal Activity"
+};
 Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     titleText: 'Activity',
     typeText: 'type',
@@ -37,17 +43,26 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             editor: 'activity_edit',
             resourceKind: 'activities'
         });
-
+        var typeRenderer = function(val) {
+            if (Mobile.SalesLogix.Activity.TypesMap && Mobile.SalesLogix.Activity.TypesMap[val])
+            {
+                return Mobile.SalesLogix.Activity.TypesMap[val];
+            }
+            return val;
+        };
+        var datetimeRenderer = function(val) {
+            return Mobile.SalesLogix.Format.date(val, 'M/d/yyyy hh:MM:ss');
+        };
         this.layout = [
-            {name: 'Type', label: this.typeText},
-            {name: 'Regarding', label: this.regardingText},
+            {name: 'Type', label: this.typeText, renderer: typeRenderer},
+            {name: 'Description', label: this.regardingText},
             {name: 'Priority', label: this.priorityText},
             {name: 'Category', label: this.categoryText},
             {name: 'StartDate', label: this.startingText, renderer: Mobile.SalesLogix.Format.date},
             {name: 'Timeless', label: this.timelessText},
             {name: 'Duration', label: this.durationText},
             {name: 'Alarm', label: this.alarmText},
-            {name: 'AlarmTime', label: this.alarmTimeText},
+            {name: 'AlarmTime', label: this.alarmTimeText, renderer: datetimeRenderer},
             {name: 'Rollover', label: this.rolloverText},
             {name: 'LeadId', label: this.leadIdText},
             {name: 'ContactName', label: this.contactText},
@@ -55,7 +70,7 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'OpportunityName', label: this.opportunityText},
             {name: 'TicketNumber', label: this.ticketNumberText},
             {name: 'LeadName', label: this.leadText},
-            {name: 'Company', label: this.companyText},
+            {name: 'AccountName', label: this.companyText},
             {name: 'LongNotes', label: this.longNotesText}
            ];
     },
@@ -69,7 +84,7 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             .setQueryArgs({
                 'select': [
                     'Type',
-                    'Regarding',
+                    'Description',
                     'Priority',
                     'Category',
                     'StartDate',
