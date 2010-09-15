@@ -422,3 +422,10 @@ ul#configure > li > .list-selector {
     margin-top:12px;
 }
 
+#note_detail .row label {
+    display: none
+}
+
+#note_detail .row span {
+    padding: 0;
+}
