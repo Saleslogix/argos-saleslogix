@@ -46,7 +46,7 @@ Mobile.SalesLogix.Contact.List = Ext.extend(Sage.Platform.Mobile.List, {
         })
     },
     formatSearchQuery: function(query) {
-        return String.format('(LastName like "%{0}%" or FirstName like "%{0}%")', query);
+        return String.format('(LastName like "%{0}%" or FirstName like "%{0}%"  or Account.AccountName like "%{0}%")', query);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Contact.List.superclass.createRequest.call(this);
