@@ -1,3 +1,4 @@
+Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.PickList = Ext.extend(Sage.Platform.Mobile.List, {
     resourceProperty: 'items',
