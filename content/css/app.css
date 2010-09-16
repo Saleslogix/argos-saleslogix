@@ -328,11 +328,12 @@ li.is-linked
 #note_related div.defect-text-row h3
 {
     white-space : normal;
+    font-weight: normal;
 }
 
 #note_related div.defect-text-wrap
 {
-    max-height: 2.5em;
+    max-height: 3em;
     margin-top:0;
     padding-left:10px;
 }
@@ -340,12 +341,13 @@ li.is-linked
 #note_related div.defect-text-more
 {
    -moz-border-radius-bottomright: none;
-   bottom:-20px;
+   -webkit-border-radius-topright: none;
+   bottom: -8px;
+   border-style: none;
 }
 
 #note_related div.defect-text-more a
 {
-   bottom:-20px;
    text-decoration: none;
    font-weight: normal;
    font-size: 0.75em;
@@ -354,7 +356,6 @@ li.is-linked
 
 #note_related div.defect-text-wrap a[target="_detail"]
 {
-     background-image:url("listArrowSel.png"), url("selection.png");
      text-decoration: none; 
      color: #000;
      display: block;

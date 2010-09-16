@@ -67,7 +67,7 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     view: 'note_related',
                     where: this.formatRelatedQuery.createDelegate(this, ['AccountId eq "{0}" and Type eq "atNote"'], true),
                     label: this.relatedNotesText,
-                    icon: 'content/images/note_24x24.gif'
+                    icon: 'content/images/Note_24x24.gif'
                 },
                 {
                     view: 'contact_related',

@@ -31,7 +31,7 @@ Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
             title: this.titleText,
             resourceKind: 'history',
             pageSize: 25,
-            icon: 'content/images/note_24x24.gif'
+            icon: 'content/images/Note_24x24.gif'
         });
 
         Ext.apply(this.tools || {}, {
@@ -77,8 +77,8 @@ Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         return request;
     },
-    processEntry: function(entry) {
-        Mobile.SalesLogix.Note.List.superclass.processEntry.call(this, entry);
+    processFeed: function(feed) {
+        Mobile.SalesLogix.Note.List.superclass.processFeed.call(this, feed);
 
         this.onResize();
     }
