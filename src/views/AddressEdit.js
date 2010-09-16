@@ -1,3 +1,4 @@
+Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.AddressEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
     isPrimaryText: 'primary',
