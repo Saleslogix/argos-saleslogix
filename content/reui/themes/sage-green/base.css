@@ -182,8 +182,12 @@ ul.list-content > li
     border-bottom: solid 1px #ddd;
 }
 
-body > ul > * > a,
-ul.list-content > * > a
+ul.list-content > li
+{
+    padding: 8px 32px 8px 36px;
+}
+
+body > ul > * > a
 {
     color: inherit;
     padding: 8px 32px 8px 36px;
@@ -193,7 +197,8 @@ ul.list-content > * > a
 }
 
 body > ul > * > a > img.icon,
-ul.list-content > * > a > img.icon
+ul.list-content > * > a > img.icon,
+ul.list-content > li > img.icon,
 {
     border: none 0 black;
     margin: 0 .5em 0 0;

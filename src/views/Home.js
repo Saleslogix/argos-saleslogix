@@ -11,11 +11,11 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
     configureText: 'Configure',
     itemTemplate: new Simplate([
         '<li>',
-        '<a href="#{%= id %}" target="_view">',
-        '{% if ($["icon"]) { %}',
-        '<img src="{%= $["icon"] %}" alt="icon" class="icon" />',
+        '<a href="#{%= $.id %}" target="_view">',
+        '{% if ($.icon) { %}',
+        '<img src="{%= $.icon %}" alt="icon" class="icon" />',
         '{% } %}',
-        '{%= title %}',
+        '{%= $.titleText %}',
         '</a>',
         '</li>'
     ]),
