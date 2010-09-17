@@ -64,6 +64,9 @@ Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
                 el.child('.defect-text-more').hide();
         });
     },
+    formatSearchQuery: function(query) {
+        return String.format('Notes like "%{0}%"', query);
+    },
     createRequest: function() {
         var request = Mobile.SalesLogix.Note.List.superclass.createRequest.call(this);
 
