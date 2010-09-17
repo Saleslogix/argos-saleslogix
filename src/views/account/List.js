@@ -15,26 +15,17 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
     id: 'account_list',
     icon: 'content/images/Accounts_24x24.gif',
     titleText: 'Accounts',
-    resourceKind: 'accounts',
     insertView: 'account_edit',
     detailView: 'account_detail',
-    contextView: 'account_context',    
+    contextView: 'account_context',
+    resourceKind: 'accounts',
+    queryInclude: ['AccountManager/UserInfo'],
+    querySelect: [
+        'AccountName',
+        'AccountManager/UserInfo/UserName'
+    ],
+    queryOrderBy: 'AccountName',
     formatSearchQuery: function(query) {
         return String.format('AccountName like "%{0}%"', query);
-    },
-    createRequest: function() {
-        var request = Mobile.SalesLogix.Account.List.superclass.createRequest.call(this);
-
-        request
-            .setQueryArgs({
-                'include': 'AccountManager/UserInfo',
-                'orderby': 'AccountName',
-                'select': [
-                    'AccountName',
-                    'AccountManager/UserInfo/UserName'
-                ].join(',')
-            });
-
-        return request;
     }
 });

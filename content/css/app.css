@@ -24,7 +24,7 @@ ul.list-content > li > a
 
 .list-search input
 {
-    font-size: .6em;
+    font-size: 0.9em;
     line-height: 30px;
 
     /* these are marked !important due to Chrome CSS fix */
@@ -70,7 +70,7 @@ ul.list-content > li > a
     -webkit-border-radius: 0px 3px 3px 0px;
     color: #000;
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
-    font-size: .6em;
+    font-size: 0.9em;
     line-height: 30px;
     padding: 0 8px 0 6px;
     border: solid 1px #000;
@@ -109,8 +109,7 @@ ul.list-content > li > a
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
     -moz-border-radius: 3px 0px 0px 3px;
     -webkit-border-radius: 3px 0px 0px 3px;
-    font-size: .6em;
-    font-weight: bold;
+    font-size: 0.9em;
     line-height: 30px;
     text-align: center;
     border-style: solid;
@@ -125,7 +124,7 @@ ul.list-content > li > a
 .list-search label
 {
     color: #aaa;
-    font-size: .6em !important;
+    font-size: 0.9em !important;
     line-height: 32px;
     padding: 0 8px 0 6px;
     font-weight: normal;
