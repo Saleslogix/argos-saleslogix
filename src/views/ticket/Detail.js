@@ -40,6 +40,33 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             resourceKind: 'tickets'
         });
 
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function(){
+                  App.getView('ticket_list').navigateToInsert.call({editor:'ticket_edit'});
+                },
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: function() { alert("two");},
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'TicketNumber', label: this.ticketIdText},
             {name: 'Account.AccountName', label: this.accountText},

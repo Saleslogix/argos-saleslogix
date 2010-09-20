@@ -25,6 +25,26 @@ Mobile.SalesLogix.SalesOrder.List = Ext.extend(Sage.Platform.Mobile.List, {
             pageSize: 25,
             icon: 'content/images/salesorder.gif'
         });
+        
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: function(){
+                  App.getView('salesorder_list').navigateToInsert.call({editor:'salesorder_edit'});
+                },
+                 scope: this
+             }]
+        })
     },
     formatSearchQuery: function(query) {
         return String.format('(SalesOrderNumber like "%{0}%")', query);

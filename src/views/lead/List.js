@@ -31,19 +31,22 @@ Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
         
         Ext.apply(this.tools || {}, {
             fbar: [{
-                name: 'new',
-                title: 'new',
+                name: 'home',
+                title: 'home',                        
                 cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: this.navigateToInsert,
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
                 scope: this
             },{
-                name: 'test2',
-                title: this.titleText,
-                icon: 'content/images/Whats_New_3D_Files_32x32.gif',
-                fn: function() { alert("two");},
-                scope: this
-            }]
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: function(){
+                  App.getView('lead_list').navigateToInsert.call({editor:'lead_edit'});
+                },
+                 scope: this
+             }]
         })
     },
     

@@ -21,6 +21,17 @@ Mobile.SalesLogix.Note.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             resourceKind: 'history'
         });
 
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: function() { alert("two");},
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'Notes', label: this.notesText}
             ];

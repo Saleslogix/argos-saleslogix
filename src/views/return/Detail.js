@@ -30,6 +30,33 @@ Mobile.SalesLogix.Return.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             resourceKind: 'returns'
         });
 
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function(){
+                  App.getView('return_list').navigateToInsert.call({editor:'return_edit'});
+                },
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: function() { alert("two");},
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'ReturnNumber', label: this.returnIdText},
             {name: 'Account.AccountName', label: this.accountText},

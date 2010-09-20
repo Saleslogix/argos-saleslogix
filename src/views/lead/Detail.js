@@ -39,6 +39,41 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             editor: 'lead_edit',
             resourceKind: 'leads'
         });
+        
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'copy',
+                title: 'copy',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function() { alert("two");},
+                scope: this
+            },{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function(){
+                  App.getView('lead_list').navigateToInsert.call({editor:'lead_edit'});
+                },
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: function() { alert("two");},
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'LeadNameLastFirst', label: this.nameText },
             {name: 'Company', label: this.accountText},

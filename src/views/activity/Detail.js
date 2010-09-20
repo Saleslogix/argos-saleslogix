@@ -43,6 +43,25 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             editor: 'activity_edit',
             resourceKind: 'activities'
         });
+        
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: function() { alert("two");},
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function() { alert("two");},
+                scope: this
+            }]
+        });
+        
         var typeRenderer = function(val) {
             if (Mobile.SalesLogix.Activity.TypesMap && Mobile.SalesLogix.Activity.TypesMap[val])
             {
