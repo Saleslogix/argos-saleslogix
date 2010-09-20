@@ -359,7 +359,7 @@ li.is-linked
      text-decoration: none; 
      color: #000;
      display: block;
-     
+     line-height: 1em;
 }
 
 /* context dialog */
