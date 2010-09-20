@@ -369,6 +369,23 @@ body[orient] > div.toolbar-float[open]
     position: relative;
 }
 
+.panel > ul > li,
+.panel-content > ul > li
+{
+    list-style: none;
+}
+
+.panel > ul > li > img.icon,
+.panel > ul > li > a > img.icon,
+.panel-content > ul > li > img.icon,
+.panel-content > ul > li > a > img.icon
+{
+    border: none 0 black;
+    margin: 0 .5em 0 0;
+    width: 24px;
+    height: 24px;
+}
+
 .panel > fieldset,
 .panel-content > fieldset
 {
@@ -419,8 +436,7 @@ div.row > a
 }
 
 div.row a[target=_related]
-{
-	background:url(../../libraries/reui/themes/iui/default/listArrow.png) center right no-repeat;
+{	
 	font-size: inherit;
 }
 

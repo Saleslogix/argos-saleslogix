@@ -155,9 +155,7 @@ input:focus
     border-bottom: none 0 black;
 }
 
-.panel > ul > li > a,
 .panel > ul > * > a,
-.panel-content > ul > li > a,
 .panel-content > ul > * > a
 {
     color: inherit;

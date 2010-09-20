@@ -1,9 +1,8 @@
-/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataResourceCollectionRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/List.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Account");
 

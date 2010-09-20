@@ -1,44 +1,24 @@
-/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataResourceCollectionRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/List.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Owner");
 
 Mobile.SalesLogix.Owner.List = Ext.extend(Sage.Platform.Mobile.List, {
     contentTemplate: new Simplate([
-        '<a href="#account_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
-        '<h3>{%: $.OwnerDescription %}</h3>',
-        '</a>'
+        '<h3>{%: $.OwnerDescription %}</h3>'        
     ]),
-    constructor: function(o) {
-        Mobile.SalesLogix.Owner.List.superclass.constructor.call(this);
-
-        Ext.apply(this, o, {
-            id: 'owner_list',
-            title: 'Owners',
-            resourceKind: 'owners',
-            pageSize: 25,
-            icon: 'content/images/Accounts_24x24.gif'
-        });        
-    },
+    id: 'owner_list',
+    titleText: 'Owners',
+    icon: 'content/images/Accounts_24x24.gif',
+    resourceKind: 'owners',
+    querySelect: [
+        'OwnerDescription'
+    ],
+    queryOrderBy: 'OwnerDescription',
     formatSearchQuery: function(query) {
         return String.format('owner.OwnerDescription like "%{0}%"', query);
-    },
-    createRequest: function() {
-        var request = Mobile.SalesLogix.Owner.List.superclass.createRequest.call(this);
-
-        request
-            .setQueryArgs({
-                'include': 'owner',
-                'orderby': 'OwnerDescription',
-                'select': [
-                    'OwnerDescription',
-                ].join(',')
-            });
-
-        return request;
     }
 });

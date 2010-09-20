@@ -1,61 +1,25 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataResourceCollectionRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/List.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Campaign");
 
 Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
-    titleText: 'Campaign',
-    fbartitleText: 'note',
     contentTemplate: new Simplate([
-        '<a href="#campaign_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
-        '<h3>{%: $["CampaignName"] %}</h3>',
-        '</a>'
+        '<h3>{%: $.CampaignName %}</h3>'        
     ]),
-    constructor: function(o) {
-        Mobile.SalesLogix.Campaign.List.superclass.constructor.call(this);
-
-        Ext.apply(this, o, {
-            id: 'campaign_list',
-            title: this.titleText,
-            editor: 'campaign_edit',
-            resourceKind: 'campaigns',
-            pageSize: 25,
-            icon: 'content/images/campaigns_detail_24x24.gif'
-        });
-
-        Ext.apply(this.tools || {}, {
-            fbar: [{
-                name: 'new',
-                title: 'new',
-                cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: this.navigateToInsert,
-                scope: this
-            },{
-                name: 'test2',
-                title: this.titleText,
-                icon: 'content/images/Whats_New_3D_Files_32x32.gif',
-                fn: function() { alert("two");},
-                scope: this
-            }]
-        })
-    },
+    id: 'campaign_list',
+    icon: 'content/images/campaigns_detail_24x24.gif',
+    titleText: 'Campaigns',
+    insertView: 'campaign_list',
+    resourceKind: 'campaigns',
+    querySelect: [
+        'CampaignName'
+    ],
+    queryOrderBy: 'CampaignName',
     formatSearchQuery: function(query) {
         return String.format('CampaignName like "%{0}%"', query);
-    },
-    createRequest: function() {
-        var request = Mobile.SalesLogix.Campaign.List.superclass.createRequest.call(this);
-
-        request
-            .setQueryArgs({
-                'orderby': 'CampaignName',
-                'select': 'CampaignName'
-            });
-
-        return request;
     }
 });

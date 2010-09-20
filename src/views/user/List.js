@@ -1,48 +1,31 @@
-/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataResourceCollectionRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/List.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 Ext.namespace("Mobile.SalesLogix.User");
 
 Mobile.SalesLogix.User.List = Ext.extend(Sage.Platform.Mobile.List, {
     contentTemplate: new Simplate([
-        '<a href="#account_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
         '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
-        '<h4>{%: $.UserInfo.Title %}</h4>',
-        '</a>'
+        '<h4>{%: $.UserInfo.Title %}</h4>'        
     ]),
-    constructor: function(o) {
-        Mobile.SalesLogix.Account.List.superclass.constructor.call(this);
-
-        Ext.apply(this, o, {
-            id: 'user_list',
-            title: 'Users',
-            resourceKind: 'users',
-            pageSize: 25,
-            icon: 'content/images/Accounts_24x24.gif'
-        });        
-    },
+    id: 'user_list',
+    icon: 'content/images/Accounts_24x24.gif',
+    titleText: 'Users',
+    resourceKind: 'users',
+    queryInclude: [
+        'UserInfo'
+    ],
+    querySelect: [
+        'UserInfo/LastName',
+        'UserInfo/FirstName',
+        'UserInfo/UserName',
+        'UserInfo/Title'
+    ],
+    queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
     formatSearchQuery: function(query) {
         return String.format('UserInfo.UserName like "%{0}%"', query);
-    },
-    createRequest: function() {
-        var request = Mobile.SalesLogix.Account.List.superclass.createRequest.call(this);
-
-        request
-            .setQueryArgs({
-                'include': 'UserInfo',
-                'orderby': 'UserInfo.LastName asc, UserInfo.FirstName asc',
-                'select': [
-                    'UserInfo/LastName',
-                    'UserInfo/FirstName',
-                    'UserInfo/UserName',
-                    'UserInfo/Title'
-                ].join(',')
-            });
-
-        return request;
     }
 });

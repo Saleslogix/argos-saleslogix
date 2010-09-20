@@ -43,16 +43,6 @@ ul.list-content > li > a
 
 .list-search .searchButton
 {
-    /*
-    background-image: -webkit-gradient(
-		linear,
-		left top,
-		left bottom,
-		color-stop(0, #e6e6e6),
-		color-stop(1, #cccccc)
-	);
-	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
-    */
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -65,7 +55,7 @@ ul.list-content > li > a
         rgb(218,237,190) 0%,
         rgb(190,207,166) 100%
     );
-
+    cursor: pointer;
     -moz-border-radius: 0px 3px 3px 0px;
     -webkit-border-radius: 0px 3px 3px 0px;
     color: #000;
@@ -83,16 +73,6 @@ ul.list-content > li > a
 
 .list-search .dismissButton
 {
-    /*
-    background-image: -webkit-gradient(
-		linear,
-		left top,
-		left bottom,
-		color-stop(0, #e6e6e6),
-		color-stop(1, #cccccc)
-	);
-	background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
-	*/
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -105,6 +85,7 @@ ul.list-content > li > a
         rgb(218,237,190) 0%,
         rgb(190,207,166) 100%
     );
+    cursor: pointer;
     color: #000;
 	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
     -moz-border-radius: 3px 0px 0px 3px;

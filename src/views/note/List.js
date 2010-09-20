@@ -1,57 +1,28 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataResourceCollectionRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/List.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Note");
 
 Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
-    titleText: 'Note',
-    fbartitleText: 'note',
-    moveToNextPage: 'more &gt;&gt;',
     contentTemplate: new Simplate([
         '<div class="row defect-text-row">',
         '<div class="defect-text-wrap">',
-        '<a href="#note_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
-        '<h3>{%= $["Notes"] %}</h3>',
-        '</a>',
+        '{%: $.Notes %}',
         '</div>',
         '<div class="defect-text-more">',
-        '<a href="#note_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">more &gt;&gt;</a>',
+        '{%: $$.moreText %}',
         '</div>',
         '</div>'
     ]),
-    constructor: function(o) {
-        Mobile.SalesLogix.Note.List.superclass.constructor.call(this);
-
-        Ext.apply(this, o, {
-            id: 'note_list',
-            title: this.titleText,
-            resourceKind: 'history',
-            pageSize: 25,
-            icon: 'content/images/note_24x24.gif'
-        });
-
-        Ext.apply(this.tools || {}, {
-            fbar: [{
-                name: 'test',
-                title: this.titleText,
-                cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: function() { alert("one"); },
-                scope: this
-            },{
-                name: 'test2',
-                title: this.titleText,
-                icon: 'content/images/Whats_New_3D_Files_32x32.gif',
-                fn: function() { alert("two");},
-                scope: this
-            }]
-        })
-    },
-     init: function() {
+    id: 'note_list',
+    icon: 'content/images/note_24x24.gif',
+    titleText: 'Notes',
+    moreText: 'more >>',
+    resourceKind: 'history',
+    init: function() {
         Mobile.SalesLogix.Note.List.superclass.init.call(this);
 
         App.on('resize', this.onResize, this);
