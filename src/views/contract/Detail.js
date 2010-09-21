@@ -57,7 +57,7 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 title: 'schedule',                        
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: function() { alert("two");},
+                fn: App.navigateToNewActivity,
                 scope: this
             }]
         });

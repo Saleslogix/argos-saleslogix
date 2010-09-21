@@ -41,10 +41,8 @@ Mobile.SalesLogix.Contact.List = Ext.extend(Sage.Platform.Mobile.List, {
                 title: 'schedule',                        
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: function(){
-                  App.getView('contact_list').navigateToInsert.call({editor:'contact_edit'});
-                },
-                 scope: this
+                fn: App.navigateToNewActivity,
+                scope: this
              }]
         })
     },

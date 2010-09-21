@@ -237,5 +237,12 @@ var App = new Mobile.SalesLogix.Application();
 
         App.goHome = function() {
         App.getView('home').show();
-    };
+};
+
+App.navigateToNewActivity = function() {
+    var view = App.getView('activity_edit');
+    if (view) {
+      view.show({insert: true});
+    }
+};
 

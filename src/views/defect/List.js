@@ -40,10 +40,8 @@ Mobile.SalesLogix.Defect.List = Ext.extend(Sage.Platform.Mobile.List, {
                 title: 'schedule',                        
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: function(){
-                  App.getView('defect_list').navigateToInsert.call({editor:'defect_edit'});
-                },
-                 scope: this
+                fn: App.navigateToNewActivity,
+                scope: this
              }]
         })
     },

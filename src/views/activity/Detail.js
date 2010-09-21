@@ -50,14 +50,14 @@ Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 title: 'home',                        
                 cls: 'tool-note',
                 icon: 'content/images/welcome_32x32.gif',
-                fn: function() { alert("two");},
+                fn: App.goHome,
                 scope: this
             },{
                 name: 'schedule',
                 title: 'schedule',                        
                 cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: function() { alert("two");},
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: App.navigateToNewActivity,
                 scope: this
             }]
         });

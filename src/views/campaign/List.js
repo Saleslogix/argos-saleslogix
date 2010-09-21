@@ -40,9 +40,7 @@ Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
                 title: 'schedule',                        
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: function(){
-                  App.getView('campaign_list').navigateToInsert.call({editor:'campaign_edit'});
-                },
+                fn: App.navigateToNewActivity,
                  scope: this
              }]
         })

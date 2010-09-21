@@ -42,10 +42,8 @@ Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
                 title: 'schedule',                        
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: function(){
-                  App.getView('account_list').navigateToInsert.call({editor:'account_edit'});
-                },
-                 scope: this
+                fn: App.navigateToNewActivity,
+                scope: this
              }]
         })
     },

@@ -46,7 +46,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 title: 'copy',                        
                 cls: 'tool-note',
                 icon: 'content/images/Note_32x32.gif',
-                fn: function() { alert("two");},
+                fn: function() { this.copyLead(); },
                 scope: this
             },{
                 name: 'home',
@@ -69,7 +69,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 title: 'schedule',                        
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: function() { alert("two");},
+                fn: App.navigateToNewActivity,
                 scope: this
             }]
         });
@@ -108,6 +108,18 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
        },
     init: function() {     
         Mobile.SalesLogix.Lead.Detail.superclass.init.call(this);   
+    },
+    copyLead: function() {
+      var props = ["FirstName", "LastName", "Name", "NameLF", "Email", "HomePhone", "Mobile", "WorkPhone", "Fax"]
+      //Clone entry
+      var entry = Ext.decode(Ext.encode(this.entry));
+      props.forEach(function(prop){
+        entry[prop] = "";
+      });
+      
+      var view = App.getView(this.editor);
+      if (view)
+          view.show({entry: entry});
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Lead.Detail.superclass.createRequest.call(this);

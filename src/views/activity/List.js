@@ -33,7 +33,7 @@ Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
                 title: 'home',                        
                 cls: 'tool-note',
                 icon: 'content/images/welcome_32x32.gif',
-                fn: function() { alert("two");},
+                fn: App.goHome,
                 scope: this
             }]
         })

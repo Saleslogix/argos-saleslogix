@@ -39,10 +39,8 @@ Mobile.SalesLogix.SalesOrder.List = Ext.extend(Sage.Platform.Mobile.List, {
                 title: 'schedule',                        
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: function(){
-                  App.getView('salesorder_list').navigateToInsert.call({editor:'salesorder_edit'});
-                },
-                 scope: this
+                fn: App.navigateToNewActivity,
+                scope: this
              }]
         })
     },

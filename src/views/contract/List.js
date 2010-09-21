@@ -54,10 +54,8 @@ Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
                 title: 'schedule',                        
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: function(){
-                  App.getView('contract_list').navigateToInsert.call({editor:'contract_edit'});
-                },
-                 scope: this
+                fn: App.navigateToNewActivity,
+                scope: this
              }]
         })
      

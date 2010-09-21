@@ -36,24 +36,11 @@ Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
 
         Ext.apply(this.tools || {}, {
             fbar: [{
-                name: 'test',
-                title: this.titleText,
-                cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: function() { alert("one"); },
-                scope: this
-            },{
                 name: 'home',
                 title: 'home',                        
                 cls: 'tool-note',
                 icon: 'content/images/welcome_32x32.gif',
-                fn: function() { alert("two");},
-                scope: this
-            },{
-                name: 'test2',
-                title: this.titleText,
-                icon: 'content/images/Whats_New_3D_Files_32x32.gif',
-                fn: function() { alert("two");},
+                fn: App.goHome,
                 scope: this
             }]
         })

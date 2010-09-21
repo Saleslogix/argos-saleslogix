@@ -27,7 +27,7 @@ Mobile.SalesLogix.Note.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 title: 'home',                        
                 cls: 'tool-note',
                 icon: 'content/images/welcome_32x32.gif',
-                fn: function() { alert("two");},
+                fn: App.goHome,
                 scope: this
             }]
         });
