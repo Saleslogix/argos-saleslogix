@@ -47,7 +47,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 title: 'copy',                        
                 cls: 'tool-note',
                 icon: 'content/images/Note_32x32.gif',
-                fn: function() { alert("two");},
+                fn: function() { this.copyContact(); },
                 scope: this
             },{
                 name: 'home',
@@ -126,6 +126,18 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
     init: function() {
         Mobile.SalesLogix.Contact.Detail.superclass.init.call(this);
+    },
+    copyContact: function() {
+      var props = ["FirstName", "LastName", "Name", "NameLF", "Email", "HomePhone", "Mobile", "WorkPhone", "Fax"]
+      //Clone entry
+      var entry = Ext.decode(Ext.encode(this.entry));
+      props.forEach(function(prop){
+        entry[prop] = "";
+      });
+      
+      var view = App.getView(this.editor);
+      if (view)
+          view.show({entry: entry});
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Contact.Detail.superclass.createRequest.call(this);
