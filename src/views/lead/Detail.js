@@ -110,7 +110,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         Mobile.SalesLogix.Lead.Detail.superclass.init.call(this);   
     },
     copyLead: function() {
-      var props = ["FirstName", "LastName", "Name", "NameLF", "Email", "HomePhone", "Mobile", "WorkPhone", "Fax"]
+      var props = ["FirstName", "LastName", "Name", "LeadNameLastFirst", "Email", "WorkPhone", "TollFree"];
       //Clone entry
       var entry = Ext.decode(Ext.encode(this.entry));
       props.forEach(function(prop){

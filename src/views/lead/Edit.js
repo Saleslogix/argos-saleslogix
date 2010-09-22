@@ -5,7 +5,7 @@
 /// <reference path="../../../../platform/View.js"/>
 /// <reference path="../../../../platform/Detail.js"/>
 /// <reference path="../../Format.js"/>
-//Rajkumar. G 05-07-2010
+
 Ext.namespace("Mobile.SalesLogix.Lead");
 
 Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
@@ -84,4 +84,4 @@ Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             })
     }
 });
-//Rajkumar. G 05-07-2010
+
