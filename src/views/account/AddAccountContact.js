@@ -38,18 +38,22 @@ Mobile.SalesLogix.Account.AddAccountContact = Ext.extend(Sage.Platform.Mobile.Ed
         ];
     },
     getValues: function() {
-        var values = Mobile.SalesLogix.Account.AddAccountContact.superclass.getValues.apply(this, arguments);
-        return Ext.apply(values, {
-            'Contacts.$resources[0].$name': 'Contact'
-        });
+        var U = Sage.Platform.Mobile.Utility,
+            values = Mobile.SalesLogix.Account.AddAccountContact.superclass.getValues.apply(this, arguments);
+
+        U.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
+        U.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
+
+        return values;
     },
     show: function(options) {
-        Mobile.SalesLogix.Account.AddAccountContact.superclass.show.call(this, Ext.apply(options, {
+        Mobile.SalesLogix.Account.AddAccountContact.superclass.show.call(this, Ext.apply(options || {}, {
             insert: true
         }));
     },
     createRequest: function() {
         return Mobile.SalesLogix.Account.AddAccountContact.superclass.createRequest.call(this)
+            .setResourceKind('accounts')
             .setQueryArgs({
                 'include': 'Contact',
                 'select': [
