@@ -6,21 +6,24 @@
 
 Ext.namespace("Mobile.SalesLogix.Defect");
 
-Mobile.SalesLogix.Defect.List = Ext.extend(Sage.Platform.Mobile.List, {
-    contentTemplate: new Simplate([
-        '<h3>{%: $.AlternateKeyPrefix %}-{%: $.AlternateKeySuffix %}</h3>'        
-    ]),
-    id: 'defect_list',
-    icon: 'content/images/defect_detail_24x24.gif',
-    titleText: 'Defects',
-    insertView: 'defect_edit',
-    resourceKind: 'defects',
-    querySelect: [
-        'AlternateKeyPrefix',
-        'AlternateKeySuffix'
-    ],
-    queryOrderBy: 'AlternateKeySuffix',    
-    formatSearchQuery: function(query) {
-        return String.format('AccountName like "%{0}%"', query);
-    }
-});
+(function() {
+    Mobile.SalesLogix.Defect.List = Ext.extend(Sage.Platform.Mobile.List, {
+        contentTemplate: new Simplate([
+            '<h3>{%: $.AlternateKeyPrefix %}-{%: $.AlternateKeySuffix %}</h3>'
+        ]),
+        id: 'defect_list',
+        icon: 'content/images/defect_detail_24x24.gif',
+        titleText: 'Defects',
+        insertView: 'defect_edit',
+        detailView: 'defect_detail',
+        resourceKind: 'defects',
+        querySelect: [
+            'AlternateKeyPrefix',
+            'AlternateKeySuffix'
+        ],
+        queryOrderBy: 'AlternateKeySuffix',
+        formatSearchQuery: function(query) {
+            return String.format('AccountName like "%{0}%"', query);
+        }
+    });
+})();

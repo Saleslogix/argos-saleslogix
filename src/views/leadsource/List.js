@@ -6,21 +6,23 @@
 
 Ext.namespace("Mobile.SalesLogix.LeadSource");
 
-Mobile.SalesLogix.LeadSource.List = Ext.extend(Sage.Platform.Mobile.List, {
-    contentTemplate: new Simplate([
-        '<h3>{%: $.Description %}</h3>',
-        '<h4>{%: $.Status %}</h4>'        
-    ]),
-    id: 'leadsource_list',
-    icon: 'content/images/Accounts_24x24.gif',
-    titleText: 'Lead Sources',
-    resourceKind: 'leadsources',
-    querySelect: [
-        'Description',
-        'Status'
-    ],
-    queryOrderBy: 'Description',
-    formatSearchQuery: function(query) {
-        return String.format('Description like "%{0}%"', query);
-    }
-});
+(function() {
+    Mobile.SalesLogix.LeadSource.List = Ext.extend(Sage.Platform.Mobile.List, {
+        contentTemplate: new Simplate([
+            '<h3>{%: $.Description %}</h3>',
+            '<h4>{%: $.Status %}</h4>'
+        ]),
+        id: 'leadsource_list',
+        icon: 'content/images/Accounts_24x24.gif',
+        titleText: 'Lead Sources',
+        resourceKind: 'leadsources',
+        querySelect: [
+            'Description',
+            'Status'
+        ],
+        queryOrderBy: 'Description',
+        formatSearchQuery: function(query) {
+            return String.format('Description like "%{0}%"', query);
+        }
+    });
+})();

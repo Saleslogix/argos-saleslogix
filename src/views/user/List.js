@@ -6,26 +6,28 @@
 
 Ext.namespace("Mobile.SalesLogix.User");
 
-Mobile.SalesLogix.User.List = Ext.extend(Sage.Platform.Mobile.List, {
-    contentTemplate: new Simplate([
-        '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
-        '<h4>{%: $.UserInfo.Title %}</h4>'        
-    ]),
-    id: 'user_list',
-    icon: 'content/images/Accounts_24x24.gif',
-    titleText: 'Users',
-    resourceKind: 'users',
-    queryInclude: [
-        'UserInfo'
-    ],
-    querySelect: [
-        'UserInfo/LastName',
-        'UserInfo/FirstName',
-        'UserInfo/UserName',
-        'UserInfo/Title'
-    ],
-    queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
-    formatSearchQuery: function(query) {
-        return String.format('UserInfo.UserName like "%{0}%"', query);
-    }
-});
+(function() {
+    Mobile.SalesLogix.User.List = Ext.extend(Sage.Platform.Mobile.List, {
+        contentTemplate: new Simplate([
+            '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
+            '<h4>{%: $.UserInfo.Title %}</h4>'
+        ]),
+        id: 'user_list',
+        icon: 'content/images/Accounts_24x24.gif',
+        titleText: 'Users',
+        resourceKind: 'users',
+        queryInclude: [
+            'UserInfo'
+        ],
+        querySelect: [
+            'UserInfo/LastName',
+            'UserInfo/FirstName',
+            'UserInfo/UserName',
+            'UserInfo/Title'
+        ],
+        queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
+        formatSearchQuery: function(query) {
+            return String.format('UserInfo.UserName like "%{0}%"', query);
+        }
+    });
+})();

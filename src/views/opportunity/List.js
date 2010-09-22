@@ -6,31 +6,34 @@
 
 Ext.namespace("Mobile.SalesLogix.Opportunity");
 
-Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
-    contentTemplate: new Simplate([        
-        '<h3>{%: $.Account ? $.Account.AccountName : "" %}</h3>',
-        '<h4>{%: $.Description %}</h4>'
-    ]),
-    id: 'opportunity_list',
-    icon: 'content/images/Opportunity_List_24x24.gif',
-    titleText: 'Opportunities',
-    insertView: 'opportunity_edit',
-    contextView: 'context_dialog',
-    resourceKind: 'opportunities',
-    queryInclude: [
-        'Account'
-    ],
-    querySelect: [
-        'Description',
-        'Account/AccountName',
-        'Stage'
-    ],
-    queryOrderBy: 'Description',
-    formatSearchQuery: function(query) {
-        return String.format('(Description like "%{0}%")', query);
+(function() {
+    Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
+        contentTemplate: new Simplate([
+            '<h3>{%: $.Account ? $.Account.AccountName : "" %}</h3>',
+            '<h4>{%: $.Description %}</h4>'
+        ]),
+        id: 'opportunity_list',
+        icon: 'content/images/Opportunity_List_24x24.gif',
+        titleText: 'Opportunities',
+        insertView: 'opportunity_edit',
+        detailView: 'opportunity_detail',
+        contextView: 'context_dialog',
+        resourceKind: 'opportunities',
+        queryInclude: [
+            'Account'
+        ],
+        querySelect: [
+            'Description',
+            'Account/AccountName',
+            'Stage'
+        ],
+        queryOrderBy: 'Description',
+        formatSearchQuery: function(query) {
+            return String.format('(Description like "%{0}%")', query);
 
-        // todo: The below does not currently work as the dynamic SData adapter does not support dotted notation for queries
-        //       except in certain situations.  Support for general dotted notation is being worked on.
-        //return String.format('(Description like "%{0}%" or Account.AccountName like "%{0}%")', query);
-    }
-});
+            // todo: The below does not currently work as the dynamic SData adapter does not support dotted notation for queries
+            //       except in certain situations.  Support for general dotted notation is being worked on.
+            //return String.format('(Description like "%{0}%" or Account.AccountName like "%{0}%")', query);
+        }
+    });
+})();

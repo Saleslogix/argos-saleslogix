@@ -6,23 +6,26 @@
 
 Ext.namespace("Mobile.SalesLogix.Activity");
 
-Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
-    contentTemplate: new Simplate([
-        '<h3>{%: $.StartDate %}, {%: $.AccountName %}</h3>',
-        '<h4>{%: $.Type %}, {%: $.Description %}</h4>'
-    ]),
-    id: 'activity_list',
-    icon: 'content/images/Task_List_3D_24x24.gif',
-    titleText: 'Activities',
-    resourceKind: 'activities',
-    querySelect: [
-        'StartDate',
-        'AccountName',
-        'Type',
-        'Description'
-    ],
-    queryOrderBy: 'StartDate',
-    formatSearchQuery: function(query) {
-        return String.format('Description like "%{0}%"', query);
-    }  
-});
+(function() {
+    Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
+        contentTemplate: new Simplate([
+            '<h3>{%: $.StartDate %}, {%: $.AccountName %}</h3>',
+            '<h4>{%: $.Type %}, {%: $.Description %}</h4>'
+        ]),
+        id: 'activity_list',
+        icon: 'content/images/Task_List_3D_24x24.gif',
+        titleText: 'Activities',
+        detailView: 'activity_detail',
+        resourceKind: 'activities',
+        querySelect: [
+            'StartDate',
+            'AccountName',
+            'Type',
+            'Description'
+        ],
+        queryOrderBy: 'StartDate',
+        formatSearchQuery: function(query) {
+            return String.format('Description like "%{0}%"', query);
+        }
+    });
+})();

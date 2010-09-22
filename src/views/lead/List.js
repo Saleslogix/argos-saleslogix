@@ -6,23 +6,26 @@
 
 Ext.namespace("Mobile.SalesLogix.Lead");
 
-Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
-    contentTemplate: new Simplate([
-        '<h3>{%: $.LeadNameLastFirst %}</h3>',
-        '<h4>{%: $.Company %}</h4>'        
-    ]),
-    id: 'lead_list',
-    icon: 'content/images/Leads_24x24.gif',
-    titleText: 'Leads',
-    insertView: 'lead_edit',
-    contextView: 'context_dialog',
-    resourceKind: 'leads',
-    querySelect: [
-        'LeadNameLastFirst',
-        'Company'
-    ],
-    queryOrderBy: 'Company',
-    formatSearchQuery: function(query) {
-        return String.format('(LeadNameLastFirst like "%{0}%")', query);
-    }
-});
+(function() {
+    Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
+        contentTemplate: new Simplate([
+            '<h3>{%: $.LeadNameLastFirst %}</h3>',
+            '<h4>{%: $.Company %}</h4>'
+        ]),
+        id: 'lead_list',
+        icon: 'content/images/Leads_24x24.gif',
+        titleText: 'Leads',
+        insertView: 'lead_edit',
+        detailView: 'lead_detail',
+        contextView: 'context_dialog',
+        resourceKind: 'leads',
+        querySelect: [
+            'LeadNameLastFirst',
+            'Company'
+        ],
+        queryOrderBy: 'Company',
+        formatSearchQuery: function(query) {
+            return String.format('(LeadNameLastFirst like "%{0}%")', query);
+        }
+    });
+})();
