@@ -16,6 +16,9 @@ Mobile.SalesLogix.PickList = Ext.extend(Sage.Platform.Mobile.List, {
             expose: false
         });
     },
+    formatSearchQuery: function(query) {
+        return String.format('text like "%{0}%"', query);
+    },
     createRequest: function() {
         var request = Mobile.SalesLogix.PickList.superclass.createRequest.call(this);
 
