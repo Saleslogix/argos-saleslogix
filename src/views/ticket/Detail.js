@@ -13,8 +13,12 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     ticketIdText: 'ticket number',
     accountText: 'acct name',
     contactText: 'contact',
+    contractText: ' ',
+    sourceText: 'source',
     phoneText: 'phone',
     subjectText: 'subject',
+    descriptionText: 'desc',
+    resolutionText: 'resolution',
     notesText: 'comments',
     urgencyText: 'urgency',
     areaText: 'area',
@@ -36,24 +40,55 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             resourceKind: 'tickets'
         });
 
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function(){
+                  App.getView('ticket_list').navigateToInsert.call({editor:'ticket_edit'});
+                },
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: App.navigateToNewActivity,
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'TicketNumber', label: this.ticketIdText},
             {name: 'Account.AccountName', label: this.accountText},
             {name: 'Contact.NameLF', label: this.contactText},
+            //{name: 'Contract', label: this.contractText},
             {name: 'Area', label: this.areaText},
             {name: 'Category', label: this.categoryText},
             {name: 'Issue', label: this.issueText},
+            {name: 'Source', label: this.sourceText},
             {name: 'StatusCode', label: this.statusText},
             {name: 'UrgencyCode', label: this.urgencyText},
             {name: 'NeededByDate', label: this.needbyText, renderer: Mobile.SalesLogix.Format.date},
             {name: 'AssignedDate', label: this.assignedDateText, renderer: Mobile.SalesLogix.Format.date},
             {name: 'AssignedTo.OwnerDescription', label: this.assignedToText},
             {name: 'Subject', label: this.subjectText},
+            {name: 'Description', label: this.descriptionText},
+            {name: 'Resolution', label: this.resolutionText},
             {name: 'Notes', label: this.notesText},
             {options: {title: this.relatedItemsText, list: true}, as: [
                 {
                     view: 'activity_related',
-                    where: this.formatRelatedQuery.createDelegate(this, ['Account.Id eq "{0}"'], true),
+                    where: this.formatRelatedQuery.createDelegate(this, ['TicketId eq "{0}"'], true),
                     label: this.relatedActivitiesText,
                     icon: 'content/images/Task_List_3D_24x24.gif'
                 }
@@ -74,15 +109,19 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'TicketNumber',
                     'Account/AccountName',
                     'Contact/NameLF',
+                    'Contract',
                     'Area',
                     'Category',
                     'Issue',
+                    'Source',
                     'StatusCode',
                     'UrgencyCode',
                     'NeededByDate',
                     'AssignedDate',
                     'AssignedTo/OwnerDescription',
                     'Subject',
+                    'Description',
+                    'Resolution',
                     'Notes'
                    ].join(',')
             });

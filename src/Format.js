@@ -43,6 +43,7 @@ Mobile.SalesLogix.Format = (function() {
             var address = lines.join('<br />');
             var encoded_address = unescape(lines.join(','));
 
+            if (onlyText === true && address == '') return 'empty';
             if (onlyText === true) return address;
             return String.format('<a target="_blank" href="http://maps.google.com/maps?q={1}">{0}</a>',address, encoded_address);
         },

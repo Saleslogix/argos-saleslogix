@@ -97,6 +97,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Home());
         this.registerView(new Mobile.SalesLogix.Configure());
         this.registerView(new Mobile.SalesLogix.PickList());
+        this.registerView(new Mobile.SalesLogix.SelectList());
         this.registerView(new Mobile.SalesLogix.AddressEdit());
 
         this.registerView(new Mobile.SalesLogix.Account.List());
@@ -233,4 +234,15 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 // instantiate application instance
 
 var App = new Mobile.SalesLogix.Application();
+
+        App.goHome = function() {
+        App.getView('home').show();
+};
+
+App.navigateToNewActivity = function() {
+    var view = App.getView('activity_edit');
+    if (view) {
+      view.show({insert: true});
+    }
+};
 

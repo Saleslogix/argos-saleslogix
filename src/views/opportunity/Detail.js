@@ -34,6 +34,33 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         resourceKind: 'opportunities'
         });
 
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function(){
+                  App.getView('opportunity_list').navigateToInsert.call({editor:'opportunity_edit'});
+                },
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: App.navigateToNewActivity,
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'Description', label: this.opportunityText},
             {name: 'Account.AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
@@ -55,7 +82,7 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     view: 'note_related',
                     where: this.formatRelatedQuery.createDelegate(this, ['OpportunityId eq "{0}" and Type eq "atNote"'], true),
                     label: this.relatedNotesText,
-                    icon: 'content/images/note_24x24.gif'
+                    icon: 'content/images/Note_24x24.gif'
                 },
                 {
                     view: 'contact_related',

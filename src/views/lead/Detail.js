@@ -39,6 +39,41 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             editor: 'lead_edit',
             resourceKind: 'leads'
         });
+        
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'copy',
+                title: 'copy',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function() { this.copyLead(); },
+                scope: this
+            },{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function(){
+                  App.getView('lead_list').navigateToInsert.call({editor:'lead_edit'});
+                },
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: App.navigateToNewActivity,
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'LeadNameLastFirst', label: this.nameText },
             {name: 'Company', label: this.accountText},
@@ -66,13 +101,25 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     view: 'note_related',
                     where: this.formatRelatedQuery.createDelegate(this, ['LeadId eq "{0}" and Type eq "atNote"'], true),
                     label: this.relatedNotesText,
-                    icon: 'content/images/note_24x24.gif'
+                    icon: 'content/images/Note_24x24.gif'
                 }
             ]}
          ]; 
        },
     init: function() {     
         Mobile.SalesLogix.Lead.Detail.superclass.init.call(this);   
+    },
+    copyLead: function() {
+      var props = ["FirstName", "LastName", "Name", "NameLF", "Email", "HomePhone", "Mobile", "WorkPhone", "Fax"]
+      //Clone entry
+      var entry = Ext.decode(Ext.encode(this.entry));
+      props.forEach(function(prop){
+        entry[prop] = "";
+      });
+      
+      var view = App.getView(this.editor);
+      if (view)
+          view.show({entry: entry});
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Lead.Detail.superclass.createRequest.call(this);

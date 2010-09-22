@@ -5,7 +5,6 @@
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Account");
-
 Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
     contentTemplate: new Simplate([
         '<h3>{%: $.AccountName %}</h3>',

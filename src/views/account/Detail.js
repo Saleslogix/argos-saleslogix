@@ -42,6 +42,33 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             resourceKind: 'accounts'
         });
 
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function(){
+                  App.getView('account_list').navigateToInsert.call({editor:'account_edit'});
+                },
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: App.navigateToNewActivity,
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'AccountName', label: this.accountText},
             {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
@@ -67,7 +94,7 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     view: 'note_related',
                     where: this.formatRelatedQuery.createDelegate(this, ['AccountId eq "{0}" and Type eq "atNote"'], true),
                     label: this.relatedNotesText,
-                    icon: 'content/images/note_24x24.gif'
+                    icon: 'content/images/Note_24x24.gif'
                 },
                 {
                     view: 'contact_related',

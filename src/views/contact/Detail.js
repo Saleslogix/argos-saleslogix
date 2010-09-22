@@ -41,6 +41,40 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             resourceKind: 'contacts'
         });
 
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'copy',
+                title: 'copy',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function() { this.copyContact(); },
+                scope: this
+            },{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function(){
+                  App.getView('contact_list').navigateToInsert.call({editor:'contact_edit'});
+                },
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: App.navigateToNewActivity,
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'NameLF', label: this.nameText},
             {name: 'AccountName', descriptor: 'AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
@@ -66,7 +100,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     view: 'note_related',
                     where: this.formatRelatedQuery.createDelegate(this, ['ContactId eq "{0}" and Type eq "atNote"'], true),
                     label: this.relatedNotesText,
-                    icon: 'content/images/note_24x24.gif'
+                    icon: 'content/images/Note_24x24.gif'
                 },
                 {
                     view: 'account_related',
@@ -92,6 +126,18 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
     init: function() {
         Mobile.SalesLogix.Contact.Detail.superclass.init.call(this);
+    },
+    copyContact: function() {
+      var props = ["FirstName", "LastName", "Name", "NameLF", "Email", "HomePhone", "Mobile", "WorkPhone", "Fax"]
+      //Clone entry
+      var entry = Ext.decode(Ext.encode(this.entry));
+      props.forEach(function(prop){
+        entry[prop] = "";
+      });
+      
+      var view = App.getView(this.editor);
+      if (view)
+          view.show({entry: entry});
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Contact.Detail.superclass.createRequest.call(this);

@@ -8,7 +8,7 @@ Ext.namespace("Mobile.SalesLogix.Contract");
 
 Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
     contentTemplate: new Simplate([
-        '<h3>{%= $.Account ? $.Account.AccountName ? "" %}</h3>',
+        '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',
         '<h4>{%= $.ReferenceNumber %}</h4>'
     ]),
     id: 'contract_list',

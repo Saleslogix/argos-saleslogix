@@ -27,10 +27,37 @@ Mobile.SalesLogix.SalesOrder.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         Ext.apply(this, o, {
             id: 'salesorder_detail',
             title: this.titleText,
-	        editor: 'salesorder_edit',//Added by Rajkumar. G to enable edit functionality
+            editor: 'salesorder_edit',//Added by Rajkumar. G to enable edit functionality
             resourceKind: 'salesorders'
         });
 
+        Ext.apply(this.tools || {}, {
+            fbar: [{
+                name: 'home',
+                title: 'home',                        
+                cls: 'tool-note',
+                icon: 'content/images/welcome_32x32.gif',
+                fn: App.goHome,
+                scope: this
+            },{
+                name: 'new',
+                title: 'new',                        
+                cls: 'tool-note',
+                icon: 'content/images/Note_32x32.gif',
+                fn: function(){
+                  App.getView('salesorder_list').navigateToInsert.call({editor:'salesorder_edit'});
+                },
+                scope: this
+            },{
+                name: 'schedule',
+                title: 'schedule',                        
+                cls: 'tool-note',
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                fn: App.navigateToNewActivity,
+                scope: this
+            }]
+        });
+        
         this.layout = [
             {name: 'SalesOrderNumber', label: this.salesOrderIdText},
             {name: 'Account.AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
