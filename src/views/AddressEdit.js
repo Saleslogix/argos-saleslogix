@@ -27,7 +27,9 @@ Mobile.SalesLogix.AddressEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'Address.City', label: this.cityText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "City"', title: 'City'},
             {name: 'Address.State', label: this.stateText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "State"', title: 'State'},
             {name: 'Address.PostalCode', label: this.postalCodeText, type: 'text'},
-            {name: 'Address.Country', label: this.countryText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Country"', title: 'Country'}
+            {name: 'Address.Country', label: this.countryText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Country"', title: 'Country'},
+            {name: 'Address.Description', type: 'hidden'},
+            {name: 'Address.EntityId', type: 'hidden'}
         ];
     }
 });
