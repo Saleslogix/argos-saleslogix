@@ -147,6 +147,7 @@ input:focus
 .panel-content > ul > li
 {
     border-bottom: solid 1px #ddd;
+    cursor: pointer;
 }
 
 .panel > ul > li:last-child,

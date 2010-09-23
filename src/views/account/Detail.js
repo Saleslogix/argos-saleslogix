@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
+/// <reference path="../../../../ext/ext-core-debug.js"/>
 /// <reference path="../../../../Simplate.js"/>
 /// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
 /// <reference path="../../../../sdata/SDataService.js"/>
@@ -9,6 +9,8 @@
 Ext.namespace("Mobile.SalesLogix.Account");
 
 Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    id: 'account_detail',
+    editView: 'account_edit',
     titleText: 'Account',
     accountText: 'account',
     phoneText: 'phone',
@@ -32,44 +34,71 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     faxText: 'fax',
     industryText: 'industry',
     businessDescriptionText: 'bus desc',
-    constructor: function(o) {
-        Mobile.SalesLogix.Account.Detail.superclass.constructor.call(this);
-
-        Ext.apply(this, o, {
-            id: 'account_detail',
-            title: this.titleText,
-            editor: 'account_edit',
-            resourceKind: 'accounts'
-        });
-
-        Ext.apply(this.tools || {}, {
-            fbar: [{
-                name: 'home',
-                title: 'home',                        
-                cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
-                fn: App.goHome,
-                scope: this
-            },{
-                name: 'new',
-                title: 'new',                        
-                cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: function(){
-                  App.getView('account_list').navigateToInsert.call({editor:'account_edit'});
-                },
-                scope: this
-            },{
-                name: 'schedule',
-                title: 'schedule',                        
-                cls: 'tool-note',
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: App.navigateToNewActivity,
-                scope: this
-            }]
-        });
+    resourceKind: 'accounts',
+    queryInclude: [
+        'Address',
+        'AccountManager',
+        'AccountManager/UserInfo',
+        'Owner',
+        'LeadSource'
+    ],
+    querySelect: [
+        'AccountName',
+        'Description',
+        'MainPhone',
+        'Address/*',
+        'WebAddress',
+        'AccountManager/UserInfo/FirstName',
+        'AccountManager/UserInfo/LastName',
+        'Notes',
+        'Owner/OwnerDescription',
+        'ImportSource',
+        'Status',
+        'AccountName',
+        'WebAddress',
+        'MainPhone',
+        'Description',
+        'Fax',
+        'Type',
+        'SubType',
+        'Status',
+        'Industry',
+        'BusinessDescription',
+        'CreateDate',
+        'CreateUser',
+        'GlobalSyncID',
+        'LeadSource/Description'
+    ],
+    init: function() {
+        Mobile.SalesLogix.Account.Detail.superclass.init.apply(this, arguments);
         
-        this.layout = [
+        this.tools.fbar = [{
+            name: 'home',
+            title: 'home',
+            cls: 'tool-note',
+            icon: 'content/images/welcome_32x32.gif',
+            fn: App.goHome,
+            scope: this
+        },{
+            name: 'new',
+            title: 'new',
+            cls: 'tool-note',
+            icon: 'content/images/Note_32x32.gif',
+            fn: function() {
+              App.getView('account_list').navigateToInsert.call({editor:'account_edit'});
+            },
+            scope: this
+        },{
+            name: 'schedule',
+            title: 'schedule',
+            cls: 'tool-note',
+            icon: 'content/images/Schdedule_To_Do_32x32.gif',
+            fn: App.navigateToNewActivity,
+            scope: this
+        }];
+    },
+    createLayout: function() {
+        return this.layout || [
             {name: 'AccountName', label: this.accountText},
             {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
             {name: 'MainPhone', label: this.phoneText, renderer: Mobile.SalesLogix.Format.phone},
@@ -116,55 +145,5 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 }
             ]}
         ];
-    },
-    init: function() {
-        Mobile.SalesLogix.Account.Detail.superclass.init.call(this);
-    },
-    createRequest: function() {
-        var request = Mobile.SalesLogix.Account.Detail.superclass.createRequest.call(this);
-
-        request
-            .setQueryArgs({
-                'include': 'Address,AccountManager,AccountManager/UserInfo,Owner,LeadSource',
-                'select': [
-                    'AccountName',
-                    'Description',
-                    'MainPhone',
-                    'Address/*',
-                    'WebAddress',
-                    'AccountManager/UserInfo/FirstName',
-                    'AccountManager/UserInfo/LastName',
-                    'Notes',
-                    'Owner/OwnerDescription',
-                    'ImportSource',
-                    'Status',
-                    'AccountName',
-                    'WebAddress',
-                    'MainPhone',
-                    'FullAddress',
-                    'Description',
-                    'IsPrimary',
-                    'IsMailing',
-                    'Address1',
-                    'Address2',
-                    'Address3',
-                    'City',
-                    'State',
-                    'PostalCode',
-                    'Country',
-                    'Fax',
-                    'Type',
-                    'SubType',
-                    'Status',
-                    'Industry',
-                    'BusinessDescription',
-                    'CreateDate',
-                    'CreateUser',
-                    'GlobalSyncID',
-                    'LeadSource/Description'
-                ].join(',')
-            });
-
-        return request;
     }
 });
