@@ -40,10 +40,21 @@ Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             entityName: 'Ticket'
         });
 
+        var filterByAccountId = function(view) {
+            var accId;
+
+            if (view && view.fields['Account'].selected !== false)
+            {
+                accId = view.fields['Account'].selected.key;
+                return "Account.Id eq '" + accId + "'";
+            }
+            return false;
+        };
+
         this.layout = [
             {name: 'TicketNumber', label: this.ticketIdText,type: 'text', readonly: true},
             {name: 'Account', label: this.accountText, type: 'lookup', view: 'acc_list', keyProperty: '$key', textProperty: 'AccountName'},
-            {name: 'Contact', label: this.contactText, type: 'lookup', view: 'con_list', keyProperty: '$key', textProperty: 'NameLF', where: new Simplate(['name eq "Account {%= Type %}"'])},
+            {name: 'Contact', label: this.contactText, type: 'lookup', view: 'con_list', keyProperty: '$key', textProperty: 'NameLF', where: filterByAccountId},
             //{name: 'Contract', label: this.contractText, type: 'lookup', view: 'con_list', keyProperty: '$key', textProperty: 'NameLF', where: new Simplate(['name eq "Account {%= Type %}"'])},
             {name: 'Area', label: this.areaText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Ticket Area"', title: 'Ticket Area', orderBy: 'sort asc'},
             {name: 'Category', label: this.categoryText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Ticket Category"', title: 'Ticket Category'},
