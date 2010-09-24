@@ -10,7 +10,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
 Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     titleText: 'Contact',
-    firstNameText: 'contact',
+    firstNameText: 'first',
     lastNameText: 'last',
     workText: 'phone',
     mobileText: 'mobile',
@@ -34,13 +34,14 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'NameLF', label: this.firstNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
+            {name: 'FirstName', label: this.firstNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
+            {name: 'LastName', label: this.lastNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
             {name: 'Account', label: this.acctnameText, type: 'lookup', view: 'acc_list', textProperty: 'AccountName', forceValue: true},
             {name: 'WebAddress', label: this.webText, type: 'text'},
             {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Email', label: this.emailText, type: 'text'},
             {name: 'Title', label: this.titlText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Title"', title: 'Title'},
-            {name: 'Address', label: this.addressText, view: 'address_edit', type: 'address', resourceKind: 'contacts', title: 'Address', renderer: function(value){return Mobile.SalesLogix.Format.address(value, true)}, validator: Mobile.SalesLogix.Validator.notFalse},
+            {name: 'Address', label: this.addressText, view: 'address_edit', type: 'address', resourceKind: 'contacts', title: 'Address', renderer: function(value){return Mobile.SalesLogix.Format.address(value, true)}},
             {name: 'HomePhone', label: this.hometext, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Mobile', label: this.mobileText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Fax', label: this.faxText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
@@ -54,14 +55,11 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     getValues: function() {
       var U = Sage.Platform.Mobile.Utility,
           values = Mobile.SalesLogix.Contact.Edit.superclass.getValues.apply(this, arguments),
-          AccountName = Ext.DomQuery.select('#contact_edit [name="Account"] a span')[0].innerHTML,
-          name = [];
+          AccountName = Ext.DomQuery.select('#contact_edit [name="Account"] a span')[0].innerHTML;
 
-      if (values.NameLF) name = values.NameLF.split(' ');
       U.setValue(values, 'AccountName', AccountName);
       U.setValue(values, 'Account.AccountName', AccountName);
-      if (name[0]) U.setValue(values, 'FirstName', name[0]);
-      if (name[1]) U.setValue(values, 'LastName', name[1]);
+      U.setValue(values, 'NameLF', (values.FirstName + ' ' + values.LastName));
       if (values.Address && !values.Address.Description) U.setValue(values, 'Address.Description', 'Mailing');
 
       return values;

@@ -36,16 +36,6 @@ Mobile.SalesLogix.Validator = (function() {
                 }
                 return false;
             }
-        },
-        notFalse: {
-            fn: function(Address) {
-                if (Address === false)
-                {
-                    return "'{1}' cannot be empty.";
-                }
-
-                return false;
-            }
         }
     };
 })();    
