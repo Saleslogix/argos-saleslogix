@@ -14,7 +14,7 @@ Mobile.SalesLogix.Account.AddAccountContact = Ext.extend(Sage.Platform.Mobile.Ed
     detailsContactText: 'Contact Info',
     detailsAccountText: 'Account Info',
     accountText: 'Account',
-    accountNameText: 'accountname',
+    accountNameText: 'account',
     firstNameText: 'first',
     lastNameText: 'last',
     emailText: 'e-mail',
@@ -40,42 +40,39 @@ Mobile.SalesLogix.Account.AddAccountContact = Ext.extend(Sage.Platform.Mobile.Ed
         });
 
         this.layout = [
-            {name: 'Contact.FirstName', label: this.firstNameText, type: 'text'},
-            {name: 'Contact.LastName', label: this.lastNameText, type: 'text'},
-            {name: 'Account.AccountName', label: this.accountNameText, type: 'text'},
-            {name: 'Contact.Email', label: this.emailText, type: 'text'},
-            {name: 'Contact.WebAddress', label: this.webText, type: 'text'},
-            {name: 'Contact.WorkPhone', label: this.workText, type: 'phone'},
+            {name: 'Contacts.$resources[0].FirstName', label: this.firstNameText, type: 'text'},
+            {name: 'Contacts.$resources[0].LastName', label: this.lastNameText, type: 'text'},
+            {name: 'AccountName', label: this.accountNameText, type: 'text'},
+            {name: 'Email', label: this.emailText, type: 'text'},
+            {name: 'WebAddress', label: this.webText, type: 'text'},
+            {name: 'MainPhone', label: this.workText, type: 'phone'},
             {options: {title: this.detailsContactText}, as: [
-                {name: 'Contact.Title', label: this.titleText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Title"', title: 'Title'},
-                {name: 'Contact.HomePhone', label: this.homePhoneText, type: 'phone'},
-                {name: 'Contact.Mobile', label: this.mobileText, type: 'phone'},
-                {name: 'Contact.Fax', label: this.faxText, type: 'phone'}
+                {name: 'Contacts.$resources[0].Title', label: this.titleText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Title"', title: 'Title'},
+                {name: 'Contacts.$resources[0].HomePhone', label: this.homePhoneText, type: 'phone'},
+                {name: 'Contacts.$resources[0].Mobile', label: this.mobileText, type: 'phone'},
+                {name: 'Contacts.$resources[0].Fax', label: this.faxText, type: 'phone'}
             ]},
             {options: {title: this.detailsAccountText}, as: [
-                {name: 'Account.Fax', label: this.faxText, type: 'phone'},
-                {name: 'AccountType', label: this.typeText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Account Type"', title: 'Account Type', orderBy: 'sort asc'},
-                {name: 'Account.SubType', label: this.subTypeText, type: 'pickup', view: 'pick_list', resourcePredicate: new Simplate(['name eq "Account {%= AccountType %}"']), title: 'Account SubType', dependsOn: 'AccountType', errMsg: 'A "Type" is required for "SubType"', orderBy: 'sort asc'},
-                {name: 'Account.Status', label: this.statusText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Account Status"', title: 'Account Status', orderBy: 'sort asc'},
-                {name: 'Account.Industry', label: this.industryText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Industry"', title: 'Industry', orderBy: 'sort asc'},
-                {name: 'Account.BusinessDescription', label: this.description, type: 'text'}
+                {name: 'Fax', label: this.faxText, type: 'phone'},
+                {name: 'Type', label: this.typeText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Account Type"', title: 'Account Type', orderBy: 'sort asc'},
+                {name: 'SubType', label: this.subTypeText, type: 'pickup', view: 'pick_list', resourcePredicate: new Simplate(['name eq "Account {%= AccountType %}"']), title: 'Account SubType', dependsOn: 'Type', errMsg: 'A "Type" is required for "SubType"', orderBy: 'sort asc'},
+                {name: 'Status', label: this.statusText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Account Status"', title: 'Account Status', orderBy: 'sort asc'},
+                {name: 'Industry', label: this.industryText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Industry"', title: 'Industry', orderBy: 'sort asc'},
+                {name: 'BusinessDescription', label: this.description, type: 'text'}
             ]}
         ]
     },
     init: function() {
         Mobile.SalesLogix.Account.AddAccountContact.superclass.init.call(this);
     },
-    createEntryForInsert: function(values) {
-        var entry = Mobile.SalesLogix.Account.AddAccountContact.superclass.createEntryForInsert.call(this, values);
+    getValues: function(values) {
+        var U = Sage.Platform.Mobile.Utility,
+            values = Mobile.SalesLogix.Account.AddAccountContact.superclass.getValues.apply(this, arguments);
 
-        entry.Account.Type = entry.AccountType;
-        entry.Contact.AccountName = entry.Account.AccountName;
-        entry.Contacts = {'$resources': []};
-        entry.Contacts.$resources[0] = entry.Contact;
-        delete entry.AccountType;
-        delete entry.Contact;
+            U.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
+            U.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
 
-        return entry;
+        return values;
     },
     createRequest: function() {
         return Mobile.SalesLogix.Account.AddAccountContact.superclass.createRequest.call(this)
