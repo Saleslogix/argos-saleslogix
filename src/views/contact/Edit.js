@@ -53,16 +53,25 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         Mobile.SalesLogix.Contact.Edit.superclass.init.call(this);
     },
     getValues: function() {
-      var U = Sage.Platform.Mobile.Utility,
-          values = Mobile.SalesLogix.Contact.Edit.superclass.getValues.apply(this, arguments),
-          AccountName = Ext.DomQuery.select('#contact_edit [name="Account"] a span')[0].innerHTML;
+        var U = Sage.Platform.Mobile.Utility,
+            values = Mobile.SalesLogix.Contact.Edit.superclass.getValues.apply(this, arguments),
+            AccountName = Ext.DomQuery.select('#contact_edit [name="Account"] a span')[0].innerHTML;
 
-      U.setValue(values, 'AccountName', AccountName);
-      U.setValue(values, 'Account.AccountName', AccountName);
-      U.setValue(values, 'NameLF', (values.FirstName + ' ' + values.LastName));
-      if (values.Address && !values.Address.Description) U.setValue(values, 'Address.Description', 'Mailing');
+        U.setValue(values, 'AccountName', AccountName);
+        U.setValue(values, 'Account.AccountName', AccountName);
+        U.setValue(values, 'NameLF', (values.FirstName + ' ' + values.LastName));
+        if (values.Address && !values.Address.Description) U.setValue(values, 'Address.Description', 'Mailing');
 
-      return values;
+        return values;
+    },
+    setValues: function() {
+        var relatedAccount = App.getView(App.context.view[2]);
+
+        Mobile.SalesLogix.Contact.Edit.superclass.setValues.apply(this, arguments);
+        if (App.context.view[1].id == 'contact_related' && relatedAccount && relatedAccount.entry)
+        {
+            this.fields['Account'].setValue(relatedAccount.entry);
+        }
     },
     createRequest: function() {
         return Mobile.SalesLogix.Contact.Edit.superclass.createRequest.call(this)
