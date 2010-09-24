@@ -54,7 +54,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
                 activityRelatedOptions = getRelatedOptionsFromLayout(detailView, related_view);
             o.where = detailView.expandExpression(activityRelatedOptions.where, {"$key": scope.relatedKey});
 
-            detailView.navigateToRelated(related_view, o);
+            detailView.navigateToRelatedView(related_view, o);
             //Reset key and descriptor
             scope.detailView = '';
             scope.relatedKey = '';
