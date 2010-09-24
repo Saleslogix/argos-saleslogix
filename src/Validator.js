@@ -30,6 +30,7 @@ Mobile.SalesLogix.Validator = (function() {
         isPhoneNumber: {
             fn: function(phoneNumber) {
                 var phoneRegExp = /^[\w\d)( ]+$/i;
+                if (!phoneNumber) return false;
                 if (!phoneRegExp.test(phoneNumber) || /(?:x{2,})|(?:x\d+x)/i.test(phoneNumber)) {
                     return "'{0}' is not a valid phone number."
                 }

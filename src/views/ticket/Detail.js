@@ -1,14 +1,14 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/Detail.js"/>
-/// <reference path="../../Format.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Ticket");
 
 Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    id: 'ticket_detail',
+    editView: 'ticket_edit',
     titleText: 'Ticket',
     ticketIdText: 'ticket number',
     accountText: 'acct name',
@@ -26,59 +26,68 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     issueText: 'issue',
     statusText: 'status',
     assignedDateText: 'assigned date',
-    needbyText: 'needed date',
+    needByText: 'needed date',
     relatedItemsText: 'Related Items',
     relatedActivitiesText: 'Activities',
     assignedToText: 'assigned to',
-    constructor: function(o) {
-        Mobile.SalesLogix.Ticket.Detail.superclass.constructor.call(this);
+    resourceKind: 'tickets',
+    queryInclude: [
+        'Account',
+        'Contact',
+        'AssignedTo',
+        'AccountManager/UserInfo',
+        'Owner'
+    ],
+    querySelect: [
+        'TicketNumber',
+        'Account/AccountName',
+        'Contact/NameLF',
+        'Contract',
+        'Area',
+        'Category',
+        'Issue',
+        'Source',
+        'StatusCode',
+        'UrgencyCode',
+        'NeededByDate',
+        'AssignedDate',
+        'AssignedTo/OwnerDescription',
+        'Subject',
+        'Description',
+        'Resolution',
+        'Notes'
+    ],
+    init: function() {
+        Mobile.SalesLogix.Ticket.Detail.superclass.init.call(this);
 
-        Ext.apply(this, o, {
-            id: 'ticket_detail',
-            title: this.titleText,
-            editor: 'ticket_edit',
-            resourceKind: 'tickets'
-        });
-
-        Ext.apply(this.tools || {}, {
-            fbar: [{
-                name: 'home',
-                title: 'home',                        
-                cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
-                fn: App.goHome,
-                scope: this
-            },{
-                name: 'new',
-                title: 'new',                        
-                cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: function(){
-                  App.getView('ticket_list').navigateToInsert.call({editor:'ticket_edit'});
-                },
-                scope: this
-            },{
-                name: 'schedule',
-                title: 'schedule',                        
-                cls: 'tool-note',
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: App.navigateToNewActivity,
-                scope: this
-            }]
-        });
-        
-        this.layout = [
+        this.tools.fbar = [{
+            name: 'home',
+            title: 'home',
+            cls: 'tool-note',
+            icon: 'content/images/welcome_32x32.gif',
+            fn: App.goHome,
+            scope: this
+        },{
+            name: 'schedule',
+            title: 'schedule',
+            cls: 'tool-note',
+            icon: 'content/images/Schdedule_To_Do_32x32.gif',
+            fn: App.navigateToNewActivity,
+            scope: this
+        }];
+    },
+    createLayout: function() {
+        return this.layout || (this.layout = [
             {name: 'TicketNumber', label: this.ticketIdText},
             {name: 'Account.AccountName', label: this.accountText},
             {name: 'Contact.NameLF', label: this.contactText},
-            //{name: 'Contract', label: this.contractText},
             {name: 'Area', label: this.areaText},
             {name: 'Category', label: this.categoryText},
             {name: 'Issue', label: this.issueText},
             {name: 'Source', label: this.sourceText},
             {name: 'StatusCode', label: this.statusText},
             {name: 'UrgencyCode', label: this.urgencyText},
-            {name: 'NeededByDate', label: this.needbyText, renderer: Mobile.SalesLogix.Format.date},
+            {name: 'NeededByDate', label: this.needByText, renderer: Mobile.SalesLogix.Format.date},
             {name: 'AssignedDate', label: this.assignedDateText, renderer: Mobile.SalesLogix.Format.date},
             {name: 'AssignedTo.OwnerDescription', label: this.assignedToText},
             {name: 'Subject', label: this.subjectText},
@@ -93,11 +102,7 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     icon: 'content/images/Task_List_3D_24x24.gif'
                 }
             ]}
-        ];
-    },
-
-    init: function() {
-        Mobile.SalesLogix.Ticket.Detail.superclass.init.call(this);
+        ]);
     },
     createRequest: function() {
         var request = Mobile.SalesLogix.Ticket.Detail.superclass.createRequest.call(this);

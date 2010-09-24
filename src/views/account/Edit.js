@@ -45,7 +45,7 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'AccountName', label: this.accountText, type: 'text'},
+            {name: 'AccountName', label: this.accountText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
             {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link, type: 'text'},
             {name: 'MainPhone', label: this.phoneText, type: 'phone'},
             {name: 'Address', label: this.fullAddressText, view: 'address_edit', type: 'address', resourceKind: 'accounts', title: 'Address', renderer: function(value){return Mobile.SalesLogix.Format.address(value, true)}},
@@ -62,6 +62,14 @@ Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     },
     init: function() {
         Mobile.SalesLogix.Account.Edit.superclass.init.call(this);
+    },
+    getValues: function() {
+        var U = Sage.Platform.Mobile.Utility,
+            values = Mobile.SalesLogix.Contact.Edit.superclass.getValues.apply(this, arguments);
+
+        if (values.Address && !values.Address.Description) U.setValue(values, 'Address.Description', 'Mailing');
+
+        return values;
     },
     createRequest: function() {
         return Mobile.SalesLogix.Account.Edit.superclass.createRequest.call(this)

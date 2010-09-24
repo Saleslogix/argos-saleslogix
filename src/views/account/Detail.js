@@ -1,10 +1,8 @@
-/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/Detail.js"/>
-/// <reference path="../../Format.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Account");
 
@@ -80,15 +78,6 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             fn: App.goHome,
             scope: this
         },{
-            name: 'new',
-            title: 'new',
-            cls: 'tool-note',
-            icon: 'content/images/Note_32x32.gif',
-            fn: function() {
-              App.getView('account_list').navigateToInsert.call({editor:'account_edit'});
-            },
-            scope: this
-        },{
             name: 'schedule',
             title: 'schedule',
             cls: 'tool-note',
@@ -98,7 +87,7 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         }];
     },
     createLayout: function() {
-        return this.layout || [
+        return this.layout || (this.layout = [
             {name: 'AccountName', label: this.accountText},
             {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
             {name: 'MainPhone', label: this.phoneText, renderer: Mobile.SalesLogix.Format.phone},
@@ -144,6 +133,6 @@ Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     icon: 'content/images/Ticket_List_3D_32x32.gif'
                 }
             ]}
-        ];
+        ]);
     }
 });

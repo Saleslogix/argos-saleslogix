@@ -10,7 +10,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
 Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     titleText: 'Contact',
-    firstNameText: 'contact',
+    firstNameText: 'first',
     lastNameText: 'last',
     workText: 'phone',
     mobileText: 'mobile',
@@ -34,8 +34,9 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'NameLF', label: this.firstNameText, type: 'text'},
-            {name: 'Account.AccountName', label: this.acctnameText, type: 'text'},
+            {name: 'FirstName', label: this.firstNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
+            {name: 'LastName', label: this.lastNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
+            {name: 'Account', label: this.acctnameText, type: 'lookup', view: 'acc_list', textProperty: 'AccountName', forceValue: true},
             {name: 'WebAddress', label: this.webText, type: 'text'},
             {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Email', label: this.emailText, type: 'text'},
@@ -45,12 +46,32 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'Mobile', label: this.mobileText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Fax', label: this.faxText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF},
-            {name: 'Owner', label: this.contactownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
-
+            {name: 'Owner', label: this.contactownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'}
         ];
     },
     init: function() {
         Mobile.SalesLogix.Contact.Edit.superclass.init.call(this);
+    },
+    getValues: function() {
+        var U = Sage.Platform.Mobile.Utility,
+            values = Mobile.SalesLogix.Contact.Edit.superclass.getValues.apply(this, arguments),
+            AccountName = Ext.DomQuery.select('#contact_edit [name="Account"] a span')[0].innerHTML;
+
+        U.setValue(values, 'AccountName', AccountName);
+        U.setValue(values, 'Account.AccountName', AccountName);
+        U.setValue(values, 'NameLF', (values.FirstName + ' ' + values.LastName));
+        if (values.Address && !values.Address.Description) U.setValue(values, 'Address.Description', 'Mailing');
+
+        return values;
+    },
+    setValues: function() {
+        var relatedAccount = App.getView(App.context.view[2]);
+
+        Mobile.SalesLogix.Contact.Edit.superclass.setValues.apply(this, arguments);
+        if (App.context.view[1].id == 'contact_related' && relatedAccount && relatedAccount.entry)
+        {
+            this.fields['Account'].setValue(relatedAccount.entry);
+        }
     },
     createRequest: function() {
         return Mobile.SalesLogix.Contact.Edit.superclass.createRequest.call(this)

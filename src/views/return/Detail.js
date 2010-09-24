@@ -1,98 +1,77 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/Detail.js"/>
-/// <reference path="../../Format.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Return");
 
-Mobile.SalesLogix.Return.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-    titleText: 'Return',
-    returnIdText: 'return id',
-    accountText: 'account',
-    priorityText: 'priority',
-    typeText: 'type',
-    regDateText: 'reg date',
-    assignedToText: 'AssignedTo',
-    returnedByText: 'returned by',
-    shipToText: 'ship to',
-    createUserText: 'create user',
-    createDateText: 'create date',
-    constructor: function(o) {
-        Mobile.SalesLogix.Return.Detail.superclass.constructor.call(this);
+(function() {
+    Mobile.SalesLogix.Return.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+        id: 'return_detail',
+        editView: 'return_edit',
+        titleText: 'Return',
+        returnIdText: 'return id',
+        accountText: 'account',
+        priorityText: 'priority',
+        typeText: 'type',
+        regDateText: 'reg date',
+        assignedToText: 'AssignedTo',
+        returnedByText: 'returned by',
+        shipToText: 'ship to',
+        createUserText: 'create user',
+        createDateText: 'create date',
+        resourceKind: 'returns',
+        queryInclude: [
+            'Account',
+            'AssignedTo',
+            'ReturnedBy',
+            'ShipTo'
+        ],
+        querySelect: [
+            'ReturnNumber',
+            'Account/AccountName',
+            'Priority',
+            'ReturnType',
+            'ExpectedDate',
+            'AssignedTo/OwnerDescription',
+            'ReturnedBy/NameLF',
+            'ShipTo/NameLF',
+            'CreateUser',
+            'CreateDate'
+        ],
+        init: function() {
+            Mobile.SalesLogix.Return.Detail.superclass.init.call(this);
 
-        Ext.apply(this, o, {
-            id: 'return_detail',
-            title: this.titleText,
-            editor: 'return_edit',
-            resourceKind: 'returns'
-        });
-
-        Ext.apply(this.tools || {}, {
-            fbar: [{
+            this.tools.fbar = [{
                 name: 'home',
-                title: 'home',                        
+                title: 'home',
                 cls: 'tool-note',
                 icon: 'content/images/welcome_32x32.gif',
                 fn: App.goHome,
                 scope: this
             },{
-                name: 'new',
-                title: 'new',                        
-                cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: function(){
-                  App.getView('return_list').navigateToInsert.call({editor:'return_edit'});
-                },
-                scope: this
-            },{
                 name: 'schedule',
-                title: 'schedule',                        
+                title: 'schedule',
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
                 fn: App.navigateToNewActivity,
                 scope: this
-            }]
-        });
-        
-        this.layout = [
-            {name: 'ReturnNumber', label: this.returnIdText},
-            {name: 'Account.AccountName', label: this.accountText},
-            {name: 'Priority', label: this.priorityText},
-            {name: 'ReturnType', label: this.typeText},
-            {name: 'ExpectedDate', label: this.regDateText, renderer: Mobile.SalesLogix.Format.date},
-            {name: 'AssignedTo.OwnerDescription', label: this.assignedToText},
-            {name: 'ReturnedBy.NameLF', label: this.returnedByText},
-            {name: 'ShipTo.NameLF', label: this.shipToText},
-            {name: 'CreateUser', label: this.createUserText},
-            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
-          ];
-    },
-    init: function() {
-        Mobile.SalesLogix.Return.Detail.superclass.init.call(this);
-    },
-    createRequest: function() {
-        var request = Mobile.SalesLogix.Return.Detail.superclass.createRequest.call(this);
-
-        request
-            .setQueryArgs({
-                'include': 'Account,AssignedTo,ReturnedBy,ShipTo',
-                'select': [
-                    'ReturnNumber',
-                    'Account/AccountName',
-                    'Priority',
-                    'ReturnType',
-                    'ExpectedDate',
-                    'AssignedTo/OwnerDescription',
-                    'ReturnedBy/NameLF',
-                    'ShipTo/NameLF',
-                    'CreateUser',
-                    'CreateDate'
-                  ].join(',')
-            });
-
-        return request;
-    }
-});
+            }];
+        },
+        createLayout: function() {
+            return this.layout || (this.layout = [
+                {name: 'ReturnNumber', label: this.returnIdText},
+                {name: 'Account.AccountName', label: this.accountText},
+                {name: 'Priority', label: this.priorityText},
+                {name: 'ReturnType', label: this.typeText},
+                {name: 'ExpectedDate', label: this.regDateText, renderer: Mobile.SalesLogix.Format.date},
+                {name: 'AssignedTo.OwnerDescription', label: this.assignedToText},
+                {name: 'ReturnedBy.NameLF', label: this.returnedByText},
+                {name: 'ShipTo.NameLF', label: this.shipToText},
+                {name: 'CreateUser', label: this.createUserText},
+                {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date}
+            ]);
+        }
+    });
+})();

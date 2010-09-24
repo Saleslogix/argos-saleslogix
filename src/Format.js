@@ -1,4 +1,4 @@
-﻿﻿/// <reference path="../../ext/ext-core-debug.js"/>
+﻿/// <reference path="../../ext/ext-core-debug.js"/>
 /// <reference path="../../platform/Application.js"/>
 /// <reference path="../../platform/Format.js"/>
 /// <reference path="../../sdata/SDataService.js"/>
@@ -74,74 +74,16 @@ Mobile.SalesLogix.Format = (function() {
         },
         currency: function(val) {
             // todo: add localization support
-            var v = Mobile.SalesLogix.Format.fixed(val); 
-            
-            //below code is to split decimal part and round off it
-            
-            var roundoffVal = v;
-            n = roundoffVal.toString();
-    
-            var temp = new Array();
-            temp = null;
-            
-            temp = n.split('.');
-            var arrcnt = temp.length;
-            
-            if(arrcnt > 1)
-            {            
-                a = temp[0];
-                b = temp[1];
-                c = temp[1].substr(0,2);
-                c = Math.round(c);
-            }
-            else
-            {
-                a = temp[0];
-                c = 0
-            }
-            
-            var f = c;//Math.floor(100 * (v - Math.floor(v)));
-            
+            var v = Mobile.SalesLogix.Format.fixed(val),
+                f = Math.floor(100 * (v - Math.floor(v)));
+
             return String.format('${0}.{1}',
                 (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
                 (f.toString().length < 2)
                     ? '0' + f.toString()
                     : f.toString()
-            );  
+            );
         },
-         notes : function(st)
-      {
-         var b = '';
-         var s = st;
-         if (s==null)
-         {
-            return;
-         }
-         var n = 30;
-         var cnt = 0;
-         while (s.length > n)
-         {
-            var c = s.substring(0, n);
-            var d = c.lastIndexOf(' ');
-            var e = c.lastIndexOf('\n');
-            if (e != - 1) d = e;
-            if (d == - 1) d = n;
-            b += c.substring(0, d) + '<br>';
-            s = s.substring(d + 1);
-            cnt = cnt + 1;
-            if (cnt > 2)
-            {
-                var b1=b.lastIndexOf('<br>')
-                var b2=b.substring(0,b1)
-                return b2 + '...';
-            }
-         }
-         //if (cnt <= 3)
-         //   {
-                return b+s;
-          //  }
-           
-      },
         date: function(val, fmt) {
             // 2007-04-12T00:00:00-07:00
             var match = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(Z|(-|\+)(\d{2}):(\d{2}))/.exec(val);

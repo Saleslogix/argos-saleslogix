@@ -1,15 +1,14 @@
-/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/Detail.js"/>
-/// <reference path="../../Format.js"/>
-/// <reference path="../../Template.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Contract");
 
 Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    id: 'contract_detail',
+    editView: 'contract_edit',
     titleText: 'Contract',
     refNumText: 'refNum',
     accountText: 'account',
@@ -25,44 +24,51 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     createDateText: 'create date',
     relatedItemsText: 'Related Items',
     relatedTicketsText: 'Tickets',
-    constructor: function(o) {
-        Mobile.SalesLogix.Contract.Detail.superclass.constructor.call(this);
+    resourceKind: 'contracts',
+    queryInclude: [
+        'Account',
+        'Address',
+        'AccountManager',
+        'AccountManager/UserInfo'
+    ],
+    querySelect: [
+        'ReferenceNumber',
+        'Account/AccountName',
+        'Contact/NameLF',
+        'ServiceCode',
+        'TypeCode',
+        'Period',
+        'Remaining',
+        'StartDate',
+        'EndingDate',
+        'IsActive',
+        'CreateUser',
+        'CreateDate'
+    ],   
+    formatAccountRelatedQuery: function(entry, fmt) {
+        return String.format(fmt, entry['Account']['$key']);
+    },
+    init: function() {
+        Mobile.SalesLogix.Contract.Detail.superclass.init.call(this);
 
-        Ext.apply(this, o, {
-            id: 'contract_detail',
-            title: this.titleText,
-            editor: 'contract_edit',
-            resourceKind: 'contracts'
-        });
-
-        Ext.apply(this.tools || {}, {
-            fbar: [{
-                name: 'home',
-                title: 'home',                        
-                cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
-                fn: App.goHome,
-                scope: this
-            },{
-                name: 'new',
-                title: 'new',                        
-                cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: function(){
-                  App.getView('contract_list').navigateToInsert.call({editor:'contract_edit'});
-                },
-                scope: this
-            },{
-                name: 'schedule',
-                title: 'schedule',                        
-                cls: 'tool-note',
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: App.navigateToNewActivity,
-                scope: this
-            }]
-        });
-        
-        this.layout = [
+        this.tools.fbar = [{
+            name: 'home',
+            title: 'home',
+            cls: 'tool-note',
+            icon: 'content/images/welcome_32x32.gif',
+            fn: App.goHome,
+            scope: this
+        },{
+            name: 'schedule',
+            title: 'schedule',
+            cls: 'tool-note',
+            icon: 'content/images/Schdedule_To_Do_32x32.gif',
+            fn: App.navigateToNewActivity,
+            scope: this
+        }];
+    },
+    createLayout: function() {
+        return this.layout || (this.layout = [
             {name: 'ReferenceNumber', label: this.refNumText},
             {name: 'Account.AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
             {name: 'Contact.NameLF', label: this.contactText},
@@ -83,36 +89,6 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     icon: 'content/images/ticket_16x16.gif'
                 }
             ]}
-        ];
-    },
-    formatAccountRelatedQuery: function(entry, fmt) {
-        return String.format(fmt, entry['Account']['$key']);
-    },
-    init: function() {
-        Mobile.SalesLogix.Contract.Detail.superclass.init.call(this);
-    },
-    createRequest: function() {
-        var request = Mobile.SalesLogix.Contract.Detail.superclass.createRequest.call(this);
-
-        request
-            .setQueryArgs({
-                'include': 'Account,Address,AccountManager,AccountManager/UserInfo',
-                'select': [
-                      'ReferenceNumber',
-	                  'Account/AccountName',
-            		  'Contact/NameLF',
-            		  'ServiceCode',
-            		  'TypeCode',
-            		  'Period',
-            		  'Remaining',
-            		  'StartDate',
-            		  'EndingDate',
-            		  'IsActive',
-            		  'CreateUser',
-            		  'CreateDate'
-                ].join(',')
-            });
-
-        return request;
+        ]);
     }
 });

@@ -1,15 +1,14 @@
-/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/Detail.js"/>
-/// <reference path="../../Format.js"/>
-/// <reference path="../../Template.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
 Ext.namespace("Mobile.SalesLogix.Contact");
 
 Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    id: 'contact_detail',
+    editView: 'contact_edit',
     titleText: 'Contact',
     nameText: 'contact',
     accountText: 'account',
@@ -21,7 +20,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     webText: 'web',
     acctMgrText: 'acct mgr',
     ownerText: 'owner',
-    titlText: 'title',
+    contactTitleText: 'title',
     createUserText: 'create user',
     createDateText: 'create date',
     relatedItemsText: 'Related Items',
@@ -31,57 +30,64 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     relatedOpportunitiesText: 'Opportunities',
     relatedTicketsText: 'Tickets',
     faxText: 'fax',
-    constructor: function(o) {
-        Mobile.SalesLogix.Contact.Detail.superclass.constructor.call(this);
+    resourceKind: 'contacts',
+    queryInclude: [
+        'Account',
+        'Address',
+        'AccountManager',
+        'AccountManager/UserInfo',
+        'Owner'
+    ],
+    querySelect: [
+        'Account/AccountName',
+        'Name',
+        'NameLF',
+        'FirstName',
+        'LastName',
+        'AccountName',
+        'WorkPhone',
+        'Mobile',
+        'Email',
+        'Address/*',
+        'WebAddress',
+        'AccountManager/UserInfo/FirstName',
+        'AccountManager/UserInfo/LastName',
+        'Owner/OwnerDescription',
+        'CreateDate',
+        'CreateUser',
+        'Title',
+        'HomePhone',
+        'Mobile',
+        'Fax'
 
-        Ext.apply(this, o, {
-            id: 'contact_detail',
-            title: this.titleText,
-            editor: 'contact_edit',
-            resourceKind: 'contacts'
-        });
+    ],
+    init: function() {
+        Mobile.SalesLogix.Contact.Detail.superclass.init.call(this);
 
-        Ext.apply(this.tools || {}, {
-            fbar: [{
-                name: 'copy',
-                title: 'copy',                        
-                cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: function() { this.copyContact(); },
-                scope: this
-            },{
-                name: 'home',
-                title: 'home',                        
-                cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
-                fn: App.goHome,
-                scope: this
-            },{
-                name: 'new',
-                title: 'new',                        
-                cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
-                fn: function(){
-                  App.getView('contact_list').navigateToInsert.call({editor:'contact_edit'});
-                },
-                scope: this
-            },{
-                name: 'schedule',
-                title: 'schedule',                        
-                cls: 'tool-note',
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: App.navigateToNewActivity,
-                scope: this
-            }]
-        });
-        
-        this.layout = [
+        this.tools.fbar = [{
+            name: 'home',
+            title: 'home',
+            cls: 'tool-note',
+            icon: 'content/images/welcome_32x32.gif',
+            fn: App.goHome,
+            scope: this
+        },{
+            name: 'schedule',
+            title: 'schedule',
+            cls: 'tool-note',
+            icon: 'content/images/Schdedule_To_Do_32x32.gif',
+            fn: App.navigateToNewActivity,
+            scope: this
+        }];
+    },    
+    createLayout: function() {
+        return this.layout || (this.layout = [
             {name: 'NameLF', label: this.nameText},
             {name: 'AccountName', descriptor: 'AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
             {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link},
             {name: 'WorkPhone', label: this.workText, renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Email', label: this.emailText, renderer: Mobile.SalesLogix.Format.mail},
-            {name: 'Title', label: this.titlText},
+            {name: 'Title', label: this.contactTitleText},
             {name: 'Address', label: this.addressText, renderer: Mobile.SalesLogix.Format.address},
             {name: 'HomePhone', label: this.homeText, renderer: Mobile.SalesLogix.Format.phone},
             {name: 'Mobile', label: this.mobileText, renderer: Mobile.SalesLogix.Format.phone},
@@ -119,57 +125,8 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     where: this.formatRelatedQuery.createDelegate(this, ['Contact.Id eq "{0}"'], true),
                     label: this.relatedTicketsText,
                     icon: 'content/images/Ticket_List_3D_32x32.gif'
-                },
+                }
             ]}
-        ];
-    },
-
-    init: function() {
-        Mobile.SalesLogix.Contact.Detail.superclass.init.call(this);
-    },
-    copyContact: function() {
-      var props = ["FirstName", "LastName", "Name", "NameLF", "Email", "HomePhone", "Mobile", "WorkPhone", "Fax"]
-      //Clone entry
-      var entry = Ext.decode(Ext.encode(this.entry));
-      props.forEach(function(prop){
-        entry[prop] = "";
-      });
-      
-      var view = App.getView(this.editor);
-      if (view)
-          view.show({entry: entry});
-    },
-    createRequest: function() {
-        var request = Mobile.SalesLogix.Contact.Detail.superclass.createRequest.call(this);
-
-        request
-            .setQueryArgs({
-                'include': 'Account,Address,AccountManager,AccountManager/UserInfo,Owner',
-                'select': [
-                    'Account/AccountName',
-                    'Name',
-                    'NameLF',
-                    'FirstName',
-                    'LastName',
-                    'AccountName',
-                    'WorkPhone',
-                    'Mobile',
-                    'Email',
-                    'Address/*',
-                    'WebAddress',
-                    'AccountManager/UserInfo/FirstName',
-                    'AccountManager/UserInfo/LastName',
-                    'Owner/OwnerDescription',
-                    'CreateDate',
-                    'CreateUser',
-                    'Title',
-                    'HomePhone',
-                    'Mobile',
-                    'Fax'
-                    
-                ].join(',')
-            });
-
-        return request;
-    }
+        ]);
+    }    
 });
