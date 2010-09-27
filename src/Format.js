@@ -1,4 +1,4 @@
-﻿/// <reference path="../../ext/ext-core-debug.js"/>
+/// <reference path="../../ext/ext-core-debug.js"/>
 /// <reference path="../../platform/Application.js"/>
 /// <reference path="../../platform/Format.js"/>
 /// <reference path="../../sdata/SDataService.js"/>
