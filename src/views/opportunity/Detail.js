@@ -20,6 +20,7 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     typeText: 'type',
     probabilityText: 'close prob',
     importSourceText: 'lead source',
+    ownerText: 'owner',
     relatedItemsText: 'Related Items',
     relatedActivitiesText: 'Activities',
     relatedNotesText: 'Notes',
@@ -70,6 +71,7 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'Status', label: this.statusText},
             {name: 'Type', label: this.typeText},
             {name: 'LeadSource.Description', label: this.importSourceText},
+            {name: 'Owner.OwnerDescription', label: this.ownerText},
             {name: 'CloseProbability', label: this.probabilityText},
             {options: {title: this.relatedItemsText, list: true}, as: [
                 {
@@ -118,7 +120,8 @@ Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     'Owner/OwnerDescription',
                     'Status',
                     'Type',
-                    'LeadSource/Description'
+                    'LeadSource/Description',
+                    'Owner/OwnerDescription'
                 ].join(',')
             });
 
