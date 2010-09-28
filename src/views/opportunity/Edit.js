@@ -40,7 +40,7 @@ Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {name: 'Type', label: this.typeText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Opportunity Type"', title: 'Opportunity Type'},
             {name: 'Status', label: this.statusText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Opportunity Status"', title: 'Opportunity Status'},
             {name: 'LeadSource', label: this.importSourceText, type: 'lookup', view: 'leadsource_list', keyProperty: '$key', textProperty: 'Description'},
-            {name: 'Owner', label: this.importSourceText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
+            {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
             {name: 'CloseProbability', label: this.probabilityText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Opportunity Probability"', title: 'Opportunity Probability'},
         ];
     },
