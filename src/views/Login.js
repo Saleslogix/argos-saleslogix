@@ -6,10 +6,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     passText: 'pass',
     rememberText: 'remember',
     viewTemplate: new Simplate([
-        '<div id="{%= id %}" title="{%= title %}" class="panel" effect="flip" hideBackButton="hideBackButton">',
-        '<fieldset class="loading">',
-        '<div class="row"><div class="loading-indicator">{%= loadingText %}</div></div>',
-        '</fieldset>',
+        '<div id="{%= id %}" title="{%= title %}" class="panel" effect="flip" hideBackButton="hideBackButton">',        
         '<div class="panel-content"></div>',
         '<a class="button whiteButton actionButton" data-action="login">Login</a>',
         '</div>'

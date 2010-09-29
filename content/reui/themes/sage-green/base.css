@@ -339,23 +339,34 @@ body[orient] > div.toolbar-float[open]
 	font-size: .6em;
 }
 
-.panel > .loading
+.panel > .panel-loading-indicator
 {
 	display: none;
 }
 
-.panel-loading > .loading
+.panel > .panel-validation-summary
+{
+    display: none;
+}
+
+.panel-loading > .panel-loading-indicator
 {
 	display: block;
 }
 
-.panel-loading > *:not(.loading)
+.panel-loading > *:not(.panel-loading-indicator)
 {
 	display: none;
 }
 
+.panel-form-error > .panel-validation-summary
+{
+    display: block;
+}
+
 .panel > h2,
-.panel-content > h2
+.panel-content > h2,
+.panel-validation-summary > h2
 {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -377,10 +388,18 @@ body[orient] > div.toolbar-float[open]
     clear: both;
 }
 
+.panel-validation-summary > ul > li
+{
+    list-style: none;
+    clear: both;
+}
+
 .panel > ul > li > img.icon,
-.panel > ul > li > a > img.icon,
+.panel > ul > li > * > img.icon,
 .panel-content > ul > li > img.icon,
-.panel-content > ul > li > a > img.icon
+.panel-content > ul > li > * > img.icon,
+.panel-validation-summary > ul > li > img.icon
+.panel-validation-summary > ul > li > * > img.icon
 {
     border: none 0 black;
     margin: 0 .5em 0 0;
@@ -390,7 +409,8 @@ body[orient] > div.toolbar-float[open]
 }
 
 .panel > fieldset,
-.panel-content > fieldset
+.panel-content > fieldset,
+.panel-validation-summary > fieldset
 {
     -moz-border-radius-bottomleft: 8px;
     -webkit-border-bottom-left-radius: 8px;
@@ -495,7 +515,8 @@ div.row a[target=_related]
 }
 
 .panel > ul,
-.panel-content > ul
+.panel-content > ul,
+.panel-validation-summary > ul
 {
     margin: 0 12px 24px 12px;
     padding: 0;
@@ -503,6 +524,7 @@ div.row a[target=_related]
 
 .panel > ul > li,
 .panel-content > ul > li,
+.panel-validation-summary > ul > li
 {
     list-style: none;
     margin: 0;
@@ -511,7 +533,8 @@ div.row a[target=_related]
 }
 
 .panel > ul > * > a,
-.panel-content > ul > * > a
+.panel-content > ul > * > a,
+.panel-validation-summary > ul > * > a
 {
     padding: 8px;
     margin: 0px;
@@ -520,6 +543,7 @@ div.row a[target=_related]
 
 .panel > ul > * > a > img.icon,
 .panel-content > ul > * > a > img.icon,
+.panel-validation-summary > ul > * > a > img.icon
 {
     border: none 0 black;
     margin: 0 .5em 0 0;

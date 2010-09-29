@@ -58,6 +58,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         companyText: 'company',
         priorityText: 'priority',
         resourceKind: 'activities',
+        entityName: 'Activity', // todo: is this correct?
         querySelect: [
             'Type',
             'Regarding',
