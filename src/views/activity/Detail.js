@@ -10,7 +10,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
     Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         id: 'activity_detail',
         editView: 'activity_edit',
-        typeText: {
+        activityTypeText: {
             'atToDo': 'To-Do',
             'atPhoneCall': 'Phone Call',
             'atAppointment': 'Meeting',
@@ -58,7 +58,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'LongNotes'
         ],
         formatActivityType: function(val) {
-            return this.typeText[val] || val;
+            return this.activityTypeText[val] || val;
         },
         init: function() {
             Mobile.SalesLogix.Activity.Detail.superclass.init.apply(this, arguments);
