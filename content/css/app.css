@@ -130,6 +130,11 @@ input.field-error
     display: block;
 }
 
+.row-edit > div.field-lookup.readonly > a {
+    color: #000;
+    text-decoration: none;
+}
+
 /* list selection */
 .list .list-item-selector
 {
