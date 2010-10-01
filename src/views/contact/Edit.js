@@ -58,8 +58,7 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             AccountName = Ext.DomQuery.select('#contact_edit [name="Account"] a span')[0].innerHTML;
 
         U.setValue(values, 'AccountName', AccountName);
-        U.setValue(values, 'Account.AccountName', AccountName);
-        U.setValue(values, 'NameLF', (values.FirstName + ' ' + values.LastName));
+        if (values.Account) U.setValue(values, 'Account.AccountName', AccountName);
         if (values.Address && !values.Address.Description) U.setValue(values, 'Address.Description', 'Mailing');
 
         return values;

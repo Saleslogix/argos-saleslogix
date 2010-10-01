@@ -235,8 +235,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 
 var App = new Mobile.SalesLogix.Application();
 
-        App.goHome = function() {
-        App.getView('home').show();
+App.goHome = function() {
+    App.getView('home').show();
 };
 
 App.navigateToNewActivity = function() {
