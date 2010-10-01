@@ -9,6 +9,7 @@ Ext.namespace("Mobile.SalesLogix");
 Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
     titleText: 'Configure',
     savePrefs: 'Save',
+    hideSearch: true,
     emptyTemplate: new Simplate(['']),
     itemTemplate: new Simplate([
         '<li>',        
