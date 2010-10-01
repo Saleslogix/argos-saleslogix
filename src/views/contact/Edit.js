@@ -36,7 +36,7 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         this.layout = [
             {name: 'FirstName', label: this.firstNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
             {name: 'LastName', label: this.lastNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
-            {name: 'Account', label: this.acctnameText, type: 'lookup', view: 'acc_list', textProperty: 'AccountName', forceValue: true},
+            {name: 'Account', label: this.acctnameText, type: 'lookup', view: 'acc_list', textProperty: 'AccountName', alwaysUseValue: true},
             {name: 'WebAddress', label: this.webText, type: 'text'},
             {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
             {name: 'Email', label: this.emailText, type: 'text'},
