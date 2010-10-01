@@ -6,11 +6,19 @@
 
 Ext.namespace("Mobile.SalesLogix.Activity");
 
+Mobile.SalesLogix.Activity.Types = {
+    "atToDo": "To-Do",
+    "atPhoneCall": "Phone Call",
+    "atAppointment": "Meeting",
+    "atLiterature": "Literature Request",
+    "atPersonal": "Personal Activity"
+};
+
 (function() {
     Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
         contentTemplate: new Simplate([
-            '<h3>{%: $.StartDate %}, {%: $.AccountName %}</h3>',
-            '<h4>{%: $.Type %}, {%: $.Description %}</h4>'
+            '<h3>{%: Mobile.SalesLogix.Format.date($.StartDate) %}, {%: $.AccountName %}</h3>',
+            '<h4>{%: Mobile.SalesLogix.Activity.Types[$.Type] %}, {%: $.Description %}</h4>'
         ]),
         id: 'activity_list',
         icon: 'content/images/Task_List_3D_24x24.gif',

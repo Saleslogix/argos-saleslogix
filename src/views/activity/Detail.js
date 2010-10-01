@@ -10,13 +10,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
     Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         id: 'activity_detail',
         editView: 'activity_edit',
-        typeText: {
-            'atToDo': 'To-Do',
-            'atPhoneCall': 'Phone Call',
-            'atAppointment': 'Meeting',
-            'atLiterature': 'Literature Request',
-            'atPersonal': 'Personal Activity'
-        },
         titleText: 'Activity',
         typeText: 'type',
         categoryText: 'category',
@@ -58,7 +51,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'LongNotes'
         ],
         formatActivityType: function(val) {
-            return this.typeText[val] || val;
+            return Mobile.SalesLogix.Activity.Types[val] || val;
         },
         init: function() {
             Mobile.SalesLogix.Activity.Detail.superclass.init.apply(this, arguments);
@@ -78,7 +71,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 fn: App.navigateToNewActivity,
                 scope: this
             }];
-        },               
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {name: 'Type', label: this.typeText, renderer: this.formatActivityType},
