@@ -70,6 +70,7 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         {
             Mobile.SalesLogix.Contact.Edit.superclass.setValues.call(this, relatedAccount.entry);
             this.fields['Account'].setValue(relatedAccount.entry);
+            this.fields['WorkPhone'].setValue(relatedAccount.entry.MainPhone);
         }
         else
         {
