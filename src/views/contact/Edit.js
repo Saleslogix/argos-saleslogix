@@ -71,6 +71,14 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
             Mobile.SalesLogix.Contact.Edit.superclass.setValues.call(this, relatedAccount.entry);
             this.fields['Account'].setValue(relatedAccount.entry);
             this.fields['WorkPhone'].setValue(relatedAccount.entry.MainPhone);
+            var contact = this;
+            //Temporary: Just make sure isDirty returns true for these fields, or they won't be saved.
+            if (this.inserting)
+            {
+                ['WebAddress', 'WorkPhone', 'Fax'].forEach(function(fld){
+                    contact.fields[fld].value = '';
+                });
+            }
         }
         else
         {
