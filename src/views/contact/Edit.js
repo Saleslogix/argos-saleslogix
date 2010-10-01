@@ -66,10 +66,14 @@ Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
     setValues: function() {
         var relatedAccount = App.getView(App.context.view[2]);
 
-        Mobile.SalesLogix.Contact.Edit.superclass.setValues.apply(this, arguments);
         if (App.context.view[1].id == 'contact_related' && relatedAccount && relatedAccount.entry)
         {
+            Mobile.SalesLogix.Contact.Edit.superclass.setValues.call(this, relatedAccount.entry);
             this.fields['Account'].setValue(relatedAccount.entry);
+        }
+        else
+        {
+            Mobile.SalesLogix.Contact.Edit.superclass.setValues.apply(this, arguments);
         }
     },
     createRequest: function() {
