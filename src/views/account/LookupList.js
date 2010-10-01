@@ -36,6 +36,8 @@ Mobile.SalesLogix.Account.LookupList = Ext.extend(Sage.Platform.Mobile.List, {
                 'orderby': 'AccountName',
                 'select': [
                     'AccountName',
+                    'AccountName,AccountManager/UserInfo/FirstName',
+                    'AccountManager/UserInfo/LastName'
                 ].join(',')
             });
 

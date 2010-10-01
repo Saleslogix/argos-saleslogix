@@ -11,17 +11,20 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
     savePrefs: 'Save',
     emptyTemplate: new Simplate(['']),
     itemTemplate: new Simplate([
-        '<li>',
-        '<input type="checkbox" value="{%= $["id"] %}" class="list-selector" />',
+        '<li>',        
+        '{%! $$.contentTemplate %}',
+        '</li>'
+    ]),
+    contentTemplate: new Simplate([
+        '<input type="checkbox" value="{%= $.id %}" class="list-selector" />',
         '<span class="moveup"></span>',
         '<span class="movedown"></span>',
         '<span class="resource">',
-        '{% if ($["icon"]) { %}',
-        '<img src="{%= $["icon"] %}" alt="icon" class="icon" />',
+        '{% if ($.icon) { %}',
+        '<img src="{%= $.icon %}" alt="icon" class="icon" />',
         '{% } %}',
-        '{%= title %}',
-        '</span>',
-        '</li>'
+        '{%= $.titleText %}',
+        '</span>'
     ]),
     constructor: function(o) {
         Mobile.SalesLogix.Configure.superclass.constructor.call(this);
@@ -31,16 +34,6 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
             title: this.titleText,
             selected: false,
             expose: false
-        });
-
-        Ext.apply(this.tools || {}, {
-            tbar: [{
-                name: 'save',
-                title: this.savePrefs,
-                cls: 'save button',
-                fn: this.savePreferences,
-                scope: this
-            }]
         });
     },
     init: function() {
@@ -64,6 +57,14 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
                     Li.insertAfter(Li.next('li', true));
                 }
             }, this);
+
+        this.tools.tbar =  [{
+            name: 'save',
+            title: this.savePrefs,
+            cls: 'save button',
+            fn: this.savePreferences,
+            scope: this
+        }];
     },
     savePreferences: function() {
         //Make sure the object hierarchy is defined.
@@ -132,14 +133,18 @@ Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
             
             // If a persisted view is not loaded/unavailable/removed
             // we have to remove it from persistence.
-            if (!v) appConfigureOrder.splice(i, 1);
+            if (!v)
+            {
+                appConfigureOrder.splice(i, 1);
+                continue;
+            }
             
             o.unshift(this.itemTemplate.apply(v, this));
         }
         //Persist this back to local storage.
         App.persistPreferences();
         
-        Ext.DomHelper.append(Ext.get('configure'), o.join(''));
+        Ext.DomHelper.append(this.el.child('.list-content'), o.join(''));
         this.selectPersistedItems();
     },
     selectPersistedItems: function() {
