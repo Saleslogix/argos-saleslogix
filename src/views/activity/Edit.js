@@ -100,9 +100,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         createLayout: function() {
             return this.layout || (this.layout = [
                 {name: 'Type', label: this.typeText, type: 'select', view: 'select_list', title: 'Activity Type', list: this.createTypeList()},
-                {name: 'Description', label: this.regardingText, type: 'pickup', view: 'pick_list', resourcePredicate: this.formatDescriptionPredicate.createDelegate(this), title: 'Activity Description', dependsOn: 'Type', errMsg: 'A "Type" is required for "Description"', orderBy: 'sort asc'},
-                {name: 'Priority', label: this.priorityText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Priorities"', title: 'Priorities', orderBy: 'sort asc'},
-                {name: 'Category', label: this.categoryText, type: 'pickup', view: 'pick_list', resourcePredicate: this.formatCategoryPredicate.createDelegate(this), title: 'Activity Category', dependsOn: 'Type', errMsg: 'A "Type" is required for "Category"', orderBy: 'sort asc'},
+                {name: 'Description', label: this.regardingText, type: 'picklist', view: 'pick_list', resourcePredicate: this.formatDescriptionPredicate.createDelegate(this), title: 'Activity Description', dependsOn: 'Type', errMsg: 'A "Type" is required for "Description"', orderBy: 'sort asc'},
+                {name: 'Priority', label: this.priorityText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Priorities"', title: 'Priorities', orderBy: 'sort asc'},
+                {name: 'Category', label: this.categoryText, type: 'picklist', view: 'pick_list', resourcePredicate: this.formatCategoryPredicate.createDelegate(this), title: 'Activity Category', dependsOn: 'Type', errMsg: 'A "Type" is required for "Category"', orderBy: 'sort asc'},
                 {name: 'StartDate', label: this.startingText, type: 'text'},
                 {name: 'Timeless', label: this.timelessText, type: 'boolean'},
                 {name: 'Duration', label: this.durationText, type: 'text', validator: Mobile.SalesLogix.Validator.isInteger},

@@ -75,6 +75,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
 
             return values;
         },
+        formatPicklistName: function(dependantValue, format) {
+            return String.format(format, dependantValue);
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {name: 'AccountName', label: this.accountText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
@@ -82,10 +85,10 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 {name: 'MainPhone', label: this.phoneText, type: 'phone'},
                 {name: 'Address', label: this.fullAddressText, view: 'address_edit', type: 'address', resourceKind: 'accounts', title: 'Address', renderer: function(value){return Mobile.SalesLogix.Format.address(value, true)}},
                 {name: 'Fax', label: this.faxText, type: 'phone'},
-                {name: 'Type', label: this.typeText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Account Type"', title: 'Account Type', orderBy: 'sort asc'},
-                {name: 'SubType', label: this.subTypeText, type: 'pickup', view: 'pick_list', resourcePredicate: new Simplate(['name eq "Account {%= Type %}"']), title: 'Account SubType', dependsOn: 'Type', errMsg: 'A "Type" is required for "SubType"', orderBy: 'sort asc'},
-                {name: 'Status', label: this.statusText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Account Status"', title: 'Account Status', orderBy: 'sort asc'},
-                {name: 'Industry', label: this.industryText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Industry"', title: 'Industry', orderBy: 'sort asc'},
+                {name: 'Type', label: this.typeText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Account Type"', title: 'Account Type', orderBy: 'sort asc'},
+                {name: 'SubType', label: this.subTypeText, type: 'picklist', view: 'pick_list', picklist: this.formatPicklistName.createDelegate(this, ['Account {0}'], true), title: 'Account SubType', dependsOn: 'Type', errMsg: 'A "Type" is required for "SubType"', orderBy: 'sort asc'},
+                {name: 'Status', label: this.statusText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Account Status"', title: 'Account Status', orderBy: 'sort asc'},
+                {name: 'Industry', label: this.industryText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Industry"', title: 'Industry', orderBy: 'sort asc'},
                 {name: 'BusinessDescription', label: this.businessDescriptionText, type: 'text'},
                 {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF},
                 {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},

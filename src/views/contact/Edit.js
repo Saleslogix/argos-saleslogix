@@ -76,7 +76,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 {name: 'WebAddress', label: this.webText, type: 'text'},
                 {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
                 {name: 'Email', label: this.emailText, type: 'text'},
-                {name: 'Title', label: this.contactTitleText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Title"', title: 'Title'},
+                {name: 'Title', label: this.contactTitleText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Title"', title: 'Title'},
                 {name: 'Address', label: this.addressText, view: 'address_edit', type: 'address', resourceKind: 'contacts', title: 'Address', renderer: function(value){return Mobile.SalesLogix.Format.address(value, true)}},
                 {name: 'HomePhone', label: this.homePhoneText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
                 {name: 'Mobile', label: this.mobileText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
