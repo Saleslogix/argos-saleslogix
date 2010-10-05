@@ -85,7 +85,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 {name: 'MainPhone', label: this.phoneText, type: 'phone'},
                 {name: 'Address', label: this.fullAddressText, view: 'address_edit', type: 'address', resourceKind: 'accounts', title: 'Address', renderer: function(value){return Mobile.SalesLogix.Format.address(value, true)}},
                 {name: 'Fax', label: this.faxText, type: 'phone'},
-                {name: 'Type', label: this.typeText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Account Type"', title: 'Account Type', orderBy: 'sort asc'},
+                {name: 'Type', label: this.typeText, type: 'picklist', view: 'pick_list', picklist: 'Account Type', title: 'Account Type'},
                 {name: 'SubType', label: this.subTypeText, type: 'picklist', view: 'pick_list', picklist: this.formatPicklistName.createDelegate(this, ['Account {0}'], true), title: 'Account SubType', dependsOn: 'Type', errMsg: 'A "Type" is required for "SubType"', orderBy: 'sort asc'},
                 {name: 'Status', label: this.statusText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Account Status"', title: 'Account Status', orderBy: 'sort asc'},
                 {name: 'Industry', label: this.industryText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Industry"', title: 'Industry', orderBy: 'sort asc'},

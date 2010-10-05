@@ -49,7 +49,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.View, {
         for (var i = 0, len = visibleItems.length; i < len; i++)
         {
             v = App.getView(visibleItems[i]);
-            views.push(this.itemTemplate.apply(v));
+            if (v) views.push(this.itemTemplate.apply(v));
         }
 
         this.el.select('li').remove();

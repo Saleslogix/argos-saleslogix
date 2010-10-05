@@ -551,6 +551,11 @@ div.row a[target=_related]
     height: 24px;
 }
 
+div.row-edit
+{
+    position: relative;
+}
+
 div.row-edit > label
 {
 	position: absolute;
