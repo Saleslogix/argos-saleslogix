@@ -47,17 +47,17 @@ Mobile.SalesLogix.Account.AddAccountContact = Ext.extend(Sage.Platform.Mobile.Ed
             {name: 'WebAddress', label: this.webText, type: 'text'},
             {name: 'MainPhone', label: this.workText, type: 'phone'},
             {options: {title: this.detailsContactText}, as: [
-                {name: 'Contacts.$resources[0].Title', label: this.titleText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Title"', title: 'Title'},
+                {name: 'Contacts.$resources[0].Title', label: this.titleText, type: 'pickup', view: 'con_title_pick_list', resourcePredicate: 'name eq "Title"', title: 'Title'},
                 {name: 'Contacts.$resources[0].HomePhone', label: this.homePhoneText, type: 'phone'},
                 {name: 'Contacts.$resources[0].Mobile', label: this.mobileText, type: 'phone'},
                 {name: 'Contacts.$resources[0].Fax', label: this.faxText, type: 'phone'}
             ]},
             {options: {title: this.detailsAccountText}, as: [
                 {name: 'Fax', label: this.faxText, type: 'phone'},
-                {name: 'Type', label: this.typeText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Account Type"', title: 'Account Type', orderBy: 'sort asc'},
-                {name: 'SubType', label: this.subTypeText, type: 'pickup', view: 'pick_list', resourcePredicate: new Simplate(['name eq "Account {%= AccountType %}"']), title: 'Account SubType', dependsOn: 'Type', errMsg: 'A "Type" is required for "SubType"', orderBy: 'sort asc'},
-                {name: 'Status', label: this.statusText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Account Status"', title: 'Account Status', orderBy: 'sort asc'},
-                {name: 'Industry', label: this.industryText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Industry"', title: 'Industry', orderBy: 'sort asc'},
+                {name: 'Type', label: this.typeText, type: 'pickup', view: 'acc_type_pick_list', resourcePredicate: 'name eq "Account Type"', title: 'Account Type', orderBy: 'sort asc'},
+                {name: 'SubType', label: this.subTypeText, type: 'pickup', view: 'acc_subtype_pick_list', resourcePredicate: new Simplate(['name eq "Account {%= AccountType %}"']), title: 'Account SubType', dependsOn: 'Type', errMsg: 'A "Type" is required for "SubType"', orderBy: 'sort asc'},
+                {name: 'Status', label: this.statusText, type: 'pickup', view: 'acc_status_pick_list', resourcePredicate: 'name eq "Account Status"', title: 'Account Status', orderBy: 'sort asc'},
+                {name: 'Industry', label: this.industryText, type: 'pickup', view: 'acc_industry_pick_list', resourcePredicate: 'name eq "Industry"', title: 'Industry', orderBy: 'sort asc'},
                 {name: 'BusinessDescription', label: this.description, type: 'text'}
             ]}
         ]

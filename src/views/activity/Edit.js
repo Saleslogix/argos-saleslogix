@@ -67,9 +67,9 @@ Mobile.SalesLogix.Activity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         this.layout = [
             {name: 'Type', label: this.typeText, type: 'select', view: 'select_list', title: 'Activity Type', list: typeList},
-            {name: 'Description', label: this.regardingText, type: 'pickup', view: 'pick_list', resourcePredicate: this.setResourcePredicateForDesc, title: 'Activity Description', dependsOn: 'Type', errMsg: 'A "Type" is required for "Description"', orderBy: 'sort asc'},
-            {name: 'Priority', label: this.priorityText, type: 'pickup', view: 'pick_list', resourcePredicate: 'name eq "Priorities"', title: 'Priorities', orderBy: 'sort asc'},
-            {name: 'Category', label: this.categoryText, type: 'pickup', view: 'pick_list', resourcePredicate: this.setResourcePredicateForCategory, title: 'Activity Category', dependsOn: 'Type', errMsg: 'A "Type" is required for "Category"', orderBy: 'sort asc'},
+            {name: 'Description', label: this.regardingText, type: 'pickup', view: 'act_desc_pick_list', resourcePredicate: this.setResourcePredicateForDesc, title: 'Activity Description', dependsOn: 'Type', errMsg: 'A "Type" is required for "Description"', orderBy: 'sort asc'},
+            {name: 'Priority', label: this.priorityText, type: 'pickup', view: 'act_priority_pick_list', resourcePredicate: 'name eq "Priorities"', title: 'Priorities', orderBy: 'sort asc'},
+            {name: 'Category', label: this.categoryText, type: 'pickup', view: 'act_category_pick_list', resourcePredicate: this.setResourcePredicateForCategory, title: 'Activity Category', dependsOn: 'Type', errMsg: 'A "Type" is required for "Category"', orderBy: 'sort asc'},
             {name: 'StartDate', label: this.startingText, type: 'text'},
             {name: 'Timeless', label: this.timelessText, type: 'boolean'},
             {name: 'Duration', label: this.durationText, type: 'text', validator: Mobile.SalesLogix.Validator.isInteger},

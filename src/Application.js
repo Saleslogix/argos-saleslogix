@@ -80,6 +80,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         return exposedViews;
     },
     setup: function () {
+        var app = this;
+
         Mobile.SalesLogix.Application.superclass.setup.apply(this, arguments);
 
         this.registerToolbar(new Sage.Platform.Mobile.MainToolbar({
@@ -96,7 +98,19 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.ContextDialog());
         this.registerView(new Mobile.SalesLogix.Home());
         this.registerView(new Mobile.SalesLogix.Configure());
-        this.registerView(new Mobile.SalesLogix.PickList());
+
+        ['acc_type_pick_list', 'acc_subtype_pick_list', 'acc_status_pick_list',
+         'acc_industry_pick_list', 'con_title_pick_list', 'act_desc_pick_list',
+         'act_priority_pick_list', 'act_category_pick_list', 'lead_title_pick_list',
+         'lead_industry_pick_list', 'opp_type_pick_list', 'opp_status_pick_list',
+         'opp_close_probability_pick_list', 'add_city_pick_list', 'add_state_pick_list',
+         'add_country_pick_list'].forEach(function(id){
+            app.registerView(new Mobile.SalesLogix.PickList({
+                'id': id,
+                expose: false
+            }));
+        });
+
         this.registerView(new Mobile.SalesLogix.SelectList());
         this.registerView(new Mobile.SalesLogix.AddressEdit());
 
