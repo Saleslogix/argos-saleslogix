@@ -4,6 +4,11 @@ ul.list-content > li > a
     padding: 8px 32px 8px 36px;
 }
 
+ul.list-content > li > .item
+{
+    font-weight: normal;
+}
+
 /* search */
 .list-search
 {

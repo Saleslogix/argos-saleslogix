@@ -3,13 +3,13 @@ Ext.namespace("Mobile.SalesLogix");
 Mobile.SalesLogix.PickList = Ext.extend(Sage.Platform.Mobile.List, {
     resourceProperty: 'items',
     contentTemplate: new Simplate([
-        '<h3>{%: $.text %}</h3>'
+        '<h3 class="item">{%: $.text %}</h3>'
     ]),
+    id: 'pick_list',
     constructor: function(o) {
         Mobile.SalesLogix.PickList.superclass.constructor.call(this);
 
         Ext.apply(this, o, {
-            id: 'pick_list',
             pageSize: 25,
             expose: false
         });
