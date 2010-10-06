@@ -1,33 +1,23 @@
 Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.PickList = Ext.extend(Sage.Platform.Mobile.List, {
+    id: 'picklist',
+    expose: false,
+    resourceKind: 'picklists',
     resourceProperty: 'items',
     contentTemplate: new Simplate([
-        '<a target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
-        '<h3>{%: $.text %}</h3>',
-        '</a>'
-    ]),
-    constructor: function(o) {
-        Mobile.SalesLogix.PickList.superclass.constructor.call(this);
-
-        Ext.apply(this, o, {
-            id: 'pick_list',
-            pageSize: 25,
-            expose: false
-        });
-    },
+        '<h3>{%: $.text %}</h3>'
+    ]),    
     formatSearchQuery: function(query) {
         return String.format('text like "%{0}%"', query);
     },
+    show: function(options) {
+        this.setTitle(options && options.title || this.title);
+
+        Mobile.SalesLogix.PickList.superclass.show.apply(this, arguments);
+    },
     createRequest: function() {
-        var request = Mobile.SalesLogix.PickList.superclass.createRequest.call(this);
-
-        request
-            .setContractName('system')
-            .setDataSet('-')
-            .setResourceKind('picklists')
-            .setQueryArg('format', 'json');
-
-        return request;
+        return Mobile.SalesLogix.PickList.superclass.createRequest.call(this)
+            .setContractName('system');        
     }
 });
