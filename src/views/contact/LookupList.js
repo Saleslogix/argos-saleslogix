@@ -9,9 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
 Mobile.SalesLogix.Contact.LookupList = Ext.extend(Sage.Platform.Mobile.List, {
     contentTemplate: new Simplate([
-        '<a href="#account_detail" target="_detail" data-key="{%= $key %}" data-descriptor="{%: $descriptor %}">',
-        '<h3>{%: $.NameLF %}</h3>',
-        '</a>'
+        '<h3>{%: $.NameLF %}</h3>'
     ]),
     constructor: function(o) {
         Mobile.SalesLogix.Contact.List.superclass.constructor.call(this);
