@@ -50,6 +50,32 @@ body > .toolbar,
     z-index: 10;
 }
 
+
+.h-stack
+{
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: start;
+
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    -moz-box-pack: center;
+    -moz-box-align: start;
+
+    display: box;
+    box-orient: horizontal;
+    box-pack: center;
+    box-align: start;
+}
+
+.h-stack > div
+{
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    box-flex: 1;
+}
+
 .toolbar > h1 {
     overflow: hidden; 
     display: block;
@@ -587,6 +613,24 @@ div.row-edit > label
     height: 32px !important;
     border: none 0px transparent;
     background: transparent;
+}
+
+.row > textarea
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+    margin: 0;
+    border: none 0px black;
+    padding: 8px 10px 8px 110px !important;
+    border: none 0px transparent;
+    background: transparent;
+    width: 100%;
+    display: block;    
 }
 
 .row > input[type|=radio], .row > input[type|=checkbox]

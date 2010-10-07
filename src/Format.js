@@ -9,7 +9,7 @@ Mobile.SalesLogix.Format = (function() {
     var F = Sage.Platform.Mobile.Format;   
    
     return Ext.apply({}, {
-        address: function(val, onlyText) {
+        address: function(val, textOnly, nl) {
             if (val === null || typeof val == "undefined") return "";
             
             var lines = [];
@@ -39,13 +39,13 @@ Mobile.SalesLogix.Format = (function() {
             }
 
             if (!F.isEmpty(val['Country'])) lines.push(F.encode(val['Country']));
-            
-            var address = lines.join('<br />');
-            var encoded_address = unescape(lines.join(','));
 
-            if (onlyText === true && address == '') return 'empty';
-            if (onlyText === true) return address;
-            return String.format('<a target="_blank" href="http://maps.google.com/maps?q={1}">{0}</a>',address, encoded_address);
+            if (textOnly) return nl ? lines.join('\n') : lines.join('<br />');
+
+            return String.format('<a target="_blank" href="http://maps.google.com/maps?q={1}">{0}</a>',
+                lines.join('<br />'),
+                encodeURIComponent(lines.join(' '))
+            );
         },
         phone: function(val, withLink) {
             if (typeof val !== 'string') 

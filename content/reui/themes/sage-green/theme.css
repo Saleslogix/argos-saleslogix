@@ -9,15 +9,37 @@ body
 
 h3
 {
-    font-size: 0.8em;
+    font-size: 1em;
+    font-weight: normal;
 }
 
 h4
 {
     color: #00338D;
     font-weight: normal;
-    font-size: 0.7em;
+    font-size: .8em;
 }
+
+h5
+{
+    margin: 0;
+    padding: 0;
+    font-size: .8em;
+    font-weight: normal;
+}
+
+body > ul > li,
+ul.list-content > li
+{
+    font-weight: normal;
+}
+
+body > ul > li span,
+ul.list-content > li span
+{
+    font-size: .8em;
+}
+
 
 body > .toolbar {
     border-bottom: 1px solid black;
@@ -150,10 +172,11 @@ body > div.list
     background: #fff;    
 }
 
-input:focus
+input:focus,
+textarea:focus
 {
 	outline: none;
-	background-color: #FDFFDD;
+	background-color: #fff; /* #FDFFDD */;
 }
 
 .panel > ul,
@@ -198,7 +221,14 @@ div.row > label
     color: #00338D;
 }
 
-div.row-edit > input:focus
+div.row-edit > textarea
+{
+    font-family: Helvetica, Arial;
+    font-size: 16px;
+}
+
+div.row-edit > input:focus,
+div.row-edit > textarea:focus
 {    
     -webkit-box-shadow: 0 0 5px #f0ac55 !important;
     -moz-box-shadow: 0 0 5px #f0ac55 !important;

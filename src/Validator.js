@@ -13,7 +13,7 @@ Mobile.SalesLogix.Validator = (function() {
         },
         hasText: {
             test: /\w+/,
-            message: "The field '{2}' cannot be empty."
+            message: "The field '{2}' must contain some text."
         },
         isInteger: {
             test: /^\d+$/,

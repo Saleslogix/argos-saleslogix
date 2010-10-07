@@ -75,7 +75,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
 
             return values;
         },
-        formatPicklistName: function(dependantValue, format) {
+        formatDependantPicklist: function(dependantValue, format) {
             return String.format(format, dependantValue);
         },
         createLayout: function() {
@@ -83,10 +83,10 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 {name: 'AccountName', label: this.accountText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
                 {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link, type: 'text'},
                 {name: 'MainPhone', label: this.phoneText, type: 'phone'},
-                {name: 'Address', label: this.fullAddressText, view: 'address_edit', type: 'address', resourceKind: 'accounts', title: 'Address', renderer: function(value){return Mobile.SalesLogix.Format.address(value, true)}},
+                {name: 'Address', label: this.fullAddressText, view: 'address_edit', type: 'address', formatter: Mobile.SalesLogix.Format.address},
                 {name: 'Fax', label: this.faxText, type: 'phone'},
                 {name: 'Type', label: this.typeText, type: 'picklist', picklist: 'Account Type', title: 'Account Type'},
-                {name: 'SubType', label: this.subTypeText, type: 'picklist', requireSelection: false, picklist: this.formatPicklistName.createDelegate(this, ['Account {0}'], true), title: 'Account SubType', dependsOn: 'Type'},
+                {name: 'SubType', label: this.subTypeText, type: 'picklist', requireSelection: false, picklist: this.formatDependantPicklist.createDelegate(this, ['Account {0}'], true), title: 'Account SubType', dependsOn: 'Type'},
                 {name: 'Status', label: this.statusText, type: 'picklist', requireSelection: false, picklist: 'Account Status', title: 'Account Status'},
                 {name: 'Industry', label: this.industryText, type: 'picklist', requireSelection: false, picklist: 'Industry', title: 'Industry'},
                 {name: 'BusinessDescription', label: this.businessDescriptionText, type: 'text'},
