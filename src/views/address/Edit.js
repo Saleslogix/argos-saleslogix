@@ -41,7 +41,8 @@ Ext.namespace("Mobile.SalesLogix.Address");
                 {name: 'State', label: this.stateText, type: 'picklist', picklist: 'State', requireSelection: false, title: this.stateTitleText},
                 {name: 'PostalCode', label: this.postalCodeText, type: 'text'},
                 {name: 'Country', label: this.countryText, type: 'picklist', picklist: 'Country', requireSelection: false, title: this.countryText},
-                {name: 'Salutation', label: this.salutationText, type: 'text'}
+                {name: 'Salutation', label: this.salutationText, type: 'text'},
+                {name: 'EntityId', type: 'hidden', alwaysUseValue: true}
             ]);
         }
     });
