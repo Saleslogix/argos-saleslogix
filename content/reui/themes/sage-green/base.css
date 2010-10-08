@@ -580,6 +580,7 @@ div.row a[target=_related]
 div.row-edit
 {
     position: relative;
+    padding: 2px 0.75em;
 }
 
 div.row-edit > label
