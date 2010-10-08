@@ -90,20 +90,20 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerToolbar(new Sage.Platform.Mobile.FloatToolbar({
             name: 'fbar'
         }));
-
-        this.registerView(new Mobile.SalesLogix.LoginDialog());
+        
         this.registerView(new Mobile.SalesLogix.Login());
-        this.registerView(new Mobile.SalesLogix.ContextDialog());
         this.registerView(new Mobile.SalesLogix.Home());
         this.registerView(new Mobile.SalesLogix.Configure());
         this.registerView(new Mobile.SalesLogix.PickList());
         this.registerView(new Mobile.SalesLogix.SelectList());
-        this.registerView(new Mobile.SalesLogix.AddressEdit());
+        this.registerView(new Mobile.SalesLogix.ContextDialog());
+        this.registerView(new Mobile.SalesLogix.AddAccountContact());
+        
+        this.registerView(new Mobile.SalesLogix.Address.Edit());
 
         this.registerView(new Mobile.SalesLogix.Account.List());
         this.registerView(new Mobile.SalesLogix.Account.Detail());
         this.registerView(new Mobile.SalesLogix.Account.Edit());
-        this.registerView(new Mobile.SalesLogix.Account.AddAccountContact());
         this.registerView(new Mobile.SalesLogix.Account.List({
             id: 'account_related',
             expose: false
@@ -113,8 +113,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Campaign.Detail());
         this.registerView(new Mobile.SalesLogix.Campaign.Edit());
         this.registerView(new Mobile.SalesLogix.Campaign.List({
-               id: 'campaign_related',
-               expose: false
+            id: 'campaign_related',
+            expose: false
         }));
 
         this.registerView(new Mobile.SalesLogix.Contact.Edit());
@@ -228,21 +228,20 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Contact.Lookup({
             expose: false
         }));
+    },
+    navigateToHomeView: function() {
+        var view = this.getView('home');
+        if (view)
+            view.show();
+    },
+    navigateToActivityInsertView: function() {
+        var view = this.getView('activity_edit');
+        if (view)
+            view.show({insert: true});
     }
 });
 
 // instantiate application instance
-
 var App = new Mobile.SalesLogix.Application();
 
-        App.goHome = function() {
-        App.getView('home').show();
-};
-
-App.navigateToNewActivity = function() {
-    var view = App.getView('activity_edit');
-    if (view) {
-      view.show({insert: true});
-    }
-};
 

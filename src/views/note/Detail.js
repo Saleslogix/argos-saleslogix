@@ -24,7 +24,7 @@ Ext.namespace("Mobile.SalesLogix.Note");
                 title: 'home',
                 cls: 'tool-note',
                 icon: 'content/images/welcome_32x32.gif',
-                fn: App.goHome,
+                fn: App.navigateToHomeView,
                 scope: this
             }];
         },

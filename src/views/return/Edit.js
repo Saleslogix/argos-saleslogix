@@ -9,47 +9,34 @@ Ext.namespace("Mobile.SalesLogix.Return");
 
 (function() {
     Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+        id: 'return_edit',
         titleText: 'Return',
         returnIdText: 'return id',
         priorityText: 'priority',
         typeText: 'type',
         regDateText: 'reg date',
         returnedByText: 'returned by',
-        constructor: function(o) {
-            Mobile.SalesLogix.Return.Edit.superclass.constructor.call(this);
-
-            Ext.apply(this, o, {
-                id: 'return_edit',
-                title: this.titleText,
-                resourceKind: 'returns',
-                entityName: 'Return'
-            });
-
-            this.layout = [
+        resourceKind: 'returns',
+        entityName: 'Return',
+        queryInclude: [
+            'ReturnedBy'
+        ],
+        querySelect: [
+            'ReturnNumber',
+            'Priority',
+            'ReturnType',
+            'ExpectedDate',
+            'ReturnedBy/FullName'
+        ],
+        createLayout: function() {
+            return this.layout || (this.layout = [
                 {name: 'ReturnNumber', label: this.returnIdText, type: 'text'},
                 {name: 'Priority', label: this.priorityText, type: 'text'},
                 {name: 'ReturnType', label: this.typeText, type: 'text'},
                 {name: 'ExpectedDate', label: this.regDateText, renderer: Mobile.SalesLogix.Format.date, type: 'text'},
-                {name: 'ReturnedBy.NameLF', label: this.returnedByText, type: 'text'},
+                {name: 'ReturnedBy.NameLF', label: this.returnedByText, type: 'text'}
 
-            ];
-        },
-        init: function() {
-            Mobile.SalesLogix.Return.Edit.superclass.init.call(this);
-        },
-        createRequest: function() {
-            return Mobile.SalesLogix.Return.Edit.superclass.createRequest.call(this)
-                .setResourceKind(this.resourceKind)
-                .setQueryArgs({
-                    'include': 'ReturnedBy',
-                    'select': [
-                        'ReturnNumber',
-                        'Priority',
-                        'ReturnType',
-                        'ExpectedDate',
-                        'ReturnedBy/FullName'
-                      ].join(',')
-                })
+            ]);
         }
     });
 })();

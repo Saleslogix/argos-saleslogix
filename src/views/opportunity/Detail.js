@@ -58,14 +58,14 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                 title: 'home',
                 cls: 'tool-note',
                 icon: 'content/images/welcome_32x32.gif',
-                fn: App.goHome,
+                fn: App.navigateToHomeView,
                 scope: this
             },{
                 name: 'schedule',
                 title: 'schedule',
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                fn: App.navigateToNewActivity,
+                fn: App.navigateToActivityInsertView,
                 scope: this
             }];
         },
