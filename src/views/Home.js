@@ -27,23 +27,36 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
                 view.show();
         }
     },
+    formatSearchQuery: function(query) {
+        var expression = new RegExp(query, 'i');
+
+        return function(entry) {
+            return expression.test(entry.title);
+        };
+    },
     hasMoreData: function() {
         return false;
     },
     requestData: function() {
         var visible = App.preferences && App.preferences.home && App.preferences.home.visible,
             list = [],
-            view;
+            view,
+            entry;
 
         for (var i = 0; i < visible.length; i++)
         {
             view = App.getView(visible[i]);
 
-            if (view) list.push({
-                '$key': view.id,
-                'icon': view.icon,
-                'title': view.titleText
-            });
+            if (view)
+            {
+                entry = {
+                    '$key': view.id,
+                    'icon': view.icon,
+                    'title': view.titleText
+                };
+
+                if (typeof this.query !== 'function' || this.query(entry)) list.push(entry);
+            }
         }
 
         this.processFeed({'$resources': list});      

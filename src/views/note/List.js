@@ -9,11 +9,11 @@ Ext.namespace("Mobile.SalesLogix.Note");
 (function() {
     Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
         contentTemplate: new Simplate([
-            '<div class="row defect-text-row">',
-            '<div class="defect-text-wrap">',
+            '<div class="row note-text-row">',
+            '<div class="note-text-wrap">',
             '{%: $.Notes %}',
             '</div>',
-            '<div class="defect-text-more">',
+            '<div class="note-text-more">',
             '{%: $$.moreText %}',
             '</div>',
             '</div>'
@@ -31,11 +31,11 @@ Ext.namespace("Mobile.SalesLogix.Note");
             App.on('resize', this.onResize, this);
         },
         onResize: function() {
-            this.el.select('.defect-text-row').each(function(el) {
-                if (el.child('.defect-text-wrap').getHeight(true) < el.child('.defect-text-wrap a').getHeight())
-                    el.child('.defect-text-more').show();
+            this.el.select('.note-text-row').each(function(el) {
+                if (el.getHeight(true) < el.child('.note-text-wrap').getHeight())
+                    el.child('.note-text-more').show();
                 else
-                    el.child('.defect-text-more').hide();
+                    el.child('.note-text-more').hide();
             });
         },
         formatSearchQuery: function(query) {

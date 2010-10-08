@@ -4,6 +4,11 @@ ul.list-content > li > a
     padding: 8px 32px 8px 36px;
 }
 
+ul.list-content > li > .item
+{
+    font-weight: normal;
+}
+
 /* search */
 .list-search
 {
@@ -240,10 +245,10 @@ li.is-linked
     position: relative;
     min-height: inherit;
     padding: 1em;
-    line-height: 1.25em;
 }
 
-.defect-text-more
+.defect-text-more,
+.note-text-more
 {
     visibility: hidden;
     border-style: none solid solid solid;
@@ -269,7 +274,6 @@ li.is-linked
 .defect-text-wrap
 {
     overflow: hidden;
-    font-size: 1em;
     max-height: 3.5em;
 }
 
@@ -304,47 +308,27 @@ li.is-linked
 }
 
 /* note view */
-#note_related div.defect-text-row
+#note_related div.note-text-row
 {
-    border-bottom: none;
-    clear:none;
+    max-height:3em;
+    overflow:hidden;
 }
 
-#note_related div.defect-text-row h3
+#note_related div.note-text-wrap
 {
-    white-space : normal;
-    font-weight: normal;
-}
-
-#note_related div.defect-text-wrap
-{
-    max-height: 3em;
+    font-size:0.8em;
+    font-weight:normal;
+    line-height:1.25em;
     margin-top:0;
-    padding-left:10px;
 }
 
-#note_related div.defect-text-more
+#note_related div.note-text-more
 {
-   -moz-border-radius-bottomright: none;
-   -webkit-border-radius-topright: none;
-   bottom: -8px;
+   -moz-border-radius-bottomright: 0;
+   -webkit-border-radius-bottomright: 0;
+   bottom: 0;
    border-style: none;
-}
-
-#note_related div.defect-text-more a
-{
-   text-decoration: none;
-   font-weight: normal;
-   font-size: 0.75em;
-   color: white;
-}
-
-#note_related div.defect-text-wrap a[target="_detail"]
-{
-     text-decoration: none; 
-     color: #000;
-     display: block;
-     line-height: 1em;
+   font-size: 0.8em;
 }
 
 /* context dialog */
