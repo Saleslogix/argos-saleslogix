@@ -59,7 +59,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {name: 'WorkPhone', label: this.workText, type: 'phone'},
                 {name: 'Email', label: this.emailText, type: 'text'},
                 {name: 'Title', label: this.contactTitleText, type: 'picklist', picklist: 'Title', title: this.titleTitleText},
-                {name: 'Address', label: this.addressText, view: 'address_edit', type: 'address', resourceKind: 'leads'},
+                {name: 'Address', label: this.addressText, view: 'address_edit', type: 'address', formatter: Mobile.SalesLogix.Format.address},
                 {name: 'TollFree', label: this.tollFreeText, type: 'phone'},
                 {name: 'LeadSource', label: this.importSourceText, type: 'lookup', view: 'leadsource_list', textProperty: 'Description'},
                 {name: 'Interests', label: this.interestsText, type: 'text'},
