@@ -23,6 +23,8 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         faxText: 'fax',
         addressText: 'address',
         contactTitleText: 'title',
+        titleTitleText: 'Title',
+        addressTitleText: 'Address',
         ownerText: 'owner',
         resourceKind: 'contacts',
         entityName: 'Contact',
@@ -49,14 +51,10 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         ],
         getValues: function() {
             var U = Sage.Platform.Mobile.Utility,
-                values = Mobile.SalesLogix.Contact.Edit.superclass.getValues.apply(this, arguments),
-                AccountName = Ext.DomQuery.select('#contact_edit [name="Account"] a span')[0].innerHTML;
+                values = Mobile.SalesLogix.Contact.Edit.superclass.getValues.apply(this, arguments);
 
-            U.setValue(values, 'AccountName', AccountName);
-            U.setValue(values, 'Account.AccountName', AccountName);
-            U.setValue(values, 'NameLF', (values.FirstName + ' ' + values.LastName));
-            if (values.Address && !values.Address.Description) U.setValue(values, 'Address.Description', 'Mailing');
-
+            U.setValue(values, 'AccountName', U.getValue(values, 'Account.AccountName'));
+            
             return values;
         },
         setValues: function() {
@@ -72,27 +70,25 @@ Ext.namespace("Mobile.SalesLogix.Contact");
             return this.layout || (this.layout = [
                 {name: 'FirstName', label: this.firstNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
                 {name: 'LastName', label: this.lastNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
-                {name: 'Account', label: this.accountNameText, type: 'lookup', view: 'acc_list', textProperty: 'AccountName', forceValue: true},
+                {name: 'Account', label: this.accountNameText, type: 'lookup', view: 'account_lookup', textProperty: 'AccountName', forceValue: true},
                 {name: 'WebAddress', label: this.webText, type: 'text'},
-                {name: 'WorkPhone', label: this.workText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
+                {name: 'WorkPhone', label: this.workText, type: 'phone'},
                 {name: 'Email', label: this.emailText, type: 'text'},
-                {name: 'Title', label: this.contactTitleText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Title"', title: 'Title'},
-                {name: 'Address', label: this.addressText, view: 'address_edit', type: 'address', resourceKind: 'contacts', title: 'Address', renderer: function(value){return Mobile.SalesLogix.Format.address(value, true)}},
-                {name: 'HomePhone', label: this.homePhoneText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
-                {name: 'Mobile', label: this.mobileText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
-                {name: 'Fax', label: this.faxText, type: 'phone', validator: Mobile.SalesLogix.Validator.isPhoneNumber, validationTrigger: 'keyup'},
-                {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF},
-                {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'}
+                {name: 'Title', label: this.contactTitleText, type: 'picklist', picklist: 'Title', title: this.titleTitleText},
+                {name: 'Address', label: this.addressText, view: 'address_edit', type: 'address', formatter: Mobile.SalesLogix.Format.address},
+                {name: 'HomePhone', label: this.homePhoneText, type: 'phone'},
+                {name: 'Mobile', label: this.mobileText, type: 'phone'},
+                {name: 'Fax', label: this.faxText, type: 'phone'},
+                {
+                    name: 'AccountManager',
+                    label: this.acctMgrText,
+                    type: 'lookup',
+                    view: 'user_list',
+                    textProperty: 'UserInfo',
+                    textTemplate: Mobile.SalesLogix.Template.nameLF
+                },
+                {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', textProperty: 'OwnerDescription'}
             ]);  
-        },
-        createRequest: function() {
-            return Mobile.SalesLogix.Contact.Edit.superclass.createRequest.call(this)
-                .setResourceKind(this.resourceKind)
-               .setQueryArgs({
-                    'select': [
-
-                    ].join(',')
-                })
         }
     });
 })();

@@ -34,6 +34,10 @@ Ext.namespace("Mobile.SalesLogix.Account");
         industryText: 'industry',
         businessDescriptionText: 'bus desc',
         importSourceText: 'lead source',
+        accountTypeTitleText: 'Account Type',
+        accountSubTypeTitleText: 'Account Subtype',
+        accountStatusTitleText: 'Account Status',
+        industryTitleText: 'Industry',
         resourceKind: 'accounts',
         entityName: 'Account',
         querySelect: [
@@ -75,8 +79,8 @@ Ext.namespace("Mobile.SalesLogix.Account");
 
             return values;
         },
-        formatDependantPicklist: function(dependantValue, format) {
-            return String.format(format, dependantValue);
+        formatDependentPicklist: function(dependentValue, format) {
+            return String.format(format, dependentValue);
         },
         createLayout: function() {
             return this.layout || (this.layout = [
@@ -85,14 +89,43 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 {name: 'MainPhone', label: this.phoneText, type: 'phone'},
                 {name: 'Address', label: this.fullAddressText, view: 'address_edit', type: 'address', formatter: Mobile.SalesLogix.Format.address},
                 {name: 'Fax', label: this.faxText, type: 'phone'},
-                {name: 'Type', label: this.typeText, type: 'picklist', picklist: 'Account Type', title: 'Account Type'},
-                {name: 'SubType', label: this.subTypeText, type: 'picklist', requireSelection: false, picklist: this.formatDependantPicklist.createDelegate(this, ['Account {0}'], true), title: 'Account SubType', dependsOn: 'Type'},
-                {name: 'Status', label: this.statusText, type: 'picklist', requireSelection: false, picklist: 'Account Status', title: 'Account Status'},
-                {name: 'Industry', label: this.industryText, type: 'picklist', requireSelection: false, picklist: 'Industry', title: 'Industry'},
+                {name: 'Type', label: this.typeText, type: 'picklist', picklist: 'Account Type', title: this.accountTypeTitleText},
+                {
+                    name: 'SubType',
+                    label: this.subTypeText,
+                    type: 'picklist',
+                    requireSelection: false,
+                    picklist: this.formatDependentPicklist.createDelegate(this, ['Account {0}'], true),
+                    title: this.accountSubTypeTitleText,
+                    dependsOn: 'Type'
+                },
+                {
+                    name: 'Status',
+                    label: this.statusText,
+                    type: 'picklist',
+                    requireSelection: false,
+                    picklist: 'Account Status',
+                    title: this.accountStatusTitleText
+                },
+                {
+                    name: 'Industry',
+                    label: this.industryText,
+                    type: 'picklist',
+                    requireSelection: false,
+                    picklist: 'Industry',
+                    title: this.industryTitleText
+                },
                 {name: 'BusinessDescription', label: this.businessDescriptionText, type: 'text'},
-                {name: 'AccountManager', label: this.acctMgrText, type: 'lookup', view: 'user_list', keyProperty: '$key', textProperty: 'UserInfo', textTemplate: Mobile.SalesLogix.Template.nameLF},
-                {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', keyProperty: '$key', textProperty: 'OwnerDescription'},
-                {name: 'LeadSource', label: this.importSourceText, type: 'lookup', view: 'leadsource_list', keyProperty: '$key', textProperty: 'Description'}
+                {
+                    name: 'AccountManager',
+                    label: this.acctMgrText,
+                    type: 'lookup',
+                    view: 'user_list',
+                    textProperty: 'UserInfo',
+                    textTemplate: Mobile.SalesLogix.Template.nameLF
+                },
+                {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', textProperty: 'OwnerDescription'},
+                {name: 'LeadSource', label: this.importSourceText, type: 'lookup', view: 'leadsource_list', textProperty: 'Description'}
             ]);
         }
     });

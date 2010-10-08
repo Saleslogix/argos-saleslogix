@@ -221,11 +221,11 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
 
-        this.registerView(new Mobile.SalesLogix.Account.LookupList({
+        this.registerView(new Mobile.SalesLogix.Account.Lookup({
             expose: false
         }));
 
-        this.registerView(new Mobile.SalesLogix.Contact.LookupList({
+        this.registerView(new Mobile.SalesLogix.Contact.Lookup({
             expose: false
         }));
     }

@@ -57,6 +57,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         regardingText: 'regarding',
         companyText: 'company',
         priorityText: 'priority',
+        activityTypeTitleText: 'Activity Type',
+        activityDescriptionTitleText: 'Activity Description',
+        activityCategoryTitleText: 'Activity Category',
+        priorityTitleText: 'Priority',
         resourceKind: 'activities',
         entityName: 'Activity', // todo: is this correct?
         querySelect: [
@@ -79,15 +83,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'Company',
             'LongNotes'
         ],        
-        formatDescriptionPredicate: function(val) {
-            return String.format("name eq '{0}'", this.picklistsByType[val] ? this.picklistsByType[val]['Description'] : '');
-        },
-        formatCategoryPredicate: function(val) {
-            return String.format("name eq '{0}'", this.picklistsByType[val] ? this.picklistsByType[val]['Category'] : '');
-        },       
-        init: function() {
-            Mobile.SalesLogix.Activity.Edit.superclass.init.call(this);
-        },
         createTypeList: function() {
             var list = [];
             for (var type in this.activityTypeText)
@@ -95,14 +90,44 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     '$key': type,
                     '$descriptor': this.activityTypeText[type] 
                 });
-            return list;
+            return {'$resources': list};
+        },       
+        formatTypeDependentPicklist: function(type, which) {
+            return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'Type', label: this.typeText, type: 'select', view: 'select_list', title: 'Activity Type', list: this.createTypeList()},
-                {name: 'Description', label: this.regardingText, type: 'picklist', view: 'pick_list', resourcePredicate: this.formatDescriptionPredicate.createDelegate(this), title: 'Activity Description', dependsOn: 'Type', errMsg: 'A "Type" is required for "Description"', orderBy: 'sort asc'},
-                {name: 'Priority', label: this.priorityText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Priorities"', title: 'Priorities', orderBy: 'sort asc'},
-                {name: 'Category', label: this.categoryText, type: 'picklist', view: 'pick_list', resourcePredicate: this.formatCategoryPredicate.createDelegate(this), title: 'Activity Category', dependsOn: 'Type', errMsg: 'A "Type" is required for "Category"', orderBy: 'sort asc'},
+                {
+                    name: 'Type',
+                    label: this.typeText,
+                    type: 'select',
+                    view: 'select_list',                    
+                    title: this.activityTypeTitleText,
+                    data: this.createTypeList()
+                },
+                {
+                    name: 'Description',
+                    label: this.regardingText,
+                    type: 'picklist',
+                    picklist: this.formatTypeDependentPicklist.createDelegate(this, ['Description'], true),
+                    title: this.activityDescriptionTitleText,
+                    dependsOn: 'Type'
+                },
+                {
+                    name: 'Priority',
+                    label: this.priorityText,
+                    type: 'picklist',
+                    picklist: 'Priorities',                    
+                    title: this.priorityTitleText
+                },
+                {
+                    name: 'Category',
+                    label: this.categoryText,
+                    type: 'picklist',
+                    picklist: this.formatTypeDependentPicklist.createDelegate(this, ['Category'], true),
+                    title: this.activityCategoryTitleText,
+                    dependsOn: 'Type'
+                },
                 {name: 'StartDate', label: this.startingText, type: 'text'},
                 {name: 'Timeless', label: this.timelessText, type: 'boolean'},
                 {name: 'Duration', label: this.durationText, type: 'text', validator: Mobile.SalesLogix.Validator.isInteger},

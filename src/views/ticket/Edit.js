@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
+/// <reference path="../../../../ext/ext-core-debug.js"/>
 /// <reference path="../../../../Simplate.js"/>
 /// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
 /// <reference path="../../../../sdata/SDataService.js"/>
@@ -53,9 +53,8 @@ Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         this.layout = [
             {name: 'TicketNumber', label: this.ticketIdText,type: 'text', readonly: true},
-            {name: 'Account', label: this.accountText, type: 'lookup', view: 'acc_list', keyProperty: '$key', textProperty: 'AccountName'},
-            {name: 'Contact', label: this.contactText, type: 'lookup', view: 'con_list', keyProperty: '$key', textProperty: 'NameLF', where: filterByAccountId},
-            //{name: 'Contract', label: this.contractText, type: 'lookup', view: 'con_list', keyProperty: '$key', textProperty: 'NameLF', where: new Simplate(['name eq "Account {%= Type %}"'])},
+            {name: 'Account', label: this.accountText, type: 'lookup', view: 'account_lookup', keyProperty: '$key', textProperty: 'AccountName'},
+            {name: 'Contact', label: this.contactText, type: 'lookup', view: 'contact_lookup', keyProperty: '$key', textProperty: 'NameLF', where: filterByAccountId},            
             {name: 'Area', label: this.areaText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Ticket Area"', title: 'Ticket Area', orderBy: 'sort asc'},
             {name: 'Category', label: this.categoryText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Ticket Category"', title: 'Ticket Category'},
             {name: 'Issue', label: this.issueText, type: 'picklist', view: 'pick_list', resourcePredicate: 'name eq "Ticket Issue"', title: 'Ticket Issue'},
