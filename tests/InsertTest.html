@@ -1,0 +1,59 @@
+<html>
+<head>
+    <title>Jasmine Test Runner</title>
+    <link rel="stylesheet" type="text/css" href="../Jasmine/jasmine.css">
+    <script type="text/javascript" src="../Jasmine/jasmine.js"></script>
+    <script type="text/javascript" src="../Jasmine/jasmine-html.js"></script>
+
+    <script type="text/javascript" src="../../../argos-sdk/libraries/sage/sage.js"></script>
+    <script type="text/javascript" src="../../../argos-sdk/libraries/sage/class.js"></script>
+    <script type="text/javascript" src="../../../argos-sdk/libraries/sage/deferred.js"></script>
+    <script type="text/javascript" src="../../../argos-sdk/libraries/sage/event.js"></script>
+    <script type="text/javascript" src="../../../argos-sdk/libraries/sage/evented.js"></script>
+    <script type="text/javascript" src="../../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
+
+    <script type="text/javascript" src="../../../argos-sdk/libraries/datejs/src/core.js"></script>
+    <script type="text/javascript" src="../../../argos-sdk/libraries/ObjTree.js"></script>
+    <script type="text/javascript" src="../../../argos-sdk/libraries/Base64.js"></script>
+    <script type="text/javascript" src="../../../argos-sdk/libraries/Simplate.js"></script>
+    
+    <script type="text/javascript">
+        var InsertTest = {};
+        InsertTest.getService = function(){
+            var service = new Sage.SData.Client.SDataService({
+                serverName: 'slxbrowser.sagesaleslogixcloud.com', 
+                virtualDirectory: 'sdata',
+                applicationName: 'slx',
+                contractName: 'dynamic',
+                port: 80,
+                protocol: false
+            });
+            service.setUserName('lee').setPassword('');
+            
+            return service;
+        };
+
+        InsertTest.getTemplateForResourceKind = function(resourceKind, service, callback) {
+            var tempRequest = new Sage.SData.Client.SDataTemplateResourceRequest(service);
+
+            tempRequest.setResourceKind(resourceKind);
+            tempRequest.read({
+                success: function(entry) {
+                    if (callback && typeof callback == 'function') callback(entry);
+                },
+                failure: function(){console.log('template request failed')},
+                scope: this
+            });
+        };
+    </script>
+    
+    <script type="text/javascript" src="mockInsert.js"></script>
+    <title>Argos Saleslogix Insert test</title>
+</head>
+<body>
+    <script type="text/javascript">
+      jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+      jasmine.getEnv().execute();
+    </script>
+</body>
+</html>
