@@ -25,14 +25,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
             'AccountManager/UserInfo/UserName'
         ],
         queryOrderBy: 'AccountName',
-        contextView: 'context_list',
+        contextView: 'context_dialog',
         contextItems: [
             {'$key': 'activities', view: 'activity_related', where: "AccountId eq '{0}'"},
-            {'$key': 'atToDo', view: 'activity_edit'},
-            {'$key': 'atPhoneCall', view: 'activity_edit'},
-            {'$key': 'atAppointment', view: 'activity_edit'},
-            {'$key': 'atLiterature', view: 'activity_edit'},
-            {'$key': 'atPersonal', view: 'activity_edit'},
             {'$key': 'notes', view: 'note_related', where: "AccountId eq '{0}' and Type eq 'atNote'"}
         ],
         formatSearchQuery: function(query) {

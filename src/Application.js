@@ -96,7 +96,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Configure());
         this.registerView(new Mobile.SalesLogix.PickList());
         this.registerView(new Mobile.SalesLogix.SelectList());
-        this.registerView(new Mobile.SalesLogix.ContextList());
+        this.registerView(new Mobile.SalesLogix.ContextDialog());
         this.registerView(new Mobile.SalesLogix.AddAccountContact());
         
         this.registerView(new Mobile.SalesLogix.Address.Edit());
@@ -243,5 +243,3 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 
 // instantiate application instance
 var App = new Mobile.SalesLogix.Application();
-
-

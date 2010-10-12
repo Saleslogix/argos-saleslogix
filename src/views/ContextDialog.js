@@ -8,22 +8,44 @@ Ext.namespace("Mobile.SalesLogix");
 
 /// this is a very simple home view.
 Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
+    attachmentPoints: {
+        contentEl: '.list-content'
+    },
     cancelText: 'Cancel',
     activitiesText: 'Activities',
     notesText: 'Notes',
-    detailView: '',
-    relatedKey: '',
+    detailView: false,
+    relatedKey: false,
+    contextItems: [],
+    parentViewId: '',
     viewTemplate: new Simplate([
-        '<form id="{%= id %}" class="dialog">',
+        '<div id="{%= id %}" class="dialog">',
             '<fieldset>',
-                '<ul>',
-                    '<li><a href="" class="button activities blueButton">{%= $.activitiesText %}</a></li>',
-                    '<li><a href="" class="button notes blueButton">{%= $.notesText %}</a></li>',
-                    '<li><a type="cancel" class="button dismissButton redButton">{%= $.cancelText %}</a></li>',
-                '</ul>',
+                '<ul class="list-content"></ul>',
             '</fieldset>',
-        '</form>'
+        '</div>'
     ]),
+    itemTemplate: new Simplate([
+        '<li data-action="activateButton" data-view="{%= $.view %}" ',
+            'data-descriptor="{%: $.$descriptor %}" data-where="{%= $.where %}">',
+        '<a href="#" class="button activities blueButton">{%: $.title %}</a>',
+        '</li>'
+    ]),
+    cancelButtonTemplate: new Simplate([
+        '<li data-action="dismissDialog">',
+        '<a href="#" class="button dismissButton redButton">{%: $.cancelText %}</a>',
+        '</li>'
+    ]),
+    activateButton: function(params) {
+        console.log(params);
+        var o = {
+                'key': this.relatedKey
+            },
+            navigateToRelatedView = Sage.Platform.Mobile.Detail.prototype.navigateToRelatedView;
+        if (params.where) o.where = String.format(params.where, this.relatedKey);
+
+        navigateToRelatedView.call(this, params.view, o, params.descriptor);
+    },
     constructor: function(o) {
         Mobile.SalesLogix.ContextDialog.superclass.constructor.call(this);
 
@@ -32,64 +54,40 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
             expose: false
         });
     },
-    init: function() {
-        Mobile.SalesLogix.ContextDialog.superclass.init.call(this);
-        var getRelatedOptionsFromLayout = function(detailView, type) {
-            for (var i = detailView.layout.length - 1; i >= 0; i--) {
-                var as = detailView.layout[i].as;
-                if (!as) continue;
-                for (var j = as.length - 1; j >= 0; j--) {
-                    if (as[j].view == type) {
-                        return as[j];
-                    }
-                }
-            }
-        };
+    processTemplate: function() {
+        var menu = [],
+            item;
 
-        var handlerForRelatedType = function(evt, el, o, scope, related_view) {
-            scope.dismissDialog();
-
-            var detailView = App.getView(scope.detailView),
-                o = {},
-                activityRelatedOptions = getRelatedOptionsFromLayout(detailView, related_view);
-            o.where = detailView.expandExpression(activityRelatedOptions.where, {"$key": scope.relatedKey});
-
-            detailView.navigateToRelatedView(related_view, o);
-            //Reset key and descriptor
-            scope.detailView = '';
-            scope.relatedKey = '';
-        };
-
-        this.el
-            .on('submit', function(evt, el, o) {
-                return false;
-            }, this, { preventDefault: true, stopPropagation: true })
-            .dom.onsubmit = false; // fix for iui shenanigans
-
-        this.el.select('.dismissButton')
-            .on('click', function(evt, el, o) {
-                this.dismissDialog();
-            }, this, { preventDefault: true, stopPropagation: true });
-
-        this.el.select('.activities')
-            .on('click', function(evt, el, o) {
-                handlerForRelatedType(evt, el, o, this, "activity_related");
-            }, this, { preventDefault: true, stopPropagation: true });
-
-        this.el.select('.notes')
-            .on('click', function(evt, el, o) {
-                handlerForRelatedType(evt, el, o, this, "note_related");
-            }, this, { preventDefault: true, stopPropagation: true });
+        for (var i = 0; i < this.contextItems.length; i++)
+        {
+            item = this.contextItems[i];
+            item.title = item.descriptor = this[(item['$key']+'Text')] || item['$key'];
+            menu.push(this.itemTemplate.apply(item, this));
+        }
+        menu.push(this.cancelButtonTemplate.apply(this));
+        this.contentEl.update(menu.join(''));
     },
-
+    refreshRequiredFor: function(options) {
+        return this.parentViewId !== options.parentViewId;
+    },
     show: function(options) {
-        Mobile.SalesLogix.ContextDialog.superclass.show.call(this);
+        Mobile.SalesLogix.ContextDialog.superclass.show.call(this, options);
+        this.contextItems = options.contextItems;
 
+        if (this.refreshRequiredFor(options))
+        {
+            this.processTemplate();
+        }
         this.detailView = App.getView(options.detailView);
         this.relatedKey = options.key;
+        this.parentViewId = options.parentViewId;
     },
 
     dismissDialog: function() {
+        this.detailView = false;
+        this.relatedKey = false;
+        this.parentViewId = '';
+        this.contextItems = [];
         this.el.dom.removeAttribute('selected');
     }
 });
