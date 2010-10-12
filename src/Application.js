@@ -20,7 +20,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         Mobile.SalesLogix.Application.superclass.init.call(this);
 
         var home = App.getView('home');
-        Ext.get("backButton").on("clicklong", function() {
+        Ext.get("backButton").on("longpress", function() {
 
             if (home) {
                 home.show();

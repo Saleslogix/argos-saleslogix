@@ -37,7 +37,6 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
         '</li>'
     ]),
     activateButton: function(params) {
-        console.log(params);
         var o = {
                 'key': this.relatedKey
             },
