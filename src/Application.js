@@ -99,6 +99,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.ContextDialog());
         this.registerView(new Mobile.SalesLogix.AddAccountContact());
         
+        this.registerView(new Mobile.SalesLogix.NameEdit());
         this.registerView(new Mobile.SalesLogix.Address.Edit());
 
         this.registerView(new Mobile.SalesLogix.Account.List());
