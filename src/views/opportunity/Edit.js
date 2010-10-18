@@ -65,7 +65,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     textTemplate: Mobile.SalesLogix.Template.nameLF,
                     alwaysUseValue: true
                 },
-                {name: 'EstimatedClose', label: this.estCloseText, type: 'text'},
+                {name: 'EstimatedClose', label: this.estCloseText, type: 'date'},
                 {
                     name: 'SalesPotential',
                     label: this.potentialText,
