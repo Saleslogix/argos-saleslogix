@@ -126,7 +126,9 @@ Mobile.SalesLogix.Format = (function() {
             return v;
         },
         nameLF: function(val) {
-            return Mobile.SalesLogix.Template.nameLF.apply(val);
+            var name = Mobile.SalesLogix.Template.nameLF.apply(val);
+            if (name == ', ') name = '';
+            return name;
         }             
     }, F);
 })();
