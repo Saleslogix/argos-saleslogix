@@ -40,6 +40,13 @@ Ext.namespace("Mobile.SalesLogix.Account");
         industryTitleText: 'Industry',
         resourceKind: 'accounts',
         entityName: 'Account',
+        queryInclude: [
+            'Address',
+            'AccountManager',
+            'AccountManager/UserInfo',
+            'Owner',
+            'LeadSource'
+        ],
         querySelect: [
             'AccountName',
             'MainPhone',
