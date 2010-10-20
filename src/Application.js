@@ -245,3 +245,17 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 
 // instantiate application instance
 var App = new Mobile.SalesLogix.Application();
+
+App.getMatchingContext = function(contexts, depth) {
+    var context;
+
+    for (var i = 0; i < contexts.length; i++)
+    {
+        context = App.queryNavigationContext(function(o) {
+            return (o.resourceKind === contexts[i]) && o.key;
+        }, depth);
+        if (context) break;
+    }
+
+    return context;
+};

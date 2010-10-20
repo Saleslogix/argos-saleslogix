@@ -60,34 +60,38 @@ Ext.namespace("Mobile.SalesLogix.Contact");
             return values;
         },
         setValues: function() {
-            var accountContext = App.queryNavigationContext(function(o) {
-                    return (o.resourceKind === 'accounts') && o.key;
-                }, 2),
-                contactRelatedContext = App.queryNavigationContext(function(){return true}, 1),
-                entry = App.getView(accountContext.id).entry;
-
             Mobile.SalesLogix.Contact.Edit.superclass.setValues.apply(this, arguments);
 
-            if (contactRelatedContext.id == 'contact_related' && accountContext &&
-                entry && accountContext.key === entry.$key)
-            {
-                for (var field in this.fields)
-                {
-                    if (field === 'Account')
-                    {
-                        this.fields['Account'].setValue(entry);
-                        continue;
-                    }
-                    else if (field === 'WorkPhone')
-                    {
-                        this.fields['WorkPhone'].setValue(entry['MainPhone']);
-                        continue;
-                    }
-                    else if (!entry[field])
-                        continue;
+            var contexts = ['accounts'],
+                primaryContext = App.queryNavigationContext(function(){return true}, 1),
+                secondaryContext = App.getMatchingContext(contexts), entry;
 
-                    this.fields[field].setValue(entry[field]);
+            if (!secondaryContext) return;
+
+            entry = App.getView(secondaryContext.id).entry;
+
+            if (entry && secondaryContext.resourceKind === 'accounts')
+            {
+                this.applyAccountContext(entry);
+            }
+        },
+        applyAccountContext: function(entry) {
+            for (var field in this.fields)
+            {
+                if (field === 'Account')
+                {
+                    this.fields['Account'].setValue(entry);
+                    continue;
                 }
+                else if (field === 'WorkPhone')
+                {
+                    this.fields['WorkPhone'].setValue(entry['MainPhone']);
+                    continue;
+                }
+                else if (!entry[field])
+                    continue;
+
+                this.fields[field].setValue(entry[field]);
             }
         },
         createLayout: function() {

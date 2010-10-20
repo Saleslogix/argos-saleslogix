@@ -71,6 +71,33 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
             return key ? String.format('Account.id eq "{0}"', key) : false;
         },
+        setValues: function() {
+            Mobile.SalesLogix.Ticket.Edit.superclass.setValues.apply(this, arguments);
+
+            var contexts = ['accounts', 'contacts'],
+                primaryContext = App.queryNavigationContext(function(){return true}, 1),
+                secondaryContext = App.getMatchingContext(contexts), entry;
+
+            if (!secondaryContext) return;
+
+            entry = App.getView(secondaryContext.id).entry;
+
+            if (entry && secondaryContext.resourceKind === 'accounts')
+            {
+                this.applyAccountContext(entry);
+            }
+            else if (entry && secondaryContext.resourceKind === 'contacts')
+            {
+                this.applyContactContext(entry);
+            }
+        },
+        applyAccountContext: function(entry) {
+            this.fields['Account'].setValue(entry);
+        },
+        applyContactContext: function(entry) {
+            this.fields['Account'].setValue(entry.Account);
+            this.fields['Contact'].setValue(entry);
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {name: 'TicketNumber', label: this.ticketIdText,type: 'text', readonly: true},
@@ -80,7 +107,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 {name: 'Category', label: this.categoryText, type: 'picklist', picklist: 'Ticket Category', title: this.ticketCategoryTitleText},
                 {name: 'Issue', label: this.issueText, type: 'picklist', picklist: 'Ticket Issue', title: this.ticketIssueTitleText},
                 {name: 'Source', label: this.sourceText, type: 'picklist', picklist: 'Source', title: this.sourceTitleText},
-                {name: 'StatusCode', label: this.statusText, type: 'picklist', picklist: 'Ticket Status', title: this.ticketStatusTitleText},
+                {name: 'StatusCode', label: this.statusText, type: 'picklist', picklist: 'Ticket Status', title: this.ticketStatusTitleText, storageMode: 'code'},
                 // todo: there is no Ticket Urgency picklist
                 {name: 'UrgencyCode', label: this.urgencyText, type: 'picklist', picklist: 'Ticket Urgency', title: this.ticketUrgencyTitleText},
                 {name: 'NeededByDate', label: this.needByText, renderer: Mobile.SalesLogix.Format.date, type: 'date'},

@@ -23,6 +23,7 @@ Mobile.SalesLogix.Activity.Types = {
         id: 'activity_list',
         icon: 'content/images/Task_List_3D_24x24.gif',
         titleText: 'Activities',
+        insertView: 'activity_edit',
         detailView: 'activity_detail',
         resourceKind: 'activities',
         querySelect: [

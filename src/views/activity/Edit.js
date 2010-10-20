@@ -95,6 +95,58 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         formatTypeDependentPicklist: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
+        setValues: function() {
+            Mobile.SalesLogix.Activity.Edit.superclass.setValues.apply(this, arguments);
+
+            var contexts = ['accounts', 'leads', 'contacts', 'tickets', 'opportunities'],
+                primaryContext = App.queryNavigationContext(function(){return true}, 1),
+                secondaryContext = App.getMatchingContext(contexts), entry;
+
+            if (!secondaryContext) return;
+            
+            entry = App.getView(secondaryContext.id).entry;
+
+            if (entry && secondaryContext.resourceKind === 'accounts')
+            {
+                this.applyAccountContext(entry);
+            }
+            else if (entry && secondaryContext.resourceKind === 'leads')
+            {
+                this.applyLeadContext(entry);
+            }
+            else if (entry && secondaryContext.resourceKind === 'contacts')
+            {
+                this.applyContactContext(entry);
+            }
+            else if (entry && secondaryContext.resourceKind === 'tickets')
+            {
+                this.applyTicketContext(entry);
+            }
+            else if (entry && secondaryContext.resourceKind === 'opportunities')
+            {
+                this.applyOpportunityContext(entry);
+            }
+        },
+        applyAccountContext: function(entry) {
+            this.fields['AccountName'].setValue(entry.AccountName);
+        },
+        applyLeadContext: function(entry) {
+            this.fields['ContactName'].setValue(entry.LeadNameLastFirst);
+            this.fields['AccountName'].setValue(entry.Company);
+        },
+        applyContactContext: function(entry) {
+            this.fields['ContactName'].setValue(entry.NameLF);
+            this.fields['AccountName'].setValue(entry.AccountName);
+        },
+        applyTicketContext: function(entry) {
+            this.fields['ContactName'].setValue(entry.Contact.NameLF);
+            this.fields['AccountName'].setValue(entry.Account.AccountName);
+            this.fields['TicketNumber'].setValue(entry.TicketNumber);
+        },
+        applyOpportunityContext: function(entry) {
+            this.fields['OpportunityName'].setValue(entry.Description);
+            this.fields['AccountName'].setValue(entry.Account.AccountName);
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
@@ -136,7 +188,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {name: 'Rollover', label: this.rolloverText, type: 'boolean'},
                 {name: 'LeadId', label: this.leadIdText, type: 'text'},
                 {name: 'ContactName', label: this.contactText, type: 'text'},
-                {name: 'AccountName', label: this.accountText, type: 'text'},
                 {name: 'OpportunityName', label: this.opportunityText, type: 'text'},
                 {name: 'TicketNumber', label: this.ticketNumberText, type: 'text'},
                 {name: 'LeadName', label: this.leadText, type: 'text'},

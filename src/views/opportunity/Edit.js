@@ -47,8 +47,24 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             'Type',
             'LeadSource/Description'
         ],
-        init: function() {
-            Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
+        setValues: function() {
+            Mobile.SalesLogix.Opportunity.Edit.superclass.setValues.apply(this, arguments);
+
+            var contexts = ['accounts'],
+                primaryContext = App.queryNavigationContext(function(){return true}, 1),
+                secondaryContext = App.getMatchingContext(contexts), entry;
+
+            if (!secondaryContext) return;
+
+            entry = App.getView(secondaryContext.id).entry;
+
+            if (entry && secondaryContext.resourceKind === 'accounts')
+            {
+                this.applyAccountContext(entry);
+            }
+        },
+        applyAccountContext: function(entry) {
+            this.fields['Account'].setValue(entry);
         },
         createLayout: function() {
             // todo: add account on change handling
