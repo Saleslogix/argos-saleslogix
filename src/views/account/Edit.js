@@ -78,14 +78,6 @@ Ext.namespace("Mobile.SalesLogix.Account");
             'BusinessDescription',
             'LeadSource/Description'
         ],
-        getValues: function() {
-            var U = Sage.Platform.Mobile.Utility,
-                values = Mobile.SalesLogix.Contact.Edit.superclass.getValues.apply(this, arguments);
-
-            if (values.Address && !values.Address.Description) U.setValue(values, 'Address.Description', 'Mailing');
-
-            return values;
-        },
         formatDependentPicklist: function(dependentValue, format) {
             return String.format(format, dependentValue);
         },
