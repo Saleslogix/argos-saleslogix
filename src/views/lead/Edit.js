@@ -35,8 +35,11 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         entityName: 'Lead',
         querySelect: [
             'LeadNameLastFirst',
+            'Prefix',
             'FirstName',
+            'MiddleName',
             'LastName',
+            'Suffix',
             'Company',
             'WorkPhone',
             'Email',
@@ -53,7 +56,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         ],
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'LeadNameLastFirst', label: this.leadNameLastFirstText, type: 'text'},
+                {name: 'LeadNameLastFirst', label: this.leadNameLastFirstText, type: 'name', view: 'name_edit', applyTo:'', formatter: Mobile.SalesLogix.Format.nameLF},
                 {name: 'Company', label: this.companyText, type: 'text'},
                 {name: 'WebAddress', label: this.webText, type: 'text'},
                 {name: 'WorkPhone', label: this.workText, type: 'phone'},

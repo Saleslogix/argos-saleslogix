@@ -1,3 +1,6 @@
+* {
+      -webkit-touch-callout: none;
+  }
 body > ul > li > a,
 ul.list-content > li > a
 {

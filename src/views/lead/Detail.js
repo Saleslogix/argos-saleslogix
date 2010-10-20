@@ -39,8 +39,11 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     ],
     querySelect: [
         'LeadNameLastFirst',
+        'Prefix',
         'FirstName',
+        'MiddleName',
         'LastName',
+        'Suffix',
         'Company',
         'WorkPhone',
         'Email',

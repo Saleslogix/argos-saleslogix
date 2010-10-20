@@ -11,8 +11,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
     Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         id: 'contact_edit',
         titleText: 'Contact',
-        firstNameText: 'first',
-        lastNameText: 'last',
+        nameText: 'name',
         workText: 'phone',
         mobileText: 'mobile',
         emailText: 'email',
@@ -31,8 +30,11 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         querySelect: [
             'Account/AccountName',
             'NameLF',
+            'Prefix',
             'FirstName',
+            'MiddleName',
             'LastName',
+            'Suffix',
             'AccountName',
             'WorkPhone',
             'Mobile',
@@ -68,8 +70,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'FirstName', label: this.firstNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
-                {name: 'LastName', label: this.lastNameText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
+                {name: 'ContactName', label: this.nameText, type: 'name', view: 'name_edit', applyTo:'', formatter: Mobile.SalesLogix.Format.nameLF},
                 {name: 'Account', label: this.accountNameText, type: 'lookup', view: 'account_lookup', textProperty: 'AccountName', forceValue: true},
                 {name: 'WebAddress', label: this.webText, type: 'text'},
                 {name: 'WorkPhone', label: this.workText, type: 'phone'},

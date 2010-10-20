@@ -83,8 +83,8 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 {name: 'StatusCode', label: this.statusText, type: 'picklist', picklist: 'Ticket Status', title: this.ticketStatusTitleText},
                 // todo: there is no Ticket Urgency picklist
                 {name: 'UrgencyCode', label: this.urgencyText, type: 'picklist', picklist: 'Ticket Urgency', title: this.ticketUrgencyTitleText},
-                {name: 'NeededByDate', label: this.needByText, renderer: Mobile.SalesLogix.Format.date, type: 'text'},
-                {name: 'AssignedDate', label: this.assignedDateText, renderer: Mobile.SalesLogix.Format.date, type: 'text'},
+                {name: 'NeededByDate', label: this.needByText, renderer: Mobile.SalesLogix.Format.date, type: 'date'},
+                {name: 'AssignedDate', label: this.assignedDateText, renderer: Mobile.SalesLogix.Format.date, type: 'date'},
                 {name: 'AssignedTo', label: this.assignedToText,type: 'lookup', view: 'owner_list', textProperty: 'OwnerDescription'},
                 {name: 'Subject', label: this.subjectText,type: 'text'},
                 {name: 'Description', label: this.descriptionText, type: 'text'},

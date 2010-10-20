@@ -124,6 +124,9 @@ Mobile.SalesLogix.Format = (function() {
             var m = Math.pow(10, d);
             var v = Math.floor(parseFloat(val) * m) / m;
             return v;
+        },
+        nameLF: function(val) {
+            return Mobile.SalesLogix.Template.nameLF.apply(val);
         }             
     }, F);
 })();
