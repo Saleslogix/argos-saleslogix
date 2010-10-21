@@ -17,7 +17,12 @@ Mobile.SalesLogix.SelectList = Ext.extend(Sage.Platform.Mobile.List, {
         var data = this.expandExpression(this.options && this.options.data);
         if (data)
         {
-            this.processFeed(data);
+            this.processFeed({
+                '$itemsPerPage': 25,
+                '$resources': data,
+                '$startIndex': 1,
+                '$totalResults': data.length
+            });
         }
     }
 });

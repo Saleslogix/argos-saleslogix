@@ -94,7 +94,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 });
             }
 
-            return {'$resources': list};
+            return list;
         },       
         formatTypeDependentPicklist: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
