@@ -50,6 +50,14 @@ Ext.namespace("Mobile.SalesLogix.Contact");
             'WebAddress',
             'WorkPhone'
         ],
+        init: function() {
+            Mobile.SalesLogix.Contact.Edit.superclass.init.apply(this, arguments);
+            var accountName = this.fields['AccountName'];
+
+            this.fields['Account'].on('change', function(value, field) {
+                accountName.setValue(value.text);
+            });
+        },
         setValues: function() {
             Mobile.SalesLogix.Contact.Edit.superclass.setValues.apply(this, arguments);
 
@@ -102,6 +110,11 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     view: 'account_lookup',
                     textProperty: 'AccountName',
                     forceValue: true
+                },
+                {
+                    alwaysUseValue: true,
+                    name: 'AccountName',
+                    type: 'hidden'
                 },
                 {
                     name: 'WebAddress',
