@@ -18,24 +18,41 @@ Ext.namespace("Mobile.SalesLogix.Return");
         returnedByText: 'returned by',
         resourceKind: 'returns',
         entityName: 'Return',
-        queryInclude: [
-            'ReturnedBy'
-        ],
         querySelect: [
-            'ReturnNumber',
-            'Priority',
-            'ReturnType',
             'ExpectedDate',
-            'ReturnedBy/FullName'
+            'Priority',
+            'ReturnedBy/FullName',
+            'ReturnNumber',
+            'ReturnType'
         ],
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'ReturnNumber', label: this.returnIdText, type: 'text'},
-                {name: 'Priority', label: this.priorityText, type: 'text'},
-                {name: 'ReturnType', label: this.typeText, type: 'text'},
-                {name: 'ExpectedDate', label: this.regDateText, renderer: Mobile.SalesLogix.Format.date, type: 'text'},
-                {name: 'ReturnedBy.NameLF', label: this.returnedByText, type: 'text'}
-
+                {
+                    name: 'ReturnNumber',
+                    label: this.returnIdText,
+                    type: 'text'
+                },
+                {
+                    name: 'Priority',
+                    label: this.priorityText,
+                    type: 'text'
+                },
+                {
+                    name: 'ReturnType',
+                    label: this.typeText,
+                    type: 'text'
+                },
+                {
+                    name: 'ExpectedDate',
+                    label: this.regDateText,
+                    renderer: Mobile.SalesLogix.Format.date,
+                    type: 'text'
+                },
+                {
+                    name: 'ReturnedBy.NameLF',
+                    label: this.returnedByText,
+                    type: 'text'
+                }
             ]);
         }
     });

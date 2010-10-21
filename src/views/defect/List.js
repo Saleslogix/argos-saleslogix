@@ -12,10 +12,10 @@ Ext.namespace("Mobile.SalesLogix.Defect");
             '<h3>{%: $.AlternateKeyPrefix %}-{%: $.AlternateKeySuffix %}</h3>'
         ]),
         id: 'defect_list',
-        icon: 'content/images/defect_detail_24x24.gif',
-        titleText: 'Defects',
-        insertView: 'defect_edit',
         detailView: 'defect_detail',
+        icon: 'content/images/defect_detail_24x24.gif',
+        insertView: 'defect_edit',
+        titleText: 'Defects',
         resourceKind: 'defects',
         querySelect: [
             'AlternateKeyPrefix',

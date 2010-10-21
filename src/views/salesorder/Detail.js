@@ -10,39 +10,34 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
     Mobile.SalesLogix.SalesOrder.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         id: 'salesorder_detail',
         editView: 'salesorder_edit',
-        titleText: 'SalesOrder',
-        salesOrderIdText: 'sales order id',
         accountText: 'account',
-        typeText: 'type',
-        statusText: 'status',
-        totalText: 'total',
-        reqDateText: 'req date',
-        commentsText: 'comments',
         acctMgrText: 'acct mgr',
-        createUserText: 'create user',
+        commentsText: 'comments',
         createDateText: 'create date',
+        createUserText: 'create user',
+        fbarHomeTitleText: 'home',
+        fbarScheduleTitleText: 'schedule',
+        reqDateText: 'req date',
+        salesOrderIdText: 'sales order id',
+        statusText: 'status',
+        titleText: 'SalesOrder',
+        totalText: 'total',
+        typeText: 'type',
         resourceKind: 'salesorders',
-        queryInclude: [
-            'User/UserInfo',
-            'Account',
-            'Address',
-            'AccountManager',
-            'AccountManager/UserInfo'
-        ],
         querySelect: [
-            'SalesOrderNumber',
             'Account/AccountName',
-            'OrderType',
-            'Status',
-            'OrderTotal',
-            'DatePromised',
-            'Comments',
-            'StartDate',
-            'AccountManager/UserInfo/UserName',
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
+            'AccountManager/UserInfo/UserName',
+            'Comments',
+            'CreateDate',
             'CreateUser',
-            'CreateDate'
+            'DatePromised',
+            'OrderTotal',
+            'OrderType',
+            'SalesOrderNumber',
+            'StartDate',
+            'Status'
         ],        
         formatAccountRelatedQuery: function(entry, fmt) {
             return String.format(fmt, entry['Account']['$key']);
@@ -52,14 +47,15 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
 
             this.tools.fbar = [{
                 name: 'home',
-                title: 'home',
+                title: this.fbarHomeTitleText,
                 cls: 'tool-note',
                 icon: 'content/images/welcome_32x32.gif',
                 fn: App.navigateToHomeView,
                 scope: this
-            },{
+            },
+            {
                 name: 'schedule',
-                title: 'schedule',
+                title: this.fbarScheduleTitleText,
                 cls: 'tool-note',
                 icon: 'content/images/Schdedule_To_Do_32x32.gif',
                 fn: App.navigateToActivityInsertView,
@@ -68,16 +64,52 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'SalesOrderNumber', label: this.salesOrderIdText},
-                {name: 'Account.AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
-                {name: 'OrderType', label: this.typeText},
-                {name: 'Status', label: this.statusText},
-                {name: 'OrderTotal', label: this.totalText},
-                {name: 'DatePromised', label: this.reqDateText, renderer: Mobile.SalesLogix.Format.date},
-                {name: 'Comments', label: this.commentsText},
-                {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
-                {name: 'CreateUser', label: this.createUserText},
-                {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
+                {
+                    name: 'SalesOrderNumber',
+                    label: this.salesOrderIdText
+                },
+                {
+                    name: 'Account.AccountName',
+                    label: this.accountText,
+                    view: 'account_detail',
+                    key: 'Account.$key',
+                    property: true
+                },
+                {
+                    name: 'OrderType',
+                    label: this.typeText
+                },
+                {
+                    name: 'Status',
+                    label: this.statusText
+                },
+                {
+                    name: 'OrderTotal',
+                    label: this.totalText
+                },
+                {
+                    name: 'DatePromised',
+                    label: this.reqDateText,
+                    renderer: Mobile.SalesLogix.Format.date
+                },
+                {
+                    name: 'Comments',
+                    label: this.commentsText
+                },
+                {
+                    name: 'AccountManager.UserInfo',
+                    label: this.acctMgrText,
+                    tpl: Mobile.SalesLogix.Template.nameLF
+                },
+                {
+                    name: 'CreateUser',
+                    label: this.createUserText
+                },
+                {
+                    name: 'CreateDate',
+                    label: this.createDateText,
+                    renderer: Mobile.SalesLogix.Format.date
+                }
             ]);
         }
     });

@@ -32,10 +32,10 @@ Ext.namespace("Mobile.SalesLogix");
             Mobile.SalesLogix.Configure.superclass.constructor.call(this);
 
             Ext.apply(this, o, {
+                expose: false,
                 id: 'configure',
-                title: this.titleText,
                 selected: false,
-                expose: false
+                title: this.titleText
             });
         },
         init: function() {
@@ -61,11 +61,11 @@ Ext.namespace("Mobile.SalesLogix");
                 }, this);
 
             this.tools.tbar =  [{
-                name: 'save',
-                title: this.savePrefs,
                 cls: 'save button',
                 fn: this.savePreferences,
-                scope: this
+                name: 'save',
+                scope: this,
+                title: this.savePrefs
             }];
         },
         savePreferences: function() {

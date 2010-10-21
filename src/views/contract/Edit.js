@@ -16,12 +16,6 @@ Ext.namespace("Mobile.SalesLogix.Contract");
         activeText: 'active',
         resourceKind: 'contracts',
         entityName: 'Contract',
-        queryInclude: [
-            'Account',
-            'Address',
-            'AccountManager',
-            'AccountManager/UserInfo'
-        ],
         querySelect: [
             'ReferenceNumber',
             'Account/AccountName',
@@ -38,10 +32,23 @@ Ext.namespace("Mobile.SalesLogix.Contract");
         ],
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'ReferenceNumber', label: this.refNumText, type: 'text'},
-                {name: 'Period', label: this.quantityText, validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup', type: 'text'},
-                {name: 'IsActive', label: this.activeText, type: 'text'}
-
+                {
+                    name: 'ReferenceNumber',
+                    label: this.refNumText,
+                    type: 'text'
+                },
+                {
+                    name: 'Period',
+                    label: this.quantityText,
+                    validator: Mobile.SalesLogix.Validator.isDecimal,
+                    validationTrigger: 'keyup',
+                    type: 'text'
+                },
+                {
+                    name: 'IsActive',
+                    label: this.activeText,
+                    type: 'text'
+                }
             ]);
         }
     });

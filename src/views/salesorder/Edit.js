@@ -11,43 +11,63 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
 (function() {
     Mobile.SalesLogix.SalesOrder.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         id: 'salesorder_edit',
-        titleText: 'SalesOrder',
-        salesOrderIdText: 'sales order id',
-        typeText: 'type',
-        statusText: 'status',
-        totalText: 'total',
-        reqDateText: 'req date',
         commentsText: 'comments',
+        reqDateText: 'req date',
+        salesOrderIdText: 'sales order id',
+        statusText: 'status',
+        titleText: 'SalesOrder',
+        totalText: 'total',
+        typeText: 'type',
         resourceKind: 'salesorders',
         entityName: 'SalesOrder',
-        queryInclude: [
-            'User',
-            'Account',
-            'Address',
-            'AccountManager',
-            'AccountManager/UserInfo'
-        ],
         querySelect:  [
-            'SalesOrderNumber',
             'Account/AccountName',
-            'OrderType',
-            'Status',
-            'OrderTotal',
-            'DatePromised',
             'Comments',
-            'StartDate',
-            'User/UserInfo/UserName',
+            'CreateDate',
             'CreateUser',
-            'CreateDate'
+            'DatePromised',
+            'OrderTotal',
+            'OrderType',
+            'SalesOrderNumber',
+            'StartDate',
+            'Status',
+            'User/UserInfo/UserName'
         ],
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'SalesOrderNumber', label: this.salesOrderIdText, type: 'text'},
-                {name: 'OrderType', label: this.typeText, type: 'text'},
-                {name: 'Status', label: this.statusText, type: 'text'},
-                {name: 'OrderTotal', label: this.totalText, validator: Mobile.SalesLogix.Validator.isDecimal, validationTrigger: 'keyup', type: 'text'},
-                {name: 'DatePromised', label: this.reqDateText, type: 'text', renderer: Mobile.SalesLogix.Format.date},
-                {name: 'Comments', label: this.commentsText, type: 'text'}
+                {
+                    name: 'SalesOrderNumber',
+                    label: this.salesOrderIdText,
+                    type: 'text'
+                },
+                {
+                    name: 'OrderType',
+                    label: this.typeText,
+                    type: 'text'
+                },
+                {
+                    name: 'Status',
+                    label: this.statusText,
+                    type: 'text'
+                },
+                {
+                    name: 'OrderTotal',
+                    label: this.totalText,
+                    validator: Mobile.SalesLogix.Validator.isDecimal,
+                    validationTrigger: 'keyup',
+                    type: 'text'
+                },
+                {
+                    name: 'DatePromised',
+                    label: this.reqDateText,
+                    type: 'text',
+                    renderer: Mobile.SalesLogix.Format.date
+                },
+                {
+                    name: 'Comments',
+                    label: this.commentsText,
+                    type: 'text'
+                }
             ]);
         }
     });

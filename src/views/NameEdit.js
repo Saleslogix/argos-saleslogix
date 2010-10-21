@@ -25,9 +25,21 @@ Mobile.SalesLogix.NameEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
                 picklist: 'Name Prefix',
                 title: this.prefixTitleText
             },
-            {name: 'FirstName', label: this.firstnameLabel, type: 'text'},
-            {name: 'MiddleName', label: this.middlenameLabel, type: 'text'},
-            {name: 'LastName', label: this.lastnameLabel, type: 'text'},
+            {
+                name: 'FirstName',
+                label: this.firstnameLabel,
+                type: 'text'
+            },
+            {
+                name: 'MiddleName',
+                label: this.middlenameLabel,
+                type: 'text'
+            },
+            {
+                name: 'LastName',
+                label: this.lastnameLabel,
+                type: 'text'
+            },
             {
                 name: 'Suffix',
                 label: this.suffixLabel,

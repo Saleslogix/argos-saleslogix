@@ -10,8 +10,8 @@ Ext.namespace("Mobile.SalesLogix.DefectSolution");
 (function() {
     Mobile.SalesLogix.DefectSolution.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         id: 'defectsolution_edit',
-        titleText: 'DefectSolution',
         notesText: 'notes',
+        titleText: 'DefectSolution',
         resourceKind: 'defectsolutions',
         entityName: 'DefectSolution',
         querySelect: [
@@ -19,7 +19,11 @@ Ext.namespace("Mobile.SalesLogix.DefectSolution");
         ],
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'Notes', label: this.notesText, type: 'text'}
+                {
+                    name: 'Notes',
+                    label: this.notesText,
+                    type: 'text'
+                }
             ]);
         }
     });

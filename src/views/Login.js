@@ -27,9 +27,21 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
         });
 
         this.layout = [
-            {name: 'user', label: this.userText, type: 'text'},
-            {name: 'pass', label: this.passText, type: 'text'},
-            {name: 'remember', label: this.rememberText, type: 'boolean'}
+            {
+                name: 'user',
+                label: this.userText,
+                type: 'text'
+            },
+            {
+                name: 'pass',
+                label: this.passText,
+                type: 'text'
+            },
+            {
+                name: 'remember',
+                label: this.rememberText,
+                type: 'boolean'
+            }
         ];
         this.busy = false;
     },

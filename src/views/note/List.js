@@ -19,11 +19,11 @@ Ext.namespace("Mobile.SalesLogix.Note");
             '</div>'
         ]),
         id: 'note_list',
-        icon: 'content/images/note_24x24.gif',
-        titleText: 'Notes',
-        moreText: 'more >>',
-        insertView: 'note_edit',
         detailView: 'note_detail',
+        icon: 'content/images/note_24x24.gif',
+        insertView: 'note_edit',
+        moreText: 'more >>',
+        titleText: 'Notes',
         resourceKind: 'history',
         init: function() {
             Mobile.SalesLogix.Note.List.superclass.init.call(this);

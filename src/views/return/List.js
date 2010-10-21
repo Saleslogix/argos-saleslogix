@@ -13,14 +13,11 @@ Ext.namespace("Mobile.SalesLogix.Return");
             '<h4>{%: $.ReturnNumber %}</h4>'
         ]),
         id: 'return_list',
-        icon: 'content/images/return_detail_24x24.gif',
-        titleText: 'Returns',
-        insertView: 'return_edit',
         detailView: 'return_detail',
+        icon: 'content/images/return_detail_24x24.gif',
+        insertView: 'return_edit',
+        titleText: 'Returns',
         resourceKind: 'returns',
-        queryInclude: [
-            'Account'
-        ],
         querySelect: [
             'Account/AccountName',
             'ReturnNumber'

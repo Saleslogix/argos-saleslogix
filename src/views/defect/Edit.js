@@ -27,11 +27,31 @@ Ext.namespace("Mobile.SalesLogix.Defect");
         ],
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'AlternateKeyPrefix', label: this.idPrefixText, type: 'text'},
-                {name: 'AlternateKeySuffix', label: this.idSuffixText, type: 'text'},
-                {name: 'Area', label: this.areaText, type: 'text'},
-                {name: 'Category', label: this.categoryText, type: 'text'},
-                {name: 'Subject', label: this.subjectText, type: 'text'}
+                {
+                    name: 'AlternateKeyPrefix',
+                    label: this.idPrefixText,
+                    type: 'text'
+                },
+                {
+                    name: 'AlternateKeySuffix',
+                    label: this.idSuffixText,
+                    type: 'text'
+                },
+                {
+                    name: 'Area',
+                    label: this.areaText,
+                    type: 'text'
+                },
+                {
+                    name: 'Category',
+                    label: this.categoryText,
+                    type: 'text'
+                },
+                {
+                    name: 'Subject',
+                    label: this.subjectText,
+                    type: 'text'
+                }
             ]);
         }
     });

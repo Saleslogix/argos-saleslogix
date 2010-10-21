@@ -13,10 +13,10 @@ Ext.namespace("Mobile.SalesLogix.Contact");
             '<h4>{%: $.AccountName %}</h4>'
         ]),
         id: 'contact_list',
-        icon: 'content/images/Contacts_24x24.gif',
-        titleText: 'Contacts',
-        insertView: 'contact_edit',
         detailView: 'contact_detail',
+        icon: 'content/images/Contacts_24x24.gif',
+        insertView: 'contact_edit',
+        titleText: 'Contacts',
         resourceKind: 'contacts',
         querySelect: [
             'NameLF',

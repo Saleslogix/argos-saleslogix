@@ -13,18 +13,15 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             '<h4>{%: $.Description %}</h4>'
         ]),
         id: 'opportunity_list',
-        icon: 'content/images/Opportunity_List_24x24.gif',
-        titleText: 'Opportunities',
-        insertView: 'opportunity_edit',
-        detailView: 'opportunity_detail',
         contextView: 'context_dialog',
+        detailView: 'opportunity_detail',
+        icon: 'content/images/Opportunity_List_24x24.gif',
+        insertView: 'opportunity_edit',
+        titleText: 'Opportunities',
         resourceKind: 'opportunities',
-        queryInclude: [
-            'Account'
-        ],
         querySelect: [
-            'Description',
             'Account/AccountName',
+            'Description',
             'Stage'
         ],
         queryOrderBy: 'Description',
