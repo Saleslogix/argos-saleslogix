@@ -8,6 +8,8 @@
 Ext.namespace("Mobile.SalesLogix.Opportunity");
 
 (function() {
+    var U = Sage.Platform.Mobile.Utility;
+    
     Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         id: 'opportunity_edit',
         accountText: 'acct',
@@ -60,6 +62,18 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         applyAccountContext: function(entry) {
             this.fields['Account'].setValue(entry);
         },
+        init: function() {
+            Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
+
+            this.fields['Account'].on('change', this.onAccountChange, this);
+        },
+        onAccountChange: function(value, field) {
+            var selection = field.getSelection();
+            if (selection)
+            {
+                this.fields['AccountManager'].setValue(U.getValue(selection, 'AccountManager'));
+            }
+        },
         createLayout: function() {
             // todo: add account on change handling
 
@@ -77,12 +91,13 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     textProperty: 'AccountName'
                 },
                 {
+                    alwaysUseValue: true,
                     name: 'AccountManager',
                     label: this.acctMgrText,
-                    type: 'lookup',
                     textProperty: 'UserInfo',
                     textTemplate: Mobile.SalesLogix.Template.nameLF,
-                    alwaysUseValue: true
+                    type: 'lookup',
+                    view: 'user_list'
                 },
                 {
                     name: 'EstimatedClose',
