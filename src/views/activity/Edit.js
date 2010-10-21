@@ -11,85 +11,89 @@ Ext.namespace("Mobile.SalesLogix.Activity");
     Mobile.SalesLogix.Activity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         id: 'activity_edit',
         picklistsByType: {
-            'atToDo': {
-                'Description': 'To Do Regarding',
-                'Category': 'To Do Category Codes'
-            },
-            'atPhoneCall': {
-                'Description': 'Phone Call Regarding',
-                'Category': 'Phone Call Category Codes'
-            },
             'atAppointment': {
-                'Description': 'Meeting Regarding',
-                'Category': 'Meeting Category Codes'
+                'Category': 'Meeting Category Codes',
+                'Description': 'Meeting Regarding'
             },
             'atLiterature': {
                 'Description': 'Lit Request Regarding'
             },
             'atPersonal': {
-                'Description': 'Personal Activity Regarding',
-                'Category': 'Meeting Category Codes'
+                'Category': 'Meeting Category Codes',
+                'Description': 'Personal Activity Regarding'
+            },
+            'atPhoneCall': {
+                'Category': 'Phone Call Category Codes',
+                'Description': 'Phone Call Regarding'
+            },
+            'atToDo': {
+                'Category': 'To Do Category Codes',
+                'Description': 'To Do Regarding'
             }
         },
         activityTypeText: {
-            'atToDo': 'To-Do',
-            'atPhoneCall': 'Phone Call',
             'atAppointment': 'Meeting',
             'atLiterature': 'Literature Request',
-            'atPersonal': 'Personal Activity'
+            'atPersonal': 'Personal Activity',
+            'atPhoneCall': 'Phone Call',
+            'atToDo': 'To-Do'
         },
-        titleText: 'Activity',
-        typeText: 'type',
-        categoryText: 'category',
         accountText: 'account',
-        startingText: 'start time',
-        timelessText: 'timeless',
-        durationText: 'duration',
+        activityCategoryTitleText: 'Activity Category',
+        activityDescriptionTitleText: 'Activity Description',
+        activityTypeTitleText: 'Activity Type',
         alarmText: 'reminder',
         alarmTimeText: 'reminder',
-        rolloverText: 'auto rollover',
+        categoryText: 'category',
+        companyText: 'company',
+        contactText: 'contact',
+        durationText: 'duration',
         leadIdText: 'leader',
-        opportunityText: 'opportunity',
-        ticketNumberText: 'ticket',
         leadText: 'lead',
         longNotesText: 'notes',
-        contactText: 'contact',
-        regardingText: 'regarding',
-        companyText: 'company',
+        opportunityText: 'opportunity',
         priorityText: 'priority',
-        activityTypeTitleText: 'Activity Type',
-        activityDescriptionTitleText: 'Activity Description',
-        activityCategoryTitleText: 'Activity Category',
         priorityTitleText: 'Priority',
+        regardingText: 'regarding',
+        rolloverText: 'auto rollover',
+        startingText: 'start time',
+        ticketNumberText: 'ticket',
+        timelessText: 'timeless',
+        titleText: 'Activity',
+        typeText: 'type',
         resourceKind: 'activities',
         entityName: 'Activity', // todo: is this correct?
         querySelect: [
-            'Type',
-            'Regarding',
-            'Priority',
-            'Category',
-            'StartDate',
-            'Timeless',
-            'Duration',
+            'AccountName',
             'Alarm',
             'AlarmTime',
-            'Rollover',
-            'LeadId',
-            'ContactName',
-            'AccountName',
-            'OpportunityName',
-            'TicketNumber',
-            'LeadName',
+            'Category',
             'Company',
-            'LongNotes'
+            'ContactName',
+            'Duration',
+            'LeadId',
+            'LeadName',
+            'LongNotes',
+            'OpportunityName',
+            'Priority',
+            'Regarding',
+            'Rollover',
+            'StartDate',
+            'TicketNumber',
+            'Timeless',
+            'Type'
         ],        
         createTypeList: function() {
             var list = [];
+
             for (var type in this.activityTypeText)
+            {
                 list.push({
-                    '$key': type,
-                    '$descriptor': this.activityTypeText[type] 
+                    '$descriptor': this.activityTypeText[type],
+                    '$key': type
                 });
+            }
+
             return {'$resources': list};
         },       
         formatTypeDependentPicklist: function(type, which) {
@@ -151,48 +155,109 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.layout || (this.layout = [
                 {
                     name: 'Type',
+                    data: this.createTypeList(),
                     label: this.typeText,
-                    type: 'select',
-                    view: 'select_list',                    
                     title: this.activityTypeTitleText,
-                    data: this.createTypeList()
+                    type: 'select',
+                    view: 'select_list'            
                 },
                 {
                     name: 'Description',
+                    dependsOn: 'Type',
                     label: this.regardingText,
-                    type: 'picklist',
-                    picklist: this.formatTypeDependentPicklist.createDelegate(this, ['Description'], true),
+                    picklist: this.formatTypeDependentPicklist.createDelegate(
+                                    this,
+                                    ['Description'],
+                                    true
+                               ),
                     title: this.activityDescriptionTitleText,
-                    dependsOn: 'Type'
+                    type: 'picklist'
                 },
                 {
                     name: 'Priority',
                     label: this.priorityText,
-                    type: 'picklist',
                     picklist: 'Priorities',                    
-                    title: this.priorityTitleText
+                    title: this.priorityTitleText,
+                    type: 'picklist'
                 },
                 {
                     name: 'Category',
+                    dependsOn: 'Type',
                     label: this.categoryText,
-                    type: 'picklist',
-                    picklist: this.formatTypeDependentPicklist.createDelegate(this, ['Category'], true),
+                    picklist: this.formatTypeDependentPicklist.createDelegate(
+                                    this,
+                                    ['Category'],
+                                    true
+                              ),
                     title: this.activityCategoryTitleText,
-                    dependsOn: 'Type'
+                    type: 'picklist'
                 },
-                {name: 'StartDate', label: this.startingText, type: 'text'},
-                {name: 'Timeless', label: this.timelessText, type: 'boolean'},
-                {name: 'Duration', label: this.durationText, type: 'text', validator: Mobile.SalesLogix.Validator.isInteger},
-                {name: 'Alarm', label: this.alarmText, type: 'boolean'},
-                {name: 'AlarmTime', label: this.alarmTimeText, type: 'text'},
-                {name: 'Rollover', label: this.rolloverText, type: 'boolean'},
-                {name: 'LeadId', label: this.leadIdText, type: 'text'},
-                {name: 'ContactName', label: this.contactText, type: 'text'},
-                {name: 'OpportunityName', label: this.opportunityText, type: 'text'},
-                {name: 'TicketNumber', label: this.ticketNumberText, type: 'text'},
-                {name: 'LeadName', label: this.leadText, type: 'text'},
-                {name: 'AccountName', label: this.companyText, type: 'text'},
-                {name: 'LongNotes', label: this.longNotesText, type: 'text'}
+                {
+                    name: 'StartDate',
+                    label: this.startingText,
+                    type: 'text'
+                },
+                {
+                    name: 'Timeless',
+                    label: this.timelessText,
+                    type: 'boolean'
+                },
+                {
+                    name: 'Duration',
+                    label: this.durationText,
+                    type: 'text',
+                    validator: Mobile.SalesLogix.Validator.isInteger
+                },
+                {
+                    name: 'Alarm',
+                    label: this.alarmText,
+                    type: 'boolean'
+                },
+                {
+                    name: 'AlarmTime',
+                    label: this.alarmTimeText,
+                    type: 'text'
+                },
+                {
+                    name: 'Rollover',
+                    label: this.rolloverText,
+                    type: 'boolean'
+                },
+                {
+                    name: 'LeadId',
+                    label: this.leadIdText,
+                    type: 'text'
+                },
+                {
+                    name: 'ContactName',
+                    label: this.contactText,
+                    type: 'text'
+                },
+                {
+                    name: 'OpportunityName',
+                    label: this.opportunityText,
+                    type: 'text'
+                },
+                {
+                    name: 'TicketNumber',
+                    label: this.ticketNumberText,
+                    type: 'text'
+                },
+                {
+                    name: 'LeadName',
+                    label: this.leadText,
+                    type: 'text'
+                },
+                {
+                    name: 'AccountName',
+                    label: this.companyText,
+                    type: 'text'
+                },
+                {
+                    name: 'LongNotes',
+                    label: this.longNotesText,
+                    type: 'text'
+                }
             ]);
         }
     });

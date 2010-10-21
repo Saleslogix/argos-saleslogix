@@ -7,11 +7,11 @@
 Ext.namespace("Mobile.SalesLogix.Activity");
 
 Mobile.SalesLogix.Activity.Types = {
-    "atToDo": "To-Do",
-    "atPhoneCall": "Phone Call",
     "atAppointment": "Meeting",
     "atLiterature": "Literature Request",
-    "atPersonal": "Personal Activity"
+    "atPersonal": "Personal Activity",
+    "atPhoneCall": "Phone Call",
+    "atToDo": "To-Do"
 };
 
 (function() {
