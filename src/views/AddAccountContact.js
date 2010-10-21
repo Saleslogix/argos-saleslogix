@@ -9,54 +9,50 @@ Ext.namespace("Mobile.SalesLogix");
 (function() {
     Mobile.SalesLogix.AddAccountContact = Ext.extend(Sage.Platform.Mobile.Edit, {
         id: 'add_account_contact',
-        titleText: 'Add Account / Contact',
-        detailsText: 'Contact / Account Info',
-        detailsContactText: 'Contact Info',
-        detailsAccountText: 'Account Info',
-        accountText: 'Account',
         accountNameText: 'account',
-        firstNameText: 'first',
-        lastNameText: 'last',
+        accountStatusTitleText: 'Account Status',
+        accountSubTypeTitleText: 'Account SubType',
+        accountText: 'Account',
+        accountTypeTitleText: 'Account Type',
+        description: 'description',
+        detailsAccountText: 'Account Info',
+        detailsContactText: 'Contact Info',
+        detailsText: 'Contact / Account Info',
         emailText: 'e-mail',
+        faxText: 'fax',
+        firstNameText: 'first',
+        homePhoneText: 'home phone',
+        industryText: 'industry',
+        lastNameText: 'last',
+        mobileText: 'mobile',
+        statusText: 'status',
+        subTypeText: 'sub-type',
+        titleText: 'Add Account / Contact',
+        titleTitleText: 'Title',
+        typeText: 'type',
         webText: 'web',
         workText: 'work phone',
-        titleText: 'title',
-        homePhoneText: 'home phone',
-        mobileText: 'mobile',
-        faxText: 'fax',
-        typeText: 'type',
-        subTypeText: 'sub-type',
-        industryText: 'industry',
-        description: 'description',
-        statusText: 'status',
-        titleTitleText: 'Title',
-        accountTypeTitleText: 'Account Type',
-        accountSubTypeTitleText: 'Account SubType',
-        accountStatusTitleText: 'Account Status',
         industryTitleText: 'Industry',
         resourceKind: 'accounts',
         entityName: 'Account',
-        queryInclude: [
-            'Contact'
-        ],
         querySelect: [
             'AccountName',
-            'Fax',
-            'Type',
-            'SubType',
-            'Status',
-            'Industry',
             'BusinessDescription',
-            'Contact/FirstName',
-            'Contact/LastName',
             'Contact/AccountName',
             'Contact/Email',
+            'Contact/Fax',
+            'Contact/FirstName',
+            'Contact/HomePhone',
+            'Contact/LastName',
+            'Contact/Mobile',
+            'Contact/Title',
             'Contact/WebAddress',
             'Contact/WorkPhone',
-            'Contact/Title',
-            'Contact/HomePhone',
-            'Contact/Mobile',
-            'Contact/Fax'
+            'Fax',
+            'Industry',
+            'Status',
+            'SubType',
+            'Type'
         ],
         getValues: function(values) {
             var U = Sage.Platform.Mobile.Utility,
@@ -72,26 +68,72 @@ Ext.namespace("Mobile.SalesLogix");
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'Contacts.$resources[0].FirstName', label: this.firstNameText, type: 'text'},
-                {name: 'Contacts.$resources[0].LastName', label: this.lastNameText, type: 'text'},
-                {name: 'AccountName', label: this.accountNameText, type: 'text'},
-                {name: 'Email', label: this.emailText, type: 'text'},
-                {name: 'WebAddress', label: this.webText, type: 'text'},
-                {name: 'MainPhone', label: this.workText, type: 'phone'},
-                {options: {title: this.detailsContactText}, as: [
-                    {
+                {
+                    name: 'Contacts.$resources[0].FirstName',
+                    label: this.firstNameText,
+                    type: 'text'
+                },
+                {
+                    name: 'Contacts.$resources[0].LastName',
+                    label: this.lastNameText,
+                    type: 'text'
+                },
+                {
+                    name: 'AccountName',
+                    label: this.accountNameText,
+                    type: 'text'
+                },
+                {
+                    name: 'Email',
+                    label: this.emailText,
+                    type: 'text'
+                },
+                {
+                    name: 'WebAddress',
+                    label: this.webText,
+                    type: 'text'
+                },
+                {
+                    name: 'MainPhone',
+                    label: this.workText,
+                    type: 'phone'
+                },
+                {
+                    options: {
+                        title: this.detailsContactText
+                    },
+                    as: [{
                         name: 'Contacts.$resources[0].Title',
                         label: this.titleText,
                         type: 'picklist',
                         picklist: 'Title',
                         title: this.titleTitleText
                     },
-                    {name: 'Contacts.$resources[0].HomePhone', label: this.homePhoneText, type: 'phone'},
-                    {name: 'Contacts.$resources[0].Mobile', label: this.mobileText, type: 'phone'},
-                    {name: 'Contacts.$resources[0].Fax', label: this.faxText, type: 'phone'}
-                ]},
-                {options: {title: this.detailsAccountText}, as: [
-                    {name: 'Fax', label: this.faxText, type: 'phone'},
+                    {
+                        name: 'Contacts.$resources[0].HomePhone',
+                        label: this.homePhoneText,
+                        type: 'phone'
+                    },
+                    {
+                        name: 'Contacts.$resources[0].Mobile',
+                        label: this.mobileText,
+                        type: 'phone'
+                    },
+                    {
+                        name: 'Contacts.$resources[0].Fax',
+                        label: this.faxText,
+                        type: 'phone'
+                    }]
+                },
+                {
+                    options: {
+                        title: this.detailsAccountText
+                    },
+                    as: [{
+                        name: 'Fax',
+                        label: this.faxText,
+                        type: 'phone'
+                    },
                     {
                         name: 'Type',
                         label: this.typeText,
@@ -112,7 +154,7 @@ Ext.namespace("Mobile.SalesLogix");
                         name: 'Status',
                         label: this.statusText,
                         type: 'picklist',
-                        picklist: 'Account Status',                        
+                        picklist: 'Account Status',
                         title: this.accountStatusTitleText
                     },
                     {
@@ -122,7 +164,11 @@ Ext.namespace("Mobile.SalesLogix");
                         picklist: 'Industry',
                         title: this.industryTitleText
                     },
-                    {name: 'BusinessDescription', label: this.description, type: 'text'}
+                    {
+                        name: 'BusinessDescription',
+                        label: this.description,
+                        type: 'text'
+                    }
                 ]}
             ]);
         }

@@ -18,7 +18,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
     id: 'home',
     expose: false,
     titleText: 'Home',
-    configureText: 'Configure',        
+    configureText: 'Configure',
     activateEntry: function(params) {
         if (params.key)
         {
@@ -59,12 +59,21 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
             }
         }
 
-        this.processFeed({'$resources': list});      
+        this.processFeed({'$resources': list});
     },
     init: function() {
-        Mobile.SalesLogix.Home.superclass.init.apply(this, arguments);        
+        Mobile.SalesLogix.Home.superclass.init.apply(this, arguments);
 
         App.on('registered', this.onRegistered, this);
+
+        this.contentEl.on('longpress', function(evt, el, o){
+            el = Ext.get(el);
+            if (!el.is('li')) el = el.findParent('li');
+            if (el && el.getAttribute('data-key') == 'contact_list')
+            {
+                App.getView('add_account_contact').show();
+            }
+        });
 
         this.tools.tbar = [{
             name: 'configure',
@@ -83,7 +92,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
     refreshRequiredFor: function(options) {
         var visible = App.preferences && App.preferences.home && App.preferences.home.visible,
             shown = this.feed && this.feed['$resources'];
-        
+
         if (!visible || !shown || visible.length != shown.length) return true;
 
         return Mobile.SalesLogix.Home.superclass.refreshRequiredFor.apply(this, arguments);
