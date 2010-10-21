@@ -10,121 +10,138 @@ Ext.namespace("Mobile.SalesLogix.Account");
 (function() {
     Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         id: 'account_edit',
-        titleText: 'Account',
-        accountText: 'account',
-        phoneText: 'phone',
-        webText: 'web',
-        typeText: 'type',
-        subTypeText: 'subtype',
-        statusText: 'status',
-        fullAddressText: 'address',
-        descriptionText: 'desc',
-        isPrimaryText: 'primary',
-        isMailingText: 'shipping',
-        address1Text: 'address 1',
-        address2Text: 'address 2',
-        address3Text: 'address 3',
-        acctMgrText: 'acct mgr',
-        ownerText: 'owner',
-        cityText: 'city',
-        stateText: 'state',
-        postalCodeText: 'postal',
-        countryText: 'country',
-        faxText: 'fax',
-        industryText: 'industry',
-        businessDescriptionText: 'bus desc',
-        importSourceText: 'lead source',
-        accountTypeTitleText: 'Account Type',
-        accountSubTypeTitleText: 'Account Subtype',
         accountStatusTitleText: 'Account Status',
+        accountSubTypeTitleText: 'Account Subtype',
+        accountText: 'account',
+        accountTypeTitleText: 'Account Type',
+        acctMgrText: 'acct mgr',
+        businessDescriptionText: 'bus desc',
+        descriptionText: 'desc',
+        faxText: 'fax',
+        fullAddressText: 'address',
+        importSourceText: 'lead source',
+        industryText: 'industry',
         industryTitleText: 'Industry',
+        ownerText: 'owner',
+        phoneText: 'phone',
+        statusText: 'status',
+        subTypeText: 'subtype',
+        titleText: 'Account',
+        typeText: 'type',
+        webText: 'web',
         resourceKind: 'accounts',
         entityName: 'Account',
-        queryInclude: [
-            'Address',
-            'AccountManager',
-            'AccountManager/UserInfo',
-            'Owner',
-            'LeadSource'
-        ],
         querySelect: [
-            'AccountName',
-            'MainPhone',
-            'WebAddress',
-            'AccountName',
-            'WebAddress',
-            'MainPhone',
-            'FullAddress',
-            'Description',
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
-            'User/UserInfo/UserName',
+            'AccountName',
+            'BusinessDescription',
+            'Description',
+            'Fax',
+            'Industry',
+            'LeadSource/Description',
+            'MainPhone',
             'Notes',
             'Owner/OwnerDescription',
-            'IsPrimary',
-            'IsMailing',
-            'Address1',
-            'Address2',
-            'Address3',
-            'City',
-            'State',
-            'PostalCode',
-            'Country',
-            'Fax',
-            'Type',
-            'SubType',
             'Status',
-            'Industry',
-            'BusinessDescription',
-            'LeadSource/Description'
+            'SubType',
+            'Type',
+            'User/UserInfo/UserName',
+            'WebAddress'
         ],
         formatDependentPicklist: function(dependentValue, format) {
             return String.format(format, dependentValue);
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'AccountName', label: this.accountText, type: 'text', validator: Mobile.SalesLogix.Validator.hasText},
-                {name: 'WebAddress', label: this.webText, renderer: Mobile.SalesLogix.Format.link, type: 'text'},
-                {name: 'MainPhone', label: this.phoneText, type: 'phone'},
-                {name: 'Address', label: this.fullAddressText, view: 'address_edit', type: 'address', formatter: Mobile.SalesLogix.Format.address},
-                {name: 'Fax', label: this.faxText, type: 'phone'},
-                {name: 'Type', label: this.typeText, type: 'picklist', picklist: 'Account Type', title: this.accountTypeTitleText},
+                {
+                    name: 'AccountName',
+                    label: this.accountText,
+                    type: 'text',
+                    validator: Mobile.SalesLogix.Validator.hasText
+                },
+                {
+                    name: 'WebAddress',
+                    label: this.webText,
+                    renderer: Mobile.SalesLogix.Format.link,
+                    type: 'text'
+                },
+                {
+                    name: 'MainPhone',
+                    label: this.phoneText,
+                    type: 'phone'
+                },
+                {
+                    name: 'Address',
+                    formatter: Mobile.SalesLogix.Format.address,
+                    label: this.fullAddressText,
+                    type: 'address',
+                    view: 'address_edit'
+                },
+                {
+                    name: 'Fax',
+                    label: this.faxText,
+                    type: 'phone'
+                },
+                {
+                    name: 'Type',
+                    label: this.typeText,
+                    picklist: 'Account Type',
+                    title: this.accountTypeTitleText,
+                    type: 'picklist'
+                },
                 {
                     name: 'SubType',
+                    dependsOn: 'Type',
                     label: this.subTypeText,
-                    type: 'picklist',
-                    requireSelection: false,
                     picklist: this.formatDependentPicklist.createDelegate(this, ['Account {0}'], true),
+                    requireSelection: false,
                     title: this.accountSubTypeTitleText,
-                    dependsOn: 'Type'
+                    type: 'picklist'
                 },
                 {
                     name: 'Status',
                     label: this.statusText,
-                    type: 'picklist',
-                    requireSelection: false,
                     picklist: 'Account Status',
-                    title: this.accountStatusTitleText
+                    requireSelection: false,
+                    title: this.accountStatusTitleText,
+                    type: 'picklist'
                 },
                 {
                     name: 'Industry',
                     label: this.industryText,
-                    type: 'picklist',
-                    requireSelection: false,
                     picklist: 'Industry',
-                    title: this.industryTitleText
+                    requireSelection: false,
+                    title: this.industryTitleText,
+                    type: 'picklist'
                 },
-                {name: 'BusinessDescription', label: this.businessDescriptionText, type: 'text'},
+                {
+                    name: 'BusinessDescription',
+                    label: this.businessDescriptionText,
+                    type: 'text'
+                },
                 {
                     name: 'AccountManager',
                     label: this.acctMgrText,
-                    type: 'lookup',
-                    view: 'user_list',
                     textProperty: 'UserInfo',
-                    textTemplate: Mobile.SalesLogix.Template.nameLF
+                    textTemplate: Mobile.SalesLogix.Template.nameLF,
+                    type: 'lookup',
+                    view: 'user_list'
                 },
-                {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', textProperty: 'OwnerDescription'},
-                {name: 'LeadSource', label: this.importSourceText, type: 'lookup', view: 'leadsource_list', textProperty: 'Description'}
+                {
+                    name: 'Owner',
+                    label: this.ownerText,
+                    textProperty: 'OwnerDescription',
+                    type: 'lookup',
+                    view: 'owner_list'
+                },
+                {
+                    name: 'LeadSource',
+                    label: this.importSourceText,
+                    textProperty: 'Description',
+                    type: 'lookup',
+                    view: 'leadsource_list'
+                }
             ]);
         }
     });

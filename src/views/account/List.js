@@ -19,7 +19,6 @@ Ext.namespace("Mobile.SalesLogix.Account");
         detailView: 'account_detail',
         contextView: 'account_context',
         resourceKind: 'accounts',
-        queryInclude: ['AccountManager/UserInfo'],
         querySelect: [
             'AccountName',
             'AccountManager/UserInfo/UserName'
