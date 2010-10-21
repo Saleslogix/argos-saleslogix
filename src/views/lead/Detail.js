@@ -17,7 +17,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     eMailText: 'email',
     fbarHomeTitleText: 'home',
     fbarScheduleTitleText: 'schedule',
-    importsourceText: 'lead source',
+    leadsourceText: 'lead source',
     industryText: 'industry',
     interestsText: 'interests',
     leadTitleText: 'title',
@@ -42,11 +42,11 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         'Email',
         'FirstName',
         'FullAddress',
-        'ImportSource',
         'Industry',
         'Interests',
         'LastName',
         'LeadNameLastFirst',
+        'LeadSource/Description',
         'MiddleName',
         'Notes',
         'Owner/OwnerDescription',
@@ -118,8 +118,9 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 renderer: Mobile.SalesLogix.Format.phone
             },
             {
-                name: 'ImportSource',
-                label: this.importsourceText
+                name: 'LeadSource',
+                label: this.leadsourceText,
+                tpl: new Simplate(['{%= $.Description %}'])
             },
             {
                 name: 'Interests',
@@ -130,7 +131,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 label: this.industryText
             },
             {
-                name: 'SIC Code',
+                name: 'SICCode',
                 label: this.sicCodeText
             },
             {
