@@ -8,6 +8,7 @@ Ext.namespace("Mobile.SalesLogix.Note");
 
 (function() {
     Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<div class="row note-text-row">',
             '<div class="note-text-wrap">',
@@ -18,13 +19,18 @@ Ext.namespace("Mobile.SalesLogix.Note");
             '</div>',
             '</div>'
         ]),
-        id: 'note_list',
-        detailView: 'note_detail',
-        icon: 'content/images/note_24x24.gif',
-        insertView: 'note_edit',
+
+        //Localization
         moreText: 'more >>',
         titleText: 'Notes',
+
+        //View Properties
+        detailView: 'note_detail',
+        icon: 'content/images/note_24x24.gif',
+        id: 'note_list',
+        insertView: 'note_edit',
         resourceKind: 'history',
+
         init: function() {
             Mobile.SalesLogix.Note.List.superclass.init.call(this);
 
@@ -44,13 +50,12 @@ Ext.namespace("Mobile.SalesLogix.Note");
         createRequest: function() {
             var request = Mobile.SalesLogix.Note.List.superclass.createRequest.call(this);
 
-            request
-                .setQueryArgs({
-                    'orderby': 'ModifyDate',
-                    'select': [
-                        'Notes'
-                    ].join(',')
-                });
+            request.setQueryArgs({
+                'orderby': 'ModifyDate',
+                'select': [
+                    'Notes'
+                ].join(',')
+            });
 
             return request;
         },

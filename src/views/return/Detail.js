@@ -8,7 +8,7 @@ Ext.namespace("Mobile.SalesLogix.Return");
 
 (function() {
     Mobile.SalesLogix.Return.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-        id: 'return_detail',
+        //Localization
         accountText: 'account',
         assignedToText: 'AssignedTo',
         createDateText: 'create date',
@@ -23,7 +23,9 @@ Ext.namespace("Mobile.SalesLogix.Return");
         shipToText: 'ship to',
         titleText: 'Return',
         typeText: 'type',
-        resourceKind: 'returns',
+
+        //View Properties
+        id: 'return_detail',
         querySelect: [
             'Account/AccountName',
             'AssignedTo/OwnerDescription',
@@ -36,68 +38,70 @@ Ext.namespace("Mobile.SalesLogix.Return");
             'ReturnType',
             'ShipTo/NameLF'
         ],
+        resourceKind: 'returns',
+
         init: function() {
             Mobile.SalesLogix.Return.Detail.superclass.init.call(this);
 
             this.tools.fbar = [{
-                name: 'home',
-                title: this.fbarHomeTitleText,
                 cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
                 fn: App.navigateToHomeView,
-                scope: this
+                icon: 'content/images/welcome_32x32.gif',
+                name: 'home',
+                scope: this,
+                title: this.fbarHomeTitleText
             },
             {
-                name: 'schedule',
-                title: this.fbarScheduleTitleText,
                 cls: 'tool-note',
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
                 fn: App.navigateToActivityInsertView,
-                scope: this
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                name: 'schedule',
+                scope: this,
+                title: this.fbarScheduleTitleText
             }];
         },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'ReturnNumber',
-                    label: this.returnIdText
+                    label: this.returnIdText,
+                    name: 'ReturnNumber'
                 },
                 {
-                    name: 'Account.AccountName',
-                    label: this.accountText
+                    label: this.accountText,
+                    name: 'Account.AccountName'
                 },
                 {
-                    name: 'Priority',
-                    label: this.priorityText
+                    label: this.priorityText,
+                    name: 'Priority'
                 },
                 {
-                    name: 'ReturnType',
-                    label: this.typeText
+                    label: this.typeText,
+                    name: 'ReturnType'
                 },
                 {
-                    name: 'ExpectedDate',
                     label: this.regDateText,
+                    name: 'ExpectedDate',
                     renderer: Mobile.SalesLogix.Format.date
                 },
                 {
-                    name: 'AssignedTo.OwnerDescription',
-                    label: this.assignedToText
+                    label: this.assignedToText,
+                    name: 'AssignedTo.OwnerDescription'
                 },
                 {
-                    name: 'ReturnedBy.NameLF',
-                    label: this.returnedByText
+                    label: this.returnedByText,
+                    name: 'ReturnedBy.NameLF'
                 },
                 {
-                    name: 'ShipTo.NameLF',
-                    label: this.shipToText
+                    label: this.shipToText,
+                    name: 'ShipTo.NameLF'
                 },
                 {
-                    name: 'CreateUser',
-                    label: this.createUserText
+                    label: this.createUserText,
+                    name: 'CreateUser'
                 },
                 {
-                    name: 'CreateDate',
                     label: this.createDateText,
+                    name: 'CreateDate',
                     renderer: Mobile.SalesLogix.Format.date
                 }
             ]);

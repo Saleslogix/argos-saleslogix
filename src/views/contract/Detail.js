@@ -7,8 +7,7 @@
 Ext.namespace("Mobile.SalesLogix.Contract");
 
 Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-    id: 'contract_detail',
-    editView: 'contract_edit',
+    //Localization
     accountText: 'account',
     activeText: 'active',
     contactText: 'contact',
@@ -26,21 +25,26 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     startText: 'start',
     svcTypeText: 'svc-Type',
     titleText: 'Contract',
-    resourceKind: 'contracts',
+
+    //View Properties
+    editView: 'contract_edit',
+    id: 'contract_detail',
     querySelect: [
-        'ReferenceNumber',
         'Account/AccountName',
         'Contact/NameLF',
-        'ServiceCode',
-        'TypeCode',
-        'Period',
-        'Remaining',
-        'StartDate',
+        'CreateDate',
+        'CreateUser',
         'EndingDate',
         'IsActive',
-        'CreateUser',
-        'CreateDate'
+        'Period',
+        'ReferenceNumber',
+        'Remaining',
+        'ServiceCode',
+        'StartDate',
+        'TypeCode'
     ],   
+    resourceKind: 'contracts',
+
     formatAccountRelatedQuery: function(entry, fmt) {
         return String.format(fmt, entry['Account']['$key']);
     },
@@ -48,92 +52,90 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         Mobile.SalesLogix.Contract.Detail.superclass.init.call(this);
 
         this.tools.fbar = [{
-            name: 'home',
-            title: this.fbarHomeTitleText,
             cls: 'tool-note',
-            icon: 'content/images/welcome_32x32.gif',
             fn: App.navigateToHomeView,
-            scope: this
+            icon: 'content/images/welcome_32x32.gif',
+            name: 'home',
+            scope: this,
+            title: this.fbarHomeTitleText
         },
         {
-            name: 'schedule',
-            title: this.fbarScheduleTitleText,
             cls: 'tool-note',
-            icon: 'content/images/Schdedule_To_Do_32x32.gif',
             fn: App.navigateToActivityInsertView,
-            scope: this
+            icon: 'content/images/Schdedule_To_Do_32x32.gif',
+            name: 'schedule',
+            scope: this,
+            title: this.fbarScheduleTitleText
         }];
     },
     createLayout: function() {
         return this.layout || (this.layout = [
             {
-                name: 'ReferenceNumber',
-                label: this.refNumText
+                label: this.refNumText,
+                name: 'ReferenceNumber'
             },
             {
-                name: 'Account.AccountName',
-                label: this.accountText,
-                view: 'account_detail',
                 key: 'Account.$key',
-                property: true
+                label: this.accountText,
+                name: 'Account.AccountName',
+                property: true,
+                view: 'account_detail'
             },
             {
-                name: 'Contact.NameLF',
-                label: this.contactText
+                label: this.contactText,
+                name: 'Contact.NameLF'
             },
             {
                 name: 'ServiceCode',
                 label: this.svcTypeText
             },
             {
-                name: 'TypeCode',
-                label: this.contractTypeText
+                label: this.contractTypeText,
+                name: 'TypeCode'
             },
             {
-                name: 'Period',
-                label: this.quantityText
+                label: this.quantityText,
+                name: 'Period'
             },
             {
-                name: 'Remaining',
-                label: this.remainingText
+                label: this.remainingText,
+                name: 'Remaining'
             },
             {
-                name: 'StartDate',
                 label: this.startText,
+                name: 'StartDate',
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
-                name: 'EndingDate',
                 label: this.endText,
+                name: 'EndingDate',
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
-                name: 'IsActive',
-                label: this.activeText
+                label: this.activeText,
+                name: 'IsActive'
             },
             {
-                name: 'CreateUser',
-                label: this.createUserText
+                label: this.createUserText,
+                name: 'CreateUser'
             },
             {
-                name: 'CreateDate',
                 label: this.createDateText,
+                name: 'CreateDate',
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
                 options: {
-                    title: this.relatedItemsText,
-                    list: true
+                    list: true,
+                    title: this.relatedItemsText
                 },
                 as: [{
+                    icon: 'content/images/ticket_16x16.gif',
+                    label: this.relatedTicketsText,
                     view: 'ticket_related',
                     where: this.formatAccountRelatedQuery.createDelegate(
-                                this,
-                                ['Account.id eq "{0}"'],
-                                true
-                            ),
-                    label: this.relatedTicketsText,
-                    icon: 'content/images/ticket_16x16.gif'
+                        this, ['Account.id eq "{0}"'], true
+                    ),
                 }]
             }
         ]);

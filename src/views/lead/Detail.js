@@ -7,8 +7,7 @@
 Ext.namespace("Mobile.SalesLogix.Lead");
 
 Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-    id: 'lead_detail',
-    editView: 'lead_edit',
+    //Localization
     accountText: 'company',
     addressText: 'address',
     businessDescriptionText: 'bus desc',
@@ -32,7 +31,10 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     tollFreeText: 'toll free',
     webText: 'web',
     workText: 'phone',
-    resourceKind: 'leads',
+
+    //View Properties
+    editView: 'lead_edit',
+    id: 'lead_detail',
     querySelect: [
         'Address/*',
         'BusinessDescription',
@@ -58,118 +60,116 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         'WebAddress',
         'WorkPhone'
     ],   
+    resourceKind: 'leads',
+
     init: function() {     
         Mobile.SalesLogix.Lead.Detail.superclass.init.call(this);
 
         this.tools.fbar = [{
-            name: 'home',
-            title: this.fbarHomeTitleText,
             cls: 'tool-note',
-            icon: 'content/images/welcome_32x32.gif',
             fn: App.navigateToHomeView,
-            scope: this
+            icon: 'content/images/welcome_32x32.gif',
+            name: 'home',
+            scope: this,
+            title: this.fbarHomeTitleText
         },
         {
-            name: 'schedule',
-            title: this.fbarScheduleTitleText,
             cls: 'tool-note',
-            icon: 'content/images/Schdedule_To_Do_32x32.gif',
             fn: App.navigateToActivityInsertView,
-            scope: this
+            icon: 'content/images/Schdedule_To_Do_32x32.gif',
+            name: 'schedule',
+            scope: this,
+            title: this.fbarScheduleTitleText
         }];
     },
     createLayout: function() {
         return this.layout || (this.layout = [
             {
+                label: this.nameText,
                 name: 'LeadNameLastFirst',
-                label: this.nameText
             },
             {
+                label: this.accountText,
                 name: 'Company',
-                label: this.accountText
             },
             {
-                name: 'WebAddress',
                 label: this.webText,
+                name: 'WebAddress',
                 renderer: Mobile.SalesLogix.Format.link
             },
             {
-                name: 'WorkPhone',
                 label: this.workText,
+                name: 'WorkPhone',
                 renderer: Mobile.SalesLogix.Format.phone
             },
             {
-                name: 'Email',
                 label: this.eMailText,
+                name: 'Email',
                 renderer: Mobile.SalesLogix.Format.mail
             },
             {
-                name: 'Title',
-                label: this.leadTitleText
+                label: this.leadTitleText,
+                name: 'Title'
             },
             {
-                name: 'Address',
                 label: this.addressText,
+                name: 'Address',
                 renderer: Mobile.SalesLogix.Format.address
             },
             {
-                name: 'TollFree',
                 label: this.tollFreeText,
+                name: 'TollFree',
                 renderer: Mobile.SalesLogix.Format.phone
             },
             {
-                name: 'LeadSource',
                 label: this.leadsourceText,
+                name: 'LeadSource',
                 tpl: new Simplate(['{%= $.Description %}'])
             },
             {
-                name: 'Interests',
-                label: this.interestsText
+                label: this.interestsText,
+                name: 'Interests'
             },
             {
-                name: 'Industry',
-                label: this.industryText
+                label: this.industryText,
+                name: 'Industry'
             },
             {
-                name: 'SICCode',
-                label: this.sicCodeText
+                label: this.sicCodeText,
+                name: 'SICCode'
             },
             {
-                name: 'BusinessDescription',
-                label: this.businessDescriptionText
+                label: this.businessDescriptionText,
+                name: 'BusinessDescription'
             },
             {
-                name: 'Notes',
-                label: this.notesText
+                label: this.notesText,
+                name: 'Notes'
             },
             {
-                name: 'Owner.OwnerDescription',
-                label: this.ownerText
+                label: this.ownerText,
+                name: 'Owner.OwnerDescription'
             },
             {
                 options: {
-                    title: this.relatedItemsText,
-                    list: true
+                    list: true,
+                    title: this.relatedItemsText
                 },
                 as: [{
+                    icon: 'content/images/Task_List_3D_24x24.gif',
+                    label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(
-                                this,
-                                ['LeadId eq "{0}"'],
-                                true
-                            ),
-                    label: this.relatedActivitiesText,
-                    icon: 'content/images/Task_List_3D_24x24.gif'
+                        this, ['LeadId eq "{0}"'], true
+                    )
                 },
                 {
+                    icon: 'content/images/Note_24x24.gif',
+                    label: this.relatedNotesText,
                     view: 'note_related',
                     where: this.formatRelatedQuery.createDelegate(
-                                this,
-                                ['LeadId eq "{0}" and Type eq "atNote"'],
-                                true
-                            ),
-                    label: this.relatedNotesText,
-                    icon: 'content/images/Note_24x24.gif'
+                        this, ['LeadId eq "{0}" and Type eq "atNote"'], true
+                    )
                 }]
             }
         ]); 

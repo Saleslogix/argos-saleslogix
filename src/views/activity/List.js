@@ -6,33 +6,39 @@
 
 Ext.namespace("Mobile.SalesLogix.Activity");
 
-Mobile.SalesLogix.Activity.Types = {
-    "atAppointment": "Meeting",
-    "atLiterature": "Literature Request",
-    "atPersonal": "Personal Activity",
-    "atPhoneCall": "Phone Call",
-    "atToDo": "To-Do"
-};
-
 (function() {
+    Mobile.SalesLogix.Activity.Types = {
+        "atAppointment": "Meeting",
+        "atLiterature": "Literature Request",
+        "atPersonal": "Personal Activity",
+        "atPhoneCall": "Phone Call",
+        "atToDo": "To-Do"
+    };
+
     Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<h3>{%: Mobile.SalesLogix.Format.date($.StartDate) %}, {%: $.AccountName %}</h3>',
             '<h4>{%: Mobile.SalesLogix.Activity.Types[$.Type] %}, {%: $.Description %}</h4>'
         ]),
-        id: 'activity_list',
-        icon: 'content/images/Task_List_3D_24x24.gif',
+
+        //Localization
         titleText: 'Activities',
-        insertView: 'activity_edit',
+
+        //View Properties
         detailView: 'activity_detail',
-        resourceKind: 'activities',
+        icon: 'content/images/Task_List_3D_24x24.gif',
+        id: 'activity_list',
+        insertView: 'activity_edit',
+        queryOrderBy: 'StartDate',
         querySelect: [
             'StartDate',
             'AccountName',
             'Type',
             'Description'
         ],
-        queryOrderBy: 'StartDate',
+        resourceKind: 'activities',
+
         formatSearchQuery: function(query) {
             return String.format('Description like "%{0}%"', query);
         }

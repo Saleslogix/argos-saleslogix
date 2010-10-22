@@ -8,21 +8,27 @@ Ext.namespace("Mobile.SalesLogix.User");
 
 (function() {
     Mobile.SalesLogix.User.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
             '<h4>{%: $.UserInfo.Title %}</h4>'
         ]),
-        id: 'user_list',
-        icon: 'content/images/Accounts_24x24.gif',
+
+        //Localization
         titleText: 'Users',
-        resourceKind: 'users',
+
+        //View Properties
+        icon: 'content/images/Accounts_24x24.gif',
+        id: 'user_list',
+        queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
         querySelect: [
             'UserInfo/FirstName',
             'UserInfo/LastName',
             'UserInfo/Title',
             'UserInfo/UserName'
         ],
-        queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
+        resourceKind: 'users',
+
         formatSearchQuery: function(query) {
             return String.format('UserInfo.UserName like "%{0}%"', query);
         }

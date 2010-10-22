@@ -7,8 +7,7 @@
 Ext.namespace("Mobile.SalesLogix.Ticket");
 
 Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-    id: 'ticket_detail',
-    editView: 'ticket_edit',
+    //Localization
     accountText: 'acct name',
     areaText: 'area',
     assignedDateText: 'assigned date',
@@ -32,7 +31,10 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     ticketIdText: 'ticket number',
     titleText: 'Ticket',
     urgencyText: 'urgency',
-    resourceKind: 'tickets',
+
+    //View Properties
+    editView: 'ticket_edit',
+    id: 'ticket_detail',
     querySelect: [
         'Account/AccountName',
         'Area',
@@ -52,104 +54,108 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         'TicketNumber',
         'UrgencyCode'
     ],
+    resourceKind: 'tickets',
+
     init: function() {
         Mobile.SalesLogix.Ticket.Detail.superclass.init.call(this);
 
         this.tools.fbar = [{
-            name: 'home',
-            title: this.fbarHomeTitleText,
             cls: 'tool-note',
-            icon: 'content/images/welcome_32x32.gif',
             fn: App.navigateToHomeView,
-            scope: this
+            icon: 'content/images/welcome_32x32.gif',
+            name: 'home',
+            scope: this,
+            title: this.fbarHomeTitleText
         },
         {
-            name: 'schedule',
-            title: this.fbarScheduleTitleText,
             cls: 'tool-note',
-            icon: 'content/images/Schdedule_To_Do_32x32.gif',
             fn: App.navigateToActivityInsertView,
-            scope: this
+            icon: 'content/images/Schdedule_To_Do_32x32.gif',
+            name: 'schedule',
+            scope: this,
+            title: this.fbarScheduleTitleText
         }];
     },
     createLayout: function() {
         return this.layout || (this.layout = [
             {
-                name: 'TicketNumber',
-                label: this.ticketIdText
+                label: this.ticketIdText,
+                name: 'TicketNumber'
             },
             {
-                name: 'Account.AccountName',
-                label: this.accountText
+                label: this.accountText,
+                name: 'Account.AccountName'
             },
             {
-                name: 'Contact.NameLF',
-                label: this.contactText
+                label: this.contactText,
+                name: 'Contact.NameLF'
             },
             {
-                name: 'Area',
-                label: this.areaText
+                label: this.areaText,
+                name: 'Area'
             },
             {
-                name: 'Category',
-                label: this.categoryText
+                label: this.categoryText,
+                name: 'Category'
             },
             {
-                name: 'Issue',
-                label: this.issueText
+                label: this.issueText,
+                name: 'Issue'
             },
             {
-                name: 'Source',
-                label: this.sourceText
+                label: this.sourceText,
+                name: 'Source'
             },
             {
-                name: 'StatusCode',
-                label: this.statusText
+                label: this.statusText,
+                name: 'StatusCode'
             },
             {
-                name: 'UrgencyCode',
-                label: this.urgencyText
+                label: this.urgencyText,
+                name: 'UrgencyCode'
             },
             {
-                name: 'NeededByDate',
                 label: this.needByText,
+                name: 'NeededByDate',
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
-                name: 'AssignedDate',
                 label: this.assignedDateText,
+                name: 'AssignedDate',
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
-                name: 'AssignedTo.OwnerDescription',
-                label: this.assignedToText
+                label: this.assignedToText,
+                name: 'AssignedTo.OwnerDescription'
             },
             {
-                name: 'Subject',
-                label: this.subjectText
+                label: this.subjectText,
+                name: 'Subject'
             },
             {
-                name: 'Description',
-                label: this.descriptionText
+                label: this.descriptionText,
+                name: 'Description'
             },
             {
-                name: 'Resolution',
-                label: this.resolutionText
+                label: this.resolutionText,
+                name: 'Resolution'
             },
             {
-                name: 'Notes',
-                label: this.notesText
+                label: this.notesText,
+                name: 'Notes'
             },
             {
                 options: {
-                    title: this.relatedItemsText,
-                    list: true
+                    list: true,
+                    title: this.relatedItemsText
                 },
                 as: [{
-                    view: 'activity_related',
-                    where: this.formatRelatedQuery.createDelegate(this, ['TicketId eq "{0}"'], true),
+                    icon: 'content/images/Task_List_3D_24x24.gif',
                     label: this.relatedActivitiesText,
-                    icon: 'content/images/Task_List_3D_24x24.gif'
+                    view: 'activity_related',
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['TicketId eq "{0}"'], true
+                    )
                 }]
             }
         ]);

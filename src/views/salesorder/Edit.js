@@ -10,7 +10,7 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
 
 (function() {
     Mobile.SalesLogix.SalesOrder.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'salesorder_edit',
+        //Localization
         commentsText: 'comments',
         reqDateText: 'req date',
         salesOrderIdText: 'sales order id',
@@ -18,8 +18,10 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
         titleText: 'SalesOrder',
         totalText: 'total',
         typeText: 'type',
-        resourceKind: 'salesorders',
+
+        //View Properties
         entityName: 'SalesOrder',
+        id: 'salesorder_edit',
         querySelect:  [
             'Account/AccountName',
             'Comments',
@@ -33,39 +35,41 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
             'Status',
             'User/UserInfo/UserName'
         ],
+        resourceKind: 'salesorders',
+
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'SalesOrderNumber',
                     label: this.salesOrderIdText,
+                    name: 'SalesOrderNumber',
                     type: 'text'
                 },
                 {
-                    name: 'OrderType',
                     label: this.typeText,
+                    name: 'OrderType',
                     type: 'text'
                 },
                 {
-                    name: 'Status',
                     label: this.statusText,
+                    name: 'Status',
                     type: 'text'
                 },
                 {
-                    name: 'OrderTotal',
                     label: this.totalText,
-                    validator: Mobile.SalesLogix.Validator.isDecimal,
+                    name: 'OrderTotal',
+                    type: 'text',
                     validationTrigger: 'keyup',
+                    validator: Mobile.SalesLogix.Validator.isDecimal
+                },
+                {
+                    label: this.reqDateText,
+                    name: 'DatePromised',
+                    renderer: Mobile.SalesLogix.Format.date,
                     type: 'text'
                 },
                 {
-                    name: 'DatePromised',
-                    label: this.reqDateText,
-                    type: 'text',
-                    renderer: Mobile.SalesLogix.Format.date
-                },
-                {
-                    name: 'Comments',
                     label: this.commentsText,
+                    name: 'Comments',
                     type: 'text'
                 }
             ]);

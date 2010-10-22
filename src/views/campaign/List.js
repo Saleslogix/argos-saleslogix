@@ -8,19 +8,25 @@ Ext.namespace("Mobile.SalesLogix.Campaign");
 
 (function() {
     Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Template
         contentTemplate: new Simplate([
             '<h3>{%: $.CampaignName %}</h3>'
         ]),
-        id: 'campaign_list',
-        icon: 'content/images/campaigns_detail_24x24.gif',
+
+        //Localization
         titleText: 'Campaigns',
-        insertView: 'campaign_list',
+
+        //View Properties
         detailView: 'campaign_detail',
-        resourceKind: 'campaigns',
+        icon: 'content/images/campaigns_detail_24x24.gif',
+        id: 'campaign_list',
+        insertView: 'campaign_list',
+        queryOrderBy: 'CampaignName',
         querySelect: [
             'CampaignName'
         ],
-        queryOrderBy: 'CampaignName',
+        resourceKind: 'campaigns',
+
         formatSearchQuery: function(query) {
             return String.format('CampaignName like "%{0}%"', query);
         }

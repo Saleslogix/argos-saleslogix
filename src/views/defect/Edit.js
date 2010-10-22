@@ -9,15 +9,17 @@ Ext.namespace("Mobile.SalesLogix.Defect");
 
 (function() {
     Mobile.SalesLogix.Defect.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'defect_edit',
+        //Localization
         idPrefixText: 'id prefix',
         idSuffixText: 'id suffix',
         titleText: 'Defect',
         areaText: 'area',
         categoryText: 'category',
         subjectText: 'subject',
-        resourceKind: 'defects',
+
+        //View Properties
         entityName: 'Defect',
+        id: 'defect_edit',
         querySelect: [
             'AlternateKeyPrefix',
             'AlternateKeySuffix',
@@ -25,31 +27,33 @@ Ext.namespace("Mobile.SalesLogix.Defect");
             'Category',
             'Subject'
         ],
+        resourceKind: 'defects',
+
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'AlternateKeyPrefix',
                     label: this.idPrefixText,
+                    name: 'AlternateKeyPrefix',
                     type: 'text'
                 },
                 {
-                    name: 'AlternateKeySuffix',
                     label: this.idSuffixText,
+                    name: 'AlternateKeySuffix',
                     type: 'text'
                 },
                 {
-                    name: 'Area',
                     label: this.areaText,
+                    name: 'Area',
                     type: 'text'
                 },
                 {
-                    name: 'Category',
                     label: this.categoryText,
+                    name: 'Category',
                     type: 'text'
                 },
                 {
-                    name: 'Subject',
                     label: this.subjectText,
+                    name: 'Subject',
                     type: 'text'
                 }
             ]);

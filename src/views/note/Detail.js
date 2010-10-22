@@ -8,32 +8,36 @@ Ext.namespace("Mobile.SalesLogix.Note");
 
 (function() {
     Mobile.SalesLogix.Note.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-        id: 'note_detail',
-        editView: 'note_edit',
+        //Localization
         fbarHomeTitleText: 'home',
         notesText: 'notes',
         titleText: 'Note',
-        resourceKind: 'history',
+
+        //View Properties
+        editView: 'note_edit',
+        id: 'note_detail',
         querySelect: [
             'Notes'
         ],        
+        resourceKind: 'history',
+
         init: function() {
             Mobile.SalesLogix.Note.Detail.superclass.init.call(this);
 
             this.tools.fbar = [{
-                name: 'home',
-                title: this.fbarHomeTitleText,
                 cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
                 fn: App.navigateToHomeView,
-                scope: this
+                icon: 'content/images/welcome_32x32.gif',
+                name: 'home',
+                scope: this,
+                title: this.fbarHomeTitleText
             }];
         },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'Notes',
-                    label: this.notesText
+                    label: this.notesText,
+                    name: 'Notes'
                 }
             ]);
         }

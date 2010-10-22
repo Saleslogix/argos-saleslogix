@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
 (function() {
     Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'contact_edit',
+        //Localization
         titleText: 'Contact',
         nameText: 'name',
         workText: 'phone',
@@ -25,8 +25,10 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         titleTitleText: 'Title',
         addressTitleText: 'Address',
         ownerText: 'owner',
-        resourceKind: 'contacts',
+
+        //View Properties
         entityName: 'Contact',
+        id: 'contact_edit',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',
@@ -50,6 +52,8 @@ Ext.namespace("Mobile.SalesLogix.Contact");
             'WebAddress',
             'WorkPhone'
         ],
+        resourceKind: 'contacts',
+
         init: function() {
             Mobile.SalesLogix.Contact.Edit.superclass.init.apply(this, arguments);
             var accountName = this.fields['AccountName'];
@@ -96,20 +100,20 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'ContactName',
-                    label: this.nameText,
-                    type: 'name',
-                    view: 'name_edit',
                     applyTo: '',
-                    formatter: Mobile.SalesLogix.Format.nameLF
+                    formatter: Mobile.SalesLogix.Format.nameLF,
+                    label: this.nameText,
+                    name: 'ContactName',
+                    type: 'name',
+                    view: 'name_edit'
                 },
                 {
-                    name: 'Account',
+                    forceValue: true,
                     label: this.accountNameText,
-                    type: 'lookup',
-                    view: 'account_lookup',
+                    name: 'Account',
                     textProperty: 'AccountName',
-                    forceValue: true
+                    type: 'lookup',
+                    view: 'account_lookup'
                 },
                 {
                     alwaysUseValue: true,
@@ -132,18 +136,18 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     type: 'text'
                 },
                 {
-                    name: 'Title',
                     label: this.contactTitleText,
-                    type: 'picklist',
+                    name: 'Title',
                     picklist: 'Title',
-                    title: this.titleTitleText
+                    title: this.titleTitleText,
+                    type: 'picklist'
                 },
                 {
-                    name: 'Address',
+                    formatter: Mobile.SalesLogix.Format.address,
                     label: this.addressText,
-                    view: 'address_edit',
+                    name: 'Address',
                     type: 'address',
-                    formatter: Mobile.SalesLogix.Format.address
+                    view: 'address_edit'
                 },
                 {
                     name: 'HomePhone',
@@ -161,19 +165,19 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     type: 'phone'
                 },
                 {
-                    name: 'AccountManager',
                     label: this.acctMgrText,
-                    type: 'lookup',
-                    view: 'user_list',
+                    name: 'AccountManager',
                     textProperty: 'UserInfo',
-                    textTemplate: Mobile.SalesLogix.Template.nameLF
+                    textTemplate: Mobile.SalesLogix.Template.nameLF,
+                    type: 'lookup',
+                    view: 'user_list'
                 },
                 {
-                    name: 'Owner',
                     label: this.ownerText,
+                    name: 'Owner',
+                    textProperty: 'OwnerDescription',
                     type: 'lookup',
-                    view: 'owner_list',
-                    textProperty: 'OwnerDescription'
+                    view: 'owner_list'
                 }
             ]);
         }

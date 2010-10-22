@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Address");
 
 (function() {
     Mobile.SalesLogix.Address.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'address_edit',
+        //Localization
         address1Text: 'address 1',
         address2Text: 'address 2',
         address3Text: 'address 3',
@@ -26,6 +26,10 @@ Ext.namespace("Mobile.SalesLogix.Address");
         stateText: 'state',
         stateTitleText: 'State',
         titleText: 'Address',
+
+        //View Properties
+        id: 'address_edit',
+
         formatDependentPicklist: function(dependentValue, format) {
             return String.format(format, dependentValue, this.options.entityName);
         },
@@ -35,10 +39,8 @@ Ext.namespace("Mobile.SalesLogix.Address");
                     label: this.descriptionText,
                     name: 'Description',
                     picklist: this.formatDependentPicklist.createDelegate(
-                                this, 
-                                ['Address Description ({1})'], 
-                                true
-                              ),
+                        this, ['Address Description ({1})'], true
+                    ),
                     requireSelection: false,
                     title: this.descriptionTitleText,
                     type: 'picklist'

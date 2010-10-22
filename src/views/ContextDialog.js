@@ -8,16 +8,7 @@ Ext.namespace("Mobile.SalesLogix");
 
 /// this is a very simple home view.
 Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
-    attachmentPoints: {
-        contentEl: '.list-content'
-    },
-    activitiesText: 'Activities',
-    cancelText: 'Cancel',
-    contextItems: [],
-    detailView: false,
-    notesText: 'Notes',
-    parentViewId: '',
-    relatedKey: false,
+    //Templates
     viewTemplate: new Simplate([
         '<div id="{%= id %}" class="dialog">',
             '<fieldset>',
@@ -36,6 +27,21 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
         '<a href="#" class="button dismissButton redButton">{%: $.cancelText %}</a>',
         '</li>'
     ]),
+
+    //Localization
+    activitiesText: 'Activities',
+    cancelText: 'Cancel',
+    notesText: 'Notes',
+
+    //View Properties
+    attachmentPoints: {
+        contentEl: '.list-content'
+    },
+    contextItems: [],
+    detailView: false,
+    parentViewId: '',
+    relatedKey: false,
+
     activateButton: function(params) {
         var o = {
                 'key': this.relatedKey

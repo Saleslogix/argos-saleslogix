@@ -9,8 +9,7 @@ Ext.namespace("Mobile.SalesLogix");
 (function() {
     /// this is a simple configure screen for Home View.
     Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
-        titleText: 'Configure',
-        savePrefs: 'Save',
+        //Templates
         emptyTemplate: new Simplate(['']),
         itemTemplate: new Simplate([
             '<li>',
@@ -28,6 +27,11 @@ Ext.namespace("Mobile.SalesLogix");
             '{%= $.titleText %}',
             '</span>'
         ]),
+
+        //Localization
+        titleText: 'Configure',
+        savePrefs: 'Save',
+
         constructor: function(o) {
             Mobile.SalesLogix.Configure.superclass.constructor.call(this);
 

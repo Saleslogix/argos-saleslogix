@@ -8,17 +8,23 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
 (function() {
     Mobile.SalesLogix.Contact.Lookup = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>'
         ]),
-        id: 'contact_lookup',
-        expose: false,
+
+        //Localization
         titleText: 'Contacts',
-        resourceKind: 'contacts',
+
+        //View Properties
+        expose: false,
+        id: 'contact_lookup',
+        queryOrderBy: 'NameLF',
         querySelect: [
             'NameLF'
         ],
-        queryOrderBy: 'NameLF',
+        resourceKind: 'contacts',
+
         formatSearchQuery: function(query) {
             return String.format('NameLF like "%{0}%"', query);
         }

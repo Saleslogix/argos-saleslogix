@@ -8,18 +8,23 @@ Ext.namespace("Mobile.SalesLogix.Defect");
 
 (function() {
     Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+        //Templates
         textBlockTemplate: new Simplate([
             '<div class="row defect-text-row">',
             '<div class="defect-text-wrap">',
-            '<a href="#{%= $["view"] %}" target="_related" data-context={%= $["context"] %}>{%= $["value"] %}</a>',
+                '<a href="#{%= $["view"] %}" target="_related" data-context={%= $["context"] %}>',
+                    '{%= $["value"] %}',
+                '</a>',
             '</div>',
             '<div class="defect-text-more">',
-            '<a href="#{%= $["view"] %}" target="_related" data-context={%= $["context"] %}>more &gt;&gt;</a>',
+                '<a href="#{%= $["view"] %}" target="_related" data-context={%= $["context"] %}>',
+                    'more &gt;&gt;',
+                '</a>',
             '</div>',
             '</div>'
         ]),
-        id: 'defect_detail',
-        editView: 'defect_edit',
+
+        //Localization
         areaText: 'area',
         assignedText: 'assigned',
         categoryText: 'category',
@@ -39,55 +44,60 @@ Ext.namespace("Mobile.SalesLogix.Defect");
         statusText: 'status',
         subjectText: 'subject',
         titleText: 'Defect',
-        resourceKind: 'defects',
+
+        //View Properties
+        editView: 'defect_edit',
+        id: 'defect_detail',
         querySelect: [
             'AlternateKeyPrefix',
             'AlternateKeySuffix',
-            'PriorityCode',
-            'SeverityCode',
             'Area',
-            'Category',
-            'Subject',
-            'RecordedDate',
             'AssignedTo/OwnerDescription',
+            'Category',
+            'CreateDate',
+            'CreateUser',
             'DefectProblem/Notes',
             'DefectSolution/Notes',
+            'PriorityCode',
+            'RecordedDate',
+            'SeverityCode',
             'StatusCode',
-            'CreateUser',
-            'CreateDate'
+            'Subject'
         ],
+        resourceKind: 'defects',
+
         init: function() {
             Mobile.SalesLogix.Defect.Detail.superclass.init.call(this);
 
             App.on('resize', this.onResize, this);
 
             this.tools.fbar = [{
-                name: 'home',
-                title: this.fbarScheduleHomeText,
                 cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
                 fn: App.navigateToHomeView,
-                scope: this
+                icon: 'content/images/welcome_32x32.gif',
+                name: 'home',
+                scope: this,
+                title: this.fbarScheduleHomeText
             },
             {
-                name: 'new',
-                title: this.fbarScheduleNewText,
                 cls: 'tool-note',
-                icon: 'content/images/Note_32x32.gif',
                 fn: function() {
                     App.getView('defect_list').navigateToInsert.call({
                         editor: 'defect_edit'
                     });
                 },
-                scope: this
+                icon: 'content/images/Note_32x32.gif',
+                name: 'new',
+                scope: this,
+                title: this.fbarScheduleNewText
             },
             {
-                name: 'schedule',
-                title: this.fbarScheduleTitleText,
                 cls: 'tool-note',
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
                 fn: App.navigateToActivityInsertView,
-                scope: this
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                name: 'schedule',
+                scope: this,
+                title: this.fbarScheduleTitleText
             }];
         },
         onResize: function() {
@@ -105,45 +115,45 @@ Ext.namespace("Mobile.SalesLogix.Defect");
                     tpl: Mobile.SalesLogix.Template.alternateKeyPrefixSuffix
                 },
                 {
-                    name: 'PriorityCode',
-                    label: this.priorityText
+                    label: this.priorityText,
+                    name: 'PriorityCode'
                 },
                 {
-                    name: 'SeverityCode',
-                    label: this.severityText
+                    label: this.severityText,
+                    name: 'SeverityCode'
                 },
                 {
-                    name: 'Area',
-                    label: this.areaText
+                    label: this.areaText,
+                    name: 'Area'
                 },
                 {
-                    name: 'Category',
-                    label: this.categoryText
+                    label: this.categoryText,
+                    name: 'Category'
                 },
                 {
-                    name: 'Subject',
-                    label: this.subjectText
+                    label: this.subjectText,
+                    name: 'Subject'
                 },
                 {
-                    name: 'RecordedDate',
                     label: this.reportDateText,
+                    name: 'RecordedDate',
                     renderer: Mobile.SalesLogix.Format.date
                 },
                 {
-                    name: 'AssignedTo.OwnerDescription',
-                    label: this.assignedText
+                    label: this.assignedText,
+                    name: 'AssignedTo.OwnerDescription'
                 },
                 {
-                    name: 'StatusCode',
-                    label: this.statusText
+                    label: this.statusText,
+                    name: 'StatusCode'
                 },
                 {
-                    name: 'CreateUser',
-                    label: this.createUserText
+                    label: this.createUserText,
+                    name: 'CreateUser'
                 },
                 {
-                    name: 'CreateDate',
                     label: this.createDateText,
+                    name: 'CreateDate',
                     renderer: Mobile.SalesLogix.Format.date
                 },
                 {
@@ -151,11 +161,11 @@ Ext.namespace("Mobile.SalesLogix.Defect");
                         title: this.relatedDefectProblemsText
                     },
                     as: [{
-                        name: 'DefectProblem.Notes',
                         label: this.relatedDefectProblemsText,
-                        wrap: this.textBlockTemplate,
+                        name: 'DefectProblem.Notes',
+                        key: 'DefectProblem.$key',
                         view: 'defectproblem_detail',
-                        key: 'DefectProblem.$key'
+                        wrap: this.textBlockTemplate
                     }]
                 },
                 {
@@ -163,16 +173,15 @@ Ext.namespace("Mobile.SalesLogix.Defect");
                         title: this.relatedDefectSolutionsText
                     },
                     as: [{
-                        name: 'DefectSolution.Notes',
                         label: this.relatedDefectSolutionsText,
-                        wrap: this.textBlockTemplate,
+                        name: 'DefectSolution.Notes',
+                        key: 'DefectSolution.$key',
                         view: 'defectsolution_detail',
-                        key: 'DefectSolution.$key'
-
+                        wrap: this.textBlockTemplate
                     }]
                 }
             ]);
-        },        
+        },
         processEntry: function(entry) {
             Mobile.SalesLogix.Defect.Detail.superclass.processEntry.call(this, entry);
 

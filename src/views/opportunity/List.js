@@ -8,23 +8,29 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
 
 (function() {
     Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<h3>{%: $.Account ? $.Account.AccountName : "" %}</h3>',
             '<h4>{%: $.Description %}</h4>'
         ]),
-        id: 'opportunity_list',
+
+        //Localization
+        titleText: 'Opportunities',
+
+        //View Properties
         contextView: 'context_dialog',
         detailView: 'opportunity_detail',
         icon: 'content/images/Opportunity_List_24x24.gif',
+        id: 'opportunity_list',
         insertView: 'opportunity_edit',
-        titleText: 'Opportunities',
-        resourceKind: 'opportunities',
+        queryOrderBy: 'Description',
         querySelect: [
             'Account/AccountName',
             'Description',
             'Stage'
         ],
-        queryOrderBy: 'Description',
+        resourceKind: 'opportunities',
+
         formatSearchQuery: function(query) {
             return String.format('(Description like "%{0}%")', query);
 

@@ -8,15 +8,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
 (function() {
     Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-        id: 'activity_detail',
-        editView: 'activity_edit',
-        activityTypeText: {
-            'atAppointment': 'Meeting',
-            'atLiterature': 'Literature Request',
-            'atPhoneCall': 'Phone Call',
-            'atPersonal': 'Personal Activity',
-            'atToDo': 'To-Do'
-        },
+        //Localization
         accountText: 'account',
         alarmText: 'reminder',
         alarmTimeText: 'reminder',
@@ -38,7 +30,17 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
-        resourceKind: 'activities',
+
+        //View Properties
+        activityTypeText: {
+            'atAppointment': 'Meeting',
+            'atLiterature': 'Literature Request',
+            'atPhoneCall': 'Phone Call',
+            'atPersonal': 'Personal Activity',
+            'atToDo': 'To-Do'
+        },
+        editView: 'activity_edit',
+        id: 'activity_detail',
         querySelect: [
             'AccountName',
             'Alarm',
@@ -59,6 +61,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'Timeless',
             'Type'
         ],
+        resourceKind: 'activities',
+
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
@@ -121,10 +125,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'AlarmTime',
                     label: this.alarmTimeText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                                this,
-                                ['M/d/yyyy hh:MM:ss'],
-                                true
-                              )
+                        this, ['M/d/yyyy hh:MM:ss'], true
+                    )
                 },
                 {
                     name: 'Rollover',

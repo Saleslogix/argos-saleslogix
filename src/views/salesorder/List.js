@@ -8,20 +8,26 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
 
 (function() {
     Mobile.SalesLogix.SalesOrder.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',
             '<h4>{%= SalesOrderNumber %}</h4>'
         ]),
-        id: 'salesorder_list',
+
+        //Localization
+        titleText: 'SalesOrder',
+
+        //View Properties
         detailView: 'salesorder_detail',
         icon: 'content/images/salesorder.gif',
-        titleText: 'SalesOrder',
-        resourceKind: 'salesorders',
+        id: 'salesorder_list',
+        queryOrderBy: 'SalesOrderNumber',
         querySelect: [
             'Account/AccountName',
             'SalesOrderNumber'
         ],
-        queryOrderBy: 'SalesOrderNumber',
+        resourceKind: 'salesorders',
+
         formatSearchQuery: function(query) {
             return String.format('(SalesOrderNumber like "%{0}%")', query);
 

@@ -7,13 +7,17 @@
 Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.PickList = Ext.extend(Sage.Platform.Mobile.List, {
+    //Templates
+    contentTemplate: new Simplate([
+        '<h3>{%: $.text %}</h3>'
+    ]),    
+
+    //View Properties
     id: 'pick_list',
     expose: false,
     resourceKind: 'picklists',
     resourceProperty: 'items',
-    contentTemplate: new Simplate([
-        '<h3>{%: $.text %}</h3>'
-    ]),    
+
     formatSearchQuery: function(query) {
         return String.format('text like "%{0}%"', query);
     },

@@ -1,14 +1,18 @@
 Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.NameEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
-    id: 'name_edit',
-    prefixLabel: 'prefix',
+    //Localization
     firstnameLabel: 'first',
-    middlenameLabel: 'middle',
     lastnameLabel: 'last',
-    suffixLabel: 'suffix',
+    middlenameLabel: 'middle',
+    prefixLabel: 'prefix',
     prefixTitleText: 'Name Prefix',
+    suffixLabel: 'suffix',
     suffixTitleText: 'Name Suffix',
+
+    //View Properties
+    id: 'name_edit',
+
     constructor: function(o) {
         Mobile.SalesLogix.NameEdit.superclass.constructor.call(this);
 
@@ -18,12 +22,12 @@ Mobile.SalesLogix.NameEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         this.layout = [
             {
-                name: 'Prefix',
                 label: this.prefixLabel,
-                type: 'picklist',
-                requireSelection: true,
+                name: 'Prefix',
                 picklist: 'Name Prefix',
-                title: this.prefixTitleText
+                requireSelection: true,
+                title: this.prefixTitleText,
+                type: 'picklist'
             },
             {
                 name: 'FirstName',
@@ -41,12 +45,12 @@ Mobile.SalesLogix.NameEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
                 type: 'text'
             },
             {
-                name: 'Suffix',
                 label: this.suffixLabel,
-                type: 'picklist',
-                requireSelection: true,
+                name: 'Suffix',
                 picklist: 'Name Suffix',
-                title: this.suffixTitleText
+                requireSelection: true,
+                title: this.suffixTitleText,
+                type: 'picklist'
             }
         ];
     }

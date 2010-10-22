@@ -8,8 +8,7 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
 
 (function() {
     Mobile.SalesLogix.SalesOrder.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-        id: 'salesorder_detail',
-        editView: 'salesorder_edit',
+        //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
         commentsText: 'comments',
@@ -23,7 +22,10 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
         titleText: 'SalesOrder',
         totalText: 'total',
         typeText: 'type',
-        resourceKind: 'salesorders',
+
+        //View Properties
+        editView: 'salesorder_edit',
+        id: 'salesorder_detail',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',
@@ -39,6 +41,8 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
             'StartDate',
             'Status'
         ],        
+        resourceKind: 'salesorders',
+
         formatAccountRelatedQuery: function(entry, fmt) {
             return String.format(fmt, entry['Account']['$key']);
         },
@@ -46,68 +50,68 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
             Mobile.SalesLogix.SalesOrder.Detail.superclass.init.call(this);
 
             this.tools.fbar = [{
-                name: 'home',
-                title: this.fbarHomeTitleText,
                 cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
                 fn: App.navigateToHomeView,
-                scope: this
+                icon: 'content/images/welcome_32x32.gif',
+                name: 'home',
+                scope: this,
+                title: this.fbarHomeTitleText
             },
             {
-                name: 'schedule',
-                title: this.fbarScheduleTitleText,
                 cls: 'tool-note',
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
                 fn: App.navigateToActivityInsertView,
-                scope: this
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                name: 'schedule',
+                scope: this,
+                title: this.fbarScheduleTitleText
             }];
         },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'SalesOrderNumber',
-                    label: this.salesOrderIdText
+                    label: this.salesOrderIdText,
+                    name: 'SalesOrderNumber'
                 },
                 {
-                    name: 'Account.AccountName',
                     label: this.accountText,
-                    view: 'account_detail',
+                    name: 'Account.AccountName',
                     key: 'Account.$key',
-                    property: true
+                    property: true,
+                    view: 'account_detail'
                 },
                 {
-                    name: 'OrderType',
-                    label: this.typeText
+                    label: this.typeText,
+                    name: 'OrderType'
                 },
                 {
-                    name: 'Status',
-                    label: this.statusText
+                    label: this.statusText,
+                    name: 'Status'
                 },
                 {
-                    name: 'OrderTotal',
-                    label: this.totalText
+                    label: this.totalText,
+                    name: 'OrderTotal'
                 },
                 {
-                    name: 'DatePromised',
                     label: this.reqDateText,
+                    name: 'DatePromised',
                     renderer: Mobile.SalesLogix.Format.date
                 },
                 {
-                    name: 'Comments',
-                    label: this.commentsText
+                    label: this.commentsText,
+                    name: 'Comments'
                 },
                 {
-                    name: 'AccountManager.UserInfo',
                     label: this.acctMgrText,
+                    name: 'AccountManager.UserInfo',
                     tpl: Mobile.SalesLogix.Template.nameLF
                 },
                 {
-                    name: 'CreateUser',
-                    label: this.createUserText
+                    label: this.createUserText,
+                    name: 'CreateUser'
                 },
                 {
-                    name: 'CreateDate',
                     label: this.createDateText,
+                    name: 'CreateDate',
                     renderer: Mobile.SalesLogix.Format.date
                 }
             ]);

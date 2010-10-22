@@ -7,6 +7,7 @@
 Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
+    //Templates
     contentTemplate: new Simplate([
         '<h3>',
         '{% if ($.icon) { %}',
@@ -15,10 +16,14 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
         '{%: $.title %}',
         '</h3>'
     ]),
+
+    //Localization
+    configureText: 'Configure',
+    titleText: 'Home',
+
+    //View Properties
     id: 'home',
     expose: false,
-    titleText: 'Home',
-    configureText: 'Configure',
     activateEntry: function(params) {
         if (params.key)
         {

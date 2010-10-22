@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
 
 (function() {
     Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'account_edit',
+        //Localization
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account Subtype',
         accountText: 'account',
@@ -29,8 +29,10 @@ Ext.namespace("Mobile.SalesLogix.Account");
         titleText: 'Account',
         typeText: 'type',
         webText: 'web',
-        resourceKind: 'accounts',
+
+        //View Properties
         entityName: 'Account',
+        id: 'account_edit',
         querySelect: [
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
@@ -49,6 +51,8 @@ Ext.namespace("Mobile.SalesLogix.Account");
             'User/UserInfo/UserName',
             'WebAddress'
         ],
+        resourceKind: 'accounts',
+
         formatDependentPicklist: function(dependentValue, format) {
             return String.format(format, dependentValue);
         },
@@ -94,7 +98,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     name: 'SubType',
                     dependsOn: 'Type',
                     label: this.subTypeText,
-                    picklist: this.formatDependentPicklist.createDelegate(this, ['Account {0}'], true),
+                    picklist: this.formatDependentPicklist.createDelegate(
+                        this, ['Account {0}'], true
+                    ),
                     requireSelection: false,
                     title: this.accountSubTypeTitleText,
                     type: 'picklist'

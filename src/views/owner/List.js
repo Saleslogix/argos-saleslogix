@@ -8,17 +8,23 @@ Ext.namespace("Mobile.SalesLogix.Owner");
 
 (function() {
     Mobile.SalesLogix.Owner.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<h3>{%: $.OwnerDescription %}</h3>'
         ]),
-        id: 'owner_list',
+
+        //Localization
         titleText: 'Owners',
+
+        //View Properties
         icon: 'content/images/Accounts_24x24.gif',
-        resourceKind: 'owners',
+        id: 'owner_list',
+        queryOrderBy: 'OwnerDescription',
         querySelect: [
             'OwnerDescription'
         ],
-        queryOrderBy: 'OwnerDescription',
+        resourceKind: 'owners',
+
         formatSearchQuery: function(query) {
             return String.format('owner.OwnerDescription like "%{0}%"', query);
         }

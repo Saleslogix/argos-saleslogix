@@ -9,15 +9,17 @@ Ext.namespace("Mobile.SalesLogix.Return");
 
 (function() {
     Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'return_edit',
+        //Localization
         titleText: 'Return',
         returnIdText: 'return id',
         priorityText: 'priority',
         typeText: 'type',
         regDateText: 'reg date',
         returnedByText: 'returned by',
-        resourceKind: 'returns',
+
+        //View Properties
         entityName: 'Return',
+        id: 'return_edit',
         querySelect: [
             'ExpectedDate',
             'Priority',
@@ -25,32 +27,34 @@ Ext.namespace("Mobile.SalesLogix.Return");
             'ReturnNumber',
             'ReturnType'
         ],
+        resourceKind: 'returns',
+
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'ReturnNumber',
                     label: this.returnIdText,
+                    name: 'ReturnNumber',
                     type: 'text'
                 },
                 {
-                    name: 'Priority',
                     label: this.priorityText,
+                    name: 'Priority',
                     type: 'text'
                 },
                 {
-                    name: 'ReturnType',
                     label: this.typeText,
+                    name: 'ReturnType',
                     type: 'text'
                 },
                 {
-                    name: 'ExpectedDate',
                     label: this.regDateText,
+                    name: 'ExpectedDate',
                     renderer: Mobile.SalesLogix.Format.date,
                     type: 'text'
                 },
                 {
-                    name: 'ReturnedBy.NameLF',
                     label: this.returnedByText,
+                    name: 'ReturnedBy.NameLF',
                     type: 'text'
                 }
             ]);

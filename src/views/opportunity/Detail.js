@@ -8,8 +8,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
 
 (function() {
     Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-        id: 'opportunity_detail',
-        editView: 'opportunity_edit',
+        //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
         estCloseText: 'est close',
@@ -27,7 +26,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         statusText: 'status',
         titleText: 'Opportunity',
         typeText: 'type',
-        resourceKind: 'opportunities',
+
+        //View Properties
+        editView: 'opportunity_edit',
+        id: 'opportunity_detail',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',
@@ -43,6 +45,8 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             'Type',
             'Weighted'
         ],
+        resourceKind: 'opportunities',
+
         formatAccountRelatedQuery: function(entry, fmt) {
             return String.format(fmt, entry['Account']['$key']);
         },
@@ -58,92 +62,86 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                 scope: this
             },
             {
-                name: 'schedule',
-                title: this.fbarScheduleTitleText,
                 cls: 'tool-note',
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
                 fn: App.navigateToActivityInsertView,
-                scope: this
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                name: 'schedule',
+                scope: this,
+                title: this.fbarScheduleTitleText
             }];
         },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'Description',
-                    label: this.opportunityText
+                    label: this.opportunityText,
+                    name: 'Description'
                 },
                 {
-                    name: 'Account.AccountName',
                     label: this.accountText,
-                    view: 'account_detail',
                     key: 'Account.$key',
-                    property: true
+                    name: 'Account.AccountName',
+                    property: true,
+                    view: 'account_detail'
                 },
                 {
-                    name: 'AccountManager.UserInfo',
                     label: this.acctMgrText,
+                    name: 'AccountManager.UserInfo',
                     tpl: Mobile.SalesLogix.Template.nameLF
                 },
                 {
-                    name: 'EstimatedClose',
                     label: this.estCloseText,
+                    name: 'EstimatedClose',
                     renderer: Mobile.SalesLogix.Format.date
                 },
                 {
-                    name: 'SalesPotential',
                     label: this.potentialText,
+                    name: 'SalesPotential',
                     renderer: Mobile.SalesLogix.Format.currency
                 },
                 {
-                    name: 'Status',
-                    label: this.statusText
+                    label: this.statusText,
+                    name: 'Status'
                 },
                 {
-                    name: 'Type',
-                    label: this.typeText
+                    label: this.typeText,
+                    name: 'Type'
                 },
                 {
-                    name: 'LeadSource.Description',
-                    label: this.importSourceText
+                    label: this.importSourceText,
+                    name: 'LeadSource.Description'
                 },
                 {
-                    name: 'CloseProbability',
-                    label: this.probabilityText
+                    label: this.probabilityText,
+                    name: 'CloseProbability'
                 },
                 {
                     options: {
-                        title: this.relatedItemsText,
-                        list: true
+                        list: true,
+                        title: this.relatedItemsText
                     },
                     as: [{
+                        icon: 'content/images/Task_List_3D_24x24.gif',
+                        label: this.relatedActivitiesText,
                         view: 'activity_related',
                         where: this.formatRelatedQuery.createDelegate(
-                                    this,
-                                    ['OpportunityId eq "{0}"'],
-                                    true
-                                ),
-                        label: this.relatedActivitiesText,
-                        icon: 'content/images/Task_List_3D_24x24.gif'
+                            this, ['OpportunityId eq "{0}"'], true
+                        ),
                     },
                     {
+                        icon: 'content/images/Note_24x24.gif',
+                        label: this.relatedNotesText,
                         view: 'note_related',
                         where: this.formatRelatedQuery.createDelegate(
-                                    this,
-                                    ['OpportunityId eq "{0}" and Type eq "atNote"'],
-                                    true
-                                ),
-                        label: this.relatedNotesText,
-                        icon: 'content/images/Note_24x24.gif'
+                            this, ['OpportunityId eq "{0}" and Type eq "atNote"'], true
+                        )
                     },
                     {
+                        icon: 'content/images/Contacts_24x24.gif',
+                        label: this.relatedContactsText,
                         view: 'contact_related',
                         where: this.formatRelatedQuery.createDelegate(
-                                    this,
-                                    ['OpportunityId eq "{0}"'],
-                                    true
-                                ),
-                        label: this.relatedContactsText,
-                        icon: 'content/images/Contacts_24x24.gif'
+                            this, ['OpportunityId eq "{0}"'], true
+                        )
                     }]
                 }
             ]);

@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
 (function() {
     Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'ticket_edit',
+        //Localization
         accountText: 'acct name',
         areaText: 'area',
         assignedDateText: 'assigned date',
@@ -37,8 +37,10 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         ticketUrgencyTitleText: 'Ticket Urgency',
         titleText: 'Ticket',
         urgencyText: 'urgency',
-        resourceKind: 'tickets',
+
+        //View Properties
         entityName: 'Ticket',
+        id: 'ticket_edit',
         querySelect: [
             'Account/AccountName',
             'Area',
@@ -58,6 +60,8 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             'TicketNumber',
             'UrgencyCode'
         ],
+        resourceKind: 'tickets',
+
         formatAccountQuery: function() {
             var value = this.fields['Account'].getValue(),
                 key = value && value['$key'];
@@ -94,107 +98,107 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'TicketNumber',
                     label: this.ticketIdText,
+                    name: 'TicketNumber',
                     type: 'text',
                     readonly: true
                 },
                 {
-                    name: 'Account',
                     label: this.accountText,
+                    name: 'Account',
                     type: 'lookup',
                     view: 'account_lookup',
                     textProperty: 'AccountName'
                 },
                 {
-                    name: 'Contact',
                     label: this.contactText,
+                    name: 'Contact',
+                    textProperty: 'NameLF',
                     type: 'lookup',
                     view: 'contact_lookup',
-                    textProperty: 'NameLF',
                     where: this.formatAccountQuery.createDelegate(this)
                 },
                 {
-                    name: 'Area',
                     label: this.areaText,
-                    type: 'picklist',
+                    name: 'Area',
                     picklist: 'Ticket Area',
-                    title: 'Ticket Area'
+                    title: 'Ticket Area',
+                    type: 'picklist'
                 },
                 {
-                    name: 'Category',
                     label: this.categoryText,
-                    type: 'picklist',
+                    name: 'Category',
                     picklist: 'Ticket Category',
-                    title: this.ticketCategoryTitleText
+                    title: this.ticketCategoryTitleText,
+                    type: 'picklist'
                 },
                 {
-                    name: 'Issue',
                     label: this.issueText,
-                    type: 'picklist',
+                    name: 'Issue',
                     picklist: 'Ticket Issue',
-                    title: this.ticketIssueTitleText
+                    title: this.ticketIssueTitleText,
+                    type: 'picklist'
                 },
                 {
-                    name: 'Source',
                     label: this.sourceText,
-                    type: 'picklist',
+                    name: 'Source',
                     picklist: 'Source',
-                    title: this.sourceTitleText
+                    title: this.sourceTitleText,
+                    type: 'picklist'
                 },
                 {
-                    name: 'StatusCode',
                     label: this.statusText,
-                    type: 'picklist',
+                    name: 'StatusCode',
                     picklist: 'Ticket Status',
+                    storageMode: 'code',
                     title: this.ticketStatusTitleText,
-                    storageMode: 'code'
+                    type: 'picklist'
                 },
                 // todo: there is no Ticket Urgency picklist
                 {
-                    name: 'UrgencyCode',
                     label: this.urgencyText,
-                    type: 'picklist',
+                    name: 'UrgencyCode',
                     picklist: 'Ticket Urgency',
-                    title: this.ticketUrgencyTitleText
+                    title: this.ticketUrgencyTitleText,
+                    type: 'picklist'
                 },
                 {
-                    name: 'NeededByDate',
                     label: this.needByText,
+                    name: 'NeededByDate',
                     renderer: Mobile.SalesLogix.Format.date,
                     type: 'date'
                 },
                 {
-                    name: 'AssignedDate',
                     label: this.assignedDateText,
+                    name: 'AssignedDate',
                     renderer: Mobile.SalesLogix.Format.date,
                     type: 'date'
                 },
                 {
-                    name: 'AssignedTo',
                     label: this.assignedToText,
+                    name: 'AssignedTo',
+                    textProperty: 'OwnerDescription',
                     type: 'lookup',
-                    view: 'owner_list',
-                    textProperty: 'OwnerDescription'
+                    view: 'owner_list'
                 },
                 {
-                    name: 'Subject',
                     label: this.subjectText,
+                    name: 'Subject',
                     type: 'text'
                 },
                 {
-                    name: 'Description',
                     label: this.descriptionText,
+                    name: 'Description',
                     type: 'text'
                 },
                 {
-                    name: 'Resolution',
                     label: this.resolutionText,
+                    name: 'Resolution',
                     type: 'text'
                 },
                 {
-                    name: 'Notes',
                     label: this.notesText,
+                    name: 'Notes',
                     type: 'text'
                 }
             ]);

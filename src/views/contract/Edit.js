@@ -9,27 +9,31 @@ Ext.namespace("Mobile.SalesLogix.Contract");
 
 (function() {
     Mobile.SalesLogix.Contract.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'contract_edit',
+        //Localization
         titleText: 'Contract',
         refNumText: 'refNum',
         quantityText: 'quantity',
         activeText: 'active',
-        resourceKind: 'contracts',
+
+        //View Properties
         entityName: 'Contract',
+        id: 'contract_edit',
         querySelect: [
-            'ReferenceNumber',
             'Account/AccountName',
             'Contact/FullName',
-            'ServiceCode',
-            'TypeCode',
-            'Period',
-            'Remaining',
-            'StartDate',
+            'CreateDate',
+            'CreateUser',
             'EndingDate',
             'IsActive',
-            'CreateUser',
-            'CreateDate'
+            'Period',
+            'ReferenceNumber',
+            'Remaining',
+            'ServiceCode',
+            'StartDate',
+            'TypeCode'
         ],
+        resourceKind: 'contracts',
+
         createLayout: function() {
             return this.layout || (this.layout = [
                 {

@@ -8,7 +8,7 @@ Ext.namespace("Mobile.SalesLogix");
 
 (function() {
     Mobile.SalesLogix.AddAccountContact = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'add_account_contact',
+        //Localization
         accountNameText: 'account',
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account SubType',
@@ -33,6 +33,9 @@ Ext.namespace("Mobile.SalesLogix");
         webText: 'web',
         workText: 'work phone',
         industryTitleText: 'Industry',
+
+        //View Properties
+        id: 'add_account_contact',
         resourceKind: 'accounts',
         entityName: 'Account',
         querySelect: [
@@ -146,7 +149,9 @@ Ext.namespace("Mobile.SalesLogix");
                         label: this.subTypeText,
                         type: 'picklist',
                         requireSelection: false,
-                        picklist: this.formatDependentPicklist.createDelegate(this, ['Account {0}'], true),
+                        picklist: this.formatDependentPicklist.createDelegate(
+                            this, ['Account {0}'], true
+                        ),
                         title: this.accountSubTypeTitle,
                         dependsOn: 'Type'
                     },

@@ -9,14 +9,18 @@ Ext.namespace("Mobile.SalesLogix.Note");
 
 (function() {
     Mobile.SalesLogix.Note.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'note_edit',
+        //Localization
         notesText: 'notes',
         titleText: 'Note',
+
+        //View Properties
         entityName: 'History',
-        resourceKind: 'history',
+        id: 'note_edit',
         querySelect: [
             'Notes'
         ],
+        resourceKind: 'history',
+
         setValues: function() {
             var relatedContext = App.queryNavigationContext(function(){return true}, 1)
 
@@ -39,8 +43,8 @@ Ext.namespace("Mobile.SalesLogix.Note");
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'Notes',
                     label: this.notesText,
+                    name: 'Notes',
                     type: 'text'
                 }
             ]);

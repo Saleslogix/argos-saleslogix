@@ -7,20 +7,25 @@
 Ext.namespace("Mobile.SalesLogix.Account");
 
 Mobile.SalesLogix.Account.Lookup = Ext.extend(Sage.Platform.Mobile.List, {
+    //Templates
     contentTemplate: new Simplate([
         '<h3>{%: $.AccountName %}</h3>'
     ]),
-    id: 'account_lookup',
-    expose: false,
+
+    //Localization
     titleText: 'Accounts',
     resourceKind: 'accounts',
+
+    //View Properties
+    expose: false,
+    id: 'account_lookup',
+    queryOrderBy: 'AccountName',
     querySelect: [
         'AccountName',
         'AccountManager/UserInfo/UserName',
         'AccountManager/UserInfo/LastName',
         'AccountManager/UserInfo/FirstName'
     ],
-    queryOrderBy: 'AccountName',
     formatSearchQuery: function(query) {
         return String.format('AccountName like "%{0}%"', query);
     }

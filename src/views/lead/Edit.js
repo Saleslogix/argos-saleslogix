@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
 
 (function() {
     Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'lead_edit',
+        //Localization
         accountText: 'account',
         addressText: 'address',
         businessText: 'bus desc',
@@ -31,8 +31,10 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         tollFreeText: 'toll free',
         webText: 'web',
         workText: 'phone',
-        resourceKind: 'leads',
+
+        //View Properties
         entityName: 'Lead',
+        id: 'lead_edit',
         querySelect: [
             'BusinessDescription',
             'Company',
@@ -54,98 +56,99 @@ Ext.namespace("Mobile.SalesLogix.Lead");
             'WebAddress',
             'WorkPhone'
         ],
+        resourceKind: 'leads',
+
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'LeadNameLastFirst',
-                    label: this.leadNameLastFirstText,
-                    type: 'name',
-                    view: 'name_edit',
                     applyTo: '',
-                    formatter: Mobile.SalesLogix.Format.nameLF
+                    formatter: Mobile.SalesLogix.Format.nameLF,
+                    label: this.leadNameLastFirstText,
+                    name: 'LeadNameLastFirst',
+                    type: 'name',
+                    view: 'name_edit'
                 },
                 {
-                    name: 'Company',
                     label: this.companyText,
+                    name: 'Company',
                     type: 'text'
                 },
                 {
-                    name: 'WebAddress',
                     label: this.webText,
+                    name: 'WebAddress',
                     type: 'text'
                 },
                 {
-                    name: 'WorkPhone',
                     label: this.workText,
+                    name: 'WorkPhone',
                     type: 'phone'
                 },
                 {
-                    name: 'Email',
                     label: this.emailText,
+                    name: 'Email',
                     type: 'text'
                 },
                 {
-                    name: 'Title',
                     label: this.contactTitleText,
-                    type: 'picklist',
+                    name: 'Title',
                     picklist: 'Title',
-                    title: this.titleTitleText
+                    title: this.titleTitleText,
+                    type: 'picklist'
                 },
                 {
-                    name: 'Address',
+                    formatter: Mobile.SalesLogix.Format.address,
                     label: this.addressText,
-                    view: 'address_edit',
+                    name: 'Address',
                     type: 'address',
-                    formatter: Mobile.SalesLogix.Format.address
+                    view: 'address_edit'
                 },
                 {
-                    name: 'TollFree',
                     label: this.tollFreeText,
+                    name: 'TollFree',
                     type: 'phone'
                 },
                 {
-                    name: 'LeadSource',
                     label: this.importSourceText,
-                    type: 'lookup',
+                    name: 'LeadSource',
                     view: 'leadsource_list',
-                    textProperty: 'Description'
+                    textProperty: 'Description',
+                    type: 'lookup'
                 },
                 {
-                    name: 'Interests',
                     label: this.interestsText,
+                    name: 'Interests',
                     type: 'text'
                 },
                 {
-                    name: 'Industry',
                     label: this.industryText,
-                    type: 'picklist',
+                    name: 'Industry',
                     picklist: 'Industry',
-                    title: this.industryTitleText
+                    title: this.industryTitleText,
+                    type: 'picklist'
                 },
                 {
-                    name: 'SICCode',
                     label: this.sicCodeText,
+                    name: 'SICCode',
                     type: 'text'
                 },
                 {
-                    name: 'BusinessDescription',
                     label: this.businessText,
+                    name: 'BusinessDescription',
                     type: 'text'
                 },
                 {
-                    name: 'Notes',
                     label: this.notesText,
+                    name: 'Notes',
                     type: 'text'
                 },
                 {
-                    name: 'Owner',
                     label: this.leadOwnerText,
+                    name: 'Owner',
+                    textProperty: 'OwnerDescription',
                     type: 'lookup',
-                    view: 'owner_list',
-                    textProperty: 'OwnerDescription'
+                    view: 'owner_list'
                 }
             ]);
         }
     });
 })();
-

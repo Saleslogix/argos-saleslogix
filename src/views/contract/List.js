@@ -8,23 +8,29 @@ Ext.namespace("Mobile.SalesLogix.Contract");
 
 (function() {
     Mobile.SalesLogix.Contract.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',
             '<h4>{%= $.ReferenceNumber %}</h4>'
         ]),
+
+        //Localization
+        titleText: 'Contracts',
+
+        //View Properties
+        contextView: 'context_dialog',
+        detailView: 'contract_detail',
         id: 'contract_list',
         icon: 'content/images/contract_16x16.gif',
-        titleText: 'Contracts',
         insertView: 'contract_edit',
-        detailView: 'contract_detail',
-        contextView: 'context_dialog',
-        resourceKind: 'contracts',
+        queryOrderBy: 'ReferenceNumber',
         querySelect: [
             'Account/AccountName',
-            'ReferenceNumber',
-            'Contact/FullName'
+            'Contact/FullName',
+            'ReferenceNumber'
         ],
-        queryOrderBy: 'ReferenceNumber',
+        resourceKind: 'contracts',
+
         formatSearchQuery: function(query) {
             return String.format('(ReferenceNumber like "%{0}%")', query);
 

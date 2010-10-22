@@ -8,57 +8,80 @@ Ext.namespace("Mobile.SalesLogix.Campaign");
 
 (function() {
     Mobile.SalesLogix.Campaign.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-        id: 'campaign_detail',
-        editView: 'campaign_edit',
-        titleText: 'Campaign',
-        nameText: 'name',
-        codeText: 'code',
-        startText: 'start',
+        //Localization
         acctMgrText: 'acct mgr',
-        createUserText: 'create user',
+        codeText: 'code',
         createDateText: 'create date',
-        resourceKind: 'campaigns',
-        queryInclude: [
-            'Address',
-            'AccountManager/UserInfo'
-        ],
+        createUserText: 'create user',
+        fbarHomeTitleText: 'home',
+        fbarScheduleTitleText: 'schedule',
+        nameText: 'name',
+        startText: 'start',
+        titleText: 'Campaign',
+
+        //View Properties
+        editView: 'campaign_edit',
+        id: 'campaign_detail',
         querySelect: [
-            'CampaignName',
-            'CampaignCode',
-            'StartDate',
-            'AccountManager/UserInfo/UserName',
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
+            'AccountManager/UserInfo/UserName',
+            'CampaignCode',
+            'CampaignName',
+            'CreateDate',
             'CreateUser',
-            'CreateDate'
+            'StartDate',
         ],
+        resourceKind: 'campaigns',
+
         init: function() {
             Mobile.SalesLogix.Campaign.Detail.superclass.init.apply(this, arguments);
             
             this.tools.fbar = [{
-                name: 'home',
-                title: 'home',
                 cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
                 fn: App.navigateToHomeView,
-                scope: this
+                icon: 'content/images/welcome_32x32.gif',
+                name: 'home',
+                scope: this,
+                title: this.fbarHomeTitleText
             },{
-                name: 'schedule',
-                title: 'schedule',
                 cls: 'tool-note',
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
                 fn: App.navigateToActivityInsertView,
-                scope: this
+                icon: 'content/images/Schdedule_To_Do_32x32.gif',
+                name: 'schedule',
+                scope: this,
+                title: this.fbarScheduleTitleText
             }];
         },       
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'CampaignName', label: this.nameText},
-                {name: 'CampaignCode', label: this.codeText},
-                {name: 'StartDate', label: this.startText, renderer: Mobile.SalesLogix.Format.date},
-                {name: 'AccountManager.UserInfo', label: this.acctMgrText, tpl: Mobile.SalesLogix.Template.nameLF},
-                {name: 'CreateUser', label: this.createUserText},
-                {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
+                {
+                    name: 'CampaignName',
+                    label: this.nameText
+                },
+                {
+                    name: 'CampaignCode',
+                    label: this.codeText
+                },
+                {
+                    name: 'StartDate',
+                    label: this.startText,
+                    renderer: Mobile.SalesLogix.Format.date
+                },
+                {
+                    name: 'AccountManager.UserInfo',
+                    label: this.acctMgrText,
+                    tpl: Mobile.SalesLogix.Template.nameLF
+                },
+                {
+                    name: 'CreateUser',
+                    label: this.createUserText
+                },
+                {
+                    name: 'CreateDate',
+                    label: this.createDateText,
+                    renderer: Mobile.SalesLogix.Format.date
+                }
             ]);
         }
     });

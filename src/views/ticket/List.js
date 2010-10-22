@@ -8,22 +8,28 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
 (function() {
     Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<h3>{%: $.Account ? $.Account.AccountName : "" %}</h3>',
             '<h4>{%: $.TicketNumber %}</h4>'
         ]),
-        id: 'ticket_list',
+
+        //Localization
+        titleText: 'Tickets',
+
+        //View Properties
         contextView: 'context_dialog',
         detailView: 'ticket_detail',
         icon: 'content/images/Ticket_List_3D_32x32.gif',
+        id: 'ticket_list',
         insertView: 'ticket_edit',
-        titleText: 'Tickets',
-        resourceKind: 'tickets',
+        queryOrderBy: 'TicketNumber',
         querySelect: [
             'Account/AccountName',
             'TicketNumber'
         ],
-        queryOrderBy: 'TicketNumber',
+        resourceKind: 'tickets',
+
         formatSearchQuery: function(query) {
             return String.format('TicketNumber like "%{0}%"', query);
         }

@@ -11,7 +11,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
     var U = Sage.Platform.Mobile.Utility;
     
     Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'opportunity_edit',
+        //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
         estCloseText: 'est close',
@@ -26,8 +26,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         statusText: 'status',
         titleText: 'Opportunity',
         typeText: 'type',
-        resourceKind: 'opportunities',
+
+        //View Properties
         entityName: 'Opportunity',
+        id: 'opportunity_edit',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',
@@ -43,6 +45,8 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             'Type',
             'Weighted'
         ],
+        resourceKind: 'opportunities',
+
         setValues: function() {
             Mobile.SalesLogix.Opportunity.Edit.superclass.setValues.apply(this, arguments);
 
@@ -79,72 +83,72 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
 
             return this.layout || (this.layout = [
                 {
-                    name: 'Description',
                     label: this.opportunityText,
+                    name: 'Description',
                     type: 'text'
                 },
                 {
-                    name: 'Account',
                     label: this.accountText,
+                    name: 'Account',
+                    textProperty: 'AccountName',
                     type: 'lookup',
-                    view: 'account_lookup',
-                    textProperty: 'AccountName'
+                    view: 'account_lookup'
                 },
                 {
                     alwaysUseValue: true,
-                    name: 'AccountManager',
                     label: this.acctMgrText,
+                    name: 'AccountManager',
                     textProperty: 'UserInfo',
                     textTemplate: Mobile.SalesLogix.Template.nameLF,
                     type: 'lookup',
                     view: 'user_list'
                 },
                 {
-                    name: 'EstimatedClose',
                     label: this.estCloseText,
+                    name: 'EstimatedClose',
                     showTime: true,
                     type: 'date'
                 },
                 {
-                    name: 'SalesPotential',
                     label: this.potentialText,
+                    name: 'SalesPotential',
                     precision: 2,
                     type: 'decimal',
                     validationTrigger: 'keyup',
                     validator: Mobile.SalesLogix.Validator.isCurrency
                 },
                 {
-                    name: 'Type',
                     label: this.typeText,
+                    name: 'Type',
                     picklist: 'Opportunity Type',
                     title: 'Opportunity Type',
                     type: 'picklist'
                 },
                 {
-                    name: 'Status',
                     label: this.statusText,
+                    name: 'Status',
                     picklist: 'Opportunity Status',
                     title: this.opportunityStatusTitle,
                     type: 'picklist'
                 },
                 {
-                    name: 'LeadSource',
                     label: this.importSourceText,
+                    name: 'LeadSource',
                     textProperty: 'Description',
                     type: 'lookup',
                     view: 'leadsource_list'
                 },
                 {
-                    name: 'Owner',
                     label: this.ownerText,
+                    name: 'Owner',
                     keyProperty: '$key',
                     textProperty: 'OwnerDescription',
                     type: 'lookup',
                     view: 'owner_list'
                 },
                 {
-                    name: 'CloseProbability',
                     label: this.probabilityText,
+                    name: 'CloseProbability',
                     picklist: 'Opportunity Probability',
                     title: this.opportunityProbabilityTitle,
                     type: 'picklist'

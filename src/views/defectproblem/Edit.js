@@ -9,12 +9,16 @@ Ext.namespace("Mobile.SalesLogix.DefectProblem");
 
 (function() {
     Mobile.SalesLogix.DefectProblem.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'defectproblem_edit',
-        entityName: 'DefectProblem',
+        //Localization
         notesText: 'notes',
+        titleText: 'DefectSolution',
+        
+        //View Properties
+        entityName: 'DefectProblem',
+        id: 'defectproblem_edit',
         querySelect: 'Notes',
         resourceKind: 'defectproblems',
-        titleText: 'DefectSolution',
+
         createLayout: function() {
             return this.layout || (this.layout = [
                 {

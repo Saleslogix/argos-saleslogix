@@ -7,8 +7,7 @@
 Ext.namespace("Mobile.SalesLogix.Contact");
 
 Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-    id: 'contact_detail',
-    editView: 'contact_edit',
+    //Localization
     accountText: 'account',
     acctMgrText: 'acct mgr',
     addressText: 'address',
@@ -32,7 +31,10 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     titleText: 'Contact',
     webText: 'web',
     workText: 'phone',
-    resourceKind: 'contacts',
+
+    //View Properties
+    editView: 'contact_edit',
+    id: 'contact_detail',
     querySelect: [
         'Account/AccountName',
         'AccountManager/UserInfo/FirstName',
@@ -57,6 +59,8 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         'WebAddress',
         'WorkPhone'
     ],
+    resourceKind: 'contacts',
+
     init: function() {
         Mobile.SalesLogix.Contact.Detail.superclass.init.call(this);
 
@@ -145,54 +149,44 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 },
                 as: [
                     {
+                        icon: 'content/images/Task_List_3D_24x24.gif',
+                        label: this.relatedActivitiesText,
                         view: 'activity_related',
                         where: this.formatRelatedQuery.createDelegate(
-                                    this,
-                                    ['ContactId eq "{0}"'],
-                                    true
-                                ),
-                        label: this.relatedActivitiesText,
-                        icon: 'content/images/Task_List_3D_24x24.gif'
+                            this, ['ContactId eq "{0}"'], true
+                        )
                     },
                     {
+                        icon: 'content/images/Note_24x24.gif',
+                        label: this.relatedNotesText,
                         view: 'note_related',
                         where: this.formatRelatedQuery.createDelegate(
-                                    this,
-                                    ['ContactId eq "{0}" and Type eq "atNote"'],
-                                    true
-                                ),
-                        label: this.relatedNotesText,
-                        icon: 'content/images/Note_24x24.gif'
+                            this, ['ContactId eq "{0}" and Type eq "atNote"'], true
+                        )
                     },
                     {
+                        icon: 'content/images/Accounts_24x24.gif',
+                        label: this.relatedAccountsText,
                         view: 'account_related',
                         where: this.formatRelatedQuery.createDelegate(
-                                    this,
-                                    ['Contact.Id eq "{0}"'],
-                                    true
-                                ),
-                        label: this.relatedAccountsText,
-                        icon: 'content/images/Accounts_24x24.gif'
+                            this, ['Contact.Id eq "{0}"'], true
+                        )
                     },
                     {
+                        icon: 'content/images/Opportunity_List_24x24.gif',
+                        label: this.relatedOpportunitiesText,
                         view: 'opportunity_related',
                         where: this.formatRelatedQuery.createDelegate(
-                                    this,
-                                    ['ContactId eq "{0}"'],
-                                    true
-                                ),
-                        label: this.relatedOpportunitiesText,
-                        icon: 'content/images/Opportunity_List_24x24.gif'
+                            this, ['ContactId eq "{0}"'], true
+                        )
                     },
                     {
+                        icon: 'content/images/Ticket_List_3D_32x32.gif',
+                        label: this.relatedTicketsText,
                         view: 'ticket_related',
                         where: this.formatRelatedQuery.createDelegate(
-                                    this,
-                                    ['Contact.Id eq "{0}"'],
-                                    true
-                                ),
-                        label: this.relatedTicketsText,
-                        icon: 'content/images/Ticket_List_3D_32x32.gif'
+                            this, ['Contact.Id eq "{0}"'], true
+                        )
                     }
                 ]
             }

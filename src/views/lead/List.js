@@ -8,22 +8,28 @@ Ext.namespace("Mobile.SalesLogix.Lead");
 
 (function() {
     Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
+        //Templates
         contentTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
             '<h4>{%: $.Company %}</h4>'
         ]),
-        id: 'lead_list',
+
+        //Localization
+        titleText: 'Leads',
+
+        //View Properties
         contextView: 'context_dialog',
         detailView: 'lead_detail',
         icon: 'content/images/Leads_24x24.gif',
+        id: 'lead_list',
         insertView: 'lead_edit',
-        titleText: 'Leads',
-        resourceKind: 'leads',
-        querySelect: [
-            'LeadNameLastFirst',
-            'Company'
-        ],
         queryOrderBy: 'Company',
+        querySelect: [
+            'Company',
+            'LeadNameLastFirst'
+        ],
+        resourceKind: 'leads',
+
         formatSearchQuery: function(query) {
             return String.format('(LeadNameLastFirst like "%{0}%")', query);
         }

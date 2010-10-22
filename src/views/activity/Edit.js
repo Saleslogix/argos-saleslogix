@@ -9,35 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
 (function() {  
     Mobile.SalesLogix.Activity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'activity_edit',
-        picklistsByType: {
-            'atAppointment': {
-                'Category': 'Meeting Category Codes',
-                'Description': 'Meeting Regarding'
-            },
-            'atLiterature': {
-                'Description': 'Lit Request Regarding'
-            },
-            'atPersonal': {
-                'Category': 'Meeting Category Codes',
-                'Description': 'Personal Activity Regarding'
-            },
-            'atPhoneCall': {
-                'Category': 'Phone Call Category Codes',
-                'Description': 'Phone Call Regarding'
-            },
-            'atToDo': {
-                'Category': 'To Do Category Codes',
-                'Description': 'To Do Regarding'
-            }
-        },
-        activityTypeText: {
-            'atAppointment': 'Meeting',
-            'atLiterature': 'Literature Request',
-            'atPersonal': 'Personal Activity',
-            'atPhoneCall': 'Phone Call',
-            'atToDo': 'To-Do'
-        },
+        //Localization
         accountText: 'account',
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',
@@ -61,8 +33,39 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
-        resourceKind: 'activities',
+
+        //View Properties
+        activityTypeText: {
+            'atAppointment': 'Meeting',
+            'atLiterature': 'Literature Request',
+            'atPersonal': 'Personal Activity',
+            'atPhoneCall': 'Phone Call',
+            'atToDo': 'To-Do'
+        },
+        picklistsByType: {
+            'atAppointment': {
+                'Category': 'Meeting Category Codes',
+                'Description': 'Meeting Regarding'
+            },
+            'atLiterature': {
+                'Description': 'Lit Request Regarding'
+            },
+            'atPersonal': {
+                'Category': 'Meeting Category Codes',
+                'Description': 'Personal Activity Regarding'
+            },
+            'atPhoneCall': {
+                'Category': 'Phone Call Category Codes',
+                'Description': 'Phone Call Regarding'
+            },
+            'atToDo': {
+                'Category': 'To Do Category Codes',
+                'Description': 'To Do Regarding'
+            }
+        },
+
         entityName: 'Activity', // todo: is this correct?
+        id: 'activity_edit',
         querySelect: [
             'AccountName',
             'Alarm',
@@ -83,6 +86,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'Timeless',
             'Type'
         ],        
+        resourceKind: 'activities',
+
         createTypeList: function() {
             var list = [];
 

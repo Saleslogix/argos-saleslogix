@@ -9,23 +9,39 @@ Ext.namespace("Mobile.SalesLogix.Campaign");
 
 (function() {
     Mobile.SalesLogix.Campaign.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
-        id: 'campaign_edit',
-        titleText: 'Campaign',
-        nameText: 'name',
+        //Localization
         codeText: 'code',
+        nameText: 'name',
         startText: 'start',
-        resourceKind: 'campaigns',
+        titleText: 'Campaign',
+
+        //View Properties
         entityName: 'Campaign',
+        id: 'campaign_edit',
         querySelect: [
             'CampaignName',
             'CampaignCode',
             'StartDate'
         ],
+        resourceKind: 'campaigns',
+
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'CampaignName', label: this.nameText, type: 'text'},
-                {name: 'CampaignCode', label: this.codeText, type: 'text'},
-                {name: 'StartDate', label: this.startText, renderer: Mobile.SalesLogix.Format.date, type: 'text'}
+                {
+                    name: 'CampaignName',
+                    label: this.nameText,
+                    type: 'text'
+                },
+                {
+                    name: 'CampaignCode',
+                    label: this.codeText,
+                    type: 'text'
+                },
+                {
+                    name: 'StartDate',
+                    label: this.startText,
+                    type: 'date'
+                }
             ]);
         }
     });
