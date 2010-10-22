@@ -56,11 +56,11 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
         init: function() {
             Mobile.SalesLogix.Contact.Edit.superclass.init.apply(this, arguments);
-            var accountName = this.fields['AccountName'];
 
-            this.fields['Account'].on('change', function(value, field) {
-                accountName.setValue(value.text);
-            });
+            this.fields['Account'].on('change', this.onAccountChange, this);
+        },
+        onAccountChange: function(value, field) {
+            this.fields['AccountName'].setValue(value.text);
         },
         setValues: function() {
             Mobile.SalesLogix.Contact.Edit.superclass.setValues.apply(this, arguments);
