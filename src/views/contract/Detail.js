@@ -9,28 +9,24 @@ Ext.namespace("Mobile.SalesLogix.Contract");
 Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     id: 'contract_detail',
     editView: 'contract_edit',
-    titleText: 'Contract',
-    refNumText: 'refNum',
     accountText: 'account',
-    contactText: 'contact',
-    svcTypeText: 'svc-Type',
-    contractTypeText: 'contractType',
-    quantityText: 'quantity',
-    remainingText: 'remaining',
-    startText: 'start',
-    endText: 'end',
     activeText: 'active',
-    createUserText: 'create user',
+    contactText: 'contact',
+    contractTypeText: 'contractType',
     createDateText: 'create date',
+    createUserText: 'create user',
+    endText: 'end',
+    fbarHomeTitleText: 'home',
+    fbarScheduleTitleText: 'schedule',
+    quantityText: 'quantity',
+    refNumText: 'refNum',
     relatedItemsText: 'Related Items',
     relatedTicketsText: 'Tickets',
+    remainingText: 'remaining',
+    startText: 'start',
+    svcTypeText: 'svc-Type',
+    titleText: 'Contract',
     resourceKind: 'contracts',
-    queryInclude: [
-        'Account',
-        'Address',
-        'AccountManager',
-        'AccountManager/UserInfo'
-    ],
     querySelect: [
         'ReferenceNumber',
         'Account/AccountName',
@@ -53,14 +49,15 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
         this.tools.fbar = [{
             name: 'home',
-            title: 'home',
+            title: this.fbarHomeTitleText,
             cls: 'tool-note',
             icon: 'content/images/welcome_32x32.gif',
             fn: App.navigateToHomeView,
             scope: this
-        },{
+        },
+        {
             name: 'schedule',
-            title: 'schedule',
+            title: this.fbarScheduleTitleText,
             cls: 'tool-note',
             icon: 'content/images/Schdedule_To_Do_32x32.gif',
             fn: App.navigateToActivityInsertView,
@@ -69,26 +66,76 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     },
     createLayout: function() {
         return this.layout || (this.layout = [
-            {name: 'ReferenceNumber', label: this.refNumText},
-            {name: 'Account.AccountName', label: this.accountText, view: 'account_detail', key: 'Account.$key', property: true},
-            {name: 'Contact.NameLF', label: this.contactText},
-            {name: 'ServiceCode', label: this.svcTypeText},
-            {name: 'TypeCode', label: this.contractTypeText},
-            {name: 'Period', label: this.quantityText},
-            {name: 'Remaining', label: this.remainingText},
-            {name: 'StartDate', label: this.startText, renderer: Mobile.SalesLogix.Format.date},
-            {name: 'EndingDate', label: this.endText , renderer: Mobile.SalesLogix.Format.date},
-	        {name: 'IsActive', label: this.activeText},
-	        {name: 'CreateUser', label: this.createUserText},
-            {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date},
-            {options: {title: this.relatedItemsText, list: true}, as: [
-                {
+            {
+                name: 'ReferenceNumber',
+                label: this.refNumText
+            },
+            {
+                name: 'Account.AccountName',
+                label: this.accountText,
+                view: 'account_detail',
+                key: 'Account.$key',
+                property: true
+            },
+            {
+                name: 'Contact.NameLF',
+                label: this.contactText
+            },
+            {
+                name: 'ServiceCode',
+                label: this.svcTypeText
+            },
+            {
+                name: 'TypeCode',
+                label: this.contractTypeText
+            },
+            {
+                name: 'Period',
+                label: this.quantityText
+            },
+            {
+                name: 'Remaining',
+                label: this.remainingText
+            },
+            {
+                name: 'StartDate',
+                label: this.startText,
+                renderer: Mobile.SalesLogix.Format.date
+            },
+            {
+                name: 'EndingDate',
+                label: this.endText,
+                renderer: Mobile.SalesLogix.Format.date
+            },
+            {
+                name: 'IsActive',
+                label: this.activeText
+            },
+            {
+                name: 'CreateUser',
+                label: this.createUserText
+            },
+            {
+                name: 'CreateDate',
+                label: this.createDateText,
+                renderer: Mobile.SalesLogix.Format.date
+            },
+            {
+                options: {
+                    title: this.relatedItemsText,
+                    list: true
+                },
+                as: [{
                     view: 'ticket_related',
-                    where: this.formatAccountRelatedQuery.createDelegate(this, ['Account.id eq "{0}"'], true),
+                    where: this.formatAccountRelatedQuery.createDelegate(
+                                this,
+                                ['Account.id eq "{0}"'],
+                                true
+                            ),
                     label: this.relatedTicketsText,
                     icon: 'content/images/ticket_16x16.gif'
-                }
-            ]}
+                }]
+            }
         ]);
     }
 });

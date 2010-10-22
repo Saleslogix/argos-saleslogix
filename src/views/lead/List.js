@@ -13,11 +13,11 @@ Ext.namespace("Mobile.SalesLogix.Lead");
             '<h4>{%: $.Company %}</h4>'
         ]),
         id: 'lead_list',
-        icon: 'content/images/Leads_24x24.gif',
-        titleText: 'Leads',
-        insertView: 'lead_edit',
-        detailView: 'lead_detail',
         contextView: 'context_dialog',
+        detailView: 'lead_detail',
+        icon: 'content/images/Leads_24x24.gif',
+        insertView: 'lead_edit',
+        titleText: 'Leads',
         resourceKind: 'leads',
         querySelect: [
             'LeadNameLastFirst',

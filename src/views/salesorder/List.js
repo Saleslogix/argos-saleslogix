@@ -13,13 +13,10 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
             '<h4>{%= SalesOrderNumber %}</h4>'
         ]),
         id: 'salesorder_list',
+        detailView: 'salesorder_detail',
         icon: 'content/images/salesorder.gif',
         titleText: 'SalesOrder',
-        detailView: 'salesorder_detail',
         resourceKind: 'salesorders',
-        queryInclude: [
-            'Account'
-        ],
         querySelect: [
             'Account/AccountName',
             'SalesOrderNumber'

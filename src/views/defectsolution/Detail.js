@@ -9,11 +9,11 @@ Ext.namespace("Mobile.SalesLogix.DefectSolution");
 (function() {
     Mobile.SalesLogix.DefectSolution.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         id: 'defectsolution_detail',
-        editView: 'defectsolution_edit',
-        titleText: 'DefectSolution',
-        notesText: 'notes',
-        createUserText: 'create user',
         createDateText: 'create date',
+        createUserText: 'create user',
+        editView: 'defectsolution_edit',
+        notesText: 'notes',
+        titleText: 'DefectSolution',
         resourceKind: 'defectsolutions',
         querySelect: [
             'Notes',
@@ -22,9 +22,19 @@ Ext.namespace("Mobile.SalesLogix.DefectSolution");
         ],
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'Notes', label: this.notesText},
-                {name: 'CreateUser', label: this.createUserText},
-                {name: 'CreateDate', label: this.createDateText, renderer: Mobile.SalesLogix.Format.date}
+                {
+                    name: 'Notes',
+                    label: this.notesText
+                },
+                {
+                    name: 'CreateUser',
+                    label: this.createUserText
+                },
+                {
+                    name: 'CreateDate',
+                    label: this.createDateText,
+                    renderer: Mobile.SalesLogix.Format.date
+                }
             ]);
         }
     });

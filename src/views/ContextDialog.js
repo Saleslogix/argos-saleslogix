@@ -11,13 +11,13 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     attachmentPoints: {
         contentEl: '.list-content'
     },
-    cancelText: 'Cancel',
     activitiesText: 'Activities',
-    notesText: 'Notes',
-    detailView: false,
-    relatedKey: false,
+    cancelText: 'Cancel',
     contextItems: [],
+    detailView: false,
+    notesText: 'Notes',
     parentViewId: '',
+    relatedKey: false,
     viewTemplate: new Simplate([
         '<div id="{%= id %}" class="dialog">',
             '<fieldset>',
@@ -41,6 +41,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
                 'key': this.relatedKey
             },
             navigateToRelatedView = Sage.Platform.Mobile.Detail.prototype.navigateToRelatedView;
+
         if (params.where) o.where = String.format(params.where, this.relatedKey);
 
         navigateToRelatedView.call(this, params.view, o, params.descriptor);
@@ -60,9 +61,12 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
         for (var i = 0; i < this.contextItems.length; i++)
         {
             item = this.contextItems[i];
+
             item.title = item.descriptor = this[(item['$key']+'Text')] || item['$key'];
+
             menu.push(this.itemTemplate.apply(item, this));
         }
+
         menu.push(this.cancelButtonTemplate.apply(this));
         this.contentEl.update(menu.join(''));
     },
@@ -71,17 +75,18 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     },
     show: function(options) {
         Mobile.SalesLogix.ContextDialog.superclass.show.call(this, options);
+
         this.contextItems = options.contextItems;
 
         if (this.refreshRequiredFor(options))
         {
             this.processTemplate();
         }
+
         this.detailView = App.getView(options.detailView);
         this.relatedKey = options.key;
         this.parentViewId = options.parentViewId;
     },
-
     dismissDialog: function() {
         this.detailView = false;
         this.relatedKey = false;

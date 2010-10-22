@@ -29,35 +29,34 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         entityName: 'Contact',
         querySelect: [
             'Account/AccountName',
-            'NameLF',
-            'Prefix',
-            'FirstName',
-            'MiddleName',
-            'LastName',
-            'Suffix',
-            'AccountName',
-            'WorkPhone',
-            'Mobile',
-            'Email',
-            'Address/*',
-            'WebAddress',
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
-            'Owner/OwnerDescription',
+            'AccountName',
+            'Address/*',
             'CreateDate',
             'CreateUser',
-            'Title',
+            'Email',
+            'Fax',
+            'FirstName',
             'HomePhone',
+            'LastName',
+            'MiddleName',
             'Mobile',
-            'Fax'
+            'NameLF',
+            'Owner/OwnerDescription',
+            'Prefix',
+            'Suffix',
+            'Title',
+            'WebAddress',
+            'WorkPhone'
         ],
-        getValues: function() {
-            var U = Sage.Platform.Mobile.Utility,
-                values = Mobile.SalesLogix.Contact.Edit.superclass.getValues.apply(this, arguments);
+        init: function() {
+            Mobile.SalesLogix.Contact.Edit.superclass.init.apply(this, arguments);
+            var accountName = this.fields['AccountName'];
 
-            U.setValue(values, 'AccountName', U.getValue(values, 'Account.AccountName'));
-            
-            return values;
+            this.fields['Account'].on('change', function(value, field) {
+                accountName.setValue(value.text);
+            });
         },
         setValues: function() {
             Mobile.SalesLogix.Contact.Edit.superclass.setValues.apply(this, arguments);
@@ -96,16 +95,71 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'ContactName', label: this.nameText, type: 'name', view: 'name_edit', applyTo:'', formatter: Mobile.SalesLogix.Format.nameLF},
-                {name: 'Account', label: this.accountNameText, type: 'lookup', view: 'account_lookup', textProperty: 'AccountName', forceValue: true},
-                {name: 'WebAddress', label: this.webText, type: 'text'},
-                {name: 'WorkPhone', label: this.workText, type: 'phone'},
-                {name: 'Email', label: this.emailText, type: 'text'},
-                {name: 'Title', label: this.contactTitleText, type: 'picklist', picklist: 'Title', title: this.titleTitleText},
-                {name: 'Address', label: this.addressText, view: 'address_edit', type: 'address', formatter: Mobile.SalesLogix.Format.address},
-                {name: 'HomePhone', label: this.homePhoneText, type: 'phone'},
-                {name: 'Mobile', label: this.mobileText, type: 'phone'},
-                {name: 'Fax', label: this.faxText, type: 'phone'},
+                {
+                    name: 'ContactName',
+                    label: this.nameText,
+                    type: 'name',
+                    view: 'name_edit',
+                    applyTo: '',
+                    formatter: Mobile.SalesLogix.Format.nameLF
+                },
+                {
+                    name: 'Account',
+                    label: this.accountNameText,
+                    type: 'lookup',
+                    view: 'account_lookup',
+                    textProperty: 'AccountName',
+                    forceValue: true
+                },
+                {
+                    alwaysUseValue: true,
+                    name: 'AccountName',
+                    type: 'hidden'
+                },
+                {
+                    name: 'WebAddress',
+                    label: this.webText,
+                    type: 'text'
+                },
+                {
+                    name: 'WorkPhone',
+                    label: this.workText,
+                    type: 'phone'
+                },
+                {
+                    name: 'Email',
+                    label: this.emailText,
+                    type: 'text'
+                },
+                {
+                    name: 'Title',
+                    label: this.contactTitleText,
+                    type: 'picklist',
+                    picklist: 'Title',
+                    title: this.titleTitleText
+                },
+                {
+                    name: 'Address',
+                    label: this.addressText,
+                    view: 'address_edit',
+                    type: 'address',
+                    formatter: Mobile.SalesLogix.Format.address
+                },
+                {
+                    name: 'HomePhone',
+                    label: this.homePhoneText,
+                    type: 'phone'
+                },
+                {
+                    name: 'Mobile',
+                    label: this.mobileText,
+                    type: 'phone'
+                },
+                {
+                    name: 'Fax',
+                    label: this.faxText,
+                    type: 'phone'
+                },
                 {
                     name: 'AccountManager',
                     label: this.acctMgrText,
@@ -114,8 +168,14 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     textProperty: 'UserInfo',
                     textTemplate: Mobile.SalesLogix.Template.nameLF
                 },
-                {name: 'Owner', label: this.ownerText, type: 'lookup', view: 'owner_list', textProperty: 'OwnerDescription'}
-            ]);  
+                {
+                    name: 'Owner',
+                    label: this.ownerText,
+                    type: 'lookup',
+                    view: 'owner_list',
+                    textProperty: 'OwnerDescription'
+                }
+            ]);
         }
     });
 })();

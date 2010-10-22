@@ -10,8 +10,8 @@ Ext.namespace("Mobile.SalesLogix.Note");
 (function() {
     Mobile.SalesLogix.Note.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         id: 'note_edit',
-        titleText: 'Note',
         notesText: 'notes',
+        titleText: 'Note',
         entityName: 'History',
         resourceKind: 'history',
         querySelect: [
@@ -24,22 +24,25 @@ Ext.namespace("Mobile.SalesLogix.Note");
                 this.queryWhere = relatedContext.options.where;
             else
                 this.queryWhere = false;
-console.log(this.queryWhere)
+
             Mobile.SalesLogix.Note.Edit.superclass.setValues.apply(this, arguments);
         },
         createRequest: function() {
             var request = Mobile.SalesLogix.Note.Edit.superclass.createRequest.call(this);
 
-            if (this.queryWhere)
-                request.setQueryArgs({
-                    'where': this.queryWhere
-                });
+            if (this.queryWhere) request.setQueryArgs({
+                'where': this.queryWhere
+            });
 
             return request;
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-                {name: 'Notes', label: this.notesText, type: 'text'}
+                {
+                    name: 'Notes',
+                    label: this.notesText,
+                    type: 'text'
+                }
             ]);
         }
     });

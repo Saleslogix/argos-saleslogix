@@ -16,14 +16,11 @@ Ext.namespace("Mobile.SalesLogix.User");
         icon: 'content/images/Accounts_24x24.gif',
         titleText: 'Users',
         resourceKind: 'users',
-        queryInclude: [
-            'UserInfo'
-        ],
         querySelect: [
-            'UserInfo/LastName',
             'UserInfo/FirstName',
-            'UserInfo/UserName',
-            'UserInfo/Title'
+            'UserInfo/LastName',
+            'UserInfo/Title',
+            'UserInfo/UserName'
         ],
         queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
         formatSearchQuery: function(query) {

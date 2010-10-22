@@ -195,7 +195,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {
                     name: 'StartDate',
                     label: this.startingText,
-                    type: 'text'
+                    showTime: true,
+                    type: 'date'
                 },
                 {
                     name: 'Timeless',
@@ -216,7 +217,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {
                     name: 'AlarmTime',
                     label: this.alarmTimeText,
-                    type: 'text'
+                    showTime: true,
+                    type: 'date'
                 },
                 {
                     name: 'Rollover',

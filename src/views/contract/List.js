@@ -19,10 +19,6 @@ Ext.namespace("Mobile.SalesLogix.Contract");
         detailView: 'contract_detail',
         contextView: 'context_dialog',
         resourceKind: 'contracts',
-        queryInclude: [
-            'Account',
-            'Contact'
-        ],
         querySelect: [
             'Account/AccountName',
             'ReferenceNumber',
