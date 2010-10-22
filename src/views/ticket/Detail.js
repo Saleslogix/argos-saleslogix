@@ -48,7 +48,7 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         'NeededByDate',
         'Notes',
         'Resolution',
-        'Source',
+        'ViaCode',
         'StatusCode',
         'Subject',
         'TicketNumber',
@@ -104,7 +104,7 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             },
             {
                 label: this.sourceText,
-                name: 'Source'
+                name: 'ViaCode'
             },
             {
                 label: this.statusText,

@@ -54,7 +54,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             'NeededByDate',
             'Notes',
             'Resolution',
-            'Source',
+            'ViaCode',
             'StatusCode',
             'Subject',
             'TicketNumber',
@@ -141,8 +141,9 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 },
                 {
                     label: this.sourceText,
-                    name: 'Source',
+                    name: 'ViaCode',
                     picklist: 'Source',
+                    storageMode: 'id',
                     title: this.sourceTitleText,
                     type: 'picklist'
                 },
