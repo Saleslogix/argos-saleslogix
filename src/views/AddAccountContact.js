@@ -14,6 +14,7 @@ Ext.namespace("Mobile.SalesLogix");
         accountSubTypeTitleText: 'Account SubType',
         accountText: 'Account',
         accountTypeTitleText: 'Account Type',
+        contactTitleText: 'Title',
         description: 'description',
         detailsAccountText: 'Account Info',
         detailsContactText: 'Contact Info',
@@ -28,7 +29,6 @@ Ext.namespace("Mobile.SalesLogix");
         statusText: 'status',
         subTypeText: 'sub-type',
         titleText: 'Add Account / Contact',
-        titleTitleText: 'Title',
         typeText: 'type',
         webText: 'web',
         workText: 'work phone',
@@ -107,10 +107,10 @@ Ext.namespace("Mobile.SalesLogix");
                     },
                     as: [{
                         name: 'Contacts.$resources[0].Title',
-                        label: this.titleText,
+                        label: this.contactTitleText,
                         type: 'picklist',
                         picklist: 'Title',
-                        title: this.titleTitleText
+                        title: this.contactTitleText
                     },
                     {
                         name: 'Contacts.$resources[0].HomePhone',

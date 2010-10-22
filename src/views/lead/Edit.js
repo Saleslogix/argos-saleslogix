@@ -32,6 +32,10 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         webText: 'web',
         workText: 'phone',
 
+        //Error Strings
+        errorLeadSource: 'lead source is required',
+        errorLeadName: 'lead firstname and lastname is required',
+
         //View Properties
         entityName: 'Lead',
         id: 'lead_edit',
@@ -66,6 +70,12 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     label: this.leadNameLastFirstText,
                     name: 'LeadNameLastFirst',
                     type: 'name',
+                    validator: function(value, field, view) {
+                        if (!value.FirstName && !value.LastName) {
+                            return view.errorLeadName;
+                        }
+                        return false;
+                    },
                     view: 'name_edit'
                 },
                 {
@@ -112,7 +122,13 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     name: 'LeadSource',
                     view: 'leadsource_list',
                     textProperty: 'Description',
-                    type: 'lookup'
+                    type: 'lookup',
+                    validator: function(value, field, view) {
+                        if (!value) {
+                            return view.errorLeadSource;
+                        }
+                        return false;
+                    }
                 },
                 {
                     label: this.interestsText,

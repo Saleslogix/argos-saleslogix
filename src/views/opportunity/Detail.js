@@ -86,7 +86,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                 {
                     label: this.acctMgrText,
                     name: 'AccountManager.UserInfo',
-                    tpl: Mobile.SalesLogix.Template.nameLF
+                    renderer: function(value) {
+                        if (!value) return '';
+                        return Mobile.SalesLogix.Template.nameLF.apply(value);
+                    }
                 },
                 {
                     label: this.estCloseText,

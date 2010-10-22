@@ -26,6 +26,10 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         addressTitleText: 'Address',
         ownerText: 'owner',
 
+        //Error Strings
+        errorContactName: 'firstName and lastName are required',
+        errorAccountName: 'account is required',
+
         //View Properties
         entityName: 'Contact',
         id: 'contact_edit',
@@ -105,6 +109,12 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     label: this.nameText,
                     name: 'ContactName',
                     type: 'name',
+                    validator: function(value, field, view) {
+                        if (!value.FirstName && !value.LastName) {
+                            return view.errorContactName;
+                        }
+                        return false;
+                    },
                     view: 'name_edit'
                 },
                 {
@@ -113,6 +123,10 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     name: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
+                    validator: function(value, field, view) {
+                        if (!value) return view.errorAccountName;
+                        return false;
+                    },
                     view: 'account_lookup'
                 },
                 {

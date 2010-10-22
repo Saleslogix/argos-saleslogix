@@ -14,5 +14,4 @@ Mobile.SalesLogix.Template = (function() {
             '{%= $["AlternateKeyPrefix"] %}-{%= $["AlternateKeySuffix"] %}'
         ])
     };
-})();    
-
+})();

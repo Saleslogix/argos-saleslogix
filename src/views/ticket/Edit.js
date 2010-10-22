@@ -38,6 +38,10 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         titleText: 'Ticket',
         urgencyText: 'urgency',
 
+        //Error Strings
+        errorContact: 'ticket contact is required',
+        errorAccount: 'ticket account is required',
+
         //View Properties
         entityName: 'Ticket',
         id: 'ticket_edit',
@@ -106,15 +110,27 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 {
                     label: this.accountText,
                     name: 'Account',
+                    textProperty: 'AccountName',
                     type: 'lookup',
-                    view: 'account_lookup',
-                    textProperty: 'AccountName'
+                    validator: function(value, field, view) {
+                        if (!value) {
+                            return view.errorAccount;
+                        }
+                        return false;
+                    },
+                    view: 'account_lookup'
                 },
                 {
                     label: this.contactText,
                     name: 'Contact',
                     textProperty: 'NameLF',
                     type: 'lookup',
+                    validator: function(value, field, view) {
+                        if (!value) {
+                            return view.errorContact;
+                        }
+                        return false;
+                    },
                     view: 'contact_lookup',
                     where: this.formatAccountQuery.createDelegate(this)
                 },

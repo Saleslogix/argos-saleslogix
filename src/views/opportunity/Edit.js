@@ -27,6 +27,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         titleText: 'Opportunity',
         typeText: 'type',
 
+        //Error Strings
+        errorAccountName: 'account is required',
+        errorOwner: 'owner is required',
+
         //View Properties
         entityName: 'Opportunity',
         id: 'opportunity_edit',
@@ -85,13 +89,18 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                 {
                     label: this.opportunityText,
                     name: 'Description',
-                    type: 'text'
+                    type: 'text',
+                    validator: Mobile.SalesLogix.Validator.hasText
                 },
                 {
                     label: this.accountText,
                     name: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
+                    validator: function(value, field, view) {
+                        if (!value) return view.errorAccountName;
+                        return false;
+                    },
                     view: 'account_lookup'
                 },
                 {
@@ -100,8 +109,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     name: 'AccountManager',
                     textProperty: 'UserInfo',
                     textTemplate: Mobile.SalesLogix.Template.nameLF,
-                    type: 'lookup',
-                    view: 'user_list'
+                    type: 'lookup'
                 },
                 {
                     label: this.estCloseText,
@@ -144,6 +152,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     keyProperty: '$key',
                     textProperty: 'OwnerDescription',
                     type: 'lookup',
+                    validator: function(value, field, view) {
+                        if (!value) return view.errorOwner;
+                        return false;
+                    },
                     view: 'owner_list'
                 },
                 {
