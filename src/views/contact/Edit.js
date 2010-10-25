@@ -118,7 +118,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     view: 'name_edit'
                 },
                 {
-                    forceValue: true,
+                    alwaysUseValue: true,
                     label: this.accountNameText,
                     name: 'Account',
                     textProperty: 'AccountName',
@@ -140,6 +140,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     type: 'text'
                 },
                 {
+                    alwaysUseValue: true,
                     name: 'WorkPhone',
                     label: this.workText,
                     type: 'phone'

@@ -69,6 +69,8 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         },
         applyAccountContext: function(entry) {
             this.fields['Account'].setValue(entry);
+            //Is it possible to fire "onChange" even when field updated programatically?
+            this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
         },
         init: function() {
             Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
@@ -93,6 +95,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     validator: Mobile.SalesLogix.Validator.hasText
                 },
                 {
+                    alwaysUseValue: true,
                     label: this.accountText,
                     name: 'Account',
                     textProperty: 'AccountName',
