@@ -6,7 +6,6 @@
 
 Ext.namespace("Mobile.SalesLogix");
 
-/// this is a very simple home view.
 Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     //Templates
     viewTemplate: new Simplate([
@@ -39,6 +38,8 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     },
     contextItems: [],
     detailView: false,
+    expose: false,
+    id: 'context_dialog',
     parentViewId: '',
     relatedKey: false,
 
@@ -51,14 +52,6 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
         if (params.where) o.where = String.format(params.where, this.relatedKey);
 
         navigateToRelatedView.call(this, params.view, o, params.descriptor);
-    },
-    constructor: function(o) {
-        Mobile.SalesLogix.ContextDialog.superclass.constructor.call(this);
-
-        Ext.apply(this, o, {
-            id: 'context_dialog',
-            expose: false
-        });
     },
     processTemplate: function() {
         var menu = [],
