@@ -602,6 +602,7 @@ div.row-edit > label
 .row > input:not([type|=radio]):not([type|=checkbox])
 {
     box-sizing: border-box;
+    -webkit-appearance: none;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-shadow: none;
@@ -619,6 +620,7 @@ div.row-edit > label
 .row > textarea
 {
     box-sizing: border-box;
+    -webkit-appearance: none;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-shadow: none;
