@@ -51,9 +51,17 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         ],
         resourceKind: 'opportunities',
 
-        setValues: function() {
-            Mobile.SalesLogix.Opportunity.Edit.superclass.setValues.apply(this, arguments);
+        processTemplateEntry: function() {
+            Mobile.SalesLogix.Opportunity.Edit.superclass.processTemplateEntry.apply(this, arguments);
 
+            this.applyContext();
+        },
+        show: function(options) {
+            Mobile.SalesLogix.Opportunity.Edit.superclass.show.apply(this, arguments);
+
+            if (options.insert === true) this.applyContext();
+        },
+        applyContext: function() {
             var contexts = ['accounts'],
                 primaryContext = App.queryNavigationContext(function(){return true}, 1),
                 secondaryContext = App.getMatchingContext(contexts), entry;

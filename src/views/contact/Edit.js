@@ -66,12 +66,22 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         onAccountChange: function(value, field) {
             this.fields['AccountName'].setValue(value.text);
         },
-        setValues: function() {
-            Mobile.SalesLogix.Contact.Edit.superclass.setValues.apply(this, arguments);
+        processTemplateEntry: function() {
+            Mobile.SalesLogix.Contact.Edit.superclass.processTemplateEntry.apply(this, arguments);
 
+            this.applyContext();
+        },
+        show: function(options) {
+            Mobile.SalesLogix.Contact.Edit.superclass.show.apply(this, arguments);
+
+            if (options.insert === true) this.applyContext();
+        },
+        applyContext: function() {
             var contexts = ['accounts'],
                 primaryContext = App.queryNavigationContext(function(){return true}, 1),
                 secondaryContext = App.getMatchingContext(contexts), entry;
+
+            this.clearValues();
 
             if (!secondaryContext) return;
 

@@ -104,9 +104,17 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         formatTypeDependentPicklist: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
-        setValues: function() {
-            Mobile.SalesLogix.Activity.Edit.superclass.setValues.apply(this, arguments);
+        processTemplateEntry: function() {
+            Mobile.SalesLogix.Activity.Edit.superclass.processTemplateEntry.apply(this, arguments);
 
+            this.applyContext();
+        },
+        show: function(options) {
+            Mobile.SalesLogix.Activity.Edit.superclass.show.apply(this, arguments);
+
+            if (options.insert === true) this.applyContext();
+        },
+        applyContext: function() {
             var contexts = ['accounts', 'leads', 'contacts', 'tickets', 'opportunities'],
                 primaryContext = App.queryNavigationContext(function(){return true}, 1),
                 secondaryContext = App.getMatchingContext(contexts), entry;
