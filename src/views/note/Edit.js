@@ -44,6 +44,7 @@ Ext.namespace("Mobile.SalesLogix.Note");
             return this.layout || (this.layout = [
                 {
                     label: this.notesText,
+                    multiline: true,
                     name: 'Notes',
                     type: 'text'
                 }

@@ -59,45 +59,45 @@ Ext.namespace("Mobile.SalesLogix.Account");
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'AccountName',
                     label: this.accountText,
+                    name: 'AccountName',
                     type: 'text',
                     validator: Mobile.SalesLogix.Validator.hasText
                 },
                 {
-                    name: 'WebAddress',
                     label: this.webText,
+                    name: 'WebAddress',
                     renderer: Mobile.SalesLogix.Format.link,
                     type: 'text'
                 },
                 {
-                    name: 'MainPhone',
                     label: this.phoneText,
+                    name: 'MainPhone',
                     type: 'phone'
                 },
                 {
-                    name: 'Address',
                     formatter: Mobile.SalesLogix.Format.address,
                     label: this.fullAddressText,
+                    name: 'Address',
                     type: 'address',
                     view: 'address_edit'
                 },
                 {
-                    name: 'Fax',
                     label: this.faxText,
+                    name: 'Fax',
                     type: 'phone'
                 },
                 {
-                    name: 'Type',
                     label: this.typeText,
+                    name: 'Type',
                     picklist: 'Account Type',
                     title: this.accountTypeTitleText,
                     type: 'picklist'
                 },
                 {
-                    name: 'SubType',
                     dependsOn: 'Type',
                     label: this.subTypeText,
+                    name: 'SubType',
                     picklist: this.formatDependentPicklist.createDelegate(
                         this, ['Account {0}'], true
                     ),
@@ -106,44 +106,45 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     type: 'picklist'
                 },
                 {
-                    name: 'Status',
                     label: this.statusText,
+                    name: 'Status',
                     picklist: 'Account Status',
                     requireSelection: false,
                     title: this.accountStatusTitleText,
                     type: 'picklist'
                 },
                 {
-                    name: 'Industry',
                     label: this.industryText,
+                    name: 'Industry',
                     picklist: 'Industry',
                     requireSelection: false,
                     title: this.industryTitleText,
                     type: 'picklist'
                 },
                 {
-                    name: 'BusinessDescription',
                     label: this.businessDescriptionText,
+                    multiline: true,
+                    name: 'BusinessDescription',
                     type: 'text'
                 },
                 {
-                    name: 'AccountManager',
                     label: this.acctMgrText,
+                    name: 'AccountManager',
                     textProperty: 'UserInfo',
                     textTemplate: Mobile.SalesLogix.Template.nameLF,
                     type: 'lookup',
                     view: 'user_list'
                 },
                 {
-                    name: 'Owner',
                     label: this.ownerText,
+                    name: 'Owner',
                     textProperty: 'OwnerDescription',
                     type: 'lookup',
                     view: 'owner_list'
                 },
                 {
-                    name: 'LeadSource',
                     label: this.importSourceText,
+                    name: 'LeadSource',
                     textProperty: 'Description',
                     type: 'lookup',
                     view: 'leadsource_list'
