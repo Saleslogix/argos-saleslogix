@@ -90,7 +90,8 @@ Ext.namespace("Mobile.SalesLogix");
                 {
                     label: this.accountNameText,
                     name: 'AccountName',
-                    type: 'text'
+                    type: 'text',
+                    validator: Mobile.SalesLogix.Validator.hasText
                 },
                 {
                     label: this.emailText,
