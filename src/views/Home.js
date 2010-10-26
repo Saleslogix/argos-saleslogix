@@ -76,7 +76,9 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
             if (!el.is('li')) el = el.findParent('li');
             if (el && el.getAttribute('data-key') == 'contact_list')
             {
-                App.getView('add_account_contact').show();
+                App.getView('add_account_contact').show({
+                    insert:true
+                });
             }
         });
 
