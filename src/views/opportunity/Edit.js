@@ -86,8 +86,15 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             this.fields['Account'].on('change', this.onAccountChange, this);
         },
         onAccountChange: function(value, field) {
-            var selection = field.getSelection();
-            if (selection)
+            var selection = field.getSelection(),
+                accountManager = this.fields['AccountManager'];
+
+            //While editing, the view's entry already has an Account Manager.
+            //So we don't change this with Account Change.
+            //While in Insert, we will set this when Account changes. A user
+            //can then change the account manager, if he so desires.
+
+            if (selection && (!this.entry || (this.entry && !this.entry.AccountManager)))
             {
                 this.fields['AccountManager'].setValue(U.getValue(selection, 'AccountManager'));
             }
@@ -120,7 +127,8 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     name: 'AccountManager',
                     textProperty: 'UserInfo',
                     textTemplate: Mobile.SalesLogix.Template.nameLF,
-                    type: 'lookup'
+                    type: 'lookup',
+                    view: 'user_list'
                 },
                 {
                     label: this.estCloseText,
