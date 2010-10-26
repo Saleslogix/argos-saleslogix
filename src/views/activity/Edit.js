@@ -271,6 +271,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {
                     name: 'LongNotes',
                     label: this.longNotesText,
+                    multiline: true,
                     type: 'text'
                 }
             ]);
