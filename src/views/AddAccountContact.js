@@ -21,11 +21,11 @@ Ext.namespace("Mobile.SalesLogix");
         detailsText: 'Contact / Account Info',
         emailText: 'e-mail',
         faxText: 'fax',
-        firstNameText: 'first',
         homePhoneText: 'home phone',
         industryText: 'industry',
         lastNameText: 'last',
         mobileText: 'mobile',
+        nameText: 'name',
         statusText: 'status',
         subTypeText: 'sub-type',
         titleText: 'Add Account / Contact',
@@ -33,6 +33,9 @@ Ext.namespace("Mobile.SalesLogix");
         webText: 'web',
         workText: 'work phone',
         industryTitleText: 'Industry',
+
+        //Error Strings
+        errorContactName: 'firstname and lastname are required',
 
         //View Properties
         id: 'add_account_contact',
@@ -72,33 +75,36 @@ Ext.namespace("Mobile.SalesLogix");
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'Contacts.$resources[0].FirstName',
-                    label: this.firstNameText,
-                    type: 'text'
+                    formatter: Mobile.SalesLogix.Format.nameLF,
+                    label: this.nameText,
+                    name: 'Contacts.$resources[0]',
+                    type: 'name',
+                    validator: function(value, field, view) {
+                        if (!value.FirstName && !value.LastName) {
+                            return view.errorContactName;
+                        }
+                        return false;
+                    },
+                    view: 'name_edit'
                 },
                 {
-                    name: 'Contacts.$resources[0].LastName',
-                    label: this.lastNameText,
-                    type: 'text'
-                },
-                {
-                    name: 'AccountName',
                     label: this.accountNameText,
+                    name: 'AccountName',
                     type: 'text'
                 },
                 {
-                    name: 'Email',
                     label: this.emailText,
+                    name: 'Email',
                     type: 'text'
                 },
                 {
-                    name: 'WebAddress',
                     label: this.webText,
+                    name: 'WebAddress',
                     type: 'text'
                 },
                 {
-                    name: 'MainPhone',
                     label: this.workText,
+                    name: 'MainPhone',
                     type: 'phone'
                 },
                 {
@@ -106,15 +112,15 @@ Ext.namespace("Mobile.SalesLogix");
                         title: this.detailsContactText
                     },
                     as: [{
-                        name: 'Contacts.$resources[0].Title',
                         label: this.contactTitleText,
-                        type: 'picklist',
+                        name: 'Contacts.$resources[0].Title',
                         picklist: 'Title',
-                        title: this.contactTitleText
+                        title: this.contactTitleText,
+                        type: 'picklist'
                     },
                     {
-                        name: 'Contacts.$resources[0].HomePhone',
                         label: this.homePhoneText,
+                        name: 'Contacts.$resources[0].HomePhone',
                         type: 'phone'
                     },
                     {

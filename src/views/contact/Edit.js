@@ -27,7 +27,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         ownerText: 'owner',
 
         //Error Strings
-        errorContactName: 'firstName and lastName are required',
+        errorContactName: 'firstname and lastname are required',
         errorAccountName: 'account is required',
 
         //View Properties
