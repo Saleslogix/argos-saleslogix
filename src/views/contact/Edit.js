@@ -114,17 +114,12 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    applyTo: '',
+                    applyTo: '.',
                     formatter: Mobile.SalesLogix.Format.nameLF,
                     label: this.nameText,
                     name: 'ContactName',
                     type: 'name',
-                    validator: function(value, field, view) {
-                        if (!value.FirstName && !value.LastName) {
-                            return view.errorContactName;
-                        }
-                        return false;
-                    },
+                    validator: Mobile.SalesLogix.Validator.name,
                     view: 'name_edit'
                 },
                 {
@@ -133,10 +128,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     name: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
-                    validator: function(value, field, view) {
-                        if (!value) return view.errorAccountName;
-                        return false;
-                    },
+                    validator: Mobile.SalesLogix.Validator.exists,
                     view: 'account_lookup'
                 },
                 {
@@ -150,7 +142,6 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     type: 'text'
                 },
                 {
-                    alwaysUseValue: true,
                     name: 'WorkPhone',
                     label: this.workText,
                     type: 'phone'

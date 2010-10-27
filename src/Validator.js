@@ -6,7 +6,21 @@ Ext.namespace("Mobile.SalesLogix");
 
 /// common frequently used templates
 Mobile.SalesLogix.Validator = (function() {     
-    return {                
+    return {
+        exists: {
+            fn: function(value) {
+                return !value;
+            },
+            message: "The field '{2}' must have a value."
+        },
+        name: {
+            fn: function(value) {
+                if (value)
+                    return !/\w+/.test(value.FirstName || '') || !/\w+/.test(value.LastName || '');
+                return true;
+            },
+            message: "The field '{2}' must have a first and last name specified."
+        },
         notEmpty: {
             test: /.+/,
             message: "The field '{2}' cannot be empty."
