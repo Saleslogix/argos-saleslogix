@@ -124,7 +124,9 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
 
-        this.registerView(new Mobile.SalesLogix.Campaign.List());
+        this.registerView(new Mobile.SalesLogix.Campaign.List({
+            expose: false
+        }));
         this.registerView(new Mobile.SalesLogix.Campaign.Detail());
         this.registerView(new Mobile.SalesLogix.Campaign.Edit());
         this.registerView(new Mobile.SalesLogix.Campaign.List({
@@ -141,7 +143,9 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         }));
 
         this.registerView(new Mobile.SalesLogix.SalesOrder.Edit());
-        this.registerView(new Mobile.SalesLogix.SalesOrder.List());
+        this.registerView(new Mobile.SalesLogix.SalesOrder.List({
+            expose: false
+        }));
         this.registerView(new Mobile.SalesLogix.SalesOrder.Detail());
         this.registerView(new Mobile.SalesLogix.SalesOrder.List({
             id: 'salesorder_related',
@@ -149,7 +153,9 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         }));
 
         this.registerView(new Mobile.SalesLogix.Contract.Edit());
-        this.registerView(new Mobile.SalesLogix.Contract.List());
+        this.registerView(new Mobile.SalesLogix.Contract.List({
+            expose: false
+        }));
         this.registerView(new Mobile.SalesLogix.Contract.Detail());
         this.registerView(new Mobile.SalesLogix.Contract.List({
             id: 'contract_related',
@@ -172,7 +178,9 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
 
-        this.registerView(new Mobile.SalesLogix.Return.List());
+        this.registerView(new Mobile.SalesLogix.Return.List({
+            expose: false
+        }));
         this.registerView(new Mobile.SalesLogix.Return.Detail());
         this.registerView(new Mobile.SalesLogix.Return.Edit());
         this.registerView(new Mobile.SalesLogix.Return.List({
@@ -195,7 +203,9 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
 
-        this.registerView(new Mobile.SalesLogix.Defect.List());
+        this.registerView(new Mobile.SalesLogix.Defect.List({
+            expose: false
+        }));
         this.registerView(new Mobile.SalesLogix.Defect.Detail());
         this.registerView(new Mobile.SalesLogix.Defect.Edit());
         this.registerView(new Mobile.SalesLogix.Defect.List({
