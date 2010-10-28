@@ -11,7 +11,7 @@
 *	Execute the following commands
 
 		cd products
-		git clone git@github.com:SageScottsdalePlatform/argos-saleslogix.git
+		git clone http://github.com/SageScottsdalePlatform/argos-saleslogix.git
 *	On your web server, create a Virtual Directory (IIS6), an Application (IIS7), or an Alias (Apache), or functional equivalent, called `mobile`, pointing to the base directory where you cloned [Argos SDK][argos-sdk], eg
 	
 		cd \projects\sage\mobile
