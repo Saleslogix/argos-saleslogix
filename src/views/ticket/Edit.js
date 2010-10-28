@@ -116,7 +116,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     readonly: true
                 },
                 {
-                    alwaysUseValue: true,
                     label: this.accountText,
                     name: 'Account',
                     textProperty: 'AccountName',

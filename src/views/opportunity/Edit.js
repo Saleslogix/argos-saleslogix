@@ -110,7 +110,6 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     validator: Mobile.SalesLogix.Validator.hasText
                 },
                 {
-                    alwaysUseValue: true,
                     label: this.accountText,
                     name: 'Account',
                     textProperty: 'AccountName',
@@ -122,7 +121,6 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     view: 'account_lookup'
                 },
                 {
-                    alwaysUseValue: true,
                     label: this.acctMgrText,
                     name: 'AccountManager',
                     textProperty: 'UserInfo',

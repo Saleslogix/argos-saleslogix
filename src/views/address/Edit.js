@@ -105,7 +105,6 @@ Ext.namespace("Mobile.SalesLogix.Address");
                     type: 'text'
                 },
                 {
-                    alwaysUseValue: true,
                     name: 'EntityId',
                     type: 'hidden'
                 }
