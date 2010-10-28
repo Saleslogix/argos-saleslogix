@@ -28,6 +28,10 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 '$key': 'notes',
                 view: 'note_related',
                 where: "AccountId eq '{0}' and Type eq 'atNote'"
+            },
+            {
+                '$key': 'schedule',
+                view: 'activity_types_list'
             }
         ],
         contextView: 'context_dialog',

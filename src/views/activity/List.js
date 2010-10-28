@@ -7,13 +7,28 @@
 Ext.namespace("Mobile.SalesLogix.Activity");
 
 (function() {
-    Mobile.SalesLogix.Activity.Types = {
-        "atAppointment": "Meeting",
-        "atLiterature": "Literature Request",
-        "atPersonal": "Personal Activity",
-        "atPhoneCall": "Phone Call",
-        "atToDo": "To-Do"
-    };
+    Mobile.SalesLogix.Activity.Types = [
+        {
+            '$key': 'atAppointment',
+            '$descriptor': 'Meeting'
+        },
+        {
+            '$key': 'atLiterature',
+            '$descriptor': 'Literature Request'
+        },
+        {
+            '$key': 'atPersonal',
+            '$descriptor': 'Personal Activity'
+        },
+        {
+            '$key': 'atPhoneCall',
+            '$descriptor': 'Phone Call'
+        },
+        {
+            '$key': 'atToDo',
+            '$descriptor': 'To-Do'
+        }
+    ];
 
     Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates

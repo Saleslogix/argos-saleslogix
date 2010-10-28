@@ -35,13 +35,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         typeText: 'type',
 
         //View Properties
-        activityTypeText: {
-            'atAppointment': 'Meeting',
-            'atLiterature': 'Literature Request',
-            'atPersonal': 'Personal Activity',
-            'atPhoneCall': 'Phone Call',
-            'atToDo': 'To-Do'
-        },
+        activityContext: false,
         picklistsByType: {
             'atAppointment': {
                 'Category': 'Meeting Category Codes',
@@ -88,31 +82,45 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         ],        
         resourceKind: 'activities',
 
-        createTypeList: function() {
-            var list = [];
-
-            for (var type in this.activityTypeText)
-            {
-                list.push({
-                    '$descriptor': this.activityTypeText[type],
-                    '$key': type
-                });
-            }
-
-            return list;
-        },       
         formatTypeDependentPicklist: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
         processTemplateEntry: function() {
-            Mobile.SalesLogix.Activity.Edit.superclass.processTemplateEntry.apply(this, arguments);
+            var types = Mobile.SalesLogix.Activity.Types,
+                activityType;
 
-            this.applyContext();
+            Mobile.SalesLogix.Activity.Edit.superclass.processTemplateEntry.apply(this, arguments);
+            if (this.activityContext)
+            {
+                if (this.activityContext.entry.$name !== 'Account') return;
+
+                this.applyAccountContext(this.activityContext.entry);
+
+               for (var i = 0, len = types.length; i < len; i++)
+               {
+                    if (types[i].$key === this.activityContext.type)
+                    {
+                        activityType = types[i];
+                        break;
+                    }
+                }
+
+                this.fields['Type'].setValue(activityType);
+                this.activityContext = false;
+            }
+            else this.applyContext();
         },
         show: function(options) {
             Mobile.SalesLogix.Activity.Edit.superclass.show.apply(this, arguments);
-
-            if (options.insert === true) this.applyContext();
+            if (options.context === 'ScheduleActivity')
+            {
+                this.activityContext = {
+                    'entry': options.entry,
+                    'type': options.key 
+                };
+            }
+            else if (options.insert === true)
+                this.applyContext();
         },
         applyContext: function() {
             var contexts = ['accounts', 'leads', 'contacts', 'tickets', 'opportunities'],
@@ -168,11 +176,13 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.layout || (this.layout = [
                 {
                     name: 'Type',
-                    data: this.createTypeList(),
+                    data: Mobile.SalesLogix.Activity.Types,
                     label: this.typeText,
                     title: this.activityTypeTitleText,
                     type: 'select',
-                    view: 'select_list'            
+                    valueKeyProperty: '$key',
+                    valueTextProperty: '$descriptor',
+                    view: 'select_list'
                 },
                 {
                     name: 'Description',

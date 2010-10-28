@@ -23,7 +23,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     ]),
     cancelButtonTemplate: new Simplate([
         '<li data-action="dismissDialog">',
-        '<a href="#" class="button dismissButton redButton">{%: $.cancelText %}</a>',
+        '<a href="#" type="cancel" class="button dismissButton redButton">{%: $.cancelText %}</a>',
         '</li>'
     ]),
 
@@ -31,6 +31,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     activitiesText: 'Activities',
     cancelText: 'Cancel',
     notesText: 'Notes',
+    scheduleText: 'Schedule',
 
     //View Properties
     attachmentPoints: {
@@ -40,12 +41,14 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     detailView: false,
     expose: false,
     id: 'context_dialog',
-    parentViewId: '',
+    parentViewId: false,
     relatedKey: false,
+    relatedEntry: false,
 
     activateButton: function(params) {
         var o = {
-                'key': this.relatedKey
+                'key': this.relatedKey,
+                'entry': this.relatedEntry
             },
             navigateToRelatedView = Sage.Platform.Mobile.Detail.prototype.navigateToRelatedView;
 
@@ -73,7 +76,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
         return this.parentViewId !== options.parentViewId;
     },
     show: function(options) {
-        Mobile.SalesLogix.ContextDialog.superclass.show.call(this, options);
+        Mobile.SalesLogix.ContextDialog.superclass.show.apply(this, arguments);
 
         this.contextItems = options.contextItems;
 
@@ -84,11 +87,13 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
         this.detailView = App.getView(options.detailView);
         this.relatedKey = options.key;
+        this.relatedEntry = options.entry;
         this.parentViewId = options.parentViewId;
     },
     dismissDialog: function() {
         this.detailView = false;
         this.relatedKey = false;
+        this.relatedEntry = false;
         this.parentViewId = '';
         this.contextItems = [];
         this.el.dom.removeAttribute('selected');
