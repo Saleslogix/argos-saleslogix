@@ -8,7 +8,7 @@
 *	change to the base directory where you cloned [Argos SDK][argos-sdk], eg  
 
 		cd \projects\sage\mobile
-*	Execute the following commands
+*	Execute the following commands (clone command shown with SSH URL. Substitute with HTTP or Git Read-Only URL as applicable)
 
 		cd products
 		git clone git@github.com:SageScottsdalePlatform/argos-saleslogix.git
