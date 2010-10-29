@@ -21,25 +21,81 @@ Ext.namespace("Mobile.SalesLogix.Note");
         ],
         resourceKind: 'history',
 
-        setValues: function() {
-            var relatedContext = App.queryNavigationContext(function(){return true}, 1)
-
-            if (relatedContext.options.where)
-                this.queryWhere = relatedContext.options.where;
-            else
-                this.queryWhere = false;
-
-            Mobile.SalesLogix.Note.Edit.superclass.setValues.apply(this, arguments);
+        applyAccountContext: function(context) {
+            this.fields['AccountId'].setValue(context.key);
+            this.fields['AccountName'].setValue(context.descriptor);
         },
-        createRequest: function() {
-            var request = Mobile.SalesLogix.Note.Edit.superclass.createRequest.call(this);
+        applyLeadContext: function(context) {
+            this.fields['LeadId'].setValue(context.key);
+            this.fields['LeadName'].setValue(context.descriptor);
+        },
+        applyOpportunityContext: function(context) {
+            this.fields['OpportunityId'].setValue(context.key);
+            this.fields['OpportunityName'].setValue(context.descriptor);
 
-            if (this.queryWhere) request.setQueryArgs({
-                'where': this.queryWhere
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
+            if (entry && entry['Account'])
+            {
+                this.fields['AccountId'].setValue(entry['Account']['$key']);
+                this.fields['AccountName'].setValue(entry['Account']['AccountName']);
+            }
+
+            // todo: find a good way to get the primary contact and apply
+        },
+        applyContactContext: function(context) {
+            this.fields['ContactId'].setValue(context.key);
+            this.fields['ContactName'].setValue(context.descriptor);
+
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
+            if (entry && entry['Account'])
+            {
+                this.fields['AccountId'].setValue(entry['Account']['$key']);
+                this.fields['AccountName'].setValue(entry['Account']['AccountName']);
+            }
+        },
+        applyTicketContext: function(context) {
+            this.fields['ContactId'].setValue(context.key);
+            this.fields['ContactName'].setValue(context.descriptor);
+
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
+            if (entry && entry['Account'])
+            {
+                this.fields['AccountId'].setValue(entry['Account']['$key']);
+                this.fields['AccountName'].setValue(entry['Account']['AccountName']);
+            }
+
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
+            if (entry && entry['Contact'])
+            {
+                this.fields['ContactId'].setValue(entry['Contact']['$key']);
+                this.fields['ContactName'].setValue(entry['Contact']['NameLF']);
+            }
+        },
+        applyContext: function() {
+            var found = App.queryNavigationContext(function(o) {
+                return /^(accounts|contacts|opportunities|leads|tickets)$/.test(o.resourceKind) && o.key;
             });
 
-            return request;
-        },
+            var lookup = {
+                'accounts': this.applyAccountContext,
+                'contacts': this.applyContactContext,
+                'opportunities': this.applyOpportunityContext,
+                'leads': this.applyLeadContext,
+                'tickets': this.applyTicketContext
+            };
+
+            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
+
+            this.fields['Type'].setValue('atNote');
+        },        
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
@@ -47,6 +103,50 @@ Ext.namespace("Mobile.SalesLogix.Note");
                     multiline: true,
                     name: 'Notes',
                     type: 'text'
+                },
+                {
+                    name: 'Type',
+                    type: 'hidden'
+                },
+                {
+                    name: 'AccountId',
+                    type: 'hidden'
+                },
+                {
+                    name: 'AccountName',
+                    type: 'hidden'
+                },
+                {
+                    name: 'ContactId',
+                    type: 'hidden'
+                },
+                {
+                    name: 'ContactName',
+                    type: 'hidden'
+                },
+                {
+                    name: 'OpportunityId',
+                    type: 'hidden'
+                },
+                {
+                    name: 'OpportunityName',
+                    type: 'hidden'
+                },
+                {
+                    name: 'TicketId',
+                    type: 'hidden'
+                },
+                {
+                    name: 'TicketNumber',
+                    type: 'hidden'
+                },
+                {
+                    name: 'LeadId',
+                    type: 'hidden'
+                },
+                {
+                    name: 'LeadName',
+                    type: 'hidden'
                 }
             ]);
         }
