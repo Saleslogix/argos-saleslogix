@@ -165,19 +165,11 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                         )
                     },
                     {
-                        icon: 'content/images/Accounts_24x24.gif',
-                        label: this.relatedAccountsText,
-                        view: 'account_related',
-                        where: this.formatRelatedQuery.createDelegate(
-                            this, ['Contact.Id eq "{0}"'], true
-                        )
-                    },
-                    {
                         icon: 'content/images/Opportunity_List_24x24.gif',
                         label: this.relatedOpportunitiesText,
                         view: 'opportunity_related',
                         where: this.formatRelatedQuery.createDelegate(
-                            this, ['ContactId eq "{0}"'], true
+                            this, ['Contacts.Contact.Id eq "{0}"'], true
                         )
                     },
                     {
