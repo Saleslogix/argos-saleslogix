@@ -141,6 +141,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     label: this.statusText,
                     name: 'Status',
                     picklist: 'Opportunity Status',
+                    requireSelection: true,
                     title: this.opportunityStatusTitle,
                     type: 'picklist'
                 },

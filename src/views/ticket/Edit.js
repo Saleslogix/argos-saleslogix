@@ -148,6 +148,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     label: this.sourceText,
                     name: 'ViaCode',
                     picklist: 'Source',
+                    requireSelection: true,
                     storageMode: 'id',
                     title: this.sourceTitleText,
                     type: 'picklist'
@@ -156,6 +157,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     label: this.statusText,
                     name: 'StatusCode',
                     picklist: 'Ticket Status',
+                    requireSelection: true,
                     storageMode: 'code',
                     title: this.ticketStatusTitleText,
                     type: 'picklist'

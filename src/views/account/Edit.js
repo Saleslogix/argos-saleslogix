@@ -91,6 +91,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     label: this.typeText,
                     name: 'Type',
                     picklist: 'Account Type',
+                    requireSelection: true,
                     title: this.accountTypeTitleText,
                     type: 'picklist'
                 },
