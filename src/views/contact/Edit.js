@@ -26,10 +26,6 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         addressTitleText: 'Address',
         ownerText: 'owner',
 
-        //Error Strings
-        errorContactName: 'firstname and lastname are required',
-        errorAccountName: 'account is required',
-
         //View Properties
         entityName: 'Contact',
         id: 'contact_edit',
@@ -66,33 +62,26 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         onAccountChange: function(value, field) {
             this.fields['AccountName'].setValue(value.text);
         },
-        processTemplateEntry: function() {
-            Mobile.SalesLogix.Contact.Edit.superclass.processTemplateEntry.apply(this, arguments);
-
-            this.applyContext();
-        },
         show: function(options) {
             Mobile.SalesLogix.Contact.Edit.superclass.show.apply(this, arguments);
 
             if (options.insert === true) this.applyContext();
         },
         applyContext: function() {
-            var contexts = ['accounts'],
-                primaryContext = App.queryNavigationContext(function(){return true}, 1),
-                secondaryContext = App.getMatchingContext(contexts), entry;
+            var found = App.queryNavigationContext(function(o) {
+                return /^(accounts)$/.test(o.resourceKind) && o.key;
+            });
 
-            this.clearValues();
+            var lookup = {
+                'accounts': this.applyAccountContext
+            };
 
-            if (!secondaryContext) return;
-
-            entry = App.getView(secondaryContext.id).entry;
-
-            if (entry && secondaryContext.resourceKind === 'accounts')
-            {
-                this.applyAccountContext(entry);
-            }
+            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
         },
-        applyAccountContext: function(entry) {
+        applyAccountContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             for (var field in this.fields)
             {
                 if (field === 'Account')

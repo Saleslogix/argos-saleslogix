@@ -38,10 +38,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         titleText: 'Ticket',
         urgencyText: 'urgency',
 
-        //Error Strings
-        errorContact: 'ticket contact is required',
-        errorAccount: 'ticket account is required',
-
         //View Properties
         entityName: 'Ticket',
         id: 'ticket_edit',
@@ -72,38 +68,33 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
             return key ? String.format('Account.id eq "{0}"', key) : false;
         },
-        processTemplateEntry: function() {
-            Mobile.SalesLogix.Ticket.Edit.superclass.processTemplateEntry.apply(this, arguments);
-
-            this.applyContext();
-        },
         show: function(options) {
             Mobile.SalesLogix.Ticket.Edit.superclass.show.apply(this, arguments);
 
             if (options.insert === true) this.applyContext();
         },
         applyContext: function() {
-            var contexts = ['accounts', 'contacts'],
-                primaryContext = App.queryNavigationContext(function(){return true}, 1),
-                secondaryContext = App.getMatchingContext(contexts), entry;
+            var found = App.queryNavigationContext(function(o) {
+                return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
+            });
 
-            if (!secondaryContext) return;
+            var lookup = {
+                'accounts': this.applyAccountContext,
+                'contacts': this.applyContactContext
+            };
 
-            entry = App.getView(secondaryContext.id).entry;
-
-            if (entry && secondaryContext.resourceKind === 'accounts')
-            {
-                this.applyAccountContext(entry);
-            }
-            else if (entry && secondaryContext.resourceKind === 'contacts')
-            {
-                this.applyContactContext(entry);
-            }
+            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
         },
-        applyAccountContext: function(entry) {
+        applyAccountContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['Account'].setValue(entry);
         },
-        applyContactContext: function(entry) {
+        applyContactContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['Account'].setValue(entry.Account);
             this.fields['Contact'].setValue(entry);
         },
@@ -120,12 +111,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     name: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
-                    validator: function(value, field, view) {
-                        if (!value) {
-                            return view.errorAccount;
-                        }
-                        return false;
-                    },
+                    validator: Mobile.SalesLogix.Validator.exists,
                     view: 'account_lookup'
                 },
                 {
@@ -133,12 +119,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     name: 'Contact',
                     textProperty: 'NameLF',
                     type: 'lookup',
-                    validator: function(value, field, view) {
-                        if (!value) {
-                            return view.errorContact;
-                        }
-                        return false;
-                    },
+                    validator: Mobile.SalesLogix.Validator.exists,
                     view: 'contact_lookup',
                     where: this.formatAccountQuery.createDelegate(this)
                 },

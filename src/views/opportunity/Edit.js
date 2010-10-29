@@ -27,10 +27,6 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         titleText: 'Opportunity',
         typeText: 'type',
 
-        //Error Strings
-        errorAccountName: 'account is required',
-        errorOwner: 'owner is required',
-
         //View Properties
         entityName: 'Opportunity',
         id: 'opportunity_edit',
@@ -51,31 +47,26 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         ],
         resourceKind: 'opportunities',
 
-        processTemplateEntry: function() {
-            Mobile.SalesLogix.Opportunity.Edit.superclass.processTemplateEntry.apply(this, arguments);
-
-            this.applyContext();
-        },
         show: function(options) {
             Mobile.SalesLogix.Opportunity.Edit.superclass.show.apply(this, arguments);
 
             if (options.insert === true) this.applyContext();
         },
         applyContext: function() {
-            var contexts = ['accounts'],
-                primaryContext = App.queryNavigationContext(function(){return true}, 1),
-                secondaryContext = App.getMatchingContext(contexts), entry;
+            var found = App.queryNavigationContext(function(o) {
+                return /^(accounts)$/.test(o.resourceKind) && o.key;
+            });
 
-            if (!secondaryContext) return;
+            var lookup = {
+                'accounts': this.applyAccountContext
+            };
 
-            entry = App.getView(secondaryContext.id).entry;
-
-            if (entry && secondaryContext.resourceKind === 'accounts')
-            {
-                this.applyAccountContext(entry);
-            }
+            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
         },
-        applyAccountContext: function(entry) {
+        applyAccountContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['Account'].setValue(entry);
             //Is it possible to fire "onChange" even when field updated programatically?
             this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
@@ -114,10 +105,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     name: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
-                    validator: function(value, field, view) {
-                        if (!value) return view.errorAccountName;
-                        return false;
-                    },
+                    validator: Mobile.SalesLogix.Validator.exists,
                     view: 'account_lookup'
                 },
                 {
@@ -169,10 +157,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     keyProperty: '$key',
                     textProperty: 'OwnerDescription',
                     type: 'lookup',
-                    validator: function(value, field, view) {
-                        if (!value) return view.errorOwner;
-                        return false;
-                    },
+                    validator: Mobile.SalesLogix.Validator.exists,
                     view: 'owner_list'
                 },
                 {

@@ -70,9 +70,6 @@ Ext.namespace("Mobile.SalesLogix.Note");
                 this.fields['AccountName'].setValue(entry['Account']['AccountName']);
             }
 
-            var view = App.getView(context.id),
-                entry = view && view.entry;
-
             if (entry && entry['Contact'])
             {
                 this.fields['ContactId'].setValue(entry['Contact']['$key']);

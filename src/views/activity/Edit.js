@@ -85,31 +85,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         formatTypeDependentPicklist: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
-        processTemplateEntry: function() {
-            var types = Mobile.SalesLogix.Activity.Types,
-                activityType;
-
-            Mobile.SalesLogix.Activity.Edit.superclass.processTemplateEntry.apply(this, arguments);
-            if (this.activityContext)
-            {
-                if (this.activityContext.entry.$name !== 'Account') return;
-
-                this.applyAccountContext(this.activityContext.entry);
-
-               for (var i = 0, len = types.length; i < len; i++)
-               {
-                    if (types[i].$key === this.activityContext.type)
-                    {
-                        activityType = types[i];
-                        break;
-                    }
-                }
-
-                this.fields['Type'].setValue(activityType);
-                this.activityContext = false;
-            }
-            else this.applyContext();
-        },
         show: function(options) {
             Mobile.SalesLogix.Activity.Edit.superclass.show.apply(this, arguments);
             if (options.context === 'ScheduleActivity')
@@ -123,52 +98,78 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 this.applyContext();
         },
         applyContext: function() {
-            var contexts = ['accounts', 'leads', 'contacts', 'tickets', 'opportunities'],
-                primaryContext = App.queryNavigationContext(function(){return true}, 1),
-                secondaryContext = App.getMatchingContext(contexts), entry;
+            if (this.activityContext)
+            {
+                this.applyActivityContext();
+                return;
+            }
 
-            if (!secondaryContext) return;
-            
-            entry = App.getView(secondaryContext.id).entry;
+            var found = App.queryNavigationContext(function(o) {
+                return /^(accounts|contacts|leads|opportunities|tickets)$/.test(o.resourceKind) && o.key;
+            });
 
-            if (entry && secondaryContext.resourceKind === 'accounts')
-            {
-                this.applyAccountContext(entry);
-            }
-            else if (entry && secondaryContext.resourceKind === 'leads')
-            {
-                this.applyLeadContext(entry);
-            }
-            else if (entry && secondaryContext.resourceKind === 'contacts')
-            {
-                this.applyContactContext(entry);
-            }
-            else if (entry && secondaryContext.resourceKind === 'tickets')
-            {
-                this.applyTicketContext(entry);
-            }
-            else if (entry && secondaryContext.resourceKind === 'opportunities')
-            {
-                this.applyOpportunityContext(entry);
-            }
+            var lookup = {
+                'accounts': this.applyAccountContext,
+                'contacts': this.applyContactContext,
+                'leads': this.applyLeadContext,
+                'opportunities': this.applyOpportunityContext,
+                'tickets': this.applyTicketContext
+            };
+
+            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
         },
-        applyAccountContext: function(entry) {
+        applyAccountContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['AccountName'].setValue(entry.AccountName);
         },
-        applyLeadContext: function(entry) {
+        applyActivityContext: function() {
+            var types = Mobile.SalesLogix.Activity.Types,
+                activityType;
+
+            if (this.activityContext.entry.$name !== 'Account') return;
+
+            this.applyAccountContext(this.activityContext.entry);
+
+            for (var i = 0, len = types.length; i < len; i++)
+            {
+                if (types[i].$key === this.activityContext.type)
+                {
+                    activityType = types[i];
+                    break;
+                }
+            }
+
+            this.fields['Type'].setValue(activityType);
+            this.activityContext = false;
+        },
+        applyLeadContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['ContactName'].setValue(entry.LeadNameLastFirst);
             this.fields['AccountName'].setValue(entry.Company);
         },
-        applyContactContext: function(entry) {
+        applyContactContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['ContactName'].setValue(entry.NameLF);
             this.fields['AccountName'].setValue(entry.AccountName);
         },
-        applyTicketContext: function(entry) {
+        applyTicketContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['ContactName'].setValue(entry.Contact.NameLF);
             this.fields['AccountName'].setValue(entry.Account.AccountName);
             this.fields['TicketNumber'].setValue(entry.TicketNumber);
         },
-        applyOpportunityContext: function(entry) {
+        applyOpportunityContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
             this.fields['OpportunityName'].setValue(entry.Description);
             this.fields['AccountName'].setValue(entry.Account.AccountName);
         },
@@ -189,10 +190,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     dependsOn: 'Type',
                     label: this.regardingText,
                     picklist: this.formatTypeDependentPicklist.createDelegate(
-                                    this,
-                                    ['Description'],
-                                    true
-                               ),
+                        this, ['Description'], true
+                    ),
                     title: this.activityDescriptionTitleText,
                     type: 'picklist'
                 },
@@ -208,10 +207,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     dependsOn: 'Type',
                     label: this.categoryText,
                     picklist: this.formatTypeDependentPicklist.createDelegate(
-                                    this,
-                                    ['Category'],
-                                    true
-                              ),
+                        this, ['Category'], true
+                    ),
                     title: this.activityCategoryTitleText,
                     type: 'picklist'
                 },

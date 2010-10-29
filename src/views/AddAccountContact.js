@@ -34,9 +34,6 @@ Ext.namespace("Mobile.SalesLogix");
         workText: 'work phone',
         industryTitleText: 'Industry',
 
-        //Error Strings
-        errorContactName: 'firstname and lastname are required',
-
         //View Properties
         id: 'add_account_contact',
         resourceKind: 'accounts',
@@ -79,12 +76,7 @@ Ext.namespace("Mobile.SalesLogix");
                     label: this.nameText,
                     name: 'Contacts.$resources[0]',
                     type: 'name',
-                    validator: function(value, field, view) {
-                        if (!value.FirstName && !value.LastName) {
-                            return view.errorContactName;
-                        }
-                        return false;
-                    },
+                    validator: Mobile.SalesLogix.Validator.name,
                     view: 'name_edit'
                 },
                 {
