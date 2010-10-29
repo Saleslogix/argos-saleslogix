@@ -118,9 +118,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
         },
-        applyAccountContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+        applyAccountContext: function(context, entry) {
+            var view;
+
+            if (context) view = App.getView(context.id);
+            if (!entry) entry = view && view.entry;
 
             this.fields['AccountName'].setValue(entry.AccountName);
         },
@@ -130,7 +132,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             if (this.activityContext.entry.$name !== 'Account') return;
 
-            this.applyAccountContext(this.activityContext.entry);
+            this.applyAccountContext(false, this.activityContext.entry);
 
             for (var i = 0, len = types.length; i < len; i++)
             {
