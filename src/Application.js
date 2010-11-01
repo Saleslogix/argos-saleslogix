@@ -9,60 +9,69 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     defaultApplicationName: 'slx',
     defaultContractName: 'dynamic',
     titleText: 'Mobile Demo',
-    constructor: function (o) {
-        Mobile.SalesLogix.Application.superclass.constructor.call(this);
-
-        Ext.apply(this, o, {
-            enableCaching: true
-        });
-    },
+    enableCaching: true,
     init: function() {
         Mobile.SalesLogix.Application.superclass.init.call(this);
 
-        var home = App.getView('home');
-        Ext.get("backButton").on("longpress", function() {
+        Ext.EventManager.on(window, 'unload', function() {
+            var current = ReUI.context.history[ReUI.context.history.length - 1];
+            if (current)
+            {
+                if (window.localStorage)
+                    window.localStorage.setItem('restore', Ext.encode(current.data));
+            }
+        }, this);
 
+        Ext.get("backButton").on("longpress", function() {
+            var home = this.getView('home');
             if (home) {
                 home.show();
             }
-        });
+        }, this);
+        
         this.fetchPreferences();
     },
     run: function() {
         if (App.isOnline() || !App.enableCaching)
         {
-            var login = App.getView('login');
+            var login = this.getView('login');
             if (login)
                 login.show();
         }
+        else
+        {
+            var home = this.getView('home');
+            if (home)
+                home.show();
+        }
     },
     fetchPreferences: function() {
-        var views = this.getExposedViews();
-
         try {
-            App.preferences = Ext.decode(window.localStorage.getItem('preferences'));
+            if (window.localStorage)
+                this.preferences = Ext.decode(window.localStorage.getItem('preferences'));
         }
         catch(e) {}
 
         //Probably, the first time, its being accessed, or user cleared
         //the data. So lets initialize the object, with default ones.
-        if (App.preferences === null)
+        if (!this.preferences)
         {
-            App.preferences = {};
-
-            App.preferences.home = {
-                visible: views
-            };
-
-            //Just create a clone of views, we don't want the same reference
-            App.preferences.configure = {
-                order: Ext.decode(Ext.encode(views))
+            var views = this.getExposedViews();
+            
+            this.preferences = {
+                home: {
+                    visible: views
+                },
+                configure: {
+                    order: views.slice(0)
+                }
             };
         }
     },
     persistPreferences: function() {
         try {
-            window.localStorage.setItem('preferences', Ext.encode(App.preferences));
+            if (window.localStorage)
+                window.localStorage.setItem('preferences', Ext.encode(App.preferences));
         }
         catch(e) {}
     },
@@ -78,20 +87,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         }
 
         return exposedViews;
-    },
-    getMatchingContext : function(contexts, depth) {
-        var context;
-
-        for (var i = 0; i < contexts.length; i++)
-        {
-            context = this.queryNavigationContext(function(o) {
-                return (o.resourceKind === contexts[i]) && o.key;
-            }, depth);
-            if (context) break;
-        }
-
-        return context;
-    },
+    },    
     setup: function () {
         Mobile.SalesLogix.Application.superclass.setup.apply(this, arguments);
 
@@ -103,6 +99,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerToolbar(new Sage.Platform.Mobile.FloatToolbar({
             name: 'fbar'
         }));
+
         this.registerView(new Sage.Platform.Mobile.Calendar());
         
         this.registerView(new Mobile.SalesLogix.Login());
