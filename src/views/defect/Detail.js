@@ -66,6 +66,10 @@ Ext.namespace("Mobile.SalesLogix.Defect");
         ],
         resourceKind: 'defects',
 
+        init: function() {
+            Mobile.SalesLogix.Defect.Detail.superclass.init.call(this);
+            App.on('resize', this.onResize, this);
+        },
         onResize: function() {
             this.el.select('.defect-text-row').each(function(el) {
                 if (el.child('.defect-text-wrap').getHeight(true) < el.child('.defect-text-wrap a').getHeight())
