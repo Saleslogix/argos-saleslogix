@@ -65,7 +65,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         var service = App.getService()
             .setUserName(username)
-            .setPassword(password);
+            .setPassword(password || '');
 
         var request = new Sage.SData.Client.SDataResourceCollectionRequest(service)
             .setResourceKind('users')
