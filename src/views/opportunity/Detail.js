@@ -50,26 +50,6 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         formatAccountRelatedQuery: function(entry, fmt) {
             return String.format(fmt, entry['Account']['$key']);
         },
-        init: function() {
-            Mobile.SalesLogix.Opportunity.Detail.superclass.init.call(this);
-
-            this.tools.fbar = [{
-                name: 'home',
-                title: this.fbarHomeTitleText,
-                cls: 'tool-note',
-                icon: 'content/images/welcome_32x32.gif',
-                fn: App.navigateToHomeView,
-                scope: this
-            },
-            {
-                cls: 'tool-note',
-                fn: App.navigateToActivityInsertView,
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                name: 'schedule',
-                scope: this,
-                title: this.fbarScheduleTitleText
-            }];
-        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
