@@ -34,7 +34,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         //Templates
         contentTemplate: new Simplate([
             '<h3>{%: Mobile.SalesLogix.Format.date($.StartDate) %}, {%: $.AccountName %}</h3>',
-            '<h4>{%: Mobile.SalesLogix.Activity.Types[$.Type] %}, {%: $.Description %}</h4>'
+            '<h4>{%: Mobile.SalesLogix.Activity.ActivityTypesLookup[$.Type] %}, {%: $.Description %}</h4>'
         ]),
 
         //Localization
@@ -54,6 +54,15 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         ],
         resourceKind: 'activities',
 
+        init: function() {
+            Mobile.SalesLogix.Activity.List.superclass.init.apply(this, arguments);
+
+            var actTypes = {};
+            Mobile.SalesLogix.Activity.Types.forEach(function(type){
+                actTypes[type.$key] = type.$descriptor;
+            });
+            Mobile.SalesLogix.Activity.ActivityTypesLookup = actTypes;
+        },
         formatSearchQuery: function(query) {
             return String.format('Description like "%{0}%"', query);
         }

@@ -54,11 +54,12 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
-                return /^(accounts)$/.test(o.resourceKind) && o.key;
+                return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
             });
 
             var lookup = {
-                'accounts': this.applyAccountContext
+                'accounts': this.applyAccountContext,
+                'contacts': this.applyContactContext
             };
 
             if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
@@ -68,6 +69,14 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                 entry = view && view.entry;
 
             this.fields['Account'].setValue(entry);
+            //Is it possible to fire "onChange" even when field updated programatically?
+            this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
+        },
+        applyContactContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
+            this.fields['Account'].setValue(U.getValue(entry, 'Account'));
             //Is it possible to fire "onChange" even when field updated programatically?
             this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
         },
