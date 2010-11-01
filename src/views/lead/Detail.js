@@ -62,26 +62,6 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     ],   
     resourceKind: 'leads',
 
-    init: function() {     
-        Mobile.SalesLogix.Lead.Detail.superclass.init.call(this);
-
-        this.tools.fbar = [{
-            cls: 'tool-note',
-            fn: App.navigateToHomeView,
-            icon: 'content/images/welcome_32x32.gif',
-            name: 'home',
-            scope: this,
-            title: this.fbarHomeTitleText
-        },
-        {
-            cls: 'tool-note',
-            fn: App.navigateToActivityInsertView,
-            icon: 'content/images/Schdedule_To_Do_32x32.gif',
-            name: 'schedule',
-            scope: this,
-            title: this.fbarScheduleTitleText
-        }];
-    },
     createLayout: function() {
         return this.layout || (this.layout = [
             {

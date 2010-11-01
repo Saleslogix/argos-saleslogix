@@ -21,18 +21,6 @@ Ext.namespace("Mobile.SalesLogix.Note");
         ],        
         resourceKind: 'history',
 
-        init: function() {
-            Mobile.SalesLogix.Note.Detail.superclass.init.call(this);
-
-            this.tools.fbar = [{
-                cls: 'tool-note',
-                fn: App.navigateToHomeView,
-                icon: 'content/images/welcome_32x32.gif',
-                name: 'home',
-                scope: this,
-                title: this.fbarHomeTitleText
-            }];
-        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {

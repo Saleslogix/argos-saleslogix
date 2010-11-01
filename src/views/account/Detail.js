@@ -62,25 +62,6 @@ Ext.namespace("Mobile.SalesLogix.Account");
         ],
         resourceKind: 'accounts',
 
-        init: function() {
-            Mobile.SalesLogix.Account.Detail.superclass.init.apply(this, arguments);
-            
-            this.tools.fbar = [{
-                cls: 'tool-note',
-                fn: App.navigateToHomeView,
-                icon: 'content/images/welcome_32x32.gif',
-                name: 'home',
-                scope: this,
-                title: this.fbarHomeText
-            },{
-                cls: 'tool-note',
-                fn: App.navigateToActivityInsertView,
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                name: 'schedule',
-                scope: this,
-                title: this.fbarScheduleText
-            }];
-        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {

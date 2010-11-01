@@ -66,40 +66,6 @@ Ext.namespace("Mobile.SalesLogix.Defect");
         ],
         resourceKind: 'defects',
 
-        init: function() {
-            Mobile.SalesLogix.Defect.Detail.superclass.init.call(this);
-
-            App.on('resize', this.onResize, this);
-
-            this.tools.fbar = [{
-                cls: 'tool-note',
-                fn: App.navigateToHomeView,
-                icon: 'content/images/welcome_32x32.gif',
-                name: 'home',
-                scope: this,
-                title: this.fbarScheduleHomeText
-            },
-            {
-                cls: 'tool-note',
-                fn: function() {
-                    App.getView('defect_list').navigateToInsert.call({
-                        editor: 'defect_edit'
-                    });
-                },
-                icon: 'content/images/Note_32x32.gif',
-                name: 'new',
-                scope: this,
-                title: this.fbarScheduleNewText
-            },
-            {
-                cls: 'tool-note',
-                fn: App.navigateToActivityInsertView,
-                icon: 'content/images/Schdedule_To_Do_32x32.gif',
-                name: 'schedule',
-                scope: this,
-                title: this.fbarScheduleTitleText
-            }];
-        },
         onResize: function() {
             this.el.select('.defect-text-row').each(function(el) {
                 if (el.child('.defect-text-wrap').getHeight(true) < el.child('.defect-text-wrap a').getHeight())
