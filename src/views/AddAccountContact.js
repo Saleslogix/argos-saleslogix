@@ -69,6 +69,16 @@ Ext.namespace("Mobile.SalesLogix");
         formatDependentPicklist: function(dependentValue, format) {
             return String.format(format, dependentValue);
         },
+        insertCompleted: function(entry) {
+            var v = App.getView('account_detail');
+            if (!v)
+                Mobile.SalesLogix.AddAccountContact.superclass.insertCompleted.apply(this, arguments);
+            else
+                v.show({
+                    descriptor: entry.$descriptor,
+                    key: entry.$key
+                });
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
@@ -151,7 +161,7 @@ Ext.namespace("Mobile.SalesLogix");
                         picklist: this.formatDependentPicklist.createDelegate(
                             this, ['Account {0}'], true
                         ),
-                        title: this.accountSubTypeTitle,
+                        title: this.accountSubTypeTitleText,
                         dependsOn: 'Type'
                     },
                     {
