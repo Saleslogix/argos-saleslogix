@@ -83,12 +83,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         resourceKind: 'activities',
 
         formatTypeDependentPicklist: function(type, which) {
-            return this.picklistsByType[type] && this.picklistsByType[type][which];
+            return this.picklistsByType[type.$key] && this.picklistsByType[type.$key][which];
         },
         show: function(options) {
             //TODO:This must be a part of Select Field.  
             //Fix "Type" value from "text" to "object".
-            console.log(options)
             var type = options.entry.Type,
                 typesLookup = Mobile.SalesLogix.Activity.ActivityTypesLookup;
             if (type && typesLookup[type])
