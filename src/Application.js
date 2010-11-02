@@ -14,12 +14,12 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         Mobile.SalesLogix.Application.superclass.init.call(this);
 
         Ext.EventManager.on(window, 'unload', function() {
-            var current = ReUI.context.history[ReUI.context.history.length - 1];
-            if (current)
+            try
             {
-                if (window.localStorage)
-                    window.localStorage.setItem('restore', Ext.encode(current.data));
+                if (window.localStorage && this.saveContextOnExit !== false)
+                    window.localStorage.setItem('restore', Ext.encode(ReUI.context.history));
             }
+            catch (e) { }             
         }, this);
 
         Ext.get("backButton").on("longpress", function() {
@@ -251,6 +251,66 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Contact.Lookup({
             expose: false
         }));
+    },
+    cleanRestoredHistory: function(restoredHistory) {
+        var result = [],
+            hasRoot = false;
+
+        for (var i = restoredHistory.length - 1; i >= 0 && !hasRoot; i--)
+        {
+            if (App.hasView(restoredHistory[i].page))
+                result.unshift(restoredHistory[i]);
+
+            hasRoot = (restoredHistory[i].page === 'home');
+        }
+
+        return hasRoot && result;
+    },
+    navigateToRootView: function() {
+        if (window.localStorage)
+        {
+            try
+            {
+                var restoredState = window.localStorage.getItem('restore'),
+                    restoredHistory = restoredState && Ext.decode(restoredState),
+                    cleanedHistory = this.cleanRestoredHistory(restoredHistory);
+
+                window.localStorage.removeItem('restore');
+
+                if (cleanedHistory)
+                {
+                    ReUI.context.transitioning = true;
+                    ReUI.context.history = ReUI.context.history.concat(cleanedHistory.slice(0, cleanedHistory.length - 1));
+
+                    for (var i = 0; i < cleanedHistory.length - 1; i++)
+                    {
+                        window.location.hash = cleanedHistory[i].hash;
+                    }
+
+                    ReUI.context.transitioning = false;
+
+                    var last = cleanedHistory[cleanedHistory.length - 1];
+                        view = App.getView(last.page),
+                        options = last.data && last.data.options;
+
+                    view.show(options);
+                }
+                else
+                {
+                    this.navigateToHomeView();
+                }
+            }
+            catch (e)
+            {
+                window.localStorage.removeItem('restore');
+
+                this.navigateToHomeView();
+            }
+        }
+        else
+        {
+            this.navigateToHomeView();
+        }
     },
     navigateToHomeView: function() {
         var view = this.getView('home');
