@@ -45,7 +45,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         icon: 'content/images/Task_List_3D_24x24.gif',
         id: 'activity_list',
         insertView: 'activity_edit',
-        queryOrderBy: 'StartDate',
+        queryOrderBy: 'StartDate desc',
         querySelect: [
             'StartDate',
             'AccountName',

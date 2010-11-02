@@ -86,6 +86,16 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
         show: function(options) {
+            //TODO:This must be a part of Select Field.  
+            //Fix "Type" value from "text" to "object".
+            console.log(options)
+            var type = options.entry.Type,
+                typesLookup = Mobile.SalesLogix.Activity.ActivityTypesLookup;
+            if (type && typesLookup[type])
+                options.entry.Type = {
+                    "$key": type,
+                    "$descriptor": typesLookup[type]
+                };
             Mobile.SalesLogix.Activity.Edit.superclass.show.apply(this, arguments);
             if (options.context === 'ScheduleActivity')
             {
