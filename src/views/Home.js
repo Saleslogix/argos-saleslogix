@@ -67,7 +67,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
         this.processFeed({'$resources': list});
     },
     init: function() {
-        Mobile.SalesLogix.Home.superclass.init.apply(this, arguments);
+        Mobile.SalesLogix.Home.superclass.init.apply(this, arguments);        
 
         App.on('registered', this.onRegistered, this);
 

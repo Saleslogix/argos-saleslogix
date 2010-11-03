@@ -58,14 +58,8 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
         var values = this.getValues();
 
         this.validateCredentials(values.user, values.pass, values.remember);
-    },   
-    
-    navigateToHomeView: function() {
-        var view = App.getView('home');
-        if (view)
-            view.show();
-    },
-    validateCredentials: function (username, password) {
+    },           
+    validateCredentials: function (username, password, remember) {
         this.busy = true;
         this.el.addClass('dialog-busy');
 
@@ -97,9 +91,19 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
                 else {
                     App.context['user'] = feed['$resources'][0]['$key'];
 
+                    if (remember)
+                    {
+                        try
+                        {
+                            if (window.localStorage)
+                                window.localStorage.setItem('credentials', Base64.encode(Ext.encode({username: username, password: password})));
+                        }
+                        catch (e) { }
+                    }
+
                     // todo: add successful login eventing
 
-                    App.navigateToRootView();
+                    App.navigateToInitialView();
                 }
             },
             failure: function (response, o) {

@@ -13,6 +13,10 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     init: function() {
         Mobile.SalesLogix.Application.superclass.init.call(this);
 
+        // prevent ReUI from attempting to load the URLs view as we handle that ourselves.
+        // todo: add support for handling the URL appropriately.
+        window.location.hash = "";
+
         Ext.EventManager.on(window, 'unload', function() {
             try
             {
@@ -34,15 +38,69 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     run: function() {
         if (App.isOnline() || !App.enableCaching)
         {
-            var login = this.getView('login');
-            if (login)
-                login.show();
+            this.handleAuthentication();
         }
         else
         {
-            var home = this.getView('home');
-            if (home)
-                home.show();
+            // todo: always navigate to home when offline? data may not be available for restored state.
+            this.navigateToHomeView();
+        }
+    },
+    handleAuthentication: function() {        
+        try
+        {
+            if (window.localStorage)
+            {
+                var stored = window.localStorage.getItem('credentials'),
+                    encoded = stored && Base64.decode(stored),
+                    credentials = encoded && Ext.decode(encoded);
+            }
+        }
+        catch (e) { }
+
+        if (credentials)
+        {
+            var service = this.getService()
+                .setUserName(credentials.username)
+                .setPassword(credentials.password || '');
+
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(service)
+                .setResourceKind('users')
+                .setQueryArgs({
+                    'select': 'UserName',
+                    'where': String.format('UserName eq "{0}"', credentials.username)
+                })
+                .setCount(1)
+                .setStartIndex(1);
+
+            request.read({
+                success: function (feed) {
+                    if (feed['$resources'].length <= 0) {
+                        service
+                            .setUserName(false)
+                            .setPassword(false);
+
+                        this.navigateToLoginView();
+                    }
+                    else {
+                        App.context['user'] = feed['$resources'][0]['$key'];
+                        
+                        this.navigateToInitialView();
+                    }
+                },
+                failure: function (response, o) {                    
+                    service
+                        .setUserName(false)
+                        .setPassword(false);
+
+                    this.navigateToLoginView();
+                },
+                scope: this
+            });
+        }
+        else
+        {
+            this.navigateToLoginView();
         }
     },
     fetchPreferences: function() {
@@ -266,7 +324,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 
         return hasRoot && result;
     },
-    navigateToRootView: function() {
+    navigateToInitialView: function() {
         if (window.localStorage)
         {
             try
@@ -311,6 +369,11 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         {
             this.navigateToHomeView();
         }
+    },
+    navigateToLoginView: function() {
+        var view = this.getView('login');
+        if (view)
+            view.show();
     },
     navigateToHomeView: function() {
         var view = this.getView('home');
