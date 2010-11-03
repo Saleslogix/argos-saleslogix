@@ -102,7 +102,11 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
         var visible = App.preferences && App.preferences.home && App.preferences.home.visible,
             shown = this.feed && this.feed['$resources'];
 
-        if (!visible || !shown || visible.length != shown.length) return true;
+        if (!visible || !shown || (visible.length != shown.length))
+            return true;
+
+        for (var i = 0; i < visible.length; i++)
+            if (visible[i] != shown[i]['$key']) return true;
 
         return Mobile.SalesLogix.Home.superclass.refreshRequiredFor.apply(this, arguments);
     }
