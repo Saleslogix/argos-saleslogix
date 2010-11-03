@@ -24,6 +24,8 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
     //View Properties
     id: 'home',
     expose: false,
+    hideSearch: true,
+    
     activateEntry: function(params) {
         if (params.key)
         {
