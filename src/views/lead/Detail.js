@@ -66,11 +66,11 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         return this.layout || (this.layout = [
             {
                 label: this.nameText,
-                name: 'LeadNameLastFirst',
+                name: 'LeadNameLastFirst'
             },
             {
                 label: this.accountText,
-                name: 'Company',
+                name: 'Company'
             },
             {
                 label: this.webText,
@@ -136,7 +136,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/Task_List_3D_24x24.gif',
+                    icon: 'content/images/icons/job_24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(
@@ -144,7 +144,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     )
                 },
                 {
-                    icon: 'content/images/Note_24x24.gif',
+                    icon: 'content/images/icons/note_24.png',
                     label: this.relatedNotesText,
                     view: 'note_related',
                     where: this.formatRelatedQuery.createDelegate(

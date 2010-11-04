@@ -20,7 +20,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         //View Properties
         contextView: 'context_dialog',
         detailView: 'opportunity_detail',
-        icon: 'content/images/Opportunity_List_24x24.gif',
+        icon: 'content/images/icons/opportunity_24.png',
         id: 'opportunity_list',
         insertView: 'opportunity_edit',
         queryOrderBy: 'Description',

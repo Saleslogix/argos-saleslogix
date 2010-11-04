@@ -26,7 +26,7 @@ Ext.namespace("Mobile.SalesLogix.History");
 
         //View Properties
         detailView: 'history_detail',
-        icon: 'content/images/Task_List_3D_24x24.gif',
+        icon: 'content/images/icons/journal_24.png',
         id: 'history_list',
         insertView: 'history_edit',
         queryOrderBy: 'StartDate desc',

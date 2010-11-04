@@ -20,7 +20,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         //View Properties
         contextView: 'context_dialog',
         detailView: 'ticket_detail',
-        icon: 'content/images/Ticket_List_3D_32x32.gif',
+        icon: 'content/images/icons/job_24.png',
         id: 'ticket_list',
         insertView: 'ticket_edit',
         queryOrderBy: 'TicketNumber',

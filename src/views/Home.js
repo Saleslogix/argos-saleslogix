@@ -13,7 +13,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
         '{% if ($.icon) { %}',
         '<img src="{%: $.icon %}" alt="icon" class="icon" />',
         '{% } %}',
-        '{%: $.title %}',
+        '<span>{%: $.title %}</span>',
         '</h3>'
     ]),
 

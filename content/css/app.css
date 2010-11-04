@@ -335,11 +335,13 @@ li.is-linked
 }
 
 /* context dialog */
-#context_dialog ul {
+#context_dialog ul
+{
     padding-left: 0;
 }
 
-#context_dialog ul > li {
+#context_dialog ul > li
+{
     font-size:20px;
     font-weight:bold;
     list-style:none outside none;
@@ -348,7 +350,8 @@ li.is-linked
     position:relative;
 }
 
-#context_dialog ul > li a.button {
+#context_dialog ul > li a.button
+{
     position: static;
     display: block;
     text-align: center;
@@ -358,41 +361,68 @@ li.is-linked
     padding: 0 3px;
 }
 
-#configure > .list-content > li > .resource {
+#configure > .list-content > li > .resource
+{
     display: block;
     margin: -8px 0 -8px -10px;
     padding: 8px 32px 8px 36px;
 }
 
-#configure > .list-content > li > .moveup,
-#configure > .list-content > li > .movedown {
+#configure > .list-content > li > h3 > [data-action="moveUp"],
+#configure > .list-content > li > h3 > [data-action="moveDown"]
+{
     float: right;
     display: block;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     margin-left: 10px;
     background-repeat: no-repeat;
     background-position: center center;
     cursor: pointer;
 }
 
-#configure > .list-content > li:first-child > .moveup,
-#configure > .list-content > li:last-child > .movedown {
+#configure > .list-content > li:first-child > h3 > [data-action="moveUp"],
+#configure > .list-content > li:last-child > h3 > [data-action="moveDown"] {
     visibility: hidden;
 }
 
-#configure > .list-content > li > .moveup {
-    background-image: url(../images/Previous_16x16.gif);
+#configure > .list-content > li > h3 > [data-action="moveUp"]
+{
+    background-image: url(../images/icons/Sort_Down_24.png);
     margin-right:20px;
 }
 
-#configure > .list-content > li > .movedown {
-    background-image: url(../images/Next_16x16.gif);
+#configure > .list-content > li > h3 > [data-action="moveDown"]
+{
+    background-image: url(../images/icons/Sort_Up_24.png);
 }
 
-#configure > .list-content > li > .list-selector {
-    visibility: visible;
-    margin-top:12px;
+#configure > .list-content > li
+{
+    color: #aaa;
+}
+
+#configure > .list-content > li > h3 > .icon
+{
+    opacity: 0.5;
+}
+
+#configure > .list-content > li.list-item-selected
+{
+    color: #000;
+    background: none;
+}
+
+#configure > .list-content > li.list-item-selected > h3 > .icon
+{
+    opacity: 1.0;
+}
+
+#configure > .list-content > li.list-item-selected .list-item-selector
+{
+    background: url(../images/icons/OK_24.png);
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 #note_detail .row label {

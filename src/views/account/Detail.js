@@ -131,7 +131,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     },
                     as: [
                         {
-                            icon: 'content/images/Task_List_3D_24x24.gif',
+                            icon: 'content/images/icons/job_24.png',
                             label: this.relatedActivitiesText,
                             where: this.formatRelatedQuery.createDelegate(
                                 this, ['AccountId eq "{0}"'], true
@@ -139,7 +139,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                             view: 'activity_related'
                         },
                         {
-                            icon: 'content/images/Note_24x24.gif',
+                            icon: 'content/images/icons/note_24.png',
                             label: this.relatedNotesText,
                             where: this.formatRelatedQuery.createDelegate(
                                 this, ['AccountId eq "{0}" and Type eq "atNote"'], true
@@ -147,7 +147,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                             view: 'note_related'
                         },
                         {
-                            icon: 'content/images/Contacts_24x24.gif',
+                            icon: 'content/images/icons/contact_24.png',
                             label: this.relatedContactsText,
                             where: this.formatRelatedQuery.createDelegate(
                                 this, ['Account.id eq "{0}"'], true
@@ -155,7 +155,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                             view: 'contact_related'
                         },
                         {
-                            icon: 'content/images/Opportunity_List_24x24.gif',
+                            icon: 'content/images/icons/opportunity_24.png',
                             label: this.relatedOpportunitiesText,
                             where: this.formatRelatedQuery.createDelegate(
                                 this, ['Account.id eq "{0}"'], true
@@ -163,7 +163,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                             view: 'opportunity_related'
                         },
                         {
-                            icon: 'content/images/Ticket_List_3D_32x32.gif',
+                            icon: 'content/images/icons/job_24.png',
                             label: this.relatedTicketsText,
                             where: this.formatRelatedQuery.createDelegate(
                                 this, ['Account.id eq "{0}"'], true
@@ -171,7 +171,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                             view: 'ticket_related'
                         },
                         {
-                            icon: 'content/images/Task_List_3D_24x24.gif',
+                            icon: 'content/images/icons/journal_24.png',
                             label: this.relatedHistoriesText,
                             where: this.formatRelatedQuery.createDelegate(
                                 this, ['AccountId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true

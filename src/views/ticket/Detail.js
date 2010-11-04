@@ -130,7 +130,7 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/Task_List_3D_24x24.gif',
+                    icon: 'content/images/icons/job_24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(

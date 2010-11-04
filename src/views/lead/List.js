@@ -20,7 +20,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         //View Properties
         contextView: 'context_dialog',
         detailView: 'lead_detail',
-        icon: 'content/images/Leads_24x24.gif',
+        icon: 'content/images/icons/lead_24.png',
         id: 'lead_list',
         insertView: 'lead_edit',
         queryOrderBy: 'Company',

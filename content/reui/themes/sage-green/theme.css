@@ -37,7 +37,7 @@ ul.list-content > li
 body > ul > li span,
 ul.list-content > li span
 {
-    font-size: .8em;
+    /* font-size: .8em; */
 }
 
 

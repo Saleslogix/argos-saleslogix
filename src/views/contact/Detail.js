@@ -131,7 +131,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 },
                 as: [
                     {
-                        icon: 'content/images/Task_List_3D_24x24.gif',
+                        icon: 'content/images/icons/job_24.png',
                         label: this.relatedActivitiesText,
                         view: 'activity_related',
                         where: this.formatRelatedQuery.createDelegate(
@@ -139,7 +139,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                         )
                     },
                     {
-                        icon: 'content/images/Note_24x24.gif',
+                        icon: 'content/images/icons/note_24.png',
                         label: this.relatedNotesText,
                         view: 'note_related',
                         where: this.formatRelatedQuery.createDelegate(
@@ -147,7 +147,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                         )
                     },
                     {
-                        icon: 'content/images/Opportunity_List_24x24.gif',
+                        icon: 'content/images/icons/opportunity_24.png',
                         label: this.relatedOpportunitiesText,
                         view: 'opportunity_related',
                         where: this.formatRelatedQuery.createDelegate(
@@ -155,7 +155,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                         )
                     },
                     {
-                        icon: 'content/images/Ticket_List_3D_32x32.gif',
+                        icon: 'content/images/icons/job_24.png',
                         label: this.relatedTicketsText,
                         view: 'ticket_related',
                         where: this.formatRelatedQuery.createDelegate(
@@ -163,7 +163,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                         )
                     },
                     {
-                        icon: 'content/images/Task_List_3D_24x24.gif',
+                        icon: 'content/images/icons/journal_24.png',
                         label: this.relatedHistoriesText,
                         where: this.formatRelatedQuery.createDelegate(
                             this, ['ContactId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true

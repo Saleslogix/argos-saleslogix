@@ -19,7 +19,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
         //View Properties
         detailView: 'contact_detail',
-        icon: 'content/images/Contacts_24x24.gif',
+        icon: 'content/images/icons/contact_24.png',
         id: 'contact_list',
         insertView: 'contact_edit',
         queryOrderBy: 'LastName,FirstName',

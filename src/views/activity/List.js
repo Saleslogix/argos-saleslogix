@@ -42,7 +42,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         //View Properties
         detailView: 'activity_detail',
-        icon: 'content/images/Task_List_3D_24x24.gif',
+        icon: 'content/images/icons/job_24.png',
         id: 'activity_list',
         insertView: 'activity_edit',
         queryOrderBy: 'StartDate desc',

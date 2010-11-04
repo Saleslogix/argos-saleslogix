@@ -36,7 +36,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         ],
         contextView: 'context_dialog',
         detailView: 'account_detail',
-        icon: 'content/images/Accounts_24x24.gif',
+        icon: 'content/images/icons/Company_24.png',
         id: 'account_list',
         insertView: 'account_edit',
         queryOrderBy: 'AccountName',

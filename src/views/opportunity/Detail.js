@@ -104,15 +104,15 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                         title: this.relatedItemsText
                     },
                     as: [{
-                        icon: 'content/images/Task_List_3D_24x24.gif',
+                        icon: 'content/images/icons/job_24.png',
                         label: this.relatedActivitiesText,
                         view: 'activity_related',
                         where: this.formatRelatedQuery.createDelegate(
                             this, ['OpportunityId eq "{0}"'], true
-                        ),
+                        )
                     },
                     {
-                        icon: 'content/images/Note_24x24.gif',
+                        icon: 'content/images/icons/note_24.png',
                         label: this.relatedNotesText,
                         view: 'note_related',
                         where: this.formatRelatedQuery.createDelegate(
@@ -120,7 +120,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                         )
                     },
                     {
-                        icon: 'content/images/Contacts_24x24.gif',
+                        icon: 'content/images/icons/contact_24.png',
                         label: this.relatedContactsText,
                         view: 'contact_related',
                         where: this.formatRelatedQuery.createDelegate(
@@ -128,7 +128,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                         )
                     },
                     {
-                        icon: 'content/images/Task_List_3D_24x24.gif',
+                        icon: 'content/images/icons/journal_24.png',
                         label: this.relatedHistoriesText,
                         where: this.formatRelatedQuery.createDelegate(
                             this, ['OpportunityId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true

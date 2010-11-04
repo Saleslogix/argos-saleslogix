@@ -26,7 +26,7 @@ Ext.namespace("Mobile.SalesLogix.Note");
 
         //View Properties
         detailView: 'note_detail',
-        icon: 'content/images/note_24x24.gif',
+        icon: 'content/images/icons/note_24.png',
         id: 'note_list',
         insertView: 'note_edit',
         resourceKind: 'history',

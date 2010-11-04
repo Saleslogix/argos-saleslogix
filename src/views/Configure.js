@@ -7,63 +7,33 @@
 Ext.namespace("Mobile.SalesLogix");
 
 (function() {
-    /// this is a simple configure screen for Home View.
     Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        emptyTemplate: new Simplate(['']),
-        itemTemplate: new Simplate([
-            '<li>',
-            '{%! $$.contentTemplate %}',
-            '</li>'
-        ]),
+        emptyTemplate: new Simplate(['']),      
         contentTemplate: new Simplate([
-            '<input type="checkbox" value="{%= $.id %}" class="list-selector" />',
-            '<span class="moveup"></span>',
-            '<span class="movedown"></span>',
-            '<span class="resource">',
+            '<h3>',
             '{% if ($.icon) { %}',
-            '<img src="{%= $.icon %}" alt="icon" class="icon" />',
+            '<img src="{%: $.icon %}" alt="icon" class="icon" />',
             '{% } %}',
-            '{%= $.titleText %}',
-            '</span>'
+            '<span>{%: $.$descriptor %}</span>',
+            '<span data-action="moveUp"></span>',
+            '<span data-action="moveDown"></span>',
+            '</h3>'
         ]),
 
         //Localization
         titleText: 'Configure',
         savePrefs: 'Save',
 
-        constructor: function(o) {
-            Mobile.SalesLogix.Configure.superclass.constructor.call(this);
-
-            Ext.apply(this, o, {
-                expose: false,
-                id: 'configure',
-                selected: false,
-                title: this.titleText
-            });
-        },
+        //View Properties
+        id: 'configure',
+        expose: false,
+        selectionOnly: true,
+        allowSelection: true,
+      
         init: function() {
-            Mobile.SalesLogix.Configure.superclass.init.call(this);
-
-            this.el
-                .on('click', function(evt, el, o) {
-                    var Li;
-                    el = Ext.get(el);
-
-                    if (el.is('.moveup'))
-                    {
-                        evt.stopEvent();
-                        Li = el.parent('li');
-                        Li.insertBefore(Li.prev('li', true));
-                    }
-                    else if (el.is('.movedown'))
-                    {
-                        evt.stopEvent();
-                        Li = el.parent('li');
-                        Li.insertAfter(Li.next('li', true));
-                    }
-                }, this);
-
+            Mobile.SalesLogix.Configure.superclass.init.apply(this, arguments);
+          
             this.tools.tbar =  [{
                 cls: 'save button',
                 fn: this.savePreferences,
@@ -71,111 +41,90 @@ Ext.namespace("Mobile.SalesLogix");
                 scope: this,
                 title: this.savePrefs
             }];
-        },
+        },        
         savePreferences: function() {
-            //Make sure the object hierarchy is defined.
-            Ext.namespace("App.preferences.home");
-            Ext.namespace("App.preferences.configure");
+            App.preferences.home = App.preferences.home || {};
+            App.preferences.configure = App.preferences.configure || {};
 
-            //Clear App Preferences
-            App.preferences.home.visible = [];
-            App.preferences.configure.order = [];
+            // clear existing
+            var visible = App.preferences.home.visible = [];
+            var order = App.preferences.configure.order = [];
 
-            var visibleHomeList = App.preferences.home.visible;
-            var configureListOrder = App.preferences.configure.order;
-
-            this.el.select("input.list-selector").each(function(el) {
-                configureListOrder.push(el.dom.value);
-                if (el.dom.checked) visibleHomeList.push(el.dom.value);
-            }, this);
-
-            App.persistPreferences();
-            App.getView('home').show();
-        },
-        // We dont have a feed to subscribe to for this List view.
-        // So let's override "refresh" to do our logic, where we
-        // display items stored in Application preferences (local storage).
-
-        // Later when we persist this on server, we will as usual override
-        // formatSearchQuery and createRequest, rather than refresh method.
-        refresh: function() {
-            var appConfigureOrder,
-                viewLookup = {},
-                exposedViews,
-                o = [],
-                v, i, j;
-
-            //App.preferences.configure.order will not be available,
-            //when App calls it's init.
-            try {
-                appConfigureOrder = App.preferences.configure.order;
-            }
-            catch(e) {
-                return;
-            }
-
-            //Defered initialization.
-            exposedViews = App.getExposedViews();
-
-            //Update Configure List, to include any new views
-            //not included in local storage.
-            //Find out whats new, and append them to user's configure list.
-
-            // Create a lookup cache for all exposed views.
-            for (j = exposedViews.length - 1; j >= 0; j--)
-                viewLookup[exposedViews[j]] = true;
-
-            // Delete existing views from lookup.
-            for (i = 0, len = appConfigureOrder.length; i < len; i++)
-                if (viewLookup[appConfigureOrder[i]] === true)
-                    delete viewLookup[appConfigureOrder[i]];
-
-            for (v in viewLookup)
-                appConfigureOrder.push(v);
-
-            for (i = appConfigureOrder.length - 1; i >= 0; i--)
-            {
-                v = App.getView(appConfigureOrder[i]);
-
-                // If a persisted view is not loaded/unavailable/removed
-                // we have to remove it from persistence.
-                if (!v)
+            // since the selection model does not have ordering, use the DOM
+            this.el.select('li').each(function(el, c, i) {
+                var key = el.getAttribute('data-key');
+                if (key)
                 {
-                    appConfigureOrder.splice(i, 1);
-                    continue;
-                }
+                    order.push(key);
 
-                o.unshift(this.itemTemplate.apply(v, this));
-            }
-            //Persist this back to local storage.
-            App.persistPreferences();
-
-            Ext.DomHelper.append(this.el.child('.list-content'), o.join(''));
-            this.selectPersistedItems();
-        },
-        selectPersistedItems: function() {
-            var selectedViews = App.preferences.home.visible,
-                selectedRegEx = [];
-
-            for (var j = 0; j < selectedViews.length; j++) {
-                selectedRegEx.push(selectedViews[j]);
-            }
-            selectedRegEx = '^(' + selectedRegEx.join(')|(') + ')$';
-            selectedRegEx = new RegExp(selectedRegEx, 'i');
-
-            this.el.select('li').each(function(li){
-                var chkbox = li.child('input.list-selector');
-                if (!chkbox) return;
-                chkbox = chkbox.dom;
-                if (selectedRegEx.test(chkbox.value))
-                {
-                    chkbox.checked = true;
-                }
+                    if (el.is('.list-item-selected')) visible.push(key);
+                }               
             });
+         
+            App.persistPreferences();
+            
+            ReUI.back();
         },
-        show: function() {
-            Mobile.SalesLogix.Configure.superclass.show.call(this);
-            this.selectPersistedItems();
+        moveUp: function(params) {
+            var row = params.$source.parent('li');
+            if (row)
+                row.insertBefore(row.prev('li', true));
+        },
+        moveDown: function(params) {
+            var row = params.$source.parent('li');
+            if (row)
+                row.insertAfter(row.next('li', true));
+        },
+        hasMoreData: function() {
+            return false;
+        },
+        requestData: function() {
+            var list = [],
+                lookup = {},
+                exposed = App.getExposedViews(),
+                order = (App.preferences.configure && App.preferences.configure.order) || [],
+                view, i, n;
+
+            for (i = 0; i < exposed.length; i++)
+                lookup[exposed[i]] = true;
+
+            for (i = 0; i < order.length; i++)
+                if (lookup[order[i]])
+                    delete lookup[order[i]];
+
+            for (n in lookup)
+                order.push(n);
+
+            for (i = 0; i < order.length; i++)
+            {
+                view = App.getView(order[i]);
+
+                if (view)
+                {
+                    list.push({
+                        '$key': view.id,
+                        '$descriptor': view.titleText,
+                        'icon': view.icon
+                    });
+                }
+                else
+                    order.splice(i, 1);
+            }
+
+            this.processFeed({'$resources': list});           
+        },
+        processFeed: function(feed) {
+            Mobile.SalesLogix.Configure.superclass.processFeed.apply(this, arguments);
+
+            var visible = (App.preferences.home && App.preferences.home.visible) || [],
+                row, i;            
+
+            for (i = 0; i < visible.length; i++)
+            {
+                row = this.el.child(String.format('[data-key="{0}"]', visible[i]));
+
+                if (row) this.selectionModel.toggle(visible[i], this.entries[visible[i]], row);
+            }    
         }
     });
 })();
