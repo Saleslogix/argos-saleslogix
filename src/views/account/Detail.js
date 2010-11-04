@@ -26,6 +26,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         phoneText: 'phone',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
+        relatedHistoriesText: 'History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
         relatedOpportunitiesText: 'Opportunities',
@@ -168,6 +169,14 @@ Ext.namespace("Mobile.SalesLogix.Account");
                                 this, ['Account.id eq "{0}"'], true
                             ),
                             view: 'ticket_related'
+                        },
+                        {
+                            icon: 'content/images/Task_List_3D_24x24.gif',
+                            label: this.relatedHistoriesText,
+                            where: this.formatRelatedQuery.createDelegate(
+                                this, ['AccountId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
+                            ),
+                            view: 'history_related'
                         }
                     ]
                 }

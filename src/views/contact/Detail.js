@@ -24,6 +24,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     ownerText: 'owner',
     relatedAccountsText: 'Accounts',
     relatedActivitiesText: 'Activities',
+    relatedHistoriesText: 'History',
     relatedItemsText: 'Related Items',
     relatedNotesText: 'Notes',
     relatedOpportunitiesText: 'Opportunities',
@@ -160,6 +161,14 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                         where: this.formatRelatedQuery.createDelegate(
                             this, ['Contact.Id eq "{0}"'], true
                         )
+                    },
+                    {
+                        icon: 'content/images/Task_List_3D_24x24.gif',
+                        label: this.relatedHistoriesText,
+                        where: this.formatRelatedQuery.createDelegate(
+                            this, ['ContactId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
+                        ),
+                        view: 'history_related'
                     }
                 ]
             }

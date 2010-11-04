@@ -21,6 +21,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         probabilityText: 'close prob',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
+        relatedHistoriesText: 'History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
         statusText: 'status',
@@ -125,7 +126,16 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                         where: this.formatRelatedQuery.createDelegate(
                             this, ['OpportunityId eq "{0}"'], true
                         )
-                    }]
+                    },
+                    {
+                        icon: 'content/images/Task_List_3D_24x24.gif',
+                        label: this.relatedHistoriesText,
+                        where: this.formatRelatedQuery.createDelegate(
+                            this, ['OpportunityId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
+                        ),
+                        view: 'history_related'
+                    }
+                    ]
                 }
             ]);
         }        
