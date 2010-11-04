@@ -373,9 +373,8 @@ li.is-linked
 {
     float: right;
     display: block;
-    width: 24px;
+    width: 48px;
     height: 24px;
-    margin-left: 10px;
     background-repeat: no-repeat;
     background-position: center center;
     cursor: pointer;
@@ -389,7 +388,6 @@ li.is-linked
 #configure > .list-content > li > h3 > [data-action="moveUp"]
 {
     background-image: url(../images/icons/Sort_Down_24.png);
-    margin-right:20px;
 }
 
 #configure > .list-content > li > h3 > [data-action="moveDown"]

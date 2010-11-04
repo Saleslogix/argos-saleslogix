@@ -28,6 +28,7 @@ Ext.namespace("Mobile.SalesLogix");
         //View Properties
         id: 'configure',
         expose: false,
+        hideSearch: true,
         selectionOnly: true,
         allowSelection: true,
       

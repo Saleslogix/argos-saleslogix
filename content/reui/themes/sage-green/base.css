@@ -2,6 +2,7 @@ body
 {
 	margin: 0;
 	overflow-x: hidden;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 	-webkit-user-select: none;
 	-webkit-text-size-adjust: none;
 }
