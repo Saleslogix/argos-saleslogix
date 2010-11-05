@@ -10,6 +10,7 @@
         applicationName: 'slx',
         contractName: 'dynamic',
         port: 80,
+        json: true,
         protocol: /https/i.test(window.location.protocol) ? 'https' : false
     }, { isDefault: true, offline: true });
 })();

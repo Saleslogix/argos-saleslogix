@@ -430,3 +430,11 @@ li.is-linked
 #note_detail .row span {
     padding: 0;
 }
+
+#help a > span
+{
+    display: block;
+    line-height: 24px;
+    margin-left: 32px;
+    vertical-align: middle;
+}

@@ -162,6 +162,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         
         this.registerView(new Mobile.SalesLogix.Login());
         this.registerView(new Mobile.SalesLogix.Home());
+        this.registerView(new Mobile.SalesLogix.Help());
+        this.registerView(new Mobile.SalesLogix.Settings());
         this.registerView(new Mobile.SalesLogix.Configure());
         this.registerView(new Mobile.SalesLogix.PickList());
         this.registerView(new Mobile.SalesLogix.SelectList());
