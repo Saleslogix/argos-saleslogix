@@ -89,10 +89,9 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
             scope: this
         }];
     },
-    onBeforeContextTo: function(key, descriptor, entry)
-    {
-        if (key !== 'contact_list') return false;
-        return true;
+    showContextViewFor: function(key, descriptor, entry)
+    {        
+        return (key == 'contact_list');
     },
     navigateToConfigurationView: function() {
         App.getView('configure').show();

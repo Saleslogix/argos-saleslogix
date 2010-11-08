@@ -1,32 +1,39 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://sage.com/gobi/mobile" manifest="index.manifest">
+<html manifest="index.manifest">
 <head>      
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     
-    <title>SLX Mobile</title> 
+    <title>SalesLogix Mobile</title> 
 
     <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/reui/themes/iui/iui.css" />
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/reui/themes/iui/default/default-theme.css" />
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/reui/themes/iui/default/default-panel-list.css" />
+    <link type="text/css" rel="stylesheet" href="content/reui/themes/sage-green/theme.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
     <link type="text/css" rel="stylesheet" href="content/css/base.css" />  
-    <link type="text/css" rel="stylesheet" href="content/css/app.css" />      
+    <link type="text/css" rel="stylesheet" href="content/css/app.css" />
     
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
-    <script type="text/javascript">ReUI.autoInit = false;</script> 
-    <script type="text/javascript" src="content/javascript/argos-platform.js"></script>
+    <script type="text/javascript">
+    ReUI.autoInit = false;
+    ReUI.legacyMode = false;
+    ReUI.showInitialPage = false;
+    ReUI.updateBackButtonText = false;
+    </script>
+    <script type="text/javascript" src="content/javascript/argos-sdk.js"></script>
     <script type="text/javascript" src="content/javascript/argos-saleslogix.js"></script>
 
     <script type="text/javascript" src="environment/default.js"></script>
 
     <script type="text/javascript">
-    Ext.onReady(function() {  
-        App.init(); 
+    Ext.onReady(function() {
+        App.init();
+
         ReUI.init();
+
+        App.run();
     });
     </script>
 </head>

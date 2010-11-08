@@ -7,159 +7,257 @@
 		file: 'app/content/javascript/argos-saleslogix.js',
 		isDebug: true,
 		fileIncludes: [{
-			text: 'Application.js',
-			path: '../src/'
-		},{
-			text: 'Format.js',
-			path: '../src/'
-		},{
-			text: 'Template.js',
-			path: '../src/'
-		},{
-			text: 'Validator.js',
-			path: '../src/'
-		},{
-			text: 'Home.js',
-			path: '../src/views/'
-		},{
-			text: 'LoginDialog.js',
-			path: '../src/views/'
-		},{
-			text: 'ContextDialog.js',
-			path: '../src/views/'
-		},{
-			text: 'Configure.js',
-			path: '../src/views/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/account/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/account/'
-		},{
-			text: 'List.js',
-			path: '../src/views/account/'
-		},{
-			text: 'Address_Edit.js',
-			path: '../src/views/account/'
-		},{
-			text: 'Add_Address_Contact.js',
-			path: '../src/views/account/'
-		},{
-			text: 'List.js',
-			path: '../src/views/activity/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/activity/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/activity/'
-		},{
-			text: 'List.js',
-			path: '../src/views/campaign/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/campaign/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/campaign/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/contact/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/contact/'
-		},{
-			text: 'List.js',
-			path: '../src/views/contact/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/contract/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/contract/'
-		},{
-			text: 'List.js',
-			path: '../src/views/contract/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/defect/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/defect/'
-		},{
-			text: 'List.js',
-			path: '../src/views/defect/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/defectproblem/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/defectproblem/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/defectsolution/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/defectsolution/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/lead/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/lead/'
-		},{
-			text: 'List.js',
-			path: '../src/views/lead/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/note/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/note/'
-		},{
-			text: 'List.js',
-			path: '../src/views/note/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/opportunity/'
-		},{
-			text: 'List.js',
-			path: '../src/views/opportunity/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/opportunity/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/return/'
-		},{
-			text: 'List.js',
-			path: '../src/views/return/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/return/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/salesorder/'
-		},{
-			text: 'List.js',
-			path: '../src/views/salesorder/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/salesorder/'
-		},{
-			text: 'Detail.js',
-			path: '../src/views/ticket/'
-		},{
-			text: 'List.js',
-			path: '../src/views/ticket/'
-		},{
-			text: 'Edit.js',
-			path: '../src/views/ticket/'
-		},{
-			text: 'List.js',
-			path: '../src/views/user/'
-		}]
+            text: 'Application.js',
+            path: '../src/'
+        },
+        {
+            text: 'Format.js',
+            path: '../src/'
+        },
+        {
+            text: 'Template.js',
+            path: '../src/'
+        },
+        {
+            text: 'Validator.js',
+            path: '../src/'
+        },
+        {
+            text: 'AddAccountContact.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'Configure.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'ContextDialog.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'Help.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'Home.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'Login.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'NameEdit.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'PickList.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'SelectList.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'Settings.js',
+            path: '../src/views/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/account/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/account/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/account/'
+        },
+        {
+            text: 'Lookup.js',
+            path: '../src/views/account/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/activity/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/activity/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/activity/'
+        },
+        {
+            text: 'TypesList.js',
+            path: '../src/views/activity/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/address/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/campaign/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/campaign/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/campaign/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/contact/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/contact/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/contact/'
+        },
+        {
+            text: 'Lookup.js',
+            path: '../src/views/contact/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/contract/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/contract/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/contract/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/defect/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/defect/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/defect/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/defectproblem/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/defectproblem/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/defectsolution/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/defectsolution/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/history/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/history/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/lead/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/lead/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/lead/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/leadsource/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/note/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/note/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/note/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/opportunity/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/opportunity/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/opportunity/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/owner/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/return/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/return/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/return/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/salesorder/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/salesorder/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/salesorder/'
+        },
+        {
+            text: 'Detail.js',
+            path: '../src/views/ticket/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/ticket/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/ticket/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/user/'
+        }]
 	}],
 	resources: [{
 		src: '../src/',

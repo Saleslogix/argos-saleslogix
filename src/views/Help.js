@@ -38,6 +38,8 @@ Mobile.SalesLogix.Help = Ext.extend(Sage.Platform.Mobile.Detail, {
         
         Sage.SData.Client.Ajax.request({
             url: this.url,
+            // todo: this is backwards, fix in SData client.
+            cache: false,
             success: function(xhr, o) {
                 this.processContent(xhr, o);
                 this.el.removeClass('panel-loading');

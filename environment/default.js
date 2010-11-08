@@ -1,6 +1,3 @@
-﻿/* 
- * include this file in order to force the application to connect
- */
 (function(){
     App.registerService('crm', {
         serverName: window.location.hostname,
