@@ -18,11 +18,6 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     ]),
 
     //Localization
-    atToDoText: 'To-Do',
-    atPhoneCallText: 'Phone Call',
-    atAppointmentText: 'Meeting',
-    atLiteratureText: 'Literature Request',
-    atPersonalText: 'Personal Activity',
     titleText: 'Actions',
 
     //View Properties
