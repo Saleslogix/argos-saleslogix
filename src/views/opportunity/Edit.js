@@ -71,6 +71,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             this.fields['Account'].setValue(entry);
             //Is it possible to fire "onChange" even when field updated programatically?
             this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
+            this.fields['Owner'].setValue(U.getValue(entry, 'Owner'));
         },
         applyContactContext: function(context) {
             var view = App.getView(context.id),
@@ -79,6 +80,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             this.fields['Account'].setValue(U.getValue(entry, 'Account'));
             //Is it possible to fire "onChange" even when field updated programatically?
             this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
+            this.fields['Owner'].setValue(U.getValue(entry, 'Owner'));
         },
         init: function() {
             Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
