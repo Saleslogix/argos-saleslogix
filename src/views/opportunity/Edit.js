@@ -128,7 +128,6 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                 {
                     label: this.estCloseText,
                     name: 'EstimatedClose',
-                    showTime: true,
                     type: 'date'
                 },
                 {
