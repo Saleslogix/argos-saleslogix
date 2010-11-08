@@ -61,21 +61,25 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         entityName: 'Activity', // todo: is this correct?
         id: 'activity_edit',
         querySelect: [
+            'AccountId',
             'AccountName',
             'Alarm',
             'AlarmTime',
             'Category',
             'Company',
+            'ContactId',
             'ContactName',
             'Duration',
             'LeadId',
             'LeadName',
             'LongNotes',
+            'OpportunityId',
             'OpportunityName',
             'Priority',
             'Regarding',
             'Rollover',
             'StartDate',
+            'TicketId',
             'TicketNumber',
             'Timeless',
             'Type'
@@ -88,7 +92,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         show: function(options) {
             //TODO:This must be a part of Select Field.  
             //Fix "Type" value from "text" to "object".
-            var type = options.entry.Type,
+            var type = options.entry && options.entry.Type,
                 typesLookup = Mobile.SalesLogix.Activity.ActivityTypesLookup;
             if (type && typesLookup[type])
                 options.entry.Type = {
@@ -99,8 +103,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             if (options.context === 'ScheduleActivity')
             {
                 this.activityContext = {
-                    'entry': options.entry,
-                    'type': options.key 
+                    'entry': options.entry || {},
+                    'type': options.key
                 };
             }
             else if (options.insert === true)
@@ -137,11 +141,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         },
         applyActivityContext: function() {
             var types = Mobile.SalesLogix.Activity.Types,
+                entry = this.activityContext && this.activityContext.entry,
                 activityType;
-
-            if (this.activityContext.entry.$name !== 'Account') return;
-
-            this.applyAccountContext(false, this.activityContext.entry);
 
             for (var i = 0, len = types.length; i < len; i++)
             {
@@ -153,6 +154,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }
 
             this.fields['Type'].setValue(activityType);
+
+            if (entry && entry.$name !== 'Account') return;
+
+            this.applyAccountContext(false, entry);
+
             this.activityContext = false;
         },
         applyLeadContext: function(context) {

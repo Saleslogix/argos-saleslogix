@@ -383,9 +383,11 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             view.show();
     },
     navigateToActivityInsertView: function() {
-        var view = this.getView('activity_edit');
+        var view = this.getView('activity_types_list');
         if (view)
-            view.show({insert: true});
+            view.show({
+                context : 'ScheduleActivity'
+            });
     }
 });
 

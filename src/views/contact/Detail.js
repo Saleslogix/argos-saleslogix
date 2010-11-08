@@ -62,6 +62,18 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     ],
     resourceKind: 'contacts',
 
+    init: function() {
+        Mobile.SalesLogix.Contact.Detail.superclass.init.call(this);
+
+        this.tools.fbar = [{
+            cls: 'tool-note',
+            fn: App.navigateToActivityInsertView,
+            icon: 'content/images/icons/job_24.png',
+            name: 'schedule',
+            scope: App,
+            title: this.fbarScheduleTitleText
+        }];
+    },
     createLayout: function() {
         return this.layout || (this.layout = [
             {

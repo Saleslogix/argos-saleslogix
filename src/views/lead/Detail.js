@@ -62,6 +62,18 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     ],   
     resourceKind: 'leads',
 
+    init: function() {
+        Mobile.SalesLogix.Lead.Detail.superclass.init.call(this);
+
+        this.tools.fbar = [{
+            cls: 'tool-note',
+            fn: App.navigateToActivityInsertView,
+            icon: 'content/images/icons/job_24.png',
+            name: 'schedule',
+            scope: App,
+            title: this.fbarScheduleTitleText
+        }];
+    },
     createLayout: function() {
         return this.layout || (this.layout = [
             {

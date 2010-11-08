@@ -32,13 +32,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         typeText: 'type',
 
         //View Properties
-        activityTypeText: {
-            'atAppointment': 'Meeting',
-            'atLiterature': 'Literature Request',
-            'atPhoneCall': 'Phone Call',
-            'atPersonal': 'Personal Activity',
-            'atToDo': 'To-Do'
-        },
         editView: 'activity_edit',
         id: 'activity_detail',
         querySelect: [
@@ -64,7 +57,19 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         resourceKind: 'activities',
 
         formatActivityType: function(val) {
-            return this.activityTypeText[val] || val;
+            return Mobile.SalesLogix.Activity.ActivityTypesLookup[val] || val;
+        },
+        init: function() {
+            Mobile.SalesLogix.Activity.Detail.superclass.init.apply(this, arguments);
+
+            this.tools.fbar = [{
+                cls: 'tool-note',
+                fn: App.navigateToActivityInsertView,
+                icon: 'content/images/icons/job_24.png',
+                name: 'schedule',
+                scope: App,
+                title: this.fbarScheduleTitleText
+            }];
         },               
         createLayout: function() {
             return this.layout || (this.layout = [

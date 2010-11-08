@@ -68,7 +68,17 @@ Ext.namespace("Mobile.SalesLogix.Defect");
 
         init: function() {
             Mobile.SalesLogix.Defect.Detail.superclass.init.call(this);
+
             App.on('resize', this.onResize, this);
+
+            this.tools.fbar = [{
+                cls: 'tool-note',
+                fn: App.navigateToActivityInsertView,
+                icon: 'content/images/icons/job_24.png',
+                name: 'schedule',
+                scope: App,
+                title: this.fbarScheduleTitleText
+            }];
         },
         onResize: function() {
             this.el.select('.defect-text-row').each(function(el) {

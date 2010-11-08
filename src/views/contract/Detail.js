@@ -48,6 +48,18 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     formatAccountRelatedQuery: function(entry, fmt) {
         return String.format(fmt, entry['Account']['$key']);
     },
+    init: function() {
+        Mobile.SalesLogix.Contract.Detail.superclass.init.call(this);
+
+        this.tools.fbar = [{
+            cls: 'tool-note',
+            fn: App.navigateToActivityInsertView,
+            icon: 'content/images/icons/job_24.png',
+            name: 'schedule',
+            scope: App,
+            title: this.fbarScheduleTitleText
+        }];
+    },
     createLayout: function() {
         return this.layout || (this.layout = [
             {
