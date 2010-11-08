@@ -4,7 +4,7 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Activity");
+Ext.namespace("Mobile.SalesLogix.History");
 
 (function() {
     Mobile.SalesLogix.History.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
