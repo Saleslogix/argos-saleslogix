@@ -56,7 +56,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
         if (params.where) o.where = String.format(params.where, this.relatedKey);
 
-        Ext.apply(o, Ext.util.JSON.decode(params.viewoptions));
+        if (params.viewoptions) Ext.apply(o, Ext.util.JSON.decode(params.viewoptions));
 
         navigateToRelatedView.call(this, params.view, o, params.descriptor);
     },
