@@ -18,6 +18,23 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         titleText: 'Contacts',
 
         //View Properties
+        contextItems: [
+            {
+                '$key': 'activities',
+                view: 'activity_related',
+                where: "ContactId eq '{0}'"
+            },
+            {
+                '$key': 'notes',
+                view: 'note_related',
+                where: "ContactId eq '{0}' and Type eq 'atNote'"
+            },
+            {
+                '$key': 'schedule',
+                view: 'activity_types_list'
+            }
+        ],
+        contextView: 'context_dialog',
         detailView: 'contact_detail',
         icon: 'content/images/icons/contact_24.png',
         id: 'contact_list',
