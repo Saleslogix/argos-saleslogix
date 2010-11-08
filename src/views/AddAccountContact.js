@@ -82,6 +82,7 @@ Ext.namespace("Mobile.SalesLogix");
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
+                    emptyText: '',
                     formatter: Mobile.SalesLogix.Format.nameLF,
                     label: this.nameText,
                     name: 'Contacts.$resources[0]',

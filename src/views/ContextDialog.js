@@ -17,6 +17,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     ]),
     itemTemplate: new Simplate([
         '<li data-action="activateButton" data-view="{%= $.view %}" ',
+            'data-viewoptions=\'{%= Ext.util.JSON.encode($.viewOptions) %}\' ',
             'data-descriptor="{%: $.$descriptor %}" data-where="{%= $.where %}">',
         '<a href="#" class="button activities blueButton">{%: $.title %}</a>',
         '</li>'
@@ -29,6 +30,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
     //Localization
     activitiesText: 'Activities',
+    addAccountContactText: 'Add Account/Contact',
     cancelText: 'Cancel',
     notesText: 'Notes',
     scheduleText: 'Schedule',
@@ -53,6 +55,8 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
             navigateToRelatedView = Sage.Platform.Mobile.Detail.prototype.navigateToRelatedView;
 
         if (params.where) o.where = String.format(params.where, this.relatedKey);
+
+        Ext.apply(o, Ext.util.JSON.decode(params.viewoptions));
 
         navigateToRelatedView.call(this, params.view, o, params.descriptor);
     },

@@ -19,6 +19,14 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
 
     //Localization
     configureText: 'Configure',
+    contextItems: [
+        {
+            '$key': 'addAccountContact',
+            view: 'add_account_contact',
+            viewOptions: {insert: true}
+        }
+    ],
+    contextView: 'context_dialog',
     titleText: 'Home',
 
     //View Properties
@@ -73,17 +81,6 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
 
         App.on('registered', this.onRegistered, this);
 
-        this.contentEl.on('longpress', function(evt, el, o){
-            el = Ext.get(el);
-            if (!el.is('li')) el = el.findParent('li');
-            if (el && el.getAttribute('data-key') == 'contact_list')
-            {
-                App.getView('add_account_contact').show({
-                    insert:true
-                });
-            }
-        });
-
         this.tools.tbar = [{
             name: 'configure',
             title: this.configureText,
@@ -91,6 +88,11 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
             fn: this.navigateToConfigurationView,
             scope: this
         }];
+    },
+    onBeforeContextTo: function(key, descriptor, entry)
+    {
+        if (key !== 'contact_list') return false;
+        return true;
     },
     navigateToConfigurationView: function() {
         App.getView('configure').show();
