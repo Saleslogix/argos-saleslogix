@@ -86,31 +86,57 @@ Mobile.SalesLogix.Format = (function() {
         },
         date: function(val, fmt) {
             // 2007-04-12T00:00:00-07:00
-            var match = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(Z|(-|\+)(\d{2}):(\d{2}))/.exec(val);
+            var date = new Date(),
+                match = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(Z|(-|\+)(\d{2}):(\d{2}))/.exec(val);
+                JSONmatch = /\/Date\((\d+)(([+-])(\d{2})(\d{2}))?\)\//.exec(val);
+                toUTCDate = function(d, tz) {
+
+                    // new Date(year, month, date [, hour, minute, second, millisecond ])
+                    var h, m, utc = new Date(Date.UTC(
+                        parseInt(d[1]),
+                        parseInt(d[2]) - 1, // zero based
+                        parseInt(d[3]),
+                        parseInt(d[4]),
+                        parseInt(d[5]),
+                        parseInt(d[6])
+                    ));
+
+                    if (tz)  //[plusorminus, hours, minutes]
+                    {
+                        // todo: add support for minutes
+                        h = parseInt(tz[1], 10);
+                        m = parseInt(tz[2], 10);
+                        if (tz[0] === '-')
+                            utc.addMinutes((h * 60) + m);
+                        else
+                            utc.addMinutes(-1 * ((h * 60) + m));
+                    }
+
+                    return utc.toString(fmt || 'M/d/yyyy');
+                };
+
             if (match)
             {
-                // new Date(year, month, date [, hour, minute, second, millisecond ])
-                var utc = new Date(Date.UTC(
-                    parseInt(match[1]),
-                    parseInt(match[2]) - 1, // zero based
-                    parseInt(match[3]),
-                    parseInt(match[4]),
-                    parseInt(match[5]),
-                    parseInt(match[6])
-                ));
-
                 if (match[7] !== 'Z')
                 {
-                    // todo: add support for minutes
-                    var h = parseInt(match[9]); 
-                    var m = parseInt(match[10]);
-                    if (match[8] === '-')
-                        utc.addMinutes((h * 60) + m);
-                    else
-                        utc.addMinutes(-1 * ((h * 60) + m));
+                    return toUTCDate(match.slice(0, 7), match.slice(8));
                 }
 
-                return utc.toString(fmt || 'M/d/yyyy');
+                return toUTCDate(match.slice(0, 7));
+            }
+            else if (JSONmatch)
+            {
+                    date.setTime(JSONmatch[1]),
+                    dateArr = [val,
+                        date.getFullYear(), date.getMonth(), date.getDate(),
+                        date.getHours(), date.getMinutes(), date.getSeconds()
+                    ];
+
+                if (JSONmatch[2])
+                {
+                    return toUTCDate(dateArr, JSONmatch.slice(3));
+                }
+                return toUTCDate(dateArr);
             }
             else
             {
