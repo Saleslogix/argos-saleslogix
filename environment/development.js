@@ -4,7 +4,7 @@
         virtualDirectory: 'sdata',
         applicationName: 'slx',
         contractName: 'dynamic',
-        port: 80,
+        port: window.location.port && window.location.port != 80 ? window.location.port : false,
         json: true,
         protocol: /https/i.test(window.location.protocol) ? 'https' : false
     }, { isDefault: true, offline: true });

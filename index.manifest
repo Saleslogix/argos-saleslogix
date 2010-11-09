@@ -77,11 +77,8 @@ content/reui/themes/sage-green/theme.css
 
 # application
 content/javascript/argos-dependencies.js
-content/javascript/argos-dependencies-debug.js
 content/javascript/argos-saleslogix.js
-content/javascript/argos-saleslogix-debug.js
 content/javascript/argos-sdk.js
-content/javascript/argos-sdk-debug.js
 
 # environment
 environment/default.js
