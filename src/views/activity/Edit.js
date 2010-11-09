@@ -354,6 +354,29 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Opportunity'].setValue(entry);
             this.fields['Account'].setValue(entry.Account);
         },
+        setValues: function(entry) {
+            Sage.Platform.Mobile.Edit.prototype.setValues.call(this, arguments);
+
+            this.fields['Account'].setValue({
+                '$key': entry.AccountId,
+                'AccountName': entry.AccountName
+            });
+
+            this.fields['Contact'].setValue({
+                '$key': entry.ContactId,
+                'NameLF': entry.ContactName
+            });
+
+            this.fields['Ticket'].setValue({
+                '$key': entry.TicketId,
+                'TicketNumber': entry.TicketNumber
+            });
+
+            this.fields['Opportunity'].setValue({
+                '$key': entry.OpportunityId,
+                'Description': entry.OpportunityName
+            });
+        },
         getValues: function() {
             var entry = Sage.Platform.Mobile.Edit.prototype.getValues.call(this, arguments);
 
@@ -424,6 +447,16 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         applyLeadContext: function(entry) {
             this.fields['Company'].setValue(entry.Company);
             this.fields['Lead'].setValue(entry);
+        },
+        setValues: function(entry) {
+            Sage.Platform.Mobile.Edit.prototype.setValues.call(this, arguments);
+
+            this.fields['Lead'].setValue({
+                '$key': entry.LeadId,
+                'LeadNameLastFirst': entry.LeadName
+            });
+
+            this.fields['Company'].setValue(entry.ContactName);
         },
         getValues: function() {
             var entry = Sage.Platform.Mobile.Edit.prototype.getValues.call(this, arguments);
