@@ -8,28 +8,22 @@
 Ext.namespace("Mobile.SalesLogix.Activity");
 
 (function() {  
-    Mobile.SalesLogix.Activity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    Mobile.SalesLogix.Activity.AbstractEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
         //Localization
-        accountText: 'account',
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',
         activityTypeTitleText: 'Activity Type',
         alarmText: 'reminder',
         alarmTimeText: 'reminder',
         categoryText: 'category',
-        companyText: 'company',
-        contactText: 'contact',
         durationText: 'duration',
         leadIdText: 'leader',
-        leadText: 'lead',
         longNotesText: 'notes',
-        opportunityText: 'opportunity',
         priorityText: 'priority',
         priorityTitleText: 'Priority',
         regardingText: 'regarding',
         rolloverText: 'auto rollover',
         startingText: 'start time',
-        ticketNumberText: 'ticket',
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
@@ -90,16 +84,23 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.picklistsByType[type.$key] && this.picklistsByType[type.$key][which];
         },
         show: function(options) {
+            var type, typesLookup;
             //TODO:This must be a part of Select Field.  
             //Fix "Type" value from "text" to "object".
-            var type = options.entry && options.entry.Type,
+            if (options.entry)
+            {
+                type = options.entry.Type,
                 typesLookup = Mobile.SalesLogix.Activity.ActivityTypesLookup;
-            if (type && typesLookup[type])
-                options.entry.Type = {
-                    "$key": type,
-                    "$descriptor": typesLookup[type]
-                };
-            Mobile.SalesLogix.Activity.Edit.superclass.show.apply(this, arguments);
+
+                if (type && typesLookup[type])
+                {
+                    options.entry.Type = {
+                        "$key": type,
+                        "$descriptor": typesLookup[type]
+                    };
+                }
+            }
+
             if (options.context === 'ScheduleActivity')
             {
                 this.activityContext = {
@@ -107,42 +108,206 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     'type': options.key
                 };
             }
-            else if (options.insert === true)
-                this.applyContext();
+
+            Mobile.SalesLogix.Activity.AbstractEdit.superclass.show.apply(this, arguments);
+        },
+        findMatchingContextEntry: function(resourceKindPattern) {
+            var hist = [], view;
+
+            if (resourceKindPattern.constructor !== RegExp) return false;
+
+            var found = App.queryNavigationContext(function(o) {
+                hist.push(o);
+                return resourceKindPattern.test(o.resourceKind) && o.key;
+            });
+
+            //TODO: Context menu must also go into history, since its also a view.
+            //Could have gotten here from context menu, bypassing details screen.
+            //In this case, the second history item will be our resource kind
+            //for eg: activity_related -> accounts -> home -> login
+            if (!found && resourceKindPattern.test(hist[1].resourceKind))
+            {
+                return {
+                    'entry': hist[0].options && hist[0].options.entry,
+                    'resourceKind': hist[1].resourceKind
+                };
+            }
+            else
+            {
+                view = App.getView(found.id);
+                return {
+                    'entry': view && view.entry,
+                    'resourceKind': view.resourceKind
+                };
+            }
+
+            return false;
+        },
+        createLayout: function() {
+            return this.layout || (this.layout = [
+                {
+                    data: Mobile.SalesLogix.Activity.Types,
+                    label: this.typeText,
+                    name: 'Type',
+                    title: this.activityTypeTitleText,
+                    type: 'select',
+                    valueKeyProperty: '$key',
+                    valueTextProperty: '$descriptor',
+                    view: 'select_list'
+                },
+                {
+                    dependsOn: 'Type',
+                    label: this.regardingText,
+                    name: 'Description',
+                    picklist: this.formatTypeDependentPicklist.createDelegate(
+                        this, ['Description'], true
+                    ),
+                    title: this.activityDescriptionTitleText,
+                    type: 'picklist'
+                },
+                {
+                    label: this.priorityText,
+                    name: 'Priority',
+                    picklist: 'Priorities',                    
+                    title: this.priorityTitleText,
+                    type: 'picklist'
+                },
+                {
+                    dependsOn: 'Type',
+                    label: this.categoryText,
+                    name: 'Category',
+                    picklist: this.formatTypeDependentPicklist.createDelegate(
+                        this, ['Category'], true
+                    ),
+                    title: this.activityCategoryTitleText,
+                    type: 'picklist'
+                },
+                {
+                    label: this.startingText,
+                    name: 'StartDate',
+                    showTime: true,
+                    type: 'date'
+                },
+                {
+                    label: this.timelessText,
+                    name: 'Timeless',
+                    type: 'boolean'
+                },
+                {
+                    label: this.durationText,
+                    name: 'Duration',
+                    type: 'text',
+                    validator: Mobile.SalesLogix.Validator.isInteger
+                },
+                {
+                    label: this.alarmText,
+                    name: 'Alarm',
+                    type: 'boolean'
+                },
+                {
+                    label: this.alarmTimeText,
+                    name: 'AlarmTime',
+                    showTime: true,
+                    type: 'date'
+                },
+                {
+                    label: this.rolloverText,
+                    name: 'Rollover',
+                    type: 'boolean'
+                },
+                {
+                    label: this.leadIdText,
+                    name: 'UserId',
+                    textProperty: 'UserInfo',
+                    textTemplate: Mobile.SalesLogix.Template.nameLF,
+                    type: 'lookup',
+                    view: 'user_list'
+                },
+                {
+                    label: this.longNotesText,
+                    multiline: true,
+                    name: 'LongNotes',
+                    type: 'text'
+                }
+            ]);
+        }
+    });
+
+    Mobile.SalesLogix.Activity.Edit = Ext.extend(Mobile.SalesLogix.Activity.AbstractEdit, {
+        //Localization
+        accountText: 'account',
+        contactText: 'contact',
+        opportunityText: 'opportunity',
+        ticketNumberText: 'ticket',
+
+        //View Properties
+        id: 'activity_edit',
+
+        createLayout: function() {
+            var layout = Mobile.SalesLogix.Activity.Edit.superclass.createLayout.apply(this, arguments);
+
+            this.layout = this.layout.concat([
+                {
+                    label: this.accountText,
+                    name: 'Account',
+                    textProperty: 'AccountName',
+                    type: 'lookup',
+                    validator: Mobile.SalesLogix.Validator.exists,
+                    view: 'account_lookup'
+                },
+                {
+                    label: this.contactText,
+                    name: 'Contact',
+                    textProperty: 'NameLF',
+                    type: 'lookup',
+                    validator: Mobile.SalesLogix.Validator.exists,
+                    view: 'contact_lookup'
+                },
+                {
+                    label: this.opportunityText,
+                    name: 'Opportunity',
+                    textProperty: 'Description',
+                    type: 'lookup',
+                    validator: Mobile.SalesLogix.Validator.exists,
+                    view: 'opportunity_lookup'
+                },
+                {
+                    label: this.ticketNumberText,
+                    name: 'Ticket',
+                    textProperty: 'TicketNumber',
+                    type: 'lookup',
+                    validator: Mobile.SalesLogix.Validator.exists,
+                    view: 'ticket_lookup'
+                }
+            ]);
+
+            return this.layout;
         },
         applyContext: function() {
             if (this.activityContext)
             {
-                this.applyActivityContext();
+                this.applyScheduleActivityContext();
                 return;
             }
 
-            var found = App.queryNavigationContext(function(o) {
-                return /^(accounts|contacts|leads|opportunities|tickets)$/.test(o.resourceKind) && o.key;
-            });
+            var matcher = /^(accounts|contacts|opportunities|tickets)$/,
+                match = this.findMatchingContextEntry(matcher),
+                lookup = {
+                    'accounts': this.applyAccountContext,
+                    'contacts': this.applyContactContext,
+                    'opportunities': this.applyOpportunityContext,
+                    'tickets': this.applyTicketContext
+                };
 
-            var lookup = {
-                'accounts': this.applyAccountContext,
-                'contacts': this.applyContactContext,
-                'leads': this.applyLeadContext,
-                'opportunities': this.applyOpportunityContext,
-                'tickets': this.applyTicketContext
-            };
-
-            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
+            if (match && lookup[match.resourceKind]) lookup[match.resourceKind].call(this, match.entry);
         },
-        applyAccountContext: function(context, entry) {
-            var view;
-
-            if (context) view = App.getView(context.id);
-            if (!entry) entry = view && view.entry;
-
-            this.fields['AccountName'].setValue(entry.AccountName);
-        },
-        applyActivityContext: function() {
+        applyScheduleActivityContext: function() {
             var types = Mobile.SalesLogix.Activity.Types,
-                entry = this.activityContext && this.activityContext.entry,
                 activityType;
+
+            if (this.activityContext.entry.$name !== 'Account') return;
+
+            this.applyAccountContext(false, this.activityContext.entry);
 
             for (var i = 0, len = types.length; i < len; i++)
             {
@@ -154,151 +319,104 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }
 
             this.fields['Type'].setValue(activityType);
-
-            if (entry && entry.$name !== 'Account') return;
-
-            this.applyAccountContext(false, entry);
-
             this.activityContext = false;
         },
-        applyLeadContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
-
-            this.fields['ContactName'].setValue(entry.LeadNameLastFirst);
-            this.fields['AccountName'].setValue(entry.Company);
+        applyAccountContext: function(entry) {
+            this.fields['Account'].setValue(entry);
         },
-        applyContactContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+        applyContactContext: function(entry) {
+            this.fields['Contact'].setValue(entry);
 
-            this.fields['ContactName'].setValue(entry.NameLF);
-            this.fields['AccountName'].setValue(entry.AccountName);
+            this.fields['Account'].setValue({
+                '$key': entry.Account.$key,
+                'AccountName': entry.AccountName
+            });
         },
-        applyTicketContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+        applyTicketContext: function(entry) {
+            this.fields['Contact'].setValue(entry.Contact);
+            this.fields['Account'].setValue(entry.Account);
+            this.fields['Ticket'].setValue(entry);
+        },
+        applyOpportunityContext: function(entry) {
+            this.fields['Opportunity'].setValue(entry);
+            this.fields['Account'].setValue(entry.Account);
+        },
+        getValues: function() {
+            var entry = Mobile.SalesLogix.Activity.Edit.superclass.getValues();
 
-            this.fields['ContactName'].setValue(entry.Contact.NameLF);
-            this.fields['AccountName'].setValue(entry.Account.AccountName);
-            this.fields['TicketNumber'].setValue(entry.TicketNumber);
-        },
-        applyOpportunityContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            entry.AccountName = entry.Account.$descriptor;
+            entry.AccountId = entry.Account.$key;
+            entry.ContactName = entry.Contact.$descriptor;
+            entry.ContactId = entry.Contact.$key;
+            entry.OpportunityName = entry.Opportunity.$descriptor;
+            entry.OpportunityId = entry.Opportunity.$key;
+            entry.TicketNumber = entry.Ticket.$descriptor;
+            entry.TicketId = entry.Ticket.$key;
 
-            this.fields['OpportunityName'].setValue(entry.Description);
-            this.fields['AccountName'].setValue(entry.Account.AccountName);
-        },
+            delete entry.Account;
+            delete entry.Contact;
+            delete entry.Opportunity;
+            delete entry.Ticket;
+
+            return entry;
+        }
+    });
+
+    Mobile.SalesLogix.Activity.LeadContextEdit = Ext.extend(Mobile.SalesLogix.Activity.AbstractEdit, {
+        //Localization
+        companyText: 'company',
+        leadText: 'lead',
+        opportunityText: 'opportunity',
+        ticketNumberText: 'ticket',
+
+        //View Properties
+        id: 'lead_related_activity_edit',
+
         createLayout: function() {
-            return this.layout || (this.layout = [
+            var layout = Mobile.SalesLogix.Activity.LeadContextEdit.superclass.createLayout.apply(this, arguments);
+
+            this.layout = this.layout.concat([
                 {
-                    name: 'Type',
-                    data: Mobile.SalesLogix.Activity.Types,
-                    label: this.typeText,
-                    title: this.activityTypeTitleText,
-                    type: 'select',
-                    valueKeyProperty: '$key',
-                    valueTextProperty: '$descriptor',
-                    view: 'select_list'
-                },
-                {
-                    name: 'Description',
-                    dependsOn: 'Type',
-                    label: this.regardingText,
-                    picklist: this.formatTypeDependentPicklist.createDelegate(
-                        this, ['Description'], true
-                    ),
-                    title: this.activityDescriptionTitleText,
-                    type: 'picklist'
-                },
-                {
-                    name: 'Priority',
-                    label: this.priorityText,
-                    picklist: 'Priorities',                    
-                    title: this.priorityTitleText,
-                    type: 'picklist'
-                },
-                {
-                    name: 'Category',
-                    dependsOn: 'Type',
-                    label: this.categoryText,
-                    picklist: this.formatTypeDependentPicklist.createDelegate(
-                        this, ['Category'], true
-                    ),
-                    title: this.activityCategoryTitleText,
-                    type: 'picklist'
-                },
-                {
-                    name: 'StartDate',
-                    label: this.startingText,
-                    showTime: true,
-                    type: 'date'
-                },
-                {
-                    name: 'Timeless',
-                    label: this.timelessText,
-                    type: 'boolean'
-                },
-                {
-                    name: 'Duration',
-                    label: this.durationText,
-                    type: 'text',
-                    validator: Mobile.SalesLogix.Validator.isInteger
-                },
-                {
-                    name: 'Alarm',
-                    label: this.alarmText,
-                    type: 'boolean'
-                },
-                {
-                    name: 'AlarmTime',
-                    label: this.alarmTimeText,
-                    showTime: true,
-                    type: 'date'
-                },
-                {
-                    name: 'Rollover',
-                    label: this.rolloverText,
-                    type: 'boolean'
-                },
-                {
-                    name: 'LeadId',
-                    label: this.leadIdText,
-                    type: 'text'
-                },
-                {
-                    name: 'ContactName',
-                    label: this.contactText,
-                    type: 'text'
-                },
-                {
-                    name: 'OpportunityName',
-                    label: this.opportunityText,
-                    type: 'text'
-                },
-                {
-                    name: 'TicketNumber',
-                    label: this.ticketNumberText,
-                    type: 'text'
-                },
-                {
-                    name: 'LeadName',
-                    label: this.leadText,
-                    type: 'text'
-                },
-                {
-                    name: 'AccountName',
                     label: this.companyText,
+                    name: 'Company',
                     type: 'text'
                 },
                 {
-                    name: 'LongNotes',
-                    label: this.longNotesText,
-                    multiline: true,
-                    type: 'text'
+                    label: this.leadText,
+                    name: 'Lead',
+                    textProperty: 'LeadNameLastFirst',
+                    type: 'lookup',
+                    validator: Mobile.SalesLogix.Validator.exists,
+                    view: 'leads_lookup'
                 }
             ]);
+
+            return this.layout;
+        },
+        applyContext: function() {
+            var matcher = /^(leads)$/,
+                match = this.findMatchingContextEntry(matcher),
+                lookup = {
+                    'leads': this.applyLeadContext
+                };
+
+            if (match && lookup[match.resourceKind]) lookup[match.resourceKind].call(this, match.entry);
+        },
+        applyLeadContext: function(entry) {
+            this.fields['Company'].setValue(entry.Company);
+            this.fields['Lead'].setValue(entry);
+        },
+        getValues: function() {
+            var entry = Mobile.SalesLogix.Activity.LeadContextEdit.superclass.getValues();
+
+            entry.LeadName = entry.Lead.$descriptor;
+            entry.LeadId = entry.Lead.$key;
+            entry.AccountName = entry.Company;
+
+            delete entry.Lead;
+            delete entry.Company;
+
+            return entry;
         }
     });
 })();
