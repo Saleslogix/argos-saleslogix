@@ -10,8 +10,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     //Templates
     itemTemplate: new Simplate([
         '<li data-action="activateEntry" data-key="{%= $.$key %}" ',
-            'data-descriptor="{%: $.$descriptor %}" ',
-            'data-view="activity_edit">',
+            'data-descriptor="{%: $.$descriptor %}">',
         '<div data-action="selectEntry" class="list-item-selector"></div>',
         '<h3>{%: $.$descriptor %}</h3>',
         '</li>'
@@ -32,12 +31,22 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     relatedResourceKind: false,
 
     activateEntry: function(params) {
-        var v = App.getView(params.view);
+        var prevView = App.queryNavigationContext(function(o) {
+                return true;
+            }),
+            view;
 
-        if (v) v.show({
+        if (prevView && prevView.resourceKind === 'leads')
+            view = 'lead_related_activity_edit';
+        else
+            view = 'activity_edit';
+
+        view = App.getView(view);
+
+        if (view) view.show({
             insert: true,
             entry: this.relatedEntry,
-            resourceKind: this.relatedResourceKind,
+            relatedResourceKind: this.relatedResourceKind,
             context: 'ScheduleActivity',
             key: params.key
         });
@@ -61,6 +70,6 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         this.relatedKey = options.key || false;
         this.relatedDescriptor = options.descriptor || false;
         this.relatedEntry = options.entry || false;
-        this.relatedResourceKind = options.resourceKind || false;
+        this.relatedResourceKind = options.relatedResourceKind || false;
     }
 });
