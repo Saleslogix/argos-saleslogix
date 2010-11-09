@@ -18,6 +18,17 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         titleText: 'Tickets',
 
         //View Properties
+        contextItems: [
+            {
+                '$key': 'activities',
+                view: 'activity_related',
+                where: "TicketId eq '{0}'"
+            },
+            {
+                '$key': 'schedule',
+                view: 'activity_types_list'
+            }
+        ],
         contextView: 'context_dialog',
         detailView: 'ticket_detail',
         icon: 'content/images/icons/job_24.png',
