@@ -107,7 +107,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 this.activityContext = {
                     'entry': options.entry || {},
                     'type': options.key,
-                    'resourceKind': options.resourceKind
+                    'resourceKind': options.relatedResourceKind
                 };
             }
 

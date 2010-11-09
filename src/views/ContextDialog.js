@@ -52,7 +52,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
             o = {
                 'key': this.relatedKey,
                 'entry': this.relatedEntry,
-                'resourceKind': view && view.resourceKind
+                'relatedResourceKind': view && view.resourceKind
             },
             navigateToRelatedView = Sage.Platform.Mobile.Detail.prototype.navigateToRelatedView;
 
