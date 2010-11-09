@@ -34,7 +34,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         //Templates
         contentTemplate: new Simplate([
             '<h3>{%: Mobile.SalesLogix.Format.date($.StartDate) %}, {%: $.AccountName %}</h3>',
-            '<h4>{%: Mobile.SalesLogix.Activity.ActivityTypesLookup[$.Type] %}, {%: $.Description %}</h4>'
+            '<h4>{%: Mobile.SalesLogix.Activity.ActivityTypesLookup[$.Type] || $.Type %}, {%: $.Description %}</h4>'
         ]),
 
         //Localization
@@ -62,6 +62,32 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 actTypes[type.$key] = type.$descriptor;
             });
             Mobile.SalesLogix.Activity.ActivityTypesLookup = actTypes;
+        },
+        detectLeadContext: function() {
+            var hist = [], view, resourceKindPattern = /^(leads)$/;
+
+            var found = App.queryNavigationContext(function(o) {
+                hist.push(o);
+                return resourceKindPattern.test(o.resourceKind) && o.key;
+            });
+
+            if (found) return true;
+            //TODO: Context menu must also go into history, since its also a view.
+            //Could have gotten here from context menu, bypassing details screen.
+            //In this case, the first history item will be our resource kind
+            //for eg: leads -> home -> login
+            if (!found && resourceKindPattern.test(hist[0].resourceKind))
+                return true;
+
+            return false;
+        },
+        navigateToInsertView: function() {
+            if (this.detectLeadContext())
+                this.insertView = 'lead_related_activity_edit';
+            else
+                this.insertView = 'activity_edit';
+
+            Mobile.SalesLogix.Activity.List.superclass.navigateToInsertView.apply(this, arguments);
         },
         formatSearchQuery: function(query) {
             return String.format('Description like "%{0}%"', query);

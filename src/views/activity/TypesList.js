@@ -10,8 +10,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     //Templates
     itemTemplate: new Simplate([
         '<li data-action="activateEntry" data-key="{%= $.$key %}" ',
-            'data-descriptor="{%: $.$descriptor %}" ',
-            'data-view="activity_edit">',
+            'data-descriptor="{%: $.$descriptor %}">',
         '<div data-action="selectEntry" class="list-item-selector"></div>',
         '<h3>{%: $.$descriptor %}</h3>',
         '</li>'
@@ -27,15 +26,27 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     hideSearch: true,
     id: 'activity_types_list',
     relatedEntry: false,
-    relatedKey: '',
-    relatedDescriptor: '',
+    relatedKey: false,
+    relatedDescriptor: false,
+    relatedResourceKind: false,
 
     activateEntry: function(params) {
-        var v = App.getView(params.view);
+        var prevView = App.queryNavigationContext(function(o) {
+                return true;
+            }),
+            view;
 
-        if (v) v.show({
+        if (prevView && prevView.resourceKind === 'leads')
+            view = 'lead_related_activity_edit';
+        else
+            view = 'activity_edit';
+
+        view = App.getView(view);
+
+        if (view) view.show({
             insert: true,
             entry: this.relatedEntry,
+            relatedResourceKind: this.relatedResourceKind,
             context: 'ScheduleActivity',
             key: params.key
         });
@@ -55,9 +66,10 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         Mobile.SalesLogix.Activity.TypesList.superclass.show.call(this, options);
 
         this.contextItems = options.contextItems || [];
-        this.detailView = options.detailView;
-        this.relatedKey = options.key;
-        this.relatedDescriptor = options.descriptor;
-        this.relatedEntry = options.entry;
+        this.detailView = options.detailView || false;
+        this.relatedKey = options.key || false;
+        this.relatedDescriptor = options.descriptor || false;
+        this.relatedEntry = options.entry || false;
+        this.relatedResourceKind = options.relatedResourceKind || false;
     }
 });

@@ -7,7 +7,7 @@
 Ext.namespace("Mobile.SalesLogix.Lead");
 
 (function() {
-    Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
+    Mobile.SalesLogix.Lead.Lookup = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
         contentTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
@@ -18,27 +18,8 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         titleText: 'Leads',
 
         //View Properties
-        contextItems: [
-            {
-                '$key': 'activities',
-                view: 'activity_related',
-                where: "LeadId eq '{0}'"
-            },
-            {
-                '$key': 'notes',
-                view: 'note_related',
-                where: "LeadId eq '{0}' and Type eq 'atNote'"
-            },
-            {
-                '$key': 'schedule',
-                view: 'activity_types_list'
-            }
-        ],
-        contextView: 'context_dialog',
-        detailView: 'lead_detail',
-        icon: 'content/images/icons/lead_24.png',
-        id: 'lead_list',
-        insertView: 'lead_edit',
+        expose: false,
+        id: 'leads_lookup',
         queryOrderBy: 'Company',
         querySelect: [
             'Company',
@@ -47,7 +28,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         resourceKind: 'leads',
 
         formatSearchQuery: function(query) {
-            return String.format('(LeadNameLastFirst like "%{0}%")', query);
+            return String.format('LeadNameLastFirst like "%{0}%"', query);
         }
     });
 })();

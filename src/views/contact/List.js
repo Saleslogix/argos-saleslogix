@@ -41,8 +41,9 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         insertView: 'contact_edit',
         queryOrderBy: 'LastName,FirstName',
         querySelect: [
-            'NameLF',
-            'AccountName'
+            'Account/$key',  //Needed for related Activity insert
+            'AccountName',
+            'NameLF'
         ],
         resourceKind: 'contacts',
 
