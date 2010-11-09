@@ -54,7 +54,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         },
 
         entityName: 'Activity', // todo: is this correct?
-        id: 'activity_edit',
+        id: 'abstract_activity_edit',
         querySelect: [
             'AccountId',
             'AccountName',
@@ -183,6 +183,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'Type',
                     title: this.activityTypeTitleText,
                     type: 'select',
+                    validator: Mobile.SalesLogix.Validator.exists,
                     valueKeyProperty: '$key',
                     valueTextProperty: '$descriptor',
                     view: 'select_list'
@@ -354,8 +355,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Account'].setValue(entry.Account);
         },
         getValues: function() {
-            var entry = Mobile.SalesLogix.Activity.Edit.superclass.getValues();
+            var entry = Sage.Platform.Mobile.Edit.prototype.getValues.call(this, arguments);
 
+            entry.Type = entry.Type.$key;
             entry.AccountName = entry.Account.$descriptor;
             entry.AccountId = entry.Account.$key;
             entry.ContactName = entry.Contact.$descriptor;
@@ -424,8 +426,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Lead'].setValue(entry);
         },
         getValues: function() {
-            var entry = Mobile.SalesLogix.Activity.LeadContextEdit.superclass.getValues();
+            var entry = Sage.Platform.Mobile.Edit.prototype.getValues.call(this, arguments);
 
+            entry.Type = entry.Type.$key;
             entry.LeadName = entry.Lead.$descriptor;
             entry.LeadId = entry.Lead.$key;
             entry.AccountName = entry.Company;
