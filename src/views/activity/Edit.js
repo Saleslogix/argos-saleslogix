@@ -30,6 +30,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         //View Properties
         activityContext: false,
+        contextLookup: false,
         picklistsByType: {
             'atAppointment': {
                 'Category': 'Meeting Category Codes',
@@ -105,14 +106,45 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             {
                 this.activityContext = {
                     'entry': options.entry || {},
-                    'type': options.key
+                    'type': options.key,
+                    'resourceKind': options.resourceKind
                 };
             }
 
             Mobile.SalesLogix.Activity.AbstractEdit.superclass.show.apply(this, arguments);
         },
+        applyScheduleActivityContext: function(resourceKindPattern) {
+            if (resourceKindPattern.constructor !== RegExp) return false;
+
+            var types = Mobile.SalesLogix.Activity.Types,
+                activityType, lookup = this.contextLookup,
+                entry = this.activityContext.entry,
+                resourceKind = this.activityContext.resourceKind;
+
+            if (!resourceKindPattern.test(resourceKind)) return;
+
+            if (lookup && lookup[resourceKind]) lookup[resourceKind].call(this, entry);
+
+            for (var i = 0, len = types.length; i < len; i++)
+            {
+                if (types[i].$key === this.activityContext.type)
+                {
+                    activityType = types[i];
+                    break;
+                }
+            }
+
+            this.fields['Type'].setValue(activityType);
+            this.activityContext = false;
+        },
         findMatchingContextEntry: function(resourceKindPattern) {
             var hist = [], view;
+
+            if (this.activityContext)
+            {
+                this.applyScheduleActivityContext(resourceKindPattern);
+                return;
+            }
 
             if (resourceKindPattern.constructor !== RegExp) return false;
 
@@ -243,6 +275,16 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         //View Properties
         id: 'activity_edit',
 
+
+        init: function() {
+            Mobile.SalesLogix.Activity.Edit.superclass.init.apply(this, arguments);
+            this.contextLookup = {
+                'accounts': this.applyAccountContext,
+                'contacts': this.applyContactContext,
+                'opportunities': this.applyOpportunityContext,
+                'tickets': this.applyTicketContext
+            };
+        },
         createLayout: function() {
             var layout = Mobile.SalesLogix.Activity.Edit.superclass.createLayout.apply(this, arguments);
 
@@ -284,42 +326,12 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.layout;
         },
         applyContext: function() {
-            if (this.activityContext)
-            {
-                this.applyScheduleActivityContext();
-                return;
-            }
-
             var matcher = /^(accounts|contacts|opportunities|tickets)$/,
                 match = this.findMatchingContextEntry(matcher),
-                lookup = {
-                    'accounts': this.applyAccountContext,
-                    'contacts': this.applyContactContext,
-                    'opportunities': this.applyOpportunityContext,
-                    'tickets': this.applyTicketContext
-                };
+                lookup = this.contextLookup;
 
-            if (match && lookup[match.resourceKind]) lookup[match.resourceKind].call(this, match.entry);
-        },
-        applyScheduleActivityContext: function() {
-            var types = Mobile.SalesLogix.Activity.Types,
-                activityType;
-
-            if (this.activityContext.entry.$name !== 'Account') return;
-
-            this.applyAccountContext(false, this.activityContext.entry);
-
-            for (var i = 0, len = types.length; i < len; i++)
-            {
-                if (types[i].$key === this.activityContext.type)
-                {
-                    activityType = types[i];
-                    break;
-                }
-            }
-
-            this.fields['Type'].setValue(activityType);
-            this.activityContext = false;
+            if (lookup && match && lookup[match.resourceKind])
+                lookup[match.resourceKind].call(this, match.entry);
         },
         applyAccountContext: function(entry) {
             this.fields['Account'].setValue(entry);
@@ -372,6 +384,12 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         //View Properties
         id: 'lead_related_activity_edit',
 
+        init: function() {
+            Mobile.SalesLogix.Activity.LeadContextEdit.superclass.init.apply(this, arguments);
+            this.contextLookup = {
+                'leads': this.applyLeadContext
+            };
+        },
         createLayout: function() {
             var layout = Mobile.SalesLogix.Activity.LeadContextEdit.superclass.createLayout.apply(this, arguments);
 
@@ -396,11 +414,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         applyContext: function() {
             var matcher = /^(leads)$/,
                 match = this.findMatchingContextEntry(matcher),
-                lookup = {
-                    'leads': this.applyLeadContext
-                };
+                lookup = this.contextLookup;
 
-            if (match && lookup[match.resourceKind]) lookup[match.resourceKind].call(this, match.entry);
+            if (lookup && match && lookup[match.resourceKind])
+                lookup[match.resourceKind].call(this, match.entry);
         },
         applyLeadContext: function(entry) {
             this.fields['Company'].setValue(entry.Company);

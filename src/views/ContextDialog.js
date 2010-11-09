@@ -48,9 +48,11 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     relatedEntry: false,
 
     activateButton: function(params) {
-        var o = {
+        var view = this.parentViewId && App.getView(this.parentViewId),
+            o = {
                 'key': this.relatedKey,
-                'entry': this.relatedEntry
+                'entry': this.relatedEntry,
+                'resourceKind': view && view.resourceKind
             },
             navigateToRelatedView = Sage.Platform.Mobile.Detail.prototype.navigateToRelatedView;
 

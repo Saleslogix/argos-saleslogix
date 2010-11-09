@@ -27,8 +27,9 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     hideSearch: true,
     id: 'activity_types_list',
     relatedEntry: false,
-    relatedKey: '',
-    relatedDescriptor: '',
+    relatedKey: false,
+    relatedDescriptor: false,
+    relatedResourceKind: false,
 
     activateEntry: function(params) {
         var v = App.getView(params.view);
@@ -36,6 +37,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         if (v) v.show({
             insert: true,
             entry: this.relatedEntry,
+            resourceKind: this.relatedResourceKind,
             context: 'ScheduleActivity',
             key: params.key
         });
@@ -55,9 +57,10 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         Mobile.SalesLogix.Activity.TypesList.superclass.show.call(this, options);
 
         this.contextItems = options.contextItems || [];
-        this.detailView = options.detailView;
-        this.relatedKey = options.key;
-        this.relatedDescriptor = options.descriptor;
-        this.relatedEntry = options.entry;
+        this.detailView = options.detailView || false;
+        this.relatedKey = options.key || false;
+        this.relatedDescriptor = options.descriptor || false;
+        this.relatedEntry = options.entry || false;
+        this.relatedResourceKind = options.resourceKind || false;
     }
 });
