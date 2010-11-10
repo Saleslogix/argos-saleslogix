@@ -138,7 +138,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                         label: this.relatedContactsText,
                         view: 'contact_related',
                         where: this.formatRelatedQuery.createDelegate(
-                            this, ['OpportunityId eq "{0}"'], true
+                            this, ['Opportunities.Opportunity.Id eq "{0}"'], true
                         )
                     },
                     {
