@@ -392,14 +392,26 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             var entry = Sage.Platform.Mobile.Edit.prototype.getValues.apply(this, arguments);
 
             entry.Type = entry.Type.$key;
-            entry.AccountName = entry.Account.$descriptor;
-            entry.AccountId = entry.Account.$key;
-            entry.ContactName = entry.Contact.$descriptor;
-            entry.ContactId = entry.Contact.$key;
-            entry.OpportunityName = entry.Opportunity.$descriptor;
-            entry.OpportunityId = entry.Opportunity.$key;
-            entry.TicketNumber = entry.Ticket.$descriptor;
-            entry.TicketId = entry.Ticket.$key;
+            if (entry.Account)
+            {
+                entry.AccountName = entry.Account.$descriptor;
+                entry.AccountId = entry.Account.$key;
+            }
+            if (entry.Contact)
+            {
+                entry.ContactName = entry.Contact.$descriptor;
+                entry.ContactId = entry.Contact.$key;
+            }
+            if (entry.Opportunity)
+            {
+                entry.OpportunityName = entry.Opportunity.$descriptor;
+                entry.OpportunityId = entry.Opportunity.$key;
+            }
+            if (entry.Ticket)
+            {
+                entry.TicketNumber = entry.Ticket.$descriptor;
+                entry.TicketId = entry.Ticket.$key;
+            }
 
             delete entry.Account;
             delete entry.Contact;
@@ -473,8 +485,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             var entry = Sage.Platform.Mobile.Edit.prototype.getValues.apply(this, arguments);
 
             entry.Type = entry.Type.$key;
-            entry.LeadName = entry.Lead.$descriptor;
-            entry.LeadId = entry.Lead.$key;
+            if (entry.Lead)
+            {
+                entry.LeadName = entry.Lead.$descriptor;
+                entry.LeadId = entry.Lead.$key;
+            }
             entry.AccountName = entry.Company;
 
             delete entry.Lead;
