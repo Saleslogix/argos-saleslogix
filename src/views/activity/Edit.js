@@ -85,6 +85,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.picklistsByType[type.$key] && this.picklistsByType[type.$key][which];
         },
         show: function(options) {
+console.log(options)
             var type, typesLookup;
             //TODO:This must be a part of Select Field.  
             //Fix "Type" value from "text" to "object".
@@ -355,7 +356,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Account'].setValue(entry.Account);
         },
         setValues: function(entry) {
-            Sage.Platform.Mobile.Edit.prototype.setValues.call(this, arguments);
+            Sage.Platform.Mobile.Edit.prototype.setValues.apply(this, arguments);
 
             this.fields['Account'].setValue({
                 '$key': entry.AccountId,
@@ -378,7 +379,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             });
         },
         getValues: function() {
-            var entry = Sage.Platform.Mobile.Edit.prototype.getValues.call(this, arguments);
+            var entry = Sage.Platform.Mobile.Edit.prototype.getValues.apply(this, arguments);
 
             entry.Type = entry.Type.$key;
             entry.AccountName = entry.Account.$descriptor;
@@ -449,7 +450,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Lead'].setValue(entry);
         },
         setValues: function(entry) {
-            Sage.Platform.Mobile.Edit.prototype.setValues.call(this, arguments);
+            Sage.Platform.Mobile.Edit.prototype.setValues.apply(this, arguments);
 
             this.fields['Lead'].setValue({
                 '$key': entry.LeadId,
@@ -459,7 +460,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Company'].setValue(entry.ContactName);
         },
         getValues: function() {
-            var entry = Sage.Platform.Mobile.Edit.prototype.getValues.call(this, arguments);
+            var entry = Sage.Platform.Mobile.Edit.prototype.getValues.apply(this, arguments);
 
             entry.Type = entry.Type.$key;
             entry.LeadName = entry.Lead.$descriptor;
