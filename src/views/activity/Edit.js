@@ -298,28 +298,40 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     view: 'account_lookup'
                 },
                 {
+                    dependsOn: 'Account',
                     label: this.contactText,
                     name: 'Contact',
                     textProperty: 'NameLF',
                     type: 'lookup',
-                    validator: Mobile.SalesLogix.Validator.exists,
-                    view: 'contact_lookup'
+                    view: 'contact_lookup',
+                    lookup: function(options, value) {
+                        if (value && value.$key)
+                            options.where = String.format("Account.Id eq '{0}'", value.$key);
+                    }
                 },
                 {
+                    dependsOn: 'Account',
                     label: this.opportunityText,
                     name: 'Opportunity',
                     textProperty: 'Description',
                     type: 'lookup',
-                    validator: Mobile.SalesLogix.Validator.exists,
-                    view: 'opportunity_lookup'
+                    view: 'opportunity_lookup',
+                    lookup: function(options, value) {
+                        if (value && value.$key)
+                            options.where = String.format("Account.Id eq '{0}'", value.$key);
+                    }
                 },
                 {
+                    dependsOn: 'Account',
                     label: this.ticketNumberText,
                     name: 'Ticket',
                     textProperty: 'TicketNumber',
                     type: 'lookup',
-                    validator: Mobile.SalesLogix.Validator.exists,
-                    view: 'ticket_lookup'
+                    view: 'ticket_lookup',
+                    lookup: function(options, value) {
+                        if (value && value.$key)
+                            options.where = String.format("Account.Id eq '{0}'", value.$key);
+                    }
                 }
             ]);
 
