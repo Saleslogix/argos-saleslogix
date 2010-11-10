@@ -387,6 +387,15 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 '$key': entry.OpportunityId,
                 'Description': entry.OpportunityName
             });
+
+            if (this.inserting === true)
+                this.fields['UserId'].setValue({
+                    '$key': App.context.user,
+                    'UserInfo': {
+                        'LastName': App.context.user,
+                        'FirstName': App.context.user
+                    }
+                })
         },
         getValues: function() {
             var entry = Sage.Platform.Mobile.Edit.prototype.getValues.apply(this, arguments);
