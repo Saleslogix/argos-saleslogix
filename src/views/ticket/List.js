@@ -37,6 +37,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         queryOrderBy: 'TicketNumber',
         querySelect: [
             'Account/AccountName',
+            'Contact/NameLF',
             'TicketNumber'
         ],
         resourceKind: 'tickets',
