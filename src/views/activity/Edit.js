@@ -61,7 +61,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'Alarm',
             'AlarmTime',
             'Category',
-            'Company',
             'ContactId',
             'ContactName',
             'Duration',
@@ -85,7 +84,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.picklistsByType[type.$key] && this.picklistsByType[type.$key][which];
         },
         show: function(options) {
-console.log(options)
             var type, typesLookup;
             //TODO:This must be a part of Select Field.  
             //Fix "Type" value from "text" to "object".
@@ -457,7 +455,7 @@ console.log(options)
                 'LeadNameLastFirst': entry.LeadName
             });
 
-            this.fields['Company'].setValue(entry.ContactName);
+            this.fields['Company'].setValue(entry.AccountName);
         },
         getValues: function() {
             var entry = Sage.Platform.Mobile.Edit.prototype.getValues.apply(this, arguments);

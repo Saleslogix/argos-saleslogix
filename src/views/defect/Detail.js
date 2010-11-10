@@ -73,10 +73,12 @@ Ext.namespace("Mobile.SalesLogix.Defect");
 
             this.tools.fbar = [{
                 cls: 'tool-note',
-                fn: App.navigateToActivityInsertView,
+                fn: function() {
+                    App.navigateToActivityInsertView.call(App, {"id": this.id});
+                },
                 icon: 'content/images/icons/job_24.png',
                 name: 'schedule',
-                scope: App,
+                scope: this,
                 title: this.fbarScheduleTitleText
             }];
         },
