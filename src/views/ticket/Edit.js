@@ -98,6 +98,17 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             this.fields['Account'].setValue(entry.Account);
             this.fields['Contact'].setValue(entry);
         },
+        formatCategoryQuery: function(value) {
+            return {
+                'Area': value // dependent value
+            };
+        },
+        formatIssueQuery: function(value) {
+            return {
+                'Area': this.fields['Area'].getValue(), // todo: find a better way?
+                'Category': value // dependent value
+            };
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
@@ -126,23 +137,36 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 {
                     label: this.areaText,
                     name: 'Area',
-                    picklist: 'Ticket Area',
-                    title: 'Ticket Area',
-                    type: 'picklist'
+                    title: this.ticketAreaTitleText,
+                    type: 'lookup',
+                    requireSelection: true,
+                    valueKeyProperty: false,
+                    valueTextProperty: false,
+                    view: 'areacategoryissue_lookup'
                 },
                 {
                     label: this.categoryText,
                     name: 'Category',
-                    picklist: 'Ticket Category',
                     title: this.ticketCategoryTitleText,
-                    type: 'picklist'
+                    type: 'lookup',
+                    requireSelection: true,
+                    dependsOn: 'Area',
+                    valueKeyProperty: false,
+                    valueTextProperty: false,
+                    where: this.formatCategoryQuery.createDelegate(this),
+                    view: 'areacategoryissue_lookup'
                 },
                 {
                     label: this.issueText,
                     name: 'Issue',
-                    picklist: 'Ticket Issue',
                     title: this.ticketIssueTitleText,
-                    type: 'picklist'
+                    type: 'lookup',
+                    requireSelection: true,
+                    dependsOn: 'Category',
+                    valueKeyProperty: false,
+                    valueTextProperty: false,
+                    where: this.formatIssueQuery.createDelegate(this),
+                    view: 'areacategoryissue_lookup'
                 },
                 {
                     label: this.sourceText,
