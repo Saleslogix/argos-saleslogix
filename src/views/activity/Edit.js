@@ -285,6 +285,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 'tickets': this.applyTicketContext
             };
         },
+        formatDependentLookupQuery: function(dependentValue, format) {
+            return String.format(format, dependentValue.$key);
+        },
         createLayout: function() {
             var layout = Mobile.SalesLogix.Activity.Edit.superclass.createLayout.apply(this, arguments);
 
@@ -304,10 +307,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     textProperty: 'NameLF',
                     type: 'lookup',
                     view: 'contact_lookup',
-                    lookup: function(options, value) {
-                        if (value && value.$key)
-                            options.where = String.format("Account.Id eq '{0}'", value.$key);
-                    }
+                    where: this.formatDependentLookupQuery.createDelegate(
+                        this, ['Account.Id eq "{0}"'], true
+                    )
                 },
                 {
                     dependsOn: 'Account',
@@ -316,10 +318,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     textProperty: 'Description',
                     type: 'lookup',
                     view: 'opportunity_lookup',
-                    lookup: function(options, value) {
-                        if (value && value.$key)
-                            options.where = String.format("Account.Id eq '{0}'", value.$key);
-                    }
+                    where: this.formatDependentLookupQuery.createDelegate(
+                        this, ['Account.Id eq "{0}"'], true
+                    )
                 },
                 {
                     dependsOn: 'Account',
@@ -328,10 +329,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     textProperty: 'TicketNumber',
                     type: 'lookup',
                     view: 'ticket_lookup',
-                    lookup: function(options, value) {
-                        if (value && value.$key)
-                            options.where = String.format("Account.Id eq '{0}'", value.$key);
-                    }
+                    where: this.formatDependentLookupQuery.createDelegate(
+                        this, ['Account.Id eq "{0}"'], true
+                    )
                 }
             ]);
 
