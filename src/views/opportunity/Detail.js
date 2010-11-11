@@ -24,6 +24,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         relatedHistoriesText: 'History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
+        resellerText: 'reseller',
         statusText: 'status',
         titleText: 'Opportunity',
         typeText: 'type',
@@ -40,6 +41,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             'EstimatedClose',
             'LeadSource/Description',
             'Owner/OwnerDescription',
+            'Reseller/AccountName',
             'SalesPotential',
             'Stage',
             'Status',
@@ -85,6 +87,13 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                         if (!value) return '';
                         return Mobile.SalesLogix.Template.nameLF.apply(value);
                     }
+                },
+                {
+                    label: this.resellerText,
+                    key: 'Reseller.$key',
+                    name: 'Reseller.AccountName',
+                    property: true,
+                    view: 'account_detail'
                 },
                 {
                     label: this.estCloseText,

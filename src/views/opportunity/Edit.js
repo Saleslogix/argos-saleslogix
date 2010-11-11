@@ -23,6 +23,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         ownerText: 'owner',
         potentialText: 'sales potential',
         probabilityText: 'close prob',
+        resellerText: 'reseller',
         statusText: 'status',
         titleText: 'Opportunity',
         typeText: 'type',
@@ -39,6 +40,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             'EstimatedClose',
             'LeadSource/Description',
             'Owner/OwnerDescription',
+            'Reseller/AccountName',
             'SalesPotential',
             'Stage',
             'Status',
@@ -122,6 +124,13 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     textTemplate: Mobile.SalesLogix.Template.nameLF,
                     type: 'lookup',
                     view: 'user_list'
+                },
+                {
+                    label: this.resellerText,
+                    name: 'Reseller',
+                    textProperty: 'AccountName',
+                    type: 'lookup',
+                    view: 'account_lookup'
                 },
                 {
                     label: this.estCloseText,

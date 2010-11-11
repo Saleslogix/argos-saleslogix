@@ -330,6 +330,10 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Lead.Lookup({
             expose: false
         }));
+
+        this.registerView(new Mobile.SalesLogix.Contract.Lookup({
+            expose: false
+        }));
     },
     cleanRestoredHistory: function(restoredHistory) {
         var result = [],

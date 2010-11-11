@@ -8,6 +8,8 @@
 Ext.namespace("Mobile.SalesLogix.Ticket");
 
 (function() {
+    var U = Sage.Platform.Mobile.Utility;
+
     Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         //Localization
         accountText: 'acct name',
@@ -16,7 +18,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         assignedToText: 'assigned to',
         categoryText: 'category',
         contactText: 'contact',
-        contractText: ' ',
+        contractText: 'contract',
         descriptionText: 'desc',
         issueText: 'issue',
         needByText: 'needed date',
@@ -48,20 +50,37 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             'AssignedTo/OwnerDescription',
             'Category',
             'Contact/NameLF',
-            'Contract/*',
-            'Description',
+            'Contract/ReferenceNumber',
             'Issue',
             'NeededByDate',
             'Notes',
-            'Resolution',
             'ViaCode',
             'StatusCode',
             'Subject',
             'TicketNumber',
+            'TicketProblem/Notes',
+            'TicketSolution/Notes',
             'UrgencyCode'
         ],
         resourceKind: 'tickets',
 
+        init: function() {
+            Mobile.SalesLogix.Ticket.Edit.superclass.init.apply(this, arguments);
+
+            this.fields['Account'].on('change', this.onAccountChange, this);
+        },
+        onAccountChange: function(value, field) {
+            var selection = field.getSelection(),
+                contact = {}, userInfo;
+
+            if (selection && this.insert)
+            {
+                userInfo = U.getValue(selection, 'AccountManager.UserInfo');
+                contact.$key = userInfo.$key;
+                contact.NameLF = Mobile.SalesLogix.Format.nameLF(userInfo);
+                this.fields['Contact'].setValue(contact);
+            }
+        },
         formatAccountQuery: function() {
             var value = this.fields['Account'].getValue(),
                 key = value && value['$key'];
@@ -132,6 +151,14 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     type: 'lookup',
                     validator: Mobile.SalesLogix.Validator.exists,
                     view: 'contact_lookup',
+                    where: this.formatAccountQuery.createDelegate(this)
+                },
+                {
+                    label: this.contractText,
+                    name: 'Contract',
+                    textProperty: 'ReferenceNumber',
+                    type: 'lookup',
+                    view: 'contract_lookup',
                     where: this.formatAccountQuery.createDelegate(this)
                 },
                 {
@@ -220,18 +247,21 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 },
                 {
                     label: this.descriptionText,
-                    name: 'Description',
-                    type: 'text'
+                    name: 'TicketProblem.Notes',
+                    type: 'text',
+                    multiline: true
                 },
                 {
                     label: this.resolutionText,
-                    name: 'Resolution',
-                    type: 'text'
+                    name: 'TicketSolution.Notes',
+                    type: 'text',
+                    multiline: true
                 },
                 {
                     label: this.notesText,
                     name: 'Notes',
-                    type: 'text'
+                    type: 'text',
+                    multiline: true
                 }
             ]);
         }
