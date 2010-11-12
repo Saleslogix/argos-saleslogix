@@ -51,6 +51,10 @@
             path: '../src/views/'
         },
         {
+            text: 'AreaCategoryIssueLookup.js',
+            path: '../src/views/'
+        },
+        {
             text: 'PickList.js',
             path: '../src/views/'
         },
@@ -191,6 +195,10 @@
             path: '../src/views/lead/'
         },
         {
+            text: 'Lookup.js',
+            path: '../src/views/lead/'
+        },
+        {
             text: 'List.js',
             path: '../src/views/leadsource/'
         },
@@ -216,6 +224,10 @@
         },
         {
             text: 'List.js',
+            path: '../src/views/opportunity/'
+        },
+        {
+            text: 'Lookup.js',
             path: '../src/views/opportunity/'
         },
         {
@@ -256,6 +268,10 @@
         },
         {
             text: 'List.js',
+            path: '../src/views/ticket/'
+        },
+        {
+            text: 'Lookup.js',
             path: '../src/views/ticket/'
         },
         {
