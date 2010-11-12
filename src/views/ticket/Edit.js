@@ -129,13 +129,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             };
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    label: this.ticketIdText,
-                    name: 'TicketNumber',
-                    type: 'text',
-                    readonly: true
-                },
+            return this.layout || (this.layout = [                
                 {
                     label: this.accountText,
                     name: 'Account',

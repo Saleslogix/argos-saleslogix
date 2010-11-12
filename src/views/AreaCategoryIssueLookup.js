@@ -16,6 +16,7 @@ Mobile.SalesLogix.AreaCategoryIssueLookup = Ext.extend(Sage.Platform.Mobile.List
     titleText: 'Accounts',
 
     //View Properties
+    pageSize: 200,
     expose: false,
     hideSearch: true,
     id: 'areacategoryissue_lookup',
