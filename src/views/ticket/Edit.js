@@ -12,7 +12,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
     Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         //Localization
-        accountText: 'acct name',
+        accountText: 'acct',
         areaText: 'area',
         assignedDateText: 'assigned date',
         assignedToText: 'assigned to',
@@ -70,15 +70,25 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             this.fields['Account'].on('change', this.onAccountChange, this);
         },
         onAccountChange: function(value, field) {
-            var selection = field.getSelection(),
-                contact = {}, userInfo;
-
-            if (selection && this.insert)
+            var selection = field.getSelection();
+            if (selection && selection.$key)
             {
-                userInfo = U.getValue(selection, 'AccountManager.UserInfo');
-                contact.$key = userInfo.$key;
-                contact.NameLF = Mobile.SalesLogix.Format.nameLF(userInfo);
-                this.fields['Contact'].setValue(contact);
+                var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
+                    .setResourceKind('accounts')
+                    .setResourceSelector(String.format("'{0}'", selection.$key))
+                    .setResourceProperty('Contacts')
+                    .setQueryArg('count', 1)
+                    .setQueryArg('select', 'NameLF')
+                    .setQueryArg('where', 'IsPrimary eq true');
+
+                request.readFeed({
+                    success: function(feed) {
+                        if (feed && feed.$resources) this.fields['Contact'].setValue(feed.$resources[0]);
+                    },
+                    failure: function() {
+                    },
+                    scope: this
+                });
             }
         },
         formatAccountQuery: function() {
@@ -135,6 +145,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     name: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
+                    requireSelection: true,
                     validator: Mobile.SalesLogix.Validator.exists,
                     view: 'account_lookup'
                 },
@@ -143,6 +154,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     name: 'Contact',
                     textProperty: 'NameLF',
                     type: 'lookup',
+                    requireSelection: true,
                     validator: Mobile.SalesLogix.Validator.exists,
                     view: 'contact_lookup',
                     where: this.formatAccountQuery.createDelegate(this)
@@ -152,6 +164,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     name: 'Contract',
                     textProperty: 'ReferenceNumber',
                     type: 'lookup',
+                    requireSelection: true,
                     view: 'contract_lookup',
                     where: this.formatAccountQuery.createDelegate(this)
                 },
