@@ -139,6 +139,10 @@
             path: '../src/views/contract/'
         },
         {
+            text: 'Lookup.js',
+            path: '../src/views/contract/'
+        },
+        {
             text: 'Detail.js',
             path: '../src/views/defect/'
         },
