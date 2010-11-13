@@ -138,6 +138,9 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 'Category': value // dependent value
             };
         },
+        includeIfValueExists: function(value) {
+            return value;
+        },
         createLayout: function() {
             return this.layout || (this.layout = [                
                 {
@@ -253,10 +256,20 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     type: 'text'
                 },
                 {
+                    name: 'TicketProblem.$key',
+                    type: 'hidden',
+                    include: this.includeIfValueExists
+                },
+                {
                     label: this.descriptionText,
                     name: 'TicketProblem.Notes',
                     type: 'text',
                     multiline: true
+                },
+                {
+                    name: 'TicketSolution.$key',
+                    type: 'hidden',
+                    include: this.includeIfValueExists
                 },
                 {
                     label: this.resolutionText,
