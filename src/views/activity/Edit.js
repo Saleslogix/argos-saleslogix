@@ -76,7 +76,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'TicketId',
             'TicketNumber',
             'Timeless',
-            'Type'
+            'Type',
+            'UserId'
         ],        
         resourceKind: 'activities',
 
@@ -421,6 +422,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 entry.TicketNumber = entry.Ticket.$descriptor;
                 entry.TicketId = entry.Ticket.$key;
             }
+            if (entry.UserId)
+            {
+                entry.UserId = entry.UserId.$key;
+            }
 
             delete entry.Account;
             delete entry.Contact;
@@ -498,6 +503,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             {
                 entry.LeadName = entry.Lead.$descriptor;
                 entry.LeadId = entry.Lead.$key;
+            }
+            if (entry.UserId)
+            {
+                entry.UserId = entry.UserId.$key;
             }
             entry.AccountName = entry.Company;
 

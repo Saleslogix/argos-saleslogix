@@ -14,7 +14,7 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     assignedToText: 'assigned to',
     categoryText: 'category',
     contactText: 'contact',
-    contractText: ' ',
+    contractText: 'contract',
     descriptionText: 'desc',
     fbarHomeTitleText: 'home',
     fbarScheduleTitleText: 'schedule',
@@ -42,16 +42,16 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         'AssignedTo/OwnerDescription',
         'Category',
         'Contact/NameLF',
-        'Contract',
-        'Description',
+        'Contract/ReferenceNumber',
         'Issue',
         'NeededByDate',
         'Notes',
-        'Resolution',
         'ViaCode',
         'StatusCode',
         'Subject',
         'TicketNumber',
+        'TicketProblem/Notes',
+        'TicketSolution/Notes',
         'UrgencyCode'
     ],
     resourceKind: 'tickets',
@@ -83,6 +83,10 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {
                 label: this.contactText,
                 name: 'Contact.NameLF'
+            },
+            {
+                label: this.contractText,
+                name: 'Contract.ReferenceNumber'
             },
             {
                 label: this.areaText,
@@ -128,11 +132,11 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             },
             {
                 label: this.descriptionText,
-                name: 'Description'
+                name: 'TicketProblem.Notes'
             },
             {
                 label: this.resolutionText,
-                name: 'Resolution'
+                name: 'TicketSolution.Notes'
             },
             {
                 label: this.notesText,

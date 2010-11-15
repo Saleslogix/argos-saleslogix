@@ -14,7 +14,6 @@ Mobile.SalesLogix.AreaCategoryIssueLookup = Ext.extend(Sage.Platform.Mobile.List
 
     //Localization
     titleText: 'Accounts',
-    resourceKind: 'areaCategoryIssues',
 
     //View Properties
     pageSize: 200,
@@ -27,6 +26,8 @@ Mobile.SalesLogix.AreaCategoryIssueLookup = Ext.extend(Sage.Platform.Mobile.List
         'Category',
         'Issue'
     ],
+    resourceKind: 'areaCategoryIssues',
+
     show: function(options) {
         this.active = options.where; 
 

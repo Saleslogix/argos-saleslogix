@@ -38,6 +38,11 @@ Ext.namespace("Mobile.SalesLogix.History");
         ],
         resourceKind: 'history',
 
+        init: function() {
+            Mobile.SalesLogix.History.List.superclass.init.apply(this, arguments);
+
+            this.tools.tbar = [];
+        },
         formatSearchQuery: function(query) {
             return String.format('Description like "%{0}%"', query);
         }

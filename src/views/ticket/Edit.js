@@ -8,15 +8,17 @@
 Ext.namespace("Mobile.SalesLogix.Ticket");
 
 (function() {
+    var U = Sage.Platform.Mobile.Utility;
+
     Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         //Localization
-        accountText: 'acct name',
+        accountText: 'acct',
         areaText: 'area',
         assignedDateText: 'assigned date',
         assignedToText: 'assigned to',
         categoryText: 'category',
         contactText: 'contact',
-        contractText: ' ',
+        contractText: 'contract',
         descriptionText: 'desc',
         issueText: 'issue',
         needByText: 'needed date',
@@ -48,20 +50,47 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             'AssignedTo/OwnerDescription',
             'Category',
             'Contact/NameLF',
-            'Contract/*',
-            'Description',
+            'Contract/ReferenceNumber',
             'Issue',
             'NeededByDate',
             'Notes',
-            'Resolution',
             'ViaCode',
             'StatusCode',
             'Subject',
             'TicketNumber',
+            'TicketProblem/Notes',
+            'TicketSolution/Notes',
             'UrgencyCode'
         ],
         resourceKind: 'tickets',
 
+        init: function() {
+            Mobile.SalesLogix.Ticket.Edit.superclass.init.apply(this, arguments);
+
+            this.fields['Account'].on('change', this.onAccountChange, this);
+        },
+        onAccountChange: function(value, field) {
+            var selection = field.getSelection();
+            if (selection && selection.$key)
+            {
+                var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
+                    .setResourceKind('accounts')
+                    .setResourceSelector(String.format("'{0}'", selection.$key))
+                    .setResourceProperty('Contacts')
+                    .setQueryArg('count', 1)
+                    .setQueryArg('select', 'NameLF')
+                    .setQueryArg('where', 'IsPrimary eq true');
+
+                request.readFeed({
+                    success: function(feed) {
+                        if (feed && feed.$resources) this.fields['Contact'].setValue(feed.$resources[0]);
+                    },
+                    failure: function() {
+                    },
+                    scope: this
+                });
+            }
+        },
         formatAccountQuery: function() {
             var value = this.fields['Account'].getValue(),
                 key = value && value['$key'];
@@ -109,19 +138,17 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 'Category': value // dependent value
             };
         },
+        includeIfValueExists: function(value) {
+            return value;
+        },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    label: this.ticketIdText,
-                    name: 'TicketNumber',
-                    type: 'text',
-                    readonly: true
-                },
+            return this.layout || (this.layout = [                
                 {
                     label: this.accountText,
                     name: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
+                    requireSelection: true,
                     validator: Mobile.SalesLogix.Validator.exists,
                     view: 'account_lookup'
                 },
@@ -130,8 +157,18 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     name: 'Contact',
                     textProperty: 'NameLF',
                     type: 'lookup',
+                    requireSelection: true,
                     validator: Mobile.SalesLogix.Validator.exists,
                     view: 'contact_lookup',
+                    where: this.formatAccountQuery.createDelegate(this)
+                },
+                {
+                    label: this.contractText,
+                    name: 'Contract',
+                    textProperty: 'ReferenceNumber',
+                    type: 'lookup',
+                    requireSelection: true,
+                    view: 'contract_lookup',
                     where: this.formatAccountQuery.createDelegate(this)
                 },
                 {
@@ -219,19 +256,32 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     type: 'text'
                 },
                 {
+                    name: 'TicketProblem.$key',
+                    type: 'hidden',
+                    include: this.includeIfValueExists
+                },
+                {
                     label: this.descriptionText,
-                    name: 'Description',
-                    type: 'text'
+                    name: 'TicketProblem.Notes',
+                    type: 'text',
+                    multiline: true
+                },
+                {
+                    name: 'TicketSolution.$key',
+                    type: 'hidden',
+                    include: this.includeIfValueExists
                 },
                 {
                     label: this.resolutionText,
-                    name: 'Resolution',
-                    type: 'text'
+                    name: 'TicketSolution.Notes',
+                    type: 'text',
+                    multiline: true
                 },
                 {
                     label: this.notesText,
                     name: 'Notes',
-                    type: 'text'
+                    type: 'text',
+                    multiline: true
                 }
             ]);
         }
