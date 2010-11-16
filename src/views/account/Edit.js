@@ -124,9 +124,10 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 },
                 {
                     label: this.businessDescriptionText,
-                    multiline: true,
                     name: 'BusinessDescription',
-                    type: 'text'
+                    noteProperty: false,
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     label: this.acctMgrText,

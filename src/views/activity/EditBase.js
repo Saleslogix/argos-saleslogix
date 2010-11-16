@@ -27,10 +27,24 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
+        reminderValueText: {
+            0: 'none',
+            5: '5 minutes',
+            15: '15 minutes',
+            30: '30 minutes',
+            60: '1 hour',
+            1440: '1 day'
+        },
+        durationValueText: {
+            0: 'none',
+            15: '15 minutes',
+            30: '30 minutes',
+            60: '1 hour',
+            90: '1.5 hours',
+            120: '2 hours'
+        },
 
-        //View Properties
-        activityContext: false,
-        contextLookup: false,
+        //View Properties        
         picklistsByType: {
             'atAppointment': {
                 'Category': 'Meeting Category Codes',
@@ -51,7 +65,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 'Category': 'To Do Category Codes',
                 'Description': 'To Do Regarding'
             }
-        },
+        },       
 
         entityName: 'Activity', // todo: is this correct?
         querySelect: [
@@ -79,137 +93,52 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'UserId'
         ],
         resourceKind: 'activities',
-
-        render: function() {
-            Mobile.SalesLogix.Activity.EditBase.superclass.render.apply(this, arguments);
-            //TODO: Move this to CSS, with a special class.
-            this.fields['Alarm'].el.findParent('[data-field]', 3, true).setStyle('borderBottom', 'none');
-        },
-        formatTypeDependentPicklist: function(type, which) {
+       
+        formatPicklistForType: function(type, which) {
             return this.picklistsByType[type.$key] && this.picklistsByType[type.$key][which];
         },
-        show: function(options) {
-            var type, typesLookup;
-            //TODO:This must be a part of Select Field.
-            //Fix "Type" value from "text" to "object".
-            if (options.entry)
-            {
-                type = options.entry.Type,
-                typesLookup = Mobile.SalesLogix.Activity.ActivityTypesLookup;
+        applyContext: function() {
+            Mobile.SalesLogix.Activity.EditBase.superclass.applyContext.apply(this, arguments);
 
-                if (type && typesLookup[type])
-                {
-                    options.entry.Type = {
-                        "$key": type,
-                        "$descriptor": typesLookup[type]
-                    };
-                }
+            this.fields['Type'].setValue(this.options && this.options.activityType);
+        },        
+        createReminderData: function() {
+            var list = [];
+
+            for (var duration in this.reminderValueText)
+            {
+                list.push({
+                    '$key': duration,
+                    '$descriptor': this.reminderValueText[duration]
+                });
             }
 
-            if (options.context === 'ScheduleActivity')
-            {
-                this.activityContext = {
-                    'entry': options.entry || {},
-                    'type': options.key,
-                    'resourceKind': options.relatedResourceKind
-                };
-            }
-
-            Mobile.SalesLogix.Activity.EditBase.superclass.show.apply(this, arguments);
+            return {'$resources': list};
         },
-        applyScheduleActivityContext: function(resourceKindPattern) {
-            if (resourceKindPattern.constructor !== RegExp) return false;
+        createDurationData: function() {
+            var list = [];
 
-            var types = Mobile.SalesLogix.Activity.Types,
-                activityType, lookup = this.contextLookup,
-                entry = this.activityContext.entry,
-                resourceKind = this.activityContext.resourceKind;
-
-            if (!resourceKindPattern.test(resourceKind)) return;
-
-            if (lookup && lookup[resourceKind]) lookup[resourceKind].call(this, entry);
-
-            for (var i = 0, len = types.length; i < len; i++)
+            for (var duration in this.durationValueText)
             {
-                if (types[i].$key === this.activityContext.type)
-                {
-                    activityType = types[i];
-                    break;
-                }
+                list.push({
+                    '$key': duration,
+                    '$descriptor': this.durationValueText[duration]
+                });
             }
 
-            this.fields['Type'].setValue(activityType);
-            this.activityContext = false;
-        },
-        findMatchingContextEntry: function(resourceKindPattern) {
-            var hist = [], view;
-
-            if (this.activityContext)
-            {
-                this.applyScheduleActivityContext(resourceKindPattern);
-                return;
-            }
-
-            if (resourceKindPattern.constructor !== RegExp) return false;
-
-            var found = App.queryNavigationContext(function(o) {
-                hist.push(o);
-                return resourceKindPattern.test(o.resourceKind) && o.key;
-            });
-
-            //TODO: Context menu must also go into history, since its also a view.
-            //Could have gotten here from context menu, bypassing details screen.
-            //In this case, the second history item will be our resource kind
-            //for eg: activity_related -> accounts -> home -> login
-            if (!found && resourceKindPattern.test(hist[1].resourceKind))
-            {
-                return {
-                    'entry': hist[0].options && hist[0].options.entry,
-                    'resourceKind': hist[1].resourceKind
-                };
-            }
-            else
-            {
-                view = App.getView(found.id);
-                return {
-                    'entry': view && view.entry,
-                    'resourceKind': view.resourceKind
-                };
-            }
-
-            return false;
-        },
-        setDefaultReminder: function() {
-            var startDate = this.fields['StartDate'].getValue(),
-                alarmTime = startDate.match(/Date\((\d+)\)/),
-                duration = parseInt(this.fields['Duration'].getValue(), 10);
-
-            if (alarmTime)
-            {
-                alarmTime = parseInt(alarmTime[1], 10);
-                alarmTime -= (duration * 60 * 1000);
-                alarmTime = String.format("\/Date({0})\/", alarmTime);
-                this.fields['AlarmTime'].setValue(alarmTime, true);
-            }
+            return {'$resources': list};
         },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    data: Mobile.SalesLogix.Activity.Types,
-                    label: this.typeText,
                     name: 'Type',
-                    title: this.activityTypeTitleText,
-                    type: 'select',
-                    validator: Mobile.SalesLogix.Validator.exists,
-                    valueKeyProperty: '$key',
-                    valueTextProperty: '$descriptor',
-                    view: 'select_list'
+                    type: 'hidden'
                 },
                 {
                     dependsOn: 'Type',
                     label: this.regardingText,
                     name: 'Description',
-                    picklist: this.formatTypeDependentPicklist.createDelegate(
+                    picklist: this.formatPicklistForType.createDelegate(
                         this, ['Description'], true
                     ),
                     title: this.activityDescriptionTitleText,
@@ -226,7 +155,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     dependsOn: 'Type',
                     label: this.categoryText,
                     name: 'Category',
-                    picklist: this.formatTypeDependentPicklist.createDelegate(
+                    picklist: this.formatPicklistForType.createDelegate(
                         this, ['Category'], true
                     ),
                     title: this.activityCategoryTitleText,
@@ -246,8 +175,12 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {
                     label: this.durationText,
                     name: 'Duration',
-                    type: 'text',
-                    validator: Mobile.SalesLogix.Validator.isInteger
+                    type: 'select',
+                    view: 'select_list',
+                    requireSelection: true,
+                    valueKeyProperty: false,
+                    valueTextProperty: false,
+                    data: this.createDurationData()
                 },
                 {
                     label: this.alarmText,
@@ -257,8 +190,13 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {
                     label: this.alarmTimeText,
                     name: 'AlarmTime',
-                    showTime: true,
-                    type: 'date'
+                    type: 'select',
+                    view: 'select_list',
+                    include: false,
+                    requireSelection: true,
+                    valueKeyProperty: false,
+                    valueTextProperty: false,
+                    data: this.createReminderData()
                 },
                 {
                     label: this.rolloverText,

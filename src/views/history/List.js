@@ -22,7 +22,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         ]),
 
         //Localization
-        titleText: 'Histories',
+        titleText: 'History',
 
         //View Properties
         detailView: 'history_detail',

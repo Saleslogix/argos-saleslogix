@@ -17,16 +17,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         //View Properties
         id: 'activity_edit',
-
-        init: function() {
-            Mobile.SalesLogix.Activity.Edit.superclass.init.apply(this, arguments);
-            this.contextLookup = {
-                'accounts': this.applyAccountContext,
-                'contacts': this.applyContactContext,
-                'opportunities': this.applyOpportunityContext,
-                'tickets': this.applyTicketContext
-            };
-        },
+       
         formatDependentLookupQuery: function(dependentValue, format) {
             return String.format(format, dependentValue.$key);
         },
@@ -80,17 +71,34 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.layout;
         },
         applyContext: function() {
-            var matcher = /^(accounts|contacts|opportunities|tickets)$/,
-                match = this.findMatchingContextEntry(matcher),
-                lookup = this.contextLookup;
+            Mobile.SalesLogix.Activity.Edit.superclass.applyContext.apply(this, arguments);
 
-            if (lookup && match && lookup[match.resourceKind])
-                lookup[match.resourceKind].call(this, match.entry);
+            var found = App.queryNavigationContext(function(o) {
+                var context = (o.options && o.options.source) || o;
+
+                return /^(accounts|contacts|opportunities|tickets)$/.test(context.resourceKind) && context.key;
+            });
+
+            var context = (found && found.options && found.options.source) || found,
+                lookup = {
+                'accounts': this.applyAccountContext,
+                'contacts': this.applyContactContext,
+                'opportunities': this.applyOpportunityContext,
+                'tickets': this.applyTicketContext
+            };           
+
+            if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);
         },
-        applyAccountContext: function(entry) {
+        applyAccountContext: function(context) {
+            var view = App.getView(context.id),
+                entry = context.entry || (view && view.entry);
+            
             this.fields['Account'].setValue(entry);
         },
-        applyContactContext: function(entry) {
+        applyContactContext: function(context) {
+            var view = App.getView(context.id),
+                entry = context.entry || (view && view.entry);
+            
             this.fields['Contact'].setValue(entry);
 
             this.fields['Account'].setValue({
@@ -98,12 +106,18 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 'AccountName': entry.AccountName
             });
         },
-        applyTicketContext: function(entry) {
+        applyTicketContext: function(context) {
+            var view = App.getView(context.id),
+                entry = context.entry || (view && view.entry);
+
             this.fields['Contact'].setValue(entry.Contact);
             this.fields['Account'].setValue(entry.Account);
             this.fields['Ticket'].setValue(entry);
         },
-        applyOpportunityContext: function(entry) {
+        applyOpportunityContext: function(context) {
+            var view = App.getView(context.id),
+                entry = context.entry || (view && view.entry);
+
             this.fields['Opportunity'].setValue(entry);
             this.fields['Account'].setValue(entry.Account);
         },
@@ -141,8 +155,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         },
         getValues: function() {
             var entry = Sage.Platform.Mobile.Edit.prototype.getValues.apply(this, arguments);
-
-            entry.Type = entry.Type.$key;
+            
             if (entry.Account)
             {
                 entry.AccountName = entry.Account.$descriptor;

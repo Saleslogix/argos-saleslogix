@@ -311,13 +311,20 @@ li.is-linked
 }
 
 /* note view */
-#note_related div.note-text-row
+.note-text
+{
+    height: 4.5em;
+    overflow:hidden;
+    padding-left: 90px;
+}
+
+.note-text-row
 {
     max-height:3em;
     overflow:hidden;
 }
 
-#note_related div.note-text-wrap
+.note-text-wrap
 {
     font-size:0.8em;
     font-weight:normal;
@@ -325,7 +332,7 @@ li.is-linked
     margin-top:0;
 }
 
-#note_related div.note-text-more
+.note-text-more
 {
    -moz-border-radius-bottomright: 0;
    -webkit-border-radius-bottomright: 0;
@@ -423,8 +430,17 @@ li.is-linked
     background-position: center center;
 }
 
-#note_detail .row label {
+#note_edit .row label,
+#note_detail .row label
+{
     display: none
+}
+
+#text_edit textarea[name="Notes"],
+#note_edit .row textarea[name="Notes"]
+{
+    height: 500px;
+    padding-left: 10px !important;  
 }
 
 #note_detail .row span {

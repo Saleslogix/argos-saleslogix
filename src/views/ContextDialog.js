@@ -59,11 +59,12 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
             var instance = App.getView(view);
             if (instance)
                 instance.show(Ext.apply(context, {
+                    returnTo: this.options && this.options.returnTo,
                     source: {
-                        returnTo: this.options && this.options.returnTo,
+                        id: this.options && this.options.returnTo,
+                        entry: this.options && this.options.entry,
                         resourceKind: this.options && this.options.resourceKind,
                         descriptor: this.options && this.options.descriptor,
-                        entry: this.options && this.options.entry,
                         key: this.options && this.options.key
                     }
                 }));

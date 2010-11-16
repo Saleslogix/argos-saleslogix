@@ -62,7 +62,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
                 view.show({
                     insert: true,
                     source: source,
-                    entry: source && source.entry,
+                    activityType: params.key,
                     relatedResourceKind: source && source.resourceKind,
                     context: 'ScheduleActivity',
                     key: params.key
