@@ -14,7 +14,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         activityDescriptionTitleText: 'Activity Description',
         activityTypeTitleText: 'Activity Type',
         alarmText: 'reminder',
-        alarmTimeText: 'reminder',
+        alarmTimeText: ' ',
         categoryText: 'category',
         durationText: 'duration',
         leadIdText: 'leader',
@@ -81,6 +81,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         ],        
         resourceKind: 'activities',
 
+        render: function() {
+            Mobile.SalesLogix.Activity.AbstractEdit.superclass.render.apply(this, arguments);
+            //TODO: Move this to CSS, with a special class.
+            this.fields['Alarm'].el.findParent('[data-field]', 3, true).setStyle('borderBottom', 'none');
+        },
         formatTypeDependentPicklist: function(type, which) {
             return this.picklistsByType[type.$key] && this.picklistsByType[type.$key][which];
         },
@@ -174,6 +179,19 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }
 
             return false;
+        },
+        setDefaultReminder: function() {
+            var startDate = this.fields['StartDate'].getValue(),
+                alarmTime = startDate.match(/Date\((\d+)\)/),
+                duration = parseInt(this.fields['Duration'].getValue(), 10);
+
+            if (alarmTime)
+            {
+                alarmTime = parseInt(alarmTime[1], 10);
+                alarmTime -= (duration * 60 * 1000);
+                alarmTime = String.format("\/Date({0})\/", alarmTime);
+                this.fields['AlarmTime'].setValue(alarmTime, true);
+            }
         },
         createLayout: function() {
             return this.layout || (this.layout = [
@@ -339,6 +357,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.layout;
         },
         applyContext: function() {
+            this.setDefaultReminder();
+
             var matcher = /^(accounts|contacts|opportunities|tickets)$/,
                 match = this.findMatchingContextEntry(matcher),
                 lookup = this.contextLookup;
@@ -474,6 +494,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return this.layout;
         },
         applyContext: function() {
+            this.setDefaultReminder();
+
             var matcher = /^(leads)$/,
                 match = this.findMatchingContextEntry(matcher),
                 lookup = this.contextLookup;
