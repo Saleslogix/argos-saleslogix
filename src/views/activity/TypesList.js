@@ -47,7 +47,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     id: 'activity_types_list',
     editView: 'activity_edit',
     editViewForResource: {
-        'leads': 'lead_related_activity_edit'
+        'leads': 'activity_edit_for_lead'
     },
 
     activateEntry: function(params) {
@@ -71,11 +71,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     },
     refreshRequiredFor: function(options) {
         if (this.options)
-        {
-            if (options) return true;
-
-            return false;
-        }
+            return options;        
         else
             return true;
     },

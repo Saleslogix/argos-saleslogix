@@ -99,7 +99,15 @@
             path: '../src/views/activity/'
         },
         {
+            text: 'EditBase.js',
+            path: '../src/views/address/'
+        },
+        {
             text: 'Edit.js',
+            path: '../src/views/address/'
+        },
+        {
+            text: 'EditForLead.js',
             path: '../src/views/address/'
         },
         {
