@@ -16,15 +16,13 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
         '</div>'
     ]),
     itemTemplate: new Simplate([
-        '<li data-action="activateButton" data-view="{%= $.view %}" ',
-            'data-viewoptions=\'{%= Ext.util.JSON.encode($.viewOptions) %}\' ',
-            'data-descriptor="{%: $.$descriptor %}" data-where="{%= $.where %}">',
-        '<a href="#" class="button activities blueButton">{%: $.title %}</a>',
+        '<li data-action="activateItem" data-view="{%= $.view %}" data-context="{%: $.context %}" data-descriptor="{%: $.descriptor %}" href="#">',
+        '<a href="#" class="button activities blueButton">{%= $.label || $.value %}</a>',
         '</li>'
     ]),
     cancelButtonTemplate: new Simplate([
-        '<li data-action="dismissDialog">',
-        '<a href="#" type="cancel" class="button dismissButton redButton">{%: $.cancelText %}</a>',
+        '<li>',
+        '<a href="#" type="cancel" class="button redButton">{%: $.cancelText %}</a>',
         '</li>'
     ]),
 
@@ -39,7 +37,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     attachmentPoints: {
         contentEl: '.list-content'
     },
-    contextItems: [],
+    contextMenu: [],
     detailView: false,
     expose: false,
     id: 'context_dialog',
@@ -47,61 +45,125 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     relatedKey: false,
     relatedEntry: false,
 
-    activateButton: function(params) {
-        var view = this.parentViewId && App.getView(this.parentViewId),
-            o = {
-                'key': this.relatedKey,
-                'entry': this.relatedEntry,
-                'relatedResourceKind': view && view.resourceKind
-            },
-            navigateToRelatedView = Sage.Platform.Mobile.Detail.prototype.navigateToRelatedView;
-
-        if (params.where) o.where = String.format(params.where, this.relatedKey);
-
-        if (params.viewoptions) Ext.apply(o, Ext.util.JSON.decode(params.viewoptions));
-
-        navigateToRelatedView.call(this, params.view, o, params.descriptor);
-    },
-    processTemplate: function() {
-        var menu = [],
-            item;
-
-        for (var i = 0; i < this.contextItems.length; i++)
+    activateItem: function(params) {
+        if (params.context)
         {
-            item = this.contextItems[i];
+            if (params.view) this.navigateToView(params.view, Ext.decode(params.context), params.descriptor);
+        }
+    },  
+    navigateToView: function(view, context, descriptor) {
+        if (context)
+        {
+            if (descriptor) context['descriptor'] = descriptor;
 
-            item.title = item.descriptor = this[(item['$key']+'Text')] || item['$key'];
+            var instance = App.getView(view);
+            if (instance)
+                instance.show(Ext.apply(context, {
+                    source: {
+                        returnTo: this.options && this.options.returnTo,
+                        resourceKind: this.options && this.options.resourceKind,
+                        descriptor: this.options && this.options.descriptor,
+                        entry: this.options && this.options.entry,
+                        key: this.options && this.options.key
+                    }
+                }));
+        }
+    },   
+    expandExpression: function(expression) {
+        /// <summary>
+        ///     Expands the passed expression if it is a function.
+        /// </summary>
+        /// <param name="expression" type="String">
+        ///     1: function - Called on this object and must return a string.
+        ///     2: string - Returned directly.
+        /// </param>
+        if (typeof expression === 'function')
+            return expression.apply(this, Array.prototype.slice.call(arguments, 1));
+        else
+            return expression;
+    },
+    processItems: function(items, layoutOptions, entry)
+    {        
+        var content = [];
 
-            menu.push(this.itemTemplate.apply(item, this));
+        for (var i = 0; i < items.length; i++)
+        {
+            var current = items[i];
+
+            var provider = current['provider'] || Sage.Platform.Mobile.Utility.getValue;
+            var value = provider(entry, current['name']);
+
+            if (current['tpl'])
+            {
+                var rendered = current['tpl'].apply(value);
+                var formatted = current['encode'] === true
+                    ? Sage.Platform.Mobile.Format.encode(rendered)
+                    : rendered;
+            }
+            else if (current['renderer'] && typeof current['renderer'] === 'function')
+            {
+                var rendered = current['renderer'].call(this, value);
+                var formatted = current['encode'] === true
+                    ? Sage.Platform.Mobile.Format.encode(rendered)
+                    : rendered;
+            }
+            else
+            {
+                var formatted = current['encode'] !== false
+                    ? Sage.Platform.Mobile.Format.encode(value)
+                    : value;
+            }
+
+            var options = {
+                cls: current['cls'],
+                icon: current['icon'],
+                name: current['name'],
+                label: current['label'],
+                entry: entry,
+                value: formatted,
+                raw: value
+            };
+
+            if (current['descriptor'])
+                options['descriptor'] = typeof current['descriptor'] === 'function'
+                    ? this.expandExpression(current['descriptor'], entry)
+                    : provider(entry, current['descriptor']);
+
+            if (current['view'])
+            {
+                var context = {};
+                if (current['key'])
+                    context['key'] = typeof current['key'] === 'function'
+                    ? this.expandExpression(current['key'], entry)
+                    : provider(entry, current['key']);
+                if (current['where'])
+                    context['where'] = this.expandExpression(current['where'], entry);
+                if (current['resourceKind'])
+                    context['resourceKind'] = this.expandExpression(current['resourceKind'], entry);
+                if (current['resourceProperty'])
+                    context['resourceProperty'] = this.expandExpression(current['resourceProperty'], entry);
+                if (current['resourcePredicate'])
+                    context['resourcePredicate'] = this.expandExpression(current['resourcePredicate'], entry);
+
+                options['view'] = current['view'];
+                options['context'] = Ext.util.JSON.encode(context);
+            }
+
+            var template = current['wrap']
+                ? current['wrap']
+                : this.itemTemplate;
+
+            content.push(template.apply(options));
         }
 
-        menu.push(this.cancelButtonTemplate.apply(this));
-        this.contentEl.update(menu.join(''));
-    },
-    refreshRequiredFor: function(options) {
-        return this.parentViewId !== options.parentViewId;
-    },
-    show: function(options) {
-        Mobile.SalesLogix.ContextDialog.superclass.show.apply(this, arguments);
+        content.push(this.cancelButtonTemplate.apply(this));
 
-        this.contextItems = options.contextItems;
+        this.contentEl.update(content.join(''));
+    },    
+    refresh: function() {
+        var items = (this.options && this.options.items) || [],
+            entry = (this.options && this.options.entry);
 
-        if (this.refreshRequiredFor(options))
-        {
-            this.processTemplate();
-        }
-
-        this.detailView = App.getView(options.detailView);
-        this.relatedKey = options.key;
-        this.relatedEntry = options.entry;
-        this.parentViewId = options.parentViewId;
-    },
-    dismissDialog: function() {
-        this.detailView = false;
-        this.relatedKey = false;
-        this.relatedEntry = false;
-        this.parentViewId = '';
-        this.contextItems = [];
-        this.el.dom.removeAttribute('selected');
+        this.processItems(items, {}, entry);
     }
 });

@@ -8,68 +8,97 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
 Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     //Templates
-    itemTemplate: new Simplate([
-        '<li data-action="activateEntry" data-key="{%= $.$key %}" ',
-            'data-descriptor="{%: $.$descriptor %}">',
-        '<div data-action="selectEntry" class="list-item-selector"></div>',
-        '<h3>{%: $.$descriptor %}</h3>',
-        '</li>'
+    contentTemplate: new Simplate([
+        '<h3>',
+        '{% if ($.icon) { %}',
+        '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+        '{% } %}',
+        '<span>{%: $.$descriptor %}</span>',
+        '</h3>'
     ]),
-
+    
     //Localization
-    titleText: 'Actions',
+    titleText: 'Schedule...',
+    activityTypeText: {
+        'atToDo': 'To-Do',
+        'atPhoneCall': 'Phone Call',
+        'atAppointment': 'Meeting',
+        'atLiterature': 'Literature Request',
+        'atPersonal': 'Personal Activity'
+    },
+    activityTypeIcons: {
+        'atToDo': 'content/images/icons/Schedule_To_Do_24x24.gif',
+        'atPhoneCall': 'content/images/icons/Schedule_Call_24x24.gif',
+        'atAppointment': 'content/images/icons/Schedule_Meeting_24x24.gif',
+        'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
+        'atPersonal': 'content/images/icons/Schedule_Personal_Activity_24x24.gif'
+    },
 
-    //View Properties
-    contextItems: false,
-    detailView: '',
+    //View Properties   
+    activityTypeOrder: [
+        'atAppointment',
+        'atLiterature',
+        'atPersonal',
+        'atPhoneCall',
+        'atToDo'
+    ],
     expose: false,
     hideSearch: true,
     id: 'activity_types_list',
-    relatedEntry: false,
-    relatedKey: false,
-    relatedDescriptor: false,
-    relatedResourceKind: false,
+    editView: 'activity_edit',
+    editViewForResource: {
+        'leads': 'lead_related_activity_edit'
+    },
 
     activateEntry: function(params) {
-        var prevView = App.queryNavigationContext(function(o) {
-                return true;
-            }),
-            view;
+        if (params.key)
+        {
+            var source = this.options && this.options.source,
+                view = source && this.editViewForResource[source.resourceKind]
+                    ? App.getView(this.editViewForResource[source.resourceKind])
+                    : App.getView(this.editView);
 
-        if (prevView && prevView.resourceKind === 'leads')
-            view = 'lead_related_activity_edit';
+            if (view)
+                view.show({
+                    insert: true,
+                    source: source,
+                    entry: source && source.entry,
+                    relatedResourceKind: source && source.resourceKind,
+                    context: 'ScheduleActivity',
+                    key: params.key
+                });
+        }
+    },
+    refreshRequiredFor: function(options) {
+        if (this.options)
+        {
+            if (options) return true;
+
+            return false;
+        }
         else
-            view = 'activity_edit';
-
-        view = App.getView(view);
-
-        if (view) view.show({
-            insert: true,
-            entry: this.relatedEntry,
-            relatedResourceKind: this.relatedResourceKind,
-            context: 'ScheduleActivity',
-            key: params.key
-        });
+            return true;
     },
     hasMoreData: function() {
         return false;
     },
     requestData: function() {
-        this.processFeed({'$resources': Mobile.SalesLogix.Activity.Types});
+        var list = [];
+
+        for (var i = 0; i < this.activityTypeOrder.length; i++)
+        {
+            list.push({
+                '$key': this.activityTypeOrder[i],
+                '$descriptor': this.activityTypeText[this.activityTypeOrder[i]],
+                'icon':this.activityTypeIcons[this.activityTypeOrder[i]]
+            });
+        }
+
+        this.processFeed({'$resources': list});
     },
     init: function() {
         Mobile.SalesLogix.Activity.TypesList.superclass.init.apply(this, arguments);
         
         this.tools.tbar = [];
-    },
-    show: function(options) {
-        Mobile.SalesLogix.Activity.TypesList.superclass.show.call(this, options);
-
-        this.contextItems = options.contextItems || [];
-        this.detailView = options.detailView || false;
-        this.relatedKey = options.key || false;
-        this.relatedDescriptor = options.descriptor || false;
-        this.relatedEntry = options.entry || false;
-        this.relatedResourceKind = options.relatedResourceKind || false;
     }
 });

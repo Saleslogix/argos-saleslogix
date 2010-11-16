@@ -18,7 +18,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         titleText: 'Tickets',
 
         //View Properties
-        contextItems: [
+        contextMenu: [
             {
                 '$key': 'activities',
                 view: 'activity_related',

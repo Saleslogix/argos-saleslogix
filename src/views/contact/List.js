@@ -18,7 +18,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         titleText: 'Contacts',
 
         //View Properties
-        contextItems: [
+        contextMenu: [
             {
                 '$key': 'activities',
                 view: 'activity_related',
