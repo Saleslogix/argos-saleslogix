@@ -172,6 +172,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.AreaCategoryIssueLookup());
         
         this.registerView(new Mobile.SalesLogix.NameEdit());
+        this.registerView(new Mobile.SalesLogix.NoteEdit());
         this.registerView(new Mobile.SalesLogix.Address.Edit());
 
         this.registerView(new Mobile.SalesLogix.Account.List());

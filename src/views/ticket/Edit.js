@@ -262,9 +262,9 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 },
                 {
                     label: this.descriptionText,
-                    name: 'TicketProblem.Notes',
-                    type: 'text',
-                    multiline: true
+                    name: 'TicketProblem',
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     name: 'TicketSolution.$key',
@@ -273,15 +273,16 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 },
                 {
                     label: this.resolutionText,
-                    name: 'TicketSolution.Notes',
-                    type: 'text',
-                    multiline: true
+                    name: 'TicketSolution',
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     label: this.notesText,
                     name: 'Notes',
-                    type: 'text',
-                    multiline: true
+                    noteProperty: false,
+                    type: 'note',
+                    view: 'text_edit'
                 }
             ]);
         }

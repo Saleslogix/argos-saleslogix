@@ -276,9 +276,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },
                 {
                     label: this.longNotesText,
-                    multiline: true,
                     name: 'LongNotes',
-                    type: 'text'
+                    noteProperty: false,
+                    type: 'note',
+                    view: 'text_edit'
                 }
             ]);
         }
