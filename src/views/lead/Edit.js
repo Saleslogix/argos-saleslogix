@@ -97,6 +97,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     type: 'picklist'
                 },
                 {
+                    emptyText: '',
                     formatter: Mobile.SalesLogix.Format.address,
                     label: this.addressText,
                     name: 'Address',
@@ -136,12 +137,16 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {
                     label: this.businessText,
                     name: 'BusinessDescription',
-                    type: 'text'
+                    noteProperty: false,
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     label: this.notesText,
                     name: 'Notes',
-                    type: 'text'
+                    noteProperty: false,
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     label: this.leadOwnerText,
