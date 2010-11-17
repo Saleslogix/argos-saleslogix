@@ -18,7 +18,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         durationText: 'duration',
         fbarHomeTitleText: 'home',
         fbarScheduleTitleText: 'schedule',
-        leadIdText: 'leader',
+        leaderText: 'leader',
         leadText: 'lead',
         longNotesText: 'notes',
         opportunityText: 'opportunity',
@@ -126,7 +126,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },
                 {
                     name: 'LeadId',
-                    label: this.leadIdText
+                    label: this.leaderText
                 },
                 {
                     name: 'ContactName',

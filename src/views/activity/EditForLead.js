@@ -17,17 +17,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         //View Properties
         id: 'activity_edit_for_lead',
-
-        init: function() {
-            Mobile.SalesLogix.Activity.EditForLead.superclass.init.apply(this, arguments);
-            this.contextLookup = {
-                'leads': this.applyLeadContext
-            };
-        },
+       
         createLayout: function() {
             var layout = Mobile.SalesLogix.Activity.EditForLead.superclass.createLayout.apply(this, arguments);
 
-            this.layout = this.layout.concat([
+            this.layout = layout.concat([
                 {
                     label: this.companyText,
                     name: 'Company',
@@ -36,58 +30,58 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {
                     label: this.leadText,
                     name: 'Lead',
-                    textProperty: 'LeadNameLastFirst',
                     type: 'lookup',
-                    validator: Mobile.SalesLogix.Validator.exists,
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'LeadId',
+                    valueTextProperty: 'LeadName',
                     view: 'leads_lookup'
                 }
             ]);
 
             return this.layout;
         },
+        init: function() {
+            Mobile.SalesLogix.Activity.EditForLead.superclass.init.apply(this, arguments);
+
+            this.fields['Lead'].on('change', this.onLeadChange, this);
+        },
         applyContext: function() {
-            this.setDefaultReminder();
+            Mobile.SalesLogix.Activity.Edit.superclass.applyContext.apply(this, arguments);
 
-            var matcher = /^(leads)$/,
-                match = this.findMatchingContextEntry(matcher),
-                lookup = this.contextLookup;
+            var found = App.queryNavigationContext(function(o) {
+                var context = (o.options && o.options.source) || o;
 
-            if (lookup && match && lookup[match.resourceKind])
-                lookup[match.resourceKind].call(this, match.entry);
-        },
-        applyLeadContext: function(entry) {
-            this.fields['Company'].setValue(entry.Company);
-            this.fields['Lead'].setValue(entry);
-        },
-        setValues: function(entry) {
-            Sage.Platform.Mobile.Edit.prototype.setValues.apply(this, arguments);
-
-            this.fields['Lead'].setValue({
-                '$key': entry.LeadId,
-                'LeadNameLastFirst': entry.LeadName
+                return /^(leads)$/.test(context.resourceKind) && context.key;
             });
 
-            this.fields['Company'].setValue(entry.AccountName);
+            var context = (found && found.options && found.options.source) || found,
+                lookup = {
+                    'leads': this.applyLeadContext
+                };
+
+            if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);
+        },       
+        applyLeadContext: function(context) {
+            var view = App.getView(context.id),
+                entry = context.entry || (view && view.entry),
+                getV = Sage.Platform.Mobile.Utility.getValue;
+            
+            this.fields['Lead'].setValue({
+                'LeadId': entry['$key'],
+                'LeadName': entry['$descriptor']
+            });
+
+            this.fields['Company'].setValue(entry['Company']);            
         },
-        getValues: function() {
-            var entry = Sage.Platform.Mobile.Edit.prototype.getValues.apply(this, arguments);
+        onLeadChange: function(value, field) {
+            var selection = field.getSelection(),
+                getV = Sage.Platform.Mobile.Utility.getValue;
 
-            entry.Type = entry.Type.$key;
-            if (entry.Lead)
+            if (selection && this.insert)
             {
-                entry.LeadName = entry.Lead.$descriptor;
-                entry.LeadId = entry.Lead.$key;
+                this.fields['Company'].setValue(getV(selection, 'Company'));
             }
-            if (entry.UserId)
-            {
-                entry.UserId = entry.UserId.$key;
-            }
-            entry.AccountName = entry.Company;
-
-            delete entry.Lead;
-            delete entry.Company;
-
-            return entry;
         }
     });        
 })();

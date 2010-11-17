@@ -18,18 +18,25 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         //View Properties
         id: 'activity_edit',
        
-        formatDependentLookupQuery: function(dependentValue, format) {
-            return String.format(format, dependentValue.$key);
+        formatDependentQuery: function(dependentValue, format, property) {
+            var getV = Sage.Platform.Mobile.Utility.getValue;
+
+            property = property || '$key';
+            
+            return String.format(format, getV(dependentValue, property));
         },
         createLayout: function() {
             var layout = Mobile.SalesLogix.Activity.Edit.superclass.createLayout.apply(this, arguments);
 
-            this.layout = this.layout.concat([
+            this.layout = layout.concat([
                 {
                     label: this.accountText,
                     name: 'Account',
-                    textProperty: 'AccountName',
                     type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'AccountId',
+                    valueTextProperty: 'AccountName',
                     validator: Mobile.SalesLogix.Validator.exists,
                     view: 'account_lookup'
                 },
@@ -37,33 +44,42 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     dependsOn: 'Account',
                     label: this.contactText,
                     name: 'Contact',
-                    textProperty: 'NameLF',
                     type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'ContactId',
+                    valueTextProperty: 'ContactName',
                     view: 'contact_lookup',
-                    where: this.formatDependentLookupQuery.createDelegate(
-                        this, ['Account.Id eq "{0}"'], true
+                    where: this.formatDependentQuery.createDelegate(
+                        this, ['Account.Id eq "{0}"', 'AccountId'], true
                     )
                 },
                 {
                     dependsOn: 'Account',
                     label: this.opportunityText,
                     name: 'Opportunity',
-                    textProperty: 'Description',
                     type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'OpportunityId',
+                    valueTextProperty: 'OpportunityName',
                     view: 'opportunity_lookup',
-                    where: this.formatDependentLookupQuery.createDelegate(
-                        this, ['Account.Id eq "{0}"'], true
+                    where: this.formatDependentQuery.createDelegate(
+                        this, ['Account.Id eq "{0}"', 'AccountId'], true
                     )
                 },
                 {
                     dependsOn: 'Account',
                     label: this.ticketNumberText,
                     name: 'Ticket',
-                    textProperty: 'TicketNumber',
                     type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'TicketId',
+                    valueTextProperty: 'TicketNumber',
                     view: 'ticket_lookup',
-                    where: this.formatDependentLookupQuery.createDelegate(
-                        this, ['Account.Id eq "{0}"'], true
+                    where: this.formatDependentQuery.createDelegate(
+                        this, ['Account.Id eq "{0}"', 'AccountId'], true
                     )
                 }
             ]);
@@ -81,11 +97,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             var context = (found && found.options && found.options.source) || found,
                 lookup = {
-                'accounts': this.applyAccountContext,
-                'contacts': this.applyContactContext,
-                'opportunities': this.applyOpportunityContext,
-                'tickets': this.applyTicketContext
-            };           
+                    'accounts': this.applyAccountContext,
+                    'contacts': this.applyContactContext,
+                    'opportunities': this.applyOpportunityContext,
+                    'tickets': this.applyTicketContext
+                };
 
             if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);
         },
@@ -93,100 +109,60 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry);
             
-            this.fields['Account'].setValue(entry);
+            this.fields['Account'].setValue({
+                'AccountId': entry['$key'],
+                'AccountName': entry['$descriptor']
+            });
         },
         applyContactContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+                entry = context.entry || (view && view.entry),
+                getV = Sage.Platform.Mobile.Utility.getValue;
             
-            this.fields['Contact'].setValue(entry);
+            this.fields['Contact'].setValue({
+                'ContactId': entry['$key'],
+                'ContactName': entry['$descriptor']
+            });
 
             this.fields['Account'].setValue({
-                '$key': entry.Account.$key,
-                'AccountName': entry.AccountName
+                'AccountId': getV(entry, 'Account.$key'),
+                'AccountName': getV(entry, 'Account.AccountName')
             });
         },
         applyTicketContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+                entry = context.entry || (view && view.entry),
+                getV = Sage.Platform.Mobile.Utility.getValue;
 
-            this.fields['Contact'].setValue(entry.Contact);
-            this.fields['Account'].setValue(entry.Account);
-            this.fields['Ticket'].setValue(entry);
-        },
-        applyOpportunityContext: function(context) {
-            var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
-
-            this.fields['Opportunity'].setValue(entry);
-            this.fields['Account'].setValue(entry.Account);
-        },
-        setValues: function(entry) {
-            Sage.Platform.Mobile.Edit.prototype.setValues.apply(this, arguments);
-
-            this.fields['Account'].setValue({
-                '$key': entry.AccountId,
-                'AccountName': entry.AccountName
+            this.fields['Ticket'].setValue({
+                'TicketId': entry['$key'],
+                'TicketNumber': entry['$descriptor']
             });
 
             this.fields['Contact'].setValue({
-                '$key': entry.ContactId,
-                'NameLF': entry.ContactName
+                'ContactId': getV(entry, 'Contact.$key'),
+                'ContactName': getV(entry, 'Contact.NameLF')
             });
 
-            this.fields['Ticket'].setValue({
-                '$key': entry.TicketId,
-                'TicketNumber': entry.TicketNumber
+            this.fields['Account'].setValue({
+                'AccountId': getV(entry, 'Account.$key'),
+                'AccountName': getV(entry, 'Account.AccountName')
             });
+        },
+        applyOpportunityContext: function(context) {
+            var view = App.getView(context.id),
+                entry = context.entry || (view && view.entry),
+                getV = Sage.Platform.Mobile.Utility.getValue;
 
             this.fields['Opportunity'].setValue({
-                '$key': entry.OpportunityId,
-                'Description': entry.OpportunityName
+                'OpportunityId': entry['$key'],
+                'OpportunityName': entry['$descriptor']
             });
 
-            if (this.inserting === true)
-                this.fields['UserId'].setValue({
-                    '$key': App.context.user,
-                    'UserInfo': {
-                        'LastName': App.context.user,
-                        'FirstName': App.context.user
-                    }
-                })
-        },
-        getValues: function() {
-            var entry = Sage.Platform.Mobile.Edit.prototype.getValues.apply(this, arguments);
-            
-            if (entry.Account)
-            {
-                entry.AccountName = entry.Account.$descriptor;
-                entry.AccountId = entry.Account.$key;
-            }
-            if (entry.Contact)
-            {
-                entry.ContactName = entry.Contact.$descriptor;
-                entry.ContactId = entry.Contact.$key;
-            }
-            if (entry.Opportunity)
-            {
-                entry.OpportunityName = entry.Opportunity.$descriptor;
-                entry.OpportunityId = entry.Opportunity.$key;
-            }
-            if (entry.Ticket)
-            {
-                entry.TicketNumber = entry.Ticket.$descriptor;
-                entry.TicketId = entry.Ticket.$key;
-            }
-            if (entry.UserId)
-            {
-                entry.UserId = entry.UserId.$key;
-            }
-
-            delete entry.Account;
-            delete entry.Contact;
-            delete entry.Opportunity;
-            delete entry.Ticket;
-
-            return entry;
+            this.fields['Account'].setValue({
+                'AccountId': getV(entry, 'Account.$key'),
+                'AccountName': getV(entry, 'Account.AccountName')
+            });
         }
     });    
 })();

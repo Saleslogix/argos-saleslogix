@@ -14,10 +14,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         activityDescriptionTitleText: 'Activity Description',
         activityTypeTitleText: 'Activity Type',
         alarmText: 'reminder',
-        alarmTimeText: ' ',
+        alarmTimeText: '',
         categoryText: 'category',
         durationText: 'duration',
-        leadIdText: 'leader',
+        leaderText: 'leader',
         longNotesText: 'notes',
         priorityText: 'priority',
         priorityTitleText: 'Priority',
@@ -95,12 +95,16 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         resourceKind: 'activities',
        
         formatPicklistForType: function(type, which) {
-            return this.picklistsByType[type.$key] && this.picklistsByType[type.$key][which];
+            return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
         applyContext: function() {
             Mobile.SalesLogix.Activity.EditBase.superclass.applyContext.apply(this, arguments);
 
-            this.fields['Type'].setValue(this.options && this.options.activityType);
+            this.fields['Type'].setValue(this.options && this.options.activityType);                        
+            this.fields['UserId'].setSelection({
+                '$key': App.context['user'] && App.context['user']['$key'],
+                '$descriptor': App.context['user'] && App.context['user']['$descriptor']
+            });
         },        
         createReminderData: function() {
             var list = [];
@@ -176,6 +180,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     label: this.durationText,
                     name: 'Duration',
                     type: 'select',
+                    emptyText: '',
                     view: 'select_list',
                     requireSelection: true,
                     valueKeyProperty: false,
@@ -188,9 +193,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     type: 'boolean'
                 },
                 {
-                    label: this.alarmTimeText,
-                    name: 'AlarmTime',
+                    label: '',
+                    name: 'Reminder',
                     type: 'select',
+                    emptyText: '',
                     view: 'select_list',
                     include: false,
                     requireSelection: true,
@@ -204,11 +210,12 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     type: 'boolean'
                 },
                 {
-                    label: this.leadIdText,
+                    label: this.leaderText,
                     name: 'UserId',
-                    textProperty: 'UserInfo',
-                    textTemplate: Mobile.SalesLogix.Template.nameLF,
                     type: 'lookup',
+                    requireSelection: true,
+                    valueKeyProperty: false,
+                    valueTextProperty: false,
                     view: 'user_list'
                 },
                 {

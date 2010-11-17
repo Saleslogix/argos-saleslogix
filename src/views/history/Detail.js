@@ -15,7 +15,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         contactText: 'contact',
         fbarHomeTitleText: 'home',
         fbarScheduleTitleText: 'schedule',
-        leadIdText: 'leader',
+        leaderText: 'leader',
         leadText: 'lead',
         longNotesText: 'notes',
         opportunityText: 'opportunity',
@@ -70,7 +70,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                 },
                 {
                     name: 'LeadId',
-                    label: this.leadIdText
+                    label: this.leaderText
                 },
                 {
                     name: 'ContactName',
