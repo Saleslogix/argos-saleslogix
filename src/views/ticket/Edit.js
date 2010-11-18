@@ -144,6 +144,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         createLayout: function() {
             return this.layout || (this.layout = [                
                 {
+                    emptyText: '',
                     label: this.accountText,
                     name: 'Account',
                     textProperty: 'AccountName',
@@ -153,6 +154,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     view: 'account_lookup'
                 },
                 {
+                    emptyText: '',
                     label: this.contactText,
                     name: 'Contact',
                     textProperty: 'NameLF',
@@ -163,6 +165,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     where: this.formatAccountQuery.createDelegate(this)
                 },
                 {
+                    emptyText: '',
                     label: this.contractText,
                     name: 'Contract',
                     textProperty: 'ReferenceNumber',
@@ -172,6 +175,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     where: this.formatAccountQuery.createDelegate(this)
                 },
                 {
+                    emptyText: '',
                     label: this.areaText,
                     name: 'Area',
                     title: this.ticketAreaTitleText,
@@ -182,6 +186,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     view: 'areacategoryissue_lookup'
                 },
                 {
+                    emptyText: '',
                     label: this.categoryText,
                     name: 'Category',
                     title: this.ticketCategoryTitleText,
@@ -194,6 +199,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     view: 'areacategoryissue_lookup'
                 },
                 {
+                    emptyText: '',
                     label: this.issueText,
                     name: 'Issue',
                     title: this.ticketIssueTitleText,
@@ -206,6 +212,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     view: 'areacategoryissue_lookup'
                 },
                 {
+                    emptyText: '',
                     label: this.sourceText,
                     name: 'ViaCode',
                     picklist: 'Source',
@@ -262,9 +269,9 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 },
                 {
                     label: this.descriptionText,
-                    name: 'TicketProblem.Notes',
-                    type: 'text',
-                    multiline: true
+                    name: 'TicketProblem',
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     name: 'TicketSolution.$key',
@@ -273,15 +280,16 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 },
                 {
                     label: this.resolutionText,
-                    name: 'TicketSolution.Notes',
-                    type: 'text',
-                    multiline: true
+                    name: 'TicketSolution',
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     label: this.notesText,
                     name: 'Notes',
-                    type: 'text',
-                    multiline: true
+                    noteProperty: false,
+                    type: 'note',
+                    view: 'text_edit'
                 }
             ]);
         }

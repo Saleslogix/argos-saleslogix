@@ -19,7 +19,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
 
     //Localization
     configureText: 'Configure',
-    contextItems: [
+    contextMenu: [
         {
             '$key': 'addAccountContact',
             view: 'add_account_contact',

@@ -70,7 +70,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
         var request = new Sage.SData.Client.SDataResourceCollectionRequest(service)
             .setResourceKind('users')
             .setQueryArgs({
-                'select': 'UserName',
+                'select': 'UserName,UserInfo/UserName',
                 'where': String.format('UserName eq "{0}"', username)
             })
             .setCount(1)
@@ -89,7 +89,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
                     alert('User does not exist.');
                 }
                 else {
-                    App.context['user'] = feed['$resources'][0]['$key'];
+                    App.context['user'] = feed['$resources'][0];
 
                     if (remember)
                     {
