@@ -100,12 +100,15 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         applyContext: function() {
             Mobile.SalesLogix.Activity.EditBase.superclass.applyContext.apply(this, arguments);
 
-            this.fields['Type'].setValue(this.options && this.options.activityType);                        
+            this.fields['Type'].setValue(this.options && this.options.activityType);
             this.fields['UserId'].setSelection({
                 '$key': App.context['user'] && App.context['user']['$key'],
                 '$descriptor': App.context['user'] && App.context['user']['$descriptor']
             });
-        },        
+        },
+        formatReminderText: function() {
+            return this.reminderValueText[val];
+        },
         createReminderData: function() {
             var list = [];
 
@@ -119,6 +122,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             return {'$resources': list};
         },
+        formatDurationText: function(val) {
+            return this.durationValueText[val];
+        },
         createDurationData: function() {
             var list = [];
 
@@ -131,6 +137,15 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }
 
             return {'$resources': list};
+        },
+        setValues: function(values) {
+
+            if (values['AlarmTime'])
+            {
+                
+            }
+            
+            Mobile.SalesLogix.Activity.EditBase.superclass.setValues.apply(this, arguments);
         },
         createLayout: function() {
             return this.layout || (this.layout = [
@@ -180,8 +195,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     label: this.durationText,
                     name: 'Duration',
                     type: 'select',
-                    emptyText: '',
                     view: 'select_list',
+                    textRenderer: this.formatDurationText.createDelegate(this),
                     requireSelection: true,
                     valueKeyProperty: false,
                     valueTextProperty: false,
@@ -196,8 +211,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     label: '',
                     name: 'Reminder',
                     type: 'select',
-                    emptyText: '',
                     view: 'select_list',
+                    textRenderer: this.formatReminderText.createDelegate(this),
                     include: false,
                     requireSelection: true,
                     valueKeyProperty: false,
