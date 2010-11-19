@@ -63,7 +63,7 @@ Mobile.SalesLogix.Format = (function() {
                 if (withLink === false) {
                     return String.format('{0}{1}', numString, extnString);
                 }
-                return String.format('<a href="tel:{0}" data-action="recordToHistory" data-stopevent="true">{1}{2}</a>', phNumber, numString, extnString);
+                return String.format('<a href="tel:{0}" data-action="recordToHistory" data-stopevent="false">{1}{2}</a>', phNumber, numString, extnString);
             };
 
             if (/x/i.test(val)) {
