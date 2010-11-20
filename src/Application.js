@@ -296,6 +296,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         }));
 
         this.registerView(new Mobile.SalesLogix.History.Detail());
+        this.registerView(new Mobile.SalesLogix.History.Edit());
         this.registerView(new Mobile.SalesLogix.History.List({
             expose: false
         }));

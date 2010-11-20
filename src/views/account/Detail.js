@@ -77,6 +77,28 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 title: this.fbarScheduleText
             }];
         },
+        recordToHistory: function() {
+            var entry = {
+                '$name': 'History',
+                'Type': 'atPhoneCall',
+                'AccountName': this.entry.AccountName,
+                'AccountId': this.entry.$key
+            };
+            var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
+                    .setResourceKind('history');
+
+            request.create(entry, {
+                success: function(created) {
+                    var v = App.getView('history_edit');
+                    if (v) v.show({
+                        entry: created
+                    });
+                },
+                failure: function(response, o) {
+                },
+                scope: this
+            });
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
