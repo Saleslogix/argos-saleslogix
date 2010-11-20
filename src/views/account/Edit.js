@@ -77,7 +77,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 },
                 {
                     emptyText: '',
-                    formatter: Mobile.SalesLogix.Format.address,
+                    formatValue: Mobile.SalesLogix.Format.address,
                     label: this.fullAddressText,
                     name: 'Address',
                     type: 'address',

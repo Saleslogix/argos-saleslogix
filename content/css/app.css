@@ -454,3 +454,8 @@ li.is-linked
     margin-left: 32px;
     vertical-align: middle;
 }
+
+#activity_edit div[data-field="Alarm"]
+{
+    border-bottom: none 0px black;
+}

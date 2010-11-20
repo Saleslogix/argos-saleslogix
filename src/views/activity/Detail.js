@@ -99,7 +99,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {
                     name: 'StartDate',
                     label: this.startingText,
-                    renderer: Mobile.SalesLogix.Format.date
+                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                        this, ['M/d/yyyy h:mm:ss tt'], true
+                    )
                 },
                 {
                     name: 'Timeless',
@@ -117,7 +119,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'AlarmTime',
                     label: this.alarmTimeText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, ['M/d/yyyy hh:MM:ss'], true
+                        this, ['M/d/yyyy h:mm:ss tt'], true
                     )
                 },
                 {

@@ -83,74 +83,7 @@ Mobile.SalesLogix.Format = (function() {
                     ? '0' + f.toString()
                     : f.toString()
             );
-        },
-        date: function(val, fmt) {
-            // 2007-04-12T00:00:00-07:00
-            var date = new Date(),
-                match = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(Z|(-|\+)(\d{2}):(\d{2}))/.exec(val);
-                JSONmatch = /\/Date\((\d+)(([+-])(\d{2})(\d{2}))?\)\//.exec(val);
-                toUTCDate = function(d, tz) {
-
-                    // new Date(year, month, date [, hour, minute, second, millisecond ])
-                    var h, m, utc = new Date(Date.UTC(
-                        parseInt(d[1]),
-                        parseInt(d[2]) - 1, // zero based
-                        parseInt(d[3]),
-                        parseInt(d[4]),
-                        parseInt(d[5]),
-                        parseInt(d[6])
-                    ));
-
-                    if (tz)  //[plusorminus, hours, minutes]
-                    {
-                        // todo: add support for minutes
-                        h = parseInt(tz[1], 10);
-                        m = parseInt(tz[2], 10);
-                        if (tz[0] === '-')
-                            utc.addMinutes((h * 60) + m);
-                        else
-                            utc.addMinutes(-1 * ((h * 60) + m));
-                    }
-
-                    return utc.toString(fmt || 'M/d/yyyy');
-                };
-
-            if (match)
-            {
-                if (match[7] !== 'Z')
-                {
-                    return toUTCDate(match.slice(0, 7), match.slice(8));
-                }
-
-                return toUTCDate(match.slice(0, 7));
-            }
-            else if (JSONmatch)
-            {
-                    date.setTime(JSONmatch[1]),
-                    dateArr = [val,
-                        date.getFullYear(), date.getMonth(), date.getDate(),
-                        date.getHours(), date.getMinutes(), date.getSeconds()
-                    ];
-
-                if (JSONmatch[2])
-                {
-                    return toUTCDate(dateArr, JSONmatch.slice(3));
-                }
-                return toUTCDate(dateArr);
-            }
-            else
-            {
-                return val;
-            }                                    
-        },
-        fixed: function(val, d) {
-            if (typeof d !== 'number')
-                d = 2;
-
-            var m = Math.pow(10, d);
-            var v = Math.floor(parseFloat(val) * m) / m;
-            return v;
-        },
+        },        
         nameLF: function(val) {
             var name = Mobile.SalesLogix.Template.nameLF.apply(val);
             if (name == ', ') name = '';

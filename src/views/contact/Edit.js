@@ -104,7 +104,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
             return this.layout || (this.layout = [
                 {
                     applyTo: '.',
-                    formatter: Mobile.SalesLogix.Format.nameLF,
+                    formatValue: Mobile.SalesLogix.Format.nameLF,
                     label: this.nameText,
                     name: 'ContactName',
                     type: 'name',
@@ -146,7 +146,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     type: 'picklist'
                 },
                 {
-                    formatter: Mobile.SalesLogix.Format.address,
+                    formatValue: Mobile.SalesLogix.Format.address,
                     label: this.addressText,
                     name: 'Address',
                     type: 'address',

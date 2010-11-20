@@ -62,7 +62,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
             return this.layout || (this.layout = [
                 {
                     applyTo: '',
-                    formatter: Mobile.SalesLogix.Format.nameLF,
+                    formatValue: Mobile.SalesLogix.Format.nameLF,
                     label: this.leadNameLastFirstText,
                     name: 'LeadNameLastFirst',
                     type: 'name',
@@ -98,7 +98,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 },
                 {
                     emptyText: '',
-                    formatter: Mobile.SalesLogix.Format.address,
+                    formatValue: Mobile.SalesLogix.Format.address,
                     label: this.addressText,
                     name: 'Address',
                     type: 'address',

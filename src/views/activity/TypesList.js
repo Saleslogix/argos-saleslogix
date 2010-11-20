@@ -63,9 +63,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
                     insert: true,
                     source: source,
                     activityType: params.key,
-                    relatedResourceKind: source && source.resourceKind,
-                    context: 'ScheduleActivity',
-                    key: params.key
+                    returnTo: this.options && this.options.returnTo
                 });
         }
     },

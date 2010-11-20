@@ -100,14 +100,48 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         applyContext: function() {
             Mobile.SalesLogix.Activity.EditBase.superclass.applyContext.apply(this, arguments);
 
+            var startDate = new Date(),
+                startMinutes = startDate.getMinutes();
+            startDate.setSeconds(0);
+            startDate.setMinutes(0);
+            startDate.add({
+                'minutes': (Math.floor(startMinutes / 15) * 15) + 15
+            });
+
+            this.fields['StartDate'].setValue(startDate);
+            this.fields['Reminder'].setValue(15);
+
             this.fields['Type'].setValue(this.options && this.options.activityType);
+            
             this.fields['UserId'].setSelection({
                 '$key': App.context['user'] && App.context['user']['$key'],
                 '$descriptor': App.context['user'] && App.context['user']['$descriptor']
             });
         },
-        formatReminderText: function() {
-            return this.reminderValueText[val];
+        setValues: function(values) {
+
+            if (values['StartDate'] && values['AlarmTime'])
+            {
+                var span = values['StartDate'].getTime() - values['AlarmTime'].getTime(); // ms
+                var reminder = span / (1000 * 60);
+
+                values['Reminder'] = reminder;
+            }
+
+            Mobile.SalesLogix.Activity.EditBase.superclass.setValues.apply(this, arguments);
+        },
+        getValues: function() {
+            var values = Mobile.SalesLogix.Activity.EditBase.superclass.getValues.apply(this, arguments);
+
+            var reminder = this.fields['Reminder'].isDirty() && this.fields['Reminder'].getValue();
+                        
+            if (values['StartDate'] && reminder)            
+                values['AlarmTime'] = values['StartDate'].clone().add({'minutes': -1 * reminder});
+
+            return values;
+        },
+        formatReminderText: function(val, key, text) {
+            return this.reminderValueText[key] || text;
         },
         createReminderData: function() {
             var list = [];
@@ -122,8 +156,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             return {'$resources': list};
         },
-        formatDurationText: function(val) {
-            return this.durationValueText[val];
+        formatDurationText: function(val, key, text) {
+            return this.durationValueText[key] || text;
         },
         createDurationData: function() {
             var list = [];
@@ -137,16 +171,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }
 
             return {'$resources': list};
-        },
-        setValues: function(values) {
-
-            if (values['AlarmTime'])
-            {
-                
-            }
-            
-            Mobile.SalesLogix.Activity.EditBase.superclass.setValues.apply(this, arguments);
-        },
+        },        
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
@@ -183,8 +208,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {
                     label: this.startingText,
                     name: 'StartDate',
-                    showTime: true,
-                    type: 'date'
+                    type: 'date',
+                    showTimePicker: true,
+                    formatString: 'M/d/yyyy h:mm tt'
                 },
                 {
                     label: this.timelessText,
