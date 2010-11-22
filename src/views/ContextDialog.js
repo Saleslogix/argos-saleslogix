@@ -145,6 +145,8 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
                     context['resourceProperty'] = this.expandExpression(current['resourceProperty'], entry);
                 if (current['resourcePredicate'])
                     context['resourcePredicate'] = this.expandExpression(current['resourcePredicate'], entry);
+                if (current['insert'] === true)
+                    context['insert'] = true;
 
                 options['view'] = current['view'];
                 options['context'] = Ext.util.JSON.encode(context);

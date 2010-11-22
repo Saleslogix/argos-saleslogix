@@ -19,13 +19,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
 
     //Localization
     configureText: 'Configure',
-    contextMenu: [
-        {
-            '$key': 'addAccountContact',
-            view: 'add_account_contact',
-            viewOptions: {insert: true}
-        }
-    ],
+    addAccountContactText: 'Add Account/Contact',
     contextView: 'context_dialog',
     titleText: 'Home',
 
@@ -41,6 +35,15 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
             if (view)
                 view.show();
         }
+    },
+    createContextMenu: function() {
+        return this.contextMenu || (this.contextMenu = [
+            {
+                label: this.addAccountContactText,
+                view: 'add_account_contact',
+                insert: true
+            }
+        ]);
     },
     formatSearchQuery: function(query) {
         var expression = new RegExp(query, 'i');
