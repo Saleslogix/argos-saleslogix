@@ -63,7 +63,7 @@ Mobile.SalesLogix.Format = (function() {
                 if (withLink === false) {
                     return String.format('{0}{1}', numString, extnString);
                 }
-                return String.format('<a href="tel:{0}" data-action="recordToHistory" data-stopevent="false">{1}{2}</a>', phNumber, numString, extnString);
+                return String.format('<a href="tel:{0}" data-action="recordCallToHistory" data-stopevent="false">{1}{2}</a>', phNumber, numString, extnString);
             };
 
             if (/x/i.test(val)) {
@@ -88,6 +88,12 @@ Mobile.SalesLogix.Format = (function() {
             var name = Mobile.SalesLogix.Template.nameLF.apply(val);
             if (name == ', ') name = '';
             return name;
+        },
+        mail: function(val) {
+            if (typeof val !== 'string')
+                return val;
+
+            return String.format('<a href="mailto:{0}" data-action="recordMailToHistory" data-stopevent="false">{0}</a>', val);
         }             
     }, F);
 })();

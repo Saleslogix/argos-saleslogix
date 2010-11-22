@@ -77,7 +77,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 title: this.fbarScheduleText
             }];
         },
-        recordToHistory: function() {
+        createHistory: function(type) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
@@ -98,6 +98,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 },
                 scope: this
             });
+        },
+        recordCallToHistory: function() {
+            this.createHistory('atPhoneCall');
         },
         createLayout: function() {
             return this.layout || (this.layout = [

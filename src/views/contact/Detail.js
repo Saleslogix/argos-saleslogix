@@ -76,10 +76,10 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             title: this.fbarScheduleTitleText
         }];
     },
-    recordToHistory: function() {
+    createHistory: function(type) {
         var entry = {
             '$name': 'History',
-            'Type': 'atPhoneCall',
+            'Type': type,
             'ContactName': this.entry.NameLF,
             'ContactId': this.entry.$key,
             'AccountName': this.entry.AccountName,
@@ -99,6 +99,12 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             },
             scope: this
         });
+    },
+    recordCallToHistory: function(type) {
+        this.createHistory('atPhoneCall');
+    },
+    recordMailToHistory: function() {
+        this.createHistory('atEMail');
     },
     createLayout: function() {
         return this.layout || (this.layout = [
