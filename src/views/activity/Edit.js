@@ -38,7 +38,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     valueKeyProperty: 'AccountId',
                     valueTextProperty: 'AccountName',
                     validator: Mobile.SalesLogix.Validator.exists,
-                    view: 'account_lookup'
+                    view: 'account_related'
                 },
                 {
                     dependsOn: 'Account',
@@ -49,7 +49,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     applyTo: '.',
                     valueKeyProperty: 'ContactId',
                     valueTextProperty: 'ContactName',
-                    view: 'contact_lookup',
+                    view: 'contact_related',
                     where: this.formatDependentQuery.createDelegate(
                         this, ['Account.Id eq "{0}"', 'AccountId'], true
                     )
@@ -63,7 +63,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     applyTo: '.',
                     valueKeyProperty: 'OpportunityId',
                     valueTextProperty: 'OpportunityName',
-                    view: 'opportunity_lookup',
+                    view: 'opportunity_related',
                     where: this.formatDependentQuery.createDelegate(
                         this, ['Account.Id eq "{0}"', 'AccountId'], true
                     )
@@ -77,7 +77,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     applyTo: '.',
                     valueKeyProperty: 'TicketId',
                     valueTextProperty: 'TicketNumber',
-                    view: 'ticket_lookup',
+                    view: 'ticket_related',
                     where: this.formatDependentQuery.createDelegate(
                         this, ['Account.Id eq "{0}"', 'AccountId'], true
                     )

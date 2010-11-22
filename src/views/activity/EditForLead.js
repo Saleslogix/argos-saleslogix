@@ -35,7 +35,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     applyTo: '.',
                     valueKeyProperty: 'LeadId',
                     valueTextProperty: 'LeadName',
-                    view: 'leads_lookup'
+                    view: 'lead_related'
                 }
             ]);
 

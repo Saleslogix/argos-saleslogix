@@ -151,7 +151,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     type: 'lookup',
                     requireSelection: true,
                     validator: Mobile.SalesLogix.Validator.exists,
-                    view: 'account_lookup'
+                    view: 'account_related'
                 },
                 {
                     emptyText: '',
@@ -161,7 +161,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     type: 'lookup',
                     requireSelection: true,
                     validator: Mobile.SalesLogix.Validator.exists,
-                    view: 'contact_lookup',
+                    view: 'contact_related',
                     where: this.formatAccountQuery.createDelegate(this)
                 },
                 {
@@ -171,7 +171,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     textProperty: 'ReferenceNumber',
                     type: 'lookup',
                     requireSelection: true,
-                    view: 'contract_lookup',
+                    view: 'contract_related',
                     where: this.formatAccountQuery.createDelegate(this)
                 },
                 {

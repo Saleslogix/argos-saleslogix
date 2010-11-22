@@ -117,7 +117,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     textProperty: 'AccountName',
                     type: 'lookup',
                     validator: Mobile.SalesLogix.Validator.exists,
-                    view: 'account_lookup'
+                    view: 'account_related'
                 },
                 {
                     name: 'AccountName',

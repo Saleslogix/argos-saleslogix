@@ -113,7 +113,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     textProperty: 'AccountName',
                     type: 'lookup',
                     validator: Mobile.SalesLogix.Validator.exists,
-                    view: 'account_lookup'
+                    view: 'account_related'
                 },
                 {
                     label: this.acctMgrText,
@@ -128,7 +128,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     name: 'Reseller',
                     textProperty: 'AccountName',
                     type: 'lookup',
-                    view: 'account_lookup'
+                    view: 'account_related'
                 },
                 {
                     label: this.estCloseText,
