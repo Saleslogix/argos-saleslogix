@@ -162,18 +162,14 @@ input.field-error
 
 .list .list-item-selected
 {
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, rgb(255,241,84)),
-        color-stop(1, rgb(204,193,71))
-    );
-    background-image: -moz-linear-gradient(
-        center top,
-        rgb(255,241,84) 0%,
-        rgb(204,193,71) 100%
-    );
+    background-color: #D5EFFA;
+}
+
+.list .list-item-selected .list-item-selector
+{
+    background-image: url(../images/icons/OK_24.png);
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 li.more .button

@@ -45,6 +45,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'ContactName',
             'Description',
             'Duration',
+            'UserId',
             'LeadId',
             'LeadName',
             'LongNotes',
@@ -127,7 +128,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     label: this.rolloverText
                 },
                 {
-                    name: 'LeadId',
+                    name: 'UserId',
                     label: this.leaderText
                 },
                 {
