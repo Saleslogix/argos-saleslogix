@@ -31,6 +31,7 @@ Ext.namespace("Mobile.SalesLogix");
         hideSearch: true,
         selectionOnly: true,
         allowSelection: true,
+        autoClearSelection: false,
       
         init: function() {
             Mobile.SalesLogix.Configure.superclass.init.apply(this, arguments);
