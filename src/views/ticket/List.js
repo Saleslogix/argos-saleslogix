@@ -10,8 +10,8 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
     Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
         contentTemplate: new Simplate([
-            '<h3>{%: $.Account ? $.Account.AccountName : "" %}</h3>',
-            '<h4>{%: $.TicketNumber %}</h4>'
+            '<h3>{%: $.Subject %}</h3>',
+            '<h4>{%: $.TicketNumber %}, {%: $.Account ? $.Account.AccountName : "" %}</h4>'
         ]),
 
         //Localization
@@ -29,6 +29,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         querySelect: [
             'Account/AccountName',
             'Contact/NameLF',
+            'Subject',
             'TicketNumber'
         ],
         resourceKind: 'tickets',

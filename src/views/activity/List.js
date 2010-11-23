@@ -33,8 +33,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
     Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
         contentTemplate: new Simplate([
-            '<h3>{%: Mobile.SalesLogix.Format.date($.StartDate) %}, {%: $.AccountName %}</h3>',
-            '<h4>{%: Mobile.SalesLogix.Activity.ActivityTypesLookup[$.Type] || $.Type %}, {%: $.Description %}</h4>'
+            '<h3>{%: Mobile.SalesLogix.Format.date($.StartDate, "h:mm") %}, {%: $.Description %}</h3>',
+            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate) %} - {%: Mobile.SalesLogix.Activity.ActivityTypesLookup[$.Type] || $.Type %}, {%: $.UserId %}</h4>'
         ]),
 
         //Localization
@@ -42,15 +42,18 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         //View Properties
         detailView: 'activity_detail',
+        detailViewForResource: {
+            'leads': 'activity_detail_for_lead'
+        },
         icon: 'content/images/icons/job_24.png',
         id: 'activity_list',
         insertView: 'activity_types_list',
         queryOrderBy: 'StartDate desc',
         querySelect: [
+            'Description',
             'StartDate',
-            'AccountName',
             'Type',
-            'Description'
+            'UserId'
         ],
         resourceKind: 'activities',
 
@@ -63,6 +66,26 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             });
             Mobile.SalesLogix.Activity.ActivityTypesLookup = actTypes;
         },  
+        navigateToDetailView: function(key, descriptor) {
+            if (key)
+            {
+                var view,
+                    found = App.queryNavigationContext(function(o) {
+                    var context = (o.options && o.options.source) || o;
+
+                    return /^(leads)$/.test(context.resourceKind);
+                });
+
+                view = found && this.detailViewForResource[found.resourceKind]
+                        ? App.getView(this.detailViewForResource[found.resourceKind])
+                        : App.getView(this.detailView);
+                if (view)
+                    view.show({
+                        descriptor: descriptor,
+                        key: key
+                    });
+            }
+        },
         formatSearchQuery: function(query) {
             return String.format('Description like "%{0}%"', query);
         }
