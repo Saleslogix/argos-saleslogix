@@ -16,6 +16,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         accountTypeTitleText: 'Account Type',
         acctMgrText: 'acct mgr',
         businessDescriptionText: 'bus desc',
+        businessDescriptionTitleText: 'Business Description',
         descriptionText: 'desc',
         faxText: 'fax',
         fullAddressText: 'address',
@@ -127,6 +128,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     label: this.businessDescriptionText,
                     name: 'BusinessDescription',
                     noteProperty: false,
+                    title: this.businessDescriptionTitleText,
                     type: 'note',
                     view: 'text_edit'
                 },

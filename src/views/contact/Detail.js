@@ -14,6 +14,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     contactTitleText: 'title',
     createDateText: 'create date',
     createUserText: 'create user',
+    emailHistoryTitle: 'E-mail',
     emailText: 'email',
     faxText: 'fax',
     fbarHomeTitleText: 'home',
@@ -22,6 +23,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     mobileText: 'mobile',
     nameText: 'contact',
     ownerText: 'owner',
+    phoneCallHistoryTitle: 'Phone Call',
     relatedAccountsText: 'Accounts',
     relatedActivitiesText: 'Activities',
     relatedHistoriesText: 'History',
@@ -76,7 +78,7 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             title: this.fbarScheduleTitleText
         }];
     },
-    createHistory: function(type) {
+    createHistory: function(type, title) {
         var entry = {
             '$name': 'History',
             'Type': type,
@@ -91,9 +93,13 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         request.create(entry, {
             success: function(created) {
                 var v = App.getView('history_edit');
-                if (v) v.show({
-                    entry: created
-                });
+                if (v)
+                {
+                    v.setTitle(title);
+                    v.show({
+                        entry: created
+                    });
+                }
             },
             failure: function(response, o) {
             },
@@ -101,10 +107,10 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
     },
     recordCallToHistory: function(type) {
-        this.createHistory('atPhoneCall');
+        this.createHistory('atPhoneCall', this.phoneCallHistoryTitle);
     },
     recordMailToHistory: function() {
-        this.createHistory('atEMail');
+        this.createHistory('atEMail', this.emailHistoryTitle);
     },
     createLayout: function() {
         return this.layout || (this.layout = [

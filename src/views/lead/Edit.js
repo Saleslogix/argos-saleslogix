@@ -13,6 +13,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         accountText: 'account',
         addressText: 'address',
         businessText: 'bus desc',
+        businessTitleText: 'Business Description',
         companyText: 'company',
         contactTitleText: 'title',
         emailText: 'email',
@@ -25,6 +26,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         leadOwnerText: 'owner',
         nameText: 'name',
         notesText: 'comments',
+        notesTitleText: 'Comments',
         sicCodeText: 'sic code',
         titleText: 'Lead',
         titleTitleText: 'Title',
@@ -138,6 +140,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     label: this.businessText,
                     name: 'BusinessDescription',
                     noteProperty: false,
+                    title: this.businessTitleText,
                     type: 'note',
                     view: 'text_edit'
                 },
@@ -145,6 +148,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     label: this.notesText,
                     name: 'Notes',
                     noteProperty: false,
+                    title: this.notesTitleText,
                     type: 'note',
                     view: 'text_edit'
                 },

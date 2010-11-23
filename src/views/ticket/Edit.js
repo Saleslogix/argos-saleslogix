@@ -20,13 +20,16 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         contactText: 'contact',
         contractText: 'contract',
         descriptionText: 'desc',
+        descriptionTitleText: 'Description',
         issueText: 'issue',
         needByText: 'needed date',
         notesText: 'comments',
+        notesTitleText: 'Comments',
         phoneText: 'phone',
         relatedActivitiesText: 'Activities',
         relatedItemsText: 'Related Items',
         resolutionText: 'resolution',
+        resolutionTitleText: 'Resolution',
         sourceText: 'source',
         sourceTitleText: 'Source',
         statusText: 'status',
@@ -258,6 +261,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 {
                     label: this.descriptionText,
                     name: 'TicketProblem',
+                    title: this.descriptionTitleText,
                     type: 'note',
                     view: 'text_edit'
                 },
@@ -269,6 +273,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 {
                     label: this.resolutionText,
                     name: 'TicketSolution',
+                    title: this.resolutionTitleText,
                     type: 'note',
                     view: 'text_edit'
                 },
@@ -276,6 +281,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     label: this.notesText,
                     name: 'Notes',
                     noteProperty: false,
+                    title: this.notesTitleText,
                     type: 'note',
                     view: 'text_edit'
                 }
