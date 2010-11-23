@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.History");
 (function() {
     Mobile.SalesLogix.History.ActivityTypesLookup = {
         'atQuestion': 'Question',
-        'atEMail': 'EMail'
+        'atEMail': 'E-mail'
     };
     
     Mobile.SalesLogix.History.List = Ext.extend(Sage.Platform.Mobile.List, {

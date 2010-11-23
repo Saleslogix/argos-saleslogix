@@ -23,6 +23,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         industryText: 'industry',
         notesText: 'notes',
         ownerText: 'owner',
+        phoneCallHistoryTitle: 'Phone Call',
         phoneText: 'phone',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
@@ -77,7 +78,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 title: this.fbarScheduleText
             }];
         },
-        createHistory: function(type) {
+        createHistory: function(type, title) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
@@ -90,9 +91,13 @@ Ext.namespace("Mobile.SalesLogix.Account");
             request.create(entry, {
                 success: function(created) {
                     var v = App.getView('history_edit');
-                    if (v) v.show({
-                        entry: created
-                    });
+                    if (v)
+                    {
+                        v.setTitle(title);
+                        v.show({
+                            entry: created
+                        });
+                    }
                 },
                 failure: function(response, o) {
                 },
@@ -100,7 +105,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
             });
         },
         recordCallToHistory: function() {
-            this.createHistory('atPhoneCall');
+            this.createHistory('atPhoneCall', this.phoneCallHistoryTitle);
         },
         createLayout: function() {
             return this.layout || (this.layout = [

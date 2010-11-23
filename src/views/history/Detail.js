@@ -22,7 +22,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         priorityText: 'priority',
         regardingText: 'regarding',
         ticketNumberText: 'ticket',
-        titleText: 'Activity',
+        titleText: 'History',
         typeText: 'type',
 
         //View Properties
