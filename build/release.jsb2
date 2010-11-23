@@ -87,7 +87,15 @@
             path: '../src/views/account/'
         },
         {
+            text: 'DetailBase.js',
+            path: '../src/views/activity/'
+        },
+        {
             text: 'Detail.js',
+            path: '../src/views/activity/'
+        },
+        {
+            text: 'DetailForLead.js',
             path: '../src/views/activity/'
         },
         {
