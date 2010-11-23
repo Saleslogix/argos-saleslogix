@@ -97,11 +97,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
             return key ? String.format('Account.id eq "{0}"', key) : false;
         },
-        show: function(options) {
-            Mobile.SalesLogix.Ticket.Edit.superclass.show.apply(this, arguments);
-
-            if (options.insert === true) this.applyContext();
-        },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
                 return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
@@ -144,7 +139,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         createLayout: function() {
             return this.layout || (this.layout = [                
                 {
-                    emptyText: '',
                     label: this.accountText,
                     name: 'Account',
                     textProperty: 'AccountName',
@@ -154,7 +148,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     view: 'account_related'
                 },
                 {
-                    emptyText: '',
                     label: this.contactText,
                     name: 'Contact',
                     textProperty: 'NameLF',
@@ -165,7 +158,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     where: this.formatAccountQuery.createDelegate(this)
                 },
                 {
-                    emptyText: '',
                     label: this.contractText,
                     name: 'Contract',
                     textProperty: 'ReferenceNumber',
@@ -175,7 +167,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     where: this.formatAccountQuery.createDelegate(this)
                 },
                 {
-                    emptyText: '',
                     label: this.areaText,
                     name: 'Area',
                     title: this.ticketAreaTitleText,
@@ -186,7 +177,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     view: 'areacategoryissue_lookup'
                 },
                 {
-                    emptyText: '',
                     label: this.categoryText,
                     name: 'Category',
                     title: this.ticketCategoryTitleText,
@@ -199,7 +189,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     view: 'areacategoryissue_lookup'
                 },
                 {
-                    emptyText: '',
                     label: this.issueText,
                     name: 'Issue',
                     title: this.ticketIssueTitleText,
@@ -212,7 +201,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     view: 'areacategoryissue_lookup'
                 },
                 {
-                    emptyText: '',
                     label: this.sourceText,
                     name: 'ViaCode',
                     picklist: 'Source',
