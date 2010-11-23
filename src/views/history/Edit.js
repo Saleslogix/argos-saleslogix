@@ -21,6 +21,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         leaderText: 'leader',
         leadText: 'lead',
         longNotesText: 'notes',
+        longNotesTitleText: 'Notes',
         opportunityText: 'opportunity',
         priorityText: 'priority',
         priorityTitleText: 'Priority',
@@ -140,6 +141,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     name: 'LongNotes',
                     label: this.longNotesText,
                     noteProperty: false,
+                    title: this.longNotesTitleText,
                     type: 'note',
                     view: 'text_edit'
                 }
