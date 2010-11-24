@@ -25,7 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         ]),
         nameTemplate: new Simplate([
             '{% if ($.ContactName) { %}',
-            '{%: $.ContactName %}, {%: $.AccountName %}',
+            '{%: $.ContactName %} / {%: $.AccountName %}',
             '{% } else if ($.AccountName) { %}',
             '{%: $.AccountName %}',
             '{% } else { %}',
