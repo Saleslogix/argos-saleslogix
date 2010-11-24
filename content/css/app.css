@@ -178,66 +178,6 @@ li.more .button
     -webkit-box-shadow: rgba(255,255,255,0.25) 0px 20px 0px inset, rgba(255,255,255,1.0) 0px 0px 1px inset;
 }
 
-/* misc. */
-li.is-linked
-{
-    background: url('../images/associate_16x16.gif') no-repeat 10px 50%;
-}
-
-/* opportunity view */
-.o-stage h3,
-.o-stage h4
-{
-    margin: 0 64px 0 0;
-}
-
-.o-stage div.o-meter
-{
-    background: url('../images/meter-empty.png') no-repeat center right;
-}
-
-.o-stage-1 div.o-meter
-{
-    background: 
-        url('../images/meter-full-1.png') no-repeat center right,
-        url('../images/meter-empty.png') no-repeat center right;
-}
-
-.o-stage-2 div.o-meter
-{
-    background: 
-        url('../images/meter-full-2.png') no-repeat center right,
-        url('../images/meter-empty.png') no-repeat center right;
-}
-
-.o-stage-3 div.o-meter
-{
-    background: 
-        url('../images/meter-full-3.png') no-repeat center right,
-        url('../images/meter-empty.png') no-repeat center right;
-}
-
-.o-stage-4 div.o-meter
-{
-    background: 
-        url('../images/meter-full-4.png') no-repeat center right,
-        url('../images/meter-empty.png') no-repeat center right;
-}
-
-.o-stage-5 div.o-meter
-{
-    background: 
-        url('../images/meter-full-5.png') no-repeat center right,
-        url('../images/meter-empty.png') no-repeat center right;
-}
-
-.o-stage-6 div.o-meter
-{
-    background: 
-        url('../images/meter-full-6.png') no-repeat center right,
-        url('../images/meter-empty.png') no-repeat center right;
-}
-
 /* defect view */
 .defect-text-row
 {
@@ -341,14 +281,6 @@ li.is-linked
 }
 
 /* context dialog */
-
-/*
- * Must be moved to base css, under .dialog > fieldset
- */
-#context_dialog > fieldset
-{
-    position: fixed;
-}
 #context_dialog ul
 {
     padding-left: 0;
@@ -467,37 +399,37 @@ li.is-linked
     border-bottom: none 0px black;
 }
 
-.activities-list .p-meridiem
+.list[data-resource-kind="activities"] .p-meridiem
 {
     font-size: 0.75em;
 }
 
-.activities-list li[data-activity-type] .list-item-selector
+.list[data-resource-kind="activities"] li[data-activity-type] .list-item-selector
 {
     visibility: visible;
 }
 
-.activities-list li[data-activity-type="atToDo"] .list-item-selector
+.list[data-resource-kind="activities"] li[data-activity-type="atToDo"] .list-item-selector
 {
     background: url(../images/icons/Schedule_To_Do_24x24.gif);
 }
 
-.activities-list li[data-activity-type="atPhoneCall"] .list-item-selector
+.list[data-resource-kind="activities"] li[data-activity-type="atPhoneCall"] .list-item-selector
 {
     background: url(../images/icons/Schedule_Call_24x24.gif);
 }
 
-.activities-list li[data-activity-type="atAppointment"] .list-item-selector
+.list[data-resource-kind="activities"] li[data-activity-type="atAppointment"] .list-item-selector
 {
     background: url(../images/icons/Schedule_Meeting_24x24.gif);
 }
 
-.activities-list li[data-activity-type="atLiterature"] .list-item-selector
+.list[data-resource-kind="activities"] li[data-activity-type="atLiterature"] .list-item-selector
 {
     background: url(../images/icons/Schedule_Literature_Request_24x24.gif);
 }
 
-.activities-list li[data-activity-type="atPersonal"] .list-item-selector
+.list[data-resource-kind="activities"] li[data-activity-type="atPersonal"] .list-item-selector
 {
     background: url(../images/icons/Schedule_Personal_Activity_24x24.gif);
 }

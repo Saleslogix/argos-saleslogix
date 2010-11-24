@@ -38,7 +38,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         //View Properties
         id: 'activity_list',
-        cls: 'activities-list',
         icon: 'content/images/icons/job_24.png',
         detailView: 'activity_detail',
         detailViewForLead: 'activity_detail_for_lead',
