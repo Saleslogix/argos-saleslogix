@@ -498,3 +498,105 @@ li.is-linked
 {
     background: url(../images/icons/Schedule_Personal_Activity_24x24.gif);
 }
+
+div[data-field-type="lookup"] a.whiteButton
+{
+    background-image: url(../images/icons/srch_24.png), -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: url(../images/icons/srch_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+}
+
+div[data-field-type="lookup"] a.whiteButton:active
+{
+    background-image: url(../images/icons/srch_24.png), -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: url(../images/icons/srch_24.png), -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+}
+
+div[data-field-type="lookup"] a.whiteButton span
+{
+    visibility: hidden;
+}
+
+div[data-field-type="date"] a.whiteButton
+{
+    background-image: url(../images/icons/Calendar_24.png), -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: url(../images/icons/Calendar_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+}
+
+div[data-field-type="date"] a.whiteButton:active
+{
+    background-image: url(../images/icons/Calendar_24.png), -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: url(../images/icons/Calendar_24.png), -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+}
+
+div[data-field-type="date"] a.whiteButton span
+{
+    visibility: hidden;
+}
+
+div[data-field-type="name"] a.whiteButton,
+div[data-field-type="address"] a.whiteButton
+{
+    background-image: url(../images/icons/edit_24.png), -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: url(../images/icons/edit_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+}
+
+div[data-field-type="name"] a.whiteButton:active,
+div[data-field-type="address"] a.whiteButton:active    
+{
+    background-image: url(../images/icons/edit_24.png), -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #e6e6e6),
+		color-stop(1, #cccccc)
+	);
+	background-image: url(../images/icons/edit_24.png), -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+}
+
+div[data-field-type="name"] a.whiteButton span,
+div[data-field-type="address"] a.whiteButton span
+{
+    visibility: hidden;
+}
