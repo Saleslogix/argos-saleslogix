@@ -566,7 +566,8 @@ div[data-field-type="date"] a.whiteButton span
 }
 
 div[data-field-type="name"] a.whiteButton,
-div[data-field-type="address"] a.whiteButton
+div[data-field-type="address"] a.whiteButton,
+div[data-field-type="note"] a.whiteButton
 {
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
@@ -581,7 +582,8 @@ div[data-field-type="address"] a.whiteButton
 }
 
 div[data-field-type="name"] a.whiteButton:active,
-div[data-field-type="address"] a.whiteButton:active    
+div[data-field-type="address"] a.whiteButton:active,
+div[data-field-type="note"] a.whiteButton:active
 {
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
@@ -596,7 +598,8 @@ div[data-field-type="address"] a.whiteButton:active
 }
 
 div[data-field-type="name"] a.whiteButton span,
-div[data-field-type="address"] a.whiteButton span
+div[data-field-type="address"] a.whiteButton span,
+div[data-field-type="note"] a.whiteButton span
 {
     visibility: hidden;
 }
