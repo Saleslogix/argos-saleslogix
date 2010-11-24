@@ -17,9 +17,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         id: 'activity_detail_for_lead',
 
         createLayout: function() {
-            var layout = Mobile.SalesLogix.Activity.DetailForLead.superclass.createLayout.apply(this, arguments);
+            var base = Mobile.SalesLogix.Activity.DetailForLead.superclass.createLayout;
 
-            this.layout = layout.concat([
+            return this.layout || (this.layout = base.apply(this, arguments).concat([
                 {
                     name: 'LeadName',
                     label: this.leadText
@@ -28,9 +28,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'AccountName',
                     label: this.companyText
                 }
-            ]);
-
-            return this.layout;
+            ]));
         }
     });
 })();

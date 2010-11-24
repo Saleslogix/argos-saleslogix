@@ -19,9 +19,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         id: 'activity_detail',
 
         createLayout: function() {
-            var layout = Mobile.SalesLogix.Activity.Detail.superclass.createLayout.apply(this, arguments);
+            var base = Mobile.SalesLogix.Activity.Detail.superclass.createLayout;
 
-            this.layout = layout.concat([
+            return this.layout || (this.layout = base.apply(this, arguments).concat([
                 {
                     name: 'ContactName',
                     label: this.contactText
@@ -38,9 +38,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'TicketNumber',
                     label: this.ticketNumberText
                 }
-            ]);
-
-            return this.layout;
+            ]));          
         }
     });
 })();
