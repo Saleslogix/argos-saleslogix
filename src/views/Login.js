@@ -49,6 +49,11 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
         ];
         this.busy = false;
     },
+    init: function() {
+        Mobile.SalesLogix.Login.superclass.init.apply(this, arguments);
+
+        this.tools = {};
+    },
     getContext: function() {
         return {id: this.id};
     },
