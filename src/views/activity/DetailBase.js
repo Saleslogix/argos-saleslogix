@@ -9,6 +9,13 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 (function() {
     Mobile.SalesLogix.Activity.DetailBase = Ext.extend(Sage.Platform.Mobile.Detail, {
         //Localization
+        activityTypeText: {
+            'atToDo': 'To-Do',
+            'atPhoneCall': 'Phone Call',
+            'atAppointment': 'Meeting',
+            'atLiterature': 'Literature Request',
+            'atPersonal': 'Personal Activity'
+        },
         alarmText: 'reminder',
         alarmTimeText: 'reminder',
         categoryText: 'category',
@@ -54,7 +61,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         resourceKind: 'activities',
 
         formatActivityType: function(val) {
-            return Mobile.SalesLogix.Activity.ActivityTypesLookup[val] || val;
+            return this.activityTypeText[val] || val;
         },
         init: function() {
             Mobile.SalesLogix.Activity.DetailBase.superclass.init.apply(this, arguments);
@@ -75,7 +82,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 {
                     name: 'Type',
                     label: this.typeText,
-                    renderer: this.formatActivityType
+                    renderer: this.formatActivityType.createDelegate(this)
                 },
                 {
                     name: 'Description',

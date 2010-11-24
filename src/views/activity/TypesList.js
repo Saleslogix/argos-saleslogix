@@ -67,7 +67,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
                 });
         }
     },
-    show: function() {
+    show: function(options) {
         Mobile.SalesLogix.Activity.TypesList.superclass.show.apply(this, arguments);
         
         var found = App.queryNavigationContext(function(o) {
