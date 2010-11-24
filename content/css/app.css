@@ -338,6 +338,14 @@ li.is-linked
 }
 
 /* context dialog */
+
+/*
+ * Must be moved to base css, under .dialog > fieldset
+ */
+#context_dialog > fieldset
+{
+    position: fixed;
+}
 #context_dialog ul
 {
     padding-left: 0;
