@@ -9,37 +9,56 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 (function() {    
     Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        contentTemplate: new Simplate([
-            '<h3>{%: Mobile.SalesLogix.Format.date($.StartDate, "h:mm") %}, {%: $.Description %}</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate) %} - {%: $$.activityTypeText[$.Type] || $.Type %}, {%: $.UserId %}</h4>'
+        itemTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '{%! $$.contentTemplate %}',
+            '</li>'
+        ]),
+        contentTemplate: new Simplate([            
+            '<h3>',
+            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, "h:mm") %}</span>',
+            '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
+            '<span class="p-description">&nbsp;{%: $.Description %}</span>',
+            '</h3>',
+            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, "ddd M/d/yy") %} - {%= $$.nameTemplate.apply($) %}</h4>'
+        ]),
+        nameTemplate: new Simplate([
+            '{% if ($.ContactName) { %}',
+            '{%: $.ContactName %}, {%: $.AccountName %}',
+            '{% } else if ($.AccountName) { %}',
+            '{%: $.AccountName %}',
+            '{% } else { %}',
+            '{%: $.LeadName %}',
+            '{% } %}'
         ]),
 
         //Localization
-        titleText: 'Activities',
-        activityTypeText: {
-            'atToDo': 'To-Do',
-            'atPhoneCall': 'Phone Call',
-            'atAppointment': 'Meeting',
-            'atLiterature': 'Literature Request',
-            'atPersonal': 'Personal Activity'
-        },
+        titleText: 'Activities',      
 
         //View Properties
+        id: 'activity_list',
+        cls: 'activities-list',
+        icon: 'content/images/icons/job_24.png',
         detailView: 'activity_detail',
         detailViewForLead: 'activity_detail_for_lead',
-        icon: 'content/images/icons/job_24.png',
-        id: 'activity_list',
         insertView: 'activity_types_list',
         queryOrderBy: 'StartDate desc',
         querySelect: [
             'Description',
             'StartDate',
             'Type',
-            'UserId',
-            'LeadId'
+            'AccountName',
+            'ContactName',
+            'LeadId',
+            'LeadName',
+            'UserId'
         ],
         resourceKind: 'activities',
-     
+
+        resolveActivityName: function(entry) {
+            return
+        },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },

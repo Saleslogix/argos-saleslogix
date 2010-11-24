@@ -455,3 +455,38 @@ li.is-linked
 {
     border-bottom: none 0px black;
 }
+
+.activities-list .p-meridiem
+{
+    font-size: 0.75em;
+}
+
+.activities-list li[data-activity-type] .list-item-selector
+{
+    visibility: visible;
+}
+
+.activities-list li[data-activity-type="atToDo"] .list-item-selector
+{
+    background: url(../images/icons/Schedule_To_Do_24x24.gif);
+}
+
+.activities-list li[data-activity-type="atPhoneCall"] .list-item-selector
+{
+    background: url(../images/icons/Schedule_Call_24x24.gif);
+}
+
+.activities-list li[data-activity-type="atAppointment"] .list-item-selector
+{
+    background: url(../images/icons/Schedule_Meeting_24x24.gif);
+}
+
+.activities-list li[data-activity-type="atLiterature"] .list-item-selector
+{
+    background: url(../images/icons/Schedule_Literature_Request_24x24.gif);
+}
+
+.activities-list li[data-activity-type="atPersonal"] .list-item-selector
+{
+    background: url(../images/icons/Schedule_Personal_Activity_24x24.gif);
+}
