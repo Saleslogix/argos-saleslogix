@@ -50,7 +50,7 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
             Mobile.SalesLogix.SalesOrder.Detail.superclass.init.call(this);
 
             this.tools.fbar = [{
-                cls: 'tool-note',
+                cls: '',
                 fn: function() {
                     App.navigateToActivityInsertView.call(App, {"id": this.id});
                 },

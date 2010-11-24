@@ -9,17 +9,20 @@ Ext.namespace("Mobile.SalesLogix.Login");
 Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     //Templates
     viewTemplate: new Simplate([
-        '<div id="{%= id %}" title="{%= title %}" class="panel {%= $.cls %}" hideBackButton="hideBackButton">',        
+        '<div id="{%= $.id %}" title="{%: $.title %}" class="panel {%= $.cls %}" hideBackButton>',        
         '<div class="panel-content"></div>',
-        '<a class="button whiteButton actionButton" data-action="login">Login</a>',
+        '<a class="button whiteButton actionButton" data-action="login"><span>{%: $.loginText %}</span></a>',
         '</div>'
     ]),
 
     //Localization
+    loginText: 'Login',
     passText: 'pass',
     rememberText: 'remember',
     titleText: 'Login',
     userText: 'user',
+    serverProblemText: 'A problem occured on the server.',
+    invalidUserText: 'Username or password is invalid.',
 
     constructor: function(o) {
         Mobile.SalesLogix.Login.superclass.constructor.call(this);
@@ -65,8 +68,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
         this.validateCredentials(values.user, values.pass, values.remember);
     },           
     validateCredentials: function (username, password, remember) {
-        this.busy = true;
-        this.el.addClass('dialog-busy');
+        this.disable();
 
         var service = App.getService()
             .setUserName(username)
@@ -82,9 +84,8 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
             .setStartIndex(1);
 
         request.read({
-            success: function (feed) {
-                this.busy = false;
-                this.el.removeClass('dialog-busy');
+            success: function(feed) {
+                this.enable();
 
                 if (feed['$resources'].length <= 0) {
                     service
@@ -111,18 +112,22 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
                     App.navigateToInitialView();
                 }
             },
-            failure: function (response, o) {
-                this.busy = false;
-                this.el.removeClass('dialog-busy');
+            failure: function(response, o) {
+                this.enable();
 
                 service
                     .setUserName(false)
                     .setPassword(false);
 
                 if (response.status == 403)
-                    alert('Username or password is invalid.');
+                    alert(this.invalidUserText);
                 else
-                    alert('A problem occured on the server.');
+                    alert(this.serverProblemText);
+            },
+            aborted: function(response, o) {
+                this.enable();
+
+                alert(this.serverProblemText);
             },
             scope: this
         });

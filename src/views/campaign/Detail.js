@@ -38,7 +38,7 @@ Ext.namespace("Mobile.SalesLogix.Campaign");
             Mobile.SalesLogix.Campaign.Detail.superclass.init.apply(this, arguments);
 
             this.tools.fbar = [{
-                cls: 'tool-note',
+                cls: '',
                 fn: function() {
                     App.navigateToActivityInsertView.call(App, {"id": this.id});
                 },

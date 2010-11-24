@@ -67,8 +67,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         init: function() {
             Mobile.SalesLogix.Account.Detail.superclass.init.apply(this, arguments);
 
-            this.tools.fbar = [{
-                cls: 'tool-note',
+            this.tools.fbar = [{                
                 fn: function() {
                     App.navigateToActivityInsertView.call(App, {"id": this.id});
                 },

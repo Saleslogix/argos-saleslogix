@@ -114,7 +114,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         //the data. So lets initialize the object, with default ones.
         if (!this.preferences)
         {
-            var views = this.getExposedViews();
+            var views = this.getDefaultViews();
             
             this.preferences = {
                 home: {
@@ -133,7 +133,18 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         }
         catch(e) {}
     },
-    getExposedViews : function() {
+    getDefaultViews: function() {
+        return [
+            'account_list',
+            'contact_list',
+            'lead_list',
+            'opportunity_list',
+            'ticket_list',
+            'settings',
+            'help'
+        ];
+    },
+    getExposedViews: function() {
         var exposedViews = [],
             view;
 

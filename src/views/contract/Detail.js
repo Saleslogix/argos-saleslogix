@@ -52,7 +52,7 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         Mobile.SalesLogix.Contract.Detail.superclass.init.call(this);
 
         this.tools.fbar = [{
-            cls: 'tool-note',
+            cls: '',
             fn: function() {
                 App.navigateToActivityInsertView.call(App, {"id": this.id});
             },

@@ -44,7 +44,7 @@ Ext.namespace("Mobile.SalesLogix.Return");
             Mobile.SalesLogix.Return.Detail.superclass.init.call(this);
 
             this.tools.fbar = [{
-                cls: 'tool-note',
+                cls: '',
                 fn: App.navigateToActivityInsertView,
                 icon: 'content/images/icons/job_24.png',
                 name: 'schedule',

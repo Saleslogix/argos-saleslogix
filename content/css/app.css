@@ -288,6 +288,9 @@ li.is-linked
 #login .button
 {
     margin: 0 12px 12px 12px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
 }
 
 #login h2
