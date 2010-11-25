@@ -434,7 +434,7 @@ li.more .button
     background: url(../images/icons/Schedule_Personal_Activity_24x24.gif);
 }
 
-div[data-field-type="lookup"] a.whiteButton
+.row-edit[data-field-type="lookup"] a.whiteButton
 {
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
@@ -448,7 +448,7 @@ div[data-field-type="lookup"] a.whiteButton
     background-position: center;
 }
 
-div[data-field-type="lookup"] a.whiteButton:active
+.row-edit[data-field-type="lookup"] a.whiteButton:active
 {
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
@@ -462,12 +462,12 @@ div[data-field-type="lookup"] a.whiteButton:active
     background-position: center;
 }
 
-div[data-field-type="lookup"] a.whiteButton span
+.row-edit[data-field-type="lookup"] a.whiteButton span
 {
     visibility: hidden;
 }
 
-div[data-field-type="date"] a.whiteButton
+.row-edit[data-field-type="date"] a.whiteButton
 {
     background-image: url(../images/icons/Calendar_24.png), -webkit-gradient(
 		linear,
@@ -481,7 +481,7 @@ div[data-field-type="date"] a.whiteButton
     background-position: center;
 }
 
-div[data-field-type="date"] a.whiteButton:active
+.row-edit[data-field-type="date"] a.whiteButton:active
 {
     background-image: url(../images/icons/Calendar_24.png), -webkit-gradient(
 		linear,
@@ -495,14 +495,14 @@ div[data-field-type="date"] a.whiteButton:active
     background-position: center;
 }
 
-div[data-field-type="date"] a.whiteButton span
+.row-edit[data-field-type="date"] a.whiteButton span
 {
     visibility: hidden;
 }
 
-div[data-field-type="name"] a.whiteButton,
-div[data-field-type="address"] a.whiteButton,
-div[data-field-type="note"] a.whiteButton
+.row-edit[data-field-type="name"] a.whiteButton,
+.row-edit[data-field-type="address"] a.whiteButton,
+.row-edit[data-field-type="note"] a.whiteButton
 {
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
@@ -516,9 +516,9 @@ div[data-field-type="note"] a.whiteButton
     background-position: center;
 }
 
-div[data-field-type="name"] a.whiteButton:active,
-div[data-field-type="address"] a.whiteButton:active,
-div[data-field-type="note"] a.whiteButton:active
+.row-edit[data-field-type="name"] a.whiteButton:active,
+.row-edit[data-field-type="address"] a.whiteButton:active,
+.row-edit[data-field-type="note"] a.whiteButton:active
 {
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
@@ -532,9 +532,9 @@ div[data-field-type="note"] a.whiteButton:active
     background-position: center;
 }
 
-div[data-field-type="name"] a.whiteButton span,
-div[data-field-type="address"] a.whiteButton span,
-div[data-field-type="note"] a.whiteButton span
+.row-edit[data-field-type="name"] a.whiteButton span,
+.row-edit[data-field-type="address"] a.whiteButton span,
+.row-edit[data-field-type="note"] a.whiteButton span
 {
     visibility: hidden;
 }
