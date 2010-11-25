@@ -113,7 +113,8 @@
 {
     height: 4.5em;
     overflow:hidden;
-    padding-left: 90px;
+    padding-left: 110px;
+    padding-right: 34px;
 }
 
 .note-text-row
