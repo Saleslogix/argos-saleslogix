@@ -15,6 +15,8 @@ ul.list-content > li > .item
 /* search */
 .list-search
 {
+    background-color: #e6e6e6;
+    background-image: linear-gradient(top, #e6e6e6, #cccccc);
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -26,8 +28,9 @@ ul.list-content > li > .item
 	border-bottom: 1px solid black;
     border-top: 1px solid transparent;
 
-    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px, rgba(255,255,255,0.25) 0px 22px 0px inset;
-    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px, rgba(255,255,255,0.25) 0px 22px 0px inset;
+    box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 }
 
 .list-search input
@@ -43,6 +46,7 @@ ul.list-content > li > .item
     border: solid 1px #000 !important;
     background: #fff;
 
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
     -webkit-background-clip: padding-box;
@@ -51,6 +55,12 @@ ul.list-content > li > .item
 
 .list-search .searchButton
 {
+    background-color: rgb(218,237,190);
+    background-image: -linear-gradient(
+        center top,
+        rgb(218,237,190) 0%,
+        rgb(190,207,166) 100%
+    );
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -73,14 +83,19 @@ ul.list-content > li > .item
     padding: 0 8px 0 6px;
     border: solid 1px #000;
     text-align: center;
-    -webkit-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
-    -moz-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
+    background-clip: padding-box;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
 
 .list-search .dismissButton
 {
+    background-color: rgb(218,237,190);
+    background-image: linear-gradient(
+        center top,
+        rgb(218,237,190) 0%,
+        rgb(190,207,166) 100%
+    );
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -104,8 +119,7 @@ ul.list-content > li > .item
     border-style: solid;
     border-color: #000;
     border-width: 1px 0 1px 1px;
-    -webkit-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
-    -moz-box-shadow: rgba(255,255,255,0.25) 0px 15px 0px inset;
+    background-clip: padding-box;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
@@ -538,3 +552,27 @@ li.more .button
 {
     visibility: hidden;
 }
+/*
+
+.panel > fieldset,
+.panel-content > fieldset,
+.panel-validation-summary > fieldset
+{
+    -moz-border-radius-bottomleft: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    margin: 0 12px 12px 12px;
+    padding: 0;
+}
+
+.panel > fieldset,
+.panel-content > fieldset,
+.panel-validation-summary > fieldset
+{
+    border-style: none solid solid solid;
+    border-color: #024731;
+    border-width: 0 2px 2px 2px;
+    background: #fff;
+}
+*/
