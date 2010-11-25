@@ -1,177 +1,6 @@
-* {
+*
+{
       -webkit-touch-callout: none;
-  }
-body > ul > li > a,
-ul.list-content > li > a
-{
-    padding: 8px 32px 8px 36px;
-}
-
-ul.list-content > li > .item
-{
-    font-weight: normal;
-}
-
-/* search */
-.list-search
-{
-    background-color: #e6e6e6;
-    background-image: linear-gradient(top, #e6e6e6, #cccccc);
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #e6e6e6),
-        color-stop(1, #cccccc)
-    );
-    background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
-	border-bottom: 1px solid black;
-    border-top: 1px solid transparent;
-
-    box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
-    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
-    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
-}
-
-.list-search input
-{
-    font-size: 0.9em;
-    line-height: 30px;
-
-    /* these are marked !important due to Chrome CSS fix */
-    /* todo: needed still? */
-    padding: 0 128px 0 5px !important;
-    -moz-border-radius: 3px !important;
-    -webkit-border-radius: 3px !important;
-    border: solid 1px #000 !important;
-    background: #fff;
-
-    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-}
-
-.list-search .searchButton
-{
-    background-color: rgb(218,237,190);
-    background-image: -linear-gradient(
-        center top,
-        rgb(218,237,190) 0%,
-        rgb(190,207,166) 100%
-    );
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, rgb(218,237,190)),
-        color-stop(1, rgb(190,207,166))
-    );
-    background-image: -moz-linear-gradient(
-        center top,
-        rgb(218,237,190) 0%,
-        rgb(190,207,166) 100%
-    );
-    cursor: pointer;
-    -moz-border-radius: 0px 3px 3px 0px;
-    -webkit-border-radius: 0px 3px 3px 0px;
-    color: #000;
-	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
-    font-size: 0.9em;
-    line-height: 30px;
-    padding: 0 8px 0 6px;
-    border: solid 1px #000;
-    text-align: center;
-    background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-}
-
-.list-search .dismissButton
-{
-    background-color: rgb(218,237,190);
-    background-image: linear-gradient(
-        center top,
-        rgb(218,237,190) 0%,
-        rgb(190,207,166) 100%
-    );
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, rgb(218,237,190)),
-        color-stop(1, rgb(190,207,166))
-    );
-    background-image: -moz-linear-gradient(
-        center top,
-        rgb(218,237,190) 0%,
-        rgb(190,207,166) 100%
-    );
-    cursor: pointer;
-    color: #000;
-	text-shadow: rgba(255, 255, 255, 1) 1px 1px 0;
-    -moz-border-radius: 3px 0px 0px 3px;
-    -webkit-border-radius: 3px 0px 0px 3px;
-    font-size: 0.9em;
-    line-height: 30px;
-    text-align: center;
-    border-style: solid;
-    border-color: #000;
-    border-width: 1px 0 1px 1px;
-    background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-}
-
-.list-search label
-{
-    color: #aaa;
-    font-size: 0.9em !important;
-    line-height: 32px;
-    padding: 0 8px 0 6px;
-    font-weight: normal;
-}
-
-/* edit/insert */
-input.field-error
-{
-    color: #f00;
-}
-
-.row > input:not([type|=radio]):not([type|=checkbox])
-{
-    height: auto;
-    padding: 10px 10px 0 110px;
-}
-
-.row-edit > div.field-lookup > a,
-.row-edit > div.field-address > a
-{
-    padding: 10px 10px 0px 110px;
-    display: block;
-}
-
-.row-edit > div.field-lookup.readonly > a {
-    color: #000;
-    text-decoration: none;
-}
-
-/* list selection */
-.list .list-item-selector
-{
-    visibility: hidden;
-    width: 24px;
-    height: 24px;
-    color: #ff0;
-    position: absolute;
-    top: 8px;
-    left: 8px;
-}
-
-.list-show-selectors .list-item-selector
-{
-    visibility: visible;
 }
 
 .list .list-item-selected
@@ -184,12 +13,6 @@ input.field-error
     background-image: url(../images/icons/OK_24.png);
     background-repeat: no-repeat;
     background-position: center center;
-}
-
-li.more .button
-{
-    -moz-box-shadow: rgba(255,255,255,0.25) 0px 20px 0px inset, rgba(255,255,255,1.0) 0px 0px 1px inset;
-    -webkit-box-shadow: rgba(255,255,255,0.25) 0px 20px 0px inset, rgba(255,255,255,1.0) 0px 0px 1px inset;
 }
 
 /* defect view */
@@ -259,7 +82,7 @@ li.more .button
     margin: 24px 12px 12px 12px;
     
     border-width: 1px;
-    border-color: #3c4f18;
+    border-color: #000;
     border-style: solid;
     border-radius-topleft: 8px;
     border-radius-topright: 8px;
@@ -569,27 +392,3 @@ li.more .button
 {
     visibility: hidden;
 }
-/*
-
-.panel > fieldset,
-.panel-content > fieldset,
-.panel-validation-summary > fieldset
-{
-    -moz-border-radius-bottomleft: 8px;
-    -webkit-border-bottom-left-radius: 8px;
-    -moz-border-radius-bottomright: 8px;
-    -webkit-border-bottom-right-radius: 8px;
-    margin: 0 12px 12px 12px;
-    padding: 0;
-}
-
-.panel > fieldset,
-.panel-content > fieldset,
-.panel-validation-summary > fieldset
-{
-    border-style: none solid solid solid;
-    border-color: #024731;
-    border-width: 0 2px 2px 2px;
-    background: #fff;
-}
-*/
