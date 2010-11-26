@@ -398,3 +398,31 @@
 {
     visibility: hidden;
 }
+
+.calendar-prev-month > a
+{
+    background-image: url(../images/icons/Browse_Previous_24.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    display: block;
+    height: 30px;
+}
+
+.calendar-prev-month > a > span
+{
+    display: none;
+}
+
+.calendar-next-month > a
+{
+    background-image: url(../images/icons/Browse_Next_24.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    display: block;
+    height: 30px;
+}
+
+.calendar-next-month > a > span
+{
+    display: none;
+}
