@@ -426,3 +426,15 @@
 {
     display: none;
 }
+
+.collapsed-indicator
+{
+    background-image: url(../images/icons/Hide_Details_active_24.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.collapsed > .collapsed-indicator
+{
+    background-image: url(../images/icons/Show_Details_active_24.png);
+}
