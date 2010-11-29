@@ -255,8 +255,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'UserId',
                     type: 'lookup',
                     requireSelection: true,
-                    valueKeyProperty: false,
-                    valueTextProperty: false,
                     view: 'user_list'
                 },
                 {

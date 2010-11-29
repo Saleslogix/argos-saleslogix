@@ -77,6 +77,32 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 title: this.fbarScheduleTitleText
             }];
         },
+        processEntry: function(entry) {
+          if (entry && entry.UserId)
+          {
+                var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
+                    .setResourceKind('userInfo')
+                    .setQueryArg('select', 'FirstName,MiddleName,LastName')
+                    .setQueryArg('where', String.format("id eq '{0}'", entry.UserId));
+
+                request.readFeed({
+                    success: function(feed) {
+                        if (feed && feed['$resources']) 
+                        {
+                            entry['UserId'] = feed['$resources'][0];
+                            Mobile.SalesLogix.Activity.DetailBase.superclass.processEntry.call(this, entry);
+                        }
+                    },
+                    failure: function() {
+                    },
+                    scope: this
+                });
+            }
+            else
+            {
+                Mobile.SalesLogix.Activity.DetailBase.superclass.processEntry.apply(this, arguments);
+            }
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
@@ -128,7 +154,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },
                 {
                     name: 'UserId',
-                    label: this.leaderText
+                    label: this.leaderText,
+                    renderer: Mobile.SalesLogix.Format.nameLF.createDelegate(this)
                 },
                 {
                     name: 'LongNotes',
