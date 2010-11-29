@@ -138,6 +138,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             if (values['StartDate'] && reminder)            
                 values['AlarmTime'] = values['StartDate'].clone().add({'minutes': -1 * reminder});
 
+            if (values && values['UserId'])
+            {
+                values['UserId'] = values['UserId'] && values['UserId'].$key;
+            }
+
             return values;
         },
         formatReminderText: function(val, key, text) {
