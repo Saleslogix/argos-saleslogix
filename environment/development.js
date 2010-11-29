@@ -1,6 +1,6 @@
 (function(){
     App.registerService('crm', {
-        serverName: 'ec2-184-72-72-45.compute-1.amazonaws.com', 
+        serverName: 'ec2-50-16-242-109.compute-1.amazonaws.com', 
         virtualDirectory: 'sdata',
         applicationName: 'slx',
         contractName: 'dynamic',
