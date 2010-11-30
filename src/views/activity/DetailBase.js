@@ -8,6 +8,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
 (function() {
     Mobile.SalesLogix.Activity.DetailBase = Ext.extend(Sage.Platform.Mobile.Detail, {
+        //Templates
+        leaderTemplate: Mobile.SalesLogix.Template.nameLF,
+
         //Localization
         activityTypeText: {
             'atToDo': 'To-Do',
@@ -77,32 +80,45 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 title: this.fbarScheduleTitleText
             }];
         },
-        processEntry: function(entry) {
-          if (entry && entry.UserId)
-          {
-                var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
-                    .setResourceKind('userInfo')
-                    .setQueryArg('select', 'FirstName,MiddleName,LastName')
-                    .setQueryArg('where', String.format("id eq '{0}'", entry.UserId));
+        requestLeader: function(userId)
+        {
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                .setResourceKind('users')
+                .setResourceSelector(String.format("'{0}'", userId))
+                .setQueryArg('select', [
+                    'UserInfo/FirstName',
+                    'UserInfo/LastName'
+                ].join(','));
 
-                request.readFeed({
-                    success: function(feed) {
-                        if (feed && feed['$resources']) 
-                        {
-                            entry['UserId'] = feed['$resources'][0];
-                            Mobile.SalesLogix.Activity.DetailBase.superclass.processEntry.call(this, entry);
-                        }
-                    },
-                    failure: function() {
-                    },
-                    scope: this
-                });
-            }
-            else
+            request.allowCacheUse = true;
+            request.read({
+                success: this.processLeader,
+                failure: this.requestLeaderFailure,
+                scope: this
+            });
+        },
+        requestLeaderFailure: function(xhr, o) {
+        },
+        processLeader: function(leader) {
+            if (leader)
             {
-                Mobile.SalesLogix.Activity.DetailBase.superclass.processEntry.apply(this, arguments);
+                this.entry['Leader'] = leader;
+
+                var rowEl = this.el.child('[data-property="Leader"]'),
+                    contentEl = rowEl && rowEl.child('span');
+
+                if (rowEl)
+                    rowEl.removeClass('content-loading');
+
+                if (contentEl)
+                    contentEl.update(this.leaderTemplate.apply(leader['UserInfo']));
             }
         },
+        processEntry: function(entry) {
+            Mobile.SalesLogix.Activity.DetailBase.superclass.processEntry.apply(this, arguments);
+
+            if (entry && entry['UserId']) this.requestLeader(entry['UserId']);
+        },        
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
@@ -153,9 +169,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     label: this.rolloverText
                 },
                 {
-                    name: 'UserId',
+                    name: 'Leader',
                     label: this.leaderText,
-                    renderer: Mobile.SalesLogix.Format.nameLF.createDelegate(this)
+                    cls: 'content-loading',
+                    value: 'loading...'
                 },
                 {
                     name: 'LongNotes',

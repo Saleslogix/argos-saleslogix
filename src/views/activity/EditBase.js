@@ -93,7 +93,12 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'UserId'
         ],
         resourceKind: 'activities',
-       
+
+        init: function() {
+            Mobile.SalesLogix.Activity.EditBase.superclass.init.apply(this, arguments);
+
+            this.fields['Leader'].on('change', this.onLeaderChange, this);
+        },
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
@@ -112,11 +117,13 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Reminder'].setValue(15);
 
             this.fields['Type'].setValue(this.options && this.options.activityType);
-            
-            this.fields['UserId'].setSelection({
-                '$key': App.context['user'] && App.context['user']['$key'],
-                '$descriptor': App.context['user'] && App.context['user']['$descriptor']
-            });
+
+            var user = App.context['user'];
+            if (user)
+            {    
+                this.fields['UserId'].setValue(user['$key']);
+                this.fields['Leader'].setValue(user);
+            }
         },
         setValues: function(values) {
 
@@ -126,7 +133,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 var reminder = span / (1000 * 60);
 
                 values['Reminder'] = reminder;
-            }
+            }                        
 
             Mobile.SalesLogix.Activity.EditBase.superclass.setValues.apply(this, arguments);
         },
@@ -137,13 +144,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                         
             if (values['StartDate'] && reminder)            
                 values['AlarmTime'] = values['StartDate'].clone().add({'minutes': -1 * reminder});
-
-            if (values && values['UserId'])
-            {
-                values['UserId'] = values['UserId'] && values['UserId'].$key;
-            }
-
+           
             return values;
+        },
+        onLeaderChange: function(value, field) {
+            this.fields['UserId'].setValue(value && value['key']);
         },
         formatReminderText: function(val, key, text) {
             return this.reminderValueText[key] || text;
@@ -256,9 +261,16 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     type: 'boolean'
                 },
                 {
+                    type: 'hidden',
+                    name: 'UserId'
+                },
+                {
                     label: this.leaderText,
-                    name: 'UserId',
+                    name: 'Leader',
+                    include: false,
                     type: 'lookup',
+                    textProperty: 'UserInfo',
+                    textTemplate: Mobile.SalesLogix.Template.nameLF,
                     requireSelection: true,
                     view: 'user_list'
                 },

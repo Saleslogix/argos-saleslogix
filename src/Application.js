@@ -67,7 +67,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             var request = new Sage.SData.Client.SDataResourceCollectionRequest(service)
                 .setResourceKind('users')
                 .setQueryArgs({
-                    'select': 'UserName,UserInfo/UserName',
+                    'select': 'UserName,UserInfo/UserName,UserInfo/FirstName,UserInfo/LastName',
                     'where': String.format('UserName eq "{0}"', credentials.username)
                 })
                 .setCount(1)
