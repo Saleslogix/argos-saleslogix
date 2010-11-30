@@ -54,10 +54,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'UserId'
         ],
         resourceKind: 'activities',
-
-        resolveActivityName: function(entry) {
-            return
-        },
+        
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },

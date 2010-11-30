@@ -11,19 +11,36 @@ Ext.namespace("Mobile.SalesLogix.History");
         'atQuestion': 'Question',
         'atEMail': 'E-mail'
     };
-    
+
     Mobile.SalesLogix.History.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
+        itemTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '{%! $$.contentTemplate %}',
+            '</li>'
+        ]),
         contentTemplate: new Simplate([
-            '<h3>{%: Mobile.SalesLogix.Format.date($.StartDate) %}, {%: $.AccountName %}</h3>',
-            '<h4>{%: Mobile.SalesLogix.Activity.ActivityTypesLookup[$.Type] ||',
-                 ' Mobile.SalesLogix.History.ActivityTypesLookup[$.Type] || $.Type %}, ',
-                '{%: $.Description %}</h4>'
+            '<h3>',
+            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, "h:mm") %}</span>',
+            '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
+            '<span class="p-description">&nbsp;{%: $.Description %}</span>',
+            '</h3>',
+            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, "ddd M/d/yy") %} - {%= $$.nameTemplate.apply($) %}</h4>'
+        ]),
+        nameTemplate: new Simplate([
+            '{% if ($.ContactName) { %}',
+            '{%: $.ContactName %} / {%: $.AccountName %}',
+            '{% } else if ($.AccountName) { %}',
+            '{%: $.AccountName %}',
+            '{% } else { %}',
+            '{%: $.LeadName %}',
+            '{% } %}'
         ]),
 
         //Localization
         titleText: 'History',
-
+        
         //View Properties
         detailView: 'history_detail',
         icon: 'content/images/icons/journal_24.png',
