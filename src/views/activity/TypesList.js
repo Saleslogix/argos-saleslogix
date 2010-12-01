@@ -69,6 +69,8 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
                     source: source,
                     activityType: params.key,
                     returnTo: this.options && this.options.returnTo
+                }, {
+                    returnTo: -1
                 });
         }
     },

@@ -6,7 +6,11 @@
 		name: 'SalesLogix Mobile',
 		file: 'app/content/javascript/argos-saleslogix.js',
 		isDebug: true,
-		fileIncludes: [{
+		fileIncludes: [
+		{
+            text: 'Environment.js',
+            path: '../src/'
+        },{
             text: 'Application.js',
             path: '../src/'
         },

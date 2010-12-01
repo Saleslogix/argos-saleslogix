@@ -6,7 +6,7 @@
 Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.Format = (function() {
-    var F = Sage.Platform.Mobile.Format;   
+    var F = Sage.Platform.Mobile.Format;      
    
     return Ext.apply({}, {
         address: function(val, textOnly, nl) {
@@ -40,7 +40,7 @@ Mobile.SalesLogix.Format = (function() {
 
             if (!F.isEmpty(val['Country'])) lines.push(F.encode(val['Country']));
 
-            if (textOnly) return nl ? lines.join('\n') : lines.join('<br />');
+            if (textOnly) return nl ? lines.join(typeof nl === 'string' ? nl : '\n') : lines.join('<br />');
 
             return String.format('<a target="_blank" href="http://maps.google.com/maps?q={1}">{0}</a>',
                 lines.join('<br />'),
@@ -50,27 +50,27 @@ Mobile.SalesLogix.Format = (function() {
         phone: function(val, withLink) {
             if (typeof val !== 'string') 
                 return val;
-            
-            var formatNumber = function (number, extn, phNumber) {
-                var numString = "", extnString = "";
-                if (extn) extnString = 'x' + extn;
-                if (number.length < 7) {
-                    numString = number + "";
-                }
-                else {
-                    numString = String.format('({0}) {1}-{2}', number.substring(0, 3), number.substring(3, 6), number.substring(6));
-                }
-                if (withLink === false) {
-                    return String.format('{0}{1}', numString, extnString);
-                }
-                return String.format('<a href="tel:{0}" data-action="recordCallToHistory" data-stopevent="false">{1}{2}</a>', phNumber, numString, extnString);
-            };
 
-            if (/x/i.test(val)) {
-                var numbers = val.split(/x/i);
-                return formatNumber(numbers[0], numbers[1], val);
+            var formatters = Sage.Platform.Mobile.Controls.PhoneField.prototype.formatters,
+                clean = /^\+/.test(val)
+                    ? val
+                    : val.replace(/[^0-9x]/ig, ''),
+                number;
+
+            for (var i = 0; i < formatters.length; i++)
+            {
+                var formatter = formatters[i],
+                    match;
+                if ((match = formatter.test.exec(clean)))
+                    number = String.format.apply(String, [formatter.format, val, clean].concat(match));                
             }
-            return formatNumber(val, "", val);
+
+            if (number)
+                return withLink === false
+                    ? number
+                    : String.format('<a href="tel:{0}" data-action="recordCallToHistory" data-stopevent="false">{1}</a>', clean, number);                    
+
+            return val;
         },
         currency: function(val) {
             // todo: add localization support

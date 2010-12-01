@@ -25,6 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         ownerText: 'owner',
         phoneCallHistoryTitle: 'Phone Call',
         phoneText: 'phone',
+        actionsText: 'Actions',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
         relatedHistoriesText: 'History',
@@ -37,6 +38,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
         titleText: 'Account',
         typeText: 'type',
         webText: 'web',
+        callMainNumberText: 'Call main number',
+        scheduleActivityText: 'Schedule activity',
+        viewAddressText: 'View address',
 
         //View Properties
         id: 'account_detail',
@@ -84,16 +88,17 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 'AccountName': this.entry.AccountName,
                 'AccountId': this.entry.$key
             };
-            var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
-                    .setResourceKind('history');
+            
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                .setResourceKind('history');
 
             request.create(entry, {
                 success: function(created) {
-                    var v = App.getView('history_edit');
-                    if (v)
+                    var view = App.getView('history_edit');
+                    if (view)
                     {
-                        v.setTitle(title);
-                        v.show({
+                        view.show({
+                            title: title,
                             entry: created
                         });
                     }
@@ -106,124 +111,134 @@ Ext.namespace("Mobile.SalesLogix.Account");
         recordCallToHistory: function() {
             this.createHistory('atPhoneCall', this.phoneCallHistoryTitle);
         },
+        callMainPhone: function() {
+            this.recordCallToHistory();
+            App.initiateCall(this.entry['MainPhone']);  
+        },
+        viewAddress: function() {
+            App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
+        },
+        scheduleActivity: function() {
+            App.navigateToActivityInsertView();
+        },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
+            return this.layout || (this.layout = [{
+                options: {
+                    list: true,
+                    title: this.actionsText,
+                    cls: 'action-list'
+                },
+                as: [{
+                    name: 'MainPhone',
+                    label: this.callMainNumberText,
+                    icon: 'content/images/icons/Schedule_Call_24x24.gif',
+                    action: 'callMainPhone',
+                    renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
+                },{
+                    name: 'AccountName',
+                    label: this.scheduleActivityText,
+                    icon: 'content/images/icons/job_24.png',  
+                    action: 'scheduleActivity'
+                },{
+                    name: 'Address',
+                    label: this.viewAddressText,
+                    icon: 'content/images/icons/internet_24.png',
+                    action: 'viewAddress',
+                    renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
+                }]
+            },{
+                options: {
+                    title: this.detailsText
+                },
+                as: [{
                     name: 'AccountName',
                     label: this.accountText
-                },
-                {
+                },{
                     name: 'WebAddress',
                     label: this.webText,
                     renderer: Mobile.SalesLogix.Format.link
-                },
-                {
-                    name: 'MainPhone',
-                    label: this.phoneText,
-                    renderer: Mobile.SalesLogix.Format.phone
-                },
-                {
-                    name: 'Address',
-                    label: this.addressText,
-                    renderer: Mobile.SalesLogix.Format.address
-                },
-                {
+                },{
                     name: 'Fax',
                     label: this.faxText,
                     renderer: Mobile.SalesLogix.Format.phone
-                },
-                {
+                },{
                     name: 'Type',
                     label: this.typeText
-                },
-                {
+                },{
                     name: 'SubType',
                     label: this.subTypeText
-                },
-                {
+                },{
                     name: 'Status',
                     label: this.statusText
-                },
-                {
+                },{
                     name: 'Industry',
                     label: this.industryText,
                     type: 'text'
-                },
-                {
+                },{
                     name: 'BusinessDescription',
                     label: this.businessDescriptionText,
                     type: 'text'
-                },
-                {
+                },{
                     name: 'AccountManager.UserInfo',
                     label: this.acctMgrText,
                     tpl: Mobile.SalesLogix.Template.nameLF
-                },
-                {
+                },{
                     name: 'Owner.OwnerDescription',
                     label: this.ownerText
-                },
-                {
+                },{
                     name: 'LeadSource.Description',
                     label: this.importSourceText
+                }]
+            },
+            {
+                options: {
+                    list: true,
+                    title: this.relatedItemsText
                 },
-                {
-                    options: {
-                        list: true,
-                        title: this.relatedItemsText
-                    },
-                    as: [
-                        {
-                            icon: 'content/images/icons/job_24.png',
-                            label: this.relatedActivitiesText,
-                            where: this.formatRelatedQuery.createDelegate(
-                                this, ['AccountId eq "{0}"'], true
-                            ),
-                            view: 'activity_related'
-                        },
-                        {
-                            icon: 'content/images/icons/note_24.png',
-                            label: this.relatedNotesText,
-                            where: this.formatRelatedQuery.createDelegate(
-                                this, ['AccountId eq "{0}" and Type eq "atNote"'], true
-                            ),
-                            view: 'note_related'
-                        },
-                        {
-                            icon: 'content/images/icons/contact_24.png',
-                            label: this.relatedContactsText,
-                            where: this.formatRelatedQuery.createDelegate(
-                                this, ['Account.id eq "{0}"'], true
-                            ),
-                            view: 'contact_related'
-                        },
-                        {
-                            icon: 'content/images/icons/opportunity_24.png',
-                            label: this.relatedOpportunitiesText,
-                            where: this.formatRelatedQuery.createDelegate(
-                                this, ['Account.id eq "{0}"'], true
-                            ),
-                            view: 'opportunity_related'
-                        },
-                        {
-                            icon: 'content/images/icons/job_24.png',
-                            label: this.relatedTicketsText,
-                            where: this.formatRelatedQuery.createDelegate(
-                                this, ['Account.id eq "{0}"'], true
-                            ),
-                            view: 'ticket_related'
-                        },
-                        {
-                            icon: 'content/images/icons/journal_24.png',
-                            label: this.relatedHistoriesText,
-                            where: this.formatRelatedQuery.createDelegate(
-                                this, ['AccountId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
-                            ),
-                            view: 'history_related'
-                        }
-                    ]
-                }
-            ]);
+                as: [{
+                    icon: 'content/images/icons/job_24.png',
+                    label: this.relatedActivitiesText,
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['AccountId eq "{0}"'], true
+                    ),
+                    view: 'activity_related'
+                },{
+                    icon: 'content/images/icons/note_24.png',
+                    label: this.relatedNotesText,
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['AccountId eq "{0}" and Type eq "atNote"'], true
+                    ),
+                    view: 'note_related'
+                },{
+                    icon: 'content/images/icons/contact_24.png',
+                    label: this.relatedContactsText,
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['Account.id eq "{0}"'], true
+                    ),
+                    view: 'contact_related'
+                },{
+                    icon: 'content/images/icons/opportunity_24.png',
+                    label: this.relatedOpportunitiesText,
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['Account.id eq "{0}"'], true
+                    ),
+                    view: 'opportunity_related'
+                },{
+                    icon: 'content/images/icons/job_24.png',
+                    label: this.relatedTicketsText,
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['Account.id eq "{0}"'], true
+                    ),
+                    view: 'ticket_related'
+                },{
+                    icon: 'content/images/icons/journal_24.png',
+                    label: this.relatedHistoriesText,
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['AccountId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
+                    ),
+                    view: 'history_related'
+                }]
+            }]);
         }
     });
 })();

@@ -165,9 +165,9 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             title: this.titleText
         }));
 
-        this.registerToolbar(new Sage.Platform.Mobile.FloatToolbar({
+        /*this.registerToolbar(new Sage.Platform.Mobile.FloatToolbar({
             name: 'fbar'
-        }));
+        }));*/
 
         this.registerView(new Sage.Platform.Mobile.Calendar());
         
@@ -419,18 +419,18 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         if (view)
             view.show();
     },
-    navigateToActivityInsertView: function(options) {
-        var detailView = App.getView(options.id),
-            entry = detailView.entry,
-            view = this.getView('activity_types_list');
-
-        if (view && detailView)
-            view.show({
-                'descriptor': entry.$descriptor,
-                'entry': entry,
-                'key': entry.$key,
-                'relatedResourceKind': detailView.resourceKind
-            });
+    navigateToActivityInsertView: function() {
+        var view = this.getView('activity_types_list');
+        if (view)
+            view.show();
+    },
+    initiateCall: function() {
+        // shortcut for environment call
+        Mobile.SalesLogix.Environment.initiateCall.apply(this, arguments);
+    },
+    showMapForAddress: function() {
+        // shortcut for environment call
+        Mobile.SalesLogix.Environment.showMapForAddress.apply(this, arguments);
     }
 });
 
