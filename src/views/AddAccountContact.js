@@ -70,14 +70,16 @@ Ext.namespace("Mobile.SalesLogix");
             return String.format(format, dependentValue);
         },
         insertCompleted: function(entry) {
-            var v = App.getView('account_detail');
-            if (!v)
-                Mobile.SalesLogix.AddAccountContact.superclass.insertCompleted.apply(this, arguments);
-            else
-                v.show({
+            var view = App.getView('account_detail');
+            if (view)
+                view.show({
                     descriptor: entry.$descriptor,
                     key: entry.$key
+                }, {
+                    returnTo: -1
                 });
+            else
+                Mobile.SalesLogix.AddAccountContact.superclass.insertCompleted.apply(this, arguments);
         },
         createLayout: function() {
             return this.layout || (this.layout = [
