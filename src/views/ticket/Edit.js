@@ -71,6 +71,8 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             Mobile.SalesLogix.Ticket.Edit.superclass.init.apply(this, arguments);
 
             this.fields['Account'].on('change', this.onAccountChange, this);
+            this.fields['Area'].on('change', this.onAreaChange, this);
+            this.fields['Category'].on('change', this.onCategoryChange, this);
         },
         onAccountChange: function(value, field) {
             var selection = field.getSelection();
@@ -93,6 +95,13 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     scope: this
                 });
             }
+        },
+        onAreaChange: function(value, field) {
+            this.fields['Issue'].clearValue();
+            this.fields['Category'].clearValue();
+        },
+        onCategoryChange: function(value, field) {
+            this.fields['Issue'].clearValue();
         },
         formatAccountQuery: function() {
             var value = this.fields['Account'].getValue(),
