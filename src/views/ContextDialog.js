@@ -17,12 +17,12 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
     ]),
     itemTemplate: new Simplate([
         '<li data-action="activateItem" data-view="{%= $.view %}" data-context="{%: $.context %}" data-descriptor="{%: $.descriptor %}" href="#">',
-        '<a href="#" class="button activities blueButton">{%= $.label || $.value %}</a>',
+        '<a href="#" class="button taskButton">{%= $.label || $.value %}</a>',
         '</li>'
     ]),
     cancelButtonTemplate: new Simplate([
         '<li>',
-        '<a href="#" type="cancel" class="button redButton">{%: $.cancelText %}</a>',
+        '<a href="#" type="cancel" class="button cancelButton">{%: $.cancelText %}</a>',
         '</li>'
     ]),
 

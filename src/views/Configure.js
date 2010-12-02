@@ -37,7 +37,6 @@ Ext.namespace("Mobile.SalesLogix");
             Mobile.SalesLogix.Configure.superclass.init.apply(this, arguments);
           
             this.tools.tbar =  [{
-                cls: 'save button',
                 fn: this.savePreferences,
                 name: 'save',
                 scope: this,

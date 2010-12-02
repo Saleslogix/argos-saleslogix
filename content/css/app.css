@@ -62,8 +62,9 @@
 }
 
 /* login view */
-#login
+#login .panel-content
 {
+    background-color: transparent;
     border-bottom: none 0px black;
 }
 
@@ -87,21 +88,12 @@
     margin: 24px 12px 12px 12px;
     
     border-width: 1px;
-    border-color: #000;
+    border-color: #b3b3b3;
     border-style: solid;
-    border-radius-topleft: 8px;
-    border-radius-topright: 8px;
-    border-radius-bottomleft: 8px;
-    border-radius-bottomright: 8px;
 
-    -moz-border-radius-topleft: 8px;
-    -webkit-border-top-left-radius: 8px;
-    -moz-border-radius-topright: 8px;
-    -webkit-border-top-right-radius: 8px;
-    -moz-border-radius-bottomleft: 8px;
-    -webkit-border-bottom-left-radius: 8px;
-    -moz-border-radius-bottomright: 8px;
-    -webkit-border-bottom-right-radius: 8px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px; 
 
     background-clip: padding-box;
     -webkit-background-clip: padding-box;
@@ -141,22 +133,28 @@
 }
 
 /* context dialog */
-#context_dialog ul
+#context_dialog .list-content
+{
+    background-color: transparent;
+}
+
+#context_dialog .list-content
 {
     padding-left: 0;
 }
 
-#context_dialog ul > li
+#context_dialog .list-content > li
 {
-    font-size:20px;
-    font-weight:bold;
-    list-style:none outside none;
-    margin:0;
-    padding:8px 0;
-    position:relative;
+    font-size: 20px;
+    font-weight: bold;
+    list-style: none outside none;
+    margin: 0;
+    padding: 8px 0;
+    position: relative;
+    border-bottom: none 0 black;
 }
 
-#context_dialog ul > li a.button
+#context_dialog .list-content > li > .button
 {
     position: static;
     display: block;
@@ -304,7 +302,7 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background: url(../images/icons/help_24.png);
 }
 
-.row-edit[data-field-type="lookup"] a.whiteButton
+.row-edit[data-field-type="lookup"] a.button
 {
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
@@ -318,7 +316,7 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="lookup"] a.whiteButton:active
+.row-edit[data-field-type="lookup"] a.button:active
 {
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
@@ -332,12 +330,12 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="lookup"] a.whiteButton span
+.row-edit[data-field-type="lookup"] a.button span
 {
     visibility: hidden;
 }
 
-.row-edit[data-field-type="date"] a.whiteButton
+.row-edit[data-field-type="date"] a.button
 {
     background-image: url(../images/icons/Calendar_24.png), -webkit-gradient(
 		linear,
@@ -351,7 +349,7 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="date"] a.whiteButton:active
+.row-edit[data-field-type="date"] a.button:active
 {
     background-image: url(../images/icons/Calendar_24.png), -webkit-gradient(
 		linear,
@@ -365,14 +363,14 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="date"] a.whiteButton span
+.row-edit[data-field-type="date"] a.button span
 {
     visibility: hidden;
 }
 
-.row-edit[data-field-type="name"] a.whiteButton,
-.row-edit[data-field-type="address"] a.whiteButton,
-.row-edit[data-field-type="note"] a.whiteButton
+.row-edit[data-field-type="name"] a.button,
+.row-edit[data-field-type="address"] a.button,
+.row-edit[data-field-type="note"] a.button
 {
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
@@ -386,9 +384,9 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="name"] a.whiteButton:active,
-.row-edit[data-field-type="address"] a.whiteButton:active,
-.row-edit[data-field-type="note"] a.whiteButton:active
+.row-edit[data-field-type="name"] a.button:active,
+.row-edit[data-field-type="address"] a.button:active,
+.row-edit[data-field-type="note"] a.button:active
 {
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
@@ -402,9 +400,9 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="name"] a.whiteButton span,
-.row-edit[data-field-type="address"] a.whiteButton span,
-.row-edit[data-field-type="note"] a.whiteButton span
+.row-edit[data-field-type="name"] a.button span,
+.row-edit[data-field-type="address"] a.button span,
+.row-edit[data-field-type="note"] a.button span
 {
     visibility: hidden;
 }

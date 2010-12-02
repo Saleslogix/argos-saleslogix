@@ -7,16 +7,30 @@
 }
 
 .toggle {
-    border: 1px solid #888888;
+    border: 1px solid #333;    
+    background-color: #e6e6e6;
+    background-image: linear-gradient(bottom, #e6e6e6, #ccc);
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, #e6e6e6),
+        color-stop(1, #ccc)
+    );
+    background-image: -moz-linear-gradient(bottom, #e6e6e6, #ccc);
+    border-radius: 6px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     font-size: 19px;
     font-weight: bold;
     line-height: 30px;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
 }
 
 .toggle[toggled="true"] {
-    border: 1px solid #143fae;
+    
 }
 
 .toggleOn {
@@ -36,7 +50,7 @@
     text-align: center;
     right: 0;
     top: 0;
-    color: #666666;
+    color: #333;
 }
 
 .toggle[toggled="true"] > .toggleOn {
@@ -53,9 +67,23 @@
     left: -1px;
     width: 40px;
     height: 28px;
-    border: 1px solid #888888;
+    border: 1px solid #333;
+    background-color: #e6e6e6;
+    background-image: linear-gradient(top, #f2f2f2, #e6e6e6);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #f2f2f2),
+        color-stop(1, #e6e6e6)
+    );
+    background-image: -moz-linear-gradient(top, #f2f2f2, #e6e6e6);
+    border-radius: 6px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
 }
 
 .toggle[toggled="true"] > .thumb {
@@ -64,14 +92,23 @@
 }
 
 .toggle {
-    border: 1px solid #888888;
-    background: #FFFFFF url(../images/toggle/toggle.png) repeat-x;
+
 }
 
 .toggle[toggled="true"] {
-    background: #194fdb url(../images/toggle/toggleOn.png) repeat-x;
+    border: 1px solid #1a250f;    
+    background-color: #69923a;
+    background-image: linear-gradient(bottom, #69923a, #4f6e2c);
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, #69923a),
+        color-stop(1, #4f6e2c)
+    );
+    background-image: -moz-linear-gradient(bottom, #69923a, #4f6e2c);
 }
 
 .thumb {
-    background: #ffffff url(../images/toggle/thumb.png) repeat-x;
+   
 }

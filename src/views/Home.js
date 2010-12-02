@@ -87,7 +87,6 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
         this.tools.tbar = [{
             name: 'configure',
             title: this.configureText,
-            cls: 'button',
             fn: this.navigateToConfigurationView,
             scope: this
         }];
