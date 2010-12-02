@@ -5,147 +5,102 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Account");
+Ext.namespace("Mobile.SalesLogix.History");
 
 (function() {
-    Mobile.SalesLogix.History.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    Mobile.SalesLogix.History.Edit = Ext.extend(Mobile.SalesLogix.History.EditBase, {
         //Localization
         accountText: 'account',
-        activityCategoryTitleText: 'Activity Category',
-        activityDescriptionTitleText: 'Activity Description',
-        categoryText: 'category',
-        companyText: 'company',
         contactText: 'contact',
-        fbarHomeTitleText: 'home',
-        fbarScheduleTitleText: 'schedule',
-        leaderText: 'leader',
-        leadText: 'lead',
         longNotesText: 'notes',
         longNotesTitleText: 'Notes',
         opportunityText: 'opportunity',
-        priorityText: 'priority',
-        priorityTitleText: 'Priority',
-        regardingText: 'regarding',
         ticketNumberText: 'ticket',
-        titleText: 'History',
-        typeText: 'type',
 
         //View Properties
-        entityName: 'History',
         id: 'history_edit',
-        picklistsByType: {
-            'atAppointment': {
-                'Category': 'Meeting Category Codes',
-                'Description': 'Meeting Regarding'
-            },
-            'atLiterature': {
-                'Description': 'Lit Request Regarding'
-            },
-            'atPersonal': {
-                'Category': 'Meeting Category Codes',
-                'Description': 'Personal Activity Regarding'
-            },
-            'atPhoneCall': {
-                'Category': 'Phone Call Category Codes',
-                'Description': 'Phone Call Regarding'
-            },
-            'atToDo': {
-                'Category': 'To Do Category Codes',
-                'Description': 'To Do Regarding'
-            }
-        },
         querySelect: [
+            'AccountId',
             'AccountName',
             'Category',
-            'Company',
+            'ContactId',
             'ContactName',
             'Description',
-            'LeadId',
-            'LeadName',
             'LongNotes',
+            'OpportunityId',
             'OpportunityName',
             'Priority',
+            'TicketId',
             'TicketNumber',
             'Type'
         ],
-        resourceKind: 'history',
 
-        formatPicklistForType: function(type, which) {
-            console.log(type, which)
-            return this.picklistsByType[type] && this.picklistsByType[type][which];
+        formatDependentQuery: function(dependentValue, format, property) {
+            var getV = Sage.Platform.Mobile.Utility.getValue;
+
+            property = property || '$key';
+            
+            return String.format(format, getV(dependentValue, property));
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
+            var layout = Mobile.SalesLogix.History.Edit.superclass.createLayout.apply(this, arguments);
+
+            this.layout = layout.concat([
                 {
-                    name: 'Type',
-                    type: 'hidden'
-                },
-                {
-                    dependsOn: 'Type',
-                    label: this.regardingText,
-                    name: 'Description',
-                    picklist: this.formatPicklistForType.createDelegate(
-                        this, ['Description'], true
-                    ),
-                    title: this.activityDescriptionTitleText,
-                    type: 'picklist'
-                },
-                {
-                    label: this.priorityText,
-                    name: 'Priority',
-                    picklist: 'Priorities',
-                    title: this.priorityTitleText,
-                    type: 'picklist'
-                },
-                {
-                    dependsOn: 'Type',
-                    label: this.categoryText,
-                    name: 'Category',
-                    picklist: this.formatPicklistForType.createDelegate(
-                        this, ['Category'], true
-                    ),
-                    title: this.activityCategoryTitleText,
-                    type: 'picklist'
-                },
-                {
-                    name: 'ContactName',
-                    label: this.contactText,
-                    type: 'text'
-                },
-                {
-                    name: 'AccountName',
                     label: this.accountText,
-                    type: 'text'
-                },
-                {
-                    name: 'OpportunityName',
-                    label: this.opportunityText,
-                    type: 'text'
-                },
-                {
-                    name: 'TicketNumber',
-                    label: this.ticketNumberText,
-                    type: 'text'
-                },
-                {
-                    name: 'LeadName',
-                    label: this.leadText,
-                    type: 'text'
-                },
-                {
                     name: 'AccountName',
-                    label: this.companyText,
-                    type: 'text'
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'AccountId',
+                    valueTextProperty: 'AccountName',
+                    view: 'account_related'
                 },
                 {
-                    name: 'LongNotes',
-                    label: this.longNotesText,
-                    noteProperty: false,
-                    title: this.longNotesTitleText,
-                    type: 'note',
-                    view: 'text_edit'
+                    dependsOn: 'Account',
+                    label: this.contactText,
+                    name: 'Contact',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'ContactId',
+                    valueTextProperty: 'ContactName',
+                    view: 'contact_related',
+                    where: this.formatDependentQuery.createDelegate(
+                        this, ['Account.Id eq "{0}"', 'AccountId'], true
+                    )
+                },
+                {
+                    dependsOn: 'Account',
+                    label: this.opportunityText,
+                    name: 'Opportunity',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'OpportunityId',
+                    valueTextProperty: 'OpportunityName',
+                    view: 'opportunity_related',
+                    where: this.formatDependentQuery.createDelegate(
+                        this, ['Account.Id eq "{0}"', 'AccountId'], true
+                    )
+                },
+                {
+                    dependsOn: 'Account',
+                    label: this.ticketNumberText,
+                    name: 'Ticket',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'TicketId',
+                    valueTextProperty: 'TicketNumber',
+                    view: 'ticket_related',
+                    where: this.formatDependentQuery.createDelegate(
+                        this, ['Account.Id eq "{0}"', 'AccountId'], true
+                    )
                 }
             ]);
-        }        
+
+            return this.layout;
+        }
     });
 })();

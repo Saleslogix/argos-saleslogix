@@ -84,9 +84,10 @@ Ext.namespace("Mobile.SalesLogix.Account");
         createHistory: function(type, title) {
             var entry = {
                 '$name': 'History',
-                'Type': 'atPhoneCall',
+                'Type': type,
                 'AccountName': this.entry.AccountName,
-                'AccountId': this.entry.$key
+                'AccountId': this.entry.$key,
+                'Description': String.format("Called {0}", this.entry.AccountName)
             };
             
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())

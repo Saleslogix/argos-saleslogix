@@ -7,11 +7,6 @@
 Ext.namespace("Mobile.SalesLogix.History");
 
 (function() {
-    Mobile.SalesLogix.History.ActivityTypesLookup = {
-        'atQuestion': 'Question',
-        'atEMail': 'E-mail'
-    };
-
     Mobile.SalesLogix.History.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
         itemTemplate: new Simplate([
@@ -22,8 +17,10 @@ Ext.namespace("Mobile.SalesLogix.History");
         ]),
         contentTemplate: new Simplate([
             '<h3>',
+            '{% if (!$.Timeless) { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, "h:mm") %}</span>',
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
+            '{% } %}',
             '<span class="p-description">&nbsp;{%: $.Description %}</span>',
             '</h3>',
             '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, "ddd M/d/yy") %} - {%= $$.nameTemplate.apply($) %}</h4>'
@@ -37,21 +34,33 @@ Ext.namespace("Mobile.SalesLogix.History");
             '{%: $.LeadName %}',
             '{% } %}'
         ]),
-
+ 
         //Localization
+        activityTypeText: {
+            'atToDo': 'To-Do',
+            'atPhoneCall': 'Phone Call',
+            'atAppointment': 'Meeting',
+            'atLiterature': 'Literature Request',
+            'atPersonal': 'Personal Activity',
+            'atQuestion': 'Question',
+            'atEMail': 'E-mail'
+        },
         titleText: 'History',
         
         //View Properties
         detailView: 'history_detail',
+        detailViewForLead: 'history_detail_for_lead',
         icon: 'content/images/icons/journal_24.png',
         id: 'history_related',
         insertView: 'history_edit',
         queryOrderBy: 'StartDate desc',
         querySelect: [
-            'StartDate',
             'AccountName',
-            'Type',
-            'Description'
+            'CompletedDate',
+            'Description',
+            'StartDate',
+            'TimeLess',
+            'Type'
         ],
         resourceKind: 'history',
 
@@ -59,6 +68,26 @@ Ext.namespace("Mobile.SalesLogix.History");
             Mobile.SalesLogix.History.List.superclass.init.apply(this, arguments);
 
             this.tools.tbar = [];
+        },
+        isHistoryForLead: function(entry) {
+            return entry && /^[\w]{12}$/.test(entry['LeadId']);
+        },
+        navigateToDetailView: function(key, descriptor) {
+            var entry = this.entries[key];
+            
+            if (this.isHistoryForLead(entry))
+            {
+                var view = App.getView(this.detailViewForLead);
+                if (view)
+                    view.show({
+                        descriptor: descriptor,
+                        key: key
+                    });
+            }
+            else
+            {
+                Mobile.SalesLogix.History.List.superclass.navigateToDetailView.apply(this, arguments);
+            }          
         },
         formatSearchQuery: function(query) {
             return String.format('Description like "%{0}%"', query);

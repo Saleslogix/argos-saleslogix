@@ -7,30 +7,25 @@
 Ext.namespace("Mobile.SalesLogix.History");
 
 (function() {
-    Mobile.SalesLogix.History.Detail = Ext.extend(Mobile.SalesLogix.History.DetailBase, {
+    Mobile.SalesLogix.History.DetailForLead = Ext.extend(Mobile.SalesLogix.History.DetailBase, {
         //Localization
-        accountText: 'account',
-        contactText: 'contact',
+        companyText: 'company',
+        leadText: 'lead',
         longNotesText: 'notes',
-        opportunityText: 'opportunity',
-        ticketNumberText: 'ticket',
         //View Properties
-        id: 'history_detail',
+        id: 'history_detail_for_lead',
         querySelect: [
-            'AccountId',
             'AccountName',
             'Category',
             'CompletedDate',
-            'ContactId',
             'ContactName',
             'Description',
             'Duration',
+            'LeadName',
             'LongNotes',
-            'OpportunityId',
             'OpportunityName',
             'Priority',
             'StartDate',
-            'TicketId',
             'TicketNumber',
             'Timeless',
             'Type',
@@ -38,24 +33,16 @@ Ext.namespace("Mobile.SalesLogix.History");
         ],
 
         createLayout: function() {
-            var base = Mobile.SalesLogix.History.Detail.superclass.createLayout;
+            var base = Mobile.SalesLogix.History.DetailForLead.superclass.createLayout;
 
             return this.layout || (this.layout = base.apply(this, arguments).concat([
                 {
-                    name: 'ContactName',
-                    label: this.contactText
+                    name: 'LeadName',
+                    label: this.leadText
                 },
                 {
                     name: 'AccountName',
-                    label: this.accountText
-                },
-                {
-                    name: 'OpportunityName',
-                    label: this.opportunityText
-                },
-                {
-                    name: 'TicketNumber',
-                    label: this.ticketNumberText
+                    label: this.companyText
                 },
                 {
                     name: 'LongNotes',

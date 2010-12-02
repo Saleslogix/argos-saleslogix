@@ -24,6 +24,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     notesText: 'comments',
     ownerText: 'owner',
     relatedActivitiesText: 'Activities',
+    relatedHistoriesText: 'History',
     relatedItemsText: 'Related Items',
     relatedNotesText: 'Notes',
     sicCodeText: 'sic code',
@@ -75,6 +76,39 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             scope: this,
             title: this.fbarScheduleTitleText
         }];
+    },
+    createHistory: function(type, title) {
+        var entry = {
+            '$name': 'History',
+            'Type': type,
+            'AccountName': this.entry.Company,
+            'LeadId': this.entry.$key
+        };
+
+        var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
+                .setResourceKind('history');
+
+        request.create(entry, {
+            success: function(created) {
+                var v = App.getView('history_edit_for_lead');
+                if (v)
+                {
+                    v.setTitle(title);
+                    v.show({
+                        entry: created
+                    });
+                }
+            },
+            failure: function(response, o) {
+            },
+            scope: this
+        });
+    },
+    recordCallToHistory: function(type) {
+        this.createHistory('atPhoneCall', this.phoneCallHistoryTitle);
+    },
+    recordMailToHistory: function() {
+        this.createHistory('atEMail', this.emailHistoryTitle);
     },
     createLayout: function() {
         return this.layout || (this.layout = [
@@ -164,6 +198,14 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     where: this.formatRelatedQuery.createDelegate(
                         this, ['LeadId eq "{0}" and Type eq "atNote"'], true
                     )
+                },
+                {
+                    icon: 'content/images/icons/journal_24.png',
+                    label: this.relatedHistoriesText,
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['LeadId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
+                    ),
+                    view: 'history_related'
                 }]
             }
         ]); 

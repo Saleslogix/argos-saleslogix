@@ -78,14 +78,15 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             title: this.fbarScheduleTitleText
         }];
     },
-    createHistory: function(type, title) {
+    createHistory: function(type, title, desc) {
         var entry = {
             '$name': 'History',
             'Type': type,
             'ContactName': this.entry.NameLF,
             'ContactId': this.entry.$key,
             'AccountName': this.entry.AccountName,
-            'AccountId': this.entry.Account.$key
+            'AccountId': this.entry.Account.$key,
+            'Description': desc
         };
         var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
                 .setResourceKind('history');
@@ -107,10 +108,14 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         });
     },
     recordCallToHistory: function(type) {
-        this.createHistory('atPhoneCall', this.phoneCallHistoryTitle);
+        this.createHistory(
+            'atPhoneCall', this.phoneCallHistoryTitle, String.format("Called {0}", this.entry.NameLF)
+        );
     },
     recordMailToHistory: function() {
-        this.createHistory('atEMail', this.emailHistoryTitle);
+        this.createHistory(
+            'atEMail', this.emailHistoryTitle, String.format("Emailed {0}", this.entry.NameLF)
+        );
     },
     createLayout: function() {
         return this.layout || (this.layout = [
