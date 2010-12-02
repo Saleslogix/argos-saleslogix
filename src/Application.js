@@ -5,158 +5,9 @@
 Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
-    defaultVirtualDirectory: 'sdata',
-    defaultApplicationName: 'slx',
-    defaultContractName: 'dynamic',
-    titleText: 'Mobile Demo',
+    
+
     enableCaching: true,
-    init: function() {
-        Mobile.SalesLogix.Application.superclass.init.call(this);
-
-        // prevent ReUI from attempting to load the URLs view as we handle that ourselves.
-        // todo: add support for handling the URL appropriately.
-        window.location.hash = "";
-
-        Ext.EventManager.on(window, 'unload', function() {
-            try
-            {
-                if (window.localStorage && this.saveContextOnExit !== false)
-                    window.localStorage.setItem('restore', Ext.encode(ReUI.context.history));
-            }
-            catch (e) { }             
-        }, this);
-
-        Ext.get("backButton").on("longpress", function() {
-            var home = this.getView('home');
-            if (home) {
-                home.show();
-            }
-        }, this);
-        
-        this.fetchPreferences();
-    },
-    run: function() {
-        if (App.isOnline() || !App.enableCaching)
-        {
-            this.handleAuthentication();
-        }
-        else
-        {
-            // todo: always navigate to home when offline? data may not be available for restored state.
-            this.navigateToHomeView();
-        }
-    },
-    handleAuthentication: function() {        
-        try
-        {
-            if (window.localStorage)
-            {
-                var stored = window.localStorage.getItem('credentials'),
-                    encoded = stored && Base64.decode(stored),
-                    credentials = encoded && Ext.decode(encoded);
-            }
-        }
-        catch (e) { }
-
-        if (credentials)
-        {
-            var service = this.getService()
-                .setUserName(credentials.username)
-                .setPassword(credentials.password || '');
-
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(service)
-                .setResourceKind('users')
-                .setQueryArgs({
-                    'select': 'UserName,UserInfo/UserName,UserInfo/FirstName,UserInfo/LastName',
-                    'where': String.format('UserName eq "{0}"', credentials.username)
-                })
-                .setCount(1)
-                .setStartIndex(1);
-
-            request.read({
-                success: function (feed) {
-                    if (feed['$resources'].length <= 0) {
-                        service
-                            .setUserName(false)
-                            .setPassword(false);
-
-                        this.navigateToLoginView();
-                    }
-                    else {
-                        App.context['user'] = feed['$resources'][0];
-                        
-                        this.navigateToInitialView();
-                    }
-                },
-                failure: function (response, o) {                    
-                    service
-                        .setUserName(false)
-                        .setPassword(false);
-
-                    this.navigateToLoginView();
-                },
-                scope: this
-            });
-        }
-        else
-        {
-            this.navigateToLoginView();
-        }
-    },
-    fetchPreferences: function() {
-        try {
-            if (window.localStorage)
-                this.preferences = Ext.decode(window.localStorage.getItem('preferences'));
-        }
-        catch(e) {}
-
-        //Probably, the first time, its being accessed, or user cleared
-        //the data. So lets initialize the object, with default ones.
-        if (!this.preferences)
-        {
-            var views = this.getDefaultViews();
-            
-            this.preferences = {
-                home: {
-                    visible: views
-                },
-                configure: {
-                    order: views.slice(0)
-                }
-            };
-        }
-    },
-    persistPreferences: function() {
-        try {
-            if (window.localStorage)
-                window.localStorage.setItem('preferences', Ext.encode(App.preferences));
-        }
-        catch(e) {}
-    },
-    getDefaultViews: function() {
-        return [
-            'account_list',
-            'contact_list',
-            'lead_list',
-            'opportunity_list',
-            'ticket_list',
-            'settings',
-            'help'
-        ];
-    },
-    getExposedViews: function() {
-        var exposedViews = [],
-            view;
-
-        for (var v in this.views)
-        {
-            view = App.getView(v);
-            if (view.expose != false && view.id != 'home')
-                exposedViews.push(v);
-        }
-
-        return exposedViews;
-    },    
     setup: function () {
         Mobile.SalesLogix.Application.superclass.setup.apply(this, arguments);
 
@@ -165,12 +16,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             title: this.titleText
         }));
 
-        /*this.registerToolbar(new Sage.Platform.Mobile.FloatToolbar({
-            name: 'fbar'
-        }));*/
-
         this.registerView(new Sage.Platform.Mobile.Calendar());
-        
+
         this.registerView(new Mobile.SalesLogix.Login());
         this.registerView(new Mobile.SalesLogix.Home());
         this.registerView(new Mobile.SalesLogix.Help());
@@ -181,7 +28,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.ContextDialog());
         this.registerView(new Mobile.SalesLogix.AddAccountContact());
         this.registerView(new Mobile.SalesLogix.AreaCategoryIssueLookup());
-        
+
         this.registerView(new Mobile.SalesLogix.NameEdit());
         this.registerView(new Mobile.SalesLogix.NoteEdit());
         this.registerView(new Mobile.SalesLogix.Address.Edit());
@@ -350,6 +197,183 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         this.registerView(new Mobile.SalesLogix.Contract.Lookup({
             expose: false
         }));
+    },
+    init: function() {
+        Mobile.SalesLogix.Application.superclass.init.call(this);
+
+        // prevent ReUI from attempting to load the URLs view as we handle that ourselves.
+        // todo: add support for handling the URL appropriately.
+        window.location.hash = "";
+
+        Ext.EventManager.on(window, 'unload', function() {
+            try
+            {
+                if (window.localStorage && this.saveContextOnExit !== false)
+                    window.localStorage.setItem('restore', Ext.encode(ReUI.context.history));
+            }
+            catch (e) { }
+        }, this);
+
+        Ext.get("backButton").on("longpress", function() {
+            var home = this.getView('home');
+            if (home) {
+                home.show();
+            }
+        }, this);
+
+        this.fetchPreferences();
+    },
+    run: function() {
+        if (App.isOnline() || !App.enableCaching)
+        {
+            this.handleAuthentication();
+        }
+        else
+        {
+            // todo: always navigate to home when offline? data may not be available for restored state.
+            this.navigateToHomeView();
+        }
+    },
+    authenticateUser: function(credentials, options) {        
+        var service = this.getService()
+            .setUserName(credentials.username)
+            .setPassword(credentials.password || '');
+        
+        var request = new Sage.SData.Client.SDataResourceCollectionRequest(service)
+            .setResourceKind('users')
+            .setQueryArgs({
+                'select': 'UserName,UserInfo/UserName,UserInfo/FirstName,UserInfo/LastName',
+                'where': String.format('UserName eq "{0}"', credentials.username)
+            })
+            .setCount(1)
+            .setStartIndex(1);
+
+        request.read({
+            success: function (feed) {
+                if (feed['$resources'].length <= 0) {
+                    if (options.failure)
+                        options.failure.call(options.scope || this, {user: false});
+                }
+                else {
+                    this.context['user'] = feed['$resources'][0];
+
+                    if (credentials.remember)
+                    {
+                        try
+                        {
+                            if (window.localStorage)
+                                window.localStorage.setItem('credentials', Base64.encode(Ext.encode({
+                                    username: credentials.username,
+                                    password: credentials.password || ''
+                                })));
+                        }
+                        catch (e) { }
+                    }
+
+                    if (options.success)
+                        options.success.call(options.scope || this, {user: feed['$resources'][0]});
+                }
+            },
+            failure: function (response, o) {
+                service
+                    .setUserName(false)
+                    .setPassword(false);
+
+                if (options.failure)
+                    options.failure.call(options.scope || this, {response: response});
+            },
+            aborted: function(response, o) {
+                if (options.aborted)
+                    options.aborted.call(options.scope || this, {response: response});
+            },
+            scope: this
+        });
+    },
+    handleAuthentication: function() {        
+        try
+        {
+            if (window.localStorage)
+            {
+                var stored = window.localStorage.getItem('credentials'),
+                    encoded = stored && Base64.decode(stored),
+                    credentials = encoded && Ext.decode(encoded);
+            }
+        }
+        catch (e) { }
+
+        if (credentials)
+        {
+            this.authenticateUser(credentials, {
+                success: function(result) {
+                    this.navigateToInitialView();
+                },
+                failure: function(result) {
+                    this.navigateToLoginView();
+                },
+                aborted: function(result) {
+                    this.navigateToLoginView();
+                },
+                scope: this
+            });
+        }
+        else
+        {
+            this.navigateToLoginView();
+        }
+    },
+    fetchPreferences: function() {
+        try {
+            if (window.localStorage)
+                this.preferences = Ext.decode(window.localStorage.getItem('preferences'));
+        }
+        catch(e) {}
+
+        //Probably, the first time, its being accessed, or user cleared
+        //the data. So lets initialize the object, with default ones.
+        if (!this.preferences)
+        {
+            var views = this.getDefaultViews();
+            
+            this.preferences = {
+                home: {
+                    visible: views
+                },
+                configure: {
+                    order: views.slice(0)
+                }
+            };
+        }
+    },
+    persistPreferences: function() {
+        try {
+            if (window.localStorage)
+                window.localStorage.setItem('preferences', Ext.encode(App.preferences));
+        }
+        catch(e) {}
+    },
+    getDefaultViews: function() {
+        return [
+            'account_list',
+            'contact_list',
+            'lead_list',
+            'opportunity_list',
+            'ticket_list',
+            'settings',
+            'help'
+        ];
+    },
+    getExposedViews: function() {
+        var exposedViews = [],
+            view;
+
+        for (var v in this.views)
+        {
+            view = App.getView(v);
+            if (view.expose != false && view.id != 'home')
+                exposedViews.push(v);
+        }
+
+        return exposedViews;
     },
     cleanRestoredHistory: function(restoredHistory) {
         var result = [],

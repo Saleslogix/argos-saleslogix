@@ -11,18 +11,20 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     viewTemplate: new Simplate([
         '<div id="{%= $.id %}" title="{%: $.title %}" class="panel {%= $.cls %}" hideBackButton>',        
         '<div class="panel-content"></div>',
-        '<a class="button whiteButton actionButton" data-action="login"><span>{%: $.loginText %}</span></a>',
+        '<a class="button whiteButton actionButton" data-action="authenticate"><span>{%: $.logOnText %}</span></a>',
         '</div>'
     ]),
 
     //Localization
-    loginText: 'Login',
+    logOnText: 'Log On',
     passText: 'pass',
     rememberText: 'remember',
     titleText: 'Login',
     userText: 'user',
+    invalidUserText: 'The user name or password is invalid.',
+    missingUserText: 'The user record was not found.',
     serverProblemText: 'A problem occured on the server.',
-    invalidUserText: 'Username or password is invalid.',
+    requestAbortedText: 'The request was aborted.',
 
     constructor: function(o) {
         Mobile.SalesLogix.Login.superclass.constructor.call(this);
@@ -35,12 +37,12 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
 
         this.layout = [
             {
-                name: 'user',
+                name: 'username',
                 label: this.userText,
                 type: 'text'
             },
             {
-                name: 'pass',
+                name: 'password',
                 label: this.passText,
                 type: 'text'
             },
@@ -60,74 +62,41 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     getContext: function() {
         return {id: this.id};
     },
-    login: function () {        
+    authenticate: function () {        
         if (this.busy) return;
 
-        var values = this.getValues();
+        var credentials = this.getValues();
 
-        this.validateCredentials(values.user, values.pass, values.remember);
+        this.validateCredentials(credentials);
     },           
-    validateCredentials: function (username, password, remember) {
+    validateCredentials: function (credentials) {
         this.disable();
 
-        var service = App.getService()
-            .setUserName(username)
-            .setPassword(password || '');
-
-        var request = new Sage.SData.Client.SDataResourceCollectionRequest(service)
-            .setResourceKind('users')
-            .setQueryArgs({
-                'select': 'UserName,UserInfo/UserName,UserInfo/FirstName,UserInfo/LastName',
-                'where': String.format('UserName eq "{0}"', username)
-            })
-            .setCount(1)
-            .setStartIndex(1);
-
-        request.read({
-            success: function(feed) {
+        App.authenticateUser(credentials, {
+            success: function(result) {
                 this.enable();
-
-                if (feed['$resources'].length <= 0) {
-                    service
-                        .setUserName(false)
-                        .setPassword(false);
-
-                    alert('User does not exist.');
-                }
-                else {
-                    App.context['user'] = feed['$resources'][0];
-
-                    if (remember)
-                    {
-                        try
-                        {
-                            if (window.localStorage)
-                                window.localStorage.setItem('credentials', Base64.encode(Ext.encode({username: username, password: password})));
-                        }
-                        catch (e) { }
-                    }
-
-                    // todo: add successful login eventing
-
-                    App.navigateToInitialView();
-                }
+                
+                App.navigateToInitialView();
             },
-            failure: function(response, o) {
+            failure: function(result) {
                 this.enable();
 
-                service
-                    .setUserName(false)
-                    .setPassword(false);
-
-                if (response.status == 403)
-                    alert(this.invalidUserText);
+                if (result.response)
+                {
+                    if (result.response.status == 403)
+                        alert(this.invalidUserText);
+                    else
+                        alert(this.serverProblemText);
+                }
                 else
-                    alert(this.serverProblemText);
+                {
+                    alert(this.missingUserText);
+                }
             },
-            aborted: function(response, o) {
+            aborted: function(result) {
                 this.enable();
-
-                alert(this.serverProblemText);
+                
+                alert(this.requestAbortedText);
             },
             scope: this
         });
