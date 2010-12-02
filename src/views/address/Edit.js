@@ -36,6 +36,10 @@ Ext.namespace("Mobile.SalesLogix.Address");
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
+                    name: 'EntityId',
+                    type: 'hidden'
+                },
+                {
                     label: this.descriptionText,
                     name: 'Description',
                     picklist: this.formatDependentPicklist.createDelegate(
@@ -103,10 +107,6 @@ Ext.namespace("Mobile.SalesLogix.Address");
                     name: 'Salutation',
                     label: this.salutationText,
                     type: 'text'
-                },
-                {
-                    name: 'EntityId',
-                    type: 'hidden'
                 }
             ]);
         }
