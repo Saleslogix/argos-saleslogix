@@ -82,7 +82,10 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             '$name': 'History',
             'Type': type,
             'AccountName': this.entry.Company,
-            'LeadId': this.entry.$key
+            'LeadId': this.entry.$key,
+            'LeadName': this.entry.LeadNameLastFirst,
+            'UserId': App.context.user.$key,
+            'UserName': App.context.user.UserName
         };
 
         var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())

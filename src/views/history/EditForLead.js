@@ -27,14 +27,18 @@ Ext.namespace("Mobile.SalesLogix.History");
             'LeadName',
             'LongNotes',
             'Priority',
-            'Type'
+            'Type',
+            'UserId',
+            'UserName'
         ],
 
         createLayout: function() {
-            var layout = Mobile.SalesLogix.History.EditForLead.superclass.createLayout.apply(this, arguments);
-
-            this.layout = layout.concat([
-                {
+            var layout = Mobile.SalesLogix.History.EditForLead.superclass.createLayout.apply(this, arguments),
+                lastItem = layout.length - 1,
+                moreSection = layout[lastItem];
+                
+            this.layout = layout;
+            this.layout[lastItem].as = moreSection.as.concat([                {
                     label: this.companyText,
                     name: 'Company',
                     type: 'text'
