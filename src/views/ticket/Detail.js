@@ -96,7 +96,8 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
 
                 if (contentEl)
                     contentEl.update(list.$resources[i].text);
-                break;
+
+                return list.$resources[i].text;
             }   
         }
     },
@@ -123,10 +124,14 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     requestStatusFailure: function(xhr, o) {
     },
     processStatus: function(statuses, statusCode) {
-        this.processPickListResponse(statuses, statusCode, {dataProperty: '[data-property="StatusCode"]'});
+        var statusText = this.processPickListResponse(statuses, statusCode, {dataProperty: '[data-property="StatusCode"]'});
+
+        if (statusText) this.entry['StatusText'] = statusText;
     },
     processSource: function(sources, viaCode) {
-        this.processPickListResponse(sources, viaCode, {dataProperty: '[data-property="ViaCode"]'});
+        var sourceText = this.processPickListResponse(sources, viaCode, {dataProperty: '[data-property="ViaCode"]'});
+
+        if (sourceText) this.entry['SourceText'] = sourceText;
     },
     processEntry: function(entry) {
         Mobile.SalesLogix.Ticket.Detail.superclass.processEntry.apply(this, arguments);

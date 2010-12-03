@@ -74,6 +74,19 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             this.fields['Area'].on('change', this.onAreaChange, this);
             this.fields['Category'].on('change', this.onCategoryChange, this);
         },
+        setValues: function(entry) {
+            Mobile.SalesLogix.Ticket.Edit.superclass.setValues.apply(this, arguments);
+
+            if (entry.SourceText)
+            {
+                this.fields['ViaCode'].setText(entry.SourceText);
+            }
+
+            if (entry.StatusText)
+            {
+                this.fields['StatusCode'].setText(entry.StatusText);
+            }
+        },
         onAccountChange: function(value, field) {
             var selection = field.getSelection();
             if (selection && selection.$key)
