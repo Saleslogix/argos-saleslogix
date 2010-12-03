@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Login");
 Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     //Templates
     viewTemplate: new Simplate([
-        '<div id="{%= $.id %}" title="{%: $.title %}" class="panel {%= $.cls %}" hideBackButton>',        
+        '<div id="{%= $.id %}" title="{%: $.title %}" class="panel {%= $.cls %}" hideBackButton="true">',        
         '<div class="panel-content"></div>',
         '<a class="button actionButton" data-action="authenticate"><span>{%: $.logOnText %}</span></a>',
         '</div>'
