@@ -89,7 +89,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 'AccountId': this.entry.$key,
                 'Description': String.format("Called {0}", this.entry.AccountName),
                 'UserId': App.context.user.$key,
-                'UserName': App.context.user.UserName
+                'UserName': App.context.user.UserName,
+                'Duration': 15,
+                'CompletedDate': (new Date())
             };
             
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())

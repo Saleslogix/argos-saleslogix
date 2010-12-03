@@ -85,7 +85,9 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             'LeadId': this.entry.$key,
             'LeadName': this.entry.LeadNameLastFirst,
             'UserId': App.context.user.$key,
-            'UserName': App.context.user.UserName
+            'UserName': App.context.user.UserName,
+            'Duration': 15,
+            'CompletedDate': (new Date())
         };
 
         var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())

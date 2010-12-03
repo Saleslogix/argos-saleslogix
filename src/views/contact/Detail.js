@@ -88,7 +88,9 @@ Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             'AccountId': this.entry.Account.$key,
             'Description': desc,
             'UserId': App.context.user.$key,
-            'UserName': App.context.user.UserName
+            'UserName': App.context.user.UserName,
+            'Duration': 15,
+            'CompletedDate': (new Date())
         };
         var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
                 .setResourceKind('history');
