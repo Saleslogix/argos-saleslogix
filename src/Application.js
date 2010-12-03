@@ -454,6 +454,10 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         // shortcut for environment call
         Mobile.SalesLogix.Environment.initiateCall.apply(this, arguments);
     },
+    initiateEmail: function() {
+        // shortcut for environment call
+        Mobile.SalesLogix.Environment.initiateEmail.apply(this, arguments);
+    },
     showMapForAddress: function() {
         // shortcut for environment call
         Mobile.SalesLogix.Environment.showMapForAddress.apply(this, arguments);

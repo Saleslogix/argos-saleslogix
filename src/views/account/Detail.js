@@ -22,7 +22,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         ownerText: 'owner',
         phoneCallHistoryTitle: 'Phone Call',        
         phoneText: 'phone',
-        historyTypeText: {
+        activityTypeText: {
             'atPhoneCall': 'Phone Call'
         },
         actionsText: 'Actions',
@@ -40,12 +40,15 @@ Ext.namespace("Mobile.SalesLogix.Account");
         webText: 'web',
         callMainNumberText: 'Call main number',
         scheduleActivityText: 'Schedule activity',
+        addNoteText: 'Add note',
         viewAddressText: 'View address',
+        moreDetailsText: 'More Details',
 
         //View Properties
         id: 'account_detail',
         editView: 'account_edit',
         historyEditView: 'history_edit',
+        noteEditView: 'note_edit',
         querySelect: [
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
@@ -75,7 +78,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
             if (view)
             {
                 view.show({
-                    title: this.historyTypeText[type],
+                    title: this.activityTypeText[type],
                     template: entry,
                     insert: true
                 });
@@ -106,6 +109,16 @@ Ext.namespace("Mobile.SalesLogix.Account");
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
+        addNote: function() {
+            var view = App.getView(this.noteEditView);
+            if (view)
+            {
+                view.show({
+                    template: {},
+                    insert: true
+                });
+            }
+        },
         createLayout: function() {
             return this.layout || (this.layout = [{
                 options: {
@@ -124,6 +137,11 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/job_24.png',  
                     action: 'scheduleActivity'
+                },{
+                    name: 'AccountName',
+                    label: this.addNoteText,
+                    icon: 'content/images/icons/note_24.png',
+                    action: 'addNote'
                 },{
                     name: 'Address',
                     label: this.viewAddressText,
@@ -155,7 +173,13 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 },{
                     name: 'Status',
                     label: this.statusText
-                },{
+                }]
+            },{
+                options: {
+                    title: this.moreDetailsText,
+                    collapsed: true
+                },
+                as: [{
                     name: 'Industry',
                     label: this.industryText,
                     type: 'text'
@@ -174,8 +198,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     name: 'LeadSource.Description',
                     label: this.importSourceText
                 }]
-            },
-            {
+            },{
                 options: {
                     list: true,
                     title: this.relatedItemsText

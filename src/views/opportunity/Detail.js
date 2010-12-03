@@ -28,10 +28,14 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         statusText: 'status',
         titleText: 'Opportunity',
         typeText: 'type',
+        scheduleActivityText: 'Schedule activity',
+        addNoteText: 'Add note',
+        moreDetailsText: 'More Details',
 
         //View Properties
-        editView: 'opportunity_edit',
         id: 'opportunity_detail',
+        editView: 'opportunity_edit',
+        noteEditView: 'note_edit',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',
@@ -50,117 +54,125 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         ],
         resourceKind: 'opportunities',
 
+        scheduleActivity: function() {
+            App.navigateToActivityInsertView();
+        },
+        addNote: function() {
+            var view = App.getView(this.noteEditView);
+            if (view)
+            {
+                view.show({
+                    template: {},
+                    insert: true
+                });
+            }
+        },
         formatAccountRelatedQuery: function(entry, fmt) {
             return String.format(fmt, entry['Account']['$key']);
-        },
-        init: function() {
-            Mobile.SalesLogix.Opportunity.Detail.superclass.init.call(this);
-
-            this.tools.fbar = [{
-                cls: '',
-                fn: function() {
-                    App.navigateToActivityInsertView.call(App, {"id": this.id});
-                },
-                icon: 'content/images/icons/job_24.png',
-                name: 'schedule',
-                scope: this,
-                title: this.fbarScheduleTitleText
-            }];
-        },
+        },                
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
+            return this.layout || (this.layout = [{
+                options: {
+                    list: true,
+                    title: this.actionsText,
+                    cls: 'action-list'
+                },
+                as: [{
+                    name: 'Description',
+                    label: this.scheduleActivityText,
+                    icon: 'content/images/icons/job_24.png',
+                    action: 'scheduleActivity'
+                },{
+                    name: 'Description',
+                    label: this.addNoteText,
+                    icon: 'content/images/icons/note_24.png',
+                    action: 'addNote'
+                }]
+            },{
+                options: {
+                    title: this.detailsText
+                },
+                as: [{
                     label: this.opportunityText,
                     name: 'Description'
-                },
-                {
+                },{
                     label: this.accountText,
                     key: 'Account.$key',
                     name: 'Account.AccountName',
                     property: true,
                     view: 'account_detail'
-                },
-                {
-                    label: this.acctMgrText,
-                    name: 'AccountManager.UserInfo',
-                    renderer: function(value) {
-                        if (!value) return '';
-                        return Mobile.SalesLogix.Template.nameLF.apply(value);
-                    }
-                },
-                {
+                },{
                     label: this.resellerText,
                     key: 'Reseller.$key',
                     name: 'Reseller.AccountName',
                     property: true,
                     view: 'account_detail'
-                },
-                {
+                },{
                     label: this.estCloseText,
                     name: 'EstimatedClose',
                     renderer: Mobile.SalesLogix.Format.date
-                },
-                {
+                },{
                     label: this.potentialText,
                     name: 'SalesPotential',
                     renderer: Mobile.SalesLogix.Format.currency
-                },
-                {
+                },{
                     label: this.statusText,
                     name: 'Status'
-                },
-                {
+                },{
                     label: this.typeText,
                     name: 'Type'
-                },
-                {
-                    label: this.importSourceText,
-                    name: 'LeadSource.Description'
-                },
-                {
+                },{
                     label: this.probabilityText,
                     name: 'CloseProbability'
+                }]
+            },{
+                options: {
+                    title: this.moreDetailsText,
+                    collapsed: true
                 },
-                {
-                    options: {
-                        list: true,
-                        title: this.relatedItemsText
-                    },
-                    as: [{
-                        icon: 'content/images/icons/job_24.png',
-                        label: this.relatedActivitiesText,
-                        view: 'activity_related',
-                        where: this.formatRelatedQuery.createDelegate(
-                            this, ['OpportunityId eq "{0}"'], true
-                        )
-                    },
-                    {
-                        icon: 'content/images/icons/note_24.png',
-                        label: this.relatedNotesText,
-                        view: 'note_related',
-                        where: this.formatRelatedQuery.createDelegate(
-                            this, ['OpportunityId eq "{0}" and Type eq "atNote"'], true
-                        )
-                    },
-                    {
-                        icon: 'content/images/icons/contact_24.png',
-                        label: this.relatedContactsText,
-                        view: 'contact_related',
-                        where: this.formatRelatedQuery.createDelegate(
-                            this, ['Opportunities.Opportunity.Id eq "{0}"'], true
-                        )
-                    },
-                    {
-                        icon: 'content/images/icons/journal_24.png',
-                        label: this.relatedHistoriesText,
-                        where: this.formatRelatedQuery.createDelegate(
-                            this, ['OpportunityId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
-                        ),
-                        view: 'history_related'
-                    }
-                    ]
-                }
-            ]);
+                as: [{
+                    label: this.acctMgrText,
+                    name: 'AccountManager.UserInfo',
+                    renderer: Mobile.SalesLogix.Format.nameLF
+                },{
+                    label: this.importSourceText,
+                    name: 'LeadSource.Description'
+                }]
+            },{
+                options: {
+                    list: true,
+                    title: this.relatedItemsText
+                },
+                as: [{
+                    icon: 'content/images/icons/job_24.png',
+                    label: this.relatedActivitiesText,
+                    view: 'activity_related',
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['OpportunityId eq "{0}"'], true
+                    )
+                },{
+                    icon: 'content/images/icons/note_24.png',
+                    label: this.relatedNotesText,
+                    view: 'note_related',
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['OpportunityId eq "{0}" and Type eq "atNote"'], true
+                    )
+                },{
+                    icon: 'content/images/icons/contact_24.png',
+                    label: this.relatedContactsText,
+                    view: 'contact_related',
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['Opportunities.Opportunity.Id eq "{0}"'], true
+                    )
+                },{
+                    icon: 'content/images/icons/journal_24.png',
+                    label: this.relatedHistoriesText,
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['OpportunityId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
+                    ),
+                    view: 'history_related'
+                }]
+            }]);
         }        
     });
 })();

@@ -85,8 +85,12 @@ Mobile.SalesLogix.Format = (function() {
             );
         },        
         nameLF: function(val) {
+            if (!val) return '';
+
             var name = Mobile.SalesLogix.Template.nameLF.apply(val);
-            if (name == ', ') name = '';
+            if (name == ', ')
+                name = '';
+            
             return name;
         },
         mail: function(val) {
