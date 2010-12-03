@@ -70,6 +70,75 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             title: this.fbarScheduleTitleText
         }];
     },
+    requestPickList: function(predicate) {
+        var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+                        .setResourceKind('picklists')
+                        .setContractName('system');
+        var uri = request.getUri();
+
+        uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
+        uri.setCollectionPredicate(predicate);
+
+        request.allowCacheUse = true;
+
+        return request;
+    },
+    processPickListResponse: function(list, value, options) {
+        for (var i = 0; i < list.$resources.length; i++)
+        {
+            if (list.$resources[i].$key === value)
+            {
+                var rowEl = this.el.child(options.dataProperty),
+                contentEl = rowEl && rowEl.child('span');
+
+                if (rowEl)
+                    rowEl.removeClass('content-loading');
+
+                if (contentEl)
+                    contentEl.update(list.$resources[i].text);
+
+                return list.$resources[i].text;
+            }   
+        }
+    },
+    requestSource: function(viaCode) {
+        var request = this.requestPickList('name eq "Source"');
+
+        request.read({
+            success: function(data) {this.processSource(data, viaCode);},
+            failure: this.requestSourceFailure,
+            scope: this
+        });
+    },
+    requestStatus: function(statusCode) {
+        var request = this.requestPickList('name eq "Ticket Status"');
+        
+        request.read({
+            success: function(data) {this.processStatus(data, statusCode);},
+            failure: this.requestStatusFailure,
+            scope: this
+        });
+    },
+    requestSourceFailure: function(xhr, o) {
+    },
+    requestStatusFailure: function(xhr, o) {
+    },
+    processStatus: function(statuses, statusCode) {
+        var statusText = this.processPickListResponse(statuses, statusCode, {dataProperty: '[data-property="StatusCode"]'});
+
+        if (statusText) this.entry['StatusText'] = statusText;
+    },
+    processSource: function(sources, viaCode) {
+        var sourceText = this.processPickListResponse(sources, viaCode, {dataProperty: '[data-property="ViaCode"]'});
+
+        if (sourceText) this.entry['SourceText'] = sourceText;
+    },
+    processEntry: function(entry) {
+        Mobile.SalesLogix.Ticket.Detail.superclass.processEntry.apply(this, arguments);
+
+        if (entry && entry['ViaCode']) this.requestSource(entry['ViaCode']);
+        if (entry && entry['StatusCode']) this.requestStatus(entry['StatusCode']);
+    },
     createLayout: function() {
         return this.layout || (this.layout = [
             {
@@ -101,12 +170,16 @@ Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                 name: 'Issue'
             },
             {
+                cls: 'content-loading',
                 label: this.sourceText,
-                name: 'ViaCode'
+                name: 'ViaCode',
+                value: 'loading...'
             },
             {
+                cls: 'content-loading',
                 label: this.statusText,
-                name: 'StatusCode'
+                name: 'StatusCode',
+                value: 'loading...'
             },
             {
                 label: this.urgencyText,

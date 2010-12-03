@@ -20,6 +20,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         leaderText: 'leader',
         longNotesText: 'notes',
         longNotesTitleText: 'Notes',
+        moreDetailsText: 'More Details',
         priorityText: 'priority',
         priorityTitleText: 'Priority',
         regardingText: 'regarding',
@@ -105,53 +106,70 @@ Ext.namespace("Mobile.SalesLogix.History");
                     view: 'text_edit'
                 },
                 {
-                    label: this.priorityText,
-                    name: 'Priority',
-                    picklist: 'Priorities',
-                    title: this.priorityTitleText,
-                    type: 'picklist'
-                },
-                {
-                    dependsOn: 'Type',
-                    label: this.categoryText,
-                    name: 'Category',
-                    picklist: this.formatPicklistForType.createDelegate(
-                        this, ['Category'], true
-                    ),
-                    title: this.activityCategoryTitleText,
-                    type: 'picklist'
-                },
-                {
-                    label: this.completedText,
-                    name: 'CompletedDate',
-                    type: 'date',
-                    showTimePicker: true,
-                    formatString: 'M/d/yyyy h:mm tt'
-                },
-                {
-                    label: this.scheduledText,
-                    name: 'StartDate',
-                    type: 'date',
-                    showTimePicker: true,
-                    formatString: 'M/d/yyyy h:mm tt'
-                },
-                {
-                    label: this.timelessText,
-                    name: 'Timeless',
-                    type: 'boolean'
-                },
-                {
-                    label: this.durationText,
-                    name: 'Duration',
-                    type: 'select',
-                    view: 'select_list',
-                    textRenderer: this.formatDurationText.createDelegate(this),
-                    requireSelection: true,
-                    valueKeyProperty: false,
-                    valueTextProperty: false,
-                    data: this.createDurationData()
+                    options: {
+                        title: this.moreDetailsText,
+                        collapsed: true
+                    },
+                    as: [{
+                            label: this.priorityText,
+                            name: 'Priority',
+                            picklist: 'Priorities',
+                            title: this.priorityTitleText,
+                            type: 'picklist'
+                        },
+                        {
+                            dependsOn: 'Type',
+                            label: this.categoryText,
+                            name: 'Category',
+                            picklist: this.formatPicklistForType.createDelegate(
+                                this, ['Category'], true
+                            ),
+                            title: this.activityCategoryTitleText,
+                            type: 'picklist'
+                        },
+                        {
+                            label: this.completedText,
+                            name: 'CompletedDate',
+                            type: 'date',
+                            showTimePicker: true,
+                            formatString: 'M/d/yyyy h:mm tt'
+                        },
+                        {
+                            label: this.scheduledText,
+                            name: 'StartDate',
+                            type: 'date',
+                            showTimePicker: true,
+                            formatString: 'M/d/yyyy h:mm tt'
+                        },
+                        {
+                            label: this.timelessText,
+                            name: 'Timeless',
+                            type: 'boolean'
+                        },
+                        {
+                            label: this.durationText,
+                            name: 'Duration',
+                            type: 'select',
+                            view: 'select_list',
+                            textRenderer: this.formatDurationText.createDelegate(this),
+                            requireSelection: true,
+                            valueKeyProperty: false,
+                            valueTextProperty: false,
+                            data: this.createDurationData()
+                        },
+                        {
+                            label: this.leaderText,
+                            name: 'User',
+                            emptyText: '',
+                            applyTo: '.',
+                            valueKeyProperty: 'UserId',
+                            valueTextProperty: 'UserName',
+                            type: 'lookup',
+                            view: 'user_list'
+                        }
+                    ]
                 }
-            ]);
-        }        
+           ]);
+        }
     });
 })();

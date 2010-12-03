@@ -36,7 +36,7 @@ Ext.namespace("Mobile.SalesLogix.History");
 
         init: function() {
             Mobile.SalesLogix.History.DetailBase.superclass.init.apply(this, arguments);
-            //this.tools = {};
+            this.tools = {};
         },
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;

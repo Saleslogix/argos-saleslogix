@@ -32,7 +32,9 @@ Ext.namespace("Mobile.SalesLogix.History");
             'Priority',
             'TicketId',
             'TicketNumber',
-            'Type'
+            'Type',
+            'UserId',
+            'UserName'
         ],
 
         formatDependentQuery: function(dependentValue, format, property) {
@@ -43,12 +45,15 @@ Ext.namespace("Mobile.SalesLogix.History");
             return String.format(format, getV(dependentValue, property));
         },
         createLayout: function() {
-            var layout = Mobile.SalesLogix.History.Edit.superclass.createLayout.apply(this, arguments);
-
-            this.layout = layout.concat([
+            var layout = Mobile.SalesLogix.History.Edit.superclass.createLayout.apply(this, arguments),
+                lastItem = layout.length - 1,
+                moreSection = layout[lastItem];
+                
+            this.layout = layout;
+            this.layout[lastItem].as = moreSection.as.concat([
                 {
                     label: this.accountText,
-                    name: 'AccountName',
+                    name: 'Account',
                     type: 'lookup',
                     emptyText: '',
                     applyTo: '.',
