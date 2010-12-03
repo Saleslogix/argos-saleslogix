@@ -48,7 +48,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             this.layout = layout.concat([
                 {
                     label: this.accountText,
-                    name: 'AccountName',
+                    name: 'Account',
                     type: 'lookup',
                     emptyText: '',
                     applyTo: '.',
