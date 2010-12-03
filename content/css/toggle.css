@@ -21,7 +21,7 @@
     border-radius: 6px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
-    font-size: 19px;
+    font-size: .8em;
     font-weight: bold;
     line-height: 30px;
     background-clip: padding-box;
@@ -41,7 +41,7 @@
     left: 0;
     top: 0;
     color: #FFFFFF;
-    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+    text-shadow: rgba(0, 0, 0, 1.0) 0px 1px 0;
 }
 
 .toggleOff {
@@ -50,7 +50,8 @@
     text-align: center;
     right: 0;
     top: 0;
-    color: #333;
+    color: #000;
+    text-shadow: rgba(255, 255, 255, 1.0) 0px 1px 0;
 }
 
 .toggle[toggled="true"] > .toggleOn {
@@ -98,15 +99,15 @@
 .toggle[toggled="true"] {
     border: 1px solid #1a250f;    
     background-color: #69923a;
-    background-image: linear-gradient(bottom, #69923a, #4f6e2c);
+    background-image: linear-gradient(bottom, #4f6e2c, #35491d);
     background-image: -webkit-gradient(
         linear,
         left bottom,
         left top,
-        color-stop(0, #69923a),
-        color-stop(1, #4f6e2c)
+        color-stop(0, #4f6e2c),
+        color-stop(1, #35491d)
     );
-    background-image: -moz-linear-gradient(bottom, #69923a, #4f6e2c);
+    background-image: -moz-linear-gradient(bottom, #4f6e2c, #35491d);
 }
 
 .thumb {
