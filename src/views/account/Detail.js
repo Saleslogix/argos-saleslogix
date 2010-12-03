@@ -15,16 +15,16 @@ Ext.namespace("Mobile.SalesLogix.Account");
         businessDescriptionText: 'bus desc',
         createDateText: 'create date',
         createUserText: 'create user',
-        editView: 'account_edit',
         faxText: 'fax',
-        fbarHomeText: 'home',
-        fbarScheduleText: 'schedule',
         importSourceText: 'lead source',
         industryText: 'industry',
         notesText: 'notes',
         ownerText: 'owner',
-        phoneCallHistoryTitle: 'Phone Call',
+        phoneCallHistoryTitle: 'Phone Call',        
         phoneText: 'phone',
+        historyTypeText: {
+            'atPhoneCall': 'Phone Call'
+        },
         actionsText: 'Actions',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
@@ -44,6 +44,8 @@ Ext.namespace("Mobile.SalesLogix.Account");
 
         //View Properties
         id: 'account_detail',
+        editView: 'account_edit',
+        historyEditView: 'history_edit',
         querySelect: [
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
@@ -68,57 +70,35 @@ Ext.namespace("Mobile.SalesLogix.Account");
         ],
         resourceKind: 'accounts',
 
-        init: function() {
-            Mobile.SalesLogix.Account.Detail.superclass.init.apply(this, arguments);
-
-            this.tools.fbar = [{                
-                fn: function() {
-                    App.navigateToActivityInsertView.call(App, {"id": this.id});
-                },
-                icon: 'content/images/icons/job_24.png',
-                name: 'schedule',
-                scope: this,
-                title: this.fbarScheduleText
-            }];
+        navigateToHistoryInsert: function(type, entry) {
+            var view = App.getView(this.historyEditView);
+            if (view)
+            {
+                view.show({
+                    title: this.historyTypeText[type],
+                    template: entry,
+                    insert: true
+                });
+            }
         },
-        createHistory: function(type, title) {
+        recordCallToHistory: function() {
             var entry = {
-                '$name': 'History',
-                'Type': type,
-                'AccountName': this.entry.AccountName,
-                'AccountId': this.entry.$key,
-                'Description': String.format("Called {0}", this.entry.AccountName),
-                'UserId': App.context.user.$key,
-                'UserName': App.context.user.UserName,
+                'Type': 'atPhoneCall',
+                'AccountId': this.entry['$key'],
+                'AccountName': this.entry['AccountName'],
+                'Description': String.format("Called {0}", this.entry['AccountName']),
+                'UserId': App.context && App.context.user['$key'],
+                'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
             
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-                .setResourceKind('history');
-
-            request.create(entry, {
-                success: function(created) {
-                    var view = App.getView('history_edit');
-                    if (view)
-                    {
-                        view.show({
-                            title: title,
-                            entry: created
-                        });
-                    }
-                },
-                failure: function(response, o) {
-                },
-                scope: this
-            });
-        },
-        recordCallToHistory: function() {
-            this.createHistory('atPhoneCall', this.phoneCallHistoryTitle);
+            this.navigateToHistoryInsert('atPhoneCall', entry);
         },
         callMainPhone: function() {
             this.recordCallToHistory();
-            App.initiateCall(this.entry['MainPhone']);  
+
+            App.initiateCall(this.entry['MainPhone']);
         },
         viewAddress: function() {
             App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
