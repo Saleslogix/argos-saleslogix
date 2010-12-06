@@ -6,184 +6,230 @@
 
 Ext.namespace("Mobile.SalesLogix.Lead");
 
-Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
-    //Localization
-    accountText: 'company',
-    addressText: 'address',
-    businessDescriptionText: 'bus desc',
-    createDateText: 'create date',
-    createUserText: 'create user',
-    eMailText: 'email',
-    fbarHomeTitleText: 'home',
-    fbarScheduleTitleText: 'schedule',
-    leadsourceText: 'lead source',
-    industryText: 'industry',
-    interestsText: 'interests',
-    leadTitleText: 'title',
-    nameText: 'name',
-    notesText: 'comments',
-    ownerText: 'owner',
-    relatedActivitiesText: 'Activities',
-    relatedHistoriesText: 'History',
-    relatedItemsText: 'Related Items',
-    relatedNotesText: 'Notes',
-    sicCodeText: 'sic code',
-    titleText: 'Lead', 
-    tollFreeText: 'toll free',
-    webText: 'web',
-    workText: 'phone',
+(function() {
+    Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+        //Localization
+        accountText: 'company',
+        addressText: 'address',
+        businessDescriptionText: 'bus desc',
+        createDateText: 'create date',
+        createUserText: 'create user',
+        eMailText: 'email',
+        leadSourceText: 'lead source',
+        industryText: 'industry',
+        interestsText: 'interests',
+        leadTitleText: 'title',
+        nameText: 'name',
+        notesText: 'comments',
+        ownerText: 'owner',
+        relatedActivitiesText: 'Activities',
+        relatedHistoriesText: 'History',
+        relatedItemsText: 'Related Items',
+        relatedNotesText: 'Notes',
+        sicCodeText: 'sic code',
+        titleText: 'Lead',
+        tollFreeText: 'toll free',
+        webText: 'web',
+        workText: 'phone',
+        actionsText: 'Actions',
+        callWorkNumberText: 'Call main number',
+        scheduleActivityText: 'Schedule activity',
+        addNoteText: 'Add note',
+        sendEmailText: 'Send email',
+        viewAddressText: 'View address',
+        moreDetailsText: 'More Details',
+        calledText: 'Called {0}',
+        emailedText: 'Emailed {0}',
 
-    //View Properties
-    editView: 'lead_edit',
-    id: 'lead_detail',
-    querySelect: [
-        'Address/*',
-        'BusinessDescription',
-        'Company',
-        'CreateDate',
-        'CreateUser',
-        'Email',
-        'FirstName',
-        'FullAddress',
-        'Industry',
-        'Interests',
-        'LastName',
-        'LeadNameLastFirst',
-        'LeadSource/Description',
-        'MiddleName',
-        'Notes',
-        'Owner/OwnerDescription',
-        'Prefix',
-        'SICCode ',
-        'Suffix',
-        'Title',
-        'TollFree',
-        'WebAddress',
-        'WorkPhone'
-    ],   
-    resourceKind: 'leads',
+        //View Properties
+        id: 'lead_detail',
+        editView: 'lead_edit',
+        historyEditView: 'history_edit',
+        noteEditView: 'note_edit',
+        querySelect: [
+            'Address/*',
+            'BusinessDescription',
+            'Company',
+            'CreateDate',
+            'CreateUser',
+            'Email',
+            'FirstName',
+            'FullAddress',
+            'Industry',
+            'Interests',
+            'LastName',
+            'LeadNameLastFirst',
+            'LeadSource/Description',
+            'MiddleName',
+            'Notes',
+            'Owner/OwnerDescription',
+            'Prefix',
+            'SICCode ',
+            'Suffix',
+            'Title',
+            'TollFree',
+            'WebAddress',
+            'WorkPhone'
+        ],
+        resourceKind: 'leads',
+        
+        navigateToHistoryInsert: function(type, entry) {
+            var view = App.getView(this.historyEditView);
+            if (view)
+            {
+                view.show({
+                    title: this.activityTypeText[type],
+                    template: entry,
+                    insert: true
+                });
+            }
+        },
+        recordCallToHistory: function() {
+            var entry = {
+                '$name': 'History',
+                'Type': 'atEMail',
+                'AccountName': this.entry['Company'],
+                'LeadId': this.entry['$key'],
+                'LeadName': this.entry['LeadNameLastFirst'],
+                'Description': String.format(this.calledText, this.entry['LeadNameLastFirst']),
+                'UserId': App.context && App.context.user['$key'],
+                'UserName': App.context && App.context.user['UserName'],
+                'Duration': 15,
+                'CompletedDate': (new Date())
+            };
 
-    init: function() {
-        Mobile.SalesLogix.Lead.Detail.superclass.init.call(this);
+            this.navigateToHistoryInsert('atPhoneCall', entry);
+        },
+        recordEmailToHistory: function() {
+            var entry = {
+                '$name': 'History',
+                'Type': 'atEMail',
+                'AccountName': this.entry['Company'],
+                'LeadId': this.entry['$key'],
+                'LeadName': this.entry['LeadNameLastFirst'],
+                'Description': String.format(this.emailedText, this.entry['LeadNameLastFirst']),
+                'UserId': App.context && App.context.user['$key'],
+                'UserName': App.context && App.context.user['UserName'],
+                'Duration': 15,
+                'CompletedDate': (new Date())
+            };
 
-        this.tools.fbar = [{
-            cls: '',
-            fn: function() {
-                App.navigateToActivityInsertView.call(App, {"id": this.id});
-            },
-            icon: 'content/images/icons/job_24.png',
-            name: 'schedule',
-            scope: this,
-            title: this.fbarScheduleTitleText
-        }];
-    },
-    createHistory: function(type, title) {
-        var entry = {
-            '$name': 'History',
-            'Type': type,
-            'AccountName': this.entry.Company,
-            'LeadId': this.entry.$key,
-            'LeadName': this.entry.LeadNameLastFirst,
-            'UserId': App.context.user.$key,
-            'UserName': App.context.user.UserName,
-            'Duration': 15,
-            'CompletedDate': (new Date())
-        };
+            this.navigateToHistoryInsert('atEMail', entry);
+        },
+        callWorkPhone: function() {
+            this.recordCallToHistory();
 
-        var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
-                .setResourceKind('history');
+            App.initiateCall(this.entry['WorkPhone']);
+        },
+        sendEmail: function() {
+            this.recordEmailToHistory();
 
-        request.create(entry, {
-            success: function(created) {
-                var v = App.getView('history_edit_for_lead');
-                if (v)
-                {
-                    v.setTitle(title);
-                    v.show({
-                        entry: created
-                    });
-                }
-            },
-            failure: function(response, o) {
-            },
-            scope: this
-        });
-    },
-    recordCallToHistory: function(type) {
-        this.createHistory('atPhoneCall', this.phoneCallHistoryTitle);
-    },
-    recordMailToHistory: function() {
-        this.createHistory('atEMail', this.emailHistoryTitle);
-    },
-    createLayout: function() {
-        return this.layout || (this.layout = [
+            App.initiateEmail(this.entry['Email'])
+        },
+        viewAddress: function() {
+            App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
+        },
+        scheduleActivity: function() {
+            App.navigateToActivityInsertView();
+        },
+        addNote: function() {
+            var view = App.getView(this.noteEditView);
+            if (view)
             {
-                label: this.nameText,
-                name: 'LeadNameLastFirst'
-            },
-            {
-                label: this.accountText,
-                name: 'Company'
-            },
-            {
-                label: this.webText,
-                name: 'WebAddress',
-                renderer: Mobile.SalesLogix.Format.link
-            },
-            {
-                label: this.workText,
-                name: 'WorkPhone',
-                renderer: Mobile.SalesLogix.Format.phone
-            },
-            {
-                label: this.eMailText,
-                name: 'Email',
-                renderer: Mobile.SalesLogix.Format.mail
-            },
-            {
-                label: this.leadTitleText,
-                name: 'Title'
-            },
-            {
-                label: this.addressText,
-                name: 'Address',
-                renderer: Mobile.SalesLogix.Format.address
-            },
-            {
-                label: this.tollFreeText,
-                name: 'TollFree',
-                renderer: Mobile.SalesLogix.Format.phone
-            },
-            {
-                label: this.leadsourceText,
-                name: 'LeadSource',
-                tpl: new Simplate(['{%= $.Description %}'])
-            },
-            {
-                label: this.interestsText,
-                name: 'Interests'
-            },
-            {
-                label: this.industryText,
-                name: 'Industry'
-            },
-            {
-                label: this.sicCodeText,
-                name: 'SICCode'
-            },
-            {
-                label: this.businessDescriptionText,
-                name: 'BusinessDescription'
-            },
-            {
-                label: this.notesText,
-                name: 'Notes'
-            },
-            {
-                label: this.ownerText,
-                name: 'Owner.OwnerDescription'
-            },
-            {
+                view.show({
+                    template: {},
+                    insert: true
+                });
+            }
+        },
+        createLayout: function() {
+            return this.layout || (this.layout = [{
+                options: {
+                    list: true,
+                    title: this.actionsText,
+                    cls: 'action-list'
+                },
+                as: [{
+                    name: 'WorkPhone',
+                    label: this.callWorkNumberText,
+                    icon: 'content/images/icons/Schedule_Call_24x24.gif',
+                    action: 'callWorkPhone',
+                    renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
+                },{
+                    name: 'Email',
+                    label: this.sendEmailText,
+                    icon: 'content/images/icons/letters_24.png',
+                    action: 'sendEmail'
+                },{
+                    name: '',
+                    label: this.scheduleActivityText,
+                    icon: 'content/images/icons/job_24.png',
+                    action: 'scheduleActivity',
+                    tpl: new Simplate([
+                        '{%: $.Company %} / {%: $.LeadNameLastFirst %}'
+                    ])
+                },{
+                    name: 'LeadNameLastFirst',
+                    label: this.addNoteText,
+                    icon: 'content/images/icons/note_24.png',
+                    action: 'addNote'
+                },{
+                    name: 'Address',
+                    label: this.viewAddressText,
+                    icon: 'content/images/icons/internet_24.png',
+                    action: 'viewAddress',
+                    renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
+                }]
+            },{
+                options: {
+                    title: this.detailsText
+                },
+                as: [{
+                    label: this.nameText,
+                    name: 'LeadNameLastFirst'
+                },{
+                    label: this.accountText,
+                    name: 'Company'
+                },{
+                    label: this.webText,
+                    name: 'WebAddress',
+                    renderer: Mobile.SalesLogix.Format.link
+                },{
+                    label: this.leadTitleText,
+                    name: 'Title'
+                },{
+                    label: this.tollFreeText,
+                    name: 'TollFree',
+                    renderer: Mobile.SalesLogix.Format.phone
+                },{
+                    label: this.leadSourceText,
+                    name: 'LeadSource.Description'
+                }]
+            },{
+                options: {
+                    title: this.moreDetailsText,
+                    collapsed: true
+                },
+                as: [{
+                    label: this.interestsText,
+                    name: 'Interests'
+                },{
+                    label: this.industryText,
+                    name: 'Industry'
+                },{
+                    label: this.sicCodeText,
+                    name: 'SICCode'
+                },{
+                    label: this.businessDescriptionText,
+                    name: 'BusinessDescription'
+                },{
+                    label: this.notesText,
+                    name: 'Notes'
+                },{
+                    label: this.ownerText,
+                    name: 'Owner.OwnerDescription'
+                }]
+            },{
                 options: {
                     list: true,
                     title: this.relatedItemsText
@@ -212,7 +258,7 @@ Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     ),
                     view: 'history_related'
                 }]
-            }
-        ]); 
-    }
-});
+            }]);
+        }
+    });
+})();
