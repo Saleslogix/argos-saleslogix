@@ -169,7 +169,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     icon: 'content/images/icons/job_24.png',
                     action: 'scheduleActivity',
                     tpl: new Simplate([
-                        '{%: $.AccountName %} / {%: NameLF %}'        
+                        '{%: $.AccountName %} / {%: $.NameLF %}'        
                     ])
                 },{
                     name: 'NameLF',
