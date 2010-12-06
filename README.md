@@ -43,18 +43,18 @@ Installation
 
 		mobile\deploy\argos-saleslogix
 2.	If the mobile content is going to be hosted on a different server, the manifest file and the environment file must be changed (or a new one created).
-	1.	In the `index.manifest` file at the root of the deployed site, add the full SData server URL, including the trailing slash, to the end of the `NETWORK:` section, eg:
+	a.	In the `index.manifest` file at the root of the deployed site, add the full SData server URL, including the trailing slash, to the end of the `NETWORK:` section, eg:
 	
 			NETWORK:
 			../sdata/
 			http://mysdataserver/sdata/
-	2.	Modify the environment file, `environment/default.js`, to point to the appropriate SData server.  If a new environment file was created, it must be added to the files:
+	b.	Modify the environment file, `environment/default.js`, to point to the appropriate SData server.  If a new environment file was created, it must be added to the files:
 		*	index.manifest
 		*	index.html
 		*	index-nocache.html
-	3.	Copy the entire contents of the product's deploy folder (eg: `mobile\deploy\argos-saleslogix`) to a location on the webserver that will be hosting the mobile content (hereafter, mobile server).
-	4.	On the mobile server, create a Virtual Directory (IIS6), an Application (IIS7), or an Alias (Apache), or functional equivalent, called `mobile`, pointing to the directory where you copied the content to.  In the recommended configuration, on the same server where SData is being hosted, this mapping should be at the same level as the `sdata` mapping.
-	5.	On the mobile server, ensure that the MIME type corresponding to the `.manifest` extension is `text/cache-manifest`.  This is a requirement for application caching/offline access.
-	6.	If SData is being hosted on a different server than the mobile host, CORS (Cross Origin Resource Sharing), must be enabled on the SData server.
+3.	Copy the entire contents of the product's deploy folder (eg: `mobile\deploy\argos-saleslogix`) to a location on the webserver that will be hosting the mobile content (hereafter, mobile server).
+4.	On the mobile server, create a Virtual Directory (IIS6), an Application (IIS7), or an Alias (Apache), or functional equivalent, called `mobile`, pointing to the directory where you copied the content to.  In the recommended configuration, on the same server where SData is being hosted, this mapping should be at the same level as the `sdata` mapping.
+5.	On the mobile server, ensure that the MIME type corresponding to the `.manifest` extension is `text/cache-manifest`.  This is a requirement for application caching/offline access.
+6.	If SData is being hosted on a different server than the mobile host, CORS (Cross Origin Resource Sharing), must be enabled on the SData server.
 	
 [argos-sdk]: https://github.com/SageScottsdalePlatform/argos-sdk "Argos SDK Source"
