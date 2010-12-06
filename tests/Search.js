@@ -1,33 +1,23 @@
 module("Search", {
     setup: function() {
         //Clear Preferences for testing. Just to control our test environment.
-        window.localStorage.removeItem('preferences');
+        if (FuncUnit._window.localStorage) FuncUnit._window.localStorage.removeItem('preferences');
         //Configured in Saleslogix.html
-        S.open(Saleslogix.URL);
-        Saleslogix.Common.Login();
+        S.open(Saleslogix.URL, function(){
+            if (S('#login').css('display') == 'none')
+                FuncUnit._window.App.navigateToHomeView();
+            else
+                Saleslogix.Common.Login(FuncUnit._window.App.navigateToHomeView);
+        });
+        
     }
 });
-
-var navigateToAccountsList = function(callback) {
-    //Register callback.
-    callback = typeof callback == "function" ? callback : function() {};
-    S('#account_list').visible(function(){
-      //Give it some time to load. Search bar is visible only after it loads the list.
-      S.wait(5000, callback);
-    });
-    //Selector click on <a> didn't work. FuncUnit is replacing href with javascript://.
-    //This is just a work around. We have to find a fix for this.
-    //S("ul#home li:nth-child(2) a").click(function(){});
-    var win = FuncUnit._window;
-    var acc_list_link = win.Ext.get(win.Ext.DomQuery.select("ul#home li:nth-child(1) a")[0]);
-    win.App.getView('home').navigateToView(acc_list_link);
-};
 
 test('Search box default properties', function() {
     expect(7);
     
     S('#home').visible(function(){
-        navigateToAccountsList(function(){            
+        S('#home [data-key=account_list]').click(function(){            
             S('#account_list .search .query')
                 .visible(function(){
                     equals(
