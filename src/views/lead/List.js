@@ -26,7 +26,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         icon: 'content/images/icons/lead_24.png',
         id: 'lead_list',
         insertView: 'lead_edit',
-        queryOrderBy: 'Company',
+        queryOrderBy: 'LeadNameLastFirst',
         querySelect: [
             'Company',
             'LeadNameLastFirst'

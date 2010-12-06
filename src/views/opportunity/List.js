@@ -26,7 +26,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         icon: 'content/images/icons/opportunity_24.png',
         id: 'opportunity_list',
         insertView: 'opportunity_edit',
-        queryOrderBy: 'Description',
+        queryOrderBy: 'Status desc,EstimatedClose desc',
         querySelect: [
             'Account/AccountName',
             'Description',
