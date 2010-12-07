@@ -199,7 +199,27 @@
             path: '../src/views/defectsolution/'
         },
         {
+            text: 'EditBase.js',
+            path: '../src/views/history/'
+        },
+        {
+            text: 'Edit.js',
+            path: '../src/views/history/'
+        },
+        {
+            text: 'EditForLead.js',
+            path: '../src/views/history/'
+        },
+        {
+            text: 'DetailBase.js',
+            path: '../src/views/history/'
+        },
+        {
             text: 'Detail.js',
+            path: '../src/views/history/'
+        },
+        {
+            text: 'DetailForLead.js',
             path: '../src/views/history/'
         },
         {
