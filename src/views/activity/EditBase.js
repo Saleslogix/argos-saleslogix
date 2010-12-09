@@ -98,6 +98,26 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             Mobile.SalesLogix.Activity.EditBase.superclass.init.apply(this, arguments);
 
             this.fields['Leader'].on('change', this.onLeaderChange, this);
+            this.fields['Timeless'].on('change', this.onTimelessChange, this);
+            this.fields['Alarm'].on('change', this.onAlarmChange, this);
+        },
+        disableSelectField: function(field, disable) {
+            if (disable === true)
+            {
+                field.containerEl.addClass('field-disabled');
+                field.view = false;
+            }
+            else
+            {
+                field.containerEl.removeClass('field-disabled');
+                field.view = 'select_list';
+            }
+        },
+        onTimelessChange: function(value, field) {
+            this.disableSelectField(this.fields['Duration'], value);
+        },
+        onAlarmChange: function(value, field) {
+            this.disableSelectField(this.fields['Reminder'], !value);
         },
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
@@ -126,16 +146,18 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }
         },
         setValues: function(values) {
-
             if (values['StartDate'] && values['AlarmTime'])
             {
                 var span = values['StartDate'].getTime() - values['AlarmTime'].getTime(); // ms
                 var reminder = span / (1000 * 60);
 
                 values['Reminder'] = reminder;
-            }                        
+            }
 
             Mobile.SalesLogix.Activity.EditBase.superclass.setValues.apply(this, arguments);
+
+            this.onTimelessChange((!!values['Timeless']), this.fields['Duration']);
+            this.onAlarmChange((!!values['Alarm']), this.fields['Reminder']);
         },
         getValues: function() {
             var values = Mobile.SalesLogix.Activity.EditBase.superclass.getValues.apply(this, arguments);
