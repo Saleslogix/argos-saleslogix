@@ -149,9 +149,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     title: this.detailsText
                 },
                 as: [{
-                    label: this.ticketIdText,
-                    name: 'TicketNumber'
-                },{
                     label: this.accountText,
                     name: 'Account.AccountName'
                 },{
@@ -167,6 +164,12 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     label: this.issueText,
                     name: 'Issue'
                 },{
+                    label: this.subjectText,
+                    name: 'Subject'
+                },{
+                    label: this.descriptionText,
+                    name: 'TicketProblem.Notes'
+                },{
                     cls: 'content-loading',
                     label: this.statusText,
                     name: 'StatusCode',
@@ -181,12 +184,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 },{
                     label: this.assignedToText,
                     name: 'AssignedTo.OwnerDescription'
-                },{
-                    label: this.subjectText,
-                    name: 'Subject'
-                },{
-                    label: this.descriptionText,
-                    name: 'TicketProblem.Notes'
                 }]
             },{
                 options: {
