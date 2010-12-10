@@ -14,6 +14,7 @@ Ext.namespace("Mobile.SalesLogix");
         accountSubTypeTitleText: 'Account SubType',
         accountText: 'Account',
         accountTypeTitleText: 'Account Type',
+        addressText: 'address',
         contactTitleText: 'Title',
         description: 'description',
         detailsAccountText: 'Account Info',
@@ -138,6 +139,14 @@ Ext.namespace("Mobile.SalesLogix");
                         name: 'Contacts.$resources[0].Fax',
                         label: this.faxText,
                         type: 'phone'
+                    },
+                    {
+                        emptyText: '',
+                        formatValue: Mobile.SalesLogix.Format.address,
+                        label: this.addressText,
+                        name: 'Contacts.$resources[0].Address',
+                        type: 'address',
+                        view: 'address_edit'
                     }]
                 },
                 {
