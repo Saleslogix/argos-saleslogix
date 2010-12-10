@@ -168,5 +168,19 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
             entry = (this.options && this.options.entry);
 
         this.processItems(items, {}, entry);
+    },
+    //FIXME: Temporary fix for toolbar button getting hidden on context dialog.
+    //This must be fixed from ReUI. On ContextDialog Show, we clear out all toolbar buttons.
+    //But when we cancel the dialog, we don't restore them. ReUI simply hides the dialog box.
+    show: function(options) {
+        Mobile.SalesLogix.ContextDialog.superclass.show.apply(this, arguments);
+
+        var mainView = false;
+        if (options.returnTo) mainView = App.getView(options.returnTo);
+
+        if (mainView.tools)
+        {
+            App.bars.tbar.display(mainView.tools.tbar);
+        }
     }
 });
