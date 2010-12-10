@@ -20,7 +20,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         scheduleText: 'Schedule',
 
         //View Properties       
-        contextView: 'context_dialog',
         detailView: 'ticket_detail',
         icon: 'content/images/icons/job_24.png',
         id: 'ticket_list',
@@ -36,21 +35,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
         formatSearchQuery: function(query) {
             return String.format('TicketNumber like "%{0}%"', query);
-        },
-        createContextMenu: function() {
-            return this.contextMenu || (this.contextMenu = [
-                {
-                    label: this.activitiesText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['TicketId eq "{0}"'], true
-                    ),
-                    view: 'activity_related'
-                },
-                {
-                    label: this.scheduleText,
-                    view: 'activity_types_list'
-                }
-            ]);
         }
     });
 })();

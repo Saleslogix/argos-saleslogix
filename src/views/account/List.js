@@ -21,7 +21,6 @@ Ext.namespace("Mobile.SalesLogix.Account");
         scheduleText: 'Schedule',
 
         //View Properties        
-        contextView: 'context_dialog',
         detailView: 'account_detail',
         icon: 'content/images/icons/Company_24.png',
         id: 'account_list',
@@ -35,28 +34,6 @@ Ext.namespace("Mobile.SalesLogix.Account");
 
         formatSearchQuery: function(query) {
             return String.format('AccountName like "%{0}%"', query);
-        },
-        createContextMenu: function() {
-            return this.contextMenu || (this.contextMenu = [
-                {
-                    label: this.activitiesText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['AccountId eq "{0}"'], true
-                    ),                   
-                    view: 'activity_related'
-                },
-                {
-                    label: this.notesText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['AccountId eq "{0}" and Type eq "atNote"'], true
-                    ),
-                    view: 'note_related'
-                },
-                {
-                    label: this.scheduleText,
-                    view: 'activity_types_list'
-                }
-            ]);
         }
     });
 })();
