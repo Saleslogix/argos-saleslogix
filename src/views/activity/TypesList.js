@@ -37,7 +37,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     //View Properties   
     activityTypeOrder: [
         'atAppointment',
-        'atLiterature',
+        //'atLiterature', //For [#7206791], We will enable this later.
         'atPersonal',
         'atPhoneCall',
         'atToDo'
