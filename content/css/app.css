@@ -23,8 +23,7 @@
     padding: 1em;
 }
 
-.defect-text-more,
-.note-text-more
+.defect-text-more
 {
     visibility: hidden;
     border-style: none solid solid solid;
@@ -112,7 +111,8 @@
 
 .note-text-row
 {
-    max-height:3em;
+    max-height:5em;
+    font-size:0.8em;
     overflow:hidden;
 }
 
@@ -126,11 +126,17 @@
 
 .note-text-more
 {
-   -moz-border-radius-bottomright: 0;
-   -webkit-border-radius-bottomright: 0;
-   bottom: 0;
-   border-style: none;
-   font-size: 0.8em;
+    visibility: hidden;
+    height: 24px;
+    width: 24px;
+    background-image: url(../images/icons/Note_More_24x24.png) !important;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 1;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    display: inline-block;
 }
 
 /* context dialog */
@@ -256,6 +262,17 @@
 #activity_edit div[data-field="Alarm"]
 {
     border-bottom: none 0px black;
+}
+
+.note-text-wrap .p-username
+{
+    font-style:italic;
+}
+
+.note-text-wrap .p-time,
+.note-text-wrap .p-meridiem
+{
+    font-weight:bold;
 }
 
 .p-meridiem

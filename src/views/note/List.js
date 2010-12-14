@@ -12,11 +12,15 @@ Ext.namespace("Mobile.SalesLogix.Note");
         contentTemplate: new Simplate([
             '<div class="row note-text-row">',
             '<div class="note-text-wrap">',
-            '{%: $.Notes %}',
+                '<div>',
+                    '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.CreateDate, "h:mm") %}</span>',
+                    '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.CreateDate, "tt") %}</span>,',
+                    '<span class="p-date">&nbsp;{%: Mobile.SalesLogix.Format.date($.CreateDate, "ddd M/dd/yy") %}</span>',
+                    '<span class="p-username"> - {%: $.UserName %}</span>',
+                '</div>',
+                '{%: $.Notes %}',
             '</div>',
-            '<div class="note-text-more">',
-            '{%: $$.moreText %}',
-            '</div>',
+            '<div class="note-text-more"></div>',
             '</div>'
         ]),
 
@@ -25,10 +29,18 @@ Ext.namespace("Mobile.SalesLogix.Note");
         titleText: 'Notes',
 
         //View Properties
-        detailView: 'note_detail',
-        icon: 'content/images/icons/note_24.png',
         id: 'note_list',
+        icon: 'content/images/icons/note_24.png',
         insertView: 'note_edit',
+        detailView: 'note_detail',
+        queryOrderBy: 'ModifyDate',
+        querySelect: [
+            'CreateDate',
+            'Description',
+            'Notes',
+            'UserName',
+            'Type'
+        ],
         resourceKind: 'history',
 
         init: function() {
@@ -46,18 +58,6 @@ Ext.namespace("Mobile.SalesLogix.Note");
         },
         formatSearchQuery: function(query) {
             return String.format('Notes like "%{0}%"', query);
-        },
-        createRequest: function() {
-            var request = Mobile.SalesLogix.Note.List.superclass.createRequest.call(this);
-
-            request.setQueryArgs({
-                'orderby': 'ModifyDate',
-                'select': [
-                    'Notes'
-                ].join(',')
-            });
-
-            return request;
         },
         processFeed: function(feed) {
             Mobile.SalesLogix.Note.List.superclass.processFeed.call(this, feed);
