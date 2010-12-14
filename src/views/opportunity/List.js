@@ -9,9 +9,17 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
 (function() {
     Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
+        itemTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="opportunity-{%: $.Status %}">',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '{%! $$.contentTemplate %}',
+            '</li>'
+        ]),
+        //TODO: Support ExchangeRateCode with proper symbol
         contentTemplate: new Simplate([
-            '<h3>{%: $.Account ? $.Account.AccountName : "" %}</h3>',
-            '<h4>{%: $.Description %}</h4>'
+            '<h3>{%: $.Description %} <span class="p-account">{%: $.Account ? ("(" + $.Account.AccountName + ")") : "" %}</span></h3>',
+            '<h4>{%: $.Status %} {%: "| $" + $.SalesPotential %} {%: $.Stage ? ("| " + $.Stage) : "" %}',
+            '{%: $.Account ? ("| " + Account.AccountManager.UserInfo.UserName + " - " + Account.AccountManager.UserInfo.Region)  : "" %}</h4>'
         ]),
 
         //Localization
@@ -28,8 +36,12 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         queryOrderBy: 'Status desc,EstimatedClose desc',
         querySelect: [
             'Account/AccountName',
+            'Account/AccountManager/UserInfo/UserName',
+            'Account/AccountManager/UserInfo/Region',
             'Description',
-            'Stage'
+            'Stage',
+            'Status',
+            'SalesPotential'
         ],
         resourceKind: 'opportunities',
 

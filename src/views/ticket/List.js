@@ -9,9 +9,16 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 (function() {
     Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
+        itemTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="ticket-{%: $.Status %}">',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '{%! $$.contentTemplate %}',
+            '</li>'
+        ]),
         contentTemplate: new Simplate([
-            '<h3>{%: $.Subject %}</h3>',
-            '<h4>{%: $.TicketNumber %}, {%: $.Account ? $.Account.AccountName : "" %}</h4>'
+            '<h3>{%: $.TicketNumber %} <span class="p-account">{%: $.Account ? ("(" + $.Contact.FullName + " / " + $.Account.AccountName + ")") : "" %}</span></h3>',
+            '<h4>{%: $.StatusCode %} {%: "| " + $.UrgencyCode %} {%: $.Area ? ("| " + $.Area) : "" %}',
+            '{%: "| " + $.AssignedTo.OwnerDescription %}</h4>'
         ]),
 
         //Localization
@@ -27,9 +34,13 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         queryOrderBy: 'TicketNumber',
         querySelect: [
             'Account/AccountName',
-            'Contact/NameLF',
-            'Subject',
-            'TicketNumber'
+            'Area',
+            'AssignedTo/OwnerDescription',
+            'Contact/FullName',
+            'ReceivedDate',
+            'StatusCode',
+            'TicketNumber',
+            'UrgencyCode'
         ],
         resourceKind: 'tickets',
 
