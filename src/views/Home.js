@@ -6,8 +6,14 @@
 
 Ext.namespace("Mobile.SalesLogix");
 
-Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
+Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.GroupedList, {
     //Templates
+    itemTemplate: new Simplate([
+        '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
+        '<div class="list-item-selector"></div>',
+        '{%! $$.contentTemplate %}',
+        '</li>'
+    ]),
     contentTemplate: new Simplate([
         '<h3>',
         '{% if ($.icon) { %}',
@@ -20,30 +26,28 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
     //Localization
     configureText: 'Configure',
     addAccountContactText: 'Add Account/Contact',
-    contextView: 'context_dialog',
     titleText: 'Home',
+    actionsText: 'Actions',
+    entitiesText: 'Entities',
 
     //View Properties
     id: 'home',
     expose: false,
     hideSearch: true,
+    configurationView: 'configure',
+    addAccountContactView: 'add_account_contact',
     
-    activateEntry: function(params) {
-        if (params.key)
-        {
-            var view = App.getView(params.key);
-            if (view)
-                view.show();
-        }
+    navigateToView: function(params) {
+        var view = App.getView(params && params.view);
+        if (view)
+            view.show();
     },
-    createContextMenu: function() {
-        return this.contextMenu || (this.contextMenu = [
-            {
-                label: this.addAccountContactText,
-                view: 'add_account_contact',
+    addAccountContact: function(params) {
+        var view = App.getView(this.addAccountContactView);
+        if (view)
+            view.show({
                 insert: true
-            }
-        ]);
+            });
     },
     formatSearchQuery: function(query) {
         var expression = new RegExp(query, 'i');
@@ -55,11 +59,29 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
     hasMoreData: function() {
         return false;
     },
+    getGroupForEntry: function(entry) {
+        if (entry.view)
+            return {
+                tag: 'entity',
+                title: this.entitiesText
+            };
+
+        return {
+            tag: 'action',
+            title: this.actionsText
+        };
+    },
     requestData: function() {
         var visible = App.preferences && App.preferences.home && App.preferences.home.visible,
             list = [],
             view,
             entry;
+
+        list.push({
+            'action': 'addAccountContact',
+            'icon': 'content/images/icons/Company_24.png',
+            'title': this.addAccountContactText
+        });
 
         for (var i = 0; i < visible.length; i++)
         {
@@ -68,7 +90,8 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
             if (view)
             {
                 entry = {
-                    '$key': view.id,
+                    'action': 'navigateToView',
+                    'view': view.id,
                     'icon': view.icon,
                     'title': view.titleText
                 };
@@ -91,12 +114,10 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.List, {
             scope: this
         }];
     },
-    showContextViewFor: function(key, descriptor, entry)
-    {        
-        return (key == 'contact_list');
-    },
     navigateToConfigurationView: function() {
-        App.getView('configure').show();
+        var view = App.getView(this.configurationView);
+        if (view)
+            view.show();
     },
     onRegistered: function() {
         this.refreshRequired = true;
