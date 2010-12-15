@@ -41,8 +41,10 @@ Ext.namespace("Mobile.SalesLogix");
         entityName: 'Account',
         querySelect: [
             'AccountName',
+            'Address',
             'BusinessDescription',
             'Contact/AccountName',
+            'Contact/Address',
             'Contact/Email',
             'Contact/Fax',
             'Contact/FirstName',
@@ -194,6 +196,14 @@ Ext.namespace("Mobile.SalesLogix");
                         name: 'BusinessDescription',
                         label: this.description,
                         type: 'text'
+                    },
+                    {
+                        emptyText: '',
+                        formatValue: Mobile.SalesLogix.Format.address,
+                        label: this.addressText,
+                        name: 'Address',
+                        type: 'address',
+                        view: 'address_edit'
                     }
                 ]}
             ]);
