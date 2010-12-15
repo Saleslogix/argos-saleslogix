@@ -17,7 +17,12 @@ Ext.namespace("Mobile.SalesLogix.Note");
         entityName: 'History',
         id: 'note_edit',
         querySelect: [
-            'Notes'
+            'Notes',
+            'AccountId',
+            'ContactId',
+            'LeadId',
+            'OpportunityId',
+            'TicketId'
         ],
         resourceKind: 'history',
 
@@ -93,6 +98,33 @@ Ext.namespace("Mobile.SalesLogix.Note");
 
             this.fields['Type'].setValue('atNote');
         },        
+        insertCompleted: function(entry) {
+            var found = App.queryNavigationContext(function(o) {
+                    var context = (o.options && o.options.source) || o;
+
+                    return /^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key;
+                });
+            var context = (found && found.options && found.options.source) || found,
+                view = App.getView(context.id),
+                lookup = {
+                    'accounts': 'AccountId eq "{%: $.AccountId %}" and Type eq "atNote"',
+                    'contacts': 'ContactId eq "{%: $.ContactId %}" and Type eq "atNote"',
+                    'opportunities': 'OpportunityId eq "{%: $.OpportunityId %}" and Type eq "atNote"',
+                    'tickets': 'TicketId eq "{%: $.TicketId %}" and Type eq "atNote"',
+                    'leads': 'LeadId eq "{%: $.LeadId %}" and Type eq "atNote"'
+                }, tmpl;
+
+            if (view && view.navigateToRelatedView) //Check for detail view???
+            {
+                tmpl = lookup[context.resourceKind] && new Simplate([lookup[context.resourceKind]]);
+                App.getView('note_related').show({
+                    where: tmpl.apply(entry)
+                }, {
+                    returnTo: -1
+                });
+            }
+            else Mobile.SalesLogix.Note.Edit.superclass.insertCompleted.apply(this, arguments);
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
