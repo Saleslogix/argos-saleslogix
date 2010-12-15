@@ -18,7 +18,9 @@ Mobile.SalesLogix.Environment = (function() {
             }, 0);
         },
         showMapForAddress: function(address) {
-            window.location.href = String.format("http://maps.google.com/maps?q={0}", address);
+            setTimeout(function() {
+                window.location.href = String.format("http://maps.google.com/maps?q={0}", address);
+            }, 0);
         }
     };
 })();
