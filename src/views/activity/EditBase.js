@@ -203,34 +203,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }
 
             return {'$resources': list};
-        },
-        insertCompleted: function(entry) {
-            var found = App.queryNavigationContext(function(o) {
-                    var context = (o.options && o.options.source) || o;
-
-                    return /^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key;
-                });
-            var context = (found && found.options && found.options.source) || found,
-                view = App.getView(context.id),
-                lookup = {
-                    'accounts': 'AccountId eq "{%: $.AccountId %}"',
-                    'contacts': 'ContactId eq "{%: $.ContactId %}"',
-                    'opportunities': 'OpportunityId eq "{%: $.OpportunityId %}"',
-                    'tickets': 'TicketId eq "{%: $.TicketId %}"',
-                    'leads': 'LeadId eq "{%: $.LeadId %}"'
-                }, tmpl;
-
-            if (view && view.navigateToRelatedView) //Check for detail view???
-            {
-                tmpl = lookup[context.resourceKind] && new Simplate([lookup[context.resourceKind]]);
-                App.getView('activity_related').show({
-                    where: tmpl.apply(entry)
-                }, {
-                    returnTo: -1
-                });
-            }
-            else Mobile.SalesLogix.Activity.EditBase.superclass.insertCompleted.apply(this, arguments);
-        },
+        },        
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
