@@ -28,7 +28,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.GroupedList, {
     addAccountContactText: 'Add Account/Contact',
     titleText: 'Home',
     actionsText: 'Actions',
-    entitiesText: 'Entities',
+    viewsText: 'Views',
 
     //View Properties
     id: 'home',
@@ -62,8 +62,8 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.GroupedList, {
     getGroupForEntry: function(entry) {
         if (entry.view)
             return {
-                tag: 'entity',
-                title: this.entitiesText
+                tag: 'view',
+                title: this.viewsText
             };
 
         return {
