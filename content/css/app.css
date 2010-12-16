@@ -326,17 +326,17 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background: url(../images/icons/help_24.png);
 }
 
-li[data-activity-type="opportunity-Open"] .list-item-selector
+li[data-opportunity-type="Open"] .list-item-selector
 {
     background: url(../images/icons/opportunity_24.png);
 }
 
-li[data-activity-type="opportunity-Won"] .list-item-selector
+li[data-opportunity-type="Won"] .list-item-selector
 {
     background: url(../images/icons/Opportunity_Won_24.png);
 }
 
-li[data-activity-type="opportunity-Lost"] .list-item-selector
+li[data-opportunity-type="Lost"] .list-item-selector
 {
     background: url(../images/icons/Opportunity_Lost_24.png);
 }
