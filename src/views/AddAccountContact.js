@@ -103,7 +103,7 @@ Ext.namespace("Mobile.SalesLogix");
                 },
                 {
                     label: this.emailText,
-                    name: 'Email',
+                    name: 'Contacts.$resources[0].Email',
                     type: 'text'
                 },
                 {
