@@ -286,7 +286,8 @@ h3 > .p-account
     font-size: 0.75em;
 }
 
-li[data-activity-type] .list-item-selector
+li[data-activity-type] .list-item-selector,
+li[data-opportunity-type] .list-item-selector
 {
     visibility: visible;
 }
