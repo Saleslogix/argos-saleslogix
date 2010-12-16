@@ -101,23 +101,14 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Timeless'].on('change', this.onTimelessChange, this);
             this.fields['Alarm'].on('change', this.onAlarmChange, this);
         },
-        disableSelectField: function(field, disable) {
-            if (disable === true)
-            {
-                field.containerEl.addClass('field-disabled');
-                field.view = false;
-            }
-            else
-            {
-                field.containerEl.removeClass('field-disabled');
-                field.view = 'select_list';
-            }
+        toggleSelectField: function(field, disable, options) {
+            disable === true ? field.disable() : field.enable();
         },
         onTimelessChange: function(value, field) {
-            this.disableSelectField(this.fields['Duration'], value);
+            this.toggleSelectField(this.fields['Duration'], value, {'defaultValue': 15});
         },
         onAlarmChange: function(value, field) {
-            this.disableSelectField(this.fields['Reminder'], !value);
+            this.toggleSelectField(this.fields['Reminder'], !value, {'defaultValue': 15});
         },
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
@@ -156,8 +147,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             Mobile.SalesLogix.Activity.EditBase.superclass.setValues.apply(this, arguments);
 
-            this.onTimelessChange((!!values['Timeless']), this.fields['Duration']);
-            this.onAlarmChange((!!values['Alarm']), this.fields['Reminder']);
+            !!values['Timeless'] ? this.fields['Duration'].disable({'throughUserAction': false})
+                                 : this.fields['Duration'].enable({'throughUserAction': false});
+            !!values['Alarm'] ? this.fields['Reminder'].enable({'throughUserAction': false})
+                              : this.fields['Reminder'].disable({'throughUserAction': false});
         },
         getValues: function() {
             var values = Mobile.SalesLogix.Activity.EditBase.superclass.getValues.apply(this, arguments);
@@ -166,7 +159,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                         
             if (values['StartDate'] && reminder)            
                 values['AlarmTime'] = values['StartDate'].clone().add({'minutes': -1 * reminder});
-           
+            else if (!reminder)
+                values['AlarmTime'] = values['StartDate'] || this.fields['StartDate'].getValue();
+
             return values;
         },
         onLeaderChange: function(value, field) {
