@@ -80,7 +80,8 @@ Ext.namespace("Mobile.SalesLogix.Contact");
             {
                 view.show({
                     title: this.activityTypeText[type],
-                    template: entry,
+                    template: {},
+                    entry: entry,
                     insert: true
                 });
             }

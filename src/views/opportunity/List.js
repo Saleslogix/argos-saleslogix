@@ -10,16 +10,20 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
     Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
         itemTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-opportunity-type="{%: $.Status %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-opportunity-status="{%: $.Status %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.contentTemplate %}',
             '</li>'
         ]),
         //TODO: Support ExchangeRateCode with proper symbol
-        contentTemplate: new Simplate([
-            '<h3>{%: $.Description %} <span class="p-account">{%: $.Account ? ("(" + $.Account.AccountName + ")") : "" %}</span></h3>',
-            '<h4>{%: $.Status %} {%: "| $" + $.SalesPotential %} {%: $.Stage ? ("| " + $.Stage) : "" %}',
-            '{%: $.Account ? ("| " + Account.AccountManager.UserInfo.UserName + " - " + Account.AccountManager.UserInfo.Region)  : "" %}</h4>'
+        contentTemplate: new Simplate([                       
+            '<h3>{%: $.Description %} <span class="p-account">{% if ($.Account) { %}({%: $.Account.AccountName %}){% } %}</span></h3>',
+            '<h4>',
+            '{%: $.Status %} {%: Mobile.SalesLogix.Format.currency($.SalesPotential) %}',
+            '{% if ($.Stage) { %} | {%: $.Stage %}{% } %}',
+            '{% if ($.Account) { %} | {%: $.Account.AccountManager.UserInfo.UserName %}{% } %}',
+            '{% if ($.Account.AccountManager.UserInfo.Region) { %} - {%: $.Account.AccountManager.UserInfo.Region %}{% } %}',
+            '</h4>'
         ]),
 
         //Localization
@@ -29,11 +33,17 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         scheduleText: 'Schedule',
 
         //View Properties
-        detailView: 'opportunity_detail',
-        icon: 'content/images/icons/opportunity_24.png',
         id: 'opportunity_list',
+        icon: 'content/images/icons/opportunity_24.png',
+        detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
-        queryOrderBy: 'Status desc,EstimatedClose desc',
+        hashTagQueries: {
+            'open': 'Closed eq false',
+            'closed': 'Closed eq true',
+            'won': 'Status eq "Closed - Won"',
+            'lost': 'Status eq "Closed - Lost"'
+        },
+        queryOrderBy: 'EstimatedClose desc',
         querySelect: [
             'Account/AccountName',
             'Account/AccountManager/UserInfo/UserName',

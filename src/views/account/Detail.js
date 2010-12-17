@@ -79,7 +79,8 @@ Ext.namespace("Mobile.SalesLogix.Account");
             {
                 view.show({
                     title: this.activityTypeText[type],
-                    template: entry,
+                    template: {},
+                    entry: entry,
                     insert: true
                 });
             }
