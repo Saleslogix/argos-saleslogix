@@ -51,7 +51,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
             'MiddleName',
             'Notes',
             'Prefix',
-            'SICCode ',
+            'SICCode',
             'Suffix',
             'Title',
             'TollFree',
