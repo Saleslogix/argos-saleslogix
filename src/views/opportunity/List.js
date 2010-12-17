@@ -33,10 +33,16 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         scheduleText: 'Schedule',
 
         //View Properties
-        detailView: 'opportunity_detail',
-        icon: 'content/images/icons/opportunity_24.png',
         id: 'opportunity_list',
+        icon: 'content/images/icons/opportunity_24.png',
+        detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
+        hashTagQueries: {
+            'open': 'Closed eq false',
+            'closed': 'Closed eq true',
+            'won': 'Status eq "Closed - Won"',
+            'lost': 'Status eq "Closed - Lost"'
+        },
         queryOrderBy: 'EstimatedClose desc',
         querySelect: [
             'Account/AccountName',
