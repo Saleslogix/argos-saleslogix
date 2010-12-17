@@ -67,6 +67,13 @@ Ext.namespace("Mobile.SalesLogix");
                 U.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
                 U.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
 
+                //Temporaty Fix for 7251267. Default address details must come from Template.
+                if (values.Contacts.$resources[0].Address && !values.Contacts.$resources[0].Address.Description)
+                    values.Contacts.$resources[0].Address.Description = 'Mailing';
+
+                if (values.Address && !values.Address.Description)
+                    values.Address.Description = 'Mailing';
+
             return values;
         },
         formatDependentPicklist: function(dependentValue, format) {
