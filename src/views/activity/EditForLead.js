@@ -24,7 +24,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.layout = layout.concat([
                 {
                     label: this.companyText,
-                    name: 'Company',
+                    name: 'AccountName',
                     type: 'text'
                 },
                 {
@@ -72,7 +72,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 'LeadName': entry['$descriptor']
             });
 
-            this.fields['Company'].setValue(entry['Company']);            
+            this.fields['AccountName'].setValue(entry['Company']);            
         },
         onLeadChange: function(value, field) {
             var selection = field.getSelection(),
