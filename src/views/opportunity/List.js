@@ -22,7 +22,8 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             '{%: $.Status %} {%: Mobile.SalesLogix.Format.currency($.SalesPotential) %}',
             '{% if ($.Stage) { %} | {%: $.Stage %}{% } %}',
             '{% if ($.Account) { %} | {%: $.Account.AccountManager.UserInfo.UserName %}{% } %}',
-            '{% if ($.Account.AccountManager.UserInfo.Region) { %} - {%: $.Account.AccountManager.UserInfo.Region %}{% } %}'
+            '{% if ($.Account.AccountManager.UserInfo.Region) { %} - {%: $.Account.AccountManager.UserInfo.Region %}{% } %}',
+            '</h4>'
         ]),
 
         //Localization
