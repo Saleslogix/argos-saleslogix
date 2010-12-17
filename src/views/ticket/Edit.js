@@ -53,7 +53,6 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             'AssignedTo/OwnerDescription',
             'Category',
             'Contact/NameLF',
-            'Contract/ReferenceNumber',
             'Issue',
             'NeededByDate',
             'Notes',
