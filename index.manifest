@@ -2,29 +2,29 @@ CACHE MANIFEST
 # version 42
 
 CACHE:
-# content
+# css
 content/css/app.css
 content/css/awesome-buttons.css
 content/css/base.css
 content/css/toggle.css
+content/reui/themes/sage-green/base.css
+content/reui/themes/sage-green/theme.css
+
+# images
 content/images/arrow-left.png
 content/images/arrow-left-black.png
 content/images/arrow-left-mask.png
 content/images/arrow-right.png
 content/images/arrow-right-black.png
 content/images/arrow-right-mask.png
+content/images/content-loading-light-green.gif
 content/images/icon.png
 content/images/loading.png
-content/images/loading-arrows-tool-button.gif
-content/images/loading-arrows-white.gif
-content/images/loading-arrows-white-button.gif
 content/images/loading-indicator-blue.gif
 content/images/loading-indicator-gray.gif
-content/images/loading-indicator-green.gif
+content/images/loading-indicator-light-green.gif
 content/images/loading-indicator-red.gif
-content/images/loading-indicator-tool-button.gif
 content/images/loading-indicator-white.gif
-content/images/loading-indicator-white-button.gif
 content/images/meter-empty.png
 content/images/meter-full-1.png
 content/images/meter-full-2.png
@@ -33,6 +33,7 @@ content/images/meter-full-4.png
 content/images/meter-full-5.png
 content/images/meter-full-6.png
 content/images/icons/accountant_link_24.png
+content/images/icons/Alarm_24x24.gif
 content/images/icons/Back_24.png
 content/images/icons/Browse_Next_24.png
 content/images/icons/Browse_Previous_24.png
@@ -55,12 +56,26 @@ content/images/icons/internet_24.png
 content/images/icons/job_24.png
 content/images/icons/journal_24.png
 content/images/icons/lead_24.png
+content/images/icons/letters_24.png
 content/images/icons/login_24.png
 content/images/icons/Next_24.png
 content/images/icons/note_24.png
+content/images/icons/Note_More_24x24.png
 content/images/icons/OK_24.png
 content/images/icons/opportunity_24.png
+content/images/icons/Opportunity_Lost_24.png
+content/images/icons/Opportunity_Won_24.png
+content/images/icons/Recurring_24x24.gif
+content/images/icons/Reminder_24x24.gif
+content/images/icons/Reschedule_Activity_24x24.gif
 content/images/icons/returns_24.png
+content/images/icons/Schedule_Call_24x24.gif
+content/images/icons/Schedule_Event_24x24.gif
+content/images/icons/Schedule_Literature_Request_24x24.gif
+content/images/icons/Schedule_Meeting_24x24.gif
+content/images/icons/Schedule_Personal_Activity_24x24.gif
+content/images/icons/Schedule_Ticket_Activity_24x24.gif
+content/images/icons/Schedule_To_Do_24x24.gif
 content/images/icons/security_24.png
 content/images/icons/settings_24.png
 content/images/icons/Show_Details_active_24.png
@@ -69,22 +84,9 @@ content/images/icons/Sort_Down_24.png
 content/images/icons/Sort_Up_24.png
 content/images/icons/srch_24.png
 content/images/icons/Whats_New_24.png
-content/images/icons/Alarm_24x24.gif
-content/images/icons/Recurring_24x24.gif
-content/images/icons/Reminder_24x24.gif
-content/images/icons/Reschedule_Activity_24x24.gif
-content/images/icons/Schedule_Call_24x24.gif
-content/images/icons/Schedule_Event_24x24.gif
-content/images/icons/Schedule_Literature_Request_24x24.gif
-content/images/icons/Schedule_Meeting_24x24.gif
-content/images/icons/Schedule_Personal_Activity_24x24.gif
-content/images/icons/Schedule_Ticket_Activity_24x24.gif
-content/images/icons/Schedule_To_Do_24x24.gif
 content/images/toggle/thumb.png
 content/images/toggle/toggle.png
 content/images/toggle/toggleOn.png
-content/reui/themes/sage-green/base.css
-content/reui/themes/sage-green/theme.css
 
 # application
 content/javascript/argos-dependencies.js
