@@ -73,6 +73,14 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             this.fields['Area'].on('change', this.onAreaChange, this);
             this.fields['Category'].on('change', this.onCategoryChange, this);
         },
+        getValues: function() {
+            values = Mobile.SalesLogix.Ticket.Edit.superclass.getValues.apply(this, arguments);
+
+            if (values['UrgencyCode'] && values['UrgencyCode'].UrgencyCode)
+                values['UrgencyCode'] = values['UrgencyCode'].UrgencyCode;
+
+            return values;
+        },
         setValues: function(entry) {
             Mobile.SalesLogix.Ticket.Edit.superclass.setValues.apply(this, arguments);
 
@@ -84,6 +92,11 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             if (entry.StatusText)
             {
                 this.fields['StatusCode'].setText(entry.StatusText);
+            }
+
+            if (entry.UrgencyText)
+            {
+                this.fields['UrgencyCode'].setText(entry.UrgencyText);
             }
         },
         onAccountChange: function(value, field) {
@@ -242,13 +255,13 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     title: this.ticketStatusTitleText,
                     type: 'picklist'
                 },
-                // todo: there is no Ticket Urgency picklist
                 {
                     label: this.urgencyText,
                     name: 'UrgencyCode',
-                    picklist: 'Ticket Urgency',
                     title: this.ticketUrgencyTitleText,
-                    type: 'picklist'
+                    keyProperty: 'UrgencyCode',
+                    type: 'lookup',
+                    view: 'urgency_list'
                 },
                 {
                     label: this.needByText,

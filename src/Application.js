@@ -190,6 +190,10 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             expose: false
         }));
 
+        this.registerView(new Mobile.SalesLogix.Ticket.UrgencyLookup({
+            expose: false
+        }));
+
         this.registerView(new Mobile.SalesLogix.Lead.Lookup({
             expose: false
         }));
