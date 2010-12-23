@@ -159,8 +159,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                         
             if (values['StartDate'] && reminder)            
                 values['AlarmTime'] = values['StartDate'].clone().add({'minutes': -1 * reminder});
-            else if (!reminder)
-                values['AlarmTime'] = values['StartDate'] || this.fields['StartDate'].getValue();
 
             return values;
         },
