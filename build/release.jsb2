@@ -319,6 +319,10 @@
             path: '../src/views/ticket/'
         },
         {
+            text: 'UrgencyLookup.js',
+            path: '../src/views/ticket/'
+        },
+        {
             text: 'List.js',
             path: '../src/views/user/'
         }]

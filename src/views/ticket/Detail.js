@@ -72,10 +72,13 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 
             return request;
         },
-        processPickListResponse: function(list, value, options) {
+        processResponse: function(list, value, options) {
+            var keyProperty = options.keyProperty ? options.keyProperty : '$key';
+            var textProperty = options.textProperty ? options.textProperty : 'text';
+            
             for (var i = 0; i < list.$resources.length; i++)
             {
-                if (list.$resources[i].$key === value)
+                if (list.$resources[i][keyProperty] === value)
                 {
                     var rowEl = this.el.child(options.dataProperty),
                     contentEl = rowEl && rowEl.child('span');
@@ -84,9 +87,9 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                         rowEl.removeClass('content-loading');
 
                     if (contentEl)
-                        contentEl.update(list.$resources[i].text);
+                        contentEl.update(list.$resources[i][textProperty]);
 
-                    return list.$resources[i].text;
+                    return list.$resources[i][textProperty];
                 }
             }
         },
@@ -108,25 +111,53 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 scope: this
             });
         },
+        requestUrgency: function(urgencyCode)
+        {
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setResourceKind('urgencies')
+                .setQueryArg('select', [
+                    'Description',
+                    'UrgencyCode'
+                ].join(','));
+
+            request.allowCacheUse = true;
+            request.read({
+                success: function(data) {this.processUrgency(data, urgencyCode);},
+                failure: this.requestUrgencyFailure,
+                scope: this
+            });
+        },
+        requestUrgencyFailure: function(xhr, o) {
+        },
         requestSourceFailure: function(xhr, o) {
         },
         requestStatusFailure: function(xhr, o) {
         },
         processStatus: function(statuses, statusCode) {
-            var statusText = this.processPickListResponse(statuses, statusCode, {dataProperty: '[data-property="StatusCode"]'});
+            var statusText = this.processResponse(statuses, statusCode, {dataProperty: '[data-property="StatusCode"]'});
 
             if (statusText) this.entry['StatusText'] = statusText;
         },
         processSource: function(sources, viaCode) {
-            var sourceText = this.processPickListResponse(sources, viaCode, {dataProperty: '[data-property="ViaCode"]'});
+            var sourceText = this.processResponse(sources, viaCode, {dataProperty: '[data-property="ViaCode"]'});
 
             if (sourceText) this.entry['SourceText'] = sourceText;
+        },
+        processUrgency: function(urgencies, urgencyCode) {
+            var urgencyText = this.processResponse(urgencies, urgencyCode, {
+                dataProperty: '[data-property="UrgencyCode"]',
+                keyProperty: 'UrgencyCode',
+                textProperty: 'Description'
+            });
+
+            if (urgencyText) this.entry['UrgencyText'] = urgencyText;
         },
         processEntry: function(entry) {
             Mobile.SalesLogix.Ticket.Detail.superclass.processEntry.apply(this, arguments);
 
             if (entry && entry['ViaCode']) this.requestSource(entry['ViaCode']);
             if (entry && entry['StatusCode']) this.requestStatus(entry['StatusCode']);
+            if (entry && entry['UrgencyCode']) this.requestUrgency(entry['UrgencyCode']);
         },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
@@ -175,8 +206,10 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     name: 'StatusCode',
                     value: 'loading...'
                 },{
+                    cls: 'content-loading',
                     label: this.urgencyText,
-                    name: 'UrgencyCode'
+                    name: 'UrgencyCode',
+                    value: 'loading...'
                 },{
                     label: this.needByText,
                     name: 'NeededByDate',

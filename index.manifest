@@ -2,11 +2,15 @@ CACHE MANIFEST
 # version 42
 
 CACHE:
-# content
+# css
 content/css/app.css
 content/css/awesome-buttons.css
 content/css/base.css
 content/css/toggle.css
+content/reui/themes/sage-green/base.css
+content/reui/themes/sage-green/theme.css
+
+# images
 content/images/arrow-left.png
 content/images/arrow-left-black.png
 content/images/arrow-left-mask.png
@@ -83,8 +87,6 @@ content/images/icons/Whats_New_24.png
 content/images/toggle/thumb.png
 content/images/toggle/toggle.png
 content/images/toggle/toggleOn.png
-content/reui/themes/sage-green/base.css
-content/reui/themes/sage-green/theme.css
 
 # application
 content/javascript/argos-dependencies.js

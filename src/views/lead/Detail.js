@@ -9,6 +9,10 @@ Ext.namespace("Mobile.SalesLogix.Lead");
 (function() {
     Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         //Localization
+        activityTypeText: {
+            'atPhoneCall': 'Phone Call',
+            'atEMail': 'E-mail'
+        },
         accountText: 'company',
         addressText: 'address',
         businessDescriptionText: 'bus desc',
