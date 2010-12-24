@@ -17,8 +17,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         ]),
         contentTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %} <span class="p-account">{%: $.Account ? ("(" + $.Contact.FullName + " / " + $.Account.AccountName + ")") : "" %}</span></h3>',
-            '<h4>{%: $.StatusCode %} {%: "| " + $.UrgencyCode %} {%: $.Area ? ("| " + $.Area) : "" %}',
-            '{%: "| " + $.AssignedTo.OwnerDescription %}</h4>'
+            '<h4>{%: $.Area ? ($.Area + " | ") : "" %} {%: $.AssignedTo.OwnerDescription %}</h4>'
         ]),
 
         //Localization

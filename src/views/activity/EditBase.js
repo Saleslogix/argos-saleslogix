@@ -141,7 +141,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             {
                 var span = values['StartDate'].getTime() - values['AlarmTime'].getTime(); // ms
                 var reminder = span / (1000 * 60);
-
                 values['Reminder'] = reminder;
             }
 
@@ -154,8 +153,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         },
         getValues: function() {
             var values = Mobile.SalesLogix.Activity.EditBase.superclass.getValues.apply(this, arguments);
-
-            var reminder = this.fields['Reminder'].isDirty() && this.fields['Reminder'].getValue();
+            //Reset AlarmTime whenever StartDate or Reminder changes.
+            var reminder = (values['StartDate'] || this.fields['Reminder'].isDirty()) &&
+                            this.fields['Reminder'].getValue();
                         
             if (values['StartDate'] && reminder)            
                 values['AlarmTime'] = values['StartDate'].clone().add({'minutes': -1 * reminder});
