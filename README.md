@@ -16,10 +16,12 @@ Installation
     __Note:__ If you're downloading and extracting the zip file instead of using git directly, the top-level folder in your download will probably be named something like "SageScottsdalePlatform-argos-saleslogix-nnnnn". You'll want to rename this folder to argos-saleslogix, and put it under your products sub-folder. You'll end up with a folder structure like this:
         ...\mobile\argos-sdk
         ...\mobile\products\argos-saleslogix
-4.	On your web server, create a Virtual Directory (IIS6), an Application (IIS7), or an Alias (Apache), or functional equivalent, called `mobile`, pointing to the base directory where you cloned [Argos SDK][argos-sdk], eg:
+
+### Setup and run the application in "debug" mode
+1.	On your web server, create a Virtual Directory (IIS6), an Application (IIS7), or an Alias (Apache), or functional equivalent, called `mobile`, pointing to the base directory where you cloned [Argos SDK][argos-sdk], eg:
 
 		cd \projects\sage\mobile
-5.	In your browser, navigate to the path `/mobile/products/argos-saleslogix/index-dev.html` on your web server, eg:
+2.	In your browser, navigate to the path `/mobile/products/argos-saleslogix/index-dev.html` on your web server, eg:
 
 		http://localhost/mobile/products/argos-saleslogix/index-dev.html
 
