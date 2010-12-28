@@ -240,10 +240,10 @@
     display: none
 }
 
-#text_edit textarea[name="Notes"],
-#note_edit .row textarea[name="Notes"]
+#text_edit textarea,
+#note_edit textarea
 {
-    height: 500px;
+    height: 200px;
     padding-left: 10px !important;  
 }
 

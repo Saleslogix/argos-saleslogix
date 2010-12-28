@@ -17,15 +17,26 @@ Ext.namespace("Mobile.SalesLogix.Note");
         editView: 'note_edit',
         id: 'note_detail',
         querySelect: [
-            'Notes'
+            'Notes',
+            'LongNotes'
         ],        
         resourceKind: 'history',
 
+        provideText: function(entry) {
+            return entry && (entry['LongNotes'] || entry['Notes']); 
+        },
+        renderText: function(text) {
+            var encoded = Sage.Platform.Mobile.Format.encode(text);
+
+            return Sage.Platform.Mobile.Format.nl2br(encoded);
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     label: this.notesText,
-                    name: 'Notes'
+                    name: '',
+                    provider: this.provideText.createDelegate(this),
+                    renderer: this.renderText.createDelegate(this)
                 }
             ]);
         }
