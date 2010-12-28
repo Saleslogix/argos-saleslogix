@@ -16,7 +16,8 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             '</li>'
         ]),
         contentTemplate: new Simplate([
-            '<h3>{%: $.TicketNumber %} <span class="p-account">{%: $.Account ? ("(" + $.Contact.FullName + " / " + $.Account.AccountName + ")") : "" %}</span></h3>',
+            '<h3>{%: $.TicketNumber %} <span class="p-ticket-subject"> {%: $.Subject %} </span></h3>',
+            '<h4>{%: $.Account ? ("(" + $.Contact.FullName + " / " + $.Account.AccountName + ")") : "" %}</h4>',
             '<h4>{%: $.Area ? ($.Area + " | ") : "" %} {%: $.AssignedTo.OwnerDescription %}</h4>'
         ]),
 
@@ -38,6 +39,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             'Contact/FullName',
             'ReceivedDate',
             'StatusCode',
+            'Subject',
             'TicketNumber',
             'UrgencyCode'
         ],
