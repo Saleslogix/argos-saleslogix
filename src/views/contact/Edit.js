@@ -76,7 +76,14 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 'accounts': this.applyAccountContext
             };
 
-            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
+            if (found && lookup[found.resourceKind])
+                lookup[found.resourceKind].call(this, found);
+            else
+                this.applyDefaultContext();
+        },
+        applyDefaultContext: function() {
+            this.fields['AccountManager'].setValue(App.context.user);
+            this.fields['Owner'].setValue(App.context.user.DefaultOwner);
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),

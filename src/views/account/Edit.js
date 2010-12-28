@@ -57,6 +57,12 @@ Ext.namespace("Mobile.SalesLogix.Account");
         formatDependentPicklist: function(dependentValue, format) {
             return String.format(format, dependentValue);
         },
+        applyContext: function() {
+            Mobile.SalesLogix.Account.Edit.superclass.applyContext.apply(this, arguments);
+
+            this.fields['AccountManager'].setValue(App.context.user);
+            this.fields['Owner'].setValue(App.context.user.DefaultOwner);
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
