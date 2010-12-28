@@ -101,6 +101,11 @@
 }
 
 /* note view */
+#note_related .list-content > li
+{
+    padding-left: 8px;
+}
+
 .note-text
 {
     height: 4.5em;
@@ -111,8 +116,7 @@
 
 .note-text-row
 {
-    max-height:5em;
-    font-size:0.8em;
+    max-height:4em;
     overflow:hidden;
 }
 
@@ -275,7 +279,7 @@
     font-weight:bold;
 }
 
-h3 > .p-account
+h3 > .p-ticket-subject
 {
     font-size: 0.75em;
     font-weight: normal;
