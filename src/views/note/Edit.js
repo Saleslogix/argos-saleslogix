@@ -17,7 +17,8 @@ Ext.namespace("Mobile.SalesLogix.Note");
         entityName: 'History',
         id: 'note_edit',
         querySelect: [
-            'Notes'
+            'Notes',
+            'LongNotes'
         ],
         resourceKind: 'history',
 
@@ -92,13 +93,37 @@ Ext.namespace("Mobile.SalesLogix.Note");
             if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
 
             this.fields['Type'].setValue('atNote');
-        },        
+        },
+        setValues: function(values) {
+            values['Text'] = values['LongNotes']
+                ? values['LongNotes']
+                : values['Notes'];
+
+            Mobile.SalesLogix.Note.Edit.superclass.setValues.apply(this, arguments);
+        },
+        getValues: function() {
+            var values = Mobile.SalesLogix.Note.Edit.superclass.getValues.apply(this, arguments);
+
+            if (this.fields['Text'].isDirty())
+            {
+                var text = this.fields['Text'].getValue();
+
+                values = values || {};
+                values['LongNotes'] = text;
+                values['Notes'] = text && text.length > 250
+                    ? text.substr(0, 250)
+                    : text;
+            }
+
+            return values;
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     label: this.notesText,
+                    include: false,
                     multiline: true,
-                    name: 'Notes',
+                    name: 'Text',
                     type: 'text'
                 },
                 {
