@@ -5,7 +5,9 @@
 Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
-    
+    //Localization
+    backButtonText: '<< Back',
+    cancelButtonText: 'Cancel',
 
     enableCaching: true,
     setup: function () {
@@ -226,6 +228,15 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         }, this);
 
         this.fetchPreferences();
+
+        // Temporary Fix for #7986619: Change "Back" to "Cancel" on Insert/Edit views
+        // Where should this be fixed, SDK or ReUI?
+        this.on('viewtransitionto', function(view){
+            if (view instanceof Sage.Platform.Mobile.Edit)
+                Ext.get('backButton').dom.innerHTML = this.cancelButtonText;
+            else
+                Ext.get('backButton').dom.innerHTML = this.backButtonText;
+        });
     },
     run: function() {
         if (App.isOnline() || !App.enableCaching)
