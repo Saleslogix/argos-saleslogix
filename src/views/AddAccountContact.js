@@ -121,7 +121,9 @@ Ext.namespace("Mobile.SalesLogix");
                 {
                     label: this.workText,
                     name: 'MainPhone',
-                    type: 'phone'
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     options: {
@@ -137,17 +139,23 @@ Ext.namespace("Mobile.SalesLogix");
                     {
                         label: this.homePhoneText,
                         name: 'Contacts.$resources[0].HomePhone',
-                        type: 'phone'
+                        type: 'phone',
+                        maxTextLength: 32,
+                        validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                     },
                     {
                         name: 'Contacts.$resources[0].Mobile',
                         label: this.mobileText,
-                        type: 'phone'
+                        type: 'phone',
+                        maxTextLength: 32,
+                        validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                     },
                     {
                         name: 'Contacts.$resources[0].Fax',
                         label: this.faxText,
-                        type: 'phone'
+                        type: 'phone',
+                        maxTextLength: 32,
+                        validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                     },
                     {
                         emptyText: '',
@@ -165,7 +173,9 @@ Ext.namespace("Mobile.SalesLogix");
                     as: [{
                         name: 'Fax',
                         label: this.faxText,
-                        type: 'phone'
+                        type: 'phone',
+                        maxTextLength: 32,
+                        validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                     },
                     {
                         name: 'Type',

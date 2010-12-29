@@ -80,7 +80,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 {
                     label: this.phoneText,
                     name: 'MainPhone',
-                    type: 'phone'
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     emptyText: '',
@@ -93,7 +95,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 {
                     label: this.faxText,
                     name: 'Fax',
-                    type: 'phone'
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.typeText,

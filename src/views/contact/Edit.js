@@ -138,7 +138,9 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 {
                     name: 'WorkPhone',
                     label: this.workText,
-                    type: 'phone'
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'Email',
@@ -162,17 +164,23 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 {
                     name: 'HomePhone',
                     label: this.homePhoneText,
-                    type: 'phone'
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'Mobile',
                     label: this.mobileText,
-                    type: 'phone'
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'Fax',
                     label: this.faxText,
-                    type: 'phone'
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.acctMgrText,
