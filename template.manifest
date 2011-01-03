@@ -1,0 +1,25 @@
+CACHE MANIFEST
+@version
+
+CACHE:
+# css
+@include 'content/css'
+@include 'content/reui/themes'
+
+# images
+@include 'content/images'
+
+# application
+@include 'content/javascript', /.*(?<!-debug)\.js/i
+
+# environment
+@include 'environment'
+
+# shell
+index.html
+
+# help
+help.html
+
+NETWORK:
+../sdata/
