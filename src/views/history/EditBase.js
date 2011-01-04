@@ -29,6 +29,9 @@ Ext.namespace("Mobile.SalesLogix.History");
         titleText: 'History',
         typeText: 'type',
 
+        //Error Messages
+        errScheduledTime: "scheduled time must preceed completed time",
+
         //View Properties
         entityName: 'History',
         picklistsByType: {
@@ -80,7 +83,10 @@ Ext.namespace("Mobile.SalesLogix.History");
             }
 
             return {'$resources': list};
-        },        
+        },
+        validateScheduledTime: function(value, field, view) {
+            return value && value.compareTo(view.fields['CompletedDate'].getValue()) === 1;
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
@@ -139,7 +145,11 @@ Ext.namespace("Mobile.SalesLogix.History");
                             name: 'StartDate',
                             type: 'date',
                             showTimePicker: true,
-                            formatString: 'M/d/yyyy h:mm tt'
+                            formatString: 'M/d/yyyy h:mm tt',
+                            validator: {
+                                fn: this.validateScheduledTime,
+                                message: this.errScheduledTime
+                            }
                         },
                         {
                             label: this.timelessText,
