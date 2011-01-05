@@ -68,7 +68,7 @@ Mobile.SalesLogix.Format = (function() {
             if (number)
                 return withLink === false
                     ? number
-                    : String.format('<a href="tel:{0}" data-action="recordCallToHistory" data-stopevent="false">{1}</a>', clean, number);                    
+                    : String.format('<a href="tel:{0}">{1}</a>', clean, number);
 
             return val;
         },
@@ -97,7 +97,7 @@ Mobile.SalesLogix.Format = (function() {
             if (typeof val !== 'string')
                 return val;
 
-            return String.format('<a href="mailto:{0}" data-action="recordMailToHistory" data-stopevent="false">{0}</a>', val);
+            return String.format('<a href="mailto:{0}">{0}</a>', val);
         }             
     }, F);
 })();

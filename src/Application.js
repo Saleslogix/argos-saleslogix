@@ -13,7 +13,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     setup: function () {
         Mobile.SalesLogix.Application.superclass.setup.apply(this, arguments);
 
-        this.registerToolbar(new Sage.Platform.Mobile.MainToolbar({
+        this.registerToolbar(new Mobile.SalesLogix.MainToolbar({
             name: 'tbar',
             title: this.titleText
         }));
@@ -220,23 +220,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             catch (e) { }
         }, this);
 
-        Ext.get("backButton").on("longpress", function() {
-            var home = this.getView('home');
-            if (home) {
-                home.show();
-            }
-        }, this);
-
         this.fetchPreferences();
-
-        // Temporary Fix for #7986619: Change "Back" to "Cancel" on Insert/Edit views
-        // Where should this be fixed, SDK or ReUI?
-        this.on('viewtransitionto', function(view){
-            if (view instanceof Sage.Platform.Mobile.Edit)
-                Ext.get('backButton').dom.innerHTML = this.cancelButtonText;
-            else
-                Ext.get('backButton').dom.innerHTML = this.backButtonText;
-        });
     },
     run: function() {
         if (App.isOnline() || !App.enableCaching)

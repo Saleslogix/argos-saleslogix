@@ -36,11 +36,15 @@ Ext.namespace("Mobile.SalesLogix");
         init: function() {
             Mobile.SalesLogix.Configure.superclass.init.apply(this, arguments);
           
-            this.tools.tbar =  [{
+            this.tools.tbar =  [{                
+                id: 'save',
                 fn: this.savePreferences,
-                name: 'save',
-                scope: this,
-                title: this.savePrefs
+                scope: this
+            },{
+                id: 'cancel',
+                side: 'left',
+                fn: ReUI.back,
+                scope: ReUI
             }];
         },        
         savePreferences: function() {

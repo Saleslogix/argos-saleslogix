@@ -108,10 +108,8 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.GroupedList, {
         App.on('registered', this.onRegistered, this);
 
         this.tools.tbar = [{
-            name: 'configure',
-            title: this.configureText,
-            fn: this.navigateToConfigurationView,
-            scope: this
+            id: 'configure',
+            action: 'navigateToConfigurationView'
         }];
     },
     navigateToConfigurationView: function() {
