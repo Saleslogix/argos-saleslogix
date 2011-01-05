@@ -30,8 +30,8 @@ Ext.namespace("Mobile.SalesLogix.Address");
         //View Properties
         id: 'address_edit',
 
-        formatDependentPicklist: function(dependentValue, format) {
-            return String.format(format, dependentValue, this.options.entityName);
+        formatDependentPicklist: function(format) {
+            return String.format(format, this.options.entityName);
         },
         createLayout: function() {
             return this.layout || (this.layout = [
@@ -43,7 +43,7 @@ Ext.namespace("Mobile.SalesLogix.Address");
                     label: this.descriptionText,
                     name: 'Description',
                     picklist: this.formatDependentPicklist.createDelegate(
-                        this, ['Address Description ({1})'], true
+                        this, ['Address Description ({0})'], true
                     ),
                     requireSelection: false,
                     title: this.descriptionTitleText,
