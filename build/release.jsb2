@@ -10,7 +10,8 @@
 		{
             text: 'Environment.js',
             path: '../src/'
-        },{
+        },
+        {
             text: 'Application.js',
             path: '../src/'
         },
@@ -25,6 +26,10 @@
         {
             text: 'Validator.js',
             path: '../src/'
+        },
+        {
+            text: 'MainToolbar.js',
+            path: '../src/views/'
         },
         {
             text: 'AddAccountContact.js',
