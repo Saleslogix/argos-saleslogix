@@ -274,9 +274,14 @@
     font-weight:bold;
 }
 
-h3 > .p-ticket-subject
+#ticket_list > .list-content > li > h3
 {
     font-size: 0.75em;
+    font-weight:bold;
+}
+
+#ticket_list > .list-content > li > h3 > .p-ticket-subject
+{
     font-weight: normal;
 }
 
