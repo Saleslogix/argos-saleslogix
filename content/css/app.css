@@ -495,3 +495,4 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 .toolButton[data-tool="cancel"] > span { background-image: url(../images/icons/cancl_24.png); }
 .toolButton[data-tool="complete"] > span { background-image: url(../images/icons/OK_24.png); }
 .toolButton[data-tool="configure"] > span { background-image: url(../images/icons/settings_24.png); }
+.toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }

@@ -8,6 +8,7 @@ Ext.namespace("Mobile.SalesLogix");
 
 (function() {
     Mobile.SalesLogix.MainToolbar = Ext.extend(Sage.Platform.Mobile.MainToolbar, {
+        logoutConfirmText: 'Are you sure you want to logout?',
         showTools: function(tools, options) {
             var hasLeftSideTools;
 
@@ -36,7 +37,12 @@ Ext.namespace("Mobile.SalesLogix");
                 }
                 else
                 {
-                    // todo: add log out button?
+                    tools = tools.concat([{
+                        id: 'logout',
+                        side: 'left',
+                        fn: this.logout,
+                        scope: this
+                    }]);
                 }
             }
 
@@ -47,6 +53,22 @@ Ext.namespace("Mobile.SalesLogix");
         },
         navigateToHomeView: function() {
             App.navigateToHomeView();
+        },
+        logout: function() {
+            var sure = window.confirm(this.logoutConfirmText);            
+            if (sure)
+            {
+                if (window.localStorage)
+                    window.localStorage.removeItem('credentials');
+
+                var service = App.getService();
+                if (service)
+                    service
+                        .setUserName(false)
+                        .setPassword(false);
+
+                App.navigateToLoginView(); // todo: trim all history
+            }
         }
     });
 })();
