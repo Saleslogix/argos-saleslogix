@@ -7,16 +7,15 @@
 Ext.namespace("Mobile.SalesLogix");
 
 (function() {
-    Mobile.SalesLogix.MainToolbar = Ext.extend(Sage.Platform.Mobile.MainToolbar, {
-        logoutConfirmText: 'Are you sure you want to logout?',
-        showTools: function(tools, options) {
+    Mobile.SalesLogix.MainToolbar = Ext.extend(Sage.Platform.Mobile.MainToolbar, {        
+        showTools: function(tools) {
             var hasLeftSideTools;
 
             for (var i = 0; i < tools.length; i++)
                 if (tools[i].side == 'left')
                 {
                     hasLeftSideTools = true;
-                    break;s
+                    break;
                 }
 
             if (!hasLeftSideTools)
@@ -34,16 +33,7 @@ Ext.namespace("Mobile.SalesLogix");
                         fn: this.navigateToHomeView,
                         scope: this
                     }]);
-                }
-                else
-                {
-                    tools = tools.concat([{
-                        id: 'logout',
-                        side: 'left',
-                        fn: this.logout,
-                        scope: this
-                    }]);
-                }
+                }                
             }
 
             Mobile.SalesLogix.MainToolbar.superclass.showTools.call(this, tools);
@@ -53,22 +43,6 @@ Ext.namespace("Mobile.SalesLogix");
         },
         navigateToHomeView: function() {
             App.navigateToHomeView();
-        },
-        logout: function() {
-            var sure = window.confirm(this.logoutConfirmText);            
-            if (sure)
-            {
-                if (window.localStorage)
-                    window.localStorage.removeItem('credentials');
-
-                var service = App.getService();
-                if (service)
-                    service
-                        .setUserName(false)
-                        .setPassword(false);
-
-                App.navigateToLoginView(); // todo: trim all history
-            }
         }
     });
 })();

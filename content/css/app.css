@@ -497,7 +497,31 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 .toolButton[data-tool="edit"] > span { background-image: url(../images/icons/edit_24.png); }
 .toolButton[data-tool="new"] > span { background-image: url(../images/icons/add_24.png); }
 .toolButton[data-tool="save"] > span { background-image: url(../images/icons/save_24.png); }
+.toolButton[data-tool="help"] > span { background-image: url(../images/icons/help_24.png); }
 .toolButton[data-tool="cancel"] > span { background-image: url(../images/icons/cancl_24.png); }
 .toolButton[data-tool="complete"] > span { background-image: url(../images/icons/OK_24.png); }
 .toolButton[data-tool="configure"] > span { background-image: url(../images/icons/settings_24.png); }
+.toolButton[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
 .toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
+
+.footer-toolbar
+{
+    display: block;    
+}
+
+.footer-toolbar > .toolButton
+{
+    background: transparent;
+}
+
+.footer-toolbar > .toolButton > span
+{
+    width: auto;
+    height: auto;
+}
+
+.footer-toolbar > .toolButton[data-tool="help"] > span,
+.footer-toolbar > .toolButton[data-tool="settings"] > span
+{
+    padding: 0 0 0 28px;
+}
