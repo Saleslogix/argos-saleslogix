@@ -26,7 +26,7 @@ Mobile.SalesLogix.Help = Ext.extend(Sage.Platform.Mobile.Detail, {
     id: 'help',
     url: 'help.html',
     icon: 'content/images/icons/help_24.png',
-    expose: true,
+    expose: false,
     
     init: function() {
         Mobile.SalesLogix.Help.superclass.init.apply(this, arguments);        

@@ -11,18 +11,23 @@ Ext.namespace("Mobile.SalesLogix");
         showTools: function(tools) {
             var hasLeftSideTools;
 
-            for (var i = 0; i < tools.length; i++)
-                if (tools[i].side == 'left')
+            if (tools)
+            {
+                for (var i = 0; i < tools.length; i++)
                 {
-                    hasLeftSideTools = true;
-                    break;
+                    if (tools[i].side == 'left')
+                    {
+                        hasLeftSideTools = true;
+                        break;
+                    }
                 }
+            }
 
-            if (!hasLeftSideTools)
+            if (!hasLeftSideTools && tools !== false)
             {
                 if (App.getActiveView() != App.getView('home'))
                 {
-                    tools = tools.concat([{
+                    tools = (tools || []).concat([{
                         id: 'back',
                         side: 'left',
                         fn: this.navigateBack,

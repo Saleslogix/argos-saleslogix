@@ -10,6 +10,7 @@ Ext.namespace("Mobile.SalesLogix");
     Mobile.SalesLogix.FooterToolbar = Ext.extend(Sage.Platform.Mobile.MainToolbar, {
         barTemplate: new Simplate([
             '<div class="footer-toolbar {%= $.cls %}">',
+            '<hr />',
             '</div>'
         ]),
         toolTemplate: new Simplate([
@@ -25,6 +26,7 @@ Ext.namespace("Mobile.SalesLogix");
         logOutConfirmText: 'Are you sure you want to log out?',
         settingsText: 'Settings',
         helpText: 'Help',
+        topText: 'Top',
         logOutText: 'Log Out',
         render: function() {
             this.el = Ext.DomHelper.append(
@@ -53,11 +55,23 @@ Ext.namespace("Mobile.SalesLogix");
                     fn: this.navigateToHelpView,
                     scope: this
                 },{
+                    id: 'top',
+                    title: this.topText,
+                    side: 'left',
+                    fn: this.scrollToTop,
+                    scope: this
+                },{
                     id: 'logout',
                     title: this.logOutText,
                     fn: this.logOut,
                     scope: this
                 }];
+
+                this.show();
+            }
+            else if (tools === false)
+            {
+                this.hide();
             }
 
             Mobile.SalesLogix.FooterToolbar.superclass.showTools.call(this, tools);

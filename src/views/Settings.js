@@ -25,7 +25,7 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     //View Properties
     id: 'settings',
     icon: 'content/images/icons/settings_24.png',
-    expose: true,
+    expose: false,
     hideSearch: true,
     selectionOnly: true,
     allowSelection: false,
