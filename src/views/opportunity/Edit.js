@@ -31,11 +31,13 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         //View Properties
         entityName: 'Opportunity',
         id: 'opportunity_edit',
+        resourceKind: 'opportunities',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
             'CloseProbability',
+            'Contacts',
             'Description',
             'EstimatedClose',
             'LeadSource/Description',
@@ -47,7 +49,6 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             'Type',
             'Weighted'
         ],
-        resourceKind: 'opportunities',
 
         show: function(options) {
             Mobile.SalesLogix.Opportunity.Edit.superclass.show.apply(this, arguments);
@@ -88,6 +89,21 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             this.fields['Account'].setValue(U.getValue(entry, 'Account'));
             this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
             this.fields['Owner'].setValue(U.getValue(entry, 'Owner'));
+        },
+        getValues: function() {
+            var values = Mobile.SalesLogix.Opportunity.Edit.superclass.getValues.apply(this, arguments);
+
+            var context = App.queryNavigationContext(function(o) {
+                return /^(contacts)$/.test(o.resourceKind) && o.key;
+            });
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+            if (entry)
+            {
+                Sage.Platform.Mobile.Utility.setValue(values, 'Contacts.$resources[0].Contact.$key', entry.$key);
+            }
+
+            return values;
         },
         init: function() {
             Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
