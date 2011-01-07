@@ -16,6 +16,8 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     ]),
 
     //Localization
+    id: 'login',
+    busy: false,
     logOnText: 'Log On',
     passText: 'pass',
     rememberText: 'remember',
@@ -26,16 +28,19 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     serverProblemText: 'A problem occured on the server.',
     requestAbortedText: 'The request was aborted.',
 
-    constructor: function(o) {
-        Mobile.SalesLogix.Login.superclass.constructor.call(this);
+    init: function() {
+        Mobile.SalesLogix.Login.superclass.init.apply(this, arguments);
 
-        Ext.apply(this, o, {
-            id: 'login',
-            title: this.titleText,
-            tools: {}
-        });
-
-        this.layout = [
+        this.tools = {
+            bbar: false,
+            tbar: false
+        };
+    },
+    getContext: function() {
+        return {id: this.id};
+    },
+    createLayout: function() {
+        return this.layout || (this.layout = [
             {
                 name: 'username',
                 label: this.userText,
@@ -52,16 +57,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
                 label: this.rememberText,
                 type: 'boolean'
             }
-        ];
-        this.busy = false;
-    },
-    init: function() {
-        Mobile.SalesLogix.Login.superclass.init.apply(this, arguments);
-
-        this.tools = {};
-    },
-    getContext: function() {
-        return {id: this.id};
+        ]);
     },
     authenticate: function () {        
         if (this.busy) return;

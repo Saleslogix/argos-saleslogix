@@ -18,6 +18,10 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             title: this.titleText
         }));
 
+        this.registerToolbar(new Mobile.SalesLogix.FooterToolbar({
+            name: 'bbar'
+        }));
+
         this.registerView(new Sage.Platform.Mobile.Calendar());
 
         this.registerView(new Mobile.SalesLogix.Login());

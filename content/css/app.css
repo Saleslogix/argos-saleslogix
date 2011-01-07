@@ -497,7 +497,58 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 .toolButton[data-tool="edit"] > span { background-image: url(../images/icons/edit_24.png); }
 .toolButton[data-tool="new"] > span { background-image: url(../images/icons/add_24.png); }
 .toolButton[data-tool="save"] > span { background-image: url(../images/icons/save_24.png); }
+.toolButton[data-tool="help"] > span { background-image: url(../images/icons/help_24.png); }
 .toolButton[data-tool="cancel"] > span { background-image: url(../images/icons/cancl_24.png); }
 .toolButton[data-tool="complete"] > span { background-image: url(../images/icons/OK_24.png); }
-.toolButton[data-tool="configure"] > span { background-image: url(../images/icons/settings_24.png); }
+.toolButton[data-tool="configure"] > span { background-image: url(../images/icons/Tools_24x24.png); }
+.toolButton[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
 .toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
+.toolButton[data-tool="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }
+
+.footer-toolbar
+{
+    display: block;
+    height: 40px;
+    position: relative;
+}
+
+.footer-toolbar > hr
+{
+    position: relative;
+    top: -4px;
+    height: 4px;
+    margin: 0 0 4px 0;
+    border: none;
+    box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+}
+
+.footer-toolbar > .toolButton
+{
+    background: transparent;
+    width: auto;
+    height: auto;
+    border: none;
+    font-weight: normal;
+}
+
+.footer-toolbar > .toolButton-left
+{
+    margin: 0 0 0 10px;
+}
+
+.footer-toolbar > .toolButton-right
+{
+    margin: 0 10px 0 0;
+}
+
+.footer-toolbar > .toolButton > span
+{
+    width: auto;
+    height: 36px;
+    line-height: 36px;
+    background-position: left center;
+    padding: 0 0 0 30px;
+    margin: 0;
+}
