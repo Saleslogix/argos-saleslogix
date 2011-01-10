@@ -130,7 +130,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 as: [{
                     name: 'MainPhone',
                     label: this.callMainNumberText,
-                    icon: 'content/images/icons/Schedule_Call_24x24.gif',
+                    icon: 'content/images/icons/Call_24x24.png',
                     action: 'callMainPhone',
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
                 },{

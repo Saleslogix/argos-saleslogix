@@ -156,7 +156,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 as: [{
                     name: 'WorkPhone',
                     label: this.callWorkNumberText,
-                    icon: 'content/images/icons/Schedule_Call_24x24.gif',
+                    icon: 'content/images/icons/Schedule_Call_24x24.png',
                     action: 'callWorkPhone',
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
                 },{
