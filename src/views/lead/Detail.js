@@ -157,18 +157,18 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 as: [{
                     name: 'WorkPhone',
                     label: this.callWorkNumberText,
-                    icon: 'content/images/icons/Schedule_Call_24x24.png',
+                    icon: 'content/images/icons/Call_24x24.png',
                     action: 'callWorkPhone',
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
                 },{
                     name: 'Email',
                     label: this.sendEmailText,
-                    icon: 'content/images/icons/letters_24.png',
+                    icon: 'content/images/icons/Send_Write_email_24x24.png',
                     action: 'sendEmail'
                 },{
                     name: '',
                     label: this.scheduleActivityText,
-                    icon: 'content/images/icons/job_24.png',
+                    icon: 'content/images/icons/Scheduling_24x24.png',
                     action: 'scheduleActivity',
                     tpl: new Simplate([
                         '{%: $.Company %} / {%: $.LeadNameLastFirst %}'
@@ -176,12 +176,12 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 },{
                     name: 'LeadNameLastFirst',
                     label: this.addNoteText,
-                    icon: 'content/images/icons/note_24.png',
+                    icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 },{
                     name: 'Address',
                     label: this.viewAddressText,
-                    icon: 'content/images/icons/internet_24.png',
+                    icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
                 }]
@@ -240,7 +240,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/icons/job_24.png',
+                    icon: 'content/images/icons/Scheduling_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(

@@ -162,12 +162,12 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 },{
                     name: 'Email',
                     label: this.sendEmailText,
-                    icon: 'content/images/icons/letters_24.png',
+                    icon: 'content/images/icons/Send_Write_email_24x24.png',
                     action: 'sendEmail'
                 },{
                     name: '',
                     label: this.scheduleActivityText,
-                    icon: 'content/images/icons/job_24.png',
+                    icon: 'content/images/icons/Scheduling_24x24.png',
                     action: 'scheduleActivity',
                     tpl: new Simplate([
                         '{%: $.AccountName %} / {%: $.NameLF %}'        
@@ -175,12 +175,12 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 },{
                     name: 'NameLF',
                     label: this.addNoteText,
-                    icon: 'content/images/icons/note_24.png',
+                    icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 },{
                     name: 'Address',
                     label: this.viewAddressText,
-                    icon: 'content/images/icons/internet_24.png',
+                    icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
                 }]
@@ -237,7 +237,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     list: true
                 },
                 as: [{
-                    icon: 'content/images/icons/job_24.png',
+                    icon: 'content/images/icons/Scheduling_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(
@@ -258,7 +258,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                         this, ['Contacts.Contact.Id eq "{0}"'], true
                     )
                 },{
-                    icon: 'content/images/icons/job_24.png',
+                    icon: 'content/images/icons/Ticket_24x24.png',
                     label: this.relatedTicketsText,
                     view: 'ticket_related',
                     where: this.formatRelatedQuery.createDelegate(

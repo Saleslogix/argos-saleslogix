@@ -172,7 +172,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 as: [{
                     name: 'TicketNumber',
                     label: this.scheduleActivityText,
-                    icon: 'content/images/icons/job_24.png',
+                    icon: 'content/images/icons/Scheduling_24x24.png',
                     action: 'scheduleActivity'
                 }]
             },{
@@ -248,7 +248,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/icons/job_24.png',
+                    icon: 'content/images/icons/Scheduling_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(

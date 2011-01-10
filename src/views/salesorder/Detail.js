@@ -54,7 +54,7 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
                 fn: function() {
                     App.navigateToActivityInsertView.call(App, {"id": this.id});
                 },
-                icon: 'content/images/icons/job_24.png',
+                icon: 'content/images/icons/Scheduling_24x24.png',
                 name: 'schedule',
                 scope: this,
                 title: this.fbarScheduleTitleText

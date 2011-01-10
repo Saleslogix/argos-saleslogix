@@ -136,17 +136,17 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 },{
                     name: 'AccountName',
                     label: this.scheduleActivityText,
-                    icon: 'content/images/icons/job_24.png',  
+                    icon: 'content/images/icons/Scheduling_24x24.png',  
                     action: 'scheduleActivity'
                 },{
                     name: 'AccountName',
                     label: this.addNoteText,
-                    icon: 'content/images/icons/note_24.png',
+                    icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 },{
                     name: 'Address',
                     label: this.viewAddressText,
-                    icon: 'content/images/icons/internet_24.png',
+                    icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
                 }]
@@ -205,7 +205,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/icons/job_24.png',
+                    icon: 'content/images/icons/Scheduling_24x24.png',
                     label: this.relatedActivitiesText,
                     where: this.formatRelatedQuery.createDelegate(
                         this, ['AccountId eq "{0}"'], true
@@ -233,7 +233,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     ),
                     view: 'opportunity_related'
                 },{
-                    icon: 'content/images/icons/job_24.png',
+                    icon: 'content/images/icons/Ticket_24x24.png',
                     label: this.relatedTicketsText,
                     where: this.formatRelatedQuery.createDelegate(
                         this, ['Account.id eq "{0}"'], true

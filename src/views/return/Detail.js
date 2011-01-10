@@ -46,7 +46,7 @@ Ext.namespace("Mobile.SalesLogix.Return");
             this.tools.fbar = [{
                 cls: '',
                 fn: App.navigateToActivityInsertView,
-                icon: 'content/images/icons/job_24.png',
+                icon: 'content/images/icons/Scheduling_24x24.png',
                 name: 'schedule',
                 scope: App,
                 title: this.fbarScheduleTitleText
