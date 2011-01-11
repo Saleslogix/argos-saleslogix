@@ -156,7 +156,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 as: [{
                     name: 'WorkPhone',
                     label: this.callWorkNumberText,
-                    icon: 'content/images/icons/Schedule_Call_24x24.png',
+                    icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
                 },{
@@ -167,7 +167,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 },{
                     name: '',
                     label: this.scheduleActivityText,
-                    icon: 'content/images/icons/Scheduling_24x24.png',
+                    icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity',
                     tpl: new Simplate([
                         '{%: $.AccountName %} / {%: $.NameLF %}'        

@@ -172,7 +172,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 as: [{
                     name: 'TicketNumber',
                     label: this.scheduleActivityText,
-                    icon: 'content/images/icons/Scheduling_24x24.png',
+                    icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity'
                 }]
             },{

@@ -22,7 +22,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
 
         //View Properties      
         detailView: 'lead_detail',
-        icon: 'content/images/icons/lead_24.png',
+        icon: 'content/images/icons/Leads_24x24.png',
         id: 'lead_list',
         insertView: 'lead_edit',
         queryOrderBy: 'LeadNameLastFirst',
