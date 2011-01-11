@@ -13,7 +13,7 @@ CACHE:
 @include 'content/javascript', /.*(?<!-debug)\.js/i
 
 # environment
-@include 'environment'
+@include 'configuration'
 
 # shell
 index.html

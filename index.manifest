@@ -94,7 +94,8 @@ content/javascript/argos-saleslogix.js
 content/javascript/argos-sdk.js
 
 # environment
-environment/default.js
+configuration/development.js
+configuration/production.js
 
 # shell
 index.html
