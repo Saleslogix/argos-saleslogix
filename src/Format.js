@@ -75,7 +75,7 @@ Mobile.SalesLogix.Format = (function() {
         currency: function(val) {
             // todo: add localization support
             var v = Mobile.SalesLogix.Format.fixed(val),
-                f = Math.floor(100 * (v - Math.floor(v)));
+                f = (100 * (v - Math.floor(v))).toPrecision(2);
 
             return String.format('${0}.{1}',
                 (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),

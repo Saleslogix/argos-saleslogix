@@ -333,13 +333,9 @@
         }]
 	}],
 	resources: [{
-		src: '../src/',
-		dest: 'src/argos-saleslogix',
-		filters: ".*\\.js"
-	},{
 		src: '../content/',
 		dest: 'app/content',
-		filters: ".*[\\.css|\\.jpg|\\.png|\\.gif]"
+		filters: ".*(\\.css|\\.jpg|\\.png|\\.gif)"
 	},{
 		src: '../environment',
 		dest: 'app/environment/',
