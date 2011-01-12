@@ -56,6 +56,11 @@
 }
 
 /* login view */
+#login
+{
+    padding: 24px 12px;
+}
+
 #login .panel-content
 {
     background-color: transparent;
@@ -64,7 +69,8 @@
 
 #login .button
 {
-    margin: 0 12px 12px 12px;
+    margin: 12px 0 0 0;
+    width: 100%;
     height: 40px;
     line-height: 40px;
     cursor: pointer;
@@ -80,7 +86,6 @@
 {
     padding: 0;    
     background: #fff;
-    margin: 24px 12px 12px 12px;
     
     border-width: 1px;
     border-color: #b3b3b3;
@@ -347,7 +352,7 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background: url(../images/icons/Opportunity_Lost_24.png);
 }
 
-.row-edit[data-field-type="lookup"] a.button
+.row-edit[data-field-type="lookup"] .button
 {
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
@@ -361,7 +366,7 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="lookup"] a.button:active
+.row-edit[data-field-type="lookup"] .button:active
 {
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
@@ -375,12 +380,12 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="lookup"] a.button span
+.row-edit[data-field-type="lookup"] .button span
 {
     visibility: hidden;
 }
 
-.row-edit[data-field-type="date"] a.button
+.row-edit[data-field-type="date"] .button
 {
     background-image: url(../images/icons/Calendar_24x24.png), -webkit-gradient(
 		linear,
@@ -394,7 +399,7 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="date"] a.button:active
+.row-edit[data-field-type="date"] .button:active
 {
     background-image: url(../images/icons/Calendar_24x24.png), -webkit-gradient(
 		linear,
@@ -408,14 +413,14 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="date"] a.button span
+.row-edit[data-field-type="date"] .button span
 {
     visibility: hidden;
 }
 
-.row-edit[data-field-type="name"] a.button,
-.row-edit[data-field-type="address"] a.button,
-.row-edit[data-field-type="note"] a.button
+.row-edit[data-field-type="name"] .button,
+.row-edit[data-field-type="address"] .button,
+.row-edit[data-field-type="note"] .button
 {
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
@@ -429,9 +434,9 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="name"] a.button:active,
-.row-edit[data-field-type="address"] a.button:active,
-.row-edit[data-field-type="note"] a.button:active
+.row-edit[data-field-type="name"] .button:active,
+.row-edit[data-field-type="address"] .button:active,
+.row-edit[data-field-type="note"] .button:active
 {
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
@@ -445,9 +450,9 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="name"] a.button span,
-.row-edit[data-field-type="address"] a.button span,
-.row-edit[data-field-type="note"] a.button span
+.row-edit[data-field-type="name"] .button span,
+.row-edit[data-field-type="address"] .button span,
+.row-edit[data-field-type="note"] .button span
 {
     visibility: hidden;
 }
@@ -504,6 +509,11 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 .toolButton[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
 .toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
 .toolButton[data-tool="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }
+
+body.transition > .footer-toolbar
+{
+    display: none;
+}
 
 .footer-toolbar
 {
