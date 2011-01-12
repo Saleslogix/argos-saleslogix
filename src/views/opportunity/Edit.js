@@ -31,11 +31,13 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         //View Properties
         entityName: 'Opportunity',
         id: 'opportunity_edit',
+        resourceKind: 'opportunities',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
             'CloseProbability',
+            'Contacts',
             'Description',
             'EstimatedClose',
             'LeadSource/Description',
@@ -47,7 +49,6 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             'Type',
             'Weighted'
         ],
-        resourceKind: 'opportunities',
 
         show: function(options) {
             Mobile.SalesLogix.Opportunity.Edit.superclass.show.apply(this, arguments);
@@ -88,6 +89,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             this.fields['Account'].setValue(U.getValue(entry, 'Account'));
             this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
             this.fields['Owner'].setValue(U.getValue(entry, 'Owner'));
+            this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
         },
         init: function() {
             Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
@@ -187,6 +189,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     picklist: 'Opportunity Probability',
                     title: this.opportunityProbabilityTitle,
                     type: 'picklist'
+                },
+                {
+                    name: 'Contacts.$resources[0].Contact.$key',
+                    type: 'hidden'
                 }
             ]);
         }

@@ -33,7 +33,7 @@ Ext.namespace("Mobile.SalesLogix.Note");
         icon: 'content/images/icons/note_24.png',
         insertView: 'note_edit',
         detailView: 'note_detail',
-        queryOrderBy: 'ModifyDate',
+        queryOrderBy: 'ModifyDate desc',
         querySelect: [
             'CreateDate',
             'Description',

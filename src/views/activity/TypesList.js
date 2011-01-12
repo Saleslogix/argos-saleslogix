@@ -27,11 +27,11 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         'atPersonal': 'Personal Activity'
     },
     activityTypeIcons: {
-        'atToDo': 'content/images/icons/Schedule_To_Do_24x24.gif',
-        'atPhoneCall': 'content/images/icons/Schedule_Call_24x24.gif',
-        'atAppointment': 'content/images/icons/Schedule_Meeting_24x24.gif',
+        'atToDo': 'content/images/icons/Schedule_ToDo_24x24.png',
+        'atPhoneCall': 'content/images/icons/Schedule_Call_24x24.png',
+        'atAppointment': 'content/images/icons/Schedule_Meeting_24x24.png',
         'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-        'atPersonal': 'content/images/icons/Schedule_Personal_Activity_24x24.gif'
+        'atPersonal': 'content/images/icons/Personal_24x24.png'
     },
 
     //View Properties   

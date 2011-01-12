@@ -38,7 +38,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         //View Properties
         id: 'activity_list',
-        icon: 'content/images/icons/job_24.png',
+        icon: 'content/images/icons/Scheduling_24x24.png',
         detailView: 'activity_detail',
         detailViewForLead: 'activity_detail_for_lead',
         insertView: 'activity_types_list',

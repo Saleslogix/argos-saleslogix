@@ -32,11 +32,11 @@ Ext.namespace("Mobile.SalesLogix.History");
             'atEMail': 'E-mail'
         },
         //View Properties
-       resourceKind: 'history',
+        resourceKind: 'history',
 
         init: function() {
             Mobile.SalesLogix.History.DetailBase.superclass.init.apply(this, arguments);
-            this.tools = {};
+            this.tools.tbar = [];
         },
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
