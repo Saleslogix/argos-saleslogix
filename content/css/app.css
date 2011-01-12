@@ -487,9 +487,11 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 
 .collapsed-indicator
 {
+    background-color: transparent;
     background-image: url(../images/icons/Hide_Details_active_24.png);
     background-repeat: no-repeat;
     background-position: left center;
+    border: none;
 }
 
 .collapsed > .collapsed-indicator
