@@ -47,7 +47,8 @@ Ext.namespace("Mobile.SalesLogix.Address");
                     ),
                     requireSelection: false,
                     title: this.descriptionTitleText,
-                    type: 'picklist'
+                    type: 'picklist',
+                    validator: Mobile.SalesLogix.Validator.exists
                 },
                 {
                     name: 'IsPrimary',
