@@ -319,7 +319,7 @@ li[data-activity-type="atLiterature"] .list-item-selector
 
 li[data-activity-type="atPersonal"] .list-item-selector
 {
-    background: url(../images/icons/Schedule_Personal_Activity_24x24.gif);
+    background: url(../images/icons/Personal_24x24.png);
 }
 
 li[data-activity-type="atEMail"] .list-item-selector
