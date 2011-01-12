@@ -151,7 +151,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },
                 {
                     name: 'Duration',
-                    label: this.durationText
+                    label: this.durationText,
+                    renderer: Mobile.SalesLogix.Format.timespan
                 },
                 {
                     name: 'Alarm',
