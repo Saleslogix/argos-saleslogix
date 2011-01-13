@@ -308,6 +308,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         {
             this.authenticateUser(credentials, {
                 success: function(result) {
+                    this.fetchDefaultOwner();
                     this.navigateToInitialView();
                 },
                 failure: function(result) {
@@ -346,6 +347,48 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
                 }
             };
         }
+    },
+    fetchDefaultOwner: function() {
+        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+            .setResourceKind('useroptions')
+            .setContractName('system')
+            .setQueryArg('select', [
+                'name',
+                'value'
+            ].join(','))
+            .setQueryArg('where', "category eq 'General' and name eq 'InsertSecCodeID'");
+
+        request.allowCacheUse = true;
+        request.read({
+            success: this.processDefaultOwner,
+            failure: this.requestFailure,
+            scope: this
+        });
+    },
+    requestFailure: function() {
+    },
+    processDefaultOwner: function(data) {
+        if (!data || !data.value)
+        {
+            this.DefaultOwner = this.context.user.DefaultOwner;
+            return;
+        }
+
+        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                        .setResourceKind('owners')
+                        .setContractName('dynamic')
+                        .setQueryArg('select', 'OwnerDescription')
+                        .setQueryArg('where', String.format("id eq '{0}'", data.value));
+
+        request.allowCacheUse = true;
+
+        request.read({
+            success: function(data) {
+                if (!this.DefaultOwner) this.DefaultOwner = data;
+            },
+            failure: this.requestFailure,
+            scope: this
+        });
     },
     persistPreferences: function() {
         try {
