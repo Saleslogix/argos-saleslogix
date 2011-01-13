@@ -73,7 +73,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         ],
         resourceKind: 'accounts',
 
-        navigateToHistoryInsert: function(type, entry) {
+        navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view)
             {
@@ -82,10 +82,12 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     template: {},
                     entry: entry,
                     insert: true
+                }, {
+                    complete: complete
                 });
             }
         },
-        recordCallToHistory: function() {
+        recordCallToHistory: function(complete) {
             var entry = {
                 'Type': 'atPhoneCall',
                 'AccountId': this.entry['$key'],
@@ -97,12 +99,12 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 'CompletedDate': (new Date())
             };
             
-            this.navigateToHistoryInsert('atPhoneCall', entry);
+            this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
         callMainPhone: function() {
-            this.recordCallToHistory();
-
-            App.initiateCall(this.entry['MainPhone']);
+            this.recordCallToHistory(function() {
+                App.initiateCall(this.entry['MainPhone']);
+            }.createDelegate(this));
         },
         viewAddress: function() {
             App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));

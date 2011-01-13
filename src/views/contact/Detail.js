@@ -74,7 +74,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         ],
         resourceKind: 'contacts',
         
-        navigateToHistoryInsert: function(type, entry) {
+        navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view)
             {
@@ -83,10 +83,12 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     template: {},
                     entry: entry,
                     insert: true
+                }, {
+                    complete: complete
                 });
             }
         },
-        recordCallToHistory: function() {
+        recordCallToHistory: function(complete) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
@@ -101,9 +103,9 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 'CompletedDate': (new Date())
             };
 
-            this.navigateToHistoryInsert('atPhoneCall', entry);
+            this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
-        recordEmailToHistory: function() {
+        recordEmailToHistory: function(complete) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atEMail',
@@ -118,17 +120,17 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 'CompletedDate': (new Date())
             };
 
-            this.navigateToHistoryInsert('atEMail', entry);
+            this.navigateToHistoryInsert('atEMail', entry, complete);
         },
         callWorkPhone: function() {
-            this.recordCallToHistory();
-
-            App.initiateCall(this.entry['WorkPhone']);
+            this.recordCallToHistory(function() {
+                App.initiateCall(this.entry['WorkPhone']);
+            }.createDelegate(this));
         },
         sendEmail: function() {
-            this.recordEmailToHistory();
-
-            App.initiateEmail(this.entry['Email'])
+            this.recordEmailToHistory(function() {
+                App.initiateEmail(this.entry['Email'])
+            }.createDelegate(this));
         },
         viewAddress: function() {
             App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
