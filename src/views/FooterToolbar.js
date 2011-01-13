@@ -102,7 +102,7 @@ Ext.namespace("Mobile.SalesLogix");
                         .setUserName(false)
                         .setPassword(false);
 
-                App.navigateToLoginView(); // todo: trim all history
+                window.location.reload();
             }
         }
     });
