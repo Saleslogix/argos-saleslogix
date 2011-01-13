@@ -130,13 +130,13 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 as: [{
                     name: 'MainPhone',
                     label: this.callMainNumberText,
-                    icon: 'content/images/icons/Call_24x24.png',
+                    icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callMainPhone',
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
                 },{
                     name: 'AccountName',
                     label: this.scheduleActivityText,
-                    icon: 'content/images/icons/Scheduling_24x24.png',  
+                    icon: 'content/images/icons/Schedule_ToDo_24x24.png',  
                     action: 'scheduleActivity'
                 },{
                     name: 'AccountName',
@@ -219,7 +219,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     ),
                     view: 'note_related'
                 },{
-                    icon: 'content/images/icons/contact_24.png',
+                    icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
                     where: this.formatRelatedQuery.createDelegate(
                         this, ['Account.id eq "{0}"'], true

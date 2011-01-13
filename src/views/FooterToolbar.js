@@ -14,12 +14,12 @@ Ext.namespace("Mobile.SalesLogix");
             '</div>'
         ]),
         toolTemplate: new Simplate([
-            '<a class="button toolButton toolButton-{%= $.side || "right" %} {%= $.cls %}" data-action="invokeTool" data-tool="{%= $.id %}">',
+            '<button class="button toolButton toolButton-{%= $.side || "right" %} {%= $.cls %}" data-action="invokeTool" data-tool="{%= $.id %}">',
             '{% if ($.icon) { %}',
             '<img src="{%= $.icon %}" alt="{%= $.id %}" />',
             '{% } %}',
             '<span>{%: $.title %}</span>',            
-            '</a>'
+            '</button>'
         ]),
         settingsView: 'settings',
         helpView: 'help',

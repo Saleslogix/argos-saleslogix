@@ -31,7 +31,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         'atPhoneCall': 'content/images/icons/Schedule_Call_24x24.png',
         'atAppointment': 'content/images/icons/Schedule_Meeting_24x24.png',
         'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-        'atPersonal': 'content/images/icons/Schedule_Personal_24x24.png'
+        'atPersonal': 'content/images/icons/Personal_24x24.png'
     },
 
     //View Properties   

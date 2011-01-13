@@ -81,7 +81,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                 as: [{
                     name: 'Description',
                     label: this.scheduleActivityText,
-                    icon: 'content/images/icons/Scheduling_24x24.png',
+                    icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity'
                 },{
                     name: 'Description',
@@ -159,7 +159,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                         this, ['OpportunityId eq "{0}" and Type eq "atNote"'], true
                     )
                 },{
-                    icon: 'content/images/icons/contact_24.png',
+                    icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
                     view: 'contact_related',
                     where: this.formatRelatedQuery.createDelegate(

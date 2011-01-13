@@ -30,6 +30,9 @@
         {
             text: 'MainToolbar.js',
             path: '../src/views/'
+        },{
+            text: 'FooterToolbar.js',
+            path: '../src/views/'
         },
         {
             text: 'AddAccountContact.js',
@@ -333,13 +336,9 @@
         }]
 	}],
 	resources: [{
-		src: '../src/',
-		dest: 'src/argos-saleslogix',
-		filters: ".*\\.js"
-	},{
 		src: '../content/',
 		dest: 'app/content',
-		filters: ".*[\\.css|\\.jpg|\\.png|\\.gif]"
+		filters: ".*(\\.css|\\.jpg|\\.png|\\.gif)"
 	},{
 		src: '../environment',
 		dest: 'app/environment/',

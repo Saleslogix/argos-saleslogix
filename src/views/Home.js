@@ -79,7 +79,7 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.GroupedList, {
 
         list.push({
             'action': 'addAccountContact',
-            'icon': 'content/images/icons/Company_24.png',
+            'icon': 'content/images/icons/New_Contact_24x24.png',
             'title': this.addAccountContactText
         });
 

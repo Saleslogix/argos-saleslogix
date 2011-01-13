@@ -89,21 +89,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             this.fields['Account'].setValue(U.getValue(entry, 'Account'));
             this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
             this.fields['Owner'].setValue(U.getValue(entry, 'Owner'));
-        },
-        getValues: function() {
-            var values = Mobile.SalesLogix.Opportunity.Edit.superclass.getValues.apply(this, arguments);
-
-            var context = App.queryNavigationContext(function(o) {
-                return /^(contacts)$/.test(o.resourceKind) && o.key;
-            });
-            var view = App.getView(context.id),
-                entry = view && view.entry;
-            if (entry)
-            {
-                Sage.Platform.Mobile.Utility.setValue(values, 'Contacts.$resources[0].Contact.$key', entry.$key);
-            }
-
-            return values;
+            this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
         },
         init: function() {
             Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
@@ -203,6 +189,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     picklist: 'Opportunity Probability',
                     title: this.opportunityProbabilityTitle,
                     type: 'picklist'
+                },
+                {
+                    name: 'Contacts.$resources[0].Contact.$key',
+                    type: 'hidden'
                 }
             ]);
         }
