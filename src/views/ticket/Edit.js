@@ -251,7 +251,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     name: 'StatusCode',
                     picklist: 'Ticket Status',
                     requireSelection: true,
-                    storageMode: 'code',
+                    storageMode: 'id',
                     title: this.ticketStatusTitleText,
                     type: 'picklist'
                 },
