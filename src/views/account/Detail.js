@@ -77,6 +77,8 @@ Ext.namespace("Mobile.SalesLogix.Account");
             var view = App.getView(this.historyEditView);
             if (view)
             {
+                this.refreshRequired = true;
+                
                 view.show({
                     title: this.activityTypeText[type],
                     template: {},
