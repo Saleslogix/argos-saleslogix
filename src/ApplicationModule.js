@@ -1,8 +1,8 @@
 Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.ApplicationModule, {
-    initViews: function() {
-        Mobile.SalesLogix.ApplicationModule.superclass.initViews.apply(this, arguments);
+    loadViews: function() {
+        Mobile.SalesLogix.ApplicationModule.superclass.loadViews.apply(this, arguments);
         
         this.registerView(new Sage.Platform.Mobile.Calendar());
 
@@ -190,8 +190,8 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
             expose: false
         }));
     },
-    initToolbars: function() {
-        Mobile.SalesLogix.ApplicationModule.superclass.initToolbars.apply(this, arguments);
+    loadToolbars: function() {
+        Mobile.SalesLogix.ApplicationModule.superclass.loadToolbars.apply(this, arguments);
         
         this.registerToolbar(new Mobile.SalesLogix.MainToolbar({
             name: 'tbar',
