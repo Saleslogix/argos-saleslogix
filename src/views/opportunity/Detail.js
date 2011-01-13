@@ -17,7 +17,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         importSourceText: 'lead source',
         opportunityText: 'opportunity',
         ownerText: 'owner',
-        actionsText: 'Actions',
+        actionsText: 'Quick Actions',
         potentialText: 'sales potential',
         probabilityText: 'close prob',
         relatedActivitiesText: 'Activities',

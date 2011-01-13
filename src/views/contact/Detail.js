@@ -25,7 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         mobileText: 'mobile',
         nameText: 'contact',
         ownerText: 'owner',
-        actionsText: 'Actions', 
+        actionsText: 'Quick Actions',
         relatedAccountsText: 'Accounts',
         relatedActivitiesText: 'Activities',
         relatedHistoriesText: 'History',

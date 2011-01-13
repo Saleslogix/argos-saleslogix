@@ -25,7 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         activityTypeText: {
             'atPhoneCall': 'Phone Call'
         },
-        actionsText: 'Actions',
+        actionsText: 'Quick Actions',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
         relatedHistoriesText: 'History',

@@ -35,7 +35,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         tollFreeText: 'toll free',
         webText: 'web',
         workText: 'phone',
-        actionsText: 'Actions',
+        actionsText: 'Quick Actions',
         callWorkNumberText: 'Call main number',
         scheduleActivityText: 'Schedule activity',
         addNoteText: 'Add note',
