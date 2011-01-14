@@ -209,7 +209,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/icons/Scheduling_24x24.png',
+                    icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     where: this.formatRelatedQuery.createDelegate(
                         this, ['AccountId eq "{0}"'], true
