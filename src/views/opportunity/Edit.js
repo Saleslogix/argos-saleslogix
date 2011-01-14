@@ -72,7 +72,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         },
         applyDefaultContext: function() {
             this.fields['AccountManager'].setValue(App.context.user);
-            this.fields['Owner'].setValue(App.DefaultOwner);
+            this.fields['Owner'].setValue(App.context.DefaultOwner);
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),

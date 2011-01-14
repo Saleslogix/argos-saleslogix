@@ -370,7 +370,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     processDefaultOwner: function(data) {
         if (!data || !data.value)
         {
-            this.DefaultOwner = this.context.user.DefaultOwner;
+            this.context.DefaultOwner = this.context.user.DefaultOwner;
             return;
         }
 
@@ -384,7 +384,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 
         request.read({
             success: function(data) {
-                if (!this.DefaultOwner) this.DefaultOwner = data;
+                if (!this.context.DefaultOwner) this.context.DefaultOwner = data;
             },
             failure: this.requestFailure,
             scope: this
