@@ -209,6 +209,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         }));
     },
     init: function() {
+        if (Ext.isIE) window.location.href = 'unsupported.html';
+
         Mobile.SalesLogix.Application.superclass.init.call(this);
 
         // prevent ReUI from attempting to load the URLs view as we handle that ourselves.

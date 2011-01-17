@@ -13,6 +13,7 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 
 xcopy index.html .\deploy\app /Y /Q
 xcopy index-nocache.html .\deploy\app /Y /Q
+xcopy unsupported.html .\deploy\app /Y /Q
 xcopy help.html .\deploy\app /Y /Q
 xcopy index.manifest .\deploy\app /Y /Q
 xcopy template.manifest .\deploy\app /Y /Q
