@@ -27,8 +27,8 @@ Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.GroupedList, {
     configureText: 'Configure',
     addAccountContactText: 'Add Account/Contact',
     titleText: 'Home',
-    actionsText: 'Actions',
-    viewsText: 'Views',
+    actionsText: 'Quick Actions',
+    viewsText: 'Go To',
 
     //View Properties
     id: 'home',

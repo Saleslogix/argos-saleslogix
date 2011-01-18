@@ -21,7 +21,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         needByText: 'needed date',
         notesText: 'comments',
         phoneText: 'phone',
-        actionsText: 'Actions',
+        actionsText: 'Quick Actions',
         relatedActivitiesText: 'Activities',
         relatedItemsText: 'Related Items',
         resolutionText: 'resolution',
@@ -248,7 +248,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/icons/Scheduling_24x24.png',
+                    icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(

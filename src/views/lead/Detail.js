@@ -35,7 +35,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         tollFreeText: 'toll free',
         webText: 'web',
         workText: 'phone',
-        actionsText: 'Actions',
+        actionsText: 'Quick Actions',
         callWorkNumberText: 'Call main number',
         scheduleActivityText: 'Schedule activity',
         addNoteText: 'Add note',
@@ -48,7 +48,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         //View Properties
         id: 'lead_detail',
         editView: 'lead_edit',
-        historyEditView: 'history_edit',
+        historyEditView: 'history_edit_for_lead',
         noteEditView: 'note_edit',
         querySelect: [
             'Address/*',
@@ -77,19 +77,23 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         ],
         resourceKind: 'leads',
         
-        navigateToHistoryInsert: function(type, entry) {
+        navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view)
             {
+                this.refreshRequired = true;
+                
                 view.show({
                     title: this.activityTypeText[type],
                     template: {},
                     entry: entry,
                     insert: true
+                }, {
+                    complete: complete
                 });
             }
         },
-        recordCallToHistory: function() {
+        recordCallToHistory: function(complete) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atEMail',
@@ -103,9 +107,9 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 'CompletedDate': (new Date())
             };
 
-            this.navigateToHistoryInsert('atPhoneCall', entry);
+            this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
-        recordEmailToHistory: function() {
+        recordEmailToHistory: function(complete) {
             var entry = {
                 '$name': 'History',
                 'Type': 'atEMail',
@@ -119,17 +123,17 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 'CompletedDate': (new Date())
             };
 
-            this.navigateToHistoryInsert('atEMail', entry);
+            this.navigateToHistoryInsert('atEMail', entry, complete);
         },
         callWorkPhone: function() {
-            this.recordCallToHistory();
-
-            App.initiateCall(this.entry['WorkPhone']);
+            this.recordCallToHistory(function() {
+                App.initiateCall(this.entry['WorkPhone']);
+            }.createDelegate(this));
         },
         sendEmail: function() {
-            this.recordEmailToHistory();
-
-            App.initiateEmail(this.entry['Email'])
+            this.recordEmailToHistory(function() {
+                App.initiateEmail(this.entry['Email']);
+            }.createDelegate(this));
         },
         viewAddress: function() {
             App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
@@ -240,7 +244,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/icons/Scheduling_24x24.png',
+                    icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(

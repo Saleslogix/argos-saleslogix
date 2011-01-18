@@ -13,7 +13,9 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         Ext.EventManager.on(window, 'unload', this._onUnload, this);
     },
     init: function() {
-        Mobile.SalesLogix.Application.superclass.init.apply(this, arguments);
+        if (Ext.isIE) window.location.href = 'unsupported.html';
+
+        Mobile.SalesLogix.Application.superclass.init.call(this);
 
         this.fetchPreferences();
     },
@@ -112,6 +114,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         {
             this.authenticateUser(credentials, {
                 success: function(result) {
+                    this.fetchDefaultOwner();
                     this.navigateToInitialView();
                 },
                 failure: function(result) {
@@ -151,6 +154,48 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             };
         }
     },
+    fetchDefaultOwner: function() {
+        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+            .setResourceKind('useroptions')
+            .setContractName('system')
+            .setQueryArg('select', [
+                'name',
+                'value'
+            ].join(','))
+            .setQueryArg('where', "category eq 'General' and name eq 'InsertSecCodeID'");
+
+        request.allowCacheUse = true;
+        request.read({
+            success: this.processDefaultOwner,
+            failure: this.requestFailure,
+            scope: this
+        });
+    },
+    requestFailure: function() {
+    },
+    processDefaultOwner: function(data) {
+        if (!data || !data.value)
+        {
+            this.context.DefaultOwner = this.context.user.DefaultOwner;
+            return;
+        }
+
+        var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                        .setResourceKind('owners')
+                        .setContractName('dynamic')
+                        .setQueryArg('select', 'OwnerDescription')
+                        .setQueryArg('where', String.format("id eq '{0}'", data.value));
+
+        request.allowCacheUse = true;
+
+        request.read({
+            success: function(data) {
+                if (!this.context.DefaultOwner) this.context.DefaultOwner = data;
+            },
+            failure: this.requestFailure,
+            scope: this
+        });
+    },
     persistPreferences: function() {
         try {
             if (window.localStorage)
@@ -164,9 +209,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             'contact_list',
             'lead_list',
             'opportunity_list',
-            'ticket_list',
-            'settings',
-            'help'
+            'ticket_list'
         ];
     },
     getExposedViews: function() {

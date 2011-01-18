@@ -61,7 +61,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
             Mobile.SalesLogix.Account.Edit.superclass.applyContext.apply(this, arguments);
 
             this.fields['AccountManager'].setValue(App.context.user);
-            this.fields['Owner'].setValue(App.context.user.DefaultOwner);
+            this.fields['Owner'].setValue(App.context.DefaultOwner);
         },
         createLayout: function() {
             return this.layout || (this.layout = [

@@ -74,7 +74,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 fn: function() {
                     App.navigateToActivityInsertView.call(App, {"id": this.id});
                 },
-                icon: 'content/images/icons/Scheduling_24x24.png',
+                icon: 'content/images/icons/To_Do_24x24.png',
                 name: 'schedule',
                 scope: this,
                 title: this.fbarScheduleTitleText

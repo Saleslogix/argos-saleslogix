@@ -9,6 +9,9 @@ CACHE:
 # images
 @include 'content/images'
 
+# ext core
+content/ext/ext-core.js
+
 # application
 @include 'content/javascript', /.*(?<!-debug)\.js/i
 

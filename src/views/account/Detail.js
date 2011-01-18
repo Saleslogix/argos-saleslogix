@@ -25,7 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         activityTypeText: {
             'atPhoneCall': 'Phone Call'
         },
-        actionsText: 'Actions',
+        actionsText: 'Quick Actions',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
         relatedHistoriesText: 'History',
@@ -73,19 +73,23 @@ Ext.namespace("Mobile.SalesLogix.Account");
         ],
         resourceKind: 'accounts',
 
-        navigateToHistoryInsert: function(type, entry) {
+        navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view)
             {
+                this.refreshRequired = true;
+                
                 view.show({
                     title: this.activityTypeText[type],
                     template: {},
                     entry: entry,
                     insert: true
+                }, {
+                    complete: complete
                 });
             }
         },
-        recordCallToHistory: function() {
+        recordCallToHistory: function(complete) {
             var entry = {
                 'Type': 'atPhoneCall',
                 'AccountId': this.entry['$key'],
@@ -97,12 +101,12 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 'CompletedDate': (new Date())
             };
             
-            this.navigateToHistoryInsert('atPhoneCall', entry);
+            this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
         callMainPhone: function() {
-            this.recordCallToHistory();
-
-            App.initiateCall(this.entry['MainPhone']);
+            this.recordCallToHistory(function() {
+                App.initiateCall(this.entry['MainPhone']);
+            }.createDelegate(this));
         },
         viewAddress: function() {
             App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
@@ -205,7 +209,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/icons/Scheduling_24x24.png',
+                    icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     where: this.formatRelatedQuery.createDelegate(
                         this, ['AccountId eq "{0}"'], true

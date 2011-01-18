@@ -17,7 +17,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         importSourceText: 'lead source',
         opportunityText: 'opportunity',
         ownerText: 'owner',
-        actionsText: 'Actions',
+        actionsText: 'Quick Actions',
         potentialText: 'sales potential',
         probabilityText: 'close prob',
         relatedActivitiesText: 'Activities',
@@ -145,7 +145,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     title: this.relatedItemsText
                 },
                 as: [{
-                    icon: 'content/images/icons/Scheduling_24x24.png',
+                    icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.createDelegate(

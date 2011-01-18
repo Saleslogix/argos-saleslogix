@@ -105,10 +105,13 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             disable === true ? field.disable() : field.enable();
         },
         onTimelessChange: function(value, field) {
-            this.toggleSelectField(this.fields['Duration'], value, {'defaultValue': 15});
+            this.toggleSelectField(this.fields['Duration'], value);
+
+            value === true ? this.fields['Rollover'].enable()
+                           : this.fields['Rollover'].disable();
         },
         onAlarmChange: function(value, field) {
-            this.toggleSelectField(this.fields['Reminder'], !value, {'defaultValue': 15});
+            this.toggleSelectField(this.fields['Reminder'], !value);
         },
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
@@ -146,19 +149,27 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             Mobile.SalesLogix.Activity.EditBase.superclass.setValues.apply(this, arguments);
 
-            !!values['Timeless'] ? this.fields['Duration'].disable({'throughUserAction': false})
-                                 : this.fields['Duration'].enable({'throughUserAction': false});
-            !!values['Alarm'] ? this.fields['Reminder'].enable({'throughUserAction': false})
-                              : this.fields['Reminder'].disable({'throughUserAction': false});
+            if (!!values['Timeless'])
+            {
+                this.fields['Duration'].disable();
+                this.fields['Rollover'].enable();
+            }
+            else
+            {
+                this.fields['Duration'].enable();
+                this.fields['Rollover'].disable();
+            }
+
+            !!values['Alarm'] ? this.fields['Reminder'].enable()
+                              : this.fields['Reminder'].disable();
         },
         getValues: function() {
-            var values = Mobile.SalesLogix.Activity.EditBase.superclass.getValues.apply(this, arguments);
-            //Reset AlarmTime whenever StartDate or Reminder changes.
-            var reminder = (values['StartDate'] || this.fields['Reminder'].isDirty()) &&
-                            this.fields['Reminder'].getValue();
-                        
-            if (values['StartDate'] && reminder)            
-                values['AlarmTime'] = values['StartDate'].clone().add({'minutes': -1 * reminder});
+            var values = Mobile.SalesLogix.Activity.EditBase.superclass.getValues.apply(this, arguments),
+                reminder = values['Alarm'] ? this.fields['Reminder'].getValue() : 0,
+                alarmTime = values['StartDate'] ? values['StartDate'].clone()
+                                                : this.fields['StartDate'].getValue();
+
+            values['AlarmTime'] = alarmTime.add({'minutes': -1 * reminder});
 
             return values;
         },
@@ -251,7 +262,14 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     requireSelection: true,
                     valueKeyProperty: false,
                     valueTextProperty: false,
-                    data: this.createDurationData()
+                    data: this.createDurationData(),
+                    validator: {
+                        fn: function(val, field) {
+                            if (field.isDisabled()) return false;
+                            if (!/^\d+$/.test(val)) return true;
+                        },
+                        message: "The field '{2}' must have a value."
+                    }
                 },
                 {
                     label: this.alarmText,
@@ -268,7 +286,14 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     requireSelection: true,
                     valueKeyProperty: false,
                     valueTextProperty: false,
-                    data: this.createReminderData()
+                    data: this.createReminderData(),
+                    validator: {
+                        fn: function(val, field) {
+                            if (field.isDisabled()) return false;
+                            if (!/^\d+$/.test(val)) return true;
+                        },
+                        message: "The field 'reminder' must have a value."
+                    }
                 },
                 {
                     label: this.rolloverText,
