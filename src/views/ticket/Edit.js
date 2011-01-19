@@ -70,33 +70,28 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             Mobile.SalesLogix.Ticket.Edit.superclass.init.apply(this, arguments);
 
             this.fields['Account'].on('change', this.onAccountChange, this);
+            this.fields['Urgency'].on('change', this.onUrgencyChange, this);
             this.fields['Area'].on('change', this.onAreaChange, this);
             this.fields['Category'].on('change', this.onCategoryChange, this);
-        },
-        getValues: function() {
-            values = Mobile.SalesLogix.Ticket.Edit.superclass.getValues.apply(this, arguments);
-
-            if (values['UrgencyCode'] && values['UrgencyCode'].UrgencyCode)
-                values['UrgencyCode'] = values['UrgencyCode'].UrgencyCode;
-
-            return values;
         },
         setValues: function(entry) {
             Mobile.SalesLogix.Ticket.Edit.superclass.setValues.apply(this, arguments);
 
-            if (entry.SourceText)
+            if (entry['SourceText'])
             {
-                this.fields['ViaCode'].setText(entry.SourceText);
+                this.fields['ViaCode'].setText(entry['SourceText']);
             }
 
-            if (entry.StatusText)
+            if (entry['StatusText'])
             {
-                this.fields['StatusCode'].setText(entry.StatusText);
+                this.fields['StatusCode'].setText(entry['StatusText']);
             }
-
-            if (entry.UrgencyText)
+        },
+        onUrgencyChange: function(value, field) {
+            var selection = field.getSelection();
+            if (selection)
             {
-                this.fields['UrgencyCode'].setText(entry.UrgencyText);
+                this.fields['UrgencyCode'].setValue(selection['UrgencyCode']);
             }
         },
         onAccountChange: function(value, field) {
@@ -256,10 +251,15 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     type: 'picklist'
                 },
                 {
-                    label: this.urgencyText,
                     name: 'UrgencyCode',
+                    type: 'hidden'
+                },
+                {
+                    label: this.urgencyText,
+                    name: 'Urgency',
                     title: this.ticketUrgencyTitleText,
-                    keyProperty: 'UrgencyCode',
+                    requireSelection: true,
+                    textProperty: 'Description',
                     type: 'lookup',
                     view: 'urgency_list'
                 },

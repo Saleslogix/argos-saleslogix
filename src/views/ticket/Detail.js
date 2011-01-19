@@ -51,18 +51,20 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             'Notes',
             'ViaCode',
             'StatusCode',
+            'UrgencyCode',
             'Subject',
             'TicketNumber',
             'TicketProblem/Notes',
             'TicketSolution/Notes',
-            'UrgencyCode'
+            'Urgency/Description',
+            'Urgency/UrgencyCode'
         ],
         resourceKind: 'tickets',
 
         requestPickList: function(predicate) {
             var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
-                            .setResourceKind('picklists')
-                            .setContractName('system');
+                .setResourceKind('picklists')
+                .setContractName('system');
             var uri = request.getUri();
 
             uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
@@ -110,23 +112,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 failure: this.requestStatusFailure,
                 scope: this
             });
-        },
-        requestUrgency: function(urgencyCode)
-        {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-                .setResourceKind('urgencies')
-                .setQueryArg('select', [
-                    'Description',
-                    'UrgencyCode'
-                ].join(','));
-
-            request.allowCacheUse = true;
-            request.read({
-                success: function(data) {this.processUrgency(data, urgencyCode);},
-                failure: this.requestUrgencyFailure,
-                scope: this
-            });
-        },
+        },        
         requestUrgencyFailure: function(xhr, o) {
         },
         requestSourceFailure: function(xhr, o) {
@@ -142,22 +128,12 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             var sourceText = this.processResponse(sources, viaCode, {dataProperty: '[data-property="ViaCode"]'});
 
             if (sourceText) this.entry['SourceText'] = sourceText;
-        },
-        processUrgency: function(urgencies, urgencyCode) {
-            var urgencyText = this.processResponse(urgencies, urgencyCode, {
-                dataProperty: '[data-property="UrgencyCode"]',
-                keyProperty: 'UrgencyCode',
-                textProperty: 'Description'
-            });
-
-            if (urgencyText) this.entry['UrgencyText'] = urgencyText;
-        },
+        },        
         processEntry: function(entry) {
             Mobile.SalesLogix.Ticket.Detail.superclass.processEntry.apply(this, arguments);
 
             if (entry && entry['ViaCode']) this.requestSource(entry['ViaCode']);
             if (entry && entry['StatusCode']) this.requestStatus(entry['StatusCode']);
-            if (entry && entry['UrgencyCode']) this.requestUrgency(entry['UrgencyCode']);
         },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
@@ -206,10 +182,8 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     name: 'StatusCode',
                     value: 'loading...'
                 },{
-                    cls: 'content-loading',
                     label: this.urgencyText,
-                    name: 'UrgencyCode',
-                    value: 'loading...'
+                    name: 'Urgency.Description'
                 },{
                     label: this.needByText,
                     name: 'NeededByDate',
