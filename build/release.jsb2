@@ -4,7 +4,7 @@
 	deployDir: 'deploy/',
 	pkgs: [{
 		name: 'SalesLogix Mobile',
-		file: 'app/content/javascript/argos-saleslogix.js',
+		file: 'content/javascript/argos-saleslogix.js',
 		isDebug: true,
 		fileIncludes: [
 		{
@@ -13,6 +13,10 @@
         },
         {
             text: 'Application.js',
+            path: '../src/'
+        },
+        {
+            text: 'ApplicationModule.js',
             path: '../src/'
         },
         {
@@ -337,11 +341,11 @@
 	}],
 	resources: [{
 		src: '../content/',
-		dest: 'app/content',
+		dest: 'content',
 		filters: ".*(\\.css|\\.jpg|\\.png|\\.gif)"
 	},{
-		src: '../environment',
-		dest: 'app/environment/',
+		src: '../configuration',
+		dest: 'configuration/',
 		filters: ".*\\.js"
 	}]
 }
