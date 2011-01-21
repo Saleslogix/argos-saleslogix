@@ -246,7 +246,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'StartDate',
                     type: 'date',
                     showTimePicker: true,
-                    formatString: 'M/d/yyyy h:mm tt'
+                    formatString: 'M/d/yyyy h:mm tt',
+                    validator: Mobile.SalesLogix.Validator.exists
                 },
                 {
                     label: this.timelessText,

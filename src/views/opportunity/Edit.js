@@ -142,7 +142,8 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                 {
                     label: this.estCloseText,
                     name: 'EstimatedClose',
-                    type: 'date'
+                    type: 'date',
+                    validator: Mobile.SalesLogix.Validator.exists
                 },
                 {
                     label: this.potentialText,
