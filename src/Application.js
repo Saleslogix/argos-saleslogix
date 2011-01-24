@@ -9,8 +9,6 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     enableCaching: true,  
     initEvents: function() {
         Mobile.SalesLogix.Application.superclass.initEvents.apply(this, arguments);
-
-        Ext.EventManager.on(window, 'unload', this._onUnload, this);
     },
     init: function() {
         if (Ext.isIE) window.location.href = 'unsupported.html';
@@ -19,12 +17,17 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 
         this.fetchPreferences();
     },
-    _onUnload: function() {
+    _viewTransitionTo: function(view) {
+        Mobile.SalesLogix.Application.superclass._viewTransitionTo.apply(this, arguments);
+
+        this._checkSaveNavigationState();
+    },
+    _checkSaveNavigationState: function() {
         if (this.rememberNavigationState !== false) this._saveNavigationState();
     },
     _saveNavigationState: function() {
         try
-        {
+        {            
             if (window.localStorage)
                 window.localStorage.setItem('restore', Ext.encode(ReUI.context.history));
         }

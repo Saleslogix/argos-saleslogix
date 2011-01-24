@@ -12,7 +12,7 @@ Ext.apply(Configuration.development, {
             virtualDirectory: 'sdata',
             applicationName: 'slx',
             contractName: 'dynamic',
-            port: window.location.port && window.location.port != 80 ? window.location.port : false,
+            port: 80,
             protocol: /https/i.test(window.location.protocol) ? 'https' : false,
             json: true
         }
