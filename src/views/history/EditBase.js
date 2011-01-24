@@ -65,6 +65,16 @@ Ext.namespace("Mobile.SalesLogix.History");
         },
         resourceKind: 'history',
 
+        init: function() {
+            Mobile.SalesLogix.History.EditBase.superclass.init.apply(this, arguments);
+
+            this.fields['Timeless'].on('change', this.onTimelessChange, this);
+        },
+        onTimelessChange: function(value, field) {
+            var field = this.fields['Duration'];
+
+            value === true ? field.disable() : field.enable();
+        },
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
@@ -100,6 +110,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                     picklist: this.formatPicklistForType.createDelegate(
                         this, ['Description'], true
                     ),
+                    orderBy: 'text asc',
                     title: this.activityDescriptionTitleText,
                     type: 'picklist'
                 },
