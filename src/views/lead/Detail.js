@@ -96,7 +96,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         recordCallToHistory: function(complete) {
             var entry = {
                 '$name': 'History',
-                'Type': 'atEMail',
+                'Type': 'atPhoneCall',
                 'AccountName': this.entry['Company'],
                 'LeadId': this.entry['$key'],
                 'LeadName': this.entry['LeadNameLastFirst'],
