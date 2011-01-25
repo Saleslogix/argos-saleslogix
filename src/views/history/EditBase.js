@@ -53,6 +53,10 @@ Ext.namespace("Mobile.SalesLogix.History");
             'atToDo': {
                 'Category': 'To Do Category Codes',
                 'Description': 'To Do Regarding'
+            },
+            'atEMail': {
+                'Category': 'E-mail Category Codes',
+                'Description': 'E-mail Regarding'
             }
         },
         durationValueText: {

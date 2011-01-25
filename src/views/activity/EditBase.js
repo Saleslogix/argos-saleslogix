@@ -64,6 +64,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'atToDo': {
                 'Category': 'To Do Category Codes',
                 'Description': 'To Do Regarding'
+            },
+            'atEMail': {
+                'Category': 'E-mail Category Codes',
+                'Description': 'E-mail Regarding'
             }
         },       
 
@@ -222,6 +226,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                         this, ['Description'], true
                     ),
                     title: this.activityDescriptionTitleText,
+                    orderBy: 'text asc',
                     type: 'picklist'
                 },
                 {
@@ -238,6 +243,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     picklist: this.formatPicklistForType.createDelegate(
                         this, ['Category'], true
                     ),
+                    orderBy: 'text asc',
                     title: this.activityCategoryTitleText,
                     type: 'picklist'
                 },
