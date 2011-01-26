@@ -62,9 +62,11 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     authenticate: function () {        
         if (this.busy) return;
 
-        var credentials = this.getValues();
+        var credentials = this.getValues(),
+            username = credentials && credentials.username;
 
-        this.validateCredentials(credentials);
+        if (username && /\w+/.test(username))
+            this.validateCredentials(credentials);
     },           
     validateCredentials: function (credentials) {
         this.disable();
