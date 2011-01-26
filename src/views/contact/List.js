@@ -11,7 +11,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         //Template
         contentTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
-            '<h4>{%: $.Account && $.Account.AccountName %}</h4>'
+            '<h4>{%: $.AccountName %}</h4>'
         ]),
 
         //Localization
@@ -27,13 +27,13 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         insertView: 'contact_edit',
         queryOrderBy: 'LastName,FirstName',
         querySelect: [
-            'Account/AccountName',              
+            'AccountName',
             'NameLF'
         ],        
         resourceKind: 'contacts',
 
         formatSearchQuery: function(query) {
-            return String.format('(LastName like "%{0}%" or FirstName like "%{0}%" or Account.AccountName like "%{0}%")', query);
+            return String.format('(LastName like "%{0}%" or FirstName like "%{0}%" or AccountName like "%{0}%")', query);
         }
     });
 })();
