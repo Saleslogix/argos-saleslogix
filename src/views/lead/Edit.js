@@ -96,7 +96,8 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     name: 'Title',
                     picklist: 'Title',
                     title: this.titleTitleText,
-                    type: 'picklist'
+                    type: 'picklist',
+                    orderBy: 'text asc'
                 },
                 {
                     emptyText: '',
