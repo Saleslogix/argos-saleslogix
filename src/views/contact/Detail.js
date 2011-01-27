@@ -137,9 +137,6 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         viewAddress: function() {
             App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
         },
-        hasAddress: function(val) {
-            return !Mobile.SalesLogix.Format.address(val, true, ' ');
-        },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
@@ -165,14 +162,12 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     label: this.callWorkNumberText,
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
-                    disabled: Mobile.SalesLogix.Validator.exists,
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
                 },{
                     name: 'Email',
                     label: this.sendEmailText,
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
-                    action: 'sendEmail',
-                    disabled: Mobile.SalesLogix.Validator.exists
+                    action: 'sendEmail'
                 },{
                     name: '',
                     label: this.scheduleActivityText,
@@ -191,7 +186,6 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     label: this.viewAddressText,
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
-                    disabled: this.hasAddress,
                     renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
                 }]
             },{
