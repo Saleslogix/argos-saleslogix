@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Jasmine Test Runner</title>
+
+  <!-- JSON -->
+  <script type="text/javascript" src="../../../argos-sdk/libraries/json2.js"></script>
+
+  <!-- Ext Core -->
+  <script type="text/javascript" src="../../../argos-sdk/libraries/ext/ext-core.js"></script>
+
+  <!-- ReUI -->
+  <script type="text/javascript">
+  reConfig = {
+    autoInit: false,
+    legacyMode: false,
+    showInitialPage: false,
+    updateBackButtonText: false
+  };
+  </script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/reui/reui.js"></script>
+
+  <!-- SData Client Library -->
+  <script type="text/javascript" src="../../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
+
+  <!-- DateJS -->
+  <script type="text/javascript" src="../../../argos-sdk/libraries/datejs/build/date.js"></script>
+
+  <!-- Simplate -->
+  <script type="text/javascript" src="../../../argos-sdk/libraries/Simplate.js"></script>
+
+  <!-- Argos SDK -->
+  <script type="text/javascript" src="../../../argos-sdk/src/Application.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/ApplicationModule.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Utility.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Convert.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Format.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Toolbar.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/MainToolbar.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/View.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/List.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/GroupedList.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Detail.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Edit.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Calendar.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/Field.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/TextField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/DecimalField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/HiddenField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/EditorField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/AddressField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/NameField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/NoteField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/PhoneField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/BooleanField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/LookupField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/PicklistField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/SelectField.js"></script>
+  <script type="text/javascript" src="../../../argos-sdk/src/Controls/DateField.js"></script>
+
+
+  <script type="text/javascript" src="../src/Format.js"></script>
+  <script type="text/javascript" src="../src/Validator.js"></script>
+
+  <script type="text/javascript" src="../Jasmine/jasmine.js"></script>
+  <script type="text/javascript" src="../Jasmine/jasmine-html.js"></script>
+
+  <script type="text/javascript" src="BaseViewSuite.js"></script>
+  <script type="text/javascript" src="BaseDetailSuite.js"></script>
+
+  <script type="text/javascript">
+    (function() {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+
+      var trivialReporter = new jasmine.TrivialReporter();
+
+      jasmineEnv.addReporter(trivialReporter);
+
+      jasmineEnv.specFilter = function(spec) {
+        return trivialReporter.specFilter(spec);
+      };
+
+      window.onload = function() {
+        jasmineEnv.execute();
+      };
+    })();
+  </script>
+
+  <link href="../Jasmine/jasmine.css" rel="stylesheet"/>
+</head>
+
+<body>
+</body>
+</html>

@@ -111,6 +111,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
         viewAddress: function() {
             App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
         },
+        hasAddress: function(val) {
+            return !Mobile.SalesLogix.Format.address(val, true, ' ');
+        },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
@@ -136,6 +139,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     label: this.callMainNumberText,
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callMainPhone',
+                    disabled: Mobile.SalesLogix.Validator.exists,
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
                 },{
                     name: 'AccountName',
@@ -152,6 +156,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     label: this.viewAddressText,
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
+                    disabled: this.hasAddress,
                     renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
                 }]
             },{
