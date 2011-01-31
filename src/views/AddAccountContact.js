@@ -127,7 +127,8 @@ Ext.namespace("Mobile.SalesLogix");
                         name: 'Contacts.$resources[0].Title',
                         picklist: 'Title',
                         title: this.contactTitleText,
-                        type: 'picklist'
+                        type: 'picklist',
+                        orderBy: 'text asc'
                     },
                     {
                         label: this.homePhoneText,
