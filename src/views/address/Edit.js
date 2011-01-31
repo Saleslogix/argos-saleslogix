@@ -101,7 +101,7 @@ Ext.namespace("Mobile.SalesLogix.Address");
                     name: 'Country',
                     picklist: 'Country',
                     requireSelection: false,
-                    title: this.countryText,
+                    title: this.countryTitleText,
                     type: 'picklist'
                 },
                 {
