@@ -13,13 +13,14 @@ describe("Base Detail", function() {
             layout = [fieldProps];
         });
 
-
+        /// Defects: #1-78928
         it("must be mapped to 'action' property", function() {
             detailView.processLayout(layout, {}, {});
 
             expect(DOMSpy.mostRecentCall.args[1]).toMatch(/data-action="callWorkPhone"/);
         });
 
+        /// Defects: #1-78928
         it("must be mapped to 'action' property when 'disabled' is false", function() {
             fieldProps['value'] = 123;
             fieldProps['disabled'] = {
@@ -42,6 +43,7 @@ describe("Base Detail", function() {
             expect(DOMSpy.mostRecentCall.args[1]).toMatch(/data-action="callWorkPhone"/);
         });
 
+        /// Defects: #1-78928
         it("must not be mapped to 'action' property when 'disabled' is true", function() {
             //fieldProps['value'] = null;
             fieldProps['disabled'] = {
