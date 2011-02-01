@@ -129,16 +129,22 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 App.initiateCall(this.entry['WorkPhone']);
             }.createDelegate(this));
         },
+        checkWorkPhone: function(entry, value) {
+            return !value;
+        },
         sendEmail: function() {
             this.recordEmailToHistory(function() {
                 App.initiateEmail(this.entry['Email'])
             }.createDelegate(this));
         },
+        checkEmail: function(entry, value) {
+            return !value;
+        },
         viewAddress: function() {
             App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
         },
-        hasAddress: function(val) {
-            return !Mobile.SalesLogix.Format.address(val, true, ' ');
+        checkAddress: function(entry, value) {
+            return !Mobile.SalesLogix.Format.address(value, true, '');
         },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
@@ -165,14 +171,14 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     label: this.callWorkNumberText,
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
-                    disabled: Mobile.SalesLogix.Validator.exists,
+                    disabled: this.checkWorkPhone,
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
                 },{
                     name: 'Email',
                     label: this.sendEmailText,
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
                     action: 'sendEmail',
-                    disabled: Mobile.SalesLogix.Validator.exists
+                    disabled: this.checkEmail
                 },{
                     name: '',
                     label: this.scheduleActivityText,
@@ -191,7 +197,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     label: this.viewAddressText,
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
-                    disabled: this.hasAddress,
+                    disabled: this.checkAddress,
                     renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
                 }]
             },{
