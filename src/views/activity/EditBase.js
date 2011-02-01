@@ -169,11 +169,19 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         },
         getValues: function() {
             var values = Mobile.SalesLogix.Activity.EditBase.superclass.getValues.apply(this, arguments),
-                reminder = values['Alarm'] ? this.fields['Reminder'].getValue() : 0,
-                alarmTime = values['StartDate'] ? values['StartDate'].clone()
-                                                : this.fields['StartDate'].getValue();
+                timeless = values && values['Timeless'] === false ? false : this.fields['Timeless'].getValue(),
+                alarm = values && values['Alarm'] === false ? false : this.fields['Alarm'].getValue(),
+                reminder = alarm ? this.fields['Reminder'].getValue() : 0,
+                alarmTime = values && Ext.isDate(values['StartDate']) ? values['StartDate'].clone()
+                                                                     : this.fields['StartDate'].getValue();
+
+            if (this.fields['Reminder'].isDirty() && values === false) values = {};
 
             values['AlarmTime'] = alarmTime.add({'minutes': -1 * reminder});
+
+            values['Duration'] = timeless === true ? false : (values['Duration'] || false);
+
+            values['Rollover'] = timeless === false ? false : (values['Rollover'] || false);
 
             return values;
         },
