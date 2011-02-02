@@ -49,4 +49,38 @@ describe("Controls", function() {
         booleanField.enable();
         expect(booleanField.getValue()).toBeFalsy();
     });
+
+    /// Defects: #1-79128
+    it("Date Field must return error on inavlid date strings", function() {
+        Ext.DomHelper.append('ControlsTestContainer', {
+            id: '_dateContainer',
+            tag: 'div',
+            style: 'display: none'
+        });
+
+        var dateField = new Sage.Platform.Mobile.Controls.DateField({
+                label: 'start date',
+                name: 'StartDate',
+                type: 'date',
+                showTimePicker: true,
+                formatString: 'M/d/yyyy h:mm tt',
+            }),
+            error;
+
+        dateField.renderTo(Ext.get('_dateContainer'));
+
+        dateField.setText('13/13/2011');
+        //Trigger onChange manually
+        dateField.onChange({}, dateField.el.dom, {});
+        error = dateField.validate();
+        expect(error).toEqual("Field 'start date' has Invalid date format.");
+
+        dateField.setText('12/12/2011');
+        //Trigger onChange manually
+        dateField.onChange({}, dateField.el.dom, {});
+
+        error = dateField.validate();
+        expect(error).toBeFalsy();
+    });
+
 });
