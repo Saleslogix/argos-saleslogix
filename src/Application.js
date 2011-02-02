@@ -5,8 +5,9 @@
 Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
+    navigationState: null,
     rememberNavigationState: true,
-    enableCaching: true,  
+    enableCaching: true,
     initEvents: function() {
         Mobile.SalesLogix.Application.superclass.initEvents.apply(this, arguments);
     },
@@ -15,7 +16,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 
         Mobile.SalesLogix.Application.superclass.init.call(this);
 
-        this.fetchPreferences();
+        this._loadNavigationState();
+        this._loadPreferences();
     },
     _viewTransitionTo: function(view) {
         Mobile.SalesLogix.Application.superclass._viewTransitionTo.apply(this, arguments);
@@ -29,7 +31,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         try
         {            
             if (window.localStorage)
-                window.localStorage.setItem('restore', Ext.encode(ReUI.context.history));
+                window.localStorage.setItem('navigationState', Ext.encode(ReUI.context.history));
         }
         catch (e) { }
     },
@@ -134,7 +136,25 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             this.navigateToLoginView();
         }
     },
-    fetchPreferences: function() {
+    _clearNavigationState: function() {
+        try
+        {
+            this.initialNavigationState = null;
+
+            if (window.localStorage)
+                window.localStorage.removeItem('navigationState');
+        }
+        catch (e) { }
+    },
+    _loadNavigationState: function() {
+        try
+        {
+            if (window.localStorage)
+                this.navigationState = window.localStorage.getItem('navigationState');
+        }
+        catch (e) { }
+    },
+    _loadPreferences: function() {
         try {
             if (window.localStorage)
                 this.preferences = Ext.decode(window.localStorage.getItem('preferences'));
@@ -243,48 +263,41 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         return hasRoot && result;
     },
     navigateToInitialView: function() {
-        if (window.localStorage)
+        try
         {
-            try
+            var restoredState = this.navigationState,
+                restoredHistory = restoredState && Ext.decode(restoredState),
+                cleanedHistory = this.cleanRestoredHistory(restoredHistory);
+
+            this._clearNavigationState();
+
+            if (cleanedHistory)
             {
-                var restoredState = window.localStorage.getItem('restore'),
-                    restoredHistory = restoredState && Ext.decode(restoredState),
-                    cleanedHistory = this.cleanRestoredHistory(restoredHistory);
+                ReUI.context.transitioning = true;
+                ReUI.context.history = ReUI.context.history.concat(cleanedHistory.slice(0, cleanedHistory.length - 1));
 
-                window.localStorage.removeItem('restore');
-
-                if (cleanedHistory)
+                for (var i = 0; i < cleanedHistory.length - 1; i++)
                 {
-                    ReUI.context.transitioning = true;
-                    ReUI.context.history = ReUI.context.history.concat(cleanedHistory.slice(0, cleanedHistory.length - 1));
-
-                    for (var i = 0; i < cleanedHistory.length - 1; i++)
-                    {
-                        window.location.hash = cleanedHistory[i].hash;
-                    }
-
-                    ReUI.context.transitioning = false;
-
-                    var last = cleanedHistory[cleanedHistory.length - 1];
-                        view = App.getView(last.page),
-                        options = last.data && last.data.options;
-
-                    view.show(options);
+                    window.location.hash = cleanedHistory[i].hash;
                 }
-                else
-                {
-                    this.navigateToHomeView();
-                }
+
+                ReUI.context.transitioning = false;
+
+                var last = cleanedHistory[cleanedHistory.length - 1];
+                    view = App.getView(last.page),
+                    options = last.data && last.data.options;
+
+                view.show(options);
             }
-            catch (e)
+            else
             {
-                window.localStorage.removeItem('restore');
-
                 this.navigateToHomeView();
             }
         }
-        else
+        catch (e)
         {
+            this._clearNavigationState();
+            
             this.navigateToHomeView();
         }
     },
