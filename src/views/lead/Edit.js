@@ -84,7 +84,9 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {
                     label: this.workText,
                     name: 'WorkPhone',
-                    type: 'phone'
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.emailText,
@@ -110,7 +112,9 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {
                     label: this.tollFreeText,
                     name: 'TollFree',
-                    type: 'phone'
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.importSourceText,
