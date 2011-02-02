@@ -21,49 +21,35 @@ describe("Base Detail", function() {
         });
 
         /// Defects: #1-78928
-        it("must be mapped to 'action' property when 'disabled' is false", function() {
+        it("must not have 'data-disable-action' property when 'disabled' is false", function() {
             fieldProps['value'] = 123;
-            fieldProps['disabled'] = {
-                fn: function(val){return !val;}
-            };
-
-            ///disabled function in standard validator format
-            detailView.processLayout(layout, {}, {});
-            expect(DOMSpy.mostRecentCall.args[1]).toMatch(/data-action="callWorkPhone"/);
-
-            ///disabled as a straight forward function
-            fieldProps['disabled'] = function(val){return !val;}
+            fieldProps['disabled'] = function(entry, val){return !val;}
 
             detailView.processLayout(layout, {}, {});
             expect(DOMSpy.mostRecentCall.args[1]).toMatch(/data-action="callWorkPhone"/);
+            expect(DOMSpy.mostRecentCall.args[1]).not.toMatch(/data-disable-action/);
 
             ///disabled as boolean
             fieldProps['disabled'] = false;
             detailView.processLayout(layout, {}, {});
             expect(DOMSpy.mostRecentCall.args[1]).toMatch(/data-action="callWorkPhone"/);
+            expect(DOMSpy.mostRecentCall.args[1]).not.toMatch(/data-disable-action/);
         });
 
         /// Defects: #1-78928
-        it("must not be mapped to 'action' property when 'disabled' is true", function() {
-            //fieldProps['value'] = null;
-            fieldProps['disabled'] = {
-                fn: function(val){return !val;}
-            };
-
-            ///disabled function in standard validator format
-            detailView.processLayout(layout, {}, {});
-            expect(DOMSpy.mostRecentCall.args[1]).not.toMatch(/data-action="callWorkPhone"/);
-
-            ///disabled as a straight forward function
-            fieldProps['disabled'] = function(val){return !val;}
+        it("must have 'data-disable-action' property as 'true' when 'disabled' is true", function() {
+            fieldProps['value'] = false;
+            fieldProps['disabled'] = function(entry, val){return !val;}
 
             detailView.processLayout(layout, {}, {});
-            expect(DOMSpy.mostRecentCall.args[1]).not.toMatch(/data-action="callWorkPhone"/);
+            expect(DOMSpy.mostRecentCall.args[1]).toMatch(/data-action="callWorkPhone"/);
+            expect(DOMSpy.mostRecentCall.args[1]).toMatch(/data-disable-action="true"/);
 
             ///disabled as boolean
             fieldProps['disabled'] = true;
             detailView.processLayout(layout, {}, {});
-            expect(DOMSpy.mostRecentCall.args[1]).not.toMatch(/data-action="callWorkPhone"/);
+            expect(DOMSpy.mostRecentCall.args[1]).toMatch(/data-action="callWorkPhone"/);
+            expect(DOMSpy.mostRecentCall.args[1]).toMatch(/data-disable-action="true"/);
         });
     });
 });
