@@ -157,7 +157,8 @@ Ext.namespace("Mobile.SalesLogix");
                         label: this.addressText,
                         name: 'Contacts.$resources[0].Address',
                         type: 'address',
-                        view: 'address_edit'
+                        view: 'address_edit',
+                        entityName: 'Contact'
                     }]
                 },
                 {
@@ -214,7 +215,8 @@ Ext.namespace("Mobile.SalesLogix");
                         label: this.addressText,
                         name: 'Address',
                         type: 'address',
-                        view: 'address_edit'
+                        view: 'address_edit',
+                        entityName: 'Account'
                     }
                 ]}
             ]);
