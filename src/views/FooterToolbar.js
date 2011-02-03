@@ -8,9 +8,13 @@ Ext.namespace("Mobile.SalesLogix");
 
 (function() {
     Mobile.SalesLogix.FooterToolbar = Ext.extend(Sage.Platform.Mobile.MainToolbar, {
+        attachmentPoints: Ext.apply({}, {
+            copyrightEl: '.copyright'
+        }, Sage.Platform.Mobile.MainToolbar.prototype.attachmentPoints),
         barTemplate: new Simplate([
             '<div class="footer-toolbar {%= $.cls %}">',
             '<hr />',
+            '<span class="copyright">{%= $.copyrightText %}</span>',
             '</div>'
         ]),
         toolTemplate: new Simplate([
@@ -23,6 +27,7 @@ Ext.namespace("Mobile.SalesLogix");
         ]),
         settingsView: 'settings',
         helpView: 'help',
+        copyrightText: '&copy; 2011 Sage Software Inc. All Rights Reserved.',
         logOutConfirmText: 'Are you sure you want to log out?',
         settingsText: 'Settings',
         helpText: 'Help',
@@ -74,7 +79,19 @@ Ext.namespace("Mobile.SalesLogix");
                 this.hide();
             }
 
-            Mobile.SalesLogix.FooterToolbar.superclass.showTools.call(this, tools);
+            // skip parent implementation
+            Sage.Platform.Mobile.MainToolbar.superclass.showTools.apply(this, arguments);
+
+            if (tools)
+            {
+                for (var i = 0; i < tools.length; i++)
+                {
+                    if (this.copyrightEl)
+                        Ext.DomHelper.insertBefore(this.copyrightEl, this.toolTemplate.apply(tools[i]));
+                    else
+                        Ext.DomHelper.append(this.el, this.toolTemplate.apply(tools[i]));
+                }
+            }
         },
         navigateToSettingsView: function() {
             var view = App.getView(this.settingsView);

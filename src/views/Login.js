@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Login");
 Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     //Templates
     viewTemplate: new Simplate([
-        '<div id="{%= $.id %}" title="{%: $.title %}" class="panel {%= $.cls %}" hideBackButton="true">',        
+        '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',        
         '<div class="panel-content"></div>',
         '<button class="button actionButton" data-action="authenticate"><span>{%: $.logOnText %}</span></button>',
         '</div>'
@@ -21,7 +21,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     logOnText: 'Log On',
     passText: 'pass',
     rememberText: 'remember',
-    titleText: 'Login',
+    titleText: 'Sage SalesLogix',
     userText: 'user',
     invalidUserText: 'The user name or password is invalid.',
     missingUserText: 'The user record was not found.',

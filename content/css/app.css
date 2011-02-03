@@ -564,3 +564,12 @@ body.transition > .footer-toolbar
     padding: 0 0 0 30px;
     margin: 0;
 }
+
+.footer-toolbar > .copyright
+{
+    display: block;
+    text-align: center;
+    clear: both;
+    font-size: .6em;
+    color: #888;
+}
