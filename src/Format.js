@@ -79,9 +79,11 @@ Mobile.SalesLogix.Format = (function() {
 
             return String.format('${0}.{1}',
                 (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
-                (f.toString().length < 2)
-                    ? '0' + f.toString()
-                    : f.toString()
+                (f.toString() === '0.0')
+                    ? '00'
+                    : (f.toString().length < 2)
+                        ? '0' + f.toString()
+                        : f.toString()
             );
         },        
         nameLF: function(val) {
