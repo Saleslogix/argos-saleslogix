@@ -12,12 +12,14 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
         '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',        
         '<div class="panel-content"></div>',
         '<button class="button actionButton" data-action="authenticate"><span>{%: $.logOnText %}</span></button>',
+        '<span class="copyright">{%= $.copyrightText %}</span>',
         '</div>'
     ]),
 
     //Localization
     id: 'login',
     busy: false,
+    copyrightText: '&copy; 2011 Sage Software Inc. All Rights Reserved.',
     logOnText: 'Log On',
     passText: 'password',
     rememberText: 'remember',
