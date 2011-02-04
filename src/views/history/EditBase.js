@@ -56,7 +56,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             },
             'atEMail': {
                 'Category': 'E-mail Category Codes',
-                'Description': 'E-mail Regarding'
+                'Description': 'E-Mail Regarding'
             }
         },
         durationValueText: {
