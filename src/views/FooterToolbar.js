@@ -108,19 +108,7 @@ Ext.namespace("Mobile.SalesLogix");
         },
         logOut: function() {
             var sure = window.confirm(this.logOutConfirmText);
-            if (sure)
-            {
-                if (window.localStorage)
-                    window.localStorage.removeItem('credentials');
-
-                var service = App.getService();
-                if (service)
-                    service
-                        .setUserName(false)
-                        .setPassword(false);
-
-                window.location.reload();
-            }
+            if (sure) App.logOut();
         }
     });
 })();

@@ -103,6 +103,21 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             scope: this
         });
     },
+    logOut: function() {
+        if (window.localStorage)
+        {
+            window.localStorage.removeItem('credentials');
+            window.localStorage.removeItem('navigationState');
+        }
+
+        var service = App.getService();
+        if (service)
+            service
+                .setUserName(false)
+                .setPassword(false);
+
+        window.location.reload();
+    },
     handleAuthentication: function() {        
         try
         {
