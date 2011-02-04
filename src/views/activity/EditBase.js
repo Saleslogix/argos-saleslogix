@@ -146,14 +146,15 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         setValues: function(values) {
             if (values['StartDate'] && values['AlarmTime'])
             {
-                var span = values['StartDate'].getTime() - values['AlarmTime'].getTime(); // ms
-                var reminder = span / (1000 * 60);
+                var span = values['StartDate'].getTime() - values['AlarmTime'].getTime(), // ms
+                    reminder = span / (1000 * 60);
+                
                 values['Reminder'] = reminder;
             }
 
             Mobile.SalesLogix.Activity.EditBase.superclass.setValues.apply(this, arguments);
 
-            if (!!values['Timeless'])
+            if (values['Timeless'])
             {
                 this.fields['Duration'].disable();
                 this.fields['Rollover'].enable();
@@ -164,24 +165,22 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 this.fields['Rollover'].disable();
             }
 
-            !!values['Alarm'] ? this.fields['Reminder'].enable()
-                              : this.fields['Reminder'].disable();
+            if (values['Alarm'])
+                this.fields['Reminder'].enable();
+            else
+                this.fields['Reminder'].disable();
         },
         getValues: function() {
             var values = Mobile.SalesLogix.Activity.EditBase.superclass.getValues.apply(this, arguments),
-                timeless = values && values['Timeless'] === false ? false : this.fields['Timeless'].getValue(),
-                alarm = values && values['Alarm'] === false ? false : this.fields['Alarm'].getValue(),
-                reminder = alarm ? this.fields['Reminder'].getValue() : 0,
-                alarmTime = values && Ext.isDate(values['StartDate']) ? values['StartDate'].clone()
-                                                                     : this.fields['StartDate'].getValue();
+                startDate = this.fields['StartDate'].getValue(),
+                reminderIn = this.fields['Reminder'].getValue();
 
-            if (this.fields['Reminder'].isDirty() && values === false) values = {};
-
-            values['AlarmTime'] = alarmTime.add({'minutes': -1 * reminder});
-
-            values['Duration'] = timeless === true ? false : (values['Duration'] || false);
-
-            values['Rollover'] = timeless === false ? false : (values['Rollover'] || false);
+            // if StartDate is dirty, always update AlarmTime
+            if (startDate && (this.fields['StartDate'].isDirty() || this.fields['Reminder'].isDirty()))
+            {
+                values = values || {};
+                values['AlarmTime'] = startDate.clone().add({'minutes': -1 * reminderIn});
+            }
 
             return values;
         },
