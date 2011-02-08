@@ -26,7 +26,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         resourceKind: 'urgencies',
 
         formatSearchQuery: function(query) {
-            return String.format('Description like "%{0}%"', query);
+            return String.format('upper(Description) like "%{0}%"', query.toUpperCase());
         }
     });
 })();

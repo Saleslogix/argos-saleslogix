@@ -26,7 +26,7 @@ Ext.namespace("Mobile.SalesLogix.Owner");
         resourceKind: 'owners',
 
         formatSearchQuery: function(query) {
-            return String.format('OwnerDescription like "%{0}%"', query);
+            return String.format('upper(OwnerDescription) like "%{0}%"', query.toUpperCase());
         }
     });
 })();

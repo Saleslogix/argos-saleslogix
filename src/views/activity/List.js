@@ -76,7 +76,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }          
         },
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "%{0}%"', query);
+            return String.format('upper(Description) like "%{0}%"', query.toUpperCase());
         }
     });
 })();

@@ -33,7 +33,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         resourceKind: 'leads',
 
         formatSearchQuery: function(query) {
-            return String.format('(LastNameUpper like "%{0}%" or CompanyUpper like "%{0}%" or upper(FirstName) like "%{0}")', query);
+            return String.format('(LastNameUpper like "%{0}%" or CompanyUpper like "%{0}%" or upper(FirstName) like "%{0}%")', query.toUpperCase());
         }
     });
 })();

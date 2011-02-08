@@ -29,7 +29,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         resourceKind: 'opportunities',
 
         formatSearchQuery: function(query) {
-            return String.format('Description like "%{0}%"', query);
+            return String.format('(upper(Description) like "%{0}%" or Account.AccountNameUpper like "%{0}%")', query.toUpperCase());
         }
     });
 })();

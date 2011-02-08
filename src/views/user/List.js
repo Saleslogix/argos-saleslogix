@@ -30,7 +30,7 @@ Ext.namespace("Mobile.SalesLogix.User");
         resourceKind: 'users',
 
         formatSearchQuery: function(query) {
-            return String.format('UserInfo.UserName like "%{0}%"', query);
+            return String.format('upper(UserInfo.UserName) like "%{0}%"', query.toUpperCase());
         }
     });
 })();

@@ -19,7 +19,7 @@ Mobile.SalesLogix.PickList = Ext.extend(Sage.Platform.Mobile.List, {
     resourceProperty: 'items',
 
     formatSearchQuery: function(query) {
-        return String.format('text like "%{0}%"', query);
+        return String.format('upper(text) like "%{0}%"', query.toUpperCase());
     },
     show: function(options) {
         this.setTitle(options && options.title || this.title);
