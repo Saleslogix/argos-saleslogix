@@ -19,6 +19,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         durationText: 'duration',
         leaderText: 'leader',
         longNotesText: 'notes',
+        longNotesTitleText: 'Notes',
         priorityText: 'priority',
         priorityTitleText: 'Priority',
         regardingText: 'regarding',
@@ -330,9 +331,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },
                 {
                     label: this.longNotesText,
-                    multiline: true,
+                    noteProperty: false,
                     name: 'LongNotes',
-                    type: 'text'
+                    title: this.longNotesTitleText,
+                    type: 'note',
+                    view: 'text_edit'
                 }
             ]);
         }

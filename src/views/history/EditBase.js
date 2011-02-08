@@ -99,7 +99,9 @@ Ext.namespace("Mobile.SalesLogix.History");
             return {'$resources': list};
         },
         validateScheduledTime: function(value, field, view) {
-            return value && value.compareTo(view.fields['CompletedDate'].getValue()) === 1;
+            var completedDate = view.fields['CompletedDate'].getValue();
+
+            return completedDate && value && value.compareTo(completedDate) === 1;
         },
         createLayout: function() {
             return this.layout || (this.layout = [
