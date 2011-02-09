@@ -78,7 +78,8 @@ Ext.namespace("Mobile.SalesLogix.History");
                 },
                 {
                     name: 'Duration',
-                    label: this.durationText
+                    label: this.durationText,
+                    renderer: Mobile.SalesLogix.Format.timespan
                 },
                 {
                     name: 'UserName',
