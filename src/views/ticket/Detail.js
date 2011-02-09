@@ -156,11 +156,19 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     title: this.detailsText
                 },
                 as: [{
+                    name: 'Account.AccountName',
+                    descriptor: 'Account.AccountName',
                     label: this.accountText,
-                    name: 'Account.AccountName'
+                    view: 'account_detail',
+                    key: 'Account.$key',
+                    property: true
                 },{
-                    label: this.contactText,
-                    name: 'Contact.NameLF'
+                    name: 'Contact.NameLF',
+                    descriptor: 'Contact.NameLF',
+                    label: this.accountText,
+                    view: 'contact_detail',
+                    key: 'Contact.$key',
+                    property: true
                 },{
                     label: this.areaText,
                     name: 'Area'
