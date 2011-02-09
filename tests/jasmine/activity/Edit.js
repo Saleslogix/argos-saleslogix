@@ -67,39 +67,6 @@ describe("Activity", function() {
             expect(view.fields['Reminder'].getText()).toEqual('15 minutes');
         });
 
-        it("must set Duration to false for Timeless activity", function() {
-            view.fields['Timeless'].setValue(true);
-            // invoke callback manually
-            view.onTimelessChange(true, view.fields['Timeless']);
-
-            var values = view.getValues();
-
-            expect(values['Duration']).toBeDefined();
-            expect(values['Duration']).toBeFalsy();
-        });
-
-        it("must set Rollover to false for Timed activity", function() {
-            view.fields['Timeless'].setValue(false);
-            view.fields['Rollover'].setValue(true);
-            // invoke callback manually
-            view.onTimelessChange(true, view.fields['Timeless']);
-
-            var values = view.getValues();
-
-            expect(values['Rollover']).toBeDefined();
-            expect(values['Rollover']).toBeFalsy();
-        });
-
-        it("must set AlarmTime to StartDate if Alarm is not set", function() {
-            view.fields['Alarm'].setValue(false);
-            // invoke callback manually
-            view.onAlarmChange(false, view.fields['Alarm']);
-
-            var values = view.getValues();
-
-            expect(values['AlarmTime']).toEqual(view.fields['StartDate'].getValue());
-        });
-
         it("must have AlarmTime set if Reminder is dirty", function() {
             view.fields['Reminder'].setValue(30);
             view.fields['Alarm'].setValue(true);
