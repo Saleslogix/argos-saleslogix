@@ -57,7 +57,7 @@ Ext.namespace("Mobile.SalesLogix.Note");
             });
         },
         formatSearchQuery: function(query) {
-            return String.format('upper(Notes) like "%{0}%"', query);
+            return String.format('upper(Notes) like "%{0}%"', query.toUpperCase());
         },
         processFeed: function(feed) {
             Mobile.SalesLogix.Note.List.superclass.processFeed.call(this, feed);

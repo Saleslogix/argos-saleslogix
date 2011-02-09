@@ -46,7 +46,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         resourceKind: 'tickets',
 
         formatSearchQuery: function(query) {
-            return String.format('TicketNumber like "%{0}%" or upper(Subject) like "%{0}%" or Account.AccountNameUpper like "%{0}%"', query);
+            return String.format('TicketNumber like "%{0}%" or upper(Subject) like "%{0}%" or Account.AccountNameUpper like "%{0}%"', query.toUpperCase());
         }
     });
 })();

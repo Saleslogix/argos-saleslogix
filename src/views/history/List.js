@@ -90,7 +90,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             }          
         },
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "%{0}%"', query);
+            return String.format('upper(Description) like "%{0}%"', query.toUpperCase());
         }
     });
 })();

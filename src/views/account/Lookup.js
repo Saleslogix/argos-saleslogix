@@ -27,6 +27,6 @@ Mobile.SalesLogix.Account.Lookup = Ext.extend(Sage.Platform.Mobile.List, {
         'AccountManager/UserInfo/FirstName'
     ],
     formatSearchQuery: function(query) {
-        return String.format('AccountName like "%{0}%"', query);
+        return String.format('AccountNameUpper like "%{0}%"', query.toUpperCase());
     }
 });
