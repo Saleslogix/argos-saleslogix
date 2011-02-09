@@ -20,7 +20,7 @@ Ext.namespace("Mobile.SalesLogix");
         detailsAccountText: 'Account Info',
         detailsContactText: 'Contact Info',
         detailsText: 'Contact / Account Info',
-        emailText: 'e-mail',
+        emailText: 'email',
         faxText: 'fax',
         homePhoneText: 'home phone',
         industryText: 'industry',
