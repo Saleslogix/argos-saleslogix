@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 (function() {
     Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         //Localization
-        accountText: 'acct name',
+        accountText: 'account',
         areaText: 'area',
         assignedDateText: 'assigned date',
         assignedToText: 'assigned to',
@@ -165,7 +165,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                 },{
                     name: 'Contact.NameLF',
                     descriptor: 'Contact.NameLF',
-                    label: this.accountText,
+                    label: this.contactText,
                     view: 'contact_detail',
                     key: 'Contact.$key',
                     property: true
