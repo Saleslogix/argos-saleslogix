@@ -27,7 +27,7 @@ Ext.namespace("Mobile.SalesLogix");
         ]),
         settingsView: 'settings',
         helpView: 'help',
-        copyrightText: '&copy; 2011 Sage Software Inc. All Rights Reserved.',
+        copyrightText: '&copy; 2011 Sage Software, Inc. All rights reserved.',
         logOutConfirmText: 'Are you sure you want to log out?',
         settingsText: 'Settings',
         helpText: 'Help',

@@ -19,7 +19,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
     //Localization
     id: 'login',
     busy: false,
-    copyrightText: '&copy; 2011 Sage Software Inc. All Rights Reserved.',
+    copyrightText: '&copy; 2011 Sage Software, Inc. All rights reserved.',
     logOnText: 'Log On',
     passText: 'password',
     rememberText: 'remember',
