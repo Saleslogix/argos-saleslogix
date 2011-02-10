@@ -69,11 +69,12 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
-                return /^(accounts)$/.test(o.resourceKind) && o.key;
+                return /^(accounts|opportunities)$/.test(o.resourceKind) && o.key;
             });
 
             var lookup = {
-                'accounts': this.applyAccountContext
+                'accounts': this.applyAccountContext,
+                'opportunities': this.applyOpportunityContext
             };
 
             if (found && lookup[found.resourceKind])
@@ -106,6 +107,15 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 
                 this.fields[field].setValue(entry[field]);
             }
+        },
+        applyOpportunityContext: function(context) {
+            var view = App.getView(context.id),
+                entry = view && view.entry,
+                getV = Sage.Platform.Mobile.Utility.getValue;
+
+            this.fields['Account'].setValue(getV(entry, 'Account'));
+            this.fields['AccountName'].setValue(getV(entry, 'Account.AccountName'));
+            this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(entry['$key']);
         },
         createLayout: function() {
             return this.layout || (this.layout = [
@@ -196,6 +206,10 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     textProperty: 'OwnerDescription',
                     type: 'lookup',
                     view: 'owner_list'
+                },
+                {
+                    name: 'Opportunities.$resources[0].Opportunity.$key',
+                    type: 'hidden'
                 }
             ]);
         }
