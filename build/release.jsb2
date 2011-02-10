@@ -99,10 +99,6 @@
             path: '../src/views/account/'
         },
         {
-            text: 'Lookup.js',
-            path: '../src/views/account/'
-        },
-        {
             text: 'DetailBase.js',
             path: '../src/views/activity/'
         },
@@ -163,10 +159,6 @@
             path: '../src/views/contact/'
         },
         {
-            text: 'Lookup.js',
-            path: '../src/views/contact/'
-        },
-        {
             text: 'Detail.js',
             path: '../src/views/contract/'
         },
@@ -176,10 +168,6 @@
         },
         {
             text: 'List.js',
-            path: '../src/views/contract/'
-        },
-        {
-            text: 'Lookup.js',
             path: '../src/views/contract/'
         },
         {
@@ -251,10 +239,6 @@
             path: '../src/views/lead/'
         },
         {
-            text: 'Lookup.js',
-            path: '../src/views/lead/'
-        },
-        {
             text: 'List.js',
             path: '../src/views/leadsource/'
         },
@@ -280,10 +264,6 @@
         },
         {
             text: 'List.js',
-            path: '../src/views/opportunity/'
-        },
-        {
-            text: 'Lookup.js',
             path: '../src/views/opportunity/'
         },
         {
@@ -324,10 +304,6 @@
         },
         {
             text: 'List.js',
-            path: '../src/views/ticket/'
-        },
-        {
-            text: 'Lookup.js',
             path: '../src/views/ticket/'
         },
         {

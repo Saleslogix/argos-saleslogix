@@ -162,31 +162,7 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
             expose: false
         }));
 
-        this.registerView(new Mobile.SalesLogix.Account.Lookup({
-            expose: false
-        }));
-
-        this.registerView(new Mobile.SalesLogix.Contact.Lookup({
-            expose: false
-        }));
-
-        this.registerView(new Mobile.SalesLogix.Opportunity.Lookup({
-            expose: false
-        }));
-
-        this.registerView(new Mobile.SalesLogix.Ticket.Lookup({
-            expose: false
-        }));
-
         this.registerView(new Mobile.SalesLogix.Ticket.UrgencyLookup({
-            expose: false
-        }));
-
-        this.registerView(new Mobile.SalesLogix.Lead.Lookup({
-            expose: false
-        }));
-
-        this.registerView(new Mobile.SalesLogix.Contract.Lookup({
             expose: false
         }));
     },
