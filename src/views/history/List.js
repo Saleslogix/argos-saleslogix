@@ -60,7 +60,8 @@ Ext.namespace("Mobile.SalesLogix.History");
             'Description',
             'StartDate',
             'TimeLess',
-            'Type'
+            'Type',
+            'LeadId'
         ],
         resourceKind: 'history',
 
