@@ -43,6 +43,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         addNoteText: 'Add note',
         viewAddressText: 'View address',
         moreDetailsText: 'More Details',
+        calledText: 'Called {0}',
 
         //View Properties
         id: 'account_detail',
@@ -94,7 +95,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 'Type': 'atPhoneCall',
                 'AccountId': this.entry['$key'],
                 'AccountName': this.entry['AccountName'],
-                'Description': String.format("Called {0}", this.entry['AccountName']),
+                'Description': String.format(this.calledText, this.entry['AccountName']),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
