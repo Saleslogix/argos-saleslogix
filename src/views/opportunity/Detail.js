@@ -39,6 +39,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         noteEditView: 'note_edit',
         querySelect: [
             'Account/AccountName',
+            'Account/WebAddress',
+            'Account/MainPhone',
+            'Account/Fax',
+            'Account/Address/*',
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
             'CloseProbability',

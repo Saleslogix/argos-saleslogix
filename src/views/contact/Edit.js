@@ -77,45 +77,78 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 'opportunities': this.applyOpportunityContext
             };
 
-            if (found && lookup[found.resourceKind])
-                lookup[found.resourceKind].call(this, found);
-            else
-                this.applyDefaultContext();
-        },
-        applyDefaultContext: function() {
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context.DefaultOwner);
+
+            if (found && lookup[found.resourceKind])
+                lookup[found.resourceKind].call(this, found);            
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
-                entry = view && view.entry;
+                entry = view && view.entry,
+                getV = Sage.Platform.Mobile.Utility.getValue;
 
-            for (var field in this.fields)
-            {
-                if (field === 'Account')
-                {
-                    this.fields['Account'].setValue(entry);
-                    continue;
-                }
-                else if (field === 'WorkPhone')
-                {
-                    this.fields['WorkPhone'].setValue(entry['MainPhone']);
-                    continue;
-                }
-                else if (!entry[field])
-                    continue;
+            this.fields['Account'].setValue(entry);
+            this.fields['AccountName'].setValue(getV(entry, 'AccountName'));
 
-                this.fields[field].setValue(entry[field]);
-            }
+            var account = entry,
+                accountName = getV(entry, 'AccountName'),
+                webAddress = getV(entry, 'WebAddress'),
+                mainPhone = getV(entry, 'MainPhone'),
+                address = getV(entry, 'Address'),
+                fax = getV(entry, 'Fax');
+
+            if (account) this.fields['Account'].setValue(account);
+            if (accountName) this.fields['AccountName'].setValue(accountName);
+            if (webAddress) this.fields['WebAddress'].setValue(webAddress);
+            if (mainPhone) this.fields['WorkPhone'].setValue(mainPhone);
+            if (address) this.fields['Address'].setValue(this.cleanAddressEntry(address));
+            if (fax) this.fields['Fax'].setValue(fax);
         },
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
                 entry = view && view.entry,
                 getV = Sage.Platform.Mobile.Utility.getValue;
 
-            this.fields['Account'].setValue(getV(entry, 'Account'));
-            this.fields['AccountName'].setValue(getV(entry, 'Account.AccountName'));
-            this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(entry['$key']);
+            var opportunityId = getV(entry, '$key'),
+                account = getV(entry, 'Account'),
+                accountName = getV(entry, 'Account.AccountName'),
+                webAddress = getV(entry, 'Account.WebAddress'),
+                mainPhone = getV(entry, 'Account.MainPhone'),
+                address = getV(entry, 'Account.Address'),
+                fax = getV(entry, 'Account.Fax');
+
+            if (opportunityId) this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(opportunityId);
+            if (account) this.fields['Account'].setValue(account);
+            if (accountName) this.fields['AccountName'].setValue(accountName);
+            if (webAddress) this.fields['WebAddress'].setValue(webAddress);
+            if (mainPhone) this.fields['WorkPhone'].setValue(mainPhone);
+            if (address) this.fields['Address'].setValue(this.cleanAddressEntry(address));            
+            if (fax) this.fields['Fax'].setValue(fax);
+        },
+        cleanAddressEntry: function(address) {
+            if (address)
+            {
+                var clean = {},
+                    skip = {
+                        '$key': true,
+                        '$lookup': true,
+                        '$url': true,
+                        'EntityId': true,
+                        'ModifyDate': true,
+                        'ModifyUser': true,
+                        'CreateDate': true,
+                        'CreateUser': true
+                    };
+
+                for (var name in address) if (!skip[name]) clean[name] = address[name];
+
+                return clean;
+            }
+            else
+            {
+                return null;
+            }
         },
         createLayout: function() {
             return this.layout || (this.layout = [
