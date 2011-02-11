@@ -31,11 +31,11 @@ Mobile.SalesLogix.Validator = (function() {
         },
         isInteger: {
             test: /^\d+$/,
-            message: "The value '{0}' is not an integer."
+            message: "The value '{0}' is not a valid number."
         },
         isDecimal: {
             test: /^[\d,.]+$/,
-            message: "The value '{0}' is not a decimal."
+            message: "The value '{0}' is not a valid number."
         },
         isCurrency: {
             test: /^[\d,]+(\.\d{1,2})?$/,
