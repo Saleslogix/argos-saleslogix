@@ -43,7 +43,7 @@ describe("Opportunity", function() {
             });
         });
 
-        it("must validate 'CloseProbability' for number", function() {
+        it("must validate Close Probability for numeric value", function() {
             var closeProbability = view.fields['CloseProbability'];
 
             closeProbability.setValue('1');
@@ -55,5 +55,16 @@ describe("Opportunity", function() {
             closeProbability.setValue('12.1');
             expect(closeProbability.validate()).not.toBeFalsy();
         });
-    });
+
+        /// #1-79307
+        it("must validate opportunity text for 64 char length", function() {
+            var description = view.fields['Description'];
+
+            description.setValue('new opportunity');
+            expect(description.validate()).toBeFalsy();
+
+            description.setValue('12345678901234567890123456789012345678901234567890123456789012345');
+            expect(description.validate()).not.toBeFalsy();
+        });
+   });
 });

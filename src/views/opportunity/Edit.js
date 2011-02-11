@@ -114,7 +114,11 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     label: this.opportunityText,
                     name: 'Description',
                     type: 'text',
-                    validator: Mobile.SalesLogix.Validator.hasText
+                    maxTextLength: 64,
+                    validator: [
+                        Mobile.SalesLogix.Validator.hasText,
+                        Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    ]
                 },
                 {
                     label: this.accountText,
