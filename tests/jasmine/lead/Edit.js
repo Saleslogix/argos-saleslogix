@@ -49,11 +49,42 @@ describe("Lead", function() {
             expect(errors.length).toEqual(2);
             expect(errors).toContainError({
                 'name': 'WorkPhone',
-                'message': "The field 'phone' data exceeds the allowed limit in length."
+                'message': "The field 'phone' value exceeds the allowed limit in length."
             });
             expect(errors).toContainError({
                 'name': 'TollFree',
-                'message': "The field 'toll free' data exceeds the allowed limit in length."
+                'message': "The field 'toll free' value exceeds the allowed limit in length."
+            });
+        });
+
+        it("must validate title and industry fields for maximum input of 64 chars", function() {
+            view.setValues({
+                'FirstName': 'John',
+                'LastName': 'Abbot',
+                'MiddleName': '',
+                'Prefix': '',
+                'Suffix': '',
+                'LeadSource': {
+                    '$key': 'email',
+                    '$descriptor': 'E-Mail'
+                },
+                'WorkPhone': '1234567890',
+                'TollFree': '1234567890'
+                'Title': '12345678901234567890123456789012345678901234567890123456789012345',
+                'Industry': '12345678901234567890123456789012345678901234567890123456789012345'
+            });
+
+            var errors = view.validate();
+
+            expect(errors).not.toBeFalsy();
+            expect(errors.length).toEqual(2);
+            expect(errors).toContainError({
+                'name': 'Title',
+                'message': "The field 'title' value exceeds the allowed limit in length."
+            });
+            expect(errors).toContainError({
+                'name': 'Industry',
+                'message': "The field 'industry' value exceeds the allowed limit in length."
             });
         });
     });

@@ -99,7 +99,9 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     picklist: 'Title',
                     title: this.titleTitleText,
                     type: 'picklist',
-                    orderBy: 'text asc'
+                    orderBy: 'text asc',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     emptyText: '',
@@ -134,7 +136,9 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     name: 'Industry',
                     picklist: 'Industry',
                     title: this.industryTitleText,
-                    type: 'picklist'
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.sicCodeText,

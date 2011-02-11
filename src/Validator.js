@@ -47,7 +47,7 @@ Mobile.SalesLogix.Validator = (function() {
                     return true;
                 return false;
             },
-            message: "The field '{2}' data exceeds the allowed limit in length."
+            message: "The field '{2}' value exceeds the allowed limit in length."
         },
         isPhoneNumber: { /* todo: remove, depreciated */ }
     };
