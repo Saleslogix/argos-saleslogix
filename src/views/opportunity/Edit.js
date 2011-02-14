@@ -194,7 +194,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     picklist: 'Opportunity Probability',
                     title: this.opportunityProbabilityTitle,
                     type: 'picklist',
-                    validator: Mobile.SalesLogix.Validator.isInteger
+                    validator: [
+                        Mobile.SalesLogix.Validator.isInt32,
+                        Mobile.SalesLogix.Validator.isInteger
+                    ]
                 },
                 {
                     name: 'Contacts.$resources[0].Contact.$key',

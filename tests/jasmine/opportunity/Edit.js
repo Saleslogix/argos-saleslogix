@@ -43,7 +43,7 @@ describe("Opportunity", function() {
             });
         });
 
-        it("must validate Close Probability for numeric value", function() {
+        it("must validate Close Probability for numeric int32 value", function() {
             var closeProbability = view.fields['CloseProbability'];
 
             closeProbability.setValue('1');
@@ -53,6 +53,12 @@ describe("Opportunity", function() {
             expect(closeProbability.validate()).not.toBeFalsy();
 
             closeProbability.setValue('12.1');
+            expect(closeProbability.validate()).not.toBeFalsy();
+
+            closeProbability.setValue('2147483647');
+            expect(closeProbability.validate()).toBeFalsy();
+
+            closeProbability.setValue('2147483648');
             expect(closeProbability.validate()).not.toBeFalsy();
         });
 

@@ -41,6 +41,14 @@ Mobile.SalesLogix.Validator = (function() {
             test: /^[\d,]+(\.\d{1,2})?$/,
             message: "The value '{0}' is not a valid currency number."
         },
+        isInt32: {
+            fn: function(value, field) {
+                if (value && (!/^\d{1,10}$/.test(value) || parseInt(value, 10) > 2147483647))
+                    return true;
+                return false;
+            },
+            message: "The field '{2}' value exceeds the allowed numeric range."
+        },
         exceedsMaxTextLength: {
             fn: function(value, field) {
                 if (value && field && field.maxTextLength && value.length > field.maxTextLength)

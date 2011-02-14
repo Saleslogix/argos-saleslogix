@@ -235,14 +235,18 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     ),
                     title: this.activityDescriptionTitleText,
                     orderBy: 'text asc',
-                    type: 'picklist'
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.priorityText,
                     name: 'Priority',
                     picklist: 'Priorities',
                     title: this.priorityTitleText,
-                    type: 'picklist'
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     dependsOn: 'Type',
@@ -253,7 +257,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     ),
                     orderBy: 'text asc',
                     title: this.activityCategoryTitleText,
-                    type: 'picklist'
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.startingText,

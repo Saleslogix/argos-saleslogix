@@ -33,17 +33,23 @@ Mobile.SalesLogix.NameEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
             {
                 name: 'FirstName',
                 label: this.firstnameLabel,
-                type: 'text'
+                type: 'text',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
                 name: 'MiddleName',
                 label: this.middlenameLabel,
-                type: 'text'
+                type: 'text',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
                 name: 'LastName',
                 label: this.lastnameLabel,
-                type: 'text'
+                type: 'text',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
                 emptyText: '',

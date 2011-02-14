@@ -79,5 +79,28 @@ describe("Activity", function() {
             expect(values['AlarmTime']).toBeDefined();
         });
 
+        it("must validate regarding, priority and category text for 64 char length", function() {
+            var description = view.fields['Description'],
+                priority = view.fields['Priority'],
+                category = view.fields['Category'];
+
+            description.setValue('Breakfast Meeting');
+            expect(description.validate()).toBeFalsy();
+
+            description.setValue('12345678901234567890123456789012345678901234567890123456789012345');
+            expect(description.validate()).not.toBeFalsy();
+
+            priority.setValue('High');
+            expect(priority.validate()).toBeFalsy();
+
+            priority.setValue('12345678901234567890123456789012345678901234567890123456789012345');
+            expect(priority.validate()).not.toBeFalsy();
+
+            category.setValue('Training');
+            expect(category.validate()).toBeFalsy();
+
+            category.setValue('12345678901234567890123456789012345678901234567890123456789012345');
+            expect(category.validate()).not.toBeFalsy();
+        });
     });
 });
