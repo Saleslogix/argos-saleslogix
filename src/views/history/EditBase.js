@@ -130,7 +130,9 @@ Ext.namespace("Mobile.SalesLogix.History");
                             name: 'Priority',
                             picklist: 'Priorities',
                             title: this.priorityTitleText,
-                            type: 'picklist'
+                            type: 'picklist',
+                            maxTextLength: 64,
+                            validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                         },
                         {
                             dependsOn: 'Type',
@@ -140,7 +142,9 @@ Ext.namespace("Mobile.SalesLogix.History");
                                 this, ['Category'], true
                             ),
                             title: this.activityCategoryTitleText,
-                            type: 'picklist'
+                            type: 'picklist',
+                            maxTextLength: 64,
+                            validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                         },
                         {
                             label: this.completedText,
