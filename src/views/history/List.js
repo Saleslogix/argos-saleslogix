@@ -26,12 +26,14 @@ Ext.namespace("Mobile.SalesLogix.History");
             '<h4>{%: Mobile.SalesLogix.Format.date($.CompletedDate, "ddd M/d/yy") %} - {%= $$.nameTemplate.apply($) %}</h4>'
         ]),
         nameTemplate: new Simplate([
-            '{% if ($.ContactName) { %}',
-            '{%: $.ContactName %} / {%: $.AccountName %}',
-            '{% } else if ($.AccountName) { %}',
-            '{%: $.AccountName %}',
-            '{% } else { %}',
+            '{% if ($.LeadName) { %}',
             '{%: $.LeadName %}',
+            '{% } else if ($.ContactName && $.AccountName) { %}',
+            '{%: $.ContactName %} / {%: $.AccountName %}',
+            '{% } else if ($.ContactName) { %}',
+            '{%: $.ContactName %}',
+            '{% } else { %}',
+            '{%: $.AccountName %}',
             '{% } %}'
         ]),
  
@@ -56,6 +58,8 @@ Ext.namespace("Mobile.SalesLogix.History");
         queryOrderBy: 'StartDate desc',
         querySelect: [
             'AccountName',
+            'ContactName',
+            'LeadName',
             'CompletedDate',
             'Description',
             'StartDate',

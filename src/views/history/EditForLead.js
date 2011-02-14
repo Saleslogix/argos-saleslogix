@@ -38,9 +38,10 @@ Ext.namespace("Mobile.SalesLogix.History");
                 moreSection = layout[lastItem];
                 
             this.layout = layout;
-            this.layout[lastItem].as = moreSection.as.concat([                {
+            this.layout[lastItem].as = moreSection.as.concat([
+                {
                     label: this.companyText,
-                    name: 'Company',
+                    name: 'AccountName',
                     type: 'text'
                 },
                 {

@@ -97,7 +97,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
             var entry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
-                'Company': this.entry['Company'],
+                'AccountName': this.entry['Company'],
                 'LeadId': this.entry['$key'],
                 'LeadName': this.entry['LeadNameLastFirst'],
                 'Description': String.format(this.calledText, this.entry['LeadNameLastFirst']),
@@ -113,7 +113,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
             var entry = {
                 '$name': 'History',
                 'Type': 'atEMail',
-                'Company': this.entry['Company'],
+                'AccountName': this.entry['Company'],
                 'LeadId': this.entry['$key'],
                 'LeadName': this.entry['LeadNameLastFirst'],
                 'Description': String.format(this.emailedText, this.entry['LeadNameLastFirst']),
