@@ -134,7 +134,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     picklist: 'Industry',
                     requireSelection: false,
                     title: this.industryTitleText,
-                    type: 'picklist'
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.businessDescriptionText,
