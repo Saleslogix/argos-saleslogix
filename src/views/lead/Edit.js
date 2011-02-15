@@ -74,7 +74,9 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {
                     label: this.companyText,
                     name: 'Company',
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 128,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.webText,
@@ -129,7 +131,9 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {
                     label: this.interestsText,
                     name: 'Interests',
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.industryText,
@@ -143,7 +147,9 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {
                     label: this.sicCodeText,
                     name: 'SICCode',
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.businessText,

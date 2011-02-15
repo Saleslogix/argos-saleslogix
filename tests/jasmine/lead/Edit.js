@@ -27,7 +27,7 @@ describe("Lead", function() {
             });
         });
 
-        /// Defects: #1-78666		
+        /// Defects: #1-78666
         it("must validate phone field for maximum input of 32 chars", function() {
             view.setValues({
                 'FirstName': 'John',
@@ -57,7 +57,14 @@ describe("Lead", function() {
             });
         });
 
-        it("must validate title and industry fields for maximum input of 64 chars", function() {
+        /// Defects: #1-79330, #1-79331
+        it("must validate fields for maximum input of 64 chars", function() {
+            var company = (function(){
+                var str = [];
+                for (var i=0; i<129; i++)
+                    str[i] = 'a';
+                return str.join('');
+            })();
             view.setValues({
                 'FirstName': 'John',
                 'LastName': 'Abbot',
@@ -69,15 +76,18 @@ describe("Lead", function() {
                     '$descriptor': 'E-Mail'
                 },
                 'WorkPhone': '1234567890',
-                'TollFree': '1234567890'
+                'TollFree': '1234567890',
                 'Title': '12345678901234567890123456789012345678901234567890123456789012345',
-                'Industry': '12345678901234567890123456789012345678901234567890123456789012345'
+                'Industry': '12345678901234567890123456789012345678901234567890123456789012345',
+                'Interests': '12345678901234567890123456789012345678901234567890123456789012345',
+                'SICCode': '12345678901234567890123456789012345678901234567890123456789012345',
+                'Company': company
             });
 
             var errors = view.validate();
 
             expect(errors).not.toBeFalsy();
-            expect(errors.length).toEqual(2);
+            expect(errors.length).toEqual(5);
             expect(errors).toContainError({
                 'name': 'Title',
                 'message': "The field 'title' value exceeds the allowed limit in length."
@@ -85,6 +95,18 @@ describe("Lead", function() {
             expect(errors).toContainError({
                 'name': 'Industry',
                 'message': "The field 'industry' value exceeds the allowed limit in length."
+            });
+            expect(errors).toContainError({
+                'name': 'Interests',
+                'message': "The field 'interests' value exceeds the allowed limit in length."
+            });
+            expect(errors).toContainError({
+                'name': 'SICCode',
+                'message': "The field 'sic code' value exceeds the allowed limit in length."
+            });
+            expect(errors).toContainError({
+                'name': 'Company',
+                'message': "The field 'company' value exceeds the allowed limit in length."
             });
         });
     });
