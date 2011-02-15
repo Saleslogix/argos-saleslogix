@@ -64,13 +64,20 @@ describe("Opportunity", function() {
 
         /// #1-79307
         it("must validate opportunity text for 64 char length", function() {
-            var description = view.fields['Description'];
+            var description = view.fields['Description'],
+                type = view.fields['Type'];
 
             description.setValue('new opportunity');
             expect(description.validate()).toBeFalsy();
 
             description.setValue('12345678901234567890123456789012345678901234567890123456789012345');
             expect(description.validate()).not.toBeFalsy();
+
+            type.setValue('prospect');
+            expect(type.validate()).toBeFalsy();
+
+            type.setValue('12345678901234567890123456789012345678901234567890123456789012345');
+            expect(type.validate()).not.toBeFalsy();
         });
    });
 });
