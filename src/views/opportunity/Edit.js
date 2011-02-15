@@ -162,7 +162,9 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     name: 'Type',
                     picklist: 'Opportunity Type',
                     title: 'Opportunity Type',
-                    type: 'picklist'
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.statusText,
