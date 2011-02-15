@@ -55,7 +55,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         icon: 'content/images/icons/journal_24.png',
         id: 'history_related',
         insertView: 'history_edit',
-        queryOrderBy: 'StartDate desc',
+        queryOrderBy: 'CompletedDate desc',
         querySelect: [
             'AccountName',
             'ContactName',
