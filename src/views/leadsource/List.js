@@ -28,7 +28,7 @@ Ext.namespace("Mobile.SalesLogix.LeadSource");
         resourceKind: 'leadsources',
 
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "%{0}%"', query.toUpperCase());
+            return String.format('upper(Description) like "{0}%"', query.toUpperCase());
         }
     });
 })();
