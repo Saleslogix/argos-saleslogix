@@ -316,7 +316,7 @@
         }]
 	}],
 	resources: [{
-		src: '../content/',
+		src: '../content',
 		dest: 'content',
 		filters: ".*(\\.css|\\.jpg|\\.png|\\.gif)"
 	},{
