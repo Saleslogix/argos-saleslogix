@@ -56,7 +56,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         resourceKind: 'opportunities',
 
         formatSearchQuery: function(query) {
-            return String.format('(upper(Description) like "%{0}%" or Account.AccountNameUpper like "%{0}%")', query.toUpperCase());
+            return String.format('(upper(Description) like "{0}%" or Account.AccountNameUpper like "{0}%")', query.toUpperCase());
 
             // todo: The below does not currently work as the dynamic SData adapter does not support dotted notation for queries
             //       except in certain situations.  Support for general dotted notation is being worked on.
