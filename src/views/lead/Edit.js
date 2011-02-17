@@ -81,7 +81,9 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {
                     label: this.webText,
                     name: 'WebAddress',
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 128,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.workText,

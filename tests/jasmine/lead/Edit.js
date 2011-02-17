@@ -109,5 +109,26 @@ describe("Lead", function() {
                 'message': "The field 'company' value exceeds the allowed limit in length."
             });
         });
+
+        /// #1-79359
+        it("must validate web field's text for 128 char length", function() {
+            var web = view.fields['WebAddress'],
+                url = (function(){
+                    var str = [];
+                    for (var i=0; i<129; i++)
+                        str[i] = 'a';
+                    return str.join('');
+                })(),
+                errors;
+
+            web.setValue('www.charlength128.com');
+            errors = web.validate();
+            expect(errors).toBeFalsy();
+
+            web.setValue(url);
+            errors = web.validate();
+            expect(errors).not.toBeFalsy();
+            expect(errors).toEqual("The field 'web' value exceeds the allowed limit in length.");
+        });
     });
 });

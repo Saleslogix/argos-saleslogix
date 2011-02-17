@@ -176,7 +176,9 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 {
                     name: 'WebAddress',
                     label: this.webText,
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 128,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'WorkPhone',
