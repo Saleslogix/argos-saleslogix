@@ -67,17 +67,23 @@ Ext.namespace("Mobile.SalesLogix.Address");
                 {
                     name: 'Address1',
                     label: this.address1Text,
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'Address2',
                     label: this.address2Text,
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'Address3',
                     label: this.address3Text,
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.cityText,
@@ -85,7 +91,9 @@ Ext.namespace("Mobile.SalesLogix.Address");
                     picklist: 'City',
                     requireSelection: false,
                     title: this.cityTitleText,
-                    type: 'picklist'
+                    type: 'picklist',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.stateText,
@@ -93,12 +101,16 @@ Ext.namespace("Mobile.SalesLogix.Address");
                     picklist: 'State',
                     requireSelection: false,
                     title: this.stateTitleText,
-                    type: 'picklist'
+                    type: 'picklist',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'PostalCode',
                     label: this.postalCodeText,
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 24,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.countryText,
@@ -106,12 +118,16 @@ Ext.namespace("Mobile.SalesLogix.Address");
                     picklist: 'Country',
                     requireSelection: false,
                     title: this.countryTitleText,
-                    type: 'picklist'
+                    type: 'picklist',
+                    maxTextLength: 32,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'Salutation',
                     label: this.salutationText,
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 64,
+                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 }
             ]);
         }

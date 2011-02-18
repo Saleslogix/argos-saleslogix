@@ -89,5 +89,108 @@ describe("Address", function() {
             });
         });
 
+        /// Defects: #1-79329
+        it("must validate 'address 1' field for maximum input of 64 chars", function() {
+            var view = App.getView('address_edit');
+
+            view.fields['Address1'].setValue('12345678901234567890123456789012345678901234567890123456789012345');
+            errors = view.validate();
+            expect(errors).not.toBeFalsy();
+            expect(errors).toContainError({
+                'name': 'Address1',
+                'message': "The field 'address 1' value exceeds the allowed limit in length."
+            });
+        });
+
+        /// Defects: #1-79329
+        it("must validate 'address 2' field for maximum input of 64 chars", function() {
+            var view = App.getView('address_edit');
+
+            view.fields['Address2'].setValue('12345678901234567890123456789012345678901234567890123456789012345');
+            errors = view.validate();
+            expect(errors).not.toBeFalsy();
+            expect(errors).toContainError({
+                'name': 'Address2',
+                'message': "The field 'address 2' value exceeds the allowed limit in length."
+            });
+        });
+
+        /// Defects: #1-79329
+        it("must validate 'address 3' field for maximum input of 64 chars", function() {
+            var view = App.getView('address_edit');
+
+            view.fields['Address3'].setValue('12345678901234567890123456789012345678901234567890123456789012345');
+            errors = view.validate();
+            expect(errors).not.toBeFalsy();
+            expect(errors).toContainError({
+                'name': 'Address3',
+                'message': "The field 'address 3' value exceeds the allowed limit in length."
+            });
+        });
+
+        /// Defects: #1-79329
+        it("must validate 'attention' field for maximum input of 64 chars", function() {
+            var view = App.getView('address_edit');
+
+            view.fields['Salutation'].setValue('12345678901234567890123456789012345678901234567890123456789012345');
+            errors = view.validate();
+            expect(errors).not.toBeFalsy();
+            expect(errors).toContainError({
+                'name': 'Salutation',
+                'message': "The field 'attention' value exceeds the allowed limit in length."
+            });
+        });
+
+        /// Defects: #1-79329
+        it("must validate 'city' field for maximum input of 32 chars", function() {
+            var view = App.getView('address_edit');
+
+            view.fields['City'].setValue('123456789012345678901234567890123');
+            errors = view.validate();
+            expect(errors).not.toBeFalsy();
+            expect(errors).toContainError({
+                'name': 'City',
+                'message': "The field 'city' value exceeds the allowed limit in length."
+            });
+        });
+
+        /// Defects: #1-79329
+        it("must validate 'state' field for maximum input of 32 chars", function() {
+            var view = App.getView('address_edit');
+
+            view.fields['State'].setValue('123456789012345678901234567890123');
+            errors = view.validate();
+            expect(errors).not.toBeFalsy();
+            expect(errors).toContainError({
+                'name': 'State',
+                'message': "The field 'state' value exceeds the allowed limit in length."
+            });
+        });
+
+        /// Defects: #1-79329
+        it("must validate 'country' field  for maximum input of 32 chars", function() {
+            var view = App.getView('address_edit');
+
+            view.fields['Country'].setValue('123456789012345678901234567890123');
+            errors = view.validate();
+            expect(errors).not.toBeFalsy();
+            expect(errors).toContainError({
+                'name': 'Country',
+                'message': "The field 'country' value exceeds the allowed limit in length."
+            });
+        });
+
+        /// Defects: #1-79329
+        it("must validate 'postal' field  for maximum input of 24 chars", function() {
+            var view = App.getView('address_edit');
+
+            view.fields['PostalCode'].setValue('123456789012345678901234567890123');
+            errors = view.validate();
+            expect(errors).not.toBeFalsy();
+            expect(errors).toContainError({
+                'name': 'PostalCode',
+                'message': "The field 'postal' value exceeds the allowed limit in length."
+            });
+        });
     });
 });
