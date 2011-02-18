@@ -25,7 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         icon: 'content/images/icons/Company_24.png',
         id: 'account_list',
         insertView: 'account_edit',
-        queryOrderBy: 'AccountName',
+        queryOrderBy: 'AccountNameUpper',
         querySelect: [
             'AccountName',
             'AccountManager/UserInfo/UserName'

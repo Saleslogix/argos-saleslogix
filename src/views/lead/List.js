@@ -25,7 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         icon: 'content/images/icons/Leads_24x24.png',
         id: 'lead_list',
         insertView: 'lead_edit',
-        queryOrderBy: 'LeadNameLastFirst',
+        queryOrderBy: 'LastNameUpper,FirstName',
         querySelect: [
             'Company',
             'LeadNameLastFirst'
@@ -33,7 +33,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         resourceKind: 'leads',
 
         formatSearchQuery: function(query) {
-            return String.format('(LastNameUpper like "{0}%" or CompanyUpper like "{0}%" or upper(FirstName) like "{0}%")', query.toUpperCase());
+            return String.format('(LastNameUpper like "{0}%" or upper(FirstName) like "{0}%" or CompanyUpper like "{0}%")', query.toUpperCase());
         }
     });
 })();

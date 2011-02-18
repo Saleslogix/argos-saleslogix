@@ -25,7 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         icon: 'content/images/icons/Contacts_24x24.png',
         id: 'contact_list',
         insertView: 'contact_edit',
-        queryOrderBy: 'LastName,FirstName',
+        queryOrderBy: 'LastNameUpper,FirstName',
         querySelect: [
             'AccountName',
             'NameLF'
