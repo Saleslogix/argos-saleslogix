@@ -1,4 +1,4 @@
-# Visual Studio
+# visual studio
 *.obj
 *.exe
 *.pdb
@@ -26,14 +26,18 @@ obj/
 [Dd]ebug*/
 [Rr]elease*/
 
-#Tooling
+# tooling
 _ReSharper*/
 *.resharper.user
 [Tt]est[Rr]esult*
+.idea/
 
-#OS junk files
+# os junk files
 Thumbs.db
 *.DS_Store
 
+# build output
 deploy/
-.idea/
+
+# module development shells
+index-dev-*.html
