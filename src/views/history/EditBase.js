@@ -151,14 +151,18 @@ Ext.namespace("Mobile.SalesLogix.History");
                             name: 'CompletedDate',
                             type: 'date',
                             showTimePicker: true,
-                            formatString: 'M/d/yyyy h:mm tt'
+                            formatString: 'M/d/yyyy h:mm tt',
+                            minValue: Date.parse("01 Jan 1900"),
+                            validator: Mobile.SalesLogix.Validator.isDateInRange
                         },
                         {
                             label: this.scheduledText,
                             name: 'StartDate',
                             type: 'date',
                             showTimePicker: true,
-                            formatString: 'M/d/yyyy h:mm tt'
+                            formatString: 'M/d/yyyy h:mm tt',
+                            minValue: Date.parse("01 Jan 1900"),
+                            validator: Mobile.SalesLogix.Validator.isDateInRange
                         },
                         {
                             label: this.timelessText,

@@ -28,5 +28,28 @@ describe("History", function() {
             category.setValue('12345678901234567890123456789012345678901234567890123456789012345');
             expect(category.validate()).not.toBeFalsy();
         });
+
+        it("must check date field's value is after 01 Jan, 1900", function() {
+            var startDateFld = view.fields['StartDate'],
+                completedDateFld = view.fields['CompletedDate'],
+                date1 = new Date(),
+                date2 = new Date();
+            
+            date1.setYear(1900);
+            date1.setMonth(0);
+            date1.setDate(1);
+            startDateFld.setValue(date1);
+            expect(startDateFld.validate()).toBeFalsy();
+            completedDateFld.setValue(date1);
+            expect(completedDateFld.validate()).toBeFalsy();
+
+            date2.setYear(1899);
+            date2.setMonth(11);
+            date2.setDate(31);
+            startDateFld.setValue(date2);
+            expect(startDateFld.validate()).not.toBeFalsy();
+            completedDateFld.setValue(date2);
+            expect(completedDateFld.validate()).not.toBeFalsy();
+        });   
     });
 });

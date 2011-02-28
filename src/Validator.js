@@ -57,6 +57,19 @@ Mobile.SalesLogix.Validator = (function() {
             },
             message: "The field '{2}' value exceeds the allowed limit in length."
         },
+        isDateInRange: {
+            fn: function(value, field) {
+                var minValue = field.minValue,
+                    maxValue = field.maxValue;
+                //If value is empty, ignore comparison
+                if (!value) return false;
+
+                if (minValue && value instanceof Date && value.compareTo(minValue) === 1) return false;
+                if (maxValue && value instanceof Date && value.compareTo(maxValue) === -1) return false;
+                return true;
+            },
+            message: "The field '{2}' value is out of allowed date range."
+        },
         isPhoneNumber: { /* todo: remove, depreciated */ }
     };
 })();    

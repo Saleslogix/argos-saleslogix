@@ -267,7 +267,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     type: 'date',
                     showTimePicker: true,
                     formatString: 'M/d/yyyy h:mm tt',
-                    validator: Mobile.SalesLogix.Validator.exists
+                    minValue: Date.parse("01 Jan 1900"),
+                    validator: [
+                        Mobile.SalesLogix.Validator.exists,
+                        Mobile.SalesLogix.Validator.isDateInRange
+                    ]
                 },
                 {
                     label: this.timelessText,
