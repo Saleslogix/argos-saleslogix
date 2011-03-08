@@ -19,6 +19,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'atLiterature': 'Literature Request',
             'atPersonal': 'Personal Activity'
         },
+        actionsText: 'Quick Actions',
+        completeActivityText: 'Complete',
         alarmText: 'reminder',
         alarmTimeText: 'reminder',
         categoryText: 'category',
@@ -65,6 +67,19 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
+        },
+        completeActivity: function() {
+            var view = App.getView(this.completeView);
+            if (view)
+            {
+                this.refreshRequired = true;
+
+                view.show({
+                    title: 'Activity Complete',
+                    template: {},
+                    entry: this.entry
+                });
+            }
         },
         init: function() {
             Mobile.SalesLogix.Activity.DetailBase.superclass.init.apply(this, arguments);
@@ -120,8 +135,19 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             if (entry && entry['UserId']) this.requestLeader(entry['UserId']);
         },        
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
+            return this.layout || (this.layout = [{
+                options: {
+                    list: true,
+                    title: this.actionsText,
+                    cls: 'action-list'
+                },
+                as: [{
+                    name: 'Description',
+                    label: this.completeActivityText,
+                    icon: 'content/images/icons/Dial_24x24.png',
+                    action: 'completeActivity'
+                }]
+            },{
                     name: 'Type',
                     label: this.typeText,
                     renderer: this.formatActivityType.createDelegate(this)
@@ -147,7 +173,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },
                 {
                     name: 'Timeless',
-                    label: this.timelessText
+                    label: this.timelessText,
+                    type: 'boolean'
                 },
                 {
                     name: 'Duration',

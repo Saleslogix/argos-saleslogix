@@ -17,6 +17,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         //View Properties
         editView: 'activity_edit',
         id: 'activity_detail',
+        completeView: 'activity_complete',
 
         createLayout: function() {
             var base = Mobile.SalesLogix.Activity.Detail.superclass.createLayout;

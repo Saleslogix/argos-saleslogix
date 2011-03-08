@@ -123,6 +123,18 @@
             path: '../src/views/activity/'
         },
         {
+            text: 'CompleteBase.js',
+            path: '../src/views/activity/'
+        },
+        {
+            text: 'Complete.js',
+            path: '../src/views/activity/'
+        },
+        {
+            text: 'CompleteForLead.js',
+            path: '../src/views/activity/'
+        },
+        {
             text: 'List.js',
             path: '../src/views/activity/'
         },
