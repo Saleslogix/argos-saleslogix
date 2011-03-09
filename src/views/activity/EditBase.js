@@ -267,7 +267,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     type: 'date',
                     showTimePicker: true,
                     formatString: 'M/d/yyyy h:mm tt',
-                    minValue: Date.parse("01 Jan 1900"),
+                    minValue: (new Date(1900, 0, 1)),
                     validator: [
                         Mobile.SalesLogix.Validator.exists,
                         Mobile.SalesLogix.Validator.isDateInRange

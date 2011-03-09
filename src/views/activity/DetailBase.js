@@ -20,7 +20,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'atPersonal': 'Personal Activity'
         },
         actionsText: 'Quick Actions',
-        completeActivityText: 'Complete',
+        completeActivityText: 'Complete Activity',
         alarmText: 'reminder',
         alarmTimeText: 'reminder',
         categoryText: 'category',
@@ -78,6 +78,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     title: 'Activity Complete',
                     template: {},
                     entry: this.entry
+                }, {
+                    returnTo: -1
                 });
             }
         },

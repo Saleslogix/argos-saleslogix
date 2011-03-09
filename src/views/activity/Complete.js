@@ -17,7 +17,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         //View Properties
         id: 'activity_complete',
-        followupView: 'activity_edit',
+        followupView: 'activity_followup_edit',
        
         formatDependentQuery: function(dependentValue, format, property) {
             var getV = Sage.Platform.Mobile.Utility.getValue;

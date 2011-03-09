@@ -89,15 +89,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         applyContext: function() {
             Mobile.SalesLogix.Activity.Edit.superclass.applyContext.apply(this, arguments);
 
-            //If immediate parent context is from complete activity, then this is a follow up and no conext needs to be applied. 
-            var followUpContext = App.queryNavigationContext(function(o) {
-                var context = (o.options && o.options.source) || o;
-
-                return (/^(activity_complete)$/.test(context.id));
-            }, 1);
-
-            if (followUpContext) return;
-
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
 

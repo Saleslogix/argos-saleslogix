@@ -42,9 +42,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         },
         followupValueText: {
             'none': 'None',
-            'phone call': 'Phone Call',
-            'meeting': 'Meeting',
-            'to-do': 'To-Do'
+            'atPhoneCall': 'Phone Call',
+            'atAppointment': 'Meeting',
+            'atToDo': 'To-Do'
         },
 
         //View Properties
@@ -119,8 +119,17 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
         },
-        onAsScheduledChange: function(value, field) {
-            this.toggleSelectField(this.fields['CompletedDate'], value);
+        onAsScheduledChange: function(scheduled, field) {
+            if (scheduled)
+            {
+                this.toggleSelectField(this.fields['CompletedDate'], true);
+                this.fields['CompletedDate'].setValue(this.fields['StartDate'].getValue());
+            }
+            else
+            {
+                this.toggleSelectField(this.fields['CompletedDate'], false);
+                this.fields['CompletedDate'].setValue(new Date());
+            }
         },
         onFollowupChange: function(value, field) {
             var disable = (value === 'none' || (value && value.key === 'none'));
@@ -135,14 +144,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Followup'].setValue('none');
             this.fields['Result'].setValue('Complete');
 
-            this.onFollowupChange('none', this.fields['Followup']);
-            this.onAsScheduledChange(false, this.fields['AsScheduled']);
-        },
-        getValues: function() {
-            var values = Mobile.SalesLogix.Activity.CompleteBase.superclass.getValues.apply(this, arguments);
-            if (!this.fields['AsScheduled'].getValue()) delete values['CompletedDate'];
-            
-            return values;
+            this.toggleSelectField(this.fields['CarryOverNotes'], true);
+            this.toggleSelectField(this.fields['CompletedDate'], false);
         },
         onLeaderChange: function(value, field) {
             this.fields['UserId'].setValue(value && value['key']);
@@ -180,24 +183,38 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             return {'$resources': list};
         },
         updateCompleted: function(entry) {
-            var followup = this.fields['Followup'].getValue();
+            var view = App.getView(this.followupView),
+                followup = this.fields['Followup'].getValue(),
+                followupEntry = {
+                    'Type': followup,
+                    'Description': entry.$descriptor,
+                    'AccountId': entry.AccountId,
+                    'AccountName': entry.AccountName,
+                    'ContactId': entry.ContactId,
+                    'ContactName': entry.ContactName,
+                    'LeadId': entry.LeadId,
+                    'LeadName': entry.LeadName,
+                    'LongNotes': ((this.fields['CarryOverNotes'].getValue() && entry['LongNotes']) || ''),
+                    'OpportunityId': entry.OpportunityId,
+                    'OpportunityName': entry.OpportunityName,
+                    'TicketId': entry.TicketId,
+                    'TicketNumber': entry.TicketNumber
+                };
 
-            if (followup === 'none' || (followup && followup.key === 'none'))
+            if (followup === 'none')
             {
                 Mobile.SalesLogix.Activity.CompleteBase.superclass.updateCompleted.apply(this, arguments);
                 App.getView('activity_related').show();
                 return;
             }
 
-            var view = App.getView(this.followupView);
-
-            entry['Description'] = entry.$descriptor;
-            entry['LongNotes'] = this.fields['CarryOverNotes'].getValue() && entry['LongNotes'];
-
+            //Return to activity list view after follow up.
             if (view)
                 view.show({
-                    entry: entry,
+                    entry: followupEntry,
                     insert: true
+                }, {
+                    returnTo: -1
                 });
             else
                 Mobile.SalesLogix.Activity.CompleteBase.superclass.updateCompleted.apply(this, arguments);
@@ -233,7 +250,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                             type: 'date',
                             showTimePicker: true,
                             formatString: 'M/d/yyyy h:mm tt',
-                            minValue: Date.parse("01 Jan 1900"),
+                            minValue: (new Date(1900, 0, 1)),
                             validator: [
                                 Mobile.SalesLogix.Validator.exists,
                                 Mobile.SalesLogix.Validator.isDateInRange

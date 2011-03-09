@@ -17,7 +17,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
         //View Properties
         id: 'activity_complete_for_lead',
-        followupView: 'activity_edit_for_lead',
+        followupView: 'activity_followup_edit_for_lead',
        
         createLayout: function() {
             var layout = Mobile.SalesLogix.Activity.CompleteForLead.superclass.createLayout.apply(this, arguments),
