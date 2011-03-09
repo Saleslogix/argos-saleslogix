@@ -152,7 +152,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                             type: 'date',
                             showTimePicker: true,
                             formatString: 'M/d/yyyy h:mm tt',
-                            minValue: Date.parse("01 Jan 1900"),
+                            minValue: (new Date(1900, 0, 1)),
                             validator: Mobile.SalesLogix.Validator.isDateInRange
                         },
                         {
@@ -161,7 +161,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                             type: 'date',
                             showTimePicker: true,
                             formatString: 'M/d/yyyy h:mm tt',
-                            minValue: Date.parse("01 Jan 1900"),
+                            minValue: (new Date(1900, 0, 1)),
                             validator: Mobile.SalesLogix.Validator.isDateInRange
                         },
                         {
