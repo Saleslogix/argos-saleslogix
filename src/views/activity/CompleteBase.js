@@ -204,7 +204,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             if (followup === 'none')
             {
                 Mobile.SalesLogix.Activity.CompleteBase.superclass.updateCompleted.apply(this, arguments);
-                App.getView('activity_related').show();
                 return;
             }
 
