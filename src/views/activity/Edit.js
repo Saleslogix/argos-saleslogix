@@ -109,6 +109,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry);
             
+            if (!entry['$key']) return;
+
             this.fields['Account'].setValue({
                 'AccountId': entry['$key'],
                 'AccountName': entry['$descriptor']
@@ -119,6 +121,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 entry = context.entry || (view && view.entry),
                 getV = Sage.Platform.Mobile.Utility.getValue;
             
+            if (!entry['$key']) return;
+
             this.fields['Contact'].setValue({
                 'ContactId': entry['$key'],
                 'ContactName': entry['$descriptor']
@@ -133,6 +137,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry),
                 getV = Sage.Platform.Mobile.Utility.getValue;
+
+            if (!entry['$key']) return;
 
             this.fields['Ticket'].setValue({
                 'TicketId': entry['$key'],
@@ -153,6 +159,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry),
                 getV = Sage.Platform.Mobile.Utility.getValue;
+
+            if (!entry['$key']) return;
 
             this.fields['Opportunity'].setValue({
                 'OpportunityId': entry['$key'],
