@@ -135,14 +135,6 @@
             path: '../src/views/activity/'
         },
         {
-            text: 'Followup.js',
-            path: '../src/views/activity/'
-        },
-        {
-            text: 'FollowupForLead.js',
-            path: '../src/views/activity/'
-        },
-        {
             text: 'List.js',
             path: '../src/views/activity/'
         },

@@ -256,11 +256,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                             ]
                         },
                         {
-                            label: this.timelessText,
-                            name: 'Timeless',
-                            type: 'boolean'
-                        },
-                        {
                             label: this.durationText,
                             name: 'Duration',
                             type: 'select',
@@ -277,6 +272,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                                 },
                                 message: "The field '{2}' must have a value."
                             }
+                        },
+                        {
+                            label: this.timelessText,
+                            name: 'Timeless',
+                            type: 'boolean'
                         }
                     ]
                 },
