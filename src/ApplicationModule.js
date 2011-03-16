@@ -29,6 +29,8 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
             expose: false
         }));
 
+        this.registerView(new Mobile.SalesLogix.Calendar.UserActivityList());
+
         this.registerView(new Mobile.SalesLogix.Campaign.List({
             expose: false
         }));

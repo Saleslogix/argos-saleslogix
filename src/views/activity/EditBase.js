@@ -121,6 +121,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
+        applyUserActivityContext: function(context) {
+            var view = App.getView(context.id);
+
+            this.fields['StartDate'].setValue(view.currentDate);
+        },
         applyContext: function() {
             Mobile.SalesLogix.Activity.EditBase.superclass.applyContext.apply(this, arguments);
 
@@ -132,7 +137,17 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 'minutes': (Math.floor(startMinutes / 15) * 15) + 15
             });
 
-            this.fields['StartDate'].setValue(startDate);
+            var userActivityContext = App.queryNavigationContext(function(o) {
+                var context = (o.options && o.options.source) || o;
+
+                return /^(useractivities)$/.test(context.resourceKind);
+            });
+
+            if (userActivityContext)
+                this.applyUserActivityContext.call(this, userActivityContext);
+            else
+                this.fields['StartDate'].setValue(startDate);
+
             this.fields['Reminder'].setValue(15);
 
             this.fields['Type'].setValue(this.options && this.options.activityType);

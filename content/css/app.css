@@ -572,3 +572,107 @@ body.transition > .footer-toolbar
     font-size: .6em;
     color: #888;
 }
+
+#useractivity_list > .nav-bar
+{
+    height: 45px;
+    width: 100%;
+    padding: 4px 4px;
+    display: block;
+    background-color: #FFF;
+}
+
+#useractivity_list > .nav-bar > h3
+{
+    overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    line-height: 34px;
+    font-weight: bold;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: absolute;
+    width: auto;
+    z-index: 10;
+    left: 100px;
+    right: 100px;
+}
+
+#useractivity_list > .nav-bar > .button-prev
+{
+    float: left;
+    margin-right: 10px;
+    z-index: 100;
+}
+
+#useractivity_list > .nav-bar > .button-next
+{
+    float: right;
+    margin-right: 10px;
+    z-index: 100;
+}
+
+.nav-bar > .button-next > span,
+.nav-bar > .button-prev > span
+{
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 4px;
+    width: 24px;
+    height: 24px;
+}
+
+.nav-bar > .button-next > span
+{
+    background-image: url(../images/icons/Browse_Next_24.png);
+}
+
+.nav-bar > .button-prev > span
+{
+    background-image: url(../images/icons/Browse_Previous_24.png);
+}
+
+#useractivity_list .split-buttons
+{
+    line-height: 34px;
+    background-color: #FFF;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#useractivity_list .split-buttons > .button
+{
+    display: inline-block;
+    margin: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#useractivity_list .split-buttons > .button:first-child
+{
+    margin-left: 2px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+#useractivity_list .split-buttons > .button:last-child
+{
+    margin-right: 2px;
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
