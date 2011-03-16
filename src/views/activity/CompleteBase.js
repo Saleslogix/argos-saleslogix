@@ -87,6 +87,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'Category',
             'ContactId',
             'ContactName',
+            'Description',
             'Duration',
             'LeadId',
             'LeadName',
@@ -187,7 +188,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 followup = this.fields['Followup'].getValue(),
                 followupEntry = {
                     'Type': followup,
-                    'Description': entry.$descriptor,
+                    'Description': entry.Description,
                     'AccountId': entry.AccountId,
                     'AccountName': entry.AccountName,
                     'ContactId': entry.ContactId,

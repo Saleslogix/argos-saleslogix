@@ -67,6 +67,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 entry = context.entry || (view && view.entry),
                 getV = Sage.Platform.Mobile.Utility.getValue;
             
+            if (!entry || !entry['$key']) return;
+
             this.fields['Lead'].setValue({
                 'LeadId': entry['$key'],
                 'LeadName': entry['$descriptor']

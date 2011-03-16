@@ -146,7 +146,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 as: [{
                     name: 'Description',
                     label: this.completeActivityText,
-                    icon: 'content/images/icons/Dial_24x24.png',
+                    icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeActivity'
                 }]
             },{

@@ -81,6 +81,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'Category',
             'ContactId',
             'ContactName',
+            'Description',
             'Duration',
             'LeadId',
             'LeadName',
