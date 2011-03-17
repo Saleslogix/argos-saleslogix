@@ -39,7 +39,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '{%! $.searchTemplate %}',
             '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
             '<div class="split-buttons">',
-            '<button data-tool="today" data-action="getTodayActivities" class="button lightGreenButton active">Today</button>',
+            '<button data-tool="today" data-action="getTodayActivities" class="button headerButton active">Today</button>',
             '<button data-tool="day" class="button">Day</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">Month</button>',
             '</div>',
@@ -137,8 +137,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         formatQueryForActivities: function() {
             return String.format(
                 'Activity.StartDate between @{0}@ and @{1}@',
-                this.currentDate.toString('yyyy-MM-ddT00:00:00'),
-                this.currentDate.clone().add({day: 1}).toString('yyyy-MM-ddT00:00:00')
+                this.currentDate.toString('yyyy-MM-dd 00:00:00'),
+                this.currentDate.toString('yyyy-MM-dd 23:59:59')
             );
         },
         setOptions: function() {
@@ -148,13 +148,19 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         setSplitButtonStatus: function() {
             [this.todayButton, this.dayButton, this.monthButton].forEach(function(el){
-                el.removeClass(['active', 'lightGreenButton']);
+                el.addClass(['headerButton']);
             });
 
             if (this.currentDate.equals(Date.today()))
-                this.todayButton.addClass(['active', 'lightGreenButton']);
+            {
+                this.dayButton.removeClass(['headerButton']);
+                this.monthButton.removeClass(['headerButton']);
+            }
             else
-                this.dayButton.addClass(['active', 'lightGreenButton']);
+            {
+                this.todayButton.removeClass(['headerButton']);
+                this.monthButton.removeClass(['headerButton']);
+            }
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
