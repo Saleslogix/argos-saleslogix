@@ -23,7 +23,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
             '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
             '</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "ddd M/d/yy") %} - {%= $$.nameTemplate.apply($) %}</h4>'
+            '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.Activity.ContactName) { %}',
@@ -63,7 +63,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         detailView: 'activity_detail',
         detailViewForLead: 'activity_detail_for_lead',
         insertView: 'activity_types_list',
-        queryOrderBy: 'Activity.StartDate desc',
+        queryOrderBy: 'Activity.StartDate',
         querySelect: [
             'Activity/Description',
             'Activity/StartDate',
@@ -126,8 +126,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         formatQueryForActivities: function() {
             return String.format(
                 'Activity.StartDate between @{0}@ and @{1}@',
-                this.currentDate.clone().add({day: -1}).toString('yyyy-MM-dd'),
-                this.currentDate.clone().add({day: 1}).toString('yyyy-MM-dd')
+                this.currentDate.toString('yyyy-MM-ddT00:00:00'),
+                this.currentDate.clone().add({day: 1}).toString('yyyy-MM-ddT00:00:00')
             );
         },
         setOptions: function() {

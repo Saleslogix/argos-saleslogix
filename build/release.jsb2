@@ -143,6 +143,10 @@
             path: '../src/views/activity/'
         },
         {
+            text: 'UserActivityList.js',
+            path: '../src/views/calendar/'
+        },
+        {
             text: 'Edit.js',
             path: '../src/views/address/'
         },
