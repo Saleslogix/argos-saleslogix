@@ -87,6 +87,17 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.init.apply(this, arguments);
         },
+        initEvents: function() {
+            Mobile.SalesLogix.Calendar.UserActivityList.superclass.initEvents.apply(this, arguments);
+
+            App.on('refresh', this.refreshOnActivityInsert, this);
+        },
+        refreshOnActivityInsert: function(o) {
+            if (o.resourceKind === 'activities')
+            {
+                this.refreshRequired = true;
+            }
+        },
         show: function(options) {
             if (!options) options = {};
             options['where'] = this.formatQueryForActivities();
@@ -131,6 +142,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             );
         },
         setOptions: function() {
+            if (!this.options) this.options = {};
             this.options['where'] = this.formatQueryForActivities();
             this.setNavBarTitle();
         },
