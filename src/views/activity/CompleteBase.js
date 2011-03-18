@@ -87,6 +87,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'Category',
             'ContactId',
             'ContactName',
+            'CompletedDate',
             'Description',
             'Duration',
             'LeadId',
@@ -96,6 +97,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'OpportunityName',
             'Priority',
             'Regarding',
+            'Result',
             'Rollover',
             'StartDate',
             'TicketId',
@@ -183,11 +185,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             return {'$resources': list};
         },
-        updateCompleted: function(entry) {
-            var view = App.getView(this.followupView),
-                followup = this.fields['Followup'].getValue(),
+        navigateToFollowUpView: function(entry) {
+            var view = App.getView(this.followupView)
                 followupEntry = {
-                    'Type': followup,
+                    'Type': this.fields['Followup'].getValue(),
                     'Description': entry.Description,
                     'AccountId': entry.AccountId,
                     'AccountName': entry.AccountName,
@@ -202,22 +203,47 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     'TicketNumber': entry.TicketNumber
                 };
 
-            if (followup === 'none')
-            {
-                Mobile.SalesLogix.Activity.CompleteBase.superclass.updateCompleted.apply(this, arguments);
-                return;
-            }
-
             //Return to activity list view after follow up.
-            if (view)
-                view.show({
-                    entry: followupEntry,
-                    insert: true
-                }, {
-                    returnTo: -1
-                });
-            else
-                Mobile.SalesLogix.Activity.CompleteBase.superclass.updateCompleted.apply(this, arguments);
+            view.show({
+                entry: followupEntry,
+                insert: true
+            }, {
+                returnTo: -1
+            });
+        },
+        completeActivity: function(entry, callback) {
+            var completeActivityentry = {
+                "$name": "ActivityComplete",
+                "request": {
+                    "ActivityId": entry.$key,
+                    "userId": entry.UserId,
+                    "result": this.fields['Result'].getValue(),
+                    "completeDate":  this.fields['CompletedDate'].getValue()
+                }
+            };
+
+            var successFn = (function(scope, callback, entry) {
+                return function() {
+                    callback.apply(scope, [entry]);
+                };
+            })(this, callback, entry);
+
+            var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
+                .setResourceKind('activities')
+                .setOperationName('Complete');
+
+            request.execute(completeActivityentry, {
+                success: successFn,
+                failure: function() {},
+                scope: this
+            });
+        },
+        updateCompleted: function(entry) {
+            var followup = this.fields['Followup'].getValue() !== 'none'
+                    ? this.navigateToFollowUpView
+                    : Mobile.SalesLogix.Activity.CompleteBase.superclass.updateCompleted;
+
+            this.completeActivity(entry, followup);
         },
         createLayout: function() {
             return this.layout || (this.layout = [
