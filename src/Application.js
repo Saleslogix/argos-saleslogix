@@ -247,7 +247,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             'contact_list',
             'lead_list',
             'opportunity_list',
-            'ticket_list'
+            'ticket_list',
+            'useractivity_list'
         ];
     },
     getExposedViews: function() {
