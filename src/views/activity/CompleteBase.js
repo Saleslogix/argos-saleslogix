@@ -143,6 +143,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         },
         setValues: function(values) {
             Mobile.SalesLogix.Activity.CompleteBase.superclass.setValues.apply(this, arguments);
+            this.fields['CarryOverNotes'].setValue(true);
             this.fields['CompletedDate'].setValue(new Date());
             this.fields['Followup'].setValue('none');
             this.fields['Result'].setValue('Complete');
