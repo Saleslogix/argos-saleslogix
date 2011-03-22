@@ -8,7 +8,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
 (function() {    
     Mobile.SalesLogix.Calendar.UserActivityList = Ext.extend(Sage.Platform.Mobile.List, {
-        currentDate: Date.today(),
+        currentDate: (new Date()),
         
         //Templates
         itemTemplate: new Simplate([
