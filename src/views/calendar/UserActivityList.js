@@ -17,10 +17,17 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '{%! $$.contentTemplate %}',
             '</li>'
         ]),
-        contentTemplate: new Simplate([
-            '<h3>',
+        activityTimeTemplate: new Simplate([
+            '{% if ($.Activity.Timeless) { %}',
+            '<span class="p-meridiem">Timeless</span>',
+            '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "h:mm") %}</span>',
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
+            '{% } %}'
+        ]),
+        contentTemplate: new Simplate([
+            '<h3>',
+            '{%= $$.activityTimeTemplate.apply($) %}',
             '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
             '</h3>',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
@@ -63,7 +70,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         detailView: 'activity_detail',
         detailViewForLead: 'activity_detail_for_lead',
         insertView: 'activity_types_list',
-        queryOrderBy: 'Activity.StartDate',
+        queryOrderBy: 'Activity.Timeless desc, Activity.StartDate',
         querySelect: [
             'Activity/Description',
             'Activity/StartDate',
@@ -72,7 +79,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             'Activity/ContactName',
             'Activity/LeadId',
             'Activity/LeadName',
-            'Activity/UserId'
+            'Activity/UserId',
+            'Activity/Timeless'
         ],
         resourceKind: 'useractivities',
         
