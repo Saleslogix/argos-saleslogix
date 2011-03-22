@@ -207,7 +207,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             //Return to activity list view after follow up.
             view.show({
                 entry: followupEntry,
-                insert: true
+                insert: true,
+                title: this.followupValueText[this.fields['Followup'].getValue()]
             }, {
                 returnTo: -1
             });

@@ -68,6 +68,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
                     insert: true,
                     source: source,
                     activityType: params.key,
+                    title: this.activityTypeText[params.key],
                     returnTo: this.options && this.options.returnTo
                 }, {
                     returnTo: -1
