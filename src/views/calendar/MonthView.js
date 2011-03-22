@@ -50,10 +50,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.showActivityListForDay();
         },
         renderCalendar: function() {
-            Mobile.SalesLogix.Calendar.MonthView.superclass.renderCalendar.apply(this, arguments);
-
             var view = App.getView('useractivity_list'),
                 selectedDate = String.format('.calendar-day[data-date={0}]', view.currentDate.toString('d'));
+
+            this.date = view.currentDate;
+            this.month = view.currentDate.getMonth();
+            this.year = view.currentDate.getFullYear();
+
+            Mobile.SalesLogix.Calendar.MonthView.superclass.renderCalendar.apply(this, arguments);
             
             if (this.selectedDateEl) this.selectedDateEl.removeClass('selected');
             this.selectedDateEl = this.el.child(selectedDate);
