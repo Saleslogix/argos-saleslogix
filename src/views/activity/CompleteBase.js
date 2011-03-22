@@ -397,7 +397,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                                 this, ['Category'], true
                             ),
                             orderBy: 'text asc',
-                            title: this.activityCategoryTitleText,
+                            title: this.categoryTitleText,
                             type: 'picklist',
                             maxTextLength: 64,
                             validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
