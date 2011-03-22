@@ -134,11 +134,29 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         setNavBarTitle: function() {
             this.dateTextEl.update(this.currentDate.toString('dddd, MM/dd/yyyy'));
         },
+        getUTCDateString: function(date) {
+            var pad = function(n) { return n < 10 ? '0' + n : n };
+
+            return String.format('{0}-{1}-{2}T{3}:{4}:{5}',
+                date.getUTCFullYear(),
+                pad(date.getUTCMonth() + 1 ),
+                pad(date.getUTCDate()),
+                pad(date.getUTCHours()),
+                pad(date.getUTCMinutes()),
+                pad(date.getUTCSeconds())
+            );
+        },
         formatQueryForActivities: function() {
+            var qry = 'UserId eq "{0}" and (Activity.StartDate between @{1}@ and @{2}@) '
+                      + 'or (Activity.Timeless eq true and Activity.StartDate between @{3}@ and @{4}@)';
+
             return String.format(
-                'Activity.StartDate between @{0}@ and @{1}@',
-                this.currentDate.toString('yyyy-MM-dd 00:00:00'),
-                this.currentDate.toString('yyyy-MM-dd 23:59:59')
+                qry,
+                App.context.user.$key,
+                this.getUTCDateString(this.currentDate),
+                this.getUTCDateString(this.currentDate.clone().add({day: 1})),
+                this.currentDate.toString('yyyy-MM-ddT00:00:00'),
+                this.currentDate.toString('yyyy-MM-ddT23:59:59')
             );
         },
         setOptions: function() {
