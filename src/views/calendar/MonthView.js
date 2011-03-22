@@ -49,7 +49,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         returnToDayActivities: function() {
             this.showActivityListForDay();
         },
-        show: function() {
+        show: function(options) {
             var view = App.getView('useractivity_list'),
                 selectedDate = String.format('.calendar-day[data-date={0}]', view.currentDate.toString('d'));
 
