@@ -114,16 +114,21 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.show.call(this, options);
         },
         getNextActivities: function() {
+            if (this.el.hasClass('list-loading')) return;
+
             this.currentDate.add({day: 1});
             this.getActivities();
         },
         getTodayActivities: function() {
+            if (this.el.hasClass('list-loading')) return;
             if (this.currentDate.equals(Date.today())) return;
 
             this.currentDate = Date.today();
             this.getActivities();
         },
         getPrevActivities: function() {
+            if (this.el.hasClass('list-loading')) return;
+
             this.currentDate.add({day: -1});
             this.getActivities();
         },
@@ -134,6 +139,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.requestData();
         },
         getActivitiesForDay: function() {
+            if (this.el.hasClass('list-loading')) return;
+
             var view = App.getActiveView();
             this.currentDate = view.getDateTime();
             ReUI.back();
