@@ -636,7 +636,7 @@ body.transition > .footer-toolbar
     background-image: url(../images/icons/Browse_Previous_24.png);
 }
 
-#useractivity_list .split-buttons
+.split-buttons
 {
     line-height: 34px;
     background-color: #FFF;
@@ -644,7 +644,7 @@ body.transition > .footer-toolbar
     margin-top: 5px;
 }
 
-#useractivity_list .split-buttons > .button
+.split-buttons > .button
 {
     display: inline-block;
     margin: 0;
@@ -655,7 +655,7 @@ body.transition > .footer-toolbar
     padding-right: 10px;
 }
 
-#useractivity_list .split-buttons > .button:first-child
+.split-buttons > .button:first-child
 {
     margin-left: 2px;
     -webkit-border-top-left-radius: 3px;
@@ -666,7 +666,7 @@ body.transition > .footer-toolbar
     border-bottom-left-radius: 3px;
 }
 
-#useractivity_list .split-buttons > .button:last-child
+.split-buttons > .button:last-child
 {
     margin-right: 2px;
     -webkit-border-top-right-radius: 3px;

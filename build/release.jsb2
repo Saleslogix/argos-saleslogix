@@ -143,6 +143,10 @@
             path: '../src/views/activity/'
         },
         {
+            text: 'MonthView.js',
+            path: '../src/views/calendar/'
+        },
+        {
             text: 'UserActivityList.js',
             path: '../src/views/calendar/'
         },

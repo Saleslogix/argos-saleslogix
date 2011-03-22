@@ -192,17 +192,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
         navigateToMonthView: function() {
-            var view = App.getView('generic_calendar');
+            var view = App.getView('slx_calendar');
 
             if (view)
             {
                 view.show({
                     tools: {
                         tbar: [{
-                            id: 'complete',
-                            fn: this.getActivitiesForDay,
-                            scope: this
-                        },{
                             id: 'cancel',
                             side: 'left',
                             fn: ReUI.back,
