@@ -594,8 +594,8 @@ body.transition > .footer-toolbar
     position: absolute;
     width: auto;
     z-index: 10;
-    left: 100px;
-    right: 100px;
+    left: 60px;
+    right: 60px;
 }
 
 #useractivity_list > .nav-bar > .button-prev
