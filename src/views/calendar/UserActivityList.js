@@ -162,7 +162,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 qry,
                 App.context.user.$key,
                 this.getUTCDateString(this.currentDate),
-                this.getUTCDateString(this.currentDate.clone().add({day: 1})),
+                this.getUTCDateString(this.currentDate.clone().add({day: 1, second: -1})),
                 this.currentDate.toString('yyyy-MM-ddT00:00:00'),
                 this.currentDate.toString('yyyy-MM-ddT23:59:59')
             );
