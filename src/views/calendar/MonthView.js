@@ -49,19 +49,34 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         returnToDayActivities: function() {
             this.showActivityListForDay();
         },
-        renderCalendar: function() {
+        show: function() {
             var view = App.getView('useractivity_list'),
                 selectedDate = String.format('.calendar-day[data-date={0}]', view.currentDate.toString('d'));
 
-            this.date = view.currentDate;
-            this.month = view.currentDate.getMonth();
-            this.year = view.currentDate.getFullYear();
+            Sage.Platform.Mobile.Calendar.superclass.show.call(this, options);
 
-            Mobile.SalesLogix.Calendar.MonthView.superclass.renderCalendar.apply(this, arguments);
+            this.showTimePicker = this.options && this.options.showTimePicker;
+
+            this.date = view.currentDate || new Date();
+            this.year = this.date.getFullYear();
+            this.month = this.date.getMonth();
+
+            this.hourField.dom.value = this.date.getHours();
+            this.minuteField.dom.value = this.date.getMinutes();
             
-            if (this.selectedDateEl) this.selectedDateEl.removeClass('selected');
-            this.selectedDateEl = this.el.child(selectedDate);
-            this.selectedDateEl.addClass('selected');
+            this.renderCalendar();
+
+            if (this.month === view.currentDate.getMonth() && this.year === view.currentDate.getFullYear())
+            {
+                if (this.selectedDateEl) this.selectedDateEl.removeClass('selected');
+                this.selectedDateEl = this.el.child(selectedDate);
+                this.selectedDateEl.addClass('selected');
+            }
+
+            if (this.showTimePicker)
+                this.timeEl.show();
+            else
+                this.timeEl.hide();
         }
     });
 })();

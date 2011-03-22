@@ -138,14 +138,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.setSplitButtonStatus();
             this.requestData();
         },
-        getActivitiesForDay: function() {
-            if (this.el.hasClass('list-loading')) return;
-
-            var view = App.getActiveView();
-            this.currentDate = view.getDateTime();
-            ReUI.back();
-            this.getActivities();
-        },
         setNavBarTitle: function() {
             this.dateTextEl.update(this.currentDate.toString('dddd, MM/dd/yyyy'));
         },

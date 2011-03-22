@@ -456,30 +456,27 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     visibility: hidden;
 }
 
-.calendar-prev-month > a
+.calendar-prev-month > button
 {
     background-image: url(../images/icons/Browse_Previous_24.png);
     background-repeat: no-repeat;
-    background-position: left center;
-    display: block;
-    height: 30px;
+    background-position: center center;
 }
 
-.calendar-prev-month > a > span
+.calendar-prev-month > button > span
 {
     display: none;
 }
 
-.calendar-next-month > a
+.calendar-next-month > button
 {
     background-image: url(../images/icons/Browse_Next_24.png);
     background-repeat: no-repeat;
-    background-position: right center;
-    display: block;
-    height: 30px;
+    background-position: center center;
+    float: right;
 }
 
-.calendar-next-month > a > span
+.calendar-next-month > button > span
 {
     display: none;
 }
