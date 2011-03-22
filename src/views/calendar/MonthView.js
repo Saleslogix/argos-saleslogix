@@ -53,7 +53,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Mobile.SalesLogix.Calendar.MonthView.superclass.renderCalendar.apply(this, arguments);
 
             var view = App.getView('useractivity_list'),
-                date = view.currentDate.toString('d'),
                 selectedDate = String.format('.calendar-day[data-date={0}]', view.currentDate.toString('d'));
             
             if (this.selectedDateEl) this.selectedDateEl.removeClass('selected');
