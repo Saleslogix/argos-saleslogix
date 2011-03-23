@@ -19,7 +19,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         ]),
         activityTimeTemplate: new Simplate([
             '{% if ($.Activity.Timeless) { %}',
-            '<span class="p-meridiem">Timeless</span>',
+            '<span class="p-meridiem">All-Day</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "h:mm") %}</span>',
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
