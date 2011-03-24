@@ -227,6 +227,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             {
                 Mobile.SalesLogix.Activity.List.superclass.navigateToDetailView.apply(this, [activity.$key, activity.Description]);
             }          
-        },
+        }
     });
 })();

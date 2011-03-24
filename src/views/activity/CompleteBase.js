@@ -116,6 +116,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['AsScheduled'].on('change', this.onAsScheduledChange, this);
             this.fields['Followup'].on('change', this.onFollowupChange, this);
         },
+        beforeTransitionTo: function() {
+            Mobile.SalesLogix.Activity.CompleteBase.superclass.beforeTransitionTo.apply(this, arguments);
+            debugger;
+        },
         toggleSelectField: function(field, disable, options) {
             disable === true ? field.disable() : field.enable();
         },
