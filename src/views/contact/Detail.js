@@ -22,7 +22,6 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         emailText: 'email',
         faxText: 'fax',
         homeText: 'home phone',
-        mobileText: 'mobile',
         nameText: 'contact',
         ownerText: 'owner',
         actionsText: 'Quick Actions',
@@ -36,6 +35,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         titleText: 'Contact',
         webText: 'web',
         workText: 'phone',
+        callMobileNumberText: 'Call mobile',
         callWorkNumberText: 'Call main number',
         scheduleActivityText: 'Schedule activity',
         addNoteText: 'Add note',
@@ -129,16 +129,18 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 App.initiateCall(this.entry['WorkPhone']);
             }.createDelegate(this));
         },
-        checkWorkPhone: function(entry, value) {
-            return !value;
+        callMobilePhone: function() {
+            this.recordCallToHistory(function() {
+                App.initiateCall(this.entry['Mobile']);
+            }.createDelegate(this));        
         },
         sendEmail: function() {
             this.recordEmailToHistory(function() {
                 App.initiateEmail(this.entry['Email'])
             }.createDelegate(this));
         },
-        checkEmail: function(entry, value) {
-            return !value;
+        checkValueExists: function(entry, value) {
+            return !value;        
         },
         viewAddress: function() {
             App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
@@ -171,7 +173,14 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     label: this.callWorkNumberText,
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
-                    disabled: this.checkWorkPhone,
+                    disabled: this.checkValueExists,
+                    renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
+                },{
+                    name: 'Mobile',
+                    label: this.callMobileNumberText,
+                    icon: 'content/images/icons/Dial_24x24.png',
+                    action: 'callMobilePhone',
+                    disabled: this.checkValueExists,
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
                 },{
                     name: 'Email',
@@ -221,10 +230,6 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 },{
                     name: 'Title',
                     label: this.contactTitleText
-                },{
-                    name: 'Mobile',
-                    label: this.mobileText,
-                    renderer: Mobile.SalesLogix.Format.phone
                 }]
             },{
                 options: {
