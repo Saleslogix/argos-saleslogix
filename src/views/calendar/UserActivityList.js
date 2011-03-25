@@ -68,7 +68,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         id: 'useractivity_list',
         icon: 'content/images/icons/Calendar_24x24.png',
         detailView: 'activity_detail',
-        detailViewForLead: 'activity_detail_for_lead',
         insertView: 'activity_types_list',
         queryOrderBy: 'Activity.Timeless desc, Activity.StartDate',
         querySelect: [
@@ -206,27 +205,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     }
                 });
             }
-        },
-        isActivityForLead: function(entry) {
-            return entry && /^[\w]{12}$/.test(entry['LeadId']);
-        },
-        navigateToDetailView: function(key, descriptor) {
-            var entry = this.entries[key],
-                activity = entry.Activity;
-
-            if (this.isActivityForLead(activity))
-            {
-                var view = App.getView(this.detailViewForLead);
-                if (view)
-                    view.show({
-                        descriptor: activity.Description,
-                        key: activity.$key
-                    });
-            }
-            else
-            {
-                Mobile.SalesLogix.Activity.List.superclass.navigateToDetailView.apply(this, [activity.$key, activity.Description]);
-            }          
         }
     });
 })();

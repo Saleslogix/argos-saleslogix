@@ -47,7 +47,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         id: 'activity_list',
         icon: 'content/images/icons/To_Do_24x24.png',
         detailView: 'activity_detail',
-        detailViewForLead: 'activity_detail_for_lead',
         insertView: 'activity_types_list',
         queryOrderBy: 'Timeless desc, StartDate desc',
         querySelect: [
@@ -62,27 +61,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'Timeless'
         ],
         resourceKind: 'activities',
-        
-        isActivityForLead: function(entry) {
-            return entry && /^[\w]{12}$/.test(entry['LeadId']);
-        },
-        navigateToDetailView: function(key, descriptor) {
-            var entry = this.entries[key];
-            
-            if (this.isActivityForLead(entry))
-            {
-                var view = App.getView(this.detailViewForLead);
-                if (view)
-                    view.show({
-                        descriptor: descriptor,
-                        key: key
-                    });
-            }
-            else
-            {
-                Mobile.SalesLogix.Activity.List.superclass.navigateToDetailView.apply(this, arguments);
-            }          
-        },
+                
         formatSearchQuery: function(query) {
             return String.format('upper(Description) like "{0}%"', query.toUpperCase());
         }
