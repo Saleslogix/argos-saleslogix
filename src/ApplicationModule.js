@@ -106,7 +106,6 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
 
         this.registerView(new Mobile.SalesLogix.Activity.Detail());
         this.registerView(new Mobile.SalesLogix.Activity.Edit());
-        this.registerView(new Mobile.SalesLogix.Activity.EditForLead());
         this.registerView(new Mobile.SalesLogix.Activity.Complete());
         this.registerView(new Mobile.SalesLogix.Activity.TypesList());
         this.registerView(new Mobile.SalesLogix.Activity.List({

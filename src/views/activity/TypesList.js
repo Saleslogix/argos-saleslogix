@@ -46,22 +46,12 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     hideSearch: true,
     id: 'activity_types_list',
     editView: 'activity_edit',
-    editViewForResource: {
-        'leads': 'activity_edit_for_lead'
-    },
-
+   
     activateEntry: function(params) {
         if (params.key)
         {            
-            var found = App.queryNavigationContext(function(o) {
-                return (o.resourceKind !== 'activities');
-            });
-            
             var source = this.options && this.options.source,
-                context = source || found,
-                view = context && this.editViewForResource[context.resourceKind]
-                    ? App.getView(this.editViewForResource[context.resourceKind])
-                    : App.getView(this.editView);
+                view = App.getView(this.editView);
 
             if (view)
                 view.show({
