@@ -25,6 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         relatedHistoriesText: 'History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
+        relatedProductsText: 'Products',
         resellerText: 'reseller',
         statusText: 'status',
         titleText: 'Opportunity',
@@ -149,6 +150,13 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     title: this.relatedItemsText
                 },
                 as: [{
+                    icon: 'content/images/icons/product_24.png',
+                    label: this.relatedProductsText,
+                    view: 'opportunityproduct_related',
+                    where: this.formatRelatedQuery.createDelegate(
+                        this, ['Opportunity.Id eq "{0}"'], true
+                    )
+                },{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',

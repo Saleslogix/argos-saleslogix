@@ -178,7 +178,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 },{
                     name: 'Mobile',
                     label: this.callMobileNumberText,
-                    icon: 'content/images/icons/Dial_24x24.png',
+                    icon: 'content/images/icons/mobile_24.png',
                     action: 'callMobilePhone',
                     disabled: this.checkValueExists,
                     renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
