@@ -78,7 +78,7 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
             expose: false
         }));
 
-		this.registerView(new Mobile.SalesLogix.OpportunityProduct.List({
+        this.registerView(new Mobile.SalesLogix.OpportunityProduct.List({
             id: 'opportunityproduct_related',
             expose: false
         }));
