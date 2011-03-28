@@ -41,13 +41,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '{%: $.Activity.LeadName %}',
             '{% } %}'
         ]),
-        viewTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-            '{%! $.searchTemplate %}',
-            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
+        buttonNavBarTemplate: new Simplate([
             '<div class="split-buttons">',
             '<button data-tool="today" data-action="getTodayActivities" class="button headerButton active">Today</button>',
-            '<button data-tool="day" class="button">Day</button>',
+            '<button data-tool="day" data-action="getDayActivities" class="button">Day</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">Month</button>',
             '</div>',
             '<div class="nav-bar">',
@@ -55,9 +52,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<button data-tool="next" data-action="getNextActivities" class="button button-next lightGreenButton"><span></span></button>',
             '<button data-tool="prev" data-action="getPrevActivities" class="button button-prev lightGreenButton"><span></span></button>',
             '</div>',
-            '<ul class="list-content"></ul>',
-            '{%! $.moreTemplate %}',
-            '</div>'
         ]),
 
         //Localization
@@ -83,17 +77,27 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             'Activity/Timeless'
         ],
         resourceKind: 'useractivities',
-        
-        init: function() {
-            Ext.apply(this.attachmentPoints, {
+
+        render: function() {
+            var attachmentPoints = {
                 dateTextEl: '.date-text',
                 splitButton: '.split-buttons',
                 todayButton: '.button[data-tool="today"]',
                 dayButton: '.button[data-tool="day"]',
                 monthButton: '.button[data-tool="month"]'
-            });
+            };
 
-            Mobile.SalesLogix.Calendar.UserActivityList.superclass.init.apply(this, arguments);
+            Mobile.SalesLogix.Calendar.UserActivityList.superclass.render.apply(this, arguments);
+
+            Ext.DomHelper.insertBefore(
+                this.contentEl,
+                this.buttonNavBarTemplate.apply(this),
+                true
+            );
+
+            for (var n in attachmentPoints)
+                if (attachmentPoints.hasOwnProperty(n))
+                    this[n] = this.el.child(attachmentPoints[n]);
         },
         initEvents: function() {
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.initEvents.apply(this, arguments);

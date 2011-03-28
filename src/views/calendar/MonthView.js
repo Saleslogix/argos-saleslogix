@@ -9,27 +9,26 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 (function() {    
     Mobile.SalesLogix.Calendar.MonthView = Ext.extend(Sage.Platform.Mobile.Calendar, {
         //Templates
-        viewTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel">',
-                '<div class="panel-content">',
-                    '<div class="split-buttons">',
-                        '<button data-tool="today" data-action="getTodayActivities" class="button">Today</button>',
-                        '<button data-tool="day" data-action="returnToDayActivities" class="button">Day</button>',
-                        '<button data-tool="month" class="button headerButton active">Month</button>',
-                    '</div>',                
-                    '<div class="calendar-content"></div>',
-                    '<div class="time-content">',
-                        '<input type="number" maxlength="2" min="0" max="23" class="hour-field" />',
-                        '&nbsp;:&nbsp;',
-                        '<input type="number" maxlength="2" min="0" max="59" class="minute-field" />',
-                    '</div>',
-                '</div>',
-            '</div>'
+        splitButtonTemplate: new Simplate([
+            '<div class="split-buttons">',
+                '<button data-tool="today" data-action="getTodayActivities" class="button">Today</button>',
+                '<button data-tool="day" data-action="returnToDayActivities" class="button">Day</button>',
+                '<button data-tool="month" class="button headerButton active">Month</button>',
+            '</div>',
         ]),
 
         //View Properties
         id: 'slx_calendar',
-        
+
+        render: function() {
+            Mobile.SalesLogix.Calendar.MonthView.superclass.render.apply(this, arguments);
+
+            Ext.DomHelper.insertFirst(
+                this.contentEl,
+                this.splitButtonTemplate.apply(this),
+                true
+            );
+        },
         showActivityListForDay: function(date) {
             var view = App.getView('useractivity_list');
             if (date) 
