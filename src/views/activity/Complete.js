@@ -24,7 +24,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         completionText: 'Completion',
         durationText: 'duration',
         carryOverNotesText: 'carry over notes',
-        followUpText: 'follow up',
+        followUpText: 'follow-up',
         followUpTitleText: 'Activity Follow Up',
         leaderText: 'leader',
         longNotesText: 'notes',
