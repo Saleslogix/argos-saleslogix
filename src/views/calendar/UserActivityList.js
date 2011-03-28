@@ -194,18 +194,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             var view = App.getView('slx_calendar');
 
             if (view)
-            {
-                view.show({
-                    tools: {
-                        tbar: [{
-                            id: 'cancel',
-                            side: 'left',
-                            fn: ReUI.back,
-                            scope: ReUI
-                        }]
-                    }
-                });
-            }
+                view.show();
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
