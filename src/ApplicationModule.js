@@ -110,11 +110,8 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
         }));
 
         this.registerView(new Mobile.SalesLogix.Activity.Detail());
-        this.registerView(new Mobile.SalesLogix.Activity.DetailForLead());
         this.registerView(new Mobile.SalesLogix.Activity.Edit());
-        this.registerView(new Mobile.SalesLogix.Activity.EditForLead());
         this.registerView(new Mobile.SalesLogix.Activity.Complete());
-        this.registerView(new Mobile.SalesLogix.Activity.CompleteForLead());
         this.registerView(new Mobile.SalesLogix.Activity.TypesList());
         this.registerView(new Mobile.SalesLogix.Activity.List({
             id: 'activity_related',
@@ -153,9 +150,7 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
         }));
 
         this.registerView(new Mobile.SalesLogix.History.Detail());
-        this.registerView(new Mobile.SalesLogix.History.DetailForLead());
         this.registerView(new Mobile.SalesLogix.History.Edit());
-        this.registerView(new Mobile.SalesLogix.History.EditForLead());
         this.registerView(new Mobile.SalesLogix.History.List({
             expose: false
         }));

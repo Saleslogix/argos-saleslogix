@@ -51,7 +51,6 @@ Ext.namespace("Mobile.SalesLogix.History");
         
         //View Properties
         detailView: 'history_detail',
-        detailViewForLead: 'history_detail_for_lead',
         icon: 'content/images/icons/journal_24.png',
         id: 'history_related',
         insertView: 'history_edit',
@@ -73,26 +72,6 @@ Ext.namespace("Mobile.SalesLogix.History");
             Mobile.SalesLogix.History.List.superclass.init.apply(this, arguments);
 
             this.tools.tbar = [];
-        },
-        isHistoryForLead: function(entry) {
-            return entry && /^[\w]{12}$/.test(entry['LeadId']);
-        },
-        navigateToDetailView: function(key, descriptor) {
-            var entry = this.entries[key];
-            
-            if (this.isHistoryForLead(entry))
-            {
-                var view = App.getView(this.detailViewForLead);
-                if (view)
-                    view.show({
-                        descriptor: descriptor,
-                        key: key
-                    });
-            }
-            else
-            {
-                Mobile.SalesLogix.History.List.superclass.navigateToDetailView.apply(this, arguments);
-            }          
         },
         formatSearchQuery: function(query) {
             return String.format('upper(Description) like "%{0}%"', query.toUpperCase());

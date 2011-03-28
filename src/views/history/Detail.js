@@ -7,15 +7,41 @@
 Ext.namespace("Mobile.SalesLogix.History");
 
 (function() {
-    Mobile.SalesLogix.History.Detail = Ext.extend(Mobile.SalesLogix.History.DetailBase, {
+    Mobile.SalesLogix.History.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         //Localization
+        categoryText: 'category',
+        completeText: 'completed',
+        durationText: 'duration',
+        fbarHomeTitleText: 'home',
+        fbarScheduleTitleText: 'schedule',
+        leaderText: 'leader',
+        longNotesText: 'notes',
+        priorityText: 'priority',
+        regardingText: 'regarding',
+        scheduledText: 'scheduled',
+        timelessText: 'timeless',
+        companyText: 'company',
+        leadText: 'lead',
+        longNotesText: 'notes',
+        titleText: 'History',
         accountText: 'account',
         contactText: 'contact',
         longNotesText: 'notes',
         opportunityText: 'opportunity',
         ticketNumberText: 'ticket',
+        typeText: 'type',
+        activityTypeText: {
+            'atToDo': 'To-Do',
+            'atPhoneCall': 'Phone Call',
+            'atAppointment': 'Meeting',
+            'atLiterature': 'Literature Request',
+            'atPersonal': 'Personal Activity',
+            'atQuestion': 'Question',
+            'atEMail': 'E-mail'
+        },
         //View Properties
         id: 'history_detail',
+        resourceKind: 'history',
         querySelect: [
             'AccountId',
             'AccountName',
@@ -32,36 +58,88 @@ Ext.namespace("Mobile.SalesLogix.History");
             'StartDate',
             'TicketId',
             'TicketNumber',
+            'LeadId',
+            'LeadName',
             'Timeless',
             'Type',
             'UserName'
         ],
 
+        init: function() {
+            Mobile.SalesLogix.History.Detail.superclass.init.apply(this, arguments);
+            this.tools.tbar = [];
+        },
+        formatActivityType: function(val) {
+            return this.activityTypeText[val] || val;
+        },
+        isHistoryForLead: function(entry) {
+            return entry && /^[\w]{12}$/.test(entry['LeadId']);
+        },
         createLayout: function() {
-            var base = Mobile.SalesLogix.History.Detail.superclass.createLayout;
-
-            return this.layout || (this.layout = base.apply(this, arguments).concat([
-                {
-                    name: 'ContactName',
-                    label: this.contactText
-                },
-                {
-                    name: 'AccountName',
-                    label: this.accountText
-                },
-                {
-                    name: 'OpportunityName',
-                    label: this.opportunityText
-                },
-                {
-                    name: 'TicketNumber',
-                    label: this.ticketNumberText
-                },
-                {
-                    name: 'LongNotes',
-                    label: this.longNotesText
-                }
-            ]));
+            return this.layout || (this.layout = [{
+                name: 'Type',
+                label: this.typeText,
+                renderer: this.formatActivityType
+            },{
+                name: 'Description',
+                label: this.regardingText
+            },{
+                name: 'Priority',
+                label: this.priorityText
+            },{
+                name: 'Category',
+                label: this.categoryText
+            },{
+                name: 'CompletedDate',
+                label: this.completeText,
+                renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                    this, ['M/d/yyyy h:mm:ss tt'], true
+                )
+            },{
+                name: 'StartDate',
+                label: this.scheduledText,
+                renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                    this, ['M/d/yyyy h:mm:ss tt'], true
+                )
+            },{
+                name: 'Timeless',
+                label: this.timelessText
+            },{
+                name: 'Duration',
+                label: this.durationText,
+                renderer: Mobile.SalesLogix.Format.timespan
+            },{
+                name: 'UserName',
+                label: this.leaderText
+            },{
+                name: 'ContactName',
+                exclude: this.isHistoryForLead,
+                label: this.contactText
+            },{
+                name: 'AccountName',
+                exclude: this.isHistoryForLead,
+                label: this.accountText
+            },{
+                name: 'OpportunityName',
+                exclude: this.isHistoryForLead,
+                label: this.opportunityText
+            },{
+                name: 'TicketNumber',
+                exclude: this.isHistoryForLead,
+                label: this.ticketNumberText
+            },{
+                name: 'LeadName',
+                include: this.isHistoryForLead,
+                label: this.leadText
+            },{
+                name: 'AccountName',
+                include: this.isHistoryForLead,
+                label: this.companyText
+            },{
+                name: 'LongNotes',
+                included: this.isHistoryForLead,
+                label: this.longNotesText
+            }]);
         }
     });
 })();
