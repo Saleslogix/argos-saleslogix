@@ -9,28 +9,30 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 (function() {    
     Mobile.SalesLogix.Calendar.MonthView = Ext.extend(Sage.Platform.Mobile.Calendar, {
         //Templates
-        splitButtonTemplate: new Simplate([
+        navigationTemplate: new Simplate([
             '<div class="split-buttons">',
                 '<button data-tool="today" data-action="getTodayActivities" class="button">Today</button>',
                 '<button data-tool="day" data-action="returnToDayActivities" class="button">Day</button>',
-                '<button data-tool="month" class="button headerButton active">Month</button>',
-            '</div>',
+                '<button data-tool="month" class="button">Month</button>',
+            '</div>'
         ]),
 
         //View Properties
         id: 'slx_calendar',
+        cls: 'activities-for-month',
+        activityListView: 'useractivity_list',
 
         render: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.render.apply(this, arguments);
 
             Ext.DomHelper.insertFirst(
                 this.contentEl,
-                this.splitButtonTemplate.apply(this),
+                this.navigationTemplate.apply(this),
                 true
             );
         },
         showActivityListForDay: function(date) {
-            var view = App.getView('useractivity_list');
+            var view = App.getView(this.activityListView);
             if (date) 
             {
                 view.currentDate = date;
@@ -40,6 +42,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         selectDay: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.selectDay.apply(this, arguments);
+
             this.showActivityListForDay(this.date);
         },
         getTodayActivities: function() {
@@ -48,11 +51,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         returnToDayActivities: function() {
             this.showActivityListForDay();
         },
-        show: function(options) {
-            var view = App.getView('useractivity_list'),
-                selectedDate = String.format('.calendar-day[data-date={0}]', view.currentDate.toString('d'));
+        show: function(options, transitionOptions) {
+            var view = App.getView(this.activityListView),
+                selectedDate = view && String.format('.calendar-day[data-date={0}]', view.currentDate.toString('d'));
 
-            Sage.Platform.Mobile.Calendar.superclass.show.call(this, options);
+            Sage.Platform.Mobile.Calendar.superclass.show.call(this, options, transitionOptions);
 
             this.showTimePicker = this.options && this.options.showTimePicker;
 

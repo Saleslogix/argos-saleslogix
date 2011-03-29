@@ -469,28 +469,39 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 
 .calendar-prev-month > button
 {
-    background-image: url(../images/icons/Browse_Previous_24.png);
-    background-repeat: no-repeat;
-    background-position: center center;
+    height: 36px;
+    width: 40px;
 }
 
 .calendar-prev-month > button > span
 {
-    display: none;
+    display: inline-block;
+    background-image: url(../images/icons/Browse_Previous_24.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 6px;
+    width: 24px;
+    height: 24px;
 }
 
 .calendar-next-month > button
 {
-    background-image: url(../images/icons/Browse_Next_24.png);
-    background-repeat: no-repeat;
-    background-position: center center;
     float: right;
+    height: 36px;
+    width: 40px;
 }
 
 .calendar-next-month > button > span
 {
-    display: none;
+    display: inline-block;
+    background-image: url(../images/icons/Browse_Next_24.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 6px;
+    width: 24px;
+    height: 24px;
 }
+
 
 .collapsed-indicator
 {
@@ -581,6 +592,11 @@ body.transition > .footer-toolbar
     color: #888;
 }
 
+#useractivity_list > .list-content
+{
+    border-top: solid 1px #ddd;
+}
+
 #useractivity_list > .nav-bar
 {
     height: 45px;
@@ -622,6 +638,11 @@ body.transition > .footer-toolbar
     margin-right: 10px;
     z-index: 100;
 }
+.nav-bar > .button
+{
+    height: 36px;
+    width: 40px;
+}
 
 .nav-bar > .button-next > span,
 .nav-bar > .button-prev > span
@@ -629,7 +650,7 @@ body.transition > .footer-toolbar
     display: inline-block;
     background-repeat: no-repeat;
     background-position: center center;
-    margin: 4px;
+    margin: 6px;
     width: 24px;
     height: 24px;
 }
@@ -646,8 +667,8 @@ body.transition > .footer-toolbar
 
 .split-buttons
 {
-    line-height: 34px;
-    background-color: #FFF;
+    line-height: 40px;
+    background-color: #fff;
     text-align: center;
     margin-top: 5px;
 }
@@ -655,32 +676,83 @@ body.transition > .footer-toolbar
 .split-buttons > .button
 {
     display: inline-block;
-    margin: 0;
-    border-radius: 0;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
     padding-left: 10px;
     padding-right: 10px;
+    height: 36px;
+    line-height: 30px;
 }
 
-.split-buttons > .button:first-child
+
+.split-buttons > .button[data-tool="day"]
 {
-    margin-left: 2px;
+    margin: 0 0 0 16px;
+
     -webkit-border-top-left-radius: 3px;
     -webkit-border-bottom-left-radius: 3px;
     -moz-border-radius-topleft: 3px;
     -moz-border-radius-bottomleft: 3px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
-.split-buttons > .button:last-child
+.split-buttons > .button[data-tool="month"]
 {
-    margin-right: 2px;
+    margin: 0 2px 0 -1px;
+
     -webkit-border-top-right-radius: 3px;
     -webkit-border-bottom-right-radius: 3px;
     -moz-border-radius-topright: 3px;
     -moz-border-radius-bottomright: 3px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-bottomleft: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
+
+.activities-for-day > .split-buttons > .button[data-tool="day"],
+.activities-for-month > .panel-content > .split-buttons > .button[data-tool="month"]
+{
+    color: #000;
+    text-shadow: #fff 0px 1px 0px;
+
+    border-color: #a4bf7d;
+
+    background-color: #eaf1df;
+    background-image: linear-gradient(
+        center top,
+        #eaf1df 0%,
+        #d6e3bf 50%,
+        #c1d59f 50%,
+        #d6e3bf 100%
+    );
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #eaf1df),
+        color-stop(0.50, #d6e3bf),
+        color-stop(0.50, #c1d59f),
+        color-stop(1, #d6e3bf)
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        #eaf1df 0%,
+        #d6e3bf 50%,
+        #c1d59f 50%,
+        #d6e3bf 100%
+    );
+
+    -moz-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
+    -webkit-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
+}
+
