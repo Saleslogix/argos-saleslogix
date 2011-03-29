@@ -198,6 +198,24 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             if (view)
                 view.show();
+        },
+        navigateToDetailView: function(key, descriptor) {
+            var entry = this.entries[key],
+                activity = entry.Activity;
+
+            if (this.isActivityForLead(activity))
+            {
+                var view = App.getView(this.detailViewForLead);
+                if (view)
+                    view.show({
+                        descriptor: activity.Description,
+                        key: activity.$key
+                    });
+            }
+            else
+            {
+                Mobile.SalesLogix.Activity.List.superclass.navigateToDetailView.apply(this, [activity.$key, activity.Description]);
+            }
         }
     });
 })();
