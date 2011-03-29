@@ -203,6 +203,10 @@
             path: '../src/views/history/'
         },
         {
+            text: 'RelatedList.js',
+            path: '../src/views/history/'
+        },
+        {
             text: 'List.js',
             path: '../src/views/history/'
         },
