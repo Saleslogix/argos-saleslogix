@@ -64,7 +64,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         detailView: 'history_detail',
         icon: 'content/images/icons/journal_24.png',
         id: 'history_list',
-        insertView: 'history_edit',
+        insertView: 'history_note_edit',
         queryOrderBy: 'CompletedDate desc',
         querySelect: [
             'AccountName',
@@ -102,7 +102,6 @@ Ext.namespace("Mobile.SalesLogix.History");
         init: function() {
             Mobile.SalesLogix.History.List.superclass.init.apply(this, arguments);
 
-            this.tools.tbar = [];
             App.on('resize', this.onResize, this);
         },
         formatSearchQuery: function(query) {

@@ -151,6 +151,7 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
 
         this.registerView(new Mobile.SalesLogix.History.Detail());
         this.registerView(new Mobile.SalesLogix.History.Edit());
+        this.registerView(new Mobile.SalesLogix.History.NoteEdit());
         this.registerView(new Mobile.SalesLogix.History.RelatedList({
             expose: false
         }));
