@@ -65,7 +65,11 @@ Ext.namespace("Mobile.SalesLogix.History");
             this.onLeadChange(lead, this.fields['isLead']);
         },
         applyContext: function() {
+            var user = App.context && App.context.user;
+            
             this.fields['Type'].setValue('atNote');
+            this.fields['UserId'].setValue(user && user['$key']);
+            this.fields['UserName'].setValue(user && user['$descriptor']);
         },
         onLeadChange: function(lead, field) {
             Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
@@ -98,6 +102,12 @@ Ext.namespace("Mobile.SalesLogix.History");
         createLayout: function() {
             return this.layout || (this.layout = [{
                 name: 'Type',
+                type: 'hidden'
+            },{
+                name: 'UserId',
+                type: 'hidden'
+            },{
+                name: 'UserName',
                 type: 'hidden'
             },{
                 label: this.startingText,

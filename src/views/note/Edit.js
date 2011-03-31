@@ -92,7 +92,11 @@ Ext.namespace("Mobile.SalesLogix.Note");
 
             if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
 
+            var user = App.context && App.context.user;
+
             this.fields['Type'].setValue('atNote');
+            this.fields['UserId'].setValue(user && user['$key']);
+            this.fields['UserName'].setValue(user && user['$descriptor']);
         },
         setValues: function(values) {
             values['Text'] = values['LongNotes']
@@ -118,59 +122,52 @@ Ext.namespace("Mobile.SalesLogix.Note");
             return values;
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    label: this.notesText,
-                    include: false,
-                    multiline: true,
-                    name: 'Text',
-                    type: 'text'
-                },
-                {
-                    name: 'Type',
-                    type: 'hidden'
-                },
-                {
-                    name: 'AccountId',
-                    type: 'hidden'
-                },
-                {
-                    name: 'AccountName',
-                    type: 'hidden'
-                },
-                {
-                    name: 'ContactId',
-                    type: 'hidden'
-                },
-                {
-                    name: 'ContactName',
-                    type: 'hidden'
-                },
-                {
-                    name: 'OpportunityId',
-                    type: 'hidden'
-                },
-                {
-                    name: 'OpportunityName',
-                    type: 'hidden'
-                },
-                {
-                    name: 'TicketId',
-                    type: 'hidden'
-                },
-                {
-                    name: 'TicketNumber',
-                    type: 'hidden'
-                },
-                {
-                    name: 'LeadId',
-                    type: 'hidden'
-                },
-                {
-                    name: 'LeadName',
-                    type: 'hidden'
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                label: this.notesText,
+                include: false,
+                multiline: true,
+                name: 'Text',
+                type: 'text'
+            },{
+                name: 'Type',
+                type: 'hidden'
+            },{
+                name: 'AccountId',
+                type: 'hidden'
+            },{
+                name: 'AccountName',
+                type: 'hidden'
+            },{
+                name: 'ContactId',
+                type: 'hidden'
+            },{
+                name: 'ContactName',
+                type: 'hidden'
+            },{
+                name: 'OpportunityId',
+                type: 'hidden'
+            },{
+                name: 'OpportunityName',
+                type: 'hidden'
+            },{
+                name: 'TicketId',
+                type: 'hidden'
+            },{
+                name: 'TicketNumber',
+                type: 'hidden'
+            },{
+                name: 'LeadId',
+                type: 'hidden'
+            },{
+                name: 'LeadName',
+                type: 'hidden'
+            },{
+                name: 'UserId',
+                type: 'hidden'
+            },{
+                name: 'UserName',
+                type: 'hidden'
+            }]);
         }
     });
 })();
