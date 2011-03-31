@@ -153,8 +153,15 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
 
-            value === true ? this.fields['Rollover'].enable()
-                           : this.fields['Rollover'].disable();
+            if (value)
+            {
+                this.fields['Rollover'].enable();
+            }
+            else
+            {
+                this.fields['Rollover'].setValue(false);
+                this.fields['Rollover'].disable();
+            }
         },
         onAlarmChange: function(value, field) {
             this.toggleSelectField(this.fields['Reminder'], !value);
