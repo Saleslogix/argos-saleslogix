@@ -39,7 +39,7 @@ Ext.namespace("Mobile.SalesLogix.OpportunityProduct");
             'Quantity',
             'ExtendedPrice'
         ],
-        resourceKind: 'opportunityproduct',
+        resourceKind: 'opportunityproducts',
         
         init: function() {
             Mobile.SalesLogix.OpportunityProduct.List.superclass.init.apply(this, arguments);
