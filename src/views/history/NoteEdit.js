@@ -50,24 +50,19 @@ Ext.namespace("Mobile.SalesLogix.History");
         init: function() {
             Mobile.SalesLogix.History.Edit.superclass.init.apply(this, arguments);
 
-            this.fields['isLead'].on('change', this.onLeadChange, this);
+            this.fields['isLead'].on('change', this.onIsLeadChange, this);
         },
         isHistoryForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        beforeTransitionTo: function() {
-            Mobile.SalesLogix.Activity.Complete.superclass.beforeTransitionTo.apply(this, arguments);
-
-            var insert = this.options && this.options.insert,
-                entry = this.options && this.options.entry,
-                lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) { return c.key; })) || this.isHistoryForLead(entry);
-
-            this.onLeadChange(lead, this.fields['isLead']);
-        },
         applyContext: function() {
+            var user = App.context && App.context.user;
+            
             this.fields['Type'].setValue('atNote');
+            this.fields['UserId'].setValue(user && user['$key']);
+            this.fields['UserName'].setValue(user && user['$descriptor']);
         },
-        onLeadChange: function(lead, field) {
+        onIsLeadChange: function(lead, field) {
             Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
@@ -98,6 +93,12 @@ Ext.namespace("Mobile.SalesLogix.History");
         createLayout: function() {
             return this.layout || (this.layout = [{
                 name: 'Type',
+                type: 'hidden'
+            },{
+                name: 'UserId',
+                type: 'hidden'
+            },{
+                name: 'UserName',
                 type: 'hidden'
             },{
                 label: this.startingText,
