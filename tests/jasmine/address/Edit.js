@@ -15,7 +15,7 @@ describe("Address", function() {
                 },
                 {
                     emptyText: '',
-                    formatValue: Mobile.SalesLogix.Format.address,
+                    formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
                     label: 'address',
                     name: 'Address',
                     type: 'address',
@@ -29,7 +29,7 @@ describe("Address", function() {
                 },
                 {
                     emptyText: '',
-                    formatValue: Mobile.SalesLogix.Format.address,
+                    formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
                     label: 'address',
                     name: 'Address',
                     type: 'address',
@@ -52,7 +52,7 @@ describe("Address", function() {
                 },
                 {
                     emptyText: '',
-                    formatValue: Mobile.SalesLogix.Format.address,
+                    formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
                     label: 'address',
                     name: 'Address',
                     type: 'address',

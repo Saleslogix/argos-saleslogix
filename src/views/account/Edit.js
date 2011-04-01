@@ -88,7 +88,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 },
                 {
                     emptyText: '',
-                    formatValue: Mobile.SalesLogix.Format.address,
+                    formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
                     label: this.fullAddressText,
                     name: 'Address',
                     type: 'address',

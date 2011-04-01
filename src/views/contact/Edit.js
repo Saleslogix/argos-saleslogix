@@ -200,7 +200,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     type: 'picklist'
                 },
                 {
-                    formatValue: Mobile.SalesLogix.Format.address,
+                    formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
                     label: this.addressText,
                     name: 'Address',
                     type: 'address',

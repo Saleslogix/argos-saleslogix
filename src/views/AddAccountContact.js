@@ -155,7 +155,7 @@ Ext.namespace("Mobile.SalesLogix");
                     },
                     {
                         emptyText: '',
-                        formatValue: Mobile.SalesLogix.Format.address,
+                        formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
                         label: this.addressText,
                         name: 'Contacts.$resources[0].Address',
                         type: 'address',
@@ -213,7 +213,7 @@ Ext.namespace("Mobile.SalesLogix");
                     },
                     {
                         emptyText: '',
-                        formatValue: Mobile.SalesLogix.Format.address,
+                        formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
                         label: this.addressText,
                         name: 'Address',
                         type: 'address',
