@@ -17,11 +17,9 @@ Ext.namespace("Mobile.SalesLogix.History");
         ]),
         contentTemplate: new Simplate([
             '<h3>',
-            '{% if (!$.Timeless) { %}',
-            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.CompletedDate, "h:mm") %}</span>',
-            '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.CompletedDate, "tt") %}</span>,',
-            '{% } %}',
-            '<span class="p-description">&nbsp;{%: $.Description %}</span>',
+            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.CompletedDate, "h:mm") %}</span>&nbsp;',
+            '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.CompletedDate, "tt") %}</span>,&nbsp;',
+            '<span class="p-description">{%: $.Description %}</span>',
             '</h3>',
             '<h4>{%: Mobile.SalesLogix.Format.date($.CompletedDate, "ddd M/d/yy") %} - {%= $$.nameTemplate.apply($) %}</h4>'
         ]),
