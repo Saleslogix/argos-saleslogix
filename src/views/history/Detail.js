@@ -137,7 +137,6 @@ Ext.namespace("Mobile.SalesLogix.History");
                 label: this.companyText
             },{
                 name: 'LongNotes',
-                included: this.isHistoryForLead,
                 label: this.longNotesText
             }]);
         }
