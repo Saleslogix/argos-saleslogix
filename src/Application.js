@@ -12,7 +12,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         Mobile.SalesLogix.Application.superclass.initEvents.apply(this, arguments);
     },
     init: function() {
-        if (Ext.isIE) window.location.href = 'unsupported.html';
+        if (Ext.isIE && Ext.ieVersion < 9) window.location.href = 'unsupported.html';
 
         Mobile.SalesLogix.Application.superclass.init.call(this);
 
