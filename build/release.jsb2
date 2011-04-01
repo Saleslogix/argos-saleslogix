@@ -255,6 +255,10 @@
             path: '../src/views/opportunity/'
         },
         {
+        	text: 'List.js',
+        	path: '../src/views/opportunityproduct/'
+        },
+        {
             text: 'List.js',
             path: '../src/views/owner/'
         },
