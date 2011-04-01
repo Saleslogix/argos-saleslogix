@@ -374,6 +374,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 	background-image: url(../images/icons/srch_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 .row-edit[data-field-type="lookup"] .button:active
@@ -407,6 +409,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 	background-image: url(../images/icons/Calendar_24x24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 .row-edit[data-field-type="date"] .button:active
@@ -442,6 +446,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 	background-image: url(../images/icons/edit_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 .row-edit[data-field-type="name"] .button:active,
@@ -754,5 +760,7 @@ body.transition > .footer-toolbar
 
     -moz-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
     -webkit-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#eaf1df, endColorstr=#d6e3bf)";
 }
 
