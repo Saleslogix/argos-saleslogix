@@ -10,7 +10,7 @@ Ext.namespace("Mobile.SalesLogix.Note");
     Mobile.SalesLogix.Note.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
         contentTemplate: new Simplate([
-            '<div class="row note-text-row">',
+            '<div class="note-text-item">',
             '<div class="note-text-wrap">',
                 '<div>',
                     '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.CreateDate, "h:mm") %}</span>',

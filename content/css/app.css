@@ -101,31 +101,35 @@
 }
 
 /* note view */
-#note_related .list-content > li
-{
-    padding-left: 8px;
-}
-
 .note-text
 {
     height: 4.5em;
-    overflow:hidden;
+    overflow: hidden;
     padding-left: 110px;
     padding-right: 34px;
 }
 
 .note-text-row
 {
-    max-height:4em;
-    overflow:hidden;
+}
+
+.note-text-item
+{
+    max-height: 4em;
+    overflow: hidden;
+}
+
+.note-text-property
+{
+    overflow: hidden;
 }
 
 .note-text-wrap
 {
-    font-size:0.8em;
-    font-weight:normal;
-    line-height:1.25em;
-    margin-top:0;
+    font-size: 0.8em;
+    font-weight: normal;
+    line-height: 1.25em;
+    margin-top: 0;
 }
 
 .note-text-more

@@ -9,7 +9,6 @@ Ext.namespace("Mobile.SalesLogix.Note");
 (function() {
     Mobile.SalesLogix.Note.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         //Localization
-        fbarHomeTitleText: 'home',
         notesText: 'notes',
         titleText: 'Note',
 
@@ -25,18 +24,13 @@ Ext.namespace("Mobile.SalesLogix.Note");
         provideText: function(entry) {
             return entry && (entry['LongNotes'] || entry['Notes']); 
         },
-        renderText: function(text) {
-            var encoded = Sage.Platform.Mobile.Format.encode(text);
-
-            return Sage.Platform.Mobile.Format.nl2br(encoded);
-        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     label: this.notesText,
                     name: '',
                     provider: this.provideText.createDelegate(this),
-                    renderer: this.renderText.createDelegate(this)
+                    wrap: Mobile.SalesLogix.Template.noteDetailProperty
                 }
             ]);
         }
