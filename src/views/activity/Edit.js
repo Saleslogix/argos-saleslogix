@@ -34,6 +34,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         ticketNumberText: 'ticket',
         companyText: 'company',
         leadText: 'lead',
+        isLeadText: 'for lead',
+        yesText: 'YES',
+        noText: 'NO',
         reminderValueText: {
             0: 'none',
             5: '5 minutes',
@@ -113,6 +116,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             Mobile.SalesLogix.Activity.Edit.superclass.init.apply(this, arguments);
 
             this.fields['Lead'].on('change', this.onLeadChange, this);
+            this.fields['IsLead'].on('change', this.onIsLeadChange, this);
             this.fields['Leader'].on('change', this.onLeaderChange, this);
             this.fields['Timeless'].on('change', this.onTimelessChange, this);
             this.fields['Alarm'].on('change', this.onAlarmChange, this);
@@ -120,32 +124,57 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        beforeTransitionTo: function() {
-            Mobile.SalesLogix.Activity.Complete.superclass.beforeTransitionTo.apply(this, arguments);
-
+        isInLeadContext: function() {
             var insert = this.options && this.options.insert,
                 entry = this.options && this.options.entry,
                 lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) { return c.key; })) || this.isActivityForLead(entry);
 
+            return !!lead;
+        },
+        beforeTransitionTo: function() {
+            Mobile.SalesLogix.Activity.Complete.superclass.beforeTransitionTo.apply(this, arguments);
+
+            // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
+            // the value for the 'IsLead' field will be set later, based on the value derived here.
+
+            if (this.options.isForLead != undefined) return;
+
+            this.options.isForLead = this.isInLeadContext();
+
+            if (this.options.isForLead)
+                this.showFieldsForLead();
+            else
+                this.showFieldsForStandard();
+        },
+        onIsLeadChange: function(value, field) {
+            this.options.isForLead = value;
+
+            if (this.options.isForLead)
+                this.showFieldsForLead();
+            else
+                this.showFieldsForStandard();
+        },
+        showFieldsForLead: function() {
             Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
 
-            if (lead)
-            {
-                Ext.each(this.fieldsForLeads, function(item) {
+            Ext.each(this.fieldsForLeads, function(item) {
+                if (this.fields[item])
+                    this.fields[item].show();
+            }, this);
+        },
+        showFieldsForStandard: function() {
+            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+                if (this.fields[item])
+                    this.fields[item].hide();
+            }, this);
+
+            Ext.each(this.fieldsForStandard, function(item) {
                     if (this.fields[item])
                         this.fields[item].show();
                 }, this);
-            }
-            else
-            {
-                Ext.each(this.fieldsForStandard, function(item) {
-                    if (this.fields[item])
-                        this.fields[item].show();
-                }, this);
-            }
         },
         toggleSelectField: function(field, disable, options) {
             disable === true ? field.disable() : field.enable();
@@ -331,6 +360,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 this.fields['Reminder'].enable();
             else
                 this.fields['Reminder'].disable();
+
+            this.fields['IsLead'].setValue(this.options.isForLead);
         },
         getValues: function() {
             var values = Mobile.SalesLogix.Activity.Edit.superclass.getValues.apply(this, arguments),
@@ -352,7 +383,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             if (selection && this.insert)
             {
-                this.fields['Company'].setValue(getV(selection, 'Company'));
+                this.fields['AccountName'].setValue(getV(selection, 'Company'));
             }
         },
         onLeaderChange: function(value, field) {
@@ -510,6 +541,13 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 title: this.longNotesTitleText,
                 type: 'note',
                 view: 'text_edit'
+            },{
+                label: this.isLeadText,
+                name: 'IsLead',
+                include: false,
+                type: 'boolean',
+                onText: this.yesText,
+                offText: this.noText
             },{
                 label: this.accountText,
                 name: 'Account',

@@ -18,7 +18,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         opportunityText: 'opportunity',
         ticketNumberText: 'ticket',
         regardingText: 'regarding',
-        isLeadText: 'lead',
+        isLeadText: 'for lead',
         startingText: 'start time',
         titleText: 'Note/History',
         companyText: 'company',
@@ -50,7 +50,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         init: function() {
             Mobile.SalesLogix.History.Edit.superclass.init.apply(this, arguments);
 
-            this.fields['isLead'].on('change', this.onIsLeadChange, this);
+            this.fields['IsLead'].on('change', this.onIsLeadChange, this);
         },
         isHistoryForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -128,7 +128,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                 view: 'text_edit'
             },{
                 label: this.isLeadText,
-                name: 'isLead',
+                name: 'IsLead',
                 include: false,
                 type: 'boolean'
             },{
