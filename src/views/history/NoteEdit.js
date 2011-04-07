@@ -48,12 +48,74 @@ Ext.namespace("Mobile.SalesLogix.History");
         ],
 
         init: function() {
-            Mobile.SalesLogix.History.Edit.superclass.init.apply(this, arguments);
+            Mobile.SalesLogix.History.NoteEdit.superclass.init.apply(this, arguments);
 
+            this.fields['Lead'].on('change', this.onLeadChange, this);
             this.fields['IsLead'].on('change', this.onIsLeadChange, this);
         },
         isHistoryForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
+        },
+        isInLeadContext: function() {
+            var insert = this.options && this.options.insert,
+                entry = this.options && this.options.entry,
+                lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) { return c.key; })) || this.isHistoryForLead(entry);
+
+            return !!lead;
+        },
+        beforeTransitionTo: function() {
+            Mobile.SalesLogix.History.NoteEdit.superclass.beforeTransitionTo.apply(this, arguments);
+
+            // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
+            // the value for the 'IsLead' field will be set later, based on the value derived here.
+
+            if (this.options.isForLead != undefined) return;
+
+            this.options.isForLead = this.isInLeadContext();
+
+            if (this.options.isForLead)
+                this.showFieldsForLead();
+            else
+                this.showFieldsForStandard();
+        },
+        onIsLeadChange: function(value, field) {
+            this.options.isForLead = value;
+
+            if (this.options.isForLead)
+                this.showFieldsForLead();
+            else
+                this.showFieldsForStandard();
+        },
+        onLeadChange: function(value, field) {
+            var selection = field.getSelection(),
+                getV = Sage.Platform.Mobile.Utility.getValue;
+
+            if (selection && this.insert)
+            {
+                this.fields['AccountName'].setValue(getV(selection, 'Company'));
+            }
+        },
+        showFieldsForLead: function() {
+            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+                if (this.fields[item])
+                    this.fields[item].hide();
+            }, this);
+
+            Ext.each(this.fieldsForLeads, function(item) {
+                if (this.fields[item])
+                    this.fields[item].show();
+            }, this);
+        },
+        showFieldsForStandard: function() {
+            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+                if (this.fields[item])
+                    this.fields[item].hide();
+            }, this);
+
+            Ext.each(this.fieldsForStandard, function(item) {
+                    if (this.fields[item])
+                        this.fields[item].show();
+                }, this);
         },
         applyContext: function() {
             var user = App.context && App.context.user;
@@ -62,26 +124,10 @@ Ext.namespace("Mobile.SalesLogix.History");
             this.fields['UserId'].setValue(user && user['$key']);
             this.fields['UserName'].setValue(user && user['$descriptor']);
         },
-        onIsLeadChange: function(lead, field) {
-            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
-                if (this.fields[item])
-                    this.fields[item].hide();
-            }, this);
+        setValues: function(values) {
+            Mobile.SalesLogix.History.NoteEdit.superclass.setValues.apply(this, arguments);
 
-            if (lead)
-            {
-                Ext.each(this.fieldsForLeads, function(item) {
-                    if (this.fields[item])
-                        this.fields[item].show();
-                }, this);
-            }
-            else
-            {
-                Ext.each(this.fieldsForStandard, function(item) {
-                    if (this.fields[item])
-                        this.fields[item].show();
-                }, this);
-            }
+            this.fields['IsLead'].setValue(this.options.isForLead);
         },
         formatDependentQuery: function(dependentValue, format, property) {
             var getV = Sage.Platform.Mobile.Utility.getValue;
