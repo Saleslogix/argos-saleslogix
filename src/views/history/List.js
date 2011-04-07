@@ -79,6 +79,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             'ModifyDate',
             'LongNotes'
         ],
+        queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
 
         formatDate: function(date) {
