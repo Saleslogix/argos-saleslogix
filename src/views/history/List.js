@@ -109,7 +109,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             return String.format('upper(Description) like "%{0}%"', query.toUpperCase());
         },
         onResize: function() {
-            this.el.select('.note-text-row').each(function(el) {
+            this.el.select('.note-text-item').each(function(el) {
                 if (el.getHeight(true) < el.child('.note-text-wrap').getHeight())
                     el.child('.note-text-more').show();
                 else
