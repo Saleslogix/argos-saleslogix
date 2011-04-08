@@ -86,7 +86,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
         hideSearch: true,
-        currentDate: (new Date()),
+        currentDate: null,
         queryOrderBy: 'Activity.Timeless desc, Activity.StartDate',
         querySelect: [
             'Activity/Description',
@@ -105,6 +105,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Mobile.SalesLogix.Calendar.UserActivityList.superclass._onRefresh.apply(this, arguments);
 
             if (o.resourceKind === 'activities') this.refreshRequired = true;
+        },
+        init: function() {
+            Mobile.SalesLogix.Calendar.UserActivityList.superclass.init.apply(this, arguments);
+
+            this.currentDate = Date.today();
         },
         show: function(options) {
             options = options || {};
