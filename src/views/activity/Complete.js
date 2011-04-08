@@ -271,8 +271,12 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 }
             };
 
-            var successFn = (function(scope, callback, entry) {
+            var success = (function(scope, callback, entry) {
                 return function() {
+                    App.fireEvent('refresh', {
+                        resourceKind: 'history'
+                    });
+
                     callback.apply(scope, [entry]);
                 };
             })(this, callback, entry);
@@ -282,7 +286,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 .setOperationName('Complete');
 
             request.execute(completeActivityentry, {
-                success: successFn,
+                success: success,
                 failure: function() {},
                 scope: this
             });
