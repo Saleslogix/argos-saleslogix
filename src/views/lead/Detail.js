@@ -48,7 +48,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         //View Properties
         id: 'lead_detail',
         editView: 'lead_edit',
-        historyEditView: 'history_edit_for_lead',
+        historyEditView: 'history_edit',
         noteEditView: 'note_edit',
         querySelect: [
             'Address/*',
