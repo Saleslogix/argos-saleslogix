@@ -161,8 +161,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 App.context['user'] && App.context['user']['$key'],
                 C.toIsoStringFromDate(this.currentDate),
                 C.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
-                this.currentDate.toString('yyyy-MM-ddT00:00:00'),
-                this.currentDate.toString('yyyy-MM-ddT23:59:59')
+                this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
+                this.currentDate.toString('yyyy-MM-ddT23:59:59Z')
             );
         },
         navigateToMonthView: function() {
