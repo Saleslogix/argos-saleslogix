@@ -10,7 +10,7 @@ Ext.namespace("Mobile.SalesLogix.History");
     Mobile.SalesLogix.History.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
         itemTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}" data-entity-name="{%: $$.resolveEntityName($) %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.contentTemplate %}',
             '</li>'
@@ -29,7 +29,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
             '<div class="note-text-item">',
                 '<div class="note-text-wrap">',
-                    '{%: $.LongNotes %}',
+                    '{%: $.Notes %}',
                 '</div>',
                 '<div class="note-text-more"></div>',
             '</div>'
@@ -64,6 +64,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         detailView: 'history_detail',
         icon: 'content/images/icons/journal_24.png',
         id: 'history_list',
+        existsRE: /^[\w]{12}$/,
         insertView: 'history_note_edit',
         queryOrderBy: 'CompletedDate desc',
         querySelect: [
@@ -76,12 +77,26 @@ Ext.namespace("Mobile.SalesLogix.History");
             'TimeLess',
             'Type',
             'LeadId',
+            'OpportunityId',
+            'AccountId',
+            'ContactId',
             'ModifyDate',
-            'LongNotes'
+            'Notes'
         ],
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
 
+        resolveEntityName: function(entry) {
+            var exists = this.existsRE;
+
+            if (entry)
+            {
+                if (exists.test(entry['LeadId'])) return 'Lead';
+                if (exists.test(entry['OpportunityId'])) return 'Opportunity';
+                if (exists.test(entry['ContactId'])) return 'Contact';
+                if (exists.test(entry['AccountId'])) return 'Account';
+            }
+        },
         formatDate: function(date) {
             var toDateFromString = Sage.Platform.Mobile.Convert.toDateFromString,
                 formatDate = Mobile.SalesLogix.Format.date;

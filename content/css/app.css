@@ -316,6 +316,26 @@ li[data-activity-type="atNote"] .list-item-selector
     background: url(../images/icons/note_24.png);
 }
 
+li[data-activity-type="atNote"][data-entity-name="Account"] .list-item-selector
+{
+    background: url(../images/icons/note_account_24x24.png);
+}
+
+li[data-activity-type="atNote"][data-entity-name="Contact"] .list-item-selector
+{
+    background: url(../images/icons/note_contact_24x24.png);
+}
+
+li[data-activity-type="atNote"][data-entity-name="Opportunity"] .list-item-selector
+{
+    background: url(../images/icons/note_opp_24x24.png);
+}
+
+li[data-activity-type="atNote"][data-entity-name="Lead"] .list-item-selector
+{
+    background: url(../images/icons/note_lead_24x24.png);
+}
+
 li[data-activity-type="atToDo"] .list-item-selector
 {
     background: url(../images/icons/To_Do_24x24.png);
