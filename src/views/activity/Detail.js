@@ -25,14 +25,13 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         alarmTimeText: 'reminder',
         categoryText: 'category',
         durationText: 'duration',
-        fbarHomeTitleText: 'home',
-        fbarScheduleTitleText: 'schedule',
         leaderText: 'leader',
         longNotesText: 'notes',
         priorityText: 'priority',
         regardingText: 'regarding',
         rolloverText: 'auto rollover',
-        startingText: 'start time',
+        startTimeText: 'start time',
+        allDayText: 'all day',
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
@@ -42,6 +41,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         contactText: 'contact',
         opportunityText: 'opportunity',
         ticketNumberText: 'ticket',
+        whenText: 'When',
+        whoText: 'Who',
+        startDateFormatString: 'M/d/yyyy h:mm:ss tt',
+        timelessDateFormatString: 'M/d/yyyy',
 
         //View Properties
         id: 'activity_detail',
@@ -95,6 +98,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
+        isActivityTimeless: function(entry) {
+            return entry && Sage.Platform.Mobile.Convert.toBoolean(entry['Timeless']);
+        },
         init: function() {
             Mobile.SalesLogix.Activity.Detail.superclass.init.apply(this, arguments);
 
@@ -147,7 +153,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             Mobile.SalesLogix.Activity.Detail.superclass.processEntry.apply(this, arguments);
 
             if (entry && entry['UserId']) this.requestLeader(entry['UserId']);
-        },        
+        },
         createLayout: function() {
             return this.layout || (this.layout = [{
                 options: {
@@ -162,76 +168,122 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     action: 'completeActivity'
                 }]
             },{
-                name: 'Type',
-                label: this.typeText,
-                renderer: this.formatActivityType.createDelegate(this)
+                options: {
+                    title: this.detailsText
+                },
+                as: [{
+                    name: 'Type',
+                    label: this.typeText,
+                    renderer: this.formatActivityType.createDelegate(this)
+                },{
+                    name: 'Description',
+                    label: this.regardingText
+                },{
+                    name: 'Category',
+                    label: this.categoryText
+                },{
+                    name: 'Priority',
+                    label: this.priorityText
+                },{
+                    name: 'LongNotes',
+                    label: this.longNotesText
+                }]
             },{
-                name: 'Description',
-                label: this.regardingText
+                options: {
+                    title: this.whenText
+                },
+                as: [{
+                    name: 'StartDate',
+                    label: this.startTimeText,
+                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                        this, [this.startDateFormatString, true], true
+                    ),
+                    exclude: this.isActivityTimeless
+                },{
+                    name: 'StartDate',
+                    label: this.allDayText,
+                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                        this, [this.timelessDateFormatString, true], true
+                    ),
+                    include: this.isActivityTimeless
+                },{
+                    name: 'Timeless',
+                    label: this.timelessText,
+                    type: 'boolean',
+                    include: false
+                },{
+                    name: 'Duration',
+                    label: this.durationText,
+                    renderer: Mobile.SalesLogix.Format.timespan,
+                    exclude: this.isActivityTimeless
+                },{
+                    name: 'Alarm',
+                    label: this.alarmText
+                },{
+                    name: 'AlarmTime',
+                    label: this.alarmTimeText,
+                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                        this, ['M/d/yyyy h:mm:ss tt'], true
+                    )
+                },{
+                    name: 'Rollover',
+                    label: this.rolloverText,
+                    include: this.isActivityTimeless
+                }]
             },{
-                name: 'Priority',
-                label: this.priorityText
-            },{
-                name: 'Category',
-                label: this.categoryText
-            },{
-                name: 'StartDate',
-                label: this.startingText,
-                renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                    this, ['M/d/yyyy h:mm:ss tt'], true
-                )
-            },{
-                name: 'Timeless',
-                label: this.timelessText,
-                type: 'boolean'
-            },{
-                name: 'Duration',
-                label: this.durationText,
-                renderer: Mobile.SalesLogix.Format.timespan
-            },{
-                name: 'Alarm',
-                label: this.alarmText
-            },{
-                name: 'AlarmTime',
-                label: this.alarmTimeText,
-                renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                    this, ['M/d/yyyy h:mm:ss tt'], true
-                )
-            },{
-                name: 'Rollover',
-                label: this.rolloverText
-            },{
-                name: 'Leader',
-                label: this.leaderText,
-                cls: 'content-loading',
-                value: 'loading...'
-            },{
-                name: 'LongNotes',
-                label: this.longNotesText
-            },{
-                name: 'ContactName',
-                exclude: this.isActivityForLead,
-                label: this.contactText
-            },{
-                name: 'AccountName',
-                exclude: this.isActivityForLead,
-                label: this.accountText
-            },{
-                name: 'OpportunityName',
-                exclude: this.isActivityForLead,
-                label: this.opportunityText
-            },{
-                name: 'TicketNumber',
-                exclude: this.isActivityForLead,
-                label: this.ticketNumberText
-            },{
-                name: 'LeadName',
-                include: this.isActivityForLead,
-                label: this.leadText
-            },{
-                name: 'AccountName',
-                include: this.isActivityForLead,
-                label: this.companyText
+                options: {
+                    title: this.whoText
+                },
+                as: [{
+                    name: 'Leader',
+                    label: this.leaderText,
+                    cls: 'content-loading',
+                    value: 'loading...'
+                },{
+                    name: 'ContactName',
+                    exclude: this.isActivityForLead,
+                    label: this.contactText,
+                    view: 'contact_detail',
+                    key: 'ContactId',
+                    descriptor: 'ContactName',
+                    property: true
+                },{
+                    name: 'AccountName',
+                    exclude: this.isActivityForLead,
+                    label: this.accountText,
+                    view: 'account_detail',
+                    key: 'AccountId',
+                    descriptor: 'AccountName',
+                    property: true
+                },{
+                    name: 'OpportunityName',
+                    exclude: this.isActivityForLead,
+                    label: this.opportunityText,
+                    view: 'opportunity_detail',
+                    key: 'OpportunityId',
+                    descriptor: 'OpportunityName',
+                    property: true
+                },{
+                    name: 'TicketNumber',
+                    exclude: this.isActivityForLead,
+                    label: this.ticketNumberText,
+                    view: 'ticket_detail',
+                    key: 'TicketId',
+                    descriptor: 'TicketNumber',
+                    property: true
+                },{
+                    name: 'LeadName',
+                    include: this.isActivityForLead,
+                    label: this.leadText,
+                    view: 'lead_detail',
+                    key: 'LeadId',
+                    descriptor: 'LeadName',
+                    property: true
+                },{
+                    name: 'AccountName',
+                    include: this.isActivityForLead,
+                    label: this.companyText
+                }]
             }]);
         }        
     });
