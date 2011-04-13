@@ -700,7 +700,7 @@ body.transition > .footer-toolbar
     line-height: 40px;
     background-color: #fff;
     text-align: center;
-    margin-top: 5px;
+    padding-top: 5px;
 }
 
 .split-buttons > .button

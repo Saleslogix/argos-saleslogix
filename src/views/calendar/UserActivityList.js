@@ -21,9 +21,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         //Templates
         viewTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
             '{%! $.searchTemplate %}',
             '{%! $.navigationTemplate %}',
-            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
             '<ul class="list-content"></ul>',
             '{%! $.moreTemplate %}',
             '</div>'
