@@ -196,7 +196,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'StartDate',
                     label: this.startTimeText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, [this.startDateFormatString, true], true
+                        this, [this.startDateFormatString], true
                     ),
                     exclude: this.isActivityTimeless
                 },{
