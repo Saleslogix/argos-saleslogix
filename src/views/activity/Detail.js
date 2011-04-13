@@ -101,6 +101,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         isActivityTimeless: function(entry) {
             return entry && Sage.Platform.Mobile.Convert.toBoolean(entry['Timeless']);
         },
+        doesActivityHaveReminder: function(entry) {
+            return Sage.Platform.Mobile.Convert.toBoolean(entry && entry['Alarm']);
+        },
         init: function() {
             Mobile.SalesLogix.Activity.Detail.superclass.init.apply(this, arguments);
 
@@ -218,13 +221,15 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     exclude: this.isActivityTimeless
                 },{
                     name: 'Alarm',
-                    label: this.alarmText
+                    label: this.alarmText,
+                    exclude: this.doesActivityHaveReminder
                 },{
                     name: 'AlarmTime',
                     label: this.alarmTimeText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
                         this, ['M/d/yyyy h:mm:ss tt'], true
-                    )
+                    ),
+                    include: this.doesActivityHaveReminder
                 },{
                     name: 'Rollover',
                     label: this.rolloverText,
