@@ -103,6 +103,9 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             scope: this
         });
     },
+    reload: function() {
+        window.location.reload();
+    },
     logOut: function() {
         if (window.localStorage)
         {
@@ -116,7 +119,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
                 .setUserName(false)
                 .setPassword(false);
 
-        window.location.reload();
+        this.reload();
     },
     handleAuthentication: function() {        
         try

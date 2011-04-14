@@ -37,6 +37,9 @@
         },{
             text: 'FooterToolbar.js',
             path: '../src/views/'
+        },{
+            text: 'UpdateToolbar.js',
+            path: '../src/views/'
         },
         {
             text: 'AddAccountContact.js',

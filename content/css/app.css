@@ -788,3 +788,105 @@ body.transition > .footer-toolbar
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#eaf1df, endColorstr=#d6e3bf)";
 }
 
+.update-toolbar
+{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+
+    height: 45px;
+    width: 100%;
+    padding: 4px 4px;
+
+    z-index: 10;
+
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #e98300;
+
+    background-color: #f8d6aa;
+    background-image: linear-gradient(
+        center top,
+        #f8d6aa 0%,
+        /* #f4c180 50%, */
+        /* #f0ac55 50%, */
+        #f4c180 100%
+    );
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #f8d6aa),
+        /* color-stop(0.50, #f4c180), */
+        /* color-stop(0.50, #f0ac55), */
+        color-stop(1, #f4c180)
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        #f8d6aa 0%,
+        /* #f4c180 50%, */
+        /* #f0ac55 50%, */
+        #f4c180 100%
+    );
+    box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
+    -moz-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
+    -webkit-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
+
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#f8d6aa, endColorstr=#f4c180)";
+}
+
+.update-toolbar > h1
+{
+    overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    line-height: 34px;
+    font-weight: normal;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    color: #000;
+    text-shadow: #fff 0px 1px 0px;
+
+    position: absolute;
+    z-index: 0;
+}
+
+.update-toolbar > .toolButton
+{
+    background: transparent;
+    border: none 0 black;
+
+     box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.update-available /* body */
+{
+    padding: 90px 0 0 0;
+}
+
+.update-available > .update-toolbar
+{
+    display: block;
+}
+
+.update-available > .toolbar
+{
+    top: 45px;
+}

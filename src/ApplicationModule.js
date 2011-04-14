@@ -183,6 +183,10 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
 
         this.registerToolbar(new Mobile.SalesLogix.FooterToolbar({
             name: 'bbar'
-        }));        
+        }));
+
+        this.registerToolbar(new Mobile.SalesLogix.UpdateToolbar({
+            name: 'updatebar'
+        }));
     }
 });
