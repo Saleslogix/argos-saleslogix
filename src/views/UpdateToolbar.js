@@ -9,8 +9,10 @@ Ext.namespace("Mobile.SalesLogix");
 (function() {
     Mobile.SalesLogix.UpdateToolbar = Ext.extend(Sage.Platform.Mobile.MainToolbar, {
         barTemplate: new Simplate([
-            '<div class="update-toolbar" data-action="reload">',
-            '<h1>{%= $.updateText %}</h1>',
+            '<div class="update-toolbar">',
+            // action has to be defined at this level
+            // todo: potential issue with event delegation when the target matches the delegate?
+            '<h1 data-action="reload">{%= $.updateText %}</h1>',
             '</div>'
         ]),
 

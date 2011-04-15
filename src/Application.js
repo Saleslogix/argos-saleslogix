@@ -27,6 +27,20 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     _checkSaveNavigationState: function() {
         if (this.rememberNavigationState !== false) this._saveNavigationState();
     },
+    _checkForUpdate: function() {
+        var cache = window.applicationCache;
+        if (cache)
+        {
+            Ext.EventManager.on(cache, 'updateready', this._notifyUpdateAvailable, this, {single: true});
+
+            // 4 == updateready, if that event has already been fired, check here.
+            if (cache.status == 4) this._notifyUpdateAvailable();
+        }
+    },
+    _notifyUpdateAvailable: function() {
+        if (this.bars['updatebar'])
+            this.bars['updatebar'].show();
+    },
     _saveNavigationState: function() {
         try
         {            
@@ -47,6 +61,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             // todo: always navigate to home when offline? data may not be available for restored state.
             this.navigateToHomeView();
         }
+
+        this._checkForUpdate();
     },
     authenticateUser: function(credentials, options) {        
         var service = this.getService()
