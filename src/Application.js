@@ -7,6 +7,7 @@ Ext.namespace("Mobile.SalesLogix");
 Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     navigationState: null,
     rememberNavigationState: true,
+    enableUpdateNotification: false,
     enableCaching: true,
     initEvents: function() {
         Mobile.SalesLogix.Application.superclass.initEvents.apply(this, arguments);
@@ -62,7 +63,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             this.navigateToHomeView();
         }
 
-        this._checkForUpdate();
+        if (this.enableUpdateNotification) this._checkForUpdate();
     },
     authenticateUser: function(credentials, options) {        
         var service = this.getService()

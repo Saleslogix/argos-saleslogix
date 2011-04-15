@@ -16,5 +16,6 @@ Ext.apply(Configuration.development, {
             protocol: /https/i.test(window.location.protocol) ? 'https' : false,
             json: true
         }
-    }
+    },
+    enableUpdateNotification: true
 });
