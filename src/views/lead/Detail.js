@@ -49,7 +49,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         id: 'lead_detail',
         editView: 'lead_edit',
         historyEditView: 'history_edit',
-        noteEditView: 'note_edit',
+        noteEditView: 'history_note_edit',
         querySelect: [
             'Address/*',
             'BusinessDescription',

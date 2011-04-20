@@ -497,6 +497,16 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     visibility: hidden;
 }
 
+.row-edit-text > textarea
+{
+    padding-left: 10px !important;
+}
+
+.row-edit-text > label
+{
+    display: none;
+}
+
 .calendar-prev-month > button
 {
     height: 36px;

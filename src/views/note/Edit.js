@@ -59,8 +59,8 @@ Ext.namespace("Mobile.SalesLogix.Note");
             }
         },
         applyTicketContext: function(context) {
-            this.fields['ContactId'].setValue(context.key);
-            this.fields['ContactName'].setValue(context.descriptor);
+            this.fields['TicketId'].setValue(context.key);
+            this.fields['TicketNumber'].setValue(context.descriptor);
 
             var view = App.getView(context.id),
                 entry = view && view.entry;

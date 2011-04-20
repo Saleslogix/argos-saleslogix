@@ -37,7 +37,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         //View Properties
         id: 'opportunity_detail',
         editView: 'opportunity_edit',
-        noteEditView: 'note_edit',
+        noteEditView: 'history_note_edit',
         querySelect: [
             'Account/AccountName',
             'Account/WebAddress',

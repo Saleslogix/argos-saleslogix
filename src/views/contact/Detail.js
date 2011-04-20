@@ -47,7 +47,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         id: 'contact_detail',
         editView: 'contact_edit',
         historyEditView: 'history_edit',
-        noteEditView: 'note_edit',
+        noteEditView: 'history_note_edit',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',

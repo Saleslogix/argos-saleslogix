@@ -13,11 +13,24 @@ Ext.namespace("Mobile.SalesLogix.Note");
         titleText: 'Note',
 
         //View Properties
-        editView: 'note_edit',
+        editView: 'history_note_edit',
         id: 'note_detail',
         querySelect: [
+            'AccountId',
+            'AccountName',
+            'ContactId',
+            'ContactName',
+            'Description',
+            'LongNotes',
             'Notes',
-            'LongNotes'
+            'OpportunityId',
+            'OpportunityName',
+            'TicketId',
+            'TicketNumber',
+            'Type',
+            'LeadId',
+            'LeadName',
+            'StartDate'
         ],        
         resourceKind: 'history',
 
