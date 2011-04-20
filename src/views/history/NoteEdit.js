@@ -19,7 +19,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         ticketNumberText: 'ticket',
         regardingText: 'regarding',
         isLeadText: 'for lead',
-        startingText: 'start time',
+        startingText: 'time',
         titleText: 'Note',
         companyText: 'company',
         leadText: 'lead',
@@ -140,6 +140,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             this.fields['Type'].setValue('atNote');
             this.fields['UserId'].setValue(user && user['$key']);
             this.fields['UserName'].setValue(user && user['$descriptor']);
+            this.fields['StartDate'].setValue(new Date());
         },
         applyAccountContext: function(context) {
             this.fields['Account'].setValue({
