@@ -169,9 +169,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             var view = App.getView(this.monthView);
             if (view)
                 view.show({
-                    tools: {
-                        tbar: false
-                    }
+                    
                 }, {
                     // disableFx: true // todo: requires a ReUI fix
                 });
