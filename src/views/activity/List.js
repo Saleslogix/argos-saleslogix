@@ -28,7 +28,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             '{%= $$.activityTimeTemplate.apply($) %}',
             '<span class="p-description">&nbsp;{%: $.Description %}</span>',
             '</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, "ddd M/d/yy") %} - {%= $$.nameTemplate.apply($) %}</h4>'
+            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, "ddd M/d/yy", Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %} - {%= $$.nameTemplate.apply($) %}</h4>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.ContactName) { %}',
