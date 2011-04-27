@@ -33,6 +33,14 @@ Mobile.SalesLogix.Help = Ext.extend(Sage.Platform.Mobile.Detail, {
      
         this.tools.tbar = [];
     },
+    onRequestFailure: function(response, o) {
+        Ext.DomHelper.append(this.contentEl, this.errorTemplate.apply(this));       
+        this.el.removeClass('panel-loading');
+    },
+    onRequestSuccess: function(response, o) {
+        this.processContent(response, o);
+        this.el.removeClass('panel-loading');
+    },
     requestData: function() {
         this.el.addClass('panel-loading');
         
@@ -40,21 +48,12 @@ Mobile.SalesLogix.Help = Ext.extend(Sage.Platform.Mobile.Detail, {
             url: this.url,
             // todo: this is backwards, fix in SData client.
             cache: false,
-            success: function(xhr, o) {
-                this.processContent(xhr, o);
-                this.el.removeClass('panel-loading');
-            },
-            failure: function(xhr, o) {
-                this.requestFailure(xhr, o);
-                this.el.removeClass('panel-loading');
-            },
+            success: this.onRequestSuccess,
+            failure: this.onRequestFailure,
             scope: this
         });
     },
     processContent: function(xhr, o) {
         Ext.DomHelper.append(this.contentEl, xhr.responseText);        
-    },
-    requestFailure: function(xhr, o) {
-        Ext.DomHelper.append(this.contentEl, this.errorTemplate.apply(this));        
     }
 });

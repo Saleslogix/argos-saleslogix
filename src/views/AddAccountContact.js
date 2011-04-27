@@ -72,7 +72,7 @@ Ext.namespace("Mobile.SalesLogix");
         formatDependentPicklist: function(dependentValue, format) {
             return String.format(format, dependentValue);
         },
-        insertCompleted: function(entry) {
+        onInsertCompleted: function(entry) {
             var view = App.getView('account_detail');
             if (view)
                 view.show({
@@ -82,7 +82,7 @@ Ext.namespace("Mobile.SalesLogix");
                     returnTo: -1
                 });
             else
-                Mobile.SalesLogix.AddAccountContact.superclass.insertCompleted.apply(this, arguments);
+                Mobile.SalesLogix.AddAccountContact.superclass.onInsertCompleted.apply(this, arguments);
         },
         createLayout: function() {
             return this.layout || (this.layout = [

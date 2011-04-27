@@ -261,7 +261,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             });
         },
         completeActivity: function(entry, callback) {
-            var completeActivityentry = {
+            var completeActivityEntry = {
                 "$name": "ActivityComplete",
                 "request": {
                     "ActivityId": entry.$key,
@@ -285,16 +285,16 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 .setResourceKind('activities')
                 .setOperationName('Complete');
 
-            request.execute(completeActivityentry, {
+            request.execute(completeActivityEntry, {
                 success: success,
                 failure: function() {},
                 scope: this
             });
         },
-        updateCompleted: function(entry) {
+        onUpdateCompleted: function(entry) {
             var followup = this.fields['Followup'].getValue() !== 'none'
                     ? this.navigateToFollowUpView
-                    : Mobile.SalesLogix.Activity.Complete.superclass.updateCompleted;
+                    : Mobile.SalesLogix.Activity.Complete.superclass.onUpdateCompleted;
 
             this.completeActivity(entry, followup);
         },

@@ -154,7 +154,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         {
             this.authenticateUser(credentials, {
                 success: function(result) {
-                    this.fetchDefaultOwner();
+                    this.requestDefaultOwner();
                     this.navigateToInitialView();
                 },
                 failure: function(result) {
@@ -212,47 +212,53 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             };
         }
     },
-    fetchDefaultOwner: function() {
+    requestDefaultOwner: function() {
         var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind('useroptions')
             .setContractName('system')
-            .setQueryArg('select', [
-                'name',
-                'value'
-            ].join(','))
+            .setQueryArg('select', 'name,value')
             .setQueryArg('where', "category eq 'General' and name eq 'InsertSecCodeID'");
 
         request.allowCacheUse = true;
         request.read({
-            success: this.processDefaultOwner,
-            failure: this.requestFailure,
+            success: this.requestDefaultOwnerSuccess,
+            failure: this.requestDefaultOwnerFailure,
             scope: this
         });
     },
-    requestFailure: function() {
+    requestDefaultOwnerFailure: function(response, o) {
     },
-    processDefaultOwner: function(data) {
-        if (!data || !data.value)
+    requestDefaultOwnerSuccess: function(entry) {
+        this.processDefaultOwner(entry);
+    },
+    processDefaultOwner: function(entry) {
+        if (!entry || !entry['value'])
         {
-            this.context.DefaultOwner = this.context.user.DefaultOwner;
+            this.context['DefaultOwner'] = this.context['user']['DefaultOwner'];
             return;
         }
 
+        this.requestOwnerDescription(entry['value']);
+    },
+    requestOwnerDescription: function(key) {
         var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-                        .setResourceKind('owners')
-                        .setContractName('dynamic')
-                        .setQueryArg('select', 'OwnerDescription')
-                        .setQueryArg('where', String.format("id eq '{0}'", data.value));
+            .setResourceKind('owners')
+            .setContractName('dynamic')
+            .setQueryArg('select', 'OwnerDescription')
+            .setQueryArg('where', String.format("id eq '{0}'", key));
 
         request.allowCacheUse = true;
 
         request.read({
-            success: function(data) {
-                if (!this.context.DefaultOwner) this.context.DefaultOwner = data;
-            },
-            failure: this.requestFailure,
+            success: this.requestOwnerDescriptionSuccess,
+            failure: this.requestOwnerDescriptionFailure,
             scope: this
         });
+    },
+    requestOwnerDescriptionSuccess: function(entry) {
+        if (!this.context['DefaultOwner']) this.context['DefaultOwner'] = entry;
+    },
+    requestOwnerDescriptionFailure: function(response, o) {
     },
     persistPreferences: function() {
         try {
