@@ -37,6 +37,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         isLeadText: 'for lead',
         yesText: 'YES',
         noText: 'NO',
+        updateUserActErrorText: 'An error occured updating user activities.',
         reminderValueText: {
             0: 'none',
             5: '5 minutes',
@@ -194,6 +195,18 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         },
         onAlarmChange: function(value, field) {
             this.toggleSelectField(this.fields['Reminder'], !value);
+        },
+        onLeadChange: function(value, field) {
+            var selection = field.getSelection(),
+                getV = Sage.Platform.Mobile.Utility.getValue;
+
+            if (selection && this.insert)
+            {
+                this.fields['AccountName'].setValue(getV(selection, 'Company'));
+            }
+        },
+        onLeaderChange: function(value, field) {
+            this.fields['UserId'].setValue(value && value['key']);
         },
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
@@ -377,17 +390,78 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             return values;
         },
-        onLeadChange: function(value, field) {
-            var selection = field.getSelection(),
-                getV = Sage.Platform.Mobile.Utility.getValue;
-
-            if (selection && this.insert)
-            {
-                this.fields['AccountName'].setValue(getV(selection, 'Company'));
-            }
+        onUpdateSuccess: function(entry) {
+            var wasTimeChanged = this.fields['StartDate'].isDirty() || this.fields['Reminder'].isDirty();
+            if (wasTimeChanged)
+                this.requestUserActivities(entry);
+            else
+                Mobile.SalesLogix.Activity.Edit.superclass.onUpdateSuccess.call(this, entry);
         },
-        onLeaderChange: function(value, field) {
-            this.fields['UserId'].setValue(value && value['key']);
+        requestUserActivities: function(entry) {
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setResourceKind('useractivities')
+                .setQueryArg('where', String.format('Activity.id eq "{0}"', entry['$key']));
+
+            request.read({
+                success: this.onRequestUserActivitiesSuccess.createDelegate(this, [entry], true),
+                failure: this.onUpdateFailure,
+                scope: this
+            });
+        },
+        onRequestUserActivitiesSuccess: function(feed, entry) {
+            this.updateUserActivities(feed, entry);
+        },
+        updateUserActivities: function(feed, entry) {
+            var alarm = this.fields['Alarm'].getValue(),
+                startDate = this.fields['StartDate'].getValue(),
+                reminderIn = this.fields['Reminder'].getValue(),
+                currentUserId = App.context['user'] && App.context['user']['$key'];
+
+            var batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
+                .setResourceKind('useractivities')
+                .using(function() {
+                    for (var i = 0; i < feed['$resources'].length; i++)
+                    {
+                        var current = feed['$resources'][i],
+                            update = {
+                                '$name': 'UserActivity',
+                                '$etag': current['$etag'],
+                                'Status': 'asUnconfirmed'
+                            };
+
+                        if (current['UserId'] == currentUserId)
+                        {
+                            update['Alarm'] = alarm;
+                            update['AlarmTime'] = startDate.clone().add({'minutes': -1 * reminderIn});
+                        }
+
+                        new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                            .setResourceKind('useractivities')
+                            .setResourceSelector(String.format("'{0}'", current['$key']))
+                            .update(this.convertValues(update));
+                    }
+                }, this);
+
+            batch.commit({
+                success: this.onUpdateUserActivitiesSuccess.createDelegate(this, [entry], true),
+                failure: this.onUpdateFailure,
+                scope: this
+            });
+        },
+        onUpdateUserActivitiesSuccess: function(feed, entry) {
+            //Mobile.SalesLogix.Activity.Edit.superclass.onUpdateSuccess.createDelegate(this, [entry]),
+
+            var result = Ext.each(feed && feed['$resources'], function(item) {
+                    if (item && item['$diagnoses']) return false;
+                }, this);
+
+            if (typeof result === 'undefined')
+                Mobile.SalesLogix.Activity.Edit.superclass.onUpdateSuccess.call(this, entry);
+            else
+            {
+                this.enable();
+                alert(this.updateUserActErrorText);
+            }
         },
         formatReminderText: function(val, key, text) {
             return this.reminderValueText[key] || text;
