@@ -10,135 +10,221 @@ Ext.namespace("Mobile.SalesLogix.History");
 (function() {
     Mobile.SalesLogix.History.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         //Localization
-        activityCategoryTitleText: 'Activity Category',
-        activityDescriptionTitleText: 'Activity Description',
-        categoryText: 'category',
-        completedText: 'completed',
-        durationText: 'duration',
-        fbarHomeTitleText: 'home',
-        fbarScheduleTitleText: 'schedule',
-        leaderText: 'leader',
         accountText: 'account',
+        noteDescriptionTitleText: 'Note Description',
         contactText: 'contact',
         longNotesText: 'notes',
         longNotesTitleText: 'Notes',
         opportunityText: 'opportunity',
         ticketNumberText: 'ticket',
-        moreDetailsText: 'More Details',
-        priorityText: 'priority',
-        priorityTitleText: 'Priority',
         regardingText: 'regarding',
-        scheduledText: 'scheduled',
-        timelessText: 'timeless',
-        titleText: 'History',
-        typeText: 'type',
+        isLeadText: 'for lead',
+        startingText: 'time',
+        titleText: 'Note',
         companyText: 'company',
         leadText: 'lead',
+        relatedItemsText: 'Related Items',
 
         //View Properties
         id: 'history_edit',
         fieldsForLeads: ['AccountName', 'Lead'],
         fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
-        picklistsByType: {
-            'atAppointment': {
-                'Category': 'Meeting Category Codes',
-                'Description': 'Meeting Regarding'
-            },
-            'atLiterature': {
-                'Description': 'Lit Request Regarding'
-            },
-            'atPersonal': {
-                'Category': 'Meeting Category Codes',
-                'Description': 'Personal Activity Regarding'
-            },
-            'atPhoneCall': {
-                'Category': 'Phone Call Category Codes',
-                'Description': 'Phone Call Regarding'
-            },
-            'atToDo': {
-                'Category': 'To Do Category Codes',
-                'Description': 'To Do Regarding'
-            },
-            'atEMail': {
-                'Category': 'E-mail Category Codes',
-                'Description': 'E-Mail Regarding'
-            }
-        },
-        durationValueText: {
-            0: 'none',
-            15: '15 minutes',
-            30: '30 minutes',
-            60: '1 hour',
-            90: '1.5 hours',
-            120: '2 hours'
-        },
         entityName: 'History',
         resourceKind: 'history',
         querySelect: [
             'AccountId',
             'AccountName',
-            'Category',
             'ContactId',
             'ContactName',
             'Description',
             'LongNotes',
+            'Notes',
             'OpportunityId',
             'OpportunityName',
-            'Priority',
             'TicketId',
             'TicketNumber',
             'Type',
-            'UserId',
-            'UserName',
             'LeadId',
-            'LeadName'
+            'LeadName',
+            'StartDate'
         ],
 
         init: function() {
             Mobile.SalesLogix.History.Edit.superclass.init.apply(this, arguments);
 
-            this.fields['Timeless'].on('change', this.onTimelessChange, this);
+            this.fields['Lead'].on('change', this.onLeadChange, this);
+            this.fields['IsLead'].on('change', this.onIsLeadChange, this);
         },
         isHistoryForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        beforeTransitionTo: function() {
-            Mobile.SalesLogix.Activity.Complete.superclass.beforeTransitionTo.apply(this, arguments);
-
+        isInLeadContext: function() {
             var insert = this.options && this.options.insert,
                 entry = this.options && this.options.entry,
                 lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) { return c.key; })) || this.isHistoryForLead(entry);
 
+            return !!lead;
+        },
+        beforeTransitionTo: function() {
+            Mobile.SalesLogix.History.Edit.superclass.beforeTransitionTo.apply(this, arguments);
+
+            // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
+            // the value for the 'IsLead' field will be set later, based on the value derived here.
+
+            // todo: there is an issue when refreshing the edit view as options.isLead is persisted in the navigation state.
+            if (this.options.isForLead != undefined) return;
+
+            this.options.isForLead = this.isInLeadContext();
+
+            if (this.options.isForLead)
+                this.showFieldsForLead();
+            else
+                this.showFieldsForStandard();
+        },
+        onIsLeadChange: function(value, field) {
+            this.options.isForLead = value;
+
+            if (this.options.isForLead)
+                this.showFieldsForLead();
+            else
+                this.showFieldsForStandard();
+        },
+        onLeadChange: function(value, field) {
+            var selection = field.getSelection(),
+                getV = Sage.Platform.Mobile.Utility.getValue;
+
+            if (selection && this.insert)
+            {
+                this.fields['AccountName'].setValue(getV(selection, 'Company'));
+            }
+        },
+        showFieldsForLead: function() {
             Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
 
-            if (lead)
-            {
-                Ext.each(this.fieldsForLeads, function(item) {
-                    if (this.fields[item])
-                        this.fields[item].show();
-                }, this);
-            }
-            else
-            {
-                Ext.each(this.fieldsForStandard, function(item) {
-                    if (this.fields[item])
-                        this.fields[item].show();
-                }, this);
-            }
+            Ext.each(this.fieldsForLeads, function(item) {
+                if (this.fields[item])
+                    this.fields[item].show();
+            }, this);
         },
-        onTimelessChange: function(value, field) {
-            var field = this.fields['Duration'];
+        showFieldsForStandard: function() {
+            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+                if (this.fields[item])
+                    this.fields[item].hide();
+            }, this);
 
-            value === true ? field.disable() : field.enable();
+            Ext.each(this.fieldsForStandard, function(item) {
+                    if (this.fields[item])
+                        this.fields[item].show();
+                }, this);
         },
-        formatPicklistForType: function(type, which) {
-            return this.picklistsByType[type] && this.picklistsByType[type][which];
+        applyContext: function() {
+            var found = App.queryNavigationContext(function(o) {
+                return /^(accounts|contacts|opportunities|leads|tickets)$/.test(o.resourceKind) && o.key;
+            });
+
+            var lookup = {
+                'accounts': this.applyAccountContext,
+                'contacts': this.applyContactContext,
+                'opportunities': this.applyOpportunityContext,
+                'leads': this.applyLeadContext,
+                'tickets': this.applyTicketContext
+            };
+
+            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
+            
+            var user = App.context && App.context.user;
+            
+            this.fields['Type'].setValue('atNote');
+            this.fields['UserId'].setValue(user && user['$key']);
+            this.fields['UserName'].setValue(user && user['$descriptor']);
+            this.fields['StartDate'].setValue(new Date());
         },
-        formatDurationText: function(val, key, text) {
-            return this.durationValueText[key] || text;
+        applyAccountContext: function(context) {
+            this.fields['Account'].setValue({
+                'AccountId': context.key,
+                'AccountName': context.descriptor
+            });
+        },
+        applyLeadContext: function(context) {
+            this.fields['Lead'].setValue({
+                'LeadId': context.key,
+                'LeadName': context.descriptor
+            });
+
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
+            if (entry && entry['Company']) this.fields['AccountName'].setValue(entry['Company']);
+        },
+        applyOpportunityContext: function(context) {
+            this.fields['Opportunity'].setValue({
+                'OpportunityId': context.key,
+                'OpportunityName': context.descriptor
+            });
+
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
+            if (entry && entry['Account'])
+            {
+                this.fields['Account'].setValue({
+                    'AccountId': entry['Account']['$key'],
+                    'AccountName': entry['Account']['AccountName']
+                });
+            }
+
+            // todo: find a good way to get the primary contact and apply
+        },
+        applyContactContext: function(context) {
+            this.fields['Contact'].setValue({
+                'ContactId': context.key,
+                'ContactName': context.descriptor
+            });
+
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
+            if (entry && entry['Account'])
+            {
+                this.fields['Account'].setValue({
+                    'AccountId': entry['Account']['$key'],
+                    'AccountName': entry['Account']['AccountName']
+                });
+            }
+        },
+        applyTicketContext: function(context) {
+            this.fields['Ticket'].setValue({
+                'TicketId': context.key,
+                'TicketNumber': context.descriptor
+            });
+
+            var view = App.getView(context.id),
+                entry = view && view.entry;
+
+            if (entry && entry['Account'])
+            {
+                this.fields['Account'].setValue({
+                    'AccountId': entry['Account']['$key'],
+                    'AccountName': entry['Account']['AccountName']
+                });
+            }
+
+            if (entry && entry['Contact'])
+            {
+                 this.fields['Contact'].setValue({
+                    'ContactId': entry['Contact']['$key'],
+                    'ContactName': entry['Contact']['NameLF']
+                });
+            }            
+        },
+        setValues: function(values) {
+            Mobile.SalesLogix.History.Edit.superclass.setValues.apply(this, arguments);
+
+            this.fields['IsLead'].setValue(this.options.isForLead);
+            this.fields['Text'].setValue(values['LongNotes'] || values['Notes'] || '');
         },
         formatDependentQuery: function(dependentValue, format, property) {
             var getV = Sage.Platform.Mobile.Utility.getValue;
@@ -147,103 +233,76 @@ Ext.namespace("Mobile.SalesLogix.History");
 
             return String.format(format, getV(dependentValue, property));
         },
-        createDurationData: function() {
-            var list = [];
+        getValues: function() {
+            var values = Mobile.SalesLogix.History.Edit.superclass.getValues.apply(this, arguments);
 
-            for (var duration in this.durationValueText)
+            if (this.fields['Text'].isDirty())
             {
-                list.push({
-                    '$key': duration,
-                    '$descriptor': this.durationValueText[duration]
-                });
+                var text = this.fields['Text'].getValue();
+
+                values = values || {};
+                values['LongNotes'] = text;
+                values['Notes'] = text && text.length > 250
+                    ? text.substr(0, 250)
+                    : text;
             }
 
-            return {'$resources': list};
-        },        
+            return values;
+        },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                name: 'Type',
-                type: 'hidden'
-            },{
-                dependsOn: 'Type',
-                label: this.regardingText,
-                name: 'Description',
-                picklist: this.formatPicklistForType.createDelegate(
-                    this, ['Description'], true
-                ),
-                orderBy: 'text asc',
-                title: this.activityDescriptionTitleText,
-                type: 'picklist'
-            },{
-                name: 'LongNotes',
-                label: this.longNotesText,
-                noteProperty: false,
-                title: this.longNotesTitleText,
-                type: 'note',
-                view: 'text_edit'
-            },{
                 options: {
-                    title: this.moreDetailsText,
-                    collapsed: true
+                    title: this.detailsText
                 },
                 as: [{
-                    label: this.priorityText,
-                    name: 'Priority',
-                    picklist: 'Priorities',
-                    title: this.priorityTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    name: 'Type',
+                    type: 'hidden'
                 },{
-                    dependsOn: 'Type',
-                    label: this.categoryText,
-                    name: 'Category',
-                    picklist: this.formatPicklistForType.createDelegate(
-                        this, ['Category'], true
-                    ),
-                    title: this.activityCategoryTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    name: 'UserId',
+                    type: 'hidden'
                 },{
-                    label: this.completedText,
-                    name: 'CompletedDate',
-                    type: 'date',
-                    showTimePicker: true,
-                    formatString: 'M/d/yyyy h:mm tt',
-                    minValue: (new Date(1900, 0, 1)),
-                    validator: Mobile.SalesLogix.Validator.isDateInRange
+                    name: 'UserName',
+                    type: 'hidden'
                 },{
-                    label: this.scheduledText,
+                    label: this.startingText,
                     name: 'StartDate',
                     type: 'date',
                     showTimePicker: true,
                     formatString: 'M/d/yyyy h:mm tt',
                     minValue: (new Date(1900, 0, 1)),
-                    validator: Mobile.SalesLogix.Validator.isDateInRange
+                    validator: [
+                        Mobile.SalesLogix.Validator.exists,
+                        Mobile.SalesLogix.Validator.isDateInRange
+                    ]
                 },{
-                    label: this.timelessText,
-                    name: 'Timeless',
+                    dependsOn: 'Type',
+                    label: this.regardingText,
+                    name: 'Description',
+                    picklist: 'Note Regarding',
+                    orderBy: 'text asc',
+                    title: this.noteDescriptionTitleText,
+                    type: 'picklist'
+                }]
+            },{
+                options: {
+                    title: this.longNotesTitleText
+                },
+                as: [{
+                    name: 'Text',
+                    label: this.longNotesText,
+                    cls: 'row-edit-text',
+                    type: 'text',
+                    multiline: true
+                }]
+            },{
+                options: {
+                    title: this.relatedItemsText
+                },
+                as: [{
+                    label: this.isLeadText,
+                    name: 'IsLead',
+                    include: false,
                     type: 'boolean'
-                },{
-                    label: this.durationText,
-                    name: 'Duration',
-                    type: 'select',
-                    view: 'select_list',
-                    textRenderer: this.formatDurationText.createDelegate(this),
-                    requireSelection: true,
-                    valueKeyProperty: false,
-                    valueTextProperty: false,
-                    data: this.createDurationData()
-                },{
-                    label: this.leaderText,
-                    name: 'User',
-                    emptyText: '',
-                    applyTo: '.',
-                    valueKeyProperty: 'UserId',
-                    valueTextProperty: 'UserName',
-                    type: 'lookup',
-                    view: 'user_list'
                 },{
                     label: this.accountText,
                     name: 'Account',
@@ -252,7 +311,8 @@ Ext.namespace("Mobile.SalesLogix.History");
                     applyTo: '.',
                     valueKeyProperty: 'AccountId',
                     valueTextProperty: 'AccountName',
-                    view: 'account_related'
+                    view: 'account_related',
+                    validator: Mobile.SalesLogix.Validator.exists
                 },{
                     dependsOn: 'Account',
                     label: this.contactText,
@@ -293,10 +353,6 @@ Ext.namespace("Mobile.SalesLogix.History");
                         this, ['Account.Id eq "{0}"', 'AccountId'], true
                     )
                 },{
-                    label: this.companyText,
-                    name: 'AccountName',
-                    type: 'text'
-                },{
                     label: this.leadText,
                     name: 'Lead',
                     type: 'lookup',
@@ -304,8 +360,13 @@ Ext.namespace("Mobile.SalesLogix.History");
                     applyTo: '.',
                     valueKeyProperty: 'LeadId',
                     valueTextProperty: 'LeadName',
-                    view: 'lead_related'
-                }]
+                    view: 'lead_related',
+                    validator: Mobile.SalesLogix.Validator.exists
+                },{
+                    label: this.companyText,
+                    name: 'AccountName',
+                    type: 'text'
+                }]                        
             }]);
         }
     });

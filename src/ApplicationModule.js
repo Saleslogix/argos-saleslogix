@@ -18,7 +18,7 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
         this.registerView(new Mobile.SalesLogix.AreaCategoryIssueLookup());
 
         this.registerView(new Mobile.SalesLogix.NameEdit());
-        this.registerView(new Mobile.SalesLogix.NoteEdit());
+        this.registerView(new Mobile.SalesLogix.TextEdit());
         this.registerView(new Mobile.SalesLogix.Address.Edit());
 
         this.registerView(new Mobile.SalesLogix.Account.List());
@@ -142,20 +142,14 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
             expose: false
         }));
 
-        this.registerView(new Mobile.SalesLogix.Note.Detail());
-        this.registerView(new Mobile.SalesLogix.Note.Edit());
-        this.registerView(new Mobile.SalesLogix.Note.List({
-            id: 'note_related',
-            expose: false
-        }));
-
         this.registerView(new Mobile.SalesLogix.History.Detail());
+        this.registerView(new Mobile.SalesLogix.History.List());
         this.registerView(new Mobile.SalesLogix.History.Edit());
-        this.registerView(new Mobile.SalesLogix.History.NoteEdit());
-        this.registerView(new Mobile.SalesLogix.History.RelatedList({
+        this.registerView(new Mobile.SalesLogix.History.Edit());
+        this.registerView(new Mobile.SalesLogix.History.List({
+            id: 'history_related',
             expose: false
         }));
-        this.registerView(new Mobile.SalesLogix.History.List());
 
         this.registerView(new Mobile.SalesLogix.User.List({
             expose: false

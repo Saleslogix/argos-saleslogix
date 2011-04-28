@@ -42,6 +42,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         //View Properties
         id: 'history_detail',
         existsRE: /^[\w]{12}$/,
+        editView: 'history_edit',
         dateFormatString: 'M/d/yyyy h:mm:ss tt',
         resourceKind: 'history',
         querySelect: [
@@ -69,10 +70,6 @@ Ext.namespace("Mobile.SalesLogix.History");
             'UserName'
         ],
 
-        init: function() {
-            Mobile.SalesLogix.History.Detail.superclass.init.apply(this, arguments);
-            this.tools.tbar = [];
-        },
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
@@ -123,19 +120,6 @@ Ext.namespace("Mobile.SalesLogix.History");
                 },{
                     name: 'Description',
                     label: this.regardingText
-                },{
-                    name: 'Timeless',
-                    label: this.timelessText,
-                    exclude: this.isHistoryOfType.createDelegate(
-                        this, ['atNote'], true
-                    )
-                },{
-                    name: 'Duration',
-                    label: this.durationText,
-                    renderer: Mobile.SalesLogix.Format.timespan,
-                    exclude: this.isHistoryOfType.createDelegate(
-                        this, ['atNote'], true
-                    )
                 }]
             },{
                 options: {
@@ -152,20 +136,20 @@ Ext.namespace("Mobile.SalesLogix.History");
                     title: this.relatedItemsText
                 },
                 as: [{
-                    name: 'ContactName',
-                    exclude: this.isHistoryForLead,
-                    label: this.contactText,
-                    view: 'contact_detail',
-                    key: 'ContactId',
-                    descriptor: 'ContactName',
-                    property: true
-                },{
                     name: 'AccountName',
                     exclude: this.isHistoryForLead,
                     label: this.accountText,
                     view: 'account_detail',
                     key: 'AccountId',
                     descriptor: 'AccountName',
+                    property: true
+                },{
+                    name: 'ContactName',
+                    exclude: this.isHistoryForLead,
+                    label: this.contactText,
+                    view: 'contact_detail',
+                    key: 'ContactId',
+                    descriptor: 'ContactName',
                     property: true
                 },{
                     name: 'OpportunityName',

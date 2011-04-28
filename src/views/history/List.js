@@ -65,7 +65,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         icon: 'content/images/icons/journal_24.png',
         id: 'history_list',
         existsRE: /^[\w]{12}$/,
-        insertView: 'history_note_edit',
+        insertView: 'history_edit',
         queryOrderBy: 'CompletedDate desc',
         querySelect: [
             'AccountName',
@@ -90,7 +90,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             'phonecall': 'Type eq "atPhoneCall"',
             'meeting': 'Type eq "atAppointment"',
             'personal': 'Type eq "atPersonal"',
-            'email': 'Type eq "atEmail"'
+            'email': 'Type eq "atEMail"'
         },
 
         resolveEntityName: function(entry) {

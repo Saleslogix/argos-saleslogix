@@ -27,7 +27,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         notesText: 'comments',
         ownerText: 'owner',
         relatedActivitiesText: 'Activities',
-        relatedHistoriesText: 'History',
+        relatedHistoriesText: 'Notes/History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
         sicCodeText: 'sic code',
@@ -49,7 +49,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         id: 'lead_detail',
         editView: 'lead_edit',
         historyEditView: 'history_edit',
-        noteEditView: 'history_note_edit',
+        noteEditView: 'history_edit',
         querySelect: [
             'Address/*',
             'BusinessDescription',
@@ -264,18 +264,10 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     )
                 },
                 {
-                    icon: 'content/images/icons/note_24.png',
-                    label: this.relatedNotesText,
-                    view: 'note_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['LeadId eq "{0}" and Type eq "atNote"'], true
-                    )
-                },
-                {
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
                     where: this.formatRelatedQuery.createDelegate(
-                        this, ['LeadId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
+                        this, ['LeadId eq "{0}" and Type ne "atDatabaseChange"'], true
                     ),
                     view: 'history_related'
                 }]

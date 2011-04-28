@@ -22,7 +22,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         probabilityText: 'close prob',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
-        relatedHistoriesText: 'History',
+        relatedHistoriesText: 'Notes/History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
         relatedProductsText: 'Products',
@@ -37,7 +37,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         //View Properties
         id: 'opportunity_detail',
         editView: 'opportunity_edit',
-        noteEditView: 'history_note_edit',
+        noteEditView: 'history_edit',
         querySelect: [
             'Account/AccountName',
             'Account/WebAddress',
@@ -164,13 +164,6 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                         this, ['OpportunityId eq "{0}"'], true
                     )
                 },{
-                    icon: 'content/images/icons/note_24.png',
-                    label: this.relatedNotesText,
-                    view: 'note_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['OpportunityId eq "{0}" and Type eq "atNote"'], true
-                    )
-                },{
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
                     view: 'contact_related',
@@ -181,7 +174,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
                     where: this.formatRelatedQuery.createDelegate(
-                        this, ['OpportunityId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
+                        this, ['OpportunityId eq "{0}" and Type ne "atDatabaseChange"'], true
                     ),
                     view: 'history_related'
                 }]

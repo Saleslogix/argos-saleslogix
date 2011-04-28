@@ -27,7 +27,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         actionsText: 'Quick Actions',
         relatedAccountsText: 'Accounts',
         relatedActivitiesText: 'Activities',
-        relatedHistoriesText: 'History',
+        relatedHistoriesText: 'Notes/History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
         relatedOpportunitiesText: 'Opportunities',
@@ -47,7 +47,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         id: 'contact_detail',
         editView: 'contact_edit',
         historyEditView: 'history_edit',
-        noteEditView: 'history_note_edit',
+        noteEditView: 'history_edit',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',
@@ -265,13 +265,6 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                         this, ['ContactId eq "{0}"'], true
                     )
                 },{
-                    icon: 'content/images/icons/note_24.png',
-                    label: this.relatedNotesText,
-                    view: 'note_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['ContactId eq "{0}" and Type eq "atNote"'], true
-                    )
-                },{
                     icon: 'content/images/icons/opportunity_24.png',
                     label: this.relatedOpportunitiesText,
                     view: 'opportunity_related',
@@ -289,7 +282,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
                     where: this.formatRelatedQuery.createDelegate(
-                        this, ['ContactId eq "{0}" and Type ne "atNote" and Type ne "atDatabaseChange"'], true
+                        this, ['ContactId eq "{0}" and Type ne "atDatabaseChange"'], true
                     ),
                     view: 'history_related'
                 }]
