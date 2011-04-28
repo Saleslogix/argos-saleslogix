@@ -10,25 +10,25 @@ Ext.namespace("Mobile.SalesLogix.History");
     Mobile.SalesLogix.History.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         //Localization
         categoryText: 'category',
-        completeText: 'completed',
+        completedText: 'completed',
         durationText: 'duration',
-        fbarHomeTitleText: 'home',
-        fbarScheduleTitleText: 'schedule',
         leaderText: 'leader',
         longNotesText: 'notes',
+        notesText: 'Notes',
         priorityText: 'priority',
         regardingText: 'regarding',
         scheduledText: 'scheduled',
         timelessText: 'timeless',
         companyText: 'company',
         leadText: 'lead',
-        longNotesText: 'notes',
         titleText: 'History',
         accountText: 'account',
         contactText: 'contact',
-        longNotesText: 'notes',
         opportunityText: 'opportunity',
         ticketNumberText: 'ticket',
+        moreDetailsText: 'More Details',
+        relatedItemsText: 'Related Items',
+        modifiedText: 'modified',
         typeText: 'type',
         activityTypeText: {
             'atToDo': 'To-Do',
@@ -41,16 +41,20 @@ Ext.namespace("Mobile.SalesLogix.History");
         },
         //View Properties
         id: 'history_detail',
+        existsRE: /^[\w]{12}$/,
+        dateFormatString: 'M/d/yyyy h:mm:ss tt',
         resourceKind: 'history',
         querySelect: [
             'AccountId',
             'AccountName',
             'Category',
+            'ModifyDate',
             'CompletedDate',
             'ContactId',
             'ContactName',
             'Description',
             'Duration',
+            'Notes',
             'LongNotes',
             'OpportunityId',
             'OpportunityName',
@@ -73,71 +77,125 @@ Ext.namespace("Mobile.SalesLogix.History");
             return this.activityTypeText[val] || val;
         },
         isHistoryForLead: function(entry) {
-            return entry && /^[\w]{12}$/.test(entry['LeadId']);
+            return this.existsRE.test(entry && entry['LeadId']);
+        },
+        isHistoryForActivity: function(entry) {
+            return this.existsRE.test(entry && entry['ActivityId']);
+        },
+        isHistoryOfType: function(entry, type) {
+            return entry && (entry['Type'] === type);
+        },
+        provideText: function(entry) {
+            return entry && (entry['LongNotes'] || entry['Notes']);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                name: 'Type',
-                label: this.typeText,
-                renderer: this.formatActivityType
+                options: {
+                    title: this.detailsText
+                },
+                as: [{
+                    name: 'StartDate',
+                    label: this.scheduledText,
+                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                        this, [this.dateFormatString], true
+                    ),
+                    exclude: this.isHistoryOfType.createDelegate(
+                        this, ['atNote'], true
+                    )
+                },{
+                    name: 'CompletedDate',
+                    label: this.completedText,
+                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                        this, [this.dateFormatString], true
+                    ),
+                    exclude: this.isHistoryOfType.createDelegate(
+                        this, ['atNote'], true
+                    )
+                },{
+                    name: 'ModifyDate',
+                    label: this.modifiedText,
+                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                        this, [this.dateFormatString], true
+                    ),
+                    include: this.isHistoryOfType.createDelegate(
+                        this, ['atNote'], true
+                    )
+                },{
+                    name: 'Description',
+                    label: this.regardingText
+                },{
+                    name: 'Timeless',
+                    label: this.timelessText,
+                    exclude: this.isHistoryOfType.createDelegate(
+                        this, ['atNote'], true
+                    )
+                },{
+                    name: 'Duration',
+                    label: this.durationText,
+                    renderer: Mobile.SalesLogix.Format.timespan,
+                    exclude: this.isHistoryOfType.createDelegate(
+                        this, ['atNote'], true
+                    )
+                }]
             },{
-                name: 'Description',
-                label: this.regardingText
+                options: {
+                    title: this.notesText
+                },
+                as: [{
+                    name: 'LongNotes',
+                    label: this.longNotesText,
+                    provider: this.provideText.createDelegate(this),
+                    wrap: Mobile.SalesLogix.Template.noteDetailProperty
+                }]
             },{
-                name: 'Priority',
-                label: this.priorityText
-            },{
-                name: 'Category',
-                label: this.categoryText
-            },{
-                name: 'CompletedDate',
-                label: this.completeText,
-                renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                    this, ['M/d/yyyy h:mm:ss tt'], true
-                )
-            },{
-                name: 'StartDate',
-                label: this.scheduledText,
-                renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                    this, ['M/d/yyyy h:mm:ss tt'], true
-                )
-            },{
-                name: 'Timeless',
-                label: this.timelessText
-            },{
-                name: 'Duration',
-                label: this.durationText,
-                renderer: Mobile.SalesLogix.Format.timespan
-            },{
-                name: 'UserName',
-                label: this.leaderText
-            },{
-                name: 'ContactName',
-                exclude: this.isHistoryForLead,
-                label: this.contactText
-            },{
-                name: 'AccountName',
-                exclude: this.isHistoryForLead,
-                label: this.accountText
-            },{
-                name: 'OpportunityName',
-                exclude: this.isHistoryForLead,
-                label: this.opportunityText
-            },{
-                name: 'TicketNumber',
-                exclude: this.isHistoryForLead,
-                label: this.ticketNumberText
-            },{
-                name: 'LeadName',
-                include: this.isHistoryForLead,
-                label: this.leadText
-            },{
-                name: 'AccountName',
-                include: this.isHistoryForLead,
-                label: this.companyText
-            },{
-                name: 'LongNotes',
-                label: this.longNotesText
+                options: {
+                    title: this.relatedItemsText
+                },
+                as: [{
+                    name: 'ContactName',
+                    exclude: this.isHistoryForLead,
+                    label: this.contactText,
+                    view: 'contact_detail',
+                    key: 'ContactId',
+                    descriptor: 'ContactName',
+                    property: true
+                },{
+                    name: 'AccountName',
+                    exclude: this.isHistoryForLead,
+                    label: this.accountText,
+                    view: 'account_detail',
+                    key: 'AccountId',
+                    descriptor: 'AccountName',
+                    property: true
+                },{
+                    name: 'OpportunityName',
+                    exclude: this.isHistoryForLead,
+                    label: this.opportunityText,
+                    view: 'opportunity_detail',
+                    key: 'OpportunityId',
+                    descriptor: 'OpportunityName',
+                    property: true
+                },{
+                    name: 'TicketNumber',
+                    exclude: this.isHistoryForLead,
+                    label: this.ticketNumberText,
+                    view: 'ticket_detail',
+                    key: 'TicketId',
+                    descriptor: 'TicketNumber',
+                    property: true
+                },{
+                    name: 'LeadName',
+                    include: this.isHistoryForLead,
+                    label: this.leadText,
+                    view: 'lead_detail',
+                    key: 'LeadId',
+                    descriptor: 'LeadName',
+                    property: true
+                },{
+                    name: 'AccountName',
+                    include: this.isHistoryForLead,
+                    label: this.companyText
+                }]
             }]);
         }
     });

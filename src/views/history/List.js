@@ -19,14 +19,14 @@ Ext.namespace("Mobile.SalesLogix.History");
             '<h3>',
             '{% if ($.Type === "atNote") { %}',
             '<span class="p-time">{%: $$.formatDate($.ModifyDate) %}</span>',
-            '<span class="p-meridiem">&nbsp;{%: $$.formatMeridiem($.ModifyDate) %}</span>,',
+            '<span class="p-meridiem">&nbsp;{%: $$.formatMeridiem($.ModifyDate) %}</span>',
             '{% } else { %}',
             '<span class="p-time">{%: $$.formatDate($.CompletedDate) %}</span>',
-            '<span class="p-meridiem">&nbsp;{%: $$.formatMeridiem($.CompletedDate) %}</span>,',
+            '<span class="p-meridiem">&nbsp;{%: $$.formatMeridiem($.CompletedDate) %}</span>',
             '{% } %}',
-            '<span class="p-description">&nbsp;{%: $.Description %}</span>',
+            '<span class="p-description">&nbsp;{%= $$.nameTemplate.apply($) %}</span>',
             '</h3>',
-            '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
+            '<h4>{%: $.Description %}</h4>',
             '<div class="note-text-item">',
                 '<div class="note-text-wrap">',
                     '{%: $.Notes %}',
@@ -36,11 +36,11 @@ Ext.namespace("Mobile.SalesLogix.History");
         ]),
         nameTemplate: new Simplate([
             '{% if ($.LeadName && $.AccountName) { %}',
-            '{%: $.LeadName %}, {%: $.AccountName %}',
+            '{%: $.LeadName %} / {%: $.AccountName %}',
             '{% } else if ($.LeadName) { %}',
             '{%: $.LeadName %}',
             '{% } else if ($.ContactName && $.AccountName) { %}',
-            '{%: $.ContactName %}, {%: $.AccountName %}',
+            '{%: $.ContactName %} / {%: $.AccountName %}',
             '{% } else if ($.ContactName) { %}',
             '{%: $.ContactName %}',
             '{% } else { %}',
@@ -85,6 +85,13 @@ Ext.namespace("Mobile.SalesLogix.History");
         ],
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
+        hashTagQueries: {
+            'note': 'Type eq "atNote"',
+            'phonecall': 'Type eq "atPhoneCall"',
+            'meeting': 'Type eq "atAppointment"',
+            'personal': 'Type eq "atPersonal"',
+            'email': 'Type eq "atEmail"'
+        },
 
         resolveEntityName: function(entry) {
             var exists = this.existsRE;

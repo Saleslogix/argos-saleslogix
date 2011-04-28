@@ -13,7 +13,7 @@ Mobile.SalesLogix.Template = (function() {
         alternateKeyPrefixSuffix: new Simplate([
             '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}'
         ]),
-        noteDetailProperty: new Simplate([
+        noteDetailPropertyOld: new Simplate([
             '{% var F = Sage.Platform.Mobile.Format; %}',
             '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
                 '<label>{%: $.label %}</label>',
@@ -22,6 +22,15 @@ Mobile.SalesLogix.Template = (function() {
                         '{%= F.nl2br(F.encode($.value)) %}',
                     '</div>',
                 '</div>',
+            '</div>'
+        ]),
+        noteDetailProperty: new Simplate([
+            '{% var F = Sage.Platform.Mobile.Format; %}',
+            '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
+                '<label>{%: $.label %}</label>',
+                '<pre>',
+                '{%= F.encode($.value) %}',
+                '</pre>',
             '</div>'
         ])
     };
