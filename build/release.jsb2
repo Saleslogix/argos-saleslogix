@@ -70,7 +70,7 @@
             path: '../src/views/'
         },
         {
-            text: 'NoteEdit.js',
+            text: 'TextEdit.js',
             path: '../src/views/'
         },
         {
@@ -202,15 +202,7 @@
             path: '../src/views/history/'
         },
         {
-            text: 'NoteEdit.js',
-            path: '../src/views/history/'
-        },
-        {
             text: 'Detail.js',
-            path: '../src/views/history/'
-        },
-        {
-            text: 'RelatedList.js',
             path: '../src/views/history/'
         },
         {
@@ -232,19 +224,7 @@
         {
             text: 'List.js',
             path: '../src/views/leadsource/'
-        },
-        {
-            text: 'Detail.js',
-            path: '../src/views/note/'
-        },
-        {
-            text: 'Edit.js',
-            path: '../src/views/note/'
-        },
-        {
-            text: 'List.js',
-            path: '../src/views/note/'
-        },
+        },       
         {
             text: 'Detail.js',
             path: '../src/views/opportunity/'
