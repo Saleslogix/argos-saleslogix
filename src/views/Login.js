@@ -76,7 +76,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
         App.authenticateUser(credentials, {
             success: function(result) {
                 this.enable();
-                App.requestDefaultOwner();
+                App.requestUserDetails();
                 App.navigateToInitialView();
             },
             failure: function(result) {

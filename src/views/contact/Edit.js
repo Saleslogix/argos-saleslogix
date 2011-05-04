@@ -78,7 +78,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
             };
 
             this.fields['AccountManager'].setValue(App.context.user);
-            this.fields['Owner'].setValue(App.context.DefaultOwner);
+            this.fields['Owner'].setValue(App.context['defaultOwner']);
 
             if (found && lookup[found.resourceKind])
                 lookup[found.resourceKind].call(this, found);            

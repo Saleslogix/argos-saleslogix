@@ -9,6 +9,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     rememberNavigationState: true,
     enableUpdateNotification: false,
     enableCaching: true,
+    userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
+    userOptionsToRequest: ['General;InsertSecCodeID'],
     initEvents: function() {
         Mobile.SalesLogix.Application.superclass.initEvents.apply(this, arguments);
     },
@@ -65,59 +67,56 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
 
         if (this.enableUpdateNotification) this._checkForUpdate();
     },
+    onAuthenticateUserSuccess: function(result, credentials, callback, scope) {
+
+        var user = {
+            '$key': result['response']['userId'],
+            '$descriptor': result['response']['prettyName'],
+            'UserName': result['response']['userName']
+        };
+
+        this.context['user'] = user;
+
+        if (credentials.remember)
+        {
+            try
+            {
+                if (window.localStorage)
+                    window.localStorage.setItem('credentials', Base64.encode(Ext.encode({
+                        username: credentials.username,
+                        password: credentials.password || ''
+                    })));
+            }
+            catch (e) { }
+        }
+
+        if (callback)
+            callback.call(scope || this, {user: user});
+
+    },
+    onAuthenticateUserFailure: function(response, ajax, callback, scope) {
+        var service = this.getService();
+        if (service)
+            service
+                .setUserName(false)
+                .setPassword(false);
+
+        if (callback)
+            callback.call(scope || this, {response: response});
+    },
     authenticateUser: function(credentials, options) {        
         var service = this.getService()
             .setUserName(credentials.username)
             .setPassword(credentials.password || '');
-        
-        var request = new Sage.SData.Client.SDataResourceCollectionRequest(service)
-            .setResourceKind('users')
-            .setQueryArgs({
-                'select': 'UserName,UserInfo/UserName,UserInfo/FirstName,UserInfo/LastName,DefaultOwner/OwnerDescription',
-                'where': String.format('UserName eq "{0}"', credentials.username)
-            })
-            .setCount(1)
-            .setStartIndex(1);
 
-        request.read({
-            success: function (feed) {
-                if (feed['$resources'].length <= 0) {
-                    if (options.failure)
-                        options.failure.call(options.scope || this, {user: false});
-                }
-                else {
-                    this.context['user'] = feed['$resources'][0];
+        var request = new Sage.SData.Client.SDataServiceOperationRequest(service)
+            .setContractName('system')
+            .setOperationName('getCurrentUser');
 
-                    if (credentials.remember)
-                    {
-                        try
-                        {
-                            if (window.localStorage)
-                                window.localStorage.setItem('credentials', Base64.encode(Ext.encode({
-                                    username: credentials.username,
-                                    password: credentials.password || ''
-                                })));
-                        }
-                        catch (e) { }
-                    }
-
-                    if (options.success)
-                        options.success.call(options.scope || this, {user: feed['$resources'][0]});
-                }
-            },
-            failure: function (response, o) {
-                service
-                    .setUserName(false)
-                    .setPassword(false);
-
-                if (options.failure)
-                    options.failure.call(options.scope || this, {response: response});
-            },
-            aborted: function(response, o) {
-                if (options.aborted)
-                    options.aborted.call(options.scope || this, {response: response});
-            },
-            scope: this
+        request.execute({}, {
+            success: this.onAuthenticateUserSuccess.createDelegate(this, [credentials, options.success, options.scope], true),
+            failure: this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
+            aborted: this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
         });
     },
     reload: function() {
@@ -130,7 +129,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             window.localStorage.removeItem('navigationState');
         }
 
-        var service = App.getService();
+        var service = this.getService();
         if (service)
             service
                 .setUserName(false)
@@ -154,7 +153,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
         {
             this.authenticateUser(credentials, {
                 success: function(result) {
-                    this.requestDefaultOwner();
+                    this.requestUserDetails();
                     this.navigateToInitialView();
                 },
                 failure: function(result) {
@@ -212,53 +211,79 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
             };
         }
     },
-    requestDefaultOwner: function() {
+    requestUserDetails: function() {
         var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-            .setResourceKind('useroptions')
-            .setContractName('system')
-            .setQueryArg('select', 'name,value')
-            .setQueryArg('where', "category eq 'General' and name eq 'InsertSecCodeID'");
+            .setResourceKind('users')
+            .setResourceSelector(String.format('"{0}"', this.context['user']['$key']))
+            .setQueryArg('select', this.userDetailsQuerySelect.join(','));
 
-        request.allowCacheUse = true;
         request.read({
-            success: this.requestDefaultOwnerSuccess,
-            failure: this.requestDefaultOwnerFailure,
+            success: this.onRequestUserDetailsSuccess,
+            failure: this.onRequestUserDetailsFailure,
             scope: this
         });
     },
-    requestDefaultOwnerFailure: function(response, o) {
-    },
-    requestDefaultOwnerSuccess: function(entry) {
-        this.processDefaultOwner(entry);
-    },
-    processDefaultOwner: function(entry) {
-        if (!entry || !entry['value'])
-        {
-            this.context['DefaultOwner'] = this.context['user']['DefaultOwner'];
-            return;
-        }
+    onRequestUserDetailsSuccess: function(entry) {
+        this.context['user'] = entry;
+        this.context['defaultOwner'] = entry && entry['DefaultOwner'];
 
-        this.requestOwnerDescription(entry['value']);
+        this.requestUserOptions();
+    },
+    onRequestUserDetailsFailure: function(response, o) {
+    },
+    requestUserOptions: function() {
+        var batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
+            .setContractName('system')
+            .setResourceKind('useroptions')
+            .setQueryArg('select', 'name,value')
+            .using(function() {
+                var service = this.getService();
+                Ext.each(this.userOptionsToRequest, function(item) {
+                    new Sage.SData.Client.SDataSingleResourceRequest(this)
+                        .setContractName('system')
+                        .setResourceKind('useroptions')
+                        .setResourceSelector(String.format('"{0}"', item))
+                        .read();
+                }, service);
+            }, this);
+
+        batch.commit({
+            success: this.onRequestUserOptionsSuccess,
+            failure: this.onRequestUserOptionsFailure,
+            scope: this
+        });
+    },
+    onRequestUserOptionsSuccess: function(feed) {
+        var userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
+
+        Ext.each(feed && feed['$resources'], function(item) {
+            var key = item && item['$descriptor'],
+                value = item && item['value'];
+            if (value && key) this[key] = value;
+        }, userOptions);
+
+        var insertSecCode = userOptions['General:InsertSecCodeID'],
+            currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];
+        if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner != insertSecCode))) this.requestOwnerDescription(insertSecCode);
+    },
+    onRequestUserOptionsFailure: function(response, o) {
     },
     requestOwnerDescription: function(key) {
         var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
             .setResourceKind('owners')
-            .setContractName('dynamic')
-            .setQueryArg('select', 'OwnerDescription')
-            .setQueryArg('where', String.format("id eq '{0}'", key));
-
-        request.allowCacheUse = true;
+            .setResourceSelector(String.format('"{0}"', key))
+            .setQueryArg('select', 'OwnerDescription');
 
         request.read({
-            success: this.requestOwnerDescriptionSuccess,
-            failure: this.requestOwnerDescriptionFailure,
+            success: this.onRequestOwnerDescriptionSuccess,
+            failure: this.onRequestOwnerDescriptionFailure,
             scope: this
         });
     },
-    requestOwnerDescriptionSuccess: function(entry) {
-        if (!this.context['DefaultOwner']) this.context['DefaultOwner'] = entry;
+    onRequestOwnerDescriptionSuccess: function(entry) {
+        if (entry) this.context['defaultOwner'] = entry;
     },
-    requestOwnerDescriptionFailure: function(response, o) {
+    onRequestOwnerDescriptionFailure: function(response, o) {
     },
     persistPreferences: function() {
         try {
