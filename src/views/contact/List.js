@@ -33,7 +33,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         resourceKind: 'contacts',
 
         formatSearchQuery: function(query) {
-            return String.format('(LastNameUpper like "{0}%" or upper(FirstName) like "{0}%" or upper(AccountName) like "{0}%")', query.toUpperCase());
+            return String.format('(LastNameUpper like "{0}%" or upper(FirstName) like "{0}%")', query.toUpperCase());
         }
     });
 })();
