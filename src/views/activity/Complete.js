@@ -465,10 +465,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                         this, ['Account.Id eq "{0}"', 'AccountId'], true
                     )
                 },{
-                    label: this.companyText,
-                    name: 'AccountName',
-                    type: 'text'
-                },{
                     label: this.leadText,
                     name: 'Lead',
                     type: 'lookup',
@@ -477,6 +473,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     valueKeyProperty: 'LeadId',
                     valueTextProperty: 'LeadName',
                     view: 'lead_related'
+                },{
+                    label: this.companyText,
+                    name: 'AccountName',
+                    type: 'text'
                 }]
             },{
                 options: {
