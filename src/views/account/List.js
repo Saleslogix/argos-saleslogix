@@ -28,7 +28,9 @@ Ext.namespace("Mobile.SalesLogix.Account");
         queryOrderBy: 'AccountNameUpper',
         querySelect: [
             'AccountName',
-            'AccountManager/UserInfo/UserName'
+            'AccountManager/UserInfo/UserName',
+            'AccountManager/UserInfo/LastName',
+            'AccountManager/UserInfo/FirstName'
         ],
         resourceKind: 'accounts',
 
