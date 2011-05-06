@@ -213,33 +213,39 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         },
         applyUserActivityContext: function(context) {
             var view = App.getView(context.id);
+            if (view && view.currentDate)
+            {
+                var startDate = view.currentDate.clone().clearTime(),
+                    startTimeOption = App.context['userOptions'] && App.context['userOptions']['Calendar:DayStartTime'],
+                    startTime = Date.now(),
+                    startTime = startTime.set({
+                        'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15,
+                        'second': 0,
+                        'millisecond': 0
+                    });
 
-            this.fields['StartDate'].setValue(view.currentDate);
+                if (startTimeOption && (startDate.compareTo(Date.today()) !== 0)) startTime = Date.parse(startTimeOption);
+
+                startDate.set({
+                    'hour': startTime.getHours(),
+                    'minute': startTime.getMinutes()
+                });
+
+                this.fields['StartDate'].setValue(startDate);
+            }
         },
         applyContext: function() {
             Mobile.SalesLogix.Activity.Edit.superclass.applyContext.apply(this, arguments);
 
-            var startDate = new Date(),
-                startMinutes = startDate.getMinutes();
-            startDate.setSeconds(0);
-            startDate.setMinutes(0);
-            startDate.add({
-                'minutes': (Math.floor(startMinutes / 15) * 15) + 15
-            });
+            var startDate = Date.now(),
+                startDate = startDate.set({
+                    'minute': (Math.floor(startDate.getMinutes() / 15) * 15) + 15,
+                    'second': 0,
+                    'millisecond': 0
+                });
 
-            var userActivityContext = App.queryNavigationContext(function(o) {
-                var context = (o.options && o.options.source) || o;
-
-                return /^(useractivities)$/.test(context.resourceKind);
-            });
-
-            if (userActivityContext)
-                this.applyUserActivityContext.call(this, userActivityContext);
-            else
-                this.fields['StartDate'].setValue(startDate);
-
+            this.fields['StartDate'].setValue(startDate);
             this.fields['Reminder'].setValue(15);
-
             this.fields['Type'].setValue(this.options && this.options.activityType);
 
             var user = App.context['user'];
@@ -252,7 +258,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
 
-                return /^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key;
+                return (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) ||
+                       (/^(useractivities)$/.test(context.resourceKind));
             });
 
             var context = (found && found.options && found.options.source) || found,
@@ -261,7 +268,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     'contacts': this.applyContactContext,
                     'opportunities': this.applyOpportunityContext,
                     'tickets': this.applyTicketContext,
-                    'leads': this.applyLeadContext
+                    'leads': this.applyLeadContext,
+                    'useractivities': this.applyUserActivityContext
                 };
 
             if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);

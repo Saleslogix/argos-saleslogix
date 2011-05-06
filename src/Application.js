@@ -10,7 +10,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     enableUpdateNotification: false,
     enableCaching: true,
     userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
-    userOptionsToRequest: ['General;InsertSecCodeID'],
+    userOptionsToRequest: ['General;InsertSecCodeID','Calendar;DayStartTime'],
     initEvents: function() {
         Mobile.SalesLogix.Application.superclass.initEvents.apply(this, arguments);
     },
