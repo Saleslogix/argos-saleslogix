@@ -215,21 +215,28 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             var view = App.getView(context.id);
             if (view && view.currentDate)
             {
-                var startDate = view.currentDate.clone().clearTime(),
-                    startTimeOption = App.context['userOptions'] && App.context['userOptions']['Calendar:DayStartTime'],
-                    startTime = Date.now(),
-                    startTime = startTime.set({
-                        'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15,
-                        'second': 0,
-                        'millisecond': 0
+                var currentDate = view.currentDate.clone().clearTime(),
+                    userOptions = App.context['userOptions'],
+                    startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
+                    startTime = startTimeOption && Date.parse(startTimeOption),
+                    startDate;
+
+                if (startTime && (currentDate.compareTo(Date.today()) !== 0))
+                {
+                    startDate = currentDate.clone().set({
+                        'hour': startTime.getHours(),
+                        'minute': startTime.getMinutes()
                     });
-
-                if (startTimeOption && (startDate.compareTo(Date.today()) !== 0)) startTime = Date.parse(startTimeOption);
-
-                startDate.set({
-                    'hour': startTime.getHours(),
-                    'minute': startTime.getMinutes()
-                });
+                }
+                else
+                {
+                    startTime = Date.now(),
+                    startDate = Date.now().clearTime().set({
+                        'hour': startTime.getHours()
+                    }).add({
+                        'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
+                    });
+                }
 
                 this.fields['StartDate'].setValue(startDate);
             }
@@ -237,11 +244,11 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         applyContext: function() {
             Mobile.SalesLogix.Activity.Edit.superclass.applyContext.apply(this, arguments);
 
-            var startDate = Date.now(),
-                startDate = startDate.set({
-                    'minute': (Math.floor(startDate.getMinutes() / 15) * 15) + 15,
-                    'second': 0,
-                    'millisecond': 0
+            var startTime = Date.now(),
+                startDate = Date.now().clearTime().set({
+                    'hour': startTime.getHours()
+                }).add({
+                    'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
                 });
 
             this.fields['StartDate'].setValue(startDate);
