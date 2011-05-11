@@ -30,7 +30,7 @@ Ext.namespace("Mobile.SalesLogix.Return");
         resourceKind: 'returns',
 
         formatSearchQuery: function(query) {
-            return String.format('ReturnNumber like "%{0}%"', query);
+            return String.format('ReturnNumber like "%{0}%"', this.escapeSearchQuery(query));
         }
     });
 })();

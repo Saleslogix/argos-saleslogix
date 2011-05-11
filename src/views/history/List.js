@@ -128,7 +128,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             App.on('resize', this.onResize, this);
         },
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "%{0}%"', query.toUpperCase());
+            return String.format('upper(Description) like "%{0}%"', this.escapeSearchQuery(query.toUpperCase()));
         },
         onResize: function() {
             this.el.select('.note-text-item').each(function(el) {

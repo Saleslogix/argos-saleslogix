@@ -32,7 +32,7 @@ Ext.namespace("Mobile.SalesLogix.Contract");
         resourceKind: 'contracts',
 
         formatSearchQuery: function(query) {
-            return String.format('(ReferenceNumber like "%{0}%")', query);
+            return String.format('(ReferenceNumber like "%{0}%")', this.escapeSearchQuery(query));
 
             // todo: The below does not currently work as the dynamic SData adapter does not support dotted notation for queries
             //       except in certain situations.  Support for general dotted notation is being worked on.
