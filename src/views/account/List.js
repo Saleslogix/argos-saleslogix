@@ -35,7 +35,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
         resourceKind: 'accounts',
 
         formatSearchQuery: function(query) {
-            return String.format('AccountNameUpper like "{0}%"', query.toUpperCase());
+            return String.format('AccountNameUpper like "{0}%"', this.escapeSearchQuery(query.toUpperCase()));
         }
     });
 })();

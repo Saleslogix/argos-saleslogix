@@ -122,6 +122,12 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['Timeless'].on('change', this.onTimelessChange, this);
             this.fields['Alarm'].on('change', this.onAlarmChange, this);
         },
+        currentUserCanEdit: function(entry) {
+            return !!entry && (entry['UserId'] === App.context['user']['$key']);
+        },
+        currentUserCanSetAlarm: function(entry) {
+            return !!entry && (entry['UserId'] === App.context['user']['$key']);
+        },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
@@ -135,6 +141,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         beforeTransitionTo: function() {
             Mobile.SalesLogix.Activity.Complete.superclass.beforeTransitionTo.apply(this, arguments);
 
+            this.enableFields();
+
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
 
@@ -146,6 +154,16 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 this.showFieldsForLead();
             else
                 this.showFieldsForStandard();
+        },
+        disableFields: function(predicate) {
+            for (var name in this.fields)
+                if (!predicate || predicate(this.fields[name]))
+                    this.fields[name].disable();
+        },
+        enableFields: function(predicate) {
+            for (var name in this.fields)
+                if (!predicate || predicate(this.fields[name]))
+                    this.fields[name].enable();
         },
         onIsLeadChange: function(value, field) {
             this.options.isForLead = value;
@@ -390,6 +408,16 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 this.fields['Reminder'].disable();
 
             this.fields['IsLead'].setValue(this.options.isForLead);
+
+            var entry = this.options.entry,
+                denyEdit = !this.currentUserCanEdit(entry),
+                allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
+
+            if (denyEdit)
+                this.disableFields();
+
+            if (allowSetAlarm)
+                this.enableFields(function(f) { return /^Alarm|Reminder$/.test(f.name) });
         },
         getValues: function() {
             var values = Mobile.SalesLogix.Activity.Edit.superclass.getValues.apply(this, arguments),

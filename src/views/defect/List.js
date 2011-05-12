@@ -29,7 +29,7 @@ Ext.namespace("Mobile.SalesLogix.Defect");
         resourceKind: 'defects',
 
         formatSearchQuery: function(query) {
-            return String.format('AccountName like "%{0}%"', query);
+            return String.format('AccountName like "%{0}%"', this.escapeSearchQuery(query));
         }
     });
 })();
