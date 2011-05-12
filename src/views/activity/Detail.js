@@ -152,6 +152,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     contentEl.update(this.leaderTemplate.apply(leader['UserInfo']));
             }
         },
+        checkCanComplete: function(entry) {
+            return !entry || (entry['UserId'] !== App.context['user']['$key'])
+        },
         processEntry: function(entry) {
             Mobile.SalesLogix.Activity.Detail.superclass.processEntry.apply(this, arguments);
 
@@ -168,7 +171,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'Description',
                     label: this.completeActivityText,
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
-                    action: 'completeActivity'
+                    action: 'completeActivity',
+                    disabled: this.checkCanComplete
                 }]
             },{
                 options: {
