@@ -523,6 +523,18 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     display: none;
 }
 
+.panel-content > fieldset > .row-error > input,
+.panel-content > fieldset > .row-error > textarea
+{
+    color: red;
+}
+
+.panel-content > fieldset > .row-error > input:focus,
+.panel-content > fieldset > .row-error > textarea:focus
+{
+    box-shadow: 0 0 5px red !important;
+}
+
 .calendar-prev-month > button
 {
     height: 36px;
