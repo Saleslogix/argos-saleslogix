@@ -410,7 +410,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             this.fields['IsLead'].setValue(this.options.isForLead);
 
             var entry = this.options.entry,
-                denyEdit = !this.currentUserCanEdit(entry),
+                denyEdit = !this.options.insert && !this.currentUserCanEdit(entry),
                 allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
 
             if (denyEdit)
