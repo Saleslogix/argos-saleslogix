@@ -63,7 +63,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         resourceKind: 'activities',
                 
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "{0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return String.format('upper(Description) like "%{0}%"', this.escapeSearchQuery(query.toUpperCase()));
         }
     });
 })();
