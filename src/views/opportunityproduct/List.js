@@ -48,7 +48,7 @@ Ext.namespace("Mobile.SalesLogix.OpportunityProduct");
         },
 
         formatSearchQuery: function(query) {
-            return String.format('upper(Product.Name) like "{0}%" or upper(Product.Family) like "{0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return String.format('(upper(Product.Name) like "{0}%" or upper(Product.Family) like "{0}%")', this.escapeSearchQuery(query.toUpperCase()));
         }
     });
 })();
