@@ -141,8 +141,6 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         beforeTransitionTo: function() {
             Mobile.SalesLogix.Activity.Complete.superclass.beforeTransitionTo.apply(this, arguments);
 
-            this.enableFields();
-
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
 
@@ -391,6 +389,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             Mobile.SalesLogix.Activity.Edit.superclass.setValues.apply(this, arguments);
 
+            this.enableFields();
+
             if (values['Timeless'])
             {
                 this.fields['Duration'].disable();
@@ -419,16 +419,39 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             if (allowSetAlarm)
                 this.enableFields(function(f) { return /^Alarm|Reminder$/.test(f.name) });
         },
+        isDateTimeless: function(date) {
+            if (date.getUTCHours() != 0) return false;
+            if (date.getUTCMinutes() != 0) return false;
+            if (date.getUTCSeconds() != 5) return false;
+
+            return true;
+        },
         getValues: function() {
             var values = Mobile.SalesLogix.Activity.Edit.superclass.getValues.apply(this, arguments),
+                isStartDateDirty = this.fields['StartDate'].isDirty(),
+                isTimelessDirty = this.fields['Timeless'].isDirty(),
+                isReminderDirty = this.fields['Reminder'].isDirty(),
                 startDate = this.fields['StartDate'].getValue(),
+                timeless = this.fields['Timeless'].getValue(),
                 reminderIn = this.fields['Reminder'].getValue();
 
             // if StartDate is dirty, always update AlarmTime
-            if (startDate && (this.fields['StartDate'].isDirty() || this.fields['Reminder'].isDirty()))
+            if (startDate && (isStartDateDirty || isReminderDirty))
             {
                 values = values || {};
                 values['AlarmTime'] = startDate.clone().add({'minutes': -1 * reminderIn});
+            }
+
+            // if Timeless
+            if (timeless && !this.isDateTimeless(startDate) && (isStartDateDirty || isTimelessDirty))
+            {
+                var timelessStartDate = startDate.clone()
+                    .clearTime()
+                    .add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
+
+                values = values || {};
+                values['StartDate'] = timelessStartDate;
+                values['AlarmTime'] = timelessStartDate.clone().add({'minutes': -1 * reminderIn});
             }
 
             return values;
