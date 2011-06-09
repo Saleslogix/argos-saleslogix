@@ -64,4 +64,9 @@ Installation
 5.	On the mobile server, ensure that the MIME type corresponding to the `.manifest` extension is `text/cache-manifest`.  This is a requirement for application caching/offline access.
 6.	If SData is being hosted on a different server than the mobile host, CORS (Cross Origin Resource Sharing), must be enabled on the SData server.  You can find documentation for setting it up on IIS at: [Setting-Up-CORS](https://github.com/SageScottsdalePlatform/argos-sdk/wiki/Setting-Up-CORS).
 
+### Customization
+*       You can customize the product without modifying the core views.
+*       See the [Argos Sample][argos-sample] customization module for a set of customization scenario examples.
+
 [argos-sdk]: https://github.com/SageScottsdalePlatform/argos-sdk "Argos SDK Source"
+[argos-sample]: https://github.com/SageScottsdalePlatform/argos-sample "Customization module for argos-saleslogix"
