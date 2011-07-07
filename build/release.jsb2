@@ -298,5 +298,9 @@
 		src: '../configuration',
 		dest: 'configuration/',
 		filters: ".*\\.js"
+	},{
+	    src: '../localization',
+	    dest: 'localization',
+	    filters: ".*\\.js"
 	}]
 }
