@@ -18,6 +18,8 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     ]),
 
     //Localization
+	clearLocalStorageTitleText: 'Clear Storage',
+	clearAuthenticationTitleText: 'Clear Saved Credentials',
     localStorageClearedText: 'Local storage cleared successfully.',
     credentialsClearedText: 'Saved credentials cleared successfully.',
     titleText: 'Settings',
@@ -31,11 +33,11 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     allowSelection: false,
     actions: {
         'clearLocalStorage': {
-            title: 'Clear Storage',
+            title: this.clearLocalStorageTitleText,
             icon: 'content/images/icons/database_24.png'            
         },
         'clearAuthentication': {
-            title: 'Clear Saved Credentials',
+            title: this.clearAuthenticationTitleText,
             icon: 'content/images/icons/security_24.png'
         }
     },

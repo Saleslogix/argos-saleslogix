@@ -16,10 +16,10 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         acctMgrText: 'acct mgr',
         estCloseText: 'est close',
         importSourceText: 'lead source',
-        opportunityProbabilityTitle: 'Opportunity Probability',
-        opportunityStatusTitle: 'Opportunity Status',
+        opportunityProbabilityTitleText: 'Opportunity Probability',
+        opportunityStatusTitleText: 'Opportunity Status',
         opportunityText: 'opportunity',
-        opportunityTypeTitle: 'Opportunity Type',
+        opportunityTypeTitleText: 'Opportunity Type', // TODO: is this still in use?
         ownerText: 'owner',
         potentialText: 'sales potential',
         probabilityText: 'close prob',
@@ -171,7 +171,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     name: 'Status',
                     picklist: 'Opportunity Status',
                     requireSelection: true,
-                    title: this.opportunityStatusTitle,
+                    title: this.opportunityStatusTitleText,
                     type: 'picklist'
                 },
                 {
@@ -194,7 +194,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     label: this.probabilityText,
                     name: 'CloseProbability',
                     picklist: 'Opportunity Probability',
-                    title: this.opportunityProbabilityTitle,
+                    title: this.opportunityProbabilityTitleText,
                     type: 'picklist',
                     validator: [
                         Mobile.SalesLogix.Validator.isInt32,
