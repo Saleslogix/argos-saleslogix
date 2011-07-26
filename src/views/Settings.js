@@ -31,21 +31,23 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     hideSearch: true,
     selectionOnly: true,
     allowSelection: false,
-    actions: {
-        'clearLocalStorage': {
-            title: this.clearLocalStorageTitleText,
-            icon: 'content/images/icons/database_24.png'            
-        },
-        'clearAuthentication': {
-            title: this.clearAuthenticationTitleText,
-            icon: 'content/images/icons/security_24.png'
-        }
-    },
+    actions: {},
     actionOrder: [
         'clearAuthentication',
         'clearLocalStorage'   
     ],
-
+    initActions : function(){
+        this.actions = {
+            'clearLocalStorage': {
+                title: this.clearLocalStorageTitleText,
+                icon: 'content/images/icons/database_24.png'
+            },
+            'clearAuthentication': {
+                title: this.clearAuthenticationTitleText,
+                icon: 'content/images/icons/security_24.png'
+            }
+        };
+    },
     clearLocalStorage: function() {
         if (window.localStorage)
             window.localStorage.clear();
@@ -69,6 +71,7 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
             var action = this.actions[this.actionOrder[i]];
             if (action)
             {
+                console.log(action);
                 list.push({
                     action: this.actionOrder[i],
                     title: action.title,
@@ -81,7 +84,7 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     },
     init: function() {
         Mobile.SalesLogix.Home.superclass.init.apply(this, arguments);        
-     
+        this.initActions();
         this.tools.tbar = [];
     }
 });
