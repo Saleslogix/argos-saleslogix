@@ -86,6 +86,4 @@ Mobile.SalesLogix.Validator = (function() {
         },
         isPhoneNumber: { /* todo: remove, depreciated */ }
     };
-})();    
-
-
+})();
