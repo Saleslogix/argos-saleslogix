@@ -7,6 +7,7 @@ Ext.namespace("Mobile.SalesLogix");
 /// common frequently used templates
 Mobile.SalesLogix.Validator = (function() {     
     return {
+
     	// localization
         existsText: "The field '{2}' must have a value.",
         nameText: "The field '{2}' must have a first and last name specified.",
