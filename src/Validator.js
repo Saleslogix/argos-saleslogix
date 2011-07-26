@@ -6,24 +6,24 @@ Ext.namespace("Mobile.SalesLogix");
 
 /// common frequently used templates
 Mobile.SalesLogix.Validator = (function() {     
-	// localization
-    var existsText = "The field '{2}' must have a value.",
-        nameText = "The field '{2}' must have a first and last name specified.",
-        notEmptyText = "The field '{2}' cannot be empty.",
-        hasTextText = "The field '{2}' must contain some text.",
-        isIntegerText = "The value '{0}' is not a valid number.",
-        isDecimalText = "The value '{0}' is not a valid number.",
-        isCurrencyText = "The value '{0}' is not a valid currency number.",
-        isInt32Text = "The field '{2}' value exceeds the allowed numeric range.",
-        exceedsMaxTextLengthText = "The field '{2}' value exceeds the allowed limit in length.",
-        isDateInRangeText = "The field '{2}' value is out of allowed date range.";
-
     return {
+    	// localization
+        existsText: "The field '{2}' must have a value.",
+        nameText: "The field '{2}' must have a first and last name specified.",
+        notEmptyText: "The field '{2}' cannot be empty.",
+        hasTextText: "The field '{2}' must contain some text.",
+        isIntegerText: "The value '{0}' is not a valid number.",
+        isDecimalText: "The value '{0}' is not a valid number.",
+        isCurrencyText: "The value '{0}' is not a valid currency number.",
+        isInt32Text: "The field '{2}' value exceeds the allowed numeric range.",
+        exceedsMaxTextLengthText: "The field '{2}' value exceeds the allowed limit in length.",
+        isDateInRangeText: "The field '{2}' value is out of allowed date range.",
+
         exists: {
             fn: function(value) {
                 return !value;
             },
-            message: existsText
+            message: Mobile.SalesLogix.Validator.existsText
         },
         name: {
             fn: function(value) {
@@ -31,29 +31,29 @@ Mobile.SalesLogix.Validator = (function() {
                     return !/\w+/.test(value.FirstName || '') || !/\w+/.test(value.LastName || '');
                 return true;
             },
-            message: nameText
+            message: Mobile.SalesLogix.Validator.nameText
         },
         notEmpty: {
             test: /.+/,
-            message: notEmptyText
+            message: Mobile.SalesLogix.Validator.notEmptyText
         },
         hasText: {
             test: /\w+/,
-            message: hasTextText
+            message: Mobile.SalesLogix.Validator.hasTextText
         },
         isInteger: {
             test: /^\d+$/,
-            message: isIntegerText
+            message: Mobile.SalesLogix.Validator.isIntegerText
         },
         isDecimal: {
             // todo: localize - decimal/thousands
             test: /^[\d,.]+$/,
-            message: isDecimalText
+            message: Mobile.SalesLogix.Validator.isDecimalText
         },
         isCurrency: {
             // todo: localize - decimal/thousands
             test: /^[\d,]+(\.\d{1,2})?$/,
-            message: isCurrencyText
+            message: Mobile.SalesLogix.Validator.isCurrencyText
         },
         isInt32: {
             fn: function(value, field) {
@@ -61,7 +61,7 @@ Mobile.SalesLogix.Validator = (function() {
                     return true;
                 return false;
             },
-            message: isInt32Text
+            message: Mobile.SalesLogix.Validator.isInt32Text
         },
         exceedsMaxTextLength: {
             fn: function(value, field) {
@@ -69,7 +69,7 @@ Mobile.SalesLogix.Validator = (function() {
                     return true;
                 return false;
             },
-            message: exceedsMaxTextLengthText
+            message: Mobile.SalesLogix.Validator.exceedsMaxTextLengthText
         },
         isDateInRange: {
             fn: function(value, field) {
@@ -82,7 +82,7 @@ Mobile.SalesLogix.Validator = (function() {
                 if (maxValue && value instanceof Date && value.compareTo(maxValue) === -1) return false;
                 return true;
             },
-            message: isDateInRangeText
+            message: Mobile.SalesLogix.Validator.isDateInRangeText
         },
         isPhoneNumber: { /* todo: remove, depreciated */ }
     };
