@@ -31,12 +31,12 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     hideSearch: true,
     selectionOnly: true,
     allowSelection: false,
-    actions: {},
+    actions: null,
     actionOrder: [
         'clearAuthentication',
         'clearLocalStorage'   
     ],
-    initActions : function(){
+    createActions : function(){
         this.actions = {
             'clearLocalStorage': {
                 title: this.clearLocalStorageTitleText,
@@ -84,7 +84,7 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     },
     init: function() {
         Mobile.SalesLogix.Home.superclass.init.apply(this, arguments);        
-        this.initActions();
+        this.createActions();
         this.tools.tbar = [];
     }
 });
