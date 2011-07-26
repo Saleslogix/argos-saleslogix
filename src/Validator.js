@@ -6,12 +6,24 @@ Ext.namespace("Mobile.SalesLogix");
 
 /// common frequently used templates
 Mobile.SalesLogix.Validator = (function() {     
+	// localization
+    var existsText = "The field '{2}' must have a value.",
+        nameText = "The field '{2}' must have a first and last name specified.",
+        notEmptyText = "The field '{2}' cannot be empty.",
+        hasTextText = "The field '{2}' must contain some text.",
+        isIntegerText = "The value '{0}' is not a valid number.",
+        isDecimalText = "The value '{0}' is not a valid number.",
+        isCurrencyText = "The value '{0}' is not a valid currency number.",
+        isInt32Text = "The field '{2}' value exceeds the allowed numeric range.",
+        exceedsMaxTextLengthText = "The field '{2}' value exceeds the allowed limit in length.",
+        isDateInRangeText = "The field '{2}' value is out of allowed date range.";
+
     return {
         exists: {
             fn: function(value) {
                 return !value;
             },
-            message: "The field '{2}' must have a value."
+            message: existsText
         },
         name: {
             fn: function(value) {
@@ -19,27 +31,29 @@ Mobile.SalesLogix.Validator = (function() {
                     return !/\w+/.test(value.FirstName || '') || !/\w+/.test(value.LastName || '');
                 return true;
             },
-            message: "The field '{2}' must have a first and last name specified."
+            message: nameText
         },
         notEmpty: {
             test: /.+/,
-            message: "The field '{2}' cannot be empty."
+            message: notEmptyText
         },
         hasText: {
             test: /\w+/,
-            message: "The field '{2}' must contain some text."
+            message: hasTextText
         },
         isInteger: {
             test: /^\d+$/,
-            message: "The value '{0}' is not a valid number."
+            message: isIntegerText
         },
         isDecimal: {
+            // todo: localize - decimal/thousands
             test: /^[\d,.]+$/,
-            message: "The value '{0}' is not a valid number."
+            message: isDecimalText
         },
         isCurrency: {
+            // todo: localize - decimal/thousands
             test: /^[\d,]+(\.\d{1,2})?$/,
-            message: "The value '{0}' is not a valid currency number."
+            message: isCurrencyText
         },
         isInt32: {
             fn: function(value, field) {
@@ -47,7 +61,7 @@ Mobile.SalesLogix.Validator = (function() {
                     return true;
                 return false;
             },
-            message: "The field '{2}' value exceeds the allowed numeric range."
+            message: isInt32Text
         },
         exceedsMaxTextLength: {
             fn: function(value, field) {
@@ -55,7 +69,7 @@ Mobile.SalesLogix.Validator = (function() {
                     return true;
                 return false;
             },
-            message: "The field '{2}' value exceeds the allowed limit in length."
+            message: exceedsMaxTextLengthText
         },
         isDateInRange: {
             fn: function(value, field) {
@@ -68,7 +82,7 @@ Mobile.SalesLogix.Validator = (function() {
                 if (maxValue && value instanceof Date && value.compareTo(maxValue) === -1) return false;
                 return true;
             },
-            message: "The field '{2}' value is out of allowed date range."
+            message: isDateInRangeText
         },
         isPhoneNumber: { /* todo: remove, depreciated */ }
     };
