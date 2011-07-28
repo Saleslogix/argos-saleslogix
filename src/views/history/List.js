@@ -58,6 +58,9 @@ Ext.namespace("Mobile.SalesLogix.History");
             'atQuestion': 'Question',
             'atEMail': 'E-mail'
         },
+		hourMinuteFormatString: "h:mm",
+		dateFormatString: "M/d/yy",
+		
         titleText: 'Notes/History',
         
         //View Properties
@@ -109,9 +112,9 @@ Ext.namespace("Mobile.SalesLogix.History");
                 formatDate = Mobile.SalesLogix.Format.date;
 
             if (toDateFromString(date).between(Date.today(), Date.today().add({hours:24})))
-                return formatDate(date, "h:mm");
+                return formatDate(date, this.hourMinuteFormatString);
 
-            return formatDate(date, "M/d/yy");
+            return formatDate(date, this.dateFormatString);
         },
         formatMeridiem: function(date) {
             var toDateFromString = Sage.Platform.Mobile.Convert.toDateFromString,

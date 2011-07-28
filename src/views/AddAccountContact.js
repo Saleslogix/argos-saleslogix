@@ -16,7 +16,7 @@ Ext.namespace("Mobile.SalesLogix");
         accountTypeTitleText: 'Account Type',
         addressText: 'address',
         contactTitleText: 'Title',
-        description: 'description',
+        descriptionText: 'description',
         detailsAccountText: 'Account Info',
         detailsContactText: 'Contact Info',
         detailsText: 'Contact / Account Info',
@@ -208,7 +208,7 @@ Ext.namespace("Mobile.SalesLogix");
                     },
                     {
                         name: 'BusinessDescription',
-                        label: this.description,
+                        label: this.descriptionText,
                         type: 'text'
                     },
                     {

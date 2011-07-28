@@ -17,6 +17,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         alarmTimeText: '',
         categoryText: 'category',
         durationText: 'duration',
+		durationInvalidText: "The field '{2}' must have a value.",
+		reminderInvalidText: "The field 'reminder' must have a value.",
         leaderText: 'leader',
         longNotesText: 'notes',
         longNotesTitleText: 'Notes',
@@ -25,6 +27,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         regardingText: 'regarding',
         rolloverText: 'auto rollover',
         startingText: 'start time',
+		startingFormatString: 'M/d/yyyy h:mm tt',
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
@@ -536,7 +539,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 name: 'StartDate',
                 type: 'date',
                 showTimePicker: true,
-                formatString: 'M/d/yyyy h:mm tt',
+                formatString: this.startingFormatString,
                 minValue: (new Date(1900, 0, 1)),
                 validator: [
                     Mobile.SalesLogix.Validator.exists,
@@ -561,7 +564,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                         if (field.isDisabled()) return false;
                         if (!/^\d+$/.test(val)) return true;
                     },
-                    message: "The field '{2}' must have a value."
+                    message: this.durationInvalidText
                 }
             },{
                 label: this.alarmText,
@@ -583,7 +586,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                         if (field.isDisabled()) return false;
                         if (!/^\d+$/.test(val)) return true;
                     },
-                    message: "The field 'reminder' must have a value."
+                    message: this.reminderInvalidText
                 }
             },{
                 label: this.rolloverText,

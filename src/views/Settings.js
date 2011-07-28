@@ -18,6 +18,8 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     ]),
 
     //Localization
+	clearLocalStorageTitleText: 'Clear Storage',
+	clearAuthenticationTitleText: 'Clear Saved Credentials',
     localStorageClearedText: 'Local storage cleared successfully.',
     credentialsClearedText: 'Saved credentials cleared successfully.',
     titleText: 'Settings',
@@ -29,21 +31,23 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     hideSearch: true,
     selectionOnly: true,
     allowSelection: false,
-    actions: {
-        'clearLocalStorage': {
-            title: 'Clear Storage',
-            icon: 'content/images/icons/database_24.png'            
-        },
-        'clearAuthentication': {
-            title: 'Clear Saved Credentials',
-            icon: 'content/images/icons/security_24.png'
-        }
-    },
+    actions: null,
     actionOrder: [
         'clearAuthentication',
         'clearLocalStorage'   
     ],
-
+    createActions : function(){
+        this.actions = {
+            'clearLocalStorage': {
+                title: this.clearLocalStorageTitleText,
+                icon: 'content/images/icons/database_24.png'
+            },
+            'clearAuthentication': {
+                title: this.clearAuthenticationTitleText,
+                icon: 'content/images/icons/security_24.png'
+            }
+        };
+    },
     clearLocalStorage: function() {
         if (window.localStorage)
             window.localStorage.clear();
@@ -67,6 +71,7 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
             var action = this.actions[this.actionOrder[i]];
             if (action)
             {
+                console.log(action);
                 list.push({
                     action: this.actionOrder[i],
                     title: action.title,
@@ -79,7 +84,7 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     },
     init: function() {
         Mobile.SalesLogix.Home.superclass.init.apply(this, arguments);        
-     
+        this.createActions();
         this.tools.tbar = [];
     }
 });
