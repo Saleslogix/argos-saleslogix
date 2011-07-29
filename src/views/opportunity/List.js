@@ -31,6 +31,13 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         activitiesText: 'Activities',
         notesText: 'Notes',
         scheduleText: 'Schedule',
+        hashTagQueriesText: {
+          'open': 'test',
+          'closed': 'closed',
+          'won': 'won',
+          'lost': 'lost',
+          'halfM': 'halfM'
+        },
 
         //View Properties
         id: 'opportunity_list',
@@ -41,7 +48,8 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             'open': 'Closed eq false',
             'closed': 'Closed eq true',
             'won': 'Status eq "Closed - Won"',
-            'lost': 'Status eq "Closed - Lost"'
+            'lost': 'Status eq "Closed - Lost"',
+            'halfM': 'SalesPotential gt "500,000"'
         },
         queryOrderBy: 'EstimatedClose desc',
         querySelect: [
