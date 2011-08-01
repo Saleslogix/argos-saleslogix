@@ -60,6 +60,14 @@ Ext.namespace("Mobile.SalesLogix.History");
         },
 		hourMinuteFormatString: "h:mm",
 		dateFormatString: "M/d/yy",
+        hashTagQueriesText: {
+          'note': 'note',
+          'phonecall': 'phonecall',
+          'meeting': 'meeting',
+          'personal': 'personal',
+          'email': 'email'
+        },
+
 		
         titleText: 'Notes/History',
         
