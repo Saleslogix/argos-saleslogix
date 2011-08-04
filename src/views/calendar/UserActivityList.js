@@ -115,6 +115,29 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             this.currentDate = Date.today();
         },
+		initEvents: function(){
+            Mobile.SalesLogix.Calendar.UserActivityList.superclass.initEvents.apply(this, arguments);
+            this.el.on('swipe', this.onSwipe, this);
+        },
+		onSwipe: function(evt, el){
+			switch(evt.browserEvent.direction){
+				case 'right':
+					this.onSwipeRight();
+					evt.preventDefault(); // todo: is this needed?
+					break;
+				case 'left': 
+					this.onSwipeLeft();
+					evt.preventDefault(); // todo: is this needed?
+					break;
+			}
+		},
+		onSwipeRight: function(){
+			this.getNextActivities();
+		},
+		onSwipeLeft: function(){
+			this.getPrevActivities();
+		},
+		
         show: function(options) {
             options = options || {};
             options['where'] = this.formatQueryForActivities();
@@ -124,20 +147,15 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.show.call(this, options);
         },
 		
-		
 		navigateToWeekView: function(){
             var view = App.getView(this.weekView);
             if (view){
-				if(this.currentDate)
-					view.currentDate = this.currentDate;
-			
+				if(this.currentDate) {
+					view.currentDate = this.currentDate.clone();
+				}
 				view.setWeekQuery(this.currentDate||new Date());
-				view.getActivities();
-//				view.refresh();
-				
-                view.show({}, {
-                    // disableFx: true // todo: requires a ReUI fix
-                });
+				view.setWeekText();
+                view.show();
 			}
 		},
 		

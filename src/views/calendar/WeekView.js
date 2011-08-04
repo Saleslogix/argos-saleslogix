@@ -19,7 +19,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		
 		// Templates
         viewTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="{%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
             '{%! $.searchTemplate %}',
             '{%! $.navigationTemplate %}',
             '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',                
@@ -88,16 +88,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         }, Sage.Platform.Mobile.List.prototype.attachmentPoints),
 		titleText: 'Week Activities',
         id: 'calendar_weeklist',
-        cls: 'activities-for-week',
+        cls: 'list activities-for-week',
         detailView: 'activity_detail',
         monthView: 'slx_calendar',
 		activityListView: 'useractivity_list',
+        insertView: 'activity_types_list',
 		userWeekStartDay: 0, // 0-6, Sun-Sat
 		userWeekEndDay: 6,
 		currentDate: null,
         hideSearch: true,
 		weekStartDate: null,
 		weekEndDate: null,
+		todayDate: null,
 		activeDateClass: 'currentDate',
 		typeIcons: {
 			'atAppointment': 'content/images/icons/Meeting_24x24.png',
@@ -125,24 +127,43 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		
         init: function() {
             Mobile.SalesLogix.Calendar.WeekView.superclass.init.apply(this, arguments);
-			this.setWeekQuery(new Date());
+			this.todayDate = new Date().clearTime();
+			this.setWeekQuery(this.todayDate);
             this.clear();
         },
         initEvents: function() {
-            this.el.on('load', this._onLoad, this, {single: true});
-            this.el.on('click', this._initiateActionFromClick,  this, {delegate: '[data-action]'});
+            Mobile.SalesLogix.Calendar.WeekView.superclass.initEvents.apply(this, arguments);
             this.el.on('swipe', this.onSwipe, this);
         },
 		onSwipe: function(evt, el){
 			switch(evt.browserEvent.direction){
-				case 'right': 
-					this.getNextWeekActivities();
+				case 'right':
+					this.onSwipeRight();
 					evt.preventDefault(); // todo: is this needed?
 					break;
 				case 'left': 
-					this.getPrevWeekActivities();
+					this.onSwipeLeft();
 					evt.preventDefault(); // todo: is this needed?
 					break;
+			}
+		},
+		onSwipeRight: function(){
+			this.getNextWeekActivities();
+		},
+		onSwipeLeft: function(){
+			this.getPrevWeekActivities();
+		},
+		onScroll: function(evt){
+			var dayHeaders = this.el.select('.dayHeader').elements,
+				i,
+				len = dayHeaders.length,
+				currentHeader;
+			for(i=0; i<len; i+=1){
+				currentHeader = dayHeaders[i];
+				if (currentHeader.getClientRects()[0].top > 0){
+					this.currentDate = Date.parse(currentHeader.getAttribute('data-date'));
+					return;
+				}
 			}
 		},
 		activateDayHeader: function(params){
@@ -178,7 +199,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		getActivities: function(){
             this.clear();
 			this.setWeekText();
-            this.requestData();
+			this.requestData();
 		},
 		setWeekQuery: function(date){
 			this.currentDate = date.clone();
@@ -206,9 +227,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         getGroupForEntry: function(entry) {
 			var entryDate = Sage.Platform.Mobile.Convert.toDateFromString(entry.Activity.StartDate).clearTime(),
 				compareFormat = 'yyyy-MM-dd',
-				activeClass = (entryDate.toString(compareFormat)===this.currentDate.toString(compareFormat)) 
-					? this.activeDateClass 
-					: '';
+				activeClass = (entryDate.toString(compareFormat)===this.todayDate.toString(compareFormat)) 
+					? 'dayHeader '+this.activeDateClass 
+					: 'dayHeader';
 					
             return {
                 tag: entryDate.toString(compareFormat),
@@ -221,6 +242,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         show: function(options) {            
             Sage.Platform.Mobile.List.superclass.show.apply(this, arguments);
 			var startDate = this.currentDate || new Date();
+			this.todayDate = new Date().clearTime();
 			this.weekStartDate = this.getStartDay(startDate);
 			this.weekEndDate = this.getEndDay(startDate);
 			this.setWeekText();
@@ -229,14 +251,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             var view = App.getView(this.activityListView);
 			view.currentDate = this.currentDate || new Date();
 			view.getActivities();
-			view.show();
+			view.show({returnTo: this.id});
         },		
         navigateToMonthView: function() {
 			var view = App.getView(this.activityListView);
 			view.currentDate = this.currentDate || new Date();
             view = App.getView(this.monthView);
             if (view) {
-                view.show({}, {
+                view.show({returnTo: this.id}, {
                     // disableFx: true // todo: requires a ReUI fix
                 });
 			}

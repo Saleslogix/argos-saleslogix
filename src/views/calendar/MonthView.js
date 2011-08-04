@@ -24,7 +24,30 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         activityListView: 'useractivity_list',
 		activityWeekView : 'calendar_weeklist',
 
-        render: function() {
+        initEvents: function() {
+            Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
+            this.el.on('swipe', this.onSwipe, this);
+        },
+		onSwipe: function(evt, el){
+			switch(evt.browserEvent.direction){
+				case 'right':
+					this.onSwipeRight();
+					evt.preventDefault(); // todo: is this needed?
+					break;
+				case 'left': 
+					this.onSwipeLeft();
+					evt.preventDefault(); // todo: is this needed?
+					break;
+			}
+		},
+		onSwipeRight: function(){
+			this.goToNextMonth();
+		},
+		onSwipeLeft: function(){
+			this.goToPreviousMonth();
+		},
+
+	    render: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.render.apply(this, arguments);
 
             Ext.DomHelper.insertFirst(
