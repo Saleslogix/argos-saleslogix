@@ -15,6 +15,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             splitButtonEl: '.split-buttons',
             todayButtonEl: '.button[data-tool="today"]',
             dayButtonEl: '.button[data-tool="day"]',
+            weekButtonEl: '.button[data-tool="week"]',
             monthButtonEl: '.button[data-tool="month"]'
         }, L.prototype.attachmentPoints),
                 
@@ -62,6 +63,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<div class="split-buttons">',
             '<button data-tool="today" data-action="getTodayActivities" class="button">{%: $.todayText %}</button>',
             '<button data-tool="day" data-action="getDayActivities" class="button">{%: $.dayText %}</button>',
+            '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
             '</div>',
             '<div class="nav-bar">',
@@ -76,6 +78,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         dateHeaderFormatText: 'dddd, MM/dd/yyyy',
         todayText: 'Today',
         dayText: 'Day',
+		weekText: 'Week',
         monthText: 'Month',
 
         //View Properties
@@ -83,6 +86,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         cls: 'activities-for-day',
         icon: 'content/images/icons/Calendar_24x24.png',
         monthView: 'slx_calendar',
+		weekView: 'calendar_weeklist',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
         hideSearch: true,
@@ -119,6 +123,25 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.show.call(this, options);
         },
+		
+		
+		navigateToWeekView: function(){
+            var view = App.getView(this.weekView);
+            if (view){
+				if(this.currentDate)
+					view.currentDate = this.currentDate;
+			
+				view.setWeekQuery(this.currentDate||new Date());
+				view.getActivities();
+//				view.refresh();
+				
+                view.show({}, {
+                    // disableFx: true // todo: requires a ReUI fix
+                });
+			}
+		},
+		
+		
         getNextActivities: function() {
             if (this.el.hasClass('list-loading')) return;
 

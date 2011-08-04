@@ -13,6 +13,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<div class="split-buttons">',
                 '<button data-tool="today" data-action="getTodayActivities" class="button">Today</button>',
                 '<button data-tool="day" data-action="returnToDayActivities" class="button">Day</button>',
+                '<button data-tool="week" data-action="returnToWeekActivities" class="button">Week</button>',
                 '<button data-tool="month" class="button">Month</button>',
             '</div>'
         ]),
@@ -21,6 +22,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         id: 'slx_calendar',
         cls: 'activities-for-month',
         activityListView: 'useractivity_list',
+		activityWeekView : 'calendar_weeklist',
 
         render: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.render.apply(this, arguments);
@@ -38,7 +40,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 view.currentDate = date;
                 view.getActivities();
             }
-            ReUI.back();
+			view.show();
+            //ReUI.back();
         },
         selectDay: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.selectDay.apply(this, arguments);
@@ -51,6 +54,24 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         returnToDayActivities: function() {
             this.showActivityListForDay();
         },
+		returnToWeekActivities: function(){
+			this.showWeekActivitiesForDay(Date.today());
+		},
+		showWeekActivitiesForDay: function(date){
+            var view = App.getView(this.activityWeekView);
+            if (date) 
+            {
+                view.currentDate = date;
+//                view.getActivities();
+            }
+			if(view){
+                view.show({
+                }, {
+                    // disableFx: true // todo: requires a ReUI fix
+                });			
+			}
+		},
+		
         show: function(options, transitionOptions) {
             var view = App.getView(this.activityListView),
                 selectedDate = view && String.format('.calendar-day[data-date={0}]', view.currentDate.toString('d'));
