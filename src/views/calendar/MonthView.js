@@ -8,12 +8,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
 (function() {    
     Mobile.SalesLogix.Calendar.MonthView = Ext.extend(Sage.Platform.Mobile.Calendar, {
+		// Localization
+        titleText: 'Calendar',
+        todayText: 'Today',
+        dayText: 'Day',
+        monthText: 'Month',		
+		
         //Templates
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
-                '<button data-tool="today" data-action="getTodayActivities" class="button">Today</button>',
-                '<button data-tool="day" data-action="returnToDayActivities" class="button">Day</button>',
-                '<button data-tool="month" class="button">Month</button>',
+                '<button data-tool="today" data-action="getTodayActivities" class="button">{%: $.todayText %}</button>',
+                '<button data-tool="day" data-action="returnToDayActivities" class="button">{%: $.dayText %}</button>',
+                '<button data-tool="month" class="button">{%: $.monthText %}</button>',
             '</div>'
         ]),
         calendarMonthHeaderTemplate: new Simplate([
