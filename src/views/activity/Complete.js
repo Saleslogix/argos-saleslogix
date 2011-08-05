@@ -27,7 +27,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 		durationInvalidText: "The field '{2}' must have a value.",
         carryOverNotesText: 'carry over notes',
         followUpText: 'follow-up',
-        followUpTitleText: 'Activity Follow Up',
+        followUpTitleText: 'Follow-up type',
         leaderText: 'leader',
         longNotesText: 'notes',
         longNotesTitleText: 'Notes',
@@ -397,6 +397,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },{
                     label: this.followUpText,
+                    title: this.followUpTitleText,
                     name: 'Followup',
                     type: 'select',
                     view: 'select_list',
