@@ -8,13 +8,19 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
 (function() {    
     Mobile.SalesLogix.Calendar.MonthView = Ext.extend(Sage.Platform.Mobile.Calendar, {
+		// Localization
+        todayText: 'Today',
+        dayText: 'Day',
+		weekText: 'Week',
+        monthText: 'Month',		
+	
         //Templates
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
-                '<button data-tool="today" data-action="getTodayActivities" class="button">Today</button>',
-                '<button data-tool="day" data-action="returnToDayActivities" class="button">Day</button>',
-                '<button data-tool="week" data-action="returnToWeekActivities" class="button">Week</button>',
-                '<button data-tool="month" class="button">Month</button>',
+                '<button data-tool="today" data-action="getTodayActivities" class="button">{%: $.todayText %}</button>',
+                '<button data-tool="day" data-action="returnToDayActivities" class="button">{%: $.dayText %}</button>',
+                '<button data-tool="week" data-action="returnToWeekActivities" class="button">{%: $.weekText %}</button>',
+                '<button data-tool="month" class="button">{%: $.monthText %}</button>',
             '</div>'
         ]),
 
@@ -85,13 +91,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             if (date) 
             {
                 view.currentDate = date;
-//                view.getActivities();
             }
 			if(view){
-                view.show({
-                }, {
-                    // disableFx: true // todo: requires a ReUI fix
-                });			
+				view.setWeekQuery(view.currentDate);
+                view.show({});
 			}
 		},
 		

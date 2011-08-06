@@ -10,7 +10,7 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
     enableUpdateNotification: false,
     enableCaching: true,
     userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
-    userOptionsToRequest: ['General;InsertSecCodeID','Calendar;DayStartTime'],
+    userOptionsToRequest: ['General;InsertSecCodeID','Calendar;DayStartTime','Calendar;FirstDayofWeek'],
     initEvents: function() {
         Mobile.SalesLogix.Application.superclass.initEvents.apply(this, arguments);
     },
@@ -261,6 +261,8 @@ Mobile.SalesLogix.Application = Ext.extend(Sage.Platform.Mobile.Application, {
                 value = item && item['value'];
             if (value && key) this[key] = value;
         }, userOptions);
+		
+		
 
         var insertSecCode = userOptions['General:InsertSecCodeID'],
             currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];

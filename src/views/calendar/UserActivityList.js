@@ -146,20 +146,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.show.call(this, options);
         },
-		
-		navigateToWeekView: function(){
-            var view = App.getView(this.weekView);
-            if (view){
-				if(this.currentDate) {
-					view.currentDate = this.currentDate.clone();
-				}
-				view.setWeekQuery(this.currentDate||new Date());
-				view.setWeekText();
-                view.show();
-			}
-		},
-		
-		
         getNextActivities: function() {
             if (this.el.hasClass('list-loading')) return;
 
@@ -215,6 +201,16 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     // disableFx: true // todo: requires a ReUI fix
                 });
         },
+		navigateToWeekView: function(){
+            var view = App.getView(this.weekView);
+            if (view){
+				if(this.currentDate) {
+					view.currentDate = this.currentDate.clone();
+				}
+				view.setWeekQuery(view.currentDate);
+                view.show({});
+			}
+		},
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
                 activity = entry['Activity'],
