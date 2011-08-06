@@ -29,6 +29,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 '<th class="calendar-next-month"><button class="button" data-action="goToNextMonth"><span></span></button></th>',
             '</tr>'
         ]),
+        calendarActivityCountTemplate: new Simplate([
+            '<span class="activity-count" title="{0} events">{1}</span>'
+        ]),
 
         //View Properties
         id: 'slx_calendar',
@@ -82,7 +85,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         requestActivityList: function(startd, endd) {
             // call data request
             // unable to search with EndDate criteria 'EndDate gt "{1}" and StartDate lt "{2}"'
-            var request = this.requestActivities(
+            return this.requestActivities(
                 String.format(
                     [
                         'UserId eq "{0}" and (',
@@ -96,15 +99,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     endd.toString('yyyy-MM-ddT23:59:59Z')
                 )
             );
-            request.read({
-                success: function(data) { this.processActivityList(data); },
-                failure: this.requestActivityFailure,
-                scope: this
-            });
-        },
-        requestActivityFailure: function(er) {
-            // TODO: handle showing this to user. Or not.
-            console.log("ERROR: "); console.log( er );
         },
         processActivityList: function(sources) {
             var flatList = [], dt;
@@ -121,111 +115,46 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     sday.add({day: 1});
                 } while (sday < eday && sday < currentMonthEnd);
             }
-            this.activityCache[this.monthName] = flatList;
-            this.highlightActivities(flatList);
+            return flatList;
         },
         highlightActivities: function(flatList){
+            var template = this.calendarActivityCountTemplate.apply(this);
             Ext.select('.calendar-day').each( function(el) {
                 if (flatList[el.dom.textContent]) {
                     el.addClass("activeDay");
-                    el.dom.title = flatList[el.dom.textContent]
-                        + ' event'
-                        + (1 < flatList[el.dom.textContent] ? 's' : '');
+                    el.dom.innerHTML = el.dom.innerText + String.format(
+                        template,
+                        flatList[el.dom.textContent],
+                        flatList[el.dom.textContent]
+                    );
                 }
             });
             Ext.get('calendar-activities-loading').dom.textContent = '';
         },
         renderCalendar: function() {
-            var mm = this.month,
-                yyyy = this.year,
-                firstDay = new Date(yyyy, mm, 1),
-                startingDay = firstDay.getDay(),
-                monthLength = this.daysInMonth[mm],
-                today = new Date(),
-                day = 1, calHTML = [], dayClass = '', selectedClass = '',
-                weekendClass = '', activityClass = '', i = 0, j = 0, selectedEl = false,
-                isCurrentMonth =  this.year === Date.today().getFullYear() && this.month === Date.today().getMonth();
-
-            this.monthName = Date.CultureInfo.monthNames[mm];
-
-            // compensate for leap year
-            if (this.month == 1 && Date.isLeapYear(yyyy)) // February only!
-            {
-                monthLength = 29;
-            }
-            calHTML.push(this.calendarStartTemplate);
-            // Month Header
-            calHTML.push(this.calendarMonthHeaderTemplate.apply(this));
-
-            // Week Header
-            calHTML.push(this.calendarWeekHeaderStartTemplate);
-            for(i = 0; i <= 6; i++ ){
-                calHTML.push(String.format(this.calendarWeekHeaderTemplate, Date.CultureInfo.abbreviatedDayNames[i]  ));
-            }
-            calHTML.push(this.calendarWeekHeaderEndTemplate);
-
-            //Weeks
-            for (i = 0; i <= 6; i++)
-            {
-                calHTML.push(this.calendarWeekStartTemplate);
-                //Days
-                for (j = 0; j <= 6; j++)
-                {
-                    if (day <= monthLength && (i > 0 || j >= startingDay))
-                    {
-                        //Check for today
-                        dayClass = (isCurrentMonth == true && day == today.getDate()) ? 'today' : '';
-
-                        //Check for weekends
-                        weekendClass = (this.weekEnds.indexOf(j) !== -1) ? ' weekend' : '';
-
-                        //Check for selected date
-                        if (day == this.date.getDate() && mm == this.date.getMonth() && yyyy == this.date.getFullYear())
-                        {
-                            selectedClass = ' selected';
-                        }
-                        else
-                        {
-                            selectedClass = '';
-                        }
-                        weekendClass = (this.weekEnds.indexOf(j) !== -1) ? ' weekend' : '';
-
-                        calHTML.push(String.format( this.calendarDayTemplate,
-                                                    day,
-                                                    (dayClass + weekendClass + activityClass + selectedClass),
-                                                    day
-                                                   )
-                                    );
-                        day++;
-                    }
-                    else
-                    {
-                        calHTML.push(this.calendarEmptyDayTemplate);
-                    }
-                }
-                calHTML.push(this.calendarWeekEndTemplate);
-                // stop making rows if we've run out of days
-                if (day > monthLength) break;
-            }
-            calHTML.push(this.calendarEndTemplate);
-            this.calendarEl.update(calHTML.join(''));
-
-            // --- begin getting list of activities for current month
-            var lastDay = new Date(yyyy, mm, monthLength);
-            var dateFormatString = 'yyyy-MM-ddThh:mm:ss';
-            Ext.get('calendar-activities-loading').dom.textContent = 'Loading…';
+            this.superclass().renderCalendar.call(this);
+            // --- get and highlight list of activities for month
+            //var monthName = Date.CultureInfo.monthNames[this.month];
             if(this.activityCache[this.monthName]!==undefined){
-                // load from cache
+                // have cache, load from cache
                 this.highlightActivities(this.activityCache[this.monthName]);
             } else {
-                // make data request
-                this.requestActivityList(firstDay,lastDay);
+                // make data request for Month
+                this.requestActivityList(
+                    new Date(this.year, this.month, 1),
+                    new Date(this.year, this.month, this.daysInMonth[this.month])
+                ).read({
+                    success: function(data) {
+                        this.activityCache[this.monthName] = this.processActivityList(data);
+                        this.highlightActivities(this.activityCache[this.monthName]);
+                    },
+                    failure: function(er) {
+                        // TODO: handle showing this to user. Or not.
+                        console.log("ERROR: "); console.log( er );
+                    },
+                    scope: this
+                });
             }
-            // --- end highlight activities feature
-
-            selectedEl = Ext.DomQuery.select('.selected', 'table.calendar-table', 'td');
-            if (Ext.isArray(selectedEl) && selectedEl.length > 0) this.selectedDateEl = Ext.get(selectedEl[0]);
-            else this.selectedDateEl = false;
         },
 
         show: function(options, transitionOptions) {
@@ -242,7 +171,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             this.hourField.dom.value = this.date.getHours();
             this.minuteField.dom.value = this.date.getMinutes();
-            
+
             this.renderCalendar();
 
             if (this.month === view.currentDate.getMonth() && this.year === view.currentDate.getFullYear())

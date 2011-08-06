@@ -599,7 +599,17 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 }
 
 /* in Month view .activeDay indicates individual events */
-.calendar-day.activeDay { color: #c00 !important; }
+.calendar-day.activeDay {
+    color: #c00 !important;
+    position: relative; /* support positioning of span.activity-count */
+}
+.calendar-day.activeDay span.activity-count {
+    visibility: visible; /* flip visibility 'visible/hidden' */
+    position: absolute; top:0.5em; right:0.5em;
+    color:#000;
+    font-weight:normal;
+    font-size:65%;
+}
 
 .collapsed-indicator
 {
