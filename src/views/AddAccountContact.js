@@ -160,7 +160,14 @@ Ext.namespace("Mobile.SalesLogix");
                         name: 'Contacts.$resources[0].Address',
                         type: 'address',
                         view: 'address_edit',
-                        entityName: 'Contact'
+                        entityName: 'Contact',
+                        onChange: function() {
+                            var addr = this.owner.fields.Address;
+                            if( !addr.currentValue.Address1 ) {
+                                addr.currentValue = this.currentValue;
+                                addr.el.dom.innerHTML = addr.formatValue( addr.currentValue, false );
+                            }
+                        }
                     }]
                 },
                 {
