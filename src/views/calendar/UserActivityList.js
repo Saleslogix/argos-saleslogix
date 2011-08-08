@@ -37,7 +37,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         ]),
         timeTemplate: new Simplate([
             '{% if ($.Activity.Timeless) { %}',
-            '<span class="p-meridiem">All-Day</span>',
+            '<span class="p-meridiem">{%: $.allDayText %}</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "h:mm") %}</span>',
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
@@ -80,6 +80,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         dayText: 'Day',
 		weekText: 'Week',
         monthText: 'Month',
+		allDayText: 'All-Day',
 
         //View Properties
         id: 'useractivity_list',
@@ -205,6 +206,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             var view = App.getView(this.weekView);
             if (view){
 				if(this.currentDate) {
+					if(this.currentDate != view.currentDate){
+						view.refreshRequired = true;
+					}
 					view.currentDate = this.currentDate.clone();
 				}
 				view.setWeekQuery(view.currentDate);

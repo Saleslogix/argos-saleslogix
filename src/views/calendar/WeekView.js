@@ -9,6 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 (function() {
     Mobile.SalesLogix.Calendar.WeekView = Ext.extend(Sage.Platform.Mobile.GroupedList, {
         //Localization
+		titleText: 'Week Activities',
 		weekTitleFormatText: 'MMM d, yyyy',
 		dayHeaderLeftFormatText: 'ddd',
 		dayHeaderRightFormatText: 'MMM d, yyyy',
@@ -17,6 +18,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		weekText: 'Week',
         monthText: 'Month',
 		allDayText: 'All Day',
+
 		
 		// Templates
         viewTemplate: new Simplate([
@@ -57,10 +59,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 			'<div class="activityRow">'+
 			'<img src="{%= $$.getTypeIcon($.Activity.Type) %}">'+
 			'{% if ($.Activity.Timeless) { %}'+
-			'<span class="activityTime">{%= $$.allDayText %}</span>'+
+				'<span class="activityTime">{%= $$.allDayText %}</span>'+
 			'{% } else { %}'+
-			'<span class="activityTime">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "h:mm") %}'+
-			'<span class="activityAMPM">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span></span>'+
+				'{% if ($$.use24Time) { %}'+
+					'<span class="activityTime">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "HH:mm") %}</span>'+
+				'{% } else { %}'+
+					'<span class="activityTime">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "h:mm") %}'+
+					'<span class="activityAMPM">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span></span>'+
+				'{% } %}'+
 			'{% } %}'+
 			'{%! $$.descriptionTemplate %}'+
 			'</div>'+
@@ -68,7 +74,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		]),
 		descriptionTemplate: new Simplate([
             '<h3>',
-            '{%: $.Activity.Description %}',
+            '{% if ($.Activity.Description.length > 1) { %}',
+				'{%: $.Activity.Description %}',
+            '{% } else { %}',
+				'&nbsp;',
+            '{% } %}',
             '</h3>',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
 		]),
@@ -93,7 +103,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 			contentEl: '.list-content',
             dateTextEl: '.date-text'
         }, Sage.Platform.Mobile.List.prototype.attachmentPoints),
-		titleText: 'Week Activities',
         id: 'calendar_weeklist',
         cls: 'list activities-for-week',
         detailView: 'activity_detail',
@@ -108,13 +117,15 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		weekStartDate: null,
 		weekEndDate: null,
 		todayDate: null,
+		use24Time: false,
 		activeDateClass: 'currentDate',
 		typeIcons: {
+			'defaultIcon': 'content/images/icons/To_Do_24x24.png',
 			'atAppointment': 'content/images/icons/Meeting_24x24.png',
 			'atPhoneCall': 'content/images/icons/Call_24x24.png', 
 			'atToDo': 'content/images/icons/To_Do_24x24.png', 
 			'atPersonal': 'content/images/icons/Personal_24x24.png', 
-			'atLiterature': 'content/images/icons/Personal_24x24.png'
+			'atLiterature': 'content/images/icons/letters_24.png'
 		},
 
 		queryWhere: null,
@@ -198,7 +209,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 			this.queryWhere =  weekQuery;
 		},
 		getTypeIcon: function(type){
-			return this.typeIcons[type] || type;
+			return this.typeIcons[type] || this.typeIcons['defaultIcon'];
 		},
 		setWeekTitle: function(){
 			var start = this.getStartDay(this.currentDate),
@@ -210,7 +221,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		setWeekStartDay: function(day){
 			if(!day) return;
 			this.userWeekStartDay = day;
-			this.userWeekEndDay = this.getStartDay(new Date).addDays(6).getDay();
+			this.userWeekEndDay = this.getStartDay(new Date()).addDays(6).getDay();
 		},
         toggleGroup: function(params) {
 			this.currentDate = Date.parse(params.date);
@@ -219,39 +230,31 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         getGroupForEntry: function(entry) {
 			var entryDate = entry.Activity.StartDate,
 				compareFormat = 'yyyy-MM-dd',
-				activeClass = (entryDate.toString(compareFormat)===this.todayDate.toString(compareFormat))
+				headerClass = (entryDate.toString(compareFormat)===this.todayDate.toString(compareFormat))
 					? 'dayHeader '+this.activeDateClass
 					: 'dayHeader';
 					
             return {
-                tag: entryDate.toString(compareFormat),
-				currentDateLeftHeader: entryDate.toString(this.dayHeaderLeftFormatText),
-				currentDateRightHeader: entryDate.toString(this.dayHeaderRightFormatText),
-				headerClass: activeClass,
-				currentDate: entryDate.toString('yyyy-MM-ddT00:00:05')
+                'tag': entryDate.toString(compareFormat),
+				'currentDateLeftHeader': entryDate.toString(this.dayHeaderLeftFormatText),
+				'currentDateRightHeader': entryDate.toString(this.dayHeaderRightFormatText),
+				'headerClass': headerClass,
+				'currentDate': entryDate.toString('yyyy-MM-ddT00:00:05')
             };
         },
         processFeed: function(feed) {
 			var i,
 				len=feed['$resources'].length,
 				startDate,
-				currentDate,
-				utcOffsetHours,
-				utcOffsetMinutes;
+				currentEntry;
 				
-			for(i=0;i<len;i+=1){
-				currentDate = feed['$resources'][i]; 
-				startDate = Sage.Platform.Mobile.Convert.toDateFromString(currentDate.Activity.StartDate);
-				if(currentDate.Activity.Timeless){
-					// +0930, -0700
-					utcOffsetHours = parseInt(startDate.getUTCOffset().substring(0,3),10)*-1;
-					utcOffsetMinutes = parseInt(startDate.getUTCOffset().substring(3,2),10)*-1;
-					startDate.add({
-							'hours': utcOffsetHours,
-							'minutes': utcOffsetMinutes
-					}).clearTime();
+			for(i=0; i<len; i+=1){
+				currentEntry = feed['$resources'][i].Activity; 
+				startDate = Sage.Platform.Mobile.Convert.toDateFromString(currentEntry.StartDate);
+				if(currentEntry.Timeless){
+					startDate = this.addUtcOffset(startDate);
 				}
-				currentDate.Activity.StartDate = startDate;
+				currentEntry.StartDate = startDate;
 			}
 			
 			feed['$resources'].sort(function(a,b){
@@ -260,8 +263,29 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 			
             Mobile.SalesLogix.Calendar.WeekView.superclass.processFeed.apply(this, arguments);
         },
+		addUtcOffset: function(date){
+			var utcOffset,
+				utcOffsetHours,
+				utcOffsetMinutes;
+			// +0930, -0700
+			utcOffset = date.getUTCOffset();
+			utcOffsetHours = parseInt(utcOffset.substr(0,3),10) * -1;
+			utcOffsetMinutes = parseInt(utcOffset.substr(3,2),10) * ((utcOffsetHours>0) ? 1 : -1);
+			date.add({
+					'hours': utcOffsetHours,
+					'minutes': utcOffsetMinutes
+			});
+			return date;
+		},
+        _onRefresh: function(o) {
+            Mobile.SalesLogix.Calendar.WeekView.superclass._onRefresh.apply(this, arguments);
+            if (o.resourceKind === 'activities') this.refreshRequired = true;
+        },
         refresh: function(newDate) {
 			var startDate = newDate || this.currentDate || new Date();
+
+//			if(startDate.between(this.weekStartDate, this.weekEndDate) && !this.refreshRequired) { return;}
+			
 			this.setWeekStartDay(this.options['startDay']);
 			this.currentDate = startDate;
 			this.weekStartDate = this.getStartDay(startDate);
@@ -278,9 +302,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
 		setDefaultOptions: function(){
 			if(this.options===undefined) this.options = {};
-			this.options['startDay'] = (App.context.userOptions)
-				? parseInt(App.context.userOptions['Calendar:FirstDayofWeek'],10)
-				: this.userWeekStartDay;
+			if(this.options['startDay'] === undefined){
+				this.options['startDay'] = (App.context.userOptions)
+					? parseInt(App.context.userOptions['Calendar:FirstDayofWeek'],10)
+					: this.userWeekStartDay;
+			}
 		},
         navigateToUserActivityList: function() {
             var view = App.getView(this.activityListView);
