@@ -28,7 +28,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         id: 'slx_calendar',
         cls: 'activities-for-month',
         activityListView: 'useractivity_list',
-		activityWeekView : 'calendar_weeklist',
+		activityWeekView: 'calendar_weeklist',
 
         initEvents: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
@@ -84,16 +84,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.showActivityListForDay();
         },
 		returnToWeekActivities: function(){
-			this.showWeekActivitiesForDay(Date.today());
+			var currentDay = (this.month === Date.today().getMonth())
+				? this.date
+				: new Date(this.year, this.month, 1);
+			this.showWeekActivitiesForDay(currentDay);
 		},
 		showWeekActivitiesForDay: function(date){
             var view = App.getView(this.activityWeekView);
-            if (date) 
-            {
-                view.currentDate = date;
-            }
-			if(view){
-				view.setWeekQuery(view.currentDate);
+            if (view){
+				if(!date.clearTime().equals(view.currentDate.clearTime())){
+					view.refresh(date);
+				}
+				view.currentDate = date.clone();
                 view.show({});
 			}
 		},

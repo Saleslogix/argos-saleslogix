@@ -833,6 +833,10 @@ body.transition > .footer-toolbar
 	line-height: normal;
 }
 
+#calendar_weeklist > .list-content > ul > li > .activityRow > .singleDescription
+{
+	line-height: 50px;
+}
 
 
 #calendar_weeklist > .list-content > h2 > .dayHeaderLeft {

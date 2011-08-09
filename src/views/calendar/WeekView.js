@@ -73,14 +73,16 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 			'<div class="clear"></div>'
 		]),
 		descriptionTemplate: new Simplate([
-            '<h3>',
-            '{% if ($.Activity.Description.length > 1) { %}',
-				'{%: $.Activity.Description %}',
+            '{% if ($.Activity.Description.length > 1 && $$.nameTemplate.apply($).length > 1) { %}',
+				'<h3>{%: $.Activity.Description %}</h3>',
+				'<h4>{%= $$.nameTemplate.apply($) %}</h4>',
             '{% } else { %}',
-				'&nbsp;',
-            '{% } %}',
-            '</h3>',
-            '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
+				'{% if ($.Activity.Description.length > 1) { %}',
+					'<h3 class="singleDescription">{%: $.Activity.Description %}</h3>',
+				'{% } else { %}',
+					'<h4 class="singleDescription">{%= $$.nameTemplate.apply($) %}</h4>',
+				'{% } %}',
+            '{% } %}'
 		]),
         nameTemplate: new Simplate([
             '{% if ($.Activity.ContactName) { %}',
@@ -147,6 +149,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         init: function() {
             Mobile.SalesLogix.Calendar.WeekView.superclass.init.apply(this, arguments);
 			this.todayDate = new Date().clearTime();
+			this.currentDate = new Date();
 			this.setWeekQuery(this.todayDate);
         },
         initEvents: function() {
@@ -197,10 +200,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 			this.refresh(prevStartDay);
 		},
 		setWeekQuery: function(date){
-			if(date){
-				this.weekStartDate = this.getStartDay(date);
-				this.weekEndDate = this.getEndDay(date);
-			}
+			var setDate = date || this.currentDate || new Date();
+
+			this.weekStartDate = this.getStartDay(setDate);
+			this.weekEndDate = this.getEndDay(setDate);
+			
 			var weekQuery = 'Activity.StartDate gt '+
 				this.weekStartDate.toString('@yyyy-MM-ddT00:00:00@')+
 				' and Activity.StartDate lt '+
@@ -218,10 +222,17 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 				end.toString(this.weekTitleFormatText)
 			);
 		},
-		setWeekStartDay: function(day){
-			if(!day) return;
-			this.userWeekStartDay = day;
+		setWeekStartDay: function(){
+			var startDay = (this.options !== undefined && this.options['startDay'] !== undefined)
+				? this.options['startDay']
+				: this.userWeekStartDay;
+			this.userWeekStartDay = startDay;
 			this.userWeekEndDay = this.getStartDay(new Date()).addDays(6).getDay();
+			
+			console.log(startDay);
+			console.log(this.userWeekStartDay);
+			console.log(this.userWeekEndDay);
+			
 		},
         toggleGroup: function(params) {
 			this.currentDate = Date.parse(params.date);
@@ -267,8 +278,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 			var utcOffset,
 				utcOffsetHours,
 				utcOffsetMinutes;
-			// +0930, -0700
-			utcOffset = date.getUTCOffset();
+			utcOffset = date.getUTCOffset(); // +0930, -0700
 			utcOffsetHours = parseInt(utcOffset.substr(0,3),10) * -1;
 			utcOffsetMinutes = parseInt(utcOffset.substr(3,2),10) * ((utcOffsetHours>0) ? 1 : -1);
 			date.add({
@@ -283,11 +293,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         refresh: function(newDate) {
 			var startDate = newDate || this.currentDate || new Date();
-
-//			if(startDate.between(this.weekStartDate, this.weekEndDate) && !this.refreshRequired) { return;}
-			
-			this.setWeekStartDay(this.options['startDay']);
-			this.currentDate = startDate;
+			this.setWeekStartDay();
+			this.currentDate = startDate.clone();
 			this.weekStartDate = this.getStartDay(startDate);
 			this.weekEndDate = this.getEndDay(startDate);
 			this.setWeekTitle();
@@ -297,7 +304,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         show: function(options) {       
 			this.setDefaultOptions();
-			if(!this.refreshRequired){this.refresh();}
             Sage.Platform.Mobile.List.superclass.show.apply(this, arguments);
         },
 		setDefaultOptions: function(){

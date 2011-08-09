@@ -206,12 +206,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             var view = App.getView(this.weekView);
             if (view){
 				if(this.currentDate) {
-					if(this.currentDate != view.currentDate){
-						view.refreshRequired = true;
+					if(!this.currentDate.clearTime().equals(view.currentDate.clearTime())){
+						view.refresh(this.currentDate);
 					}
 					view.currentDate = this.currentDate.clone();
 				}
-				view.setWeekQuery(view.currentDate);
                 view.show({});
 			}
 		},
