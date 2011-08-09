@@ -51,8 +51,7 @@ Mobile.SalesLogix.Login = Ext.extend(Sage.Platform.Mobile.Edit, {
             {
                 name: 'password',
                 label: this.passText,
-                type: 'text',
-                mask: true
+                type: 'mask'
             },
             {
                 name: 'remember',

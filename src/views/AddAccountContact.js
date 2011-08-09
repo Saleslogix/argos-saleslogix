@@ -104,12 +104,12 @@ Ext.namespace("Mobile.SalesLogix");
                 {
                     label: this.emailText,
                     name: 'Contacts.$resources[0].Email',
-                    type: 'text'
+                    type: 'email'
                 },
                 {
                     label: this.webText,
                     name: 'WebAddress',
-                    type: 'text',
+                    type: 'url',
                     maxTextLength: 128,
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },

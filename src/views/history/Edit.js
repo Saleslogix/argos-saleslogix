@@ -292,8 +292,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                     name: 'Text',
                     label: this.longNotesText,
                     cls: 'row-edit-text',
-                    type: 'text',
-                    multiline: true
+                    type: 'textarea'
                 }]
             },{
                 options: {

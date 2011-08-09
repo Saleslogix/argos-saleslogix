@@ -75,7 +75,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     label: this.webText,
                     name: 'WebAddress',
                     renderer: Mobile.SalesLogix.Format.link,
-                    type: 'text',
+                    type: 'url',
                     maxTextLength: 128,
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
