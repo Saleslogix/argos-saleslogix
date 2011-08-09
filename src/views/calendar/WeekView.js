@@ -18,7 +18,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		weekText: 'Week',
         monthText: 'Month',
 		allDayText: 'All Day',
-
 		
 		// Templates
         viewTemplate: new Simplate([
@@ -86,11 +85,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		]),
         nameTemplate: new Simplate([
             '{% if ($.Activity.ContactName) { %}',
-            '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
+				'{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
             '{% } else if ($.Activity.AccountName) { %}',
-            '{%: $.Activity.AccountName %}',
+				'{%: $.Activity.AccountName %}',
             '{% } else { %}',
-            '{%: $.Activity.LeadName %}',
+				'{%: $.Activity.LeadName %}',
             '{% } %}'
         ]),		
 		dayHeaderTemplate: new Simplate([
@@ -199,6 +198,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 			var prevStartDay = this.getStartDay(this.weekStartDate.clone().addDays(-1));
 			this.refresh(prevStartDay);
 		},
+		getTypeIcon: function(type){
+			return this.typeIcons[type] || this.typeIcons['defaultIcon'];
+		},
 		setWeekQuery: function(date){
 			var setDate = date || this.currentDate || new Date();
 
@@ -211,9 +213,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 				this.weekEndDate.toString('@yyyy-MM-ddT23:59:59@');
 				
 			this.queryWhere =  weekQuery;
-		},
-		getTypeIcon: function(type){
-			return this.typeIcons[type] || this.typeIcons['defaultIcon'];
 		},
 		setWeekTitle: function(){
 			var start = this.getStartDay(this.currentDate),
@@ -228,11 +227,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 				: this.userWeekStartDay;
 			this.userWeekStartDay = startDay;
 			this.userWeekEndDay = this.getStartDay(new Date()).addDays(6).getDay();
-			
-			console.log(startDay);
-			console.log(this.userWeekStartDay);
-			console.log(this.userWeekEndDay);
-			
 		},
         toggleGroup: function(params) {
 			this.currentDate = Date.parse(params.date);
