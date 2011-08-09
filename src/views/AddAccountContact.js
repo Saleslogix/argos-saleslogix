@@ -60,6 +60,10 @@ Ext.namespace("Mobile.SalesLogix");
             'SubType',
             'Type'
         ],
+        init: function() {
+            Mobile.SalesLogix.AddAccountContact.superclass.init.apply(this, arguments);
+            this.fields['Contacts.$resources[0].Address'].on('change', this.onContactAddressChange, this);
+        },
         getValues: function(values) {
             var U = Sage.Platform.Mobile.Utility,
                 values = Mobile.SalesLogix.AddAccountContact.superclass.getValues.apply(this, arguments);
@@ -83,6 +87,11 @@ Ext.namespace("Mobile.SalesLogix");
                 });
             else
                 Mobile.SalesLogix.AddAccountContact.superclass.onInsertCompleted.apply(this, arguments);
+        },
+        onContactAddressChange: function(value, field) {
+            if( !this.fields['Address'].getValue().Address1 ) {
+                this.fields['Address'].setValue(value);
+            }
         },
         createLayout: function() {
             return this.layout || (this.layout = [
@@ -160,14 +169,7 @@ Ext.namespace("Mobile.SalesLogix");
                         name: 'Contacts.$resources[0].Address',
                         type: 'address',
                         view: 'address_edit',
-                        entityName: 'Contact',
-                        onChange: function() {
-                            var addr = this.owner.fields.Address;
-                            if( !addr.currentValue.Address1 ) {
-                                addr.currentValue = this.currentValue;
-                                addr.el.dom.innerHTML = addr.formatValue( addr.currentValue, false );
-                            }
-                        }
+                        entityName: 'Contact'
                     }]
                 },
                 {
