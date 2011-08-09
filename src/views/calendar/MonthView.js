@@ -83,9 +83,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         activityCache: {},
         requestActivityList: function(startd, endd) {
-            // call data request
-            // unable to search with EndDate criteria 'EndDate gt "{1}" and StartDate lt "{2}"'
-            return this.requestActivities(
+            var request = this.requestActivities(
                 String.format(
                     [
                         'UserId eq "{0}" and (',
@@ -99,6 +97,23 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     endd.toString('yyyy-MM-ddT23:59:59Z')
                 )
             );
+            request.read({
+                success: function(data) {
+                    this.onRequestActivityDataSuccess(data);
+                },
+                failure: function() {
+                    // unable to retrieve activities
+                    this.onRequestActivityFailure();
+                },
+                scope: this
+            });
+        },
+        onRequestActivityDataSuccess: function(data) {
+            this.activityCache[this.monthName] = this.processActivityList(data);
+            this.highlightActivities(this.activityCache[this.monthName]);
+        },
+        onRequestActivityFailure: function(er) {
+            console.log( er );
         },
         processActivityList: function(sources) {
             var flatList = [], dt;
@@ -132,28 +147,15 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Ext.get('calendar-activities-loading').dom.textContent = '';
         },
         renderCalendar: function() {
-            this.superclass().renderCalendar.call(this);
-            // --- get and highlight list of activities for month
-            //var monthName = Date.CultureInfo.monthNames[this.month];
-            if(this.activityCache[this.monthName]!==undefined){
-                // have cache, load from cache
-                this.highlightActivities(this.activityCache[this.monthName]);
-            } else {
-                // make data request for Month
-                this.requestActivityList(
+            Mobile.SalesLogix.Calendar.MonthView.superclass.renderCalendar.apply(this, arguments);
+            if(!this.activityCache[this.monthName]) {
+                // if not already cached, pull activities for month
+                this.activityCache[this.monthName] = this.requestActivityList(
                     new Date(this.year, this.month, 1),
                     new Date(this.year, this.month, this.daysInMonth[this.month])
-                ).read({
-                    success: function(data) {
-                        this.activityCache[this.monthName] = this.processActivityList(data);
-                        this.highlightActivities(this.activityCache[this.monthName]);
-                    },
-                    failure: function(er) {
-                        // TODO: handle showing this to user. Or not.
-                        console.log("ERROR: "); console.log( er );
-                    },
-                    scope: this
-                });
+                );
+            } else {
+                this.highlightActivities(this.activityCache[this.monthName]);
             }
         },
 
