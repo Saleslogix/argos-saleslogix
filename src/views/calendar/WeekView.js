@@ -119,6 +119,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 		weekEndDate: null,
 		todayDate: null,
 		use24Time: false,
+        scrollToDayEnabled: true,
+        scrollDateBackward: true,
+        isRefreshing: false,
 		activeDateClass: 'currentDate',
 		typeIcons: {
 			'defaultIcon': 'content/images/icons/To_Do_24x24.png',
@@ -154,6 +157,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         initEvents: function() {
             Mobile.SalesLogix.Calendar.WeekView.superclass.initEvents.apply(this, arguments);
             this.el.on('swipe', this.onSwipe, this);
+            this.on('transitionto', this.scrollToDay, this);
         },
 		onSwipe: function(evt, el){
 			switch(evt.browserEvent.direction){
@@ -267,6 +271,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 			});
 			
             Mobile.SalesLogix.Calendar.WeekView.superclass.processFeed.apply(this, arguments);
+            this.isRefreshing = false;
+            this.scrollToDay();
         },
 		addUtcOffset: function(date){
 			var utcOffset,
@@ -286,6 +292,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             if (o.resourceKind === 'activities') this.refreshRequired = true;
         },
         refresh: function(newDate) {
+            this.isRefreshing = true;
 			var startDate = newDate || this.currentDate || new Date();
 			this.setWeekStartDay();
 			this.currentDate = startDate.clone();
@@ -296,7 +303,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.clear();
             this.requestData();
         },
-        show: function(options) {       
+        show: function(options) {
 			this.setDefaultOptions();
             Sage.Platform.Mobile.List.superclass.show.apply(this, arguments);
         },
@@ -308,6 +315,67 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 					: this.userWeekStartDay;
 			}
 		},
+        scrollToDay: function(){
+            if(!this.scrollToDayEnabled || this.isRefreshing) return;
+
+            var dateElements = Ext.query('.list-content h2',this.id),
+                dateElement,
+                i,
+                datesLength = dateElements.length,
+                currentDate,
+                nextDate;
+
+            if(datesLength === 0) return;
+
+            for(i=0; i<datesLength; i+=1){
+                if(i === datesLength-1){
+                    dateElement = dateElements[i];
+                    break;
+                }
+
+                currentDate = Date.parse(dateElements[i].getAttribute('data-date'));
+
+                if(currentDate.equals(this.currentDate)){
+                    dateElement = dateElements[i];
+                    break;
+                } else {
+                    nextDate = Date.parse(dateElements[i+1].getAttribute('data-date'));
+                    if(nextDate.getDate() - this.currentDate.getDate() > 0){
+                        dateElement = (this.scrollDateBackward)
+                            ? dateElements[i]
+                            : dateElements[i+1];
+                        break;
+                    }
+                }
+            }
+            this.scrollToElement(dateElement);
+        },
+        scrollToElement: function(element){
+            // todo: implement animated scroll
+            var totalTop = this.getElementYOffset(element),
+                animLength = 600,
+                refreshRate = 10,
+                numberOfRuns = (animLength/refreshRate),
+                step = totalTop/numberOfRuns,
+                currentTop = 0,
+                i;
+
+            for(i=0; i<numberOfRuns; i+=1){
+                setTimeout(function(){
+                    currentTop += step;
+                    window.scrollTo(0,currentTop);
+                },i*refreshRate);
+            }
+        },
+        getElementYOffset: function(element){
+            var currentTop = 0;
+            if (element.offsetParent) {
+                do {
+                    currentTop += element.offsetTop;
+                } while (element = element.offsetParent);
+            }
+            return currentTop;
+        },
         navigateToUserActivityList: function() {
             var view = App.getView(this.activityListView);
 			view.currentDate = this.currentDate || new Date();
