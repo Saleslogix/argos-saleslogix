@@ -12,13 +12,15 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         titleText: 'Calendar',
         todayText: 'Today',
         dayText: 'Day',
+		weekText: 'Week',
         monthText: 'Month',		
-		
+	
         //Templates
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
                 '<button data-tool="today" data-action="getTodayActivities" class="button">{%: $.todayText %}</button>',
                 '<button data-tool="day" data-action="returnToDayActivities" class="button">{%: $.dayText %}</button>',
+                '<button data-tool="week" data-action="returnToWeekActivities" class="button">{%: $.weekText %}</button>',
                 '<button data-tool="month" class="button">{%: $.monthText %}</button>',
             '</div>'
         ]),
@@ -37,8 +39,32 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         id: 'slx_calendar',
         cls: 'activities-for-month',
         activityListView: 'useractivity_list',
+		activityWeekView: 'calendar_weeklist',
 
-        render: function() {
+        initEvents: function() {
+            Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
+            this.el.on('swipe', this.onSwipe, this);
+        },
+		onSwipe: function(evt, el){
+			switch(evt.browserEvent.direction){
+				case 'right':
+					this.onSwipeRight();
+					evt.preventDefault(); // todo: is this needed?
+					break;
+				case 'left': 
+					this.onSwipeLeft();
+					evt.preventDefault(); // todo: is this needed?
+					break;
+			}
+		},
+		onSwipeRight: function(){
+			this.goToNextMonth();
+		},
+		onSwipeLeft: function(){
+			this.goToPreviousMonth();
+		},
+
+	    render: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.render.apply(this, arguments);
 
             Ext.DomHelper.insertFirst(
@@ -54,7 +80,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 view.currentDate = date;
                 view.getActivities();
             }
-            ReUI.back();
+			view.show();
+            //ReUI.back();
         },
         selectDay: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.selectDay.apply(this, arguments);
@@ -158,7 +185,23 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 this.highlightActivities(this.activityCache[this.monthName]);
             }
         },
-
+		returnToWeekActivities: function(){
+			var currentDay = (this.month === Date.today().getMonth())
+				? this.date
+				: new Date(this.year, this.month, 1);
+			this.showWeekActivitiesForDay(currentDay);
+		},
+		showWeekActivitiesForDay: function(date){
+            var view = App.getView(this.activityWeekView);
+            if (view){
+				if(!date.clearTime().equals(view.currentDate.clearTime())){
+					view.refresh(date);
+				}
+				view.currentDate = date.clone();
+                view.show({});
+			}
+		},
+		
         show: function(options, transitionOptions) {
             var view = App.getView(this.activityListView),
                 selectedDate = view && String.format('.calendar-day[data-date={0}]', view.currentDate.toString('d'));

@@ -15,6 +15,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             splitButtonEl: '.split-buttons',
             todayButtonEl: '.button[data-tool="today"]',
             dayButtonEl: '.button[data-tool="day"]',
+            weekButtonEl: '.button[data-tool="week"]',
             monthButtonEl: '.button[data-tool="month"]'
         }, L.prototype.attachmentPoints),
                 
@@ -36,7 +37,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         ]),
         timeTemplate: new Simplate([
             '{% if ($.Activity.Timeless) { %}',
-            '<span class="p-meridiem">All-Day</span>',
+            '<span class="p-meridiem">{%: $.allDayText %}</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "h:mm") %}</span>',
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
@@ -62,6 +63,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<div class="split-buttons">',
             '<button data-tool="today" data-action="getTodayActivities" class="button">{%: $.todayText %}</button>',
             '<button data-tool="day" data-action="getDayActivities" class="button">{%: $.dayText %}</button>',
+            '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
             '</div>',
             '<div class="nav-bar">',
@@ -76,13 +78,16 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         dateHeaderFormatText: 'dddd, MM/dd/yyyy',
         todayText: 'Today',
         dayText: 'Day',
+		weekText: 'Week',
         monthText: 'Month',
+		allDayText: 'All-Day',
 
         //View Properties
         id: 'useractivity_list',
         cls: 'activities-for-day',
         icon: 'content/images/icons/Calendar_24x24.png',
         monthView: 'slx_calendar',
+		weekView: 'calendar_weeklist',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
         hideSearch: true,
@@ -111,6 +116,29 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             this.currentDate = Date.today();
         },
+		initEvents: function(){
+            Mobile.SalesLogix.Calendar.UserActivityList.superclass.initEvents.apply(this, arguments);
+            this.el.on('swipe', this.onSwipe, this);
+        },
+		onSwipe: function(evt, el){
+			switch(evt.browserEvent.direction){
+				case 'right':
+					this.onSwipeRight();
+					evt.preventDefault(); // todo: is this needed?
+					break;
+				case 'left': 
+					this.onSwipeLeft();
+					evt.preventDefault(); // todo: is this needed?
+					break;
+			}
+		},
+		onSwipeRight: function(){
+			this.getNextActivities();
+		},
+		onSwipeLeft: function(){
+			this.getPrevActivities();
+		},
+		
         show: function(options) {
             options = options || {};
             options['where'] = this.formatQueryForActivities();
@@ -174,6 +202,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     // disableFx: true // todo: requires a ReUI fix
                 });
         },
+		navigateToWeekView: function(){
+            var view = App.getView(this.weekView);
+            if (view){
+				if(this.currentDate) {
+					if(!this.currentDate.clearTime().equals(view.currentDate.clearTime())){
+						view.refresh(this.currentDate);
+					}
+					view.currentDate = this.currentDate.clone();
+				}
+                view.show({});
+			}
+		},
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
                 activity = entry['Activity'],
