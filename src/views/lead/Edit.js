@@ -81,7 +81,8 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {
                     label: this.webText,
                     name: 'WebAddress',
-                    type: 'url',
+                    type: 'text',
+                    inputType: 'url',
                     maxTextLength: 128,
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
@@ -95,7 +96,8 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 {
                     label: this.emailText,
                     name: 'Email',
-                    type: 'email'
+                    type: 'text',
+                    inputType: 'email'
                 },
                 {
                     label: this.contactTitleText,
