@@ -32,7 +32,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '</tr>'
         ]),
         calendarActivityCountTemplate: new Simplate([
-            '<span class="activity-count" title="{0} events">{1}</span>'
+            '<div><span class="activity-count" title="{0} events">{1}</span></div>'
         ]),
 
         //View Properties
