@@ -89,7 +89,7 @@ Ext.namespace("Mobile.SalesLogix");
                 Mobile.SalesLogix.AddAccountContact.superclass.onInsertCompleted.apply(this, arguments);
         },
         onContactAddressChange: function(value, field) {
-            if( !this.fields['Address'].getValue().Address1 ) {
+            if( this.fields['Address'].getValue() && !this.fields['Address'].getValue().Address1 ) {
                 this.fields['Address'].setValue(value);
             }
         },
