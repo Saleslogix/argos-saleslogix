@@ -78,16 +78,16 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         dateHeaderFormatText: 'dddd, MM/dd/yyyy',
         todayText: 'Today',
         dayText: 'Day',
-		weekText: 'Week',
+        weekText: 'Week',
         monthText: 'Month',
-		allDayText: 'All-Day',
+        allDayText: 'All-Day',
 
         //View Properties
         id: 'useractivity_list',
         cls: 'activities-for-day',
         icon: 'content/images/icons/Calendar_24x24.png',
         monthView: 'slx_calendar',
-		weekView: 'calendar_weeklist',
+        weekView: 'calendar_weeklist',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
         hideSearch: true,
@@ -116,29 +116,29 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             this.currentDate = Date.today();
         },
-		initEvents: function(){
+        initEvents: function(){
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.initEvents.apply(this, arguments);
             this.el.on('swipe', this.onSwipe, this);
         },
-		onSwipe: function(evt, el){
-			switch(evt.browserEvent.direction){
-				case 'right':
-					this.onSwipeRight();
-					evt.preventDefault(); // todo: is this needed?
-					break;
-				case 'left': 
-					this.onSwipeLeft();
-					evt.preventDefault(); // todo: is this needed?
-					break;
-			}
-		},
-		onSwipeRight: function(){
-			this.getNextActivities();
-		},
-		onSwipeLeft: function(){
-			this.getPrevActivities();
-		},
-		
+        onSwipe: function(evt, el){
+            switch(evt.browserEvent.direction){
+                case 'right':
+                    this.onSwipeRight();
+                    evt.preventDefault(); // todo: is this needed?
+                    break;
+                case 'left':
+                    this.onSwipeLeft();
+                    evt.preventDefault(); // todo: is this needed?
+                    break;
+            }
+        },
+        onSwipeRight: function(){
+            this.getNextActivities();
+        },
+        onSwipeLeft: function(){
+            this.getPrevActivities();
+        },
+
         show: function(options) {
             options = options || {};
             options['where'] = this.formatQueryForActivities();
@@ -202,18 +202,20 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     // disableFx: true // todo: requires a ReUI fix
                 });
         },
-		navigateToWeekView: function(){
-            var view = App.getView(this.weekView);
+        navigateToWeekView: function(){
+            var view = App.getView(this.weekView),
+                scrollRequired = true;
             if (view){
-				if(this.currentDate) {
-					if(!this.currentDate.clearTime().equals(view.currentDate.clearTime())){
-						view.refresh(this.currentDate);
-					}
-					view.currentDate = this.currentDate.clone();
-				}
-                view.show({});
-			}
-		},
+                if(this.currentDate) {
+                    if(!view.isInCurrentWeek(this.currentDate)){
+                        view.refresh(this.currentDate);
+                        scrollRequired = false;
+                    }
+                    view.currentDate = this.currentDate.clone().clearTime();
+                }
+                view.show({'scrollRequired':scrollRequired});
+            }
+        },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
                 activity = entry['Activity'],

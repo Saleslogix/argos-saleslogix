@@ -8,13 +8,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
 (function() {    
     Mobile.SalesLogix.Calendar.MonthView = Ext.extend(Sage.Platform.Mobile.Calendar, {
-		// Localization
+        // Localization
         titleText: 'Calendar',
         todayText: 'Today',
         dayText: 'Day',
-		weekText: 'Week',
-        monthText: 'Month',		
-	
+        weekText: 'Week',
+        monthText: 'Month',
+
         //Templates
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
@@ -39,32 +39,32 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         id: 'slx_calendar',
         cls: 'activities-for-month',
         activityListView: 'useractivity_list',
-		activityWeekView: 'calendar_weeklist',
+        activityWeekView: 'calendar_weeklist',
 
         initEvents: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
             this.el.on('swipe', this.onSwipe, this);
         },
-		onSwipe: function(evt, el){
-			switch(evt.browserEvent.direction){
-				case 'right':
-					this.onSwipeRight();
-					evt.preventDefault(); // todo: is this needed?
-					break;
-				case 'left': 
-					this.onSwipeLeft();
-					evt.preventDefault(); // todo: is this needed?
-					break;
-			}
-		},
-		onSwipeRight: function(){
-			this.goToNextMonth();
-		},
-		onSwipeLeft: function(){
-			this.goToPreviousMonth();
-		},
+        onSwipe: function(evt, el){
+            switch(evt.browserEvent.direction){
+                case 'right':
+                    this.onSwipeRight();
+                    evt.preventDefault(); // todo: is this needed?
+                    break;
+                case 'left':
+                    this.onSwipeLeft();
+                    evt.preventDefault(); // todo: is this needed?
+                    break;
+            }
+        },
+        onSwipeRight: function(){
+            this.goToNextMonth();
+        },
+        onSwipeLeft: function(){
+            this.goToPreviousMonth();
+        },
 
-	    render: function() {
+        render: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.render.apply(this, arguments);
 
             Ext.DomHelper.insertFirst(
@@ -80,7 +80,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 view.currentDate = date;
                 view.getActivities();
             }
-			view.show();
+            view.show();
             //ReUI.back();
         },
         selectDay: function() {
@@ -185,23 +185,24 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 this.highlightActivities(this.activityCache[this.monthName]);
             }
         },
-		returnToWeekActivities: function(){
-			var currentDay = (this.month === Date.today().getMonth())
-				? this.date
-				: new Date(this.year, this.month, 1);
-			this.showWeekActivitiesForDay(currentDay);
-		},
-		showWeekActivitiesForDay: function(date){
-            var view = App.getView(this.activityWeekView);
+        returnToWeekActivities: function(){
+            var currentDay = (this.month === this.date.getMonth())
+                ? this.date
+                : new Date(this.year, this.month, 1);
+            this.showWeekActivitiesForDay(currentDay);
+        },
+        showWeekActivitiesForDay: function(date){
+            var view = App.getView(this.activityWeekView),
+                scrollRequired = true;
             if (view){
-				if(!date.clearTime().equals(view.currentDate.clearTime())){
-					view.refresh(date);
-				}
-				view.currentDate = date.clone();
-                view.show({});
-			}
-		},
-		
+                if(!view.isInCurrentWeek(date)){
+                    view.refresh(date);
+                    scrollRequired = false;
+                }
+                view.currentDate = date.clone().clearTime();
+                view.show({'scrollRequired':scrollRequired});
+            }
+        },
         show: function(options, transitionOptions) {
             var view = App.getView(this.activityListView),
                 selectedDate = view && String.format('.calendar-day[data-date={0}]', view.currentDate.toString('d'));
