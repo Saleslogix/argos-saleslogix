@@ -32,7 +32,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '</tr>'
         ]),
         calendarActivityCountTemplate: new Simplate([
-            '<span class="activity-count" title="{0} events">{1}</span>'
+            '<div><span class="activity-count" title="{0} events">{1}</span></div>'
         ]),
 
         //View Properties
@@ -164,7 +164,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Ext.select('.calendar-day').each( function(el) {
                 if (flatList[el.dom.textContent]) {
                     el.addClass("activeDay");
-                    el.dom.innerHTML = el.dom.innerText + String.format(
+                    el.dom.innerHTML = el.dom.innerHTML + String.format(
                         template,
                         flatList[el.dom.textContent],
                         flatList[el.dom.textContent]
