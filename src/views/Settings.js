@@ -71,7 +71,6 @@ Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
             var action = this.actions[this.actionOrder[i]];
             if (action)
             {
-                console.log(action);
                 list.push({
                     action: this.actionOrder[i],
                     title: action.title,
