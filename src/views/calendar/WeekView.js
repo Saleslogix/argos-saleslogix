@@ -294,7 +294,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
                     if (entryGroup.tag != this.currentGroup.tag || (i===0 && feedLength===1))
                     {
-                        if(entryGroup.date.clone().clearTime().compareTo(this.todayDate) === 1
+                        if( this.isInCurrentWeek(this.todayDate)
+                            && entryGroup.date.clone().clearTime().compareTo(this.todayDate) === 1
                             && (!this.currentGroup ||
                                 this.currentGroup.date.clone().clearTime().compareTo(this.todayDate) === -1)){
 
