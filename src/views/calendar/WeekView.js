@@ -175,9 +175,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.navigateToUserActivityList();
         },
         getThisWeekActivities: function(){
-            if(this.isInCurrentWeek(this.todayDate)){
-                this.scrollToDate(this.todayDate);
-            } else {
+            if(!this.isInCurrentWeek(this.todayDate)){
                 this.refresh(this.todayDate);
             }
         },
