@@ -45,6 +45,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         whoText: 'Who',
         startDateFormatText: 'M/d/yyyy h:mm:ss tt',
         timelessDateFormatText: 'M/d/yyyy',
+        alarmDateFormatText: 'M/d/yyyy h:mm:ss tt',
 
         //View Properties
         id: 'activity_detail',
@@ -231,7 +232,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'AlarmTime',
                     label: this.alarmTimeText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, ['M/d/yyyy h:mm:ss tt'], true
+                        this, [this.alarmDateFormatText], true
                     ),
                     include: this.doesActivityHaveReminder
                 },{

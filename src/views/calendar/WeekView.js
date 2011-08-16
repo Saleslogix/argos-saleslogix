@@ -13,6 +13,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         weekTitleFormatText: 'MMM d, yyyy',
         dayHeaderLeftFormatText: 'ddd',
         dayHeaderRightFormatText: 'MMM d, yyyy',
+        startTimeFormatText: 'h:mm',
         todayText: 'Today',
         dayText: 'Day',
         weekText: 'Week',
@@ -60,12 +61,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '{% if ($.Activity.Timeless) { %}'+
                 '<span class="activityTime">{%= $$.allDayText %}</span>'+
             '{% } else { %}'+
-                '{% if ($$.use24Time) { %}'+
-                    '<span class="activityTime">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "HH:mm") %}</span>'+
-                '{% } else { %}'+
-                    '<span class="activityTime">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "h:mm") %}'+
-                    '<span class="activityAMPM">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span></span>'+
-                '{% } %}'+
+                '<span class="activityTime">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}'+
+                '<span class="activityAMPM">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span></span>'+
             '{% } %}'+
             '{%! $$.descriptionTemplate %}'+
             '</div>'+
@@ -178,9 +175,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.navigateToUserActivityList();
         },
         getThisWeekActivities: function(){
-            if(this.isInCurrentWeek(this.todayDate)){
-                this.scrollToDate(this.todayDate);
-            } else {
+            if(!this.isInCurrentWeek(this.todayDate)){
                 this.refresh(this.todayDate);
             }
         },
@@ -297,12 +292,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
                     if (entryGroup.tag != this.currentGroup.tag || (i===0 && feedLength===1))
                     {
-                        if(entryGroup.date.clone().clearTime().compareTo(this.currentDate) === 1
+                        if( this.isInCurrentWeek(this.todayDate)
+                            && entryGroup.date.clone().clearTime().compareTo(this.todayDate) === 1
                             && (!this.currentGroup ||
-                                this.currentGroup.date.clone().clearTime().compareTo(this.currentDate) === -1)){
+                                this.currentGroup.date.clone().clearTime().compareTo(this.todayDate) === -1)){
 
                             todayEntry = this.getGroupForEntry({
-                                'Activity': { 'StartDate': this.currentDate }
+                                'Activity': { 'StartDate': this.todayDate }
                             });
                         }
 
@@ -325,9 +321,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     o.push(this.itemTemplate.apply(currentEntry, this));
                 }
                 
-                if(!todayAdded){
+                if(!todayAdded && this.isInCurrentWeek(this.todayDate)){
                     todayEntry = this.getGroupForEntry({
-                        'Activity': { 'StartDate': this.currentDate }
+                        'Activity': { 'StartDate': this.todayDate }
                     });
                     Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(todayEntry, this), true);
                 }

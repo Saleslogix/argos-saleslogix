@@ -27,7 +27,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         regardingText: 'regarding',
         rolloverText: 'auto rollover',
         startingText: 'start time',
-		startingFormatString: 'M/d/yyyy h:mm tt',
+		startingFormatText: 'M/d/yyyy h:mm tt',
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
@@ -539,7 +539,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 name: 'StartDate',
                 type: 'date',
                 showTimePicker: true,
-                formatString: this.startingFormatString,
+                formatString: this.startingFormatText,
                 minValue: (new Date(1900, 0, 1)),
                 validator: [
                     Mobile.SalesLogix.Validator.exists,
