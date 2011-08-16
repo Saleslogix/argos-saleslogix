@@ -20,7 +20,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         regardingText: 'regarding',
         isLeadText: 'for lead',
         startingText: 'time',
-		startingFormatString : 'M/d/yyyy h:mm tt',
+		startingFormatText : 'M/d/yyyy h:mm tt',
         titleText: 'Note',
         companyText: 'company',
         leadText: 'lead',
@@ -269,7 +269,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                     name: 'StartDate',
                     type: 'date',
                     showTimePicker: true,
-                    formatString: this.startingFormatString,
+                    formatString: this.startingFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
                         Mobile.SalesLogix.Validator.exists,

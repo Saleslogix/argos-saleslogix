@@ -21,7 +21,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         categoryText: 'category',
         categoryTitleText: 'Activity Category',
         completedText: 'completed date',
-		completedFormatString: 'M/d/yyyy h:mm tt',
+		completedFormatText: 'M/d/yyyy h:mm tt',
         completionText: 'Completion',
         durationText: 'duration',
 		durationInvalidText: "The field '{2}' must have a value.",
@@ -39,7 +39,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         resultText: 'result',
         resultTitleText: 'Result',
         startingText: 'start date',
-		startingFormatString: 'M/d/yyyy h:mm tt',
+		startingFormatText: 'M/d/yyyy h:mm tt',
         timelessText: 'timeless',
         durationValueText: {
             0: 'none',
@@ -334,7 +334,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'StartDate',
                     type: 'date',
                     showTimePicker: true,
-                    formatString: this.startingFormatString,
+                    formatString: this.startingFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
                         Mobile.SalesLogix.Validator.exists,
@@ -377,7 +377,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'CompletedDate',
                     type: 'date',
                     showTimePicker: true,
-                    formatString: this.completedFormatString,
+                    formatString: this.completedFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
                         Mobile.SalesLogix.Validator.exists,
