@@ -599,20 +599,25 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 }
 
 /* in Month view .activeDay indicates individual events */
+td.calendar-day {
+    height: auto !important;
+    padding:16px 10px;
+}
+
 .calendar-day.activeDay div {
     position: relative; /* support positioning of span.activity-count */
 }
 .calendar-day.activeDay span.activity-count {
     visibility: visible; /* flip visibility 'visible/hidden' */
-    position: absolute; top:-3.25em; right:-1.25em;
+    position: absolute; top:-18px; right:-12px;
     padding: 0.25em 0.5em;
     border: 2px #fff solid;
     border-radius: 1.5em;
     color:#fff;
     font-size:80%;
     background-color: #e33;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcc), to(#e33));
     background-image: linear-gradient(top, #fcc, #e33);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcc), to(#e33));
     background-image: -moz-linear-gradient(top, #fcc, #e33);
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffcccc, endColorstr=#ee3333)";
 }
