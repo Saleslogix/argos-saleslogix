@@ -37,7 +37,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         ]),
         timeTemplate: new Simplate([
             '{% if ($.Activity.Timeless) { %}',
-            '<span class="p-meridiem">{%: $.allDayText %}</span>',
+            '<span class="p-meridiem">{%= $$.allDayText %}</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "h:mm") %}</span>',
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
@@ -54,7 +54,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         ]),
         contentTemplate: new Simplate([
             '<h3>',
-            '{%= $$.timeTemplate.apply($) %}',
+            '{%! $$.timeTemplate %}',
             '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
             '</h3>',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>'

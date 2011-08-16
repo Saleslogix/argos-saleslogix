@@ -432,6 +432,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 
 .row-edit[data-field-type="lookup"] .button
 {
+    background-image: url(../images/icons/srch_24.png);
+    background-image: url(../images/icons/srch_24.png), linear-gradient(top, #e6e6e6, #cccccc);
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
 		left top,
@@ -439,11 +441,12 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 		color-stop(0, #e6e6e6),
 		color-stop(1, #cccccc)
 	);
+    background-image: url(../images/icons/srch_24.png), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
 	background-image: url(../images/icons/srch_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/srch_24.png), -ms-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/srch_24.png), -o-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
-
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 .row-edit[data-field-type="lookup"] .button:active
@@ -467,6 +470,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 
 .row-edit[data-field-type="date"] .button
 {
+    background-image: url(../images/icons/Calendar_24x24.png);
+    background-image: url(../images/icons/Calendar_24x24.png), linear-gradient(top, #e6e6e6, #cccccc);
     background-image: url(../images/icons/Calendar_24x24.png), -webkit-gradient(
 		linear,
 		left top,
@@ -474,11 +479,12 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 		color-stop(0, #e6e6e6),
 		color-stop(1, #cccccc)
 	);
-	background-image: url(../images/icons/Calendar_24x24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+	background-image: url(../images/icons/Calendar_24x24.png), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/Calendar_24x24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/Calendar_24x24.png), -ms-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/Calendar_24x24.png), -o-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
-
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 .row-edit[data-field-type="date"] .button:active
@@ -504,6 +510,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 .row-edit[data-field-type="address"] .button,
 .row-edit[data-field-type="note"] .button
 {
+    background-image: url(../images/icons/edit_24.png);
+    background-image: url(../images/icons/edit_24.png), linear-gradient(top, #e6e6e6, #cccccc);
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
 		left top,
@@ -511,11 +519,12 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 		color-stop(0, #e6e6e6),
 		color-stop(1, #cccccc)
 	);
+    background-image: url(../images/icons/edit_24.png), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
 	background-image: url(../images/icons/edit_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/edit_24.png), -ms-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/edit_24.png), -o-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
-
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 .row-edit[data-field-type="name"] .button:active,
@@ -684,6 +693,7 @@ body.transition > .footer-toolbar
     height: auto;
     border: none;
     font-weight: normal;
+    -ms-filter: "";
 }
 
 .footer-toolbar > .toolButton-left

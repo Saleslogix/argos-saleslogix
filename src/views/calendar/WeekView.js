@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 (function() {
     Mobile.SalesLogix.Calendar.WeekView = Ext.extend(Sage.Platform.Mobile.GroupedList, {
         //Localization
-        titleText: 'Week Activities',
+        titleText: 'Calendar',
         weekTitleFormatText: 'MMM d, yyyy',
         dayHeaderLeftFormatText: 'ddd',
         dayHeaderRightFormatText: 'MMM d, yyyy',
@@ -119,7 +119,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         weekEndDate: null,
         todayDate: null,
         use24Time: false,
-        scrollToDateEnabled: true,
         activeDateClass: 'currentDate',
         typeIcons: {
             'defaultIcon': 'content/images/icons/To_Do_24x24.png',
@@ -155,12 +154,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         initEvents: function() {
             Mobile.SalesLogix.Calendar.WeekView.superclass.initEvents.apply(this, arguments);
             this.el.on('swipe', this.onSwipe, this);
-            this.on('transitionto', this.onTransitionTo, this);
-        },
-        onTransitionTo: function(){
-            if(this.options && this.options['scrollRequired']){
-                this.scrollToDate();
-            }
         },
         onSwipe: function(evt, el){
             switch(evt.browserEvent.direction){
@@ -281,6 +274,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     currentEntry,
                     entryGroup,
                     todayEntry = null,
+                    todayAdded = false,
                     o=[];
 
                 for(i=0; i<feedLength; i+=1){
@@ -317,9 +311,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                         }
                         o = [];
 
-                        if(todayEntry){
+                        if(todayEntry && !todayAdded){
                             this.currentGroupEl = Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(todayEntry, this), true);
-                            todayEntry = null;
+                            todayAdded = true;
                         }
 
                         this.currentGroup = entryGroup;
@@ -329,6 +323,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     this.entries[currentEntry.$key] = currentEntry;
 
                     o.push(this.itemTemplate.apply(currentEntry, this));
+                }
+                
+                if(!todayAdded){
+                    todayEntry = this.getGroupForEntry({
+                        'Activity': { 'StartDate': this.currentDate }
+                    });
+                    Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(todayEntry, this), true);
                 }
 
                 if (o.length > 0)
@@ -345,8 +346,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 this.el.addClass('list-has-more');
             else
                 this.el.removeClass('list-has-more');
-
-            this.scrollToDate();
         },
         addUtcOffset: function(date){
             var utcOffset,
@@ -387,31 +386,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 this.options['startDay'] = (App.context.userOptions)
                     ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek'],10)
                     : this.userWeekStartDay;
-            }
-        },
-        scrollToDate: function(date){
-            if(!this.scrollToDateEnabled) return;
-
-            date = date || this.currentDate;
-            var dateElement = this.contentEl.select('h2[data-date='+date.toString('yyyy-MM-dd')+']').item(0);
-
-            if(dateElement === null) return;
-
-            this.scrollToElement(dateElement);
-        },
-        scrollToElement: function(element){
-            var maxYOffset = element.getTop(),
-                animLength = 600,
-                refreshRate = 10,
-                numberOfRuns = (animLength/refreshRate),
-                step = maxYOffset/numberOfRuns,
-                currentYOffset = 0,
-                i;
-            for(i = 0; i < numberOfRuns; i += 1){
-                setTimeout(function(){
-                    currentYOffset += step;
-                    window.scrollTo(0, currentYOffset);
-                }, i * refreshRate);
             }
         },
         navigateToUserActivityList: function() {
