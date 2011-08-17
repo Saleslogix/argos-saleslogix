@@ -254,11 +254,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             };
         },
         processFeed: function(feed) {
+            var todayEl = null;
+
             if (!this.feed){ this.contentEl.update(''); }
             this.feed = feed;
 
+            if(this.isInCurrentWeek(this.todayDate)){
+                todayEl = this.addTodayToDom();
+            }
+
             if (this.feed['$totalResults'] === 0)
             {
+                console.log('no results');
                 Ext.DomHelper.append(this.contentEl, this.noDataTemplate.apply(this));
             }
             else if (feed['$resources'])
@@ -268,8 +275,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     startDate,
                     currentEntry,
                     entryGroup,
-                    todayEntry = null,
-                    todayAdded = false,
                     o=[];
 
                 for(i=0; i<feedLength; i+=1){
@@ -290,47 +295,41 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     currentEntry = feed['$resources'][i];
                     entryGroup = this.getGroupForEntry(currentEntry);
 
-                    if (entryGroup.tag != this.currentGroup.tag || (i===0 && feedLength===1))
+                    if (entryGroup.tag != this.currentGroup.tag)
                     {
-                        if( this.isInCurrentWeek(this.todayDate)
-                            && entryGroup.date.clone().clearTime().compareTo(this.todayDate) === 1
-                            && (!this.currentGroup ||
-                                this.currentGroup.date.clone().clearTime().compareTo(this.todayDate) === -1)){
-
-                            todayEntry = this.getGroupForEntry({
-                                'Activity': { 'StartDate': this.todayDate }
-                            });
-                        }
-
                         if (o.length > 0){
                             Ext.DomHelper.append(this.currentGroupEl, o.join(''));
                         }
                         o = [];
 
-                        if(todayEntry && !todayAdded){
-                            this.currentGroupEl = Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(todayEntry, this), true);
-                            todayAdded = true;
-                        }
-
                         this.currentGroup = entryGroup;
-                        this.currentGroupEl = Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(entryGroup, this), true);
+                        if(todayEl !== null){
+                            switch(entryGroup.date.clone().clearTime().compareTo(this.todayDate)){
+                                case -1:
+                                    this.currentGroupEl = Ext.DomHelper.insertBefore(todayEl.prev('h2'),this.groupTemplate.apply(entryGroup, this),true);
+                                    break;
+                                case 0:
+                                    this.currentGroupEl = todayEl;
+                                    break;
+                                default:
+                                    this.currentGroupEl = Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(entryGroup, this), true);
+                            }
+                        } else{
+                            this.currentGroupEl = Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(entryGroup, this), true);
+                        }
                     }
 
                     this.entries[currentEntry.$key] = currentEntry;
 
                     o.push(this.itemTemplate.apply(currentEntry, this));
                 }
-                
-                if(!todayAdded && this.isInCurrentWeek(this.todayDate)){
-                    todayEntry = this.getGroupForEntry({
-                        'Activity': { 'StartDate': this.todayDate }
-                    });
-                    Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(todayEntry, this), true);
-                }
 
                 if (o.length > 0)
                     Ext.DomHelper.append(this.currentGroupEl, o.join(''));
+
             }
+
+
 
             if (this.remainingEl)
                 this.remainingEl.update(String.format(
@@ -342,6 +341,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 this.el.addClass('list-has-more');
             else
                 this.el.removeClass('list-has-more');
+        },
+        addTodayToDom: function(){
+            if(!this.isInCurrentWeek(this.todayDate)) return;
+
+            var todayEntry = this.getGroupForEntry({
+                'Activity': { 'StartDate': this.todayDate }
+            });
+            return Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(todayEntry, this), true);
         },
         addUtcOffset: function(date){
             var utcOffset,

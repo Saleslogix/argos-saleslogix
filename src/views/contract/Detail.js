@@ -129,7 +129,7 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     view: 'ticket_related',
                     where: this.formatAccountRelatedQuery.createDelegate(
                         this, ['Account.id eq "{0}"'], true
-                    ),
+                    )
                 }]
             }
         ]);
