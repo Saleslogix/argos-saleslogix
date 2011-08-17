@@ -69,11 +69,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<div class="clear"></div>'
         ]),
         descriptionTemplate: new Simplate([
-            '{% if ($.Activity.Description !== null && $$.nameTemplate.apply($).length > 1) { %}',
+            '{% if ($.Activity.Description && $$.nameTemplate.apply($).length > 1) { %}',
                 '<h3>{%: $.Activity.Description %}</h3>',
                 '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
             '{% } else { %}',
-                '{% if ($.Activity.Description !== null) { %}',
+                '{% if ($.Activity.Description) { %}',
                     '<h3 class="singleDescription">{%: $.Activity.Description %}</h3>',
                 '{% } else { %}',
                     '<h4 class="singleDescription">{%= $$.nameTemplate.apply($) %}</h4>',
@@ -115,7 +115,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         weekStartDate: null,
         weekEndDate: null,
         todayDate: null,
-        use24Time: false,
         activeDateClass: 'currentDate',
         typeIcons: {
             'defaultIcon': 'content/images/icons/To_Do_24x24.png',
@@ -152,7 +151,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Mobile.SalesLogix.Calendar.WeekView.superclass.initEvents.apply(this, arguments);
             this.el.on('swipe', this.onSwipe, this);
         },
-        onSwipe: function(evt, el){
+        onSwipe: function(evt){
             switch(evt.browserEvent.direction){
                 case 'right':
                     this.onSwipeRight();
@@ -225,7 +224,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             );
         },
         setWeekStartDay: function(){
-            var startDay = (this.options !== undefined && this.options['startDay'] !== undefined)
+            var startDay = (typeof this.options !== 'undefined' && typeof this.options['startDay'] !== 'undefined')
                 ? this.options['startDay']
                 : this.userWeekStartDay;
             this.userWeekStartDay = startDay;
@@ -257,6 +256,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             var todayEl = null;
 
             if (!this.feed){ this.contentEl.update(''); }
+
             this.feed = feed;
 
             if(this.isInCurrentWeek(this.todayDate)){
@@ -302,7 +302,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                         o = [];
 
                         this.currentGroup = entryGroup;
-                        if(todayEl !== null){
+                        if(todayEl){
                             switch(entryGroup.date.clone().clearTime().compareTo(this.todayDate)){
                                 case -1:
                                     this.currentGroupEl = Ext.DomHelper.insertBefore(todayEl.prev('h2'),this.groupTemplate.apply(entryGroup, this),true);
@@ -317,18 +317,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                             this.currentGroupEl = Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(entryGroup, this), true);
                         }
                     }
-
                     this.entries[currentEntry.$key] = currentEntry;
-
                     o.push(this.itemTemplate.apply(currentEntry, this));
                 }
 
                 if (o.length > 0)
                     Ext.DomHelper.append(this.currentGroupEl, o.join(''));
-
             }
-
-
 
             if (this.remainingEl)
                 this.remainingEl.update(String.format(
@@ -342,7 +337,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 this.el.removeClass('list-has-more');
         },
         addTodayToDom: function(){
-            if(!this.isInCurrentWeek(this.todayDate)) return;
+            if(!this.isInCurrentWeek(this.todayDate)) return null;
 
             var todayEntry = this.getGroupForEntry({
                 'Activity': { 'StartDate': this.todayDate }
