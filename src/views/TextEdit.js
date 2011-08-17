@@ -10,8 +10,7 @@ Mobile.SalesLogix.TextEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
         return this.layout || (this.layout = [{
             label: '',
             name: 'Notes',
-            type: 'text',
-            multiline: true
+            type: 'textarea'
         }]);
     }
 });
