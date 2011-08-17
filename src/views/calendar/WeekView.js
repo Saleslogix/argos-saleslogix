@@ -378,8 +378,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Sage.Platform.Mobile.List.superclass.show.apply(this, arguments);
         },
         setDefaultOptions: function(){
-            if(this.options===undefined) this.options = {};
-            if(this.options['startDay'] === undefined){
+            if(typeof this.options === 'undefined') this.options = {};
+            if(typeof this.options['startDay'] === 'undefined'){
                 this.options['startDay'] = (App.context.userOptions)
                     ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek'],10)
                     : this.userWeekStartDay;
