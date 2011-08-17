@@ -134,10 +134,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             }
         },
         onSwipeRight: function(){
-            this.getNextActivities();
+            this.getPrevActivities();
         },
         onSwipeLeft: function(){
-            this.getPrevActivities();
+            this.getNextActivities();
         },
 
         show: function(options) {

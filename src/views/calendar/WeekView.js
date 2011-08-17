@@ -165,10 +165,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             }
         },
         onSwipeRight: function(){
-            this.getNextWeekActivities();
+            this.getPrevWeekActivities();
         },
         onSwipeLeft: function(){
-            this.getPrevWeekActivities();
+            this.getNextWeekActivities();
         },
         activateDayHeader: function(params){
             this.currentDate = Date.parse(params.date);

@@ -58,10 +58,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             }
         },
         onSwipeRight: function(){
-            this.goToNextMonth();
+            this.goToPreviousMonth();
         },
         onSwipeLeft: function(){
-            this.goToPreviousMonth();
+            this.goToNextMonth();
         },
 
         render: function() {
