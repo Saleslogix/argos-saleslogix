@@ -43,27 +43,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
         initEvents: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
-            this.el.on('swipe', this.onSwipe, this);
         },
-        onSwipe: function(evt, el){
-            switch(evt.browserEvent.direction){
-                case 'right':
-                    this.onSwipeRight();
-                    evt.preventDefault(); // todo: is this needed?
-                    break;
-                case 'left':
-                    this.onSwipeLeft();
-                    evt.preventDefault(); // todo: is this needed?
-                    break;
-            }
-        },
-        onSwipeRight: function(){
-            this.goToPreviousMonth();
-        },
-        onSwipeLeft: function(){
-            this.goToNextMonth();
-        },
-
         render: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.render.apply(this, arguments);
 

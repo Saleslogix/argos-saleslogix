@@ -156,11 +156,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             switch(evt.browserEvent.direction){
                 case 'right':
                     this.onSwipeRight();
-                    evt.preventDefault(); // todo: is this needed?
+                    evt.stopEvent();
                     break;
                 case 'left':
                     this.onSwipeLeft();
-                    evt.preventDefault(); // todo: is this needed?
+                    evt.stopEvent();
                     break;
             }
         },
@@ -265,7 +265,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             if (this.feed['$totalResults'] === 0)
             {
-                console.log('no results');
                 Ext.DomHelper.append(this.contentEl, this.noDataTemplate.apply(this));
             }
             else if (feed['$resources'])

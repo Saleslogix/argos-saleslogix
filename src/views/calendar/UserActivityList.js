@@ -125,11 +125,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             switch(evt.browserEvent.direction){
                 case 'right':
                     this.onSwipeRight();
-                    evt.preventDefault(); // todo: is this needed?
+                    evt.stopEvent();
                     break;
                 case 'left':
                     this.onSwipeLeft();
-                    evt.preventDefault(); // todo: is this needed?
+                    evt.stopEvent();
                     break;
             }
         },
