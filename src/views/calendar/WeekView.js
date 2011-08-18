@@ -390,14 +390,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         navigateToUserActivityList: function() {
             var view = App.getView(this.activityListView);
             view.currentDate = this.currentDate.clone() || new Date();
+            view.getActivities();
             view.show();
-            view.refresh();
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView);
             view.currentDate = this.currentDate.clone() || new Date();
+            view.refreshRequired = true;
             view.show();
-            view.refresh();
        },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],

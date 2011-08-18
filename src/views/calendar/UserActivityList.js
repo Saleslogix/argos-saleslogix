@@ -140,7 +140,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.getNextActivities();
         },
         refresh: function(){
-            Mobile.SalesLogix.Calendar.UserActivityList.superclass.refresh.call(this, options);
+            Mobile.SalesLogix.Calendar.UserActivityList.superclass.refresh.call(this);
             this.getActivities();
         },
         show: function(options) {
@@ -200,14 +200,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         navigateToMonthView: function() {
             var view = App.getView(this.monthView);
             view.currentDate = this.currentDate.clone() || new Date();
+            view.refreshRequired = true;
             view.show();
-            view.refresh();
         },
         navigateToWeekView: function(){
             var view = App.getView(this.weekView);
             view.currentDate = this.currentDate.clone() || new Date();
+            view.refreshRequired = true;
             view.show();
-            view.refresh();
         },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],

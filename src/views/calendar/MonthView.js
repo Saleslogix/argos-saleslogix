@@ -41,9 +41,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         activityListView: 'useractivity_list',
         activityWeekView: 'calendar_weeklist',
         insertView: 'activity_types_list',
-        currentDate: null,
-        year: 1970,
-        month: 0,
+        currentDate: Date.today(),
+        date: Date.today(),
+        year: Date.today().getFullYear(),
+        month: Date.today().getMonth(),
+        resourceKind: 'useractivities',
 
         _onRefresh: function(o) {
             if (this.resourceKind && o.resourceKind === this.resourceKind)
@@ -61,6 +63,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 id: 'new',
                 action: 'navigateToInsertView'
             }];
+            this.renderCalendar();
         },
         initEvents: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
@@ -201,14 +204,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         renderCalendar: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.renderCalendar.apply(this, arguments);
+
+            if (this.showTimePicker)
+                this.timeEl.show();
+            else
+                this.timeEl.hide();
+
             if (this.month === this.currentDate.getMonth() && this.year === this.currentDate.getFullYear())
             {
                 this.highlightCurrentDate();
             }
         },
         show: function(options, transitionOptions) {
-            Sage.Platform.Mobile.Calendar.superclass.show.call(this, options, transitionOptions);
-
             this.showTimePicker = this.options && this.options.showTimePicker;
 
             this.date = this.currentDate || new Date();
@@ -218,12 +225,12 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.hourField.dom.value = this.date.getHours();
             this.minuteField.dom.value = this.date.getMinutes();
 
-            this.renderCalendar();
-
-            if (this.showTimePicker)
-                this.timeEl.show();
-            else
-                this.timeEl.hide();
+            Sage.Platform.Mobile.Calendar.superclass.show.call(this, options, transitionOptions);
+        },
+        getContext: function() {
+            return Ext.apply(Mobile.SalesLogix.Calendar.MonthView.superclass.getContext.call(this), {
+                resourceKind: this.resourceKind
+            });
         },
         highlightCurrentDate: function(){
             var selectedDate = String.format('.calendar-day[data-date={0}]', this.currentDate.toString('d'));
@@ -234,19 +241,17 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         navigateToWeekView: function() {
             var view = App.getView(this.activityWeekView);
             view.currentDate = this.currentDate.clone() || new Date();
+            view.refreshRequired = true;
             view.show();
-            view.refresh();
         },
         navigateToDayView: function() {
             var view = App.getView(this.activityListView);
             view.currentDate = this.currentDate.clone() || new Date();
+            view.getActivities();
             view.show();
-            view.refresh();
         },
         navigateToInsertView: function() {
-            var view = App.getView(this.activityListView);
-            view.currentDate = this.currentDate.clone();
-            view = App.getView(this.insertView);
+            var view = App.getView(this.insertView);
             view.show({
                 returnTo: this.id,
                 insert: true
