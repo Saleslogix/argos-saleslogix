@@ -139,7 +139,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         onSwipeLeft: function(){
             this.getNextActivities();
         },
-
+        refresh: function(){
+            Mobile.SalesLogix.Calendar.UserActivityList.superclass.refresh.call(this, options);
+            this.getActivities();
+        },
         show: function(options) {
             options = options || {};
             options['where'] = this.formatQueryForActivities();
@@ -196,26 +199,15 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView);
-            if (view)
-                view.show({
-                    
-                }, {
-                    // disableFx: true // todo: requires a ReUI fix
-                });
+            view.currentDate = this.currentDate.clone() || new Date();
+            view.show();
+            view.refresh();
         },
         navigateToWeekView: function(){
-            var view = App.getView(this.weekView),
-                scrollRequired = true;
-            if (view){
-                if(this.currentDate) {
-                    if(!view.isInCurrentWeek(this.currentDate)){
-                        view.refresh(this.currentDate);
-                        scrollRequired = false;
-                    }
-                    view.currentDate = this.currentDate.clone().clearTime();
-                }
-                view.show({'scrollRequired':scrollRequired});
-            }
+            var view = App.getView(this.weekView);
+            view.currentDate = this.currentDate.clone() || new Date();
+            view.show();
+            view.refresh();
         },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
