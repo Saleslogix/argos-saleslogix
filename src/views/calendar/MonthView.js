@@ -93,7 +93,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.month = today.getMonth();
             this.year = today.getFullYear();
             this.currentDate = today;
-            this.renderCalendar();
             this.refresh();
         },
         goToNextMonth: function() {
@@ -102,8 +101,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             }
             this.month = (this.month + 1) % 12;
             this.currentDate = this.getFirstDayOfCurrentMonth();
-
-            this.renderCalendar();
             this.refresh();
         },
         goToPreviousMonth: function() {
@@ -114,11 +111,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 this.month = (this.month - 1) % 12;
             }
             this.currentDate = this.getFirstDayOfCurrentMonth();
-
-            this.renderCalendar();
             this.refresh();
         },
         refresh: function(){
+            this.renderCalendar();
             this.requestActivityList(
                     this.getFirstDayOfCurrentMonth(),
                     this.getLastDayOfCurrentMonth()
