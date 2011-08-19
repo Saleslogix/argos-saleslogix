@@ -12,7 +12,9 @@ mkdir deploy\content\css
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 xcopy index.html .\deploy /Y /Q
+xcopy index.aspx .\deploy /Y /Q
 xcopy index-nocache.html .\deploy /Y /Q
+xcopy index-nocache.aspx .\deploy /Y /Q
 xcopy unsupported.html .\deploy /Y /Q
 xcopy help.html .\deploy /Y /Q
 xcopy index.manifest .\deploy /Y /Q

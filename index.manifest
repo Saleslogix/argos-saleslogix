@@ -44,9 +44,9 @@ content/images/icons/Browse_Previous_24.png
 content/images/icons/Calendar_24x24.png
 content/images/icons/Call_24x24.png
 content/images/icons/cancl_24.png
+content/images/icons/Clear_Activity_24x24.png
 content/images/icons/close_24.png
 content/images/icons/Company_24.png
-content/images/icons/Clear_Activity_24x24.png
 content/images/icons/Contacts_24x24.png
 content/images/icons/database_24.png
 content/images/icons/del_24.png
@@ -60,14 +60,20 @@ content/images/icons/Hide_Details_inactive_24.png
 content/images/icons/home_24.png
 content/images/icons/journal_24.png
 content/images/icons/Leads_24x24.png
+content/images/icons/letters_24.png
 content/images/icons/login_24.png
 content/images/icons/Map_24.png
-content/images/icons/mobile.png
+content/images/icons/Meeting_24x24.png
+content/images/icons/mobile_24.png
 content/images/icons/New_Contact_24x24.png
 content/images/icons/New_Note_24x24.png
 content/images/icons/Next_24.png
 content/images/icons/note_24.png
+content/images/icons/note_account_24x24.png
+content/images/icons/note_contact_24x24.png
+content/images/icons/note_lead_24x24.png
 content/images/icons/Note_More_24x24.png
+content/images/icons/note_opp_24x24.png
 content/images/icons/OK_24.png
 content/images/icons/opportunity_24.png
 content/images/icons/Opportunity_Lost_24.png
@@ -113,6 +119,7 @@ configuration/production.js
 
 # shell
 index.html
+index.aspx
 
 # help
 help.html
