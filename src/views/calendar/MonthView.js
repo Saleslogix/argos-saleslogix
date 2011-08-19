@@ -45,6 +45,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         date: Date.today(),
         year: Date.today().getFullYear(),
         month: Date.today().getMonth(),
+        activityCache: {},
         resourceKind: 'useractivities',
 
         _onRefresh: function(o) {
@@ -63,7 +64,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 id: 'new',
                 action: 'navigateToInsertView'
             }];
-            this.renderCalendar();
         },
         initEvents: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
@@ -93,7 +93,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.month = today.getMonth();
             this.year = today.getFullYear();
             this.currentDate = today;
-            this.refresh();
+            this.renderCalendar();
         },
         goToNextMonth: function() {
             if (this.month === 11){
@@ -101,7 +101,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             }
             this.month = (this.month + 1) % 12;
             this.currentDate = this.getFirstDayOfCurrentMonth();
-            this.refresh();
+            this.renderCalendar();
+            if(!this.hasCacheForDate())
+                this.refresh();
         },
         goToPreviousMonth: function() {
             if (this.month === 0){
@@ -111,13 +113,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 this.month = (this.month - 1) % 12;
             }
             this.currentDate = this.getFirstDayOfCurrentMonth();
-            this.refresh();
+            this.renderCalendar();
+            if(!this.hasCacheForDate())
+                this.refresh();
+        },
+        hasCacheForDate: function(date){
+            date = date || this.currentDate || new Date();
+            return (this.activityCache[Date.CultureInfo.monthNames[date.getMonth()]]);
         },
         refresh: function(){
-            this.renderCalendar();
-            this.requestActivityList(
-                    this.getFirstDayOfCurrentMonth(),
-                    this.getLastDayOfCurrentMonth()
+            this.activityCache[this.monthName] = this.requestActivityList(
+                this.getFirstDayOfCurrentMonth(),
+                this.getLastDayOfCurrentMonth()
             );
         },
         requestActivities: function(where) {
@@ -159,7 +166,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             });
         },
         onRequestActivityDataSuccess: function(data) {
-            this.highlightActivities(this.processActivityList(data));
+            this.activityCache[this.monthName] = this.processActivityList(data);
+            this.highlightActivities(this.activityCache[this.monthName]);
         },
         onRequestActivityFailure: function(er) {
             console.log( er );
@@ -199,28 +207,30 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         renderCalendar: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.renderCalendar.apply(this, arguments);
+            this.timeEl.hide();
 
-            if (this.showTimePicker)
-                this.timeEl.show();
-            else
-                this.timeEl.hide();
+            if(this.activityCache[this.monthName]) {
+                this.highlightActivities(this.activityCache[this.monthName]);
+            }
 
             if (this.month === this.currentDate.getMonth() && this.year === this.currentDate.getFullYear())
             {
                 this.highlightCurrentDate();
             }
         },
+        activate: function(tag, data){
+            Sage.Platform.Mobile.Calendar.superclass.activate.call(this, tag, data);
+            this.renderCalendar();
+        },
         show: function(options, transitionOptions) {
-            this.showTimePicker = this.options && this.options.showTimePicker;
-
+            Sage.Platform.Mobile.Calendar.superclass.show.call(this, options);
             this.date = this.currentDate || new Date();
             this.year = this.date.getFullYear();
             this.month = this.date.getMonth();
 
-            this.hourField.dom.value = this.date.getHours();
-            this.minuteField.dom.value = this.date.getMinutes();
-
-            Sage.Platform.Mobile.Calendar.superclass.show.call(this, options, transitionOptions);
+            this.hideValidationSummary();
+            this.renderCalendar();
+            this.timeEl.hide();
         },
         getContext: function() {
             return Ext.apply(Mobile.SalesLogix.Calendar.MonthView.superclass.getContext.call(this), {

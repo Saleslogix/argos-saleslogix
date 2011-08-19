@@ -198,14 +198,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView);
+            if(!view.hasCacheForDate(this.currentDate))
+                view.refreshRequired = true;
             view.currentDate = this.currentDate.clone() || new Date();
-            view.refreshRequired = true;
             view.show();
         },
         navigateToWeekView: function(){
             var view = App.getView(this.weekView);
             view.currentDate = this.currentDate.clone() || new Date();
-            view.refreshRequired = true;
             view.show();
         },
         navigateToDetailView: function(key, descriptor) {
