@@ -1,5 +1,6 @@
 CACHE MANIFEST
 @version
+@culture
 
 CACHE:
 # css
@@ -18,12 +19,15 @@ content/ext/ext-core.js
 # environment
 @include 'configuration'
 
+# localization
+@include 'localization', /.*(?<!-debug)\.js/i
+
 # shell
 index.html
 index.aspx
 
 # help
-help.html
+@include 'help'
 
 NETWORK:
 ../sdata/

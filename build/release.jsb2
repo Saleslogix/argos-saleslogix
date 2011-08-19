@@ -6,32 +6,25 @@
 		name: 'SalesLogix Mobile',
 		file: 'content/javascript/argos-saleslogix.js',
 		isDebug: true,
-		fileIncludes: [
-		{
+		fileIncludes: [{
             text: 'Environment.js',
             path: '../src/'
-        },
-        {
+        },{
             text: 'Application.js',
             path: '../src/'
-        },
-        {
+        },{
             text: 'ApplicationModule.js',
             path: '../src/'
-        },
-        {
+        },{
             text: 'Format.js',
             path: '../src/'
-        },
-        {
+        },{
             text: 'Template.js',
             path: '../src/'
-        },
-        {
+        },{
             text: 'Validator.js',
             path: '../src/'
-        },
-        {
+        },{
             text: 'MainToolbar.js',
             path: '../src/views/'
         },{
@@ -40,256 +33,241 @@
         },{
             text: 'UpdateToolbar.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'AddAccountContact.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'Configure.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'ContextDialog.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'Help.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'Home.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'Login.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'NameEdit.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'TextEdit.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'AreaCategoryIssueLookup.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'PickList.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'SelectList.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'Settings.js',
             path: '../src/views/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/account/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/account/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/account/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/activity/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/activity/'
-        },
-        {
+        },{
             text: 'Complete.js',
             path: '../src/views/activity/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/activity/'
-        },
-        {
+        },{
             text: 'TypesList.js',
             path: '../src/views/activity/'
-        },
-        {
+        },{
             text: 'MonthView.js',
             path: '../src/views/calendar/'
-        },
-        {
+        },{
+            text: 'WeekView.js',
+            path: '../src/views/calendar/'
+        },{
             text: 'UserActivityList.js',
             path: '../src/views/calendar/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/address/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/campaign/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/campaign/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/campaign/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/contact/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/contact/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/contact/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/contract/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/contract/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/contract/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/defect/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/defect/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/defect/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/defectproblem/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/defectproblem/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/defectsolution/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/defectsolution/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/history/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/history/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/history/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/lead/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/lead/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/lead/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/leadsource/'
-        },       
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/opportunity/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/opportunity/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/opportunity/'
-        },
-        {
+        },{
         	text: 'List.js',
         	path: '../src/views/opportunityproduct/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/owner/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/return/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/return/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/return/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/salesorder/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/salesorder/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/salesorder/'
-        },
-        {
+        },{
             text: 'Detail.js',
             path: '../src/views/ticket/'
-        },
-        {
+        },{
             text: 'Edit.js',
             path: '../src/views/ticket/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/ticket/'
-        },
-        {
+        },{
             text: 'UrgencyLookup.js',
             path: '../src/views/ticket/'
-        },
-        {
+        },{
             text: 'List.js',
             path: '../src/views/user/'
         }]
-	}],
+	},{
+		name: 'Core Mobile Localization (en-US)',
+		file: 'localization/en-US.js',
+		isDebug: true,
+		fileIncludes: [{
+            text: 'en-US.js',
+            path: '../localization/'
+        },{
+            text: 'en-US.js',
+            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+        }]
+    },{
+		name: 'Core Mobile Localization (de-DE)',
+		file: 'localization/de-DE.js',
+		isDebug: true,
+		fileIncludes: [{
+            text: 'de-DE.js',
+            path: '../localization/'
+        },{
+            text: 'de-DE.js',
+            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+        }]
+    },{
+		name: 'Core Mobile Localization (fr-FR)',
+		file: 'localization/fr-FR.js',
+		isDebug: true,
+		fileIncludes: [{
+            text: 'fr-FR.js',
+            path: '../localization/'
+        },{
+            text: 'fr-FR.js',
+            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+        }]
+    },{
+		name: 'Core Mobile Localization (ru-RU)',
+		file: 'localization/ru-RU.js',
+		isDebug: true,
+		fileIncludes: [{
+            text: 'ru-RU.js',
+            path: '../localization/'
+        },{
+            text: 'ru-RU.js',
+            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+        }]
+    }],
 	resources: [{
 		src: '../content',
 		dest: 'content',
@@ -302,5 +280,9 @@
 	    src: '../localization',
 	    dest: 'localization',
 	    filters: ".*\\.js"
+	},{
+	    src: '../help',
+	    dest: 'help',
+	    filters: ".*\\.html"
 	}]
 }

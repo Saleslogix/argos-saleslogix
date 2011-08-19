@@ -79,6 +79,7 @@
     <script type="text/javascript" src="../../argos-sdk/src/Controls/PicklistField.js"></script>
     <script type="text/javascript" src="../../argos-sdk/src/Controls/SelectField.js"></script>
     <script type="text/javascript" src="../../argos-sdk/src/Controls/DateField.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/src/Controls/TextAreaField.js"></script>
 
     <!-- Argos SalesLogix -->
     <script type="text/javascript" src="src/Environment.js"></script>
@@ -112,6 +113,7 @@
     <script type="text/javascript" src="src/views/activity/Complete.js"></script>
     <script type="text/javascript" src="src/views/activity/TypesList.js"></script>
     <script type="text/javascript" src="src/views/calendar/MonthView.js"></script>
+    <script type="text/javascript" src="src/views/calendar/WeekView.js"></script>
     <script type="text/javascript" src="src/views/calendar/UserActivityList.js"></script>
     <script type="text/javascript" src="src/views/campaign/List.js"></script>
     <script type="text/javascript" src="src/views/campaign/Detail.js"></script>
@@ -154,13 +156,16 @@
     <script type="text/javascript" src="src/views/ticket/UrgencyLookup.js"></script>
 
     <!-- Configuration -->
-    <% foreach (var include in Enumerate("configuration")) { %>
-    <script type="text/javascript" src="<%= include.Path %>"></script>
-    <% } %>
+    <script type="text/javascript" src="configuration/development.js"></script>
 
     <!-- Localization -->
     <% foreach (var include in EnumerateLocalizations("localization")) { %>
     <script type="text/javascript" src="<%= include.Path %>"></script>
+    <% } %>
+
+    <!-- Localization -->
+    <% foreach (var include in EnumerateLocalizations("../../argos-sdk", "libraries/datejs/src/globalization")) { %>
+    <script type="text/javascript" src="../../argos-sdk/<%= include.Path %>"></script>
     <% } %>
 
     <script type="text/javascript">
@@ -186,8 +191,17 @@
 
     protected string ToRelativeUrlPath(DirectoryInfo rootDirectory, FileInfo file)
     {
-        return file.FullName.Substring(rootDirectory.FullName.Length + 1).Replace('\\', '/');
-    }
+        var rootPath = rootDirectory.FullName;
+        var filePath = file.FullName;
+        
+        if (filePath.StartsWith(rootPath)) 
+        {           
+            var relativePath = filePath.Substring(rootPath.Length + 1);
+            return relativePath.Replace('\\', '/');
+        }
+                
+        throw new ApplicationException("Invalid root path specified.");
+    }              
                 
     protected IEnumerable<EnumerationItem> Enumerate(string path, Predicate<FileInfo> predicate)
     {
@@ -217,19 +231,24 @@
     protected IEnumerable<EnumerationItem> Enumerate(string path, Regex include)
     {
         return Enumerate(path, (file) => include.IsMatch(file.Name));
-    }    
+    }
 
     protected IEnumerable<EnumerationItem> EnumerateLocalizations(string path)
     {
-        var currentCulture = System.Globalization.CultureInfo.CurrentUICulture;
-        var rootDirectory = new DirectoryInfo(Path.GetDirectoryName(Request.PhysicalPath));
-        var includeDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, path));        
+        return EnumerateLocalizations(String.Empty, path);
+    }
 
+    protected IEnumerable<EnumerationItem> EnumerateLocalizations(string root, string path)
+    {
+        var currentCulture = System.Globalization.CultureInfo.CurrentUICulture;
+        var rootDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(Request.PhysicalPath), root));
+        var includeDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, path));
+        
         if (includeDirectory.Exists)
         {
             var parentFileName = String.Format(@"{0}.js", currentCulture.Parent.Name);
             var parentFile = new FileInfo(Path.Combine(includeDirectory.FullName, parentFileName));
-            var targetFileName = String.Format(@"{0}.js", currentCulture.Name);            
+            var targetFileName = String.Format(@"{0}.js", currentCulture.Name);
             var targetFile = new FileInfo(Path.Combine(includeDirectory.FullName, targetFileName)); 
                                   
             if (targetFile.Exists)            

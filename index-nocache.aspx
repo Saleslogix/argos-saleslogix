@@ -69,9 +69,18 @@
 
     protected string ToRelativeUrlPath(DirectoryInfo rootDirectory, FileInfo file)
     {
-        return file.FullName.Substring(rootDirectory.FullName.Length + 1).Replace('\\', '/');
+        var rootPath = rootDirectory.FullName;
+        var filePath = file.FullName;
+
+        if (filePath.StartsWith(rootPath))
+        {
+            var relativePath = filePath.Substring(rootPath.Length + 1);
+            return relativePath.Replace('\\', '/');
+        }
+
+        throw new ApplicationException("Invalid root path specified.");
     }
-                
+
     protected IEnumerable<EnumerationItem> Enumerate(string path, Predicate<FileInfo> predicate)
     {
         var rootDirectory = new DirectoryInfo(Path.GetDirectoryName(Request.PhysicalPath));
@@ -83,12 +92,12 @@
 
             if (predicate != null) files = files.Where(file => predicate(file));
 
-            foreach (var file in files)            
+            foreach (var file in files)
                 yield return new EnumerationItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, file),
                     File = file
-                };            
+                };
         }
     }
 
@@ -100,19 +109,24 @@
     protected IEnumerable<EnumerationItem> Enumerate(string path, Regex include)
     {
         return Enumerate(path, (file) => include.IsMatch(file.Name));
-    }    
+    }
 
     protected IEnumerable<EnumerationItem> EnumerateLocalizations(string path)
     {
+        return EnumerateLocalizations(String.Empty, path);
+    }
+
+    protected IEnumerable<EnumerationItem> EnumerateLocalizations(string root, string path)
+    {
         var currentCulture = System.Globalization.CultureInfo.CurrentUICulture;
-        var rootDirectory = new DirectoryInfo(Path.GetDirectoryName(Request.PhysicalPath));
-        var includeDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, path));        
+        var rootDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(Request.PhysicalPath), root));
+        var includeDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, path));
 
         if (includeDirectory.Exists)
         {
             var parentFileName = String.Format(@"{0}.js", currentCulture.Parent.Name);
             var parentFile = new FileInfo(Path.Combine(includeDirectory.FullName, parentFileName));
-            var targetFileName = String.Format(@"{0}.js", currentCulture.Name);            
+            var targetFileName = String.Format(@"{0}.js", currentCulture.Name);
             var targetFile = new FileInfo(Path.Combine(includeDirectory.FullName, targetFileName)); 
                                   
             if (targetFile.Exists)            

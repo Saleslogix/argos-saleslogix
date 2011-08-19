@@ -15,14 +15,20 @@ using System.Reflection;
 
 public class CacheManifestHandler : IHttpHandler
 {
-    public const string CACHE_KEY = "manifest"; 
-    
+    public const string CACHE_KEY = "manifest-{0}";
+
+    public class CacheEntry
+    {
+        public string Culture { get; set; }
+        public string Content { get; set; }
+    }
+   
     public void Refresh(string key, object item, CacheItemRemovedReason reason)
     {
-        if (reason != CacheItemRemovedReason.Removed) ProcessManifest();
-    }
+        
+    }            
 
-    public string ProcessManifest()
+    public string ProcessManifest(string culture)
     {
         var manifestPath = ConfigurationManager.AppSettings["cacheManifestPath"] ?? "~/template.manifest";
         var physicalPath = Path.IsPathRooted(manifestPath) ? manifestPath : HostingEnvironment.MapPath(manifestPath);
@@ -39,7 +45,7 @@ public class CacheManifestHandler : IHttpHandler
         }
                 
         HttpRuntime.Cache.Insert(
-            CACHE_KEY,
+            String.Format(CACHE_KEY, culture),
             content,
             new CacheDependency(Path.GetDirectoryName(physicalPath)),
             Cache.NoAbsoluteExpiration,
@@ -53,11 +59,12 @@ public class CacheManifestHandler : IHttpHandler
 
     public void ProcessRequest(HttpContext context)
     {
+        var culture = CultureInfo.CurrentCulture.Name;
         var response = context.Response;
 
-        var content = HttpRuntime.Cache.Get(CACHE_KEY) as string;
+        var content = HttpRuntime.Cache.Get(String.Format(CACHE_KEY, culture)) as string;
         if (content == null)
-            content = ProcessManifest();
+            content = ProcessManifest(culture);
 
         response.ContentType = "text/cache-manifest";
         response.Write(content);
@@ -147,7 +154,12 @@ public class CacheManifestProcessor
     public void CommandVersion(TextWriter output)
     {
         output.WriteLine("# version {0}", DateTime.UtcNow.ToString("s"));
-    }  
+    }
+
+    public void CommandCulture(TextWriter output)
+    {
+        output.WriteLine("# culture {0}", CultureInfo.CurrentCulture.Name);
+    } 
             
     class Command
     {

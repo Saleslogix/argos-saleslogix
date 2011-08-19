@@ -1,5 +1,4 @@
-CACHE MANIFEST
-# version 43
+# version 2011-08-19T21:58:55
 
 CACHE:
 # css
@@ -117,12 +116,24 @@ content/javascript/argos-sdk.js
 configuration/development.js
 configuration/production.js
 
+# localization
+localization/de-DE.js
+localization/en-US.js
+localization/fr-FR.js
+localization/ru-RU.js
+localization/saleslogix/de-DE.js
+localization/saleslogix/fr-FR.js
+localization/saleslogix/ru-RU.js
+
 # shell
 index.html
 index.aspx
 
 # help
-help.html
+help/help.html
+help/help_de-DE.html
+help/help_fr-FR.html
+help/help_ru-RU.html
 
 NETWORK:
 ../sdata/

@@ -24,7 +24,7 @@ Mobile.SalesLogix.Help = Ext.extend(Sage.Platform.Mobile.Detail, {
 
     //View Properties
     id: 'help',
-    url: 'help.html',
+    url: 'help/help.html',
     icon: 'content/images/icons/help_24.png',
     expose: false,
     
@@ -37,19 +37,31 @@ Mobile.SalesLogix.Help = Ext.extend(Sage.Platform.Mobile.Detail, {
         Ext.DomHelper.append(this.contentEl, this.errorTemplate.apply(this));       
         this.el.removeClass('panel-loading');
     },
+    onLocalizedRequestFailure: function(response, o) {
+        Sage.SData.Client.Ajax.request({
+            url: this.url,
+            cache: true,
+            success: this.onRequestSuccess,
+            failure: this.onRequestFailure,
+            scope: this
+        });
+    },
     onRequestSuccess: function(response, o) {
         this.processContent(response, o);
         this.el.removeClass('panel-loading');
+    },
+    resolveLocalizedUrl: function() {
+        var localizedUrl = Mobile && Mobile['CultureInfo'] && String.format("help/help_{0}.html", Mobile['CultureInfo']['name']);
+        return localizedUrl;
     },
     requestData: function() {
         this.el.addClass('panel-loading');
         
         Sage.SData.Client.Ajax.request({
-            url: this.url,
-            // todo: this is backwards, fix in SData client.
-            cache: false,
+            url: this.resolveLocalizedUrl(),
+            cache: true,
             success: this.onRequestSuccess,
-            failure: this.onRequestFailure,
+            failure: this.onLocalizedRequestFailure,
             scope: this
         });
     },
