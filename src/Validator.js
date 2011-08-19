@@ -40,9 +40,9 @@ Mobile.SalesLogix.Validator = (function() {
         isCurrency: {
             fn: function(value, field){
                 return (!new RegExp(String.format('^[\\d{0}]+({1}\\d{1,{2}})?$',
-                    Mobile.CultureInfo.numberFormat.currencyGroupSeparator,
-                    Mobile.CultureInfo.numberFormat.currencyDecimalSeparator,
-                    Mobile.CultureInfo.numberFormat.currencyDecimalDigits)).test(value));
+                    Mobile.CultureInfo.numberFormat.currencyGroupSeparator || ',',
+                    Mobile.CultureInfo.numberFormat.currencyDecimalSeparator || '.',
+                    Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2')).test(value));
             },
             message: "The value '{0}' is not a valid currency number."
         },
