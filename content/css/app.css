@@ -618,21 +618,20 @@ td.calendar-day {
 }
 .calendar-day.activeDay span.activity-count {
     visibility: visible; /* flip visibility 'visible/hidden' */
-    position: absolute; top:-18px; right:-12px;
-    padding: 0 0.5em;
-    height: 1.5em;
-    border: 2px #fff solid;
-    border-radius: 1.5em;
-    color:#fff;
+    position: absolute; top:14px; right:-10px;
+    padding: 0 0.25em;
+    height: 1.25em;
+    border: 2px #aab28b solid;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    color:#444;
     font-size:80%;
-    background-color: #e33;
-    background-image: linear-gradient(top left, #fcc, #e33 50%, #d00);
-    background-image: -webkit-linear-gradient(top left, #fcc, #e33 50%, #d00);
-    background-image: -moz-linear-gradient(top left, #fcc, #e33 50%, #d00);
-    background-image: -ms-linear-gradient(top left, #fcc, #e33 50%, #d00);
-    background-image: -o-linear-gradient(top left, #fcc, #e33 50%, #d00);
-    /*-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffcccc, endColorstr=#dd0000)";*/
-    box-shadow: 2px 2px 3px #333;
+    font-weight: normal;
+}
+.calendar-day.today.activeDay span.activity-count,
+.calendar-day.weekend.activeDay span.activity-count {
+    border: none;
+    right: -8px;
 }
 
 .collapsed-indicator
