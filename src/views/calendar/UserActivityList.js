@@ -15,6 +15,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             splitButtonEl: '.split-buttons',
             todayButtonEl: '.button[data-tool="today"]',
             dayButtonEl: '.button[data-tool="day"]',
+            weekButtonEl: '.button[data-tool="week"]',
             monthButtonEl: '.button[data-tool="month"]'
         }, L.prototype.attachmentPoints),
                 
@@ -36,10 +37,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         ]),
         timeTemplate: new Simplate([
             '{% if ($.Activity.Timeless) { %}',
-            '<span class="p-meridiem">All-Day</span>',
+            '<span class="p-meridiem">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "h:mm") %}</span>',
-            '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
+            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}</span>',
+            '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
             '{% } %}'
         ]),
         nameTemplate: new Simplate([
@@ -53,7 +54,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         ]),
         contentTemplate: new Simplate([
             '<h3>',
-            '{%= $$.timeTemplate.apply($) %}',
+            '{%! $$.timeTemplate %}',
             '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
             '</h3>',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
@@ -62,6 +63,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<div class="split-buttons">',
             '<button data-tool="today" data-action="getTodayActivities" class="button">{%: $.todayText %}</button>',
             '<button data-tool="day" data-action="getDayActivities" class="button">{%: $.dayText %}</button>',
+            '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
             '</div>',
             '<div class="nav-bar">',
@@ -74,15 +76,19 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         //Localization
         titleText: 'Calendar',
         dateHeaderFormatText: 'dddd, MM/dd/yyyy',
+        startTimeFormatText: 'h:mm',
         todayText: 'Today',
         dayText: 'Day',
+        weekText: 'Week',
         monthText: 'Month',
+        allDayText: 'All-Day',
 
         //View Properties
         id: 'useractivity_list',
         cls: 'activities-for-day',
         icon: 'content/images/icons/Calendar_24x24.png',
         monthView: 'slx_calendar',
+        weekView: 'calendar_weeklist',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
         hideSearch: true,
@@ -110,6 +116,31 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.init.apply(this, arguments);
 
             this.currentDate = Date.today();
+        },
+        initEvents: function(){
+            Mobile.SalesLogix.Calendar.UserActivityList.superclass.initEvents.apply(this, arguments);
+            this.el.on('swipe', this.onSwipe, this);
+        },
+        onSwipe: function(evt, el){
+            switch(evt.browserEvent.direction){
+                case 'right':
+                    this.onSwipeRight();
+                    evt.stopEvent();
+                    break;
+                case 'left':
+                    this.onSwipeLeft();
+                    evt.stopEvent();
+                    break;
+            }
+        },
+        onSwipeRight: function(){
+            this.getPrevActivities();
+        },
+        onSwipeLeft: function(){
+            this.getNextActivities();
+        },
+        refresh: function(){
+            Mobile.SalesLogix.Calendar.UserActivityList.superclass.refresh.call(this);
         },
         show: function(options) {
             options = options || {};
@@ -167,12 +198,15 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView);
-            if (view)
-                view.show({
-                    
-                }, {
-                    // disableFx: true // todo: requires a ReUI fix
-                });
+            view.currentDate = this.currentDate.clone() || new Date();
+            view.refreshRequired = true;
+            view.show();
+        },
+        navigateToWeekView: function(){
+            var view = App.getView(this.weekView);
+            view.currentDate = this.currentDate.clone() || new Date();
+            view.refreshRequired = true;
+            view.show();
         },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],

@@ -43,7 +43,7 @@ Ext.namespace("Mobile.SalesLogix.History");
         id: 'history_detail',
         existsRE: /^[\w]{12}$/,
         editView: 'history_edit',
-        dateFormatString: 'M/d/yyyy h:mm:ss tt',
+        dateFormatText: 'M/d/yyyy h:mm:ss tt',
         resourceKind: 'history',
         querySelect: [
             'AccountId',
@@ -94,7 +94,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                     name: 'StartDate',
                     label: this.scheduledText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, [this.dateFormatString], true
+                        this, [this.dateFormatText], true
                     ),
                     exclude: this.isHistoryOfType.createDelegate(
                         this, ['atNote'], true
@@ -103,7 +103,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                     name: 'CompletedDate',
                     label: this.completedText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, [this.dateFormatString], true
+                        this, [this.dateFormatText], true
                     ),
                     exclude: this.isHistoryOfType.createDelegate(
                         this, ['atNote'], true
@@ -112,7 +112,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                     name: 'ModifyDate',
                     label: this.modifiedText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, [this.dateFormatString], true
+                        this, [this.dateFormatText], true
                     ),
                     include: this.isHistoryOfType.createDelegate(
                         this, ['atNote'], true

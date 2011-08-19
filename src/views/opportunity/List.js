@@ -31,6 +31,12 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         activitiesText: 'Activities',
         notesText: 'Notes',
         scheduleText: 'Schedule',
+        hashTagQueriesText: {
+          'open': 'open',
+          'closed': 'closed',
+          'won': 'won',
+          'lost': 'lost'
+        },
 
         //View Properties
         id: 'opportunity_list',

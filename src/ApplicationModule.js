@@ -30,6 +30,7 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
         }));
 
         this.registerView(new Mobile.SalesLogix.Calendar.MonthView());
+        this.registerView(new Mobile.SalesLogix.Calendar.WeekView());
         this.registerView(new Mobile.SalesLogix.Calendar.UserActivityList());
 
         this.registerView(new Mobile.SalesLogix.Campaign.List({

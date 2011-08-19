@@ -2,12 +2,12 @@ Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.NameEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
     //Localization
-    firstnameLabel: 'first',
-    lastnameLabel: 'last',
-    middlenameLabel: 'middle',
-    prefixLabel: 'prefix',
+    firstNameText: 'first',
+    middleNameText: 'middle',
+    lastNameText: 'last',
+    prefixText: 'prefix',
     prefixTitleText: 'Name Prefix',
-    suffixLabel: 'suffix',
+    suffixText: 'suffix',
     suffixTitleText: 'Name Suffix',
 
     //View Properties
@@ -23,7 +23,7 @@ Mobile.SalesLogix.NameEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
         this.layout = [
             {
                 emptyText: '',
-                label: this.prefixLabel,
+                label: this.prefixText,
                 name: 'Prefix',
                 picklist: 'Name Prefix',
                 requireSelection: true,
@@ -32,28 +32,28 @@ Mobile.SalesLogix.NameEdit = Ext.extend(Sage.Platform.Mobile.Edit, {
             },
             {
                 name: 'FirstName',
-                label: this.firstnameLabel,
+                label: this.firstNameText,
                 type: 'text',
                 maxTextLength: 32,
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
                 name: 'MiddleName',
-                label: this.middlenameLabel,
+                label: this.middleNameText,
                 type: 'text',
                 maxTextLength: 32,
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
                 name: 'LastName',
-                label: this.lastnameLabel,
+                label: this.lastNameText,
                 type: 'text',
                 maxTextLength: 32,
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
                 emptyText: '',
-                label: this.suffixLabel,
+                label: this.suffixText,
                 name: 'Suffix',
                 picklist: 'Name Suffix',
                 requireSelection: true,

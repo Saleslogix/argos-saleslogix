@@ -432,6 +432,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 
 .row-edit[data-field-type="lookup"] .button
 {
+    background-image: url(../images/icons/srch_24.png);
+    background-image: url(../images/icons/srch_24.png), linear-gradient(top, #e6e6e6, #cccccc);
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
 		left top,
@@ -439,11 +441,12 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 		color-stop(0, #e6e6e6),
 		color-stop(1, #cccccc)
 	);
+    background-image: url(../images/icons/srch_24.png), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
 	background-image: url(../images/icons/srch_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/srch_24.png), -ms-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/srch_24.png), -o-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
-
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 .row-edit[data-field-type="lookup"] .button:active
@@ -467,6 +470,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 
 .row-edit[data-field-type="date"] .button
 {
+    background-image: url(../images/icons/Calendar_24x24.png);
+    background-image: url(../images/icons/Calendar_24x24.png), linear-gradient(top, #e6e6e6, #cccccc);
     background-image: url(../images/icons/Calendar_24x24.png), -webkit-gradient(
 		linear,
 		left top,
@@ -474,11 +479,12 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 		color-stop(0, #e6e6e6),
 		color-stop(1, #cccccc)
 	);
-	background-image: url(../images/icons/Calendar_24x24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+	background-image: url(../images/icons/Calendar_24x24.png), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/Calendar_24x24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/Calendar_24x24.png), -ms-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/Calendar_24x24.png), -o-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
-
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 .row-edit[data-field-type="date"] .button:active
@@ -504,6 +510,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 .row-edit[data-field-type="address"] .button,
 .row-edit[data-field-type="note"] .button
 {
+    background-image: url(../images/icons/edit_24.png);
+    background-image: url(../images/icons/edit_24.png), linear-gradient(top, #e6e6e6, #cccccc);
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
 		left top,
@@ -511,11 +519,12 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 		color-stop(0, #e6e6e6),
 		color-stop(1, #cccccc)
 	);
+    background-image: url(../images/icons/edit_24.png), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
 	background-image: url(../images/icons/edit_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/edit_24.png), -ms-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/edit_24.png), -o-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
-
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 .row-edit[data-field-type="name"] .button:active,
@@ -598,6 +607,33 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     height: 24px;
 }
 
+/* in Month view .activeDay indicates individual events */
+td.calendar-day {
+    height: auto !important;
+    padding:16px 10px;
+}
+
+.calendar-day.activeDay div {
+    position: relative; /* support positioning of span.activity-count */
+}
+.calendar-day.activeDay span.activity-count {
+    visibility: visible; /* flip visibility 'visible/hidden' */
+    position: absolute; top:-18px; right:-12px;
+    padding: 0 0.5em;
+    height: 1.5em;
+    border: 2px #fff solid;
+    border-radius: 1.5em;
+    color:#fff;
+    font-size:80%;
+    background-color: #e33;
+    background-image: linear-gradient(top left, #fcc, #e33 50%, #d00);
+    background-image: -webkit-linear-gradient(top left, #fcc, #e33 50%, #d00);
+    background-image: -moz-linear-gradient(top left, #fcc, #e33 50%, #d00);
+    background-image: -ms-linear-gradient(top left, #fcc, #e33 50%, #d00);
+    background-image: -o-linear-gradient(top left, #fcc, #e33 50%, #d00);
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffcccc, endColorstr=#dd0000)";*/
+    box-shadow: 2px 2px 3px #333;
+}
 
 .collapsed-indicator
 {
@@ -657,6 +693,7 @@ body.transition > .footer-toolbar
     height: auto;
     border: none;
     font-weight: normal;
+    -ms-filter: "";
 }
 
 .footer-toolbar > .toolButton-left
@@ -734,6 +771,126 @@ body.transition > .footer-toolbar
     margin-right: 10px;
     z-index: 100;
 }
+
+
+
+
+
+#calendar_weeklist > .list-content
+{
+    border-top: solid 1px #ddd;
+}
+
+#calendar_weeklist > .nav-bar
+{
+    height: 45px;
+    width: 100%;
+    padding: 4px 4px;
+    display: block;
+    background-color: #FFF;
+	border-bottom: 1px solid #000;
+}
+
+#calendar_weeklist > .nav-bar > h3
+{
+    overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 5px 0px 0px 0px;
+    font-size: 1em;
+    line-height: 36px;
+    font-weight: bold;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: absolute;
+    width: auto;
+    z-index: 10;
+    left: 60px;
+    right: 60px;
+}
+
+#calendar_weeklist > .nav-bar > .button-prev
+{
+    float: left;
+    margin-right: 10px;
+    z-index: 100;
+}
+
+#calendar_weeklist > .nav-bar > .button-next
+{
+    float: right;
+    margin-right: 10px;
+    z-index: 100;
+}
+
+#calendar_weeklist > .list-content > ul > li > .clear
+{
+	clear: both;
+}
+
+
+#calendar_weeklist > .list-content > ul > li > .activityRow
+{
+	height: 50px;
+	vertical-align:middle;
+	overflow:hidden;
+    text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+#calendar_weeklist > .list-content > ul > li > .activityRow > img
+{
+	padding: 13px 0px 13px 3px;
+	text-align: center;
+	float:left;
+}
+#calendar_weeklist > .list-content > ul > li > .activityRow > .activityTime
+{
+	font-size: 1em;
+	font-weight: bold;
+	width: 75px;
+	text-align: right;
+	float:left;
+	line-height: 50px;
+	padding: 0px 10px 0px 6px;
+}
+#calendar_weeklist > .list-content > ul > li > .activityRow > .activityTime > .activityAMPM
+{
+	color: #888;
+	font-size: .7em;
+	font-weight: normal;
+	padding-left: 2px;
+}
+
+#calendar_weeklist > .list-content > ul > li > .activityRow > h4
+{
+	line-height: normal;
+}
+
+#calendar_weeklist > .list-content > ul > li > .activityRow > .singleDescription
+{
+	line-height: 50px;
+}
+
+
+#calendar_weeklist > .list-content > h2 > .dayHeaderLeft {
+	width: 101px;
+	text-align:right;
+	float:left;
+}
+#calendar_weeklist > .list-content > h2 > .dayHeaderRight {
+	float:right;
+	padding-right: 3px;
+}
+#calendar_weeklist > .list-content > h2.currentDate {
+	color:#00338D;
+}
+
+
+
 .nav-bar > .button
 {
     height: 36px;
@@ -815,8 +972,28 @@ body.transition > .footer-toolbar
     border-bottom-left-radius: 0;
 }
 
+.split-buttons > .button[data-tool="week"]
+{
+    margin: 0 -1px 0 -1px;
+
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-bottomleft: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
 .activities-for-day > .split-buttons > .button[data-tool="day"],
-.activities-for-month > .panel-content > .split-buttons > .button[data-tool="month"]
+.activities-for-month > .panel-content > .split-buttons > .button[data-tool="month"],
+.activities-for-week > .split-buttons > .button[data-tool="week"]
 {
     color: #000;
     text-shadow: #fff 0px 1px 0px;

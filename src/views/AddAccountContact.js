@@ -16,7 +16,7 @@ Ext.namespace("Mobile.SalesLogix");
         accountTypeTitleText: 'Account Type',
         addressText: 'address',
         contactTitleText: 'Title',
-        description: 'description',
+        descriptionText: 'description',
         detailsAccountText: 'Account Info',
         detailsContactText: 'Contact Info',
         detailsText: 'Contact / Account Info',
@@ -60,6 +60,10 @@ Ext.namespace("Mobile.SalesLogix");
             'SubType',
             'Type'
         ],
+        init: function() {
+            Mobile.SalesLogix.AddAccountContact.superclass.init.apply(this, arguments);
+            this.fields['Contacts.$resources[0].Address'].on('change', this.onContactAddressChange, this);
+        },
         getValues: function(values) {
             var U = Sage.Platform.Mobile.Utility,
                 values = Mobile.SalesLogix.AddAccountContact.superclass.getValues.apply(this, arguments);
@@ -84,6 +88,11 @@ Ext.namespace("Mobile.SalesLogix");
             else
                 Mobile.SalesLogix.AddAccountContact.superclass.onInsertCompleted.apply(this, arguments);
         },
+        onContactAddressChange: function(value, field) {
+            if( this.fields['Address'].getValue() && !this.fields['Address'].getValue().Address1 ) {
+                this.fields['Address'].setValue(value);
+            }
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
@@ -104,12 +113,14 @@ Ext.namespace("Mobile.SalesLogix");
                 {
                     label: this.emailText,
                     name: 'Contacts.$resources[0].Email',
-                    type: 'text'
+                    type: 'text',
+                    inputType: 'email'
                 },
                 {
                     label: this.webText,
                     name: 'WebAddress',
                     type: 'text',
+                    inputType: 'url',
                     maxTextLength: 128,
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
@@ -208,7 +219,7 @@ Ext.namespace("Mobile.SalesLogix");
                     },
                     {
                         name: 'BusinessDescription',
-                        label: this.description,
+                        label: this.descriptionText,
                         type: 'text'
                     },
                     {

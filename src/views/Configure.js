@@ -23,7 +23,7 @@ Ext.namespace("Mobile.SalesLogix");
 
         //Localization
         titleText: 'Configure',
-        savePrefs: 'Save',
+        savePrefsText: 'Save', // TODO: is this no longer in use?
 
         //View Properties
         id: 'configure',

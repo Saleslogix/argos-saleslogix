@@ -21,11 +21,13 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         categoryText: 'category',
         categoryTitleText: 'Activity Category',
         completedText: 'completed date',
+		completedFormatText: 'M/d/yyyy h:mm tt',
         completionText: 'Completion',
         durationText: 'duration',
+		durationInvalidText: "The field '{2}' must have a value.",
         carryOverNotesText: 'carry over notes',
         followUpText: 'follow-up',
-        followUpTitleText: 'Activity Follow Up',
+        followUpTitleText: 'Follow-up type',
         leaderText: 'leader',
         longNotesText: 'notes',
         longNotesTitleText: 'Notes',
@@ -37,6 +39,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         resultText: 'result',
         resultTitleText: 'Result',
         startingText: 'start date',
+		startingFormatText: 'M/d/yyyy h:mm tt',
         timelessText: 'timeless',
         durationValueText: {
             0: 'none',
@@ -331,7 +334,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'StartDate',
                     type: 'date',
                     showTimePicker: true,
-                    formatString: 'M/d/yyyy h:mm tt',
+                    formatString: this.startingFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
                         Mobile.SalesLogix.Validator.exists,
@@ -352,7 +355,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                             if (field.isDisabled()) return false;
                             if (!/^\d+$/.test(val)) return true;
                         },
-                        message: "The field '{2}' must have a value."
+                        message: this.durationInvalidText
                     }
                 },{
                     label: this.timelessText,
@@ -374,7 +377,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'CompletedDate',
                     type: 'date',
                     showTimePicker: true,
-                    formatString: 'M/d/yyyy h:mm tt',
+                    formatString: this.completedFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
                         Mobile.SalesLogix.Validator.exists,
@@ -394,6 +397,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },{
                     label: this.followUpText,
+                    title: this.followUpTitleText,
                     name: 'Followup',
                     type: 'select',
                     view: 'select_list',

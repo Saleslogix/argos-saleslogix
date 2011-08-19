@@ -43,8 +43,9 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         ticketNumberText: 'ticket',
         whenText: 'When',
         whoText: 'Who',
-        startDateFormatString: 'M/d/yyyy h:mm:ss tt',
-        timelessDateFormatString: 'M/d/yyyy',
+        startDateFormatText: 'M/d/yyyy h:mm:ss tt',
+        timelessDateFormatText: 'M/d/yyyy',
+        alarmDateFormatText: 'M/d/yyyy h:mm:ss tt',
 
         //View Properties
         id: 'activity_detail',
@@ -203,14 +204,14 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'StartDate',
                     label: this.startTimeText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, [this.startDateFormatString], true
+                        this, [this.startDateFormatText], true
                     ),
                     exclude: this.isActivityTimeless
                 },{
                     name: 'StartDate',
                     label: this.allDayText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, [this.timelessDateFormatString, true], true
+                        this, [this.timelessDateFormatText, true], true
                     ),
                     include: this.isActivityTimeless
                 },{
@@ -231,7 +232,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'AlarmTime',
                     label: this.alarmTimeText,
                     renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, ['M/d/yyyy h:mm:ss tt'], true
+                        this, [this.alarmDateFormatText], true
                     ),
                     include: this.doesActivityHaveReminder
                 },{
