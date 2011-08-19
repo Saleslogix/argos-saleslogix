@@ -131,7 +131,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             uri.setQueryArg('select','Activity/StartDate,Activity/EndDate,Activity/Timeless');
             uri.setQueryArg('orderby','Activity.StartDate asc');
             uri.setQueryArg('where',where);
-            request.allowCacheUse = true;
             return request;
         },
         requestActivityList: function(startDate, endDate) {
