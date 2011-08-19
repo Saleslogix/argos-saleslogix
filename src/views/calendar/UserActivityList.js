@@ -141,7 +141,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         refresh: function(){
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.refresh.call(this);
-            this.getActivities();
         },
         show: function(options) {
             options = options || {};
