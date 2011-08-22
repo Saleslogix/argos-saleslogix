@@ -7,33 +7,54 @@
 Ext.namespace("Mobile.SalesLogix.Calendar");
 
 (function() {    
-    Mobile.SalesLogix.Calendar.MonthView = Ext.extend(Sage.Platform.Mobile.Calendar, {
+    Mobile.SalesLogix.Calendar.MonthView = Ext.extend(Sage.Platform.Mobile.List, {
         // Localization
         titleText: 'Calendar',
         todayText: 'Today',
         dayText: 'Day',
         weekText: 'Week',
         monthText: 'Month',
+        monthTitleFormatText: 'MMMM yyyy',
 
         //Templates
+        viewTemplate: new Simplate([
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
+            '{%! $.searchTemplate %}',
+            '{%! $.navigationTemplate %}',
+            '<div class="month-content"></div>',
+            '</div>'
+        ]),
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
                 '<button data-tool="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>',
                 '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
                 '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
                 '<button data-tool="month" class="button">{%: $.monthText %}</button>',
+            '</div>',
+            '<div class="nav-bar">',
+            '<h3 class="date-text"></h3>',
+            '<button data-tool="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
+            '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
             '</div>'
         ]),
-        calendarMonthHeaderTemplate: new Simplate([
-            '<tr class="calendar-month-header">',
-                '<th class="calendar-prev-month"><button class="button" data-action="goToPreviousMonth"><span></span></button></th>',
-                '<th class="calendar-month-name" colspan="5">{%= $.monthName %}&nbsp;{%=$.year %}</span></th>',
-                '<th class="calendar-next-month"><button class="button" data-action="goToNextMonth"><span></span></button></th>',
-            '</tr>'
-        ]),
+        calendarStartTemplate: '<table class="calendar-table">',
+        calendarWeekHeaderStartTemplate: '<tr class="calendar-week-header">',
+        calendarWeekHeaderTemplate: '<td class="calendar-weekday">{0}</td>',
+        calendarWeekHeaderEndTemplate: '</tr>',
+        calendarWeekStartTemplate: '<tr class="calendar-week">',
+        calendarEmptyDayTemplate: '<td>&nbsp;</td>',
+        calendarDayTemplate: '<td class="calendar-day {1}" data-action="selectDay" data-date="{2}">{0}</td>',
+        calendarWeekEndTemplate: '</tr>',
+        calendarEndTemplate: '</table>',
         calendarActivityCountTemplate: new Simplate([
             '<div><span class="activity-count" title="{0} events">{1}</span></div>'
         ]),
+        attachmentPoints: Ext.apply({}, {
+            contentEl: '.month-content',
+            dateTextEl: '.date-text',
+            selectedDateEl: '.selected'
+        }, Sage.Platform.Mobile.List.prototype.attachmentPoints),
 
         //View Properties
         id: 'slx_calendar',
@@ -41,108 +62,91 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         activityListView: 'useractivity_list',
         activityWeekView: 'calendar_weeklist',
         insertView: 'activity_types_list',
+        hideSearch: true,
+
         currentDate: Date.today(),
-        date: Date.today(),
-        year: Date.today().getFullYear(),
-        month: Date.today().getMonth(),
-        activityCache: {},
+        queryWhere: null,
+        queryOrderBy: 'Activity.StartDate asc',
+        querySelect: [
+            'Activity/StartDate',
+            'Activity/EndDate',
+            'Activity/Timeless'
+        ],
+        pageSize: 31,
         resourceKind: 'useractivities',
 
         _onRefresh: function(o) {
-            if (this.resourceKind && o.resourceKind === this.resourceKind)
-            {
-                this.refreshRequired = true;
-            }
-            if (o.resourceKind === 'activities'){
+            Mobile.SalesLogix.Calendar.MonthView.superclass._onRefresh.apply(this, arguments);
+           if (o.resourceKind === 'activities'){
                 this.refreshRequired = true;
             }
         },
         init: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.init.apply(this, arguments);
-            this.currentDate = Date.today();
-            this.tools.tbar = [{
-                id: 'new',
-                action: 'navigateToInsertView'
-            }];
+            this.setActivityQuery();
         },
         initEvents: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
-            App.on('refresh', this._onRefresh, this);
+            this.el.on('swipe', this.onSwipe, this);
+        },
+        onSwipe: function(evt){
+            switch(evt.browserEvent.direction){
+                case 'right':
+                    this.onSwipeRight();
+                    break;
+                case 'left':
+                    this.onSwipeLeft();
+                    break;
+            }
+        },
+        onSwipeRight: function(){
+            this.goToPreviousMonth();
+        },
+        onSwipeLeft: function(){
+            this.goToNextMonth();
         },
         render: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.render.apply(this, arguments);
-
-            Ext.DomHelper.insertFirst(
-                this.contentEl,
-                this.navigationTemplate.apply(this),
-                true
-            );
+            this.renderCalendar();
         },
-        selectDay: function(params) {
-            Mobile.SalesLogix.Calendar.MonthView.superclass.selectDay.apply(this, arguments);
-            this.currentDate = new Date(this.year, this.month, params.date);
+        selectDay: function(params, evt, el) {
+            if (this.selectedDateEl) this.selectedDateEl.removeClass('selected');
+            this.selectedDateEl = Ext.get(el).addClass('selected');
+            this.currentDate = Date.parse(params.date);
         },
         getFirstDayOfCurrentMonth: function(){
-            return new Date(this.year, this.month, 1, 0, 0, 0);
+            return this.currentDate.clone().moveToFirstDayOfMonth();
         },
         getLastDayOfCurrentMonth: function(){
-            return new Date(this.year, this.month, this.daysInMonth[this.month], 23, 59, 59);
+            return this.currentDate.clone().moveToLastDayOfMonth();
         },
         getTodayMonthActivities: function(){
             var today = Date.today();
-            this.month = today.getMonth();
-            this.year = today.getFullYear();
-            this.currentDate = today;
-            this.renderCalendar();
+            if(this.currentDate.toString('yyyy-MM') === today.toString('yyyy-MM')){
+                this.currentDate = today;
+                this.highlightCurrentDate();
+            } else {
+                this.currentDate = today;
+                this.refresh();
+            }
         },
         goToNextMonth: function() {
-            if (this.month === 11){
-                this.year += 1;
-            }
-            this.month = (this.month + 1) % 12;
-            this.currentDate = this.getFirstDayOfCurrentMonth();
-            this.renderCalendar();
-            if(!this.hasCacheForDate())
-                this.refresh();
+             this.currentDate.add({month: 1});
+             this.refresh();
         },
         goToPreviousMonth: function() {
-            if (this.month === 0){
-                this.year -= 1;
-                this.month = 11;
-            } else {
-                this.month = (this.month - 1) % 12;
-            }
-            this.currentDate = this.getFirstDayOfCurrentMonth();
-            this.renderCalendar();
-            if(!this.hasCacheForDate())
-                this.refresh();
-        },
-        hasCacheForDate: function(date){
-            date = date || this.currentDate || new Date();
-            return (this.activityCache[Date.CultureInfo.monthNames[date.getMonth()]]);
+            this.currentDate.add({month: -1});
+            this.refresh();
         },
         refresh: function(){
-            this.activityCache[this.monthName] = this.requestData(
-                this.getFirstDayOfCurrentMonth(),
-                this.getLastDayOfCurrentMonth()
-            );
+            this.renderCalendar();
+            this.setActivityQuery();
+            this.requestData();
         },
-        createRequest: function(where) {
-            // get activities feed for current month
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
-                .setResourceKind('useractivities')
-                .setContractName('dynamic'),
-                uri = request.getUri();
-            uri.setQueryArg('count','31');
-            uri.setQueryArg('startIndex','1');
-            uri.setQueryArg('select','Activity/StartDate,Activity/EndDate,Activity/Timeless');
-            uri.setQueryArg('orderby','Activity.StartDate asc');
-            uri.setQueryArg('where',where);
-            return request;
-        },
-        requestData: function(startDate, endDate) {
-            var request = this.createRequest(
-                String.format(
+        setActivityQuery: function(){
+            var startDate = this.getFirstDayOfCurrentMonth(),
+                endDate = this.getLastDayOfCurrentMonth();
+            this.queryWhere = String.format(
                     [
                         'UserId eq "{0}" and (',
                         '(Activity.Timeless eq false and Activity.StartDate between @{1}@ and @{2}@) or ',
@@ -153,24 +157,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate),
                     startDate.toString('yyyy-MM-ddT00:00:00Z'),
                     endDate.toString('yyyy-MM-ddT23:59:59Z')
-                )
-            );
-            request.read({
-                success: function(data) {
-                    this.onRequestDataSuccess(data);
-                },
-                failure: function() {
-                    this.onRequestDataFailure();
-                },
-                scope: this
-            });
-        },
-        onRequestDataSuccess: function(data) {
-            this.activityCache[this.monthName] = this.processFeed(data);
-            this.highlightActivities(this.activityCache[this.monthName]);
-        },
-        onRequestDataFailure: function(er) {
-            console.log( er );
+                );
         },
         processFeed: function(sources) {
             var flatList = [],
@@ -178,19 +165,20 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 currentMonthStart = this.getFirstDayOfCurrentMonth(),
                 currentMonthEnd = this.getLastDayOfCurrentMonth(),
                 r = sources['$resources'],
-                sday,
-                eday;
+                startDay,
+                endDay;
 
             for(var i=0, l=r.length; i<l; i++){
-                sday = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.StartDate);
-                eday = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.EndDate);
+                startDay = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.StartDate);
+                endDay = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.EndDate);
                 do { // track No. of activities for each calendar day
-                    dt = sday < currentMonthStart ? 1 : (r[i].Activity.Timeless ? sday.getUTCDate() : sday.getDate());
+                    dt = startDay < currentMonthStart ? 1 : (r[i].Activity.Timeless ? startDay.getUTCDate() : startDay.getDate());
                     flatList[ dt ] = flatList[ dt ] ? 1 + flatList[ dt ] : 1;
-                    sday.add({day: 1});
-                } while (sday < eday && sday < currentMonthEnd);
+                    startDay.add({day: 1});
+                } while (startDay < endDay && startDay < currentMonthEnd);
             }
-            return flatList;
+
+            this.highlightActivities(flatList);
         },
         highlightActivities: function(flatList){
             var template = this.calendarActivityCountTemplate.apply(this);
@@ -206,61 +194,89 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             });
         },
         renderCalendar: function() {
-            Mobile.SalesLogix.Calendar.MonthView.superclass.renderCalendar.apply(this, arguments);
-            this.timeEl.hide();
+            var calHTML = [],
+                startingDay = this.getFirstDayOfCurrentMonth().getDay(),
+                dayClass = '',
+                weekendClass = '',
+                i = 0,
+                j = 0,
+                day = 1,
+                dayDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1,0,0,0,0),
+                today = Date.today().clearTime(),
+                monthLength = this.currentDate.getDaysInMonth(),
+                weekEnds = [0,6];
 
-            if(this.activityCache[this.monthName]) {
-                this.highlightActivities(this.activityCache[this.monthName]);
-            }
+            calHTML.push(this.calendarStartTemplate);
 
-            if (this.month === this.currentDate.getMonth() && this.year === this.currentDate.getFullYear())
-            {
-                this.highlightCurrentDate();
+            calHTML.push(this.calendarWeekHeaderStartTemplate);
+            for(i = 0; i <= 6; i++ ){
+                calHTML.push(String.format(this.calendarWeekHeaderTemplate, Date.CultureInfo.abbreviatedDayNames[i]  ));
             }
+            calHTML.push(this.calendarWeekHeaderEndTemplate);
+
+            //Weeks
+            for (i = 0; i <= 6; i+=1){
+                calHTML.push(this.calendarWeekStartTemplate);
+                //Days
+                for (j = 0; j <= 6; j+=1)
+                {
+                    if (day <= monthLength && (i > 0 || j >= startingDay)){
+                        dayDate.set({day:day});
+                        dayClass = (dayDate.equals(today)) ? 'today' : '';
+                        weekendClass = (weekEnds.indexOf(j) !== -1) ? ' weekend' : '';
+                        calHTML.push(String.format(this.calendarDayTemplate,
+                                                    day,
+                                                    (dayClass + weekendClass),
+                                                    dayDate.toString('yyyy-MM-dd')
+                                                   )
+                                    );
+                        day += 1;
+                    }
+                    else {
+                        calHTML.push(this.calendarEmptyDayTemplate);
+                    }
+
+                }
+                calHTML.push(this.calendarWeekEndTemplate);
+                // stop making rows if we've run out of days
+                if (day > monthLength) break;
+            }
+            calHTML.push(this.calendarEndTemplate);
+
+            this.contentEl.update(calHTML.join(''));
+            this.setDateTitle();
+            this.highlightCurrentDate();
         },
-        activate: function(tag, data){
-            Sage.Platform.Mobile.Calendar.superclass.activate.call(this, tag, data);
-            this.renderCalendar();
+        setDateTitle: function(){
+            this.dateTextEl.update(this.currentDate.toString(this.monthTitleFormatText));
         },
-        show: function(options, transitionOptions) {
+        show: function(options) {
             Sage.Platform.Mobile.Calendar.superclass.show.call(this, options);
-            this.date = this.currentDate || new Date();
-            this.year = this.date.getFullYear();
-            this.month = this.date.getMonth();
-
-            this.hideValidationSummary();
-            this.renderCalendar();
-            this.timeEl.hide();
+            if(options) {
+                this.processShowOptions(options);
+            } else {
+                this.renderCalendar();
+            }
         },
-        getContext: function() {
-            return Ext.apply(Mobile.SalesLogix.Calendar.MonthView.superclass.getContext.call(this), {
-                resourceKind: this.resourceKind
-            });
+        processShowOptions: function(options){
+            this.currentDate = Date.parse(options.currentDate) || Date.today();
+            this.refreshRequired = true;
         },
         highlightCurrentDate: function(){
-            var selectedDate = String.format('.calendar-day[data-date={0}]', this.currentDate.toString('d'));
+            var selectedDate = String.format('.calendar-day[data-date={0}]', this.currentDate.toString('yyyy-MM-dd'));
             if (this.selectedDateEl) this.selectedDateEl.removeClass('selected');
-            this.selectedDateEl = this.el.child(selectedDate);
+            this.selectedDateEl = this.contentEl.child(selectedDate);
             this.selectedDateEl.addClass('selected');
         },
         navigateToWeekView: function() {
-            var view = App.getView(this.activityWeekView);
-            view.currentDate = this.currentDate.clone() || new Date();
-            view.refreshRequired = true;
-            view.show();
+            var view = App.getView(this.activityWeekView),
+                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+            view.show(options);
         },
         navigateToDayView: function() {
-            var view = App.getView(this.activityListView);
-            view.currentDate = this.currentDate.clone() || new Date();
-            view.getActivities();
-            view.show();
-        },
-        navigateToInsertView: function() {
-            var view = App.getView(this.insertView);
-            view.show({
-                returnTo: this.id,
-                insert: true
-            });
+            var view = App.getView(this.activityListView),
+                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+            view.show(options);
         }
     });
 })();
