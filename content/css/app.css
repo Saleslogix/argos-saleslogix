@@ -757,23 +757,23 @@ body.transition > .footer-toolbar
     right: 60px;
 }
 
-#useractivity_list > .nav-bar > .button-prev
+#useractivity_list > .nav-bar > .button-prev,
+#calendar_weeklist > .nav-bar > .button-prev,
+#slx_calendar > .nav-bar > .button-prev
 {
     float: left;
     margin-right: 10px;
     z-index: 100;
 }
 
-#useractivity_list > .nav-bar > .button-next
+#useractivity_list > .nav-bar > .button-next,
+#calendar_weeklist > .nav-bar > .button-next,
+#slx_calendar > .nav-bar > .button-next
 {
     float: right;
     margin-right: 10px;
     z-index: 100;
 }
-
-
-
-
 
 #calendar_weeklist > .list-content
 {
@@ -790,7 +790,8 @@ body.transition > .footer-toolbar
 	border-bottom: 1px solid #000;
 }
 
-#calendar_weeklist > .nav-bar > h3
+#calendar_weeklist > .nav-bar > h3,
+#slx_calendar> .nav-bar > h3
 {
     overflow: hidden;
     display: block;
@@ -807,20 +808,6 @@ body.transition > .footer-toolbar
     z-index: 10;
     left: 60px;
     right: 60px;
-}
-
-#calendar_weeklist > .nav-bar > .button-prev
-{
-    float: left;
-    margin-right: 10px;
-    z-index: 100;
-}
-
-#calendar_weeklist > .nav-bar > .button-next
-{
-    float: right;
-    margin-right: 10px;
-    z-index: 100;
 }
 
 #calendar_weeklist > .list-content > ul > li > .clear
@@ -887,8 +874,6 @@ body.transition > .footer-toolbar
 #calendar_weeklist > .list-content > h2.currentDate {
 	color:#00338D;
 }
-
-
 
 .nav-bar > .button
 {
@@ -991,7 +976,7 @@ body.transition > .footer-toolbar
 
 
 .activities-for-day > .split-buttons > .button[data-tool="day"],
-.activities-for-month > .panel-content > .split-buttons > .button[data-tool="month"],
+.activities-for-month > .split-buttons > .button[data-tool="month"],
 .activities-for-week > .split-buttons > .button[data-tool="week"]
 {
     color: #000;
