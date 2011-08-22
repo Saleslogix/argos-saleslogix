@@ -109,12 +109,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
         _onRefresh: function(o) {
             Mobile.SalesLogix.Calendar.UserActivityList.superclass._onRefresh.apply(this, arguments);
-
             if (o.resourceKind === 'activities') this.refreshRequired = true;
         },
         init: function() {
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.init.apply(this, arguments);
-
             this.currentDate = Date.today();
         },
         initEvents: function(){
@@ -125,11 +123,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             switch(evt.browserEvent.direction){
                 case 'right':
                     this.onSwipeRight();
-                    evt.stopEvent();
                     break;
                 case 'left':
                     this.onSwipeLeft();
-                    evt.stopEvent();
                     break;
             }
         },
@@ -143,12 +139,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.refresh.call(this);
         },
         show: function(options) {
+            if(options)
+                this.processShowOptions(options);
+
             options = options || {};
             options['where'] = this.formatQueryForActivities();
 
             this.dateTextEl.update(this.currentDate.toString(this.dateHeaderFormatText));
-
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.show.call(this, options);
+        },
+        processShowOptions: function(options){
+            this.currentDate = Date.parse(options.currentDate) || Date.today();
+            this.getActivities();
         },
         getNextActivities: function() {
             if (this.el.hasClass('list-loading')) return;
@@ -197,16 +199,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             );
         },
         navigateToMonthView: function() {
-            var view = App.getView(this.monthView);
-            if(!view.hasCacheForDate(this.currentDate))
-                view.refreshRequired = true;
-            view.currentDate = this.currentDate.clone() || new Date();
-            view.show();
+            var view = App.getView(this.monthView),
+                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+            view.show(options);
         },
         navigateToWeekView: function(){
-            var view = App.getView(this.weekView);
-            view.currentDate = this.currentDate.clone() || new Date();
-            view.show();
+            var view = App.getView(this.weekView),
+                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+            view.show(options);
         },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],

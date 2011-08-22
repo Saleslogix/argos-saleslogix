@@ -155,11 +155,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             switch(evt.browserEvent.direction){
                 case 'right':
                     this.onSwipeRight();
-                    evt.stopEvent();
                     break;
                 case 'left':
                     this.onSwipeLeft();
-                    evt.stopEvent();
                     break;
             }
         },
@@ -200,21 +198,21 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             return this.typeIcons[type] || this.typeIcons['defaultIcon'];
         },
         setWeekQuery: function(date){
-            var setDate = date || this.currentDate || new Date(),
-                weekQuery,
-                userId = App.context['user'] && App.context['user']['$key'];
-
+            var setDate = date || this.currentDate || new Date();
             this.weekStartDate = this.getStartDay(setDate);
             this.weekEndDate = this.getEndDay(setDate);
-
-            weekQuery = 'UserId eq "'+userId+'" and '+
-                '(Activity.StartDate gt '+
-                this.weekStartDate.toString('@yyyy-MM-ddT00:00:00@')+
-                ' and Activity.StartDate lt '+
-                this.weekEndDate.toString('@yyyy-MM-ddT23:59:59@')+
-                ')';
-
-            this.queryWhere =  weekQuery;
+            this.queryWhere =  String.format(
+                    [
+                        'UserId eq "{0}" and (',
+                        '(Activity.Timeless eq false and Activity.StartDate between @{1}@ and @{2}@) or ',
+                        '(Activity.Timeless eq true and Activity.StartDate between @{3}@ and @{4}@))'
+                    ].join(''),
+                    App.context['user'] && App.context['user']['$key'],
+                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(this.weekStartDate),
+                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(this.weekEndDate),
+                    this.weekStartDate.toString('yyyy-MM-ddT00:00:00Z'),
+                    this.weekEndDate.toString('yyyy-MM-ddT23:59:59Z')
+                );
         },
         setWeekTitle: function(){
             var start = this.getStartDay(this.currentDate),
@@ -375,9 +373,15 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.requestData();
         },
         show: function(options) {
-            this.options = options;
+            if(options)
+                this.processShowOptions(options);
+            
             this.setDefaultOptions();
             Sage.Platform.Mobile.List.superclass.show.apply(this, arguments);
+        },
+        processShowOptions: function(options){
+            this.currentDate = Date.parse(options.currentDate) || Date.today();
+            this.refreshRequired = true;
         },
         setDefaultOptions: function(){
             if(typeof this.options === 'undefined') this.options = {};
@@ -388,17 +392,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             }
         },
         navigateToUserActivityList: function() {
-            var view = App.getView(this.activityListView);
-            view.currentDate = this.currentDate.clone() || new Date();
-            view.getActivities();
-            view.show();
+            var view = App.getView(this.activityListView),
+                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+            view.show(options);
         },
         navigateToMonthView: function() {
-            var view = App.getView(this.monthView);
-            if(!view.hasCacheForDate(this.currentDate))
-                view.refreshRequired = true;
-            view.currentDate = this.currentDate.clone() || new Date();
-            view.show();
+            var view = App.getView(this.monthView),
+                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+            view.show(options);
        },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
