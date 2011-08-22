@@ -122,12 +122,12 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             return (this.activityCache[Date.CultureInfo.monthNames[date.getMonth()]]);
         },
         refresh: function(){
-            this.activityCache[this.monthName] = this.requestActivityList(
+            this.activityCache[this.monthName] = this.requestData(
                 this.getFirstDayOfCurrentMonth(),
                 this.getLastDayOfCurrentMonth()
             );
         },
-        requestActivities: function(where) {
+        createRequest: function(where) {
             // get activities feed for current month
             var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
                 .setResourceKind('useractivities')
@@ -140,8 +140,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             uri.setQueryArg('where',where);
             return request;
         },
-        requestActivityList: function(startDate, endDate) {
-            var request = this.requestActivities(
+        requestData: function(startDate, endDate) {
+            var request = this.createRequest(
                 String.format(
                     [
                         'UserId eq "{0}" and (',
@@ -157,22 +157,22 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             );
             request.read({
                 success: function(data) {
-                    this.onRequestActivityDataSuccess(data);
+                    this.onRequestDataSuccess(data);
                 },
                 failure: function() {
-                    this.onRequestActivityFailure();
+                    this.onRequestDataFailure();
                 },
                 scope: this
             });
         },
-        onRequestActivityDataSuccess: function(data) {
-            this.activityCache[this.monthName] = this.processActivityList(data);
+        onRequestDataSuccess: function(data) {
+            this.activityCache[this.monthName] = this.processFeed(data);
             this.highlightActivities(this.activityCache[this.monthName]);
         },
-        onRequestActivityFailure: function(er) {
+        onRequestDataFailure: function(er) {
             console.log( er );
         },
-        processActivityList: function(sources) {
+        processFeed: function(sources) {
             var flatList = [],
                 dt,
                 currentMonthStart = this.getFirstDayOfCurrentMonth(),
@@ -197,11 +197,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Ext.select('.calendar-day').each( function(el) {
                 if (flatList[el.dom.textContent]) {
                     el.addClass("activeDay");
-                    el.dom.innerHTML = String.format(
+                    Ext.DomHelper.insertFirst(el, String.format(
                         template,
                         flatList[el.dom.textContent],
                         flatList[el.dom.textContent]
-                    ) + el.dom.innerHTML;
+                    ));
                 }
             });
         },
