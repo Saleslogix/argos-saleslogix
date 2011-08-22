@@ -551,6 +551,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 type: 'boolean'
             },{
                 label: this.durationText,
+                title: 'Duration',
                 name: 'Duration',
                 type: 'select',
                 view: 'select_list',
@@ -572,6 +573,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 type: 'boolean'
             },{
                 label: '',
+                title: 'Reminder',
                 name: 'Reminder',
                 type: 'select',
                 view: 'select_list',
