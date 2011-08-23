@@ -8,7 +8,7 @@ Ext.apply(Configuration.development, {
         'crm': {
             isDefault: true,
             offline: true,
-            serverName: '50.16.222.251',
+            serverName: '50.16.242.109',
             virtualDirectory: 'sdata',
             applicationName: 'slx',
             contractName: 'dynamic',
