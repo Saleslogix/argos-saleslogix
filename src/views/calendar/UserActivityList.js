@@ -113,7 +113,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         init: function() {
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.init.apply(this, arguments);
-            this.currentDate = Date.today();
+            this.currentDate = Date.today().clearTime();
         },
         initEvents: function(){
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.initEvents.apply(this, arguments);
@@ -149,7 +149,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.show.call(this, options);
         },
         processShowOptions: function(options){
-            this.currentDate = Date.parse(options.currentDate) || Date.today();
+            this.currentDate = Date.parse(options.currentDate).clearTime() || Date.today().clearTime();
             this.getActivities();
         },
         getNextActivities: function() {
@@ -162,7 +162,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             if (this.el.hasClass('list-loading')) return;
             if (this.currentDate.equals(Date.today())) return;
 
-            this.currentDate = Date.today();
+            this.currentDate = Date.today().clearTime();
             this.getActivities();
         },
         getPrevActivities: function() {

@@ -116,10 +116,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.currentDate = Date.parse(params.date);
         },
         getFirstDayOfCurrentMonth: function(){
-            return this.currentDate.clone().moveToFirstDayOfMonth();
+            return this.currentDate.clone().moveToFirstDayOfMonth().clearTime();
         },
         getLastDayOfCurrentMonth: function(){
-            return this.currentDate.clone().moveToLastDayOfMonth();
+            return this.currentDate.clone().moveToLastDayOfMonth().set({hour:23,minute:59,second:59});
         },
         getTodayMonthActivities: function(){
             var today = Date.today();

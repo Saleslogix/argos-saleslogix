@@ -185,13 +185,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         getStartDay: function(date){
             return (date.getDay()===this.userWeekStartDay)
-                    ? date.clone()
-                    : date.clone().moveToDayOfWeek(this.userWeekStartDay, -1);
+                    ? date.clone().clearTime()
+                    : date.clone().moveToDayOfWeek(this.userWeekStartDay, -1).clearTime();
         },
         getEndDay: function(date){
             return (date.getDay()===this.userWeekEndDay)
-                    ? date.clone()
-                    : date.clone().moveToDayOfWeek(this.userWeekEndDay, 1);
+                    ? date.clone().set({hour:23,minute:59,second:59})
+                    : date.clone().moveToDayOfWeek(this.userWeekEndDay, 1).set({hour:23,minute:59,second:59});
         },
         getNextWeekActivities: function(){
             this.currentDate = this.getStartDay(this.weekEndDate.clone().addDays(1));
