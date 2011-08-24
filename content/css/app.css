@@ -738,7 +738,9 @@ body.transition > .footer-toolbar
     background-color: #FFF;
 }
 
-#useractivity_list > .nav-bar > h3
+#useractivity_list > .nav-bar > h3,
+#calendar_weeklist > .nav-bar > h3,
+#slx_calendar> .nav-bar > h3
 {
     overflow: hidden;
     display: block;
@@ -788,26 +790,6 @@ body.transition > .footer-toolbar
     display: block;
     background-color: #FFF;
 	border-bottom: 1px solid #000;
-}
-
-#calendar_weeklist > .nav-bar > h3,
-#slx_calendar> .nav-bar > h3
-{
-    overflow: hidden;
-    display: block;
-    margin: 0;
-    padding: 5px 0px 0px 0px;
-    font-size: 1em;
-    line-height: 36px;
-    font-weight: bold;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    position: absolute;
-    width: auto;
-    z-index: 10;
-    left: 60px;
-    right: 60px;
 }
 
 #calendar_weeklist > .list-content > ul > li > .clear
@@ -873,6 +855,9 @@ body.transition > .footer-toolbar
 }
 #calendar_weeklist > .list-content > h2.currentDate {
 	color:#00338D;
+}
+#slx_calendar {
+    background-color: #fff;
 }
 
 .nav-bar > .button
