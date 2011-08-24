@@ -141,11 +141,17 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         pageSize: 105, // gives 15 activities per day
         resourceKind: 'useractivities',
 
+        _onRefresh: function(o) {
+            Mobile.SalesLogix.Calendar.WeekView.superclass._onRefresh.apply(this, arguments);
+            if (o.resourceKind === 'activities') {
+                this.refreshRequired = true;
+            }
+        },
         init: function() {
             Mobile.SalesLogix.Calendar.WeekView.superclass.init.apply(this, arguments);
-            this.todayDate = new Date().clearTime();
+            this.todayDate = Date.today().clearTime();
             this.currentDate = this.todayDate.clone();
-            this.setWeekQuery(this.todayDate);
+            this.setWeekQuery();
         },
         initEvents: function() {
             Mobile.SalesLogix.Calendar.WeekView.superclass.initEvents.apply(this, arguments);
@@ -173,7 +179,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         getThisWeekActivities: function(){
             if(!this.isInCurrentWeek(this.todayDate)){
-                this.refresh(this.todayDate);
+                this.currentDate = this.todayDate.clone();
+                this.refresh();
             }
         },
         getStartDay: function(date){
@@ -187,18 +194,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     : date.clone().moveToDayOfWeek(this.userWeekEndDay, 1);
         },
         getNextWeekActivities: function(){
-            var nextStartDay = this.getStartDay(this.weekEndDate.clone().addDays(1));
-            this.refresh(nextStartDay);
+            this.currentDate = this.getStartDay(this.weekEndDate.clone().addDays(1));
+            this.refresh();
         },
         getPrevWeekActivities: function(){
-            var prevStartDay = this.getStartDay(this.weekStartDate.clone().addDays(-1));
-            this.refresh(prevStartDay);
+            this.currentDate = this.getStartDay(this.weekStartDate.clone().addDays(-1));
+            this.refresh();
         },
         getTypeIcon: function(type){
             return this.typeIcons[type] || this.typeIcons['defaultIcon'];
         },
-        setWeekQuery: function(date){
-            var setDate = date || this.currentDate || new Date();
+        setWeekQuery: function(){
+            var setDate = this.currentDate || this.todayDate;
             this.weekStartDate = this.getStartDay(setDate);
             this.weekEndDate = this.getEndDay(setDate);
             this.queryWhere =  String.format(
@@ -355,20 +362,15 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             });
             return date;
         },
-        _onRefresh: function(o) {
-            Mobile.SalesLogix.Calendar.WeekView.superclass._onRefresh.apply(this, arguments);
-            if (o.resourceKind === 'activities') {
-                this.refreshRequired = true;
-            }
-        },
-        refresh: function(newDate) {
-            var startDate = newDate || this.currentDate || new Date();
+        refresh: function() {
+            var startDate = this.currentDate;
             this.setWeekStartDay();
             this.currentDate = startDate.clone();
             this.weekStartDate = this.getStartDay(startDate);
             this.weekEndDate = this.getEndDay(startDate);
             this.setWeekTitle();
             this.setWeekQuery();
+
             this.clear();
             this.requestData();
         },
