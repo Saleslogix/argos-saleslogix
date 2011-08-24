@@ -225,10 +225,10 @@
         }]
 	},{
 		name: 'Core Mobile Localization (en-US)',
-		file: 'localization/en-US.js',
+		file: 'localization/en.js',
 		isDebug: true,
 		fileIncludes: [{
-            text: 'en-US.js',
+            text: 'en.js',
             path: '../localization/'
         },{
             text: 'en-US.js',
@@ -236,35 +236,58 @@
         }]
     },{
 		name: 'Core Mobile Localization (de-DE)',
-		file: 'localization/de-DE.js',
+		file: 'localization/de.js',
 		isDebug: true,
 		fileIncludes: [{
-            text: 'de-DE.js',
+            text: 'de.js',
             path: '../localization/'
+        },{
+            text: 'de.js',
+            path: '../localization/saleslogix'
         },{
             text: 'de-DE.js',
             path: '../../../argos-sdk/libraries/datejs/src/globalization'
         }]
     },{
 		name: 'Core Mobile Localization (fr-FR)',
-		file: 'localization/fr-FR.js',
+		file: 'localization/fr.js',
 		isDebug: true,
 		fileIncludes: [{
-            text: 'fr-FR.js',
+            text: 'fr.js',
             path: '../localization/'
+        },{
+            text: 'fr.js',
+            path: '../localization/saleslogix'
         },{
             text: 'fr-FR.js',
             path: '../../../argos-sdk/libraries/datejs/src/globalization'
         }]
     },{
 		name: 'Core Mobile Localization (ru-RU)',
-		file: 'localization/ru-RU.js',
+		file: 'localization/ru.js',
 		isDebug: true,
 		fileIncludes: [{
-            text: 'ru-RU.js',
+            text: 'ru.js',
             path: '../localization/'
         },{
+            text: 'ru.js',
+            path: '../localization/saleslogix'
+        },{
             text: 'ru-RU.js',
+            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+        }]
+    },{
+		name: 'Core Mobile Localization (it-IT)',
+		file: 'localization/it.js',
+		isDebug: true,
+		fileIncludes: [{
+            text: 'it.js',
+            path: '../localization/'
+        },{
+            text: 'it.js',
+            path: '../localization/saleslogix'
+        },{
+            text: 'it-IT.js',
             path: '../../../argos-sdk/libraries/datejs/src/globalization'
         }]
     }],
@@ -276,10 +299,6 @@
 		src: '../configuration',
 		dest: 'configuration/',
 		filters: ".*\\.js"
-	},{
-	    src: '../localization',
-	    dest: 'localization',
-	    filters: ".*\\.js"
 	},{
 	    src: '../help',
 	    dest: 'help',
