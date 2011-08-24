@@ -764,7 +764,7 @@ body.transition > .footer-toolbar
 #slx_calendar > .nav-bar > .button-prev
 {
     float: left;
-    margin-right: 10px;
+    margin-left: 10px;
     z-index: 100;
 }
 
@@ -876,6 +876,11 @@ body.transition > .footer-toolbar
     width: 24px;
     height: 24px;
 }
+.nav-bar > .button-prev > span
+{
+    margin: 6px 6px 6px 4px;
+}
+
 
 .nav-bar > .button-next > span
 {
