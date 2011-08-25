@@ -632,6 +632,8 @@ td.calendar-day {
 .calendar-day.weekend.activeDay span.activity-count {
     border: none;
     right: -8px;
+    color: #000;
+    font-weight: bold;
 }
 
 .collapsed-indicator
