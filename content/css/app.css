@@ -630,8 +630,9 @@ td.calendar-day {
 }
 .calendar-day.today.activeDay span.activity-count,
 .calendar-day.weekend.activeDay span.activity-count {
-    border: none;
     right: -8px;
+    border-bottom-color: #444;
+    border-right-color: #444;
 }
 
 .collapsed-indicator

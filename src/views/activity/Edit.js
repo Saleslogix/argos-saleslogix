@@ -17,8 +17,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         alarmTimeText: '',
         categoryText: 'category',
         durationText: 'duration',
+        durationTitleText: 'Duration',
 		durationInvalidText: "The field '{2}' must have a value.",
 		reminderInvalidText: "The field 'reminder' must have a value.",
+        reminderTitleText: 'Reminder',
         leaderText: 'leader',
         longNotesText: 'notes',
         longNotesTitleText: 'Notes',
@@ -551,7 +553,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 type: 'boolean'
             },{
                 label: this.durationText,
-                title: 'Duration',
+                title: this.durationTitleText,
                 name: 'Duration',
                 type: 'select',
                 view: 'select_list',
@@ -573,7 +575,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 type: 'boolean'
             },{
                 label: '',
-                title: 'Reminder',
+                title: this.reminderTitleText,
                 name: 'Reminder',
                 type: 'select',
                 view: 'select_list',
