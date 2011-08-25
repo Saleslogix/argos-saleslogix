@@ -25,6 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
             '{%! $.searchTemplate %}',
             '{%! $.navigationTemplate %}',
+            '<div style="clear:both"></div>',
             '<ul class="list-content"></ul>',
             '{%! $.moreTemplate %}',
             '</div>'

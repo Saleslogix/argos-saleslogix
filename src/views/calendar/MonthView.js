@@ -15,6 +15,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         weekText: 'Week',
         monthText: 'Month',
         monthTitleFormatText: 'MMMM yyyy',
+        dayTitleFormatText: 'ddd MMM d, yyyy',
+        dayStartTimeFormatText: 'h:mm',
 
         //Templates
         viewTemplate: new Simplate([
@@ -24,6 +26,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '{%! $.navigationTemplate %}',
             '<div style="clear:both"></div>',
             '<div class="month-content"></div>',
+            '{%! $.dayTemplate %}',
             '</div>'
         ]),
         navigationTemplate: new Simplate([
@@ -38,6 +41,43 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<button data-tool="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
             '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
             '</div>'
+        ]),
+        dayTemplate: new Simplate([
+            '<div class="month-day-content panel-content">',
+                '<h2 class="date-day-text"></h2>',
+                '<ul class="day-content list-content"></ul>',
+                '{%! $.moreTemplate %}',
+            '</div>'
+        ]),
+        dayItemTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '{%! $$.dayContentTemplate %}',
+            '</li>'
+        ]),
+        dayContentTemplate: new Simplate([
+            '<h3>',
+            '{%! $$.dayTimeTemplate %}',
+            '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
+            '</h3>',
+            '<h4>{%= $$.dayNameTemplate.apply($) %}</h4>'
+        ]),
+        dayTimeTemplate: new Simplate([
+            '{% if ($.Activity.Timeless) { %}',
+            '<span class="p-meridiem">{%= $$.allDayText %}</span>',
+            '{% } else { %}',
+            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.dayStartTimeFormatText) %}</span>',
+            '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
+            '{% } %}'
+        ]),
+        dayNameTemplate: new Simplate([
+            '{% if ($.Activity.ContactName) { %}',
+            '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
+            '{% } else if ($.Activity.AccountName) { %}',
+            '{%: $.Activity.AccountName %}',
+            '{% } else { %}',
+            '{%: $.Activity.LeadName %}',
+            '{% } %}'
         ]),
         calendarStartTemplate: '<table class="calendar-table">',
         calendarWeekHeaderStartTemplate: '<tr class="calendar-week-header">',
@@ -54,6 +94,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         attachmentPoints: Ext.apply({}, {
             contentEl: '.month-content',
             dateTextEl: '.date-text',
+            dayTextEl: '.date-day-text',
+            dayContentEl: '.day-content',
             selectedDateEl: '.selected'
         }, Sage.Platform.Mobile.List.prototype.attachmentPoints),
 
@@ -63,6 +105,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         activityListView: 'useractivity_list',
         activityWeekView: 'calendar_weeklist',
         insertView: 'activity_types_list',
+        detailView: 'activity_detail',
         hideSearch: true,
 
         currentDate: Date.today(),
@@ -71,6 +114,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         querySelect: [
             'Activity/StartDate',
             'Activity/EndDate',
+            'Activity/Description',
+            'Activity/Type',
+            'Activity/AccountName',
+            'Activity/ContactName',
+            'Activity/LeadId',
+            'Activity/LeadName',
+            'Activity/UserId',
             'Activity/Timeless'
         ],
         pageSize: 31,
@@ -106,6 +156,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         onSwipeLeft: function(){
             this.goToNextMonth();
         },
+        clear: function(){
+            Mobile.SalesLogix.Calendar.MonthView.superclass.clear.apply(this, arguments);
+            this.clearCurrentDateActivities();
+        },
         render: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.render.apply(this, arguments);
             this.renderCalendar();
@@ -114,18 +168,23 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             if (this.selectedDateEl) this.selectedDateEl.removeClass('selected');
             this.selectedDateEl = Ext.get(el).addClass('selected');
             this.currentDate = Date.parse(params.date);
+            this.showCurrentDateActivities();
         },
         getFirstDayOfCurrentMonth: function(){
             return this.currentDate.clone().moveToFirstDayOfMonth().clearTime();
         },
         getLastDayOfCurrentMonth: function(){
-            return this.currentDate.clone().moveToLastDayOfMonth().set({hour:23,minute:59,second:59});
+            return new Date(this.currentDate.getFullYear(),
+                this.currentDate.getMonth(),
+                this.currentDate.getDaysInMonth()-1,
+                23, 59, 59);
         },
         getTodayMonthActivities: function(){
             var today = Date.today();
             if(this.currentDate.toString('yyyy-MM') === today.toString('yyyy-MM')){
                 this.currentDate = today;
                 this.highlightCurrentDate();
+                this.showCurrentDateActivities();
             } else {
                 this.currentDate = today;
                 this.refresh();
@@ -142,6 +201,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         refresh: function(){
             this.renderCalendar();
             this.setActivityQuery();
+            this.feed['$startIndex'] = 0;
+            this.dayContentEl.update(this.loadingTemplate.apply(this));
             this.requestData();
         },
         setActivityQuery: function(){
@@ -160,16 +221,18 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     endDate.toString('yyyy-MM-ddT23:59:59Z')
                 );
         },
-        processFeed: function(sources) {
+        processFeed: function(feed) {
             var flatList = [],
                 dt,
                 currentMonthStart = this.getFirstDayOfCurrentMonth(),
                 currentMonthEnd = this.getLastDayOfCurrentMonth(),
-                r = sources['$resources'],
+                r = feed['$resources'],
                 startDay,
                 endDay;
 
             for(var i=0, l=r.length; i<l; i++){
+                this.entries[r[i].$key] = r[i];
+
                 startDay = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.StartDate);
                 endDay = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.EndDate);
                 do { // track No. of activities for each calendar day
@@ -178,8 +241,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     startDay.add({day: 1});
                 } while (startDay < endDay && startDay < currentMonthEnd);
             }
+            this.feed = feed;
 
             this.highlightActivities(flatList);
+            this.showCurrentDateActivities();
         },
         highlightActivities: function(flatList){
             var template = this.calendarActivityCountTemplate.apply(this);
@@ -193,6 +258,51 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     ));
                 }
             });
+        },
+        dateToUTC: function(date){
+            return new Date(date.getUTCFullYear(),
+                date.getUTCMonth(),
+                date.getUTCDate(),
+                date.getUTCHours(),
+                date.getUTCMinutes(),
+                date.getUTCSeconds()
+            );
+        },
+        clearCurrentDateActivities: function(){
+            this.dayContentEl.update(this.loadingTemplate.apply(this));
+        },
+        setCurrentDateTitle: function(){
+            this.dayTextEl.update(this.currentDate.toString(this.dayTitleFormatText));
+        },
+        showCurrentDateActivities: function(){
+            this.setCurrentDateTitle();
+
+            if(!this.feed){
+                this.dayContentEl.update(this.loadingTemplate.apply(this));
+                return;
+            }
+
+            var feed = this.feed['$resources'],
+                feedLength = feed.length,
+                i=0,
+                activity,
+                activityDate,
+                activityList = [];
+
+            for(i=0; i<feedLength ; i+=1){
+                activity = feed[i].Activity;
+                activity.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(activity.StartDate);
+                activityDate = (activity.Timeless) ? this.dateToUTC(activity.StartDate) : activity.StartDate;
+                if(activityDate.getDate() === this.currentDate.getDate()){
+                    activityList.push(this.dayItemTemplate.apply(feed[i], this));
+                }
+            }
+            if(activityList.length===0){
+                this.dayContentEl.update(this.noDataTemplate.apply(this));
+                return false;
+            }
+
+            this.dayContentEl.update(activityList.join(''));
         },
         renderCalendar: function() {
             var calHTML = [],
@@ -278,6 +388,15 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             var view = App.getView(this.activityListView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
+        },
+        navigateToDetailView: function(key, descriptor) {
+            var entry = this.entries[key],
+                activity = entry['Activity'],
+                description = activity['Description'],
+                key = activity['$key'];
+
+            Mobile.SalesLogix.Activity.List.superclass.navigateToDetailView.call(this, key, description);
         }
+
     });
 })();
