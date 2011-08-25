@@ -286,7 +286,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     currentEntry = feed['$resources'][i].Activity;
                     startDate = Sage.Platform.Mobile.Convert.toDateFromString(currentEntry.StartDate);
                     if(currentEntry.Timeless){
-                        startDate = this.addUtcOffset(startDate);
+                        startDate = this.dateToUTC(startDate);
                     }
                     currentEntry.StartDate = startDate;
                 }
@@ -350,18 +350,14 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             });
             return Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(todayEntry, this), true);
         },
-        addUtcOffset: function(date){
-            var utcOffset,
-                utcOffsetHours,
-                utcOffsetMinutes;
-            utcOffset = date.getUTCOffset(); // +0930, -0700
-            utcOffsetHours = parseInt(utcOffset.substr(0,3),10) * -1;
-            utcOffsetMinutes = parseInt(utcOffset.substr(3,2),10) * ((utcOffsetHours>0) ? 1 : -1);
-            date.add({
-                    'hours': utcOffsetHours,
-                    'minutes': utcOffsetMinutes
-            });
-            return date;
+        dateToUTC: function(date){
+            return new Date(date.getUTCFullYear(),
+                date.getUTCMonth(),
+                date.getUTCDate(),
+                date.getUTCHours(),
+                date.getUTCMinutes(),
+                date.getUTCSeconds()
+            );
         },
         refresh: function() {
             var startDate = this.currentDate;

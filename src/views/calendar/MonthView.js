@@ -17,6 +17,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         monthTitleFormatText: 'MMMM yyyy',
         dayTitleFormatText: 'ddd MMM d, yyyy',
         dayStartTimeFormatText: 'h:mm',
+        allDayText: 'All-Day',
 
         //Templates
         viewTemplate: new Simplate([
@@ -284,12 +285,12 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             var feed = this.feed['$resources'],
                 feedLength = feed.length,
-                i=0,
+                i = 0,
                 activity,
                 activityDate,
                 activityList = [];
 
-            for(i=0; i<feedLength ; i+=1){
+            for(i = 0; i < feedLength; i += 1){
                 activity = feed[i].Activity;
                 activity.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(activity.StartDate);
                 activityDate = (activity.Timeless) ? this.dateToUTC(activity.StartDate) : activity.StartDate;
