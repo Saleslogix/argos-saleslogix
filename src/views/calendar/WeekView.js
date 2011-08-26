@@ -379,8 +379,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Sage.Platform.Mobile.List.superclass.show.apply(this, arguments);
         },
         processShowOptions: function(options){
-            this.currentDate = Date.parse(options.currentDate) || Date.today();
-            this.refreshRequired = true;
+            if(options.currentDate){
+                this.currentDate = Date.parse(options.currentDate).clearTime() || Date.today().clearTime();
+                this.refreshRequired = true;
+            }
         },
         setDefaultOptions: function(){
             if(typeof this.options === 'undefined') this.options = {};

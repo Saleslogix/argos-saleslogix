@@ -150,8 +150,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.show.call(this, options);
         },
         processShowOptions: function(options){
-            this.currentDate = Date.parse(options.currentDate).clearTime() || Date.today().clearTime();
-            this.getActivities();
+            if(options.currentDate){
+                this.currentDate = Date.parse(options.currentDate).clearTime() || Date.today().clearTime();
+                this.refreshRequired = true;
+            }
         },
         getNextActivities: function() {
             if (this.el.hasClass('list-loading')) return;
