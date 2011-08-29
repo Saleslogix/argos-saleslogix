@@ -108,6 +108,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         insertView: 'activity_types_list',
         detailView: 'activity_detail',
         hideSearch: true,
+        expose: false,
 
         currentDate: Date.today(),
         queryWhere: null,

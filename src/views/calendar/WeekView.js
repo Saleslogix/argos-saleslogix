@@ -112,7 +112,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         userWeekEndDay: 6,
         currentDate: null,
         hideSearch: true,
-        refreshRequired: true,
+        expose: false,
         weekStartDate: null,
         weekEndDate: null,
         todayDate: null,

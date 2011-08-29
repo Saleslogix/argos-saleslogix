@@ -93,6 +93,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
         hideSearch: true,
+        expose: false,
         currentDate: null,
         queryOrderBy: 'Activity.Timeless desc, Activity.StartDate',
         querySelect: [
