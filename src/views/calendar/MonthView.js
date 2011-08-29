@@ -114,7 +114,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         queryOrderBy: 'Activity.StartDate asc',
         querySelect: [
             'Activity/StartDate',
-            'Activity/EndDate',
             'Activity/Description',
             'Activity/Type',
             'Activity/AccountName',
@@ -124,7 +123,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             'Activity/UserId',
             'Activity/Timeless'
         ],
-        pageSize: 31,
+        pageSize: 500,
         resourceKind: 'useractivities',
 
         _onRefresh: function(o) {
@@ -223,39 +222,37 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 );
         },
         processFeed: function(feed) {
-            var flatList = [],
-                dt,
-                currentMonthStart = this.getFirstDayOfCurrentMonth(),
-                currentMonthEnd = this.getLastDayOfCurrentMonth(),
+            var dateCounts = [],
+                dateIndex,
                 r = feed['$resources'],
-                startDay,
-                endDay;
-
-            for(var i=0, l=r.length; i<l; i++){
-                this.entries[r[i].$key] = r[i];
-
-                startDay = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.StartDate);
-                endDay = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.EndDate);
-                do { // track No. of activities for each calendar day
-                    dt = startDay < currentMonthStart ? 1 : (r[i].Activity.Timeless ? startDay.getUTCDate() : startDay.getDate());
-                    flatList[ dt ] = flatList[ dt ] ? 1 + flatList[ dt ] : 1;
-                    startDay.add({day: 1});
-                } while (startDay < endDay && startDay < currentMonthEnd);
-            }
+                i,
+                feedLength = r.length,
+                startDay;
             this.feed = feed;
 
-            this.highlightActivities(flatList);
+            for(i = 0; i < feedLength; i += 1){
+                this.entries[r[i].$key] = r[i];
+                startDay = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.StartDate);
+                dateIndex = (r[i].Activity.Timeless)
+                    ? startDay.getUTCDate()
+                    : startDay.getDate();
+                dateCounts[dateIndex] = (dateCounts[dateIndex])
+                    ? dateCounts[dateIndex] + 1
+                    : 1;
+            }
+
+            this.highlightActivities(dateCounts);
             this.showCurrentDateActivities();
         },
-        highlightActivities: function(flatList){
+        highlightActivities: function(dateCounts){
             var template = this.calendarActivityCountTemplate.apply(this);
             Ext.select('.calendar-day').each( function(el) {
-                if (flatList[el.dom.textContent]) {
+                if (dateCounts[el.dom.textContent]) {
                     el.addClass("activeDay");
                     Ext.DomHelper.insertFirst(el, String.format(
                         template,
-                        flatList[el.dom.textContent],
-                        flatList[el.dom.textContent]
+                        dateCounts[el.dom.textContent],
+                        dateCounts[el.dom.textContent]
                     ));
                 }
             });
