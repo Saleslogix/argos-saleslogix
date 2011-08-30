@@ -139,7 +139,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         initEvents: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
+            /*
+            Disable swiping until further research with FireFox Mobile and better usability
+            handling for entire page swipe vs content area swipe
             this.el.on('swipe', this.onSwipe, this);
+            */
         },
         onSwipe: function(evt){
             switch(evt.browserEvent.direction){
