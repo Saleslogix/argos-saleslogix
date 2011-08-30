@@ -177,7 +177,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         getLastDayOfCurrentMonth: function(){
             return new Date(this.currentDate.getFullYear(),
                 this.currentDate.getMonth(),
-                this.currentDate.getDaysInMonth()-1,
+                this.currentDate.getDaysInMonth(),
                 23, 59, 59);
         },
         getTodayMonthActivities: function(){
