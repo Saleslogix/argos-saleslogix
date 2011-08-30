@@ -17,6 +17,7 @@ content/images/arrow-right-black.png
 content/images/arrow-right-mask.png
 content/images/arrow-right.png
 content/images/content-loading-light-green.gif
+content/images/delete.png
 content/images/icon.png
 content/images/loading-indicator-blue.gif
 content/images/loading-indicator-gray.gif
@@ -117,13 +118,13 @@ configuration/development.js
 configuration/production.js
 
 # localization
-localization/de-DE.js
-localization/en-US.js
-localization/fr-FR.js
-localization/ru-RU.js
-localization/saleslogix/de-DE.js
-localization/saleslogix/fr-FR.js
-localization/saleslogix/ru-RU.js
+localization/de.js
+localization/en.js
+localization/fr.js
+localization/ru.js
+localization/saleslogix/de.js
+localization/saleslogix/fr.js
+localization/saleslogix/ru.js
 
 # shell
 index.html
@@ -131,9 +132,9 @@ index.aspx
 
 # help
 help/help.html
-help/help_de-DE.html
-help/help_fr-FR.html
-help/help_ru-RU.html
+help/help_de.html
+help/help_fr.html
+help/help_ru.html
 
 NETWORK:
 ../sdata/
