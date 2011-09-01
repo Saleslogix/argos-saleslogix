@@ -382,7 +382,8 @@
         monthText : 'Monat',
         monthTitleFormatText : 'MMMM yyyy',
         dayTitleFormatText : 'ddd d. MMM yyyy',
-        dayStartTimeFormatText : 'H:mm'
+        dayStartTimeFormatText : 'H:mm',
+        allDayText : 'Täglich'
     });
     localize('Mobile.SalesLogix.Calendar.UserActivityList',{
         titleText : 'Kalender',
