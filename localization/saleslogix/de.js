@@ -19,34 +19,34 @@
     localize('Mobile.SalesLogix.Validator',{
         exists : {
             message : 'Feld "{2}" muss einen Wert enthalten.'
-        },
+		},
         name : {
             message : 'Für Feld "{2}" müssen Vor- und Nachname angegeben werden.'
-        },
+		},
         notEmpty : {
             message : 'Feld "{2}" darf nicht leer sein.'
-        },
+		},
         hasText : {
             message : 'Das Feld "{2}" muss Text enthalten.'
-        },
+		},
         isInteger : {
             message : 'Der Wert "{0}" ist keine gültige Zahl.'
-        },
+		},
         isDecimal : {
             message : 'Der Wert "{0}" ist keine gültige Zahl.'
-        },
+		},
         isCurrency : {
             message : 'Wert "{0}" ist kein gültiger Währungsbetrag.'
-        },
+		},
         isInt32 : {
             message : 'Wert von Feld "{2}" übersteigt zulässigen Zahlenbereich.'
-        },
+		},
         exceedsMaxTextLength : {
             message : 'Wert von Feld "{2}" übersteigt die zulässige Höchstlänge.'
-        },
+		},
         isDateInRange : {
             message : 'Wert von Feld "{2}" nicht im zuläss. Datumsbereich.'
-        }
+		}
     });
     localize('Mobile.SalesLogix.AddAccountContact',{
         accountNameText : 'Firma',
@@ -158,7 +158,7 @@
         phoneText : 'Tel.',
         activityTypeText : {
             atPhoneCall : 'Anruf'
-        },
+		},
         actionsText : 'Schnellaktionen',
         relatedActivitiesText : 'Aktivitäten',
         relatedContactsText : 'Kontakte',
@@ -219,13 +219,13 @@
         categoryText : 'Kategorie',
         categoryTitleText : 'Aktivit.kategorie',
         completedText : 'Abschlussdatum',
-        completedFormatText: 'd/M/yyyy H:mm',
+        completedFormatText : 'd. M yyyy H:mm',
         completionText : 'Abschluss',
         durationText : 'Dauer',
         durationInvalidText : 'Feld "{2}" muss einen Wert enthalten.',
         carryOverNotesText : 'Notizen übertr.',
         followUpText : 'Folgeakt.',
-        followUpTitleText : 'Folgeaktivität',
+        followUpTitleText : 'Typ für Nachfassen',
         leaderText : 'Organisator',
         longNotesText : 'Notizen',
         longNotesTitleText : 'Notizen',
@@ -237,7 +237,7 @@
         resultText : 'Ergebnis',
         resultTitleText : 'Ergebnis',
         startingText : 'Startdatum',
-        startingFormatText: 'd/M/yyyy H:mm',
+        startingFormatText : 'd. M  yyyy H:mm',
         timelessText : 'ohne Zeitangabe',
         durationValueText : {
             0 : 'keine',
@@ -246,13 +246,13 @@
             60 : '1 Stunde',
             90 : '1,5 Stunden',
             120 : '2 Stunden'
-        },
+		},
         followupValueText : {
             none : 'Keine',
             atPhoneCall : 'Anruf',
             atAppointment : 'Meeting',
             atToDo : 'Aufgabe'
-        }
+		}
     });
     localize('Mobile.SalesLogix.Activity.Detail',{
         activityTypeText : {
@@ -261,7 +261,7 @@
             atAppointment : 'Meeting',
             atLiterature : 'Literaturanfrage',
             atPersonal : 'Persönliche Aktivität'
-        },
+		},
         actionsText : 'Schnellaktionen',
         completeActivityText : 'Aktivität abschließen',
         alarmText : 'Erinnerung',
@@ -287,8 +287,8 @@
         whenText : 'Wann',
         whoText : 'Wer',
         startDateFormatText : 'd/M/yyyy H:mm:ss',
-        alarmDateFormatText: 'd/M/yyyy H:mm:ss',
-        timelessDateFormatText : 'd/M/yyyy'
+        timelessDateFormatText : 'd/M/yyyy',
+        alarmDateFormatText : 'd/M/yyyy H:mm:ss'
     });
     localize('Mobile.SalesLogix.Activity.Edit',{
         activityCategoryTitleText : 'Aktivit.kategorie',
@@ -298,8 +298,10 @@
         alarmTimeText : '',
         categoryText : 'Kategorie',
         durationText : 'Dauer',
+        durationTitleText : 'Dauer',
         durationInvalidText : 'Feld "{2}" muss einen Wert enthalten.',
         reminderInvalidText : 'Feld "Erinnerung" muss einen Wert enth.',
+        reminderTitleText : 'Erinnerung',
         leaderText : 'Organisator',
         longNotesText : 'Notizen',
         longNotesTitleText : 'Notizen',
@@ -308,7 +310,7 @@
         regardingText : 'Betreff',
         rolloverText : 'Auto-Rollover',
         startingText : 'Startzeit',
-        startingFormatText: 'd/M/yyyy H:mm',
+        startingFormatText : 'd. M yyyy H:mm',
         timelessText : 'ohne Zeitangabe',
         titleText : 'Aktivität',
         typeText : 'Typ',
@@ -329,7 +331,7 @@
             30 : '30 Minuten',
             60 : '1 Stunde',
             1440 : '1 Tag'
-        },
+		},
         durationValueText : {
             0 : 'keine',
             15 : '15 Minuten',
@@ -337,12 +339,12 @@
             60 : '1 Stunde',
             90 : '1,5 Stunden',
             120 : '2 Stunden'
-        }
+		}
     });
     localize('Mobile.SalesLogix.Activity.List',{
-        titleText : 'Aktivitäten',
-        startDateFormatText: 'ddd d/M/yy',
-        startTimeFormatText: 'H:mm'
+        startDateFormatText : 'ddd d. M yy',
+        startTimeFormatText : 'H:mm',
+        titleText : 'Aktivitäten'
     });
     localize('Mobile.SalesLogix.Activity.TypesList',{
         titleText : 'Planen...',
@@ -352,7 +354,7 @@
             atAppointment : 'Meeting',
             atLiterature : 'Literaturanfrage',
             atPersonal : 'Persönliche Aktivität'
-        }
+		}
     });
     localize('Mobile.SalesLogix.Address.Edit',{
         address1Text : 'Adresse 1',
@@ -376,30 +378,33 @@
         titleText : 'Kalender',
         todayText : 'Heute',
         dayText : 'Tag',
-        weekText: 'Woche',
-        monthText : 'Monat'
+        weekText : 'Woche',
+        monthText : 'Monat',
+        monthTitleFormatText : 'MMMM yyyy',
+        dayTitleFormatText : 'ddd d. MMM yyyy',
+        dayStartTimeFormatText : 'H:mm'
     });
     localize('Mobile.SalesLogix.Calendar.UserActivityList',{
         titleText : 'Kalender',
         dateHeaderFormatText : 'dddd, dd/MM/yyyy',
-        startTimeFormatText: 'H:mm',
+        startTimeFormatText : 'H:mm',
         todayText : 'Heute',
         dayText : 'Tag',
-        weekText: 'Woche',
+        weekText : 'Woche',
         monthText : 'Monat',
-        allDayText : 'Ganztäg.'
+        allDayText : 'Täglich'
     });
     localize('Mobile.SalesLogix.Calendar.WeekView',{
         titleText : 'Kalender',
-        weekTitleFormatText: 'dd/MM/yyyy',
-        dayHeaderLeftFormatText: 'ddd',
-        dayHeaderRightFormatText: 'dd/MM/yyyy',
-        startTimeFormatText: 'H:mm',
-         todayText : 'Heute',
+        weekTitleFormatText : 'd. MMM yyyy',
+        dayHeaderLeftFormatText : 'ddd',
+        dayHeaderRightFormatText : 'd. MMM yyyy',
+        startTimeFormatText : 'H:mm',
+        todayText : 'Heute',
         dayText : 'Tag',
-        weekText: 'Woche',
+        weekText : 'Woche',
         monthText : 'Monat',
-        allDayText: 'Ganztäg.'
+        allDayText : 'Täglich'
     });
     localize('Mobile.SalesLogix.Campaign.Detail',{
         acctMgrText : 'Acct Mgr',
@@ -425,7 +430,7 @@
         activityTypeText : {
             atPhoneCall : 'Anruf',
             atEMail : 'E-Mail'
-        },
+		},
         accountText : 'Firma',
         acctMgrText : 'Acct Mgr',
         addressText : 'Adresse',
@@ -589,7 +594,7 @@
             atPersonal : 'Persönliche Aktivität',
             atQuestion : 'Frage',
             atEMail : 'E-Mail'
-        },
+		},
         dateFormatText : 'd/M/yyyy H:mm:ss'
     });
     localize('Mobile.SalesLogix.History.Edit',{
@@ -603,7 +608,7 @@
         regardingText : 'Betreff',
         isLeadText : 'für Inter.',
         startingText : 'Zeit',
-        startingFormatText : 'd/M/yyyy H:mm',
+        startingFormatText : 'd.  M yyyy H:mm',
         titleText : 'Notiz',
         companyText : 'Unternehmen',
         leadText : 'Inter.',
@@ -618,23 +623,23 @@
             atPersonal : 'Persönliche Aktivität',
             atQuestion : 'Frage',
             atEMail : 'E-Mail'
-        },
+		},
+        hourMinuteFormatText : 'H:mm',
+        dateFormatText : 'd. M yy',
         hashTagQueriesText : {
             note : 'Notiz',
             phonecall : 'Anruf',
             meeting : 'Meeting',
             personal : 'Persönl.',
             email : 'E-Mail'
-        },
-        hourMinuteFormatText: "H:mm",
-        dateFormatText: "d/M/yy",
+		},
         titleText : 'Notizen/Historie'
     });
     localize('Mobile.SalesLogix.Lead.Detail',{
         activityTypeText : {
             atPhoneCall : 'Anruf',
             atEMail : 'E-Mail'
-        },
+		},
         accountText : 'Unternehmen',
         addressText : 'Adresse',
         businessDescriptionText : 'Beschreibg',
@@ -754,7 +759,7 @@
             closed : 'abgeschl.',
             won : 'erfolgr.',
             lost : 'verlor.'
-        }
+		}
     });
     localize('Mobile.SalesLogix.OpportunityProduct.List',{
         titleText : 'Produkte'

@@ -91,16 +91,16 @@
     });
     localize('Mobile.SalesLogix.FooterToolbar',{
         copyrightText : '© 2011 Sage Software, Inc. Diritti riservati.',
-        logOutConfirmText : 'Sei sicuro di voler uscire?      ',
-        settingsText : 'Opzioni ',
+        logOutConfirmText : 'Sei sicuro di voler uscire?',
+        settingsText : 'Opzioni',
         helpText : 'Aiuto',
-        topText : 'Su ',
-        logOutText : 'Uscita '
+        topText : 'Su',
+        logOutText : 'Uscita'
     });
     localize('Mobile.SalesLogix.Help',{
         titleText : 'Aiuto',
         errorText : 'Errore',
-        errorMessageText : 'Documento di Help non caricato   '
+        errorMessageText : 'Documento di Help non caricato'
     });
     localize('Mobile.SalesLogix.Home',{
         configureText : 'Config.',
@@ -115,8 +115,8 @@
         passText : 'password',
         rememberText : 'ricorda',
         titleText : 'Sage SalesLogix',
-        userText : 'Nome ',
-        invalidUserText : 'Nome o password errati ',
+        userText : 'Nome',
+        invalidUserText : 'Nome o password errati',
         missingUserText : 'Utente non trovato.',
         serverProblemText : 'Errore sul server.',
         requestAbortedText : 'Richiesta interrotta'
@@ -146,13 +146,13 @@
     localize('Mobile.SalesLogix.Account.Detail',{
         accountText : 'azienda',
         acctMgrText : 'resp.',
-        addressText : ' Indi. ',
+        addressText : 'Indi.',
         businessDescriptionText : 'desc.att.',
         createDateText : 'creato il',
         createUserText : 'creato da',
         faxText : 'fax',
         importSourceText : 'Fonte Nom.',
-        industryText : ' settore',
+        industryText : 'settore',
         notesText : 'note',
         ownerText : 'prop.',
         phoneText : 'tel.',
@@ -189,9 +189,9 @@
         businessDescriptionTitleText : 'Descrizione Attività',
         descriptionText : 'desc',
         faxText : 'fax',
-        fullAddressText : 'ind.',
+        fullAddressText : 'Indi.',
         importSourceText : 'Fonte Nom.',
-        industryText : ' settore',
+        industryText : 'settore',
         industryTitleText : 'Settore',
         ownerText : 'prop.',
         phoneText : 'tel.',
@@ -219,12 +219,13 @@
         categoryText : 'cat.',
         categoryTitleText : 'Cat. Attività',
         completedText : 'completato il',
+        completedFormatText : 'd/M/yyyy H:mm',
         completionText : 'Completata',
         durationText : 'durata',
-        durationInvalidText : 'Campo "{2}" deve avere un valore. ',
+        durationInvalidText : 'Il campo "{2}" deve avere valore.',
         carryOverNotesText : 'riporta note',
         followUpText : 'seguito',
-        followUpTitleText : 'Attività Seguenti',
+        followUpTitleText : 'Tipo seguito',
         leaderText : 'leader',
         longNotesText : 'note',
         longNotesTitleText : 'Nota',
@@ -236,6 +237,7 @@
         resultText : 'esito',
         resultTitleText : 'Risultato',
         startingText : 'data iniz.',
+        startingFormatText : 'd/M/yyyy H:mm',
         timelessText : 'Senza orario',
         durationValueText : {
             0 : 'Nessuno',
@@ -284,8 +286,9 @@
         ticketNumberText : 'ticket',
         whenText : 'Data',
         whoText : 'Chi',
-        startDateFormatText : 'd/M/yyyy HH:mm:ss',
-        timelessDateFormatText : 'd/M/yyyy'
+        startDateFormatText : 'd/M/yyyy H:mm:ss',
+        timelessDateFormatText : 'd/M/yyyy',
+        alarmDateFormatText : 'd/M/yyyy H:mm:ss'
     });
     localize('Mobile.SalesLogix.Activity.Edit',{
         activityCategoryTitleText : 'Cat. Attività',
@@ -295,8 +298,10 @@
         alarmTimeText : '',
         categoryText : 'cat.',
         durationText : 'durata',
-        durationInvalidText : 'Campo "{2}" deve avere un valore. ',
+        durationTitleText : 'Durata',
+        durationInvalidText : 'Il campo "{2}" deve avere valore.',
         reminderInvalidText : 'Il "promemoria" deve avere un valore.',
+        reminderTitleText : 'Promem.',
         leaderText : 'leader',
         longNotesText : 'note',
         longNotesTitleText : 'Nota',
@@ -305,6 +310,7 @@
         regardingText : 'argomento',
         rolloverText : 'rinvio autom.',
         startingText : 'ora iniz.',
+        startingFormatText : 'd/M/yyyy H:mm',
         timelessText : 'Senza orario',
         titleText : 'Attività',
         typeText : 'tipo',
@@ -336,6 +342,8 @@
 		}
     });
     localize('Mobile.SalesLogix.Activity.List',{
+        startDateFormatText : 'ddd d/M/yy',
+        startTimeFormatText : 'H:mm',
         titleText : 'Attività'
     });
     localize('Mobile.SalesLogix.Activity.TypesList',{
@@ -370,14 +378,33 @@
         titleText : 'Calendario',
         todayText : 'Oggi',
         dayText : 'Giorno',
-        monthText : 'Mese'
+        weekText : 'Set.',
+        monthText : 'Mese',
+        monthTitleFormatText : 'MMMM yyyy',
+        dayTitleFormatText : 'ddd d MMM, yyyy',
+        dayStartTimeFormatText : 'H:mm'
     });
     localize('Mobile.SalesLogix.Calendar.UserActivityList',{
         titleText : 'Calendario',
         dateHeaderFormatText : 'dddd, dd/MM/yyyy',
+        startTimeFormatText : 'H:mm',
         todayText : 'Oggi',
         dayText : 'Giorno',
-        monthText : 'Mese'
+        weekText : 'Set.',
+        monthText : 'Mese',
+        allDayText : 'Giorno'
+    });
+    localize('Mobile.SalesLogix.Calendar.WeekView',{
+        titleText : 'Calendario',
+        weekTitleFormatText : 'd MMM, yyyy',
+        dayHeaderLeftFormatText : 'ddd',
+        dayHeaderRightFormatText : 'd MMM, yyyy',
+        startTimeFormatText : 'H:mm',
+        todayText : 'Oggi',
+        dayText : 'Giorno',
+        weekText : 'Set.',
+        monthText : 'Mese',
+        allDayText : 'Giorno'
     });
     localize('Mobile.SalesLogix.Campaign.Detail',{
         acctMgrText : 'resp.',
@@ -406,13 +433,13 @@
 		},
         accountText : 'azienda',
         acctMgrText : 'resp.',
-        addressText : ' Indi. ',
+        addressText : 'Indi.',
         contactTitleText : 'tit.',
         createDateText : 'creato il',
         createUserText : 'creato da',
         emailText : 'email',
         faxText : 'fax',
-        homeText : 'tel. fisso',
+        homeText : 'Tel. fisso',
         nameText : 'cont.',
         ownerText : 'prop.',
         actionsText : 'Azioni rapide',
@@ -438,14 +465,14 @@
         titleText : 'Contatto',
         nameText : 'nome',
         workText : 'tel.',
-        mobileText : 'cell. ',
+        mobileText : 'cell.',
         emailText : 'email',
         webText : 'web',
         acctMgrText : 'resp.',
         accountNameText : 'azienda',
         homePhoneText : 'Tel. fisso',
         faxText : 'fax',
-        addressText : ' Indi. ',
+        addressText : 'Indi.',
         contactTitleText : 'tit.',
         titleTitleText : 'Titolo',
         addressTitleText : 'Indirizzo',
@@ -568,7 +595,7 @@
             atQuestion : 'Domanda',
             atEMail : 'E-mail'
 		},
-        dateFormatText : 'd/M/yyyy HH:mm:ss'
+        dateFormatText : 'd/M/yyyy H:mm:ss'
     });
     localize('Mobile.SalesLogix.History.Edit',{
         accountText : 'azienda',
@@ -581,6 +608,7 @@
         regardingText : 'argomento',
         isLeadText : 'per nom.',
         startingText : 'ora',
+        startingFormatText : 'd/M/yyyy H:mm',
         titleText : 'Nota',
         companyText : 'società',
         leadText : 'nom.',
@@ -596,6 +624,8 @@
             atQuestion : 'Domanda',
             atEMail : 'E-mail'
 		},
+        hourMinuteFormatText : 'H:mm',
+        dateFormatText : 'd/M/yy',
         hashTagQueriesText : {
             note : 'nota',
             phonecall : 'telefon.',
@@ -611,13 +641,13 @@
             atEMail : 'E-mail'
 		},
         accountText : 'società',
-        addressText : ' Indi. ',
+        addressText : 'Indi.',
         businessDescriptionText : 'desc.att.',
         createDateText : 'creato il',
         createUserText : 'creato da',
         eMailText : 'email',
-        leadSourceText : 'fonte nom.',
-        industryText : ' settore',
+        leadSourceText : 'Fonte Nom.',
+        industryText : 'settore',
         interestsText : 'interessi',
         leadTitleText : 'tit.',
         nameText : 'nome',
@@ -652,7 +682,7 @@
         emailText : 'email',
         faxText : 'fax',
         importSourceText : 'Fonte Nom.',
-        industryText : ' settore',
+        industryText : 'settore',
         industryTitleText : 'Settore',
         interestsText : 'interessi',
         leadNameLastFirstText : 'nome',
@@ -660,7 +690,7 @@
         nameText : 'nome',
         notesText : 'commenti',
         notesTitleText : 'Commenti',
-        sicCodeText : 'cod.sic ',
+        sicCodeText : 'cod.sic',
         titleText : 'Nominativo',
         titleTitleText : 'Titolo',
         tollFreeText : 'n. verde',
@@ -725,7 +755,7 @@
         notesText : 'Nota',
         scheduleText : 'Pianifica',
         hashTagQueriesText : {
-            open : 'open',
+            open : 'apri',
             closed : 'chiuso',
             won : 'won',
             lost : 'lost'
