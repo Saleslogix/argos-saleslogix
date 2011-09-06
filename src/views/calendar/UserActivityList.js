@@ -156,7 +156,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         processShowOptions: function(options){
             if(options.currentDate){
-                this.currentDate = Date.parse(options.currentDate).clearTime() || Date.today().clearTime();
+                this.currentDate = Date.parseExact(options.currentDate,'yyyy-MM-dd').clearTime() || Date.today().clearTime();
                 this.refreshRequired = true;
             }
         },

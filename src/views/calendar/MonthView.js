@@ -172,7 +172,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         selectDay: function(params, evt, el) {
             if (this.selectedDateEl) this.selectedDateEl.removeClass('selected');
             this.selectedDateEl = Ext.get(el).addClass('selected');
-            this.currentDate = Date.parse(params.date);
+            this.currentDate = Date.parseExact(params.date,'yyyy-MM-dd');
             this.showCurrentDateActivities();
         },
         getFirstDayOfCurrentMonth: function(){
@@ -374,7 +374,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         processShowOptions: function(options){
             if(options.currentDate){
-                this.currentDate = Date.parse(options.currentDate).clearTime() || Date.today().clearTime();
+                this.currentDate = Date.parseExact(options.currentDate,'yyyy-MM-dd').clearTime() || Date.today().clearTime();
                 this.refreshRequired = true;
             }
         },
