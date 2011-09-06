@@ -24,14 +24,16 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         'atPhoneCall': 'Phone Call',
         'atAppointment': 'Meeting',
         'atLiterature': 'Literature Request',
-        'atPersonal': 'Personal Activity'
+        'atPersonal': 'Personal Activity',
+        'event': 'Event'
     },
     activityTypeIcons: {
         'atToDo': 'content/images/icons/Schedule_ToDo_24x24.png',
         'atPhoneCall': 'content/images/icons/Schedule_Call_24x24.png',
         'atAppointment': 'content/images/icons/Schedule_Meeting_24x24.png',
         'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-        'atPersonal': 'content/images/icons/Personal_24x24.png'
+        'atPersonal': 'content/images/icons/Personal_24x24.png',
+        'event': 'content/images/icons/Personal_24x24.png'
     },
 
     //View Properties   
@@ -40,12 +42,14 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         //'atLiterature', //For [#7206791], We will enable this later.
         'atPersonal',
         'atPhoneCall',
-        'atToDo'
+        'atToDo',
+        'event'
     ],
     expose: false,
     hideSearch: true,
     id: 'activity_types_list',
     editView: 'activity_edit',
+    eventEditView: 'event_edit',
    
     activateEntry: function(params) {
         if (params.key)
