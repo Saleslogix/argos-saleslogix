@@ -37,7 +37,16 @@ Mobile.SalesLogix.Help = Ext.extend(Sage.Platform.Mobile.Detail, {
         Ext.DomHelper.append(this.contentEl, this.errorTemplate.apply(this));       
         this.el.removeClass('panel-loading');
     },
-    onLocalizedRequestFailure: function(response, o) {
+    onLocalizedRequestFirstFailure: function(response, o) {
+        Sage.SData.Client.Ajax.request({
+            url: this.resolveGenericLocalizedUrl(),
+            cache: true,
+            success: this.onRequestSuccess,
+            failure: this.onLocalizedRequestSecondFailure,
+            scope: this
+        });
+    },
+    onLocalizedRequestSecondFailure: function(response, o) {
         Sage.SData.Client.Ajax.request({
             url: this.url,
             cache: true,
@@ -54,6 +63,12 @@ Mobile.SalesLogix.Help = Ext.extend(Sage.Platform.Mobile.Detail, {
         var localizedUrl = Mobile && Mobile['CultureInfo'] && String.format("help/help_{0}.html", Mobile['CultureInfo']['name']);
         return localizedUrl;
     },
+    resolveGenericLocalizedUrl: function(){
+        var languageSpec = Mobile && Mobile['CultureInfo'] && Mobile['CultureInfo']['name'],
+            languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec,
+            localizedUrl = String.format("help/help_{0}.html", languageGen);
+        return localizedUrl;
+    },
     requestData: function() {
         this.el.addClass('panel-loading');
         
@@ -61,7 +76,7 @@ Mobile.SalesLogix.Help = Ext.extend(Sage.Platform.Mobile.Detail, {
             url: this.resolveLocalizedUrl(),
             cache: true,
             success: this.onRequestSuccess,
-            failure: this.onLocalizedRequestFailure,
+            failure: this.onLocalizedRequestFirstFailure,
             scope: this
         });
     },
