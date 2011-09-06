@@ -19,34 +19,34 @@
     localize('Mobile.SalesLogix.Validator',{
         exists : {
             message : 'Поле "{2}" должно быть заполнено.'
-        },
+		},
         name : {
             message : 'Поле "{2}" должно содержать имя и фамилию.'
-        },
+		},
         notEmpty : {
             message : 'Поле "{2}" не может быть пустым.'
-        },
+		},
         hasText : {
             message : 'Поле "{2}" должено содержать текст.'
-        },
+		},
         isInteger : {
             message : 'Значение "{0} "не является допустимым числом.'
-        },
+		},
         isDecimal : {
             message : 'Значение "{0} "не является допустимым числом.'
-        },
+		},
         isCurrency : {
             message : 'Значение "{0} "не является допустимой суммой.'
-        },
+		},
         isInt32 : {
             message : 'Поле "{2}" превышает допустимое значение числовое диапазона.'
-        },
+		},
         exceedsMaxTextLength : {
             message : 'Значение  поля "{2}" превышает допустимую длину.'
-        },
+		},
         isDateInRange : {
             message : 'Значение поля "{2}" вне разрешенного диапазона дат.'
-        }
+		}
     });
     localize('Mobile.SalesLogix.AddAccountContact',{
         accountNameText : 'субъект',
@@ -90,7 +90,7 @@
         scheduleText : 'Планировать'
     });
     localize('Mobile.SalesLogix.FooterToolbar',{
-        copyrightText : '© 2011 Sage Software, Inc. All rights reserved.',
+        copyrightText : 'A© 2011 Sage Software, Inc. All rights reserved.',
         logOutConfirmText : 'Вы уверены, что хотите выйти из системы?',
         settingsText : 'Настройки',
         helpText : 'Помощь',
@@ -110,7 +110,7 @@
         viewsText : 'Перейти'
     });
     localize('Mobile.SalesLogix.Login',{
-        copyrightText : '© 2011 Sage Software, Inc. All rights reserved.',
+        copyrightText : 'A© 2011 Sage Software, Inc. All rights reserved.',
         logOnText : 'Вход ',
         passText : 'пароль',
         rememberText : 'запомнить',
@@ -158,7 +158,7 @@
         phoneText : 'телефон',
         activityTypeText : {
             atPhoneCall : 'Звонок'
-        },
+		},
         actionsText : 'Быстрые действия',
         relatedActivitiesText : 'Дела',
         relatedContactsText : 'Контакты',
@@ -169,9 +169,9 @@
         relatedTicketsText : 'Заявки',
         statusText : 'статус',
         subTypeText : 'подтип',
-        titleText : 'Субъект',
+        titleText : 'тема',
         typeText : 'тип',
-        webText : 'веб',
+        webText : 'веб:',
         callMainNumberText : 'Позвонить на основной тел.',
         scheduleActivityText : 'Запланировать дело',
         addNoteText : 'Добавить заметки',
@@ -197,9 +197,9 @@
         phoneText : 'телефон',
         statusText : 'статус',
         subTypeText : 'подтип',
-        titleText : 'Субъект',
+        titleText : 'тема',
         typeText : 'тип',
-        webText : 'веб'
+        webText : 'веб:'
     });
     localize('Mobile.SalesLogix.Account.List',{
         titleText : 'Субъекты',
@@ -219,13 +219,13 @@
         categoryText : 'категория',
         categoryTitleText : 'Категория дела',
         completedText : 'дата завершения',
-        completedFormatText: 'dd.MM.yyyy HH:mm',
+        completedFormatText : 'dd.MM.yyyy HH:mm',
         completionText : 'Завершение',
         durationText : 'длительность',
         durationInvalidText : 'Поле "{2}" должно быть заполнено.',
         carryOverNotesText : 'перенос заметок',
         followUpText : 'последующий',
-        followUpTitleText : 'Следующее дело',
+        followUpTitleText : 'Последующий тип',
         leaderText : 'пользователь',
         longNotesText : 'заметки',
         longNotesTitleText : 'Заметки',
@@ -237,7 +237,7 @@
         resultText : 'результат',
         resultTitleText : 'Результат',
         startingText : 'дата начала',
-        startingFormatText: 'dd.MM.yyyy HH:mm',
+        startingFormatText : 'dd.MM.yyyy HH:mm',
         timelessText : 'вневременный',
         durationValueText : {
             0 : 'нет',
@@ -246,13 +246,13 @@
             60 : '1 час',
             90 : '1.5 часа',
             120 : '2 часа'
-        },
+		},
         followupValueText : {
             none : 'Нет',
             atPhoneCall : 'Звонок',
             atAppointment : 'Встреча',
             atToDo : 'Выполнить'
-        }
+		}
     });
     localize('Mobile.SalesLogix.Activity.Detail',{
         activityTypeText : {
@@ -261,7 +261,7 @@
             atAppointment : 'Встреча',
             atLiterature : 'Инф. материалы',
             atPersonal : 'Личные дела'
-        },
+		},
         actionsText : 'Быстрые действия',
         completeActivityText : 'Завершить дело',
         alarmText : 'напоминание',
@@ -271,15 +271,15 @@
         leaderText : 'пользователь',
         longNotesText : 'заметки',
         priorityText : 'приоритет',
-        regardingText : 'тема',
+        regardingText : 'относительно',
         rolloverText : 'автоматическое продление',
         startTimeText : 'время начала',
-        allDayText : 'день',
+        allDayText : 'на весь день',
         timelessText : 'вневременный',
         titleText : 'Дело',
         typeText : 'тип',
         companyText : 'компания',
-        leadText : 'наводка',
+        leadText : 'нводка',
         accountText : 'субъект',
         contactText : 'контакт',
         opportunityText : 'сделка',
@@ -287,8 +287,8 @@
         whenText : 'Когда',
         whoText : 'Кто',
         startDateFormatText : 'dd.MM.yyyy HH:mm:ss',
-        alarmDateFormatText: 'dd.MM.yyyy HH:mm:ss',
-        timelessDateFormatText : 'dd.MM.yyyy'
+        timelessDateFormatText : 'dd.MM.yyyy',
+        alarmDateFormatText : 'dd.MM.yyyy HH:mm:ss'
     });
     localize('Mobile.SalesLogix.Activity.Edit',{
         activityCategoryTitleText : 'Категория дела',
@@ -298,17 +298,19 @@
         alarmTimeText : '',
         categoryText : 'категория',
         durationText : 'длительность',
+        durationTitleText : 'Длит.',
         durationInvalidText : 'Поле "{2}" должно быть заполнено.',
         reminderInvalidText : 'Поле "напоминание" должно быть заполнено.',
+        reminderTitleText : 'Напомин.',
         leaderText : 'пользователь',
         longNotesText : 'заметки',
         longNotesTitleText : 'Заметки',
         priorityText : 'приоритет',
         priorityTitleText : 'Приоритет',
-        regardingText : 'тема',
+        regardingText : 'относительно',
         rolloverText : 'автоматическое продление',
         startingText : 'время начала',
-        startingFormatText: 'dd.MM.yyyy HH:mm',
+        startingFormatText : 'dd.MM.yyyy HH:mm',
         timelessText : 'вневременный',
         titleText : 'Дело',
         typeText : 'тип',
@@ -317,7 +319,7 @@
         opportunityText : 'сделка',
         ticketNumberText : 'заявка',
         companyText : 'компания',
-        leadText : 'наводка',
+        leadText : 'нводка',
         isLeadText : 'для наводки',
         yesText : 'ДА',
         noText : 'НЕТ',
@@ -329,7 +331,7 @@
             30 : '30 минут',
             60 : '1 час',
             1440 : '1 день'
-        },
+		},
         durationValueText : {
             0 : 'нет',
             15 : '15 минут',
@@ -337,12 +339,12 @@
             60 : '1 час',
             90 : '1.5 часа',
             120 : '2 часа'
-        }
+		}
     });
     localize('Mobile.SalesLogix.Activity.List',{
-        titleText : 'Дела',
-        startDateFormatText: 'ddd dd.MM.yyyy',
-        startTimeFormatText: 'HH:mm'
+        startDateFormatText : 'ddd d.MM.yy',
+        startTimeFormatText : 'HH:mm',
+        titleText : 'Дела'
     });
     localize('Mobile.SalesLogix.Activity.TypesList',{
         titleText : 'Планировать...',
@@ -352,7 +354,7 @@
             atAppointment : 'Встреча',
             atLiterature : 'Инф. материалы',
             atPersonal : 'Личные дела'
-        }
+		}
     });
     localize('Mobile.SalesLogix.Address.Edit',{
         address1Text : 'адрес 1',
@@ -376,30 +378,34 @@
         titleText : 'Календарь',
         todayText : 'Сегодня',
         dayText : 'День',
-        weekText: 'Неделя',
-        monthText : 'Месяц'
+        weekText : 'Неделя',
+        monthText : 'Месяц',
+        allDayText : 'день',
+        monthTitleFormatText : 'MMMM yyyy',
+        dayTitleFormatText : 'ddd d MMM yyyy',
+        dayStartTimeFormatText : 'HH:mm'
     });
     localize('Mobile.SalesLogix.Calendar.UserActivityList',{
         titleText : 'Календарь',
         dateHeaderFormatText : 'dddd, dd.MM.yyyy',
-        startTimeFormatText: 'H:mm',
+        startTimeFormatText : 'HH:mm',
         todayText : 'Сегодня',
         dayText : 'День',
-        weekText: 'Неделя',
+        weekText : 'Неделя',
         monthText : 'Месяц',
-        allDayText: 'день'
+        allDayText : 'день'
     });
     localize('Mobile.SalesLogix.Calendar.WeekView',{
         titleText : 'Календарь',
-        weekTitleFormatText: 'dd.MM.yyyy',
-        dayHeaderLeftFormatText: 'ddd',
-        dayHeaderRightFormatText: 'dd.MM.yyyy',
-        startTimeFormatText: 'H:mm',
+        weekTitleFormatText : 'd MMM yyyy',
+        dayHeaderLeftFormatText : 'ddd',
+        dayHeaderRightFormatText : 'd MMM yyyy',
+        startTimeFormatText : 'HH:mm',
         todayText : 'Сегодня',
         dayText : 'День',
-        weekText: 'Неделя',
+        weekText : 'Неделя',
         monthText : 'Месяц',
-        allDayText: 'день'
+        allDayText : 'день'
     });
     localize('Mobile.SalesLogix.Campaign.Detail',{
         acctMgrText : 'менеджер',
@@ -425,7 +431,7 @@
         activityTypeText : {
             atPhoneCall : 'Звонок',
             atEMail : 'Эл. почта'
-        },
+		},
         accountText : 'субъект',
         acctMgrText : 'менеджер',
         addressText : 'адрес',
@@ -446,23 +452,23 @@
         relatedOpportunitiesText : 'Сделки',
         relatedTicketsText : 'Заявки',
         titleText : 'Контакт',
-        webText : 'веб',
+        webText : 'веб:',
         workText : 'телефон',
         callMobileNumberText : 'Позвонить на мобильный',
         callWorkNumberText : 'Позвонить на основной тел.',
-        scheduleActivityText : 'Планировать дело',
-        addNoteText : 'Добавить заметку',
+        scheduleActivityText : 'Запланировать дело',
+        addNoteText : 'Добавить заметки',
         sendEmailText : 'Отправить email',
-        viewAddressText : 'Просмтор адресов',
+        viewAddressText : 'Просмотр адресов',
         moreDetailsText : 'Подробнее'
     });
     localize('Mobile.SalesLogix.Contact.Edit',{
         titleText : 'Контакт',
         nameText : 'имя',
-        workText : 'раб. тел.',
+        workText : 'телефон',
         mobileText : 'моб. тел.',
         emailText : 'эл.почта',
-        webText : 'веб',
+        webText : 'веб:',
         acctMgrText : 'менеджер',
         accountNameText : 'субъект',
         homePhoneText : 'дом. тел.',
@@ -551,7 +557,7 @@
     });
     localize('Mobile.SalesLogix.DefectSolution.Detail',{
         createDateText : 'дата создания',
-        createUserText : ' создал',
+        createUserText : 'создал',
         notesText : 'заметки',
         titleText : 'Решение дефекта'
     });
@@ -567,14 +573,14 @@
         longNotesText : 'заметки',
         notesText : 'Заметки',
         priorityText : 'приоритет',
-        regardingText : 'тема',
+        regardingText : 'относительно',
         scheduledText : 'планировать',
         timelessText : 'вневременный',
         companyText : 'компания',
-        leadText : 'наводка',
+        leadText : 'нводка',
         titleText : 'История',
         accountText : 'субъект',
-        contactText : 'котакт',
+        contactText : 'контакт',
         opportunityText : 'сделка',
         ticketNumberText : 'заявка',
         moreDetailsText : 'Подробнее',
@@ -589,7 +595,7 @@
             atPersonal : 'Личные дела',
             atQuestion : 'Вопрос',
             atEMail : 'Эл. почта'
-        },
+		},
         dateFormatText : 'dd.MM.yyyy HH:mm:ss'
     });
     localize('Mobile.SalesLogix.History.Edit',{
@@ -600,13 +606,13 @@
         longNotesTitleText : 'Заметки',
         opportunityText : 'сделка',
         ticketNumberText : 'заявка',
-        regardingText : 'тема',
+        regardingText : 'относительно',
         isLeadText : 'для наводки',
         startingText : 'время',
         startingFormatText : 'dd.MM.yyyy HH:mm',
         titleText : 'Заметка',
         companyText : 'компания',
-        leadText : 'наводка',
+        leadText : 'нводка',
         relatedItemsText : 'Связанные записи'
     });
     localize('Mobile.SalesLogix.History.List',{
@@ -618,23 +624,23 @@
             atPersonal : 'Личные дела',
             atQuestion : 'Вопрос',
             atEMail : 'Эл. почта'
-        },
+		},
+        hourMinuteFormatText : 'HH:mm',
+        dateFormatText : 'd.MM.yy',
         hashTagQueriesText : {
             note : 'заметка',
             phonecall : 'тел. звонок',
             meeting : 'встреча',
             personal : 'личное',
             email : 'эл.почта'
-        },
-        hourMinuteFormatText: "HH:mm",
-        dateFormatText: "dd/MM/yyyy",
+		},
         titleText : 'Заметки/История'
     });
     localize('Mobile.SalesLogix.Lead.Detail',{
         activityTypeText : {
             atPhoneCall : 'Звонок',
             atEMail : 'Эл. почта'
-        },
+		},
         accountText : 'компания',
         addressText : 'адрес',
         businessDescriptionText : 'описание бизнеса',
@@ -655,14 +661,14 @@
         sicCodeText : 'sic код',
         titleText : 'Наводка',
         tollFreeText : 'справ. тел.',
-        webText : 'веб',
-        workText : 'раб. тел.',
+        webText : 'веб:',
+        workText : 'телефон',
         actionsText : 'Быстрые действия',
-        callWorkNumberText : 'Звонок на основн. номер',
-        scheduleActivityText : 'Планировать дело',
-        addNoteText : 'Добавить заметку',
+        callWorkNumberText : 'Позвонить на основной тел.',
+        scheduleActivityText : 'Запланировать дело',
+        addNoteText : 'Добавить заметки',
         sendEmailText : 'Отправить email',
-        viewAddressText : 'Просмотр адреса',
+        viewAddressText : 'Просмотр адресов',
         moreDetailsText : 'Подробнее',
         calledText : 'Вызов {0}',
         emailedText : 'Отправлено {0}'
@@ -689,8 +695,8 @@
         titleText : 'Наводка',
         titleTitleText : 'Должность',
         tollFreeText : 'справ. тел.',
-        webText : 'веб',
-        workText : 'раб. тел.'
+        webText : 'веб:',
+        workText : 'телефон'
     });
     localize('Mobile.SalesLogix.Lead.List',{
         titleText : 'Наводки',
@@ -723,14 +729,14 @@
         statusText : 'статус',
         titleText : 'Сделка',
         typeText : 'тип',
-        scheduleActivityText : 'Планировать дело',
-        addNoteText : 'Добавить заметку',
+        scheduleActivityText : 'Запланировать дело',
+        addNoteText : 'Добавить заметки',
         moreDetailsText : 'Подробнее'
     });
     localize('Mobile.SalesLogix.Opportunity.Edit',{
         accountText : 'субъект',
         acctMgrText : 'менеджер',
-        estCloseText : 'закрыто (план)',
+        estCloseText : 'закрыта (план)',
         importSourceText : 'источник наводки',
         opportunityProbabilityTitleText : 'Вероятность сделки',
         opportunityStatusTitleText : 'Статус Сделки',
@@ -754,7 +760,7 @@
             closed : 'закрытая',
             won : 'выиграна',
             lost : 'проиграна'
-        }
+		}
     });
     localize('Mobile.SalesLogix.OpportunityProduct.List',{
         titleText : 'Продукты'
@@ -782,7 +788,7 @@
         returnIdText : 'возращенный id',
         priorityText : 'приоритет',
         typeText : 'тип',
-        regDateText : 'треб. дата',
+        regDateText : 'дата регистрации',
         returnedByText : 'возвратить'
     });
     localize('Mobile.SalesLogix.Return.List',{
@@ -791,7 +797,7 @@
     localize('Mobile.SalesLogix.SalesOrder.Detail',{
         accountText : 'субъект',
         acctMgrText : 'менеджер',
-        commentsText : 'комметарии',
+        commentsText : 'комментарии',
         createDateText : 'дата создания',
         createUserText : 'создал',
         fbarHomeTitleText : 'домой',
@@ -838,7 +844,7 @@
         ticketIdText : 'номер заявки',
         titleText : 'Заявка',
         urgencyText : 'срочность',
-        scheduleActivityText : 'Планировать дело',
+        scheduleActivityText : 'Запланировать дело',
         moreDetailsText : 'Подробнее'
     });
     localize('Mobile.SalesLogix.Ticket.Edit',{
@@ -955,7 +961,7 @@
         insertText : 'Создать',
         noDataText : 'нет записей',
         loadingText : 'загрузка...',
-        requestErrorText : 'Произошла ошибка сервера при запросе данных.'
+        requestErrorText : 'Ошибка сервера при запросе данных.'
     });
     localize('Sage.Platform.Mobile.MainToolbar',{
         titleText : 'Мобильный тел.'
