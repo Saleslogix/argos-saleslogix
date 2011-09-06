@@ -90,7 +90,7 @@
         scheduleText : 'Планировать'
     });
     localize('Mobile.SalesLogix.FooterToolbar',{
-        copyrightText : 'A© 2011 Sage Software, Inc. All rights reserved.',
+        copyrightText : '© 2011 Sage Software, Inc. All rights reserved.',
         logOutConfirmText : 'Вы уверены, что хотите выйти из системы?',
         settingsText : 'Настройки',
         helpText : 'Помощь',
@@ -110,7 +110,7 @@
         viewsText : 'Перейти'
     });
     localize('Mobile.SalesLogix.Login',{
-        copyrightText : 'A© 2011 Sage Software, Inc. All rights reserved.',
+        copyrightText : '© 2011 Sage Software, Inc. All rights reserved.',
         logOnText : 'Вход ',
         passText : 'пароль',
         rememberText : 'запомнить',
