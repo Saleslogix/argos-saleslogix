@@ -135,7 +135,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         init: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.init.apply(this, arguments);
-            this.setActivityQuery();
+            this.queryWhere = this.getActivityQuery();
         },
         initEvents: function() {
             Mobile.SalesLogix.Calendar.MonthView.superclass.initEvents.apply(this, arguments);
@@ -205,59 +205,121 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         refresh: function(){
             this.renderCalendar();
-            this.setActivityQuery();
+            this.queryWhere = this.getActivityQuery();
             this.feed['$startIndex'] = 0;
             this.dayContentEl.update(this.loadingTemplate.apply(this));
             this.requestData();
+         //   this.requestEventData();
         },
-        setActivityQuery: function(){
+        createEventRequest: function(){
+            var querySelect = ['StartDate', 'EndDate', 'Description', 'Type'],
+                queryWhere = this.getEventQuery(),
+                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setCount(this.pageSize)
+                .setStartIndex(1)
+                .setResourceKind('events')
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere)
+                .getUri()
+                .setCollectionPredicate(this.resourcePredicate);
+
+            return request;
+        },
+        requestEventData: function() {
+            var request = this.createEventRequest();
+            request.read({
+                success: this.onRequestEventDataSuccess,
+                failure: this.onRequestEventDataFailure,
+                aborted: this.onRequestEventDataAborted,
+                scope: this
+            });
+        },
+        onRequestEventDataFailure: function(response, o) {
+            alert(String.format(this.requestErrorText, response, o));
+        },
+        onRequestEventDataAborted: function(response, o) {
+            this.options = false; // force a refresh
+        },
+        onRequestEventDataSuccess: function(feed) {
+            this.processEventFeed(feed);
+        },
+        processEventFeed: function(feed){
+            this.eventFeed = feed;
+            console.log('event feed...');
+            console.log(feed);
+            this.processFeed(feed);
+        },
+
+        getActivityQuery: function(){
             var startDate = this.getFirstDayOfCurrentMonth(),
                 endDate = this.getLastDayOfCurrentMonth();
-            this.queryWhere = String.format(
+            return String.format(
                     [
                         'UserId eq "{0}" and (',
-                        '(Activity.Timeless eq false and Activity.StartDate between @{1}@ and @{2}@) or ',
-                        '(Activity.Timeless eq true and Activity.StartDate between @{3}@ and @{4}@))'
+                        '(Activity.Timeless eq false and Activity.StartDate',
+                        ' between @{1}@ and @{2}@) or ',
+                        '(Activity.Timeless eq true and Activity.StartDate',
+                        ' between @{3}@ and @{4}@))'
                     ].join(''),
-                    App.context['user'] && App.context['user']['$key'],
+                    'ADMIN',//App.context['user'] && App.context['user']['$key'],
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate),
                     startDate.toString('yyyy-MM-ddT00:00:00Z'),
                     endDate.toString('yyyy-MM-ddT23:59:59Z')
                 );
         },
+        getEventQuery: function(){
+            var startDate = this.getFirstDayOfCurrentMonth(),
+                endDate = this.getLastDayOfCurrentMonth();
+            return String.format(
+                    [
+                        'UserId eq "{0}" and (',
+                        'StartDate',
+                        ' between @{1}@ and @{2}@)'
+                    ].join(''),
+                    'ADMIN',//App.context['user'] && App.context['user']['$key'],
+                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
+                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)
+                );
+        },
         processFeed: function(feed) {
-            var dateCounts = [],
+            var dateCounts = {},
                 dateIndex,
                 r = feed['$resources'],
+                isEvent = (r[0] && r[0].Activity) ? false : true,
                 i,
                 feedLength = r.length,
                 startDay;
             this.feed = feed;
+            console.log(r);
 
             for(i = 0; i < feedLength; i += 1){
                 this.entries[r[i].$key] = r[i];
-                startDay = Sage.Platform.Mobile.Convert.toDateFromString(r[i].Activity.StartDate);
-                dateIndex = (r[i].Activity.Timeless)
-                    ? startDay.getUTCDate()
-                    : startDay.getDate();
+                startDay = (isEvent) ? r[i].StartDate : r[i].Activity.StartDate;
+                startDay = Sage.Platform.Mobile.Convert.toDateFromString(startDay);
+                dateIndex = (!isEvent && r[i].Activity.Timeless)
+                    ? this.dateToUTC(startDay)
+                    : startDay;
+                dateIndex = dateIndex.toString('yyyy-MM-dd');
+                console.log(dateIndex);
                 dateCounts[dateIndex] = (dateCounts[dateIndex])
                     ? dateCounts[dateIndex] + 1
                     : 1;
             }
-
+            console.log(dateCounts);
             this.highlightActivities(dateCounts);
             this.showCurrentDateActivities();
         },
         highlightActivities: function(dateCounts){
             var template = this.calendarActivityCountTemplate.apply(this);
             Ext.select('.calendar-day').each( function(el) {
-                if (dateCounts[el.dom.textContent]) {
+                var dataDate = el.getAttribute('data-date');
+                if (dateCounts[dataDate]) {
                     el.addClass("activeDay");
                     Ext.DomHelper.insertFirst(el, String.format(
                         template,
-                        dateCounts[el.dom.textContent],
-                        dateCounts[el.dom.textContent]
+                        dateCounts[dataDate],
+                        dateCounts[dataDate]
                     ));
                 }
             });
