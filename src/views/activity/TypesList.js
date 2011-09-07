@@ -50,12 +50,12 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     id: 'activity_types_list',
     editView: 'activity_edit',
     eventEditView: 'event_edit',
-   
+
     activateEntry: function(params) {
         if (params.key)
-        {            
+        {
             var source = this.options && this.options.source,
-                view = App.getView(this.editView);
+                view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
 
             if (view)
                 view.show({

@@ -29,9 +29,6 @@ Ext.namespace("Mobile.SalesLogix.Event");
         ],
         resourceKind: 'events',
 
-
-        inserting: true, // DEBUG ONLY !!REMOVE!!
-
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
