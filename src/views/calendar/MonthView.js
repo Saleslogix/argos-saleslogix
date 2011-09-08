@@ -111,7 +111,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         activityListView: 'useractivity_list',
         activityWeekView: 'calendar_weeklist',
         insertView: 'activity_types_list',
-        detailView: 'activity_detail',
+        activityDetailView: 'activity_detail',
+        eventDetailView: 'event_detail',
         hideSearch: true,
         expose: false,
         dayItems: [],
@@ -247,13 +248,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.options = false; // force a refresh
         },
         onRequestEventDataSuccess: function(feed) {
-            this.processEventFeed(feed);
-        },
-        processEventFeed: function(feed){
-            this.eventFeed = feed;
             this.processFeed(feed);
         },
-
         getActivityQuery: function(){
             var startDate = this.getFirstDayOfCurrentMonth(),
                 endDate = this.getLastDayOfCurrentMonth();
@@ -281,7 +277,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                         'StartDate',
                         ' between @{1}@ and @{2}@)'
                     ].join(''),
-                    'ADMIN',//App.context['user'] && App.context['user']['$key'],
+                    App.context['user'] && App.context['user']['$key'],
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)
                 );
@@ -299,8 +295,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
 
             for(i = 0; i < feedLength; i += 1){
-                this.entries[r[i].$key] = r[i];
-                startDay = (isEvent) ? r[i].StartDate : r[i].Activity.StartDate;
+                if(isEvent){
+                    this.entries[r[i].$key] = r[i];
+                    startDay = r[i].StartDate;
+                } else {
+                    this.entries[r[i].Activity.$key] = r[i].Activity;
+                    startDay = r[i].Activity.StartDate;
+                }
                 startDay = Sage.Platform.Mobile.Convert.toDateFromString(startDay);
                 endDay = (isEvent) ? Sage.Platform.Mobile.Convert.toDateFromString(r[i].EndDate) : startDay.clone().add({second:1});
                 while(startDay.getDate() <= endDay.getDate()){
@@ -324,7 +325,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 var dataDate = el.getAttribute('data-date');
                 if (dateCounts[dataDate]) {
                     el.addClass("activeDay");
-                    console.log()
                     if(el.dom.children.length > 0){
                         el.child('div').update(String.format(template,
                             dateCounts[dataDate],
@@ -394,11 +394,16 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     startDay = (activity.Timeless)
                         ? this.dateToUTC(activity.StartDate)
                         : activity.StartDate;
-                    endDay = (!feed[i].Activity)
+                    endDay = (activity.isEvent)
                         ? Sage.Platform.Mobile.Convert.toDateFromString(feed[i].EndDate)
                         : startDay.clone().add({second:1});
                     if(this.currentDate.getDate() <= endDay.getDate() && this.currentDate.getDate() >= startDay.getDate()){
-                        activityList.push(this.dayItemTemplate.apply(activity, this));
+                        if(activity.isEvent) {
+                            activityList.unshift(this.dayItemTemplate.apply(activity, this));
+                        }
+                        else {
+                            activityList.push(this.dayItemTemplate.apply(activity, this));
+                        }
                     }
                 }
             }
@@ -497,9 +502,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             view.show(options);
         },
         navigateToDetailView: function(key, descriptor) {
-            console.log(this.entries[key]);
             var entry = this.entries[key];
-            this.detailView = (entry.isEvent) ? 'event_detail' : 'activity_detail';
+            this.detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
             Mobile.SalesLogix.Activity.List.superclass.navigateToDetailView.call(this, key, descriptor);
         }
 

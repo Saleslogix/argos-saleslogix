@@ -20,6 +20,7 @@ Ext.namespace("Mobile.SalesLogix.Event");
         startTimeText: 'start time',
         endTimeText: 'end time',
         titleText: 'Event',
+        descriptionText: 'description',
         typeText: 'type',
         whenText: 'When',
         startDateFormatText: 'M/d/yyyy h:mm:ss tt',
@@ -68,7 +69,7 @@ Ext.namespace("Mobile.SalesLogix.Event");
                     renderer: this.formatEventType.createDelegate(this)
                 },{
                     name: 'Description',
-                    label: this.regardingText
+                    label: this.descriptionText
                 }]
             },{
                 options: {
