@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Campaign");
 (function() {
     Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Template
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.CampaignName %}</h3>'
         ]),
 

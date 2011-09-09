@@ -9,14 +9,14 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
 (function() {
     Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        itemTemplate: new Simplate([
+        rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-opportunity-status="{%: $.Status %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.contentTemplate %}',
             '</li>'
         ]),
         //TODO: Support ExchangeRateCode with proper symbol
-        contentTemplate: new Simplate([                       
+        itemTemplate: new Simplate([
             '<h3>{%: $.Description %} <span class="p-account">{% if ($.Account) { %}({%: $.Account.AccountName %}){% } %}</span></h3>',
             '<h4>',
             '{%: $.Status %} {%: Mobile.SalesLogix.Format.currency($.SalesPotential) %}',

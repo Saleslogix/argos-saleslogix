@@ -9,13 +9,13 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 (function() {
     Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        itemTemplate: new Simplate([
+        rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-ticket-type="{%: $.Status %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.contentTemplate %}',
             '</li>'
         ]),
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %} <span class="p-ticket-subject"> {%: $.Subject %} </span></h3>',
             '<h4>{%: $.Account ? ($.Contact.NameLF + " / " + $.Account.AccountName) : "" %}</h4>',
             '<h4>{%: $.Area ? ($.Area + " | ") : "" %} {%: $.AssignedTo.OwnerDescription %}</h4>'

@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Return");
 (function() {
     Mobile.SalesLogix.Return.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.Account ? $.Account.AccountName : "" %}</h3>',
             '<h4>{%: $.ReturnNumber %}</h4>'
         ]),

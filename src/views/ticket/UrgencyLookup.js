@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
 (function() {
     Mobile.SalesLogix.Ticket.UrgencyLookup = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.Description %}</h3>'
         ]),
 

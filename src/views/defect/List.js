@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Defect");
 (function() {
     Mobile.SalesLogix.Defect.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.AlternateKeyPrefix %}-{%: $.AlternateKeySuffix %}</h3>'
         ]),
 

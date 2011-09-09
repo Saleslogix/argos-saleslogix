@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.OpportunityProduct");
 (function() {
     Mobile.SalesLogix.OpportunityProduct.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
             '<h4>',
             '{% if ($.Product) { %} {%: $.Product.Family %} | {% } %}',

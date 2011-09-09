@@ -15,7 +15,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
             '</fieldset>',
         '</div>'
     ]),
-    itemTemplate: new Simplate([
+    rowTemplate: new Simplate([
         '<li data-action="activateItem" data-view="{%= $.view %}" data-context="{%: $.context %}" data-descriptor="{%: $.descriptor %}" href="#">',
         '<a href="#" class="button taskButton">{%= $.label || $.value %}</a>',
         '</li>'
@@ -154,7 +154,7 @@ Mobile.SalesLogix.ContextDialog = Ext.extend(Sage.Platform.Mobile.View, {
 
             var template = current['wrap']
                 ? current['wrap']
-                : this.itemTemplate;
+                : this.rowTemplate;
 
             content.push(template.apply(options));
         }

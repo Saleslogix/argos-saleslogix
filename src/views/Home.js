@@ -8,13 +8,13 @@ Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.Home = Ext.extend(Sage.Platform.Mobile.GroupedList, {
     //Templates
-    itemTemplate: new Simplate([
+    rowTemplate: new Simplate([
         '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
         '<div class="list-item-selector"></div>',
         '{%! $$.contentTemplate %}',
         '</li>'
     ]),
-    contentTemplate: new Simplate([
+    itemTemplate: new Simplate([
         '<h3>',
         '{% if ($.icon) { %}',
         '<img src="{%: $.icon %}" alt="icon" class="icon" />',

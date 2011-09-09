@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.User");
 (function() {
     Mobile.SalesLogix.User.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
             '<h4>{%: $.UserInfo.Title %}</h4>'
         ]),

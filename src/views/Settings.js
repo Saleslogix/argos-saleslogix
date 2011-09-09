@@ -8,7 +8,7 @@ Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.Settings = Ext.extend(Sage.Platform.Mobile.List, {
     //Templates
-    contentTemplate: new Simplate([
+    itemTemplate: new Simplate([
         '<h3 data-action="{%= $.action %}">',
         '{% if ($.icon) { %}',
         '<img src="{%: $.icon %}" alt="icon" class="icon" />',

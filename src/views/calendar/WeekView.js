@@ -51,12 +51,12 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '</h2>',
             '<ul data-group="{%= $.tag %}" class="list-content {%= $.cls %}"></ul>'
         ]),
-        itemTemplate: new Simplate([
+        rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
             '{%! $$.contentTemplate %}',
             '</li>'
         ]),
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<div class="activityRow">'+
             '<img src="{%= $$.getTypeIcon($.Activity.Type) %}">'+
             '{% if ($.Activity.Timeless) { %}'+
@@ -328,7 +328,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                         }
                     }
                     this.entries[currentEntry.$key] = currentEntry;
-                    o.push(this.itemTemplate.apply(currentEntry, this));
+                    o.push(this.rowTemplate.apply(currentEntry, this));
                 }
 
                 if (o.length > 0)

@@ -8,7 +8,7 @@ Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.PickList = Ext.extend(Sage.Platform.Mobile.List, {
     //Templates
-    contentTemplate: new Simplate([
+    itemTemplate: new Simplate([
         '<h3>{%: $.text %}</h3>'
     ]),    
 
@@ -22,7 +22,7 @@ Mobile.SalesLogix.PickList = Ext.extend(Sage.Platform.Mobile.List, {
         return String.format('upper(text) like "{0}%"', this.escapeSearchQuery(query.toUpperCase()));
     },
     show: function(options) {
-        this.setTitle(options && options.title || this.title);
+        this.set('title', options && options.title || this.title);
 
         Mobile.SalesLogix.PickList.superclass.show.apply(this, arguments);
     },

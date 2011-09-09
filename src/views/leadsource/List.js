@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.LeadSource");
 (function() {
     Mobile.SalesLogix.LeadSource.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.Description %}</h3>',
             '<h4>{%: $.Status %}</h4>'
         ]),

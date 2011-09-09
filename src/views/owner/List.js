@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Owner");
 (function() {
     Mobile.SalesLogix.Owner.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.OwnerDescription %}</h3>'
         ]),
 

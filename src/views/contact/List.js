@@ -9,7 +9,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
 (function() {
     Mobile.SalesLogix.Contact.List = Ext.extend(Sage.Platform.Mobile.List, {
         //Template
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
             '<h4>{%: $.AccountName %}</h4>'
         ]),

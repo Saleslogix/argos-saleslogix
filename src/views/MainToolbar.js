@@ -25,7 +25,7 @@ Ext.namespace("Mobile.SalesLogix");
 
             if (!hasLeftSideTools && tools !== false)
             {
-                if (App.getActiveView() != App.getView('home'))
+                if (App.getPrimaryActiveView() != App.getView('home'))
                 {
                     tools = (tools || []).concat([{
                         id: 'back',

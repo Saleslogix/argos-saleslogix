@@ -13,7 +13,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         startTimeFormatText: 'h:mm',
 
         //Templates
-        itemTemplate: new Simplate([
+        rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.contentTemplate %}',
@@ -27,7 +27,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
             '{% } %}'
         ]),
-        contentTemplate: new Simplate([
+        itemTemplate: new Simplate([
             '<h3>',
             '{%= $$.activityTimeTemplate.apply($) %}',
             '<span class="p-description">&nbsp;{%: $.Description %}</span>',

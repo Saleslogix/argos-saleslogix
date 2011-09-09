@@ -8,7 +8,7 @@ Ext.namespace("Mobile.SalesLogix");
 
 Mobile.SalesLogix.AreaCategoryIssueLookup = Ext.extend(Sage.Platform.Mobile.List, {
     //Templates
-    contentTemplate: new Simplate([
+    itemTemplate: new Simplate([
         '<h3>{%: $.$descriptor %}</h3>'
     ]),
 

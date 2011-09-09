@@ -8,7 +8,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
 Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
     //Templates
-    contentTemplate: new Simplate([
+    itemTemplate: new Simplate([
         '<h3>',
         '{% if ($.icon) { %}',
         '<img src="{%: $.icon %}" alt="icon" class="icon" />',
