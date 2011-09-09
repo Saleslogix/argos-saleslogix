@@ -19,6 +19,8 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         weekText: 'Week',
         monthText: 'Month',
         allDayText: 'All Day',
+        eventHeaderText: 'Events',
+        eventDateFormatText: 'M/d',
 
         // Templates
         viewTemplate: new Simplate([
@@ -57,7 +59,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '</li>'
         ]),
         contentTemplate: new Simplate([
-            '<div class="activityRow">'+
             '<img src="{%= $$.getTypeIcon($.Activity.Type) %}">'+
             '{% if ($.Activity.Timeless) { %}'+
                 '<span class="activityTime">{%= $$.allDayText %}</span>'+
@@ -66,7 +67,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 '<span class="activityAMPM">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span></span>'+
             '{% } %}'+
             '{%! $$.descriptionTemplate %}'+
-            '</div>'+
             '<div class="clear"></div>'
         ]),
         descriptionTemplate: new Simplate([
@@ -91,10 +91,28 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '{% } %}'
         ]),
         dayHeaderTemplate: new Simplate([
-            '<h2 class="{%= $.headerClass %}" data-action="activateDayHeader" data-date="{%= $.currentDate %}">'+
+            '<h2 class="{%= $.headerClass %}" data-action="activateDayHeader" data-date="{%= $.currentDate %}">',
             '<span class="dayHeaderLeft">{%= $.currentDateLeftHeader %}</span>',
             '<span class="dayHeaderRight">{%= $.currentDateRightHeader %}</span>',
             '</h2>'
+        ]),
+        eventHeaderTemplate: new Simplate([
+            '<h2 data-action="togglegroup" data-date="{%= $.currentDate %}">',
+            '<span class="dayHeaderLeft">{%= $.eventHeaderText %}</span>',
+            '</h2>'
+        ]),
+        eventListTemplate: new Simplate([
+            '<ul data-group="{%= $.tag %}" class="list-content {%= $.cls %}"></ul>'
+        ]),
+        eventItemTemplate: new Simplate([
+            '<li class="event" data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
+                '<span class="eventDate">',
+                '{%: $.StartDate.toString($$.eventDateFormatText) %}',
+                '&nbsp;-&nbsp;',
+                '{%: $.EndDate.toString($$.eventDateFormatText) %}',
+                '</span>',
+                '{%= $.Description %}',
+            '</li>'
         ]),
 
         //View Properties
@@ -264,9 +282,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         processFeed: function(feed) {
             var todayEl = null;
-
-            if (!this.feed){ this.contentEl.update(''); }
-
             this.feed = feed;
 
             if(this.isInCurrentWeek(this.todayDate)){
@@ -363,6 +378,69 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 date.getUTCSeconds()
             );
         },
+        requestEventData: function() {
+            var request = this.createEventRequest();
+            request.read({
+                success: this.onRequestEventDataSuccess,
+                failure: this.onRequestEventDataFailure,
+                aborted: this.onRequestEventDataAborted,
+                scope: this
+            });
+        },
+        onRequestEventDataFailure: function(response, o) {
+            alert(String.format(this.requestErrorText, response, o));
+        },
+        onRequestEventDataAborted: function(response, o) {
+            this.options = false; // force a refresh
+        },
+        onRequestEventDataSuccess: function(feed) {
+            this.processEventFeed(feed);
+        },
+        createEventRequest: function(){
+            var querySelect = ['StartDate', 'EndDate', 'Description', 'Type'],
+                queryWhere = this.getEventQuery(),
+                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setCount(this.pageSize)
+                .setStartIndex(1)
+                .setResourceKind('events')
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+            return request;
+        },
+        getEventQuery: function(){
+            var startDate = this.weekStartDate,
+                endDate = this.weekEndDate;
+            return String.format(
+                    [
+                        'UserId eq "{0}" and (',
+                            '(StartDate gt @{1}@ or EndDate gt @{1}@) and ',
+                            'StartDate lt @{2}@',
+                        ')'
+                    ].join(''),
+                    App.context['user'] && App.context['user']['$key'],
+                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
+                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)
+                );
+        },
+        processEventFeed: function(feed){
+            if (this.feed['$totalResults'] === 0) return false;
+
+            var eventEl = Ext.DomHelper.insertFirst(this.contentEl, this.eventListTemplate.apply(this), true),
+                headerEl = Ext.DomHelper.insertFirst(this.contentEl, this.eventHeaderTemplate.apply(this), true),
+                event,
+                i=0,
+                feedLength = feed['$resources'].length,
+                o = [];
+            for(i = 0; i < feedLength; i += 1){
+                event = feed['$resources'][i];
+                console.log(event);
+                event.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(event.StartDate);
+                event.EndDate = Sage.Platform.Mobile.Convert.toDateFromString(event.EndDate);
+                o.push(this.eventItemTemplate.apply(event, this));
+            }
+            console.log(o);
+            Ext.DomHelper.append(eventEl,o.join(''));
+        },
         refresh: function() {
             var startDate = this.currentDate;
             this.setWeekStartDay();
@@ -374,6 +452,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             this.clear();
             this.requestData();
+            this.requestEventData();
         },
         show: function(options) {
             if(options)

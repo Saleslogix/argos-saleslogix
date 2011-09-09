@@ -782,34 +782,48 @@ body.transition > .footer-toolbar
 }
 
 
-#calendar_weeklist > .list-content > ul > li > .activityRow
+#calendar_weeklist > .list-content > ul > li
 {
 	height: 50px;
 	vertical-align:middle;
 	overflow:hidden;
     text-overflow: ellipsis;
 	white-space: nowrap;
-	font-size: 1em;
+	font-size: 1.25em;
 	font-weight: bold;
 }
+#calendar_weeklist > .list-content > ul > li.event
+{
+    line-height: 50px;
+}
 
-#calendar_weeklist > .list-content > ul > li > .activityRow > img
+#calendar_weeklist > .list-content > ul > li > img
 {
 	padding: 13px 0px 13px 3px;
 	text-align: center;
 	float:left;
 }
-#calendar_weeklist > .list-content > ul > li > .activityRow > .activityTime
+#calendar_weeklist > .list-content > ul > li > .activityTime
 {
-	font-size: 1em;
+	font-size: 1.0em;
+    line-height: 50px;
 	font-weight: bold;
 	width: 75px;
 	text-align: right;
 	float:left;
-	line-height: 50px;
 	padding: 0px 10px 0px 6px;
 }
-#calendar_weeklist > .list-content > ul > li > .activityRow > .activityTime > .activityAMPM
+#calendar_weeklist > .list-content > ul > li > .eventDate
+{
+    float:left;
+    padding: 0px 10px 0px 6px;
+    width: 101px;
+    text-align: right;
+    font-size: .9em;
+}
+
+
+#calendar_weeklist > .list-content > ul > li > .activityTime > .activityAMPM
 {
 	color: #888;
 	font-size: .7em;
@@ -817,12 +831,12 @@ body.transition > .footer-toolbar
 	padding-left: 2px;
 }
 
-#calendar_weeklist > .list-content > ul > li > .activityRow > h4
+#calendar_weeklist > .list-content > ul > li > h4
 {
 	line-height: normal;
 }
 
-#calendar_weeklist > .list-content > ul > li > .activityRow > .singleDescription
+#calendar_weeklist > .list-content > ul > li > .singleDescription
 {
 	line-height: 50px;
 }
