@@ -232,7 +232,7 @@
             path: '../localization/'
         },{
             text: 'en-US.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
         }]
     },{
 		name: 'Core Mobile Localization (de-DE)',
@@ -243,10 +243,10 @@
             path: '../localization/'
         },{
             text: 'de.js',
-            path: '../localization/saleslogix'
+            path: '../localization/saleslogix/'
         },{
             text: 'de-DE.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
         }]
     },{
 		name: 'Core Mobile Localization (fr-FR)',
@@ -257,10 +257,10 @@
             path: '../localization/'
         },{
             text: 'fr.js',
-            path: '../localization/saleslogix'
+            path: '../localization/saleslogix/'
         },{
             text: 'fr-FR.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
         }]
     },{
 		name: 'Core Mobile Localization (ru-RU)',
@@ -271,10 +271,10 @@
             path: '../localization/'
         },{
             text: 'ru.js',
-            path: '../localization/saleslogix'
+            path: '../localization/saleslogix/'
         },{
             text: 'ru-RU.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
         }]
     },{
 		name: 'Core Mobile Localization (it-IT)',
@@ -285,10 +285,10 @@
             path: '../localization/'
         },{
             text: 'it.js',
-            path: '../localization/saleslogix'
+            path: '../localization/saleslogix/'
         },{
             text: 'it-IT.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization'
+            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
         }]
     }],
 	resources: [{
@@ -297,7 +297,7 @@
 		filters: ".*(\\.css|\\.jpg|\\.png|\\.gif)"
 	},{
 		src: '../configuration',
-		dest: 'configuration/',
+		dest: 'configuration',
 		filters: ".*\\.js"
 	},{
 	    src: '../help',
