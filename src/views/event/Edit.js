@@ -14,8 +14,8 @@ Ext.namespace("Mobile.SalesLogix.Event");
         titleText: 'Event',
         typeText: 'type',
         descriptionText: 'description',
-        startDateText: 'start',
-        endDateText: 'end',
+        startDateText: 'start date',
+        endDateText: 'end date',
 
         //View Properties
         entityName: 'Event',

@@ -859,6 +859,9 @@ body.transition > .footer-toolbar
 #useractivity_list {
     background-color: #fff;
 }
+#calendar_weeklist .event-rows {
+    padding: 0px;
+}
 
 
 

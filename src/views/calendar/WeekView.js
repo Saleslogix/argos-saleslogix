@@ -20,6 +20,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         monthText: 'Month',
         allDayText: 'All Day',
         eventHeaderText: 'Events',
+        moreEventText: 'View all',
         eventDateFormatText: 'M/d',
 
         // Templates
@@ -102,7 +103,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '</h2>'
         ]),
         eventListTemplate: new Simplate([
-            '<ul data-group="{%= $.tag %}" class="list-content {%= $.cls %}"></ul>'
+            '<ul data-group="{%= $.tag %}" class="list-content event-rows"></ul>'
         ]),
         eventItemTemplate: new Simplate([
             '<li class="event" data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
@@ -114,6 +115,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 '{%= $.Description %}',
             '</li>'
         ]),
+        eventMoreTemplate: new Simplate([
+            '<div data-action="activateEventList">',
+                '<button class="button" style="width:100%"><span>{%: $$.moreEventText %} {%: $.$totalResults %} {%: $$.eventHeaderText %}</span></button>',
+            '</div>'
+        ]),
 
         //View Properties
         attachmentPoints: Ext.apply({}, {
@@ -122,10 +128,12 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         }, Sage.Platform.Mobile.List.prototype.attachmentPoints),
         id: 'calendar_weeklist',
         cls: 'list activities-for-week',
-        detailView: 'activity_detail',
+        activityDetailView: 'activity_detail',
+        eventDetailView: 'event_detail',
         monthView: 'slx_calendar',
         activityListView: 'useractivity_list',
         insertView: 'activity_types_list',
+        eventPageSize: 3,
         userWeekStartDay: 0, // 0-6, Sun-Sat
         userWeekEndDay: 6,
         currentDate: null,
@@ -400,7 +408,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             var querySelect = ['StartDate', 'EndDate', 'Description', 'Type'],
                 queryWhere = this.getEventQuery(),
                 request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-                .setCount(this.pageSize)
+                .setCount(this.eventPageSize)
                 .setStartIndex(1)
                 .setResourceKind('events')
                 .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
@@ -425,6 +433,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         processEventFeed: function(feed){
             if (this.feed['$totalResults'] === 0) return false;
 
+
+            if( feed['$totalResults'] > feed['$resources'].length ){
+                Ext.DomHelper.insertFirst(this.contentEl, this.eventMoreTemplate.apply(feed,this));
+            }
+
             var eventEl = Ext.DomHelper.insertFirst(this.contentEl, this.eventListTemplate.apply(this), true),
                 headerEl = Ext.DomHelper.insertFirst(this.contentEl, this.eventHeaderTemplate.apply(this), true),
                 event,
@@ -433,12 +446,12 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 o = [];
             for(i = 0; i < feedLength; i += 1){
                 event = feed['$resources'][i];
-                console.log(event);
+                event.isEvent = true;
                 event.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(event.StartDate);
                 event.EndDate = Sage.Platform.Mobile.Convert.toDateFromString(event.EndDate);
+                this.entries[event.$key] = event;
                 o.push(this.eventItemTemplate.apply(event, this));
             }
-            console.log(o);
             Ext.DomHelper.append(eventEl,o.join(''));
         },
         refresh: function() {
@@ -475,6 +488,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     : this.userWeekStartDay;
             }
         },
+        activateEventList: function(){
+            var v = App.getView("event_related");
+            if (v)
+                v.show({"where":this.getEventQuery()});
+        },
         navigateToUserActivityList: function() {
             var view = App.getView(this.activityListView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
@@ -486,12 +504,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             view.show(options);
        },
         navigateToDetailView: function(key, descriptor) {
-            var entry = this.entries[key],
-                activity = entry['Activity'],
-                description = activity['Description'],
-                key = activity['$key'];
-
-            Mobile.SalesLogix.Activity.List.superclass.navigateToDetailView.call(this, key, description);            
+            var entry = this.entries[key];
+            this.detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
+            Mobile.SalesLogix.Activity.List.superclass.navigateToDetailView.call(this, key, descriptor);
         }
     });
 })();

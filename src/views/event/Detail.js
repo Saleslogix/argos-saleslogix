@@ -17,8 +17,8 @@ Ext.namespace("Mobile.SalesLogix.Event");
             'atPersonal': 'Personal Activity'
         },
         actionsText: 'Quick Actions',
-        startTimeText: 'start time',
-        endTimeText: 'end time',
+        startTimeText: 'start date',
+        endTimeText: 'end date',
         titleText: 'Event',
         descriptionText: 'description',
         typeText: 'type',

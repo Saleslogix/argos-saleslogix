@@ -101,6 +101,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         hideSearch: true,
         expose: false,
         currentDate: null,
+        feeds: [],
         queryOrderBy: 'Activity.Timeless desc, Activity.StartDate',
         querySelect: [
             'Activity/Description',
@@ -152,7 +153,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
             this.options = this.options || {};
             this.options['where'] = this.formatQueryForActivities();
-
+            this.feeds = [];
             this.dateTextEl.update(this.currentDate.toString(this.dateHeaderFormatText));
 
             this.requestData();
@@ -216,6 +217,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 feedLength = r.length,
                 o = [];
 
+            this.feeds.push(feed);
             for(i = 0; i < feedLength; i += 1){
                 if(isEvent){
                     activity = r[i];
@@ -228,8 +230,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 }
                 o.push(this.itemTemplate.apply(activity, this));
             }
-            if(!activity) return;
-            if(activity.isEvent){
+
+            if(this.feeds.length > 1 && feedLength === 0 && this.feeds[0]['$resources'].length === 0){
+                this.contentEl.update(this.noDataTemplate.apply(this));
+                return false;
+            }
+
+            if(activity && activity.isEvent){
                 Ext.DomHelper.insertFirst(this.contentEl, o.join(''));
             } else {
                 Ext.DomHelper.append(this.contentEl, o.join(''));

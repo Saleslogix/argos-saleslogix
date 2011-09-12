@@ -216,6 +216,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.queryWhere = this.getActivityQuery();
             this.feed['$startIndex'] = 0;
             this.dayItems = [];
+            this.dateCounts = [];
             this.dayContentEl.update(this.loadingTemplate.apply(this));
             this.requestData();
             this.requestEventData();
@@ -372,11 +373,10 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 activity,
                 startDay,
                 endDay,
-                activityList = [];
-
+                activityList = [],
+                eventList = [];
 
             for(f=0; f<feedsLength; f += 1) {
-
                 feed = this.dayItems[f]['$resources'];
                 feedLength = feed.length;
 
@@ -399,7 +399,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                         : startDay.clone().add({second:1});
                     if(this.currentDate.getDate() <= endDay.getDate() && this.currentDate.getDate() >= startDay.getDate()){
                         if(activity.isEvent) {
-                            activityList.unshift(this.dayItemTemplate.apply(activity, this));
+                            eventList.push(this.dayItemTemplate.apply(activity, this));
                         }
                         else {
                             activityList.push(this.dayItemTemplate.apply(activity, this));
@@ -407,9 +407,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                     }
                 }
             }
-            if(activityList.length===0){
+            if(activityList.length === 0 && eventList.length === 0){
                 this.dayContentEl.update(this.noDataTemplate.apply(this));
                 return false;
+            }
+
+            if(eventList.length > 0){
+                activityList = eventList.concat(activityList);
             }
 
             this.dayContentEl.update(activityList.join(''));
