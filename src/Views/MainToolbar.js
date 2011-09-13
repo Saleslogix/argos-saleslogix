@@ -4,10 +4,9 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix");
+define('Mobile/SalesLogix/Views/MainToolbar', ['Sage/Platform/Mobile/MainToolbar'], function() {
 
-(function() {
-    Mobile.SalesLogix.MainToolbar = Ext.extend(Sage.Platform.Mobile.MainToolbar, {        
+    dojo.declare('Mobile.SalesLogix.Views.MainToolbar', [Sage.Platform.Mobile.MainToolbar], {
         showTools: function(tools) {
             var hasLeftSideTools;
 
@@ -41,7 +40,7 @@ Ext.namespace("Mobile.SalesLogix");
                 }                
             }
 
-            Mobile.SalesLogix.MainToolbar.superclass.showTools.call(this, tools);
+            this.inherited(arguments);
         },
         navigateBack: function() {
             ReUI.back();
@@ -50,4 +49,4 @@ Ext.namespace("Mobile.SalesLogix");
             App.navigateToHomeView();
         }
     });
-})();
+});

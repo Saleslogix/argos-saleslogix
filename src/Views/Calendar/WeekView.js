@@ -53,7 +53,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
-            '{%! $$.contentTemplate %}',
+            '{%! $$.itemTemplate %}',
             '</li>'
         ]),
         itemTemplate: new Simplate([

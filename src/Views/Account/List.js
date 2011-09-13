@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Account");
+define('Mobile/SalesLogix/Views/Account/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.Account.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Account.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -35,7 +34,8 @@ Ext.namespace("Mobile.SalesLogix.Account");
         resourceKind: 'accounts',
 
         formatSearchQuery: function(query) {
-            return String.format('AccountNameUpper like "{0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
-})();
+    
+});

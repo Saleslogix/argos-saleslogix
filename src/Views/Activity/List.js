@@ -16,7 +16,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.contentTemplate %}',
+            '{%! $$.itemTemplate %}',
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([

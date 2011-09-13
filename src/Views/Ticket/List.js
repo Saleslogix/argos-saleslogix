@@ -12,7 +12,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-ticket-type="{%: $.Status %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.contentTemplate %}',
+            '{%! $$.itemTemplate %}',
             '</li>'
         ]),
         itemTemplate: new Simplate([

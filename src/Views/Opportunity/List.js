@@ -12,7 +12,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-opportunity-status="{%: $.Status %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.contentTemplate %}',
+            '{%! $$.itemTemplate %}',
             '</li>'
         ]),
         //TODO: Support ExchangeRateCode with proper symbol
