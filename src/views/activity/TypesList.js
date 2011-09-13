@@ -32,8 +32,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         'atPhoneCall': 'content/images/icons/Schedule_Call_24x24.png',
         'atAppointment': 'content/images/icons/Schedule_Meeting_24x24.png',
         'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-        'atPersonal': 'content/images/icons/Personal_24x24.png',
-        'event': 'content/images/icons/Personal_24x24.png'
+        'atPersonal': 'content/images/icons/Personal_24x24.png'
     },
 
     //View Properties   
@@ -45,6 +44,11 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         'atToDo',
         'event'
     ],
+    eventTypeItem: {
+        "$key": "event",
+        "$descriptor": "Event",
+        "icon": 'content/images/icons/Personal_24x24.png'
+    },
     expose: false,
     hideSearch: true,
     id: 'activity_types_list',
@@ -79,7 +83,8 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         return false;
     },
     requestData: function() {
-        var list = [];
+        var list = [],
+            eventViews = ['slx_calendar','calendar_weeklist','useractivity_list'];
 
         for (var i = 0; i < this.activityTypeOrder.length; i++)
         {
@@ -88,6 +93,9 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
                 '$descriptor': this.activityTypeText[this.activityTypeOrder[i]],
                 'icon':this.activityTypeIcons[this.activityTypeOrder[i]]
             });
+        }
+        if(eventViews.indexOf(this.options.returnTo) !== -1){
+            list.push(this.eventTypeItem);
         }
 
         this.processFeed({'$resources': list});
