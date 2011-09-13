@@ -32,7 +32,7 @@ Ext.namespace("Mobile.SalesLogix.Event");
         id: 'event_list',
         icon: 'content/images/icons/To_Do_24x24.png',
         detailView: 'event_detail',
-        insertView: 'activity_types_list',
+        insertView: 'event_edit',
         queryOrderBy: 'StartDate asc',
         querySelect: [
             'Description',

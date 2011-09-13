@@ -415,6 +415,11 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background: url(../images/icons/help_24.png);
 }
 
+li[data-activity-type="Event"] .list-item-selector
+{
+    background: url(../images/icons/Holiday_schemes_24.png);
+}
+
 li[data-opportunity-status] .list-item-selector
 {
     background: url(../images/icons/opportunity_24.png);

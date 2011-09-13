@@ -29,17 +29,55 @@ Ext.namespace("Mobile.SalesLogix.Event");
         ],
         resourceKind: 'events',
 
+        eventTypes: {
+            "Vacation": "Vacation",
+            "Business Trip": "Business Trip",
+            "Conference": "Conference",
+            "Holiday": "Holiday"
+        },
+
+        formatTypeText: function(val, key, text) {
+            return this.eventTypes[key] || text;
+        },
+        createTypeData: function() {
+            var list = [];
+
+            for (var type in this.eventTypes)
+            {
+                list.push({
+                    '$key': type,
+                    '$descriptor': this.eventTypes[type]
+                });
+            }
+
+            return {'$resources': list};
+        },
+
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
                     label: this.typeText,
                     name: 'Type',
-                    type: 'text'
+                    type: 'select',
+                    view: 'select_list',
+                    requireSelection: false,
+                    maxTextLength: 64,
+                    validator: [
+                        Mobile.SalesLogix.Validator.exceedsMaxTextLength,
+                        Mobile.SalesLogix.Validator.hasText
+                    ],
+                    textRenderer: this.formatTypeText.createDelegate(this),
+                    data: this.createTypeData()
                 },
                 {
                     label: this.descriptionText,
                     name: 'Description',
-                    type: 'text'
+                    type: 'text',
+                    maxTextLength: 64,
+                    validator: [
+                        Mobile.SalesLogix.Validator.exceedsMaxTextLength,
+                        Mobile.SalesLogix.Validator.hasText
+                    ]
                 },
                 {
                     label: this.startDateText,

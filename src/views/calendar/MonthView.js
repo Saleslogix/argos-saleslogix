@@ -52,7 +52,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '</div>'
         ]),
         dayItemTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: ($.isEvent) ? $$.eventText : $.Type %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.dayContentTemplate %}',
             '</li>'
@@ -69,7 +69,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 '<span class="p-meridiem">{%= $$.allDayText %}</span>',
             '{% } else { %}',
                 '{% if ($.isEvent) { %}',
-                    '<span class="p-meridiem">{%= $$.eventText %}</span>',
+                    '<span class="p-meridiem">{%= $.Type %}</span>',
                 '{% } else { %}',
                     '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.dayStartTimeFormatText) %}</span>',
                     '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
@@ -83,7 +83,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '{%: $.AccountName %}',
             '{% } else { %}',
             '{%: $.LeadName %}',
+            '{% } %}',
+            '{% if ($.isEvent) { %}',
+                '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+                '&nbsp;-&nbsp;',
+                '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}',
             '{% } %}'
+
         ]),
         calendarStartTemplate: '<table class="calendar-table">',
         calendarWeekHeaderStartTemplate: '<tr class="calendar-week-header">',

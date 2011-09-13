@@ -133,7 +133,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         monthView: 'slx_calendar',
         activityListView: 'useractivity_list',
         insertView: 'activity_types_list',
-        eventPageSize: 3,
         userWeekStartDay: 0, // 0-6, Sun-Sat
         userWeekEndDay: 6,
         currentDate: null,
@@ -166,6 +165,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             'Activity/Timeless'
         ],
         pageSize: 105, // gives 15 activities per day
+        eventPageSize: 3,
         resourceKind: 'useractivities',
 
         _onRefresh: function(o) {

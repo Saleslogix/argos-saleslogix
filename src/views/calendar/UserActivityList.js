@@ -41,7 +41,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 '<span class="p-meridiem">{%= $$.allDayText %}</span>',
             '{% } else { %}',
                 '{% if ($.isEvent) { %}',
-                    '<span class="p-meridiem">{%= $$.eventText %}</span>',
+                    '<span class="p-meridiem">{%= $.Type %}</span>',
                 '{% } else { %}',
                     '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.dayStartTimeFormatText) %}</span>',
                     '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
@@ -55,6 +55,11 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '{%: $.AccountName %}',
             '{% } else { %}',
             '{%: $.LeadName %}',
+            '{% } %}',
+            '{% if ($.isEvent) { %}',
+                '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+                '&nbsp;-&nbsp;',
+                '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}',
             '{% } %}'
         ]),
         contentTemplate: new Simplate([
