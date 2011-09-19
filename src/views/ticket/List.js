@@ -18,13 +18,14 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         contentTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %} <span class="p-ticket-subject"> {%: $.Subject %} </span></h3>',
             '<h4>{%: $.Account ? ($.Contact.NameLF + " / " + $.Account.AccountName) : "" %}</h4>',
-            '<h4>{%: $.Area ? ($.Area + " | ") : "" %} {%: $.AssignedTo.OwnerDescription %}</h4>'
+            '<h4>{%: $.Area ? ($.Area + " | ") : "" %} {%: $.AssignedTo ? $.AssignedTo.OwnerDescription : this.notAssignedText %}</h4>'
         ]),
 
         //Localization
         titleText: 'Tickets',
         activitiesText: 'Activities',
         scheduleText: 'Schedule',
+        notAssignedText: 'Not assigned',
 
         //View Properties       
         detailView: 'ticket_detail',
