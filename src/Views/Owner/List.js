@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Owner");
+define('Mobile/SalesLogix/Views/Owner/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.Owner.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Owner.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.OwnerDescription %}</h3>'
@@ -26,7 +25,7 @@ Ext.namespace("Mobile.SalesLogix.Owner");
         resourceKind: 'owners',
 
         formatSearchQuery: function(query) {
-            return String.format('upper(OwnerDescription) like "%{0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('upper(OwnerDescription) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
-})();
+});

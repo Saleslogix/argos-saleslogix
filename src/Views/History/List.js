@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.History");
+define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.History.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.History.List', [Sage.Platform.Mobile.List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}" data-entity-name="{%: $$.resolveEntityName($) %}">',
@@ -134,25 +133,28 @@ Ext.namespace("Mobile.SalesLogix.History");
             return "";
         },
         init: function() {
-            Mobile.SalesLogix.History.List.superclass.init.apply(this, arguments);
+            // Mobile.SalesLogix.History.List.superclass.init.apply(this, arguments);
 
-            App.on('resize', this.onResize, this);
+            // App.on('resize', this.onResize, this);
         },
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "%{0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         },
         onResize: function() {
+            // FIX: dojo.query('.note-text-item', 'fixture') // but has no .each
+            /*
             this.el.select('.note-text-item').each(function(el) {
                 if (el.getHeight(true) < el.child('.note-text-wrap').getHeight())
                     el.child('.note-text-more').show();
                 else
                     el.child('.note-text-more').hide();
             });
+            */
         },
         processFeed: function(feed) {
-            Mobile.SalesLogix.History.List.superclass.processFeed.call(this, feed);
+            // Mobile.SalesLogix.History.List.superclass.processFeed.call(this, feed);
 
             this.onResize();
         }
     });
-})();
+});

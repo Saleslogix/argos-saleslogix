@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Ticket");
+define('Mobile/SalesLogix/Views/Ticket/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.Ticket.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Ticket.List', [Sage.Platform.Mobile.List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-ticket-type="{%: $.Status %}">',
@@ -46,10 +45,10 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         resourceKind: 'tickets',
 
         formatSearchQuery: function(query) {
-            return String.format(
-                'TicketNumber like "{0}%" or AlternateKeySuffix like "{0}%" or upper(Subject) like "{0}%" or Account.AccountNameUpper like "{0}%"',
-                this.escapeSearchQuery(query.toUpperCase())
+            return dojo.string.substitute(
+                'TicketNumber like "${0}%" or AlternateKeySuffix like "${0}%" or upper(Subject) like "${0}%" or Account.AccountNameUpper like "${0}%"',
+                [this.escapeSearchQuery(query.toUpperCase())]
             );
         }
     });
-})();
+});

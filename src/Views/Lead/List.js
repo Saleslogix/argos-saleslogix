@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Lead");
+define('Mobile/SalesLogix/Views/Lead/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.Lead.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Lead.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
@@ -33,7 +32,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         resourceKind: 'leads',
 
         formatSearchQuery: function(query) {
-            return String.format('(LastNameUpper like "{0}%" or upper(FirstName) like "{0}%" or CompanyUpper like "{0}%")', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
-})();
+});

@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.OpportunityProduct");
+define('Mobile/SalesLogix/Views/OpportunityProduct/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.OpportunityProduct.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.OpportunityProduct.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
@@ -42,13 +41,13 @@ Ext.namespace("Mobile.SalesLogix.OpportunityProduct");
         resourceKind: 'opportunityproducts',
         
         init: function() {
-            Mobile.SalesLogix.OpportunityProduct.List.superclass.init.apply(this, arguments);
+            // Mobile.SalesLogix.OpportunityProduct.List.superclass.init.apply(this, arguments);
 
             this.tools.tbar = [];
         },
 
         formatSearchQuery: function(query) {
-            return String.format('(upper(Product.Name) like "{0}%" or upper(Product.Family) like "{0}%")', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
-})();
+});
