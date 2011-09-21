@@ -4,10 +4,10 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.User");
 
-(function() {
-    Mobile.SalesLogix.User.List = Ext.extend(Sage.Platform.Mobile.List, {
+define('Mobile/SalesLogix/Views/User/List', ['Sage/Platform/Mobile/List'], function() {
+
+    dojo.declare('Mobile.SalesLogix.Views.User.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
@@ -30,7 +30,7 @@ Ext.namespace("Mobile.SalesLogix.User");
         resourceKind: 'users',
 
         formatSearchQuery: function(query) {
-            return String.format('upper(UserInfo.UserName) like "%{0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('upper(UserInfo.UserName) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
-})();
+});

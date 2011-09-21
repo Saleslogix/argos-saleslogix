@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Defect");
+define('Mobile/SalesLogix/Views/Defect/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.Defect.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Defect.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AlternateKeyPrefix %}-{%: $.AlternateKeySuffix %}</h3>'
@@ -29,7 +28,7 @@ Ext.namespace("Mobile.SalesLogix.Defect");
         resourceKind: 'defects',
 
         formatSearchQuery: function(query) {
-            return String.format('AccountName like "%{0}%"', this.escapeSearchQuery(query));
+            return dojo.string.substitute('AccountName like "%${0}%"', [this.escapeSearchQuery(query)]);
         }
     });
-})();
+});

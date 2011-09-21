@@ -62,13 +62,13 @@ define('Mobile/SalesLogix/Format', ['dojo', 'dojo/string', 'Sage/Platform/Mobile
                 var formatter = formatters[i],
                     match;
                 if ((match = formatter.test.exec(clean)))
-                    number = String.format.apply(String, [formatter.format, val, clean].concat(match));
+                    number = dojo.string.substitute.apply(String, [formatter.format, val, clean].concat(match));
             }
 
             if (number)
                 return withLink === false
                     ? number
-                    : dojo.string.substitute('<a href="tel:${0}">{1}</a>', [clean, number]);
+                    : dojo.string.substitute('<a href="tel:${0}">${1}</a>', [clean, number]);
 
             return val;
         },
@@ -77,11 +77,11 @@ define('Mobile/SalesLogix/Format', ['dojo', 'dojo/string', 'Sage/Platform/Mobile
             var v = Mobile.SalesLogix.Format.fixed(val), // only 2 decimal places
                 f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
 
-            return String.format('${0}.{1}',
-                (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+            return dojo.string.substitute('${0}.${1}',
+                [(Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
                 (f.toString().length < 2)
                     ? '0' + f.toString()
-                    : f.toString()
+                    : f.toString()]
             );
         },        
         nameLF: function(val) {
@@ -97,7 +97,7 @@ define('Mobile/SalesLogix/Format', ['dojo', 'dojo/string', 'Sage/Platform/Mobile
             if (typeof val !== 'string')
                 return val;
 
-            return dojo.string.substitute('<a href="mailto:${0}">{0}</a>', [val]);
+            return dojo.string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
         }             
     }, F);
 })();

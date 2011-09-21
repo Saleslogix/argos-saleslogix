@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Return");
+define('Mobile/SalesLogix/Views/Return/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.Return.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Return.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Account ? $.Account.AccountName : "" %}</h3>',
@@ -30,7 +29,7 @@ Ext.namespace("Mobile.SalesLogix.Return");
         resourceKind: 'returns',
 
         formatSearchQuery: function(query) {
-            return String.format('ReturnNumber like "%{0}%"', this.escapeSearchQuery(query));
+            return dojo.string.substitute('ReturnNumber like "%${0}%"', [this.escapeSearchQuery(query)]);
         }
     });
-})();
+});

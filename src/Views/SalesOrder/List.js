@@ -4,10 +4,10 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.SalesOrder");
 
-(function() {
-    Mobile.SalesLogix.SalesOrder.List = Ext.extend(Sage.Platform.Mobile.List, {
+define('Mobile/SalesLogix/Views/SalesOrder/List', ['Sage/Platform/Mobile/List'], function() {
+
+    dojo.declare('Mobile.SalesLogix.SalesOrder.History.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',
@@ -29,11 +29,11 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
         resourceKind: 'salesorders',
 
         formatSearchQuery: function(query) {
-            return String.format('(SalesOrderNumber like "%{0}%")', this.escapeSearchQuery(query));
+            return dojo.string.substitute('(SalesOrderNumber like "%${0}%")', [this.escapeSearchQuery(query)]);
 
             // todo: The below does not currently work as the dynamic SData adapter does not support dotted notation for queries
             //       except in certain situations.  Support for general dotted notation is being worked on.
-            //return String.format('(SalesorderNumber like "%{0}%" or Account.AccountName like "%{0}%")', query);
+            //return dojo.string.substitute('(SalesorderNumber like "%${0}%" or Account.AccountName like "%${0}%")', [query]);
         }
     });
-})();
+});

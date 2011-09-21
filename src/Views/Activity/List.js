@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Activity");
+define('Mobile/SalesLogix/Views/Activity/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {    
-    Mobile.SalesLogix.Activity.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Activity.List', [Sage.Platform.Mobile.List], {
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
@@ -67,7 +66,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         resourceKind: 'activities',
                 
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "%{0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
-})();
+});

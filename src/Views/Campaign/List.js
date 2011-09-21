@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Campaign");
+define('Mobile/SalesLogix/Views/Campaign/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.Campaign.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Campaign.List', [Sage.Platform.Mobile.List], {
         //Template
         itemTemplate: new Simplate([
             '<h3>{%: $.CampaignName %}</h3>'
@@ -28,7 +27,7 @@ Ext.namespace("Mobile.SalesLogix.Campaign");
         resourceKind: 'campaigns',
 
         formatSearchQuery: function(query) {
-            return String.format('CampaignName like "%{0}%"', query);
+            return dojo.string.substitute('CampaignName like "%${0}%"', [query]);
         }
     });
-})();
+});

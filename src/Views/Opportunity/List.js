@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Opportunity");
+define('Mobile/SalesLogix/Views/Opportunity/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.Opportunity.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Opportunity.List', [Sage.Platform.Mobile.List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-opportunity-status="{%: $.Status %}">',
@@ -62,11 +61,11 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         resourceKind: 'opportunities',
 
         formatSearchQuery: function(query) {
-            return String.format('(upper(Description) like "{0}%" or Account.AccountNameUpper like "{0}%")', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
 
             // todo: The below does not currently work as the dynamic SData adapter does not support dotted notation for queries
             //       except in certain situations.  Support for general dotted notation is being worked on.
-            //return String.format('(Description like "%{0}%" or Account.AccountName like "%{0}%")', query);
+            //return dojo.string.substitute('(Description like "%{0}%" or Account.AccountName like "%{0}%")', query);
         }
     });
-})();
+});

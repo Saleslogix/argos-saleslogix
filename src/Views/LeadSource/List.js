@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.LeadSource");
+define('Mobile/SalesLogix/Views/LeadSource/List', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.LeadSource.List = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.LeadSource.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Description %}</h3>',
@@ -28,7 +27,7 @@ Ext.namespace("Mobile.SalesLogix.LeadSource");
         resourceKind: 'leadsources',
 
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "{0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('upper(Description) like "${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
-})();
+});
