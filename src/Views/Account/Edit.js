@@ -88,7 +88,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },
                 {
                     emptyText: '',
-                    formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
+                    formatValue: App.frontHitch(this, Mobile.SalesLogix.Format.address, [true], true),
                     label: this.fullAddressText,
                     name: 'Address',
                     type: 'address',

@@ -16,7 +16,7 @@ Mobile.CultureInfo = {
       3
     ],
     "currencyGroupSeparator": ".",
-    "currencySymbol": "€",
+    "currencySymbol": "ï¿½",
     "naNSymbol": "Non un numero reale",
     "currencyNegativePattern": 9,
     "numberNegativePattern": 1,
@@ -34,7 +34,7 @@ Mobile.CultureInfo = {
     "percentDecimalSeparator": ",",
     "percentGroupSeparator": ".",
     "percentSymbol": "%",
-    "perMilleSymbol": "‰",
+    "perMilleSymbol": "ï¿½",
     "nativeDigits": [
       "0",
       "1",

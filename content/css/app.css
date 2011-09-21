@@ -430,7 +430,7 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background: url(../images/icons/Opportunity_Lost_24.png);
 }
 
-.row-edit[data-field-type="lookup"] .button
+.row-edit[data-field-type="lookup"] > div > .button
 {
     background-image: url(../images/icons/srch_24.png);
     background-image: url(../images/icons/srch_24.png), linear-gradient(top, #e6e6e6, #cccccc);
@@ -449,7 +449,7 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="lookup"] .button:active
+.row-edit[data-field-type="lookup"] > div > .button:active
 {
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
@@ -463,12 +463,12 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="lookup"] .button span
+.row-edit[data-field-type="lookup"] > div > .button span
 {
     visibility: hidden;
 }
 
-.row-edit[data-field-type="date"] .button
+.row-edit[data-field-type="date"] > div > .button
 {
     background-image: url(../images/icons/Calendar_24x24.png);
     background-image: url(../images/icons/Calendar_24x24.png), linear-gradient(top, #e6e6e6, #cccccc);
@@ -487,7 +487,7 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="date"] .button:active
+.row-edit[data-field-type="date"] > div > .button:active
 {
     background-image: url(../images/icons/Calendar_24x24.png), -webkit-gradient(
 		linear,
@@ -501,14 +501,14 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="date"] .button span
+.row-edit[data-field-type="date"] > div > .button span
 {
     visibility: hidden;
 }
 
-.row-edit[data-field-type="name"] .button,
-.row-edit[data-field-type="address"] .button,
-.row-edit[data-field-type="note"] .button
+.row-edit[data-field-type="name"] > div > .button,
+.row-edit[data-field-type="address"] > div > .button,
+.row-edit[data-field-type="note"] > div > .button
 {
     background-image: url(../images/icons/edit_24.png);
     background-image: url(../images/icons/edit_24.png), linear-gradient(top, #e6e6e6, #cccccc);
@@ -527,9 +527,9 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="name"] .button:active,
-.row-edit[data-field-type="address"] .button:active,
-.row-edit[data-field-type="note"] .button:active
+.row-edit[data-field-type="name"] > div > .button:active,
+.row-edit[data-field-type="address"] > div > .button:active,
+.row-edit[data-field-type="note"] > div > .button:active
 {
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
@@ -543,31 +543,31 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     background-position: center;
 }
 
-.row-edit[data-field-type="name"] .button span,
-.row-edit[data-field-type="address"] .button span,
-.row-edit[data-field-type="note"] .button span
+.row-edit[data-field-type="name"] > div > .button span,
+.row-edit[data-field-type="address"] > div > .button span,
+.row-edit[data-field-type="note"] > div > .button span
 {
     visibility: hidden;
 }
 
-.row-edit-text > textarea
+.row-edit-text > div > textarea
 {
     padding-left: 10px !important;
 }
 
-.row-edit-text > label
+.row-edit-text > div > label
 {
     display: none;
 }
 
-.panel-content > fieldset > .row-error > input,
-.panel-content > fieldset > .row-error > textarea
+.panel-content > fieldset > .row-error > div > input,
+.panel-content > fieldset > .row-error > div > textarea
 {
     color: red;
 }
 
-.panel-content > fieldset > .row-error > input:focus,
-.panel-content > fieldset > .row-error > textarea:focus
+.panel-content > fieldset > .row-error > div > input:focus,
+.panel-content > fieldset > .row-error > div > textarea:focus
 {
     box-shadow: 0 0 5px red !important;
 }
