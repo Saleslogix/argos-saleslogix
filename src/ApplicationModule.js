@@ -3,9 +3,13 @@
 
     var imports = [
         'Sage/Platform/Mobile/ApplicationModule',
+        'Mobile/SalesLogix/Format',
+        'Mobile/SalesLogix/Template',
         'Mobile/SalesLogix/Views/MainToolbar',
         'Mobile/SalesLogix/Views/Home',
-        'Mobile/SalesLogix/Views/Account/List'
+        'Mobile/SalesLogix/Views/Account/List',
+        'Mobile/SalesLogix/Views/Account/Detail',
+        'Mobile/SalesLogix/Views/Account/Edit'
     ];
 
     define('Mobile/SalesLogix/ApplicationModule', imports, function() {
@@ -38,15 +42,14 @@
                 */
 
                 this.registerView(new Mobile.SalesLogix.Views.Account.List());
-
-                /*
-                this.registerView(new Mobile.SalesLogix.Account.Detail());
-                this.registerView(new Mobile.SalesLogix.Account.Edit());
-                this.registerView(new Mobile.SalesLogix.Account.List({
+                this.registerView(new Mobile.SalesLogix.Views.Account.Detail());
+                this.registerView(new Mobile.SalesLogix.Views.Account.Edit());
+                this.registerView(new Mobile.SalesLogix.Views.Account.List({
                     id: 'account_related',
                     expose: false
                 }));
 
+                /*
                 this.registerView(new Mobile.SalesLogix.Calendar.MonthView());
                 this.registerView(new Mobile.SalesLogix.Calendar.WeekView());
                 this.registerView(new Mobile.SalesLogix.Calendar.UserActivityList());

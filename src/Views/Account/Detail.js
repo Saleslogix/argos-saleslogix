@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Account");
+define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.Account.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Account.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
@@ -144,7 +143,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callMainPhone',
                     disabled: this.checkMainPhone,
-                    renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
+                    renderer: App.frontHitch(this,Mobile.SalesLogix.Format.phone, [false], true)
                 },{
                     name: 'AccountName',
                     label: this.scheduleActivityText,
@@ -161,7 +160,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
+                    renderer: App.frontHitch(this,Mobile.SalesLogix.Format.address, [true, ' '], true)
                 }]
             },{
                 options: {
@@ -220,40 +219,30 @@ Ext.namespace("Mobile.SalesLogix.Account");
                 as: [{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['AccountId eq "{0}"'], true
-                    ),
+                    where: App.frontHitch(this, this.formatRelatedQuery, 'AccountId eq "${0}"', true),
                     view: 'activity_related'
                 },{
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['Account.id eq "{0}"'], true
-                    ),
+                    where: App.frontHitch(this, this.formatRelatedQuery, 'Account.id eq "${0}"', true),
                     view: 'contact_related'
                 },{
                     icon: 'content/images/icons/opportunity_24.png',
                     label: this.relatedOpportunitiesText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['Account.id eq "{0}"'], true
-                    ),
+                    where: App.frontHitch(this, this.formatRelatedQuery, 'Account.id eq "${0}"', true),
                     view: 'opportunity_related'
                 },{
                     icon: 'content/images/icons/Ticket_24x24.png',
                     label: this.relatedTicketsText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['Account.id eq "{0}"'], true
-                    ),
+                    where: App.frontHitch(this, this.formatRelatedQuery, 'Account.id eq "${0}"', true),
                     view: 'ticket_related'
                 },{
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['AccountId eq "{0}" and Type ne "atDatabaseChange"'], true
-                    ),
+                    where: App.frontHitch(this, this.formatRelatedQuery, 'AccountId eq "${0}" and Type ne "atDatabaseChange"', true),
                     view: 'history_related'
                 }]
             }]);
         }
     });
-})();
+});

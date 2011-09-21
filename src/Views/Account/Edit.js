@@ -5,10 +5,10 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Account");
 
-(function() {
-    Mobile.SalesLogix.Account.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+
+    dojo.declare('Mobile.SalesLogix.Views.Account.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account Subtype',
@@ -55,11 +55,10 @@ Ext.namespace("Mobile.SalesLogix.Account");
         resourceKind: 'accounts',
 
         formatDependentPicklist: function(dependentValue, format) {
-            return String.format(format, dependentValue);
+            return dojo.string.substitute(format, [dependentValue]);
         },
         applyContext: function() {
-            Mobile.SalesLogix.Account.Edit.superclass.applyContext.apply(this, arguments);
-
+            this.inherited(arguments);
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
         },
@@ -101,7 +100,7 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     type: 'phone',
                     maxTextLength: 32,
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
+                }/*,
                 {
                     label: this.typeText,
                     name: 'Type',
@@ -171,7 +170,8 @@ Ext.namespace("Mobile.SalesLogix.Account");
                     type: 'lookup',
                     view: 'leadsource_list'
                 }
+                */
             ]);
         }
     });
-})();
+});

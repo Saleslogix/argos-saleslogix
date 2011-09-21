@@ -3,12 +3,11 @@
 /// <reference path="../../platform/Format.js"/>
 /// <reference path="../../sdata/SDataService.js"/>
 
-Ext.namespace("Mobile.SalesLogix");
-
-Mobile.SalesLogix.Format = (function() {
+define('Mobile/SalesLogix/Format', ['dojo', 'dojo/string', 'Sage/Platform/Mobile/Format'], function() {
+    dojo.declare('Mobile.SalesLogix.Format', null, {});
+    Mobile.SalesLogix.Format = (function() {
     var F = Sage.Platform.Mobile.Format;      
-   
-    return Ext.apply({}, {
+    return dojo.mixin({}, {
         address: function(val, textOnly, nl) {
             if (val === null || typeof val == "undefined") return "";
             
@@ -42,16 +41,17 @@ Mobile.SalesLogix.Format = (function() {
 
             if (textOnly) return nl ? lines.join(typeof nl === 'string' ? nl : '\n') : lines.join('<br />');
 
-            return String.format('<a target="_blank" href="http://maps.google.com/maps?q={1}">{0}</a>',
-                lines.join('<br />'),
-                encodeURIComponent(lines.join(' '))
+            return dojo.string.substitute('<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>',
+                [lines.join('<br />'),
+                    encodeURIComponent(lines.join(' '))
+                ]
             );
         },
         phone: function(val, withLink) {
             if (typeof val !== 'string') 
                 return val;
 
-            var formatters = Sage.Platform.Mobile.Controls.PhoneField.prototype.formatters,
+            var formatters = [],//Sage.Platform.Mobile.Controls.PhoneField.prototype.formatters,
                 clean = /^\+/.test(val)
                     ? val
                     : val.replace(/[^0-9x]/ig, ''),
@@ -62,13 +62,13 @@ Mobile.SalesLogix.Format = (function() {
                 var formatter = formatters[i],
                     match;
                 if ((match = formatter.test.exec(clean)))
-                    number = String.format.apply(String, [formatter.format, val, clean].concat(match));                
+                    number = String.format.apply(String, [formatter.format, val, clean].concat(match));
             }
 
             if (number)
                 return withLink === false
                     ? number
-                    : String.format('<a href="tel:{0}">{1}</a>', clean, number);
+                    : dojo.string.substitute('<a href="tel:${0}">{1}</a>', [clean, number]);
 
             return val;
         },
@@ -97,7 +97,8 @@ Mobile.SalesLogix.Format = (function() {
             if (typeof val !== 'string')
                 return val;
 
-            return String.format('<a href="mailto:{0}">{0}</a>', val);
+            return dojo.string.substitute('<a href="mailto:${0}">{0}</a>', [val]);
         }             
     }, F);
 })();
+});
