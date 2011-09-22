@@ -142,19 +142,18 @@ define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], fu
         },
         onResize: function() {
             // FIX: dojo.query('.note-text-item', 'fixture') // but has no .each
-            /*
             this.el.select('.note-text-item').each(function(el) {
                 if (el.getHeight(true) < el.child('.note-text-wrap').getHeight())
                     el.child('.note-text-more').show();
                 else
                     el.child('.note-text-more').hide();
             });
-            */
         },
-        processFeed: function(feed) {
+        // FIX: Why are we overriding processFeed here?
+        /*processFeed: function(feed) {
             // Mobile.SalesLogix.History.List.superclass.processFeed.call(this, feed);
 
             this.onResize();
-        }
+        }*/
     });
 });

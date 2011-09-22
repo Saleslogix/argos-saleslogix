@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.SalesOrder");
+define('Mobile/SalesLogix/Views/SalesOrder/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.SalesOrder.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.SalesOrder.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
@@ -111,4 +110,4 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
             ]);
         }
     });
-})();
+});

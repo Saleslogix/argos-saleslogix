@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Defect");
+define('Mobile/SalesLogix/Views/Defect/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.Defect.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Defect.Detail', [Sage.Platform.Mobile.Detail], {
         //Templates
         textBlockTemplate: new Simplate([
             '<div class="row defect-text-row">',
@@ -170,4 +169,4 @@ Ext.namespace("Mobile.SalesLogix.Defect");
             this.onResize();
         }
     });
-})();
+});

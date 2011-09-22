@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Campaign");
+define('Mobile/SalesLogix/Views/Campaign/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.Campaign.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Campaign.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         acctMgrText: 'acct mgr',
         codeText: 'code',
@@ -80,4 +79,4 @@ Ext.namespace("Mobile.SalesLogix.Campaign");
             ]);
         }
     });
-})();
+});

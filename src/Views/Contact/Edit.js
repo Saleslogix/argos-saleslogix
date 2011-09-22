@@ -5,10 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Contact");
+define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    Mobile.SalesLogix.Contact.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.Contact.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         titleText: 'Contact',
         nameText: 'name',
@@ -54,16 +53,11 @@ Ext.namespace("Mobile.SalesLogix.Contact");
         ],
         resourceKind: 'contacts',
 
-        init: function() {
-            Mobile.SalesLogix.Contact.Edit.superclass.init.apply(this, arguments);
-
-            this.fields['Account'].on('change', this.onAccountChange, this);
-        },
         onAccountChange: function(value, field) {
             this.fields['AccountName'].setValue(value.text);
         },
         show: function(options) {
-            Mobile.SalesLogix.Contact.Edit.superclass.show.apply(this, arguments);
+            // Mobile.SalesLogix.Contact.Edit.superclass.show.apply(this, arguments);
 
             if (options.insert === true) this.applyContext();
         },
@@ -202,7 +196,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     type: 'picklist'
                 },
                 {
-                    formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
+                    formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, [true], true),
                     label: this.addressText,
                     name: 'Address',
                     type: 'address',
@@ -251,4 +245,4 @@ Ext.namespace("Mobile.SalesLogix.Contact");
             ]);
         }
     });
-})();
+});

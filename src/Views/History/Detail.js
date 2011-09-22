@@ -92,29 +92,29 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                 as: [{
                     name: 'StartDate',
                     label: this.scheduledText,
-                    renderer: App.frontHitch(this, Mobile.SalesLogix.Format.date,
-                        this.dateFormatText, true
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
+                        this, [this.dateFormatText], true
                     ),
-                    exclude: App.frontHitch(this, this.isHistoryOfType,
-                        'atNote', true
+                    exclude: this.isHistoryOfType.bindDelegate(
+                        this, ['atNote'], true
                     )
                 },{
                     name: 'CompletedDate',
                     label: this.completedText,
-                    renderer: App.frontHitch(this ,Mobile.SalesLogix.Format.date,
-                        this.dateFormatText, true
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
+                        this, [this.dateFormatText], true
                     ),
-                    exclude: App.frontHitch(this, this.isHistoryOfType,
-                        'atNote', true
+                    exclude: this.isHistoryOfType.bindDelegate(
+                        this, ['atNote'], true
                     )
                 },{
                     name: 'ModifyDate',
                     label: this.modifiedText,
-                    renderer: App.frontHitch(this, Mobile.SalesLogix.Format.date,
-                        this.dateFormatText, true
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
+                        this, [this.dateFormatText], true
                     ),
-                    include: App.frontHitch(this, this.isHistoryOfType,
-                        'atNote', true
+                    include: this.isHistoryOfType.bindDelegate(
+                        this, ['atNote'], true
                     )
                 },{
                     name: 'Description',
@@ -127,7 +127,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                 as: [{
                     name: 'LongNotes',
                     label: this.longNotesText,
-                    provider: App.frontHitch(this, this.provideText, [false], true),
+                    provider: this.provideText.bindDelegate(this),
                     wrap: Mobile.SalesLogix.Template.noteDetailProperty
                 }]
             },{

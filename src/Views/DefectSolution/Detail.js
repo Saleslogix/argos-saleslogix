@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.DefectSolution");
+define('Mobile/SalesLogix/Views/DefectSolution/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.DefectSolution.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.DefectSolution.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         createDateText: 'create date',
         createUserText: 'create user',
@@ -42,4 +41,4 @@ Ext.namespace("Mobile.SalesLogix.DefectSolution");
             ]);
         }
     });
-})();
+});

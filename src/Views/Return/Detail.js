@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Return");
+define('Mobile/SalesLogix/Views/Return/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.Return.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Return.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         accountText: 'account',
         assignedToText: 'AssignedTo',
@@ -99,4 +98,4 @@ Ext.namespace("Mobile.SalesLogix.Return");
             ]);
         }
     });
-})();
+});
