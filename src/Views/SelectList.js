@@ -4,30 +4,30 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix");
+define('Mobile/SalesLogix/Views/SelectList', ['Sage/Platform/Mobile/List'], function() {
+    dojo.declare('Mobile.SalesLogix.Views.SelectList', [Sage.Platform.Mobile.List], {
+        //Templates
+        itemTemplate: new Simplate([
+            '<h3>{%: $.$descriptor %}</h3>'
+        ]),
 
-Mobile.SalesLogix.SelectList = Ext.extend(Sage.Platform.Mobile.List, {
-    //Templates
-    itemTemplate: new Simplate([
-        '<h3>{%: $.$descriptor %}</h3>'
-    ]),
+        //View Properties
+        id: 'select_list',
+        expose: false,
 
-    //View Properties
-    id: 'select_list',
-    expose: false,
-
-    refreshRequiredFor: function(options) {
-        if (this.options)
-            return options ? (this.options.data != options.data) : false;
-        else
-            return true;
-    },
-    hasMoreData: function() {
-        return false;
-    },
-    requestData: function() {
-        // caller is responsible for passing in a well-structured feed object.
-        var data = this.expandExpression(this.options && this.options.data);
-        if (data) this.processFeed(data);        
-    }
+        refreshRequiredFor: function(options) {
+            if (this.options)
+                return options ? (this.options.data != options.data) : false;
+            else
+                return true;
+        },
+        hasMoreData: function() {
+            return false;
+        },
+        requestData: function() {
+            // caller is responsible for passing in a well-structured feed object.
+            var data = this.expandExpression(this.options && this.options.data);
+            if (data) this.processFeed(data);
+        }
+    });
 });

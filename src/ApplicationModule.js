@@ -6,11 +6,21 @@
         'Mobile/SalesLogix/Format',
         'Mobile/SalesLogix/Template',
         'Mobile/SalesLogix/Validator',
+
+        'Mobile/SalesLogix/Views/AddAccountContact',
+        'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
+        'Mobile/SalesLogix/Views/ContextDialog',
         'Mobile/SalesLogix/Views/MainToolbar',
         'Mobile/SalesLogix/Views/Home',
+        'Mobile/SalesLogix/Views/NameEdit',
+        'Mobile/SalesLogix/Views/PickList',
+        'Mobile/SalesLogix/Views/SelectList',
+        'Mobile/SalesLogix/Views/TextEdit',
+
         'Mobile/SalesLogix/Views/Account/List',
         'Mobile/SalesLogix/Views/Account/Detail',
         'Mobile/SalesLogix/Views/Account/Edit',
+        'Mobile/SalesLogix/Views/Address/Edit',
         'Mobile/SalesLogix/Views/Contact/List',
         'Mobile/SalesLogix/Views/Contact/Detail',
         'Mobile/SalesLogix/Views/Lead/List',
@@ -41,16 +51,16 @@
                 this.registerView(new Mobile.SalesLogix.Help());
                 this.registerView(new Mobile.SalesLogix.Settings());
                 this.registerView(new Mobile.SalesLogix.Configure());
-                this.registerView(new Mobile.SalesLogix.PickList());
-                this.registerView(new Mobile.SalesLogix.SelectList());
-                this.registerView(new Mobile.SalesLogix.ContextDialog());
-                this.registerView(new Mobile.SalesLogix.AddAccountContact());
-                this.registerView(new Mobile.SalesLogix.AreaCategoryIssueLookup());
-
-                this.registerView(new Mobile.SalesLogix.NameEdit());
-                this.registerView(new Mobile.SalesLogix.TextEdit());
-                this.registerView(new Mobile.SalesLogix.Address.Edit());
                 */
+                this.registerView(new Mobile.SalesLogix.Views.PickList());
+                this.registerView(new Mobile.SalesLogix.Views.SelectList());
+                this.registerView(new Mobile.SalesLogix.Views.ContextDialog());
+                this.registerView(new Mobile.SalesLogix.Views.AddAccountContact());
+                this.registerView(new Mobile.SalesLogix.Views.AreaCategoryIssueLookup());
+
+                this.registerView(new Mobile.SalesLogix.Views.NameEdit());
+                this.registerView(new Mobile.SalesLogix.Views.TextEdit());
+                this.registerView(new Mobile.SalesLogix.Views.Address.Edit());
 
                 this.registerView(new Mobile.SalesLogix.Views.Account.List());
                 this.registerView(new Mobile.SalesLogix.Views.Account.Detail());

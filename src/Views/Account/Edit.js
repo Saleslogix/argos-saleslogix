@@ -88,7 +88,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },
                 {
                     emptyText: '',
-                    formatValue: App.frontHitch(this, Mobile.SalesLogix.Format.address, [true], true),
+                    formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, [true], true),
                     label: this.fullAddressText,
                     name: 'Address',
                     type: 'address',
@@ -100,7 +100,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     type: 'phone',
                     maxTextLength: 32,
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                }/*,
+                },
                 {
                     label: this.typeText,
                     name: 'Type',
@@ -113,8 +113,8 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     dependsOn: 'Type',
                     label: this.subTypeText,
                     name: 'SubType',
-                    picklist: this.formatDependentPicklist.createDelegate(
-                        this, ['Account {0}'], true
+                    picklist: this.formatDependentPicklist.bindDelegate(
+                        this, 'Account ${0}', true
                     ),
                     requireSelection: false,
                     title: this.accountSubTypeTitleText,
@@ -170,7 +170,6 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     type: 'lookup',
                     view: 'leadsource_list'
                 }
-                */
             ]);
         }
     });
