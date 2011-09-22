@@ -143,7 +143,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callMainPhone',
                     disabled: this.checkMainPhone,
-                    renderer: App.frontHitch(this,Mobile.SalesLogix.Format.phone, [false], true)
+                    renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false) 
                 },{
                     name: 'AccountName',
                     label: this.scheduleActivityText,
@@ -160,7 +160,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: App.frontHitch(this,Mobile.SalesLogix.Format.address, [true, ' '], true)
+                    renderer: Mobile.SalesLogix.Format.address.bindDelegate(this, true, ' ')
                 }]
             },{
                 options: {
