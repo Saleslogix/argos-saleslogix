@@ -3,102 +3,125 @@
 /// <reference path="../../platform/Format.js"/>
 /// <reference path="../../sdata/SDataService.js"/>
 
-define('Mobile/SalesLogix/Format', ['dojo', 'dojo/string', 'Sage/Platform/Mobile/Format'], function() {
-    dojo.declare('Mobile.SalesLogix.Format', null, {});
-    Mobile.SalesLogix.Format = (function() {
-    var F = Sage.Platform.Mobile.Format;      
-    return dojo.mixin({}, {
-        address: function(val, textOnly, nl) {
-            if (val === null || typeof val == "undefined") return "";
-            
-            var lines = [];
-            if (!F.isEmpty(val['Address1'])) lines.push(F.encode(val['Address1']));
-            if (!F.isEmpty(val['Address2'])) lines.push(F.encode(val['Address2']));
-            if (!F.isEmpty(val['Address3'])) lines.push(F.encode(val['Address3']));
-            if (!F.isEmpty(val['Address4'])) lines.push(F.encode(val['Address4']));
+define('Mobile/SalesLogix/Format', ['Sage/Platform/Mobile/Format'], function() {
+    
+    dojo.setObject('Mobile.SalesLogix.Format', null);
+    
+    Mobile.SalesLogix.Format = (function(F) {
+        return dojo.mixin({}, {
+            address: function(val, textOnly, nl) {
+                if (val === null || typeof val == "undefined") return "";
+    
+                var lines = [];
+                if (!F.isEmpty(val['Address1'])) lines.push(F.encode(val['Address1']));
+                if (!F.isEmpty(val['Address2'])) lines.push(F.encode(val['Address2']));
+                if (!F.isEmpty(val['Address3'])) lines.push(F.encode(val['Address3']));
+                if (!F.isEmpty(val['Address4'])) lines.push(F.encode(val['Address4']));
 
-            var location = [];
+                var location = [];
 
-            if (!F.isEmpty(val['City']) && !F.isEmpty(F.encode(val['State'])))
-            {
-                location.push(F.encode(val['City']) + ',');
-                location.push(F.encode(val['State']));                                            
-            }
-            else
-            {
-                if (!F.isEmpty(val['City'])) location.push(F.encode(val['City']));
-                if (!F.isEmpty(val['State'])) location.push(F.encode(val['State']));                
-            }
+                if (!F.isEmpty(val['City']) && !F.isEmpty(F.encode(val['State'])))
+                {
+                    location.push(F.encode(val['City']) + ',');
+                    location.push(F.encode(val['State']));
+                }
+                else
+                {
+                    if (!F.isEmpty(val['City'])) location.push(F.encode(val['City']));
+                    if (!F.isEmpty(val['State'])) location.push(F.encode(val['State']));
+                }
 
-            if (!F.isEmpty(val['PostalCode'])) location.push(F.encode(val['PostalCode']));
-                   
-            if (location.length > 0)
-            {
-                lines.push(location.join(' '));
-            }
+                if (!F.isEmpty(val['PostalCode'])) location.push(F.encode(val['PostalCode']));
 
-            if (!F.isEmpty(val['Country'])) lines.push(F.encode(val['Country']));
+                if (location.length > 0)
+                {
+                    lines.push(location.join(' '));
+                }
 
-            if (textOnly) return nl ? lines.join(typeof nl === 'string' ? nl : '\n') : lines.join('<br />');
+                if (!F.isEmpty(val['Country'])) lines.push(F.encode(val['Country']));
 
-            return dojo.string.substitute('<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>',
-                [lines.join('<br />'),
-                    encodeURIComponent(lines.join(' '))
-                ]
-            );
-        },
-        phone: function(val, withLink) {
-            if (typeof val !== 'string') 
+                if (textOnly) return nl ? lines.join(typeof nl === 'string' ? nl : '\n') : lines.join('<br />');
+
+                return dojo.string.substitute(
+                    '<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>',
+                    [lines.join('<br />'), encodeURIComponent(lines.join(' '))]
+                );
+            },
+            /*
+                {0}: original value
+                {1}: cleaned value
+                {2}: entire match (against clean value)
+                {3..n}: match groups (against clean value)
+            */
+            phoneFormat: [{
+                test: /^\+.*/,
+                format: '${0}'
+            },{
+                test: /^(\d{3})(\d{3,4})$/,
+                format: '${3}-${4}'
+            },{
+                test: /^(\d{3})(\d{3})(\d{2,4})$/, // 555 555 5555
+                format: '(${3})-${4}-${5}'
+            },{
+                test: /^(\d{3})(\d{3})(\d{2,4})([^0-9]{1,}.*)$/, // 555 555 5555x
+                format: '(${3})-${4}-${5}${6}'
+            },{
+                test: /^(\d{11,})(.*)$/,
+                format: '${1}'
+            }],
+            phone: function(val, withLink) {
+                if (typeof val !== 'string')
+                    return val;
+
+                var formatters = Mobile.SalesLogix.Format.phoneFormat,
+                    clean = /^\+/.test(val)
+                        ? val
+                        : val.replace(/[^0-9x]/ig, ''),
+                    number;
+
+                for (var i = 0; i < formatters.length; i++)
+                {
+                    var formatter = formatters[i],
+                        match;
+                    if ((match = formatter.test.exec(clean)))
+                        number = dojo.string.substitute(formatter.format, [val, clean].concat(match));
+                }
+
+                if (number)
+                    return withLink === false
+                        ? number
+                        : dojo.string.substitute('<a href="tel:${0}">${1}</a>', [clean, number]);
+
                 return val;
+            },
+            currency: function(val) {
+                // todo: add localization support
+                var v = Mobile.SalesLogix.Format.fixed(val), // only 2 decimal places
+                    f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
 
-            var formatters = [],//Sage.Platform.Mobile.Controls.PhoneField.prototype.formatters,
-                clean = /^\+/.test(val)
-                    ? val
-                    : val.replace(/[^0-9x]/ig, ''),
-                number;
+                return dojo.string.substitute(
+                    '$${0}.${1}', [
+                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+                        (f.toString().length < 2) ? '0' + f.toString() : f.toString()
+                    ]
+                );
+            },
+            nameLF: function(val) {
+                if (!val) return '';
 
-            for (var i = 0; i < formatters.length; i++)
-            {
-                var formatter = formatters[i],
-                    match;
-                if ((match = formatter.test.exec(clean)))
-                    number = dojo.string.substitute.apply(String, [formatter.format, val, clean].concat(match));
+                var name = Mobile.SalesLogix.Template.nameLF.apply(val);
+                if (name == ', ')
+                    name = '';
+
+                return name;
+            },
+            mail: function(val) {
+                if (typeof val !== 'string')
+                    return val;
+
+                return dojo.string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
             }
-
-            if (number)
-                return withLink === false
-                    ? number
-                    : dojo.string.substitute('<a href="tel:${0}">${1}</a>', [clean, number]);
-
-            return val;
-        },
-        currency: function(val) {
-            // todo: add localization support
-            var v = Mobile.SalesLogix.Format.fixed(val), // only 2 decimal places
-                f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
-
-            return dojo.string.substitute('${0}.${1}',
-                [(Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
-                (f.toString().length < 2)
-                    ? '0' + f.toString()
-                    : f.toString()]
-            );
-        },        
-        nameLF: function(val) {
-            if (!val) return '';
-
-            var name = Mobile.SalesLogix.Template.nameLF.apply(val);
-            if (name == ', ')
-                name = '';
-            
-            return name;
-        },
-        mail: function(val) {
-            if (typeof val !== 'string')
-                return val;
-
-            return dojo.string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
-        }             
-    }, F);
-})();
+        }, F);
+    })(Sage.Platform.Mobile.Format);
+    
 });

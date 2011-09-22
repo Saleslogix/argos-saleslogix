@@ -2,9 +2,10 @@
 /// <reference path="../platform/Application.js"/>
 /// <reference path="../sdata/SDataService.js"/>
 
-define('Mobile/SalesLogix/Template', ['dojo', 'Sage/Platform/Mobile/Format'], function() {
-    dojo.declare('Mobile.SalesLogix.Template', null, {});
-    /// common frequently used templates
+define('Mobile/SalesLogix/Template', ['dojo'], function() {
+
+    dojo.setObject('Mobile.SalesLogix.Template', null);
+    
     Mobile.SalesLogix.Template = (function() {
         return {
             nameLF: new Simplate([
@@ -35,4 +36,5 @@ define('Mobile/SalesLogix/Template', ['dojo', 'Sage/Platform/Mobile/Format'], fu
             ])
         };
     })();
+    
 });
