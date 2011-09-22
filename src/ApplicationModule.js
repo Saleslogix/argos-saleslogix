@@ -5,6 +5,7 @@
         'Sage/Platform/Mobile/ApplicationModule',
         'Mobile/SalesLogix/Format',
         'Mobile/SalesLogix/Template',
+        'Mobile/SalesLogix/Validator',
         'Mobile/SalesLogix/Views/MainToolbar',
         'Mobile/SalesLogix/Views/Home',
         'Mobile/SalesLogix/Views/Account/List',
