@@ -4,10 +4,8 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix");
-
-(function() {
-    Mobile.SalesLogix.AddAccountContact = Ext.extend(Sage.Platform.Mobile.Edit, {
+define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'], function() {
+    dojo.declare('Mobile.SalesLogix.Views.AddAccountContact', [Sage.Platform.Mobile.Edit], {
         //Localization
         accountNameText: 'account',
         accountStatusTitleText: 'Account Status',
@@ -61,8 +59,8 @@ Ext.namespace("Mobile.SalesLogix");
             'Type'
         ],
         init: function() {
-            Mobile.SalesLogix.AddAccountContact.superclass.init.apply(this, arguments);
-            this.fields['Contacts.$resources[0].Address'].on('change', this.onContactAddressChange, this);
+            this.inherited(arguments);
+            dojo.connect(this.fields['Contacts.$resources[0].Address'], 'onchange', this, this.onContactAddressChange);
         },
         getValues: function(values) {
             var U = Sage.Platform.Mobile.Utility,
@@ -74,7 +72,8 @@ Ext.namespace("Mobile.SalesLogix");
             return values;
         },
         formatDependentPicklist: function(dependentValue, format) {
-            return String.format(format, dependentValue);
+            if(!dojo.isArray(dependentValue)) dependentValue = [dependentValue];
+            return dojo.string.substitute(format, dependentValue);
         },
         onInsertCompleted: function(entry) {
             var view = App.getView('account_detail');
@@ -86,7 +85,7 @@ Ext.namespace("Mobile.SalesLogix");
                     returnTo: -1
                 });
             else
-                Mobile.SalesLogix.AddAccountContact.superclass.onInsertCompleted.apply(this, arguments);
+                this.inherited(arguments);
         },
         onContactAddressChange: function(value, field) {
             if( this.fields['Address'].getValue() && !this.fields['Address'].getValue().Address1 ) {
@@ -166,7 +165,7 @@ Ext.namespace("Mobile.SalesLogix");
                     },
                     {
                         emptyText: '',
-                        formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
+                        formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true, true),
                         label: this.addressText,
                         name: 'Contacts.$resources[0].Address',
                         type: 'address',
@@ -197,8 +196,8 @@ Ext.namespace("Mobile.SalesLogix");
                         label: this.subTypeText,
                         type: 'picklist',
                         requireSelection: false,
-                        picklist: this.formatDependentPicklist.createDelegate(
-                            this, ['Account {0}'], true
+                        picklist: this.formatDependentPicklist.bindDelegate(
+                            this, 'Account ${0}', true
                         ),
                         title: this.accountSubTypeTitleText,
                         dependsOn: 'Type'
@@ -224,7 +223,7 @@ Ext.namespace("Mobile.SalesLogix");
                     },
                     {
                         emptyText: '',
-                        formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
+                        formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true, true),
                         label: this.addressText,
                         name: 'Address',
                         type: 'address',
@@ -235,4 +234,4 @@ Ext.namespace("Mobile.SalesLogix");
             ]);
         }
     });
-})();
+});

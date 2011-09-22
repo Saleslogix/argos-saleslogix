@@ -105,7 +105,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
         init: function() {
             this.inherited(arguments);
 
-            this.connect(App, 'onRegistered', this, this._onRegistered);
+          //  this.connect(App, 'onRegistered', this, this._onRegistered);
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
@@ -121,6 +121,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
                 view.show();
         },
         _onRegistered: function() {
+            console.log('setting refreshReq true..');
             this.refreshRequired = true;
         },
         refreshRequiredFor: function(options) {

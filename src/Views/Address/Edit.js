@@ -5,10 +5,8 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Address");
-
-(function() {
-    Mobile.SalesLogix.Address.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+    dojo.declare('Mobile.SalesLogix.Views.Address.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         address1Text: 'address 1',
         address2Text: 'address 2',
@@ -31,7 +29,7 @@ Ext.namespace("Mobile.SalesLogix.Address");
         id: 'address_edit',
 
         formatDependentPicklist: function(format) {
-            return String.format(format, this.options.entityName);
+            return dojo.string.substitute(format, [this.options.entityName]);
         },
         createLayout: function() {
             return this.layout || (this.layout = [
@@ -42,8 +40,8 @@ Ext.namespace("Mobile.SalesLogix.Address");
                 {
                     label: this.descriptionText,
                     name: 'Description',
-                    picklist: this.formatDependentPicklist.createDelegate(
-                        this, ['Address Description ({0})'], true
+                    picklist: this.formatDependentPicklist.bindDelegate(
+                        this, 'Address Description ({0})', true
                     ),
                     requireSelection: false,
                     title: this.descriptionTitleText,
@@ -132,4 +130,4 @@ Ext.namespace("Mobile.SalesLogix.Address");
             ]);
         }
     });
-})();
+});

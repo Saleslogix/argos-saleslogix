@@ -4,30 +4,29 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix");
+define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], function() {
+    dojo.declare('Mobile.SalesLogix.Views.PickList', [Sage.Platform.Mobile.List], {
+        //Templates
+        itemTemplate: new Simplate([
+            '<h3>{%: $.text %}</h3>'
+        ]),
 
-Mobile.SalesLogix.PickList = Ext.extend(Sage.Platform.Mobile.List, {
-    //Templates
-    itemTemplate: new Simplate([
-        '<h3>{%: $.text %}</h3>'
-    ]),    
+        //View Properties
+        id: 'pick_list',
+        expose: false,
+        resourceKind: 'picklists',
+        resourceProperty: 'items',
 
-    //View Properties
-    id: 'pick_list',
-    expose: false,
-    resourceKind: 'picklists',
-    resourceProperty: 'items',
-
-    formatSearchQuery: function(query) {
-        return String.format('upper(text) like "{0}%"', this.escapeSearchQuery(query.toUpperCase()));
-    },
-    show: function(options) {
-        this.set('title', options && options.title || this.title);
-
-        Mobile.SalesLogix.PickList.superclass.show.apply(this, arguments);
-    },
-    createRequest: function() {
-        return Mobile.SalesLogix.PickList.superclass.createRequest.call(this)
-            .setContractName('system');        
-    }
+        formatSearchQuery: function(query) {
+            return dojo.string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        },
+        show: function(options) {
+            this.set('title', options && options.title || this.title);
+            this.inherited(arguments);
+        },
+        createRequest: function() {
+            return Mobile.SalesLogix.Views.PickList.superclass.createRequest.call(this)
+                .setContractName('system');
+        }
+    });
 });
