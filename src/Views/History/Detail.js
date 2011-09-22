@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.History");
+define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.History.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.History.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         categoryText: 'category',
         completedText: 'completed',
@@ -93,29 +92,29 @@ Ext.namespace("Mobile.SalesLogix.History");
                 as: [{
                     name: 'StartDate',
                     label: this.scheduledText,
-                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, [this.dateFormatText], true
+                    renderer: App.frontHitch(this, Mobile.SalesLogix.Format.date,
+                        this.dateFormatText, true
                     ),
-                    exclude: this.isHistoryOfType.createDelegate(
-                        this, ['atNote'], true
+                    exclude: App.frontHitch(this, this.isHistoryOfType,
+                        'atNote', true
                     )
                 },{
                     name: 'CompletedDate',
                     label: this.completedText,
-                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, [this.dateFormatText], true
+                    renderer: App.frontHitch(this ,Mobile.SalesLogix.Format.date,
+                        this.dateFormatText, true
                     ),
-                    exclude: this.isHistoryOfType.createDelegate(
-                        this, ['atNote'], true
+                    exclude: App.frontHitch(this, this.isHistoryOfType,
+                        'atNote', true
                     )
                 },{
                     name: 'ModifyDate',
                     label: this.modifiedText,
-                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
-                        this, [this.dateFormatText], true
+                    renderer: App.frontHitch(this, Mobile.SalesLogix.Format.date,
+                        this.dateFormatText, true
                     ),
-                    include: this.isHistoryOfType.createDelegate(
-                        this, ['atNote'], true
+                    include: App.frontHitch(this, this.isHistoryOfType,
+                        'atNote', true
                     )
                 },{
                     name: 'Description',
@@ -128,7 +127,7 @@ Ext.namespace("Mobile.SalesLogix.History");
                 as: [{
                     name: 'LongNotes',
                     label: this.longNotesText,
-                    provider: this.provideText.createDelegate(this),
+                    provider: App.frontHitch(this, this.provideText, [false], true),
                     wrap: Mobile.SalesLogix.Template.noteDetailProperty
                 }]
             },{
@@ -183,4 +182,4 @@ Ext.namespace("Mobile.SalesLogix.History");
             }]);
         }
     });
-})();
+});

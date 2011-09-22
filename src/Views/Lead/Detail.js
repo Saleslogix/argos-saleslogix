@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Lead");
+define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.Lead.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Lead.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
@@ -42,8 +41,8 @@ Ext.namespace("Mobile.SalesLogix.Lead");
         sendEmailText: 'Send email',
         viewAddressText: 'View address',
         moreDetailsText: 'More Details',
-        calledText: 'Called {0}',
-        emailedText: 'Emailed {0}',
+        calledText: 'Called ${0}',
+        emailedText: 'Emailed ${0}',
 
         //View Properties
         id: 'lead_detail',
@@ -100,7 +99,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 'AccountName': this.entry['Company'],
                 'LeadId': this.entry['$key'],
                 'LeadName': this.entry['LeadNameLastFirst'],
-                'Description': String.format(this.calledText, this.entry['LeadNameLastFirst']),
+                'Description': dojo.string.substitute(this.calledText, [this.entry['LeadNameLastFirst']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -116,7 +115,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 'AccountName': this.entry['Company'],
                 'LeadId': this.entry['$key'],
                 'LeadName': this.entry['LeadNameLastFirst'],
-                'Description': String.format(this.emailedText, this.entry['LeadNameLastFirst']),
+                'Description': dojo.string.substitute(this.emailedText, [this.entry['LeadNameLastFirst']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -173,7 +172,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
                     disabled: this.checkWorkPhone,
-                    renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
+                    renderer: App.frontHitch(this,Mobile.SalesLogix.Format.phone, [false], true)
                 },{
                     name: 'Email',
                     label: this.sendEmailText,
@@ -199,7 +198,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
+                    renderer: App.frontHitch(this,Mobile.SalesLogix.Format.address, [true, ' '], true)
                 }]
             },{
                 options: {
@@ -259,19 +258,15 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['LeadId eq "{0}"'], true
-                    )
+                    where: App.frontHitch(this,this.formatRelatedQuery, 'LeadId eq "${0}"', true)
                 },
                 {
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['LeadId eq "{0}" and Type ne "atDatabaseChange"'], true
-                    ),
+                    where: App.frontHitch(this,this.formatRelatedQuery, 'LeadId eq "${0}" and Type ne "atDatabaseChange"', true),
                     view: 'history_related'
                 }]
             }]);
         }
     });
-})();
+});

@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Opportunity");
+define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.Opportunity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -74,7 +73,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             }
         },
         formatAccountRelatedQuery: function(entry, fmt) {
-            return String.format(fmt, entry['Account']['$key']);
+            return dojo.string.substitute(fmt, entry['Account']['$key']);
         },                
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -153,32 +152,32 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                     icon: 'content/images/icons/product_24.png',
                     label: this.relatedProductsText,
                     view: 'opportunityproduct_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['Opportunity.Id eq "{0}"'], true
+                    where: App.frontHitch(this, this.formatRelatedQuery,
+                        'Opportunity.Id eq "${0}"', true
                     )
                 },{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['OpportunityId eq "{0}"'], true
+                    where: App.frontHitch(this, this.formatRelatedQuery,
+                        'OpportunityId eq "${0}"', true
                     )
                 },{
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
                     view: 'contact_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['Opportunities.Opportunity.Id eq "{0}"'], true
+                    where: App.frontHitch(this, this.formatRelatedQuery,
+                        'Opportunities.Opportunity.Id eq "${0}"', true
                     )
                 },{
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['OpportunityId eq "{0}" and Type ne "atDatabaseChange"'], true
+                    where: App.frontHitch(this, this.formatRelatedQuery,
+                        'OpportunityId eq "${0}" and Type ne "atDatabaseChange"', true
                     ),
                     view: 'history_related'
                 }]
             }]);
         }        
     });
-})();
+});

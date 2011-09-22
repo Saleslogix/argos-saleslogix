@@ -11,10 +11,15 @@
         'Mobile/SalesLogix/Views/Account/Detail',
         'Mobile/SalesLogix/Views/Account/Edit',
         'Mobile/SalesLogix/Views/Contact/List',
+        'Mobile/SalesLogix/Views/Contact/Detail',
         'Mobile/SalesLogix/Views/Lead/List',
+        'Mobile/SalesLogix/Views/Lead/Detail',
         'Mobile/SalesLogix/Views/Opportunity/List',
+        'Mobile/SalesLogix/Views/Opportunity/Detail',
         'Mobile/SalesLogix/Views/Ticket/List',
-        'Mobile/SalesLogix/Views/History/List'
+        'Mobile/SalesLogix/Views/Ticket/Detail',
+        'Mobile/SalesLogix/Views/History/List',
+        'Mobile/SalesLogix/Views/History/Detail'
     ];
 
     define('Mobile/SalesLogix/ApplicationModule', imports, function() {
@@ -71,8 +76,8 @@
 
                 this.registerView(new Mobile.SalesLogix.Contact.Edit());*/
                 this.registerView(new Mobile.SalesLogix.Views.Contact.List());
-                /*this.registerView(new Mobile.SalesLogix.Contact.Detail());
-                this.registerView(new Mobile.SalesLogix.Contact.List({
+                this.registerView(new Mobile.SalesLogix.Views.Contact.Detail());
+                /*this.registerView(new Mobile.SalesLogix.Contact.List({
                     id: 'contact_related',
                     expose: false
                 }));
@@ -99,8 +104,8 @@
 
                 this.registerView(new Mobile.SalesLogix.Opportunity.Edit());*/
                 this.registerView(new Mobile.SalesLogix.Views.Opportunity.List());
-                /*this.registerView(new Mobile.SalesLogix.Opportunity.Detail());
-                this.registerView(new Mobile.SalesLogix.Opportunity.List({
+                this.registerView(new Mobile.SalesLogix.Views.Opportunity.Detail());
+                /*this.registerView(new Mobile.SalesLogix.Opportunity.List({
                     id: 'opportunity_related',
                     expose: false
                 }));
@@ -112,8 +117,8 @@
 
                 this.registerView(new Mobile.SalesLogix.Lead.Edit());*/
                 this.registerView(new Mobile.SalesLogix.Views.Lead.List());
-                /*this.registerView(new Mobile.SalesLogix.Lead.Detail());
-                this.registerView(new Mobile.SalesLogix.Lead.List({
+                this.registerView(new Mobile.SalesLogix.Views.Lead.Detail());
+                /*this.registerView(new Mobile.SalesLogix.Lead.List({
                     id: 'lead_related',
                     expose: false
                 }));
@@ -129,8 +134,8 @@
                 }));
 */
                 this.registerView(new Mobile.SalesLogix.Views.Ticket.List());
-                /*this.registerView(new Mobile.SalesLogix.Ticket.Detail());
-                this.registerView(new Mobile.SalesLogix.Ticket.Edit());
+                this.registerView(new Mobile.SalesLogix.Views.Ticket.Detail());
+                /*this.registerView(new Mobile.SalesLogix.Ticket.Edit());
                 this.registerView(new Mobile.SalesLogix.Ticket.List({
                     id: 'ticket_related',
                     expose: false
@@ -168,8 +173,8 @@
                     id: 'defectsolution_related',
                     expose: false
                 }));
-
-                this.registerView(new Mobile.SalesLogix.History.Detail());*/
+*/
+                this.registerView(new Mobile.SalesLogix.Views.History.Detail());
                 this.registerView(new Mobile.SalesLogix.Views.History.List());
                 /*this.registerView(new Mobile.SalesLogix.History.Edit());
                 this.registerView(new Mobile.SalesLogix.History.Edit());

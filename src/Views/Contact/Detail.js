@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Contact");
+define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.Contact.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Contact.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
@@ -98,7 +97,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 'ContactId': this.entry['$key'],
                 'AccountName': this.entry['AccountName'],
                 'AccountId': this.entry['Account']['$key'],
-                'Description': String.format("Called {0}", this.entry['NameLF']),
+                'Description': dojo.string.substitute("Called ${0}", [this.entry['NameLF']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -115,7 +114,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                 'ContactId': this.entry['$key'],
                 'AccountName': this.entry['AccountName'],
                 'AccountId': this.entry['Account']['$key'],
-                'Description': String.format("Emailed {0}", this.entry['NameLF']),
+                'Description': dojo.string.substitute("Emailed ${0}", [this.entry['NameLF']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -174,14 +173,14 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
                     disabled: this.checkValueExists,
-                    renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
+                    renderer: App.frontHitch(this,Mobile.SalesLogix.Format.phone, [false], true)
                 },{
                     name: 'Mobile',
                     label: this.callMobileNumberText,
                     icon: 'content/images/icons/mobile_24.png',
                     action: 'callMobilePhone',
                     disabled: this.checkValueExists,
-                    renderer: Mobile.SalesLogix.Format.phone.createDelegate(this, [false], true)
+                    renderer: App.frontHitch(this,Mobile.SalesLogix.Format.phone, [false], true)
                 },{
                     name: 'Email',
                     label: this.sendEmailText,
@@ -207,7 +206,7 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: Mobile.SalesLogix.Format.address.createDelegate(this, [true, ' '], true)
+                    renderer: App.frontHitch(this,Mobile.SalesLogix.Format.address, [true], true)
                 }]
             },{
                 options: {
@@ -261,32 +260,24 @@ Ext.namespace("Mobile.SalesLogix.Contact");
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['ContactId eq "{0}"'], true
-                    )
+                    where: App.frontHitch(this, this.formatRelatedQuery, 'ContactId eq "${0}"', true)
                 },{
                     icon: 'content/images/icons/opportunity_24.png',
                     label: this.relatedOpportunitiesText,
                     view: 'opportunity_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['Contacts.Contact.Id eq "{0}"'], true
-                    )
+                    where: App.frontHitch(this, this.formatRelatedQuery, 'Contacts.Contact.Id eq "${0}"', true)
                 },{
                     icon: 'content/images/icons/Ticket_24x24.png',
                     label: this.relatedTicketsText,
                     view: 'ticket_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['Contact.Id eq "{0}"'], true
-                    )
+                    where: App.frontHitch(this, this.formatRelatedQuery, 'Contact.Id eq "${0}"', true)
                 },{
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['ContactId eq "{0}" and Type ne "atDatabaseChange"'], true
-                    ),
+                    where: App.frontHitch(this, this.formatRelatedQuery, 'ContactId eq "${0}" and Type ne "atDatabaseChange', true),
                     view: 'history_related'
                 }]
             }]);
         }
     });
-})();
+});

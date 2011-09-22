@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Ticket");
+define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.Ticket.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Ticket.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         accountText: 'account',
         areaText: 'area',
@@ -82,7 +81,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             {
                 if (list.$resources[i][keyProperty] === value)
                 {
-                    var rowEl = this.el.child(options.dataProperty),
+                    var rowEl = this.el.child(options.dataProperty), // FIX: dojo-ize
                     contentEl = rowEl && rowEl.child('span');
 
                     if (rowEl)
@@ -130,7 +129,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             if (sourceText) this.entry['SourceText'] = sourceText;
         },        
         processEntry: function(entry) {
-            Mobile.SalesLogix.Ticket.Detail.superclass.processEntry.apply(this, arguments);
+            // Mobile.SalesLogix.Ticket.Detail.superclass.processEntry.apply(this, arguments);
 
             if (entry && entry['ViaCode']) this.requestSource(entry['ViaCode']);
             if (entry && entry['StatusCode']) this.requestStatus(entry['StatusCode']);
@@ -233,11 +232,11 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
-                    where: this.formatRelatedQuery.createDelegate(
-                        this, ['TicketId eq "{0}"'], true
+                    where: App.frontHitch(this, this.formatRelatedQuery,
+                        'TicketId eq "${0}"', true
                     )
                 }]
             }]);
         }
     });
-})();
+});
