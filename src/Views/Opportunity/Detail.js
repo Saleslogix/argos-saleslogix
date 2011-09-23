@@ -152,28 +152,28 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     icon: 'content/images/icons/product_24.png',
                     label: this.relatedProductsText,
                     view: 'opportunityproduct_related',
-                    where: App.frontHitch(this, this.formatRelatedQuery,
-                        'Opportunity.Id eq "${0}"', true
+                    where: this.formatRelatedQuery.bindDelegate(
+                        this, ['Opportunity.Id eq "${0}"'], true
                     )
                 },{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
-                    where: App.frontHitch(this, this.formatRelatedQuery,
-                        'OpportunityId eq "${0}"', true
+                    where: this.formatRelatedQuery.bindDelegate(
+                        this, ['OpportunityId eq "${0}"'], true
                     )
                 },{
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
                     view: 'contact_related',
-                    where: App.frontHitch(this, this.formatRelatedQuery,
-                        'Opportunities.Opportunity.Id eq "${0}"', true
+                    where: this.formatRelatedQuery.bindDelegate(
+                        this, ['Opportunities.Opportunity.Id eq "${0}"'], true
                     )
                 },{
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
-                    where: App.frontHitch(this, this.formatRelatedQuery,
-                        'OpportunityId eq "${0}" and Type ne "atDatabaseChange"', true
+                    where: this.formatRelatedQuery.bindDelegate(
+                        this, ['OpportunityId eq "${0}" and Type ne "atDatabaseChange"'], true
                     ),
                     view: 'history_related'
                 }]

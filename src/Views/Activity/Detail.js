@@ -4,10 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Activity");
+define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-(function() {
-    Mobile.SalesLogix.Activity.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Activity.Detail', [Sage.Platform.Mobile.Detail], {
         //Templates
         leaderTemplate: Mobile.SalesLogix.Template.nameLF,
 
@@ -123,7 +122,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('users')
-                .setResourceSelector(String.format("'{0}'", userId))
+                .setResourceSelector(dojo.string.substitute("'${0}'", [userId]))
                 .setQueryArg('select', [
                     'UserInfo/FirstName',
                     'UserInfo/LastName'
@@ -182,7 +181,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 as: [{
                     name: 'Type',
                     label: this.typeText,
-                    renderer: this.formatActivityType.createDelegate(this)
+                    renderer: this.formatActivityType.bindDelegate(this)
                 },{
                     name: 'Description',
                     label: this.regardingText
@@ -203,14 +202,14 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 as: [{
                     name: 'StartDate',
                     label: this.startTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
                         this, [this.startDateFormatText], true
                     ),
                     exclude: this.isActivityTimeless
                 },{
                     name: 'StartDate',
                     label: this.allDayText,
-                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
                         this, [this.timelessDateFormatText, true], true
                     ),
                     include: this.isActivityTimeless
@@ -231,7 +230,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },{
                     name: 'AlarmTime',
                     label: this.alarmTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
                         this, [this.alarmDateFormatText], true
                     ),
                     include: this.doesActivityHaveReminder
@@ -297,4 +296,4 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }]);
         }        
     });
-})();
+});

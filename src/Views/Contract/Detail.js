@@ -4,9 +4,9 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Contract");
+define('Mobile/SalesLogix/Views/Contract/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    dojo.declare('Mobile.SalesLogix.Views.Contract.Detail', [Sage.Platform.Mobile.Detail], {
     //Localization
     accountText: 'account',
     activeText: 'active',
@@ -46,7 +46,7 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     resourceKind: 'contracts',
 
     formatAccountRelatedQuery: function(entry, fmt) {
-        return String.format(fmt, entry['Account']['$key']);
+        return dojo.string.substitute(fmt, entry['Account']['$key']);
     },
     init: function() {
         Mobile.SalesLogix.Contract.Detail.superclass.init.call(this);
@@ -127,8 +127,8 @@ Mobile.SalesLogix.Contract.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
                     icon: 'content/images/ticket_16x16.gif',
                     label: this.relatedTicketsText,
                     view: 'ticket_related',
-                    where: this.formatAccountRelatedQuery.createDelegate(
-                        this, ['Account.id eq "{0}"'], true
+                    where: this.formatAccountRelatedQuery.bindDelegate(
+                        this, ['Account.id eq "${0}"'], true
                     )
                 }]
             }

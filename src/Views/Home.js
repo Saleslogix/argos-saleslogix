@@ -34,6 +34,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
         id: 'home',
         expose: false,
         hideSearch: true,
+        customizationSet: 'home',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
 
@@ -71,37 +72,6 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
                 title: this.actionsText
             };
         },
-        requestData: function() {
-            var visible = App.preferences && App.preferences.home && App.preferences.home.visible,
-                list = [],
-                view,
-                entry;
-
-            list.push({
-                'action': 'addAccountContact',
-                'icon': 'content/images/icons/New_Contact_24x24.png',
-                'title': this.addAccountContactText
-            });
-
-            for (var i = 0; i < visible.length; i++)
-            {
-                view = App.getView(visible[i]);
-
-                if (view)
-                {
-                    entry = {
-                        'action': 'navigateToView',
-                        'view': view.id,
-                        'icon': view.icon,
-                        'title': view.titleText
-                    };
-
-                    if (typeof this.query !== 'function' || this.query(entry)) list.push(entry);
-                }
-            }
-
-            this.processFeed({'$resources': list});
-        },
         init: function() {
             this.inherited(arguments);
 
@@ -114,6 +84,53 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
                     action: 'navigateToConfigurationView'
                 }]
             });
+        },
+        createLayout: function() {
+            // don't need to cache as it is only re-rendered when there is a change
+            var configured = dojo.getObject('App.preferences.home.visible', App) || [],
+                layout = [{
+                    id: 'actions',
+                    as: [{
+                        'action': 'addAccountContact',
+                        'icon': 'content/images/icons/New_Contact_24x24.png',
+                        'title': this.addAccountContactText
+                    }]
+                }];
+
+            var visible = {
+                id: 'views',
+                as: []
+            };
+
+            for (var i = 0; i < configured.length; i++)
+            {
+                var view = App.getView(configured[i]);
+                if (view)
+                {
+                    visible.as.push({
+                        'action': 'navigateToView',
+                        'view': view.id,
+                        'icon': view.icon,
+                        'title': view.titleText
+                    });
+                }
+            }
+
+            layout.push(visible);
+
+            return layout;
+        },
+        requestData: function() {
+            var layout = this._createCustomizedLayout(this.createLayout()),
+                list = [];
+
+            dojo.forEach(layout, function(section) {
+                dojo.forEach(section['as'], function(row) {
+                    if (typeof this.query !== 'function' || this.query(entry)) list.push(row);
+                }, this);
+            }, this);
+
+            this.processFeed({'$resources': list});
         },
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
