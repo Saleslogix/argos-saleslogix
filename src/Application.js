@@ -242,7 +242,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 .setQueryArg('select', 'name,value')
                 .using(function() {
                     var service = this.getService();
-                    Ext.each(this.userOptionsToRequest, function(item) {
+                    dojo.forEach(this.userOptionsToRequest, function(item) {
                         new Sage.SData.Client.SDataSingleResourceRequest(this)
                             .setContractName('system')
                             .setResourceKind('useroptions')
@@ -260,7 +260,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         onRequestUserOptionsSuccess: function(feed) {
             var userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
 
-            Ext.each(feed && feed['$resources'], function(item) {
+            dojo.forEach(feed && feed['$resources'], function(item) {
                 var key = item && item['$descriptor'],
                     value = item && item['value'];
                 if (value && key) this[key] = value;

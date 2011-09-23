@@ -128,7 +128,7 @@ define('Mobile/SalesLogix/Views/Contract/Detail', ['Sage/Platform/Mobile/Detail'
                     label: this.relatedTicketsText,
                     view: 'ticket_related',
                     where: this.formatAccountRelatedQuery.bindDelegate(
-                        this, ['Account.id eq "${0}"'], true
+                        this, 'Account.id eq "${0}"'
                     )
                 }]
             }

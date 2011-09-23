@@ -5,10 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Contract");
+define('Mobile/SalesLogix/Views/Contract/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    Mobile.SalesLogix.Contract.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.Contract.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         titleText: 'Contract',
         refNumText: 'refNum',
@@ -56,4 +55,4 @@ Ext.namespace("Mobile.SalesLogix.Contract");
             ]);
         }
     });
-})();
+});

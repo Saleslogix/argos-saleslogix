@@ -41,7 +41,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     label: this.descriptionText,
                     name: 'Description',
                     picklist: this.formatDependentPicklist.bindDelegate(
-                        this, 'Address Description ({0})', true
+                        this, 'Address Description (${0})', true
                     ),
                     requireSelection: false,
                     title: this.descriptionTitleText,

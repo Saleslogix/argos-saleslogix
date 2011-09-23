@@ -5,12 +5,12 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Ticket");
+define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    var U = Sage.Platform.Mobile.Utility;
+    dojo.declare('Mobile.SalesLogix.Views.Ticket.Edit', [Sage.Platform.Mobile.Edit], {
 
-    Mobile.SalesLogix.Ticket.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    // var U = Sage.Platform.Mobile.Utility;
+
         //Localization
         accountText: 'acct',
         areaText: 'area',
@@ -67,12 +67,12 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         resourceKind: 'tickets',
 
         init: function() {
-            Mobile.SalesLogix.Ticket.Edit.superclass.init.apply(this, arguments);
+            // Mobile.SalesLogix.Ticket.Edit.superclass.init.apply(this, arguments);
 
-            this.fields['Account'].on('change', this.onAccountChange, this);
-            this.fields['Urgency'].on('change', this.onUrgencyChange, this);
-            this.fields['Area'].on('change', this.onAreaChange, this);
-            this.fields['Category'].on('change', this.onCategoryChange, this);
+            // this.fields['Account'].on('change', this.onAccountChange, this);
+            // this.fields['Urgency'].on('change', this.onUrgencyChange, this);
+            // this.fields['Area'].on('change', this.onAreaChange, this);
+            // this.fields['Category'].on('change', this.onCategoryChange, this);
         },
         setValues: function(entry) {
             Mobile.SalesLogix.Ticket.Edit.superclass.setValues.apply(this, arguments);
@@ -100,7 +100,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             {
                 var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
                     .setResourceKind('accounts')
-                    .setResourceSelector(String.format("'{0}'", selection.$key))
+                    .setResourceSelector(dojo.string.substitute("'${0}'", selection.$key))
                     .setResourceProperty('Contacts')
                     .setQueryArg('count', 1)
                     .setQueryArg('select', 'NameLF')
@@ -127,7 +127,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             var value = this.fields['Account'].getValue(),
                 key = value && value['$key'];
 
-            return key ? String.format('Account.id eq "{0}"', key) : false;
+            return key ? dojo.string.substitute('Account.id eq "${0}"', key) : false;
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
@@ -187,7 +187,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     requireSelection: true,
                     validator: Mobile.SalesLogix.Validator.exists,
                     view: 'contact_related',
-                    where: this.formatAccountQuery.createDelegate(this)
+                    where: this.formatAccountQuery.bindDelegate(this)
                 },
                 {
                     label: this.contractText,
@@ -196,7 +196,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     type: 'lookup',
                     requireSelection: true,
                     view: 'contract_related',
-                    where: this.formatAccountQuery.createDelegate(this)
+                    where: this.formatAccountQuery.bindDelegate(this)
                 },
                 {
                     label: this.areaText,
@@ -217,7 +217,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     dependsOn: 'Area',
                     valueKeyProperty: false,
                     valueTextProperty: false,
-                    where: this.formatCategoryQuery.createDelegate(this),
+                    where: this.formatCategoryQuery.bindDelegate(this),
                     view: 'areacategoryissue_lookup'
                 },
                 {
@@ -229,7 +229,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
                     dependsOn: 'Category',
                     valueKeyProperty: false,
                     valueTextProperty: false,
-                    where: this.formatIssueQuery.createDelegate(this),
+                    where: this.formatIssueQuery.bindDelegate(this),
                     view: 'areacategoryissue_lookup'
                 },
                 {
@@ -322,4 +322,4 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
             ]);
         }
     });
-})();
+});

@@ -5,10 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.History");
+define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    Mobile.SalesLogix.History.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.History.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         accountText: 'account',
         noteDescriptionTitleText: 'Note Description',
@@ -51,8 +50,8 @@ Ext.namespace("Mobile.SalesLogix.History");
         ],
 
         init: function() {
-            Mobile.SalesLogix.History.Edit.superclass.init.apply(this, arguments);
-
+            // Mobile.SalesLogix.History.Edit.superclass.init.apply(this, arguments);
+console.log(this.fields);
             this.fields['Lead'].on('change', this.onLeadChange, this);
             this.fields['IsLead'].on('change', this.onIsLeadChange, this);
         },
@@ -67,7 +66,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             return !!lead;
         },
         beforeTransitionTo: function() {
-            Mobile.SalesLogix.History.Edit.superclass.beforeTransitionTo.apply(this, arguments);
+            Mobile.SalesLogix.Views.History.Edit.superclass.beforeTransitionTo.apply(this, arguments);
 
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
@@ -100,23 +99,23 @@ Ext.namespace("Mobile.SalesLogix.History");
             }
         },
         showFieldsForLead: function() {
-            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
 
-            Ext.each(this.fieldsForLeads, function(item) {
+            dojo.forEach(this.fieldsForLeads, function(item) {
                 if (this.fields[item])
                     this.fields[item].show();
             }, this);
         },
         showFieldsForStandard: function() {
-            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
 
-            Ext.each(this.fieldsForStandard, function(item) {
+            dojo.forEach(this.fieldsForStandard, function(item) {
                     if (this.fields[item])
                         this.fields[item].show();
                 }, this);
@@ -222,7 +221,7 @@ Ext.namespace("Mobile.SalesLogix.History");
             }            
         },
         setValues: function(values) {
-            Mobile.SalesLogix.History.Edit.superclass.setValues.apply(this, arguments);
+            Mobile.SalesLogix.Views.History.Edit.superclass.setValues.apply(this, arguments);
 
             this.fields['IsLead'].setValue(this.options.isForLead);
             this.fields['Text'].setValue(values['LongNotes'] || values['Notes'] || '');
@@ -232,7 +231,7 @@ Ext.namespace("Mobile.SalesLogix.History");
 
             property = property || '$key';
 
-            return String.format(format, getV(dependentValue, property));
+            return dojo.string.substitute(format, getV(dependentValue, property));
         },
         getValues: function() {
             var values = Mobile.SalesLogix.History.Edit.superclass.getValues.apply(this, arguments);
@@ -323,8 +322,8 @@ Ext.namespace("Mobile.SalesLogix.History");
                     valueKeyProperty: 'ContactId',
                     valueTextProperty: 'ContactName',
                     view: 'contact_related',
-                    where: this.formatDependentQuery.createDelegate(
-                        this, ['Account.Id eq "{0}"', 'AccountId'], true
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
                     )
                 },{
                     dependsOn: 'Account',
@@ -336,8 +335,8 @@ Ext.namespace("Mobile.SalesLogix.History");
                     valueKeyProperty: 'OpportunityId',
                     valueTextProperty: 'OpportunityName',
                     view: 'opportunity_related',
-                    where: this.formatDependentQuery.createDelegate(
-                        this, ['Account.Id eq "{0}"', 'AccountId'], true
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
                     )
                 },{
                     dependsOn: 'Account',
@@ -349,8 +348,8 @@ Ext.namespace("Mobile.SalesLogix.History");
                     valueKeyProperty: 'TicketId',
                     valueTextProperty: 'TicketNumber',
                     view: 'ticket_related',
-                    where: this.formatDependentQuery.createDelegate(
-                        this, ['Account.Id eq "{0}"', 'AccountId'], true
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
                     )
                 },{
                     label: this.leadText,
@@ -370,4 +369,4 @@ Ext.namespace("Mobile.SalesLogix.History");
             }]);
         }
     });
-})();
+});

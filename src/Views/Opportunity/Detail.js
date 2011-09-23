@@ -152,29 +152,21 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     icon: 'content/images/icons/product_24.png',
                     label: this.relatedProductsText,
                     view: 'opportunityproduct_related',
-                    where: this.formatRelatedQuery.bindDelegate(
-                        this, ['Opportunity.Id eq "${0}"'], true
-                    )
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"')
                 },{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
-                    where: this.formatRelatedQuery.bindDelegate(
-                        this, ['OpportunityId eq "${0}"'], true
-                    )
+                    where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}"')
                 },{
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
                     view: 'contact_related',
-                    where: this.formatRelatedQuery.bindDelegate(
-                        this, ['Opportunities.Opportunity.Id eq "${0}"'], true
-                    )
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Opportunities.Opportunity.Id eq "${0}"')
                 },{
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
-                    where: this.formatRelatedQuery.bindDelegate(
-                        this, ['OpportunityId eq "${0}" and Type ne "atDatabaseChange"'], true
-                    ),
+                    where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}" and Type ne "atDatabaseChange"'),
                     view: 'history_related'
                 }]
             }]);

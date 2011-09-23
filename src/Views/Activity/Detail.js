@@ -202,16 +202,12 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                 as: [{
                     name: 'StartDate',
                     label: this.startTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
-                        this, [this.startDateFormatText], true
-                    ),
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startDateFormatText),
                     exclude: this.isActivityTimeless
                 },{
                     name: 'StartDate',
                     label: this.allDayText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
-                        this, [this.timelessDateFormatText, true], true
-                    ),
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.timelessDateFormatText),
                     include: this.isActivityTimeless
                 },{
                     name: 'Timeless',
@@ -230,9 +226,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                 },{
                     name: 'AlarmTime',
                     label: this.alarmTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
-                        this, [this.alarmDateFormatText], true
-                    ),
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.alarmDateFormatText),
                     include: this.doesActivityHaveReminder
                 },{
                     name: 'Rollover',

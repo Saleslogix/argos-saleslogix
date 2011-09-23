@@ -93,29 +93,23 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     name: 'StartDate',
                     label: this.scheduledText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
-                        this, [this.dateFormatText], true
+                        this, this.dateFormatText
                     ),
-                    exclude: this.isHistoryOfType.bindDelegate(
-                        this, ['atNote'], true
-                    )
+                    exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
                     name: 'CompletedDate',
                     label: this.completedText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
-                        this, [this.dateFormatText], true
+                        this, this.dateFormatText
                     ),
-                    exclude: this.isHistoryOfType.bindDelegate(
-                        this, ['atNote'], true
-                    )
+                    exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
                     name: 'ModifyDate',
                     label: this.modifiedText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
-                        this, [this.dateFormatText], true
+                        this, this.dateFormatText
                     ),
-                    include: this.isHistoryOfType.bindDelegate(
-                        this, ['atNote'], true
-                    )
+                    include: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
                     name: 'Description',
                     label: this.regardingText
