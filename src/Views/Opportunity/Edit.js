@@ -93,7 +93,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
         init: function() {
             // Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
 
-            // this.fields['Account'].on('change', this.onAccountChange, this);
+            dojo.connect(this.fields['Account'], 'onchange', this.onAccountChange, this.onChange);
         },
         onAccountChange: function(value, field) {
             var selection = field.getSelection();

@@ -206,7 +206,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: Mobile.SalesLogix.Format.address.bindDelegate(this, [true, ' '])
+                    renderer: Mobile.SalesLogix.Format.address.bindDelegate(this, true, ' ')
                 }]
             },{
                 options: {

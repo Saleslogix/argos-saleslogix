@@ -4,17 +4,15 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Ticket");
+define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', ['Sage/Platform/Mobile/List'], function() {
+    dojo.declare('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', [Sage.Platform.Mobile.List], {
+        //Localization
+        titleText: 'Ticket Urgency',
 
-(function() {
-    Mobile.SalesLogix.Ticket.UrgencyLookup = Ext.extend(Sage.Platform.Mobile.List, {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Description %}</h3>'
         ]),
-
-        //Localization
-        titleText: 'Ticket Urgency',
 
         //View Properties
         id: 'urgency_list',
@@ -26,7 +24,7 @@ Ext.namespace("Mobile.SalesLogix.Ticket");
         resourceKind: 'urgencies',
 
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "%{0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return String.format('upper(Description) like "%${0}%"', this.escapeSearchQuery(query.toUpperCase()));
         }
     });
-})();
+});

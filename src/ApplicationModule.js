@@ -27,15 +27,19 @@
         'Mobile/SalesLogix/Views/Lead/List',
         'Mobile/SalesLogix/Views/Lead/Detail',
         'Mobile/SalesLogix/Views/Lead/Edit',
+        'Mobile/SalesLogix/Views/LeadSource/List',
         'Mobile/SalesLogix/Views/Opportunity/List',
         'Mobile/SalesLogix/Views/Opportunity/Detail',
         'Mobile/SalesLogix/Views/Opportunity/Edit',
+        'Mobile/SalesLogix/Views/Owner/List',
         'Mobile/SalesLogix/Views/Ticket/List',
         'Mobile/SalesLogix/Views/Ticket/Detail',
         'Mobile/SalesLogix/Views/Ticket/Edit',
+        'Mobile/SalesLogix/Views/Ticket/UrgencyLookup',
         'Mobile/SalesLogix/Views/History/List',
         'Mobile/SalesLogix/Views/History/Detail',
-        'Mobile/SalesLogix/Views/History/Edit'
+        'Mobile/SalesLogix/Views/History/Edit',
+        'Mobile/SalesLogix/Views/User/List'
     ];
 
     define('Mobile/SalesLogix/ApplicationModule', imports, function() {
@@ -197,22 +201,23 @@
                     id: 'history_related',
                     expose: false
                 }));
-/*
-                this.registerView(new Mobile.SalesLogix.User.List({
+
+
+                this.registerView(new Mobile.SalesLogix.Views.User.List({
                     expose: false
                 }));
 
-                this.registerView(new Mobile.SalesLogix.Owner.List({
+                this.registerView(new Mobile.SalesLogix.Views.Owner.List({
                     expose: false
                 }));
 
-                this.registerView(new Mobile.SalesLogix.LeadSource.List({
+                this.registerView(new Mobile.SalesLogix.Views.LeadSource.List({
                     expose: false
                 }));
 
-                this.registerView(new Mobile.SalesLogix.Ticket.UrgencyLookup({
+                this.registerView(new Mobile.SalesLogix.Views.Ticket.UrgencyLookup({
                     expose: false
-                }));*/
+                }));
             },
             loadToolbars: function() {
                 this.inherited(arguments);

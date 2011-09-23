@@ -69,10 +69,10 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
         init: function() {
             // Mobile.SalesLogix.Ticket.Edit.superclass.init.apply(this, arguments);
 
-            // this.fields['Account'].on('change', this.onAccountChange, this);
-            // this.fields['Urgency'].on('change', this.onUrgencyChange, this);
-            // this.fields['Area'].on('change', this.onAreaChange, this);
-            // this.fields['Category'].on('change', this.onCategoryChange, this);
+            dojo.connect(this.fields['Account'], 'onchange', this.onAccountChange, this.onChange);
+            dojo.connect(this.fields['Account'], 'onchange', this.onUrgencyChange, this.onChange);
+            dojo.connect(this.fields['Account'], 'onchange', this.onAreaChange, this.onChange);
+            dojo.connect(this.fields['Account'], 'onchange', this.onCategoryChange, this.onChange);
         },
         setValues: function(entry) {
             Mobile.SalesLogix.Ticket.Edit.superclass.setValues.apply(this, arguments);

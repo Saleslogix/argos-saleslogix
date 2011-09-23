@@ -51,9 +51,9 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
 
         init: function() {
             // Mobile.SalesLogix.History.Edit.superclass.init.apply(this, arguments);
-console.log(this.fields);
-            this.fields['Lead'].on('change', this.onLeadChange, this);
-            this.fields['IsLead'].on('change', this.onIsLeadChange, this);
+
+            dojo.connect(this.fields['Lead'], 'onchange', this.onLeadChange, this.onChange);
+            dojo.connect(this.fields['IsLead'], 'onchange', this.onIsLeadChange, this.onChange);
         },
         isHistoryForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
