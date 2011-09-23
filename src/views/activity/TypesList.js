@@ -32,7 +32,8 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         'atPhoneCall': 'content/images/icons/Schedule_Call_24x24.png',
         'atAppointment': 'content/images/icons/Schedule_Meeting_24x24.png',
         'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-        'atPersonal': 'content/images/icons/Personal_24x24.png'
+        'atPersonal': 'content/images/icons/Personal_24x24.png',
+        "event": 'content/images/icons/Holiday_schemes_24.png'
     },
 
     //View Properties   
@@ -44,11 +45,6 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         'atToDo',
         'event'
     ],
-    eventTypeItem: {
-        "$key": "event",
-        "$descriptor": "Event",
-        "icon": 'content/images/icons/Personal_24x24.png'
-    },
     expose: false,
     hideSearch: true,
     id: 'activity_types_list',
@@ -94,8 +90,8 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
                 'icon':this.activityTypeIcons[this.activityTypeOrder[i]]
             });
         }
-        if(eventViews.indexOf(this.options.returnTo) !== -1){
-            list.push(this.eventTypeItem);
+        if(eventViews.indexOf(this.options.returnTo) === -1){
+            list.pop(); // remove event for non event views
         }
 
         this.processFeed({'$resources': list});
