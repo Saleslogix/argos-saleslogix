@@ -431,7 +431,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 );
         },
         processEventFeed: function(feed){
-            if (this.feed['$totalResults'] === 0) return false;
+            if (feed['$totalResults'] === 0) return false;
 
 
             if( feed['$totalResults'] > feed['$resources'].length ){

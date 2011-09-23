@@ -281,8 +281,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             return String.format(
                     [
                         'UserId eq "{0}" and (',
-                        'StartDate',
-                        ' between @{1}@ and @{2}@)'
+                            '(StartDate gt @{1}@ or EndDate gt @{1}@) and ',
+                            'StartDate lt @{2}@',
+                        ')'
                     ].join(''),
                     App.context['user'] && App.context['user']['$key'],
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
