@@ -35,7 +35,7 @@ Installation
 		c:\Program Files (x86)\Java\jre6
 
 #### Steps
-1.	Save this [gist](https://gist.github.com/457973) as `build-product.cmd` to directory where you cloned [Argos SDK][argos-sdk].
+1.	Save this [gist](https://gist.github.com/457973) as `build-product.cmd` (or for *nix save this [gist](https://gist.github.com/1209392) instead as `build-product.sh`) to directory where you cloned [Argos SDK][argos-sdk].
 2.	Open a command prompt and excute the following, changing paths as appropriate, eg:
 
 		cd \projects\sage\mobile
