@@ -24,7 +24,8 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         'atPhoneCall': 'Phone Call',
         'atAppointment': 'Meeting',
         'atLiterature': 'Literature Request',
-        'atPersonal': 'Personal Activity'
+        'atPersonal': 'Personal Activity',
+        'event': 'Event'
     },
     activityTypeIcons: {
         'atToDo': 'content/images/icons/Schedule_ToDo_24x24.png',
@@ -40,18 +41,25 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         //'atLiterature', //For [#7206791], We will enable this later.
         'atPersonal',
         'atPhoneCall',
-        'atToDo'
+        'atToDo',
+        'event'
     ],
+    eventTypeItem: {
+        "$key": "event",
+        "$descriptor": "Event",
+        "icon": 'content/images/icons/Personal_24x24.png'
+    },
     expose: false,
     hideSearch: true,
     id: 'activity_types_list',
     editView: 'activity_edit',
-   
+    eventEditView: 'event_edit',
+
     activateEntry: function(params) {
         if (params.key)
-        {            
+        {
             var source = this.options && this.options.source,
-                view = App.getView(this.editView);
+                view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
 
             if (view)
                 view.show({
@@ -75,7 +83,8 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         return false;
     },
     requestData: function() {
-        var list = [];
+        var list = [],
+            eventViews = ['slx_calendar','calendar_weeklist','useractivity_list'];
 
         for (var i = 0; i < this.activityTypeOrder.length; i++)
         {
@@ -84,6 +93,9 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
                 '$descriptor': this.activityTypeText[this.activityTypeOrder[i]],
                 'icon':this.activityTypeIcons[this.activityTypeOrder[i]]
             });
+        }
+        if(eventViews.indexOf(this.options.returnTo) !== -1){
+            list.push(this.eventTypeItem);
         }
 
         this.processFeed({'$resources': list});

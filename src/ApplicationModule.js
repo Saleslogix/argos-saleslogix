@@ -51,6 +51,15 @@ Mobile.SalesLogix.ApplicationModule = Ext.extend(Sage.Platform.Mobile.Applicatio
             expose: false
         }));
 
+        this.registerView(new Mobile.SalesLogix.Event.List());
+        this.registerView(new Mobile.SalesLogix.Event.Detail());
+        this.registerView(new Mobile.SalesLogix.Event.Edit());
+        this.registerView(new Mobile.SalesLogix.Event.List({
+            id: 'event_related',
+            expose: false
+        }));
+
+
         this.registerView(new Mobile.SalesLogix.SalesOrder.Edit());
         this.registerView(new Mobile.SalesLogix.SalesOrder.List({
             expose: false
