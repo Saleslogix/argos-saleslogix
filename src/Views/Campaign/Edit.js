@@ -5,10 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Campaign");
+define('Mobile/SalesLogix/Views/Campaign/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    Mobile.SalesLogix.Campaign.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.Campaign.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         codeText: 'code',
         nameText: 'name',
@@ -45,4 +44,4 @@ Ext.namespace("Mobile.SalesLogix.Campaign");
             ]);
         }
     });
-})();
+});

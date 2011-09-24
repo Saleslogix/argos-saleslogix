@@ -219,27 +219,27 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                 as: [{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
-                    where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}"', true),
+                    where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}"'),
                     view: 'activity_related'
                 },{
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
-                    where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"', true),
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
                     view: 'contact_related'
                 },{
                     icon: 'content/images/icons/opportunity_24.png',
                     label: this.relatedOpportunitiesText,
-                    where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"', true),
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
                     view: 'opportunity_related'
                 },{
                     icon: 'content/images/icons/Ticket_24x24.png',
                     label: this.relatedTicketsText,
-                    where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"', true),
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
                     view: 'ticket_related'
                 },{
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
-                    where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}" and Type ne "atDatabaseChange"', true),
+                    where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}" and Type ne "atDatabaseChange"'),
                     view: 'history_related'
                 }]
             }]);

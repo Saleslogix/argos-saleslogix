@@ -5,10 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Activity");
+define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    Mobile.SalesLogix.Activity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.Activity.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',
@@ -18,7 +17,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         categoryText: 'category',
         durationText: 'duration',
         durationTitleText: 'Duration',
-		durationInvalidText: "The field '{2}' must have a value.",
+		durationInvalidText: "The field '${2}' must have a value.",
 		reminderInvalidText: "The field 'reminder' must have a value.",
         reminderTitleText: 'Reminder',
         leaderText: 'leader',
@@ -177,23 +176,23 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 this.showFieldsForStandard();
         },
         showFieldsForLead: function() {
-            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
 
-            Ext.each(this.fieldsForLeads, function(item) {
+            dojo.forEach(this.fieldsForLeads, function(item) {
                 if (this.fields[item])
                     this.fields[item].show();
             }, this);
         },
         showFieldsForStandard: function() {
-            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
 
-            Ext.each(this.fieldsForStandard, function(item) {
+            dojo.forEach(this.fieldsForStandard, function(item) {
                     if (this.fields[item])
                         this.fields[item].show();
                 }, this);
@@ -498,7 +497,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             property = property || '$key';
 
-            return String.format(format, getV(dependentValue, property));
+            return dojo.string.substitute(format, getV(dependentValue, property));
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -508,9 +507,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 dependsOn: 'Type',
                 label: this.regardingText,
                 name: 'Description',
-                picklist: this.formatPicklistForType.createDelegate(
-                    this, ['Description'], true
-                ),
+                picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
                 title: this.activityDescriptionTitleText,
                 orderBy: 'text asc',
                 type: 'picklist',
@@ -528,9 +525,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 dependsOn: 'Type',
                 label: this.categoryText,
                 name: 'Category',
-                picklist: this.formatPicklistForType.createDelegate(
-                    this, ['Category'], true
-                ),
+                picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
                 orderBy: 'text asc',
                 title: this.activityCategoryTitleText,
                 type: 'picklist',
@@ -557,7 +552,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 name: 'Duration',
                 type: 'select',
                 view: 'select_list',
-                textRenderer: this.formatDurationText.createDelegate(this),
+                textRenderer: this.formatDurationText.bindDelegate(this),
                 requireSelection: true,
                 valueKeyProperty: false,
                 valueTextProperty: false,
@@ -579,7 +574,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 name: 'Reminder',
                 type: 'select',
                 view: 'select_list',
-                textRenderer: this.formatReminderText.createDelegate(this),
+                textRenderer: this.formatReminderText.bindDelegate(this),
                 include: false,
                 requireSelection: true,
                 valueKeyProperty: false,
@@ -653,8 +648,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 valueKeyProperty: 'ContactId',
                 valueTextProperty: 'ContactName',
                 view: 'contact_related',
-                where: this.formatDependentQuery.createDelegate(
-                    this, ['Account.Id eq "{0}"', 'AccountId'], true
+                where: this.formatDependentQuery.bindDelegate(
+                    this, 'Account.Id eq "${0}"', 'AccountId'
                 )
             },{
                 dependsOn: 'Account',
@@ -666,8 +661,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 valueKeyProperty: 'OpportunityId',
                 valueTextProperty: 'OpportunityName',
                 view: 'opportunity_related',
-                where: this.formatDependentQuery.createDelegate(
-                    this, ['Account.Id eq "{0}"', 'AccountId'], true
+                where: this.formatDependentQuery.bindDelegate(
+                    this, 'Account.Id eq "${0}"', 'AccountId'
                 )
             },{
                 dependsOn: 'Account',
@@ -679,8 +674,8 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 valueKeyProperty: 'TicketId',
                 valueTextProperty: 'TicketNumber',
                 view: 'ticket_related',
-                where: this.formatDependentQuery.createDelegate(
-                    this, ['Account.Id eq "{0}"', 'AccountId'], true
+                where: this.formatDependentQuery.bindDelegate(
+                    this, 'Account.Id eq "${0}"', 'AccountId'
                 )
             },{
                 label: this.leadText,
@@ -698,4 +693,4 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }]);
         }
     });     
-})();
+});

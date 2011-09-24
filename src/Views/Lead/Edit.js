@@ -5,10 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Lead");
+define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    Mobile.SalesLogix.Lead.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.Lead.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         accountText: 'account',
         addressText: 'address',
@@ -111,7 +110,7 @@ Ext.namespace("Mobile.SalesLogix.Lead");
                 },
                 {
                     emptyText: '',
-                    formatValue: Mobile.SalesLogix.Format.address.createDelegate(this, [true], true),
+                    formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true),
                     label: this.addressText,
                     name: 'Address',
                     type: 'address',
@@ -181,4 +180,4 @@ Ext.namespace("Mobile.SalesLogix.Lead");
             ]);
         }
     });
-})();
+});

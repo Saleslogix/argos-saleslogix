@@ -5,12 +5,11 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Opportunity");
+define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    var U = Sage.Platform.Mobile.Utility;
+    dojo.declare('Mobile.SalesLogix.Views.Opportunity.Edit', [Sage.Platform.Mobile.Edit], {
+    // var U = Sage.Platform.Mobile.Utility;
     
-    Mobile.SalesLogix.Opportunity.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -51,7 +50,7 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
         ],
 
         show: function(options) {
-            Mobile.SalesLogix.Opportunity.Edit.superclass.show.apply(this, arguments);
+            Mobile.SalesLogix.Views.Opportunity.Edit.superclass.show.apply(this, arguments);
 
             if (options.insert === true) this.applyContext();
         },
@@ -92,9 +91,9 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
         },
         init: function() {
-            Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
+            // Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
 
-            this.fields['Account'].on('change', this.onAccountChange, this);
+            dojo.connect(this.fields['Account'], 'onchange', this.onAccountChange, this.onChange);
         },
         onAccountChange: function(value, field) {
             var selection = field.getSelection();
@@ -208,4 +207,4 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
             ]);
         }
     });
-})();
+});

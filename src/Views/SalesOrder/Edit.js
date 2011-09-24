@@ -5,11 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.SalesOrder");
+define('Mobile/SalesLogix/Views/SalesOrder/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-
-(function() {
-    Mobile.SalesLogix.SalesOrder.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.SalesOrder.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         commentsText: 'comments',
         reqDateText: 'req date',
@@ -75,4 +73,4 @@ Ext.namespace("Mobile.SalesLogix.SalesOrder");
             ]);
         }
     });
-})();
+});

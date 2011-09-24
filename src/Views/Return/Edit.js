@@ -5,10 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Return");
+define('Mobile/SalesLogix/Views/Return/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    Mobile.SalesLogix.Return.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.Return.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         titleText: 'Return',
         returnIdText: 'return id',
@@ -60,4 +59,4 @@ Ext.namespace("Mobile.SalesLogix.Return");
             ]);
         }
     });
-})();
+});

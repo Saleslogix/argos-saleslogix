@@ -172,7 +172,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
                     disabled: this.checkWorkPhone,
-                    renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, [false], true)
+                    renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false)
                 },{
                     name: 'Email',
                     label: this.sendEmailText,
@@ -198,7 +198,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: Mobile.SalesLogix.Format.address.bindDelegate(this, [true, ' '], true)
+                    renderer: Mobile.SalesLogix.Format.address.bindDelegate(this, [true, ' '])
                 }]
             },{
                 options: {
@@ -258,16 +258,12 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
-                    where: this.formatRelatedQuery.bindDelegate(
-                        this, ['LeadId eq "${0}"'], true
-                    )
+                    where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}"')
                 },
                 {
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
-                    where: this.formatRelatedQuery.bindDelegate(
-                        this, ['LeadId eq "${0}" and Type ne "atDatabaseChange"'], true
-                    ),
+                    where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}" and Type ne "atDatabaseChange"'),
                     view: 'history_related'
                 }]
             }]);

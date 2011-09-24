@@ -256,14 +256,11 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         onRequestUserOptionsSuccess: function(feed) {
             var userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
 
-
-            for(var item in (feed && feed['$resources'])){
+            dojo.forEach(feed && feed['$resources'], function(item) {
                 var key = item && item['$descriptor'],
                     value = item && item['value'];
                 if (value && key) this[key] = value;
-            }
-
-
+            });
 
             var insertSecCode = userOptions['General:InsertSecCodeID'],
                 currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];

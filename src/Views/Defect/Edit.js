@@ -5,10 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Defect");
+define('Mobile/SalesLogix/Views/Defect/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-(function() {
-    Mobile.SalesLogix.Defect.Edit = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.Defect.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         idPrefixText: 'id prefix',
         idSuffixText: 'id suffix',
@@ -59,4 +58,4 @@ Ext.namespace("Mobile.SalesLogix.Defect");
             ]);
         }
     });
-})();
+});

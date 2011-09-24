@@ -232,9 +232,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
-                    where: this.formatRelatedQuery.bindDelegate(
-                        this, ['TicketId eq "${0}"'], true
-                    )
+                    where: this.formatRelatedQuery.bindDelegate(this, 'TicketId eq "${0}"')
                 }]
             }]);
         }

@@ -196,7 +196,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     type: 'picklist'
                 },
                 {
-                    formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, [true], true),
+                    formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true),
                     label: this.addressText,
                     name: 'Address',
                     type: 'address',
