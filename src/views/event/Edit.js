@@ -52,7 +52,55 @@ Ext.namespace("Mobile.SalesLogix.Event");
 
             return {'$resources': list};
         },
+        applyUserActivityContext: function(context) {
+            var view = App.getView(context.id);
+            if (view && view.currentDate)
+            {
+                var currentDate = view.currentDate.clone().clearTime(),
+                    userOptions = App.context['userOptions'],
+                    startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
+                    startTime = startTimeOption && Date.parse(startTimeOption),
+                    startDate,
+                    endDate;
 
+                if (startTime && (currentDate.compareTo(Date.today()) !== 0))
+                {
+                    startDate = currentDate.clone().set({
+                        'hour': startTime.getHours(),
+                        'minute': startTime.getMinutes()
+                    });
+                    endDate = startDate.clone().add({minute:15});
+                }
+                else
+                {
+                    startTime = Date.now(),
+                    startDate = Date.now().clearTime().set({
+                        'hour': startTime.getHours()
+                    }).add({
+                        'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
+                    });
+                    endDate = startDate.clone().add({minute:15});
+                }
+
+                this.fields['StartDate'].setValue(startDate);
+                this.fields['EndDate'].setValue(endDate);
+            }
+        },
+        applyContext: function() {
+            Mobile.SalesLogix.Event.Edit.superclass.applyContext.apply(this, arguments);
+            var found = App.queryNavigationContext(function(o) {
+                var context = (o.options && o.options.source) || o;
+
+                return (/^(useractivities)$/.test(context.resourceKind));
+            });
+
+            var context = (found && found.options && found.options.source) || found,
+                lookup = {
+                    'useractivities': this.applyUserActivityContext
+                };
+
+            if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
