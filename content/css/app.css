@@ -686,7 +686,7 @@ body.transition > .footer-toolbar
     -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 }
 
-.footer-toolbar > .toolButton
+.footer-toolbar > div > .toolButton
 {
     background: transparent;
     width: auto;
@@ -696,17 +696,17 @@ body.transition > .footer-toolbar
     -ms-filter: "";
 }
 
-.footer-toolbar > .toolButton-left
+.footer-toolbar > div > .toolButton-left
 {
     margin: 0 0 0 10px;
 }
 
-.footer-toolbar > .toolButton-right
+.footer-toolbar > div > .toolButton-right
 {
     margin: 0 10px 0 0;
 }
 
-.footer-toolbar > .toolButton > span
+.footer-toolbar > div > .toolButton > span
 {
     width: auto;
     height: 36px;

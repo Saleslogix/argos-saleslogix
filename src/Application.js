@@ -55,10 +55,6 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         run: function() {
             this.inherited(arguments);
 
-            // todo: for testing
-            this.navigateToHomeView();
-            return;
-
             if (App.isOnline() || !App.enableCaching)
             {
                 this.handleAuthentication();
@@ -218,7 +214,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         requestUserDetails: function() {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('users')
-                .setResourceSelector(String.format('"{0}"', this.context['user']['$key']))
+                .setResourceSelector(dojo.string.substitute('"${0}"', [this.context['user']['$key']]))
                 .setQueryArg('select', this.userDetailsQuerySelect.join(','));
 
             request.read({
@@ -242,11 +238,11 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 .setQueryArg('select', 'name,value')
                 .using(function() {
                     var service = this.getService();
-                    Ext.each(this.userOptionsToRequest, function(item) {
+                    dojo.forEach(this.userOptionsToRequest, function(item) {
                         new Sage.SData.Client.SDataSingleResourceRequest(this)
                             .setContractName('system')
                             .setResourceKind('useroptions')
-                            .setResourceSelector(String.format('"{0}"', item))
+                            .setResourceSelector(dojo.string.substitute('"${0}"', [item]))
                             .read();
                     }, service);
                 }, this);
@@ -260,11 +256,12 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         onRequestUserOptionsSuccess: function(feed) {
             var userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
 
-            Ext.each(feed && feed['$resources'], function(item) {
+
+            for(var item in (feed && feed['$resources'])){
                 var key = item && item['$descriptor'],
                     value = item && item['value'];
                 if (value && key) this[key] = value;
-            }, userOptions);
+            }
 
 
 
@@ -277,7 +274,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         requestOwnerDescription: function(key) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('owners')
-                .setResourceSelector(String.format('"{0}"', key))
+                .setResourceSelector(dojo.string.substitute('"${0}"', [key]))
                 .setQueryArg('select', 'OwnerDescription');
 
             request.read({

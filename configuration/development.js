@@ -14,10 +14,7 @@ define('Configuration/development', ['dojo', 'Mobile/SalesLogix/ApplicationModul
                 contractName: 'dynamic',
                 port: 80,
                 protocol: /https/i.test(window.location.protocol) ? 'https' : false,
-                json: true,
-                userName: 'admin',
-                password: ''
-            }
+                json: true            }
         },
         enableUpdateNotification: true
     });

@@ -4,17 +4,22 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix");
+define('Mobile/SalesLogix/Views/FooterToolbar', ['Sage/Platform/Mobile/Toolbar'], function() {
 
-(function() {
-    Mobile.SalesLogix.FooterToolbar = Ext.extend(Sage.Platform.Mobile.MainToolbar, {
-        attachmentPoints: Ext.apply({}, {
-            copyrightEl: '.copyright'
-        }, Sage.Platform.Mobile.MainToolbar.prototype.attachmentPoints),
-        barTemplate: new Simplate([
+    dojo.declare('Mobile.SalesLogix.Views.FooterToolbar', [Sage.Platform.Mobile.Toolbar], {
+        // Localization
+        copyrightText: '&copy; 2011 Sage Software, Inc. All rights reserved.',
+        logOutConfirmText: 'Are you sure you want to log out?',
+        settingsText: 'Settings',
+        helpText: 'Help',
+        topText: 'Top',
+        logOutText: 'Log Out',
+
+        widgetTemplate: new Simplate([
             '<div class="footer-toolbar {%= $.cls %}">',
             '<hr />',
-            '<span class="copyright">{%= $.copyrightText %}</span>',
+            '<div data-dojo-attach-point="contentNode"></div>',
+            '<span data-dojo-attach-point="copyrightNode" class="copyright">{%= $.copyrightText %}</span>',
             '</div>'
         ]),
         toolTemplate: new Simplate([
@@ -25,26 +30,18 @@ Ext.namespace("Mobile.SalesLogix");
             '<span>{%: $.title %}</span>',            
             '</button>'
         ]),
+        attributeMap: {
+            footerContents: {
+                node: 'contentNode',
+                type: 'innerHTML'
+            }
+        },
+
         settingsView: 'settings',
         helpView: 'help',
-        copyrightText: '&copy; 2011 Sage Software, Inc. All rights reserved.',
-        logOutConfirmText: 'Are you sure you want to log out?',
-        settingsText: 'Settings',
-        helpText: 'Help',
-        topText: 'Top',
-        logOutText: 'Log Out',
-        render: function() {
-            this.el = Ext.DomHelper.append(
-                Ext.getBody(),
-                this.barTemplate.apply(this),
-                true
-            );
 
-            for (var n in this.attachmentPoints)
-                if (this.attachmentPoints.hasOwnProperty(n))
-                    this[n] = this.el.child(this.attachmentPoints[n]);
-        },
         showTools: function(tools) {
+            var contents = [];
             if ((tools && tools.length <= 0) || (tools !== false))
             {
                 tools = [{
@@ -80,17 +77,15 @@ Ext.namespace("Mobile.SalesLogix");
             }
 
             // skip parent implementation
-            Sage.Platform.Mobile.MainToolbar.superclass.showTools.apply(this, arguments);
+            this.inherited(arguments);
 
             if (tools)
             {
                 for (var i = 0; i < tools.length; i++)
                 {
-                    if (this.copyrightEl)
-                        Ext.DomHelper.insertBefore(this.copyrightEl, this.toolTemplate.apply(tools[i]));
-                    else
-                        Ext.DomHelper.append(this.el, this.toolTemplate.apply(tools[i]));
+                    contents.push(this.toolTemplate.apply(tools[i]));
                 }
+                this.set('footerContents', contents.join(''));
             }
         },
         navigateToSettingsView: function() {
@@ -111,4 +106,4 @@ Ext.namespace("Mobile.SalesLogix");
             if (sure) App.logOut();
         }
     });
-})();
+});
