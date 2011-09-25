@@ -123,7 +123,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
         _onRefresh: function(o) {
             Mobile.SalesLogix.Calendar.UserActivityList.superclass._onRefresh.apply(this, arguments);
-            if (o.resourceKind === 'activities') this.refreshRequired = true;
+            if (o.resourceKind === 'activities' || o.resourceKind === 'events'){
+                this.refreshRequired = true;
+            }
         },
         init: function() {
             Mobile.SalesLogix.Calendar.UserActivityList.superclass.init.apply(this, arguments);

@@ -11,10 +11,11 @@ Ext.namespace("Mobile.SalesLogix.Event");
         // Localization
         titleText: 'Events',
         eventDateFormatText: 'M/d/yyyy',
+        eventText: 'Event',
 
         //Templates
         itemTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $$.eventText %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.contentTemplate %}',
             '</li>'

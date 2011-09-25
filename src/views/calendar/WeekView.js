@@ -170,7 +170,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
         _onRefresh: function(o) {
             Mobile.SalesLogix.Calendar.WeekView.superclass._onRefresh.apply(this, arguments);
-            if (o.resourceKind === 'activities') {
+            if (o.resourceKind === 'activities' || o.resourceKind === 'events'){
                 this.refreshRequired = true;
             }
         },

@@ -91,7 +91,7 @@ Ext.namespace("Mobile.SalesLogix.Event");
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
 
-                return (/^(useractivities)$/.test(context.resourceKind));
+                return (/^(useractivities||events)$/.test(context.resourceKind));
             });
 
             var context = (found && found.options && found.options.source) || found,
