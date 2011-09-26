@@ -51,9 +51,7 @@
             loadViews: function() {
                 this.inherited(arguments);
 
-                /*
                 this.registerView(new Sage.Platform.Mobile.Calendar());
-                */
                 this.registerView(new Mobile.SalesLogix.Views.Login());
 
                 this.registerView(new Mobile.SalesLogix.Views.Home());
