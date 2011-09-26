@@ -14,6 +14,7 @@
         'Mobile/SalesLogix/Views/FooterToolbar',
         'Mobile/SalesLogix/Views/Home',
         'Mobile/SalesLogix/Views/Login',
+        'Mobile/SalesLogix/Views/Settings',
         'Mobile/SalesLogix/Views/Help',
         'Mobile/SalesLogix/Views/NameEdit',
         'Mobile/SalesLogix/Views/PickList',
@@ -57,8 +58,8 @@
                 this.registerView(new Mobile.SalesLogix.Views.Home());
 
                 this.registerView(new Mobile.SalesLogix.Views.Help());
-                /*
                 this.registerView(new Mobile.SalesLogix.Views.Settings());
+                /*
                 this.registerView(new Mobile.SalesLogix.Views.Configure());
                 */
                 this.registerView(new Mobile.SalesLogix.Views.PickList());
