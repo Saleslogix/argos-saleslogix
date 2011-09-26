@@ -72,7 +72,6 @@ define('Mobile/SalesLogix/Views/Login', ['Sage/Platform/Mobile/Edit'], function(
         },
         validateCredentials: function (credentials) {
             this.disable();
-            console.log('validating..');
 
             App.authenticateUser(credentials, {
                 success: function(result) {
