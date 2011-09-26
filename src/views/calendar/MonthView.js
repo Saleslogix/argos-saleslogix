@@ -268,7 +268,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                         '(Activity.Timeless eq true and Activity.StartDate',
                         ' between @{3}@ and @{4}@))'
                     ].join(''),
-                    'ADMIN',//App.context['user'] && App.context['user']['$key'],
+                    App.context['user'] && App.context['user']['$key'],
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate),
                     startDate.toString('yyyy-MM-ddT00:00:00Z'),
