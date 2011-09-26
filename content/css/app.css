@@ -664,7 +664,7 @@ td.calendar-day {
 
 body.transition > .footer-toolbar
 {
-    display: none;
+    display: none !important;
 }
 
 .footer-toolbar
