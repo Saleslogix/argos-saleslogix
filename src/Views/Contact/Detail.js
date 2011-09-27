@@ -126,17 +126,17 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
         callWorkPhone: function() {
             this.recordCallToHistory(function() {
                 App.initiateCall(this.entry['WorkPhone']);
-            }.createDelegate(this));
+            }.bindDelegate(this));
         },
         callMobilePhone: function() {
             this.recordCallToHistory(function() {
                 App.initiateCall(this.entry['Mobile']);
-            }.createDelegate(this));        
+            }.bindDelegate(this));
         },
         sendEmail: function() {
             this.recordEmailToHistory(function() {
                 App.initiateEmail(this.entry['Email'])
-            }.createDelegate(this));
+            }.bindDelegate(this));
         },
         checkValueExists: function(entry, value) {
             return !value;        

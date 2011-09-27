@@ -4,10 +4,8 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix");
-
-(function() {
-    Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
+define('Mobile/SalesLogix', ['Sage/Platform/Mobile'], function() {
+    dojo.declare('Mobile.SalesLogix.Views.Configure', [Sage.Platform.Mobile.List], {
         //Templates
         emptyTemplate: new Simplate(['']),      
         itemTemplate: new Simplate([
@@ -126,10 +124,10 @@ Ext.namespace("Mobile.SalesLogix");
 
             for (i = 0; i < visible.length; i++)
             {
-                row = this.el.child(String.format('[data-key="{0}"]', visible[i]));
+                row = this.el.child(dojo.string.substitute('[data-key="${0}"]', visible[i]));
 
                 if (row) this.selectionModel.toggle(visible[i], this.entries[visible[i]], row);
             }    
         }
     });
-})();
+});

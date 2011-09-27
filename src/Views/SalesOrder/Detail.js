@@ -43,7 +43,7 @@ define('Mobile/SalesLogix/Views/SalesOrder/Detail', ['Sage/Platform/Mobile/Detai
         resourceKind: 'salesorders',
 
         formatAccountRelatedQuery: function(entry, fmt) {
-            return String.format(fmt, entry['Account']['$key']);
+            return dojo.string.substitute(fmt, entry['Account']['$key']);
         },
         init: function() {
             Mobile.SalesLogix.SalesOrder.Detail.superclass.init.call(this);

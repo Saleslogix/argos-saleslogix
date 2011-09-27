@@ -24,7 +24,7 @@ define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', ['Sage/Platform/Mobile/Li
         resourceKind: 'urgencies',
 
         formatSearchQuery: function(query) {
-            return String.format('upper(Description) like "%${0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return dojo.string.substitute('upper(Description) like "%${0}%"', this.escapeSearchQuery(query.toUpperCase()));
         }
     });
 });
