@@ -144,7 +144,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 {
                     var stored = window.localStorage.getItem('credentials'),
                         encoded = stored && Base64.decode(stored),
-                        credentials = encoded && Ext.decode(encoded);
+                        credentials = encoded && dojo.fromJson(encoded);
                 }
             }
             catch (e) { }
@@ -334,7 +334,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
             try
             {
                 var restoredState = this.navigationState,
-                    restoredHistory = restoredState && Ext.decode(restoredState),
+                    restoredHistory = restoredState && dojo.fromJson(restoredState),
                     cleanedHistory = this.cleanRestoredHistory(restoredHistory);
 
                 this._clearNavigationState();
