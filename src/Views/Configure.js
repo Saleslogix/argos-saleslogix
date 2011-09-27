@@ -4,12 +4,11 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix");
+define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], function() {
 
-(function() {
-    Mobile.SalesLogix.Configure = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Configure', [Sage.Platform.Mobile.List], {
         //Templates
-        emptyTemplate: new Simplate(['']),      
+        emptyTemplate: new Simplate(['']),
         itemTemplate: new Simplate([
             '<h3>',
             '{% if ($.icon) { %}',
@@ -21,7 +20,7 @@ Ext.namespace("Mobile.SalesLogix");
             '</h3>'
         ]),
 
-        //Localization
+        // Localization
         titleText: 'Configure',
         savePrefsText: 'Save', // TODO: is this no longer in use?
 
@@ -32,21 +31,24 @@ Ext.namespace("Mobile.SalesLogix");
         selectionOnly: true,
         allowSelection: true,
         autoClearSelection: false,
-      
+
         init: function() {
-            Mobile.SalesLogix.Configure.superclass.init.apply(this, arguments);
-          
-            this.tools.tbar =  [{                
-                id: 'save',
-                fn: this.savePreferences,
-                scope: this
-            },{
-                id: 'cancel',
-                side: 'left',
-                fn: ReUI.back,
-                scope: ReUI
-            }];
-        },        
+            this.inherited(arguments);
+        },
+        createToolLayout: function() {
+            return this.tools || (this.tools = {
+                tbar: [{
+                    id: 'save',
+                    fn: this.savePreferences,
+                    scope: this
+                },{
+                    id: 'cancel',
+                    side: 'left',
+                    fn: ReUI.back,
+                    scope: ReUI
+                }]
+            });
+        },
         savePreferences: function() {
             App.preferences.home = App.preferences.home || {};
             App.preferences.configure = App.preferences.configure || {};
@@ -56,29 +58,33 @@ Ext.namespace("Mobile.SalesLogix");
             var order = App.preferences.configure.order = [];
 
             // since the selection model does not have ordering, use the DOM
-            this.el.select('li').each(function(el, c, i) {
-                var key = el.getAttribute('data-key');
+            dojo.query('li', this.domNode).forEach(function(node) {
+                var key = dojo.attr(node, 'data-key');
                 if (key)
                 {
                     order.push(key);
 
-                    if (el.is('.list-item-selected')) visible.push(key);
-                }               
+                    if (dojo.hasClass(node, 'list-item-selected'))  {
+                        visible.push(key);
+                    }
+                }
             });
-         
+
             App.persistPreferences();
-            
+
             ReUI.back();
         },
         moveUp: function(params) {
-            var row = params.$source.parent('li');
+            var node = dojo.query(params.$source),
+            row = node.parents('li').first();
             if (row)
-                row.insertBefore(row.prev('li', true));
+                row.insertBefore(dojo.query(row).prev('li'))
         },
         moveDown: function(params) {
-            var row = params.$source.parent('li');
+            var node = dojo.query(params.$source),
+            row = node.parents('li').first();
             if (row)
-                row.insertAfter(row.next('li', true));
+                row.insertAfter(dojo.query(row).next('li'))
         },
         hasMoreData: function() {
             return false;
@@ -116,20 +122,23 @@ Ext.namespace("Mobile.SalesLogix");
                     order.splice(i, 1);
             }
 
-            this.processFeed({'$resources': list});           
+            this.processFeed({'$resources': list});
         },
         processFeed: function(feed) {
-            Mobile.SalesLogix.Configure.superclass.processFeed.apply(this, arguments);
+            this.inherited(arguments);
 
             var visible = (App.preferences.home && App.preferences.home.visible) || [],
-                row, i;            
+                row,
+                i,
+                visibleLength = visible.length;
 
-            for (i = 0; i < visible.length; i++)
+            for (i = 0; i < visibleLength; i++)
             {
-                row = this.el.child(String.format('[data-key="{0}"]', visible[i]));
+                row = dojo.query((dojo.string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
 
-                if (row) this.selectionModel.toggle(visible[i], this.entries[visible[i]], row);
-            }    
+                if (row)
+                    this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
+            }
         }
     });
-})();
+});
