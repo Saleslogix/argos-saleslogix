@@ -26,6 +26,8 @@
         'Mobile/SalesLogix/Views/Account/Detail',
         'Mobile/SalesLogix/Views/Account/Edit',
         'Mobile/SalesLogix/Views/Address/Edit',
+        'Mobile/SalesLogix/Views/Calendar/MonthView',
+        'Mobile/SalesLogix/Views/Calendar/DayView',
         'Mobile/SalesLogix/Views/Contact/List',
         'Mobile/SalesLogix/Views/Contact/Detail',
         'Mobile/SalesLogix/Views/Contact/Edit',
@@ -79,10 +81,12 @@
                     expose: false
                 }));
 
-                /*
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.MonthView());
+                /*
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.WeekView());
-                this.registerView(new Mobile.SalesLogix.Views.Calendar.UserActivityList());
+*/
+                this.registerView(new Mobile.SalesLogix.Views.Calendar.DayView());
+                /*
 
                 this.registerView(new Mobile.SalesLogix.Views.Campaign.List({
                     expose: false

@@ -299,7 +299,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 'lead_list',
                 'opportunity_list',
                 'ticket_list',
-                'useractivity_list',
+                'calendar_daylist',
                 'history_list'
             ];
         },
