@@ -105,7 +105,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             return Sage.Platform.Mobile.Convert.toBoolean(entry && entry['Alarm']);
         },
         init: function() {
-            Mobile.SalesLogix.Activity.Detail.superclass.init.apply(this, arguments);
+            Mobile.SalesLogix.Views.Activity.Detail.superclass.init.apply(this, arguments);
 
             this.tools.fbar = [{
                 cls: '',
@@ -122,7 +122,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('users')
-                .setResourceSelector(dojo.string.substitute("'${0}'", [userId]))
+                .setResourceSelector(dojo.string.substitute("'${0}'", userId))
                 .setQueryArg('select', [
                     'UserInfo/FirstName',
                     'UserInfo/LastName'
@@ -142,21 +142,21 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             {
                 this.entry['Leader'] = leader;
 
-                var rowEl = this.el.child('[data-property="Leader"]'),
-                    contentEl = rowEl && rowEl.child('span');
+                var rowNode = dojo.query('[data-property="Leader"]'),
+                    contentNode = rowNode && dojo.query('[data-property="Leader"]' + ' > span');
 
-                if (rowEl)
-                    rowEl.removeClass('content-loading');
+                if (rowNode)
+                    dojo.removeClass(rowNode, 'content-loading');
 
-                if (contentEl)
-                    contentEl.update(this.leaderTemplate.apply(leader['UserInfo']));
+                if (contentNode)
+                    dojo.html.set(contentNode, this.leaderTemplate.apply(leader['UserInfo']));
             }
         },
         checkCanComplete: function(entry) {
             return !entry || (entry['UserId'] !== App.context['user']['$key'])
         },
         processEntry: function(entry) {
-            Mobile.SalesLogix.Activity.Detail.superclass.processEntry.apply(this, arguments);
+            Mobile.SalesLogix.Views.Activity.Detail.superclass.processEntry.apply(this, arguments);
 
             if (entry && entry['UserId']) this.requestLeader(entry['UserId']);
         },

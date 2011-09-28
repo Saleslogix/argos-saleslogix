@@ -50,6 +50,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
             'Notes',
             'ViaCode',
             'StatusCode',
+            'Status',
             'UrgencyCode',
             'Subject',
             'TicketNumber',
@@ -72,67 +73,6 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
             request.allowCacheUse = true;
 
             return request;
-        },
-        processResponse: function(list, value, options) {
-            var keyProperty = options.keyProperty ? options.keyProperty : '$key';
-            var textProperty = options.textProperty ? options.textProperty : 'text';
-            
-            for (var i = 0; i < list.$resources.length; i++)
-            {
-                if (list.$resources[i][keyProperty] === value)
-                {
-                    var rowEl = this.el.child(options.dataProperty), // FIX: dojo-ize
-                    contentEl = rowEl && rowEl.child('span');
-
-                    if (rowEl)
-                        rowEl.removeClass('content-loading');
-
-                    if (contentEl)
-                        contentEl.update(list.$resources[i][textProperty]);
-
-                    return list.$resources[i][textProperty];
-                }
-            }
-        },
-        requestSource: function(viaCode) {
-            var request = this.requestPickList('name eq "Source"');
-
-            request.read({
-                success: function(data) {this.processSource(data, viaCode);},
-                failure: this.requestSourceFailure,
-                scope: this
-            });
-        },
-        requestStatus: function(statusCode) {
-            var request = this.requestPickList('name eq "Ticket Status"');
-
-            request.read({
-                success: function(data) {this.processStatus(data, statusCode);},
-                failure: this.requestStatusFailure,
-                scope: this
-            });
-        },        
-        requestUrgencyFailure: function(xhr, o) {
-        },
-        requestSourceFailure: function(xhr, o) {
-        },
-        requestStatusFailure: function(xhr, o) {
-        },
-        processStatus: function(statuses, statusCode) {
-            var statusText = this.processResponse(statuses, statusCode, {dataProperty: '[data-property="StatusCode"]'});
-
-            if (statusText) this.entry['StatusText'] = statusText;
-        },
-        processSource: function(sources, viaCode) {
-            var sourceText = this.processResponse(sources, viaCode, {dataProperty: '[data-property="ViaCode"]'});
-
-            if (sourceText) this.entry['SourceText'] = sourceText;
-        },        
-        processEntry: function(entry) {
-            // Mobile.SalesLogix.Ticket.Detail.superclass.processEntry.apply(this, arguments);
-
-            if (entry && entry['ViaCode']) this.requestSource(entry['ViaCode']);
-            if (entry && entry['StatusCode']) this.requestStatus(entry['StatusCode']);
         },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
@@ -184,10 +124,8 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     label: this.descriptionText,
                     name: 'TicketProblem.Notes'
                 },{
-                    cls: 'content-loading',
                     label: this.statusText,
-                    name: 'StatusCode',
-                    value: 'loading...'
+                    name: 'Status',
                 },{
                     label: this.urgencyText,
                     name: 'Urgency.Description'
@@ -208,10 +146,8 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     label: this.contractText,
                     name: 'Contract.ReferenceNumber'
                 },{
-                    cls: 'content-loading',
                     label: this.sourceText,
                     name: 'ViaCode',
-                    value: 'loading...'
                 },{
                     label: this.assignedDateText,
                     name: 'AssignedDate',

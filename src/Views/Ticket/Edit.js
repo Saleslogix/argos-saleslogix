@@ -58,6 +58,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
             'Notes',
             'ViaCode',
             'StatusCode',
+            'Status',
             'Subject',
             'TicketNumber',
             'TicketProblem/Notes',
@@ -67,7 +68,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
         resourceKind: 'tickets',
 
         init: function() {
-            // Mobile.SalesLogix.Ticket.Edit.superclass.init.apply(this, arguments);
+            // Mobile.SalesLogix.Views.Ticket.Edit.superclass.init.apply(this, arguments);
 
             dojo.connect(this.fields['Account'], 'onchange', this.onAccountChange, this.onChange);
             dojo.connect(this.fields['Account'], 'onchange', this.onUrgencyChange, this.onChange);
@@ -75,16 +76,16 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
             dojo.connect(this.fields['Account'], 'onchange', this.onCategoryChange, this.onChange);
         },
         setValues: function(entry) {
-            Mobile.SalesLogix.Ticket.Edit.superclass.setValues.apply(this, arguments);
+            Mobile.SalesLogix.Views.Ticket.Edit.superclass.setValues.apply(this, arguments);
 
             if (entry['SourceText'])
             {
                 this.fields['ViaCode'].setText(entry['SourceText']);
             }
 
-            if (entry['StatusText'])
+            if (entry['Status'])
             {
-                this.fields['StatusCode'].setText(entry['StatusText']);
+                this.fields['StatusCode'].setText(entry['Status']);
             }
         },
         onUrgencyChange: function(value, field) {
