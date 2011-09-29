@@ -1,5 +1,5 @@
 Mobile.CultureInfo = {
-  "name": "it-IT",
+  "name": "it",
   "englishName": "Italian (Italy)",
   "nativeName": "italiano (Italia)",
   "numberFormat": {

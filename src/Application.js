@@ -4,7 +4,7 @@
 
 define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Application', [Sage.Platform.Mobile.Application], {
+    return dojo.declare('Mobile.SalesLogix.Application', [Sage.Platform.Mobile.Application], {
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,

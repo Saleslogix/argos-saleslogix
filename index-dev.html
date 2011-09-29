@@ -44,50 +44,45 @@
 
     <!-- RequireJS -->
     <script>
-    djConfig = {
-        parseOnLoad: true,
-        debug: true
-    };
-    require = {
-        packages: [{
-            name: 'dojo',
-            location: '../../argos-sdk/libraries/dojo/dojo',
-            main:'lib/main-browser',
-            lib: '.'
-        },{
-            name: 'dijit',
-            location: '../../argos-sdk/libraries/dojo/dijit',
-            main:'lib/main',
-            lib: '.'
-        },{
-            name: 'Sage/Platform/Mobile',
-            location: '../../argos-sdk/src'
-        },{
-            name: 'Mobile/SalesLogix',
-            location: 'src',
-            lib: '.'
-        },{
-            name: 'Configuration',
-            location: 'configuration'
-        },{
-            name: 'Localization',
-            location: 'localization'
-        }]
-    };
-    Mobile = {};
+    var djConfig = {
+            parseOnLoad: false,
+            debug: true
+        },
+        require = {
+            packages: [{
+                name: 'dojo',
+                location: '../../argos-sdk/libraries/dojo/dojo',
+                main:'lib/main-browser',
+                lib: '.'
+            },{
+                name: 'dijit',
+                location: '../../argos-sdk/libraries/dojo/dijit',
+                main:'lib/main',
+                lib: '.'
+            },{
+                name: 'Sage/Platform/Mobile',
+                location: '../../argos-sdk/src'
+            },{
+                name: 'Mobile/SalesLogix',
+                location: 'src'
+            }]
+        };
     </script>
     <script type="text/javascript" src="../../argos-sdk/libraries/require.js"></script>
 
-    <!-- Localization -->
-    <script type="text/javascript" src="localization/en.js"></script>
-
     <script type="text/javascript">
-    require(['dojo/parser', 'Mobile/SalesLogix/Application', 'Configuration/development'], function() {
-        var application = new Mobile.SalesLogix.Application({environment: 'development'});
+    Mobile = {};
+    
+    require(['configuration/development', 'Mobile/SalesLogix/Application'], function(configuration) {
 
-        application.activate();
-        application.init();
-        application.run();
+        require(['localization/saleslogix/en'], function() {
+            var application = new Mobile.SalesLogix.Application(configuration);
+
+            application.activate();
+            application.init();
+            application.run();
+        });
+
     });
         
     </script>

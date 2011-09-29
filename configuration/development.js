@@ -1,6 +1,6 @@
-define('Configuration/development', ['dojo', 'Mobile/SalesLogix/ApplicationModule'], function() {
+define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], function() {
 
-    dojo.setObject('Configuration.development', {
+    return {
         modules: [
             new Mobile.SalesLogix.ApplicationModule()
         ],
@@ -13,10 +13,10 @@ define('Configuration/development', ['dojo', 'Mobile/SalesLogix/ApplicationModul
                 applicationName: 'slx',
                 contractName: 'dynamic',
                 port: 80,
-                protocol: /https/i.test(window.location.protocol) ? 'https' : false,
+                protocol: false,
                 json: true            }
         },
         enableUpdateNotification: true
-    });
+    };
 
 });
