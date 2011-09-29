@@ -415,6 +415,11 @@ li[data-activity-type="atQuestion"] .list-item-selector
     background: url(../images/icons/help_24.png);
 }
 
+li[data-activity-type="Event"] .list-item-selector
+{
+    background: url(../images/icons/Holiday_schemes_24.png);
+}
+
 li[data-opportunity-status] .list-item-selector
 {
     background: url(../images/icons/opportunity_24.png);
@@ -725,17 +730,17 @@ body.transition > .footer-toolbar
     color: #888;
 }
 
-#useractivity_list > .list-content,
+#calendar_daylist > .list-content,
 #calendar_weeklist > .list-content,
-#slx_calendar > .list-content
+#calendar_monthlist > .list-content
 {
     margin-top: 6px;
     border-top: solid 1px #ddd;
 }
 
-#useractivity_list > .nav-bar > h3,
+#calendar_daylist > .nav-bar > h3,
 #calendar_weeklist > .nav-bar > h3,
-#slx_calendar> .nav-bar > h3
+#calendar_monthlist > .nav-bar > h3
 {
     overflow: hidden;
     display: block;
@@ -754,18 +759,18 @@ body.transition > .footer-toolbar
     right: 60px;
 }
 
-#useractivity_list > .nav-bar > .button-prev,
+#calendar_daylist > .nav-bar > .button-prev,
 #calendar_weeklist > .nav-bar > .button-prev,
-#slx_calendar > .nav-bar > .button-prev
+#calendar_monthlist > .nav-bar > .button-prev
 {
     float: left;
     margin-left: 10px;
     z-index: 100;
 }
 
-#useractivity_list > .nav-bar > .button-next,
+#calendar_daylist > .nav-bar > .button-next,
 #calendar_weeklist > .nav-bar > .button-next,
-#slx_calendar > .nav-bar > .button-next
+#calendar_monthlist > .nav-bar > .button-next
 {
     float: right;
     margin-right: 10px;
@@ -840,22 +845,22 @@ body.transition > .footer-toolbar
 #calendar_weeklist > .list-content > h2.currentDate {
 	color:#00338D;
 }
-#slx_calendar,
+#calendar_monthlist,
 #calendar_weeklist,
-#useractivity_list {
+#calendar_daylist {
     background-color: #fff;
 }
 
 
 
-#slx_calendar .panel-content > h2:first-child {
+#calendar_monthlist .panel-content > h2:first-child {
     border-top: 1px solid #000;
 }
-#slx_calendar .panel-content > ul > li {
+#calendar_monthlist .panel-content > ul > li {
     padding: 8px 32px 8px 36px;
     line-height: normal;
 }
-#slx_calendar .list-content > li:last-child {
+#calendar_monthlist .list-content > li:last-child {
     border-bottom: none;
 }
 

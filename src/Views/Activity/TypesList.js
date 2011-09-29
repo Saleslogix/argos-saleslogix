@@ -4,9 +4,9 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Activity");
+define('Mobile/SalesLogix/Views/Activity', ['Sage/Platform/Mobile/List'], function() {
 
-Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
+    dojo.declare('Mobile.SalesLogix.Views.Activity.TypesList', [Sage.Platform.Mobile.List], {
     //Templates
     itemTemplate: new Simplate([
         '<h3>',
@@ -89,7 +89,7 @@ Mobile.SalesLogix.Activity.TypesList = Ext.extend(Sage.Platform.Mobile.List, {
         this.processFeed({'$resources': list});
     },
     init: function() {
-        Mobile.SalesLogix.Activity.TypesList.superclass.init.apply(this, arguments);
+        // Mobile.SalesLogix.Views.Activity.TypesList.superclass.init.apply(this, arguments);
         
         this.tools.tbar = [];
     }

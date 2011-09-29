@@ -15,6 +15,7 @@
         'Mobile/SalesLogix/Views/Home',
         'Mobile/SalesLogix/Views/Login',
         'Mobile/SalesLogix/Views/Settings',
+        'Mobile/SalesLogix/Views/Configure',
         'Mobile/SalesLogix/Views/Help',
         'Mobile/SalesLogix/Views/NameEdit',
         'Mobile/SalesLogix/Views/PickList',
@@ -25,6 +26,8 @@
         'Mobile/SalesLogix/Views/Account/Detail',
         'Mobile/SalesLogix/Views/Account/Edit',
         'Mobile/SalesLogix/Views/Address/Edit',
+        'Mobile/SalesLogix/Views/Calendar/MonthView',
+        'Mobile/SalesLogix/Views/Calendar/DayView',
         'Mobile/SalesLogix/Views/Contact/List',
         'Mobile/SalesLogix/Views/Contact/Detail',
         'Mobile/SalesLogix/Views/Contact/Edit',
@@ -59,9 +62,7 @@
 
                 this.registerView(new Mobile.SalesLogix.Views.Help());
                 this.registerView(new Mobile.SalesLogix.Views.Settings());
-                /*
                 this.registerView(new Mobile.SalesLogix.Views.Configure());
-                */
                 this.registerView(new Mobile.SalesLogix.Views.PickList());
                 this.registerView(new Mobile.SalesLogix.Views.SelectList());
                 this.registerView(new Mobile.SalesLogix.Views.ContextDialog());
@@ -80,10 +81,12 @@
                     expose: false
                 }));
 
-                /*
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.MonthView());
+                /*
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.WeekView());
-                this.registerView(new Mobile.SalesLogix.Views.Calendar.UserActivityList());
+*/
+                this.registerView(new Mobile.SalesLogix.Views.Calendar.DayView());
+                /*
 
                 this.registerView(new Mobile.SalesLogix.Views.Campaign.List({
                     expose: false

@@ -42,7 +42,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
         addNoteText: 'Add note',
         viewAddressText: 'View address',
         moreDetailsText: 'More Details',
-        calledText: 'Called {0}',
+        calledText: 'Called ${0}',
 
         //View Properties
         id: 'account_detail',
@@ -94,7 +94,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                 'Type': 'atPhoneCall',
                 'AccountId': this.entry['$key'],
                 'AccountName': this.entry['AccountName'],
-                'Description': String.format(this.calledText, this.entry['AccountName']),
+                'Description': dojo.string.substitute(this.calledText, this.entry['AccountName']),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -106,7 +106,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
         callMainPhone: function() {
             this.recordCallToHistory(function() {
                 App.initiateCall(this.entry['MainPhone']);
-            }.createDelegate(this));
+            }.bindDelegate(this));
         },
         checkMainPhone: function(entry, value) {
             return !value;

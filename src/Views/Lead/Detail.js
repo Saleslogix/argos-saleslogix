@@ -127,7 +127,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
         callWorkPhone: function() {
             this.recordCallToHistory(function() {
                 App.initiateCall(this.entry['WorkPhone']);
-            }.createDelegate(this));
+            }.bindDelegate(this));
         },
         checkWorkPhone: function(entry, value) {
             return !value;
@@ -135,7 +135,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
         sendEmail: function() {
             this.recordEmailToHistory(function() {
                 App.initiateEmail(this.entry['Email']);
-            }.createDelegate(this));
+            }.bindDelegate(this));
         },
         checkEmail: function(entry, value) {
             return !value;

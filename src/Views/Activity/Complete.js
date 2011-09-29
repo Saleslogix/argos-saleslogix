@@ -5,10 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-Ext.namespace("Mobile.SalesLogix.Activity");
+define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Complete'], function() {
 
-(function() {
-    Mobile.SalesLogix.Activity.Complete = Ext.extend(Sage.Platform.Mobile.Edit, {
+    dojo.declare('Mobile.SalesLogix.Views.Activity.Complete', [Sage.Platform.Mobile.Complete], {
         //Localization
         activityInfoText: 'Activity Info',
         accountText: 'account',
@@ -24,7 +23,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 		completedFormatText: 'M/d/yyyy h:mm tt',
         completionText: 'Completion',
         durationText: 'duration',
-		durationInvalidText: "The field '{2}' must have a value.",
+		durationInvalidText: "The field '${2}' must have a value.",
         carryOverNotesText: 'carry over notes',
         followUpText: 'follow-up',
         followUpTitleText: 'Follow-up type',
@@ -122,13 +121,13 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         resourceKind: 'activities',
 
         init: function() {
-            Mobile.SalesLogix.Activity.Complete.superclass.init.apply(this, arguments);
+            Mobile.SalesLogix.Views.Activity.Complete.superclass.init.apply(this, arguments);
 
-            this.fields['Leader'].on('change', this.onLeaderChange, this);
-            this.fields['Timeless'].on('change', this.onTimelessChange, this);
-            this.fields['AsScheduled'].on('change', this.onAsScheduledChange, this);
-            this.fields['Followup'].on('change', this.onFollowupChange, this);
-            this.fields['Lead'].on('change', this.onLeadChange, this);
+            dojo.connect(this.fields['Leader'], 'onchange', this.onLeaderChange, this.onChange);
+            dojo.connect(this.fields['Timeless'], 'onchange', this.onTimelessChange, this.onChange);
+            dojo.connect(this.fields['AsScheduled'], 'onchange', this.onAsScheduledChange, this.onChange);
+            dojo.connect(this.fields['Followup'], 'onchange', this.onFollowupChange, this.onChange);
+            dojo.connect(this.fields['Lead'], 'onchange', this.onLeadChange, this.onChange);
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -136,7 +135,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         beforeTransitionTo: function() {
             Mobile.SalesLogix.Activity.Complete.superclass.beforeTransitionTo.apply(this, arguments);
 
-            Ext.each(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
@@ -144,14 +143,14 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             var entry = this.options && this.options.entry;
             if (this.isActivityForLead(entry))
             {
-                Ext.each(this.fieldsForLeads, function(item) {
+                dojo.forEach(this.fieldsForLeads, function(item) {
                     if (this.fields[item])
                         this.fields[item].show();
                 }, this);
             }
             else
             {
-                Ext.each(this.fieldsForStandard, function(item) {
+                dojo.forEach(this.fieldsForStandard, function(item) {
                     if (this.fields[item])
                         this.fields[item].show();
                 }, this);
@@ -306,7 +305,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
 
             property = property || '$key';
 
-            return String.format(format, getV(dependentValue, property));
+            return dojo.string.substitute(format, getV(dependentValue, property));
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -321,9 +320,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     dependsOn: 'Type',
                     label: this.regardingText,
                     name: 'Description',
-                    picklist: this.formatPicklistForType.createDelegate(
-                        this, ['Description'], true
-                    ),
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
                     title: this.regardingTitleText,
                     orderBy: 'text asc',
                     type: 'picklist',
@@ -345,7 +342,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'Duration',
                     type: 'select',
                     view: 'select_list',
-                    textRenderer: this.formatDurationText.createDelegate(this),
+                    textRenderer: this.formatDurationText.bindDelegate(this),
                     requireSelection: true,
                     valueKeyProperty: false,
                     valueTextProperty: false,
@@ -387,9 +384,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     dependsOn: 'Type',
                     label: this.resultText,
                     name: 'Result',
-                    picklist: this.formatPicklistForType.createDelegate(
-                        this, ['Result'], true
-                    ),
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
                     title: this.resultTitleText,
                     orderBy: 'text asc',
                     type: 'picklist',
@@ -401,7 +396,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     name: 'Followup',
                     type: 'select',
                     view: 'select_list',
-                    textRenderer: this.formatFollowupText.createDelegate(this),
+                    textRenderer: this.formatFollowupText.bindDelegate(this),
                     requireSelection: true,
                     valueKeyProperty: false,
                     valueTextProperty: false,
@@ -450,9 +445,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     valueKeyProperty: 'ContactId',
                     valueTextProperty: 'ContactName',
                     view: 'contact_related',
-                    where: this.formatDependentQuery.createDelegate(
-                        this, ['Account.Id eq "{0}"', 'AccountId'], true
-                    )
+                    where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
                 },{
                     dependsOn: 'Account',
                     label: this.opportunityText,
@@ -463,9 +456,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     valueKeyProperty: 'OpportunityId',
                     valueTextProperty: 'OpportunityName',
                     view: 'opportunity_related',
-                    where: this.formatDependentQuery.createDelegate(
-                        this, ['Account.Id eq "{0}"', 'AccountId'], true
-                    )
+                    where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
                 },{
                     dependsOn: 'Account',
                     label: this.ticketNumberText,
@@ -476,9 +467,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     valueKeyProperty: 'TicketId',
                     valueTextProperty: 'TicketNumber',
                     view: 'ticket_related',
-                    where: this.formatDependentQuery.createDelegate(
-                        this, ['Account.Id eq "{0}"', 'AccountId'], true
-                    )
+                    where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
                 },{
                     label: this.leadText,
                     name: 'Lead',
@@ -510,9 +499,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     dependsOn: 'Type',
                     label: this.categoryText,
                     name: 'Category',
-                    picklist: this.formatPicklistForType.createDelegate(
-                        this, ['Category'], true
-                    ),
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
                     orderBy: 'text asc',
                     title: this.categoryTitleText,
                     type: 'picklist',
@@ -534,4 +521,4 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             }]);
         }
     });     
-})();
+});
