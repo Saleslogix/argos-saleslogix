@@ -29,12 +29,12 @@ define('Mobile/SalesLogix/Views/Campaign/Detail', ['Sage/Platform/Mobile/Detail'
             'CampaignName',
             'CreateDate',
             'CreateUser',
-            'StartDate',
+            'StartDate'
         ],
         resourceKind: 'campaigns',
 
         init: function() {
-            Mobile.SalesLogix.Campaign.Detail.superclass.init.apply(this, arguments);
+            this.inherited(arguments);
 
             this.tools.fbar = [{
                 cls: '',

@@ -109,7 +109,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
-                tbar: [{
+                fbar: [{
                     cls: '',
                     fn: function() {
                         App.navigateToActivityInsertView.call(App, {"id": this.id});

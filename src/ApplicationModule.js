@@ -37,6 +37,9 @@
         'Mobile/SalesLogix/Views/Contact/List',
         'Mobile/SalesLogix/Views/Contact/Detail',
         'Mobile/SalesLogix/Views/Contact/Edit',
+        'Mobile/SalesLogix/Views/Event/List',
+        'Mobile/SalesLogix/Views/Event/Detail',
+        'Mobile/SalesLogix/Views/Event/Edit',
         'Mobile/SalesLogix/Views/Lead/List',
         'Mobile/SalesLogix/Views/Lead/Detail',
         'Mobile/SalesLogix/Views/Lead/Edit',
@@ -62,10 +65,9 @@
                 this.inherited(arguments);
 
                 this.registerView(new Sage.Platform.Mobile.Calendar());
+
                 this.registerView(new Mobile.SalesLogix.Views.Login());
-
                 this.registerView(new Mobile.SalesLogix.Views.Home());
-
                 this.registerView(new Mobile.SalesLogix.Views.Help());
                 this.registerView(new Mobile.SalesLogix.Views.Settings());
                 this.registerView(new Mobile.SalesLogix.Views.Configure());
@@ -90,17 +92,17 @@
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.MonthView());
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.WeekView());
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.DayView());
+
 /*
-                this.registerView(new Mobile.SalesLogix.Views.Campaign.List({
-                    expose: false
-                }));
+                this.registerView(new Mobile.SalesLogix.Views.Campaign.List());
                 this.registerView(new Mobile.SalesLogix.Views.Campaign.Detail());
                 this.registerView(new Mobile.SalesLogix.Views.Campaign.Edit());
                 this.registerView(new Mobile.SalesLogix.Views.Campaign.List({
                     id: 'campaign_related',
                     expose: false
                 }));
-*/
+/*
+
                 this.registerView(new Mobile.SalesLogix.Views.Contact.Edit());
                 this.registerView(new Mobile.SalesLogix.Views.Contact.List());
                 this.registerView(new Mobile.SalesLogix.Views.Contact.Detail());
@@ -129,6 +131,16 @@
                     expose: false
                 }));
 */
+                this.registerView(new Mobile.SalesLogix.Views.Event.Edit());
+                this.registerView(new Mobile.SalesLogix.Views.Event.List());
+                this.registerView(new Mobile.SalesLogix.Views.Event.Detail());
+                this.registerView(new Mobile.SalesLogix.Views.Event.List({
+                    id: 'event_related',
+                    expose: false
+                }));
+
+
+
                 this.registerView(new Mobile.SalesLogix.Views.Opportunity.Edit());
                 this.registerView(new Mobile.SalesLogix.Views.Opportunity.List());
                 this.registerView(new Mobile.SalesLogix.Views.Opportunity.Detail());

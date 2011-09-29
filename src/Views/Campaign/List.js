@@ -20,6 +20,7 @@ define('Mobile/SalesLogix/Views/Campaign/List', ['Sage/Platform/Mobile/List'], f
         icon: 'content/images/campaigns_detail_24x24.gif',
         id: 'campaign_list',
         insertView: 'campaign_list',
+        expose: false,
         queryOrderBy: 'CampaignName',
         querySelect: [
             'CampaignName'

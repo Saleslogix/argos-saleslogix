@@ -24,14 +24,16 @@ define('Mobile/SalesLogix/Views/Activity', ['Sage/Platform/Mobile/List'], functi
             'atPhoneCall': 'Phone Call',
             'atAppointment': 'Meeting',
             'atLiterature': 'Literature Request',
-            'atPersonal': 'Personal Activity'
+            'atPersonal': 'Personal Activity',
+            'event': 'Event'
         },
         activityTypeIcons: {
             'atToDo': 'content/images/icons/Schedule_ToDo_24x24.png',
             'atPhoneCall': 'content/images/icons/Schedule_Call_24x24.png',
             'atAppointment': 'content/images/icons/Schedule_Meeting_24x24.png',
             'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'content/images/icons/Personal_24x24.png'
+            'atPersonal': 'content/images/icons/Personal_24x24.png',
+            'event': 'content/images/icons/Holiday_schemes_24.png'
         },
 
         //View Properties
@@ -40,18 +42,20 @@ define('Mobile/SalesLogix/Views/Activity', ['Sage/Platform/Mobile/List'], functi
             //'atLiterature', //For [#7206791], We will enable this later.
             'atPersonal',
             'atPhoneCall',
-            'atToDo'
+            'atToDo',
+            'event'
         ],
         expose: false,
         hideSearch: true,
         id: 'activity_types_list',
         editView: 'activity_edit',
+        eventEditView: 'event_edit',
 
         activateEntry: function(params) {
             if (params.key)
             {
                 var source = this.options && this.options.source,
-                    view = App.getView(this.editView);
+                    view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
 
                 if (view)
                     view.show({
@@ -75,7 +79,8 @@ define('Mobile/SalesLogix/Views/Activity', ['Sage/Platform/Mobile/List'], functi
             return false;
         },
         requestData: function() {
-            var list = [];
+            var list = [],
+                eventViews = ['calendar_monthlist','calendar_weeklist','calendar_daylist'];
 
             for (var i = 0; i < this.activityTypeOrder.length; i++)
             {
@@ -85,10 +90,14 @@ define('Mobile/SalesLogix/Views/Activity', ['Sage/Platform/Mobile/List'], functi
                     'icon':this.activityTypeIcons[this.activityTypeOrder[i]]
                 });
             }
+            if(eventViews.indexOf(this.options.returnTo) === -1){
+                list.pop(); // remove event for non event views
+            }
 
             this.processFeed({'$resources': list});
         },
         init: function() {
+            this.inherited(arguments);
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
