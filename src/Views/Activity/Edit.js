@@ -118,13 +118,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         resourceKind: 'activities',
 
         init: function() {
-            Mobile.SalesLogix.Activity.Edit.superclass.init.apply(this, arguments);
+            this.inherited(arguments);
 
-            this.fields['Lead'].on('change', this.onLeadChange, this);
-            this.fields['IsLead'].on('change', this.onIsLeadChange, this);
-            this.fields['Leader'].on('change', this.onLeaderChange, this);
-            this.fields['Timeless'].on('change', this.onTimelessChange, this);
-            this.fields['Alarm'].on('change', this.onAlarmChange, this);
+            dojo.connect(this.fields['Lead'], 'onchange', this, this.onLeadChange);
+
+            dojo.connect(this.fields['IsLead'], 'onchange', this, this.onIsLeadChange);
+            dojo.connect(this.fields['Leader'], 'onchange', this, this.onLeaderChange);
+            dojo.connect(this.fields['Timeless'], 'onchange', this, this.onTimelessChange);
+            dojo.connect(this.fields['Alarm'], 'onchange', this, this.onAlarmChange);
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['UserId'] === App.context['user']['$key']);
@@ -143,7 +144,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             return !!lead;
         },
         beforeTransitionTo: function() {
-            Mobile.SalesLogix.Activity.Complete.superclass.beforeTransitionTo.apply(this, arguments);
+            this.inherited(arguments);
 
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
@@ -262,7 +263,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             }
         },
         applyContext: function() {
-            Mobile.SalesLogix.Activity.Edit.superclass.applyContext.apply(this, arguments);
+            this.inherited(arguments);
 
             var startTime = Date.now(),
                 startDate = Date.now().clearTime().set({
@@ -391,7 +392,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 values['Reminder'] = reminder;
             }
 
-            Mobile.SalesLogix.Activity.Edit.superclass.setValues.apply(this, arguments);
+            this.inherited(arguments);
 
             this.enableFields();
 

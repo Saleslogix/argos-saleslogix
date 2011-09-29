@@ -26,6 +26,11 @@
         'Mobile/SalesLogix/Views/Account/Detail',
         'Mobile/SalesLogix/Views/Account/Edit',
         'Mobile/SalesLogix/Views/Address/Edit',
+        'Mobile/SalesLogix/Views/Activity/List',
+        'Mobile/SalesLogix/Views/Activity/Detail',
+        'Mobile/SalesLogix/Views/Activity/Edit',
+        'Mobile/SalesLogix/Views/Activity/Complete',
+        'Mobile/SalesLogix/Views/Activity/TypesList',
         'Mobile/SalesLogix/Views/Calendar/DayView',
         'Mobile/SalesLogix/Views/Calendar/MonthView',
         'Mobile/SalesLogix/Views/Calendar/WeekView',
@@ -163,7 +168,6 @@
                     expose: false
                 }));
 
-/*
                 this.registerView(new Mobile.SalesLogix.Views.Activity.Detail());
                 this.registerView(new Mobile.SalesLogix.Views.Activity.Edit());
                 this.registerView(new Mobile.SalesLogix.Views.Activity.Complete());
@@ -173,6 +177,7 @@
                     expose: false
                 }));
 
+/*
                 this.registerView(new Mobile.SalesLogix.Views.Defect.List({
                     expose: false
                 }));

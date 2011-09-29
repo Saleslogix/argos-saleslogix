@@ -105,24 +105,27 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             return Sage.Platform.Mobile.Convert.toBoolean(entry && entry['Alarm']);
         },
         init: function() {
-            Mobile.SalesLogix.Views.Activity.Detail.superclass.init.apply(this, arguments);
-
-            this.tools.fbar = [{
-                cls: '',
-                fn: function() {
-                    App.navigateToActivityInsertView.call(App, {"id": this.id});
-                },
-                icon: 'content/images/icons/To_Do_24x24.png',
-                name: 'schedule',
-                scope: this,
-                title: this.fbarScheduleTitleText
-            }];
+            this.inherited(arguments);
+        },
+        createToolLayout: function() {
+            return this.tools || (this.tools = {
+                tbar: [{
+                    cls: '',
+                    fn: function() {
+                        App.navigateToActivityInsertView.call(App, {"id": this.id});
+                    },
+                    icon: 'content/images/icons/To_Do_24x24.png',
+                    name: 'schedule',
+                    scope: this,
+                    title: this.fbarScheduleTitleText
+                }]
+            });
         },
         requestLeader: function(userId)
         {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('users')
-                .setResourceSelector(dojo.string.substitute("'${0}'", userId))
+                .setResourceSelector(dojo.string.substitute("'${0}'", [userId]))
                 .setQueryArg('select', [
                     'UserInfo/FirstName',
                     'UserInfo/LastName'
@@ -143,20 +146,20 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                 this.entry['Leader'] = leader;
 
                 var rowNode = dojo.query('[data-property="Leader"]'),
-                    contentNode = rowNode && dojo.query('[data-property="Leader"]' + ' > span');
+                    contentNode = rowNode && dojo.query('[data-property="Leader"] > span', this.domNode);
 
                 if (rowNode)
-                    dojo.removeClass(rowNode, 'content-loading');
+                    dojo.removeClass(rowNode[0], 'content-loading');
 
                 if (contentNode)
-                    dojo.html.set(contentNode, this.leaderTemplate.apply(leader['UserInfo']));
+                    contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
             }
         },
         checkCanComplete: function(entry) {
             return !entry || (entry['UserId'] !== App.context['user']['$key'])
         },
         processEntry: function(entry) {
-            Mobile.SalesLogix.Views.Activity.Detail.superclass.processEntry.apply(this, arguments);
+            this.inherited(arguments);
 
             if (entry && entry['UserId']) this.requestLeader(entry['UserId']);
         },

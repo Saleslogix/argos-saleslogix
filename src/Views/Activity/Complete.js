@@ -5,9 +5,9 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Complete'], function() {
+define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Activity.Complete', [Sage.Platform.Mobile.Complete], {
+    dojo.declare('Mobile.SalesLogix.Views.Activity.Complete', [Sage.Platform.Mobile.Edit], {
         //Localization
         activityInfoText: 'Activity Info',
         accountText: 'account',
