@@ -832,6 +832,21 @@ body.transition > .footer-toolbar
 	line-height: 50px;
 }
 
+#calendar_weeklist > .list-content > ul > li.event
+{
+    line-height: 50px;
+}
+#calendar_weeklist > .list-content > ul > li > .eventDate
+{
+    float:left;
+    padding: 0px 10px 0px 6px;
+    width: 101px;
+    text-align: right;
+    font-size: .9em;
+}
+#calendar_weeklist .event-rows {
+    padding: 0px;
+}
 
 #calendar_weeklist > .list-content > h2 > .dayHeaderLeft {
 	width: 101px;

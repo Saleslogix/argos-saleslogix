@@ -510,9 +510,14 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             view.show(options);
         },
         navigateToDetailView: function(key, descriptor) {
-            var entry = this.entries[key];
-            this.detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
-            Mobile.SalesLogix.Activity.List.superclass.navigateToDetailView.call(this, key, descriptor);
+            var entry = this.entries[key],
+                detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
+                view = App.getView(detailView);
+            if (view)
+                view.show({
+                    descriptor: descriptor,
+                    key: key
+                });
         }
 
     });
