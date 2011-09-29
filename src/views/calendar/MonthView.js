@@ -47,7 +47,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<div class="month-day-content panel-content">',
                 '<h2 class="date-day-text"></h2>',
                 '<ul class="day-content list-content"></ul>',
-                '{%! $.moreTemplate %}',
+                '{%! $.moreDayTemplate %}',
             '</div>'
         ]),
         dayItemTemplate: new Simplate([
@@ -80,6 +80,16 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '{%: $.Activity.LeadName %}',
             '{% } %}'
         ]),
+        moreDayTemplate: new Simplate([
+            '<div class="list-more">',
+            '<div class="list-remaining"><span></span></div>',
+            '<button class="button" data-action="navigateToDayView">',
+            '<span>{%= $.moreText %}</span>',
+            '</button>',
+            '</div>'
+        ]),
+
+
         calendarStartTemplate: '<table class="calendar-table">',
         calendarWeekHeaderStartTemplate: '<tr class="calendar-week-header">',
         calendarWeekHeaderTemplate: '<td class="calendar-weekday">{0}</td>',
@@ -97,6 +107,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             dateTextEl: '.date-text',
             dayTextEl: '.date-day-text',
             dayContentEl: '.day-content',
+            dayContainerEl: '.month-day-content',
             selectedDateEl: '.selected'
         }, Sage.Platform.Mobile.List.prototype.attachmentPoints),
 
@@ -112,8 +123,13 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
 
         currentDate: Date.today(),
         queryWhere: null,
+        dayFeed: {},
         queryOrderBy: 'Activity.StartDate asc',
         querySelect: [
+            'Activity/StartDate',
+            'Activity/Timeless'
+        ],
+        dayQuerySelect: [
             'Activity/StartDate',
             'Activity/Description',
             'Activity/Type',
@@ -125,6 +141,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             'Activity/Timeless'
         ],
         pageSize: 500,
+        dayPageSize: 10,
         resourceKind: 'useractivities',
 
         _onRefresh: function(o) {
@@ -207,8 +224,9 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             this.renderCalendar();
             this.setActivityQuery();
             this.feed['$startIndex'] = 0;
-            this.dayContentEl.update(this.loadingTemplate.apply(this));
+            this.dayFeed['$startIndex'] = 0;
             this.requestData();
+            this.showCurrentDateActivities();
         },
         setActivityQuery: function(){
             var startDate = this.getFirstDayOfCurrentMonth(),
@@ -247,7 +265,6 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             }
 
             this.highlightActivities(dateCounts);
-            this.showCurrentDateActivities();
         },
         highlightActivities: function(dateCounts){
             var template = this.calendarActivityCountTemplate.apply(this);
@@ -279,33 +296,141 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
         },
         showCurrentDateActivities: function(){
             this.setCurrentDateTitle();
+            this.dayContentEl.update(this.loadingTemplate.apply(this));
+            this.dayContainerEl.removeClass('list-has-more');
+            this.dayContainerEl.addClass('list-loading');
+            if(this.dayFeed)
+                this.dayFeed['$startIndex'] = 0;
+            this.dayQueryWhere = this.setDayQuery();
+            this.requestDayData();
+        },
+        setDayQuery: function(){
+            var C = Sage.Platform.Mobile.Convert;
+            var query = [
+                'UserId eq "{0}" and (',
+                '(Activity.Timeless eq false and Activity.StartDate between @{1}@ and @{2}@) or ',
+                '(Activity.Timeless eq true and Activity.StartDate between @{3}@ and @{4}@))'
+            ].join('');
 
-            if(!this.feed){
-                this.dayContentEl.update(this.loadingTemplate.apply(this));
-                return;
+            return String.format(
+                query,
+                App.context['user'] && App.context['user']['$key'],
+                C.toIsoStringFromDate(this.currentDate),
+                C.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
+                this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
+                this.currentDate.toString('yyyy-MM-ddT23:59:59Z')
+            );
+        },
+        requestDayData: function(){
+            var request = this.createDayRequest();
+            request.read({
+                success: this.onDayRequestDataSuccess,
+                failure: this.onDayRequestDataFailure,
+                aborted: this.onDayRequestDataAborted,
+                scope: this
+            });
+        },
+        onDayRequestDataSuccess: function(feed){
+            this.dayContainerEl.removeClass('list-loading');
+            this.processDayFeed(feed);
+        },
+        onDayRequestDataFailure: function(response, o){
+            alert(String.format(this.requestErrorText, response, o));
+            this.dayContainerEl.removeClass('list-loading');
+        },
+        onDayRequestDataAborted: function(){
+            this.options = false; // force a refresh
+            this.dayContainerEl.removeClass('list-loading');
+        },
+        createDayRequest:function() {
+            var where = [],
+                options = this.options,
+                pageSize = this.dayPageSize,
+                startIndex = this.dayFeed && this.dayFeed['$startIndex'] > 0 && this.dayFeed['$itemsPerPage'] > 0
+                    ? this.dayFeed['$startIndex'] + this.dayFeed['$itemsPerPage']
+                    : 1;
+
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setCount(pageSize)
+                .setStartIndex(startIndex);
+
+            var resourceKindExpr = this.expandExpression((options && options.resourceKind) || this.resourceKind);
+            if (resourceKindExpr)
+                request.setResourceKind(this.resourceKind);
+
+            var resourcePropertyExpr = this.expandExpression((options && options.resourceProperty) || this.resourceProperty);
+            if (resourcePropertyExpr)
+                request
+                    .getUri()
+                    .setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, resourcePropertyExpr);
+
+            var resourcePredicateExpr = this.expandExpression((options && options.resourcePredicate) || this.resourcePredicate);
+            if (resourcePredicateExpr)
+                request
+                    .getUri()
+                    .setCollectionPredicate(resourcePredicateExpr);
+
+            var querySelectExpr = this.expandExpression(this.dayQuerySelect);
+            if (querySelectExpr)
+                request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, querySelectExpr.join(','));
+
+            var queryIncludeExpr = this.expandExpression(this.queryInclude);
+            if (queryIncludeExpr)
+                request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, queryIncludeExpr.join(','));
+
+            var queryOrderByExpr = this.expandExpression((options && options.orderBy) || this.queryOrderBy);
+            if (queryOrderByExpr)
+                request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.OrderBy, queryOrderByExpr);
+
+            var queryWhereExpr = this.expandExpression((options && options.where) || this.dayQueryWhere);
+            if (queryWhereExpr)
+                where.push(queryWhereExpr);
+
+            // this is for search
+            // todo: rename to searchQuery
+            if (this.query)
+                where.push(this.query);
+
+            if (where.length > 0)
+                request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, where.join(' and '));
+
+            return request;
+        },
+        hasMoreDayData: function() {
+            if (this.dayFeed['$startIndex'] > 0 && this.dayFeed['$itemsPerPage'] > 0 && this.dayFeed['$totalResults'] >= 0) {
+                var start = this.dayFeed['$startIndex'];
+                var count = this.dayFeed['$itemsPerPage'];
+                var total = this.dayFeed['$totalResults'];
+
+                return (start + count <= total);
             }
-
-            var feed = this.feed['$resources'],
-                feedLength = feed.length,
+            else {
+                return true;
+            }
+        },
+        processDayFeed: function(feed){
+            var resources = feed['$resources'],
+                feedLength = resources.length,
                 i = 0,
-                activity,
-                activityDate,
                 activityList = [];
+            this.dayFeed = feed;
+
 
             for(i = 0; i < feedLength; i += 1){
-                activity = feed[i].Activity;
-                activity.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(activity.StartDate);
-                activityDate = (activity.Timeless) ? this.dateToUTC(activity.StartDate) : activity.StartDate;
-                if(activityDate.getDate() === this.currentDate.getDate()){
-                    activityList.push(this.dayItemTemplate.apply(feed[i], this));
-                }
+                activityList.push(this.dayItemTemplate.apply(resources[i], this));
             }
-            if(activityList.length===0){
+
+            if (this.hasMoreDayData())
+                this.dayContainerEl.addClass('list-has-more');
+            else
+                this.dayContainerEl.removeClass('list-has-more');
+
+            if(feedLength === 0){
                 this.dayContentEl.update(this.noDataTemplate.apply(this));
                 return false;
             }
 
-            this.dayContentEl.update(activityList.join(''));
+            Ext.DomHelper.append(this.dayContentEl, activityList.join(''));
         },
         renderCalendar: function() {
             var calHTML = [],
