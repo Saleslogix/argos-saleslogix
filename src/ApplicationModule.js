@@ -101,11 +101,11 @@
                     id: 'campaign_related',
                     expose: false
                 }));
-/*
+*/
 
-                this.registerView(new Mobile.SalesLogix.Views.Contact.Edit());
                 this.registerView(new Mobile.SalesLogix.Views.Contact.List());
                 this.registerView(new Mobile.SalesLogix.Views.Contact.Detail());
+                this.registerView(new Mobile.SalesLogix.Views.Contact.Edit());
                 this.registerView(new Mobile.SalesLogix.Views.Contact.List({
                     id: 'contact_related',
                     expose: false

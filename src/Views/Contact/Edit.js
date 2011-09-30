@@ -5,7 +5,7 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sage/Platform/Mobile/Utility'], function() {
 
     dojo.declare('Mobile.SalesLogix.Views.Contact.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
@@ -57,7 +57,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit'], fu
             this.fields['AccountName'].setValue(value.text);
         },
         show: function(options) {
-            // Mobile.SalesLogix.Contact.Edit.superclass.show.apply(this, arguments);
+            this.inherited(arguments);
 
             if (options.insert === true) this.applyContext();
         },

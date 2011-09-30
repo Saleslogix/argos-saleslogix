@@ -180,7 +180,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             'Activity/Timeless'
         ],
         pageSize: 105, // gives 15 activities per day
-        eventPageSize: 3,
+        eventPageSize: 7, // gives 1 event per day
         resourceKind: 'useractivities',
 
         _onRefresh: function(o) {
@@ -415,8 +415,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             }
             o.push(this.eventListEndTemplate.apply(this));
 
-            if( feed['$totalResults'] > feed['$resources'].length ){
-                o.push(this.eventMoreTemplate.apply(feed,this));
+            if(feed['$totalResults'] > feedLength){
+                o.push(this.eventMoreTemplate.apply(feed, this));
             }
 
             this.set('eventContent', o.join(''));
