@@ -312,15 +312,25 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 }
                 startDay = Sage.Platform.Mobile.Convert.toDateFromString(startDay);
                 endDay = (isEvent) ? Sage.Platform.Mobile.Convert.toDateFromString(r[i].EndDate) : startDay.clone().add({second:1});
-                while(startDay.getDate() <= endDay.getDate()){
-                    dateIndex = (!isEvent && r[i].Activity.Timeless)
+                if(isEvent){
+                    while(startDay.getDate() <= endDay.getDate()){
+                        dateIndex = (!isEvent && r[i].Activity.Timeless)
+                            ? this.dateToUTC(startDay)
+                            : startDay;
+                        dateIndex = dateIndex.toString('yyyy-MM-dd');
+                        this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
+                            ? this.dateCounts[dateIndex] + 1
+                            : 1;
+                        startDay.add({day:1});
+                    }
+                } else {
+                    dateIndex = (r[i].Activity.Timeless)
                         ? this.dateToUTC(startDay)
                         : startDay;
                     dateIndex = dateIndex.toString('yyyy-MM-dd');
                     this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
                         ? this.dateCounts[dateIndex] + 1
                         : 1;
-                    startDay.add({day:1});
                 }
             }
             this.highlightActivities();
