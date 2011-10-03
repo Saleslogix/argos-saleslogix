@@ -107,20 +107,6 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         init: function() {
             this.inherited(arguments);
         },
-        createToolLayout: function() {
-            return this.tools || (this.tools = {
-                fbar: [{
-                    cls: '',
-                    fn: function() {
-                        App.navigateToActivityInsertView.call(App, {"id": this.id});
-                    },
-                    icon: 'content/images/icons/To_Do_24x24.png',
-                    name: 'schedule',
-                    scope: this,
-                    title: this.fbarScheduleTitleText
-                }]
-            });
-        },
         requestLeader: function(userId)
         {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())

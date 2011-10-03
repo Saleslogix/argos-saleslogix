@@ -432,7 +432,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             return true;
         },
         getValues: function() {
-            var values = Mobile.SalesLogix.Activity.Edit.superclass.getValues.apply(this, arguments),
+            var values = this.inherited(arguments),
                 isStartDateDirty = this.fields['StartDate'].isDirty(),
                 isTimelessDirty = this.fields['Timeless'].isDirty(),
                 isReminderDirty = this.fields['Reminder'].isDirty(),
