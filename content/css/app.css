@@ -729,13 +729,52 @@ body.transition > .footer-toolbar
     font-size: .6em;
     color: #888;
 }
+#calendar_daylist > .event-hidden {
+    display:none;
+}
 
-#calendar_daylist > .list-content,
-#calendar_weeklist > .list-content,
-#calendar_monthlist > .list-content
+#calendar_daylist > .event-content > h2,
+#calendar_daylist > h2,
+#calendar_weeklist > div > h2
 {
-    margin-top: 6px;
-    border-top: solid 1px #ddd;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    background-color: #e6e6e6;
+    background-image: linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #e6e6e6),
+        color-stop(1, #cccccc)
+    );
+    background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    color: #000;
+    text-shadow: #fff 0px 1px 0px;
+    font-weight: bold;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    line-height: 32px;
+    margin: 6px 0 0 0;
+    padding: 0 0 0 6px;
+    font-size: 1em;
+    z-index: 5;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+#calendar_daylist > .event-content > h2:first-child,
+#calendar_daylist > h2:first-child,
+#calendar_weeklist > div > h2:first-child
+{
+    margin: 0;
 }
 
 #calendar_daylist > .nav-bar > h3,
@@ -777,87 +816,14 @@ body.transition > .footer-toolbar
     z-index: 100;
 }
 
-#calendar_weeklist .panel-content > h2:first-child {
-    border-top: 1px solid #000;
-}
-
-#calendar_weeklist > .list-content > ul > li > .clear
-{
-	clear: both;
-}
-
-
-#calendar_weeklist > .list-content > ul > li > .activityRow
-{
-	height: 50px;
-	vertical-align:middle;
-	overflow:hidden;
-    text-overflow: ellipsis;
-	white-space: nowrap;
-	font-size: 1em;
-	font-weight: bold;
-}
-
-#calendar_weeklist > .list-content > ul > li > .activityRow > img
-{
-	padding: 13px 0px 13px 3px;
-	text-align: center;
+#calendar_weeklist > div > h2 > .dayHeaderLeft {
 	float:left;
 }
-#calendar_weeklist > .list-content > ul > li > .activityRow > .activityTime
-{
-	font-size: 1em;
-	font-weight: bold;
-	width: 75px;
-	text-align: right;
-	float:left;
-	line-height: 50px;
-	padding: 0px 10px 0px 6px;
-}
-#calendar_weeklist > .list-content > ul > li > .activityRow > .activityTime > .activityAMPM
-{
-	color: #888;
-	font-size: .7em;
-	font-weight: normal;
-	padding-left: 2px;
-}
-
-#calendar_weeklist > .list-content > ul > li > .activityRow > h4
-{
-	line-height: normal;
-}
-
-#calendar_weeklist > .list-content > ul > li > .activityRow > .singleDescription
-{
-	line-height: 50px;
-}
-
-#calendar_weeklist > .list-content > ul > li.event
-{
-    line-height: 50px;
-}
-#calendar_weeklist > .list-content > ul > li > .eventDate
-{
-    float:left;
-    padding: 0px 10px 0px 6px;
-    width: 101px;
-    text-align: right;
-    font-size: .9em;
-}
-#calendar_weeklist .event-rows {
-    padding: 0px;
-}
-
-#calendar_weeklist > .list-content > h2 > .dayHeaderLeft {
-	width: 101px;
-	text-align:right;
-	float:left;
-}
-#calendar_weeklist > .list-content > h2 > .dayHeaderRight {
+#calendar_weeklist > div > h2 > .dayHeaderRight {
 	float:right;
 	padding-right: 3px;
 }
-#calendar_weeklist > .list-content > h2.currentDate {
+#calendar_weeklist > div > h2.currentDate {
 	color:#00338D;
 }
 #calendar_monthlist,
@@ -866,7 +832,53 @@ body.transition > .footer-toolbar
     background-color: #fff;
 }
 
+#calendar_monthlist > .nav-bar,
+#calendar_weeklist > .nav-bar,
+#calendar_daylist > .nav-bar {
+    padding: 5px 0 0 0;
+}
 
+#calendar_monthlist > .split-buttons,
+#calendar_weeklist > .split-buttons,
+#calendar_daylist > .split-buttons {
+    border-bottom: 1px solid #4D4D4D;
+    border-top: 1px transparent #E6E6E6;
+    background-color: #F2F2F2;
+    background-image: linear-gradient(
+        center top,
+        #E6E6E6 0%,
+        #E6E6E6 50%,
+        #FFFFFF 100%
+    );
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #E6E6E6),
+        color-stop(0.50, #E6E6E6),
+        color-stop(1, #FFFFFF)
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        #E6E6E6 0%,
+        #E6E6E6 50%,
+        #FFFFFF 100%
+    );
+    box-shadow: rgba(0,0,0,0.25) 0px 2px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.25) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.25) 0px 2px 3px;
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E6E6E6, endColorstr=#FFFFFF)";
+}
+
+#calendar_daylist .p-meridiem
+{
+    color: #4D4D4D;
+}
+
+#calendar_daylist .list-content > li {
+    padding: 0 0 0 8px;
+}
 
 #calendar_monthlist .panel-content > h2:first-child {
     border-top: 1px solid #000;
@@ -880,10 +892,32 @@ body.transition > .footer-toolbar
 }
 
 
+#calendar_daylist table.calendar-entry-table,
+#calendar_weeklist table.calendar-entry-table,
+#calendar_monthlist table.calendar-entry-table {
+    width: 100%;
+    height: 56px;
+    table-layout:fixed;
+}
+td.entry-table-icon {
+    width: 24px;
+}
+td.entry-table-icon .list-item-selector {
+    position: relative !important;
+    top: 0px !important;
+    left: 0px !important;
+}
+td.entry-table-time {
+    width:90px;
+    text-align:right;
+}
+td.entry-table-description {
+}
+
 .nav-bar > .button
 {
     background-color: #fff;
-    height: 36px;
+    height: 34px;
     width: 40px;
 }
 
@@ -912,10 +946,9 @@ body.transition > .footer-toolbar
 
 .split-buttons
 {
-    line-height: 40px;
+    line-height: 34px;
     background-color: #fff;
-    text-align: center;
-    padding-top: 5px;
+    padding: 3px 0 3px 6px;
 }
 
 .split-buttons > .button
@@ -923,8 +956,8 @@ body.transition > .footer-toolbar
     display: inline-block;
     padding-left: 10px;
     padding-right: 10px;
-    height: 36px;
-    line-height: 30px;
+    height: 34px;
+    line-height: 34px;
 }
 
 

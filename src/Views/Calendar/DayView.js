@@ -17,6 +17,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         monthText: 'Month',
         allDayText: 'All-Day',
         eventHeaderText: 'Events',
+        activityHeaderText: 'Activities',
 
         // Templates
         widgetTemplate: new Simplate([
@@ -25,19 +26,24 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '{%! $.searchTemplate %}',
             '{%! $.navigationTemplate %}',
             '<div style="clear:both"></div>',
-            '<div data-dojo-attach-point="eventContainerNode">',
+            '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
                 '<h2>{%= $.eventHeaderText %}</h2>',
                 '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
                 '{%! $.eventMoreTemplate %}',
             '</div>',
+            '<h2>{%= $.activityHeaderText %}</h2>',
             '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
             '{%! $.moreTemplate %}',
             '</div>'
         ]),
         rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
-            '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
+            '<li data-action="activateEntry" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
+            '<table class="calendar-entry-table"><tr>',
+            '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
+            '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
+            '<td class="entry-table-description">{%! $$.itemTemplate %}</td>',
+            '</tr></table>',
+            '',
             '</li>'
         ]),
         eventRowTemplate: new Simplate([
@@ -50,12 +56,23 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '{% if ($.Activity.Timeless) { %}',
                 '<span class="p-meridiem">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.dayStartTimeFormatText) %}</span>',
-                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
+                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}</span>',
+                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>',
             '{% } %}'
         ]),
         eventTimeTemplate: new Simplate([
             '<span class="p-meridiem">{%= $.Type %}</span>'
+        ]),
+        itemTemplate: new Simplate([
+            '<h3 class="p-description">{%: $.Activity.Description %}</h3>',
+            '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
+        ]),
+        eventItemTemplate: new Simplate([
+            '<h3>',
+            '{%! $$.eventTimeTemplate %}',
+            '<span class="p-description">{%: $.Description %}</span>',
+            '</h3>',
+            '<h4>{%! $$.eventNameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.Activity.ContactName) { %}',
@@ -70,20 +87,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
             '&nbsp;-&nbsp;',
             '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
-        ]),
-        itemTemplate: new Simplate([
-            '<h3>',
-            '{%! $$.timeTemplate %}',
-            '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
-            '</h3>',
-            '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
-        ]),
-        eventItemTemplate: new Simplate([
-            '<h3>',
-            '{%! $$.eventTimeTemplate %}',
-            '<span class="p-description">&nbsp;{%: $.Description %}</span>',
-            '</h3>',
-            '<h4>{%! $$.eventNameTemplate %}</h4>'
         ]),
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
@@ -101,7 +104,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         eventMoreTemplate: new Simplate([
             '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
             '<div class="list-remaining"><span data-dojo-attach-point="eventRemainingContentNode"></span></div>',
-            '<button class="button" data-action="eventMore">',
+            '<button class="button" data-action="activateEventMore">',
             '<span>{%= $.moreText %}</span>',
             '</button>',
             '</div>'
@@ -137,7 +140,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         hideSearch: true,
         expose: false,
         currentDate: null,
-        eventFeed: null,
         queryOrderBy: 'Activity.Timeless desc, Activity.StartDate',
         querySelect: [
             'Activity/Description',
@@ -150,6 +152,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             'Activity/UserId',
             'Activity/Timeless'
         ],
+        eventFeed: null,
+        eventPageSize: 5,
         eventQuerySelect: [
             'StartDate',
             'EndDate',
@@ -160,6 +164,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
 
         _onRefresh: function(o) {
             this.inherited(arguments);
+            console.log('refresh called..');
+            console.log(o);
             if (o.resourceKind === 'activities' || o.resourceKind === 'events'){
                 this.refreshRequired = true;
             }
@@ -205,7 +211,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             var querySelect = this.eventQuerySelect,
                 queryWhere = this.getEventQuery(),
                 request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-                .setCount(this.pageSize)
+                .setCount(this.eventPageSize)
                 .setStartIndex(1)
                 .setResourceKind('events')
                 .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
@@ -227,17 +233,22 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
                             '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
                             'StartDate lt @${2}@',
                         ')'
-                    ].join(''),[
-                    App.context['user'] && App.context['user']['$key'],
+                    ].join(''),
+                    [App.context['user'] && App.context['user']['$key'],
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)]
                 );
         },
+        activateEventMore: function(){
+            var view = App.getView("event_related");
+            if (view)
+                view.show({"where":this.getEventQuery()});
+        },
         hideEventList: function(){
-            dojo.style(this.eventContainerNode, 'display', 'none');
+            dojo.addClass(this.eventContainerNode, 'event-hidden');
         },
         showEventList: function(){
-            dojo.style(this.eventContainerNode, 'display', 'block');
+            dojo.removeClass(this.eventContainerNode, 'event-hidden');
         },
         processEventFeed: function(feed){
             var r = feed['$resources'],
@@ -260,6 +271,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
                 this.entries[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
             }
+
 
             if(feed['$totalresults'] > feedLength) {
                 dojo.addClass(this.eventContainerNode, 'list-has-more');
@@ -313,6 +325,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         },
         getNextDay: function() {
             if (this.isLoading()) return;
+            
             this.currentDate.add({day: 1});
             this.refresh();
         },

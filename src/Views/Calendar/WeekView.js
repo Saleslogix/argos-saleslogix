@@ -10,7 +10,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         //Localization
         titleText: 'Calendar',
         weekTitleFormatText: 'MMM d, yyyy',
-        dayHeaderLeftFormatText: 'ddd',
+        dayHeaderLeftFormatText: 'dddd',
         dayHeaderRightFormatText: 'MMM d, yyyy',
         startTimeFormatText: 'h:mm',
         todayText: 'Today',
@@ -20,7 +20,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         allDayText: 'All Day',
         eventHeaderText: 'Events',
         moreEventText: 'View all',
-        eventDateFormatText: 'M/d',
 
         // Templates
         widgetTemplate: new Simplate([
@@ -29,8 +28,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             '{%! $.navigationTemplate %}',
             '<div style="clear:both"></div>',
             '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
-            '<div class="list-content panel-content" data-dojo-attach-point="eventContentNode"></div>',
-            '<div class="list-content panel-content" data-dojo-attach-point="contentNode"></div>',
+            '<div data-dojo-attach-point="eventContentNode"></div>',
+            '<div data-dojo-attach-point="contentNode"></div>',
             '{%! $.moreTemplate %}',
             '</div>'
         ]),
@@ -48,78 +47,74 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             '</div>'
         ]),
         groupTemplate: new Simplate([
-            '<h2 data-action="selectDay" class="dayHeader {%= $.Activity.headerClass %}" data-date="{%= $.currentDate %}">',
+            '<h2 data-action="activateDayHeader" class="dayHeader {%= $.Activity.headerClass %}" data-date="{%: $.Activity.StartDate.toString(\'yyyy-MM-dd\') %}">',
             '<span class="dayHeaderLeft">{%: $.Activity.StartDate.toString($$.dayHeaderLeftFormatText) %}</span>',
             '<span class="dayHeaderRight">{%: $.Activity.StartDate.toString($$.dayHeaderRightFormatText) %}</span>',
             '</h2>',
-            '<ul class="list-content {%= $.cls %}">'
+            '<ul class="list-content">'
         ]),
         groupEndTemplate: new Simplate([
             '</ul>'
         ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.itemTemplate %}',
             '</li>'
         ]),
-        itemTemplate: new Simplate([
-            '<div class="activityRow">',
-            '<img src="{%= $$.getTypeIcon($.Activity.Type) %}">',
-            '{% if ($.Activity.Timeless) { %}',
-                '<span class="activityTime">{%= $$.allDayText %}</span>',
-            '{% } else { %}',
-                '<span class="activityTime">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}',
-                '<span class="activityAMPM">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span></span>',
-            '{% } %}',
-            '{%! $$.descriptionTemplate %}',
-            '</div>',
-            '<div class="clear"></div>'
+        eventRowTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
+                '<div data-action="selectEntry" class="list-item-selector"></div>',
+                '{%! $$.eventItemTemplate %}',
+            '</li>'
         ]),
-        descriptionTemplate: new Simplate([
-            '{% if ($.Activity.Description && $$.nameTemplate.apply($).length > 1) { %}',
-                '<h3>{%: $.Activity.Description %}</h3>',
-                '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
+        timeTemplate: new Simplate([
+            '{% if ($.Activity.Timeless) { %}',
+                '<span class="p-meridiem">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-                '{% if ($.Activity.Description) { %}',
-                    '<h3 class="singleDescription">{%: $.Activity.Description %}</h3>',
-                '{% } else { %}',
-                    '<h4 class="singleDescription">{%= $$.nameTemplate.apply($) %}</h4>',
-                '{% } %}',
+                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}</span>',
+                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
             '{% } %}'
+        ]),
+        eventTimeTemplate: new Simplate([
+            '<span class="p-meridiem">{%= $.Type %}</span>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.Activity.ContactName) { %}',
-                '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
+            '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
             '{% } else if ($.Activity.AccountName) { %}',
-                '{%: $.Activity.AccountName %}',
+            '{%: $.Activity.AccountName %}',
             '{% } else { %}',
-                '{%: $.Activity.LeadName %}',
+            '{%: $.Activity.LeadName %}',
             '{% } %}'
         ]),
-        dayHeaderTemplate: new Simplate([
-            '<h2 class="{%= $.headerClass %}" data-action="activateDayHeader" data-date="{%= $.currentDate %}">',
-            '<span class="dayHeaderLeft">{%= $.currentDateLeftHeader %}</span>',
-            '<span class="dayHeaderRight">{%= $.currentDateRightHeader %}</span>',
-            '</h2>'
+        eventNameTemplate: new Simplate([
+            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+            '&nbsp;-&nbsp;',
+            '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
+        ]),
+        itemTemplate: new Simplate([
+            '<h3>',
+            '{%! $$.timeTemplate %}',
+            '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
+            '</h3>',
+            '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
+        ]),
+        eventItemTemplate: new Simplate([
+            '<h3>',
+            '{%! $$.eventTimeTemplate %}',
+            '<span class="p-description">&nbsp;{%: $.Description %}</span>',
+            '</h3>',
+            '<h4>{%! $$.eventNameTemplate %}</h4>'
         ]),
         eventListStartTemplate: new Simplate([
-            '<h2 data-action="togglegroup" data-date="{%= $.currentDate %}">',
+            '<h2 data-action="togglegroup">',
                 '<span class="dayHeaderLeft">{%= $.eventHeaderText %}</span>',
             '</h2>',
             '<ul data-group="{%= $.tag %}" class="list-content event-rows">'
         ]),
         eventListEndTemplate: new Simplate([
             '</ul>'
-        ]),
-        eventItemTemplate: new Simplate([
-            '<li class="event" data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
-                '<span class="eventDate">',
-                '{%: $.StartDate.toString($$.eventDateFormatText) %}',
-                '&nbsp;-&nbsp;',
-                '{%: $.EndDate.toString($$.eventDateFormatText) %}',
-                '</span>&nbsp;',
-                '{%= $.Description %}',
-            '</li>'
         ]),
         eventMoreTemplate: new Simplate([
             '<div data-action="activateEventList">',
@@ -198,7 +193,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             this.inherited(arguments);
         },
         activateDayHeader: function(params){
-            this.currentDate = Date.parse(params.date);
+            this.currentDate = Date.parseExact(params.date, 'yyyy-MM-dd');
             this.navigateToUserActivityList();
         },
         getThisWeekActivities: function(){
@@ -262,10 +257,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         },
         isInCurrentWeek: function(date){
             return date.between(this.weekStartDate, this.weekEndDate);
-        },
-        selectDay: function(params) {
-            this.currentDate = Date.parse(params.date);
-            this.navigateToUserActivityList();
         },
         processFeed: function(feed) {
             this.feed = feed;
@@ -411,7 +402,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                 event.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(event.StartDate);
                 event.EndDate = Sage.Platform.Mobile.Convert.toDateFromString(event.EndDate);
                 this.entries[event.$key] = event;
-                o.push(this.eventItemTemplate.apply(event, this));
+                o.push(this.eventRowTemplate.apply(event, this));
             }
             o.push(this.eventListEndTemplate.apply(this));
 
@@ -456,9 +447,13 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             }
         },
         activateEventList: function(){
-            var v = App.getView("event_related");
-            if (v)
-                v.show({"where":this.getEventQuery()});
+            var view = App.getView("event_related");
+            if (view)
+                view.show({"where":this.getEventQuery()});
+        },
+        clear: function() {
+            this.inherited(arguments);
+            this.set('eventContent', '');
         },
         navigateToUserActivityList: function() {
             var view = App.getView(this.activityListView),
