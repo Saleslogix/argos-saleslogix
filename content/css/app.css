@@ -770,12 +770,7 @@ body.transition > .footer-toolbar
     -moz-user-select: none;
     user-select: none;
 }
-#calendar_daylist > .event-content > h2:first-child,
-#calendar_daylist > h2:first-child,
-#calendar_weeklist > div > h2:first-child
-{
-    margin: 0;
-}
+
 
 #calendar_daylist > .nav-bar > h3,
 #calendar_weeklist > .nav-bar > h3,
@@ -871,13 +866,8 @@ body.transition > .footer-toolbar
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E6E6E6, endColorstr=#FFFFFF)";
 }
 
-#calendar_daylist .p-meridiem
-{
-    color: #4D4D4D;
-}
-
 #calendar_daylist .list-content > li {
-    padding: 0 0 0 8px;
+    padding: 0 0 0 3px;
 }
 
 #calendar_monthlist .panel-content > h2:first-child {
@@ -907,11 +897,21 @@ td.entry-table-icon .list-item-selector {
     top: 0px !important;
     left: 0px !important;
 }
+#calendar_daylist .p-meridiem
+{
+    color: #4D4D4D;
+    font-size: 0.6em;
+}
+#calendar_daylist .p-time {
+    font-size: .8em;
+}
+
 td.entry-table-time {
-    width:90px;
+    width:65px;
     text-align:right;
 }
 td.entry-table-description {
+    padding-left: 3px;
 }
 
 .nav-bar > .button

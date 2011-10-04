@@ -13,12 +13,6 @@ define('Mobile/SalesLogix/Views/Event/List', ['Sage/Platform/Mobile/List'], func
         eventText: 'Event',
 
         //Templates
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $$.eventText %}">',
-            '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.contentTemplate %}',
-            '</li>'
-        ]),
         itemTemplate: new Simplate([
             '<h3>{%= $.Description %}</h3>',
             '<h4>',
@@ -34,6 +28,7 @@ define('Mobile/SalesLogix/Views/Event/List', ['Sage/Platform/Mobile/List'], func
         detailView: 'event_detail',
         insertView: 'event_edit',
         queryOrderBy: 'StartDate asc',
+        queryWhere: null,
         querySelect: [
             'Description',
             'StartDate',
