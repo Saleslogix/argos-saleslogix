@@ -15,19 +15,38 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         monthText: 'Month',
         monthTitleFormatText: 'MMMM yyyy',
         dayTitleFormatText: 'ddd MMM d, yyyy',
-        dayStartTimeFormatText: 'h:mm',
+        startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
         eventText: 'Event',
+        eventHeaderText: 'Events',
+        eventMoreText: 'View ${0} More Event(s)',
+        activityHeaderText: 'Activities',
+        toggleCollapseText: 'toggle collapse',
 
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
-            '{%! $.searchTemplate %}',
-            '{%! $.navigationTemplate %}',
-            '<div style="clear:both"></div>',
-            '<div class="month-content" data-dojo-attach-point="contentNode"></div>',
-            '{%! $.dayTemplate %}',
+                '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
+                '{%! $.searchTemplate %}',
+                '{%! $.navigationTemplate %}',
+                '<div style="clear:both"></div>',
+                '<div class="month-content" data-dojo-attach-point="monthNode">',
+                    '{%! $.navBarTemplate %}',
+                    '<div class="month-calendar" data-dojo-attach-point="contentNode"></div>',
+                '</div>',
+                '<div class="day-content">',
+                    '<h2 class="date-day-text" data-dojo-attach-point="dayTitleNode"></h2>',
+                    '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
+                        '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
+                        '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
+                        '{%! $.eventMoreTemplate %}',
+                    '</div>',
+                    '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
+                        '<h2>{%= $.activityHeaderText %}</h2>',
+                        '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
+                        '{%! $.moreTemplate %}',
+                    '</div>',
+                '</div>',
             '</div>'
         ]),
         navigationTemplate: new Simplate([
@@ -36,65 +55,70 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
                 '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
                 '<button data-tool="month" class="button">{%: $.monthText %}</button>',
-            '</div>',
+            '</div>'
+        ]),
+        navBarTemplate: new Simplate([
             '<div class="nav-bar">',
             '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '<button data-tool="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
             '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
             '</div>'
         ]),
-        dayTemplate: new Simplate([
-            '<div class="month-day-content panel-content">',
-                '<h2 class="date-day-text" data-dojo-attach-point="dayTitleNode"></h2>',
-                '<ul class="day-content list-content" data-dojo-attach-point="dayNode"></ul>',
-                '{%! $.moreTemplate %}',
-            '</div>'
-        ]),
-        dayItemTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="',
-            '{% if ($.isEvent) { %}',
-                'Event',
-            '{% } else { %}',
-                '{%: $.Type %}',
-            '{% } %}',
-            '">',
-            '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.dayContentTemplate %}',
+        activityRowTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
+            '<table class="calendar-entry-table"><tr>',
+            '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
+            '<td class="entry-table-time">{%! $$.activityTimeTemplate %}</td>',
+            '<td class="entry-table-description">{%! $$.activityItemTemplate %}</td>',
+            '</tr></table>',
+            '',
             '</li>'
         ]),
-        dayContentTemplate: new Simplate([
-            '<h3>',
-            '{%! $$.dayTimeTemplate %}',
-            '<span class="p-description">&nbsp;{%: $.Description %}</span>',
-            '</h3>',
-            '<h4>{%= $$.dayNameTemplate.apply($) %}</h4>'
+        eventRowTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
+            '<table class="calendar-entry-table"><tr>',
+            '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
+            '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
+            '</tr></table>',
+            '',
+            '</li>'
         ]),
-        dayTimeTemplate: new Simplate([
-            '{% if ($.Timeless) { %}',
-                '<span class="p-meridiem">{%= $$.allDayText %}</span>',
+        activityTimeTemplate: new Simplate([
+            '{% if ($.Activity.Timeless) { %}',
+                '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-                '{% if ($.isEvent) { %}',
-                    '<span class="p-meridiem">{%= $.Type %}</span>',
-                '{% } else { %}',
-                    '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.dayStartTimeFormatText) %}</span>',
-                    '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
-                '{% } %}',
+                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}</span>',
+                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>',
             '{% } %}'
         ]),
-        dayNameTemplate: new Simplate([
-            '{% if ($.ContactName) { %}',
-            '{%: $.ContactName %} / {%: $.AccountName %}',
-            '{% } else if ($.AccountName) { %}',
-            '{%: $.AccountName %}',
+        activityItemTemplate: new Simplate([
+            '<h3 class="p-description">{%: $.Activity.Description %}</h3>',
+            '<h4>{%= $$.activityNameTemplate.apply($) %}</h4>'
+        ]),
+        eventItemTemplate: new Simplate([
+            '<h3 class="p-description">{%: $.Description %} ({%: $.Type %})</h3>',
+            '<h4>{%! $$.eventNameTemplate %}</h4>'
+        ]),
+        activityNameTemplate: new Simplate([
+            '{% if ($.Activity.ContactName) { %}',
+            '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
+            '{% } else if ($.Activity.AccountName) { %}',
+            '{%: $.Activity.AccountName %}',
             '{% } else { %}',
-            '{%: $.LeadName %}',
-            '{% } %}',
-            '{% if ($.isEvent) { %}',
-                '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
-                '&nbsp;-&nbsp;',
-                '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}',
+            '{%: $.Activity.LeadName %}',
             '{% } %}'
-
+        ]),
+        eventNameTemplate: new Simplate([
+            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+            '&nbsp;-&nbsp;',
+            '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
+        ]),
+        eventMoreTemplate: new Simplate([
+            '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
+            '<button class="button" data-action="activateEventMore">',
+            '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.eventMoreText %}</span>',
+            '</button>',
+            '</div>'
         ]),
         calendarStartTemplate: '<table class="calendar-table">',
         calendarWeekHeaderStartTemplate: '<tr class="calendar-week-header">',
@@ -106,7 +130,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         calendarWeekEndTemplate: '</tr>',
         calendarEndTemplate: '</table>',
         calendarActivityCountTemplate: new Simplate([
-            '<div><span class="activity-count" title="${0} events">${1}</span></div>'
+            '<div><span class="activity-count" title="${0} events">${0}</span></div>'
         ]),
         attributeMap: {
             calendarContent: {
@@ -117,12 +141,20 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 node: 'dateNode',
                 type: 'innerHTML'
             },
-            dayContent: {
-                node: 'dayNode',
-                type: 'innerHTML'
-            },
             dayTitleContent: {
                 node: 'dayTitleNode',
+                type: 'innerHTML'
+            },
+            activityContent: {
+                node: 'activityContentNode',
+                type: 'innerHTML'
+            },
+            eventContent: {
+                node: 'eventContentNode',
+                type: 'innerHTML'
+            },
+            eventRemainingContent: {
+                node: 'eventRemainingContentNode',
                 type: 'innerHTML'
             }
         },
@@ -137,13 +169,28 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         eventDetailView: 'event_detail',
         hideSearch: true,
         expose: false,
-        dayItems: [],
         dateCounts: {},
 
         currentDate: Date.today(),
         queryWhere: null,
         queryOrderBy: 'Activity.StartDate asc',
         querySelect: [
+            'Activity/StartDate',
+            'Activity/Timeless'
+        ],
+        pageSize: 500,
+
+        eventQueryWhere: null,
+        eventQuerySelect: [
+            'StartDate',
+            'EndDate',
+            'Description',
+            'Type'
+        ],
+        eventPageSize: 3,
+
+        activityQueryWhere: null,
+        activityQuerySelect: [
             'Activity/StartDate',
             'Activity/Description',
             'Activity/Type',
@@ -154,7 +201,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             'Activity/UserId',
             'Activity/Timeless'
         ],
-        pageSize: 500,
+        activityPageSize: 10,
+
         resourceKind: 'useractivities',
 
         _onRefresh: function(o) {
@@ -162,12 +210,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
            if (o.resourceKind === 'activities' || o.resourceKind === 'events'){
                 this.refreshRequired = true;
            }
-        },
-        init: function() {
-            this.inherited(arguments);
-        },
-        initEvents: function() {
-            this.inherited(arguments);
         },
         clear: function(){
             this.inherited(arguments);
@@ -182,7 +224,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.selectedDateNode = el;
             dojo.addClass(el, 'selected');
             this.currentDate = Date.parseExact(params.date,'yyyy-MM-dd');
-            this.showCurrentDateActivities();
+            this.getSelectedDate();
         },
         getFirstDayOfCurrentMonth: function(){
             return this.currentDate.clone().moveToFirstDayOfMonth().clearTime();
@@ -198,7 +240,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             if(this.currentDate.toString('yyyy-MM') === today.toString('yyyy-MM')){
                 this.currentDate = today;
                 this.highlightCurrentDate();
-                this.showCurrentDateActivities();
+                this.getSelectedDate();
             } else {
                 this.currentDate = today;
                 this.refresh();
@@ -216,7 +258,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.renderCalendar();
             this.queryWhere = this.getActivityQuery();
             this.feed['$startIndex'] = 0;
-            this.dayItems = [];
             this.dateCounts = [];
             this.set('dayContent', this.loadingTemplate.apply(this));
             this.requestData();
@@ -250,7 +291,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.options = false; // force a refresh
         },
         onRequestEventDataSuccess: function(feed) {
-            this.processFeed(feed);
+            this.processEventFeed(feed);
         },
         getActivityQuery: function(){
             var startDate = this.getFirstDayOfCurrentMonth(),
@@ -262,13 +303,12 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                         ' between @${1}@ and @${2}@) or ',
                         '(Activity.Timeless eq true and Activity.StartDate',
                         ' between @${3}@ and @${4}@))'
-                    ].join(''),[
-                    App.context['user'] && App.context['user']['$key'],
+                    ].join(''),
+                    [App.context['user'] && App.context['user']['$key'],
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate),
                     startDate.toString('yyyy-MM-ddT00:00:00Z'),
-                    endDate.toString('yyyy-MM-ddT23:59:59Z')
-                    ]
+                    endDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
         },
         getEventQuery: function(){
@@ -280,49 +320,58 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                             '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
                             'StartDate lt @${2}@',
                         ')'
-                    ].join(''),[
-                    App.context['user'] && App.context['user']['$key'],
+                    ].join(''),
+                    [App.context['user'] && App.context['user']['$key'],
                     Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)
-                    ]
+                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)]
                 );
         },
         processFeed: function(feed) {
-            var dateIndex,
-                r = feed['$resources'],
-                isEvent = (r[0] && r[0].Activity) ? false : true,
+            var r = feed['$resources'],
+                row,
                 i,
                 feedLength = r.length,
                 startDay,
-                endDay;
-
-            this.dayItems.push(feed)
-
+                dateIndex;
 
             for(i = 0; i < feedLength; i += 1){
-                if(isEvent){
-                    this.entries[r[i].$key] = r[i];
-                    startDay = r[i].StartDate;
-                } else {
-                    this.entries[r[i].Activity.$key] = r[i].Activity;
-                    startDay = r[i].Activity.StartDate;
-                }
-                startDay = Sage.Platform.Mobile.Convert.toDateFromString(startDay);
-                endDay = (isEvent) ? Sage.Platform.Mobile.Convert.toDateFromString(r[i].EndDate) : startDay.clone().add({second:1});
+                row = r[i];
+                this.entries[row.Activity.$key] = row;
+                startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.Activity.StartDate);
+                dateIndex = (r[i].Activity.Timeless)
+                    ? this.dateToUTC(startDay)
+                    : startDay;
+                dateIndex = dateIndex.toString('yyyy-MM-dd');
+                this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
+                    ? this.dateCounts[dateIndex] + 1
+                    : 1;
+            }
+            this.highlightActivities();
+        },
+        processEventFeed: function(feed) {
+            var dateIndex,
+                r = feed['$resources'],
+                i,
+                feedLength = r.length,
+                row,
+                startDay,
+                endDay;
+
+            for(i = 0; i < feedLength; i += 1){
+                row = r[i];
+                this.entries[row.$key] = row;
+                startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate);
+                endDay = Sage.Platform.Mobile.Convert.toDateFromString(row.EndDate);
                 while(startDay.getDate() <= endDay.getDate()){
-                    dateIndex = (!isEvent && r[i].Activity.Timeless)
-                        ? this.dateToUTC(startDay)
-                        : startDay;
-                    dateIndex = dateIndex.toString('yyyy-MM-dd');
+                    dateIndex = startDay.toString('yyyy-MM-dd');
                     this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
                         ? this.dateCounts[dateIndex] + 1
                         : 1;
                     startDay.add({day:1});
                 }
             }
-            this.highlightActivities();
-            this.showCurrentDateActivities();
         },
+
         highlightActivities: function(){
             var template = this.calendarActivityCountTemplate.apply(this),
                 dateCounts = this.dateCounts;
@@ -337,8 +386,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                     } else {
                         dojo.place(dojo.string.substitute(
                             template,
-                            [dateCounts[dataDate],
-                            dateCounts[dataDate]]
+                            [dateCounts[dataDate]]
                         ), el, 'first');
                     }
 
@@ -360,67 +408,153 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         setCurrentDateTitle: function(){
             this.set('dayTitleContent', this.currentDate.toString(this.dayTitleFormatText));
         },
-        showCurrentDateActivities: function(){
-            this.setCurrentDateTitle();
+        hideEventList: function(){
+            dojo.addClass(this.eventContainerNode, 'event-hidden');
+        },
+        showEventList: function(){
+            dojo.removeClass(this.eventContainerNode, 'event-hidden');
+        },
+        getSelectedDate: function(){
+            this.clearSelectedDate();
+            this.requestSelectedDateActivities();
+            this.requestSelectedDateEvents();
+        },
+        clearSelectedDate: function(){
+            this.set('activityContent', this.loadingTemplate.apply(this));
+            this.hideEventList();
+        },
+        requestSelectedDateActivities: function(){
+            var request = this.createSelectedDateActivityRequest();
+            request.read({
+                success: this.onRequestSelectedDateActivityDataSuccess,
+                failure: this.onRequestDataFailure,
+                aborted: this.onRequestDataAborted,
+                scope: this
+            });
+        },
+        requestSelectedDateEvents: function(){
+            var request = this.createSelectedDateEventRequest();
+            request.read({
+                success: this.onRequestSelectedDateEventDataSuccess,
+                failure: this.onRequestDataFailure,
+                aborted: this.onRequestDataAborted,
+                scope: this
+            });
+        },
+        createSelectedDateActivityRequest: function(){
+            var querySelect = this.activityQuerySelect,
+                queryWhere = this.getSelectedDateActivityQuery(),
+                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setCount(this.activityPageSize)
+                .setStartIndex(1)
+                .setResourceKind('useractivities')
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+            return request;
+        },
+        createSelectedDateEventRequest: function(){
+            var querySelect = this.eventQuerySelect,
+                queryWhere = this.getSelectedDateEventQuery(),
+                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setCount(this.eventPageSize)
+                .setStartIndex(1)
+                .setResourceKind('events')
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+           return request;
+        },
+        getSelectedDateActivityQuery: function(){
+            var C = Sage.Platform.Mobile.Convert;
+            var query = [
+                'UserId eq "${0}" and (',
+                '(Activity.Timeless eq false and Activity.StartDate between @${1}@ and @${2}@) or ',
+                '(Activity.Timeless eq true and Activity.StartDate between @${3}@ and @${4}@))'
+            ].join('');
+            return dojo.string.substitute(
+                query,
+                [App.context['user'] && App.context['user']['$key'],
+                C.toIsoStringFromDate(this.currentDate),
+                C.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
+                this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
+                this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
+            );
+        },
+        getEndOfDay: function(){
+            return new Date(this.currentDate.getFullYear(),
+                this.currentDate.getMonth(),
+                this.currentDate.getDate(),
+                23, 59, 59);
+        },
+        getSelectedDateEventQuery: function(){
+            var startDate = this.currentDate.clone().clearTime(),
+                endDate = this.getEndOfDay();
+            return dojo.string.substitute(
+                    [
+                        'UserId eq "${0}" and (',
+                            '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
+                            'StartDate lt @${2}@',
+                        ')'
+                    ].join(''),
+                    [App.context['user'] && App.context['user']['$key'],
+                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
+                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)]
+                );
+        },
+        onRequestSelectedDateActivityDataSuccess: function(feed){
+            var r = feed['$resources'],
+                row,
+                i,
+                feedLength = r.length,
+                o = [];
 
-            if(this.dayItems.length < 1){
-                this.set('dayContent', this.loadingTemplate.apply(this));
-                return;
+            for(i = 0; i < feedLength; i += 1){
+                row = r[i];
+                row.isEvent = false;
+                this.entries[row.Activity.$key] = row;
+                o.push(this.activityRowTemplate.apply(row, this));
             }
 
-            var f = 0,
-                feedsLength = this.dayItems.length,
-                feed,
-                feedLength,
-                i = 0,
-                activity,
-                startDay,
-                endDay,
-                activityList = [],
-                eventList = [];
-
-            for(f=0; f<feedsLength; f += 1) {
-                feed = this.dayItems[f]['$resources'];
-                feedLength = feed.length;
-
-                for(i = 0; i < feedLength; i += 1){
-                    if(feed[i].Activity){
-                        activity = feed[i].Activity;
-                        activity.isEvent = false;
-                    } else {
-                        activity = feed[i];
-                        activity.isEvent = true;
-                    }
-                    activity.key = feed[i].key;
-                    activity.descriptor = feed[i].descriptor;
-                    activity.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(activity.StartDate);
-                    startDay = (activity.Timeless)
-                        ? this.dateToUTC(activity.StartDate)
-                        : activity.StartDate;
-                    endDay = (activity.isEvent)
-                        ? Sage.Platform.Mobile.Convert.toDateFromString(feed[i].EndDate)
-                        : startDay.clone().add({second:1});
-                    if(this.currentDate.getDate() <= endDay.getDate() && this.currentDate.getDate() >= startDay.getDate()){
-                        if(activity.isEvent) {
-                            eventList.push(this.dayItemTemplate.apply(activity, this));
-                        }
-                        else {
-                            activityList.push(this.dayItemTemplate.apply(activity, this));
-                        }
-                    }
-                }
-            }
-            if(activityList.length === 0 && eventList.length === 0){
-                this.set('dayContent', this.noDataTemplate.apply(this));
+            if(feedLength === 0){
+                this.set('activityContent', this.noDataTemplate.apply(this));
                 return false;
             }
 
-            if(eventList.length > 0){
-                activityList = eventList.concat(activityList);
+            this.set('activityContent', o.join(''));
+        },
+        onRequestSelectedDateEventDataSuccess: function(feed){
+            var r = feed['$resources'],
+                row,
+                i,
+                feedLength = r.length,
+                o = [];
+            this.eventFeed = feed;
+
+            if(feedLength === 0){
+                this.hideEventList();
+                return false;
+            } else {
+                this.showEventList();
             }
 
-            this.set('dayContent', activityList.join(''));
+            for(i = 0; i < feedLength; i += 1){
+                row = r[i];
+                row.isEvent = true;
+                this.entries[row.$key] = row;
+                o.push(this.eventRowTemplate.apply(row, this));
+            }
+
+
+            if(feed['$totalResults'] > feedLength) {
+                dojo.addClass(this.eventContainerNode, 'list-has-more');
+                this.set('eventRemainingContent', dojo.string.substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
+            } else {
+                dojo.removeClass(this.eventContainerNode, 'list-has-more');
+                this.set('eventRemainingContent', '');
+            }
+
+            this.set('eventContent', o.join(''));
         },
+
         renderCalendar: function() {
             var calHTML = [],
                 startingDay = this.getFirstDayOfCurrentMonth().getDay(),
@@ -498,6 +632,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             if (this.selectedDateNode) dojo.removeClass(this.selectedDateNode, 'selected');
             this.selectedDateNode = dojo.query(selectedDate, this.contentNode)[0];
             dojo.addClass(this.selectedDateNode, 'selected');
+            this.getSelectedDate();
         },
         navigateToWeekView: function() {
             var view = App.getView(this.activityWeekView),

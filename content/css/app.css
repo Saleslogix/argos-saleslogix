@@ -729,11 +729,16 @@ body.transition > .footer-toolbar
     font-size: .6em;
     color: #888;
 }
-#calendar_daylist > .event-hidden {
-    display:none;
+#calendar_daylist .event-hidden,
+#calendar_weeklist .event-hidden,
+#calendar_monthlist .event-hidden
+{
+    display:none !important;
 }
 
-#calendar_daylist > .event-content > h2,
+#calendar_daylist .event-content > h2,
+#calendar_monthlist .event-content > h2,
+#calendar_monthlist .activity-content > h2,
 #calendar_daylist > h2,
 #calendar_weeklist > div > h2
 {
@@ -772,9 +777,9 @@ body.transition > .footer-toolbar
 }
 
 
-#calendar_daylist > .nav-bar > h3,
-#calendar_weeklist > .nav-bar > h3,
-#calendar_monthlist > .nav-bar > h3
+#calendar_daylist .nav-bar > h3,
+#calendar_weeklist .nav-bar > h3,
+#calendar_monthlist .nav-bar > h3
 {
     overflow: hidden;
     display: block;
@@ -793,18 +798,18 @@ body.transition > .footer-toolbar
     right: 60px;
 }
 
-#calendar_daylist > .nav-bar > .button-prev,
-#calendar_weeklist > .nav-bar > .button-prev,
-#calendar_monthlist > .nav-bar > .button-prev
+#calendar_daylist .nav-bar > .button-prev,
+#calendar_weeklist .nav-bar > .button-prev,
+#calendar_monthlist .nav-bar > .button-prev
 {
     float: left;
     margin-left: 10px;
     z-index: 100;
 }
 
-#calendar_daylist > .nav-bar > .button-next,
-#calendar_weeklist > .nav-bar > .button-next,
-#calendar_monthlist > .nav-bar > .button-next
+#calendar_daylist .nav-bar > .button-next,
+#calendar_weeklist .nav-bar > .button-next,
+#calendar_monthlist .nav-bar > .button-next
 {
     float: right;
     margin-right: 10px;
@@ -827,9 +832,9 @@ body.transition > .footer-toolbar
     background-color: #fff;
 }
 
-#calendar_monthlist > .nav-bar,
-#calendar_weeklist > .nav-bar,
-#calendar_daylist > .nav-bar {
+#calendar_monthlist .nav-bar,
+#calendar_weeklist .nav-bar,
+#calendar_daylist .nav-bar {
     padding: 5px 0 0 0;
 }
 
@@ -866,30 +871,32 @@ body.transition > .footer-toolbar
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E6E6E6, endColorstr=#FFFFFF)";
 }
 
-#calendar_daylist .list-content > li {
+#calendar_daylist .list-content > li,
+#calendar_weeklist .list-content > li,
+#calendar_monthlist .list-content > li
+{
     padding: 0 0 0 3px;
 }
-
-#calendar_monthlist .panel-content > h2:first-child {
-    border-top: 1px solid #000;
-}
-#calendar_monthlist .panel-content > ul > li {
-    padding: 8px 32px 8px 36px;
-    line-height: normal;
-}
-#calendar_monthlist .list-content > li:last-child {
-    border-bottom: none;
+#calendar_daylist .list-content > li.no-data,
+#calendar_weeklist .list-content > li.no-data,
+#calendar_monthlist .list-content > li.no-data
+{
+    padding: 8px 3px 8px 3px;
 }
 
 
 #calendar_daylist table.calendar-entry-table,
 #calendar_weeklist table.calendar-entry-table,
-#calendar_monthlist table.calendar-entry-table {
+#calendar_monthlist table.calendar-entry-table
+{
     width: 100%;
     height: 56px;
     table-layout:fixed;
 }
-td.entry-table-icon {
+#calendar_daylist td.entry-table-icon,
+#calendar_weeklist td.entry-table-icon,
+#calendar_monthlist td.entry-table-icon
+{
     width: 24px;
 }
 td.entry-table-icon .list-item-selector {
@@ -897,14 +904,30 @@ td.entry-table-icon .list-item-selector {
     top: 0px !important;
     left: 0px !important;
 }
-#calendar_daylist .p-meridiem
+#calendar_daylist .p-meridiem,
+#calendar_weeklist .p-meridiem,
+#calendar_monthlist .p-meridiem
 {
     color: #4D4D4D;
     font-size: 0.6em;
 }
-#calendar_daylist .p-time {
+#calendar_daylist .p-time,
+#calendar_weeklist .p-time,
+#calendar_monthlist .p-time
+{
     font-size: .8em;
 }
+
+#calendar_daylist .collapsed-event > ul,
+#calendar_weeklist .collapsed-event > ul,
+#calendar_monthlist .collapsed-event > ul,
+#calendar_daylist .collapsed-event > div,
+#calendar_weeklist .collapsed-event > div,
+#calendar_monthlist .collapsed-event > div
+{
+    display: none !important;
+}
+
 
 td.entry-table-time {
     width:65px;
@@ -948,7 +971,7 @@ td.entry-table-description {
 {
     line-height: 34px;
     background-color: #fff;
-    padding: 3px 0 3px 6px;
+    padding: 3px 0 3px 3px;
 }
 
 .split-buttons > .button

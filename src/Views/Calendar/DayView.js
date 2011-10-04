@@ -28,12 +28,13 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '{%! $.searchTemplate %}',
             '{%! $.navigationTemplate %}',
             '<div style="clear:both"></div>',
+            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
             '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
                 '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
                 '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
                 '{%! $.eventMoreTemplate %}',
             '</div>',
-            '<h2 data-action="toggleGroup">{%= $.activityHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
+            '<h2>{%= $.activityHeaderText %}</h2>',
             '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
             '{%! $.moreTemplate %}',
             '</div>'
@@ -70,7 +71,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
         ]),
         eventItemTemplate: new Simplate([
-            '<h3 class="p-description">{%: $.Description %} - {%: $.Type %}</h3>',
+            '<h3 class="p-description">{%: $.Description %} ({%: $.Type %})</h3>',
             '<h4>{%! $$.eventNameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
@@ -150,7 +151,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             'Activity/Timeless'
         ],
         eventFeed: null,
-        eventPageSize: 5,
+        eventPageSize: 3,
         eventQuerySelect: [
             'StartDate',
             'EndDate',
@@ -171,8 +172,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         },
         toggleGroup: function(params) {
             var node = dojo.query(params.$source);
-            if (node) {
-                node.toggleClass('collapsed');
+            if (node && node.parent()) {
+                node.parent().toggleClass('collapsed-event');
             }
         },
         refresh: function(){
