@@ -17,6 +17,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         dayText: 'Day',
         weekText: 'Week',
         monthText: 'Month',
+        yearText: 'Year',
         allDayText: 'All Day',
         eventHeaderText: 'Events',
         eventMoreText: 'View ${0} More Event(s)',
@@ -44,17 +45,19 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             '<button data-tool="day" data-action="navigateToUserActivityList" class="button">{%: $.dayText %}</button>',
             '<button data-tool="week" data-action="getWeekActivities" class="button">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
+            '<button data-tool="year" data-action="navigateToYearView" class="button">{%: $.yearText %}</button>',
             '</div>',
             '<div class="nav-bar">',
-            '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '<button data-tool="next" data-action="getNextWeekActivities" class="button button-next"><span></span></button>',
             '<button data-tool="prev" data-action="getPrevWeekActivities" class="button button-prev"><span></span></button>',
+            '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '</div>'
         ]),
         groupTemplate: new Simplate([
             '<h2 data-action="activateDayHeader" class="dayHeader {%= $.Activity.headerClass %}" data-date="{%: $.Activity.StartDate.toString(\'yyyy-MM-dd\') %}">',
-            '<span class="dayHeaderLeft">{%: $.Activity.StartDate.toString($$.dayHeaderLeftFormatText) %}</span>',
-            '<span class="dayHeaderRight">{%: $.Activity.StartDate.toString($$.dayHeaderRightFormatText) %}</span>',
+                '<span class="dayHeaderLeft">{%: $.Activity.StartDate.toString($$.dayHeaderLeftFormatText) %}</span>',
+                '<span class="dayHeaderRight">{%: $.Activity.StartDate.toString($$.dayHeaderRightFormatText) %}</span>',
+                '<div style="clear:both"></div>',
             '</h2>',
             '<ul class="list-content">'
         ]),
@@ -196,6 +199,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         toggleGroup: function(params) {
             var node = dojo.query(params.$source);
             if (node && node.parent()) {
+                node.toggleClass('collapsed');
                 node.parent().toggleClass('collapsed-event');
             }
         },
@@ -281,10 +285,13 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                     currentEntry,
                     entryGroups = this.entryGroups,
                     currentGroup,
+                    entryOrder = [],
+                    entryOrderLength,
+                    dateCompareString = 'yyyy-MM-dd',
                     o = [];
 
-                if(todayNode && !entryGroups[this.todayDate.getDate()])
-                    entryGroups[this.todayDate.getDate()] = [todayNode];
+                if(todayNode && !entryGroups[this.todayDate.toString(dateCompareString)])
+                    entryGroups[this.todayDate.toString(dateCompareString)] = [todayNode];
 
                 for(i = 0; i < feedLength; i+=1){
                     currentEntry = feed['$resources'][i];
@@ -296,7 +303,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                     currentEntry.isEvent = false;
                     this.entries[currentEntry.$key] = currentEntry;
 
-                    currentGroup = entryGroups[currentEntry.Activity.StartDate.getDate()];
+                    currentGroup = entryGroups[currentEntry.Activity.StartDate.toString(dateCompareString)];
                     if(currentGroup){
                         if(currentEntry.Activity.Timeless) {
                             currentGroup.splice(1, 0, this.rowTemplate.apply(currentEntry, this));
@@ -308,11 +315,19 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                     currentGroup = [];
                     currentGroup.push(this.groupTemplate.apply(currentEntry, this));
                     currentGroup.push(this.rowTemplate.apply(currentEntry, this));
-                    entryGroups[currentEntry.Activity.StartDate.getDate()] = currentGroup;
+                    entryGroups[currentEntry.Activity.StartDate.toString(dateCompareString)] = currentGroup;
                 }
 
                 for(var entryGroup in entryGroups){
-                    o.push(entryGroups[entryGroup].join('') + this.groupEndTemplate.apply(this));
+                    entryOrder.push(Date.parseExact(entryGroup, dateCompareString));
+                }
+                entryOrder.sort(function(a, b){
+                    return a.compareTo(b);
+                });
+
+                entryOrderLength = entryOrder.length;
+                for(i = 0; i < entryOrderLength; i+= 1){
+                    o.push(entryGroups[entryOrder[i].toString(dateCompareString)].join('') + this.groupEndTemplate.apply(this));
                 }
 
                 if (o.length > 0)

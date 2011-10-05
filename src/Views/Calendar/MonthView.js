@@ -13,6 +13,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         dayText: 'Day',
         weekText: 'Week',
         monthText: 'Month',
+        yearText: 'Year',
         monthTitleFormatText: 'MMMM yyyy',
         dayTitleFormatText: 'ddd MMM d, yyyy',
         startTimeFormatText: 'h:mm',
@@ -47,6 +48,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                         '{%! $.moreTemplate %}',
                     '</div>',
                 '</div>',
+                '<div style="clear:both"></div>',
             '</div>'
         ]),
         navigationTemplate: new Simplate([
@@ -55,23 +57,23 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
                 '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
                 '<button data-tool="month" class="button">{%: $.monthText %}</button>',
+                '<button data-tool="year" data-action="navigateToYearView" class="button">{%: $.yearText %}</button>',
             '</div>'
         ]),
         navBarTemplate: new Simplate([
             '<div class="nav-bar">',
-            '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
-            '<button data-tool="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
-            '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
+                '<button data-tool="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
+                '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
+                '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '</div>'
         ]),
         activityRowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
             '<table class="calendar-entry-table"><tr>',
-            '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
-            '<td class="entry-table-time">{%! $$.activityTimeTemplate %}</td>',
-            '<td class="entry-table-description">{%! $$.activityItemTemplate %}</td>',
+                '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
+                '<td class="entry-table-time">{%! $$.activityTimeTemplate %}</td>',
+                '<td class="entry-table-description">{%! $$.activityItemTemplate %}</td>',
             '</tr></table>',
-            '',
             '</li>'
         ]),
         eventRowTemplate: new Simplate([
@@ -170,16 +172,20 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         hideSearch: true,
         expose: false,
         dateCounts: {},
-
         currentDate: Date.today(),
+
+        pageSize: 500,
         queryWhere: null,
         queryOrderBy: 'Activity.StartDate asc',
         querySelect: [
             'Activity/StartDate',
             'Activity/Timeless'
         ],
-        pageSize: 500,
+        feed: {},
+        eventFeed: {},
+        entries: {},
 
+        eventPageSize: 3,
         eventQueryWhere: null,
         eventQuerySelect: [
             'StartDate',
@@ -187,8 +193,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             'Description',
             'Type'
         ],
-        eventPageSize: 3,
 
+        activityPageSize: 10,
         activityQueryWhere: null,
         activityQuerySelect: [
             'Activity/StartDate',
@@ -201,7 +207,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             'Activity/UserId',
             'Activity/Timeless'
         ],
-        activityPageSize: 10,
 
         resourceKind: 'useractivities',
 
@@ -212,12 +217,18 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
            }
         },
         clear: function(){
-            this.inherited(arguments);
-            this.clearCurrentDateActivities();
+            //this.inherited(arguments);
         },
         render: function() {
             this.inherited(arguments);
             this.renderCalendar();
+        },
+        toggleGroup: function(params) {
+            var node = dojo.query(params.$source);
+            if (node && node.parent()) {
+                node.toggleClass('collapsed');
+                node.parent().toggleClass('collapsed-event');
+            }
         },
         selectDay: function(params, evt, el) {
             if (this.selectedDateNode) dojo.removeClass(this.selectedDateNode, 'selected');
@@ -258,8 +269,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.renderCalendar();
             this.queryWhere = this.getActivityQuery();
             this.feed['$startIndex'] = 0;
+            this.eventFeed['$startIndex'] = 0;
             this.dateCounts = [];
-            this.set('dayContent', this.loadingTemplate.apply(this));
             this.requestData();
             this.requestEventData();
         },
@@ -333,6 +344,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 feedLength = r.length,
                 startDay,
                 dateIndex;
+            this.feed = feed;
 
             for(i = 0; i < feedLength; i += 1){
                 row = r[i];
@@ -356,6 +368,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 row,
                 startDay,
                 endDay;
+            this.eventFeed = feed;
 
             for(i = 0; i < feedLength; i += 1){
                 row = r[i];
@@ -370,6 +383,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                     startDay.add({day:1});
                 }
             }
+            this.highlightActivities();
         },
 
         highlightActivities: function(){
@@ -402,9 +416,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 date.getUTCSeconds()
             );
         },
-        clearCurrentDateActivities: function(){
-            this.set('dayContent', this.loadingTemplate.apply(this));
-        },
         setCurrentDateTitle: function(){
             this.set('dayTitleContent', this.currentDate.toString(this.dayTitleFormatText));
         },
@@ -416,10 +427,12 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         },
         getSelectedDate: function(){
             this.clearSelectedDate();
+            this.setCurrentDateTitle();
             this.requestSelectedDateActivities();
             this.requestSelectedDateEvents();
         },
         clearSelectedDate: function(){
+            dojo.addClass(this.activityContainerNode, 'list-loading');
             this.set('activityContent', this.loadingTemplate.apply(this));
             this.hideEventList();
         },
@@ -501,6 +514,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 );
         },
         onRequestSelectedDateActivityDataSuccess: function(feed){
+            dojo.removeClass(this.activityContainerNode, 'list-loading');
             var r = feed['$resources'],
                 row,
                 i,

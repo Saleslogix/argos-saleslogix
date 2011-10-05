@@ -15,6 +15,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         dayText: 'Day',
         weekText: 'Week',
         monthText: 'Month',
+        yearText: 'Year',
         allDayText: 'All-Day',
         eventHeaderText: 'Events',
         activityHeaderText: 'Activities',
@@ -94,11 +95,12 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '<button data-tool="day" data-action="getDayActivities" class="button">{%: $.dayText %}</button>',
             '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
+            '<button data-tool="year" data-action="navigateToYearView" class="button">{%: $.yearText %}</button>',
             '</div>',
             '<div class="nav-bar">',
-            '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '<button data-tool="next" data-action="getNextDay" class="button button-next"><span></span></button>',
             '<button data-tool="prev" data-action="getPrevDay" class="button button-prev"><span></span></button>',
+            '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '</div>'
         ]),
         eventMoreTemplate: new Simplate([
@@ -131,6 +133,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         id: 'calendar_daylist',
         cls: 'activities-for-day',
         icon: 'content/images/icons/Calendar_24x24.png',
+        yearView: 'calendar_yearlist',
         monthView: 'calendar_monthlist',
         weekView: 'calendar_weeklist',
         activityDetailView: 'activity_detail',
@@ -173,6 +176,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         toggleGroup: function(params) {
             var node = dojo.query(params.$source);
             if (node && node.parent()) {
+                node.toggleClass('collapsed');
                 node.parent().toggleClass('collapsed-event');
             }
         },
@@ -360,6 +364,11 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
                 this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
                 this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
             );
+        },
+        navigateToYearView: function() {
+            var view = App.getView(this.yearView),
+                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+            view.show(options);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView),
