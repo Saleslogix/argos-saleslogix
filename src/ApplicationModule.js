@@ -32,8 +32,9 @@
         'Mobile/SalesLogix/Views/Activity/Complete',
         'Mobile/SalesLogix/Views/Activity/TypesList',
         'Mobile/SalesLogix/Views/Calendar/DayView',
-        'Mobile/SalesLogix/Views/Calendar/MonthView',
         'Mobile/SalesLogix/Views/Calendar/WeekView',
+        'Mobile/SalesLogix/Views/Calendar/MonthView',
+        'Mobile/SalesLogix/Views/Calendar/YearView',
         'Mobile/SalesLogix/Views/Contact/List',
         'Mobile/SalesLogix/Views/Contact/Detail',
         'Mobile/SalesLogix/Views/Contact/Edit',
@@ -89,6 +90,7 @@
                     expose: false
                 }));
 
+                this.registerView(new Mobile.SalesLogix.Views.Calendar.YearView());
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.MonthView());
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.WeekView());
                 this.registerView(new Mobile.SalesLogix.Views.Calendar.DayView());
