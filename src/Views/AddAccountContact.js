@@ -5,7 +5,8 @@
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
 define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'], function() {
-    dojo.declare('Mobile.SalesLogix.Views.AddAccountContact', [Sage.Platform.Mobile.Edit], {
+
+    return dojo.declare('Mobile.SalesLogix.Views.AddAccountContact', [Sage.Platform.Mobile.Edit], {
         //Localization
         accountNameText: 'account',
         accountStatusTitleText: 'Account Status',

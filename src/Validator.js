@@ -3,7 +3,8 @@
 /// <reference path="../sdata/SDataService.js"/>
 
 define('Mobile/SalesLogix/Validator', ['dojo', 'dojo/string'], function() {
-    dojo.declare('Mobile.SalesLogix.Validator', null, {});
+
+    dojo.setObject('Mobile.SalesLogix.Validator', null);
     /// common frequently used templates
     Mobile.SalesLogix.Validator = (function() {
         return {

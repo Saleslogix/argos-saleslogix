@@ -7,7 +7,7 @@
 
 define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Activity.Edit', [Sage.Platform.Mobile.Edit], {
+    return dojo.declare('Mobile.SalesLogix.Views.Activity.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',

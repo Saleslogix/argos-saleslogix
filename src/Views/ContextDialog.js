@@ -5,7 +5,8 @@
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
 define('Mobile/SalesLogix/Views/ContextDialog', ['Sage/Platform/Mobile/View', 'Sage/Platform/Mobile/Utility', 'Sage/Platform/Mobile/Format'], function(){
-    dojo.declare('Mobile.SalesLogix.Views.ContextDialog', [Sage.Platform.Mobile.View], {
+
+    return dojo.declare('Mobile.SalesLogix.Views.ContextDialog', [Sage.Platform.Mobile.View], {
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%: $.id %}" class="dialog">',

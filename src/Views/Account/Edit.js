@@ -8,7 +8,7 @@
 
 define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Account.Edit', [Sage.Platform.Mobile.Edit], {
+    return dojo.declare('Mobile.SalesLogix.Views.Account.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account Subtype',

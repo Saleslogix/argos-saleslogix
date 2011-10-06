@@ -7,7 +7,7 @@
 
 define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sage/Platform/Mobile/Utility'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Contact.Edit', [Sage.Platform.Mobile.Edit], {
+    return dojo.declare('Mobile.SalesLogix.Views.Contact.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         titleText: 'Contact',
         nameText: 'name',

@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Lead/List', ['Sage/Platform/Mobile/List'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Lead.List', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.Lead.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',

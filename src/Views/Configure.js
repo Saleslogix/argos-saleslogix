@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Configure', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.Configure', [Sage.Platform.Mobile.List], {
         //Templates
         emptyTemplate: new Simplate(['']),
         itemTemplate: new Simplate([

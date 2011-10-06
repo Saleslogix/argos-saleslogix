@@ -7,7 +7,7 @@
 
 define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.History.Edit', [Sage.Platform.Mobile.Edit], {
+    return dojo.declare('Mobile.SalesLogix.Views.History.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         accountText: 'account',
         noteDescriptionTitleText: 'Note Description',

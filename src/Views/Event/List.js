@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Event/List', ['Sage/Platform/Mobile/List'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Event.List', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.Event.List', [Sage.Platform.Mobile.List], {
         // Localization
         titleText: 'Events',
         eventDateFormatText: 'M/d/yyyy',

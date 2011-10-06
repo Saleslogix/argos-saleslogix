@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List', 'Sage/Platform/Mobile/Convert'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Calendar.WeekView', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.Calendar.WeekView', [Sage.Platform.Mobile.List], {
         //Localization
         titleText: 'Calendar',
         weekTitleFormatText: 'MMM d, yyyy',

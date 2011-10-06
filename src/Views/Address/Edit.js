@@ -6,7 +6,7 @@
 /// <reference path="../../Format.js"/>
 
 define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], function() {
-    dojo.declare('Mobile.SalesLogix.Views.Address.Edit', [Sage.Platform.Mobile.Edit], {
+    return dojo.declare('Mobile.SalesLogix.Views.Address.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         address1Text: 'address 1',
         address2Text: 'address 2',

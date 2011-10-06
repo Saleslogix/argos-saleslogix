@@ -5,7 +5,8 @@
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
 define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], function() {
-    dojo.declare('Mobile.SalesLogix.Views.PickList', [Sage.Platform.Mobile.List], {
+
+    return dojo.declare('Mobile.SalesLogix.Views.PickList', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.text %}</h3>'

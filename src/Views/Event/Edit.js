@@ -7,7 +7,7 @@
 
 define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Event.Edit', [Sage.Platform.Mobile.Edit], {
+    return dojo.declare('Mobile.SalesLogix.Views.Event.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         titleText: 'Event',
         typeText: 'type',

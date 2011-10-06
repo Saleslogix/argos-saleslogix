@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List', 'Sage/Platform/Mobile/Convert'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Calendar.DayView', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.Calendar.DayView', [Sage.Platform.Mobile.List], {
         // Localization
         titleText: 'Calendar',
         dateHeaderFormatText: 'dddd, MM/dd/yyyy',

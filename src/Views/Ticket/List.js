@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Ticket/List', ['Sage/Platform/Mobile/List'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Ticket.List', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.Ticket.List', [Sage.Platform.Mobile.List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-ticket-type="{%: $.Status %}">',

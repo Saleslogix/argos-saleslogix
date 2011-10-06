@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Ticket.Detail', [Sage.Platform.Mobile.Detail], {
+    return dojo.declare('Mobile.SalesLogix.Views.Ticket.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         accountText: 'account',
         areaText: 'area',
@@ -125,7 +125,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     name: 'TicketProblem.Notes'
                 },{
                     label: this.statusText,
-                    name: 'Status',
+                    name: 'Status'
                 },{
                     label: this.urgencyText,
                     name: 'Urgency.Description'
@@ -147,7 +147,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     name: 'Contract.ReferenceNumber'
                 },{
                     label: this.sourceText,
-                    name: 'ViaCode',
+                    name: 'ViaCode'
                 },{
                     label: this.assignedDateText,
                     name: 'AssignedDate',

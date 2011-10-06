@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Contact.Detail', [Sage.Platform.Mobile.Detail], {
+    return dojo.declare('Mobile.SalesLogix.Views.Contact.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',

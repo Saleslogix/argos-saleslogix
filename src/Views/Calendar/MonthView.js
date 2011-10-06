@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List', 'Sage/Platform/Mobile/Convert'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Calendar.MonthView', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.Calendar.MonthView', [Sage.Platform.Mobile.List], {
         // Localization
         titleText: 'Calendar',
         todayText: 'Today',

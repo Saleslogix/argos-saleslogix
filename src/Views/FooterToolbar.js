@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/FooterToolbar', ['Sage/Platform/Mobile/Toolbar'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.FooterToolbar', [Sage.Platform.Mobile.Toolbar], {
+    return dojo.declare('Mobile.SalesLogix.Views.FooterToolbar', [Sage.Platform.Mobile.Toolbar], {
         // Localization
         copyrightText: '&copy; 2011 Sage Software, Inc. All rights reserved.',
         logOutConfirmText: 'Are you sure you want to log out?',

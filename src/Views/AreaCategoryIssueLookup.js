@@ -5,7 +5,8 @@
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
 define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', ['Sage/Platform/Mobile/List'], function() {
-    dojo.declare('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', [Sage.Platform.Mobile.List], {
+
+    return dojo.declare('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'

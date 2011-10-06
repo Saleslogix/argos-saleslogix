@@ -61,7 +61,7 @@
 
     define('Mobile/SalesLogix/ApplicationModule', imports, function() {
 
-        dojo.declare('Mobile.SalesLogix.ApplicationModule', [Sage.Platform.Mobile.ApplicationModule], {
+        return dojo.declare('Mobile.SalesLogix.ApplicationModule', [Sage.Platform.Mobile.ApplicationModule], {
             loadViews: function() {
                 this.inherited(arguments);
 

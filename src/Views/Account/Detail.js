@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Account.Detail', [Sage.Platform.Mobile.Detail], {
+    return dojo.declare('Mobile.SalesLogix.Views.Account.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',

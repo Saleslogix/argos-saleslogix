@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Help', ['Sage/Platform/Mobile/Detail'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Help', [Sage.Platform.Mobile.Detail], {
+    return dojo.declare('Mobile.SalesLogix.Views.Help', [Sage.Platform.Mobile.Detail], {
         //Templates
         errorTemplate: new Simplate([
             '<div data-dojo-attach-point="errorNode" class="panel-validation-summary">',

@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Activity.Detail', [Sage.Platform.Mobile.Detail], {
+    return dojo.declare('Mobile.SalesLogix.Views.Activity.Detail', [Sage.Platform.Mobile.Detail], {
         //Templates
         leaderTemplate: Mobile.SalesLogix.Template.nameLF,
 

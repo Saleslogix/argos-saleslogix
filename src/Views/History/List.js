@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.History.List', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.History.List', [Sage.Platform.Mobile.List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}" data-entity-name="{%: $$.resolveEntityName($) %}">',
@@ -148,7 +148,7 @@ define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], fu
                 else
                     el.child('.note-text-more').hide();
             });
-        },
+        }
         // FIX: Why are we overriding processFeed here?
         /*processFeed: function(feed) {
             // Mobile.SalesLogix.History.List.superclass.processFeed.call(this, feed);

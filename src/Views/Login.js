@@ -5,7 +5,8 @@
 /// <reference path="../../../../argos-sdk/src/Edit.js"/>
 
 define('Mobile/SalesLogix/Views/Login', ['Sage/Platform/Mobile/Edit'], function() {
-    dojo.declare('Mobile.SalesLogix.Views.Login', [Sage.Platform.Mobile.Edit], {
+
+    return dojo.declare('Mobile.SalesLogix.Views.Login', [Sage.Platform.Mobile.Edit], {
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',

@@ -5,7 +5,8 @@
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', ['Sage/Platform/Mobile/List'], function() {
-    dojo.declare('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', [Sage.Platform.Mobile.List], {
+
+    return dojo.declare('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', [Sage.Platform.Mobile.List], {
         //Localization
         titleText: 'Ticket Urgency',
 

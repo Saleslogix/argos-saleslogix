@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.History.Detail', [Sage.Platform.Mobile.Detail], {
+    return dojo.declare('Mobile.SalesLogix.Views.History.Detail', [Sage.Platform.Mobile.Detail], {
         //Localization
         categoryText: 'category',
         completedText: 'completed',

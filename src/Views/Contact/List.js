@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Contact/List', ['Sage/Platform/Mobile/List'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Contact.List', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.Contact.List', [Sage.Platform.Mobile.List], {
         //Template
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',

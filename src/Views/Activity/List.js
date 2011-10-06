@@ -6,7 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Activity/List', ['Sage/Platform/Mobile/List'], function() {
 
-    dojo.declare('Mobile.SalesLogix.Views.Activity.List', [Sage.Platform.Mobile.List], {
+    return dojo.declare('Mobile.SalesLogix.Views.Activity.List', [Sage.Platform.Mobile.List], {
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
