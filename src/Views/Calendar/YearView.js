@@ -8,12 +8,14 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         weekText: 'Week',
         monthText: 'Month',
         yearText: 'Year',
+        yearTitleFormatText: 'yyyy',
 
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
                 '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
                 '{%! $.searchTemplate %}',
                 '{%! $.navigationTemplate %}',
+                '{%! $.navBarTemplate %}',
                 '<div style="clear:both"></div>',
                 '<div class="year-content" data-dojo-attach-point="yearContentNode"></div>',
                 '<div style="clear:both"></div>',
@@ -30,13 +32,13 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         ]),
         navBarTemplate: new Simplate([
             '<div class="nav-bar">',
-                '<button data-tool="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
-                '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
+                '<button data-tool="next" data-action="goToNextYear" class="button button-next"><span></span></button>',
+                '<button data-tool="prev" data-action="goToPreviousYear" class="button button-prev"><span></span></button>',
                 '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '</div>'
         ]),
         calendarStartTemplate: '<div class="year-table"><table class="calendar-table">',
-        calendarWeekHeaderStartTemplate: '<tr class="calendar-week-header"><td colspan="7"><b>${0}</b></td></tr><tr class="calendar-week-header">',
+        calendarWeekHeaderStartTemplate: '<tr class="calendar-week-title"><td colspan="7"><h2>${0}</h2></td></tr><tr class="calendar-week-header">',
         calendarWeekHeaderTemplate: '<td class="calendar-weekday">${0}</td>',
         calendarWeekHeaderEndTemplate: '</tr>',
         calendarWeekStartTemplate: '<tr class="calendar-week">',
@@ -48,6 +50,10 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             '<div><span class="activity-count" title="${0} events">${0}</span></div>'
         ]),
         attributeMap: {
+            dateContent: {
+                node: 'dateNode',
+                type: 'innerHTML'
+            },
             yearContent: {
                 node: 'yearContentNode',
                 type: 'innerHTML'
@@ -91,11 +97,11 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             this.inherited(arguments);
             this.renderCalendars();
         },
-        selectDay: function(params, evt, el) {
+        selectDay: function(params, evt, node) {
             if (this.selectedDateNode) dojo.removeClass(this.selectedDateNode, 'selected');
-            this.selectedDateNode = el;
-            dojo.addClass(el, 'selected');
-            this.currentDate = Date.parseExact(params.date,'yyyy-MM-dd');
+            this.selectedDateNode = node;
+            dojo.addClass(node, 'selected');
+            this.currentDate = Date.parseExact(params.date, 'yyyy-MM-dd');
         },
         getFirstDayOfCurrentMonth: function(monthDate){
             return monthDate.clone().moveToFirstDayOfMonth().clearTime();
@@ -105,6 +111,14 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                 monthDate.getMonth(),
                 monthDate.getDaysInMonth(),
                 23, 59, 59);
+        },
+        goToNextYear: function() {
+             this.currentDate.add({year: 1});
+             this.refresh();
+        },
+        goToPreviousYear: function() {
+            this.currentDate.add({year: -1});
+            this.refresh();
         },
         refresh: function(){
             this.renderCalendars();
@@ -259,12 +273,10 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             for(var dateCount in dateCounts){
                 node = dojo.query('td[data-date="'+dateCount+'"]', this.yearContentNode);
                 dojo.addClass(node[0], "activeDay");
-                if(dojo.query(node).children('div').length > 0){
-                    countNode = dojo.query(node).children('div')[0].children('span')[0];
+                if(dojo.query(node[0]).children('div').length > 0){
+                    countNode = dojo.query('span', node[0])[0];
                     countNodeValue = parseFloat(countNode.innerHTML, 10);
-                    countNode.innerHTML = dojo.string.substitute(template,
-                        [countNodeValue + dateCounts[dateCount]]
-                    );
+                    countNode.innerHTML = countNodeValue+dateCounts[dateCount];
                 } else {
                     dojo.place(dojo.string.substitute(
                         template,
@@ -282,6 +294,9 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                 date.getUTCSeconds()
             );
         },
+        setDateTitle: function(){
+            this.set('dateContent', this.currentDate.toString(this.yearTitleFormatText));
+        },
         renderCalendars: function(){
             var i,
                 o = [],
@@ -290,6 +305,8 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                 o.push(this.renderCalendar(year+'-'+i+'-'+1));
             }
             this.set('yearContent', o.join(''));
+            this.highlightCurrentDate();
+            this.setDateTitle();
         },
         renderCalendar: function(dateString) {
             var calHTML = [],
@@ -343,9 +360,6 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             calHTML.push(this.calendarEndTemplate);
 
             return calHTML.join('');
-        },
-        setDateTitle: function(){
-            this.set('dateContent', this.currentDate.toString(this.monthTitleFormatText));
         },
         show: function(options) {
             this.inherited(arguments);

@@ -80,7 +80,12 @@ define('Mobile/SalesLogix/Views/Activity', ['Sage/Platform/Mobile/List'], functi
         },
         requestData: function() {
             var list = [],
-                eventViews = ['calendar_monthlist','calendar_weeklist','calendar_daylist'];
+                eventViews = [
+                    'calendar_monthlist',
+                    'calendar_weeklist',
+                    'calendar_daylist',
+                    'calendar_yearlist'
+                ];
 
             for (var i = 0; i < this.activityTypeOrder.length; i++)
             {

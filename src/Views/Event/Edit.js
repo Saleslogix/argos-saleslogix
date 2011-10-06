@@ -71,7 +71,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
                 else
                 {
                     startTime = Date.now(),
-                    startDate = Date.now().clearTime().set({
+                    startDate = currentDate.clone().clearTime().set({
                         'hour': startTime.getHours()
                     }).add({
                         'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15

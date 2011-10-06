@@ -120,6 +120,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             '</button>',
             '</div>'
         ]),
+        noDataTemplate: new Simplate([
+            '<div class="no-data"><h3>{%= $.noDataText %}</h3></div>'
+        ]),
         attributeMap:{
             listContent:{
                 node: 'contentNode',
@@ -145,6 +148,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         activityDetailView: 'activity_detail',
         eventDetailView: 'event_detail',
         monthView: 'calendar_monthlist',
+        yearView: 'calendar_yearlist',
         activityListView: 'calendar_daylist',
         insertView: 'activity_types_list',
         userWeekStartDay: 0, // 0-6, Sun-Sat
@@ -493,6 +497,11 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         },
         navigateToUserActivityList: function() {
             var view = App.getView(this.activityListView),
+                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+            view.show(options);
+        },
+        navigateToYearView: function() {
+            var view = App.getView(this.yearView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
         },

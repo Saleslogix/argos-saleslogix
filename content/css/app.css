@@ -749,7 +749,7 @@ body.landscape > #calendar_monthlist > .day-content > div > h2 {
     {
         float:left;
         width: 240px;
-        height:218px;
+        height:210px;
         margin: 6px;
     }
     body.landscape > #calendar_yearlist td.calendar-day
@@ -758,11 +758,23 @@ body.landscape > #calendar_monthlist > .day-content > div > h2 {
         width: 34px;
         font-size:.7em;
     }
-    body.landscape > #calendar_yearlist td.calendar-week-header
+    body.landscape > #calendar_yearlist tr.calendar-week-header
     {
-        padding: 0px !important;
+        padding: 3px 0 0 0 !important;
         font-size: 0.7em;
     }
+    body.landscape > #calendar_yearlist .activity-count
+    {
+        top: 8px;
+        right: 0px !important;
+        padding: 0px 2px 2px 2px;
+        height: 1.25em;
+        border: 1px #AAB28B solid;
+        border-bottom: none;
+        border-right: none;
+        font-size: 70%;
+    }
+
 }
 
 #calendar_daylist .event-hidden,
@@ -775,7 +787,7 @@ body.landscape > #calendar_monthlist > .day-content > div > h2 {
 #calendar_yearlist > .year-content > .year-table
 {
     margin: 12px 6px 12px 6px;
-    padding-bottom: 6px;
+    padding: 3px 0px 6px 0px;
     background-color: #f5f8ef;
     border-color: #4f8e2c;
     border-width: 1px;
@@ -783,10 +795,79 @@ body.landscape > #calendar_monthlist > .day-content > div > h2 {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+
 }
-#calendar_yearlist > .year-content > .year-table td.day-empty
+#calendar_yearlist > .year-content > .year-table > .calendar-table
+{
+    border-collapse: collapse;
+}
+
+#calendar_yearlist > .year-content > .year-table > .calendar-table td.day-empty
 {
     background: #EFEFEF;
+}
+#calendar_yearlist > .year-content > .year-table > .calendar-table .calendar-week > td
+{
+    border-color: #F5F8EF;
+    border-width: 1px;
+    border-style:  solid;
+}
+#calendar_yearlist > .year-content > .year-table > .calendar-table .calendar-week > td:first-child
+{
+    border-left: none;
+}
+#calendar_yearlist > .year-content > .year-table > .calendar-table .calendar-week > td:last-child
+{
+    border-right: none;
+}
+
+#calendar_yearlist > .year-content > .year-table h2
+{
+    font-size:0.95em;
+    margin: 0;
+    padding: 3px 0 0 0;
+    text-align:center;
+    color: #000;
+    text-shadow: #fff 0px 1px 0px;
+    font-weight: bold;
+}
+
+
+#calendar_yearlist > .year-content > .year-table tr.calendar-week-title
+{
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+
+    background-color: #D6E3BF;
+    background-image: linear-gradient(top, #EAF1DF 1%, #D6E3BF 100%);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(.01, #EAF1DF),
+        color-stop(1, #D6E3BF)
+    );
+    background-image: -moz-linear-gradient(top, #EAF1DF 1%, #D6E3BF 100%);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#EAF1DF, endColorstr=#D6E3BF)";
+}
+#calendar_yearlist > .year-content > .year-table tr.calendar-week-header
+{
+    border-spacing: 0;
+    background-color: #D6E3BF;
+    background-image: linear-gradient(top, #D6E3BF, #CBE29E);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #D6E3BF),
+        color-stop(1, #CBE29E)
+    );
+    background-image: -moz-linear-gradient(top, #D6E3BF, #CBE29E);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D6E3BF, endColorstr=#CBE29E)";
 }
 
 #calendar_daylist .event-content > h2,
@@ -902,34 +983,22 @@ body.landscape > #calendar_monthlist > .day-content > div > h2 {
 #calendar_weeklist > .split-buttons,
 #calendar_yearlist > .split-buttons,
 #calendar_daylist > .split-buttons {
-    border-bottom: 1px solid #4D4D4D;
-    border-top: 1px transparent #E6E6E6;
-    background-color: #F2F2F2;
-    background-image: linear-gradient(
-        center top,
-        #E6E6E6 0%,
-        #E6E6E6 50%,
-        #FFFFFF 100%
-    );
+    background-color: #e6e6e6;
+    background-image: linear-gradient(top, #e6e6e6, #cccccc);
     background-image: -webkit-gradient(
         linear,
         left top,
         left bottom,
-        color-stop(0, #E6E6E6),
-        color-stop(0.50, #E6E6E6),
-        color-stop(1, #FFFFFF)
+        color-stop(0, #e6e6e6),
+        color-stop(1, #cccccc)
     );
-    background-image: -moz-linear-gradient(
-        center top,
-        #E6E6E6 0%,
-        #E6E6E6 50%,
-        #FFFFFF 100%
-    );
-    box-shadow: rgba(0,0,0,0.25) 0px 2px 3px;
-    -moz-box-shadow: rgba(0,0,0,0.25) 0px 2px 3px;
-    -webkit-box-shadow: rgba(0,0,0,0.25) 0px 2px 3px;
+    background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc);
+	border-bottom: 1px solid black;
+    border-top: 1px solid transparent;
 
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E6E6E6, endColorstr=#FFFFFF)";
+    box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 }
 
 #calendar_daylist .list-content > li,
@@ -944,7 +1013,12 @@ body.landscape > #calendar_monthlist > .day-content > div > h2 {
 {
     padding: 8px 3px 8px 3px;
 }
-
+#calendar_weeklist div.no-data
+{
+    border-top: 1px solid #e6e6e6;
+    padding: 16px 3px 16px 3px;
+    font-weight:bold;
+}
 
 #calendar_daylist table.calendar-entry-table,
 #calendar_weeklist table.calendar-entry-table,

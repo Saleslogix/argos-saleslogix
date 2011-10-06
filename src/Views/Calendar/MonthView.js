@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         allDayText: 'All-Day',
         eventText: 'Event',
         eventHeaderText: 'Events',
-        eventMoreText: 'View ${0} More Event(s)',
+        countMoreText: 'View ${0} More',
         activityHeaderText: 'Activities',
         toggleCollapseText: 'toggle collapse',
 
@@ -45,7 +45,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                     '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
                         '<h2>{%= $.activityHeaderText %}</h2>',
                         '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
-                        '{%! $.moreTemplate %}',
+                        '{%! $.activityMoreTemplate %}',
                     '</div>',
                 '</div>',
                 '<div style="clear:both"></div>',
@@ -115,10 +115,17 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             '&nbsp;-&nbsp;',
             '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
         ]),
+        activityMoreTemplate: new Simplate([
+            '<div class="list-more" data-dojo-attach-point="activityMoreNode">',
+            '<button class="button" data-action="activateActivityMore">',
+            '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>',
+            '</button>',
+            '</div>'
+        ]),
         eventMoreTemplate: new Simplate([
             '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
             '<button class="button" data-action="activateEventMore">',
-            '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.eventMoreText %}</span>',
+            '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.countMoreText %}</span>',
             '</button>',
             '</div>'
         ]),
@@ -158,14 +165,19 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             eventRemainingContent: {
                 node: 'eventRemainingContentNode',
                 type: 'innerHTML'
+            },
+            activityRemainingContent: {
+                node: 'activityRemainingContentNode',
+                type: 'innerHTML'
             }
         },
 
         //View Properties
         id: 'calendar_monthlist',
         cls: 'activities-for-month',
-        activityListView: 'calendar_daylist',
-        activityWeekView: 'calendar_weeklist',
+        dayView: 'calendar_daylist',
+        yearView: 'calendar_yearlist',
+        weekView: 'calendar_weeklist',
         insertView: 'activity_types_list',
         activityDetailView: 'activity_detail',
         eventDetailView: 'event_detail',
@@ -222,6 +234,15 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         render: function() {
             this.inherited(arguments);
             this.renderCalendar();
+        },
+        activateActivityMore: function(){
+            this.navigateToDayView();
+        },
+        activateEventMore: function(){
+            var view = App.getView("event_related"),
+                where = this.getSelectedDateActivityQuery();
+            if (view)
+                view.show({"where": where});
         },
         toggleGroup: function(params) {
             var node = dojo.query(params.$source);
@@ -533,6 +554,14 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 return false;
             }
 
+            if(feed['$totalResults'] > feedLength) {
+                dojo.addClass(this.activityContainerNode, 'list-has-more');
+                this.set('activityRemainingContent', dojo.string.substitute(this.countMoreText, [feed['$totalResults'] - feedLength]));
+            } else {
+                dojo.removeClass(this.activityContainerNode, 'list-has-more');
+                this.set('activityRemainingContent', '');
+            }
+
             this.set('activityContent', o.join(''));
         },
         onRequestSelectedDateEventDataSuccess: function(feed){
@@ -560,7 +589,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
 
             if(feed['$totalResults'] > feedLength) {
                 dojo.addClass(this.eventContainerNode, 'list-has-more');
-                this.set('eventRemainingContent', dojo.string.substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
+                this.set('eventRemainingContent', dojo.string.substitute(this.countMoreText, [feed['$totalResults'] - feedLength]));
             } else {
                 dojo.removeClass(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', '');
@@ -648,13 +677,18 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             dojo.addClass(this.selectedDateNode, 'selected');
             this.getSelectedDate();
         },
+        navigateToYearView: function() {
+            var view = App.getView(this.yearView),
+                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+            view.show(options);
+        },
         navigateToWeekView: function() {
-            var view = App.getView(this.activityWeekView),
+            var view = App.getView(this.weekView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
         },
         navigateToDayView: function() {
-            var view = App.getView(this.activityListView),
+            var view = App.getView(this.dayView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
         },
