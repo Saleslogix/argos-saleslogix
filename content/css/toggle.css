@@ -34,6 +34,35 @@
     
 }
 
+.toggle-vertical
+{
+    width: 64px;
+    height: 126px;
+    margin: 0;
+    position: relative;
+    border: 1px solid #333;
+    background-color: #e6e6e6;
+    background-image: linear-gradient(bottom, #e6e6e6, #ccc);
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, #e6e6e6),
+        color-stop(1, #ccc)
+    );
+    background-image: -moz-linear-gradient(bottom, #e6e6e6, #ccc);
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    font-size: .8em;
+    font-weight: bold;
+    line-height: 30px;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+}
+
+
 .toggleOn {
     display: none;
     position: absolute;
@@ -44,7 +73,12 @@
     color: #FFFFFF;
     text-shadow: rgba(0, 0, 0, 1.0) 0px 1px 0;
 }
-
+.toggle-vertical > .toggleOn
+{
+    height: 60px;
+    width: 64px;
+    top: 0;
+}
 .toggleOff {
     position: absolute;
     width: 60px;
@@ -54,12 +88,21 @@
     color: #000;
     text-shadow: rgba(255, 255, 255, 1.0) 0px 1px 0;
 }
+.toggle-vertical > .toggleOff
+{
+    width: 64px;
+    bottom: 0;
+    top: auto;
+    right: auto;
+}
 
-.toggle[toggled="true"] > .toggleOn {
+.toggle[toggled="true"] > .toggleOn,
+.toggle-vertical[toggled="true"] > .toggleOn {
     display: block;
 }
 
-.toggle[toggled="true"] > .toggleOff {
+.toggle[toggled="true"] > .toggleOff,
+.toggle-vertical[toggled="true"] > .toggleOff {
     display: none;
 }
 
@@ -87,17 +130,26 @@
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
+.toggle-vertical > .thumb {
+    width: 64px;
+}
+
 
 .toggle[toggled="true"] > .thumb {
     left: auto;
     right: -1px;
+}
+.toggle-vertical[toggled="true"] > .thumb {
+    top: auto;
+    bottom: -1px;
 }
 
 .toggle {
 
 }
 
-.toggle[toggled="true"] {
+.toggle[toggled="true"],
+.toggle-vertical[toggled="true"] {
     border: 1px solid #1a250f;    
     background-color: #69923a;
     background-image: linear-gradient(bottom, #4f6e2c, #35491d);
