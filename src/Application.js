@@ -2,6 +2,9 @@
 /// <reference path="../../platform/Application.js"/>
 /// <reference path="../../sdata/SDataService.js"/>
 
+
+String.prototype.toSingular = function () { return this.replace(/ies$/,'y').replace(/s$/,''); }
+
 define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], function() {
 
     return dojo.declare('Mobile.SalesLogix.Application', [Sage.Platform.Mobile.Application], {
@@ -40,6 +43,30 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 if (applicationCache.status == 4) this._notifyUpdateAvailable();
             }
         },
+        _checkForSecuredAction: function(entity, action) {
+            /* there are other actions than the ones listed below in securedActions
+               such as AssignOwner, MergeContact, MergeAccount, Import, ExportToFile and ExportToExcel
+               for now not used within mobile client context? */
+            if (-1 == ['new','edit','view','delete'].indexOf(action.toLowerCase())) { return true; }
+            if ('Calendar' == entity) { entity = 'Activity'; } // ?
+            if ('Notes/Histoy' == entity) { entity = 'History'; } // ?
+            if ('new' == action) {
+                action = 'Add';
+            } else { // Capitalize action
+                action = action.charAt(0).toUpperCase() + action.substring(1).toLowerCase();
+            }
+            // eg. "Entities/Opportunity/View"
+            action = 'Entities/' + entity + '/' + action;
+console.log(action);
+            if (0 < this.context.securedActions.length) {
+                return (-1 != this.context.securedActions.indexOf(action));
+
+            } else { // wait, none actions returned? Is it you Mr(s). admin?
+                return 'ADMIN' == this.context.user['UserName']
+                    && 'ADMIN' == this.context.user['$key']
+                    ;
+            }
+        },
         _notifyUpdateAvailable: function() {
             if (this.bars['updatebar'])
                 this.bars['updatebar'].show();
@@ -75,7 +102,9 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 'UserName': result['response']['userName']
             };
 
-            this.context['user'] = user;
+            this.context['user' ] = user;
+            this.context['roles'] = result['response']['roles'],
+            this.context['securedActions'] = result['response']['securedActions']
 
             if (credentials.remember)
             {
