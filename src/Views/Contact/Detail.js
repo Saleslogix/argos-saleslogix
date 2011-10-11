@@ -41,12 +41,14 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
         sendEmailText: 'Send email',
         viewAddressText: 'View address',
         moreDetailsText: 'More Details',
+        noAccessText: "You don't have access to Contact details",
 
         //View Properties
         id: 'contact_detail',
         editView: 'contact_edit',
         historyEditView: 'history_edit',
         noteEditView: 'history_edit',
+        securedAction: 'Entities/Contact/View',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',

@@ -24,10 +24,12 @@ define('Mobile/SalesLogix/Views/Event/Detail', ['Sage/Platform/Mobile/Detail'], 
         whenText: 'When',
         startDateFormatText: 'M/d/yyyy h:mm:ss tt',
         endDateFormatText: 'M/d/yyyy h:mm:ss tt',
+        noAccessText: "You don't have access to Event details",
 
         //View Properties
         id: 'event_detail',
         editView: 'event_edit',
+        securedAction: 'Entities/Event/View',
         querySelect: [
             'Description',
             'EndDate',

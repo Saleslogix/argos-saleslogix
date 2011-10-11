@@ -22,9 +22,11 @@ define('Mobile/SalesLogix/Views/Return/Detail', ['Sage/Platform/Mobile/Detail'],
         shipToText: 'ship to',
         titleText: 'Return',
         typeText: 'type',
+        noAccessText: "You don't have access to Return details",
 
         //View Properties
         id: 'return_detail',
+        securedAction: 'Entities/Return/View',
         querySelect: [
             'Account/AccountName',
             'AssignedTo/OwnerDescription',

@@ -126,8 +126,8 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
             });
         },
         hasSecurity: function(view) {
-            if (0 < this.context.hasAccess.length) {
-                return this.context.hasAccess['view'] || false;
+            if (this.context.hasAccess && this.context.hasAccess[view]) {
+                return true;
 
             } else {
                 return 'ADMIN' == this.context.user['UserName']

@@ -17,10 +17,12 @@ define('Mobile/SalesLogix/Views/Campaign/Detail', ['Sage/Platform/Mobile/Detail'
         nameText: 'name',
         startText: 'start',
         titleText: 'Campaign',
+        noAccessText: "You don't have access to Campaign details",
 
         //View Properties
         editView: 'campaign_edit',
         id: 'campaign_detail',
+        securedAction: 'Entities/Campaign/View',
         querySelect: [
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',

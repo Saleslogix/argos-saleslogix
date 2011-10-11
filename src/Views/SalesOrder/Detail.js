@@ -21,10 +21,12 @@ define('Mobile/SalesLogix/Views/SalesOrder/Detail', ['Sage/Platform/Mobile/Detai
         titleText: 'SalesOrder',
         totalText: 'total',
         typeText: 'type',
+        noAccessText: "You don't have access to Sales Order details",
 
         //View Properties
         editView: 'salesorder_edit',
         id: 'salesorder_detail',
+        securedAction: 'Entities/SalesOrder/View',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',
