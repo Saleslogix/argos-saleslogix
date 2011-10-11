@@ -955,7 +955,7 @@
         emptySelectionText : 'Aucun',
         titleText : 'Liste',
         remainingText : '{0} enreg. restants',
-        searchText : 'Rechercher',
+        searchText : 'Rech.',
         cancelText : 'Annuler',
         insertText : 'Nouveau',
         noDataText : '0 enreg.',
