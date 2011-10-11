@@ -55,7 +55,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
             '<ul data-group="{%= $.tag %}" class="list-content {%= $.cls %}"></ul>'
         ]),
         itemTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
+            '<li data-action="activateEntry" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.Description %}" data-activity-type="{%: $.Activity.Type %}">',
             '{%! $$.contentTemplate %}',
             '</li>'
         ]),
@@ -325,6 +325,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                 for (i = 0; i < feedLength; i+=1)
                 {
                     currentEntry = feed['$resources'][i];
+                    currentEntry.isEvent = false;
                     entryGroup = this.getGroupForEntry(currentEntry);
 
                     if (entryGroup.tag != this.currentGroup.tag)
@@ -350,7 +351,7 @@ Ext.namespace("Mobile.SalesLogix.Calendar");
                             this.currentGroupEl = Ext.DomHelper.append(this.contentEl, this.groupTemplate.apply(entryGroup, this), true);
                         }
                     }
-                    this.entries[currentEntry.$key] = currentEntry;
+                    this.entries[currentEntry.Activity.$key] = currentEntry;
                     o.push(this.itemTemplate.apply(currentEntry, this));
                 }
 
