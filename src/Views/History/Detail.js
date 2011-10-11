@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
         relatedItemsText: 'Related Items',
         modifiedText: 'modified',
         typeText: 'type',
-        noAccessText: "You don't have access to History details",
+        noAccessText: "You don't have access to Notes/History details",
         activityTypeText: {
             'atToDo': 'To-Do',
             'atPhoneCall': 'Phone Call',

@@ -102,10 +102,19 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
                 as: []
             };
 
+            // exclude-able items not allowed for user's role
+            var omit = [];
+            for (var view in App.views) {
+                if (view.match(/_detail$/)) {
+                    if (App.views[view].securedAction && !App.hasSecurity(App.views[view].securedAction))
+                        omit.push(view.replace('_detail', '_list'));
+                }
+            }
+
             for (var i = 0; i < configured.length; i++)
             {
                 var view = App.getView(configured[i]);
-                if (view)
+                if (view && (-1 == omit.indexOf(view.id)))
                 {
                     visible.as.push({
                         'action': 'navigateToView',

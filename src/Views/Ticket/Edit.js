@@ -40,10 +40,12 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
         ticketUrgencyTitleText: 'Ticket Urgency',
         titleText: 'Ticket',
         urgencyText: 'urgency',
+        noAccessText: "You don't have access to Edit Sales Tickets",
 
         //View Properties
         entityName: 'Ticket',
         id: 'ticket_edit',
+        securedAction: 'Entities/Ticket/Edit',
         querySelect: [
             'Account/AccountName',
             'Area',

@@ -14,10 +14,12 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
         descriptionText: 'description',
         startDateText: 'start date',
         endDateText: 'end date',
+        noAccessText: "You don't have access to Edit Events",
 
         //View Properties
         entityName: 'Event',
         id: 'event_edit',
+        securedAction: 'Entities/Event/Edit',
         querySelect: [
             'Description',
             'EndDate',
