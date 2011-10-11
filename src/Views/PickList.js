@@ -8,6 +8,27 @@ define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], functi
 
     return dojo.declare('Mobile.SalesLogix.Views.PickList', [Sage.Platform.Mobile.List], {
         //Templates
+
+        rowTemplate: new Simplate([
+            '<li data-action="activateEntry" ',
+            '{% if($$.pickListType === "text") { %}',
+                'data-key="{%: $.$descriptor %}" ',
+            '{% } else { %}',
+                'data-key="{%: $.$key %}" ',
+            '{% } %}',
+
+            'data-descriptor="{%: $.$descriptor %}" ',
+
+            '{% if($$._selectionModel.selections[$.$descriptor]) { %}',
+                'class="{%: $$.listSelectedClass %}"',
+            '{% } %}',
+            
+            '>',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '{%! $$.itemTemplate %}',
+            '</li>'
+        ]),
+
         itemTemplate: new Simplate([
             '<h3>{%: $.text %}</h3>'
         ]),
@@ -17,97 +38,53 @@ define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], functi
         expose: false,
         resourceKind: 'picklists',
         resourceProperty: 'items',
+        listSelectedClass: 'list-item-selected',
 
         multi: false,
-        selections: {},
-        previousSelections: [],
+        previousSelections: null,
+        pickListType: null,
 
         show: function(options) {
             this.set('title', options && options.title || this.title);
+
             this.multi = options.multi || false;
-            if(this.multi) {
-                this.previousSelections = options.selections;
+            this.previousSelections = options.previousSelections || [];
+            this.pickListType = options.pickListType;
+            if(this.multi && this.pickListType === 'text') {
+                this.enableMultiSelection();
             }
-            this.inherited(arguments);
-        },
-        clear: function(){
-            this.inherited(arguments);
-            this.clearSelections();
-        },
-        processFeed: function(){
-            this.inherited(arguments);
-            this.loadSelections();
-        },
-        emptySelection: function() {
-            if(this.multi)
-                this.clearSelections();
 
             this.inherited(arguments);
         },
-        loadSelections: function(){
+        processFeed: function(feed){
+            console.log('about to process feed');
+            this.inherited(arguments);
+        },
+        transitionTo: function(){
+            if(this.multi)
+                this.loadPreviousSelections();
+            this.inherited(arguments);
+        },
+        enableMultiSelection: function(){
+            this.allowSelection = true;
+            this.selectionOnly = true;
+            this._selectionModel.singleSelection = false;
+        },
+        loadPreviousSelections: function(){
+            console.log('loading oldies...');
+            console.log(this.previousSelections);
             var selections = this.previousSelections,
                 selectionsLength = selections.length,
                 i,
-                queryTemplate = '[data-descriptor="${0}"]',
                 data,
-                node,
-                nodeKey;
+                key,
+                tag;
 
             for(i = 0; i < selectionsLength; i += 1){
                 data = selections[i];
-                node = dojo.query(dojo.string.substitute(queryTemplate, [data]));
-                if(node.length === 0) continue;
-                nodeKey = dojo.attr(node[0], 'data-key');
-                this.select(nodeKey, data, node[0]);
+                key = data;
+                this._selectionModel.selections[key] = {data: data, tag: tag};
             }
-        },
-        clearSelections: function(){
-            for (var key in this.selections){
-                this.deselect(key, this.selections[key].data, this.selections[key].node);
-            }
-            this.selections = {};
-        },
-        activateEntry: function(){
-            if(this.multi){
-                this.toggle(arguments);
-            } else {
-                this.inherited(arguments);
-            }
-        },
-        toggle: function(params) {
-            var key = params[0].key,
-                data = params[0].descriptor,
-                node = params[0]['$source'];
-
-            if (this.isSelected(key, data, node)) {
-                this.deselect(key, data, node);
-            } else {
-                this.select(key, data, node);
-            }
-        },
-        select: function(key, data, node) {
-            if (!this.selections.hasOwnProperty(key)) {
-                this.selections[key] = {data: data, node: node};
-                dojo.addClass(node, 'list-item-selected');
-            }
-        },
-        deselect: function(key, data, node) {
-            if (this.selections.hasOwnProperty(key)) {
-                delete this.selections[key];
-                dojo.removeClass(node, 'list-item-selected');
-            }
-        },
-        isSelected: function(key) {
-            return this.selections[key];
-        },
-        getSelections: function() {
-            var selections = [];
-            for (var key in this.selections) {
-                if (this.selections.hasOwnProperty(key)) {
-                    selections.push(this.selections[key].data);
-                }
-            }
-         return selections;
         },
         formatSearchQuery: function(query) {
             return dojo.string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
