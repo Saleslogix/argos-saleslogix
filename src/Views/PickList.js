@@ -8,21 +8,19 @@ define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], functi
 
     return dojo.declare('Mobile.SalesLogix.Views.PickList', [Sage.Platform.Mobile.List], {
         //Templates
-
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" ',
-            '{% if($$.pickListType === "text") { %}',
-                'data-key="{%: $.$descriptor %}" ',
-            '{% } else { %}',
-                'data-key="{%: $.$key %}" ',
-            '{% } %}',
+                '{% if($$.pickListType === "text" && $$.multi) { %}',
+                    'data-key="{%: $.$descriptor %}" ',
+                '{% } else { %}',
+                    'data-key="{%: $.$key %}" ',
+                '{% } %}',
 
-            'data-descriptor="{%: $.$descriptor %}" ',
+                'data-descriptor="{%: $.$descriptor %}" ',
 
-            '{% if($$._selectionModel.selections[$.$descriptor]) { %}',
-                'class="{%: $$.listSelectedClass %}"',
-            '{% } %}',
-            
+                '{% if($$.multi && $$._selectionModel.selections[$.$descriptor]) { %}',
+                    'class="{%: $$.listSelectedClass %}"',
+                '{% } %}',
             '>',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.itemTemplate %}',
@@ -56,10 +54,6 @@ define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], functi
 
             this.inherited(arguments);
         },
-        processFeed: function(feed){
-            console.log('about to process feed');
-            this.inherited(arguments);
-        },
         transitionTo: function(){
             if(this.multi)
                 this.loadPreviousSelections();
@@ -68,22 +62,20 @@ define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], functi
         enableMultiSelection: function(){
             this.allowSelection = true;
             this.selectionOnly = true;
+            this.autoClearSelection = false;
             this._selectionModel.singleSelection = false;
         },
         loadPreviousSelections: function(){
-            console.log('loading oldies...');
-            console.log(this.previousSelections);
             var selections = this.previousSelections,
                 selectionsLength = selections.length,
                 i,
                 data,
-                key,
-                tag;
+                key;
 
             for(i = 0; i < selectionsLength; i += 1){
                 data = selections[i];
                 key = data;
-                this._selectionModel.selections[key] = {data: data, tag: tag};
+                this._selectionModel.select(key, data);
             }
         },
         formatSearchQuery: function(query) {
