@@ -305,7 +305,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                     }
                     currentEntry.Activity.StartDate = startDate;
                     currentEntry.isEvent = false;
-                    this.entries[currentEntry.$key] = currentEntry;
+                    this.entries[currentEntry.Activity.$key] = currentEntry;
 
                     currentGroup = entryGroups[currentEntry.Activity.StartDate.toString(dateCompareString)];
                     if(currentGroup){
