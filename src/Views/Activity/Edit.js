@@ -58,7 +58,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             90: '1.5 hours',
             120: '2 hours'
         },
-        noAccessText: "You don't have access to Edit Activities",
+        noAccessEditText: "You don't have access to Edit Activities",
+        noAccessAddText: "You don't have access to Add Activities",
 
         //View Properties
         id: 'activity_edit',
@@ -91,7 +92,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         },       
 
         entityName: 'Activity', // todo: is this correct?
-        securedAction: 'Entities/Activity/Edit',
+        securedAction: { add: 'Entities/Activity/Add', edit: 'Entities/Activity/Edit' },
         querySelect: [
             'AccountId',
             'AccountName',
