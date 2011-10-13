@@ -126,7 +126,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
             });
         },
         hasSecurity: function(view) {
-            if (this.context.hasAccess && this.context.hasAccess[view]) {
+            if (null == view || (this.context.hasAccess && this.context.hasAccess[view])) {
                 return true;
 
             } else {

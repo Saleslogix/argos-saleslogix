@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
         //View Properties
         entityName: 'Event',
         id: 'event_edit',
-        securedAction: { add: 'Entities/Event/Add', edit: 'Entities/Event/Edit' },
+        securedAction: null, //{ add: 'Entities/Event/Add', edit: 'Entities/Event/Edit' },
         querySelect: [
             'Description',
             'EndDate',

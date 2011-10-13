@@ -92,7 +92,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         },       
 
         entityName: 'Activity', // todo: is this correct?
-        securedAction: { add: 'Entities/Activity/Add', edit: 'Entities/Activity/Edit' },
+        securedAction: null, //{ add: 'Entities/Activity/Add', edit: 'Entities/Activity/Edit' },
         querySelect: [
             'AccountId',
             'AccountName',
