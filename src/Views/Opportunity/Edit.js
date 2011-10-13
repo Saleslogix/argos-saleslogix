@@ -48,7 +48,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
         ],
 
         show: function(options) {
-            Mobile.SalesLogix.Views.Opportunity.Edit.superclass.show.apply(this, arguments);
+            this.inherit(arguments);
 
             if (options.insert === true) this.applyContext();
         },
