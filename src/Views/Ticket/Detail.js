@@ -32,6 +32,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
         urgencyText: 'urgency',
         scheduleActivityText: 'Schedule activity',        
         moreDetailsText: 'More Details',
+        relatedTicketActivitiesText: 'Ticket Activities',
 
         //View Properties
         id: 'ticket_detail',
@@ -169,6 +170,11 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'TicketId eq "${0}"')
+                },{
+                    icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                    label: this.relatedTicketActivitiesText,
+                    view: 'ticket-activity_related',
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Ticket.Id eq "${0}"')
                 }]
             }]);
         }
