@@ -53,6 +53,10 @@
         'Mobile/SalesLogix/Views/Ticket/Detail',
         'Mobile/SalesLogix/Views/Ticket/Edit',
         'Mobile/SalesLogix/Views/Ticket/UrgencyLookup',
+        'Mobile/SalesLogix/Views/TicketActivity/List',
+        'Mobile/SalesLogix/Views/TicketActivity/Detail',
+        'Mobile/SalesLogix/Views/TicketActivity/Edit',
+        'Mobile/SalesLogix/Views/TicketActivity/RateLookup',
         'Mobile/SalesLogix/Views/History/List',
         'Mobile/SalesLogix/Views/History/Detail',
         'Mobile/SalesLogix/Views/History/Edit',
@@ -179,6 +183,14 @@
                 this.registerView(new Mobile.SalesLogix.Views.Ticket.Edit());
                 this.registerView(new Mobile.SalesLogix.Views.Ticket.List({
                     id: 'ticket_related',
+                    expose: false
+                }));
+                this.registerView(new Mobile.SalesLogix.Views.TicketActivity.List());
+                this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Detail());
+                this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Edit());
+                this.registerView(new Mobile.SalesLogix.Views.TicketActivity.RateLookup());
+                this.registerView(new Mobile.SalesLogix.Views.TicketActivity.List({
+                    id: 'ticket-activity_related',
                     expose: false
                 }));
 
