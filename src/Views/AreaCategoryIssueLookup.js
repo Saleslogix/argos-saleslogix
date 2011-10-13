@@ -59,7 +59,7 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', ['Sage/Platform/Mobile
 
             feed = this.buildFeedFrom(use);
 
-            this.inherited(arguments);
+            Mobile.SalesLogix.Views.AreaCategoryIssueLookup.superclass.processFeed.apply(this, [feed]);
         },
         createCacheFrom: function(feed) {
             var i,
