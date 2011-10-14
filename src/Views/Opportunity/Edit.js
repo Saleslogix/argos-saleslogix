@@ -51,7 +51,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
         ],
 
         show: function(options) {
-            this.inherit(arguments);
+            this.inherited(arguments);
 
             if (options.insert === true) this.applyContext();
         },
@@ -92,7 +92,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
             this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
         },
         init: function() {
-            // Mobile.SalesLogix.Opportunity.Edit.superclass.init.apply(this, arguments);
+            this.inherited(arguments);
 
             dojo.connect(this.fields['Account'], 'onchange', this.onAccountChange, this.onChange);
         },
