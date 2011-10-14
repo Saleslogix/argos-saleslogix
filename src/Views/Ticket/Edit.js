@@ -69,7 +69,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
         resourceKind: 'tickets',
 
         init: function() {
-            // Mobile.SalesLogix.Views.Ticket.Edit.superclass.init.apply(this, arguments);
+            this.inherited(arguments);
 
             dojo.connect(this.fields['Account'], 'onchange', this.onAccountChange, this.onChange);
             dojo.connect(this.fields['Account'], 'onchange', this.onUrgencyChange, this.onChange);
@@ -77,7 +77,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
             dojo.connect(this.fields['Account'], 'onchange', this.onCategoryChange, this.onChange);
         },
         setValues: function(entry) {
-            Mobile.SalesLogix.Views.Ticket.Edit.superclass.setValues.apply(this, arguments);
+            this.inherited(arguments);
 
             if (entry['SourceText'])
             {

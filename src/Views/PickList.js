@@ -51,12 +51,6 @@ define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], functi
             if(this.multi && this.pickListType === 'text') {
                 this.enableMultiSelection();
             }
-
-            this.inherited(arguments);
-        },
-        transitionTo: function(){
-            if(this.multi)
-                this.loadPreviousSelections();
             this.inherited(arguments);
         },
         enableMultiSelection: function(){
@@ -64,19 +58,6 @@ define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], functi
             this.selectionOnly = true;
             this.autoClearSelection = false;
             this._selectionModel.singleSelection = false;
-        },
-        loadPreviousSelections: function(){
-            var selections = this.previousSelections,
-                selectionsLength = selections.length,
-                i,
-                data,
-                key;
-
-            for(i = 0; i < selectionsLength; i += 1){
-                data = selections[i];
-                key = data;
-                this._selectionModel.select(key, data);
-            }
         },
         formatSearchQuery: function(query) {
             return dojo.string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
