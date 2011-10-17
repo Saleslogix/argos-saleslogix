@@ -130,8 +130,8 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 return true;
 
             } else {
-                return 'ADMIN' == this.context.user['UserName']
-                    && 'ADMIN' == this.context.user['$key']
+                return this.context.user['UserName'].match(/^ADMIN\s*$/i)
+                    && this.context.user['$key'].match(/^ADMIN\s*$/i)
                     ;
             }
         },
