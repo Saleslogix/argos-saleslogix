@@ -549,22 +549,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 type: 'boolean'
             },{
                 label: this.durationText,
-                title: this.durationTitleText,
                 name: 'Duration',
-                type: 'select',
-                view: 'select_list',
-                textRenderer: this.formatDurationText.bindDelegate(this),
-                requireSelection: true,
-                valueKeyProperty: false,
-                valueTextProperty: false,
-                data: this.createDurationData(),
-                validator: {
-                    fn: function(val, field) {
-                        if (field.isDisabled()) return false;
-                        if (!/^\d+$/.test(val)) return true;
-                    },
-                    message: this.durationInvalidText
-                }
+                type: 'duration'
             },{
                 label: this.alarmText,
                 name: 'Alarm',
