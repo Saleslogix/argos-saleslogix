@@ -90,10 +90,10 @@
 }
 .toggle-vertical > .toggleOff
 {
-    width: 64px;
+    width: 100%;
+    text-align:center;
     bottom: 0;
     top: auto;
-    right: auto;
 }
 
 .toggle[toggled="true"] > .toggleOn,
