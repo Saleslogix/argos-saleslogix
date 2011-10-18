@@ -78,8 +78,8 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
 
             this.context['user' ] = user;
             this.context['roles'] = result['response']['roles'],
-            dojo.forEach( result['response']['securedActions'], function(item) {
-                hasAccess[item] = true;
+            dojo.forEach( result['response']['securedActions'], function(accessString) {
+                hasAccess[accessString] = true;
             });
             this.context['hasAccess'] = hasAccess;
 
@@ -125,8 +125,11 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 aborted: dojo.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
             });
         },
-        hasSecurity: function(view) {
-            if (null == view || (this.context.hasAccess && this.context.hasAccess[view])) {
+        hasSecurity: function(accessString) {
+            if (this.context.hasAccess && undefined != this.context.hasAccess[accessString]) {
+                return this.context.hasAccess[accessString];
+
+            } else if (null == accessString || undefined == accessString || accessString.match(/calendar/i)) {
                 return true;
 
             } else {

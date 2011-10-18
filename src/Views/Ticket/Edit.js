@@ -40,8 +40,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
         ticketUrgencyTitleText: 'Ticket Urgency',
         titleText: 'Ticket',
         urgencyText: 'urgency',
-        noAccessEditText: "You don't have access to Edit Sales Tickets",
-        noAccessAddText: "You don't have access to Add Sales Tickets",
+        noAccessEditText: "You don't have access to Edit Tickets",
+        noAccessAddText: "You don't have access to Add Tickets",
 
         //View Properties
         entityName: 'Ticket',
