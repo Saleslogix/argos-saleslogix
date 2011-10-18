@@ -982,7 +982,10 @@ body.landscape > #calendar_monthlist > .day-content > div > h2 {
 #calendar_monthlist > .split-buttons,
 #calendar_weeklist > .split-buttons,
 #calendar_yearlist > .split-buttons,
-#calendar_daylist > .split-buttons {
+#calendar_daylist > .split-buttons
+{
+    text-align: center;
+    
     background-color: #e6e6e6;
     background-image: linear-gradient(top, #e6e6e6, #cccccc);
     background-image: -webkit-gradient(
@@ -1000,6 +1003,10 @@ body.landscape > #calendar_monthlist > .day-content > div > h2 {
     -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
     -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
 }
+#calendar_weeklist > .list-content > ul > li.event
+{
+    line-height: 50px;
+}
 
 #calendar_daylist .list-content > li,
 #calendar_weeklist .list-content > li,
@@ -1012,6 +1019,13 @@ body.landscape > #calendar_monthlist > .day-content > div > h2 {
 #calendar_monthlist .list-content > li.no-data
 {
     padding: 8px 3px 8px 3px;
+}
+#calendar_weeklist > .list-content > ul > li > .eventDate
+{
+    float:left;
+    width: 101px;
+    text-align: right;
+    font-size: .9em;
 }
 #calendar_weeklist div.no-data
 {
@@ -1061,6 +1075,9 @@ td.entry-table-icon .list-item-selector {
 #calendar_monthlist .collapsed-event > div
 {
     display: none !important;
+}
+#calendar_weeklist .event-rows {
+    padding: 0px;
 }
 
 

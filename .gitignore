@@ -36,6 +36,9 @@ _ReSharper*/
 Thumbs.db
 *.DS_Store
 
+# merge tool backups
+*.orig
+
 # build output
 deploy/
 
