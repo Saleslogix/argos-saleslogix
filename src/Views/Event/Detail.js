@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/Event/Detail', ['Sage/Platform/Mobile/Detail'], 
         //View Properties
         id: 'event_detail',
         editView: 'event_edit',
-        securedAction: 'Entities/Event/View',
+        securedAction: null, //'Entities/Event/View',
         querySelect: [
             'Description',
             'EndDate',
