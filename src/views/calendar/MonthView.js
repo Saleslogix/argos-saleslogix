@@ -240,7 +240,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         },
         activateEventMore: function(){
             var view = App.getView("event_related"),
-                where = this.getSelectedDateActivityQuery();
+                where = this.getSelectedDateEventQuery();
             if (view)
                 view.show({"where": where});
         },
