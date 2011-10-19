@@ -15,10 +15,13 @@ define('Mobile/SalesLogix/Views/Defect/Edit', ['Sage/Platform/Mobile/Edit'], fun
         areaText: 'area',
         categoryText: 'category',
         subjectText: 'subject',
+        noAccessEditText: "You don't have access to Edit Defects",
+        noAccessAddText: "You don't have access to Add Defects",
 
         //View Properties
         entityName: 'Defect',
         id: 'defect_edit',
+        securedAction: { add: 'Entities/Defect/Add', edit: 'Entities/Defect/Edit' },
         querySelect: [
             'AlternateKeyPrefix',
             'AlternateKeySuffix',

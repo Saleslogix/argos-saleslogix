@@ -29,6 +29,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
         relatedItemsText: 'Related Items',
         modifiedText: 'modified',
         typeText: 'type',
+        noAccessText: "You don't have access to Notes/History details",
         activityTypeText: {
             'atToDo': 'To-Do',
             'atPhoneCall': 'Phone Call',
@@ -44,6 +45,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
         editView: 'history_edit',
         dateFormatText: 'M/d/yyyy h:mm:ss tt',
         resourceKind: 'history',
+        securedAction: 'Entities/History/View',
         querySelect: [
             'AccountId',
             'AccountName',

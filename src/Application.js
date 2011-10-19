@@ -2,6 +2,7 @@
 /// <reference path="../../platform/Application.js"/>
 /// <reference path="../../sdata/SDataService.js"/>
 
+
 define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], function() {
 
     return dojo.declare('Mobile.SalesLogix.Application', [Sage.Platform.Mobile.Application], {
@@ -69,13 +70,18 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         },
         onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
 
-            var user = {
+            var hasAccess = {}, user = {
                 '$key': result['response']['userId'],
                 '$descriptor': result['response']['prettyName'],
                 'UserName': result['response']['userName']
             };
 
-            this.context['user'] = user;
+            this.context['user' ] = user;
+            this.context['roles'] = result['response']['roles'],
+            dojo.forEach( result['response']['securedActions'], function(accessString) {
+                hasAccess[accessString] = true;
+            });
+            this.context['hasAccess'] = hasAccess;
 
             if (credentials.remember)
             {
@@ -118,6 +124,19 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 failure: dojo.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
                 aborted: dojo.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
             });
+        },
+        hasSecurity: function(accessString) {
+            if (this.context.hasAccess && undefined != this.context.hasAccess[accessString]) {
+                return this.context.hasAccess[accessString];
+
+            } else if (null == accessString || undefined == accessString || accessString.match(/calendar/i)) {
+                return true;
+
+            } else {
+                return this.context.user['UserName'].match(/^ADMIN\s*$/i)
+                    && this.context.user['$key'].match(/^ADMIN\s*$/i)
+                    ;
+            }
         },
         reload: function() {
             window.location.reload();

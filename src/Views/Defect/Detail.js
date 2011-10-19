@@ -43,10 +43,12 @@ define('Mobile/SalesLogix/Views/Defect/Detail', ['Sage/Platform/Mobile/Detail'],
         statusText: 'status',
         subjectText: 'subject',
         titleText: 'Defect',
+        noAccessText: "You don't have access to Defect details",
 
         //View Properties
         editView: 'defect_edit',
         id: 'defect_detail',
+        securedAction: 'Entities/Defect/View',
         querySelect: [
             'AlternateKeyPrefix',
             'AlternateKeySuffix',

@@ -32,10 +32,13 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
         tollFreeText: 'toll free',
         webText: 'web',
         workText: 'phone',
+        noAccessAddText: "You don't have access to Add Leads",
+        noAccessEditText: "You don't have access to Edit Leads",
 
         //View Properties
         entityName: 'Lead',
         id: 'lead_edit',
+        securedAction: { add: 'Entities/Lead/Add', edit: 'Entities/Lead/Edit' },
         querySelect: [
             'BusinessDescription',
             'Company',

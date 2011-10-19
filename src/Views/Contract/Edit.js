@@ -13,10 +13,13 @@ define('Mobile/SalesLogix/Views/Contract/Edit', ['Sage/Platform/Mobile/Edit'], f
         refNumText: 'refNum',
         quantityText: 'quantity',
         activeText: 'active',
+        noAccessEditText: "You don't have access to Edit Contracts",
+        noAccessAddText: "You don't have access to Add Contracts",
 
         //View Properties
         entityName: 'Contract',
         id: 'contract_edit',
+        securedAction: { add: 'Entities/Contract/Add', edit: 'Entities/Contract/Edit' },
         querySelect: [
             'Account/AccountName',
             'Contact/FullName',

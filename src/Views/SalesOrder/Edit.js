@@ -16,10 +16,13 @@ define('Mobile/SalesLogix/Views/SalesOrder/Edit', ['Sage/Platform/Mobile/Edit'],
         titleText: 'SalesOrder',
         totalText: 'total',
         typeText: 'type',
+        noAccessEditText: "You don't have access to Edit Sales Orders",
+        noAccessAddText: "You don't have access to Add Sales Orders",
 
         //View Properties
         entityName: 'SalesOrder',
         id: 'salesorder_edit',
+        securedAction: { add: 'Entities/SalesOrder/Add', edit: 'Entities/SalesOrder/Edit' },
         querySelect:  [
             'Account/AccountName',
             'Comments',
