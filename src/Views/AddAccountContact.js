@@ -65,7 +65,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
         },
         getValues: function(values) {
             var U = Sage.Platform.Mobile.Utility,
-                values = Mobile.SalesLogix.AddAccountContact.superclass.getValues.apply(this, arguments);
+                values = this.inherited(arguments);
 
                 U.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
                 U.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
@@ -74,7 +74,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
         },
         formatDependentPicklist: function(dependentValue, format) {
             if(!dojo.isArray(dependentValue)) dependentValue = [dependentValue];
-            return dojo.string.substitute(format, dependentValue);
+            return dojo.string.substitute(format, [dependentValue]);
         },
         onInsertCompleted: function(entry) {
             var view = App.getView('account_detail');

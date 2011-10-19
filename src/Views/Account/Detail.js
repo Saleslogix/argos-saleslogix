@@ -94,7 +94,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                 'Type': 'atPhoneCall',
                 'AccountId': this.entry['$key'],
                 'AccountName': this.entry['AccountName'],
-                'Description': dojo.string.substitute(this.calledText, this.entry['AccountName']),
+                'Description': dojo.string.substitute(this.calledText, [this.entry['AccountName']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,

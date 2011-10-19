@@ -66,7 +66,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
             return !!lead;
         },
         beforeTransitionTo: function() {
-            Mobile.SalesLogix.Views.History.Edit.superclass.beforeTransitionTo.apply(this, arguments);
+            this.inherited(arguments);
 
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
@@ -221,7 +221,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
             }            
         },
         setValues: function(values) {
-            Mobile.SalesLogix.Views.History.Edit.superclass.setValues.apply(this, arguments);
+            this.inherited(arguments);
 
             this.fields['IsLead'].setValue(this.options.isForLead);
             this.fields['Text'].setValue(values['LongNotes'] || values['Notes'] || '');
@@ -231,10 +231,10 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
 
             property = property || '$key';
 
-            return dojo.string.substitute(format, getV(dependentValue, property));
+            return dojo.string.substitute(format, [getV(dependentValue, property)]);
         },
         getValues: function() {
-            var values = Mobile.SalesLogix.History.Edit.superclass.getValues.apply(this, arguments);
+            this.inherited(arguments);
 
             if (this.fields['Text'].isDirty())
             {

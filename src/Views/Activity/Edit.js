@@ -498,7 +498,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
 
             property = property || '$key';
 
-            return dojo.string.substitute(format, getV(dependentValue, property));
+            return dojo.string.substitute(format, getV(dependentValue, [property]));
         },
         createLayout: function() {
             return this.layout || (this.layout = [{

@@ -121,7 +121,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
         resourceKind: 'activities',
 
         init: function() {
-            Mobile.SalesLogix.Views.Activity.Complete.superclass.init.apply(this, arguments);
+            this.inherited(arguments);
 
             dojo.connect(this.fields['Leader'], 'onchange', this.onLeaderChange, this.onChange);
             dojo.connect(this.fields['Timeless'], 'onchange', this.onTimelessChange, this.onChange);
@@ -133,7 +133,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
         beforeTransitionTo: function() {
-            Mobile.SalesLogix.Activity.Complete.superclass.beforeTransitionTo.apply(this, arguments);
+            this.inherited(arguments);
 
             dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
@@ -191,7 +191,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
         setValues: function(values) {
-            Mobile.SalesLogix.Activity.Complete.superclass.setValues.apply(this, arguments);
+            this.inherited(arguments);
             this.fields['CarryOverNotes'].setValue(true);
             this.fields['CompletedDate'].setValue(new Date());
             this.fields['Followup'].setValue('none');
@@ -305,7 +305,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
 
             property = property || '$key';
 
-            return dojo.string.substitute(format, getV(dependentValue, property));
+            return dojo.string.substitute(format, [getV(dependentValue, property)]);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{

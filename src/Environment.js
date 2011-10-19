@@ -12,17 +12,17 @@ Mobile.SalesLogix.Environment = (function() {
     return {
         initiateCall: function(number) {
             setTimeout(function() {
-                window.location.href = String.format("tel:{0}", number);
+                window.location.href = dojo.string.substitute("tel:{0}", [number]);
             }, 50);
         },
         initiateEmail: function(email) {
             setTimeout(function() {
-                window.location.href = String.format("mailto:{0}", email);
+                window.location.href = dojo.string.substitute("mailto:{0}", [email]);
             }, 50);
         },
         showMapForAddress: function(address) {
             setTimeout(function() {
-                window.location.href = String.format("http://maps.google.com/maps?q={0}", address);
+                window.location.href = dojo.string.substitute("http://maps.google.com/maps?q={0}", [address]);
             }, 50);
         }
     };

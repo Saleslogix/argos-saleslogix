@@ -99,7 +99,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
             {
                 var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
                     .setResourceKind('accounts')
-                    .setResourceSelector(dojo.string.substitute("'${0}'", selection.$key))
+                    .setResourceSelector(dojo.string.substitute("'${0}'", [selection.$key]))
                     .setResourceProperty('Contacts')
                     .setQueryArg('count', 1)
                     .setQueryArg('select', 'NameLF')
@@ -126,7 +126,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
             var value = this.fields['Account'].getValue(),
                 key = value && value['$key'];
 
-            return key ? dojo.string.substitute('Account.id eq "${0}"', key) : false;
+            return key ? dojo.string.substitute('Account.id eq "${0}"', [key]) : false;
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {

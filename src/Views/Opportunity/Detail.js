@@ -73,7 +73,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
             }
         },
         formatAccountRelatedQuery: function(entry, fmt) {
-            return dojo.string.substitute(fmt, entry['Account']['$key']);
+            return dojo.string.substitute(fmt, [entry['Account']['$key']]);
         },                
         createLayout: function() {
             return this.layout || (this.layout = [{
