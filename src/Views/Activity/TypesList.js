@@ -4,7 +4,7 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/Activity', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Activity/TypesList', ['Sage/Platform/Mobile/List'], function() {
 
     return dojo.declare('Mobile.SalesLogix.Views.Activity.TypesList', [Sage.Platform.Mobile.List], {
         //Templates

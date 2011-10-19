@@ -42,33 +42,19 @@
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
-    <!-- RequireJS -->
-    <script>
-    var djConfig = {
-            parseOnLoad: false,
-            debug: true
-        },
-        require = {
-            packages: [{
-                name: 'dojo',
-                location: '../../argos-sdk/libraries/dojo/dojo',
-                main:'lib/main-browser',
-                lib: '.'
-            },{
-                name: 'dijit',
-                location: '../../argos-sdk/libraries/dojo/dijit',
-                main:'lib/main',
-                lib: '.'
-            },{
-                name: 'Sage/Platform/Mobile',
-                location: '../../argos-sdk/src'
-            },{
-                name: 'Mobile/SalesLogix',
-                location: 'src'
-            }]
-        };
+    <!-- Dojo -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:true, async:true"></script>
+    <script type="text/javascript">
+    require({
+        baseUrl: "./",
+        packages: [
+        { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
+        { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
+        { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
+        { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
+        { name: 'Mobile/SalesLogix', location: 'src' }
+    ]});
     </script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/require.js"></script>
 
     <script type="text/javascript">
     Mobile = {};
