@@ -540,7 +540,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 name: 'StartDate',
                 type: 'date',
                 showTimePicker: true,
-                textRenderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startingFormatText),
+                dateFormatText: this.startingFormatText,
                 minValue: (new Date(1900, 0, 1)),
                 validator: [
                     Mobile.SalesLogix.Validator.exists,
