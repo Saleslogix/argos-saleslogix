@@ -735,20 +735,24 @@ body.transition > .footer-toolbar
     color: #888;
 }
 
-body.landscape > #calendar_monthlist > .month-content,
-body.landscape > #calendar_monthlist > .day-content
-{
-    width:50%;
-    float:left;
+/* Excludes iphone <= 3 */
+@media all and (min-width: 480px) {
+    body.landscape > #calendar_monthlist > .month-content,
+    body.landscape > #calendar_monthlist > .day-content
+    {
+        width:50%;
+        float:left;
+    }
+    body.landscape > #calendar_monthlist > .day-content > h2 {
+        margin-top:0;
+        border-top: none;
+        border-left: 1px solid #000000;
+    }
+    body.landscape > #calendar_monthlist > .day-content > div > h2 {
+        border-left: 1px solid #000000;
+    }
 }
-body.landscape > #calendar_monthlist > .day-content > h2 {
-    margin-top:0;
-    border-top: none;
-    border-left: 1px solid #000000;
-}
-body.landscape > #calendar_monthlist > .day-content > div > h2 {
-    border-left: 1px solid #000000;
-}
+/* Tablets */
 @media all and (min-width: 768px) {
     body.landscape > #calendar_yearlist > .year-content > .year-table
     {
