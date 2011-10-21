@@ -25,6 +25,7 @@ define('Mobile/SalesLogix/Views/Contact/List', ['Sage/Platform/Mobile/List'], fu
         id: 'contact_list',
         insertView: 'contact_edit',
         queryOrderBy: 'LastNameUpper,FirstName',
+        securedAction: 'Entities/Contact/Add',
         querySelect: [
             'AccountName',
             'NameLF'

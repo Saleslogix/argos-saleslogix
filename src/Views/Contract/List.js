@@ -23,6 +23,7 @@ define('Mobile/SalesLogix/Views/Contract/List', ['Sage/Platform/Mobile/List'], f
         icon: 'content/images/contract_16x16.gif',
         insertView: 'contract_edit',
         queryOrderBy: 'ReferenceNumber',
+        securedAction: 'Entities/Contract/Add',
         querySelect: [
             'Account/AccountName',
             'Contact/FullName',

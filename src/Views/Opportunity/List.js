@@ -49,6 +49,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', ['Sage/Platform/Mobile/List']
             'lost': 'Status eq "Closed - Lost"'
         },
         queryOrderBy: 'EstimatedClose desc',
+        securedAction: 'Entities/Opportunity/Add',
         querySelect: [
             'Account/AccountName',
             'Account/AccountManager/UserInfo/UserName',
