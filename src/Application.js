@@ -129,7 +129,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
             if (this.context.hasAccess && undefined != this.context.hasAccess[accessString]) {
                 return this.context.hasAccess[accessString];
 
-            } else if (null == accessString || undefined == accessString || accessString.match(/calendar/i)) {
+            } else if (null == accessString) {
                 return true;
 
             } else {

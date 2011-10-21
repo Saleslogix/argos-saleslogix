@@ -22,6 +22,7 @@ define('Mobile/SalesLogix/Views/Campaign/List', ['Sage/Platform/Mobile/List'], f
         insertView: 'campaign_list',
         expose: false,
         queryOrderBy: 'CampaignName',
+        securedAction: 'Entities/Campaign/Add',
         querySelect: [
             'CampaignName'
         ],

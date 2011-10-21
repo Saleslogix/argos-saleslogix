@@ -25,6 +25,7 @@ define('Mobile/SalesLogix/Views/Account/List', ['Sage/Platform/Mobile/List'], fu
         id: 'account_list',
         insertView: 'account_edit',
         queryOrderBy: 'AccountNameUpper',
+        securedAction: 'Entities/Account/Add',
         querySelect: [
             'AccountName',
             'AccountManager/UserInfo/UserName',
