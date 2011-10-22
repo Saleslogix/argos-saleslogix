@@ -898,36 +898,36 @@
         invalidHourErrorText : 'Не правильный формат часа',
         invalidMinuteErrorText : 'Не правильный формат минут'
     });
-    localize('Sage.Platform.Mobile.Controls.AddressField',{
+    localize('Sage.Platform.Mobile.Fields.AddressField',{
         lookupLabelText : 'редактировать',
         emptyText : 'нет адреса'
     });
-    localize('Sage.Platform.Mobile.Controls.BooleanField',{
+    localize('Sage.Platform.Mobile.Fields.BooleanField',{
         onText : 'Вкл.',
         offText : 'Выкл.'
     });
-    localize('Sage.Platform.Mobile.Controls.DateField',{
+    localize('Sage.Platform.Mobile.Fields.DateField',{
         emptyText : '',
         dateFormatText : 'dd.MM.yyyy',
         invalidDateFormatErrorText : 'Поле "{0}" имеет неправильный формат даты.'
     });
-    localize('Sage.Platform.Mobile.Controls.EditorField',{
+    localize('Sage.Platform.Mobile.Fields.EditorField',{
         lookupLabelText : 'редактировать',
         lookupText : '...',
         emptyText : 'пусто',
         completeText : 'Ок'
     });
-    localize('Sage.Platform.Mobile.Controls.LookupField',{
+    localize('Sage.Platform.Mobile.Fields.LookupField',{
         dependentErrorText : 'Значение для "{0}" должно быть выбрано.',
         emptyText : '',
         completeText : 'Выбрать',
         lookupLabelText : 'быстрый поиск',
         lookupText : '...'
     });
-    localize('Sage.Platform.Mobile.Controls.NameField',{
+    localize('Sage.Platform.Mobile.Fields.NameField',{
         emptyText : 'нет имени'
     });
-    localize('Sage.Platform.Mobile.Controls.NoteField',{
+    localize('Sage.Platform.Mobile.Fields.NoteField',{
         emptyText : ''
     });
     localize('Sage.Platform.Mobile.Detail',{

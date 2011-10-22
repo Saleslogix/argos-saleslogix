@@ -882,36 +882,36 @@ define('localization/saleslogix/de', ['localization/de', 'Mobile/SalesLogix/Appl
         invalidHourErrorText : 'Stundenformat ungült.',
         invalidMinuteErrorText : 'Minutenformat ungült.'
     });
-    localize('Sage.Platform.Mobile.Controls.AddressField',{
+    localize('Sage.Platform.Mobile.Fields.AddressField',{
         lookupLabelText : 'Bearb.',
         emptyText : 'keine Adr.'
     });
-    localize('Sage.Platform.Mobile.Controls.BooleanField',{
+    localize('Sage.Platform.Mobile.Fields.BooleanField',{
         onText : 'AN',
         offText : 'AUS'
     });
-    localize('Sage.Platform.Mobile.Controls.DateField',{
+    localize('Sage.Platform.Mobile.Fields.DateField',{
         emptyText : '',
         dateFormatText : 'dd/MM/yyyy',
         invalidDateFormatErrorText : 'Feld "{0}" hat ungült. Datumsformat.'
     });
-    localize('Sage.Platform.Mobile.Controls.EditorField',{
+    localize('Sage.Platform.Mobile.Fields.EditorField',{
         lookupLabelText : 'Bearb.',
         lookupText : '...',
         emptyText : 'leer',
         completeText : 'OK'
     });
-    localize('Sage.Platform.Mobile.Controls.LookupField',{
+    localize('Sage.Platform.Mobile.Fields.LookupField',{
         dependentErrorText : 'Wert für "{0}" muss ausgewählt sein.',
         emptyText : '',
         completeText : 'Auswählen',
         lookupLabelText : 'Suchen',
         lookupText : '...'
     });
-    localize('Sage.Platform.Mobile.Controls.NameField',{
+    localize('Sage.Platform.Mobile.Fields.NameField',{
         emptyText : 'kein Name'
     });
-    localize('Sage.Platform.Mobile.Controls.NoteField',{
+    localize('Sage.Platform.Mobile.Fields.NoteField',{
         emptyText : ''
     });
     localize('Sage.Platform.Mobile.Detail',{
