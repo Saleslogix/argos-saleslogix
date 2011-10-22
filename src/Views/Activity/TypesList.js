@@ -46,7 +46,7 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', ['Sage/Platform/Mobile/List
             'event'
         ],
         expose: false,
-        hideSearch: true,
+        enableSearch: false,
         id: 'activity_types_list',
         editView: 'activity_edit',
         eventEditView: 'event_edit',

@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
         //View Properties
         id: 'configure',
         expose: false,
-        hideSearch: true,
+        enableSearch: false,
         selectionOnly: true,
         allowSelection: true,
         autoClearSelection: false,

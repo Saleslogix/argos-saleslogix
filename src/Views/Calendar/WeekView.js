@@ -26,10 +26,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         // Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="{%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-            '{%! $.searchTemplate %}',
+            '<div data-dojo-attach-point="searchNode"></div>',
+            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
             '{%! $.navigationTemplate %}',
             '<div style="clear:both"></div>',
-            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
             '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
                 '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
                 '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
@@ -154,7 +154,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         userWeekStartDay: 0, // 0-6, Sun-Sat
         userWeekEndDay: 6,
         currentDate: null,
-        hideSearch: true,
+        enableSearch: false,
         expose: false,
         entryGroups: {},
         weekStartDate: null,

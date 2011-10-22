@@ -33,7 +33,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
         //View Properties
         id: 'home',
         expose: false,
-        hideSearch: true,
+        enableSearch: false,
         customizationSet: 'home',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
@@ -87,7 +87,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
         },
         createLayout: function() {
             // don't need to cache as it is only re-rendered when there is a change
-            var configured = dojo.getObject('App.preferences.home.visible', App) || [],
+            var configured = dojo.getObject('preferences.home.visible', false, App) || [],
                 layout = [{
                     id: 'actions',
                     as: [{

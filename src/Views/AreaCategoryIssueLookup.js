@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', ['Sage/Platform/Mobile
         //View Properties
         pageSize: 200,
         expose: false,
-        hideSearch: true,
+        enableSearch: false,
         id: 'areacategoryissue_lookup',
         queryOrderBy: 'Area,Category,Issue',
         querySelect: [

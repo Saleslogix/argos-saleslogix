@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/Settings', ['Sage/Platform/Mobile/List'], functi
         id: 'settings',
         icon: 'content/images/icons/settings_24.png',
         expose: false,
-        hideSearch: true,
+        enableSearch: false,
         selectionOnly: true,
         allowSelection: false,
         actions: null,
