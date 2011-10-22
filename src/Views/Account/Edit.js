@@ -30,13 +30,12 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
         titleText: 'Account',
         typeText: 'type',
         webText: 'web',
-        noAccessEditText: "You don't have access to Edit Accounts",
-        noAccessAddText: "You don't have access to Add Accounts",
 
         //View Properties
         entityName: 'Account',
         id: 'account_edit',
-        securedAction: { add: 'Entities/Account/Add', edit: 'Entities/Account/Edit' },
+        insertSecurity: 'Entities/Account/Add',
+        updateSecurity: 'Entities/Account/Edit',
         querySelect: [
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',

@@ -70,19 +70,21 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         },
         onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
 
-            var hasAccess = {}, user = {
+            var user = {
                 '$key': result['response']['userId'],
                 '$descriptor': result['response']['prettyName'],
                 'UserName': result['response']['userName']
             };
 
             this.context['user' ] = user;
-            this.context['roles'] = result['response']['roles'],
-            dojo.forEach( result['response']['securedActions'], function(accessString) {
-                hasAccess[accessString] = true;
-            });
-            this.context['hasAccess'] = hasAccess;
+            this.context['roles'] = result['response']['roles'];
+            this.context['securedActions'] = result['response']['securedActions'];
+            this.context['userSecurity'] = {};
 
+            dojo.forEach(this.context['securedActions'], function(item) {
+                this[item] = true;
+            }, this.context['userSecurity']);
+            
             if (credentials.remember)
             {
                 try
@@ -125,18 +127,16 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 aborted: dojo.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
             });
         },
-        hasSecurity: function(accessString) {
-            if (this.context.hasAccess && undefined != this.context.hasAccess[accessString]) {
-                return this.context.hasAccess[accessString];
+        hasSecurity: function(security) {
+            if (!security) return true;
 
-            } else if (null == accessString) {
-                return true;
+            var user = this.context['user'],
+                userId = user && user['$key'],
+                userSecurity = this.context['userSecurity'] || {};
 
-            } else {
-                return this.context.user['UserName'].match(/^ADMIN\s*$/i)
-                    && this.context.user['$key'].match(/^ADMIN\s*$/i)
-                    ;
-            }
+            if (/^ADMIN\s*/i.test(userId)) return true;
+
+            return !!userSecurity[security];
         },
         reload: function() {
             window.location.reload();
