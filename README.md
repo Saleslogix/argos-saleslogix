@@ -4,7 +4,7 @@ Installation
 *	A web server
 
 ### Clone repository
-1.	Open a command prompt
+1.	Open a command prompt.
 2.	change to the base directory where you cloned [Argos SDK][argos-sdk], eg:
 
 		cd \projects\sage\mobile
