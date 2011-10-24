@@ -52,7 +52,7 @@ define('Mobile/SalesLogix/Views/Activity/List', ['Sage/Platform/Mobile/List'], f
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
         queryOrderBy: 'Timeless desc, StartDate desc',
-        securedAction: null, //'Entities/Activity/Add',
+        insertSecurity: null, //'Entities/Activity/Add',
         querySelect: [
             'Description',
             'StartDate',

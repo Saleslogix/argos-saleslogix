@@ -24,13 +24,12 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
         titleTitleText: 'Title',
         addressTitleText: 'Address',
         ownerText: 'owner',
-        noAccessEditText: "You don't have access to Edit Contacts",
-        noAccessAddText: "You don't have access to Add Contacts",
 
         //View Properties
         entityName: 'Contact',
         id: 'contact_edit',
-        securedAction: { add: 'Entities/Contact/Add', edit: 'Entities/Contact/Edit' },
+        insertSecurity: 'Entities/Contact/Add',
+        updateSecurity: 'Entities/Contact/Edit',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',

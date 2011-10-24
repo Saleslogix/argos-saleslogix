@@ -32,13 +32,13 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
         urgencyText: 'urgency',
         scheduleActivityText: 'Schedule activity',        
         moreDetailsText: 'More Details',
-        noAccessText: "You don't have access to Ticket details",
         relatedTicketActivitiesText: 'Ticket Activities',
 
         //View Properties
         id: 'ticket_detail',
         editView: 'ticket_edit',
-        securedAction: 'Entities/Ticket/View',
+        security: 'Entities/Ticket/View',
+        editSecurity: 'Entities/Ticket/Edit',
 
         querySelect: [
             'Account/AccountName',

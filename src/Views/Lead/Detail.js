@@ -43,14 +43,14 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
         moreDetailsText: 'More Details',
         calledText: 'Called ${0}',
         emailedText: 'Emailed ${0}',
-        noAccessText: "You don't have access to Lead details",
 
         //View Properties
         id: 'lead_detail',
         editView: 'lead_edit',
         historyEditView: 'history_edit',
         noteEditView: 'history_edit',
-        securedAction: 'Entities/Lead/View',
+        security: 'Entities/Lead/View',
+        editSecurity: 'Entities/Lead/Edit',
         querySelect: [
             'Address/*',
             'BusinessDescription',

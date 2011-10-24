@@ -45,13 +45,13 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         startDateFormatText: 'M/d/yyyy h:mm:ss tt',
         timelessDateFormatText: 'M/d/yyyy',
         alarmDateFormatText: 'M/d/yyyy h:mm:ss tt',
-        noAccessText: "You don't have access to Activity details",
 
         //View Properties
         id: 'activity_detail',
         completeView: 'activity_complete',
         editView: 'activity_edit',
-        securedAction: null, //'Entities/Activity/View',
+        security: null, //'Entities/Activity/View',
+        editSecurity: null, //'Entities/Activity/Edit',
         querySelect: [
             'AccountId',
             'AccountName',

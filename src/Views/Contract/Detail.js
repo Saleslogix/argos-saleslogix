@@ -25,12 +25,12 @@ define('Mobile/SalesLogix/Views/Contract/Detail', ['Sage/Platform/Mobile/Detail'
         startText: 'start',
         svcTypeText: 'svc-Type',
         titleText: 'Contract',
-        noAccessText: "You don't have access to Contract details",
 
         //View Properties
         editView: 'contract_edit',
         id: 'contract_detail',
-        securedAction: 'Entities/Contract/View',
+        security: 'Entities/Contract/View',
+        editSecurity: 'Entities/Contract/Edit',
         querySelect: [
             'Account/AccountName',
             'Contact/NameLF',

@@ -24,8 +24,6 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
         companyText: 'company',
         leadText: 'lead',
         relatedItemsText: 'Related Items',
-        noAccessEditText: "You don't have access to Edit Notes/History",
-        noAccessAddText: "You don't have access to Add Notes/History",
 
         //View Properties
         id: 'history_edit',
@@ -33,7 +31,8 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
         fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
         entityName: 'History',
         resourceKind: 'history',
-        securedAction: { add: 'Entities/History/Add', edit: 'Entities/History/Edit' },
+        insertSecurity: 'Entities/History/Add',
+        updateSecurity: 'Entities/History/Edit',
         querySelect: [
             'AccountId',
             'AccountName',

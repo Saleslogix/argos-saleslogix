@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/Defect/List', ['Sage/Platform/Mobile/List'], fun
         id: 'defect_list',
         insertView: 'defect_edit',
         queryOrderBy: 'AlternateKeySuffix',
-        securedAction: 'Entities/Defect/Add',
+        insertSecurity: 'Entities/Defect/Add',
         querySelect: [
             'AlternateKeyPrefix',
             'AlternateKeySuffix'

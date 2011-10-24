@@ -24,14 +24,13 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
         statusText: 'status',
         titleText: 'Opportunity',
         typeText: 'type',
-        noAccessEditText: "You don't have access to Edit Opportunities",
-        noAccessAddText: "You don't have access to Add Opportunities",
 
         //View Properties
         entityName: 'Opportunity',
         id: 'opportunity_edit',
         resourceKind: 'opportunities',
-        securedAction: { add: 'Entities/Opportunity/Add', edit: 'Entities/Opportunity/Edit' },
+        insertSecurity: 'Entities/Opportunity/Add',
+        updateSecurity: 'Entities/Opportunity/Edit',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',

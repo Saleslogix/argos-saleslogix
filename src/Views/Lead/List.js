@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/Lead/List', ['Sage/Platform/Mobile/List'], funct
         id: 'lead_list',
         insertView: 'lead_edit',
         queryOrderBy: 'LastNameUpper,FirstName',
-        securedAction: 'Entities/Lead/Add',
+        insertSecurity: 'Entities/Lead/Add',
         querySelect: [
             'Company',
             'LeadNameLastFirst'

@@ -106,7 +106,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
             var omit = [];
             for (var view in App.views) {
                 if (view.match(/_detail$/)) {
-                    if (App.views[view].securedAction && !App.hasSecurity(App.views[view].securedAction))
+                    if (App.views[view].security && !App.hasSecurity(App.views[view].security))
                         omit.push(view.replace('_detail', '_list'));
                 }
             }

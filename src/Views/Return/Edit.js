@@ -15,13 +15,12 @@ define('Mobile/SalesLogix/Views/Return/Edit', ['Sage/Platform/Mobile/Edit'], fun
         typeText: 'type',
         regDateText: 'reg date',
         returnedByText: 'returned by',
-        noAccessEditText: "You don't have access to Edit Returns",
-        noAccessAddText: "You don't have access to Add Returns",
 
         //View Properties
         entityName: 'Return',
         id: 'return_edit',
-        securedAction: { add: 'Entities/Return/Add', edit: 'Entities/Return/Edit' },
+        insertSecurity: 'Entities/Return/Add',
+        updateSecurity: 'Entities/Return/Edit',
         querySelect: [
             'ExpectedDate',
             'Priority',

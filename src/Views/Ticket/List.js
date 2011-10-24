@@ -32,7 +32,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', ['Sage/Platform/Mobile/List'], fun
         id: 'ticket_list',
         insertView: 'ticket_edit',
         queryOrderBy: 'TicketNumber',
-        securedAction: 'Entities/Ticket/Add',
+        insertSecurity: 'Entities/Ticket/Add',
         querySelect: [
             'Account/AccountName',
             'Area',

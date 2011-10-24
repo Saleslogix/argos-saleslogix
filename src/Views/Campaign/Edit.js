@@ -13,13 +13,12 @@ define('Mobile/SalesLogix/Views/Campaign/Edit', ['Sage/Platform/Mobile/Edit'], f
         nameText: 'name',
         startText: 'start',
         titleText: 'Campaign',
-        noAccessEditText: "You don't have access to Edit Campaigns",
-        noAccessAddText: "You don't have access to Add Campaigns",
 
         //View Properties
         entityName: 'Campaign',
         id: 'campaign_edit',
-        securedAction: { add: 'Entities/Campaign/Add', edit: 'Entities/Campaign/Edit' },
+        insertSecurity: 'Entities/Campaign/Add',
+        updateSecurity: 'Entities/Campaign/Edit',
         querySelect: [
             'CampaignName',
             'CampaignCode',

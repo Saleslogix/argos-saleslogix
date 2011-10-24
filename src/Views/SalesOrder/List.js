@@ -22,7 +22,7 @@ define('Mobile/SalesLogix/Views/SalesOrder/List', ['Sage/Platform/Mobile/List'],
         icon: 'content/images/salesorder.gif',
         id: 'salesorder_list',
         queryOrderBy: 'SalesOrderNumber',
-        securedAction: 'Entities/SalesOrder/Add',
+        insertSecurity: 'Entities/SalesOrder/Add',
         querySelect: [
             'Account/AccountName',
             'SalesOrderNumber'

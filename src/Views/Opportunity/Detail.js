@@ -32,13 +32,13 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
         scheduleActivityText: 'Schedule activity',
         addNoteText: 'Add note',
         moreDetailsText: 'More Details',
-        noAccessText: "You don't have access to Opportunity details",
 
         //View Properties
         id: 'opportunity_detail',
         editView: 'opportunity_edit',
         noteEditView: 'history_edit',
-        securedAction: 'Entities/Opportunity/View',
+        security: 'Entities/Opportunity/View',
+        editSecurity: 'Entities/Opportunity/Edit',
         querySelect: [
             'Account/AccountName',
             'Account/WebAddress',

@@ -22,7 +22,7 @@ define('Mobile/SalesLogix/Views/Return/List', ['Sage/Platform/Mobile/List'], fun
         id: 'return_list',
         insertView: 'return_edit',
         queryOrderBy: 'ReturnNumber',
-        securedAction: 'Entities/Return/Add',
+        insertSecurity: 'Entities/Return/Add',
         querySelect: [
             'Account/AccountName',
             'ReturnNumber'

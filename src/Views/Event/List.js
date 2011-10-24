@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/Event/List', ['Sage/Platform/Mobile/List'], func
         insertView: 'event_edit',
         queryOrderBy: 'StartDate asc',
         queryWhere: null,
-        securedAction: null, //'Entities/Event/Add',
+        insertSecurity: null, //'Entities/Event/Add',
         querySelect: [
             'Description',
             'StartDate',

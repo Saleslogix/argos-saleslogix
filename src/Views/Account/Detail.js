@@ -43,7 +43,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
         viewAddressText: 'View address',
         moreDetailsText: 'More Details',
         calledText: 'Called ${0}',
-        noAccessText: "You don't have access to Account details",
 
         //View Properties
         id: 'account_detail',

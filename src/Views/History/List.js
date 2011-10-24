@@ -77,7 +77,7 @@ define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], fu
         existsRE: /^[\w]{12}$/,
         insertView: 'history_edit',
         queryOrderBy: 'CompletedDate desc',
-        securedAction: 'Entities/History/Add',
+        insertSecurity: 'Entities/History/Add',
         querySelect: [
             'AccountName',
             'ContactName',
