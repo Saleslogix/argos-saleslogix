@@ -498,10 +498,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         },
         formatDependentQuery: function(dependentValue, format, property) {
             var getV = Sage.Platform.Mobile.Utility.getValue;
-
-            property = property || '$key';
-
-            return dojo.string.substitute(format, getV(dependentValue, [property]));
+            return dojo.string.substitute(format, [getV(dependentValue, property || '$key')]);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
