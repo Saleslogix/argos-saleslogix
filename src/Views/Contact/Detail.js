@@ -34,6 +34,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
         titleText: 'Contact',
         webText: 'web',
         workText: 'phone',
+        cuisinePreferenceText: 'cuisine',
         callMobileNumberText: 'Call mobile',
         callWorkNumberText: 'Call main number',
         scheduleActivityText: 'Schedule activity',
@@ -55,6 +56,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
             'AccountManager/UserInfo/LastName',
             'AccountName',
             'Address/*',
+            'CuisinePreference',
             'CreateDate',
             'CreateUser',
             'Email',
@@ -252,6 +254,9 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                 },{
                     name: 'Owner.OwnerDescription',
                     label: this.ownerText
+                },{
+                    name: 'CuisinePreference',
+                    label: this.cuisinePreferenceText
                 }]
             },{
                 options: {

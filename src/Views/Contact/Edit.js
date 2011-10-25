@@ -24,6 +24,8 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
         titleTitleText: 'Title',
         addressTitleText: 'Address',
         ownerText: 'owner',
+        cuisinePreferenceText: 'cuisine',
+        cuisinePreferenceTitleText: 'Cuisine',
 
         //View Properties
         entityName: 'Contact',
@@ -36,6 +38,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
             'AccountManager/UserInfo/LastName',
             'AccountName',
             'Address/*',
+            'CuisinePreference',
             'CreateDate',
             'CreateUser',
             'Email',
@@ -243,6 +246,13 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 {
                     name: 'Opportunities.$resources[0].Opportunity.$key',
                     type: 'hidden'
+                },{
+                    label: this.cuisinePreferenceText,
+                    name: 'CuisinePreference',
+                    type: 'picklist',
+                    picklist: 'CuisinePrefs',
+                    multi: true,
+                    title: this.cuisinePreferenceTitleText
                 }
             ]);
         }
