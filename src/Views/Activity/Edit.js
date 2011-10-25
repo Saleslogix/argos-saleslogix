@@ -12,8 +12,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',
         activityTypeTitleText: 'Activity Type',
-        alarmText: 'reminder',
-        alarmTimeText: '',
+        reminderText: 'reminder',
         categoryText: 'category',
         durationText: 'duration',
         durationTitleText: 'Duration',
@@ -127,7 +126,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             dojo.connect(this.fields['IsLead'], 'onchange', this, this.onIsLeadChange);
             dojo.connect(this.fields['Leader'], 'onchange', this, this.onLeaderChange);
             dojo.connect(this.fields['Timeless'], 'onchange', this, this.onTimelessChange);
-            dojo.connect(this.fields['Alarm'], 'onchange', this, this.onAlarmChange);
+            dojo.connect(this.fields['Reminder'], 'onChange', this, this.onReminderChange);
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['UserId'] === App.context['user']['$key']);
@@ -216,8 +215,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 this.fields['Rollover'].disable();
             }
         },
-        onAlarmChange: function(value, field) {
-            this.toggleSelectField(this.fields['Reminder'], !value);
+        onReminderChange: function() {
+            this.fields['Alarm'].setValue(this.fields['Reminder'].getValue() !== '0');
+            console.log(this.fields['Alarm'].getValue());
         },
         onLeadChange: function(value, field) {
             var selection = field.getSelection(),
@@ -551,11 +551,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 name: 'Duration',
                 type: 'duration'
             },{
-                label: this.alarmText,
                 name: 'Alarm',
-                type: 'boolean'
+                type: 'hidden'
             },{
-                label: '',
+                label: this.reminderText,
                 title: this.reminderTitleText,
                 name: 'Reminder',
                 type: 'select',
@@ -565,14 +564,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 requireSelection: true,
                 valueKeyProperty: false,
                 valueTextProperty: false,
-                data: this.createReminderData(),
-                validator: {
-                    fn: function(val, field) {
-                        if (field.isDisabled()) return false;
-                        if (!/^\d+$/.test(val)) return true;
-                    },
-                    message: this.reminderInvalidText
-                }
+                data: this.createReminderData()
             },{
                 label: this.rolloverText,
                 name: 'Rollover',
