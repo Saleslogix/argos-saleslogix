@@ -217,7 +217,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         },
         onReminderChange: function() {
             this.fields['Alarm'].setValue(this.fields['Reminder'].getValue() !== '0');
-            console.log(this.fields['Alarm'].getValue());
         },
         onLeadChange: function(value, field) {
             var selection = field.getSelection(),
