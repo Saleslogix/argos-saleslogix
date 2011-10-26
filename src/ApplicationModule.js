@@ -61,7 +61,13 @@
         'Mobile/SalesLogix/Views/History/List',
         'Mobile/SalesLogix/Views/History/Detail',
         'Mobile/SalesLogix/Views/History/Edit',
-        'Mobile/SalesLogix/Views/User/List'
+        'Mobile/SalesLogix/Views/User/List',
+
+        'Mobile/SalesLogix/Fields/AddressField',
+        'Mobile/SalesLogix/Fields/NameField',
+        'Mobile/SalesLogix/Fields/PicklistField'
+
+
     ];
 
     define('Mobile/SalesLogix/ApplicationModule', imports, function() {
