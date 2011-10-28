@@ -12,6 +12,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',
         activityTypeTitleText: 'Activity Type',
+        alarmText: 'alarm',
         reminderText: 'reminder',
         categoryText: 'category',
         durationText: 'duration',
@@ -548,21 +549,19 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             },{
                 label: this.durationText,
                 name: 'Duration',
-                type: 'duration'
+                type: 'duration',
+                view: 'select_list',
+                data: this.createReminderData()
             },{
                 name: 'Alarm',
-                type: 'hidden'
+                label: this.alarmText,
+                type: 'boolean'
             },{
                 label: this.reminderText,
                 title: this.reminderTitleText,
                 name: 'Reminder',
-                type: 'select',
+                type: 'duration',
                 view: 'select_list',
-                textRenderer: this.formatReminderText.bindDelegate(this),
-                include: false,
-                requireSelection: true,
-                valueKeyProperty: false,
-                valueTextProperty: false,
                 data: this.createReminderData()
             },{
                 label: this.rolloverText,

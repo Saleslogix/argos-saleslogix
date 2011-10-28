@@ -555,6 +555,12 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     visibility: hidden;
 }
 
+
+#activity_edit div.row-edit[data-field="Reminder"]
+{
+    border-top: none;
+}
+
 .row-edit-text > div > textarea
 {
     padding-left: 10px !important;
