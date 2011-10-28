@@ -275,7 +275,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
 
             var success = (function(scope, callback, entry) {
                 return function() {
-                    App.fireEvent('refresh', {
+                    App.onRefresh({
                         resourceKind: 'history'
                     });
 
@@ -296,7 +296,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
         onUpdateCompleted: function(entry) {
             var followup = this.fields['Followup'].getValue() !== 'none'
                     ? this.navigateToFollowUpView
-                    : Mobile.SalesLogix.Activity.Complete.superclass.onUpdateCompleted;
+                    : Mobile.SalesLogix.Views.Activity.Complete.superclass.onUpdateCompleted;
 
             this.completeActivity(entry, followup);
         },
