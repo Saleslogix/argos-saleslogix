@@ -127,7 +127,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             dojo.connect(this.fields['IsLead'], 'onchange', this, this.onIsLeadChange);
             dojo.connect(this.fields['Leader'], 'onchange', this, this.onLeaderChange);
             dojo.connect(this.fields['Timeless'], 'onchange', this, this.onTimelessChange);
-            dojo.connect(this.fields['Reminder'], 'onChange', this, this.onReminderChange);
+            dojo.connect(this.fields['Alarm'], 'change', this, this.onAlarmChange);
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['UserId'] === App.context['user']['$key']);
@@ -216,8 +216,15 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 this.fields['Rollover'].disable();
             }
         },
-        onReminderChange: function() {
-            this.fields['Alarm'].setValue(this.fields['Reminder'].getValue() !== '0');
+        onAlarmChange: function() {
+            if(this.fields['Alarm'].getValue())
+            {
+                this.fields['Reminder'].enable();
+            }
+            else
+            {
+                this.fields['Reminder'].disable();
+            }
         },
         onLeadChange: function(value, field) {
             var selection = field.getSelection(),
