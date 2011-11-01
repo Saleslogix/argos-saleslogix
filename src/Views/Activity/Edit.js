@@ -558,6 +558,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 name: 'Duration',
                 type: 'duration',
                 view: 'select_list',
+                title: this.durationTitleText,
                 data: this.createReminderData()
             },{
                 name: 'Alarm',
