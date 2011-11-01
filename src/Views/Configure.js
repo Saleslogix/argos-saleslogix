@@ -72,7 +72,7 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
 
             App.persistPreferences();
 
-            ReUI.back();
+            App.navigateToHomeView();
         },
         moveUp: function(params) {
             var node = dojo.query(params.$source),

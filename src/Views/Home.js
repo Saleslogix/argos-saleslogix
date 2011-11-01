@@ -143,8 +143,10 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
         },
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
-            if (view)
+            if (view) {
+                view['refreshRequired'] = true;
                 view.show();
+            }
         },
         _onRegistered: function() {
             this.refreshRequired = true;
