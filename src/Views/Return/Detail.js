@@ -26,7 +26,6 @@ define('Mobile/SalesLogix/Views/Return/Detail', ['Sage/Platform/Mobile/Detail'],
         //View Properties
         id: 'return_detail',
         security: 'Entities/Return/View',
-        editSecurity: 'Entities/Return/Edit',
         querySelect: [
             'Account/AccountName',
             'AssignedTo/OwnerDescription',

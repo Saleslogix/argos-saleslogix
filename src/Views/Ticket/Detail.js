@@ -38,8 +38,6 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
         id: 'ticket_detail',
         editView: 'ticket_edit',
         security: 'Entities/Ticket/View',
-        editSecurity: 'Entities/Ticket/Edit',
-
         querySelect: [
             'Account/AccountName',
             'Area',
@@ -175,7 +173,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                 },{
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     label: this.relatedTicketActivitiesText,
-                    view: 'ticket-activity_related',
+                    view: 'ticket_activity_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'Ticket.Id eq "${0}"')
                 }]
             }]);

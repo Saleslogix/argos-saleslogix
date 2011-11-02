@@ -45,7 +45,6 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
         dateFormatText: 'M/d/yyyy h:mm:ss tt',
         resourceKind: 'history',
         security: 'Entities/History/View',
-        editSecurity: 'Entities/History/Edit',
         querySelect: [
             'AccountId',
             'AccountName',

@@ -32,8 +32,9 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
         relatedTicketActivityPartsText: 'Ticket Activity Parts',
 
         //View Properties
-        id: 'ticket-activity_detail',
-        editView: 'ticket-activity_edit',
+        id: 'ticket_activity_detail',
+        security: 'Entities/Account/View',
+        editView: 'ticket_activity_edit',
 
         querySelect: [
             'ActivityDescription',
@@ -133,7 +134,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     icon: 'content/images/icons/product_24.png',
                     label: this.relatedTicketActivityPartsText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}"'),
-                    view: 'ticket-activity-parts_related'
+                    view: 'ticket_activity_parts_related'
                 }]
             }]);
         }

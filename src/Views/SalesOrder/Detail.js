@@ -26,7 +26,6 @@ define('Mobile/SalesLogix/Views/SalesOrder/Detail', ['Sage/Platform/Mobile/Detai
         editView: 'salesorder_edit',
         id: 'salesorder_detail',
         security: 'Entities/SalesOrder/View',
-        editSecurity: 'Entities/SalesOrder/Edit',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',

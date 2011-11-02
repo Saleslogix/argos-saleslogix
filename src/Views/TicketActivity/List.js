@@ -19,10 +19,11 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
         startDateFormatText: 'MM/dd/yyyy',
 
         //View Properties       
-        id: 'ticket-activity_list',
+        id: 'ticket_activity_list',
+        security: 'Entities/TicketActivity/View',
         expose: false,
-        detailView: 'ticket-activity_detail',
-        insertView: 'ticket-activity_edit',
+        detailView: 'ticket_activity_detail',
+        insertView: 'ticket_activity_edit',
         queryOrderBy: 'AssignedDate asc',
         querySelect: [
             'ActivityType',

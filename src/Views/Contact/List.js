@@ -23,9 +23,9 @@ define('Mobile/SalesLogix/Views/Contact/List', ['Sage/Platform/Mobile/List'], fu
         detailView: 'contact_detail',
         icon: 'content/images/icons/Contacts_24x24.png',
         id: 'contact_list',
+        security: 'Entities/Contact/View',
         insertView: 'contact_edit',
         queryOrderBy: 'LastNameUpper,FirstName',
-        insertSecurity: 'Entities/Contact/Add',
         querySelect: [
             'AccountName',
             'NameLF'

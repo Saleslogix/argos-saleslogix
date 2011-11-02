@@ -51,7 +51,6 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         completeView: 'activity_complete',
         editView: 'activity_edit',
         security: null, //'Entities/Activity/View',
-        editSecurity: null, //'Entities/Activity/Edit',
         querySelect: [
             'AccountId',
             'AccountName',

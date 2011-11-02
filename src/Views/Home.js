@@ -102,25 +102,17 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
                 as: []
             };
 
-            // exclude-able items not allowed for user's role
-            var omit = [];
-            for (var view in App.views) {
-                if (view.match(/_detail$/)) {
-                    if (App.views[view].security && !App.hasSecurity(App.views[view].security))
-                        omit.push(view.replace('_detail', '_list'));
-                }
-            }
-
             for (var i = 0; i < configured.length; i++)
             {
                 var view = App.getView(configured[i]);
-                if (view && (-1 == omit.indexOf(view.id)))
+                if (view)
                 {
                     visible.as.push({
                         'action': 'navigateToView',
                         'view': view.id,
                         'icon': view.icon,
-                        'title': view.titleText
+                        'title': view.titleText,
+                        'security': view.getSecurity()
                     });
                 }
             }
@@ -135,7 +127,8 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
 
             dojo.forEach(layout, function(section) {
                 dojo.forEach(section['as'], function(row) {
-                    if (typeof this.query !== 'function' || this.query(entry)) list.push(row);
+                    if (row['security'] && !App.hasAccessTo(row['security'])) return;
+                    if (typeof this.query !== 'function' || this.query(row)) list.push(row);
                 }, this);
             }, this);
 
@@ -143,10 +136,8 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
         },
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
-            if (view) {
-                view['refreshRequired'] = true;
+            if (view)
                 view.show();
-            }
         },
         _onRegistered: function() {
             this.refreshRequired = true;
