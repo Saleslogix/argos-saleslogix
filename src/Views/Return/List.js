@@ -18,11 +18,11 @@ define('Mobile/SalesLogix/Views/Return/List', ['Sage/Platform/Mobile/List'], fun
 
         //View Properties
         detailView: 'return_detail',
+        security: 'Entities/Return/View',
         icon: 'content/images/return_detail_24x24.gif',
         id: 'return_list',
         insertView: 'return_edit',
         queryOrderBy: 'ReturnNumber',
-        insertSecurity: 'Entities/Return/Add',
         querySelect: [
             'Account/AccountName',
             'ReturnNumber'

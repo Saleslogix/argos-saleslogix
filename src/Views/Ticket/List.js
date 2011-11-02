@@ -30,9 +30,9 @@ define('Mobile/SalesLogix/Views/Ticket/List', ['Sage/Platform/Mobile/List'], fun
         detailView: 'ticket_detail',
         icon: 'content/images/icons/Ticket_24x24.png',
         id: 'ticket_list',
+        security: 'Entities/Ticket/View',
         insertView: 'ticket_edit',
         queryOrderBy: 'TicketNumber',
-        insertSecurity: 'Entities/Ticket/Add',
         querySelect: [
             'Account/AccountName',
             'Area',

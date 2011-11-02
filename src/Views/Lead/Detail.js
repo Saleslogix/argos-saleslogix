@@ -50,7 +50,6 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
         historyEditView: 'history_edit',
         noteEditView: 'history_edit',
         security: 'Entities/Lead/View',
-        editSecurity: 'Entities/Lead/Edit',
         querySelect: [
             'Address/*',
             'BusinessDescription',

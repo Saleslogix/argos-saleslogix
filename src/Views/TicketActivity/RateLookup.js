@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', ['Sage/Platform/Mobi
         titleText: 'Rates',
 
         //View Properties
-        id: 'ticket-activityratelookup_list',
+        id: 'ticket_activity_ratelookup',
         queryOrderBy: 'Amount asc',
         querySelect: [
             'Amount',

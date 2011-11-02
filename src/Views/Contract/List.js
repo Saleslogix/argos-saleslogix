@@ -20,10 +20,10 @@ define('Mobile/SalesLogix/Views/Contract/List', ['Sage/Platform/Mobile/List'], f
         contextView: 'context_dialog',
         detailView: 'contract_detail',
         id: 'contract_list',
+        security: 'Entities/Contract/View',
         icon: 'content/images/contract_16x16.gif',
         insertView: 'contract_edit',
         queryOrderBy: 'ReferenceNumber',
-        insertSecurity: 'Entities/Contract/Add',
         querySelect: [
             'Account/AccountName',
             'Contact/FullName',

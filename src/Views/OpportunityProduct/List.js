@@ -26,6 +26,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', ['Sage/Platform/Mobile
 
         //View Properties       
         id: 'opportunityproduct_list',
+        security: 'Entities/OpportunityProduct/View',
         icon: 'content/images/icons/product_24.png',
         queryOrderBy: 'Sort',
         querySelect: [

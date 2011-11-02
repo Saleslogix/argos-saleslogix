@@ -12,6 +12,11 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         enableCaching: true,
         userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
         userOptionsToRequest: ['General;InsertSecCodeID','Calendar;DayStartTime','Calendar;FirstDayofWeek'],
+        serverVersion: {
+            'major': 8,
+            'minor': 0,
+            'revision': 0
+        },
         init: function() {
             if (dojo.isIE && dojo.isIE < 9) window.location.href = 'unsupported.html';
 
@@ -79,11 +84,23 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
             this.context['user' ] = user;
             this.context['roles'] = result['response']['roles'];
             this.context['securedActions'] = result['response']['securedActions'];
-            this.context['userSecurity'] = {};
 
-            dojo.forEach(this.context['securedActions'], function(item) {
-                this[item] = true;
-            }, this.context['userSecurity']);
+            if (this.context['securedActions'])
+            {
+                dojo.forEach(this.context['securedActions'], function(item) {
+                    this[item] = true;
+                }, (this.context['userSecurity'] = {}));
+            }
+            else
+            {
+                // downgrade server version as only 8.0 has `securedActions` as part of the
+                // `getCurrentUser` response.
+                this.serverVersion = {
+                    'major': 7,
+                    'minor': 5,
+                    'revision': 4
+                };
+            }
             
             if (credentials.remember)
             {
@@ -127,7 +144,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 aborted: dojo.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
             });
         },
-        hasSecurity: function(security) {
+        hasAccessTo: function(security) {
             if (!security) return true;
 
             var user = this.context['user'],
@@ -135,6 +152,8 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 userSecurity = this.context['userSecurity'] || {};
 
             if (/^ADMIN\s*/i.test(userId)) return true;
+
+            if (typeof userSecurity === 'undefined') return true; // running against a pre 8.0 SalesLogix environment
 
             return !!userSecurity[security];
         },
@@ -323,17 +342,18 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
             ];
         },
         getExposedViews: function() {
-            var exposedViews = [],
+            var exposed = [],
                 view;
 
-            for (var v in this.views)
+            for (var id in this.views)
             {
-                view = App.getView(v);
-                if (view.expose != false && view.id != 'home')
-                    exposedViews.push(v);
+                view = App.getView(id);
+
+                if (view.id == 'home') continue;
+                if (view.expose) exposed.push(id);
             }
 
-            return exposedViews;
+            return exposed;
         },
         cleanRestoredHistory: function(restoredHistory) {
             var result = [],

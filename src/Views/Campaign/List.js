@@ -19,10 +19,10 @@ define('Mobile/SalesLogix/Views/Campaign/List', ['Sage/Platform/Mobile/List'], f
         detailView: 'campaign_detail',
         icon: 'content/images/campaigns_detail_24x24.gif',
         id: 'campaign_list',
+        security: 'Entities/Campaign/View',
         insertView: 'campaign_list',
         expose: false,
         queryOrderBy: 'CampaignName',
-        insertSecurity: 'Entities/Campaign/Add',
         querySelect: [
             'CampaignName'
         ],

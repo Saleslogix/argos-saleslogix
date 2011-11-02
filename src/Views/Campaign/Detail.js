@@ -22,7 +22,6 @@ define('Mobile/SalesLogix/Views/Campaign/Detail', ['Sage/Platform/Mobile/Detail'
         editView: 'campaign_edit',
         id: 'campaign_detail',
         security: 'Entities/Campaign/View',
-        editSecurity: 'Entities/Campaign/Edit',
         querySelect: [
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',

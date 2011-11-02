@@ -21,7 +21,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
         commentsText: 'comments',
 
         //View Properties
-        id: 'ticket-activity_edit',
+        entityName: 'TicketActivity',
+        id: 'ticket_activity_edit',
+        insertSecurity: 'Entities/TicketActivity/Add',
+        updateSecurity: 'Entities/TicketActivity/Edit',
         querySelect: [
             'ActivityDescription',
             'ActivityType',
@@ -72,7 +75,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
                     name: 'RateTypeDescription',
                     textProperty: 'RateTypeCode',
                     type: 'lookup',
-                    view: 'ticket-activityratelookup_list'
+                    view: 'ticket_activity_ratelookup'
                 },{
                     label: this.commentsText,
                     name: 'ActivityDescription',

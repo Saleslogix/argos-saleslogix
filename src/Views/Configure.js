@@ -22,7 +22,6 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
 
         // Localization
         titleText: 'Configure',
-        savePrefsText: 'Save', // TODO: is this no longer in use?
 
         //View Properties
         id: 'configure',
@@ -72,7 +71,7 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
 
             App.persistPreferences();
 
-            App.navigateToHomeView();
+            ReUI.back();
         },
         moveUp: function(params) {
             var node = dojo.query(params.$source),
@@ -93,7 +92,7 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
             var list = [],
                 lookup = {},
                 exposed = App.getExposedViews(),
-                order = (App.preferences.configure && App.preferences.configure.order) || [],
+                order = dojo.getObject('preferences.configure.order', false, App) || [],
                 view, i, n;
 
             for (i = 0; i < exposed.length; i++)
@@ -109,8 +108,7 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
             for (i = 0; i < order.length; i++)
             {
                 view = App.getView(order[i]);
-
-                if (view)
+                if (view && App.hasAccessTo(view.getSecurity()))
                 {
                     list.push({
                         '$key': view.id,
@@ -129,15 +127,13 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
 
             var visible = (App.preferences.home && App.preferences.home.visible) || [],
                 row,
-                i,
-                visibleLength = visible.length;
+                i;
 
-            for (i = 0; i < visibleLength; i++)
+            for (i = 0; i < visible.length; i++)
             {
                 row = dojo.query((dojo.string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
 
-                if (row)
-                    this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
+                if (row) this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
             }
         }
     });

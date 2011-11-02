@@ -30,7 +30,6 @@ define('Mobile/SalesLogix/Views/Contract/Detail', ['Sage/Platform/Mobile/Detail'
         editView: 'contract_edit',
         id: 'contract_detail',
         security: 'Entities/Contract/View',
-        editSecurity: 'Entities/Contract/Edit',
         querySelect: [
             'Account/AccountName',
             'Contact/NameLF',

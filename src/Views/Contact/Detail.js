@@ -49,7 +49,6 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
         historyEditView: 'history_edit',
         noteEditView: 'history_edit',
         security: 'Entities/Contact/View',
-        editSecurity: 'Entities/Contact/Edit',
         querySelect: [
             'Account/AccountName',
             'AccountManager/UserInfo/FirstName',

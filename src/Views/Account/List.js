@@ -23,6 +23,7 @@ define('Mobile/SalesLogix/Views/Account/List', ['Sage/Platform/Mobile/List'], fu
         detailView: 'account_detail',
         icon: 'content/images/icons/Company_24.png',
         id: 'account_list',
+        security: 'Entities/Account/View',
         insertView: 'account_edit',
         queryOrderBy: 'AccountNameUpper',
         insertSecurity: 'Entities/Account/Add',

@@ -48,11 +48,11 @@ define('Mobile/SalesLogix/Views/Activity/List', ['Sage/Platform/Mobile/List'], f
 
         //View Properties
         id: 'activity_list',
+        security: null, //'Entities/Activity/View',
         icon: 'content/images/icons/To_Do_24x24.png',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
         queryOrderBy: 'Timeless desc, StartDate desc',
-        insertSecurity: null, //'Entities/Activity/Add',
         querySelect: [
             'Description',
             'StartDate',

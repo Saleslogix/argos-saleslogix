@@ -48,7 +48,6 @@ define('Mobile/SalesLogix/Views/Defect/Detail', ['Sage/Platform/Mobile/Detail'],
         editView: 'defect_edit',
         id: 'defect_detail',
         security: 'Entities/Defect/View',
-        editSecurity: 'Entities/Defect/Edit',
         querySelect: [
             'AlternateKeyPrefix',
             'AlternateKeySuffix',

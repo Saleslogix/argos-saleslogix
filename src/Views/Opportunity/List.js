@@ -39,6 +39,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', ['Sage/Platform/Mobile/List']
 
         //View Properties
         id: 'opportunity_list',
+        security: 'Entities/Opportunity/View',
         icon: 'content/images/icons/opportunity_24.png',
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
@@ -49,7 +50,6 @@ define('Mobile/SalesLogix/Views/Opportunity/List', ['Sage/Platform/Mobile/List']
             'lost': 'Status eq "Closed - Lost"'
         },
         queryOrderBy: 'EstimatedClose desc',
-        insertSecurity: 'Entities/Opportunity/Add',
         querySelect: [
             'Account/AccountName',
             'Account/AccountManager/UserInfo/UserName',

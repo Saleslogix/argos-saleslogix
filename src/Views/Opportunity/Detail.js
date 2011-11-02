@@ -38,7 +38,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
         editView: 'opportunity_edit',
         noteEditView: 'history_edit',
         security: 'Entities/Opportunity/View',
-        editSecurity: 'Entities/Opportunity/Edit',
         querySelect: [
             'Account/AccountName',
             'Account/WebAddress',
