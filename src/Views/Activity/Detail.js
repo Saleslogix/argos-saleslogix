@@ -20,6 +20,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         },
         actionsText: 'Quick Actions',
         completeActivityText: 'Complete Activity',
+        locationText: 'location',
         alarmText: 'reminder',
         alarmTimeText: 'reminder',
         categoryText: 'category',

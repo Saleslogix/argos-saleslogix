@@ -5,6 +5,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
+    'Mobile/SalesLogix/Environment',
 
     'Mobile/SalesLogix/Views/AddAccountContact',
     'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
@@ -209,6 +210,35 @@ define('Mobile/SalesLogix/ApplicationModule', [
                     return (this.expose && this.security); // only check security on exposed views
                 }
             });
+
+            if(App.serverVersion.major >= 8)
+            {
+                // Activity Location Sawgrass+
+                //todo: Limit visibility to Meeting or PhoneCall Type only
+                dojo.extend(Mobile.SalesLogix.Views.Activity.Detail, {
+                    querySelect: Mobile.SalesLogix.Views.Activity.Detail.prototype.querySelect.concat([
+                        'Location'])
+                });
+                this.registerCustomization('detail', 'activity_detail', {
+                    at: function(row) { return row.name === 'Category'; },
+                    type: 'insert',
+                    where: 'before',
+                    value: {
+                        name: 'Location',
+                        label: Mobile.SalesLogix.Views.Activity.Detail.prototype.locationText
+                    }
+                });
+                this.registerCustomization('edit', 'activity_edit', {
+                    at: function(row) { return row.name === 'Category'; },
+                    type: 'insert',
+                    where: 'before',
+                    value: {
+                        name: 'Location',
+                        label: Mobile.SalesLogix.Views.Activity.Edit.prototype.locationText,
+                        type: 'text'
+                    }
+                });
+            }
         }
     });
 
