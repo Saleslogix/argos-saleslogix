@@ -108,7 +108,7 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
             for (i = 0; i < order.length; i++)
             {
                 view = App.getView(order[i]);
-                if (view && App.hasAccessTo(view.getSecurity()))
+                if (view && App.hasAccessTo(view.getSecurity()) && 0 <= exposed.indexOf(order[i]))
                 {
                     list.push({
                         '$key': view.id,
@@ -117,7 +117,10 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
                     });
                 }
                 else
+                {
                     order.splice(i, 1);
+                    i -= 1;
+                }
             }
 
             this.processFeed({'$resources': list});

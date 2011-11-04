@@ -112,7 +112,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             }));
 
             this.registerView(new Mobile.SalesLogix.Views.Event.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.Event.List());
+            this.registerView(new Mobile.SalesLogix.Views.Event.List({ expose: false }));
             this.registerView(new Mobile.SalesLogix.Views.Event.Detail());
             this.registerView(new Mobile.SalesLogix.Views.Event.List({
                 id: 'event_related',

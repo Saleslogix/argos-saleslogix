@@ -24,7 +24,7 @@ define('Mobile/SalesLogix/Views/Event/List', ['Sage/Platform/Mobile/List'], func
 
         //View Properties
         id: 'event_list',
-        security: 'Entities/Event/View',
+        security: null, //'Entities/Event/View',
         icon: 'content/images/icons/Holiday_schemes_24.png',
         detailView: 'event_detail',
         insertView: 'event_edit',

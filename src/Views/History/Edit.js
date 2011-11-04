@@ -31,8 +31,8 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
         fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
         entityName: 'History',
         resourceKind: 'history',
-        insertSecurity: 'Entities/History/Add',
-        updateSecurity: 'Entities/History/Edit',
+        insertSecurity: null, //'Entities/History/Add',
+        updateSecurity: null, //'Entities/History/Edit',
         querySelect: [
             'AccountId',
             'AccountName',

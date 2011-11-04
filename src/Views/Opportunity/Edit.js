@@ -7,6 +7,8 @@
 
 define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit'], function() {
 
+    var U = Sage.Platform.Mobile.Utility;
+
     return dojo.declare('Mobile.SalesLogix.Views.Opportunity.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
         accountText: 'acct',

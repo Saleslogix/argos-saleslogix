@@ -74,7 +74,7 @@ define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], fu
         detailView: 'history_detail',
         icon: 'content/images/icons/journal_24.png',
         id: 'history_list',
-        security: 'Entities/History/View',
+        security: null, //'Entities/History/View',
         existsRE: /^[\w]{12}$/,
         insertView: 'history_edit',
         queryOrderBy: 'CompletedDate desc',
