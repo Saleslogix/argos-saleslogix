@@ -14,7 +14,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         locationText: 'location',
         activityTypeTitleText: 'Activity Type',
         alarmText: 'alarm',
-        reminderText: 'reminder',
+        reminderText: '',
         categoryText: 'category',
         durationText: 'duration',
         durationTitleText: 'Duration',
