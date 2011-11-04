@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
         completeTicketText: 'Complete Ticket Activity',
         moreDetailsText: 'More Details',
         relatedItemsText: 'Related Items',
-        relatedTicketActivityPartsText: 'Ticket Activity Parts',
+        relatedTicketActivityItemText: 'Ticket Activity Parts',
 
         //View Properties
         id: 'ticket_activity_detail',
@@ -132,9 +132,9 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                 },
                 as: [{
                     icon: 'content/images/icons/product_24.png',
-                    label: this.relatedTicketActivityPartsText,
-                    where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}"'),
-                    view: 'ticket_activity_parts_related'
+                    label: this.relatedTicketActivityItemText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'TicketActivity.Id eq "${0}"'),
+                    view: 'ticket_activity_item_list_related'
                 }]
             }]);
         }

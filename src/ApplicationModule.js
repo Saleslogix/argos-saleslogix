@@ -57,6 +57,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/TicketActivity/Detail',
     'Mobile/SalesLogix/Views/TicketActivity/Edit',
     'Mobile/SalesLogix/Views/TicketActivity/RateLookup',
+    'Mobile/SalesLogix/Views/TicketActivityItem/List',
     'Mobile/SalesLogix/Views/History/List',
     'Mobile/SalesLogix/Views/History/Detail',
     'Mobile/SalesLogix/Views/History/Edit',
@@ -153,6 +154,12 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose: false
             }));
 
+            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List());
+            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List({
+                id: 'ticket_activity_item_list_related',
+                expose: false
+            }));
+
             this.registerView(new Mobile.SalesLogix.Views.Activity.Detail());
             this.registerView(new Mobile.SalesLogix.Views.Activity.Edit());
             this.registerView(new Mobile.SalesLogix.Views.Activity.Complete());
@@ -220,7 +227,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
                         'Location'])
                 });
                 this.registerCustomization('detail', 'activity_detail', {
-                    at: function(row) { return row.name === 'Category'; },
+                    at: function(row) { return row.name === 'Priority'; },
                     type: 'insert',
                     where: 'before',
                     value: {
@@ -229,7 +236,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
                     }
                 });
                 this.registerCustomization('edit', 'activity_edit', {
-                    at: function(row) { return row.name === 'Category'; },
+                    at: function(row) { return row.name === 'Priority'; },
                     type: 'insert',
                     where: 'before',
                     value: {
