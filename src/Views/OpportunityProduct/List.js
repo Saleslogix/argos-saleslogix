@@ -41,12 +41,11 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', ['Sage/Platform/Mobile
         ],
         resourceKind: 'opportunityproducts',
         
-        init: function() {
-            // Mobile.SalesLogix.OpportunityProduct.List.superclass.init.apply(this, arguments);
-
-            this.tools.tbar = [];
+        createToolLayout: function() {
+            return this.tools || (this.tools = {
+                tbar: []
+            });
         },
-
         formatSearchQuery: function(query) {
             return dojo.string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
         }
