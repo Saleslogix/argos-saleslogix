@@ -1,307 +1,513 @@
 {
-	projectName: 'SalesLogix Mobile',
-	licenseText: '',
-	deployDir: 'deploy/',
-	pkgs: [{
-		name: 'SalesLogix Mobile',
-		file: 'content/javascript/argos-saleslogix.js',
-		isDebug: true,
-		fileIncludes: [{
-            text: 'Environment.js',
-            path: '../src/'
-        },{
-            text: 'Application.js',
-            path: '../src/'
-        },{
-            text: 'ApplicationModule.js',
-            path: '../src/'
-        },{
-            text: 'Format.js',
-            path: '../src/'
-        },{
-            text: 'Template.js',
-            path: '../src/'
-        },{
-            text: 'Validator.js',
-            path: '../src/'
-        },{
-            text: 'MainToolbar.js',
-            path: '../src/views/'
-        },{
-            text: 'FooterToolbar.js',
-            path: '../src/views/'
-        },{
-            text: 'UpdateToolbar.js',
-            path: '../src/views/'
-        },{
-            text: 'AddAccountContact.js',
-            path: '../src/views/'
-        },{
-            text: 'Configure.js',
-            path: '../src/views/'
-        },{
-            text: 'ContextDialog.js',
-            path: '../src/views/'
-        },{
-            text: 'Help.js',
-            path: '../src/views/'
-        },{
-            text: 'Home.js',
-            path: '../src/views/'
-        },{
-            text: 'Login.js',
-            path: '../src/views/'
-        },{
-            text: 'NameEdit.js',
-            path: '../src/views/'
-        },{
-            text: 'TextEdit.js',
-            path: '../src/views/'
-        },{
-            text: 'AreaCategoryIssueLookup.js',
-            path: '../src/views/'
-        },{
-            text: 'PickList.js',
-            path: '../src/views/'
-        },{
-            text: 'SelectList.js',
-            path: '../src/views/'
-        },{
-            text: 'Settings.js',
-            path: '../src/views/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/account/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/account/'
-        },{
-            text: 'List.js',
-            path: '../src/views/account/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/activity/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/activity/'
-        },{
-            text: 'Complete.js',
-            path: '../src/views/activity/'
-        },{
-            text: 'List.js',
-            path: '../src/views/activity/'
-        },{
-            text: 'TypesList.js',
-            path: '../src/views/activity/'
-        },{
-            text: 'MonthView.js',
-            path: '../src/views/calendar/'
-        },{
-            text: 'WeekView.js',
-            path: '../src/views/calendar/'
-        },{
-            text: 'UserActivityList.js',
-            path: '../src/views/calendar/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/address/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/campaign/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/campaign/'
-        },{
-            text: 'List.js',
-            path: '../src/views/campaign/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/contact/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/contact/'
-        },{
-            text: 'List.js',
-            path: '../src/views/contact/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/contract/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/contract/'
-        },{
-            text: 'List.js',
-            path: '../src/views/contract/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/defect/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/defect/'
-        },{
-            text: 'List.js',
-            path: '../src/views/defect/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/defectproblem/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/defectproblem/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/defectsolution/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/defectsolution/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/history/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/history/'
-        },{
-            text: 'List.js',
-            path: '../src/views/history/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/lead/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/lead/'
-        },{
-            text: 'List.js',
-            path: '../src/views/lead/'
-        },{
-            text: 'List.js',
-            path: '../src/views/leadsource/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/opportunity/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/opportunity/'
-        },{
-            text: 'List.js',
-            path: '../src/views/opportunity/'
-        },{
-        	text: 'List.js',
-        	path: '../src/views/opportunityproduct/'
-        },{
-            text: 'List.js',
-            path: '../src/views/owner/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/return/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/return/'
-        },{
-            text: 'List.js',
-            path: '../src/views/return/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/salesorder/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/salesorder/'
-        },{
-            text: 'List.js',
-            path: '../src/views/salesorder/'
-        },{
-            text: 'Detail.js',
-            path: '../src/views/ticket/'
-        },{
-            text: 'Edit.js',
-            path: '../src/views/ticket/'
-        },{
-            text: 'List.js',
-            path: '../src/views/ticket/'
-        },{
-            text: 'UrgencyLookup.js',
-            path: '../src/views/ticket/'
-        },{
-            text: 'List.js',
-            path: '../src/views/user/'
-        }]
-	},{
-		name: 'Core Mobile Localization (en-US)',
-		file: 'localization/en.js',
-		isDebug: true,
-		fileIncludes: [{
-            text: 'en.js',
-            path: '../localization/'
-        },{
-            text: 'en-US.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
-        }]
-    },{
-		name: 'Core Mobile Localization (de-DE)',
-		file: 'localization/de.js',
-		isDebug: true,
-		fileIncludes: [{
-            text: 'de.js',
-            path: '../localization/'
-        },{
-            text: 'de.js',
-            path: '../localization/saleslogix/'
-        },{
-            text: 'de-DE.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
-        }]
-    },{
-		name: 'Core Mobile Localization (fr-FR)',
-		file: 'localization/fr.js',
-		isDebug: true,
-		fileIncludes: [{
-            text: 'fr.js',
-            path: '../localization/'
-        },{
-            text: 'fr.js',
-            path: '../localization/saleslogix/'
-        },{
-            text: 'fr-FR.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
-        }]
-    },{
-		name: 'Core Mobile Localization (ru-RU)',
-		file: 'localization/ru.js',
-		isDebug: true,
-		fileIncludes: [{
-            text: 'ru.js',
-            path: '../localization/'
-        },{
-            text: 'ru.js',
-            path: '../localization/saleslogix/'
-        },{
-            text: 'ru-RU.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
-        }]
-    },{
-		name: 'Core Mobile Localization (it-IT)',
-		file: 'localization/it.js',
-		isDebug: true,
-		fileIncludes: [{
-            text: 'it.js',
-            path: '../localization/'
-        },{
-            text: 'it.js',
-            path: '../localization/saleslogix/'
-        },{
-            text: 'it-IT.js',
-            path: '../../../argos-sdk/libraries/datejs/src/globalization/'
-        }]
-    }],
-	resources: [{
-		src: '../content',
-		dest: 'content',
-		filters: ".*(\\.css|\\.jpg|\\.png|\\.gif)"
-	},{
-		src: '../configuration',
-		dest: 'configuration',
-		filters: ".*\\.js"
-	},{
-	    src: '../help',
-	    dest: 'help',
-	    filters: ".*\\.html"
-	}]
+  "projectName": "SalesLogix Mobile",
+  "licenseText": "",
+  "deployDir": "deploy/",
+  "pkgs": [
+    {
+      "name": "Core Mobile Localization (en-US)",
+      "file": "localization/en.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "en.js",
+          "path": "../localization/"
+        },
+        {
+          "text": "en-US.js",
+          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (de-DE)",
+      "file": "localization/de.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "de.js",
+          "path": "../localization/"
+        },
+        {
+          "text": "de.js",
+          "path": "../localization/saleslogix/"
+        },
+        {
+          "text": "de-DE.js",
+          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (fr-FR)",
+      "file": "localization/fr.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "fr.js",
+          "path": "../localization/"
+        },
+        {
+          "text": "fr.js",
+          "path": "../localization/saleslogix/"
+        },
+        {
+          "text": "fr-FR.js",
+          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (ru-RU)",
+      "file": "localization/ru.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "ru.js",
+          "path": "../localization/"
+        },
+        {
+          "text": "ru.js",
+          "path": "../localization/saleslogix/"
+        },
+        {
+          "text": "ru-RU.js",
+          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (it-IT)",
+      "file": "localization/it.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "it.js",
+          "path": "../localization/"
+        },
+        {
+          "text": "it.js",
+          "path": "../localization/saleslogix/"
+        },
+        {
+          "text": "it-IT.js",
+          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile",
+      "file": "content/javascript/argos-saleslogix.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "Application.js",
+          "path": "../src"
+        },
+        {
+          "text": "ApplicationModule.js",
+          "path": "../src"
+        },
+        {
+          "text": "Environment.js",
+          "path": "../src"
+        },
+        {
+          "text": "Format.js",
+          "path": "../src"
+        },
+        {
+          "text": "Template.js",
+          "path": "../src"
+        },
+        {
+          "text": "Validator.js",
+          "path": "../src"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Account"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Account"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Account"
+        },
+        {
+          "text": "Complete.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "TypesList.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "AddAccountContact.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Address"
+        },
+        {
+          "text": "AreaCategoryIssueLookup.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "DayView.js",
+          "path": "../src/Views/Calendar"
+        },
+        {
+          "text": "MonthView.js",
+          "path": "../src/Views/Calendar"
+        },
+        {
+          "text": "WeekView.js",
+          "path": "../src/Views/Calendar"
+        },
+        {
+          "text": "YearView.js",
+          "path": "../src/Views/Calendar"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Campaign"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Campaign"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Campaign"
+        },
+        {
+          "text": "Configure.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Contact"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Contact"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Contact"
+        },
+        {
+          "text": "ContextDialog.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Contract"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Contract"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Contract"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Defect"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Defect"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Defect"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/DefectProblem"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/DefectProblem"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/DefectSolution"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/DefectSolution"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Event"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Event"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Event"
+        },
+        {
+          "text": "FooterToolbar.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Help.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/History"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/History"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/History"
+        },
+        {
+          "text": "Home.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Lead"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Lead"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Lead"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/LeadSource"
+        },
+        {
+          "text": "Login.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "MainToolbar.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "NameEdit.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Opportunity"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Opportunity"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Opportunity"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/OpportunityProduct"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Owner"
+        },
+        {
+          "text": "PickList.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Return"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Return"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Return"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/SalesOrder"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/SalesOrder"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/SalesOrder"
+        },
+        {
+          "text": "SelectList.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Settings.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "TextEdit.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Ticket"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Ticket"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Ticket"
+        },
+        {
+          "text": "UrgencyLookup.js",
+          "path": "../src/Views/Ticket"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/TicketActivity"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/TicketActivity"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/TicketActivity"
+        },
+        {
+          "text": "RateLookup.js",
+          "path": "../src/Views/TicketActivity"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/User"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Dependencies",
+      "file": "content/javascript/argos-dojo-dependencies.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "dojo.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "string.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "NodeList-manipulate.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "NodeList-traverse.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "main.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "registry.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "Stateful.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "_WidgetBase.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "_OnDijitClickMixin.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "window.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "manager.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
+        },
+        {
+          "text": "a11y.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "focus.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "_FocusMixin.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "uacss.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "hccss.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "_Widget.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "src": "../content",
+      "dest": "content",
+      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif)"
+    },
+    {
+      "src": "../configuration",
+      "dest": "configuration",
+      "filters": ".*\\.js"
+    },
+    {
+      "src": "../help",
+      "dest": "help",
+      "filters": ".*\\.html"
+    }
+  ]
 }
