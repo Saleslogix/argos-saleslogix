@@ -3,6 +3,7 @@
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Web.Script.Serialization" %>
 
 <!DOCTYPE html>
 <html>
@@ -27,9 +28,6 @@
     <!-- JSON -->
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
 
-    <!-- Ext Core -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/ext/ext-core.js"></script>
-
     <!-- ReUI -->
     <script type="text/javascript">
     reConfig = {
@@ -47,138 +45,44 @@
 
     <!-- DateJS -->
     <script type="text/javascript" src="../../argos-sdk/libraries/datejs/build/date.js"></script>
-
-    <!-- Simplate -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
-
-    <!-- Argos SDK -->
-    <script type="text/javascript" src="../../argos-sdk/src/Application.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/ApplicationModule.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Utility.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Convert.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Format.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Toolbar.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/MainToolbar.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/View.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/List.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/GroupedList.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Detail.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Edit.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Calendar.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/Field.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/TextField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/DecimalField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/HiddenField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/EditorField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/AddressField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/NameField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/NoteField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/PhoneField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/BooleanField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/LookupField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/PicklistField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/SelectField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/DateField.js"></script>
-    <script type="text/javascript" src="../../argos-sdk/src/Controls/TextAreaField.js"></script>
-
-    <!-- Argos SalesLogix -->
-    <script type="text/javascript" src="src/Environment.js"></script>
-    <script type="text/javascript" src="src/Application.js"></script>
-    <script type="text/javascript" src="src/ApplicationModule.js"></script>
-    <script type="text/javascript" src="src/Format.js"></script>
-    <script type="text/javascript" src="src/Template.js"></script>
-    <script type="text/javascript" src="src/Validator.js"></script>
-    <script type="text/javascript" src="src/views/MainToolbar.js"></script>
-    <script type="text/javascript" src="src/views/FooterToolbar.js"></script>
-    <script type="text/javascript" src="src/views/UpdateToolbar.js"></script>
-    <script type="text/javascript" src="src/views/Home.js"></script>
-    <script type="text/javascript" src="src/views/Help.js"></script>
-    <script type="text/javascript" src="src/views/Login.js"></script>
-    <script type="text/javascript" src="src/views/PickList.js"></script>
-    <script type="text/javascript" src="src/views/NameEdit.js"></script>
-    <script type="text/javascript" src="src/views/TextEdit.js"></script>
-    <script type="text/javascript" src="src/views/Configure.js"></script>
-    <script type="text/javascript" src="src/views/Settings.js"></script>
-    <script type="text/javascript" src="src/views/SelectList.js"></script>
-    <script type="text/javascript" src="src/views/ContextDialog.js"></script>
-    <script type="text/javascript" src="src/views/AddAccountContact.js"></script>
-    <script type="text/javascript" src="src/views/AreaCategoryIssueLookup.js"></script>
-    <script type="text/javascript" src="src/views/address/Edit.js"></script>
-    <script type="text/javascript" src="src/views/account/List.js"></script>
-    <script type="text/javascript" src="src/views/account/Detail.js"></script>
-    <script type="text/javascript" src="src/views/account/Edit.js"></script>
-    <script type="text/javascript" src="src/views/activity/List.js"></script>
-    <script type="text/javascript" src="src/views/activity/Detail.js"></script>
-    <script type="text/javascript" src="src/views/activity/Edit.js"></script>
-    <script type="text/javascript" src="src/views/activity/Complete.js"></script>
-    <script type="text/javascript" src="src/views/activity/TypesList.js"></script>
-    <script type="text/javascript" src="src/views/calendar/MonthView.js"></script>
-    <script type="text/javascript" src="src/views/calendar/WeekView.js"></script>
-    <script type="text/javascript" src="src/views/calendar/UserActivityList.js"></script>
-    <script type="text/javascript" src="src/views/campaign/List.js"></script>
-    <script type="text/javascript" src="src/views/campaign/Detail.js"></script>
-    <script type="text/javascript" src="src/views/campaign/Edit.js"></script>
-    <script type="text/javascript" src="src/views/contact/List.js"></script>
-    <script type="text/javascript" src="src/views/contact/Detail.js"></script>
-    <script type="text/javascript" src="src/views/contact/Edit.js"></script>
-    <script type="text/javascript" src="src/views/contract/List.js"></script>
-    <script type="text/javascript" src="src/views/contract/Detail.js"></script>
-    <script type="text/javascript" src="src/views/contract/Edit.js"></script>
-    <script type="text/javascript" src="src/views/opportunity/List.js"></script>
-    <script type="text/javascript" src="src/views/opportunity/Detail.js"></script>
-    <script type="text/javascript" src="src/views/opportunity/Edit.js"></script>
-    <script type="text/javascript" src="src/views/opportunityproduct/List.js"></script>    
-    <script type="text/javascript" src="src/views/salesorder/List.js"></script>
-    <script type="text/javascript" src="src/views/salesorder/Detail.js"></script>
-    <script type="text/javascript" src="src/views/salesorder/Edit.js"></script>
-    <script type="text/javascript" src="src/views/lead/List.js"></script>
-    <script type="text/javascript" src="src/views/lead/Detail.js"></script>
-    <script type="text/javascript" src="src/views/lead/Edit.js"></script>
-    <script type="text/javascript" src="src/views/return/List.js"></script>
-    <script type="text/javascript" src="src/views/return/Detail.js"></script>
-    <script type="text/javascript" src="src/views/return/Edit.js"></script>
-    <script type="text/javascript" src="src/views/ticket/List.js"></script>
-    <script type="text/javascript" src="src/views/ticket/Detail.js"></script>
-    <script type="text/javascript" src="src/views/ticket/Edit.js"></script>
-    <script type="text/javascript" src="src/views/defect/List.js"></script>
-    <script type="text/javascript" src="src/views/defect/Detail.js"></script>
-    <script type="text/javascript" src="src/views/defect/Edit.js"></script>
-    <script type="text/javascript" src="src/views/defectproblem/Detail.js"></script>
-    <script type="text/javascript" src="src/views/defectproblem/Edit.js"></script>
-    <script type="text/javascript" src="src/views/defectsolution/Detail.js"></script>
-    <script type="text/javascript" src="src/views/defectsolution/Edit.js"></script>
-    <script type="text/javascript" src="src/views/history/List.js"></script>
-    <script type="text/javascript" src="src/views/history/Edit.js"></script>
-    <script type="text/javascript" src="src/views/history/Detail.js"></script>
-    <script type="text/javascript" src="src/views/user/List.js"></script>
-    <script type="text/javascript" src="src/views/owner/List.js"></script>
-    <script type="text/javascript" src="src/views/leadsource/List.js"></script>
-    <script type="text/javascript" src="src/views/ticket/UrgencyLookup.js"></script>
-
-    <script type="text/javascript" src="src/views/event/List.js"></script>
-    <script type="text/javascript" src="src/views/event/Detail.js"></script>
-    <script type="text/javascript" src="src/views/event/Edit.js"></script>
-
-    <!-- Configuration -->
-    <script type="text/javascript" src="configuration/development.js"></script>
-
-    <!-- Localization -->
-    <% foreach (var include in EnumerateLocalizations("localization")) { %>
-    <script type="text/javascript" src="<%= include.Path %>"></script>
-    <% } %>
-
-    <!-- Localization -->
+    <!-- DateJS Localization -->
     <% foreach (var include in EnumerateLocalizations("../../argos-sdk", "libraries/datejs/src/globalization")) { %>
     <script type="text/javascript" src="../../argos-sdk/<%= include.Path %>"></script>
     <% } %>
 
-    <script type="text/javascript">
-    Ext.onReady(function() {
-        var application = new Mobile.SalesLogix.Application({environment: 'development'});
+    <!-- Simplate -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
-        application.activate();
-        application.init();
-        application.run();
+    <!-- Dojo -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, cacheBust: 456"></script>
+    <script type="text/javascript">
+    require({
+        baseUrl: "./",
+        packages: [
+        { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
+        { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
+        { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
+        { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
+        { name: 'Mobile/SalesLogix', location: 'src' }
+    ]});
+    </script>
+
+    <script type="text/javascript">
+    Mobile = {};
+
+    require(['configuration/development', 'Mobile/SalesLogix/Application'], function(configuration) {
+        var localization = <%= Serialize(
+            EnumerateLocalizations("localization")
+                .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+        ) %>;
+        require(localization, function() {
+            var application = new Mobile.SalesLogix.Application(configuration);
+
+            application.activate();
+            application.init();
+            application.run();
+        });
+
     });
     </script>
 </head>
@@ -187,10 +91,16 @@
 </html>
 
 <script type="text/C#" runat="server">
-    public class EnumerationItem
+    protected class FileItem
     {
         public string Path { get; set; }
         public FileInfo File { get; set; }
+    }
+
+    protected string Serialize(object item)
+    {
+        var serializer = new JavaScriptSerializer();
+        return serializer.Serialize(item);
     }
 
     protected string ToRelativeUrlPath(DirectoryInfo rootDirectory, FileInfo file)
@@ -207,7 +117,7 @@
         throw new ApplicationException("Invalid root path specified.");
     }              
                 
-    protected IEnumerable<EnumerationItem> Enumerate(string path, Predicate<FileInfo> predicate)
+    protected IEnumerable<FileItem> Enumerate(string path, Predicate<FileInfo> predicate)
     {
         var rootDirectory = new DirectoryInfo(Path.GetDirectoryName(Request.PhysicalPath));
         var includeDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, path));
@@ -219,7 +129,7 @@
             if (predicate != null) files = files.Where(file => predicate(file));
 
             foreach (var file in files)            
-                yield return new EnumerationItem
+                yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, file),
                     File = file
@@ -227,22 +137,22 @@
         }
     }
 
-    protected IEnumerable<EnumerationItem> Enumerate(string path)
+    protected IEnumerable<FileItem> Enumerate(string path)
     {
         return Enumerate(path, (file) => true);
     }
 
-    protected IEnumerable<EnumerationItem> Enumerate(string path, Regex include)
+    protected IEnumerable<FileItem> Enumerate(string path, Regex include)
     {
         return Enumerate(path, (file) => include.IsMatch(file.Name));
     }
 
-    protected IEnumerable<EnumerationItem> EnumerateLocalizations(string path)
+    protected IEnumerable<FileItem> EnumerateLocalizations(string path)
     {
         return EnumerateLocalizations(String.Empty, path);
     }
 
-    protected IEnumerable<EnumerationItem> EnumerateLocalizations(string root, string path)
+    protected IEnumerable<FileItem> EnumerateLocalizations(string root, string path)
     {
         var currentCulture = System.Globalization.CultureInfo.CurrentUICulture;
         var rootDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(Request.PhysicalPath), root));
@@ -256,13 +166,13 @@
             var targetFile = new FileInfo(Path.Combine(includeDirectory.FullName, targetFileName)); 
                                   
             if (targetFile.Exists)            
-                yield return new EnumerationItem
+                yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, targetFile),
                     File = targetFile
                 };    
             else if (parentFile.Exists)
-                yield return new EnumerationItem
+                yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, parentFile),
                     File = targetFile
@@ -274,13 +184,13 @@
                 targetFile = new FileInfo(Path.Combine(moduleDirectory.FullName, targetFileName));
                 
                 if (targetFile.Exists)            
-                    yield return new EnumerationItem
+                    yield return new FileItem
                     {
                         Path = ToRelativeUrlPath(rootDirectory, targetFile),
                         File = targetFile
                     };    
                 else if (parentFile.Exists)
-                    yield return new EnumerationItem
+                    yield return new FileItem
                     {
                         Path = ToRelativeUrlPath(rootDirectory, parentFile),
                         File = targetFile
