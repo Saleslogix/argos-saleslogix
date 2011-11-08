@@ -520,8 +520,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 23, 59, 59);
         },
         getSelectedDateEventQuery: function(){
-            var startDate = this.currentDate.clone().clearTime(),
-                endDate = this.getEndOfDay();
             return dojo.string.substitute(
                     [
                         'UserId eq "${0}" and (',
@@ -530,8 +528,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                         ')'
                     ].join(''),
                     [App.context['user'] && App.context['user']['$key'],
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)]
+                    this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
+                    this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
         },
         onRequestSelectedDateActivityDataSuccess: function(feed){
