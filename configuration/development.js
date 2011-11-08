@@ -8,13 +8,9 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
             'crm': {
                 isDefault: true,
                 offline: true,
-                serverName: '50.16.242.109',
-                virtualDirectory: 'sdata',
-                applicationName: 'slx',
-                contractName: 'dynamic',
-                port: 80,
-                protocol: false,
-                json: true            }
+                url: 'http://50.16.242.109/sdata/slx/dynamic/-/',
+                json: true
+            }
         },
         enableUpdateNotification: true
     };
