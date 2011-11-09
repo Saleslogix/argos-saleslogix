@@ -127,11 +127,9 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             this.highlightCurrentDate();
         },
         requestYearData: function(){
-            var i,
-                year = this.currentDate.toString('yyyy'),
-                monthDate;
-            for(i = 1; i <= 12; i += 1){
-                monthDate = Date.parseExact(year+'-'+i+'-'+1, 'yyyy-M-d');
+            var year = this.currentDate.toString('yyyy');
+            for(var i = 1; i <= 12; i++){
+                var monthDate = Date.parseExact(year+'-'+i+'-'+1, 'yyyy-M-d');
                 this.requestActivityData(monthDate);
                 this.requestEventData(monthDate);
             }
@@ -223,13 +221,12 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         processFeed: function(feed) {
             var r = feed['$resources'],
                 row,
-                i,
                 feedLength = r.length,
                 startDay,
                 dateIndex,
                 dateCounts = {};
 
-            for(i = 0; i < feedLength; i += 1){
+            for(var i = 0; i < feedLength; i ++){
                 row = r[i];
                 startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.Activity.StartDate);
                 dateIndex = (r[i].Activity.Timeless)
@@ -244,7 +241,6 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         },
         processEventFeed: function(feed) {
             var r = feed['$resources'],
-                i,
                 feedLength = r.length,
                 row,
                 startDay,
@@ -252,7 +248,7 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                 dateIndex,
                 dateCounts = {};
 
-            for(i = 0; i < feedLength; i += 1){
+            for(var i = 0; i < feedLength; i++){
                 row = r[i];
                 startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate);
                 endDay = Sage.Platform.Mobile.Convert.toDateFromString(row.EndDate);
@@ -302,7 +298,7 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         renderCalendars: function(){
             var o = [],
                 year = this.currentDate.toString('yyyy');
-            for(var i = 1; i <= 12; i += 1){
+            for(var i = 1; i <= 12; i ++){
                 o.push(this.renderCalendar(year+'-'+i+'-'+1));
             }
             this.set('yearContent', o.join(''));
@@ -327,10 +323,10 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             calHTML.push(this.calendarWeekHeaderEndTemplate);
 
             //Weeks
-            for (i = 0; i <= 6; i++){
+            for (var i = 0; i <= 6; i++){
                 calHTML.push(this.calendarWeekStartTemplate);
                 //Days
-                for (j = 0; j <= 6; j++)
+                for (var j = 0; j <= 6; j++)
                 {
                     if (day <= monthLength && (i > 0 || j >= startingDay)){
                         dayDate.set({day:day});
@@ -342,7 +338,7 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                                                     dayDate.toString('yyyy-MM-dd')]
                                                    )
                                     );
-                        day += 1;
+                        day++;
                     }
                     else {
                         calHTML.push(this.calendarEmptyDayTemplate);
