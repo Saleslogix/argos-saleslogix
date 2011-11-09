@@ -236,9 +236,9 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
                             'StartDate lt @${2}@',
                         ')'
                     ].join(''),
-                    [App.context['user'] && App.context['user']['$key'],
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)]
+                [App.context['user'] && App.context['user']['$key'],
+                this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
+                this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
         },
         activateEventMore: function(){

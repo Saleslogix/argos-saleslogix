@@ -52,7 +52,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
         ],
 
         init: function() {
-            // Mobile.SalesLogix.History.Edit.superclass.init.apply(this, arguments);
+            this.inherited(arguments);
 
             dojo.connect(this.fields['Lead'], 'onchange', this.onLeadChange, this.onChange);
             dojo.connect(this.fields['IsLead'], 'onchange', this.onIsLeadChange, this.onChange);

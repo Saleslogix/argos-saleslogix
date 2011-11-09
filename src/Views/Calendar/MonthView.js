@@ -618,10 +618,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             calHTML.push(this.calendarWeekHeaderEndTemplate);
 
             //Weeks
-            for (i = 0; i <= 6; i+=1){
+            for (i = 0; i <= 6; i++){
                 calHTML.push(this.calendarWeekStartTemplate);
                 //Days
-                for (j = 0; j <= 6; j+=1)
+                for (j = 0; j <= 6; j++)
                 {
                     if (day <= monthLength && (i > 0 || j >= startingDay)){
                         dayDate.set({day:day});
