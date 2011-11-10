@@ -23,7 +23,25 @@ define('Mobile/SalesLogix/Environment', [], function() {
             },
             showMapForAddress: function(address) {
                 setTimeout(function() {
-                    window.location.href = dojo.string.substitute("http://maps.google.com/maps?q=${0}", [address]);
+                    var eventFire = function(node, eventType){
+                        if (node.fireEvent) { // for IE
+                            node.fireEvent('on' + eventType);
+                            node[eventType]();
+                        } else {
+                            var event = document.createEvent('Events');
+                            event.initEvent(eventType, true, false);
+                            node.dispatchEvent(event);
+                        }
+                    };
+
+                    var hiddenLink = document.createElement('a');
+                    hiddenLink.href = dojo.string.substitute("http://maps.google.com/maps?q=${0}", [address]);
+                    hiddenLink.target = '_blank';
+                    dojo.place(hiddenLink, document.body, 'last');
+
+                    eventFire(hiddenLink, 'click');
+
+                    document.body.removeChild(hiddenLink);
                 }, 50);
             }
         };
