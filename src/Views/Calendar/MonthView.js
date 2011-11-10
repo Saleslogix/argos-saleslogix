@@ -359,19 +359,14 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 );
         },
         processFeed: function(feed) {
-            var r = feed['$resources'],
-                row,
-                i,
-                feedLength = r.length,
-                startDay,
-                dateIndex;
+            var r = feed['$resources'];
             this.feed = feed;
 
-            for(i = 0; i < feedLength; i += 1){
-                row = r[i];
+            for(var i = 0; i < r.length; i++){
+                var row = r[i];
                 this.entries[row.Activity.$key] = row;
-                startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.Activity.StartDate);
-                dateIndex = (r[i].Activity.Timeless)
+                var startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.Activity.StartDate);
+                var dateIndex = (r[i].Activity.Timeless)
                     ? this.dateToUTC(startDay)
                     : startDay;
                 dateIndex = dateIndex.toString('yyyy-MM-dd');
@@ -391,7 +386,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 endDay;
             this.eventFeed = feed;
 
-            for(i = 0; i < feedLength; i += 1){
+            for(i = 0; i < feedLength; i ++){
                 row = r[i];
                 this.entries[row.$key] = row;
                 startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate);
@@ -535,13 +530,11 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         onRequestSelectedDateActivityDataSuccess: function(feed){
             dojo.removeClass(this.activityContainerNode, 'list-loading');
             var r = feed['$resources'],
-                row,
-                i,
                 feedLength = r.length,
                 o = [];
 
-            for(i = 0; i < feedLength; i += 1){
-                row = r[i];
+            for(var i = 0; i < feedLength; i++){
+                var row = r[i];
                 row.isEvent = false;
                 this.entries[row.Activity.$key] = row;
                 o.push(this.activityRowTemplate.apply(row, this));
@@ -565,7 +558,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         onRequestSelectedDateEventDataSuccess: function(feed){
             var r = feed['$resources'],
                 row,
-                i,
                 feedLength = r.length,
                 o = [];
             this.eventFeed = feed;
@@ -577,7 +569,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 this.showEventList();
             }
 
-            for(i = 0; i < feedLength; i += 1){
+            for(var i = 0; i < feedLength; i++){
                 row = r[i];
                 row.isEvent = true;
                 this.entries[row.$key] = row;
@@ -601,8 +593,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 startingDay = this.getFirstDayOfCurrentMonth().getDay(),
                 dayClass = '',
                 weekendClass = '',
-                i = 0,
-                j = 0,
                 day = 1,
                 dayDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1,0,0,0,0),
                 today = Date.today().clearTime(),
@@ -612,16 +602,16 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             calHTML.push(this.calendarStartTemplate);
 
             calHTML.push(this.calendarWeekHeaderStartTemplate);
-            for(i = 0; i <= 6; i++ ){
+            for(var i = 0; i <= 6; i++ ){
                 calHTML.push(dojo.string.substitute(this.calendarWeekHeaderTemplate, [Date.CultureInfo.abbreviatedDayNames[i]]));
             }
             calHTML.push(this.calendarWeekHeaderEndTemplate);
 
             //Weeks
-            for (i = 0; i <= 6; i+=1){
+            for (var i = 0; i <= 6; i++){
                 calHTML.push(this.calendarWeekStartTemplate);
                 //Days
-                for (j = 0; j <= 6; j+=1)
+                for (var j = 0; j <= 6; j++)
                 {
                     if (day <= monthLength && (i > 0 || j >= startingDay)){
                         dayDate.set({day:day});
@@ -633,7 +623,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                                                     dayDate.toString('yyyy-MM-dd')]
                                                    )
                                     );
-                        day += 1;
+                        day++;
                     }
                     else {
                         calHTML.push(this.calendarEmptyDayTemplate);

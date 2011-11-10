@@ -283,8 +283,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             else if (feed['$resources'])
             {
                 var todayNode = this.addTodayDom(),
-                    i,
-                    feedLength=feed['$resources'].length,
                     startDate,
                     currentEntry,
                     entryGroups = this.entryGroups,
@@ -297,7 +295,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                 if(todayNode && !entryGroups[this.todayDate.toString(dateCompareString)])
                     entryGroups[this.todayDate.toString(dateCompareString)] = [todayNode];
 
-                for(i = 0; i < feedLength; i+=1){
+                for(var i = 0; i < feed['$resources'].length; i++){
                     currentEntry = feed['$resources'][i];
                     startDate = Sage.Platform.Mobile.Convert.toDateFromString(currentEntry.Activity.StartDate);
                     if(currentEntry.Activity.Timeless){
@@ -330,7 +328,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                 });
 
                 entryOrderLength = entryOrder.length;
-                for(i = 0; i < entryOrderLength; i+= 1){
+                for(var i = 0; i < entryOrderLength; i++){
                     o.push(entryGroups[entryOrder[i].toString(dateCompareString)].join('') + this.groupEndTemplate.apply(this));
                 }
 
@@ -408,8 +406,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                         ')'
                     ].join(''),
                     [App.context['user'] && App.context['user']['$key'],
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)]
+                    startDate.toString('yyyy-MM-ddT00:00:00Z'),
+                    endDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
         },
         hideEventList: function(){
@@ -421,7 +419,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         processEventFeed: function(feed){
             var o = [],
                 event,
-                i=0,
                 feedLength = feed['$resources'].length;
 
             if(feedLength === 0){
@@ -431,7 +428,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                 this.showEventList();
             }
 
-            for(i = 0; i < feedLength; i += 1){
+            for(var i = 0; i < feedLength; i++){
                 event = feed['$resources'][i];
                 event.isEvent = true;
                 event.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(event.StartDate);

@@ -73,6 +73,7 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         expose: false,
         dateCounts: {},
         currentDate: Date.today(),
+        selectedDateNode: null,
 
         pageSize: 500,
         queryWhere: null,
@@ -123,13 +124,12 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         refresh: function(){
             this.renderCalendars();
             this.requestYearData();
+            this.highlightCurrentDate();
         },
         requestYearData: function(){
-            var i,
-                year = this.currentDate.toString('yyyy'),
-                monthDate;
-            for(i = 1; i <= 12; i += 1){
-                monthDate = Date.parseExact(year+'-'+i+'-'+1, 'yyyy-M-d');
+            var year = this.currentDate.toString('yyyy');
+            for(var i = 1; i <= 12; i++){
+                var monthDate = Date.parseExact(year+'-'+i+'-'+1, 'yyyy-M-d');
                 this.requestActivityData(monthDate);
                 this.requestEventData(monthDate);
             }
@@ -214,20 +214,19 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                         ')'
                     ].join(''),
                     [App.context['user'] && App.context['user']['$key'],
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)]
+                    startDate.toString('yyyy-MM-ddT00:00:00Z'),
+                    endDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
         },
         processFeed: function(feed) {
             var r = feed['$resources'],
                 row,
-                i,
                 feedLength = r.length,
                 startDay,
                 dateIndex,
                 dateCounts = {};
 
-            for(i = 0; i < feedLength; i += 1){
+            for(var i = 0; i < feedLength; i ++){
                 row = r[i];
                 startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.Activity.StartDate);
                 dateIndex = (r[i].Activity.Timeless)
@@ -242,7 +241,6 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         },
         processEventFeed: function(feed) {
             var r = feed['$resources'],
-                i,
                 feedLength = r.length,
                 row,
                 startDay,
@@ -250,7 +248,7 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                 dateIndex,
                 dateCounts = {};
 
-            for(i = 0; i < feedLength; i += 1){
+            for(var i = 0; i < feedLength; i++){
                 row = r[i];
                 startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate);
                 endDay = Sage.Platform.Mobile.Convert.toDateFromString(row.EndDate);
@@ -298,24 +296,18 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             this.set('dateContent', this.currentDate.toString(this.yearTitleFormatText));
         },
         renderCalendars: function(){
-            var i,
-                o = [],
+            var o = [],
                 year = this.currentDate.toString('yyyy');
-            for(i = 1; i <= 12; i += 1){
+            for(var i = 1; i <= 12; i ++){
                 o.push(this.renderCalendar(year+'-'+i+'-'+1));
             }
             this.set('yearContent', o.join(''));
-            this.highlightCurrentDate();
             this.setDateTitle();
         },
         renderCalendar: function(dateString) {
             var calHTML = [],
-                startDate = Date.parseExact(dateString, 'yyyy-M-d');
+                startDate = Date.parseExact(dateString, 'yyyy-M-d'),
                 startingDay = startDate.getDay(),
-                dayClass = '',
-                weekendClass = '',
-                i = 0,
-                j = 0,
                 day = 1,
                 dayDate = startDate.clone(),
                 today = Date.today().clearTime(),
@@ -325,28 +317,28 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             calHTML.push(this.calendarStartTemplate);
             calHTML.push(dojo.string.substitute(this.calendarWeekHeaderStartTemplate, [startDate.toString('MMMM')]));
 
-            for(i = 0; i <= 6; i++ ){
+            for(var i = 0; i <= 6; i++ ){
                 calHTML.push(dojo.string.substitute(this.calendarWeekHeaderTemplate, [Date.CultureInfo.abbreviatedDayNames[i]]));
             }
             calHTML.push(this.calendarWeekHeaderEndTemplate);
 
             //Weeks
-            for (i = 0; i <= 6; i+=1){
+            for (var i = 0; i <= 6; i++){
                 calHTML.push(this.calendarWeekStartTemplate);
                 //Days
-                for (j = 0; j <= 6; j+=1)
+                for (var j = 0; j <= 6; j++)
                 {
                     if (day <= monthLength && (i > 0 || j >= startingDay)){
                         dayDate.set({day:day});
-                        dayClass = (dayDate.equals(today)) ? 'today' : '';
-                        weekendClass = (weekEnds.indexOf(j) !== -1) ? ' weekend' : '';
+                        var dayClass = (dayDate.equals(today)) ? 'today' : '';
+                        var weekendClass = (weekEnds.indexOf(j) !== -1) ? ' weekend' : '';
                         calHTML.push(dojo.string.substitute(this.calendarDayTemplate,
                                                     [day,
                                                     (dayClass + weekendClass),
                                                     dayDate.toString('yyyy-MM-dd')]
                                                    )
                                     );
-                        day += 1;
+                        day++;
                     }
                     else {
                         calHTML.push(this.calendarEmptyDayTemplate);
@@ -377,10 +369,8 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             }
         },
         highlightCurrentDate: function(){
-            var selectedDate = dojo.string.substitute('.calendar-day[data-date=${0}]', [this.currentDate.toString('yyyy-MM-dd')]);
-            if (this.selectedDateNode) dojo.removeClass(this.selectedDateNode, 'selected');
-            this.selectedDateNode = dojo.query(selectedDate, this.contentNode)[0];
-            dojo.addClass(this.selectedDateNode, 'selected');
+            var dateQuery = dojo.string.substitute('td.calendar-day[data-date="${0}"]', [this.currentDate.toString('yyyy-MM-dd')]);
+            this.selectDay({date:this.currentDate}, null, dojo.query(dateQuery, this.yearContentNode)[0]);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.activityMonthView),

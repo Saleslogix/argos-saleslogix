@@ -52,7 +52,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
         ],
 
         init: function() {
-            // Mobile.SalesLogix.History.Edit.superclass.init.apply(this, arguments);
+            this.inherited(arguments);
 
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
             this.connect(this.fields['IsLead'], 'onChange', this.onIsLeadChange);

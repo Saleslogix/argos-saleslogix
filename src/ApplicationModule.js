@@ -58,6 +58,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/TicketActivity/Edit',
     'Mobile/SalesLogix/Views/TicketActivity/RateLookup',
     'Mobile/SalesLogix/Views/TicketActivityItem/List',
+    'Mobile/SalesLogix/Views/TicketActivityItem/Edit',
+    'Mobile/SalesLogix/Views/TicketActivityItem/ProductList',
     'Mobile/SalesLogix/Views/History/List',
     'Mobile/SalesLogix/Views/History/Detail',
     'Mobile/SalesLogix/Views/History/Edit',
@@ -159,6 +161,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
             }));
 
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List());
+            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.Edit());
+            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.ProductList());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List({
                 id: 'ticket_activity_item_list_related',
                 expose: false
@@ -228,14 +232,34 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 //todo: Limit visibility to Meeting or PhoneCall Type only
                 dojo.extend(Mobile.SalesLogix.Views.Activity.Detail, {
                     querySelect: Mobile.SalesLogix.Views.Activity.Detail.prototype.querySelect.concat([
-                        'Location'])
+                        'Location']),
+                    isLocationAware: function(){
+                        var activityType = this.entry['Type'],
+                            locationAwareTypes = ['atAppointment', 'atPhoneCall'];
+                        return (dojo.indexOf(locationAwareTypes, activityType) === -1);
+                    }
                 });
+                dojo.extend(Mobile.SalesLogix.Views.Activity.Edit, {
+                    setValues: function(values){
+                        Mobile.SalesLogix.Views.Activity.Edit.superclass.setValues.apply(this, arguments);
+                        this.isLocationAware(values['Type']);
+                    },
+                    isLocationAware: function(activityType){
+                        var locationAwareTypes = ['atAppointment', 'atPhoneCall'];
+                        if(dojo.indexOf(locationAwareTypes, activityType) === -1)
+                            this.fields['Location'].hide();
+                        else
+                            this.fields['Location'].show();
+                    }
+                });
+
                 this.registerCustomization('detail', 'activity_detail', {
                     at: function(row) { return row.name === 'Priority'; },
                     type: 'insert',
                     where: 'before',
                     value: {
                         name: 'Location',
+                        exclude: Mobile.SalesLogix.Views.Activity.Detail.prototype.isLocationAware,
                         label: Mobile.SalesLogix.Views.Activity.Detail.prototype.locationText
                     }
                 });

@@ -236,9 +236,9 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
                             'StartDate lt @${2}@',
                         ')'
                     ].join(''),
-                    [App.context['user'] && App.context['user']['$key'],
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(startDate),
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(endDate)]
+                [App.context['user'] && App.context['user']['$key'],
+                this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
+                this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
         },
         activateEventMore: function(){
@@ -256,7 +256,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         processEventFeed: function(feed){
             var r = feed['$resources'],
                 row,
-                i,
                 feedLength = r.length,
                 o = [];
             this.eventFeed = feed;
@@ -268,7 +267,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
                 this.showEventList();
             }
 
-            for(i = 0; i < feedLength; i += 1){
+            for(var i = 0; i < feedLength; i++){
                 row = r[i];
                 row.isEvent = true;
                 this.entries[row.$key] = row;
@@ -288,14 +287,12 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         },
         processFeed: function(feed) {
             var r = feed['$resources'],
-                row,
-                i,
                 feedLength = r.length,
                 o = [];
 
             this.feed = feed;
-            for(i = 0; i < feedLength; i += 1){
-                row = r[i];
+            for(var i = 0; i < feedLength; i++){
+                var row = r[i];
                 row.isEvent = false;
                 this.entries[row.Activity.$key] = row;
                 o.push(this.rowTemplate.apply(row, this));

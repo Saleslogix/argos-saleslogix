@@ -18,7 +18,9 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
 
         //View Properties
         id: 'ticket_activity_item_list',
-        security: 'Entities/TicketActivityPart/View',
+        insertView: 'ticket_activity_item_edit',
+        insertSecurity: 'Entities/TicketActivityItem/Add',
+        security: 'Entities/TicketActivityItem/View',
         icon: 'content/images/icons/product_24.png',
         querySelect: [
             'Product/Name',
