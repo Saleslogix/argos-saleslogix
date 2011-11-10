@@ -123,12 +123,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         init: function() {
             this.inherited(arguments);
 
-            dojo.connect(this.fields['Lead'], 'onchange', this, this.onLeadChange);
-
-            dojo.connect(this.fields['IsLead'], 'onchange', this, this.onIsLeadChange);
-            dojo.connect(this.fields['Leader'], 'onchange', this, this.onLeaderChange);
-            dojo.connect(this.fields['Timeless'], 'onchange', this, this.onTimelessChange);
-            dojo.connect(this.fields['Alarm'], 'change', this, this.onAlarmChange);
+            this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
+            this.connect(this.fields['IsLead'], 'onChange', this.onIsLeadChange);
+            this.connect(this.fields['Leader'], 'onChange', this.onLeaderChange);
+            this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
+            this.connect(this.fields['Alarm'], 'onChange', this.onAlarmChange);
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['UserId'] === App.context['user']['$key']);

@@ -123,11 +123,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
         init: function() {
             this.inherited(arguments);
 
-            dojo.connect(this.fields['Leader'], 'onchange', this.onLeaderChange, this.onChange);
-            dojo.connect(this.fields['Timeless'], 'onchange', this.onTimelessChange, this.onChange);
-            dojo.connect(this.fields['AsScheduled'], 'onchange', this.onAsScheduledChange, this.onChange);
-            dojo.connect(this.fields['Followup'], 'onchange', this.onFollowupChange, this.onChange);
-            dojo.connect(this.fields['Lead'], 'onchange', this.onLeadChange, this.onChange);
+            this.connect(this.fields['Leader'], 'onChange', this.onLeaderChange);
+            this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
+            this.connect(this.fields['AsScheduled'], 'onChange', this.onAsScheduledChange);
+            this.connect(this.fields['Followup'], 'onChange', this.onFollowupChange);
+            this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);

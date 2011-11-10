@@ -95,7 +95,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
         init: function() {
             this.inherited(arguments);
 
-            dojo.connect(this.fields['Account'], 'onchange', this.onAccountChange, this.onChange);
+            this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
         },
         onAccountChange: function(value, field) {
             var selection = field.getSelection();

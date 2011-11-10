@@ -133,30 +133,28 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                options: {
-                    list: true,
-                    title: this.actionsText,
-                    cls: 'action-list'
-                },
-                as: [{
-                    name: 'MainPhone',
+                title: this.actionsText,
+                list: true,
+                cls: 'action-list',
+                children: [{
+                    property: 'MainPhone',
                     label: this.callMainNumberText,
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callMainPhone',
                     disabled: this.checkMainPhone,
                     renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false) 
                 },{
-                    name: 'AccountName',
+                    property: 'AccountName',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',  
                     action: 'scheduleActivity'
                 },{
-                    name: 'AccountName',
+                    property: 'AccountName',
                     label: this.addNoteText,
                     icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 },{
-                    name: 'Address',
+                    property: 'Address',
                     label: this.viewAddressText,
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
@@ -164,60 +162,54 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                     renderer: Mobile.SalesLogix.Format.address.bindDelegate(this, true, ' ')
                 }]
             },{
-                options: {
-                    title: this.detailsText
-                },
-                as: [{
-                    name: 'AccountName',
+                title: this.detailsText,
+                children: [{
+                    property: 'AccountName',
                     label: this.accountText
                 },{
-                    name: 'WebAddress',
+                    property: 'WebAddress',
                     label: this.webText,
                     renderer: Mobile.SalesLogix.Format.link
                 },{
-                    name: 'Fax',
+                    property: 'Fax',
                     label: this.faxText,
                     renderer: Mobile.SalesLogix.Format.phone
                 },{
-                    name: 'Type',
+                    property: 'Type',
                     label: this.typeText
                 },{
-                    name: 'SubType',
+                    property: 'SubType',
                     label: this.subTypeText
                 },{
-                    name: 'Status',
+                    property: 'Status',
                     label: this.statusText
                 }]
             },{
-                options: {
-                    title: this.moreDetailsText,
-                    collapsed: true
-                },
-                as: [{
-                    name: 'Industry',
+                title: this.moreDetailsText,
+                collapsed: true,
+                children: [{
+                    property: 'Industry',
                     label: this.industryText,
                     type: 'text'
                 },{
-                    name: 'BusinessDescription',
+                    property: 'BusinessDescription',
                     label: this.businessDescriptionText,
                     type: 'text'
                 },{
-                    name: 'AccountManager.UserInfo',
+                    property: 'AccountManager.UserInfo',
                     label: this.acctMgrText,
                     tpl: Mobile.SalesLogix.Template.nameLF
                 },{
-                    name: 'Owner.OwnerDescription',
+                    property: 'Owner.OwnerDescription',
                     label: this.ownerText
                 },{
-                    name: 'LeadSource.Description',
+                    property: 'LeadSource.Description',
                     label: this.importSourceText
                 }]
             },{
-                options: {
-                    list: true,
-                    title: this.relatedItemsText
-                },
-                as: [{
+                title: this.relatedItemsText,
+                list: true,
+                children: [{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}"'),

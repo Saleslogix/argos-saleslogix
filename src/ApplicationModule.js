@@ -9,7 +9,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
     'Mobile/SalesLogix/Views/AddAccountContact',
     'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
-    'Mobile/SalesLogix/Views/ContextDialog',
     'Mobile/SalesLogix/Views/MainToolbar',
     'Mobile/SalesLogix/Views/FooterToolbar',
     'Mobile/SalesLogix/Views/Home',
@@ -84,7 +83,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Mobile.SalesLogix.Views.Configure());
             this.registerView(new Mobile.SalesLogix.Views.PickList());
             this.registerView(new Mobile.SalesLogix.Views.SelectList());
-            this.registerView(new Mobile.SalesLogix.Views.ContextDialog());
             this.registerView(new Mobile.SalesLogix.Views.AddAccountContact());
             this.registerView(new Mobile.SalesLogix.Views.AreaCategoryIssueLookup());
 

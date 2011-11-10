@@ -65,114 +65,100 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
             this.fields['Owner'].setValue(App.context['defaultOwner']);
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    label: this.accountText,
-                    name: 'AccountName',
-                    type: 'text',
-                    validator: Mobile.SalesLogix.Validator.hasText
-                },
-                {
-                    label: this.webText,
-                    name: 'WebAddress',
-                    renderer: Mobile.SalesLogix.Format.link,
-                    type: 'text',
-                    inputType: 'url',
-                    maxTextLength: 128,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    label: this.phoneText,
-                    name: 'MainPhone',
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    emptyText: '',
-                    formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, [true], true),
-                    label: this.fullAddressText,
-                    name: 'Address',
-                    type: 'address',
-                    view: 'address_edit'
-                },
-                {
-                    label: this.faxText,
-                    name: 'Fax',
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    label: this.typeText,
-                    name: 'Type',
-                    picklist: 'Account Type',
-                    requireSelection: true,
-                    title: this.accountTypeTitleText,
-                    type: 'picklist'
-                },
-                {
-                    dependsOn: 'Type',
-                    label: this.subTypeText,
-                    name: 'SubType',
-                    picklist: this.formatDependentPicklist.bindDelegate(
-                        this, 'Account ${0}', true
-                    ),
-                    requireSelection: false,
-                    title: this.accountSubTypeTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    label: this.statusText,
-                    name: 'Status',
-                    picklist: 'Account Status',
-                    requireSelection: false,
-                    title: this.accountStatusTitleText,
-                    type: 'picklist'
-                },
-                {
-                    label: this.industryText,
-                    name: 'Industry',
-                    picklist: 'Industry',
-                    requireSelection: false,
-                    title: this.industryTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    label: this.businessDescriptionText,
-                    name: 'BusinessDescription',
-                    noteProperty: false,
-                    title: this.businessDescriptionTitleText,
-                    type: 'note',
-                    view: 'text_edit'
-                },
-                {
-                    label: this.acctMgrText,
-                    name: 'AccountManager',
-                    textProperty: 'UserInfo',
-                    textTemplate: Mobile.SalesLogix.Template.nameLF,
-                    type: 'lookup',
-                    view: 'user_list'
-                },
-                {
-                    label: this.ownerText,
-                    name: 'Owner',
-                    textProperty: 'OwnerDescription',
-                    type: 'lookup',
-                    view: 'owner_list'
-                },
-                {
-                    label: this.importSourceText,
-                    name: 'LeadSource',
-                    textProperty: 'Description',
-                    type: 'lookup',
-                    view: 'leadsource_list'
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                label: this.accountText,
+                property: 'AccountName',
+                type: 'text',
+                validator: Mobile.SalesLogix.Validator.hasText
+            },{
+                label: this.webText,
+                property: 'WebAddress',
+                renderer: Mobile.SalesLogix.Format.link,
+                type: 'text',
+                inputType: 'url',
+                maxTextLength: 128,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },{
+                label: this.phoneText,
+                property: 'MainPhone',
+                type: 'phone',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },{
+                emptyText: '',
+                formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, [true], true),
+                label: this.fullAddressText,
+                property: 'Address',
+                type: 'address',
+                view: 'address_edit'
+            },{
+                label: this.faxText,
+                property: 'Fax',
+                type: 'phone',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },{
+                label: this.typeText,
+                property: 'Type',
+                picklist: 'Account Type',
+                requireSelection: true,
+                title: this.accountTypeTitleText,
+                type: 'picklist'
+            },{
+                dependsOn: 'Type',
+                label: this.subTypeText,
+                property: 'SubType',
+                picklist: this.formatDependentPicklist.bindDelegate(
+                    this, 'Account ${0}', true
+                ),
+                requireSelection: false,
+                title: this.accountSubTypeTitleText,
+                type: 'picklist',
+                maxTextLength: 64,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },{
+                label: this.statusText,
+                property: 'Status',
+                picklist: 'Account Status',
+                requireSelection: false,
+                title: this.accountStatusTitleText,
+                type: 'picklist'
+            },{
+                label: this.industryText,
+                property: 'Industry',
+                picklist: 'Industry',
+                requireSelection: false,
+                title: this.industryTitleText,
+                type: 'picklist',
+                maxTextLength: 64,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },{
+                label: this.businessDescriptionText,
+                property: 'BusinessDescription',
+                noteProperty: false,
+                title: this.businessDescriptionTitleText,
+                type: 'note',
+                view: 'text_edit'
+            },{
+                label: this.acctMgrText,
+                property: 'AccountManager',
+                textProperty: 'UserInfo',
+                textTemplate: Mobile.SalesLogix.Template.nameLF,
+                type: 'lookup',
+                view: 'user_list'
+            },{
+                label: this.ownerText,
+                property: 'Owner',
+                textProperty: 'OwnerDescription',
+                type: 'lookup',
+                view: 'owner_list'
+            },{
+                label: this.importSourceText,
+                property: 'LeadSource',
+                textProperty: 'Description',
+                type: 'lookup',
+                view: 'leadsource_list'
+            }]);
         }
     });
 });

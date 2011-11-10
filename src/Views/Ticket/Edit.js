@@ -70,10 +70,10 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
         init: function() {
             this.inherited(arguments);
 
-            dojo.connect(this.fields['Account'], 'onchange', this.onAccountChange, this.onChange);
-            dojo.connect(this.fields['Account'], 'onchange', this.onUrgencyChange, this.onChange);
-            dojo.connect(this.fields['Account'], 'onchange', this.onAreaChange, this.onChange);
-            dojo.connect(this.fields['Account'], 'onchange', this.onCategoryChange, this.onChange);
+            this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+            this.connect(this.fields['Account'], 'onChange', this.onUrgencyChange);
+            this.connect(this.fields['Account'], 'onChange', this.onAreaChange);
+            this.connect(this.fields['Account'], 'onChange', this.onCategoryChange);
         },
         setValues: function(entry) {
             this.inherited(arguments);

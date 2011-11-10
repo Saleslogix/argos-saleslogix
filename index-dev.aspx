@@ -54,7 +54,7 @@
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
     <!-- Dojo -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, cacheBust: 456"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true"></script>
     <script type="text/javascript">
     require({
         baseUrl: "./",

@@ -61,7 +61,8 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
         ],
         init: function() {
             this.inherited(arguments);
-            dojo.connect(this.fields['Contacts.$resources[0].Address'], 'onchange', this, this.onContactAddressChange);
+
+            this.connect(this.fields['Contacts.$resources[0].Address'], 'onChange', this.onContactAddressChange);
         },
         getValues: function(values) {
             var U = Sage.Platform.Mobile.Utility,
