@@ -242,14 +242,18 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 dojo.extend(Mobile.SalesLogix.Views.Activity.Edit, {
                     setValues: function(values){
                         Mobile.SalesLogix.Views.Activity.Edit.superclass.setValues.apply(this, arguments);
-                        this.isLocationAware(values['Type']);
+                        this.isLocationAware(this.options && this.options.activityType);
                     },
                     isLocationAware: function(activityType){
                         var locationAwareTypes = ['atAppointment', 'atPhoneCall'];
                         if(dojo.indexOf(locationAwareTypes, activityType) === -1)
+                        {
                             this.fields['Location'].hide();
+                        }
                         else
+                        {
                             this.fields['Location'].show();
+                        }
                     }
                 });
 
