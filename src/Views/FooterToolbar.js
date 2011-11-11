@@ -4,9 +4,9 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/FooterToolbar', ['Sage/Platform/Mobile/Toolbar'], function() {
+define('Mobile/SalesLogix/Views/FooterToolbar', ['Sage/Platform/Mobile/MainToolbar'], function() {
 
-    return dojo.declare('Mobile.SalesLogix.Views.FooterToolbar', [Sage.Platform.Mobile.Toolbar], {
+    return dojo.declare('Mobile.SalesLogix.Views.FooterToolbar', [Sage.Platform.Mobile.MainToolbar], {
         // Localization
         copyrightText: '&copy; 2011 Sage Software, Inc. All rights reserved.',
         logOutConfirmText: 'Are you sure you want to log out?',
@@ -77,7 +77,7 @@ define('Mobile/SalesLogix/Views/FooterToolbar', ['Sage/Platform/Mobile/Toolbar']
             }
 
             // skip parent implementation
-            this.inherited(arguments);
+            Sage.Platform.Mobile.MainToolbar.superclass.showTools.apply(this, arguments);
 
             if (tools)
             {
