@@ -508,12 +508,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                name: 'Type',
+                property: 'Type',
                 type: 'hidden'
             },{
                 dependsOn: 'Type',
                 label: this.regardingText,
-                name: 'Description',
+                property: 'Description',
                 picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
                 title: this.activityDescriptionTitleText,
                 orderBy: 'text asc',
@@ -522,7 +522,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },{
                 label: this.priorityText,
-                name: 'Priority',
+                property: 'Priority',
                 picklist: 'Priorities',
                 title: this.priorityTitleText,
                 type: 'picklist',
@@ -531,7 +531,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             },{
                 dependsOn: 'Type',
                 label: this.categoryText,
-                name: 'Category',
+                property: 'Category',
                 picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
                 orderBy: 'text asc',
                 title: this.activityCategoryTitleText,
@@ -540,7 +540,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },{
                 label: this.startingText,
-                name: 'StartDate',
+                property: 'StartDate',
                 type: 'date',
                 showTimePicker: true,
                 dateFormatText: this.startingFormatText,
@@ -551,36 +551,36 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 ]
             },{
                 label: this.timelessText,
-                name: 'Timeless',
+                property: 'Timeless',
                 type: 'boolean'
             },{
                 label: this.durationText,
-                name: 'Duration',
+                property: 'Duration',
                 type: 'duration',
                 view: 'select_list',
                 title: this.durationTitleText,
                 data: this.createReminderData()
             },{
-                name: 'Alarm',
+                property: 'Alarm',
                 label: this.alarmText,
                 type: 'boolean'
             },{
                 label: this.reminderText,
                 title: this.reminderTitleText,
-                name: 'Reminder',
+                property: 'Reminder',
                 type: 'duration',
                 view: 'select_list',
                 data: this.createReminderData()
             },{
                 label: this.rolloverText,
-                name: 'Rollover',
+                property: 'Rollover',
                 type: 'boolean'
             },{
                 type: 'hidden',
-                name: 'UserId'
+                property: 'UserId'
             },{
                 label: this.leaderText,
-                name: 'Leader',
+                property: 'Leader',
                 include: false,
                 type: 'lookup',
                 textProperty: 'UserInfo',
@@ -590,20 +590,20 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             },{
                 label: this.longNotesText,
                 noteProperty: false,
-                name: 'LongNotes',
+                property: 'LongNotes',
                 title: this.longNotesTitleText,
                 type: 'note',
                 view: 'text_edit'
             },{
                 label: this.isLeadText,
-                name: 'IsLead',
+                property: 'IsLead',
                 include: false,
                 type: 'boolean',
                 onText: this.yesText,
                 offText: this.noText
             },{
                 label: this.accountText,
-                name: 'Account',
+                property: 'Account',
                 type: 'lookup',
                 emptyText: '',
                 applyTo: '.',
@@ -625,7 +625,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             },{
                 dependsOn: 'Account',
                 label: this.contactText,
-                name: 'Contact',
+                property: 'Contact',
                 type: 'lookup',
                 emptyText: '',
                 applyTo: '.',
@@ -638,7 +638,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             },{
                 dependsOn: 'Account',
                 label: this.opportunityText,
-                name: 'Opportunity',
+                property: 'Opportunity',
                 type: 'lookup',
                 emptyText: '',
                 applyTo: '.',
@@ -651,7 +651,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             },{
                 dependsOn: 'Account',
                 label: this.ticketNumberText,
-                name: 'Ticket',
+                property: 'Ticket',
                 type: 'lookup',
                 emptyText: '',
                 applyTo: '.',
@@ -663,7 +663,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 )
             },{
                 label: this.leadText,
-                name: 'Lead',
+                property: 'Lead',
                 type: 'lookup',
                 emptyText: '',
                 applyTo: '.',
@@ -672,7 +672,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 view: 'lead_related'
             },{
                 label: this.companyText,
-                name: 'AccountName',
+                property: 'AccountName',
                 type: 'text'
             }]);
         }

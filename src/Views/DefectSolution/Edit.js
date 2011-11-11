@@ -17,13 +17,11 @@ define('Mobile/SalesLogix/Views/DefectSolution/Edit', ['Sage/Platform/Mobile/Edi
             'Notes'
         ],
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    name: 'Notes',
-                    label: this.notesText,
-                    type: 'text'
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                property: 'Notes',
+                label: this.notesText,
+                type: 'text'
+            }]);
         }
     });
 });

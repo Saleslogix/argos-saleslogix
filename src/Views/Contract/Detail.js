@@ -64,76 +64,71 @@ define('Mobile/SalesLogix/Views/Contract/Detail', ['Sage/Platform/Mobile/Detail'
             }];
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    label: this.refNumText,
-                    name: 'ReferenceNumber'
-                },
-                {
-                    key: 'Account.$key',
-                    label: this.accountText,
-                    name: 'Account.AccountName',
-                    property: true,
-                    view: 'account_detail'
-                },
-                {
-                    label: this.contactText,
-                    name: 'Contact.NameLF'
-                },
-                {
-                    name: 'ServiceCode',
-                    label: this.svcTypeText
-                },
-                {
-                    label: this.contractTypeText,
-                    name: 'TypeCode'
-                },
-                {
-                    label: this.quantityText,
-                    name: 'Period'
-                },
-                {
-                    label: this.remainingText,
-                    name: 'Remaining'
-                },
-                {
-                    label: this.startText,
-                    name: 'StartDate',
-                    renderer: Mobile.SalesLogix.Format.date
-                },
-                {
-                    label: this.endText,
-                    name: 'EndingDate',
-                    renderer: Mobile.SalesLogix.Format.date
-                },
-                {
-                    label: this.activeText,
-                    name: 'IsActive'
-                },
-                {
-                    label: this.createUserText,
-                    name: 'CreateUser'
-                },
-                {
-                    label: this.createDateText,
-                    name: 'CreateDate',
-                    renderer: Mobile.SalesLogix.Format.date
-                },
-                {
-                    options: {
-                        list: true,
-                        title: this.relatedItemsText
-                    },
-                    as: [{
-                        icon: 'content/images/ticket_16x16.gif',
-                        label: this.relatedTicketsText,
-                        view: 'ticket_related',
-                        where: this.formatAccountRelatedQuery.bindDelegate(
-                            this, 'Account.id eq "${0}"'
-                        )
-                    }]
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                label: this.refNumText,
+                property: 'ReferenceNumber'
+            },
+            {
+                key: 'Account.$key',
+                label: this.accountText,
+                name: 'Account.AccountName',
+                view: 'account_detail'
+            },
+            {
+                label: this.contactText,
+                property: 'Contact.NameLF'
+            },
+            {
+                property: 'ServiceCode',
+                label: this.svcTypeText
+            },
+            {
+                label: this.contractTypeText,
+                property: 'TypeCode'
+            },
+            {
+                label: this.quantityText,
+                property: 'Period'
+            },
+            {
+                label: this.remainingText,
+                property: 'Remaining'
+            },
+            {
+                label: this.startText,
+                property: 'StartDate',
+                renderer: Mobile.SalesLogix.Format.date
+            },
+            {
+                label: this.endText,
+                property: 'EndingDate',
+                renderer: Mobile.SalesLogix.Format.date
+            },
+            {
+                label: this.activeText,
+                property: 'IsActive'
+            },
+            {
+                label: this.createUserText,
+                property: 'CreateUser'
+            },
+            {
+                label: this.createDateText,
+                name: 'CreateDate',
+                renderer: Mobile.SalesLogix.Format.date
+            },
+            {
+                list: true,
+                title: this.relatedItemsText,
+                children: [{
+                    icon: 'content/images/ticket_16x16.gif',
+                    label: this.relatedTicketsText,
+                    view: 'ticket_related',
+                    where: this.formatAccountRelatedQuery.bindDelegate(
+                        this, 'Account.id eq "${0}"'
+                    )
+                }]
+            }]);
         }
     });
 });

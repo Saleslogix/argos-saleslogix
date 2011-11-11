@@ -32,102 +32,100 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
             return dojo.string.substitute(format, [this.options.entityName]);
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    name: 'EntityId',
-                    type: 'hidden'
-                },
-                {
-                    label: this.descriptionText,
-                    name: 'Description',
-                    picklist: this.formatDependentPicklist.bindDelegate(
-                        this, 'Address Description (${0})', true
-                    ),
-                    requireSelection: false,
-                    title: this.descriptionTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: [
-                        Mobile.SalesLogix.Validator.exists,
-                        Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                    ]
-                },
-                {
-                    name: 'IsPrimary',
-                    label: this.isPrimaryText,
-                    type: 'boolean'
-                },
-                {
-                    name: 'IsMailing',
-                    label: this.isMailingText,
-                    type: 'boolean'
-                },
-                {
-                    name: 'Address1',
-                    label: this.address1Text,
-                    type: 'text',
-                    maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'Address2',
-                    label: this.address2Text,
-                    type: 'text',
-                    maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'Address3',
-                    label: this.address3Text,
-                    type: 'text',
-                    maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    label: this.cityText,
-                    name: 'City',
-                    picklist: 'City',
-                    requireSelection: false,
-                    title: this.cityTitleText,
-                    type: 'picklist',
-                    maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    label: this.stateText,
-                    name: 'State',
-                    picklist: 'State',
-                    requireSelection: false,
-                    title: this.stateTitleText,
-                    type: 'picklist',
-                    maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'PostalCode',
-                    label: this.postalCodeText,
-                    type: 'text',
-                    maxTextLength: 24,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    label: this.countryText,
-                    name: 'Country',
-                    picklist: 'Country',
-                    requireSelection: false,
-                    title: this.countryTitleText,
-                    type: 'picklist',
-                    maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'Salutation',
-                    label: this.salutationText,
-                    type: 'text',
-                    maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                property: 'EntityId',
+                type: 'hidden'
+            },
+            {
+                label: this.descriptionText,
+                property: 'Description',
+                picklist: this.formatDependentPicklist.bindDelegate(
+                    this, 'Address Description (${0})', true
+                ),
+                requireSelection: false,
+                title: this.descriptionTitleText,
+                type: 'picklist',
+                maxTextLength: 64,
+                validator: [
+                    Mobile.SalesLogix.Validator.exists,
+                    Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                ]
+            },
+            {
+                property: 'IsPrimary',
+                label: this.isPrimaryText,
+                type: 'boolean'
+            },
+            {
+                property: 'IsMailing',
+                label: this.isMailingText,
+                type: 'boolean'
+            },
+            {
+                property: 'Address1',
+                label: this.address1Text,
+                type: 'text',
+                maxTextLength: 64,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                property: 'Address2',
+                label: this.address2Text,
+                type: 'text',
+                maxTextLength: 64,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                property: 'Address3',
+                label: this.address3Text,
+                type: 'text',
+                maxTextLength: 64,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                label: this.cityText,
+                property: 'City',
+                picklist: 'City',
+                requireSelection: false,
+                title: this.cityTitleText,
+                type: 'picklist',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                label: this.stateText,
+                property: 'State',
+                picklist: 'State',
+                requireSelection: false,
+                title: this.stateTitleText,
+                type: 'picklist',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                property: 'PostalCode',
+                label: this.postalCodeText,
+                type: 'text',
+                maxTextLength: 24,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                label: this.countryText,
+                property: 'Country',
+                picklist: 'Country',
+                requireSelection: false,
+                title: this.countryTitleText,
+                type: 'picklist',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                label: this.salutationText,
+                property: 'Salutation',
+                type: 'text',
+                maxTextLength: 64,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            }]);
         }
     });
 });

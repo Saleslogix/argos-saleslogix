@@ -102,58 +102,56 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
             if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    label: this.typeText,
-                    name: 'Type',
-                    type: 'select',
-                    view: 'select_list',
-                    requireSelection: false,
-                    maxTextLength: 64,
-                    validator: [
-                        Mobile.SalesLogix.Validator.exceedsMaxTextLength,
-                        Mobile.SalesLogix.Validator.hasText
-                    ],
-                    textRenderer: this.formatTypeText.bindDelegate(this),
-                    data: this.createTypeData()
-                },
-                {
-                    label: this.descriptionText,
-                    name: 'Description',
-                    type: 'text',
-                    maxTextLength: 64,
-                    validator: [
-                        Mobile.SalesLogix.Validator.exceedsMaxTextLength,
-                        Mobile.SalesLogix.Validator.hasText
-                    ]
-                },
-                {
-                    label: this.startDateText,
-                    name: 'StartDate',
-                    renderer: Mobile.SalesLogix.Format.date,
-                    type: 'date',
-                    showTimePicker: true,
-                    formatString: this.startingFormatText,
-                    minValue: (new Date(1900, 0, 1)),
-                    validator: [
-                        Mobile.SalesLogix.Validator.exists,
-                        Mobile.SalesLogix.Validator.isDateInRange
-                    ]
-                },
-                {
-                    label: this.endDateText,
-                    name: 'EndDate',
-                    renderer: Mobile.SalesLogix.Format.date,
-                    type: 'date',
-                    showTimePicker: true,
-                    formatString: this.startingFormatText,
-                    minValue: (new Date(1900, 0, 1)),
-                    validator: [
-                        Mobile.SalesLogix.Validator.exists,
-                        Mobile.SalesLogix.Validator.isDateInRange
-                    ]
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                label: this.typeText,
+                property: 'Type',
+                type: 'select',
+                view: 'select_list',
+                requireSelection: false,
+                maxTextLength: 64,
+                validator: [
+                    Mobile.SalesLogix.Validator.exceedsMaxTextLength,
+                    Mobile.SalesLogix.Validator.hasText
+                ],
+                textRenderer: this.formatTypeText.bindDelegate(this),
+                data: this.createTypeData()
+            },
+            {
+                label: this.descriptionText,
+                property: 'Description',
+                type: 'text',
+                maxTextLength: 64,
+                validator: [
+                    Mobile.SalesLogix.Validator.exceedsMaxTextLength,
+                    Mobile.SalesLogix.Validator.hasText
+                ]
+            },
+            {
+                label: this.startDateText,
+                property: 'StartDate',
+                renderer: Mobile.SalesLogix.Format.date,
+                type: 'date',
+                showTimePicker: true,
+                formatString: this.startingFormatText,
+                minValue: (new Date(1900, 0, 1)),
+                validator: [
+                    Mobile.SalesLogix.Validator.exists,
+                    Mobile.SalesLogix.Validator.isDateInRange
+                ]
+            },
+            {
+                label: this.endDateText,
+                property: 'EndDate',
+                renderer: Mobile.SalesLogix.Format.date,
+                type: 'date',
+                showTimePicker: true,
+                formatString: this.startingFormatText,
+                minValue: (new Date(1900, 0, 1)),
+                validator: [
+                    Mobile.SalesLogix.Validator.exists,
+                    Mobile.SalesLogix.Validator.isDateInRange
+                ]
+            }]);
         }
     });
 });

@@ -19,13 +19,11 @@ define('Mobile/SalesLogix/Views/DefectProblem/Edit', ['Sage/Platform/Mobile/Edit
         resourceKind: 'defectproblems',
 
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    name: 'Notes',
-                    label: this.notesText,
-                    type: 'text'
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                property: 'Notes',
+                label: this.notesText,
+                type: 'text'
+            }]);
         }
     });
 });

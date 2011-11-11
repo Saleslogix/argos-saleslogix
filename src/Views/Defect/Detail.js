@@ -91,78 +91,72 @@ define('Mobile/SalesLogix/Views/Defect/Detail', ['Sage/Platform/Mobile/Detail'],
             });
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    label: this.defectIdText,
-                    tpl: Mobile.SalesLogix.Template.alternateKeyPrefixSuffix
-                },
-                {
-                    label: this.priorityText,
-                    name: 'PriorityCode'
-                },
-                {
-                    label: this.severityText,
-                    name: 'SeverityCode'
-                },
-                {
-                    label: this.areaText,
-                    name: 'Area'
-                },
-                {
-                    label: this.categoryText,
-                    name: 'Category'
-                },
-                {
-                    label: this.subjectText,
-                    name: 'Subject'
-                },
-                {
-                    label: this.reportDateText,
-                    name: 'RecordedDate',
-                    renderer: Mobile.SalesLogix.Format.date
-                },
-                {
-                    label: this.assignedText,
-                    name: 'AssignedTo.OwnerDescription'
-                },
-                {
-                    label: this.statusText,
-                    name: 'StatusCode'
-                },
-                {
-                    label: this.createUserText,
-                    name: 'CreateUser'
-                },
-                {
-                    label: this.createDateText,
-                    name: 'CreateDate',
-                    renderer: Mobile.SalesLogix.Format.date
-                },
-                {
-                    options: {
-                        title: this.relatedDefectProblemsText
-                    },
-                    as: [{
-                        label: this.relatedDefectProblemsText,
-                        name: 'DefectProblem.Notes',
-                        key: 'DefectProblem.$key',
-                        view: 'defectproblem_detail',
-                        wrap: this.textBlockTemplate
-                    }]
-                },
-                {
-                    options: {
-                        title: this.relatedDefectSolutionsText
-                    },
-                    as: [{
-                        label: this.relatedDefectSolutionsText,
-                        name: 'DefectSolution.Notes',
-                        key: 'DefectSolution.$key',
-                        view: 'defectsolution_detail',
-                        wrap: this.textBlockTemplate
-                    }]
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                label: this.defectIdText,
+                tpl: Mobile.SalesLogix.Template.alternateKeyPrefixSuffix
+            },
+            {
+                label: this.priorityText,
+                property: 'PriorityCode'
+            },
+            {
+                label: this.severityText,
+                property: 'SeverityCode'
+            },
+            {
+                label: this.areaText,
+                property: 'Area'
+            },
+            {
+                label: this.categoryText,
+                property: 'Category'
+            },
+            {
+                label: this.subjectText,
+                property: 'Subject'
+            },
+            {
+                label: this.reportDateText,
+                property: 'RecordedDate',
+                renderer: Mobile.SalesLogix.Format.date
+            },
+            {
+                label: this.assignedText,
+                property: 'AssignedTo.OwnerDescription'
+            },
+            {
+                label: this.statusText,
+                property: 'StatusCode'
+            },
+            {
+                label: this.createUserText,
+                property: 'CreateUser'
+            },
+            {
+                label: this.createDateText,
+                property: 'CreateDate',
+                renderer: Mobile.SalesLogix.Format.date
+            },
+            {
+                title: this.relatedDefectProblemsText,
+                children: [{
+                    label: this.relatedDefectProblemsText,
+                    property: 'DefectProblem.Notes',
+                    key: 'DefectProblem.$key',
+                    view: 'defectproblem_detail',
+                    wrap: this.textBlockTemplate
+                }]
+            },
+            {
+                title: this.relatedDefectSolutionsText,
+                children: [{
+                    label: this.relatedDefectSolutionsText,
+                    property: 'DefectSolution.Notes',
+                    key: 'DefectSolution.$key',
+                    view: 'defectsolution_detail',
+                    wrap: this.textBlockTemplate
+                }]
+            }]);
         },
         processEntry: function(entry) {
             Mobile.SalesLogix.Defect.Detail.superclass.processEntry.call(this, entry);

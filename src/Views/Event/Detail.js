@@ -46,28 +46,24 @@ define('Mobile/SalesLogix/Views/Event/Detail', ['Sage/Platform/Mobile/Detail'], 
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                options: {
-                    title: this.detailsText
-                },
-                as: [{
-                    name: 'Type',
+                title: this.detailsText,
+                children: [{
+                    property: 'Type',
                     label: this.typeText,
                     renderer: this.formatEventType.bindDelegate(this)
                 },{
-                    name: 'Description',
+                    property: 'Description',
                     label: this.descriptionText
                 }]
             },{
-                options: {
-                    title: this.whenText
-                },
-                as: [{
-                    name: 'StartDate',
+                title: this.whenText,
+                children: [{
+                    property: 'StartDate',
                     label: this.startTimeText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
                         this, this.startDateFormatText)
                 },{
-                    name: 'EndDate',
+                    property: 'EndDate',
                     label: this.endTimeText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
                         this, this.endDateFormatText)

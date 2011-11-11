@@ -24,21 +24,19 @@ define('Mobile/SalesLogix/Views/DefectSolution/Detail', ['Sage/Platform/Mobile/D
         resourceKind: 'defectsolutions',
 
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    label: this.notesText,
-                    name: 'Notes'
-                },
-                {
-                    label: this.createUserText,
-                    name: 'CreateUser'
-                },
-                {
-                    label: this.createDateText,
-                    name: 'CreateDate',
-                    renderer: Mobile.SalesLogix.Format.date
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                label: this.notesText,
+                property: 'Notes'
+            },
+            {
+                label: this.createUserText,
+                property: 'CreateUser'
+            },
+            {
+                label: this.createDateText,
+                property: 'CreateDate',
+                renderer: Mobile.SalesLogix.Format.date
+            }]);
         }
     });
 });

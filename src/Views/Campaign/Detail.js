@@ -49,35 +49,33 @@ define('Mobile/SalesLogix/Views/Campaign/Detail', ['Sage/Platform/Mobile/Detail'
             }];
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    name: 'CampaignName',
-                    label: this.nameText
-                },
-                {
-                    name: 'CampaignCode',
-                    label: this.codeText
-                },
-                {
-                    name: 'StartDate',
-                    label: this.startText,
-                    renderer: Mobile.SalesLogix.Format.date
-                },
-                {
-                    name: 'AccountManager.UserInfo',
-                    label: this.acctMgrText,
-                    tpl: Mobile.SalesLogix.Template.nameLF
-                },
-                {
-                    name: 'CreateUser',
-                    label: this.createUserText
-                },
-                {
-                    name: 'CreateDate',
-                    label: this.createDateText,
-                    renderer: Mobile.SalesLogix.Format.date
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                property: 'CampaignName',
+                label: this.nameText
+            },
+            {
+                property: 'CampaignCode',
+                label: this.codeText
+            },
+            {
+                property: 'StartDate',
+                label: this.startText,
+                renderer: Mobile.SalesLogix.Format.date
+            },
+            {
+                property: 'AccountManager.UserInfo',
+                label: this.acctMgrText,
+                tpl: Mobile.SalesLogix.Template.nameLF
+            },
+            {
+                property: 'CreateUser',
+                label: this.createUserText
+            },
+            {
+                property: 'CreateDate',
+                label: this.createDateText,
+                renderer: Mobile.SalesLogix.Format.date
+            }]);
         }
     });
 });

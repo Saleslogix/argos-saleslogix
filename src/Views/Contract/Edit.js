@@ -36,25 +36,23 @@ define('Mobile/SalesLogix/Views/Contract/Edit', ['Sage/Platform/Mobile/Edit'], f
         resourceKind: 'contracts',
 
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    name: 'ReferenceNumber',
-                    label: this.refNumText,
-                    type: 'text'
-                },
-                {
-                    name: 'Period',
-                    label: this.quantityText,
-                    validator: Mobile.SalesLogix.Validator.isDecimal,
-                    validationTrigger: 'keyup',
-                    type: 'text'
-                },
-                {
-                    name: 'IsActive',
-                    label: this.activeText,
-                    type: 'text'
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                property: 'ReferenceNumber',
+                label: this.refNumText,
+                type: 'text'
+            },
+            {
+                property: 'Period',
+                label: this.quantityText,
+                validator: Mobile.SalesLogix.Validator.isDecimal,
+                validationTrigger: 'keyup',
+                type: 'text'
+            },
+            {
+                property: 'IsActive',
+                label: this.activeText,
+                type: 'text'
+            }]);
         }
     });
 });

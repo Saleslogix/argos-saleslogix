@@ -153,128 +153,115 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                options: {
-                    list: true,
-                    title: this.actionsText,
-                    cls: 'action-list'
-                },
-                as: [{
-                    name: 'Description',
+                list: true,
+                title: this.actionsText,
+                cls: 'action-list',
+                children: [{
+                    property: 'Description',
                     label: this.completeActivityText,
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeActivity',
                     disabled: this.checkCanComplete
                 }]
             },{
-                options: {
-                    title: this.detailsText
-                },
-                as: [{
-                    name: 'Type',
+                title: this.detailsText,
+                children: [{
+                    property: 'Type',
                     label: this.typeText,
                     renderer: this.formatActivityType.bindDelegate(this)
                 },{
-                    name: 'Description',
+                    property: 'Description',
                     label: this.regardingText
                 },{
-                    name: 'Category',
+                    property: 'Category',
                     label: this.categoryText
                 },{
-                    name: 'Priority',
+                    property: 'Priority',
                     label: this.priorityText
                 },{
-                    name: 'LongNotes',
+                    property: 'LongNotes',
                     label: this.longNotesText
                 }]
             },{
-                options: {
-                    title: this.whenText
-                },
-                as: [{
-                    name: 'StartDate',
+                title: this.whenText,
+                children: [{
+                    property: 'StartDate',
                     label: this.startTimeText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startDateFormatText),
                     exclude: this.isActivityTimeless
                 },{
-                    name: 'StartDate',
+                    property: 'StartDate',
                     label: this.allDayText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.timelessDateFormatText),
                     include: this.isActivityTimeless
                 },{
-                    name: 'Timeless',
+                    property: 'Timeless',
                     label: this.timelessText,
                     type: 'boolean',
                     include: false
                 },{
-                    name: 'Duration',
+                    property: 'Duration',
                     label: this.durationText,
                     renderer: Mobile.SalesLogix.Format.timespan,
                     exclude: this.isActivityTimeless
                 },{
-                    name: 'Alarm',
+                    property: 'Alarm',
                     label: this.alarmText,
                     exclude: this.doesActivityHaveReminder
                 },{
-                    name: 'AlarmTime',
+                    property: 'AlarmTime',
                     label: this.alarmTimeText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.alarmDateFormatText),
                     include: this.doesActivityHaveReminder
                 },{
-                    name: 'Rollover',
+                    property: 'Rollover',
                     label: this.rolloverText,
                     include: this.isActivityTimeless
                 }]
             },{
-                options: {
-                    title: this.whoText
-                },
-                as: [{
-                    name: 'Leader',
+                title: this.whoText,
+                children: [{
+                    property: 'Leader',
                     label: this.leaderText,
                     cls: 'content-loading',
                     value: 'loading...'
                 },{
-                    name: 'ContactName',
+                    property: 'ContactName',
                     exclude: this.isActivityForLead,
                     label: this.contactText,
                     view: 'contact_detail',
                     key: 'ContactId',
-                    descriptor: 'ContactName',
-                    property: true
+                    descriptor: 'ContactName'
                 },{
-                    name: 'AccountName',
+                    property: 'AccountName',
                     exclude: this.isActivityForLead,
                     label: this.accountText,
                     view: 'account_detail',
                     key: 'AccountId',
-                    descriptor: 'AccountName',
-                    property: true
+                    descriptor: 'AccountName'
                 },{
-                    name: 'OpportunityName',
+                    property: 'OpportunityName',
                     exclude: this.isActivityForLead,
                     label: this.opportunityText,
                     view: 'opportunity_detail',
                     key: 'OpportunityId',
-                    descriptor: 'OpportunityName',
-                    property: true
+                    descriptor: 'OpportunityName'
                 },{
-                    name: 'TicketNumber',
+                    property: 'TicketNumber',
                     exclude: this.isActivityForLead,
                     label: this.ticketNumberText,
                     view: 'ticket_detail',
                     key: 'TicketId',
-                    descriptor: 'TicketNumber',
-                    property: true
+                    descriptor: 'TicketNumber'
                 },{
-                    name: 'LeadName',
+                    property: 'LeadName',
                     include: this.isActivityForLead,
                     label: this.leadText,
                     view: 'lead_detail',
                     key: 'LeadId',
-                    descriptor: 'LeadName',
-                    property: true
+                    descriptor: 'LeadName'
                 },{
-                    name: 'AccountName',
+                    property: 'AccountName',
                     include: this.isActivityForLead,
                     label: this.companyText
                 }]

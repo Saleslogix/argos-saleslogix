@@ -27,23 +27,21 @@ define('Mobile/SalesLogix/Views/Campaign/Edit', ['Sage/Platform/Mobile/Edit'], f
         resourceKind: 'campaigns',
 
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    name: 'CampaignName',
-                    label: this.nameText,
-                    type: 'text'
-                },
-                {
-                    name: 'CampaignCode',
-                    label: this.codeText,
-                    type: 'text'
-                },
-                {
-                    name: 'StartDate',
-                    label: this.startText,
-                    type: 'date'
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                property: 'CampaignName',
+                label: this.nameText,
+                type: 'text'
+            },
+            {
+                property: 'CampaignCode',
+                label: this.codeText,
+                type: 'text'
+            },
+            {
+                property: 'StartDate',
+                label: this.startText,
+                type: 'date'
+            }]);
         }
     });
 });

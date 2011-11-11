@@ -150,111 +150,109 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
             }
         },
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    applyTo: '.',
-                    formatValue: Mobile.SalesLogix.Format.nameLF,
-                    label: this.nameText,
-                    name: 'ContactName',
-                    type: 'name',
-                    validator: Mobile.SalesLogix.Validator.name,
-                    view: 'name_edit'
-                },
-                {
-                    label: this.accountNameText,
-                    name: 'Account',
-                    textProperty: 'AccountName',
-                    type: 'lookup',
-                    validator: Mobile.SalesLogix.Validator.exists,
-                    view: 'account_related'
-                },
-                {
-                    name: 'AccountName',
-                    type: 'hidden'
-                },
-                {
-                    name: 'WebAddress',
-                    label: this.webText,
-                    type: 'text',
-                    inputType: 'url',
-                    maxTextLength: 128,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'WorkPhone',
-                    label: this.workText,
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'Email',
-                    label: this.emailText,
-                    type: 'text',
-                    inputType: 'email'
-                },
-                {
-                    label: this.contactTitleText,
-                    name: 'Title',
-                    picklist: 'Title',
-                    title: this.titleTitleText,
-                    type: 'picklist'
-                },
-                {
-                    formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true),
-                    label: this.addressText,
-                    name: 'Address',
-                    type: 'address',
-                    view: 'address_edit'
-                },
-                {
-                    name: 'HomePhone',
-                    label: this.homePhoneText,
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'Mobile',
-                    label: this.mobileText,
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    name: 'Fax',
-                    label: this.faxText,
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
-                },
-                {
-                    label: this.acctMgrText,
-                    name: 'AccountManager',
-                    textProperty: 'UserInfo',
-                    textTemplate: Mobile.SalesLogix.Template.nameLF,
-                    type: 'lookup',
-                    view: 'user_list'
-                },
-                {
-                    label: this.ownerText,
-                    name: 'Owner',
-                    textProperty: 'OwnerDescription',
-                    type: 'lookup',
-                    view: 'owner_list'
-                },
-                {
-                    name: 'Opportunities.$resources[0].Opportunity.$key',
-                    type: 'hidden'
-                },{
-                    label: this.cuisinePreferenceText,
-                    name: 'CuisinePreference',
-                    type: 'picklist',
-                    picklist: 'CuisinePrefs',
-                    multi: true,
-                    title: this.cuisinePreferenceTitleText
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                applyTo: '.',
+                formatValue: Mobile.SalesLogix.Format.nameLF,
+                label: this.nameText,
+                property: 'ContactName',
+                type: 'name',
+                validator: Mobile.SalesLogix.Validator.name,
+                view: 'name_edit'
+            },
+            {
+                label: this.accountNameText,
+                property: 'Account',
+                textProperty: 'AccountName',
+                type: 'lookup',
+                validator: Mobile.SalesLogix.Validator.exists,
+                view: 'account_related'
+            },
+            {
+                property: 'AccountName',
+                type: 'hidden'
+            },
+            {
+                property: 'WebAddress',
+                label: this.webText,
+                type: 'text',
+                inputType: 'url',
+                maxTextLength: 128,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                property: 'WorkPhone',
+                label: this.workText,
+                type: 'phone',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                property: 'Email',
+                label: this.emailText,
+                type: 'text',
+                inputType: 'email'
+            },
+            {
+                label: this.contactTitleText,
+                property: 'Title',
+                picklist: 'Title',
+                title: this.titleTitleText,
+                type: 'picklist'
+            },
+            {
+                formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true),
+                label: this.addressText,
+                property: 'Address',
+                type: 'address',
+                view: 'address_edit'
+            },
+            {
+                property: 'HomePhone',
+                label: this.homePhoneText,
+                type: 'phone',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                property: 'Mobile',
+                label: this.mobileText,
+                type: 'phone',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                property: 'Fax',
+                label: this.faxText,
+                type: 'phone',
+                maxTextLength: 32,
+                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+            },
+            {
+                label: this.acctMgrText,
+                property: 'AccountManager',
+                textProperty: 'UserInfo',
+                textTemplate: Mobile.SalesLogix.Template.nameLF,
+                type: 'lookup',
+                view: 'user_list'
+            },
+            {
+                label: this.ownerText,
+                property: 'Owner',
+                textProperty: 'OwnerDescription',
+                type: 'lookup',
+                view: 'owner_list'
+            },
+            {
+                property: 'Opportunities.$resources[0].Opportunity.$key',
+                type: 'hidden'
+            },{
+                label: this.cuisinePreferenceText,
+                property: 'CuisinePreference',
+                type: 'picklist',
+                picklist: 'CuisinePrefs',
+                multi: true,
+                title: this.cuisinePreferenceTitleText
+            }]);
         }
     });
 });

@@ -31,33 +31,31 @@ define('Mobile/SalesLogix/Views/Defect/Edit', ['Sage/Platform/Mobile/Edit'], fun
         resourceKind: 'defects',
 
         createLayout: function() {
-            return this.layout || (this.layout = [
-                {
-                    label: this.idPrefixText,
-                    name: 'AlternateKeyPrefix',
-                    type: 'text'
-                },
-                {
-                    label: this.idSuffixText,
-                    name: 'AlternateKeySuffix',
-                    type: 'text'
-                },
-                {
-                    label: this.areaText,
-                    name: 'Area',
-                    type: 'text'
-                },
-                {
-                    label: this.categoryText,
-                    name: 'Category',
-                    type: 'text'
-                },
-                {
-                    label: this.subjectText,
-                    name: 'Subject',
-                    type: 'text'
-                }
-            ]);
+            return this.layout || (this.layout = [{
+                label: this.idPrefixText,
+                property: 'AlternateKeyPrefix',
+                type: 'text'
+            },
+            {
+                label: this.idSuffixText,
+                property: 'AlternateKeySuffix',
+                type: 'text'
+            },
+            {
+                label: this.areaText,
+                property: 'Area',
+                type: 'text'
+            },
+            {
+                label: this.categoryText,
+                property: 'Category',
+                type: 'text'
+            },
+            {
+                label: this.subjectText,
+                property: 'Subject',
+                type: 'text'
+            }]);
         }
     });
 });
