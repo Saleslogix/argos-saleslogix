@@ -80,92 +80,82 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                options: {
-                    list: true,
-                    title: this.actionsText,
-                    cls: 'action-list'
-                },
-                as: [{
-                    name: 'TicketNumber',
+                list: true,
+                title: this.actionsText,
+                cls: 'action-list',
+                children: [{
+                    property: 'TicketNumber',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity'
                 }]
             },{
-                options: {
-                    title: this.detailsText
-                },
-                as: [{
-                    name: 'Account.AccountName',
+                title: this.detailsText,
+                children: [{
+                    property: 'Account.AccountName',
                     descriptor: 'Account.AccountName',
                     label: this.accountText,
                     view: 'account_detail',
-                    key: 'Account.$key',
-                    property: true
+                    key: 'Account.$key'
                 },{
-                    name: 'Contact.NameLF',
+                    property: 'Contact.NameLF',
                     descriptor: 'Contact.NameLF',
                     label: this.contactText,
                     view: 'contact_detail',
-                    key: 'Contact.$key',
-                    property: true
+                    key: 'Contact.$key'
                 },{
                     label: this.areaText,
-                    name: 'Area'
+                    property: 'Area'
                 },{
                     label: this.categoryText,
-                    name: 'Category'
+                    property: 'Category'
                 },{
                     label: this.issueText,
-                    name: 'Issue'
+                    property: 'Issue'
                 },{
                     label: this.subjectText,
-                    name: 'Subject'
+                    property: 'Subject'
                 },{
                     label: this.descriptionText,
-                    name: 'TicketProblem.Notes'
+                    property: 'TicketProblem.Notes'
                 },{
                     label: this.statusText,
-                    name: 'Status'
+                    property: 'Status'
                 },{
                     label: this.urgencyText,
-                    name: 'Urgency.Description'
+                    property: 'Urgency.Description'
                 },{
                     label: this.needByText,
-                    name: 'NeededByDate',
+                    property: 'NeededByDate',
                     renderer: Mobile.SalesLogix.Format.date
                 },{
                     label: this.assignedToText,
-                    name: 'AssignedTo.OwnerDescription'
+                    property: 'AssignedTo.OwnerDescription'
                 }]
             },{
-                options: {
-                    title: this.moreDetailsText,
-                    collapsed: true
-                },
-                as: [{
+                title: this.moreDetailsText,
+                collapsed: true,
+                children: [{
                     label: this.contractText,
-                    name: 'Contract.ReferenceNumber'
+                    property: 'Contract.ReferenceNumber'
                 },{
                     label: this.sourceText,
-                    name: 'ViaCode'
+                    property: 'ViaCode'
                 },{
                     label: this.assignedDateText,
-                    name: 'AssignedDate',
+                    property: 'AssignedDate',
                     renderer: Mobile.SalesLogix.Format.date
                 },{
                     label: this.resolutionText,
-                    name: 'TicketSolution.Notes'
+                    property: 'TicketSolution.Notes'
                 },{
                     label: this.notesText,
-                    name: 'Notes'
+                    property: 'Notes'
                 }]
             },{
-                options: {
-                    list: true,
-                    title: this.relatedItemsText
-                },
-                as: [{
+                list: true,
+                title: this.relatedItemsText,
+                children: [{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',

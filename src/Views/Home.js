@@ -90,7 +90,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
             var configured = dojo.getObject('preferences.home.visible', false, App) || [],
                 layout = [{
                     id: 'actions',
-                    as: [{
+                    children: [{
                         'action': 'addAccountContact',
                         'icon': 'content/images/icons/New_Contact_24x24.png',
                         'title': this.addAccountContactText
@@ -99,7 +99,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
 
             var visible = {
                 id: 'views',
-                as: []
+                children: []
             };
 
             for (var i = 0; i < configured.length; i++)
@@ -107,7 +107,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
                 var view = App.getView(configured[i]);
                 if (view)
                 {
-                    visible.as.push({
+                    visible.children.push({
                         'action': 'navigateToView',
                         'view': view.id,
                         'icon': view.icon,
@@ -126,7 +126,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
                 list = [];
 
             dojo.forEach(layout, function(section) {
-                dojo.forEach(section['as'], function(row) {
+                dojo.forEach(section['children'], function(row) {
                     if (row['security'] && !App.hasAccessTo(row['security'])) return;
                     if (typeof this.query !== 'function' || this.query(row)) list.push(row);
                 }, this);

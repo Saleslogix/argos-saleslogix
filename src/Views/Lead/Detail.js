@@ -162,20 +162,18 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                options: {
-                    list: true,
-                    title: this.actionsText,
-                    cls: 'action-list'
-                },
-                as: [{
-                    name: 'WorkPhone',
+                list: true,
+                title: this.actionsText,
+                cls: 'action-list',
+                children: [{
+                    property: 'WorkPhone',
                     label: this.callWorkNumberText,
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
                     disabled: this.checkWorkPhone,
                     renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false)
                 },{
-                    name: 'Email',
+                    property: 'Email',
                     label: this.sendEmailText,
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
                     action: 'sendEmail',
@@ -189,12 +187,12 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                         '{%: $.Company %} / {%: $.LeadNameLastFirst %}'
                     ])
                 },{
-                    name: 'LeadNameLastFirst',
+                    property: 'LeadNameLastFirst',
                     label: this.addNoteText,
                     icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 },{
-                    name: 'Address',
+                    property: 'Address',
                     label: this.viewAddressText,
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
@@ -202,60 +200,54 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     renderer: Mobile.SalesLogix.Format.address.bindDelegate(this, [true, ' '])
                 }]
             },{
-                options: {
-                    title: this.detailsText
-                },
-                as: [{
+                title: this.detailsText,
+                children: [{
                     label: this.nameText,
-                    name: 'LeadNameLastFirst'
+                    property: 'LeadNameLastFirst'
                 },{
                     label: this.accountText,
-                    name: 'Company'
+                    property: 'Company'
                 },{
                     label: this.webText,
-                    name: 'WebAddress',
+                    property: 'WebAddress',
                     renderer: Mobile.SalesLogix.Format.link
                 },{
                     label: this.leadTitleText,
-                    name: 'Title'
+                    property: 'Title'
                 },{
                     label: this.tollFreeText,
-                    name: 'TollFree',
+                    property: 'TollFree',
                     renderer: Mobile.SalesLogix.Format.phone
                 },{
                     label: this.leadSourceText,
-                    name: 'LeadSource.Description'
+                    property: 'LeadSource.Description'
                 }]
             },{
-                options: {
-                    title: this.moreDetailsText,
-                    collapsed: true
-                },
-                as: [{
+                title: this.moreDetailsText,
+                collapsed: true,
+                children: [{
                     label: this.interestsText,
-                    name: 'Interests'
+                    property: 'Interests'
                 },{
                     label: this.industryText,
-                    name: 'Industry'
+                    property: 'Industry'
                 },{
                     label: this.sicCodeText,
-                    name: 'SICCode'
+                    property: 'SICCode'
                 },{
                     label: this.businessDescriptionText,
-                    name: 'BusinessDescription'
+                    property: 'BusinessDescription'
                 },{
                     label: this.notesText,
-                    name: 'Notes'
+                    property: 'Notes'
                 },{
                     label: this.ownerText,
-                    name: 'Owner.OwnerDescription'
+                    property: 'Owner.OwnerDescription'
                 }]
             },{
-                options: {
-                    list: true,
-                    title: this.relatedItemsText
-                },
-                as: [{
+                list: true,
+                title: this.relatedItemsText,
+                children: [{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',

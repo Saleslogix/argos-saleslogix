@@ -78,78 +78,68 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
         },                
         createLayout: function() {
             return this.layout || (this.layout = [{
-                options: {
-                    list: true,
-                    title: this.actionsText,
-                    cls: 'action-list'
-                },
-                as: [{
-                    name: 'Description',
+                list: true,
+                title: this.actionsText,
+                cls: 'action-list',
+                children: [{
+                    property: 'Description',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity'
                 },{
-                    name: 'Description',
+                    property: 'Description',
                     label: this.addNoteText,
                     icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 }]
             },{
-                options: {
-                    title: this.detailsText
-                },
-                as: [{
+                title: this.detailsText,
+                children: [{
                     label: this.opportunityText,
-                    name: 'Description'
+                    property: 'Description'
                 },{
                     label: this.accountText,
                     key: 'Account.$key',
-                    name: 'Account.AccountName',
-                    property: true,
+                    property: 'Account.AccountName',
                     view: 'account_detail'
                 },{
                     label: this.resellerText,
                     key: 'Reseller.$key',
-                    name: 'Reseller.AccountName',
-                    property: true,
+                    property: 'Reseller.AccountName',
                     view: 'account_detail'
                 },{
                     label: this.estCloseText,
-                    name: 'EstimatedClose',
+                    property: 'EstimatedClose',
                     renderer: Mobile.SalesLogix.Format.date
                 },{
                     label: this.potentialText,
-                    name: 'SalesPotential',
+                    property: 'SalesPotential',
                     renderer: Mobile.SalesLogix.Format.currency
                 },{
                     label: this.statusText,
-                    name: 'Status'
+                    property: 'Status'
                 },{
                     label: this.typeText,
-                    name: 'Type'
+                    property: 'Type'
                 },{
                     label: this.probabilityText,
-                    name: 'CloseProbability'
+                    property: 'CloseProbability'
                 }]
             },{
-                options: {
-                    title: this.moreDetailsText,
-                    collapsed: true
-                },
-                as: [{
+                title: this.moreDetailsText,
+                collapsed: true,
+                children: [{
                     label: this.acctMgrText,
-                    name: 'AccountManager.UserInfo',
+                    property: 'AccountManager.UserInfo',
                     renderer: Mobile.SalesLogix.Format.nameLF
                 },{
                     label: this.importSourceText,
-                    name: 'LeadSource.Description'
+                    property: 'LeadSource.Description'
                 }]
             },{
-                options: {
-                    list: true,
-                    title: this.relatedItemsText
-                },
-                as: [{
+                list: true,
+                title: this.relatedItemsText,
+                children: [{
                     icon: 'content/images/icons/product_24.png',
                     label: this.relatedProductsText,
                     view: 'opportunityproduct_related',

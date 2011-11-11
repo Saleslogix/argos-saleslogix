@@ -87,90 +87,79 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                options: {
-                    title: this.detailsText
-                },
-                as: [{
-                    name: 'StartDate',
+                title: this.detailsText,
+                children: [{
+                    property: 'StartDate',
                     label: this.scheduledText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
                         this, this.dateFormatText
                     ),
                     exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
-                    name: 'CompletedDate',
+                    property: 'CompletedDate',
                     label: this.completedText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
                         this, this.dateFormatText
                     ),
                     exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
-                    name: 'ModifyDate',
+                    property: 'ModifyDate',
                     label: this.modifiedText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
                         this, this.dateFormatText
                     ),
                     include: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
-                    name: 'Description',
+                    property: 'Description',
                     label: this.regardingText
                 }]
             },{
-                options: {
-                    title: this.notesText
-                },
-                as: [{
-                    name: 'LongNotes',
+                title: this.notesText,
+                children: [{
+                    property: 'LongNotes',
                     label: this.longNotesText,
                     provider: this.provideText.bindDelegate(this),
                     wrap: Mobile.SalesLogix.Template.noteDetailProperty
                 }]
             },{
-                options: {
-                    title: this.relatedItemsText
-                },
-                as: [{
-                    name: 'AccountName',
+                title: this.relatedItemsText,
+                children: [{
+                    property: 'AccountName',
                     exclude: this.isHistoryForLead,
                     label: this.accountText,
                     view: 'account_detail',
                     key: 'AccountId',
-                    descriptor: 'AccountName',
-                    property: true
+                    descriptor: 'AccountName'
                 },{
-                    name: 'ContactName',
+                    property: 'ContactName',
                     exclude: this.isHistoryForLead,
                     label: this.contactText,
                     view: 'contact_detail',
                     key: 'ContactId',
-                    descriptor: 'ContactName',
-                    property: true
+                    descriptor: 'ContactName'
                 },{
-                    name: 'OpportunityName',
+                    property: 'OpportunityName',
                     exclude: this.isHistoryForLead,
                     label: this.opportunityText,
                     view: 'opportunity_detail',
                     key: 'OpportunityId',
-                    descriptor: 'OpportunityName',
-                    property: true
+                    descriptor: 'OpportunityName'
                 },{
-                    name: 'TicketNumber',
+                    property: 'TicketNumber',
                     exclude: this.isHistoryForLead,
                     label: this.ticketNumberText,
                     view: 'ticket_detail',
                     key: 'TicketId',
-                    descriptor: 'TicketNumber',
-                    property: true
+                    descriptor: 'TicketNumber'
                 },{
-                    name: 'LeadName',
+                    property: 'LeadName',
                     include: this.isHistoryForLead,
                     label: this.leadText,
                     view: 'lead_detail',
                     key: 'LeadId',
-                    descriptor: 'LeadName',
-                    property: true
+                    descriptor: 'LeadName'
                 },{
-                    name: 'AccountName',
+                    property: 'AccountName',
                     include: this.isHistoryForLead,
                     label: this.companyText
                 }]

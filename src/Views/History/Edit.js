@@ -236,7 +236,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
             return dojo.string.substitute(format, [getV(dependentValue, property)]);
         },
         getValues: function() {
-            this.inherited(arguments);
+            var values = this.inherited(arguments);
 
             if (this.fields['Text'].isDirty())
             {
@@ -253,10 +253,8 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                options: {
-                    title: this.detailsText
-                },
-                as: [{
+                title: this.detailsText,
+                children: [{
                     name: 'Type',
                     type: 'hidden'
                 },{
@@ -267,7 +265,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     type: 'hidden'
                 },{
                     label: this.startingText,
-                    name: 'StartDate',
+                    property: 'StartDate',
                     type: 'date',
                     showTimePicker: true,
                     formatString: this.startingFormatText,
@@ -279,34 +277,30 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },{
                     dependsOn: 'Type',
                     label: this.regardingText,
-                    name: 'Description',
+                    property: 'Description',
                     picklist: 'Note Regarding',
                     orderBy: 'text asc',
                     title: this.noteDescriptionTitleText,
                     type: 'picklist'
                 }]
             },{
-                options: {
-                    title: this.longNotesTitleText
-                },
-                as: [{
-                    name: 'Text',
+                title: this.longNotesTitleText,
+                children: [{
+                    property: 'Text',
                     label: this.longNotesText,
                     cls: 'row-edit-text',
                     type: 'textarea'
                 }]
             },{
-                options: {
-                    title: this.relatedItemsText
-                },
-                as: [{
+                title: this.relatedItemsText,
+                children: [{
                     label: this.isLeadText,
                     name: 'IsLead',
                     include: false,
                     type: 'boolean'
                 },{
                     label: this.accountText,
-                    name: 'Account',
+                    property: 'Account',
                     type: 'lookup',
                     emptyText: '',
                     applyTo: '.',
@@ -317,7 +311,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },{
                     dependsOn: 'Account',
                     label: this.contactText,
-                    name: 'Contact',
+                    property: 'Contact',
                     type: 'lookup',
                     emptyText: '',
                     applyTo: '.',
@@ -330,7 +324,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },{
                     dependsOn: 'Account',
                     label: this.opportunityText,
-                    name: 'Opportunity',
+                    property: 'Opportunity',
                     type: 'lookup',
                     emptyText: '',
                     applyTo: '.',
@@ -343,7 +337,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },{
                     dependsOn: 'Account',
                     label: this.ticketNumberText,
-                    name: 'Ticket',
+                    property: 'Ticket',
                     type: 'lookup',
                     emptyText: '',
                     applyTo: '.',
@@ -355,7 +349,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     )
                 },{
                     label: this.leadText,
-                    name: 'Lead',
+                    property: 'Lead',
                     type: 'lookup',
                     emptyText: '',
                     applyTo: '.',
@@ -365,7 +359,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     validator: Mobile.SalesLogix.Validator.exists
                 },{
                     label: this.companyText,
-                    name: 'AccountName',
+                    property: 'AccountName',
                     type: 'text'
                 }]                        
             }]);

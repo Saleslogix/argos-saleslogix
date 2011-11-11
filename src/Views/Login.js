@@ -45,18 +45,18 @@ define('Mobile/SalesLogix/Views/Login', ['Sage/Platform/Mobile/Edit'], function(
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    name: 'username',
+                    property: 'username',
                     label: this.userText,
                     type: 'text'
                 },
                 {
-                    name: 'password',
+                    property: 'password',
                     label: this.passText,
                     type: 'text',
                     inputType: 'password'
                 },
                 {
-                    name: 'remember',
+                    property: 'remember',
                     label: this.rememberText,
                     type: 'boolean'
                 }

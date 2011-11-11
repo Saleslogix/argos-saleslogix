@@ -100,26 +100,26 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                     emptyText: '',
                     formatValue: Mobile.SalesLogix.Format.nameLF,
                     label: this.nameText,
-                    name: 'Contacts.$resources[0]',
+                    property: 'Contacts.$resources[0]',
                     type: 'name',
                     validator: Mobile.SalesLogix.Validator.name,
                     view: 'name_edit'
                 },
                 {
                     label: this.accountNameText,
-                    name: 'AccountName',
+                    property: 'AccountName',
                     type: 'text',
                     validator: Mobile.SalesLogix.Validator.hasText
                 },
                 {
                     label: this.emailText,
-                    name: 'Contacts.$resources[0].Email',
+                    property: 'Contacts.$resources[0].Email',
                     type: 'text',
                     inputType: 'email'
                 },
                 {
                     label: this.webText,
-                    name: 'WebAddress',
+                    property: 'WebAddress',
                     type: 'text',
                     inputType: 'url',
                     maxTextLength: 128,
@@ -127,18 +127,16 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                 },
                 {
                     label: this.workText,
-                    name: 'MainPhone',
+                    property: 'MainPhone',
                     type: 'phone',
                     maxTextLength: 32,
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
-                    options: {
-                        title: this.detailsContactText
-                    },
-                    as: [{
+                    title: this.detailsContactText,
+                    children: [{
                         label: this.contactTitleText,
-                        name: 'Contacts.$resources[0].Title',
+                        property: 'Contacts.$resources[0].Title',
                         picklist: 'Title',
                         title: this.contactTitleText,
                         type: 'picklist',
@@ -146,20 +144,20 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                     },
                     {
                         label: this.homePhoneText,
-                        name: 'Contacts.$resources[0].HomePhone',
+                        property: 'Contacts.$resources[0].HomePhone',
                         type: 'phone',
                         maxTextLength: 32,
                         validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                     },
                     {
-                        name: 'Contacts.$resources[0].Mobile',
+                        property: 'Contacts.$resources[0].Mobile',
                         label: this.mobileText,
                         type: 'phone',
                         maxTextLength: 32,
                         validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                     },
                     {
-                        name: 'Contacts.$resources[0].Fax',
+                        property: 'Contacts.$resources[0].Fax',
                         label: this.faxText,
                         type: 'phone',
                         maxTextLength: 32,
@@ -169,32 +167,30 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                         emptyText: '',
                         formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true, true),
                         label: this.addressText,
-                        name: 'Contacts.$resources[0].Address',
+                        property: 'Contacts.$resources[0].Address',
                         type: 'address',
                         view: 'address_edit',
                         entityName: 'Contact'
                     }]
                 },
                 {
-                    options: {
-                        title: this.detailsAccountText
-                    },
-                    as: [{
-                        name: 'Fax',
+                    title: this.detailsAccountText,
+                    children: [{
+                        property: 'Fax',
                         label: this.faxText,
                         type: 'phone',
                         maxTextLength: 32,
                         validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                     },
                     {
-                        name: 'Type',
+                        property: 'Type',
                         label: this.typeText,
                         type: 'picklist',
                         picklist: 'Account Type',
                         title: this.accountTypeTitleText
                     },
                     {
-                        name: 'SubType',
+                        property: 'SubType',
                         label: this.subTypeText,
                         type: 'picklist',
                         requireSelection: false,
@@ -205,21 +201,21 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                         dependsOn: 'Type'
                     },
                     {
-                        name: 'Status',
+                        property: 'Status',
                         label: this.statusText,
                         type: 'picklist',
                         picklist: 'Account Status',
                         title: this.accountStatusTitleText
                     },
                     {
-                        name: 'Industry',
+                        property: 'Industry',
                         label: this.industryText,
                         type: 'picklist',
                         picklist: 'Industry',
                         title: this.industryTitleText
                     },
                     {
-                        name: 'BusinessDescription',
+                        property: 'BusinessDescription',
                         label: this.descriptionText,
                         type: 'text'
                     },
@@ -227,7 +223,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                         emptyText: '',
                         formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true, true),
                         label: this.addressText,
-                        name: 'Address',
+                        property: 'Address',
                         type: 'address',
                         view: 'address_edit',
                         entityName: 'Account'
