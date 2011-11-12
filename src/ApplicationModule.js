@@ -258,21 +258,21 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 });
 
                 this.registerCustomization('detail', 'activity_detail', {
-                    at: function(row) { return row.name === 'Priority'; },
+                    at: function(row) { return row.property === 'Priority'; },
                     type: 'insert',
                     where: 'before',
                     value: {
-                        name: 'Location',
+                        property: 'Location',
                         exclude: Mobile.SalesLogix.Views.Activity.Detail.prototype.isLocationAware,
                         label: Mobile.SalesLogix.Views.Activity.Detail.prototype.locationText
                     }
                 });
                 this.registerCustomization('edit', 'activity_edit', {
-                    at: function(row) { return row.name === 'Priority'; },
+                    at: function(row) { return row.property === 'Priority'; },
                     type: 'insert',
                     where: 'before',
                     value: {
-                        name: 'Location',
+                        property: 'Location',
                         label: Mobile.SalesLogix.Views.Activity.Edit.prototype.locationText,
                         type: 'text'
                     }
