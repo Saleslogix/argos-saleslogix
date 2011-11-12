@@ -255,13 +255,13 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
             return this.layout || (this.layout = [{
                 title: this.detailsText,
                 children: [{
-                    name: 'Type',
+                    property: 'Type',
                     type: 'hidden'
                 },{
-                    name: 'UserId',
+                    property: 'UserId',
                     type: 'hidden'
                 },{
-                    name: 'UserName',
+                    property: 'UserName',
                     type: 'hidden'
                 },{
                     label: this.startingText,
