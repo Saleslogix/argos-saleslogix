@@ -240,12 +240,9 @@ define('Mobile/SalesLogix/ApplicationModule', [
                     }
                 });
                 dojo.extend(Mobile.SalesLogix.Views.Activity.Edit, {
-                    setValues: function(values){
-                        Mobile.SalesLogix.Views.Activity.Edit.superclass.setValues.apply(this, arguments);
-                        this.isLocationAware(this.options && this.options.activityType);
-                    },
-                    isLocationAware: function(activityType){
-                        var locationAwareTypes = ['atAppointment', 'atPhoneCall'];
+                    isLocationAware: function(){
+                        var activityType = this.options.activityType,
+                            locationAwareTypes = ['atAppointment', 'atPhoneCall'];
                         if(dojo.indexOf(locationAwareTypes, activityType) === -1)
                         {
                             this.fields['Location'].hide();
@@ -256,6 +253,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
                         }
                     }
                 });
+                // isLocationAware should be called during setValues
+                dojo.connect(Mobile.SalesLogix.Views.Activity.Edit, 'setValues', Mobile.SalesLogix.Views.Activity.Edit.prototype, 'isLocationAware');
 
                 this.registerCustomization('detail', 'activity_detail', {
                     at: function(row) { return row.property === 'Priority'; },
