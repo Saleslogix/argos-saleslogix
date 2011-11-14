@@ -133,11 +133,13 @@ define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], fu
 
             return "";
         },
+        /* No need to override init function
         init: function() {
             // Mobile.SalesLogix.History.List.superclass.init.apply(this, arguments);
 
             // App.on('resize', this.onResize, this);
         },
+        */
         formatSearchQuery: function(query) {
             return dojo.string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         },
