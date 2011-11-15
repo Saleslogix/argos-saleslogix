@@ -149,7 +149,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
 
             var user = this.context['user'],
                 userId = user && user['$key'],
-                userSecurity = this.context['userSecurity'] || {};
+                userSecurity = this.context['userSecurity'];
 
             if (/^ADMIN\s*/i.test(userId)) return true;
 
