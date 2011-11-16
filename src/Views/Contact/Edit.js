@@ -154,6 +154,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 applyTo: '.',
                 formatValue: Mobile.SalesLogix.Format.nameLF,
                 label: this.nameText,
+                name: 'ContactName',
                 property: 'ContactName',
                 type: 'name',
                 validator: Mobile.SalesLogix.Validator.name,
@@ -161,6 +162,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
             },
             {
                 label: this.accountNameText,
+                name: 'Account',
                 property: 'Account',
                 textProperty: 'AccountName',
                 type: 'lookup',
@@ -168,10 +170,12 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 view: 'account_related'
             },
             {
+                name: 'AccountName',
                 property: 'AccountName',
                 type: 'hidden'
             },
             {
+                name: 'WebAddress',
                 property: 'WebAddress',
                 label: this.webText,
                 type: 'text',
@@ -180,6 +184,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
+                name: 'WorkPhone',
                 property: 'WorkPhone',
                 label: this.workText,
                 type: 'phone',
@@ -187,6 +192,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
+                name: 'Email',
                 property: 'Email',
                 label: this.emailText,
                 type: 'text',
@@ -194,6 +200,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
             },
             {
                 label: this.contactTitleText,
+                name: 'Title',
                 property: 'Title',
                 picklist: 'Title',
                 title: this.titleTitleText,
@@ -202,11 +209,13 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
             {
                 formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true),
                 label: this.addressText,
+                name: 'Address',
                 property: 'Address',
                 type: 'address',
                 view: 'address_edit'
             },
             {
+                name: 'HomePhone',
                 property: 'HomePhone',
                 label: this.homePhoneText,
                 type: 'phone',
@@ -214,6 +223,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
+                name: 'Mobile',
                 property: 'Mobile',
                 label: this.mobileText,
                 type: 'phone',
@@ -221,6 +231,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
+                name: 'Fax',
                 property: 'Fax',
                 label: this.faxText,
                 type: 'phone',
@@ -229,6 +240,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
             },
             {
                 label: this.acctMgrText,
+                name: 'AccountManager',
                 property: 'AccountManager',
                 textProperty: 'UserInfo',
                 textTemplate: Mobile.SalesLogix.Template.nameLF,
@@ -237,16 +249,19 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
             },
             {
                 label: this.ownerText,
+                name: 'Owner',
                 property: 'Owner',
                 textProperty: 'OwnerDescription',
                 type: 'lookup',
                 view: 'owner_list'
             },
             {
+                name: 'Opportunities.$resources[0].Opportunity.$key',
                 property: 'Opportunities.$resources[0].Opportunity.$key',
                 type: 'hidden'
             },{
                 label: this.cuisinePreferenceText,
+                name: 'CuisinePreference',
                 property: 'CuisinePreference',
                 type: 'picklist',
                 picklist: 'CuisinePrefs',

@@ -66,28 +66,20 @@ define('Mobile/SalesLogix/Views/Defect/Detail', ['Sage/Platform/Mobile/Detail'],
         ],
         resourceKind: 'defects',
 
-        init: function() {
-            Mobile.SalesLogix.Defect.Detail.superclass.init.call(this);
-
-            App.on('resize', this.onResize, this);
-
-            this.tools.fbar = [{
-                cls: '',
-                fn: function() {
-                    App.navigateToActivityInsertView.call(App, {"id": this.id});
-                },
-                icon: 'content/images/icons/Scheduling_24x24.png',
-                name: 'schedule',
-                scope: this,
-                title: this.fbarScheduleTitleText
-            }];
-        },
-        onResize: function() {
-            this.el.select('.defect-text-row').each(function(el) {
-                if (el.child('.defect-text-wrap').getHeight(true) < el.child('.defect-text-wrap a').getHeight())
-                    el.child('.defect-text-more').show();
-                else
-                    el.child('.defect-text-more').hide();
+        createToolLayout: function(){
+            return this.tools || (this.tools = {
+                tbar: [
+                    {
+                        cls: '',
+                        fn: function() {
+                            App.navigateToActivityInsertView.call(App, {"id": this.id});
+                        },
+                        icon: 'content/images/icons/Scheduling_24x24.png',
+                        name: 'schedule',
+                        scope: this,
+                        title: this.fbarScheduleTitleText
+                    }
+                ]
             });
         },
         createLayout: function() {
@@ -97,50 +89,62 @@ define('Mobile/SalesLogix/Views/Defect/Detail', ['Sage/Platform/Mobile/Detail'],
             },
             {
                 label: this.priorityText,
+                name: 'PriorityCode',
                 property: 'PriorityCode'
             },
             {
                 label: this.severityText,
+                name: 'SeverityCode',
                 property: 'SeverityCode'
             },
             {
                 label: this.areaText,
+                name: 'Area',
                 property: 'Area'
             },
             {
                 label: this.categoryText,
+                name: 'Category',
                 property: 'Category'
             },
             {
                 label: this.subjectText,
+                name: 'Subject',
                 property: 'Subject'
             },
             {
                 label: this.reportDateText,
+                name: 'RecordedDate',
                 property: 'RecordedDate',
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
                 label: this.assignedText,
+                name: 'AssignedTo.OwnerDescription',
                 property: 'AssignedTo.OwnerDescription'
             },
             {
                 label: this.statusText,
+                name: 'StatusCode',
                 property: 'StatusCode'
             },
             {
                 label: this.createUserText,
+                name: 'CreateUser',
                 property: 'CreateUser'
             },
             {
                 label: this.createDateText,
+                name: 'CreateDate',
                 property: 'CreateDate',
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
                 title: this.relatedDefectProblemsText,
+                name: 'ProblemSection',
                 children: [{
                     label: this.relatedDefectProblemsText,
+                    name: 'DefectProblem.Notes',
                     property: 'DefectProblem.Notes',
                     key: 'DefectProblem.$key',
                     view: 'defectproblem_detail',
@@ -149,19 +153,16 @@ define('Mobile/SalesLogix/Views/Defect/Detail', ['Sage/Platform/Mobile/Detail'],
             },
             {
                 title: this.relatedDefectSolutionsText,
+                name: 'SolutionSection',
                 children: [{
                     label: this.relatedDefectSolutionsText,
+                    name: 'DefectSolution.Notes',
                     property: 'DefectSolution.Notes',
                     key: 'DefectSolution.$key',
                     view: 'defectsolution_detail',
                     wrap: this.textBlockTemplate
                 }]
             }]);
-        },
-        processEntry: function(entry) {
-            Mobile.SalesLogix.Defect.Detail.superclass.processEntry.call(this, entry);
-
-            this.onResize();
         }
     });
 });

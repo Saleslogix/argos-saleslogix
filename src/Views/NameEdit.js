@@ -22,6 +22,7 @@ define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], functi
                 {
                     emptyText: '',
                     label: this.prefixText,
+                    name: 'Prefix',
                     property: 'Prefix',
                     picklist: 'Name Prefix',
                     requireSelection: true,
@@ -29,6 +30,7 @@ define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], functi
                     type: 'picklist'
                 },
                 {
+                    name: 'FirstName',
                     property: 'FirstName',
                     label: this.firstNameText,
                     type: 'text',
@@ -36,6 +38,7 @@ define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], functi
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
+                    name: 'MiddleName',
                     property: 'MiddleName',
                     label: this.middleNameText,
                     type: 'text',
@@ -43,6 +46,7 @@ define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], functi
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },
                 {
+                    name: 'LastName',
                     property: 'LastName',
                     label: this.lastNameText,
                     type: 'text',
@@ -52,6 +56,7 @@ define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], functi
                 {
                     emptyText: '',
                     label: this.suffixText,
+                    name: 'Suffix',
                     property: 'Suffix',
                     picklist: 'Name Suffix',
                     requireSelection: true,

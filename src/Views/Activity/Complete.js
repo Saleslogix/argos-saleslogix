@@ -310,13 +310,16 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
         createLayout: function() {
             return this.layout || (this.layout = [{
                 title: this.activityInfoText,
+                name: 'ActivityInfoSection',
                 collapsed: false,
                 children: [{
+                    name: 'Type',
                     property: 'Type',
                     type: 'hidden'
                 },{
                     dependsOn: 'Type',
                     label: this.regardingText,
+                    name: 'Description',
                     property: 'Description',
                     picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
                     title: this.regardingTitleText,
@@ -326,6 +329,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },{
                     label: this.startingText,
+                    name: 'StartDate',
                     property: 'StartDate',
                     type: 'date',
                     showTimePicker: true,
@@ -337,6 +341,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     ]
                 },{
                     label: this.durationText,
+                    name: 'Duration',
                     property: 'Duration',
                     type: 'select',
                     view: 'select_list',
@@ -354,19 +359,23 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     }
                 },{
                     label: this.timelessText,
+                    name: 'Timeless',
                     property: 'Timeless',
                     type: 'boolean'
                 }]
             },{
                 title: this.completionText,
+                name: 'CompletionSection',
                 collapsed: false,
                 children: [{
                     label: this.asScheduledText,
                     include: false,
+                    name: 'AsScheduled',
                     property: 'AsScheduled',
                     type: 'boolean'
                 },{
                     label: this.completedText,
+                    name: 'CompletedDate',
                     property: 'CompletedDate',
                     type: 'date',
                     showTimePicker: true,
@@ -379,6 +388,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                 },{
                     dependsOn: 'Type',
                     label: this.resultText,
+                    name: 'Result',
                     property: 'Result',
                     picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
                     title: this.resultTitleText,
@@ -389,6 +399,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                 },{
                     label: this.followUpText,
                     title: this.followUpTitleText,
+                    name: 'Followup',
                     property: 'Followup',
                     type: 'select',
                     view: 'select_list',
@@ -401,17 +412,20 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                 },{
                     label: this.carryOverNotesText,
                     include: false,
+                    name: 'CarryOverNotes',
                     property: 'CarryOverNotes',
                     type: 'boolean'
                 },{
                     label: this.longNotesText,
                     noteProperty: false,
+                    name: 'LongNotes',
                     property: 'LongNotes',
                     title: this.longNotesTitleText,
                     type: 'note',
                     view: 'text_edit'
                 },{
                     label: this.accountText,
+                    name: 'Account',
                     property: 'Account',
                     type: 'lookup',
                     emptyText: '',
@@ -434,6 +448,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                 },{
                     dependsOn: 'Account',
                     label: this.contactText,
+                    name: 'Contact',
                     property: 'Contact',
                     type: 'lookup',
                     emptyText: '',
@@ -445,6 +460,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                 },{
                     dependsOn: 'Account',
                     label: this.opportunityText,
+                    name: 'Opportunity',
                     property: 'Opportunity',
                     type: 'lookup',
                     emptyText: '',
@@ -456,6 +472,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                 },{
                     dependsOn: 'Account',
                     label: this.ticketNumberText,
+                    name: 'Ticket',
                     property: 'Ticket',
                     type: 'lookup',
                     emptyText: '',
@@ -466,6 +483,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
                 },{
                     label: this.leadText,
+                    name: 'Lead',
                     property: 'Lead',
                     type: 'lookup',
                     emptyText: '',
@@ -475,14 +493,17 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     view: 'lead_related'
                 },{
                     label: this.companyText,
+                    name: 'AccountName',
                     property: 'AccountName',
                     type: 'text'
                 }]
             },{
                 title: this.otherInfoText,
+                name: 'OtherInfoSection',
                 collapsed: false,
                 children: [{
                     label: this.priorityText,
+                    name: 'Priority',
                     property: 'Priority',
                     picklist: 'Priorities',
                     title: this.priorityTitleText,
@@ -492,6 +513,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                 },{
                     dependsOn: 'Type',
                     label: this.categoryText,
+                    name: 'Category',
                     property: 'Category',
                     picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
                     orderBy: 'text asc',
@@ -501,9 +523,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
                 },{
                     type: 'hidden',
+                    name: 'UserId',
                     property: 'UserId'
                 },{
                     label: this.leaderText,
+                    name: 'Leader',
                     property: 'Leader',
                     include: false,
                     type: 'lookup',

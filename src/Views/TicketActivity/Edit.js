@@ -44,6 +44,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
             return this.layout || (this.layout = [                
                 {
                     label: this.activityTypeText,
+                    name: 'ActivityType',
                     property: 'ActivityType',
                     requireSelection: true,
                     title: this.activityTypeTitleText,
@@ -51,12 +52,14 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
                     type: 'picklist'
                 },{
                     label: this.publicAccessText,
+                    name: 'PublicAccess',
                     property: 'PublicAccess',
                     title: this.publicAcccessTitleText,
                     picklist: 'Ticket Activity Public Access',
                     type: 'picklist'
                 },{
                     label: this.userText,
+                    name: 'User',
                     property: 'User',
                     textProperty: 'UserInfo',
                     textTemplate: Mobile.SalesLogix.Template.nameLF,
@@ -64,20 +67,24 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
                     view: 'user_list'
                 },{
                     label: this.startDateText,
+                    name: 'AssignedDate',
                     property: 'AssignedDate',
                     type: 'date'
                 },{
                     label: this.endDateText,
+                    name: 'CompletedDate',
                     property: 'CompletedDate',
                     type: 'date'
                 },{
                     label: this.chargeTypeText,
+                    name: 'RateTypeDescription',
                     property: 'RateTypeDescription',
                     textProperty: 'RateTypeCode',
                     type: 'lookup',
                     view: 'ticket_activity_ratelookup'
                 },{
                     label: this.commentsText,
+                    name: 'ActivityDescription',
                     property: 'ActivityDescription',
                     rows: 6,
                     type: 'textarea'

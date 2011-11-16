@@ -165,7 +165,9 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                 list: true,
                 title: this.actionsText,
                 cls: 'action-list',
+                name: 'QuickActionSection',
                 children: [{
+                    name: 'CallWorkPhoneAction',
                     property: 'WorkPhone',
                     label: this.callWorkNumberText,
                     icon: 'content/images/icons/Dial_24x24.png',
@@ -173,13 +175,14 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     disabled: this.checkWorkPhone,
                     renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false)
                 },{
+                    name: 'CheckEmailAction',
                     property: 'Email',
                     label: this.sendEmailText,
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
                     action: 'sendEmail',
                     disabled: this.checkEmail
                 },{
-                    name: '',
+                    name: 'ScheduleActivityAction',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity',
@@ -187,11 +190,13 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                         '{%: $.Company %} / {%: $.LeadNameLastFirst %}'
                     ])
                 },{
+                    name: 'AddNoteAction',
                     property: 'LeadNameLastFirst',
                     label: this.addNoteText,
                     icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 },{
+                    name: 'ViewAddressAction',
                     property: 'Address',
                     label: this.viewAddressText,
                     icon: 'content/images/icons/Map_24.png',
@@ -201,52 +206,67 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                 }]
             },{
                 title: this.detailsText,
+                name: 'DetailsSection',
                 children: [{
                     label: this.nameText,
+                    name: 'LeadNameLastFirst',
                     property: 'LeadNameLastFirst'
                 },{
                     label: this.accountText,
+                    name: 'Company',
                     property: 'Company'
                 },{
                     label: this.webText,
+                    name: 'WebAddress',
                     property: 'WebAddress',
                     renderer: Mobile.SalesLogix.Format.link
                 },{
                     label: this.leadTitleText,
+                    name: 'Title',
                     property: 'Title'
                 },{
                     label: this.tollFreeText,
+                    name: 'TollFree',
                     property: 'TollFree',
                     renderer: Mobile.SalesLogix.Format.phone
                 },{
                     label: this.leadSourceText,
+                    name: 'LeadSource.Description',
                     property: 'LeadSource.Description'
                 }]
             },{
                 title: this.moreDetailsText,
+                name: 'MoreDetailsSection',
                 collapsed: true,
                 children: [{
                     label: this.interestsText,
+                    name: 'Interests',
                     property: 'Interests'
                 },{
                     label: this.industryText,
+                    name: 'Industry',
                     property: 'Industry'
                 },{
                     label: this.sicCodeText,
+                    name: 'SICCode',
                     property: 'SICCode'
                 },{
                     label: this.businessDescriptionText,
+                    name: 'BusinessDescription',
                     property: 'BusinessDescription'
                 },{
                     label: this.notesText,
+                    name: 'Notes',
                     property: 'Notes'
                 },{
                     label: this.ownerText,
+                    name: 'Owner.OwnerDescription',
                     property: 'Owner.OwnerDescription'
                 }]
             },{
                 list: true,
                 title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
                 children: [{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,

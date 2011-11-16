@@ -64,47 +64,56 @@ define('Mobile/SalesLogix/Views/SalesOrder/Detail', ['Sage/Platform/Mobile/Detai
             return this.layout || (this.layout = [
                 {
                     label: this.salesOrderIdText,
-                    name: 'SalesOrderNumber'
+                    name: 'SalesOrderNumber',
+                    property: 'SalesOrderNumber'
                 },
                 {
                     label: this.accountText,
                     name: 'Account.AccountName',
+                    property: 'Account.AccountName',
                     key: 'Account.$key',
-                    property: true,
                     view: 'account_detail'
                 },
                 {
                     label: this.typeText,
-                    name: 'OrderType'
+                    name: 'OrderType',
+                    property: 'OrderType'
                 },
                 {
                     label: this.statusText,
-                    name: 'Status'
+                    name: 'Status',
+                    property: 'Status'
                 },
                 {
                     label: this.totalText,
-                    name: 'OrderTotal'
+                    name: 'OrderTotal',
+                    property: 'OrderTotal'
                 },
                 {
                     label: this.reqDateText,
                     name: 'DatePromised',
+                    property: 'DatePromised',
                     renderer: Mobile.SalesLogix.Format.date
                 },
                 {
                     label: this.commentsText,
+                    property: 'Comments',
                     name: 'Comments'
                 },
                 {
                     label: this.acctMgrText,
+                    property: 'AccountManager.UserInfo',
                     name: 'AccountManager.UserInfo',
                     tpl: Mobile.SalesLogix.Template.nameLF
                 },
                 {
                     label: this.createUserText,
+                    property: 'CreateUser',
                     name: 'CreateUser'
                 },
                 {
                     label: this.createDateText,
+                    property: 'CreateDate',
                     name: 'CreateDate',
                     renderer: Mobile.SalesLogix.Format.date
                 }

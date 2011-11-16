@@ -173,6 +173,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
             return this.layout || (this.layout = [                
                 {
                     label: this.accountText,
+                    name: 'Account',
                     property: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
@@ -182,6 +183,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.contactText,
+                    name: 'Contact',
                     property: 'Contact',
                     textProperty: 'NameLF',
                     type: 'lookup',
@@ -192,6 +194,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.contractText,
+                    name: 'Contract',
                     property: 'Contract',
                     textProperty: 'ReferenceNumber',
                     type: 'lookup',
@@ -201,6 +204,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.areaText,
+                    name: 'Area',
                     property: 'Area',
                     title: this.ticketAreaTitleText,
                     type: 'lookup',
@@ -211,6 +215,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.categoryText,
+                    name: 'Category',
                     property: 'Category',
                     title: this.ticketCategoryTitleText,
                     type: 'lookup',
@@ -223,6 +228,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.issueText,
+                    name: 'Issue',
                     property: 'Issue',
                     title: this.ticketIssueTitleText,
                     type: 'lookup',
@@ -235,6 +241,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.sourceText,
+                    name: 'ViaCode',
                     property: 'ViaCode',
                     picklist: 'Source',
                     requireSelection: true,
@@ -244,6 +251,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.statusText,
+                    name: 'StatusCode',
                     property: 'StatusCode',
                     picklist: 'Ticket Status',
                     requireSelection: true,
@@ -252,11 +260,13 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                     type: 'picklist'
                 },
                 {
+                    name: 'UrgencyCode',
                     property: 'UrgencyCode',
                     type: 'hidden'
                 },
                 {
                     label: this.urgencyText,
+                    name: 'Urgency',
                     property: 'Urgency',
                     title: this.ticketUrgencyTitleText,
                     requireSelection: true,
@@ -266,18 +276,21 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.needByText,
+                    name: 'NeededByDate',
                     property: 'NeededByDate',
                     renderer: Mobile.SalesLogix.Format.date,
                     type: 'date'
                 },
                 {
                     label: this.assignedDateText,
+                    name: 'AssignedDate',
                     property: 'AssignedDate',
                     renderer: Mobile.SalesLogix.Format.date,
                     type: 'date'
                 },
                 {
                     label: this.assignedToText,
+                    name: 'AssignedTo',
                     property: 'AssignedTo',
                     textProperty: 'OwnerDescription',
                     type: 'lookup',
@@ -285,28 +298,33 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.subjectText,
+                    name: 'Subject',
                     property: 'Subject',
                     type: 'text'
                 },
                 {
+                    name: 'TicketProblem.$key',
                     property: 'TicketProblem.$key',
                     type: 'hidden',
                     include: this.includeIfValueExists
                 },
                 {
                     label: this.descriptionText,
+                    name: 'TicketProblem',
                     property: 'TicketProblem',
                     title: this.descriptionTitleText,
                     type: 'note',
                     view: 'text_edit'
                 },
                 {
+                    name: 'TicketSolution.$key',
                     property: 'TicketSolution.$key',
                     type: 'hidden',
                     include: this.includeIfValueExists
                 },
                 {
                     label: this.resolutionText,
+                    name: 'TicketSolution',
                     property: 'TicketSolution',
                     title: this.resolutionTitleText,
                     type: 'note',
@@ -314,6 +332,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                 },
                 {
                     label: this.notesText,
+                    name: 'Notes',
                     property: 'Notes',
                     noteProperty: false,
                     title: this.notesTitleText,

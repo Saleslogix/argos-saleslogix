@@ -33,26 +33,31 @@ define('Mobile/SalesLogix/Views/Defect/Edit', ['Sage/Platform/Mobile/Edit'], fun
         createLayout: function() {
             return this.layout || (this.layout = [{
                 label: this.idPrefixText,
+                name: 'AlternateKeyPrefix',
                 property: 'AlternateKeyPrefix',
                 type: 'text'
             },
             {
                 label: this.idSuffixText,
+                name: 'AlternateKeySuffix',
                 property: 'AlternateKeySuffix',
                 type: 'text'
             },
             {
                 label: this.areaText,
+                name: 'Area',
                 property: 'Area',
                 type: 'text'
             },
             {
                 label: this.categoryText,
+                name: 'Category',
                 property: 'Category',
                 type: 'text'
             },
             {
                 label: this.subjectText,
+                name: 'Subject',
                 property: 'Subject',
                 type: 'text'
             }]);

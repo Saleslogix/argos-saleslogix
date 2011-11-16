@@ -67,6 +67,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     applyTo: '',
                     formatValue: Mobile.SalesLogix.Format.nameLF,
                     label: this.leadNameLastFirstText,
+                    name: 'LeadNameLastFirst',
                     property: 'LeadNameLastFirst',
                     type: 'name',
                     validator: Mobile.SalesLogix.Validator.name,
@@ -74,6 +75,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.companyText,
+                    name: 'Company',
                     property: 'Company',
                     type: 'text',
                     maxTextLength: 128,
@@ -81,6 +83,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.webText,
+                    name: 'WebAddress',
                     property: 'WebAddress',
                     type: 'text',
                     inputType: 'url',
@@ -89,6 +92,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.workText,
+                    name: 'WorkPhone',
                     property: 'WorkPhone',
                     type: 'phone',
                     maxTextLength: 32,
@@ -96,12 +100,14 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.emailText,
+                    name: 'Email',
                     property: 'Email',
                     type: 'text',
                     inputType: 'email'
                 },
                 {
                     label: this.contactTitleText,
+                    name: 'Title',
                     property: 'Title',
                     picklist: 'Title',
                     title: this.titleTitleText,
@@ -114,12 +120,14 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     emptyText: '',
                     formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true),
                     label: this.addressText,
+                    name: 'Address',
                     property: 'Address',
                     type: 'address',
                     view: 'address_edit'
                 },
                 {
                     label: this.tollFreeText,
+                    name: 'TollFree',
                     property: 'TollFree',
                     type: 'phone',
                     maxTextLength: 32,
@@ -127,6 +135,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.importSourceText,
+                    name: 'LeadSource',
                     property: 'LeadSource',
                     view: 'leadsource_list',
                     textProperty: 'Description',
@@ -135,6 +144,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.interestsText,
+                    name: 'Interests',
                     property: 'Interests',
                     type: 'text',
                     maxTextLength: 64,
@@ -142,6 +152,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.industryText,
+                    name: 'Industry',
                     property: 'Industry',
                     picklist: 'Industry',
                     title: this.industryTitleText,
@@ -151,6 +162,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.sicCodeText,
+                    name: 'SICCode',
                     property: 'SICCode',
                     type: 'text',
                     maxTextLength: 64,
@@ -158,6 +170,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.businessText,
+                    name: 'BusinessDescription',
                     property: 'BusinessDescription',
                     noteProperty: false,
                     title: this.businessTitleText,
@@ -166,6 +179,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.notesText,
+                    name: 'Notes',
                     property: 'Notes',
                     noteProperty: false,
                     title: this.notesTitleText,
@@ -174,6 +188,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                 },
                 {
                     label: this.leadOwnerText,
+                    name: 'Owner',
                     property: 'Owner',
                     textProperty: 'OwnerDescription',
                     type: 'lookup',

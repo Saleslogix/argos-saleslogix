@@ -156,7 +156,9 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                 list: true,
                 title: this.actionsText,
                 cls: 'action-list',
+                name: 'QuickActionsSection',
                 children: [{
+                    name: 'CompleteActivityAction',
                     property: 'Description',
                     label: this.completeActivityText,
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
@@ -165,67 +167,84 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                 }]
             },{
                 title: this.detailsText,
+                name: 'DetailsSection',
                 children: [{
+                    name: 'Type',
                     property: 'Type',
                     label: this.typeText,
                     renderer: this.formatActivityType.bindDelegate(this)
                 },{
+                    name: 'Description',
                     property: 'Description',
                     label: this.regardingText
                 },{
+                    name: 'Category',
                     property: 'Category',
                     label: this.categoryText
                 },{
+                    name: 'Priority',
                     property: 'Priority',
                     label: this.priorityText
                 },{
+                    name: 'LongNotes',
                     property: 'LongNotes',
                     label: this.longNotesText
                 }]
             },{
                 title: this.whenText,
+                name: 'WhenSection',
                 children: [{
+                    name: 'StartDate',
                     property: 'StartDate',
                     label: this.startTimeText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startDateFormatText),
                     exclude: this.isActivityTimeless
                 },{
+                    name: 'StartDate',
                     property: 'StartDate',
                     label: this.allDayText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.timelessDateFormatText),
                     include: this.isActivityTimeless
                 },{
+                    name: 'Timeless',
                     property: 'Timeless',
                     label: this.timelessText,
                     type: 'boolean',
                     include: false
                 },{
+                    name: 'Duration',
                     property: 'Duration',
                     label: this.durationText,
                     renderer: Mobile.SalesLogix.Format.timespan,
                     exclude: this.isActivityTimeless
                 },{
+                    name: 'Alarm',
                     property: 'Alarm',
                     label: this.alarmText,
                     exclude: this.doesActivityHaveReminder
                 },{
+                    name: 'AlarmTime',
                     property: 'AlarmTime',
                     label: this.alarmTimeText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.alarmDateFormatText),
                     include: this.doesActivityHaveReminder
                 },{
+                    name: 'Rollover',
                     property: 'Rollover',
                     label: this.rolloverText,
                     include: this.isActivityTimeless
                 }]
             },{
                 title: this.whoText,
+                name: 'WhoSection',
                 children: [{
+                    name: 'Leader',
                     property: 'Leader',
                     label: this.leaderText,
                     cls: 'content-loading',
                     value: 'loading...'
                 },{
+                    name: 'ContactName',
                     property: 'ContactName',
                     exclude: this.isActivityForLead,
                     label: this.contactText,
@@ -233,6 +252,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     key: 'ContactId',
                     descriptor: 'ContactName'
                 },{
+                    name: 'AccountName',
                     property: 'AccountName',
                     exclude: this.isActivityForLead,
                     label: this.accountText,
@@ -240,6 +260,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     key: 'AccountId',
                     descriptor: 'AccountName'
                 },{
+                    name: 'OpportunityName',
                     property: 'OpportunityName',
                     exclude: this.isActivityForLead,
                     label: this.opportunityText,
@@ -247,6 +268,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     key: 'OpportunityId',
                     descriptor: 'OpportunityName'
                 },{
+                    name: 'TicketNumber',
                     property: 'TicketNumber',
                     exclude: this.isActivityForLead,
                     label: this.ticketNumberText,
@@ -254,6 +276,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     key: 'TicketId',
                     descriptor: 'TicketNumber'
                 },{
+                    name: 'LeadName',
                     property: 'LeadName',
                     include: this.isActivityForLead,
                     label: this.leadText,
@@ -261,6 +284,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     key: 'LeadId',
                     descriptor: 'LeadName'
                 },{
+                    name: 'AccountName',
                     property: 'AccountName',
                     include: this.isActivityForLead,
                     label: this.companyText

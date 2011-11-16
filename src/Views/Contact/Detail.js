@@ -168,7 +168,9 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                 list: true,
                 title: this.actionsText,
                 cls: 'action-list',
+                name: 'QuickActionsSection',
                 children: [{
+                    name: 'CallWorkPhoneAction',
                     property: 'WorkPhone',
                     label: this.callWorkNumberText,
                     icon: 'content/images/icons/Dial_24x24.png',
@@ -176,6 +178,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                     disabled: this.checkValueExists,
                     renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false)
                 },{
+                    name: 'CallMobilePhoneAction',
                     property: 'Mobile',
                     label: this.callMobileNumberText,
                     icon: 'content/images/icons/mobile_24.png',
@@ -183,13 +186,14 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                     disabled: this.checkValueExists,
                     renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false)
                 },{
+                    name: 'SendEmailAction',
                     property: 'Email',
                     label: this.sendEmailText,
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
                     action: 'sendEmail',
                     disabled: this.checkEmail
                 },{
-                    property: '',
+                   // name: 'ScheduleActivityAction',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity',
@@ -197,11 +201,13 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                         '{%: $.AccountName %} / {%: $.NameLF %}'        
                     ])
                 },{
+                    name: 'AddNoteAction',
                     property: 'NameLF',
                     label: this.addNoteText,
                     icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 },{
+                    name: 'ViewAddressAction',
                     property: 'Address',
                     label: this.viewAddressText,
                     icon: 'content/images/icons/Map_24.png',
@@ -211,47 +217,59 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                 }]
             },{
                 title: this.detailsText,
+                name: 'DetailsSection',
                 children: [{
+                    name: 'NameLF',
                     property: 'NameLF',
                     label: this.nameText
                 },{
+                    name: 'AccountName',
                     property: 'AccountName',
                     descriptor: 'AccountName',
                     label: this.accountText,
                     view: 'account_detail',
                     key: 'Account.$key'
                 },{
+                    name: 'WebAddress',
                     property: 'WebAddress',
                     label: this.webText,
                     renderer: Mobile.SalesLogix.Format.link
                 },{
+                    name: 'Title',
                     property: 'Title',
                     label: this.contactTitleText
                 }]
             },{
                 title: this.moreDetailsText,
+                name: 'MoreDetailsSection',
                 collapsed: true,
                 children: [{
+                    name: 'HomePhone',
                     property: 'HomePhone',
                     label: this.homeText,
                     renderer: Mobile.SalesLogix.Format.phone
                 },{
+                    name: 'Fax',
                     property: 'Fax',
                     label: this.faxText,
                     renderer: Mobile.SalesLogix.Format.phone
                 },{
+                    name: 'AccountManager.UserInfo',
                     property: 'AccountManager.UserInfo',
                     label: this.acctMgrText,
                     tpl: Mobile.SalesLogix.Template.nameLF
                 },{
+                    name: 'Owner.OwnerDescription',
                     property: 'Owner.OwnerDescription',
                     label: this.ownerText
                 },{
+                    name: 'CuisinePreference',
                     property: 'CuisinePreference',
                     label: this.cuisinePreferenceText
                 }]
             },{
                 title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
                 list: true,
                 children: [{
                     icon: 'content/images/icons/To_Do_24x24.png',

@@ -136,7 +136,9 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                 title: this.actionsText,
                 list: true,
                 cls: 'action-list',
+                name: 'QuickActionsSection',
                 children: [{
+                    name: 'CallMainPhoneAction',
                     property: 'MainPhone',
                     label: this.callMainNumberText,
                     icon: 'content/images/icons/Dial_24x24.png',
@@ -144,16 +146,19 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                     disabled: this.checkMainPhone,
                     renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false) 
                 },{
+                    name: 'ScheduleActivityAction',
                     property: 'AccountName',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',  
                     action: 'scheduleActivity'
                 },{
+                    name: 'AddNoteAction',
                     property: 'AccountName',
                     label: this.addNoteText,
                     icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 },{
+                    name: 'ViewAddressAction',
                     property: 'Address',
                     label: this.viewAddressText,
                     icon: 'content/images/icons/Map_24.png',
@@ -163,52 +168,66 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                 }]
             },{
                 title: this.detailsText,
+                name: 'DetailsSection',
                 children: [{
+                    name: 'AccountName',
                     property: 'AccountName',
                     label: this.accountText
                 },{
+                    name: 'WebAddress',
                     property: 'WebAddress',
                     label: this.webText,
                     renderer: Mobile.SalesLogix.Format.link
                 },{
+                    name: 'Fax',
                     property: 'Fax',
                     label: this.faxText,
                     renderer: Mobile.SalesLogix.Format.phone
                 },{
+                    name: 'Type',
                     property: 'Type',
                     label: this.typeText
                 },{
+                    name: 'SubType',
                     property: 'SubType',
                     label: this.subTypeText
                 },{
+                    name: 'Status',
                     property: 'Status',
                     label: this.statusText
                 }]
             },{
                 title: this.moreDetailsText,
                 collapsed: true,
+                name: 'MoreDetailsSection',
                 children: [{
+                    name: 'Industry',
                     property: 'Industry',
                     label: this.industryText,
                     type: 'text'
                 },{
+                    name: 'BusinessDescription',
                     property: 'BusinessDescription',
                     label: this.businessDescriptionText,
                     type: 'text'
                 },{
+                    name: 'AccountManager.UserInfo',
                     property: 'AccountManager.UserInfo',
                     label: this.acctMgrText,
                     tpl: Mobile.SalesLogix.Template.nameLF
                 },{
+                    name: 'Owner.OwnerDescription',
                     property: 'Owner.OwnerDescription',
                     label: this.ownerText
                 },{
+                    name: 'LeadSource.Description',
                     property: 'LeadSource.Description',
                     label: this.importSourceText
                 }]
             },{
                 title: this.relatedItemsText,
                 list: true,
+                name: 'RelatedItemsSection',
                 children: [{
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,

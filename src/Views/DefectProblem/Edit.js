@@ -20,6 +20,7 @@ define('Mobile/SalesLogix/Views/DefectProblem/Edit', ['Sage/Platform/Mobile/Edit
 
         createLayout: function() {
             return this.layout || (this.layout = [{
+                name: 'Notes',
                 property: 'Notes',
                 label: this.notesText,
                 type: 'text'

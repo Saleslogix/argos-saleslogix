@@ -61,7 +61,9 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
         createLayout: function() {
             return this.layout || (this.layout = [{
                 title: this.detailsText,
+                name: 'DetailsSection',
                 children: [{
+                    name: 'Ticket.Account.AccountName',
                     property: 'Ticket.Account.AccountName',
                     descriptor: 'Ticket.Account.AccountName',
                     label: this.accountText,
@@ -69,11 +71,14 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     key: 'Ticket.Account.$key'
                 },{
                     label: this.typeText,
+                    name: 'ActivityType',
                     property: 'ActivityType'
                 },{
                     label: this.publicAccessText,
+                    name: 'PublicAccess',
                     property: 'PublicAccess'
                 },{
+                    name: 'User.UserName',
                     property: 'User.UserName',
                     descriptor: 'User.UserName',
                     label: this.contactText,
@@ -81,47 +86,60 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     key: 'User.$key'
                 },{
                     label: this.assignedDateText,
+                    name: 'AssignedDate',
                     property: 'AssignedDate',
                     renderer: Mobile.SalesLogix.Format.date
                 },{
                     label: this.completedDateText,
+                    name: 'CompletedDate',
                     property: 'CompletedDate',
                     renderer: Mobile.SalesLogix.Format.date
                 },{
                     label: this.followUpText,
+                    name: 'FollowUp',
                     property: 'FollowUp'
                 },{
                     label: this.activityDescriptionText,
+                    name: 'ActivityDescription',
                     property: 'ActivityDescription'
                 }]
             },{
                 title: this.moreDetailsText,
                 collapsed: true,
+                name: 'MoreDetailsTextSection',
                 children: [{
                     label: this.unitsText,
+                    name: 'Units',
                     property: 'Units'
                 },{
                     label: this.elapsedUnitsText,
+                    name: 'ElapsedUnits',
                     property: 'ElapsedUnits'
                 },{
                     label: this.rateTypeDescriptionText,
+                    name: 'RateTypeDescription.RateTypeCode',
                     property: 'RateTypeDescription.RateTypeCode'
                 },{
                     label: this.rateText,
+                    name: 'Rate',
                     property: 'Rate'
                 },{
                     label: this.totalLaborText,
+                    name: 'TotalLabor',
                     property: 'TotalLabor'
                 },{
                     label: this.totalPartsText,
+                    name: 'TotalParts',
                     property: 'TotalParts'
                 },{
                     label: this.totalFeeText,
+                    name: 'TotalFee',
                     property: 'TotalFee'
                 }]
             },{
                 list: true,
                 title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
                 children: [{
                     icon: 'content/images/icons/product_24.png',
                     label: this.relatedTicketActivityItemText,
