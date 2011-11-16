@@ -183,6 +183,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     disabled: this.checkEmail
                 },{
                     name: 'ScheduleActivityAction',
+                    property: '',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity',
