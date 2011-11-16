@@ -183,7 +183,6 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     disabled: this.checkEmail
                 },{
                     name: 'ScheduleActivityAction',
-                    property: '',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity',
@@ -269,12 +268,14 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                 title: this.relatedItemsText,
                 name: 'RelatedItemsSection',
                 children: [{
+                    name: 'ActivityRelated',
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}"')
                 },
                 {
+                    name: 'HistoryRelated',
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}" and Type ne "atDatabaseChange"'),

@@ -194,7 +194,6 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                     disabled: this.checkEmail
                 },{
                     name: 'ScheduleActivityAction',
-                    property: '',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity',
@@ -273,21 +272,25 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                 name: 'RelatedItemsSection',
                 list: true,
                 children: [{
+                    name: 'ActivityRelated',
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}"')
                 },{
+                    name: 'OpportunityRelated',
                     icon: 'content/images/icons/opportunity_24.png',
                     label: this.relatedOpportunitiesText,
                     view: 'opportunity_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'Contacts.Contact.Id eq "${0}"')
                 },{
+                    name: 'TicketRelated',
                     icon: 'content/images/icons/Ticket_24x24.png',
                     label: this.relatedTicketsText,
                     view: 'ticket_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'Contact.Id eq "${0}"')
                 },{
+                    name: 'HistoryRelated',
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}" and Type ne "atDatabaseChange"'),

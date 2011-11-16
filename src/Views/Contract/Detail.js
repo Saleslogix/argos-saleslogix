@@ -132,6 +132,7 @@ define('Mobile/SalesLogix/Views/Contract/Detail', ['Sage/Platform/Mobile/Detail'
                 title: this.relatedItemsText,
                 name: 'RelatedItemsSection',
                 children: [{
+                    name: 'TicketRelated',
                     icon: 'content/images/ticket_16x16.gif',
                     label: this.relatedTicketsText,
                     view: 'ticket_related',

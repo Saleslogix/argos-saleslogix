@@ -141,6 +141,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                 title: this.relatedItemsText,
                 name: 'RelatedItemsSection',
                 children: [{
+                    name: 'TicketActivityItemRelated',
                     icon: 'content/images/icons/product_24.png',
                     label: this.relatedTicketActivityItemText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'TicketActivity.Id eq "${0}"'),
