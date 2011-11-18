@@ -1,6 +1,5 @@
-define('Configuration/production', ['dojo', 'Mobile/SalesLogix/ApplicationModule'], function() {
-
-    dojo.setObject('Configuration.production', {
+define('configuration/production', ['Mobile/SalesLogix/ApplicationModule'], function() {
+    return {
         modules: [
             new Mobile.SalesLogix.ApplicationModule()
         ],
@@ -17,5 +16,5 @@ define('Configuration/production', ['dojo', 'Mobile/SalesLogix/ApplicationModule
                 json: true
             }
         }
-    });
+    };
 });

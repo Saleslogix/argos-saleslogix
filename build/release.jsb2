@@ -104,14 +104,6 @@
           "path": "../src"
         },
         {
-          "text": "ApplicationModule.js",
-          "path": "../src"
-        },
-        {
-          "text": "Environment.js",
-          "path": "../src"
-        },
-        {
           "text": "Format.js",
           "path": "../src"
         },
@@ -124,191 +116,15 @@
           "path": "../src"
         },
         {
-          "text": "Detail.js",
-          "path": "../src/Views/Account"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Account"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Account"
-        },
-        {
-          "text": "Complete.js",
-          "path": "../src/Views/Activity"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/Activity"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Activity"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Activity"
-        },
-        {
-          "text": "TypesList.js",
-          "path": "../src/Views/Activity"
+          "text": "Environment.js",
+          "path": "../src"
         },
         {
           "text": "AddAccountContact.js",
           "path": "../src/Views"
         },
         {
-          "text": "Edit.js",
-          "path": "../src/Views/Address"
-        },
-        {
           "text": "AreaCategoryIssueLookup.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "DayView.js",
-          "path": "../src/Views/Calendar"
-        },
-        {
-          "text": "MonthView.js",
-          "path": "../src/Views/Calendar"
-        },
-        {
-          "text": "WeekView.js",
-          "path": "../src/Views/Calendar"
-        },
-        {
-          "text": "YearView.js",
-          "path": "../src/Views/Calendar"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/Campaign"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Campaign"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Campaign"
-        },
-        {
-          "text": "Configure.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/Contact"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Contact"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Contact"
-        },
-        {
-          "text": "ContextDialog.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/Contract"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Contract"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Contract"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/Defect"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Defect"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Defect"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/DefectProblem"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/DefectProblem"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/DefectSolution"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/DefectSolution"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/Event"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Event"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Event"
-        },
-        {
-          "text": "FooterToolbar.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "Help.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/History"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/History"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/History"
-        },
-        {
-          "text": "Home.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/Lead"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Lead"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Lead"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/LeadSource"
-        },
-        {
-          "text": "Login.js",
           "path": "../src/Views"
         },
         {
@@ -316,8 +132,140 @@
           "path": "../src/Views"
         },
         {
+          "text": "FooterToolbar.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Home.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Login.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Settings.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Configure.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "Help.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "NameEdit.js",
           "path": "../src/Views"
+        },
+        {
+          "text": "PickList.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "SelectList.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "TextEdit.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Account"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Account"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Account"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Address"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "Complete.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "TypesList.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "DayView.js",
+          "path": "../src/Views/Calendar"
+        },
+        {
+          "text": "WeekView.js",
+          "path": "../src/Views/Calendar"
+        },
+        {
+          "text": "MonthView.js",
+          "path": "../src/Views/Calendar"
+        },
+        {
+          "text": "YearView.js",
+          "path": "../src/Views/Calendar"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Contact"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Contact"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Contact"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Event"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Event"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Event"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Lead"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Lead"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Lead"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/LeadSource"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Opportunity"
         },
         {
           "text": "Detail.js",
@@ -325,10 +273,6 @@
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Opportunity"
-        },
-        {
-          "text": "List.js",
           "path": "../src/Views/Opportunity"
         },
         {
@@ -340,44 +284,8 @@
           "path": "../src/Views/Owner"
         },
         {
-          "text": "PickList.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/Return"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Return"
-        },
-        {
           "text": "List.js",
-          "path": "../src/Views/Return"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/SalesOrder"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/SalesOrder"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/SalesOrder"
-        },
-        {
-          "text": "SelectList.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "Settings.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "TextEdit.js",
-          "path": "../src/Views"
+          "path": "../src/Views/Ticket"
         },
         {
           "text": "Detail.js",
@@ -385,10 +293,6 @@
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Ticket"
-        },
-        {
-          "text": "List.js",
           "path": "../src/Views/Ticket"
         },
         {
@@ -396,15 +300,15 @@
           "path": "../src/Views/Ticket"
         },
         {
+          "text": "List.js",
+          "path": "../src/Views/TicketActivity"
+        },
+        {
           "text": "Detail.js",
           "path": "../src/Views/TicketActivity"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/TicketActivity"
-        },
-        {
-          "text": "List.js",
           "path": "../src/Views/TicketActivity"
         },
         {
@@ -413,19 +317,131 @@
         },
         {
           "text": "List.js",
+          "path": "../src/Views/TicketActivityItem"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/TicketActivityItem"
+        },
+        {
+          "text": "ProductList.js",
+          "path": "../src/Views/TicketActivityItem"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/History"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/History"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/History"
+        },
+        {
+          "text": "List.js",
           "path": "../src/Views/User"
+        },
+        {
+          "text": "AddressField.js",
+          "path": "../src/Fields"
+        },
+        {
+          "text": "NameField.js",
+          "path": "../src/Fields"
+        },
+        {
+          "text": "PicklistField.js",
+          "path": "../src/Fields"
+        },
+        {
+          "text": "ApplicationModule.js",
+          "path": "../src"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Campaign"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Campaign"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Campaign"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Contract"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Contract"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Contract"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Defect"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Defect"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Defect"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/DefectProblem"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/DefectProblem"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/DefectSolution"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/DefectSolution"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Return"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Return"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Return"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/SalesOrder"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/SalesOrder"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/SalesOrder"
         }
       ]
     },
     {
-      "name": "SalesLogix Mobile Dependencies",
-      "file": "content/javascript/argos-dojo-dependencies.js",
+      "name": "SalesLogix Mobile Dojo Dependencies",
+      "file": "content/dojo/dojo-dependencies.js",
       "isDebug": true,
       "fileIncludes": [
-        {
-          "text": "dojo.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
         {
           "text": "string.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"

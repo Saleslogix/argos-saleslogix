@@ -10,8 +10,8 @@ CACHE:
 # images
 @include 'content/images'
 
-# ext core
-content/ext/ext-core.js
+# dojo
+@include 'content/dojo', /.*(?<!uncompressed|-debug)\.js/i
 
 # application
 @include 'content/javascript', /.*(?<!-debug)\.js/i
@@ -20,14 +20,15 @@ content/ext/ext-core.js
 @include 'configuration'
 
 # localization
-@include 'localization', /.*(?<!-debug)\.js/i
+@localize 'localization', '{0}.js'
 
 # shell
 index.html
 index.aspx
 
 # help
-@include 'help'
+@localize 'help', 'help_{0}.html'
+help/help.html
 
 NETWORK:
 ../sdata/

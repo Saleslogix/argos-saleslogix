@@ -3,7 +3,8 @@
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="System.Collections.Generic" %>
-
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="System.Web.Script.Serialization" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,18 +13,32 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
-    
-    <title>SalesLogix</title> 
+
+    <title>SalesLogix</title>
 
     <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
     <link type="text/css" rel="stylesheet" href="content/reui/themes/sage-green/theme.css" />
     <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/base.css" />  
+    <link type="text/css" rel="stylesheet" href="content/css/base.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.css" />
-    
-    <script type="text/javascript" src="content/ext/ext-core.js"></script>
+
+    <!-- Dojo -->
+    <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
+    <script type="text/javascript">
+    require({
+        baseUrl: "./",
+        packages: [
+            { name: 'dojo', location: 'content/dojo/dojo' },
+            { name: 'dijit', location: 'content/dojo/dijit' },
+            { name: 'dojox', location: 'content/dojo/dojox' }
+        ]
+    });
+    </script>
+    <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
+
+    <!-- Core -->
     <script type="text/javascript">
     reConfig = {
         autoInit: false,
@@ -34,26 +49,31 @@
     </script>
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
     <script type="text/javascript" src="content/javascript/argos-sdk.js"></script>
+
+    <!-- Modules -->
     <script type="text/javascript" src="content/javascript/argos-saleslogix.js"></script>
 
-    <!-- Configuration -->
-    <% foreach (var include in Enumerate("configuration")) { %>
-    <script type="text/javascript" src="<%= include.Path %>"></script>
-    <% } %>
-
-    <!-- Localization -->
-    <% foreach (var include in EnumerateLocalizations("localization")) { %>
-    <script type="text/javascript" src="<%= include.Path %>"></script>
-    <% } %>
-
     <script type="text/javascript">
-    Ext.onReady(function() {
-        var application = new Mobile.SalesLogix.Application();
+    (function() {
+        var application = 'Mobile/SalesLogix/Application',
+            configuration = <%= Serialize(
+                Enumerate("configuration", (file) => file.Name == "production.js")
+                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+            ) %>;
+        require([application].concat(configuration), function(application, configuration) {
+            var localization = <%= Serialize(
+                EnumerateLocalizations("localization")
+                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+            ) %>;
+            require(localization.concat('dojo/domReady!'), function() {
+                var instance = new application(configuration);
 
-        application.activate();
-        application.init();
-        application.run();
-    });
+                instance.activate();
+                instance.init();
+                instance.run();
+            });
+        });
+    })();
     </script>
 </head>
 <body>
@@ -61,10 +81,16 @@
 </html>
 
 <script type="text/C#" runat="server">
-    public class EnumerationItem
+    protected class FileItem
     {
         public string Path { get; set; }
         public FileInfo File { get; set; }
+    }
+
+    protected string Serialize(object item)
+    {
+        var serializer = new JavaScriptSerializer();
+        return serializer.Serialize(item);
     }
 
     protected string ToRelativeUrlPath(DirectoryInfo rootDirectory, FileInfo file)
@@ -81,7 +107,7 @@
         throw new ApplicationException("Invalid root path specified.");
     }
 
-    protected IEnumerable<EnumerationItem> Enumerate(string path, Predicate<FileInfo> predicate)
+    protected IEnumerable<FileItem> Enumerate(string path, Predicate<FileInfo> predicate)
     {
         var rootDirectory = new DirectoryInfo(Path.GetDirectoryName(Request.PhysicalPath));
         var includeDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, path));
@@ -93,7 +119,7 @@
             if (predicate != null) files = files.Where(file => predicate(file));
 
             foreach (var file in files)
-                yield return new EnumerationItem
+                yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, file),
                     File = file
@@ -101,24 +127,24 @@
         }
     }
 
-    protected IEnumerable<EnumerationItem> Enumerate(string path)
+    protected IEnumerable<FileItem> Enumerate(string path)
     {
         return Enumerate(path, (file) => true);
     }
 
-    protected IEnumerable<EnumerationItem> Enumerate(string path, Regex include)
+    protected IEnumerable<FileItem> Enumerate(string path, Regex include)
     {
         return Enumerate(path, (file) => include.IsMatch(file.Name));
     }
 
-    protected IEnumerable<EnumerationItem> EnumerateLocalizations(string path)
+    protected IEnumerable<FileItem> EnumerateLocalizations(string path)
     {
         return EnumerateLocalizations(String.Empty, path);
     }
 
-    protected IEnumerable<EnumerationItem> EnumerateLocalizations(string root, string path)
+    protected IEnumerable<FileItem> EnumerateLocalizations(string root, string path)
     {
-        var currentCulture = System.Globalization.CultureInfo.CurrentUICulture;
+        var currentCulture = System.Globalization.CultureInfo.CurrentCulture;
         var rootDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(Request.PhysicalPath), root));
         var includeDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, path));
 
@@ -127,34 +153,34 @@
             var parentFileName = String.Format(@"{0}.js", currentCulture.Parent.Name);
             var parentFile = new FileInfo(Path.Combine(includeDirectory.FullName, parentFileName));
             var targetFileName = String.Format(@"{0}.js", currentCulture.Name);
-            var targetFile = new FileInfo(Path.Combine(includeDirectory.FullName, targetFileName)); 
-                                  
-            if (targetFile.Exists)            
-                yield return new EnumerationItem
+            var targetFile = new FileInfo(Path.Combine(includeDirectory.FullName, targetFileName));
+
+            if (targetFile.Exists)
+                yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, targetFile),
                     File = targetFile
-                };    
+                };
             else if (parentFile.Exists)
-                yield return new EnumerationItem
+                yield return new FileItem
                 {
                     Path = ToRelativeUrlPath(rootDirectory, parentFile),
                     File = targetFile
-                };  
-            
+                };
+
             foreach (var moduleDirectory in includeDirectory.GetDirectories())
             {
                 parentFile = new FileInfo(Path.Combine(moduleDirectory.FullName, parentFileName));
                 targetFile = new FileInfo(Path.Combine(moduleDirectory.FullName, targetFileName));
-                
-                if (targetFile.Exists)            
-                    yield return new EnumerationItem
+
+                if (targetFile.Exists)
+                    yield return new FileItem
                     {
                         Path = ToRelativeUrlPath(rootDirectory, targetFile),
                         File = targetFile
-                    };    
+                    };
                 else if (parentFile.Exists)
-                    yield return new EnumerationItem
+                    yield return new FileItem
                     {
                         Path = ToRelativeUrlPath(rootDirectory, parentFile),
                         File = targetFile

@@ -126,22 +126,68 @@ public class CacheManifestProcessor
         }
     }
 
+    protected string ToRelativeUrlPath(DirectoryInfo rootDirectory, FileInfo file)
+    {
+        var rootPath = rootDirectory.FullName;
+        var filePath = file.FullName;
+
+        if (filePath.StartsWith(rootPath))
+        {
+            var relativePath = filePath.Substring(rootPath.Length + 1);
+            return relativePath.Replace('\\', '/');
+        }
+
+        throw new ApplicationException("Invalid root path specified.");
+    }
+
     public void CommandInclude(string path, Regex include, TextWriter output)
     {
+        var rootDirectory = new DirectoryInfo(System.IO.Path.GetDirectoryName(Path));
+        var includeDirectory = new DirectoryInfo(System.IO.Path.Combine(rootDirectory.FullName, path));
+    
         var rootPath = System.IO.Path.GetDirectoryName(Path);
         var includePath = System.IO.Path.Combine(rootPath, path);
 
-        if (Directory.Exists(includePath))
+        if (includeDirectory.Exists)
         {
-            var files = Directory.GetFiles(includePath, "*", SearchOption.AllDirectories).AsEnumerable();
+            var files = includeDirectory.GetFiles("*", SearchOption.AllDirectories).AsEnumerable();
 
-            if (include != null) files = files.Where(name => include.IsMatch(name));
+            if (include != null) files = files.Where(file => include.IsMatch(file.Name));
 
-            foreach (var name in files)
+            foreach (var file in files)
             {
-                var relativePath = name.Substring(rootPath.Length + 1).Replace('\\', '/');
+                output.WriteLine(ToRelativeUrlPath(rootDirectory, file));
+            }
+        }
+    }
 
-                output.WriteLine(relativePath);
+    public void CommandLocalize(string path, string format, TextWriter output)
+    {
+        var currentCulture = CultureInfo.CurrentCulture;
+        var rootDirectory = new DirectoryInfo(System.IO.Path.GetDirectoryName(Path));
+        var includeDirectory = new DirectoryInfo(System.IO.Path.Combine(rootDirectory.FullName, path));
+
+        if (includeDirectory.Exists)
+        {
+            var parentFileName = String.Format(format, currentCulture.Parent.Name);
+            var parentFile = new FileInfo(System.IO.Path.Combine(includeDirectory.FullName, parentFileName));
+            var targetFileName = String.Format(format, currentCulture.Name);
+            var targetFile = new FileInfo(System.IO.Path.Combine(includeDirectory.FullName, targetFileName));
+
+            if (targetFile.Exists)
+                output.WriteLine(ToRelativeUrlPath(rootDirectory, targetFile));
+            else if (parentFile.Exists)
+                output.WriteLine(ToRelativeUrlPath(rootDirectory, parentFile));
+
+            foreach (var moduleDirectory in includeDirectory.GetDirectories())
+            {
+                parentFile = new FileInfo(System.IO.Path.Combine(moduleDirectory.FullName, parentFileName));
+                targetFile = new FileInfo(System.IO.Path.Combine(moduleDirectory.FullName, targetFileName));
+
+                if (targetFile.Exists)
+                    output.WriteLine(ToRelativeUrlPath(rootDirectory, targetFile));
+                else if (parentFile.Exists)
+                    output.WriteLine(ToRelativeUrlPath(rootDirectory, parentFile));
             }
         }
     }

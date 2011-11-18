@@ -54,7 +54,7 @@
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
     <!-- Dojo -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
     require({
         baseUrl: "./",
@@ -68,22 +68,25 @@
     </script>
 
     <script type="text/javascript">
-    Mobile = {};
+    (function() {
+        var application = 'Mobile/SalesLogix/Application',
+            configuration = [
+                'configuration/development'
+            ];
+        require([application].concat(configuration), function(application, configuration) {
+            var localization = <%= Serialize(
+                EnumerateLocalizations("localization")
+                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+            ) %>;
+            require(localization.concat('dojo/domReady!'), function() {
+                var instance = new application(configuration);
 
-    require(['configuration/development', 'Mobile/SalesLogix/Application'], function(configuration) {
-        var localization = <%= Serialize(
-            EnumerateLocalizations("localization")
-                .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-        ) %>;
-        require(localization, function() {
-            var application = new Mobile.SalesLogix.Application(configuration);
-
-            application.activate();
-            application.init();
-            application.run();
+                instance.activate();
+                instance.init();
+                instance.run();
+            });
         });
-
-    });
+    })();
     </script>
 </head>
 <body>

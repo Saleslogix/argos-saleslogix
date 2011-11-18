@@ -1,4 +1,6 @@
-# version 2011-08-19T21:58:55
+CACHE MANIFEST
+# version 2011-11-18T20:41:39
+# culture en-US
 
 CACHE:
 # css
@@ -57,6 +59,7 @@ content/images/icons/filter_24.png
 content/images/icons/help_24.png
 content/images/icons/Hide_Details_active_24.png
 content/images/icons/Hide_Details_inactive_24.png
+content/images/icons/Holiday_schemes_24.png
 content/images/icons/home_24.png
 content/images/icons/journal_24.png
 content/images/icons/Leads_24x24.png
@@ -105,8 +108,10 @@ content/images/icons/Tools_24x24.png
 content/images/icons/To_Do_24x24.png
 content/images/icons/Whats_New_24.png
 
-# ext core
-content/ext/ext-core.js
+# dojo
+content/dojo/dojo-dependencies.js
+content/dojo/dojo/dojo.js
+content/dojo/dojo/selector/acme.js
 
 # application
 content/javascript/argos-dependencies.js
@@ -118,13 +123,7 @@ configuration/development.js
 configuration/production.js
 
 # localization
-localization/de.js
 localization/en.js
-localization/fr.js
-localization/ru.js
-localization/saleslogix/de.js
-localization/saleslogix/fr.js
-localization/saleslogix/ru.js
 
 # shell
 index.html
@@ -132,9 +131,6 @@ index.aspx
 
 # help
 help/help.html
-help/help_de.html
-help/help_fr.html
-help/help_ru.html
 
 NETWORK:
 ../sdata/
