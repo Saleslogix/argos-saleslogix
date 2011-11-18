@@ -370,7 +370,7 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         },
         highlightCurrentDate: function(){
             var dateQuery = dojo.string.substitute('td.calendar-day[data-date="${0}"]', [this.currentDate.toString('yyyy-MM-dd')]);
-            this.selectDay({date:this.currentDate}, null, dojo.query(dateQuery, this.yearContentNode)[0]);
+            this.selectDay({date:this.currentDate.toString('yyyy-MM-dd')}, null, dojo.query(dateQuery, this.yearContentNode)[0]);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.activityMonthView),

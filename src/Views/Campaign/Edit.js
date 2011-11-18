@@ -28,16 +28,19 @@ define('Mobile/SalesLogix/Views/Campaign/Edit', ['Sage/Platform/Mobile/Edit'], f
 
         createLayout: function() {
             return this.layout || (this.layout = [{
+                name: 'CampaignName',
                 property: 'CampaignName',
                 label: this.nameText,
                 type: 'text'
             },
             {
+                name: 'CampaignCode',
                 property: 'CampaignCode',
                 label: this.codeText,
                 type: 'text'
             },
             {
+                name: 'StartDate',
                 property: 'StartDate',
                 label: this.startText,
                 type: 'date'

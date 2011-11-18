@@ -113,6 +113,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
             return this.layout || (this.layout = [
                 {
                     label: this.opportunityText,
+                    name: 'Description',
                     property: 'Description',
                     type: 'text',
                     maxTextLength: 64,
@@ -123,6 +124,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 },
                 {
                     label: this.accountText,
+                    name: 'Account',
                     property: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
@@ -131,6 +133,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 },
                 {
                     label: this.acctMgrText,
+                    name: 'AccountManager',
                     property: 'AccountManager',
                     textProperty: 'UserInfo',
                     textTemplate: Mobile.SalesLogix.Template.nameLF,
@@ -139,6 +142,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 },
                 {
                     label: this.resellerText,
+                    name: 'Reseller',
                     property: 'Reseller',
                     textProperty: 'AccountName',
                     type: 'lookup',
@@ -146,12 +150,14 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 },
                 {
                     label: this.estCloseText,
+                    name: 'EstimatedClose',
                     property: 'EstimatedClose',
                     type: 'date',
                     validator: Mobile.SalesLogix.Validator.exists
                 },
                 {
                     label: this.potentialText,
+                    name: 'SalesPotential',
                     property: 'SalesPotential',
                     precision: 2,
                     type: 'decimal',
@@ -160,6 +166,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 },
                 {
                     label: this.typeText,
+                    name: 'Type',
                     property: 'Type',
                     picklist: 'Opportunity Type',
                     title: 'Opportunity Type',
@@ -169,6 +176,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 },
                 {
                     label: this.statusText,
+                    name: 'Status',
                     property: 'Status',
                     picklist: 'Opportunity Status',
                     requireSelection: true,
@@ -177,6 +185,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 },
                 {
                     label: this.importSourceText,
+                    name: 'LeadSource',
                     property: 'LeadSource',
                     textProperty: 'Description',
                     type: 'lookup',
@@ -184,6 +193,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 },
                 {
                     label: this.ownerText,
+                    name: 'Owner',
                     property: 'Owner',
                     keyProperty: '$key',
                     textProperty: 'OwnerDescription',
@@ -193,6 +203,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 },
                 {
                     label: this.probabilityText,
+                    name: 'CloseProbability',
                     property: 'CloseProbability',
                     picklist: 'Opportunity Probability',
                     title: this.opportunityProbabilityTitleText,
@@ -203,6 +214,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                     ]
                 },
                 {
+                    name: 'Contacts.$resources[0].Contact.$key',
                     property: 'Contacts.$resources[0].Contact.$key',
                     type: 'hidden'
                 }

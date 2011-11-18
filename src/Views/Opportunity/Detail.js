@@ -81,12 +81,15 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                 list: true,
                 title: this.actionsText,
                 cls: 'action-list',
+                name: 'QuickActionsSection',
                 children: [{
+                    name: 'ScheduleActivityAction',
                     property: 'Description',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     action: 'scheduleActivity'
                 },{
+                    name: 'AddNoteAction',
                     property: 'Description',
                     label: this.addNoteText,
                     icon: 'content/images/icons/New_Note_24x24.png',
@@ -94,67 +97,84 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                 }]
             },{
                 title: this.detailsText,
+                name: 'DetailsSection',
                 children: [{
                     label: this.opportunityText,
+                    name: 'Description',
                     property: 'Description'
                 },{
                     label: this.accountText,
                     key: 'Account.$key',
+                    name: 'Account.AccountName',
                     property: 'Account.AccountName',
                     view: 'account_detail'
                 },{
                     label: this.resellerText,
                     key: 'Reseller.$key',
+                    name: 'Reseller.AccountName',
                     property: 'Reseller.AccountName',
                     view: 'account_detail'
                 },{
                     label: this.estCloseText,
+                    name: 'EstimatedClose',
                     property: 'EstimatedClose',
                     renderer: Mobile.SalesLogix.Format.date
                 },{
                     label: this.potentialText,
+                    name: 'SalesPotential',
                     property: 'SalesPotential',
                     renderer: Mobile.SalesLogix.Format.currency
                 },{
                     label: this.statusText,
+                    name: 'Status',
                     property: 'Status'
                 },{
                     label: this.typeText,
+                    name: 'Type',
                     property: 'Type'
                 },{
                     label: this.probabilityText,
+                    name: 'CloseProbability',
                     property: 'CloseProbability'
                 }]
             },{
                 title: this.moreDetailsText,
+                name: 'MoreDetailsSection',
                 collapsed: true,
                 children: [{
                     label: this.acctMgrText,
+                    name: 'AccountManager.UserInfo',
                     property: 'AccountManager.UserInfo',
                     renderer: Mobile.SalesLogix.Format.nameLF
                 },{
                     label: this.importSourceText,
+                    name: 'LeadSource.Description',
                     property: 'LeadSource.Description'
                 }]
             },{
                 list: true,
                 title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
                 children: [{
+                    name: 'OpportunityRelated',
                     icon: 'content/images/icons/product_24.png',
                     label: this.relatedProductsText,
                     view: 'opportunityproduct_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"')
                 },{
+                    name: 'ActivityRelated',
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}"')
                 },{
+                    name: 'ContactRelated',
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
                     view: 'contact_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'Opportunities.Opportunity.Id eq "${0}"')
                 },{
+                    name: 'HistoryRelated',
                     icon: 'content/images/icons/journal_24.png',
                     label: this.relatedHistoriesText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}" and Type ne "atDatabaseChange"'),

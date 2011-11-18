@@ -254,17 +254,22 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
         createLayout: function() {
             return this.layout || (this.layout = [{
                 title: this.detailsText,
+                name: 'DetailsSection',
                 children: [{
+                    name: 'Type',
                     property: 'Type',
                     type: 'hidden'
                 },{
+                    name: 'UserId',
                     property: 'UserId',
                     type: 'hidden'
                 },{
+                    name: 'UserName',
                     property: 'UserName',
                     type: 'hidden'
                 },{
                     label: this.startingText,
+                    name: 'StartDate',
                     property: 'StartDate',
                     type: 'date',
                     showTimePicker: true,
@@ -277,6 +282,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },{
                     dependsOn: 'Type',
                     label: this.regardingText,
+                    name: 'Description',
                     property: 'Description',
                     picklist: 'Note Regarding',
                     orderBy: 'text asc',
@@ -285,7 +291,9 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 }]
             },{
                 title: this.longNotesTitleText,
+                name: 'NotesSection',
                 children: [{
+                    name: 'Text',
                     property: 'Text',
                     label: this.longNotesText,
                     cls: 'row-edit-text',
@@ -293,6 +301,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 }]
             },{
                 title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
                 children: [{
                     label: this.isLeadText,
                     name: 'IsLead',
@@ -300,6 +309,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     type: 'boolean'
                 },{
                     label: this.accountText,
+                    name: 'Account',
                     property: 'Account',
                     type: 'lookup',
                     emptyText: '',
@@ -311,6 +321,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },{
                     dependsOn: 'Account',
                     label: this.contactText,
+                    name: 'Contact',
                     property: 'Contact',
                     type: 'lookup',
                     emptyText: '',
@@ -324,6 +335,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },{
                     dependsOn: 'Account',
                     label: this.opportunityText,
+                    name: 'Opportunity',
                     property: 'Opportunity',
                     type: 'lookup',
                     emptyText: '',
@@ -337,6 +349,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 },{
                     dependsOn: 'Account',
                     label: this.ticketNumberText,
+                    name: 'Ticket',
                     property: 'Ticket',
                     type: 'lookup',
                     emptyText: '',
@@ -349,6 +362,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     )
                 },{
                     label: this.leadText,
+                    name: 'Lead',
                     property: 'Lead',
                     type: 'lookup',
                     emptyText: '',
@@ -359,6 +373,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     validator: Mobile.SalesLogix.Validator.exists
                 },{
                     label: this.companyText,
+                    name: 'AccountName',
                     property: 'AccountName',
                     type: 'text'
                 }]                        

@@ -67,11 +67,13 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
         createLayout: function() {
             return this.layout || (this.layout = [{
                 label: this.accountText,
+                name: 'AccountName',
                 property: 'AccountName',
                 type: 'text',
                 validator: Mobile.SalesLogix.Validator.hasText
             },{
                 label: this.webText,
+                name: 'WebAddress',
                 property: 'WebAddress',
                 renderer: Mobile.SalesLogix.Format.link,
                 type: 'text',
@@ -80,6 +82,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },{
                 label: this.phoneText,
+                name: 'MainPhone',
                 property: 'MainPhone',
                 type: 'phone',
                 maxTextLength: 32,
@@ -88,17 +91,20 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 emptyText: '',
                 formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, [true], true),
                 label: this.fullAddressText,
+                name: 'Address',
                 property: 'Address',
                 type: 'address',
                 view: 'address_edit'
             },{
                 label: this.faxText,
+                name: 'Fax',
                 property: 'Fax',
                 type: 'phone',
                 maxTextLength: 32,
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },{
                 label: this.typeText,
+                name: 'Type',
                 property: 'Type',
                 picklist: 'Account Type',
                 requireSelection: true,
@@ -107,6 +113,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
             },{
                 dependsOn: 'Type',
                 label: this.subTypeText,
+                name: 'SubType',
                 property: 'SubType',
                 picklist: this.formatDependentPicklist.bindDelegate(
                     this, 'Account ${0}', true
@@ -118,6 +125,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },{
                 label: this.statusText,
+                name: 'Status',
                 property: 'Status',
                 picklist: 'Account Status',
                 requireSelection: false,
@@ -125,6 +133,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 type: 'picklist'
             },{
                 label: this.industryText,
+                name: 'Industry',
                 property: 'Industry',
                 picklist: 'Industry',
                 requireSelection: false,
@@ -134,6 +143,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },{
                 label: this.businessDescriptionText,
+                name: 'BusinessDescription',
                 property: 'BusinessDescription',
                 noteProperty: false,
                 title: this.businessDescriptionTitleText,
@@ -141,6 +151,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 view: 'text_edit'
             },{
                 label: this.acctMgrText,
+                name: 'AccountManager',
                 property: 'AccountManager',
                 textProperty: 'UserInfo',
                 textTemplate: Mobile.SalesLogix.Template.nameLF,
@@ -148,12 +159,14 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 view: 'user_list'
             },{
                 label: this.ownerText,
+                name: 'Owner',
                 property: 'Owner',
                 textProperty: 'OwnerDescription',
                 type: 'lookup',
                 view: 'owner_list'
             },{
                 label: this.importSourceText,
+                name: 'LeadSource',
                 property: 'LeadSource',
                 textProperty: 'Description',
                 type: 'lookup',

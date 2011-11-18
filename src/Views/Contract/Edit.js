@@ -37,11 +37,13 @@ define('Mobile/SalesLogix/Views/Contract/Edit', ['Sage/Platform/Mobile/Edit'], f
 
         createLayout: function() {
             return this.layout || (this.layout = [{
+                name: 'ReferenceNumber',
                 property: 'ReferenceNumber',
                 label: this.refNumText,
                 type: 'text'
             },
             {
+                name: 'Period',
                 property: 'Period',
                 label: this.quantityText,
                 validator: Mobile.SalesLogix.Validator.isDecimal,
@@ -49,6 +51,7 @@ define('Mobile/SalesLogix/Views/Contract/Edit', ['Sage/Platform/Mobile/Edit'], f
                 type: 'text'
             },
             {
+                name: 'IsActive',
                 property: 'IsActive',
                 label: this.activeText,
                 type: 'text'

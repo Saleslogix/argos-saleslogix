@@ -91,6 +91,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
                 layout = [{
                     id: 'actions',
                     children: [{
+                        'name': 'AddAccountContactAction',
                         'action': 'addAccountContact',
                         'icon': 'content/images/icons/New_Contact_24x24.png',
                         'title': this.addAccountContactText

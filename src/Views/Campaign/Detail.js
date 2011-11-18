@@ -50,28 +50,34 @@ define('Mobile/SalesLogix/Views/Campaign/Detail', ['Sage/Platform/Mobile/Detail'
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
+                name: 'CampaignName',
                 property: 'CampaignName',
                 label: this.nameText
             },
             {
+                name: 'CampaignCode',
                 property: 'CampaignCode',
                 label: this.codeText
             },
             {
+                name: 'StartDate',
                 property: 'StartDate',
                 label: this.startText,
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
+                name: 'AccountManager.UserInfo',
                 property: 'AccountManager.UserInfo',
                 label: this.acctMgrText,
                 tpl: Mobile.SalesLogix.Template.nameLF
             },
             {
+                name: 'CreateUser',
                 property: 'CreateUser',
                 label: this.createUserText
             },
             {
+                name: 'CreateDate',
                 property: 'CreateDate',
                 label: this.createDateText,
                 renderer: Mobile.SalesLogix.Format.date

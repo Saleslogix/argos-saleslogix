@@ -104,6 +104,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
         createLayout: function() {
             return this.layout || (this.layout = [{
                 label: this.typeText,
+                name: 'Type',
                 property: 'Type',
                 type: 'select',
                 view: 'select_list',
@@ -118,6 +119,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
             },
             {
                 label: this.descriptionText,
+                name: 'Description',
                 property: 'Description',
                 type: 'text',
                 maxTextLength: 64,
@@ -128,6 +130,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
             },
             {
                 label: this.startDateText,
+                name: 'StartDate',
                 property: 'StartDate',
                 renderer: Mobile.SalesLogix.Format.date,
                 type: 'date',
@@ -141,6 +144,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
             },
             {
                 label: this.endDateText,
+                name: 'EndDate',
                 property: 'EndDate',
                 renderer: Mobile.SalesLogix.Format.date,
                 type: 'date',

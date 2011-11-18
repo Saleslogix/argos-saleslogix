@@ -83,7 +83,9 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                 list: true,
                 title: this.actionsText,
                 cls: 'action-list',
+                name: 'QuickActionsSection',
                 children: [{
+                    name: 'ScheduleActivityAction',
                     property: 'TicketNumber',
                     label: this.scheduleActivityText,
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
@@ -91,13 +93,16 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                 }]
             },{
                 title: this.detailsText,
+                name: 'DetailsSection',
                 children: [{
+                    name: 'Account.AccountName',
                     property: 'Account.AccountName',
                     descriptor: 'Account.AccountName',
                     label: this.accountText,
                     view: 'account_detail',
                     key: 'Account.$key'
                 },{
+                    name: 'Contact.NameLF',
                     property: 'Contact.NameLF',
                     descriptor: 'Contact.NameLF',
                     label: this.contactText,
@@ -105,62 +110,80 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     key: 'Contact.$key'
                 },{
                     label: this.areaText,
+                    name: 'Area',
                     property: 'Area'
                 },{
                     label: this.categoryText,
+                    name: 'Category',
                     property: 'Category'
                 },{
                     label: this.issueText,
+                    name: 'Issue',
                     property: 'Issue'
                 },{
                     label: this.subjectText,
+                    name: 'Subject',
                     property: 'Subject'
                 },{
                     label: this.descriptionText,
+                    name: 'TicketProblem.Notes',
                     property: 'TicketProblem.Notes'
                 },{
                     label: this.statusText,
+                    name: 'Status',
                     property: 'Status'
                 },{
                     label: this.urgencyText,
+                    name: 'Urgency.Description',
                     property: 'Urgency.Description'
                 },{
                     label: this.needByText,
+                    name: 'NeededByDate',
                     property: 'NeededByDate',
                     renderer: Mobile.SalesLogix.Format.date
                 },{
                     label: this.assignedToText,
+                    name: 'AssignedTo.OwnerDescription',
                     property: 'AssignedTo.OwnerDescription'
                 }]
             },{
                 title: this.moreDetailsText,
+                name: 'MoreDetailsSection',
                 collapsed: true,
                 children: [{
                     label: this.contractText,
+                    name: 'Contract.ReferenceNumber',
                     property: 'Contract.ReferenceNumber'
                 },{
                     label: this.sourceText,
+                    name: 'ViaCode',
                     property: 'ViaCode'
                 },{
                     label: this.assignedDateText,
+                    name: 'AssignedDate',
                     property: 'AssignedDate',
                     renderer: Mobile.SalesLogix.Format.date
                 },{
                     label: this.resolutionText,
+                    name: 'TicketSolution.Notes',
                     property: 'TicketSolution.Notes'
                 },{
                     label: this.notesText,
+                    name: 'Notes',
                     property: 'Notes'
                 }]
             },{
                 list: true,
                 title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
                 children: [{
+                    name: 'ActivityRelated',
                     icon: 'content/images/icons/To_Do_24x24.png',
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'TicketId eq "${0}"')
                 },{
+                    name: 'TicketActivityRelated',
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     label: this.relatedTicketActivitiesText,
                     view: 'ticket_activity_related',

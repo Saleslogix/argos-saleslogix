@@ -88,7 +88,9 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
         createLayout: function() {
             return this.layout || (this.layout = [{
                 title: this.detailsText,
+                name: 'DetailsSection',
                 children: [{
+                    name: 'StartDate',
                     property: 'StartDate',
                     label: this.scheduledText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
@@ -96,6 +98,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     ),
                     exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
+                    name: 'CompletedDate',
                     property: 'CompletedDate',
                     label: this.completedText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
@@ -103,6 +106,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     ),
                     exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
+                    name: 'ModifyDate',
                     property: 'ModifyDate',
                     label: this.modifiedText,
                     renderer: Mobile.SalesLogix.Format.date.bindDelegate(
@@ -110,12 +114,15 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     ),
                     include: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
+                    name: 'Description',
                     property: 'Description',
                     label: this.regardingText
                 }]
             },{
                 title: this.notesText,
+                name: 'NotesSection',
                 children: [{
+                    name: 'LongNotes',
                     property: 'LongNotes',
                     label: this.longNotesText,
                     provider: this.provideText.bindDelegate(this),
@@ -123,7 +130,9 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                 }]
             },{
                 title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
                 children: [{
+                    name: 'AccountName',
                     property: 'AccountName',
                     exclude: this.isHistoryForLead,
                     label: this.accountText,
@@ -131,6 +140,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     key: 'AccountId',
                     descriptor: 'AccountName'
                 },{
+                    name: 'ContactName',
                     property: 'ContactName',
                     exclude: this.isHistoryForLead,
                     label: this.contactText,
@@ -138,6 +148,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     key: 'ContactId',
                     descriptor: 'ContactName'
                 },{
+                    name: 'OpportunityName',
                     property: 'OpportunityName',
                     exclude: this.isHistoryForLead,
                     label: this.opportunityText,
@@ -145,6 +156,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     key: 'OpportunityId',
                     descriptor: 'OpportunityName'
                 },{
+                    name: 'TicketNumber',
                     property: 'TicketNumber',
                     exclude: this.isHistoryForLead,
                     label: this.ticketNumberText,
@@ -152,6 +164,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     key: 'TicketId',
                     descriptor: 'TicketNumber'
                 },{
+                    name: 'LeadName',
                     property: 'LeadName',
                     include: this.isHistoryForLead,
                     label: this.leadText,
@@ -159,6 +172,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     key: 'LeadId',
                     descriptor: 'LeadName'
                 },{
+                    name: 'AccountName',
                     property: 'AccountName',
                     include: this.isHistoryForLead,
                     label: this.companyText

@@ -33,11 +33,13 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
+                name: 'EntityId',
                 property: 'EntityId',
                 type: 'hidden'
             },
             {
                 label: this.descriptionText,
+                name: 'Description',
                 property: 'Description',
                 picklist: this.formatDependentPicklist.bindDelegate(
                     this, 'Address Description (${0})', true
@@ -52,16 +54,19 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 ]
             },
             {
+                name: 'IsPrimary',
                 property: 'IsPrimary',
                 label: this.isPrimaryText,
                 type: 'boolean'
             },
             {
+                name: 'IsMailing',
                 property: 'IsMailing',
                 label: this.isMailingText,
                 type: 'boolean'
             },
             {
+                name: 'Address1',
                 property: 'Address1',
                 label: this.address1Text,
                 type: 'text',
@@ -69,6 +74,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
+                name: 'Address2',
                 property: 'Address2',
                 label: this.address2Text,
                 type: 'text',
@@ -76,6 +82,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
+                name: 'Address3',
                 property: 'Address3',
                 label: this.address3Text,
                 type: 'text',
@@ -84,6 +91,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
             },
             {
                 label: this.cityText,
+                name: 'City',
                 property: 'City',
                 picklist: 'City',
                 requireSelection: false,
@@ -94,6 +102,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
             },
             {
                 label: this.stateText,
+                name: 'State',
                 property: 'State',
                 picklist: 'State',
                 requireSelection: false,
@@ -103,6 +112,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
             },
             {
+                name: 'PostalCode',
                 property: 'PostalCode',
                 label: this.postalCodeText,
                 type: 'text',
@@ -111,6 +121,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
             },
             {
                 label: this.countryText,
+                name: 'Country',
                 property: 'Country',
                 picklist: 'Country',
                 requireSelection: false,
@@ -121,6 +132,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
             },
             {
                 label: this.salutationText,
+                name: 'Salutation',
                 property: 'Salutation',
                 type: 'text',
                 maxTextLength: 64,

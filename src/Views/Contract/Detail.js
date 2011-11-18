@@ -66,6 +66,7 @@ define('Mobile/SalesLogix/Views/Contract/Detail', ['Sage/Platform/Mobile/Detail'
         createLayout: function() {
             return this.layout || (this.layout = [{
                 label: this.refNumText,
+                name: 'ReferenceNumber',
                 property: 'ReferenceNumber'
             },
             {
@@ -76,40 +77,49 @@ define('Mobile/SalesLogix/Views/Contract/Detail', ['Sage/Platform/Mobile/Detail'
             },
             {
                 label: this.contactText,
+                name: 'Contact.NameLF',
                 property: 'Contact.NameLF'
             },
             {
+                name: 'ServiceCode',
                 property: 'ServiceCode',
                 label: this.svcTypeText
             },
             {
                 label: this.contractTypeText,
+                name: 'TypeCode',
                 property: 'TypeCode'
             },
             {
                 label: this.quantityText,
+                name: 'Period',
                 property: 'Period'
             },
             {
                 label: this.remainingText,
+                name: 'Remaining',
                 property: 'Remaining'
             },
             {
                 label: this.startText,
+                name: 'StartDate',
                 property: 'StartDate',
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
                 label: this.endText,
+                name: 'EndingDate',
                 property: 'EndingDate',
                 renderer: Mobile.SalesLogix.Format.date
             },
             {
                 label: this.activeText,
+                name: 'IsActive',
                 property: 'IsActive'
             },
             {
                 label: this.createUserText,
+                name: 'CreateUser',
                 property: 'CreateUser'
             },
             {
@@ -120,7 +130,9 @@ define('Mobile/SalesLogix/Views/Contract/Detail', ['Sage/Platform/Mobile/Detail'
             {
                 list: true,
                 title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
                 children: [{
+                    name: 'TicketRelated',
                     icon: 'content/images/ticket_16x16.gif',
                     label: this.relatedTicketsText,
                     view: 'ticket_related',

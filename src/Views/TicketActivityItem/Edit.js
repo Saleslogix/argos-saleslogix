@@ -31,6 +31,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
             return this.layout || (this.layout = [
                 {
                     label: this.productText,
+                    name: 'Product',
                     property: 'Product',
                     textProperty: 'Name',
                     type: 'lookup',
@@ -38,6 +39,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
                 },
                 {
                     label: this.quantityText,
+                    name: 'ItemQuantity',
                     property: 'ItemQuantity',
                     type: 'text'
                 }
