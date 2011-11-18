@@ -50,8 +50,11 @@
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
     <script type="text/javascript" src="content/javascript/argos-sdk.js"></script>
 
-    <!-- Modules -->
+    <!-- Application -->
     <script type="text/javascript" src="content/javascript/argos-saleslogix.js"></script>
+
+    <!-- Modules -->
+    <!--{{modules}}-->
 
     <script type="text/javascript">
     (function() {
