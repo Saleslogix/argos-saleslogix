@@ -11,20 +11,16 @@ CACHE:
 @include 'content/images'
 
 # dojo
-@include 'content/dojo', /.*(?<!uncompressed|-debug)\.js/i
+@include 'content/dojo', /.*(?<!uncompressed|-debug)\.js$/i
 
 # application
-@include 'content/javascript', /.*(?<!-debug)\.js/i
+@include 'content/javascript', /.*(?<!-debug)\.js$/i
 
 # environment
-@include 'configuration'
+@include 'configuration', /^production.js$/i
 
 # localization
 @localize 'localization', '{0}.js'
-
-# shell
-index.html
-index.aspx
 
 # help
 @localize 'help', 'help_{0}.html'
