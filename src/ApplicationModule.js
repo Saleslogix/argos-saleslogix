@@ -78,6 +78,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose:false
             }));
 
+            this.registerView(new Sage.Platform.Mobile.Views.Signature({
+                expose:false
+            }));
+
             this.registerView(new Mobile.SalesLogix.Views.Login());
             this.registerView(new Mobile.SalesLogix.Views.Home());
             this.registerView(new Mobile.SalesLogix.Views.Help());
