@@ -10,6 +10,9 @@
             "text": "en.js",
             "path": "../localization/"
         },{
+            "text": "en.js",
+            "path": "../localization/saleslogix/"
+        },{
             "text": "en-US.js",
             "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
         }]
