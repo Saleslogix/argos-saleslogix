@@ -11,7 +11,23 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         enableUpdateNotification: false,
         enableCaching: true,
         userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
-        userOptionsToRequest: ['General;InsertSecCodeID','Calendar;DayStartTime','Calendar;FirstDayofWeek'],
+        userOptionsToRequest: [
+            'General;InsertSecCodeID',
+            'Calendar;DayStartTime',
+            'Calendar;FirstDayofWeek',
+            'ActivityMeetingOptions;AlarmEnabled',
+            'ActivityMeetingOptions;AlarmLead',
+            'ActivityMeetingOptions;Duration',
+            'ActivityPhoneOptions;AlarmEnabled',
+            'ActivityPhoneOptions;AlarmLead',
+            'ActivityPhoneOptions;Duration',
+            'ActivityToDoOptions;AlarmEnabled',
+            'ActivityToDoOptions;AlarmLead',
+            'ActivityToDoOptions;Duration',
+            'ActivityPersonalOptions;AlarmEnabled',
+            'ActivityPersonalOptions;AlarmLead',
+            'ActivityPersonalOptions;Duration'
+        ],
         serverVersion: {
             'major': 8,
             'minor': 0,
@@ -293,11 +309,10 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         },
         onRequestUserOptionsSuccess: function(feed) {
             var userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
-
             dojo.forEach(feed && feed['$resources'], function(item) {
                 var key = item && item['$descriptor'],
                     value = item && item['value'];
-                if (value && key) this[key] = value;
+                if (value && key) userOptions[key] = value;
             });
 
             var insertSecCode = userOptions['General:InsertSecCodeID'],
