@@ -742,7 +742,7 @@ body.transition > .footer-toolbar
 }
 
 /* Excludes iphone <= 3 */
-@media all and (min-width: 480px) {
+@media all and (min-width: 500px) {
     body.landscape > #calendar_monthlist > .month-content,
     body.landscape > #calendar_monthlist > .day-content
     {
