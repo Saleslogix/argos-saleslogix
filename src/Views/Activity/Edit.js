@@ -148,6 +148,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         beforeTransitionTo: function() {
             this.inherited(arguments);
 
+
+
+
+
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
 
@@ -271,6 +275,16 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 this.fields['StartDate'].setValue(startDate);
             }
         },
+        resolveActivityGroup: function(type){
+            var group = null;
+            switch(type){
+                case "atToDo": group = 'ActivityToDoOptions'; break;
+                case "atPersonal": group = 'ActivityPersonalOptions'; break;
+                case "atPhoneCall": group = 'ActivityPhoneOptions'; break;
+                case "atAppointment": group = 'ActivityMeetingOptions'; break;
+            }
+            return group;
+        },
         applyContext: function() {
             this.inherited(arguments);
 
@@ -279,11 +293,18 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                     'hour': startTime.getHours()
                 }).add({
                     'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
-                });
+                }),
+                activityType = this.options && this.options.activityType,
+                activityGroup = this.resolveActivityGroup(activityType),
+                activityDuration = App.context.userOptions && App.context.userOptions[activityGroup+':Duration'] || 15,
+                alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup+':AlarmEnabled'] || true,
+                alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup+':AlarmLead'] || 15;
 
             this.fields['StartDate'].setValue(startDate);
-            this.fields['Reminder'].setValue(15);
-            this.fields['Type'].setValue(this.options && this.options.activityType);
+            this.fields['Type'].setValue(activityType);
+            this.fields['Duration'].setValue(activityDuration);
+            this.fields['Alarm'].setValue(alarmEnabled);
+            this.fields['Reminder'].setValue(alarmDuration);
 
             var user = App.context['user'];
             if (user)
