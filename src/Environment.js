@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Environment', [], function() {
                             node.fireEvent('on' + eventType);
                             node[eventType]();
                         } else {
-                            var event = document.createEvent('Events');
+                            var event = document.createEvent('MouseEvents');
                             event.initEvent(eventType, true, false);
                             node.dispatchEvent(event);
                         }
