@@ -24,10 +24,45 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
         stateText: 'state',
         stateTitleText: 'State',
         titleText: 'Address',
+        /**
+         * Each locale key contains an array of field names to be hidden
+         * Set to null to skip and leave all fields visible
+         */
+        localeFieldHidden: {
+            "en-US": null,
+            "en-GB": ['State'],
+            "fr-FR": ['State'],
+            "de-DE": ['State'],
+            "it-IT": null,
+            "ru-RU": ['State']
+        },
 
         //View Properties
         id: 'address_edit',
 
+        init: function() {
+            this.inherited(arguments);
+            this.connect(this.fields['Country'], 'onChange', this.onCountryChange);
+        },
+        onCountryChange: function(value, field){
+            var locale = Mobile.SalesLogix.Format.countryCultures[value] || 'en-US';
+            this.hideFieldsForLocale(locale);
+        },
+        /**
+         * Hides from view the field names defined in localeFieldHidden for the given locale
+         * Doing so enables a user to enter an address
+         * @param locale Localization string (Ex: 'en-US' or 'de-DE')
+         */
+        hideFieldsForLocale: function(locale){
+            var fieldsToHide = this.localeFieldHidden[locale];
+            if(!fieldsToHide) return;
+
+            for(var i=0; i<fieldsToHide.length; i++){
+                var field = this.fields[fieldsToHide[i]];
+                if (field)
+                    field.hide();
+            }
+        },
         formatDependentPicklist: function(format) {
             return dojo.string.substitute(format, [this.options.entityName]);
         },
