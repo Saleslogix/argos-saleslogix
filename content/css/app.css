@@ -343,6 +343,28 @@
     font-weight: normal;
 }
 
+#errorlog_detail > .panel-content > div > div.note-text-row > label
+{
+    display:block;
+}
+#errorlog_detail > .panel-content > div > div.note-text-row > pre
+{
+    margin-left:112px;
+}
+
+#errorlog_detail > div.copyButton
+{
+
+    width:45px;
+    height:36px;
+    /*
+    position:absolute;
+    top:3px;
+    right:3px;
+    */
+    z-index:500;
+}
+
 .p-meridiem
 {
     font-size: 0.75em;

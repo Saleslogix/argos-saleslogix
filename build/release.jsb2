@@ -288,6 +288,14 @@
         },
         {
           "text": "List.js",
+          "path": "../src/Views/ErrorLog"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/ErrorLog"
+        },
+        {
+          "text": "List.js",
           "path": "../src/Views/Lead"
         },
         {

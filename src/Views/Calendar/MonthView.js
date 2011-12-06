@@ -318,6 +318,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         },
         onRequestEventDataFailure: function(response, o) {
             alert(dojo.string.substitute(this.requestErrorText, [response, o]));
+            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options);
         },
         onRequestEventDataAborted: function(response, o) {
             this.options = false; // force a refresh

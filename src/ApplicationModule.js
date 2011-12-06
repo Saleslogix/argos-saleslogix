@@ -37,6 +37,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Contact/List',
     'Mobile/SalesLogix/Views/Contact/Detail',
     'Mobile/SalesLogix/Views/Contact/Edit',
+    'Mobile/SalesLogix/Views/ErrorLog/List',
+    'Mobile/SalesLogix/Views/ErrorLog/Detail',
     'Mobile/SalesLogix/Views/Event/List',
     'Mobile/SalesLogix/Views/Event/Detail',
     'Mobile/SalesLogix/Views/Event/Edit',
@@ -116,6 +118,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'contact_related',
                 expose: false
             }));
+
+            this.registerView(new Mobile.SalesLogix.Views.ErrorLog.List());
+            this.registerView(new Mobile.SalesLogix.Views.ErrorLog.Detail());
+
 
             this.registerView(new Mobile.SalesLogix.Views.Event.Edit());
             this.registerView(new Mobile.SalesLogix.Views.Event.List({ expose: false }));

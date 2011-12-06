@@ -148,7 +148,7 @@ define('Mobile/SalesLogix/Views/Defect/Detail', ['Sage/Platform/Mobile/Detail'],
                     property: 'DefectProblem.Notes',
                     key: 'DefectProblem.$key',
                     view: 'defectproblem_detail',
-                    wrap: this.textBlockTemplate
+                    use: this.textBlockTemplate
                 }]
             },
             {
@@ -160,7 +160,7 @@ define('Mobile/SalesLogix/Views/Defect/Detail', ['Sage/Platform/Mobile/Detail'],
                     property: 'DefectSolution.Notes',
                     key: 'DefectSolution.$key',
                     view: 'defectsolution_detail',
-                    wrap: this.textBlockTemplate
+                    use: this.textBlockTemplate
                 }]
             }]);
         }
