@@ -27,6 +27,7 @@ define('Mobile/SalesLogix/Views/User/List', ['Sage/Platform/Mobile/List'], funct
             'UserInfo/Title',
             'UserInfo/UserName'
         ],
+        queryWhere: 'Type ne "Template" and Type ne "Retired"',
         resourceKind: 'users',
 
         formatSearchQuery: function(query) {
