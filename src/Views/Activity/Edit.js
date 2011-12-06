@@ -619,7 +619,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 textProperty: 'UserInfo',
                 textTemplate: Mobile.SalesLogix.Template.nameLF,
                 requireSelection: true,
-                view: 'user_list'
+                view: 'user_list',
+                where: 'Type ne "Template" and Type ne "Retired"'
             },{
                 label: this.longNotesText,
                 noteProperty: false,
