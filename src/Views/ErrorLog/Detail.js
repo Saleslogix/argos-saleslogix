@@ -20,9 +20,8 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
         severityText: 'severity',
         statusCodeText: 'status code',
         errorText: 'error',
-        noStatusText: 'N/A',
 
-        emailSubjectLineText: 'Error received in Sage SalesLogix Mobile Client',
+        emailSubjectText: 'Error received in Sage SalesLogix Mobile Client',
         copiedSuccessText: 'Copied to clipboard',
 
         //Templates
@@ -51,9 +50,12 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
 
         //View Properties
         id: 'errorlog_detail',
-
         sendType: null,
-        supportEmailAddress: null,
+
+        /**
+         * Email address to be placed in the "To:" field when sending a report via a mobile device
+         */
+        defaultToAddress: null,
 
         init: function(){
             this.inherited(arguments);
@@ -64,6 +66,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
             var tools = {
                 'tbar': []
             };
+
             if(this.sendType === 'mailto')
             {
                 tools.tbar.push({
@@ -93,57 +96,50 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
 
         /**
          * Determines the method to use for sending the error report
-         * Mobile to use a `mailto` url while other systems will have a copy to clipboard button
+         * 'mailto': Used on Mobile devices to indicate to form a mailto: url
+         * 'copy': Used on desktops to indicate a "copy" button should be placed on the page
          */
         determineSendType: function(){
-            this.sendType = (typeof window.orientation !== 'undefined') ? 'mailto' : 'copy';
+            switch(true){
+                case (typeof window.orientation !== 'undefined'):
+                    this.sendType = 'mailto';
+                    break;
+
+                default: this.sendType = 'copy';
+            }
         },
 
         constructFlashVars: function(options){
             var flashVars = [];
-            for(var key in options){
-                flashVars.push(key+'='+options[key]);
-            }
+            for (var key in options)
+                flashVars.push(dojo.string.substitute('${0}=${1}', [key, options[key]]));
             return flashVars.join('&');
         },
+
         onCopySuccess: function(){
             alert(this.copiedSuccessText);
         },
+
         constructReport: function(){
-            var contents = ['','',''], // 3 blank lines for user input
-                errorItem = this.entry;
+            var body = dojo.string.substitute('\r\n\r\n\r\n-----------------\r\n${0}',
+                    [dojo.toJson(this.entry, true)]);
 
-            contents.push('-----------------');
-            contents.push(dojo.toJson(errorItem, true));
-            contents.push('-----------------');
-
-            var body = contents.join('\r\n');
-
-            if(this.sendType === 'mailto')
-            {
+            if (this.sendType === 'mailto')
                 this.sendEmailReport(body);
-                return;
-            }
-
-            return body;
+            else
+                return body;
         },
 
         sendEmailReport: function(body){
-            var email = this.supportEmailAddress || '',
-                subject = encodeURIComponent(this.emailSubjectLineText);
+            var email = this.defaultToAddress || '',
+                subject = encodeURIComponent(this.emailSubjectText);
             body = encodeURIComponent(body);
-
             App.initiateEmail(email, subject, body);
         },
 
         requestData: function(){
-            var errorItem = Sage.Platform.Mobile.ErrorManager.getError('$key', this.getTag());
-
+            var errorItem = Sage.Platform.Mobile.ErrorManager.getError('$key', this.options.key);
             this.processEntry(errorItem);
-        },
-        getResponseDetail: function(o, name, defaultValue){
-            var current = dojo.getObject(name, false, o);
-            return current || this.noStatusText;
         },
 
         createLayout: function() {
@@ -172,8 +168,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
                 children: [{
                     label: this.severityText,
                     name: 'severity',
-                    property: 'serverResponse.responseText.severity',
-                    provider: this.getResponseDetail
+                    property: 'serverResponse.responseText.severity'
                 },{
                     label: this.statusCodeText,
                     name: 'statusCode',
@@ -182,7 +177,6 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
                     label: this.errorText,
                     name: 'ErrorMessage',
                     property: 'serverResponse.responseText.message',
-                    provider: this.getResponseDetail,
                     use: this.longDetailProperty
                 }]
             }]);
