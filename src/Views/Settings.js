@@ -36,7 +36,7 @@ define('Mobile/SalesLogix/Views/Settings', ['Sage/Platform/Mobile/List'], functi
         actionOrder: [
             'clearAuthentication',
             'clearLocalStorage',
-            'errorLogs'
+            'viewErrorLogs'
         ],
         createActions : function(){
             this.actions = {
@@ -48,15 +48,15 @@ define('Mobile/SalesLogix/Views/Settings', ['Sage/Platform/Mobile/List'], functi
                     title: this.clearAuthenticationTitleText,
                     icon: 'content/images/icons/security_24.png'
                 },
-                'errorLogs':{
+                'viewErrorLogs':{
                     title: this.errorLogTitleText,
                     icon: 'content/images/icons/Ticket_24x24.png'
                 }
             };
         },
-        errorLogs: function(){
+        viewErrorLogs: function(){
             var view = App.getView('errorlog_list');
-            view.show({});
+            view.show();
         },
         clearLocalStorage: function() {
             if (window.localStorage)

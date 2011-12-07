@@ -41,7 +41,6 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', ['Sage/Platform/Mobile/List'], f
             this.inherited(arguments);
             this.useMailTo = (typeof window.orientation !== 'undefined');
             dojo.connect(Sage.Platform.Mobile.ErrorManager, 'onErrorAdd', this, '_onRefresh');
-            dojo.connect(Mobile.SalesLogix.Views.Settings, 'clearLocalStorage', this, '_onRefresh');
         },
         
         _onRefresh: function(){
