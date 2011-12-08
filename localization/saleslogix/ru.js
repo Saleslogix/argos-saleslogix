@@ -79,7 +79,7 @@ localize("Mobile.SalesLogix.Views.ContextDialog", {
 });
 
 localize("Mobile.SalesLogix.Views.FooterToolbar", {
-  "copyrightText": "A© 2011 Sage Software, Inc. All rights reserved.",
+  "copyrightText": "© 2011 Sage Software, Inc. All rights reserved.",
   "logOutConfirmText": "Вы уверены, что хотите выйти из системы?",
   "settingsText": "Настройки",
   "helpText": "Помощь",
@@ -102,7 +102,7 @@ localize("Mobile.SalesLogix.Views.Home", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "A© 2011 Sage Software, Inc. All rights reserved.",
+  "copyrightText": "© 2011 Sage Software, Inc. All rights reserved.",
   "logOnText": "Вход ",
   "passText": "пароль",
   "rememberText": "запомнить",
@@ -219,7 +219,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "categoryText": "категория",
   "categoryTitleText": "Категория дела",
   "completedText": "дата завершения",
-  "completedFormatText": "dd.MM.yyyy hh:mm tt",
+  "completedFormatText": "dd.MM.yyyy HH:mm",
   "completionText": "Завершение",
   "durationText": "длительность",
   "durationInvalidText": "Поле '{2}' должно быть заполнено.",
@@ -237,7 +237,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "результат",
   "resultTitleText": "Результат",
   "startingText": "дата начала",
-  "startingFormatText": "dd.MM.yyyy hh:mm tt",
+  "startingFormatText": "dd.MM.yyyy HH:mm",
   "timelessText": "вневременный",
   "durationValueText": {
     "0": "нет",
@@ -287,9 +287,9 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "ticketNumberText": "заявка",
   "whenText": "Когда",
   "whoText": "Кто",
-  "startDateFormatText": "dd.MM.yyyy hh:mm:ss tt",
+  "startDateFormatText": "dd.MM.yyyy HH:mm:ss",
   "timelessDateFormatText": "dd.MM.yyyy",
-  "alarmDateFormatText": "dd.MM.yyyy hh:mm:ss tt"
+  "alarmDateFormatText": "dd.MM.yyyy HH:mm:ss"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
@@ -312,7 +312,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "regardingText": "относительно",
   "rolloverText": "автоматическое продление",
   "startingText": "время начала",
-  "startingFormatText": "dd.MM.yyyy hh:mm tt",
+  "startingFormatText": "dd.MM.yyyy HH:mm",
   "timelessText": "вневременный",
   "titleText": "Дело",
   "typeText": "тип",
@@ -346,7 +346,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
 
 localize("Mobile.SalesLogix.Views.Activity.List", {
   "startDateFormatText": "ddd d.MM.yy",
-  "startTimeFormatText": "hh:mm",
+  "startTimeFormatText": "HH:mm",
   "titleText": "Дела"
 });
 
@@ -388,13 +388,13 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "monthText": "Месяц",
   "monthTitleFormatText": "MMMM yyyy",
   "dayTitleFormatText": "ddd d MMM yyyy",
-  "dayStartTimeFormatText": "hh:mm"
+  "dayStartTimeFormatText": "HH:mm"
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.UserActivityList", {
   "titleText": "Календарь",
   "dateHeaderFormatText": "dddd, dd.MM.yyyy",
-  "startTimeFormatText": "hh:mm",
+  "startTimeFormatText": "HH:mm",
   "todayText": "Сегодня",
   "dayText": "День",
   "weekText": "Неделя",
@@ -407,7 +407,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "weekTitleFormatText": "d MMM yyyy",
   "dayHeaderLeftFormatText": "ddd",
   "dayHeaderRightFormatText": "d MMM yyyy",
-  "startTimeFormatText": "hh:mm",
+  "startTimeFormatText": "HH:mm",
   "todayText": "Сегодня",
   "dayText": "День",
   "weekText": "Неделя",
@@ -620,7 +620,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
     "atQuestion": "Вопрос",
     "atEMail": "Эл. почта"
   },
-  "dateFormatText": "dd.MM.yyyy hh:mm:ss tt"
+  "dateFormatText": "dd.MM.yyyy HH:mm:ss"
 });
 
 localize("Mobile.SalesLogix.Views.History.Edit", {
@@ -634,7 +634,7 @@ localize("Mobile.SalesLogix.Views.History.Edit", {
   "regardingText": "относительно",
   "isLeadText": "для наводки",
   "startingText": "время",
-  "startingFormatText": "dd.MM.yyyy hh:mm tt",
+  "startingFormatText": "dd.MM.yyyy HH:mm",
   "titleText": "Заметка",
   "companyText": "компания",
   "leadText": "нводка",
@@ -651,7 +651,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
     "atQuestion": "Вопрос",
     "atEMail": "Эл. почта"
   },
-  "hourMinuteFormatText": "hh:mm",
+  "hourMinuteFormatText": "HH:mm",
   "dateFormatText": "d.MM.yy",
   "hashTagQueriesText": {
     "note": "заметка",

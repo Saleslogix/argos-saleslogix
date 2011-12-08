@@ -79,7 +79,7 @@ localize("Mobile.SalesLogix.Views.ContextDialog", {
 });
 
 localize("Mobile.SalesLogix.Views.FooterToolbar", {
-  "copyrightText": "Â© 2011 Sage Software, Inc. Diritti riservati.",
+  "copyrightText": "© 2011 Sage Software, Inc. Diritti riservati.",
   "logOutConfirmText": "Sei sicuro di voler uscire?      ",
   "settingsText": "Opzioni ",
   "helpText": "Help",
@@ -102,7 +102,7 @@ localize("Mobile.SalesLogix.Views.Home", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "Â© 2011 Sage Software, Inc. Diritti riservati.",
+  "copyrightText": "© 2011 Sage Software, Inc. Diritti riservati.",
   "logOnText": "Conn.",
   "passText": "password",
   "rememberText": "ricorda",
@@ -219,7 +219,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "categoryText": "cat.",
   "categoryTitleText": "Cat. Attività",
   "completedText": "completato il",
-  "completedFormatText": "d/M/yyyy h:mm tt",
+  "completedFormatText": "d/M/yyyy H:mm",
   "completionText": "Completata",
   "durationText": "durata",
   "durationInvalidText": "Il campo '{2}' deve avere valore.",
@@ -237,7 +237,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "esito",
   "resultTitleText": "Risul.",
   "startingText": "data iniz.",
-  "startingFormatText": "d/M/yyyy h:mm tt",
+  "startingFormatText": "d/M/yyyy H:mm",
   "timelessText": "No ora",
   "durationValueText": {
     "0": "ness",
@@ -287,9 +287,9 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "ticketNumberText": "ticket",
   "whenText": "Data",
   "whoText": "Chi",
-  "startDateFormatText": "d/M/yyyy h:mm:ss tt",
+  "startDateFormatText": "d/M/yyyy H:mm:ss",
   "timelessDateFormatText": "d/M/yyyy",
-  "alarmDateFormatText": "d/M/yyyy h:mm:ss tt"
+  "alarmDateFormatText": "d/M/yyyy H:mm:ss"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
@@ -312,7 +312,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "regardingText": "argomento",
   "rolloverText": "rinvio autom.",
   "startingText": "ora iniz.",
-  "startingFormatText": "d/M/yyyy h:mm tt",
+  "startingFormatText": "d/M/yyyy H:mm",
   "timelessText": "No ora",
   "titleText": "Attività",
   "typeText": "tipo",
@@ -346,7 +346,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
 
 localize("Mobile.SalesLogix.Views.Activity.List", {
   "startDateFormatText": "ddd d/M/yy",
-  "startTimeFormatText": "h:mm",
+  "startTimeFormatText": "H:mm",
   "titleText": "Attività"
 });
 
@@ -388,13 +388,13 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "monthText": "Mese",
   "monthTitleFormatText": "MMMM yyyy",
   "dayTitleFormatText": "ddd d MMM, yyyy",
-  "dayStartTimeFormatText": "h:mm"
+  "dayStartTimeFormatText": "H:mm"
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.UserActivityList", {
   "titleText": "Calend.",
   "dateHeaderFormatText": "dddd, dd/MM/yyyy",
-  "startTimeFormatText": "h:mm",
+  "startTimeFormatText": "H:mm",
   "todayText": "Oggi",
   "dayText": "Dì",
   "weekText": "Set.",
@@ -407,7 +407,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "weekTitleFormatText": "d MMM, yyyy",
   "dayHeaderLeftFormatText": "ddd",
   "dayHeaderRightFormatText": "d MMM, yyyy",
-  "startTimeFormatText": "h:mm",
+  "startTimeFormatText": "H:mm",
   "todayText": "Oggi",
   "dayText": "Dì",
   "weekText": "Set.",
@@ -620,7 +620,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
     "atQuestion": "Domanda",
     "atEMail": "E-mail"
   },
-  "dateFormatText": "d/M/yyyy h:mm:ss tt"
+  "dateFormatText": "d/M/yyyy H:mm:ss"
 });
 
 localize("Mobile.SalesLogix.Views.History.Edit", {
@@ -634,7 +634,7 @@ localize("Mobile.SalesLogix.Views.History.Edit", {
   "regardingText": "argomento",
   "isLeadText": "per nom.",
   "startingText": "ora",
-  "startingFormatText": "d/M/yyyy h:mm tt",
+  "startingFormatText": "d/M/yyyy H:mm",
   "titleText": "Nota",
   "companyText": "società",
   "leadText": "nom.",
@@ -651,7 +651,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
     "atQuestion": "Domanda",
     "atEMail": "E-mail"
   },
-  "hourMinuteFormatText": "h:mm",
+  "hourMinuteFormatText": "H:mm",
   "dateFormatText": "d/M/yy",
   "hashTagQueriesText": {
     "note": "nota",

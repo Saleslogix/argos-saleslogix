@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Format', ['Sage/Platform/Mobile/Format'], function() {
                 'en-GB': 's|a1|a2|a3|M|P|C',
                 'fr-FR': 's|a1|a2|a3|p M|C',
                 'de-DE': 's|a1|a2|a3|p m|C',
-                'it-IT': 's|a2|a3|a1|p m Z|C',
+                'it-IT': 's|a1|a2|a3|p m Z|C',
                 'ru-RU': 's|a1|a2|a3|p m|C'
             },
             /**
