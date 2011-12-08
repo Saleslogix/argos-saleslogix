@@ -20,6 +20,7 @@ define('Mobile/SalesLogix/Views/Settings', ['Sage/Platform/Mobile/List'], functi
         //Localization
         clearLocalStorageTitleText: 'Clear Storage',
         clearAuthenticationTitleText: 'Clear Saved Credentials',
+        errorLogTitleText: 'View Error Logs',
         localStorageClearedText: 'Local storage cleared successfully.',
         credentialsClearedText: 'Saved credentials cleared successfully.',
         titleText: 'Settings',
@@ -34,7 +35,8 @@ define('Mobile/SalesLogix/Views/Settings', ['Sage/Platform/Mobile/List'], functi
         actions: null,
         actionOrder: [
             'clearAuthentication',
-            'clearLocalStorage'
+            'clearLocalStorage',
+            'viewErrorLogs'
         ],
         createActions : function(){
             this.actions = {
@@ -45,8 +47,16 @@ define('Mobile/SalesLogix/Views/Settings', ['Sage/Platform/Mobile/List'], functi
                 'clearAuthentication': {
                     title: this.clearAuthenticationTitleText,
                     icon: 'content/images/icons/security_24.png'
+                },
+                'viewErrorLogs':{
+                    title: this.errorLogTitleText,
+                    icon: 'content/images/icons/Ticket_24x24.png'
                 }
             };
+        },
+        viewErrorLogs: function(){
+            var view = App.getView('errorlog_list');
+            view.show();
         },
         clearLocalStorage: function() {
             if (window.localStorage)

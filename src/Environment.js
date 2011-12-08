@@ -16,9 +16,9 @@ define('Mobile/SalesLogix/Environment', [], function() {
                     window.location.href = dojo.string.substitute("tel:${0}", [number]);
                 }, 50);
             },
-            initiateEmail: function(email) {
+            initiateEmail: function(email, subject, body) {
                 setTimeout(function() {
-                    window.location.href = dojo.string.substitute("mailto:${0}", [email]);
+                    window.location.href = dojo.string.substitute("mailto:${0}?subject=${1}&body=${2}", [email, subject||'', body||'']);
                 }, 50);
             },
             showMapForAddress: function(address) {
@@ -34,14 +34,15 @@ define('Mobile/SalesLogix/Environment', [], function() {
                         }
                     };
 
-                    var hiddenLink = document.createElement('a');
-                    hiddenLink.href = dojo.string.substitute("http://maps.google.com/maps?q=${0}", [address]);
-                    hiddenLink.target = '_blank';
-                    dojo.place(hiddenLink, document.body, 'last');
+                    var hiddenLink = dojo.create('a', {
+                        href: dojo.string.substitute("http://maps.google.com/maps?q=${0}", [address]),
+                        target: '_blank'
+                    }, dojo.body(), 'last');
 
                     eventFire(hiddenLink, 'click');
 
-                    document.body.removeChild(hiddenLink);
+                    dojo.destroy(hiddenLink);
+
                 }, 50);
             }
         };

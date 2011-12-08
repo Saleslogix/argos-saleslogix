@@ -288,6 +288,14 @@
         },
         {
           "text": "List.js",
+          "path": "../src/Views/ErrorLog"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/ErrorLog"
+        },
+        {
+          "text": "List.js",
           "path": "../src/Views/Lead"
         },
         {
@@ -552,7 +560,7 @@
     {
       "src": "../content",
       "dest": "content",
-      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif)"
+      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif|\\.swf)"
     },
     {
       "src": "../configuration",
