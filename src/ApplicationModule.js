@@ -159,6 +159,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'ticket_related',
                 expose: false
             }));
+
+            /*
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.List());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Detail());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Edit());
@@ -177,6 +179,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'ticket_activity_item_list_related',
                 expose: false
             }));
+            */
 
             this.registerView(new Mobile.SalesLogix.Views.Activity.Detail());
             this.registerView(new Mobile.SalesLogix.Views.Activity.Edit());

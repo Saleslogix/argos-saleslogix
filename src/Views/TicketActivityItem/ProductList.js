@@ -23,6 +23,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/ProductList', ['Sage/Platform
         //View Properties
         id: 'ticket_activity_item_product_list',
         security: 'Entities/TicketActivityItem/View',
+        expose: false,
         icon: 'content/images/icons/product_24.png',
         queryOrderBy: 'Sort',
         querySelect: [
