@@ -201,7 +201,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             this.toggleSelectField(this.fields['CompletedDate'], false);
         },
         onLeaderChange: function(value, field) {
-            this.fields['UserId'].setValue(value && value['key']);
+            this.fields['UserId'].setValue(value && value['$key']);
         },
         formatDurationText: function(val, key, text) {
             return this.durationValueText[key] || text;
@@ -432,18 +432,6 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     applyTo: '.',
                     valueKeyProperty: 'AccountId',
                     valueTextProperty: 'AccountName',
-                    validator: {
-                        //Personal activities don't require an account. We'll just manually
-                        //call the validator if it's a non-personal activity.
-                        fn: function(value, field, view) {
-                            if (view.fields['Type'].getValue() === 'atPersonal') {
-                                return false;
-                            } else {
-                                return Mobile.SalesLogix.Validator.exists.fn(value, field, view);
-                            }
-                        },
-                        message: Mobile.SalesLogix.Validator.exists.message
-                    },
                     view: 'account_related'
                 },{
                     dependsOn: 'Account',
