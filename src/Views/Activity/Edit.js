@@ -240,7 +240,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             }
         },
         onLeaderChange: function(value, field) {
-            this.fields['UserId'].setValue(value && value['key']);
+            this.fields['UserId'].setValue(value && value['$key']);
         },
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
@@ -646,18 +646,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 applyTo: '.',
                 valueKeyProperty: 'AccountId',
                 valueTextProperty: 'AccountName',
-                validator: {
-                    //Personal activities don't require an account. We'll just manually
-                    //call the validator if it's a non-personal activity.
-                    fn: function(value, field, view) {
-                        if (view.fields['Type'].getValue() === 'atPersonal') {
-                            return false;
-                        } else {
-                            return Mobile.SalesLogix.Validator.exists.fn(value, field, view);
-                        }
-                    },
-                    message: Mobile.SalesLogix.Validator.exists.message
-                },
                 view: 'account_related'
             },{
                 dependsOn: 'Account',
