@@ -90,9 +90,8 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
             if (this.enableUpdateNotification) this._checkForUpdate();
         },
         onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
-
             var user = {
-                '$key': result['response']['userId'],
+                '$key': dojo.trim(result['response']['userId']),
                 '$descriptor': result['response']['prettyName'],
                 'UserName': result['response']['userName']
             };

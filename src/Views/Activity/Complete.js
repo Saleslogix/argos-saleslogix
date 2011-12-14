@@ -201,7 +201,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             this.toggleSelectField(this.fields['CompletedDate'], false);
         },
         onLeaderChange: function(value, field) {
-            this.fields['UserId'].setValue(value && value['$key']);
+            this.fields['UserId'].setValue(value && value['key']);
         },
         formatDurationText: function(val, key, text) {
             return this.durationValueText[key] || text;

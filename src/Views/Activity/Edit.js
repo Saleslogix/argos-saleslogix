@@ -240,7 +240,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             }
         },
         onLeaderChange: function(value, field) {
-            this.fields['UserId'].setValue(value && value['$key']);
+            this.fields['UserId'].setValue(value && value['key']);
         },
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
