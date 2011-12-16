@@ -201,7 +201,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             this.toggleSelectField(this.fields['CompletedDate'], false);
         },
         onLeaderChange: function(value, field) {
-            this.fields['UserId'].setValue(value && value['key']);
+            var userId = field.getValue();
+            this.fields['UserId'].setValue(userId && userId['$key']);
         },
         formatDurationText: function(val, key, text) {
             return this.durationValueText[key] || text;
@@ -289,7 +290,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
 
             request.execute(completeActivityEntry, {
                 success: success,
-                failure: function() {},
+                failure: this.onRequestFailure,
                 scope: this
             });
         },
