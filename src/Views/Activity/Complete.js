@@ -267,6 +267,9 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             var completeActivityEntry = {
                 "$name": "ActivityComplete",
                 "request": {
+                    "entity": { '$key': entry.$key },
+                    // TODO: remove 'target' after new server build
+                    "target": { '$key': entry.$key },
                     "ActivityId": entry.$key,
                     "userId": entry.UserId,
                     "result": this.fields['Result'].getValue(),
