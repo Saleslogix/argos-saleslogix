@@ -22,15 +22,15 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
 
         //View Properties
         entityName: 'TicketActivity',
-        id: 'ticket_activity_edit',
+        id: 'ticketactivity_edit',
         insertSecurity: 'Entities/TicketActivity/Add',
         updateSecurity: 'Entities/TicketActivity/Edit',
         querySelect: [
             'ActivityDescription',
-            'ActivityType',
+            'ActivityTypeCode',
             'AssignedDate',
             'CompletedDate',
-            'PublicAccess',
+            'PublicAccessCode',
             'RateTypeDescription/Amount',
             'RateTypeDescription/RateTypeCode',
             'RateTypeDescription/TypeDescription',
@@ -41,20 +41,27 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
         resourceKind: 'ticketActivities',
 
         createLayout: function() {
-            return this.layout || (this.layout = [                
+            return this.layout || (this.layout = [
+                {
+                    name: 'TicketId',
+                    property: 'Ticket.$key',
+                    type: 'hidden'
+                },
                 {
                     label: this.activityTypeText,
-                    name: 'ActivityType',
-                    property: 'ActivityType',
+                    name: 'ActivityTypeCode',
+                    property: 'ActivityTypeCode',
                     requireSelection: true,
                     title: this.activityTypeTitleText,
+                    storageMode: 'code',
                     picklist: 'Ticket Activity',
                     type: 'picklist'
                 },{
                     label: this.publicAccessText,
-                    name: 'PublicAccess',
-                    property: 'PublicAccess',
+                    name: 'PublicAccessCode',
+                    property: 'PublicAccessCode',
                     title: this.publicAcccessTitleText,
+                    storageMode: 'code',
                     picklist: 'Ticket Activity Public Access',
                     type: 'picklist'
                 },{

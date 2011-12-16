@@ -17,8 +17,8 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
         titleText: 'Parts',
 
         //View Properties
-        id: 'ticket_activity_item_list',
-        insertView: 'ticket_activity_item_edit',
+        id: 'ticketactivityitem_list',
+        insertView: 'ticketactivityitem_edit',
         insertSecurity: 'Entities/TicketActivityItem/Add',
         security: 'Entities/TicketActivityItem/View',
         expose: false,
@@ -31,17 +31,6 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
             'ItemTotalAmount'
         ],
         resourceKind: 'ticketActivityItems',
-
-
-        // feed example:
-        // http://50.16.242.109/sdata/slx/dynamic/-/ticketActivityItems?format=json&where=TicketActivity.Id%20eq%20'QDEMOA0007G5'
-
-        // which is tied to this ticket activity:
-        // http://50.16.242.109/sdata/slx/dynamic/-/ticketActivities('QDEMOA0007G5')?format=json
-
-        // which is tied to this ticket
-        // http://50.16.242.109/sdata/slx/dynamic/-/tickets('tDEMOA00000K')?format=json
-
 
         formatSearchQuery: function(query) {
             return dojo.string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);

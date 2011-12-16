@@ -14,18 +14,110 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
         quantityText: 'quantity',
 
         //View Properties
-        entityName: 'TicketActivityItem',
-        id: 'ticket_activity_item_edit',
+        entityName: 'TicketActivity',
+        id: 'ticketactivityitem_edit',
         insertSecurity: 'Entities/TicketActivityItem/Add',
         updateSecurity: 'Entities/TicketActivityItem/Edit',
         querySelect: [
-            'Product/Name',
-            'ItemDescription',
-            'ItemAmount',
-            'ItemQuantity',
-            'ItemTotalAmount'
+            'Product',
+            'ItemQuantity'
         ],
-        resourceKind: 'ticketActivityItems',
+        resourceKind: 'ticketActivities',
+
+        createRequest: function() {
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService());
+
+            if (this.entry && this.entry['$key'])
+                request.setResourceSelector(dojo.string.substitute("'${0}'", [this.entry['$key']]));
+
+            if (this.resourceKind)
+                request.setResourceKind(this.resourceKind);
+
+            var activitySelect = ['Items'];
+            request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, activitySelect.join(','));
+
+            var activityContext = App.isNavigationFromResourceKind( ['ticketActivities'] );
+            var key = activityContext.key;
+            var resourcePredicateExpr = this.expandExpression("'"+key+"'");
+            if (resourcePredicateExpr)
+                request
+                    .getUri()
+                    .setCollectionPredicate(resourcePredicateExpr);
+
+            if (this.queryInclude)
+                request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, this.queryInclude.join(','));
+
+            if (this.queryOrderBy)
+                request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.OrderBy, this.queryOrderBy);
+
+            return request;
+        },
+
+        getValues: function(all){
+            var activityContext = App.isNavigationFromResourceKind( ['ticketActivities'] );
+            var key = activityContext.key;
+
+            var values = {
+                'Items': this.convertValues(this.inherited(arguments)),
+                '$key': key,
+                '$etag': "Ticket/Account,RateTypeDescription,User/UserInfo:CzuHFL7zJFw=",
+                '$name': 'ticketActivity'
+            };
+            dojo.mixin(values.Items, {
+                'TicketActivity': {
+                    '$key': key
+                }
+            });
+            return values;
+        },
+        createEntryForUpdate: function(values) {
+            values.TicketActivityItem['$key'] = this.entry['$key'];
+            return values;
+        },
+        createEntryForInsert: function(values){
+            return values;
+        },
+        insert: function() {
+            this.disable();
+
+            var values = this.getValues();
+            if (values)
+            {
+                var entry = this.createEntryForInsert(values);
+
+                var request = this.createRequest();
+                if (request)
+                    request.update(entry, {
+                        success: this.onInsertSuccess,
+                        failure: this.onInsertFailure,
+                        scope: this
+                    });
+            }
+            else
+            {
+                ReUI.back();
+            }
+        },
+        onInsertSuccess: function(entry) {
+            this.enable();
+
+            App.onRefresh({
+                resourceKind: 'ticketActivityItems'
+            });
+
+            this.onInsertCompleted(entry);
+        },
+        onUpdateSuccess: function(entry) {
+            this.enable();
+
+            App.onRefresh({
+                resourceKind: 'ticketActivityItems',
+                key: entry['$key'],
+                data: entry
+            });
+
+            this.onUpdateCompleted(entry);
+        },
 
         createLayout: function() {
             return this.layout || (this.layout = [
@@ -35,7 +127,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
                     property: 'Product',
                     textProperty: 'Name',
                     type: 'lookup',
-                    view: 'ticket_activity_item_product_list'
+                    view: 'ticketactivityitem_productlist'
                 },
                 {
                     label: this.quantityText,

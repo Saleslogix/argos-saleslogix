@@ -160,15 +160,13 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose: false
             }));
 
-            /*
+
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.List());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Detail());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivity.RateLookup({
-                expose: false
-            }));
+            this.registerView(new Mobile.SalesLogix.Views.TicketActivity.RateLookup());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.List({
-                id: 'ticket_activity_related',
+                id: 'ticketactivity_related',
                 expose: false
             }));
 
@@ -176,10 +174,9 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.Edit());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.ProductList());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List({
-                id: 'ticket_activity_item_list_related',
+                id: 'ticketactivityitem_related',
                 expose: false
             }));
-            */
 
             this.registerView(new Mobile.SalesLogix.Views.Activity.Detail());
             this.registerView(new Mobile.SalesLogix.Views.Activity.Edit());

@@ -32,18 +32,18 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
         relatedTicketActivityItemText: 'Ticket Activity Parts',
 
         //View Properties
-        id: 'ticket_activity_detail',
+        id: 'ticketactivity_detail',
         security: 'Entities/Account/View',
-        editView: 'ticket_activity_edit',
+        editView: 'ticketactivity_edit',
 
         querySelect: [
             'ActivityDescription',
-            'ActivityType',
+            'ActivityTypeCode',
             'AssignedDate',
             'CompletedDate',
             'ElapsedUnits',
             'FollowUp',
-            'PublicAccess',
+            'PublicAccessCode',
             'Rate',
             'RateTypeDescription/Amount',
             'RateTypeDescription/RateTypeCode',
@@ -58,6 +58,55 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
             'User/UserInfo/LastName'
         ],
         resourceKind: 'ticketActivities',
+
+        requestPickList: function(predicate) {
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+                .setResourceKind('picklists')
+                .setContractName('system');
+            var uri = request.getUri();
+
+            uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
+            uri.setCollectionPredicate(predicate);
+
+            request.allowCacheUse = true;
+
+            return request;
+        },
+        processCodeFeed: function(feed, currentValue, options) {
+            var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+            var textProperty = options && options.textProperty ? options.textProperty : 'text';
+            for (var i = 0; i < feed.$resources.length; i++)
+            {
+                if (feed.$resources[i][keyProperty] === currentValue)
+                    return feed.$resources[i][textProperty];
+            }
+            return currentValue;
+        },
+        createCodeRequest: function(o, predicate) {
+            var request = this.requestPickList(predicate);
+            request.read({
+                success: function(data) {this.onCodeRequestSuccess(data, o);},
+                failure: this.onCodeRequestFailure,
+                scope: this
+            });
+        },
+        onCodeRequestSuccess: function(data, o){
+            var value = this.processCodeFeed(data, o.entry[o.row.property]);
+            this.setNodeText(o.rowNode, value);
+            this.entry[o.row.name] = value;
+        },
+        onCodeRequestFailure: function(response, o) {
+            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
+        },
+        setNodeText: function(node, value){
+            var contentNode = dojo.query('span', node)[0];
+
+            dojo.removeClass(node, 'content-loading');
+
+            if (contentNode)
+                contentNode.innerHTML = value;
+        },
+
         createLayout: function() {
             return this.layout || (this.layout = [{
                 title: this.detailsText,
@@ -71,12 +120,14 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     key: 'Ticket.Account.$key'
                 },{
                     label: this.typeText,
-                    name: 'ActivityType',
-                    property: 'ActivityType'
+                    name: 'ActivityTypeCode',
+                    property: 'ActivityTypeCode',
+                    onInsert: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Activity"')
                 },{
                     label: this.publicAccessText,
-                    name: 'PublicAccess',
-                    property: 'PublicAccess'
+                    name: 'PublicAccessCode',
+                    property: 'PublicAccessCode',
+                    onInsert: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Activity Public Access"')
                 },{
                     name: 'User.UserName',
                     property: 'User.UserName',
@@ -145,7 +196,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     icon: 'content/images/icons/product_24.png',
                     label: this.relatedTicketActivityItemText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'TicketActivity.Id eq "${0}"'),
-                    view: 'ticket_activity_item_list_related'
+                    view: 'ticketactivityitem_related'
                 }]
             }]);
         }

@@ -9,28 +9,24 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/ProductList', ['Sage/Platform
     dojo.declare('Mobile.SalesLogix.Views.TicketActivityItem.ProductList', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
-            '<h3>{%: $.Name %}',
-                '{% if ($.Family) { %}',
-                    '- {%: $.Family %}',
-                '{% } %}',
-            '</h3>',
-            '<h4>{%: $.Price %}</h4>'
+            '<h3>{%: $.Name %}</h3>',
+            '<h4>{%: $.ActualId %}</h4>',
+            '<h4>{%: $.Description %}</h4>'
         ]),
 
         //Localization
         titleText: 'Products',
 
         //View Properties
-        id: 'ticket_activity_item_product_list',
+        id: 'ticketactivityitem_productlist',
         security: 'Entities/TicketActivityItem/View',
         expose: false,
         icon: 'content/images/icons/product_24.png',
-        queryOrderBy: 'Sort',
+        queryOrderBy: 'Name asc',
         querySelect: [
+            'ActualId',
             'Name',
-            'Family',
-            'Program',
-            'Price'
+            'Description'
         ],
         resourceKind: 'products',
 

@@ -133,30 +133,26 @@ define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], fu
 
             return "";
         },
-        /* No need to override init function
-        init: function() {
-            // Mobile.SalesLogix.History.List.superclass.init.apply(this, arguments);
-
-            // App.on('resize', this.onResize, this);
-        },
-        */
         formatSearchQuery: function(query) {
             return dojo.string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         },
-        onResize: function() {
-            // FIX: dojo.query('.note-text-item', 'fixture') // but has no .each
-            this.el.select('.note-text-item').each(function(el) {
-                if (el.getHeight(true) < el.child('.note-text-wrap').getHeight())
-                    el.child('.note-text-more').show();
+        _onResize: function() {
+            dojo.forEach(dojo.query('.note-text-item', this.contentNode), function(node){
+                var wrapNode = dojo.query('.note-text-wrap', node)[0],
+                    moreNode = dojo.query('.note-text-more', node)[0];
+                if (dojo.marginBox(node).h < dojo.marginBox(wrapNode).h)
+                    dojo.style(moreNode, 'visibility', 'visible');
                 else
-                    el.child('.note-text-more').hide();
+                    dojo.style(moreNode, 'visibility', 'hidden');
             });
+        },
+        processFeed: function(){
+            this.inherited(arguments);
+            this._onResize();
+        },
+        postCreate: function() {
+            this.inherited(arguments);
+            this.connect(App, 'onResize', this._onResize);
         }
-        // FIX: Why are we overriding processFeed here?
-        /*processFeed: function(feed) {
-            // Mobile.SalesLogix.History.List.superclass.processFeed.call(this, feed);
-
-            this.onResize();
-        }*/
     });
 });
