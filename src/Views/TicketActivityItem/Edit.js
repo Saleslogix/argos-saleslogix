@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService());
 
             if (this.entry && this.entry['$key'])
-                request.setResourceSelector(dojo.string.substitute("'${0}'", [this.entry['$key']]));
+                request.setResourceSelector([this.entry['$key']]);
 
             if (this.resourceKind)
                 request.setResourceKind(this.resourceKind);
@@ -38,17 +38,11 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
 
             var activityContext = App.isNavigationFromResourceKind( ['ticketActivities'] );
             var key = activityContext.key;
-            var resourcePredicateExpr = this.expandExpression("'"+key+"'");
+            var resourcePredicateExpr = this.expandExpression(dojo.string.substitute("'${0}'", [key]));
             if (resourcePredicateExpr)
                 request
                     .getUri()
                     .setCollectionPredicate(resourcePredicateExpr);
-
-            if (this.queryInclude)
-                request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, this.queryInclude.join(','));
-
-            if (this.queryOrderBy)
-                request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.OrderBy, this.queryOrderBy);
 
             return request;
         },
@@ -57,17 +51,18 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
             var activityContext = App.isNavigationFromResourceKind( ['ticketActivities'] );
             var key = activityContext.key;
 
+            // conform to this format:
+            // http://50.16.242.109/sdata/slx/dynamic/-/ticketActivities('QQF8AA0004DA')?_includeContent=false&select=Items&format=json&_t=1324069426718
+
             var values = {
-                'Items': this.convertValues(this.inherited(arguments)),
+                'Items': {
+                    '$resources': this.convertValues(this.inherited(arguments))
+                },
                 '$key': key,
-                '$etag': "Ticket/Account,RateTypeDescription,User/UserInfo:CzuHFL7zJFw=",
+                // do we need $etag ??
                 '$name': 'ticketActivity'
             };
-            dojo.mixin(values.Items, {
-                'TicketActivity': {
-                    '$key': key
-                }
-            });
+
             return values;
         },
         createEntryForUpdate: function(values) {
