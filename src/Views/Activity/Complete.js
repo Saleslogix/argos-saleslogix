@@ -250,6 +250,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     'LongNotes': (this.fields['CarryOverNotes'].getValue() && entry['LongNotes']) || '',
                     'OpportunityId': entry.OpportunityId,
                     'OpportunityName': entry.OpportunityName,
+                    'StartDate': Date.now(),
                     'TicketId': entry.TicketId,
                     'TicketNumber': entry.TicketNumber
                 };
