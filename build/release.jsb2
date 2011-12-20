@@ -275,10 +275,6 @@
           "path": "../src/Views/Contact"
         },
         {
-          "text": "Associate.js",
-          "path": "../src/Views/Contact"
-        },
-        {
           "text": "List.js",
           "path": "../src/Views/Contract"
         },

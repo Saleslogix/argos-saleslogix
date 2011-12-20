@@ -37,7 +37,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Contact/List',
     'Mobile/SalesLogix/Views/Contact/Detail',
     'Mobile/SalesLogix/Views/Contact/Edit',
-    'Mobile/SalesLogix/Views/Contact/Associate',
     'Mobile/SalesLogix/Views/Contract/List',
     'Mobile/SalesLogix/Views/ErrorLog/List',
     'Mobile/SalesLogix/Views/ErrorLog/Detail',
@@ -116,7 +115,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Mobile.SalesLogix.Views.Contact.List());
             this.registerView(new Mobile.SalesLogix.Views.Contact.Detail());
             this.registerView(new Mobile.SalesLogix.Views.Contact.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.Contact.Associate());
             this.registerView(new Mobile.SalesLogix.Views.Contact.List({
                 id: 'contact_related',
                 expose: false
