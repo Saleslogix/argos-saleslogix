@@ -32,8 +32,8 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
 
             if (this.resourceKind)
                 request.setResourceKind(this.resourceKind);
-
-            var activitySelect = ['Items'];
+            
+             var activitySelect = ['Items'];
             request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, activitySelect.join(','));
 
             var activityContext = App.isNavigationFromResourceKind( ['ticketActivities'] );
@@ -50,23 +50,28 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
         getValues: function(all){
             var activityContext = App.isNavigationFromResourceKind( ['ticketActivities'] );
             var key = activityContext.key;
+            var ticketContext = App.isNavigationFromResourceKind( ['tickets'] );
+            var ticketKey = ticketContext.key;
 
             // conform to this format:
             // http://50.16.242.109/sdata/slx/dynamic/-/ticketActivities('QQF8AA0004DA')?_includeContent=false&select=Items&format=json&_t=1324069426718
+            var entryValues = this.convertValues(this.inherited(arguments));
 
             var values = {
                 'Items': {
-                    '$resources': this.convertValues(this.inherited(arguments))
+                    '$resources': [entryValues]
                 },
                 '$key': key,
-                // do we need $etag ??
-                '$name': 'ticketActivity'
+                'Ticket': {
+                    '$key': ticketKey
+                },
+                '$name': 'TicketActivity'
             };
 
             return values;
         },
         createEntryForUpdate: function(values) {
-            values.TicketActivityItem['$key'] = this.entry['$key'];
+            values.Items['$resources'][0]['$key'] = this.entry['$key'];
             return values;
         },
         createEntryForInsert: function(values){
