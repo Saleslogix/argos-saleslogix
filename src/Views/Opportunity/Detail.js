@@ -171,7 +171,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     name: 'ContactRelated',
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
-                    view: 'contact_associate',
+                    view: 'contact_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'Opportunities.Opportunity.Id eq "${0}"')
                 },{
                     name: 'HistoryRelated',
