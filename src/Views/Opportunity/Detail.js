@@ -171,6 +171,20 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     name: 'ContactRelated',
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
+                    options: {
+                        'tools':{
+                            'tbar': [{
+                                id: 'new',
+                                action: 'navigateToInsertView',
+                                security: App.getViewSecurity(this.insertView, 'insert')
+                            },{
+                                id: 'associate',
+                                icon: 'content/images/icons/srch_24.png',
+                                action: 'onAssociate',
+                                security: App.getViewSecurity(this.insertView, 'insert')
+                            }]
+                        }
+                    },
                     view: 'contact_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'Opportunities.Opportunity.Id eq "${0}"')
                 },{
