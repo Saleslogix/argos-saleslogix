@@ -36,6 +36,7 @@ define('Mobile/SalesLogix/Views/Help', ['Sage/Platform/Mobile/Detail'], function
         },
         onRequestFailure: function(response, o) {
             dojo.query(this.contentNode).append(this.errorTemplate.apply(this));
+            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
             dojo.removeClass(this.domNode, 'panel-loading');
         },
         onLocalizedRequestFirstFailure: function(response, o) {
