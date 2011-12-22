@@ -1,6 +1,7 @@
 
 define('Mobile/SalesLogix/ApplicationModule', [
     'Sage/Platform/Mobile/ApplicationModule',
+    'Sage/Platform/Mobile/Views/Associate',
 
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
@@ -82,6 +83,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
             }));
 
             this.registerView(new Sage.Platform.Mobile.Views.Signature({
+                expose:false
+            }));
+
+            this.registerView(new Sage.Platform.Mobile.Views.Associate({
                 expose:false
             }));
 

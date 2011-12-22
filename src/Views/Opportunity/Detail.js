@@ -172,6 +172,17 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
                     options: {
+                        'context': {
+                            entity: 'Opportunity',
+                            resourceKind: this.resourceKind
+                        },
+                        'related': {
+                            entity: 'Contact'
+                        },
+                        'target': {
+                            entity: 'OpportunityContact',
+                            resourceKind: 'opportunityContacts'
+                        },
                         'tools':{
                             'tbar': [{
                                 id: 'new',
