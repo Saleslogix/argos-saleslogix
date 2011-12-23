@@ -73,8 +73,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                 });
             }
         },
-        formatAccountRelatedQuery: function(entry, fmt) {
-            return dojo.string.substitute(fmt, [entry['Account']['$key']]);
+        formatAccountRelatedQuery: function(fmt) {
+            return dojo.string.substitute(fmt, [this.entry['Account']['$key']]);
         },                
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -174,7 +174,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     options: {
                         'context': {
                             entity: 'Opportunity',
-                            resourceKind: this.resourceKind
+                            resourceKind: this.resourceKind,
+                            prefilter: this.formatAccountRelatedQuery.bindDelegate(this, 'Account.Id eq "${0}"')
                         },
                         'related': {
                             entity: 'Contact'
