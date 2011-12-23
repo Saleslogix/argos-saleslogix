@@ -202,13 +202,15 @@ define('Mobile/SalesLogix/Format', ['Sage/Platform/Mobile/Format'], function() {
                 return val;
             },
             currency: function(val) {
-                // todo: add localization support
                 var v = Mobile.SalesLogix.Format.fixed(val), // only 2 decimal places
                     f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
 
                 return dojo.string.substitute(
-                    '$${0}.${1}', [
-                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+                    Mobile.CultureInfo.numberFormat.currencySymbol
+                    + '${0}'
+                    + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator
+                    + '${1}', [
+                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1'+Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace("\\s",' ').replace("\\.",'.')),
                         (f.toString().length < 2) ? '0' + f.toString() : f.toString()
                     ]
                 );
