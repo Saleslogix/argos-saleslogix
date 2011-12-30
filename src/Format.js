@@ -73,16 +73,17 @@ Mobile.SalesLogix.Format = (function() {
             return val;
         },
         currency: function(val) {
-            // todo: add localization support
             var v = Mobile.SalesLogix.Format.fixed(val), // only 2 decimal places
                 f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
 
-            return String.format('${0}.{1}',
-                (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
-                (f.toString().length < 2)
-                    ? '0' + f.toString()
-                    : f.toString()
-            );
+            return String.format(
+                    Mobile.CultureInfo.numberFormat.currencySymbol
+                    + '{0}'
+                    + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator
+                    + '{1}', 
+                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1'+Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace("\\.",'.')),
+                        (f.toString().length < 2) ? '0' + f.toString() : f.toString()
+                    ).replace(/ /g, '\u00A0');
         },        
         nameLF: function(val) {
             if (!val) return '';
