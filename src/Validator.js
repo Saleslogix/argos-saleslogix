@@ -35,14 +35,12 @@ define('Mobile/SalesLogix/Validator', ['dojo', 'dojo/string'], function() {
                 message: "The value '${0}' is not a valid number."
             },
             isDecimal: {
-                test: /^[\d,.]+$/,
+                test: /^[\d.]+$/,
                 message: "The value '${0}' is not a valid number."
             },
             isCurrency: {
                 fn: function(value, field){
-                    return (!new RegExp(dojo.string.substitute('^[\\d${0}]+(${1}\\d{1,${2}})?$',[
-                        Mobile.CultureInfo.numberFormat.currencyGroupSeparator || ',',
-                        Mobile.CultureInfo.numberFormat.currencyDecimalSeparator || '.',
+                    return !(new RegExp(dojo.string.substitute('^[\\d]+(\\.\\d{1,${0}})?$',[
                         Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'])).test(value));
                 },
                 message: "The value '${0}' is not a valid currency number."

@@ -210,10 +210,10 @@ define('Mobile/SalesLogix/Format', ['Sage/Platform/Mobile/Format'], function() {
                     + '${0}'
                     + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator
                     + '${1}', [
-                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1'+Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace("\\s",' ').replace("\\.",'.')),
+                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1'+Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace("\\.",'.')),
                         (f.toString().length < 2) ? '0' + f.toString() : f.toString()
                     ]
-                );
+                ).replace(/ /g, '\u00A0'); //keep numbers from breaking
             },
             nameLF: function(val) {
                 if (!val) return '';
