@@ -79,7 +79,8 @@ define('Mobile/SalesLogix/Fields/PicklistField', ['Sage/Platform/Mobile/Fields/L
         createNavigationOptions: function() {
             var options = this.inherited(arguments);
 
-            if (this.picklist) {
+            if (this.picklist)
+            {
                 options.resourcePredicate = this.formatResourcePredicate(
                     this.dependsOn // only pass dependentValue if there is a dependency
                         ? this.expandExpression(this.picklist, options.dependentValue)
@@ -90,7 +91,21 @@ define('Mobile/SalesLogix/Fields/PicklistField', ['Sage/Platform/Mobile/Fields/L
                 options.previousSelections = this.multi ? this.createSelections() : null;
                 options.pickListType = this.storageMode;
             }
-
+            if (this.multi)
+            {
+                options.tools = {
+                    tbar: [{
+                        id: 'complete',
+                        fn: this.complete,
+                        scope: this
+                    },{
+                        id: 'cancel',
+                        side: 'left',
+                        fn: ReUI.back,
+                        scope: ReUI
+                    }]
+                };
+            }
             return options;
         },
         navigateToListView: function() {
