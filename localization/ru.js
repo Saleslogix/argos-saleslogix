@@ -15,7 +15,7 @@
     "percentGroupSizes": [
       3
     ],
-    "currencyGroupSeparator": " ",
+    "currencyGroupSeparator": " ",
     "currencySymbol": "р.",
     "naNSymbol": "NaN",
     "currencyNegativePattern": 5,
@@ -26,13 +26,13 @@
     "negativeSign": "-",
     "numberDecimalDigits": 2,
     "numberDecimalSeparator": ",",
-    "numberGroupSeparator": " ",
+    "numberGroupSeparator": " ",
     "currencyPositivePattern": 1,
     "positiveInfinitySymbol": "бесконечность",
     "positiveSign": "+",
     "percentDecimalDigits": 2,
     "percentDecimalSeparator": ",",
-    "percentGroupSeparator": " ",
+    "percentGroupSeparator": " ",
     "percentSymbol": "%",
     "perMilleSymbol": "‰",
     "nativeDigits": [
