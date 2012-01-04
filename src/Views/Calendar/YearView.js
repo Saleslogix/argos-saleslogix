@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         ]),
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
-                '<button data-tool="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>',
+                '<button data-tool="today" data-action="selectToday" class="button">{%: $.todayText %}</button>',
                 '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
                 '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
                 '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
@@ -71,6 +71,7 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         eventDetailView: 'event_detail',
         enableSearch: false,
         expose: false,
+        scrollToDateEnabled: true,
         dateCounts: {},
         currentDate: Date.today(),
         selectedDateNode: null,
@@ -373,6 +374,45 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         highlightCurrentDate: function(){
             var dateQuery = dojo.string.substitute('td.calendar-day[data-date="${0}"]', [this.currentDate.toString('yyyy-MM-dd')]);
             this.selectDay({date:this.currentDate.toString('yyyy-MM-dd')}, null, dojo.query(dateQuery, this.yearContentNode)[0]);
+            this.scrollToActiveDate();
+        },
+        scrollToActiveDate: function(date){
+            if(!this.scrollToDateEnabled || !this.selectedDateNode) return;
+            var monthNode = dojo.query(this.selectedDateNode).closest('table');
+            this.scrollToElement({
+                node: monthNode[0],
+                offsetY: 6,
+                duration: 800
+            });
+        },
+        selectToday: function(){
+            this.currentDate = new Date();
+            this.highlightCurrentDate();
+        },
+        scrollToElement: function(options){
+            var coordinates = dojo.position(options.node),
+                delta = {
+                    x: coordinates.x - (options.offsetX || 0),
+                    y: coordinates.y - (options.offsetY || 0)
+                },
+                _scroll = function(val){
+                    window.scrollTo(removePx(val.offsetX), removePx(val.offsetY));
+                },
+                removePx = function(pxVal){
+                    return parseFloat(pxVal.replace(/px/,''), 10);
+                };
+            dojo.animateProperty({
+                node: options.node,
+                properties:{
+                    offsetX: delta.x,
+                    offsetY: delta.y
+                },
+                easing: function(val){
+		            return Math.pow(val - 1, 3) + 1;
+	            },
+                duration: options.duration || 600,
+                onAnimate: _scroll
+            }).play();
         },
         navigateToMonthView: function() {
             var view = App.getView(this.activityMonthView),

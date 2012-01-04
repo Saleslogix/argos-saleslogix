@@ -196,6 +196,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         feed: {},
         eventFeed: {},
         entries: {},
+        dayEntries: {},
 
         eventPageSize: 3,
         eventQueryWhere: null,
@@ -538,7 +539,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             for(var i = 0; i < feedLength; i++){
                 var row = r[i];
                 row.isEvent = false;
-                this.entries[row.Activity.$key] = row;
+                this.dayEntries[row.Activity.$key] = row;
                 o.push(this.activityRowTemplate.apply(row, this));
             }
 
@@ -574,7 +575,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             for(var i = 0; i < feedLength; i++){
                 row = r[i];
                 row.isEvent = true;
-                this.entries[row.$key] = row;
+                this.dayEntries[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
             }
 
@@ -683,9 +684,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             view.show(options);
         },
         navigateToDetailView: function(key, descriptor) {
-            var entry = this.entries[key],
+            var entry = this.dayEntries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
                 view = App.getView(detailView);
+            descriptor = (entry.isEvent) ? descriptor : entry.Activity.Description;
             if (view)
                 view.show({
                     descriptor: descriptor,
