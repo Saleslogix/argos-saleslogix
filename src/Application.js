@@ -404,7 +404,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
 
                     ReUI.context.transitioning = false;
 
-                    var last = cleanedHistory[cleanedHistory.length - 1];
+                    var last = cleanedHistory[cleanedHistory.length - 1],
                         view = App.getView(last.page),
                         options = last.data && last.data.options;
 
