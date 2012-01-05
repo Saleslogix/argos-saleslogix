@@ -1,7 +1,6 @@
 
 define('Mobile/SalesLogix/ApplicationModule', [
     'Sage/Platform/Mobile/ApplicationModule',
-    'Sage/Platform/Mobile/Views/Associate',
 
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
@@ -35,6 +34,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Calendar/WeekView',
     'Mobile/SalesLogix/Views/Calendar/MonthView',
     'Mobile/SalesLogix/Views/Calendar/YearView',
+    'Mobile/SalesLogix/Views/Contact/AssociateList',
     'Mobile/SalesLogix/Views/Contact/List',
     'Mobile/SalesLogix/Views/Contact/Detail',
     'Mobile/SalesLogix/Views/Contact/Edit',
@@ -86,10 +86,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose:false
             }));
 
-            this.registerView(new Sage.Platform.Mobile.Views.Associate({
-                expose:false
-            }));
-
             this.registerView(new Mobile.SalesLogix.Views.Login());
             this.registerView(new Mobile.SalesLogix.Views.Home());
             this.registerView(new Mobile.SalesLogix.Views.Help());
@@ -118,6 +114,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Mobile.SalesLogix.Views.Calendar.DayView());
 
             this.registerView(new Mobile.SalesLogix.Views.Contact.List());
+            this.registerView(new Mobile.SalesLogix.Views.Contact.AssociateList());
             this.registerView(new Mobile.SalesLogix.Views.Contact.Detail());
             this.registerView(new Mobile.SalesLogix.Views.Contact.Edit());
             this.registerView(new Mobile.SalesLogix.Views.Contact.List({
