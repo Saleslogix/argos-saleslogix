@@ -172,17 +172,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
                     options: {
-                        'context': {
-                            entityName: 'Opportunity',
-                            resourceKind: this.resourceKind
-                        },
-                        'target': {
-                            entityName: 'OpportunityContact',
-                            resourceKind: 'opportunityContacts'
-                        },
                         prefilter: this.formatAccountRelatedQuery.bindDelegate(this, 'Account.Id eq "${0}"')
                     },
-                    view: 'contact_associatelist',
+                    view: 'opportunity_relatedcontacts',
                     where: this.formatRelatedQuery.bindDelegate(this, 'Opportunities.Opportunity.Id eq "${0}"')
                 },{
                     name: 'HistoryRelated',
