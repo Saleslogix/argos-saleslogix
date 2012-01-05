@@ -9,6 +9,7 @@ define('Mobile/SalesLogix/Views/Contact/AssociateList', ['Sage/Platform/Mobile/L
 
         //Localization
         titleText: 'Contacts',
+        selectTitleText: 'Select Contact',
 
         //View Properties
         icon: 'content/images/icons/Contacts_24x24.png',
@@ -25,15 +26,11 @@ define('Mobile/SalesLogix/Views/Contact/AssociateList', ['Sage/Platform/Mobile/L
         resourceKind: 'contacts',
         selectView: null,
 
-        postCreate: function(){
-            this.inherited(arguments);
-            this.createSelectView();
-        },
         createSelectView: function(){
             var view = new Sage.Platform.Mobile.List({
                 id: 'contact_associateselect',
                 expose: false,
-                title: this.titleText,
+                titleText: this.selectTitleText,
                 itemTemplate: this.itemTemplate,
                 security: this.security,
                 queryOrderBy: this.queryOrderBy,
@@ -62,8 +59,8 @@ define('Mobile/SalesLogix/Views/Contact/AssociateList', ['Sage/Platform/Mobile/L
                     this.requestData();
                 }
             });
-            this.selectView = view;
             App.registerView(view);
+            return view;
         },
 
         complete: function(){
@@ -121,6 +118,8 @@ define('Mobile/SalesLogix/Views/Contact/AssociateList', ['Sage/Platform/Mobile/L
             return options;
         },
         navigateToAssociateView: function() {
+            this.selectView = this.selectView || this.createSelectView();
+
             var view = this.selectView,
                 options = this.createNavigationOptions();
             if (view && options)
