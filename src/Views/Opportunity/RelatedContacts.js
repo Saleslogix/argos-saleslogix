@@ -15,17 +15,6 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
         targetEntityName: 'OpportunityContact',
         targetResourceKind: 'opportunityContacts',
 
-        /*
-        _onSearchExpression: function(expression) {
-            this.clear(false);
-            this.queryText = '';
-            this.query = expression;
-            // allow global search
-            this.options.where = null;
-            this.queryWhere = null;
-            this.requestData();
-        }
-        */
         complete: function(){
             var view = App.getPrimaryActiveView(),
                 selectionModel = view && view.get('selectionModel'),
@@ -38,6 +27,7 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
                     ReUI.back();
 
                 for (var selectionKey in selections) {
+                    if (this.isDuplicate(selectionKey)) return;
                     var context = App.isNavigationFromResourceKind( [this.contextResourceKind] );
                     value['$name'] = this.targetEntityName;
                     value[this.contextEntityName] = { '$key': context.key };
@@ -70,6 +60,16 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
             request.setResourceKind(this.targetResourceKind);
             return request;
         },
+        isDuplicate: function(key){
+            var feed = this.feed['$resources'];
+            for(var i=0; i<feed.length; i++)
+            {
+                var current = feed[i]['$key'];
+                if (current === key)
+                    return true;
+            }
+            return false;
+        },
         createNavigationOptions: function() {
             var options = {
                 selectionOnly: true,
@@ -91,10 +91,11 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
                     }]
                 }
             };
-            /*
-            if('prefilter' in this.options)
-                options.where = this.expandExpression(this.options.prefilter);
-            */
+            var context = App.isNavigationFromResourceKind( [this.contextResourceKind] );
+
+            options.queryScopeExpression = '';
+            options.where = this.expandExpression(this.options.prefilter);
+
             return options;
         },
         navigateToAssociateView: function() {
