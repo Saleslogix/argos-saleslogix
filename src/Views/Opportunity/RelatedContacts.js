@@ -27,7 +27,6 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
                     ReUI.back();
 
                 for (var selectionKey in selections) {
-                    if (this.isDuplicate(selectionKey)) return;
                     var context = App.isNavigationFromResourceKind( [this.contextResourceKind] );
                     value['$name'] = this.targetEntityName;
                     value[this.contextEntityName] = { '$key': context.key };
@@ -56,19 +55,9 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
             Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
         },
         createInsertRequest: function() {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(App.getService(false));
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService());
             request.setResourceKind(this.targetResourceKind);
             return request;
-        },
-        isDuplicate: function(key){
-            var feed = this.feed['$resources'];
-            for(var i=0; i<feed.length; i++)
-            {
-                var current = feed[i]['$key'];
-                if (current === key)
-                    return true;
-            }
-            return false;
         },
         createNavigationOptions: function() {
             var options = {
