@@ -49,8 +49,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/LeadSource/List',
     'Mobile/SalesLogix/Views/Opportunity/List',
     'Mobile/SalesLogix/Views/Opportunity/Detail',
-    'Mobile/SalesLogix/Views/Opportunity/RelatedContacts',
     'Mobile/SalesLogix/Views/Opportunity/Edit',
+    'Mobile/SalesLogix/Views/OpportunityContact/List',
+    'Mobile/SalesLogix/Views/OpportunityContact/Detail',
+    'Mobile/SalesLogix/Views/OpportunityContact/Edit',
     'Mobile/SalesLogix/Views/OpportunityProduct/List',
     'Mobile/SalesLogix/Views/Owner/List',
     'Mobile/SalesLogix/Views/Ticket/List',
@@ -141,11 +143,19 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Mobile.SalesLogix.Views.Opportunity.Edit());
             this.registerView(new Mobile.SalesLogix.Views.Opportunity.List());
             this.registerView(new Mobile.SalesLogix.Views.Opportunity.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.Opportunity.RelatedContacts());
             this.registerView(new Mobile.SalesLogix.Views.Opportunity.List({
                 id: 'opportunity_related',
                 expose: false
             }));
+
+            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.Edit());
+            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.List());
+            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.Detail());
+            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.List({
+                id: 'opportunitycontact_related',
+                expose: false
+            }));
+
 
             this.registerView(new Mobile.SalesLogix.Views.OpportunityProduct.List({
                 id: 'opportunityproduct_related',

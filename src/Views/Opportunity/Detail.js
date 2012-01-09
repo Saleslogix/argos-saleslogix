@@ -174,8 +174,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     options: {
                         prefilter: this.formatAccountRelatedQuery.bindDelegate(this, 'Account.Id eq "${0}"')
                     },
-                    view: 'opportunity_relatedcontacts',
-                    where: this.formatRelatedQuery.bindDelegate(this, 'Opportunities.Opportunity.Id eq "${0}"')
+                    view: 'opportunitycontact_related',
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"')
                 },{
                     name: 'HistoryRelated',
                     icon: 'content/images/icons/journal_24.png',
