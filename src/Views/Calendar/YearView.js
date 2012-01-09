@@ -71,7 +71,6 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         eventDetailView: 'event_detail',
         enableSearch: false,
         expose: false,
-        scrollToDateEnabled: true,
         dateCounts: {},
         currentDate: Date.today(),
         selectedDateNode: null,
@@ -377,12 +376,11 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             this.scrollToActiveDate();
         },
         scrollToActiveDate: function(date){
-            if(!this.scrollToDateEnabled || !this.selectedDateNode) return;
+            if(!this.selectedDateNode) return;
             var monthNode = dojo.query(this.selectedDateNode).closest('table');
             this.scrollToElement({
                 node: monthNode[0],
-                offsetY: 6,
-                duration: 800
+                offsetY: 6
             });
         },
         selectToday: function(){
@@ -394,25 +392,8 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                 delta = {
                     x: coordinates.x - (options.offsetX || 0),
                     y: coordinates.y - (options.offsetY || 0)
-                },
-                _scroll = function(val){
-                    window.scrollTo(removePx(val.offsetX), removePx(val.offsetY));
-                },
-                removePx = function(pxVal){
-                    return parseFloat(pxVal.replace(/px/,''), 10);
                 };
-            dojo.animateProperty({
-                node: options.node,
-                properties:{
-                    offsetX: delta.x,
-                    offsetY: delta.y
-                },
-                easing: function(val){
-		            return Math.pow(val - 1, 3) + 1;
-	            },
-                duration: options.duration || 600,
-                onAnimate: _scroll
-            }).play();
+            window.scrollTo(delta.x, delta.y);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.activityMonthView),
