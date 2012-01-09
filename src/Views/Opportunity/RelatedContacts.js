@@ -18,22 +18,24 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
         complete: function(){
             var view = App.getPrimaryActiveView(),
                 selectionModel = view && view.get('selectionModel'),
-                selections,
-                value = {};
-            if (selectionModel) {
-                selections = selectionModel.getSelections();
+                value = null;
+            if (!selectionModel) return;
 
-                if (0 == selectionModel.getSelectionCount() && view.options.allowEmptySelection)
-                    ReUI.back();
+            var selections = selectionModel.getSelections();
 
-                for (var selectionKey in selections) {
-                    var context = App.isNavigationFromResourceKind( [this.contextResourceKind] );
-                    value['$name'] = this.targetEntityName;
-                    value[this.contextEntityName] = { '$key': context.key };
-                    value[this.entityName] = { '$key': selectionKey };
-                }
-                this.insert(value);
+            if (selectionModel.getSelectionCount() == 0 && view.options.allowEmptySelection)
+                ReUI.back();
+
+            for (var selectionKey in selections)
+            {
+                var context = App.isNavigationFromResourceKind([this.contextResourceKind]);
+                value = { '$name': this.targetEntityName };
+                value[this.contextEntityName] = { '$key': context.key };
+                value[this.entityName] = { '$key': selectionKey };
             }
+
+            if (value)
+                this.insert(value);
         },
         insert: function(entry) {
             var request = this.createInsertRequest();
@@ -61,6 +63,8 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
         },
         createNavigationOptions: function() {
             var options = {
+                queryScopeExpression: '',
+                where: this.expandExpression(this.options.prefilter),
                 selectionOnly: true,
                 singleSelect: true,
                 singleSelectAction: 'complete',
@@ -71,7 +75,7 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
                         id: 'complete',
                         fn: this.complete,
                         cls: 'invisible',
-                       scope: this
+                        scope: this
                     },{
                         id: 'cancel',
                         side: 'left',
@@ -80,11 +84,6 @@ define('Mobile/SalesLogix/Views/Opportunity/RelatedContacts', ['Mobile/SalesLogi
                     }]
                 }
             };
-            var context = App.isNavigationFromResourceKind( [this.contextResourceKind] );
-
-            options.queryScopeExpression = '';
-            options.where = this.expandExpression(this.options.prefilter);
-
             return options;
         },
         navigateToAssociateView: function() {
