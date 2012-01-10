@@ -15,7 +15,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
         moreDetailsText: 'More Details',
         salesRoleText: 'role',
         strategyText: 'strategy',
-        personalBenefitsText: 'personal benefits',
+        personalBenefitsText: 'personal ben.',
         standingText: 'standing',
         issuesText: 'issues',
 
@@ -46,7 +46,10 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
                 children: [{
                     name: 'NameLF',
                     property: 'Contact.NameLF',
-                    label: this.nameText
+                    label: this.nameText,
+                    view: 'contact_detail',
+                    key: 'Contact.$key',
+                    descriptor: 'Contact.NameLF'
                 },{
                     name: 'AccountName',
                     property: 'Contact.AccountName',
@@ -68,21 +71,21 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
                 name: 'MoreDetailsSection',
                 collapsed: true,
                 children: [{
-                    name: 'Issues',
-                    property: 'Issues',
-                    label: this.issuesText
-                },{
                     name: 'Standing',
                     property: 'Standing',
                     label: this.standingText
                 },{
-                    name: 'PersonalBenefits',
-                    property: 'PersonalBenefits',
-                    label: this.personalBenefitsText
-                },{
                     name: 'Strategy',
                     property: 'Strategy',
                     label: this.strategyText
+                },{
+                    name: 'Issues',
+                    property: 'Issues',
+                    label: this.issuesText
+                },{
+                    name: 'PersonalBenefits',
+                    property: 'PersonalBenefits',
+                    label: this.personalBenefitsText
                 }]
             }]);
         }

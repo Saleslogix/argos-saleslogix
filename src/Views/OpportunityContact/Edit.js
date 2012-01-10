@@ -14,6 +14,13 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', ['Sage/Platform/Mobile
         accountNameText: 'account',
         contactTitleText: 'title',
         salesRoleText: 'role',
+        salesRoleTitleText: 'Role',
+        personalBenefitsText: 'personal ben.',
+        strategyText: 'strategy',
+        issuesText: 'issues',
+        standingText: 'standing',
+        standingTitleText: 'Standing',
+        contactText: 'Contact',
 
         //View Properties
         entityName: 'OpportunityContact',
@@ -28,38 +35,71 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', ['Sage/Platform/Mobile
         resourceKind: 'opportunityContacts',
 
         createLayout: function() {
-            return this.layout || (this.layout = [{
-                formatValue: Mobile.SalesLogix.Format.nameLF,
-                label: this.nameText,
-                name: 'ContactName',
-                type: 'text',
-                property: 'Contact.NameLF',
-                readonly: true,
-                exclude: true
-            },
+            return this.layout || (this.layout = [
             {
-                label: this.accountNameText,
-                name: 'ContactAccountName',
-                property: 'Contact.AccountName',
-                type: 'text',
-                readonly: true,
-                exclude: true
-
-            },
-            {
-                label: this.contactTitleText,
-                name: 'ContactTitle',
-                property: 'Contact.Title',
-                type: 'text',
-                readonly: true,
-                exclude: true
+                title: this.contactText,
+                name: 'ContactSection',
+                children: [
+                    {
+                        formatValue: Mobile.SalesLogix.Format.nameLF,
+                        label: this.nameText,
+                        name: 'ContactName',
+                        type: 'text',
+                        property: 'Contact.NameLF',
+                        readonly: true,
+                        exclude: true
+                    },
+                    {
+                        label: this.accountNameText,
+                        name: 'ContactAccountName',
+                        property: 'Contact.AccountName',
+                        type: 'text',
+                        readonly: true,
+                        exclude: true
+                    },
+                    {
+                        label: this.contactTitleText,
+                        name: 'ContactTitle',
+                        property: 'Contact.Title',
+                        type: 'text',
+                        readonly: true,
+                        exclude: true
+                    }
+                ]
             },
             {
                 label: this.salesRoleText,
                 name: 'SalesRole',
                 property: 'SalesRole',
                 type: 'picklist',
+                title: this.salesRoleTitleText,
                 picklist: 'Role'
+            },
+            {
+                label: this.standingText,
+                name: 'Standing',
+                property: 'Standing',
+                type: 'picklist',
+                title: this.standingTitleText,
+                picklist: 'Standing'
+            },
+            {
+                label: this.personalBenefitsText,
+                name: 'PersonalBenefits',
+                property: 'PersonalBenefits',
+                type: 'text'
+            },
+            {
+                label: this.strategyText,
+                name: 'Strategy',
+                property: 'Strategy',
+                type: 'textarea'
+            },
+            {
+                label: this.issuesText,
+                name: 'Issues',
+                property: 'Issues',
+                type: 'textarea'
             },
             {
                 name: 'OpportunityKey',

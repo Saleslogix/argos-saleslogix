@@ -9,14 +9,16 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', ['Sage/Platform/Mobile
     return dojo.declare('Mobile.SalesLogix.Views.OpportunityContact.List', [Sage.Platform.Mobile.List], {
         //Template
         itemTemplate: new Simplate([
-            '<h3>{%: $.Contact.NameLF %}</h3>',
-            '{% if ($.SalesRole) %}',
-                '<h4>{%: $.SalesRole %}</h4>',
-            '<h4>{%: $.Contact.AccountName %}</h4>'
+            '<h3 class="{% if ($.IsPrimary) { %}primary{% } %}">{%: $.Contact.NameLF %}</h3>',
+            '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">',
+                '{% if ($.SalesRole) { %}',
+                    '{%: $.SalesRole %} | ',
+                '{% } %}',
+            '{%: $.Contact.Title %}</h4>'
         ]),
 
         //Localization
-        titleText: 'Contacts',
+        titleText: 'Opportunity Contacts',
         selectTitleText: 'Select Contact',
         activitiesText: 'Activities',
         notesText: 'Notes',
@@ -34,11 +36,11 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', ['Sage/Platform/Mobile
             'Contact/Account/AccountName',
             'Contact/AccountName',
             'SalesRole',
+            'IsPrimary',
             'Contact/NameLF',
             'Contact/Title'
         ],
         resourceKind: 'opportunityContacts',
-
 
         complete: function(){
             var view = App.getPrimaryActiveView(),
@@ -46,13 +48,11 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', ['Sage/Platform/Mobile
                 entry = null;
             if (!selectionModel) return;
 
-            var selections = selectionModel.getSelections();
-
             if (selectionModel.getSelectionCount() == 0 && view.options.allowEmptySelection)
                 ReUI.back();
 
-            var context = App.isNavigationFromResourceKind(['opportunities']);
-
+            var context = App.isNavigationFromResourceKind(['opportunities']),
+                selections = selectionModel.getSelections();
             for (var selectionKey in selections)
             {
                 entry = {
@@ -112,10 +112,6 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', ['Sage/Platform/Mobile
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 'tbar': [{
-                    id: 'new',
-                    action: 'navigateToInsertView',
-                    security: App.getViewSecurity(this.insertView, 'insert')
-                },{
                     id: 'associate',
                     icon: 'content/images/icons/srch_24.png',
                     action: 'navigateToSelectView',
@@ -123,9 +119,8 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', ['Sage/Platform/Mobile
                 }]
             });
         },
-
         formatSearchQuery: function(query) {
-            return dojo.string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
+            return dojo.string.substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
 });
