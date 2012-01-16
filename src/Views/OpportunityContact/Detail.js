@@ -15,9 +15,14 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
         moreDetailsText: 'More Details',
         salesRoleText: 'role',
         strategyText: 'strategy',
-        personalBenefitsText: 'personal ben.',
+        personalBenefitsText: 'personal ben',
         standingText: 'standing',
         issuesText: 'issues',
+        competitorNameText: 'competitor pref',
+        actionsText: 'Quick Actions',
+        removeContactTitleText: 'Remove Contact',
+        removeContactText: 'Deletes this contact from the opportunity',
+        confirmDeleteText: 'Remove "${0}" from the opportunity?',
 
         //View Properties
         id: 'opportunitycontact_detail',
@@ -31,6 +36,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
             'Contact/NameLF',
             'Contact/Title',
             'IsPrimary',
+            'Competitors/CompetitorName',
             'Issues',
             'PersonalBenefits',
             'Standing',
@@ -38,8 +44,47 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
         ],
         resourceKind: 'opportunityContacts',
 
+        createEntryForDelete: function(){
+           var entry = {
+                '$key': this.entry['$key'],
+                '$etag': this.entry['$etag'],
+                '$name': this.entry['$name']
+            };
+            return entry;
+        },
+        removeContact: function(){
+            var confirmMessage = dojo.string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+            if (!confirm(confirmMessage))
+                return;
+
+            var entry = this.createEntryForDelete(),
+                request = this.createRequest();
+            if (request)
+                request['delete'](entry, {
+                    success: this.onDeleteSuccess,
+                    failure: this.onRequestDataFailure,
+                    scope: this
+                });
+        },
+        onDeleteSuccess: function(o){
+            App.onRefresh({resourceKind: this.resourceKind});
+            ReUI.back();
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
+            {
+                title: this.actionsText,
+                list: true,
+                cls: 'action-list',
+                name: 'QuickActionsSection',
+                children: [{
+                    name: 'RemoveContactAction',
+                    action: 'removeContact',
+                    label: this.removeContactTitleText,
+                    value: this.removeContactText,
+                    icon: 'content/images/icons/del_24.png'
+                }]
+            },
             {
                 title: this.detailsText,
                 name: 'DetailsSection',
@@ -61,19 +106,27 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
                     name: 'Title',
                     property: 'Contact.Title',
                     label: this.contactTitleText
-                },{
-                    name: 'SalesRole',
-                    property: 'SalesRole',
-                    label: this.salesRoleText
                 }]
             },{
                 title: this.moreDetailsText,
                 name: 'MoreDetailsSection',
                 collapsed: true,
                 children: [{
+                    name: 'SalesRole',
+                    property: 'SalesRole',
+                    label: this.salesRoleText
+                },{
                     name: 'Standing',
                     property: 'Standing',
                     label: this.standingText
+                },{
+                    name: 'PersonalBenefits',
+                    property: 'PersonalBenefits',
+                    label: this.personalBenefitsText
+                },{
+                    name: 'CompetitorName',
+                    property: 'Competitors.CompetitorName',
+                    label: this.competitorNameText
                 },{
                     name: 'Strategy',
                     property: 'Strategy',
@@ -82,10 +135,6 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
                     name: 'Issues',
                     property: 'Issues',
                     label: this.issuesText
-                },{
-                    name: 'PersonalBenefits',
-                    property: 'PersonalBenefits',
-                    label: this.personalBenefitsText
                 }]
             }]);
         }
