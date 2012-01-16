@@ -113,7 +113,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', ['Sage/Platform/Mobile
             return this.tools || (this.tools = {
                 'tbar': [{
                     id: 'associate',
-                    icon: 'content/images/icons/srch_24.png',
+                    icon: 'content/images/icons/add_24.png',
                     action: 'navigateToSelectView',
                     security: App.getViewSecurity(this.insertView, 'insert')
                 }]
