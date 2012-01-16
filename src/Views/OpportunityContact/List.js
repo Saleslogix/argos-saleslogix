@@ -32,6 +32,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', ['Sage/Platform/Mobile
         icon: 'content/images/icons/Contacts_24x24.png',
         security: 'Entities/Contact/View',
         queryOrderBy: 'Contact.NameLF',
+        expose: false,
         querySelect: [
             'Contact/Account/AccountName',
             'Contact/AccountName',

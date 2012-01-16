@@ -93,6 +93,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', ['Sage/Platform/Mobile
                 label: this.competitorPrefText,
                 name: 'Competitors',
                 property: 'Competitors',
+                textProperty: 'CompetitorName',
                 view: 'competitor_related',
                 type: 'lookup'
             },
