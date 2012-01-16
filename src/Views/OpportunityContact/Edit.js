@@ -9,7 +9,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', ['Sage/Platform/Mobile
 
     return dojo.declare('Mobile.SalesLogix.Views.OpportunityContact.Edit', [Sage.Platform.Mobile.Edit], {
         //Localization
-        titleText: 'Opportunity Contact',
+        titleText: 'Edit Opp. Contact',
         nameText: 'name',
         accountNameText: 'account',
         contactTitleText: 'title',
@@ -21,6 +21,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', ['Sage/Platform/Mobile
         standingText: 'standing',
         standingTitleText: 'Standing',
         contactText: 'Contact',
+        competitorPrefText: 'competitor pref',
 
         //View Properties
         entityName: 'OpportunityContact',
@@ -88,6 +89,12 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', ['Sage/Platform/Mobile
                 name: 'PersonalBenefits',
                 property: 'PersonalBenefits',
                 type: 'text'
+            },{
+                label: this.competitorPrefText,
+                name: 'Competitors',
+                property: 'Competitors',
+                view: 'competitor_related',
+                type: 'lookup'
             },
             {
                 label: this.strategyText,

@@ -34,6 +34,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Calendar/WeekView',
     'Mobile/SalesLogix/Views/Calendar/MonthView',
     'Mobile/SalesLogix/Views/Calendar/YearView',
+    'Mobile/SalesLogix/Views/Competitor/List',
     'Mobile/SalesLogix/Views/Contact/List',
     'Mobile/SalesLogix/Views/Contact/Detail',
     'Mobile/SalesLogix/Views/Contact/Edit',
@@ -114,6 +115,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Mobile.SalesLogix.Views.Calendar.MonthView());
             this.registerView(new Mobile.SalesLogix.Views.Calendar.WeekView());
             this.registerView(new Mobile.SalesLogix.Views.Calendar.DayView());
+
+            this.registerView(new Mobile.SalesLogix.Views.Competitor.List({
+                id: 'competitor_related',
+                expose: false
+            }));
 
             this.registerView(new Mobile.SalesLogix.Views.Contact.List());
             this.registerView(new Mobile.SalesLogix.Views.Contact.Detail());
