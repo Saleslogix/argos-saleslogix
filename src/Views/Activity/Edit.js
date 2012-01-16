@@ -128,6 +128,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             this.connect(this.fields['Leader'], 'onChange', this.onLeaderChange);
             this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
             this.connect(this.fields['Alarm'], 'onChange', this.onAlarmChange);
+
+            this.connect(this.fields['Contact'    ], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Ticket'     ], 'onChange', this.onAccountDependentChange);
+
+            this.connect(this.fields['Contact'    ], 'onClick', this.onContactClick    );
+            this.connect(this.fields['Opportunity'], 'onClick', this.onOpportunityClick);
+            this.connect(this.fields['Ticket'     ], 'onClick', this.onTicketClick     );
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['UserId'] === App.context['user']['$key']);
@@ -243,6 +251,35 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             var userId = field.getValue();
             this.fields['UserId'].setValue(userId && userId['$key']);
         },
+        onAccountDependentChange: function(value, field) {
+            if (value && !field.dependsOn && field.currentSelection.Account) {
+                this.fields['Account'].setValue({
+                    'AccountId': field.currentSelection.Account['$key'],
+                    'AccountName': field.currentSelection.Account['AccountName']
+                });
+            }
+        },
+        onAccountDependentClick: function(field) {
+            if (this.fields['Account'].getValue()) {
+                this.fields[field].dependsOn = 'Account';
+                this.fields[field].where = this.formatDependentQuery.bindDelegate(
+                    this, 'Account.Id eq "${0}"', 'AccountId'
+                );
+            } else {
+                this.fields[field].dependsOn = null;
+                this.fields[field].where = 'Account.AccountName ne null';
+            }
+        },
+        onContactClick: function(e) {
+            this.onAccountDependentClick('Contact');
+        },
+        onOpportunityClick: function(e) {
+            this.onAccountDependentClick('Opportunity');
+        },
+        onTicketClick: function(e) {
+            this.onAccountDependentClick('Ticket');
+        },
+
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
