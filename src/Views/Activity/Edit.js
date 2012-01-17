@@ -129,6 +129,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
             this.connect(this.fields['Alarm'], 'onChange', this.onAlarmChange);
 
+            this.connect(this.fields['Account'    ], 'onChange', this.onAccountChange         );
             this.connect(this.fields['Contact'    ], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['Ticket'     ], 'onChange', this.onAccountDependentChange);
@@ -250,6 +251,16 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         onLeaderChange: function(value, field) {
             var userId = field.getValue();
             this.fields['UserId'].setValue(userId && userId['$key']);
+        },
+        onAccountChange: function(value, field) {
+            // reset (empty) dependent fields
+            var fields = this.fields;
+            dojo.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
+                if (value && fields[f].currentSelection &&
+                    value['AccountName'] != fields[f].currentSelection.Account['AccountName']) {
+                    fields[f].setValue(false);
+                }
+            });
         },
         onAccountDependentChange: function(value, field) {
             if (value && !field.dependsOn && field.currentSelection.Account) {
