@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
         potentialText: 'sales potential',
         probabilityText: 'close prob',
         relatedActivitiesText: 'Activities',
-        relatedContactsText: 'Contacts',
+        relatedContactsText: 'Opportunity Contacts',
         relatedHistoriesText: 'Notes/History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',

@@ -19,9 +19,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
         standingText: 'standing',
         issuesText: 'issues',
         competitorNameText: 'competitor pref',
-        actionsText: 'Quick Actions',
         removeContactTitleText: 'Remove Contact',
-        removeContactText: 'Deletes this contact from the opportunity',
         confirmDeleteText: 'Remove "${0}" from the opportunity?',
 
         //View Properties
@@ -66,25 +64,26 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
                     scope: this
                 });
         },
-        onDeleteSuccess: function(o){
+        onDeleteSuccess: function(){
             App.onRefresh({resourceKind: this.resourceKind});
             ReUI.back();
         },
+        createToolLayout: function() {
+            return this.tools || (this.tools = {
+                'tbar': [{
+                    id: 'edit',
+                    action: 'navigateToEditView',
+                    security: App.getViewSecurity(this.editView, 'update')
+                },{
+                    id: 'removeContact',
+                    icon: 'content/images/icons/del_24.png',
+                    action: 'removeContact',
+                    title: this.removeContactTitleText
+                }]
+            });
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
-            {
-                title: this.actionsText,
-                list: true,
-                cls: 'action-list',
-                name: 'QuickActionsSection',
-                children: [{
-                    name: 'RemoveContactAction',
-                    action: 'removeContact',
-                    label: this.removeContactTitleText,
-                    value: this.removeContactText,
-                    icon: 'content/images/icons/del_24.png'
-                }]
-            },
             {
                 title: this.detailsText,
                 name: 'DetailsSection',
