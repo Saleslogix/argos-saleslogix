@@ -26,12 +26,13 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/ProductList', ['Sage/Platform
         querySelect: [
             'ActualId',
             'Name',
-            'Description'
+            'Description',
+            'DefaultPrice'
         ],
         resourceKind: 'products',
 
         formatSearchQuery: function(query) {
-            return dojo.string.substitute('(upper(Name) like "${0}%" or upper(Family) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
+            return dojo.string.substitute('(upper(Name) like "${0}%" or upper(ActualId) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
 });

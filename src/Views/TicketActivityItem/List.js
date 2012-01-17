@@ -10,7 +10,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
-            '<h4>{%: $.ItemAmount %}</h4>'
+            '<h4>{%: $.ItemDescription %}</h4>'
         ]),
 
         //Localization
@@ -19,16 +19,13 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
         //View Properties
         id: 'ticketactivityitem_list',
         insertView: 'ticketactivityitem_edit',
-        insertSecurity: 'Entities/TicketActivityItem/Add',
-        security: 'Entities/TicketActivityItem/View',
+        selectView: 'ticketactivityitem_productlist',
         expose: false,
         icon: 'content/images/icons/product_24.png',
         querySelect: [
             'Product/Name',
             'ItemDescription',
-            'ItemAmount',
-            'ItemQuantity',
-            'ItemTotalAmount'
+            'ItemAmount'
         ],
         resourceKind: 'ticketActivityItems',
 
@@ -42,13 +39,13 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
             if (selectionModel.getSelectionCount() == 0 && view.options.allowEmptySelection)
                 ReUI.back();
 
-            var context = App.isNavigationFromResourceKind(['tickets']),
+            var context = App.isNavigationFromResourceKind(['ticketActivities']),
                 selections = selectionModel.getSelections();
             for (var selectionKey in selections)
             {
                 entry = {
-                    'Opportunity': {'$key': context.key}, // fix
-                    'Contact': view.entries[selectionKey] //fix
+                    'TicketActivity': {'$key': context.key}, // fix
+                    'Product': view.entries[selectionKey] //fix
                 };
             }
 
@@ -61,13 +58,6 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
                 singleSelect: true,
                 singleSelectAction: 'complete',
                 allowEmptySelection: false,
-                title: this.selectTitleText,
-                select: [
-                    'Account/AccountName',
-                    'AccountName',
-                    'NameLF',
-                    'Title'
-                ],
                 tools: {
                     tbar: [{
                         id: 'complete',
@@ -104,8 +94,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
                 'tbar': [{
                     id: 'associate',
                     icon: 'content/images/icons/add_24.png',
-                    action: 'navigateToSelectView',
-                    security: App.getViewSecurity(this.insertView, 'insert')
+                    action: 'navigateToSelectView'
                 }]
             });
         },
