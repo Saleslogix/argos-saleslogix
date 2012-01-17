@@ -32,6 +32,83 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
         ],
         resourceKind: 'ticketActivityItems',
 
+
+        complete: function(){
+            var view = App.getPrimaryActiveView(),
+                selectionModel = view && view.get('selectionModel'),
+                entry = null;
+            if (!selectionModel) return;
+
+            if (selectionModel.getSelectionCount() == 0 && view.options.allowEmptySelection)
+                ReUI.back();
+
+            var context = App.isNavigationFromResourceKind(['tickets']),
+                selections = selectionModel.getSelections();
+            for (var selectionKey in selections)
+            {
+                entry = {
+                    'Opportunity': {'$key': context.key}, // fix
+                    'Contact': view.entries[selectionKey] //fix
+                };
+            }
+
+            if (entry)
+                this.navigateToInsertView(entry);
+        },
+        createNavigationOptions: function() {
+            var options = {
+                selectionOnly: true,
+                singleSelect: true,
+                singleSelectAction: 'complete',
+                allowEmptySelection: false,
+                title: this.selectTitleText,
+                select: [
+                    'Account/AccountName',
+                    'AccountName',
+                    'NameLF',
+                    'Title'
+                ],
+                tools: {
+                    tbar: [{
+                        id: 'complete',
+                        fn: this.complete,
+                        cls: 'invisible',
+                        scope: this
+                    },{
+                        id: 'cancel',
+                        side: 'left',
+                        fn: ReUI.back,
+                        scope: ReUI
+                    }]
+                }
+            };
+            return options;
+        },
+        navigateToInsertView: function(entry){
+            var view = App.getView(this.insertView),
+                options = {
+                    entry: entry,
+                    insert: true
+                };
+            if (view && options)
+                view.show(options, { returnTo: -1 });
+        },
+        navigateToSelectView: function() {
+            var view = App.getView(this.selectView),
+                options = this.createNavigationOptions();
+            if (view && options)
+                view.show(options);
+        },
+        createToolLayout: function() {
+            return this.tools || (this.tools = {
+                'tbar': [{
+                    id: 'associate',
+                    icon: 'content/images/icons/add_24.png',
+                    action: 'navigateToSelectView',
+                    security: App.getViewSecurity(this.insertView, 'insert')
+                }]
+            });
+        },
         formatSearchQuery: function(query) {
             return dojo.string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
         }

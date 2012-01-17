@@ -23,8 +23,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
         //View Properties
         entityName: 'TicketActivity',
         id: 'ticketactivity_edit',
+        /*
         insertSecurity: 'Entities/TicketActivity/Add',
         updateSecurity: 'Entities/TicketActivity/Edit',
+        */
         querySelect: [
             'ActivityDescription',
             'ActivityTypeCode',
@@ -39,6 +41,14 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
             'User/UserInfo/LastName'
         ],
         resourceKind: 'ticketActivities',
+
+        applyContext: function(){
+            this.inherited(arguments);
+            
+            var ticketContext = App.isNavigationFromResourceKind( ['tickets'] ),
+                ticketKey = ticketContext && ticketContext.key;
+            if (ticketKey) this.fields['TicketId'].setValue(ticketKey);
+        },
 
         createLayout: function() {
             return this.layout || (this.layout = [

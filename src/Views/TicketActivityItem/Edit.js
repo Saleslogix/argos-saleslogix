@@ -54,7 +54,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
             var ticketKey = ticketContext.key;
 
             // conform to this format:
-            // http://50.16.242.109/sdata/slx/dynamic/-/ticketActivities('QQF8AA0004DA')?_includeContent=false&select=Items&format=json&_t=1324069426718
+            // http://50.16.242.109/sdata/slx/dynamic/-/ticketActivities('QQF8AA0004DA')?_includeContent=false&select=Items&format=json
             var entryValues = this.convertValues(this.inherited(arguments));
 
             var values = {
@@ -128,12 +128,6 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Edit', ['Sage/Platform/Mobile
                     textProperty: 'Name',
                     type: 'lookup',
                     view: 'ticketactivityitem_productlist'
-                },
-                {
-                    label: this.quantityText,
-                    name: 'ItemQuantity',
-                    property: 'ItemQuantity',
-                    type: 'text'
                 }
             ]);
         }

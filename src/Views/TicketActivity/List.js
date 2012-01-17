@@ -8,8 +8,14 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
 
     return dojo.declare('Mobile.SalesLogix.Views.TicketActivity.List', [Sage.Platform.Mobile.List], {
         //Templates
+        rowTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}">',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '{%! $$.itemTemplate %}',
+            '</li>'
+        ]),
         itemTemplate: new Simplate([
-            '<h3>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %} - {%: $.ModifyUser %}</h3>',
+            '<h3>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h3>',
             '<div class="note-text-item">',
                 '<div class="note-text-wrap">',
                     '{%: $.ActivityDescription %}',
@@ -20,7 +26,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
 
         //Localization
         titleText: 'Ticket Activities',
-        startDateFormatText: 'MM/dd/yyyy',
+        startDateFormatText: 'MM/dd/yyyy h:mm',
 
         //View Properties       
         id: 'ticketactivity_list',
@@ -31,8 +37,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
         queryOrderBy: 'AssignedDate asc',
         querySelect: [
             'ActivityDescription',
-            'AssignedDate',
-            'ModifyUser'
+            'AssignedDate'
         ],
         resourceKind: 'ticketActivities',
 
@@ -52,7 +57,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
         },
         postCreate: function() {
             this.inherited(arguments);
-            this.connect(App, 'onResize', this._onResize);
+            this.connect(window, "onresize", this._onResize);
         },
         formatSearchQuery: function(query) {
             return dojo.string.substitute(
