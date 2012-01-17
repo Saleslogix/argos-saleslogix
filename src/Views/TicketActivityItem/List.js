@@ -19,6 +19,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
         //View Properties
         id: 'ticketactivityitem_list',
         insertView: 'ticketactivityitem_edit',
+        detailView: 'ticketactivityitem_detail',
         selectView: 'ticketactivityitem_productlist',
         expose: false,
         icon: 'content/images/icons/product_24.png',
@@ -28,7 +29,6 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
             'ItemAmount'
         ],
         resourceKind: 'ticketActivityItems',
-
 
         complete: function(){
             var view = App.getPrimaryActiveView(),
@@ -44,8 +44,8 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
             for (var selectionKey in selections)
             {
                 entry = {
-                    'TicketActivity': {'$key': context.key}, // fix
-                    'Product': view.entries[selectionKey] //fix
+                    'TicketActivity': {'$key': context.key},
+                    'Product': view.entries[selectionKey]
                 };
             }
 
