@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
 
         //Localization
         titleText: 'Ticket Activities',
-        startDateFormatText: 'MM/dd/yyyy h:mm',
+        startDateFormatText: 'MM/dd/yyyy h:mmtt',
 
         //View Properties       
         id: 'ticketactivity_list',
