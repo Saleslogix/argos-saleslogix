@@ -33,7 +33,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
 
         //View Properties
         id: 'ticketactivity_detail',
-        security: 'Entities/Account/View',
         editView: 'ticketactivity_edit',
 
         querySelect: [
@@ -122,12 +121,12 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     label: this.typeText,
                     name: 'ActivityTypeCode',
                     property: 'ActivityTypeCode',
-                    onInsert: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Activity"')
+                    onCreate: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Activity"')
                 },{
                     label: this.publicAccessText,
                     name: 'PublicAccessCode',
                     property: 'PublicAccessCode',
-                    onInsert: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Activity Public Access"')
+                    onCreate: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Activity Public Access"')
                 },{
                     name: 'User.UserName',
                     property: 'User.UserName',

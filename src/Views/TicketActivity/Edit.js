@@ -10,6 +10,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
     return dojo.declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Sage.Platform.Mobile.Edit], {
 
         //Localization
+        titleText: 'Edit Ticket Activity',
         activityTypeText: 'type',
         activityTypeTitleText: 'Type',
         publicAccessText: 'public access',
@@ -23,10 +24,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
         //View Properties
         entityName: 'TicketActivity',
         id: 'ticketactivity_edit',
-        /*
-        insertSecurity: 'Entities/TicketActivity/Add',
-        updateSecurity: 'Entities/TicketActivity/Edit',
-        */
         querySelect: [
             'ActivityDescription',
             'ActivityTypeCode',
@@ -70,7 +67,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
                     label: this.publicAccessText,
                     name: 'PublicAccessCode',
                     property: 'PublicAccessCode',
-                    title: this.publicAcccessTitleText,
+                    title: this.publicAccessTitleText,
                     storageMode: 'code',
                     picklist: 'Ticket Activity Public Access',
                     type: 'picklist'
@@ -98,7 +95,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
                     property: 'RateTypeDescription',
                     textProperty: 'RateTypeCode',
                     type: 'lookup',
-                    view: 'ticket_activity_ratelookup'
+                    view: 'ticketactivity_ratelookup'
                 },{
                     label: this.commentsText,
                     name: 'ActivityDescription',

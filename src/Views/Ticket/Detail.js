@@ -168,7 +168,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     value: 'loading...',
                     name: 'StatusCode',
                     property: 'StatusCode',
-                    onInsert: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Status"')
+                    onCreate: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Status"')
                 },{
                     label: this.urgencyText,
                     name: 'Urgency.Description',
@@ -197,7 +197,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     property: 'ViaCode',
                     value: 'loading...',
                     cls: 'content-loading',
-                    onInsert: this.createCodeRequest.bindDelegate(this, 'name eq "Source"')
+                    onCreate: this.createCodeRequest.bindDelegate(this, 'name eq "Source"')
                 },{
                     label: this.assignedDateText,
                     name: 'AssignedDate',

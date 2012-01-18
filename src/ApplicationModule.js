@@ -61,8 +61,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/TicketActivity/RateLookup',
     'Mobile/SalesLogix/Views/TicketActivityItem/List',
     'Mobile/SalesLogix/Views/TicketActivityItem/Detail',
-    'Mobile/SalesLogix/Views/TicketActivityItem/Edit',
-    'Mobile/SalesLogix/Views/TicketActivityItem/ProductList',
     'Mobile/SalesLogix/Views/History/List',
     'Mobile/SalesLogix/Views/History/Detail',
     'Mobile/SalesLogix/Views/History/Edit',
@@ -173,8 +171,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.ProductList());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List({
                 id: 'ticketactivityitem_related',
                 expose: false

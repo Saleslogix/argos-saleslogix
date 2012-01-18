@@ -15,12 +15,9 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', ['Sage/Platform/Mobi
         itemAmountText: 'price',
         itemDescriptionText: 'description',
 
-        removeItemTitleText: 'Remove Item',
-        confirmDeleteText: 'Remove "${0}" from the ticket activity?',
-
         //View Properties
         id: 'ticketactivityitem_detail',
-        editView: 'ticketactivityitem_edit',
+
         querySelect: [
             'Product/Name',
             'Product/ActualId',
@@ -31,44 +28,9 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', ['Sage/Platform/Mobi
         ],
         resourceKind: 'ticketActivityItems',
 
-        createEntryForDelete: function(){
-           var entry = {
-                '$key': this.entry['$key'],
-                '$etag': this.entry['$etag'],
-                '$name': this.entry['$name']
-            };
-            return entry;
-        },
-        removeItem: function(){
-            var confirmMessage = dojo.string.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
-            if (!confirm(confirmMessage))
-                return;
-
-            var entry = this.createEntryForDelete(),
-                request = this.createRequest();
-            if (request)
-                request['delete'](entry, {
-                    success: this.onDeleteSuccess,
-                    failure: this.onRequestDataFailure,
-                    scope: this
-                });
-        },
-        onDeleteSuccess: function(){
-            App.onRefresh({resourceKind: this.resourceKind});
-            ReUI.back();
-        },
         createToolLayout: function() {
             return this.tools || (this.tools = {
-                'tbar': [{
-                    id: 'edit',
-                    action: 'navigateToEditView',
-                    security: App.getViewSecurity(this.editView, 'update')
-                },{
-                    id: 'removeItem',
-                    icon: 'content/images/icons/del_24.png',
-                    action: 'removeItem',
-                    title: this.removeItemTitleText
-                }]
+                'tbar': []
             });
         },
         createLayout: function() {
@@ -84,12 +46,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', ['Sage/Platform/Mobi
                     name: 'ProductActualId',
                     property: 'Product.ActualId',
                     label: this.skuText
-                }]
-            },{
-                title: this.moreDetailsText,
-                name: 'MoreDetailsSection',
-                collapsed: true,
-                children: [{
+                },{
                     name: 'SerialNumber',
                     property: 'AccountProduct.SerialNumber',
                     label: this.serialNumberText
