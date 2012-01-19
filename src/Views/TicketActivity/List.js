@@ -57,7 +57,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
         },
         postCreate: function() {
             this.inherited(arguments);
-            this.connect(window, "onresize", this._onResize);
+            this.connect(App, 'onResize', this._onResize);
         },
         formatSearchQuery: function(query) {
             return dojo.string.substitute(

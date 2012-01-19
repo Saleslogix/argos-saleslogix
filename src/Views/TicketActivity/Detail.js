@@ -58,7 +58,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
         ],
         resourceKind: 'ticketActivities',
 
-        requestPickList: function(predicate) {
+        createPicklistRequest: function(predicate) {
             var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
                 .setResourceKind('picklists')
                 .setContractName('system');
@@ -71,7 +71,27 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
 
             return request;
         },
-        processCodeFeed: function(feed, currentValue, options) {
+
+        requestCodeData: function(o, predicate) {
+            var request = this.createPicklistRequest(predicate);
+            request.read({
+                success: function(data) {this.onRequestCodeDataSuccess(data, o);},
+                failure: this.onRequestCodeDataFailure,
+                scope: this
+            });
+        },
+
+        onRequestCodeDataSuccess: function(data, o){
+            var value = this.processCodeDataFeed(data, o.entry[o.row.property]);
+            this.setNodeText(o.node, value);
+            this.entry[o.row.name] = value;
+        },
+
+        onRequestCodeDataFailure: function(response, o) {
+            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
+        },
+
+        processCodeDataFeed: function(feed, currentValue, options) {
             var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             var textProperty = options && options.textProperty ? options.textProperty : 'text';
             for (var i = 0; i < feed.$resources.length; i++)
@@ -80,22 +100,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     return feed.$resources[i][textProperty];
             }
             return currentValue;
-        },
-        createCodeRequest: function(o, predicate) {
-            var request = this.requestPickList(predicate);
-            request.read({
-                success: function(data) {this.onCodeRequestSuccess(data, o);},
-                failure: this.onCodeRequestFailure,
-                scope: this
-            });
-        },
-        onCodeRequestSuccess: function(data, o){
-            var value = this.processCodeFeed(data, o.entry[o.row.property]);
-            this.setNodeText(o.rowNode, value);
-            this.entry[o.row.name] = value;
-        },
-        onCodeRequestFailure: function(response, o) {
-            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
         },
         setNodeText: function(node, value){
             var contentNode = dojo.query('span', node)[0];
@@ -121,12 +125,12 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     label: this.typeText,
                     name: 'ActivityTypeCode',
                     property: 'ActivityTypeCode',
-                    onCreate: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Activity"')
+                    onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity"')
                 },{
                     label: this.publicAccessText,
                     name: 'PublicAccessCode',
                     property: 'PublicAccessCode',
-                    onCreate: this.createCodeRequest.bindDelegate(this, 'name eq "Ticket Activity Public Access"')
+                    onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity Public Access"')
                 },{
                     name: 'User.UserName',
                     property: 'User.UserName',
