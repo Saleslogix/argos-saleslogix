@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
         potentialText: 'sales potential',
         probabilityText: 'close prob',
         relatedActivitiesText: 'Activities',
-        relatedContactsText: 'Contacts',
+        relatedContactsText: 'Opportunity Contacts',
         relatedHistoriesText: 'Notes/History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
@@ -73,8 +73,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                 });
             }
         },
-        formatAccountRelatedQuery: function(entry, fmt) {
-            return dojo.string.substitute(fmt, [entry['Account']['$key']]);
+        formatAccountRelatedQuery: function(fmt) {
+            return dojo.string.substitute(fmt, [this.entry['Account']['$key']]);
         },                
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -171,8 +171,11 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     name: 'ContactRelated',
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.relatedContactsText,
-                    view: 'contact_related',
-                    where: this.formatRelatedQuery.bindDelegate(this, 'Opportunities.Opportunity.Id eq "${0}"')
+                    options: {
+                        prefilter: this.formatAccountRelatedQuery.bindDelegate(this, 'Account.Id eq "${0}"')
+                    },
+                    view: 'opportunitycontact_related',
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"')
                 },{
                     name: 'HistoryRelated',
                     icon: 'content/images/icons/journal_24.png',

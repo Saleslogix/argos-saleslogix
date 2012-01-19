@@ -34,6 +34,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Calendar/WeekView',
     'Mobile/SalesLogix/Views/Calendar/MonthView',
     'Mobile/SalesLogix/Views/Calendar/YearView',
+    'Mobile/SalesLogix/Views/Competitor/List',
     'Mobile/SalesLogix/Views/Contact/List',
     'Mobile/SalesLogix/Views/Contact/Detail',
     'Mobile/SalesLogix/Views/Contact/Edit',
@@ -50,6 +51,9 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Opportunity/List',
     'Mobile/SalesLogix/Views/Opportunity/Detail',
     'Mobile/SalesLogix/Views/Opportunity/Edit',
+    'Mobile/SalesLogix/Views/OpportunityContact/List',
+    'Mobile/SalesLogix/Views/OpportunityContact/Detail',
+    'Mobile/SalesLogix/Views/OpportunityContact/Edit',
     'Mobile/SalesLogix/Views/OpportunityProduct/List',
     'Mobile/SalesLogix/Views/Owner/List',
     'Mobile/SalesLogix/Views/Ticket/List',
@@ -112,6 +116,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Mobile.SalesLogix.Views.Calendar.WeekView());
             this.registerView(new Mobile.SalesLogix.Views.Calendar.DayView());
 
+            this.registerView(new Mobile.SalesLogix.Views.Competitor.List({
+                id: 'competitor_related',
+                expose: false
+            }));
+
             this.registerView(new Mobile.SalesLogix.Views.Contact.List());
             this.registerView(new Mobile.SalesLogix.Views.Contact.Detail());
             this.registerView(new Mobile.SalesLogix.Views.Contact.Edit());
@@ -144,6 +153,15 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'opportunity_related',
                 expose: false
             }));
+
+            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.Edit());
+            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.List());
+            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.Detail());
+            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.List({
+                id: 'opportunitycontact_related',
+                expose: false
+            }));
+
 
             this.registerView(new Mobile.SalesLogix.Views.OpportunityProduct.List({
                 id: 'opportunityproduct_related',
