@@ -196,7 +196,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         feed: {},
         eventFeed: {},
         entries: {},
-        dayEntries: {},
+        selectedDateRequests: [],
 
         eventPageSize: 3,
         eventQueryWhere: null,
@@ -455,45 +455,55 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.set('activityContent', this.loadingTemplate.apply(this));
             this.hideEventList();
         },
-        requestSelectedDateActivities: function(){
-            var request = this.createSelectedDateActivityRequest();
-            request.read({
-                success: this.onRequestSelectedDateActivityDataSuccess,
-                failure: this.onRequestDataFailure,
-                aborted: this.onRequestDataAborted,
-                scope: this
+        cancelSelectedDateRequests: function(){
+            dojo.forEach(this.selectedDateRequests, function(xhr){
+                xhr.abort();
             });
+            this.selectedDateRequests = [];
+        },
+        requestSelectedDateActivities: function(){
+            this.cancelSelectedDateRequests();
+            var request = this.createSelectedDateRequest({
+                pageSize: this.activityPageSize,
+                resourceKind: 'useractivities',
+                querySelect: this.activityQuerySelect,
+                queryWhere: this.getSelectedDateActivityQuery()
+            });
+            this.selectedDateRequests.push(
+                request.read({
+                    success: this.onRequestSelectedDateActivityDataSuccess,
+                    failure: this.onRequestDataFailure,
+                    aborted: this.onRequestDataAborted,
+                    scope: this
+                })
+            );
         },
         requestSelectedDateEvents: function(){
-            var request = this.createSelectedDateEventRequest();
-            request.read({
-                success: this.onRequestSelectedDateEventDataSuccess,
-                failure: this.onRequestDataFailure,
-                aborted: this.onRequestDataAborted,
-                scope: this
+            this.cancelSelectedDateRequests();
+            var request = this.createSelectedDateRequest({
+                pageSize: this.eventPageSize,
+                resourceKind: 'events',
+                querySelect: this.eventQuerySelect,
+                queryWhere: this.getSelectedDateEventQuery()
             });
+
+            this.selectedDateRequests.push(
+                request.read({
+                    success: this.onRequestSelectedDateEventDataSuccess,
+                    failure: this.onRequestDataFailure,
+                    aborted: this.onRequestDataAborted,
+                    scope: this
+                })
+            );
         },
-        createSelectedDateActivityRequest: function(){
-            var querySelect = this.activityQuerySelect,
-                queryWhere = this.getSelectedDateActivityQuery(),
-                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-                .setCount(this.activityPageSize)
+        createSelectedDateRequest: function(o){
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setCount(o.pageSize)
                 .setStartIndex(1)
-                .setResourceKind('useractivities')
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+                .setResourceKind(o.resourceKind)
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(o.querySelect).join(','))
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, o.queryWhere);
             return request;
-        },
-        createSelectedDateEventRequest: function(){
-            var querySelect = this.eventQuerySelect,
-                queryWhere = this.getSelectedDateEventQuery(),
-                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-                .setCount(this.eventPageSize)
-                .setStartIndex(1)
-                .setResourceKind('events')
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
-           return request;
         },
         getSelectedDateActivityQuery: function(){
             var C = Sage.Platform.Mobile.Convert;
@@ -539,7 +549,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             for(var i = 0; i < feedLength; i++){
                 var row = r[i];
                 row.isEvent = false;
-                this.dayEntries[row.Activity.$key] = row;
+                this.entries[row.Activity.$key] = row;
                 o.push(this.activityRowTemplate.apply(row, this));
             }
 
@@ -575,7 +585,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             for(var i = 0; i < feedLength; i++){
                 row = r[i];
                 row.isEvent = true;
-                this.dayEntries[row.$key] = row;
+                this.entries[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
             }
 
@@ -684,10 +694,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             view.show(options);
         },
         navigateToDetailView: function(key, descriptor) {
-            var entry = this.dayEntries[key],
+            var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
                 view = App.getView(detailView);
-            descriptor = (entry.isEvent) ? descriptor : entry.Activity.Description;
             if (view)
                 view.show({
                     descriptor: descriptor,
