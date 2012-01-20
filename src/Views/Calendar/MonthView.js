@@ -469,14 +469,13 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 querySelect: this.activityQuerySelect,
                 queryWhere: this.getSelectedDateActivityQuery()
             });
-            this.selectedDateRequests.push(
-                request.read({
+            var xhr = request.read({
                     success: this.onRequestSelectedDateActivityDataSuccess,
                     failure: this.onRequestDataFailure,
                     aborted: this.onRequestDataAborted,
                     scope: this
-                })
-            );
+                });
+            this.selectedDateRequests.push(xhr);
         },
         requestSelectedDateEvents: function(){
             this.cancelSelectedDateRequests();
@@ -486,15 +485,13 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 querySelect: this.eventQuerySelect,
                 queryWhere: this.getSelectedDateEventQuery()
             });
-
-            this.selectedDateRequests.push(
-                request.read({
+            var xhr = request.read({
                     success: this.onRequestSelectedDateEventDataSuccess,
                     failure: this.onRequestDataFailure,
                     aborted: this.onRequestDataAborted,
                     scope: this
-                })
-            );
+                });
+            this.selectedDateRequests.push(xhr);
         },
         createSelectedDateRequest: function(o){
             var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
