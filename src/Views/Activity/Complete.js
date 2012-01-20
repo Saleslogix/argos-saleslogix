@@ -278,9 +278,9 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
 
             var success = (function(scope, callback, entry) {
                 return function() {
-                    App.onRefresh({
+                    dojo.publish('/app/refresh',[{
                         resourceKind: 'history'
-                    });
+                    }]);
 
                     callback.apply(scope, [entry]);
                 };
