@@ -21,6 +21,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
         competitorNameText: 'competitor pref',
         removeContactTitleText: 'Remove Contact',
         confirmDeleteText: 'Remove "${0}" from the opportunity?',
+        contactText: 'Contact',
 
         //View Properties
         id: 'opportunitycontact_detail',
@@ -85,7 +86,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
         createLayout: function() {
             return this.layout || (this.layout = [
             {
-                title: this.detailsText,
+                title: this.contactText,
                 name: 'DetailsSection',
                 children: [{
                     name: 'NameLF',
@@ -107,9 +108,8 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
                     label: this.contactTitleText
                 }]
             },{
-                title: this.moreDetailsText,
+                title: this.detailsText,
                 name: 'MoreDetailsSection',
-                collapsed: true,
                 children: [{
                     name: 'SalesRole',
                     property: 'SalesRole',
