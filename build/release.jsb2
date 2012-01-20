@@ -367,11 +367,7 @@
           "path": "../src/Views/TicketActivityItem"
         },
         {
-          "text": "Edit.js",
-          "path": "../src/Views/TicketActivityItem"
-        },
-        {
-          "text": "ProductList.js",
+          "text": "Detail.js",
           "path": "../src/Views/TicketActivityItem"
         },
         {
