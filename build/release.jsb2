@@ -264,6 +264,10 @@
         },
         {
           "text": "List.js",
+          "path": "../src/Views/Competitor"
+        },
+        {
+          "text": "List.js",
           "path": "../src/Views/Contact"
         },
         {
@@ -325,6 +329,18 @@
         {
           "text": "Edit.js",
           "path": "../src/Views/Opportunity"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/OpportunityContact"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/OpportunityContact"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/OpportunityContact"
         },
         {
           "text": "List.js",
