@@ -72,8 +72,10 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         enableSearch: false,
         expose: false,
         dateCounts: {},
-        currentDate: Date.today(),
+        currentDate: null,
         selectedDateNode: null,
+        yearRequests: null,
+        yearEventRequests: null,
 
         pageSize: 500,
         queryWhere: null,
@@ -90,9 +92,12 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
 
         _onRefresh: function(o) {
            this.inherited(arguments);
-           if (o.resourceKind === 'activities' || o.resourceKind === 'events'){
+           if (o.resourceKind === 'activities' || o.resourceKind === 'events')
                 this.refreshRequired = true;
-           }
+        },
+        postCreate: function() {
+            this.inherited(arguments);
+            this.currentDate = new Date();
         },
         render: function() {
             this.inherited(arguments);
@@ -115,42 +120,62 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         },
         goToNextYear: function() {
              this.currentDate.add({year: 1});
-             this.refresh();
+             this.refresh({
+                 cancelScroll: true
+             });
         },
         goToPreviousYear: function() {
             this.currentDate.add({year: -1});
-            this.refresh();
+            this.refresh({
+                cancelScroll: true
+            });
         },
-        refresh: function(){
+        refresh: function(options){
             this.renderCalendars();
+            this.cancelCurrentYearRequests();
             this.requestYearData();
-            this.highlightCurrentDate();
+            this.highlightCurrentDate(options);
         },
         requestYearData: function(){
             var year = this.currentDate.toString('yyyy');
             for(var i = 1; i <= 12; i++){
-                var monthDate = Date.parseExact(year+'-'+i+'-'+1, 'yyyy-M-d');
+                var monthDate = Date.parseExact(year+'-'+i+'-1', 'yyyy-M-d');
                 this.requestActivityData(monthDate);
                 this.requestEventData(monthDate);
             }
         },
+        cancelRequests: function(requests){
+            if (!requests) return;
+            dojo.forEach(requests, function(xhr){
+                xhr.abort();
+            });
+        },
+        cancelCurrentYearRequests: function(){
+            this.cancelRequests(this.yearRequests);
+            this.cancelRequests(this.yearEventRequests);
+
+            this.yearRequests = [];
+            this.yearEventRequests = [];
+        },
         requestActivityData: function(monthDate) {
             var request = this.createActivityRequest(monthDate);
-            request.read({
+            var xhr = request.read({
                 success: this.onRequestDataSuccess,
                 failure: this.onRequestDataFailure,
                 aborted: this.onRequestDataAborted,
                 scope: this
             });
+            this.yearRequests.push(xhr);
         },
         requestEventData: function(monthDate) {
             var request = this.createEventRequest(monthDate);
-            request.read({
+            var xhr = request.read({
                 success: this.onRequestEventDataSuccess,
                 failure: this.onRequestEventDataFailure,
                 aborted: this.onRequestEventDataAborted,
                 scope: this
             });
+            this.yearEventRequests.push(xhr);
         },
         createActivityRequest: function(monthDate){
             var querySelect = this.querySelect,
@@ -221,19 +246,18 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                 );
         },
         processFeed: function(feed) {
+            if (!feed) return;
+
             var r = feed['$resources'],
-                row,
                 feedLength = r.length,
-                startDay,
-                dateIndex,
                 dateCounts = {};
 
-            for(var i = 0; i < feedLength; i ++){
-                row = r[i];
-                startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.Activity.StartDate);
-                dateIndex = (r[i].Activity.Timeless)
-                    ? this.dateToUTC(startDay)
-                    : startDay;
+            for (var i = 0; i < feedLength; i ++){
+                var row = r[i],
+                    startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.Activity.StartDate),
+                    dateIndex = (r[i].Activity.Timeless)
+                        ? this.dateToUTC(startDay)
+                        : startDay;
                 dateIndex = dateIndex.toString('yyyy-MM-dd');
                 dateCounts[dateIndex] = (dateCounts[dateIndex])
                     ? dateCounts[dateIndex] + 1
@@ -242,20 +266,18 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             this.highlightActivities(dateCounts);
         },
         processEventFeed: function(feed) {
+            if (!feed) return;
             var r = feed['$resources'],
                 feedLength = r.length,
-                row,
-                startDay,
-                endDay,
-                dateIndex,
                 dateCounts = {};
 
-            for(var i = 0; i < feedLength; i++){
-                row = r[i];
-                startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate);
-                endDay = Sage.Platform.Mobile.Convert.toDateFromString(row.EndDate);
-                while(startDay.getDate() <= endDay.getDate()){
-                    dateIndex = startDay.toString('yyyy-MM-dd');
+            for (var i = 0; i < feedLength; i++){
+                var row = r[i],
+                    startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate),
+                    endDay = Sage.Platform.Mobile.Convert.toDateFromString(row.EndDate);
+                while (startDay.getDate() <= endDay.getDate())
+                {
+                    var dateIndex = startDay.toString('yyyy-MM-dd');
                     dateCounts[dateIndex] = (dateCounts[dateIndex])
                         ? dateCounts[dateIndex] + 1
                         : 1;
@@ -267,21 +289,23 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
 
         highlightActivities: function(dateCounts){
             var template = this.calendarActivityCountTemplate.apply(this),
-                node,
                 countNode,
                 countNodeValue;
             for(var dateCount in dateCounts){
-                node = dojo.query('td[data-date="'+dateCount+'"]', this.yearContentNode);
-                dojo.addClass(node[0], "activeDay");
-                if(dojo.query(node[0]).children('div').length > 0){
-                    countNode = dojo.query('span', node[0])[0];
+                var node = dojo.query('td[data-date="'+dateCount+'"]', this.yearContentNode)[0];
+                dojo.addClass(node, "activeDay");
+                if (dojo.query(node).children('div').length > 0)
+                {
+                    countNode = dojo.query('span', node)[0];
                     countNodeValue = parseFloat(countNode.innerHTML, 10);
                     countNode.innerHTML = countNodeValue+dateCounts[dateCount];
-                } else {
+                }
+                else
+                {
                     dojo.place(dojo.string.substitute(
                         template,
                         [dateCounts[dateCount]]
-                    ), node[0], 'first');
+                    ), node, 'first');
                 }
             }
         },
@@ -301,7 +325,7 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             var o = [],
                 year = this.currentDate.toString('yyyy');
             for(var i = 1; i <= 12; i ++){
-                o.push(this.renderCalendar(year+'-'+i+'-'+1));
+                o.push(this.renderCalendar(year+'-'+i+'-1'));
             }
             this.set('yearContent', o.join(''));
             this.setDateTitle();
@@ -330,7 +354,8 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                 //Days
                 for (var j = 0; j <= 6; j++)
                 {
-                    if (day <= monthLength && (i > 0 || j >= startingDay)){
+                    if (day <= monthLength && (i > 0 || j >= startingDay))
+                    {
                         dayDate.set({day:day});
                         var dayClass = (dayDate.equals(today)) ? 'today' : '';
                         var weekendClass = (weekEnds.indexOf(j) !== -1) ? ' weekend' : '';
@@ -342,7 +367,8 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                                     );
                         day++;
                     }
-                    else {
+                    else
+                    {
                         calHTML.push(this.calendarEmptyDayTemplate);
                     }
 
@@ -358,42 +384,40 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
         show: function(options) {
             this.inherited(arguments);
 
-            if(options) {
+            if (options)
                 this.processShowOptions(options);
-            } else {
+            else
                 this.renderCalendars();
-            }
         },
         processShowOptions: function(options){
-            if(options.currentDate){
+            if (options.currentDate)
+            {
                 this.currentDate = Date.parseExact(options.currentDate,'yyyy-MM-dd').clearTime() || Date.today().clearTime();
                 this.refreshRequired = true;
             }
         },
-        highlightCurrentDate: function(){
+        highlightCurrentDate: function(options){
             var dateQuery = dojo.string.substitute('td.calendar-day[data-date="${0}"]', [this.currentDate.toString('yyyy-MM-dd')]);
             this.selectDay({date:this.currentDate.toString('yyyy-MM-dd')}, null, dojo.query(dateQuery, this.yearContentNode)[0]);
+
+            if (options && options.cancelScroll) return;
             this.scrollToActiveDate();
         },
         scrollToActiveDate: function(date){
             if(!this.selectedDateNode) return;
-            var monthNode = dojo.query(this.selectedDateNode).closest('table');
-            this.scrollToElement({
-                node: monthNode[0],
-                offsetY: 6
-            });
+            var monthNode = dojo.query(this.selectedDateNode).closest('.year-table')[0];
+            this.scrollToElement(monthNode);
         },
         selectToday: function(){
+            var currentYear = this.currentDate.getYear();
             this.currentDate = new Date();
-            this.highlightCurrentDate();
+            if(currentYear != this.currentDate.getYear())
+                this.refresh();
+            else
+                this.highlightCurrentDate();
         },
-        scrollToElement: function(options){
-            var coordinates = dojo.position(options.node),
-                delta = {
-                    x: coordinates.x - (options.offsetX || 0),
-                    y: coordinates.y - (options.offsetY || 0)
-                };
-            window.scrollTo(delta.x, delta.y);
+        scrollToElement: function(node){
+            node.scrollIntoView(true);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.activityMonthView),
