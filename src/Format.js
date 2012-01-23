@@ -17,12 +17,12 @@ define('Mobile/SalesLogix/Format', ['Sage/Platform/Mobile/Format'], function() {
              * http://en.wikipedia.org/wiki/Address_(geography)
              */
             addressCultureFormats: {
-                'en-US': 's|a1|a2|a3|m R p|C',
-                'en-GB': 's|a1|a2|a3|M|P|C',
-                'fr-FR': 's|a1|a2|a3|p M|C',
-                'de-DE': 's|a1|a2|a3|p m|C',
-                'it-IT': 's|a1|a2|a3|p m Z|C',
-                'ru-RU': 's|a1|a2|a3|p m|C'
+                'en-US': 'a1|a2|a3|m R p|C',
+                'en-GB': 'a1|a2|a3|M|P|C',
+                'fr-FR': 'a1|a2|a3|p M|C',
+                'de-DE': 'a1|a2|a3|p m|C',
+                'it-IT': 'a1|a2|a3|p m Z|C',
+                'ru-RU': 'a1|a2|a3|p m|C'
             },
             /**
              * Country name to culture identification
