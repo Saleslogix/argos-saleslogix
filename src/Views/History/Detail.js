@@ -124,6 +124,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                 children: [{
                     name: 'LongNotes',
                     property: 'LongNotes',
+                    encode: false,
                     label: this.longNotesText,
                     provider: this.provideText.bindDelegate(this),
                     use: Mobile.SalesLogix.Template.noteDetailProperty
