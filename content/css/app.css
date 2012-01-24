@@ -1389,3 +1389,7 @@ td.entry-table-description {
 {
     top: 45px;
 }
+.primary
+{
+    font-weight: bold !important;
+}
