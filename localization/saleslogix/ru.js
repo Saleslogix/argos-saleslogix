@@ -79,7 +79,7 @@ localize("Mobile.SalesLogix.Views.ContextDialog", {
 });
 
 localize("Mobile.SalesLogix.Views.FooterToolbar", {
-  "copyrightText": "© 2011 Sage Software, Inc. All rights reserved.",
+  "copyrightText": "© 2012 Sage Software, Inc. All rights reserved.",
   "logOutConfirmText": "Вы уверены, что хотите выйти из системы?",
   "settingsText": "Настройки",
   "helpText": "Помощь",
@@ -102,7 +102,7 @@ localize("Mobile.SalesLogix.Views.Home", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "© 2011 Sage Software, Inc. All rights reserved.",
+  "copyrightText": "© 2012 Sage Software, Inc. All rights reserved.",
   "logOnText": "Вход ",
   "passText": "пароль",
   "rememberText": "запомнить",
