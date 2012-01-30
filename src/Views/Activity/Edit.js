@@ -413,6 +413,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             });
 
             this.fields['AccountName'].setValue(entry['Company']);
+
+            this.fields['IsLead'].setValue(context.resourceKind == 'leads');
         },        
         setValues: function(values) {
             if (values['StartDate'] && values['AlarmTime'])
