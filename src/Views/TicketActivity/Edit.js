@@ -10,6 +10,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
     return dojo.declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Sage.Platform.Mobile.Edit], {
 
         //Localization
+        titleText: 'Edit Ticket Activity',
         activityTypeText: 'type',
         activityTypeTitleText: 'Type',
         publicAccessText: 'public access',
@@ -22,15 +23,13 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
 
         //View Properties
         entityName: 'TicketActivity',
-        id: 'ticket_activity_edit',
-        insertSecurity: 'Entities/TicketActivity/Add',
-        updateSecurity: 'Entities/TicketActivity/Edit',
+        id: 'ticketactivity_edit',
         querySelect: [
             'ActivityDescription',
-            'ActivityType',
+            'ActivityTypeCode',
             'AssignedDate',
             'CompletedDate',
-            'PublicAccess',
+            'PublicAccessCode',
             'RateTypeDescription/Amount',
             'RateTypeDescription/RateTypeCode',
             'RateTypeDescription/TypeDescription',
@@ -40,21 +39,36 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
         ],
         resourceKind: 'ticketActivities',
 
+        applyContext: function(){
+            this.inherited(arguments);
+            
+            var ticketContext = App.isNavigationFromResourceKind( ['tickets'] ),
+                ticketKey = ticketContext && ticketContext.key;
+            if (ticketKey) this.fields['TicketId'].setValue(ticketKey);
+        },
+
         createLayout: function() {
-            return this.layout || (this.layout = [                
+            return this.layout || (this.layout = [
+                {
+                    name: 'TicketId',
+                    property: 'Ticket.$key',
+                    type: 'hidden'
+                },
                 {
                     label: this.activityTypeText,
-                    name: 'ActivityType',
-                    property: 'ActivityType',
+                    name: 'ActivityTypeCode',
+                    property: 'ActivityTypeCode',
                     requireSelection: true,
                     title: this.activityTypeTitleText,
+                    storageMode: 'code',
                     picklist: 'Ticket Activity',
                     type: 'picklist'
                 },{
                     label: this.publicAccessText,
-                    name: 'PublicAccess',
-                    property: 'PublicAccess',
-                    title: this.publicAcccessTitleText,
+                    name: 'PublicAccessCode',
+                    property: 'PublicAccessCode',
+                    title: this.publicAccessTitleText,
+                    storageMode: 'code',
                     picklist: 'Ticket Activity Public Access',
                     type: 'picklist'
                 },{
@@ -81,7 +95,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
                     property: 'RateTypeDescription',
                     textProperty: 'RateTypeCode',
                     type: 'lookup',
-                    view: 'ticket_activity_ratelookup'
+                    view: 'ticketactivity_ratelookup'
                 },{
                     label: this.commentsText,
                     name: 'ActivityDescription',

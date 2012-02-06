@@ -10,39 +10,31 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', ['Sage/Platform/Mobile
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
-            '<h4>{%: $.ItemAmount %}</h4>'
+            '<h4>{%: $.Product.ActualId %} - {%: Mobile.SalesLogix.Format.currency($.ItemAmount) %}</h4>',
+            '<h4>{%: $.ItemDescription %}</h4>'
         ]),
 
         //Localization
-        titleText: 'Parts',
+        titleText: 'Ticket Activity Parts',
 
         //View Properties
-        id: 'ticket_activity_item_list',
-        insertView: 'ticket_activity_item_edit',
-        insertSecurity: 'Entities/TicketActivityItem/Add',
-        security: 'Entities/TicketActivityItem/View',
+        id: 'ticketactivityitem_list',
+        detailView: 'ticketactivityitem_detail',
         expose: false,
         icon: 'content/images/icons/product_24.png',
         querySelect: [
             'Product/Name',
+            'Product/ActualId',
             'ItemDescription',
-            'ItemAmount',
-            'ItemQuantity',
-            'ItemTotalAmount'
+            'ItemAmount'
         ],
         resourceKind: 'ticketActivityItems',
 
-
-        // feed example:
-        // http://50.16.242.109/sdata/slx/dynamic/-/ticketActivityItems?format=json&where=TicketActivity.Id%20eq%20'QDEMOA0007G5'
-
-        // which is tied to this ticket activity:
-        // http://50.16.242.109/sdata/slx/dynamic/-/ticketActivities('QDEMOA0007G5')?format=json
-
-        // which is tied to this ticket
-        // http://50.16.242.109/sdata/slx/dynamic/-/tickets('tDEMOA00000K')?format=json
-
-
+        createToolLayout: function() {
+            return this.tools || (this.tools = {
+                'tbar': []
+            });
+        },
         formatSearchQuery: function(query) {
             return dojo.string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
         }

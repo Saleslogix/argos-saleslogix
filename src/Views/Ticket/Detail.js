@@ -51,7 +51,6 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
             'Notes',
             'ViaCode',
             'StatusCode',
-            'Status',
             'UrgencyCode',
             'Subject',
             'TicketNumber',
@@ -62,7 +61,11 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
         ],
         resourceKind: 'tickets',
 
-        requestPickList: function(predicate) {
+        scheduleActivity: function() {
+            App.navigateToActivityInsertView();
+        },
+
+        createPicklistRequest: function(predicate) {
             var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
                 .setResourceKind('picklists')
                 .setContractName('system');
@@ -75,9 +78,45 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
 
             return request;
         },
-        scheduleActivity: function() {
-            App.navigateToActivityInsertView();
+
+        requestCodeData: function(row, node, value, entry, predicate) {
+            var request = this.createPicklistRequest(predicate);
+            request.read({
+                success: function(data) {this.onRequestCodeDataSuccess(data, row, node, value, entry);},
+                failure: this.onRequestCodeDataFailure,
+                scope: this
+            });
         },
+
+        onRequestCodeDataSuccess: function(data, row, node, value, entry){
+            var value = this.processCodeDataFeed(data, entry[row.property]);
+            this.setNodeText(node, value);
+            this.entry[row.name] = value;
+        },
+
+        onRequestCodeDataFailure: function(response, o) {
+            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
+        },
+
+        processCodeDataFeed: function(feed, currentValue, options) {
+            var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+            var textProperty = options && options.textProperty ? options.textProperty : 'text';
+            for (var i = 0; i < feed.$resources.length; i++)
+            {
+                if (feed.$resources[i][keyProperty] === currentValue)
+                    return feed.$resources[i][textProperty];
+            }
+            return currentValue;
+        },
+        setNodeText: function(node, value){
+            var contentNode = dojo.query('span', node)[0];
+
+            dojo.removeClass(node, 'content-loading');
+
+            if (contentNode)
+                contentNode.innerHTML = value;
+        },
+
         createLayout: function() {
             return this.layout || (this.layout = [{
                 list: true,
@@ -130,8 +169,11 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     property: 'TicketProblem.Notes'
                 },{
                     label: this.statusText,
-                    name: 'Status',
-                    property: 'Status'
+                    cls: 'content-loading',
+                    value: 'loading...',
+                    name: 'StatusCode',
+                    property: 'StatusCode',
+                    onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Status"')
                 },{
                     label: this.urgencyText,
                     name: 'Urgency.Description',
@@ -157,7 +199,10 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                 },{
                     label: this.sourceText,
                     name: 'ViaCode',
-                    property: 'ViaCode'
+                    property: 'ViaCode',
+                    value: 'loading...',
+                    cls: 'content-loading',
+                    onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Source"')
                 },{
                     label: this.assignedDateText,
                     name: 'AssignedDate',
@@ -182,13 +227,13 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     label: this.relatedActivitiesText,
                     view: 'activity_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'TicketId eq "${0}"')
-                }/*,{
+                },{
                     name: 'TicketActivityRelated',
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     label: this.relatedTicketActivitiesText,
-                    view: 'ticket_activity_related',
+                    view: 'ticketactivity_related',
                     where: this.formatRelatedQuery.bindDelegate(this, 'Ticket.Id eq "${0}"')
-                }*/]
+                }]
             }]);
         }
     });

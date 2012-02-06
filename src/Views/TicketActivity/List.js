@@ -8,32 +8,57 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
 
     return dojo.declare('Mobile.SalesLogix.Views.TicketActivity.List', [Sage.Platform.Mobile.List], {
         //Templates
+        rowTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}">',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '{%! $$.itemTemplate %}',
+            '</li>'
+        ]),
         itemTemplate: new Simplate([
-            '<h3>{%: $.ActivityType %} ({%: $.PublicAccess %})</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %} - {%: $.ModifyUser %}</h4>',
-            '<h4>{%: $.ActivityDescription %}</h4>'
+            '<h3>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h3>',
+            '<div class="note-text-item">',
+                '<div class="note-text-wrap">',
+                    '{%: $.ActivityDescription %}',
+                '</div>',
+                '<div class="note-text-more"></div>',
+            '</div>'
         ]),
 
         //Localization
         titleText: 'Ticket Activities',
-        startDateFormatText: 'MM/dd/yyyy',
+        startDateFormatText: 'MM/dd/yyyy h:mmtt',
 
         //View Properties       
-        id: 'ticket_activity_list',
+        id: 'ticketactivity_list',
         security: 'Entities/TicketActivity/View',
         expose: false,
-        detailView: 'ticket_activity_detail',
-        insertView: 'ticket_activity_edit',
+        detailView: 'ticketactivity_detail',
+        insertView: 'ticketactivity_edit',
         queryOrderBy: 'AssignedDate asc',
         querySelect: [
-            'ActivityType',
             'ActivityDescription',
-            'AssignedDate',
-            'PublicAccess',
-            'ModifyUser'
+            'AssignedDate'
         ],
         resourceKind: 'ticketActivities',
 
+        _onResize: function() {
+            dojo.query('.note-text-item', this.contentNode).forEach(function(node){
+                var wrapNode = dojo.query('.note-text-wrap', node)[0],
+                    moreNode = dojo.query('.note-text-more', node)[0];
+                if (dojo.marginBox(node).h < dojo.marginBox(wrapNode).h)
+                    dojo.style(moreNode, 'visibility', 'visible');
+                else
+                    dojo.style(moreNode, 'visibility', 'hidden');
+            });
+        },
+        processFeed: function(){
+            this.inherited(arguments);
+            this._onResize();
+        },
+        postCreate: function() {
+            this.inherited(arguments);
+            this.connect(App, 'onResize', this._onResize);
+        },
         formatSearchQuery: function(query) {
             return dojo.string.substitute(
                 'ActivityDescription like "${0}%" or ActivityType like "${0}%"',

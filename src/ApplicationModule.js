@@ -65,8 +65,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/TicketActivity/Edit',
     'Mobile/SalesLogix/Views/TicketActivity/RateLookup',
     'Mobile/SalesLogix/Views/TicketActivityItem/List',
-    'Mobile/SalesLogix/Views/TicketActivityItem/Edit',
-    'Mobile/SalesLogix/Views/TicketActivityItem/ProductList',
+    'Mobile/SalesLogix/Views/TicketActivityItem/Detail',
     'Mobile/SalesLogix/Views/History/List',
     'Mobile/SalesLogix/Views/History/Detail',
     'Mobile/SalesLogix/Views/History/Edit',
@@ -184,26 +183,22 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose: false
             }));
 
-            /*
+
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.List());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Detail());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivity.RateLookup({
-                expose: false
-            }));
+            this.registerView(new Mobile.SalesLogix.Views.TicketActivity.RateLookup());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivity.List({
-                id: 'ticket_activity_related',
+                id: 'ticketactivity_related',
                 expose: false
             }));
 
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.ProductList());
+            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.Detail());
             this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List({
-                id: 'ticket_activity_item_list_related',
+                id: 'ticketactivityitem_related',
                 expose: false
             }));
-            */
 
             this.registerView(new Mobile.SalesLogix.Views.Activity.Detail());
             this.registerView(new Mobile.SalesLogix.Views.Activity.Edit());
