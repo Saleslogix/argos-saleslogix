@@ -152,7 +152,7 @@ define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], fu
         },
         postCreate: function() {
             this.inherited(arguments);
-            this.connect(App, 'onResize', this._onResize);
+            this.subscribe('/app/resize', this._onResize);
         }
     });
 });
