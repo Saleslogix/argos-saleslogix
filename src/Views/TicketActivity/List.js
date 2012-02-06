@@ -42,7 +42,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
         resourceKind: 'ticketActivities',
 
         _onResize: function() {
-            dojo.forEach(dojo.query('.note-text-item', this.contentNode), function(node){
+            dojo.query('.note-text-item', this.contentNode).forEach(function(node){
                 var wrapNode = dojo.query('.note-text-wrap', node)[0],
                     moreNode = dojo.query('.note-text-more', node)[0];
                 if (dojo.marginBox(node).h < dojo.marginBox(wrapNode).h)

@@ -137,7 +137,7 @@ define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], fu
             return dojo.string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         },
         _onResize: function() {
-            dojo.forEach(dojo.query('.note-text-item', this.contentNode), function(node){
+            dojo.query('.note-text-item', this.contentNode).forEach(function(node){
                 var wrapNode = dojo.query('.note-text-wrap', node)[0],
                     moreNode = dojo.query('.note-text-more', node)[0];
                 if (dojo.marginBox(node).h < dojo.marginBox(wrapNode).h)
