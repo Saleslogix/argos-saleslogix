@@ -66,7 +66,9 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
                 });
         },
         onDeleteSuccess: function(){
-            App.onRefresh({resourceKind: this.resourceKind});
+            dojo.publish('/app/refresh',[{
+                resourceKind: this.resourceKind
+            }]);
             ReUI.back();
         },
         createToolLayout: function() {
