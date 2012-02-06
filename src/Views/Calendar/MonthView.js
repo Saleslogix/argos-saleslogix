@@ -196,7 +196,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         feed: {},
         eventFeed: {},
         entries: {},
-        dayEntries: {},
+        selectedDateRequests: null,
+        selectedDateEventRequests: null,
+        monthRequests: null,
+        monthEventRequests: null,
 
         eventPageSize: 3,
         eventQueryWhere: null,
@@ -296,6 +299,19 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.requestData();
             this.requestEventData();
         },
+        requestData: function(){
+            this.cancelRequests(this.monthRequests);
+            this.monthRequests = [];
+
+            var request = this.createRequest();
+            var xhr = request.read({
+                success: this.onRequestDataSuccess,
+                failure: this.onRequestDataFailure,
+                aborted: this.onRequestDataAborted,
+                scope: this
+            });
+            this.monthRequests.push(xhr);
+        },
         createEventRequest: function(){
             var querySelect = ['StartDate', 'EndDate', 'Description', 'Type'],
                 queryWhere = this.getEventQuery(),
@@ -309,13 +325,17 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             return request;
         },
         requestEventData: function() {
+            this.cancelRequests(this.monthEventRequests);
+            this.monthEventRequests = [];
+
             var request = this.createEventRequest();
-            request.read({
+            var xhr = request.read({
                 success: this.onRequestEventDataSuccess,
                 failure: this.onRequestEventDataFailure,
                 aborted: this.onRequestEventDataAborted,
                 scope: this
             });
+            this.monthEventRequests.push(xhr);
         },
         onRequestEventDataFailure: function(response, o) {
             alert(dojo.string.substitute(this.requestErrorText, [response, o]));
@@ -362,6 +382,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 );
         },
         processFeed: function(feed) {
+            if (!feed) return;
+
             var r = feed['$resources'];
             this.feed = feed;
 
@@ -380,20 +402,20 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.highlightActivities();
         },
         processEventFeed: function(feed) {
+            if (!feed) return;
+
             var dateIndex,
                 r = feed['$resources'],
-                i,
-                feedLength = r.length,
-                row,
-                startDay,
-                endDay;
+                feedLength = r.length;
             this.eventFeed = feed;
 
-            for(i = 0; i < feedLength; i ++){
-                row = r[i];
+            for(var i = 0; i < feedLength; i ++){
+                var row = r[i];
                 this.entries[row.$key] = row;
-                startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate);
-                endDay = Sage.Platform.Mobile.Convert.toDateFromString(row.EndDate);
+
+                var startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate);
+                var endDay = Sage.Platform.Mobile.Convert.toDateFromString(row.EndDate);
+
                 while(startDay.getDate() <= endDay.getDate()){
                     dateIndex = startDay.toString('yyyy-MM-dd');
                     this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
@@ -455,45 +477,56 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.set('activityContent', this.loadingTemplate.apply(this));
             this.hideEventList();
         },
-        requestSelectedDateActivities: function(){
-            var request = this.createSelectedDateActivityRequest();
-            request.read({
-                success: this.onRequestSelectedDateActivityDataSuccess,
-                failure: this.onRequestDataFailure,
-                aborted: this.onRequestDataAborted,
-                scope: this
+        cancelRequests: function(requests){
+            if (!requests) return;
+            dojo.forEach(requests, function(xhr){
+                xhr.abort();
             });
+        },
+        requestSelectedDateActivities: function(){
+            this.cancelRequests(this.selectedDateRequests);
+            this.selectedDateRequests = [];
+
+            var request = this.createSelectedDateRequest({
+                pageSize: this.activityPageSize,
+                resourceKind: 'useractivities',
+                querySelect: this.activityQuerySelect,
+                queryWhere: this.getSelectedDateActivityQuery()
+            });
+            var xhr = request.read({
+                    success: this.onRequestSelectedDateActivityDataSuccess,
+                    failure: this.onRequestDataFailure,
+                    aborted: this.onRequestDataAborted,
+                    scope: this
+                });
+            this.selectedDateRequests.push(xhr);
         },
         requestSelectedDateEvents: function(){
-            var request = this.createSelectedDateEventRequest();
-            request.read({
-                success: this.onRequestSelectedDateEventDataSuccess,
-                failure: this.onRequestDataFailure,
-                aborted: this.onRequestDataAborted,
-                scope: this
+            this.cancelRequests(this.selectedDateEventRequests);
+            this.selectedDateEventRequests = [];
+
+            var request = this.createSelectedDateRequest({
+                pageSize: this.eventPageSize,
+                resourceKind: 'events',
+                querySelect: this.eventQuerySelect,
+                queryWhere: this.getSelectedDateEventQuery()
             });
+            var xhr = request.read({
+                    success: this.onRequestSelectedDateEventDataSuccess,
+                    failure: this.onRequestDataFailure,
+                    aborted: this.onRequestDataAborted,
+                    scope: this
+                });
+            this.selectedDateEventRequests.push(xhr);
         },
-        createSelectedDateActivityRequest: function(){
-            var querySelect = this.activityQuerySelect,
-                queryWhere = this.getSelectedDateActivityQuery(),
-                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-                .setCount(this.activityPageSize)
+        createSelectedDateRequest: function(o){
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setCount(o.pageSize)
                 .setStartIndex(1)
-                .setResourceKind('useractivities')
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+                .setResourceKind(o.resourceKind)
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(o.querySelect).join(','))
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, o.queryWhere);
             return request;
-        },
-        createSelectedDateEventRequest: function(){
-            var querySelect = this.eventQuerySelect,
-                queryWhere = this.getSelectedDateEventQuery(),
-                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
-                .setCount(this.eventPageSize)
-                .setStartIndex(1)
-                .setResourceKind('events')
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
-           return request;
         },
         getSelectedDateActivityQuery: function(){
             var C = Sage.Platform.Mobile.Convert;
@@ -531,7 +564,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 );
         },
         onRequestSelectedDateActivityDataSuccess: function(feed){
+            if (!feed) return;
+
             dojo.removeClass(this.activityContainerNode, 'list-loading');
+
             var r = feed['$resources'],
                 feedLength = r.length,
                 o = [];
@@ -539,7 +575,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             for(var i = 0; i < feedLength; i++){
                 var row = r[i];
                 row.isEvent = false;
-                this.dayEntries[row.Activity.$key] = row;
+                this.entries[row.Activity.$key] = row;
                 o.push(this.activityRowTemplate.apply(row, this));
             }
 
@@ -559,6 +595,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.set('activityContent', o.join(''));
         },
         onRequestSelectedDateEventDataSuccess: function(feed){
+            if (!feed) return;
+
             var r = feed['$resources'],
                 row,
                 feedLength = r.length,
@@ -575,7 +613,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             for(var i = 0; i < feedLength; i++){
                 row = r[i];
                 row.isEvent = true;
-                this.dayEntries[row.$key] = row;
+                this.entries[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
             }
 
@@ -684,10 +722,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             view.show(options);
         },
         navigateToDetailView: function(key, descriptor) {
-            var entry = this.dayEntries[key],
+            var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
                 view = App.getView(detailView);
-            descriptor = (entry.isEvent) ? descriptor : entry.Activity.Description;
             if (view)
                 view.show({
                     descriptor: descriptor,
