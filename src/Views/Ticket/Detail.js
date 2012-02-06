@@ -79,19 +79,19 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
             return request;
         },
 
-        requestCodeData: function(o, predicate) {
+        requestCodeData: function(row, node, value, entry, predicate) {
             var request = this.createPicklistRequest(predicate);
             request.read({
-                success: function(data) {this.onRequestCodeDataSuccess(data, o);},
+                success: function(data) {this.onRequestCodeDataSuccess(data, row, node, value, entry);},
                 failure: this.onRequestCodeDataFailure,
                 scope: this
             });
         },
 
-        onRequestCodeDataSuccess: function(data, o){
-            var value = this.processCodeDataFeed(data, o.entry[o.row.property]);
-            this.setNodeText(o.node, value);
-            this.entry[o.row.name] = value;
+        onRequestCodeDataSuccess: function(data, row, node, value, entry){
+            var value = this.processCodeDataFeed(data, entry[row.property]);
+            this.setNodeText(node, value);
+            this.entry[row.name] = value;
         },
 
         onRequestCodeDataFailure: function(response, o) {
