@@ -725,6 +725,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
                 view = App.getView(detailView);
+            descriptor = (entry.isEvent) ? descriptor : entry.Activity.Description;
             if (view)
                 view.show({
                     descriptor: descriptor,
