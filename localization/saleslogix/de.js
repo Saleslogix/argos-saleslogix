@@ -1,4 +1,4 @@
-﻿define('localization/saleslogix/de', ['localization/de', 'Mobile/SalesLogix/ApplicationModule'], function() {
+define('localization/saleslogix/de', ['localization/de', 'Mobile/SalesLogix/ApplicationModule'], function() {
 
 localize("Mobile.SalesLogix.Validator", {
   "exists": {
@@ -79,7 +79,7 @@ localize("Mobile.SalesLogix.Views.ContextDialog", {
 });
 
 localize("Mobile.SalesLogix.Views.FooterToolbar", {
-  "copyrightText": "© 2011 Sage Software, Inc. Alle Rechte vorbeh.",
+  "copyrightText": "© 2012 Sage Software, Inc. Alle Rechte vorbeh.",
   "logOutConfirmText": "Möchten Sie sich wirkl. abmelden?",
   "settingsText": "Einstell",
   "helpText": "Hilfe",
@@ -102,7 +102,7 @@ localize("Mobile.SalesLogix.Views.Home", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "© 2011 Sage Software, Inc. Alle Rechte vorbeh.",
+  "copyrightText": "© 2012 Sage Software, Inc. Alle Rechte vorbeh.",
   "logOnText": "Anmelden",
   "passText": "Passwort",
   "rememberText": "Speichern",

@@ -29,8 +29,13 @@ define('Mobile/SalesLogix/Environment', [], function() {
                             node[eventType]();
                         } else {
                             var event = document.createEvent('MouseEvents');
-                            event.initEvent(eventType, true, false);
+                            event.initMouseEvent(eventType, true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
                             node.dispatchEvent(event);
+
+                            // FF 3.6-4 do not follow untrusted events, fixed in FF5+
+                            // https://bugzilla.mozilla.org/show_bug.cgi?id=666604
+                            if (dojo.isFF < 5)
+                                window.open(node.href);
                         }
                     };
 
