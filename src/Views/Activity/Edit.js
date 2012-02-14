@@ -133,10 +133,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             this.connect(this.fields['Contact'    ], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['Ticket'     ], 'onChange', this.onAccountDependentChange);
-
-            this.connect(this.fields['Contact'    ], 'onClick', this.onContactClick    );
-            this.connect(this.fields['Opportunity'], 'onClick', this.onOpportunityClick);
-            this.connect(this.fields['Ticket'     ], 'onClick', this.onTicketClick     );
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['UserId'] === App.context['user']['$key']);
@@ -253,12 +249,21 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             this.fields['UserId'].setValue(userId && userId['$key']);
         },
         onAccountChange: function(value, field) {
-            // reset (empty) dependent fields
             var fields = this.fields;
             dojo.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
-                if (value && fields[f].currentSelection &&
-                    value['AccountName'] != fields[f].currentSelection.Account['AccountName']) {
-                    fields[f].setValue(false);
+                if (value) {
+                    fields[f].dependsOn = 'Account';
+                    fields[f].where = dojo.string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
+
+                    if (fields[f].currentSelection &&
+                        fields[f].currentSelection.Account['$key'] != (value['AccountId'] || value['key'])) {
+
+                        fields[f].setValue(false);
+                    }
+
+                } else {
+                    fields[f].dependsOn = null;
+                    fields[f].where = 'Account.AccountName ne null';
                 }
             });
         },
@@ -269,26 +274,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                     'AccountName': field.currentSelection.Account['AccountName']
                 });
             }
-        },
-        onAccountDependentClick: function(field) {
-            if (this.fields['Account'].getValue()) {
-                this.fields[field].dependsOn = 'Account';
-                this.fields[field].where = this.formatDependentQuery.bindDelegate(
-                    this, 'Account.Id eq "${0}"', 'AccountId'
-                );
-            } else {
-                this.fields[field].dependsOn = null;
-                this.fields[field].where = 'Account.AccountName ne null';
-            }
-        },
-        onContactClick: function(e) {
-            this.onAccountDependentClick('Contact');
-        },
-        onOpportunityClick: function(e) {
-            this.onAccountDependentClick('Opportunity');
-        },
-        onTicketClick: function(e) {
-            this.onAccountDependentClick('Ticket');
         },
 
         formatPicklistForType: function(type, which) {
