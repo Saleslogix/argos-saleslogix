@@ -113,7 +113,8 @@
 {
 }
 
-.note-text-row > label
+.note-text-row > label,
+.note-text-row > div > label
 {
     display: none;
 }

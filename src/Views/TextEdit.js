@@ -9,6 +9,7 @@ define('Mobile/SalesLogix/Views/TextEdit', ['Sage/Platform/Mobile/Edit'], functi
         createLayout: function() {
             return this.layout || (this.layout = [{
                 label: '',
+                cls: 'note-text-row',
                 name: 'Notes',
                 type: 'textarea'
             }]);
