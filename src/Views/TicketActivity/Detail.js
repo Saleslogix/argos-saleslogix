@@ -11,7 +11,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
         titleText: 'Ticket Activity',
 
         accountText: 'account',
-        contactText: 'user',
+        contactText: 'contact',
         typeText: 'type',
         publicAccessText: 'public access',
         assignedDateText: 'start date',
@@ -24,7 +24,9 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
         totalLaborText: 'total labor',
         totalPartsText: 'total parts',
         totalFeeText: 'total fee',
-        activityDescriptionText: 'comment',
+        activityDescriptionText: 'comments',
+        ticketNumberText: 'ticket number',
+        userText: 'user',
 
         completeTicketText: 'Complete Ticket Activity',
         moreDetailsText: 'More Details',
@@ -52,9 +54,9 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
             'TotalParts',
             'Units',
             'Ticket/Account/AccountName',
-            'User/UserName',
-            'User/UserInfo/FirstName',
-            'User/UserInfo/LastName'
+            'Ticket/TicketNumber',
+            'Ticket/Contact/Name',
+            'User/UserName'
         ],
         resourceKind: 'ticketActivities',
 
@@ -115,12 +117,29 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                 title: this.detailsText,
                 name: 'DetailsSection',
                 children: [{
+                    label: this.ticketNumberText,
+                    name: 'Ticket.TicketNumber',
+                    property: 'Ticket.TicketNumber',
+                    view: 'ticket_detail',
+                    key: 'Ticket.$key'
+                },{
                     name: 'Ticket.Account.AccountName',
                     property: 'Ticket.Account.AccountName',
                     descriptor: 'Ticket.Account.AccountName',
                     label: this.accountText,
                     view: 'account_detail',
                     key: 'Ticket.Account.$key'
+                },{
+                    name: 'Ticket.Contact',
+                    property: 'Ticket.Contact.Name',
+                    descriptor: 'Ticket.Contact.Name',
+                    label: this.contactText,
+                    view: 'contact_detail',
+                    key: 'Ticket.Contact.$key'
+                },{
+                    name: 'User.UserName',
+                    property: 'User.UserName',
+                    label: this.userText
                 },{
                     label: this.typeText,
                     name: 'ActivityTypeCode',
@@ -131,13 +150,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     name: 'PublicAccessCode',
                     property: 'PublicAccessCode',
                     onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity Public Access"')
-                },{
-                    name: 'User.UserName',
-                    property: 'User.UserName',
-                    descriptor: 'User.UserName',
-                    label: this.contactText,
-                    view: 'contact_detail',
-                    key: 'User.$key'
                 },{
                     label: this.assignedDateText,
                     name: 'AssignedDate',
@@ -151,7 +163,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                 },{
                     label: this.followUpText,
                     name: 'FollowUp',
-                    property: 'FollowUp'
+                    property: 'FollowUp',
+                    renderer: Mobile.SalesLogix.Format.yesNo
                 },{
                     label: this.activityDescriptionText,
                     name: 'ActivityDescription',
