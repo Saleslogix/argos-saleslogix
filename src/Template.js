@@ -9,7 +9,13 @@ define('Mobile/SalesLogix/Template', ['dojo'], function() {
     Mobile.SalesLogix.Template = (function() {
         return {
             nameLF: new Simplate([
-                '{%= $.LastName %}, {%= $.FirstName %}'
+                '{% if ($) { %}',
+                    '{% if ($.LastName && $.FirstName) { %}',
+                        '{%= $.LastName %}, {%= $.FirstName%}',
+                    '{% } else { %}',
+                        '{%: $.LastName ? $.LastName : $.FirstName %}',
+                    '{% } %}',
+                '{% } %}'
             ]),
             alternateKeyPrefixSuffix: new Simplate([
                 '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}'
