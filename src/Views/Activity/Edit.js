@@ -128,6 +128,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             this.connect(this.fields['Leader'], 'onChange', this.onLeaderChange);
             this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
             this.connect(this.fields['Alarm'], 'onChange', this.onAlarmChange);
+
+            this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+            this.connect(this.fields['Contact'], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['UserId'] === App.context['user']['$key']);
@@ -243,6 +248,34 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             var userId = field.getValue();
             this.fields['UserId'].setValue(userId && userId['$key']);
         },
+        onAccountChange: function(value, field) {
+            var fields = this.fields;
+            dojo.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
+                if (value) {
+                    fields[f].dependsOn = 'Account';
+                    fields[f].where = dojo.string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
+
+                    if (fields[f].currentSelection &&
+                        fields[f].currentSelection.Account['$key'] != (value['AccountId'] || value['key'])) {
+
+                        fields[f].setValue(false);
+                    }
+
+                } else {
+                    fields[f].dependsOn = null;
+                    fields[f].where = 'Account.AccountName ne null';
+                }
+            });
+        },
+        onAccountDependentChange: function(value, field) {
+            if (value && !field.dependsOn && field.currentSelection.Account) {
+                this.fields['Account'].setValue({
+                    'AccountId': field.currentSelection.Account['$key'],
+                    'AccountName': field.currentSelection.Account['AccountName']
+                });
+            }
+        },
+
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
