@@ -129,10 +129,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             this.connect(this.fields['Timeless'], 'onChange', this.onTimelessChange);
             this.connect(this.fields['Alarm'], 'onChange', this.onAlarmChange);
 
-            this.connect(this.fields['Account'    ], 'onChange', this.onAccountChange         );
-            this.connect(this.fields['Contact'    ], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+            this.connect(this.fields['Contact'], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
-            this.connect(this.fields['Ticket'     ], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['UserId'] === App.context['user']['$key']);
