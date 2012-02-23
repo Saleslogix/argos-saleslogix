@@ -527,9 +527,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
 
             return values;
         },
-        formatReminderText: function(val, key, text) {
-            return this.reminderValueText[key] || text;
-        },
         createReminderData: function() {
             var list = [];
 
@@ -542,9 +539,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             }
 
             return {'$resources': list};
-        },
-        formatDurationText: function(val, key, text) {
-            return this.durationValueText[key] || text;
         },
         createDurationData: function() {
             var list = [];
@@ -618,12 +612,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 type: 'boolean'
             },{
                 label: this.durationText,
+                title: this.durationTitleText,
                 name: 'Duration',
                 property: 'Duration',
                 type: 'duration',
                 view: 'select_list',
-                title: this.durationTitleText,
-                data: this.createReminderData()
+                data: this.createDurationData()
             },{
                 name: 'Alarm',
                 property: 'Alarm',
