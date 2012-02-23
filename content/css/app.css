@@ -1394,3 +1394,9 @@ td.entry-table-description {
 {
     font-weight: bold !important;
 }
+.copyButton
+{
+    box-sizing: content-box !important;
+    -webkit-box-sizing: content-box !important;
+    -moz-box-sizing: content-box !important;
+}

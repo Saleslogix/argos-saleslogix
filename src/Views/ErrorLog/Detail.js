@@ -34,8 +34,8 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
                 '</div>'
             ]),
         copyButtonTemplate: new Simplate([
-            '<div class="copyButton toolButton-right">',
-                '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="45" height="36" id="errorlog-detail-copy">',
+            '<div class="copyButton button toolButton toolButton-right">',
+                '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="40" height="36" id="errorlog-detail-copy">',
                     '<param name="movie" value="content/clippy.swf"/>',
                     '<param name="allowScriptAccess" value="always" />',
                     '<param name="quality" value="high" />',
