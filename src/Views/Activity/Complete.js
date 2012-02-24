@@ -204,9 +204,6 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             var userId = field.getValue();
             this.fields['UserId'].setValue(userId && userId['$key']);
         },
-        formatDurationText: function(val, key, text) {
-            return this.durationValueText[key] || text;
-        },
         formatFollowupText: function(val, key, text) {
             return this.followupValueText[key] || text;
         },
@@ -344,14 +341,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     ]
                 },{
                     label: this.durationText,
+                    title: this.durationTitleText,
                     name: 'Duration',
                     property: 'Duration',
-                    type: 'select',
+                    type: 'duration',
                     view: 'select_list',
-                    textRenderer: this.formatDurationText.bindDelegate(this),
-                    requireSelection: true,
-                    valueKeyProperty: false,
-                    valueTextProperty: false,
                     data: this.createDurationData(),
                     validator: {
                         fn: function(val, field) {

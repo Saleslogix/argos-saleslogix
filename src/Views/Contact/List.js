@@ -28,6 +28,7 @@ define('Mobile/SalesLogix/Views/Contact/List', ['Sage/Platform/Mobile/List'], fu
         queryOrderBy: 'LastNameUpper,FirstName',
         querySelect: [
             'AccountName',
+            'Account/AccountName',
             'NameLF'
         ],        
         resourceKind: 'contacts',
