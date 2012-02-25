@@ -30,6 +30,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         rolloverText: 'auto rollover',
         startingText: 'start time',
 		startingFormatText: 'M/d/yyyy h:mm tt',
+        startingFormatTimelessText: 'M/d/yyyy',
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
@@ -153,13 +154,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         beforeTransitionTo: function() {
             this.inherited(arguments);
 
-
-
-
-
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
-
             if (this.options.isForLead != undefined) return;
 
             this.options.isForLead = this.isInLeadContext();
@@ -215,14 +211,24 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
 
+            var startDateField = this.fields['StartDate'];
+
             if (value)
             {
                 this.fields['Rollover'].enable();
+                startDateField['dateFormatText'] = this.startingFormatTimelessText;
+                startDateField['showTimePicker'] = false;
+                startDateField['isUTC'] = true;
+                startDateField.setValue(startDateField.getValue());
             }
             else
             {
                 this.fields['Rollover'].setValue(false);
                 this.fields['Rollover'].disable();
+                startDateField['dateFormatText'] = this.startingFormatText;
+                startDateField['showTimePicker'] = true;
+                startDateField['isUTC'] = false;
+                startDateField.setValue(startDateField.getValue());
             }
         },
         onAlarmChange: function() {
@@ -268,7 +274,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             });
         },
         onAccountDependentChange: function(value, field) {
-            if (value && !field.dependsOn && field.currentSelection.Account) {
+            if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
                 this.fields['Account'].setValue({
                     'AccountId': field.currentSelection.Account['$key'],
                     'AccountName': field.currentSelection.Account['AccountName']
@@ -598,6 +604,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 name: 'StartDate',
                 property: 'StartDate',
                 type: 'date',
+                isUTC: false,
                 showTimePicker: true,
                 dateFormatText: this.startingFormatText,
                 minValue: (new Date(1900, 0, 1)),

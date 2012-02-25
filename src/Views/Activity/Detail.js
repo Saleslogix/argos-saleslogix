@@ -106,11 +106,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         doesActivityHaveReminder: function(entry) {
             return Sage.Platform.Mobile.Convert.toBoolean(entry && entry['Alarm']);
         },
-        init: function() {
-            this.inherited(arguments);
-        },
-        requestLeader: function(userId)
-        {
+        requestLeader: function(userId) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('users')
                 .setResourceSelector(dojo.string.substitute("'${0}'", [userId]))
@@ -197,13 +193,13 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     name: 'StartDate',
                     property: 'StartDate',
                     label: this.startTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startDateFormatText),
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startDateFormatText, false),
                     exclude: this.isActivityTimeless
                 },{
-                    name: 'StartDate',
+                    name: 'StartDateTimeless',
                     property: 'StartDate',
                     label: this.allDayText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.timelessDateFormatText),
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.timelessDateFormatText, true),
                     include: this.isActivityTimeless
                 },{
                     name: 'Timeless',
@@ -226,7 +222,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     name: 'AlarmTime',
                     property: 'AlarmTime',
                     label: this.alarmTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.alarmDateFormatText),
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.alarmDateFormatText, null, true),
                     include: this.doesActivityHaveReminder
                 },{
                     name: 'Rollover',
