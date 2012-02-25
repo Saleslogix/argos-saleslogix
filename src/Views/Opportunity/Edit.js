@@ -153,6 +153,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                     name: 'EstimatedClose',
                     property: 'EstimatedClose',
                     type: 'date',
+                    isUTC: true,
                     validator: Mobile.SalesLogix.Validator.exists
                 },
                 {

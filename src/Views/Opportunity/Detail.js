@@ -73,6 +73,18 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                 });
             }
         },
+        getValues: function() {
+            var values = this.inherited(arguments),
+                estimatedCloseDate = this.fields['EstimatedClose'].getValue(),
+                timelessStartDate = estimatedCloseDate.clone()
+                .clearTime()
+                .add({minutes: -1 * estimatedCloseDate.getTimezoneOffset(), seconds: 5});
+
+            values = values || {};
+            values['EstimatedClose'] = timelessStartDate;
+
+            return values;
+        },
         formatAccountRelatedQuery: function(fmt) {
             return dojo.string.substitute(fmt, [this.entry['Account']['$key']]);
         },                
@@ -118,7 +130,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     label: this.estCloseText,
                     name: 'EstimatedClose',
                     property: 'EstimatedClose',
-                    renderer: Mobile.SalesLogix.Format.date
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, null, true)
                 },{
                     label: this.potentialText,
                     name: 'SalesPotential',
