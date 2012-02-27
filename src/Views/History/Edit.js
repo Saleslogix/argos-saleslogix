@@ -63,8 +63,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
         isInLeadContext: function() {
             var insert = this.options && this.options.insert,
                 entry = this.options && this.options.entry,
-                lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) { return c.key; })) || this.isHistoryForLead(entry);
-
+                lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) { return c.resourceKind === 'leads'; })) || this.isHistoryForLead(entry);
             return !!lead;
         },
         beforeTransitionTo: function() {
@@ -138,7 +137,7 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
             if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
             
             var user = App.context && App.context.user;
-            
+
             this.fields['Type'].setValue('atNote');
             this.fields['UserId'].setValue(user && user['$key']);
             this.fields['UserName'].setValue(user && user['$descriptor']);
@@ -151,6 +150,9 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
             });
         },
         applyLeadContext: function(context) {
+            this.options.isForLead = this.isInLeadContext();
+            this.fields['IsLead'].setValue(this.options.isForLead);
+
             this.fields['Lead'].setValue({
                 'LeadId': context.key,
                 'LeadName': context.descriptor
@@ -224,7 +226,6 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
         },
         setValues: function(values) {
             this.inherited(arguments);
-
             this.fields['IsLead'].setValue(this.options.isForLead);
             this.fields['Text'].setValue(values['LongNotes'] || values['Notes'] || '');
         },
