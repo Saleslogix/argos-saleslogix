@@ -18,7 +18,10 @@ define('Mobile/SalesLogix/Environment', [], function() {
             },
             initiateEmail: function(email, subject, body) {
                 setTimeout(function() {
-                    window.location.href = dojo.string.substitute("mailto:${0}?subject=${1}&body=${2}", [email, subject||'', body||'']);
+                    var mailtoUri = (subject)
+                        ? dojo.string.substitute("mailto:${0}?subject=${1}&body=${2}", [email, subject, body||''])
+                        : dojo.string.substitute("mailto:${0}", [email])
+                    window.location.href = mailtoUri;
                 }, 50);
             },
             showMapForAddress: function(address) {
