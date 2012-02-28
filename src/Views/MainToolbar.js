@@ -7,6 +7,7 @@
 define('Mobile/SalesLogix/Views/MainToolbar', ['Sage/Platform/Mobile/MainToolbar'], function() {
 
     return dojo.declare('Mobile.SalesLogix.Views.MainToolbar', [Sage.Platform.Mobile.MainToolbar], {
+        titleText: 'Sage Saleslogix',
         showTools: function(tools) {
             var hasLeftSideTools;
 
