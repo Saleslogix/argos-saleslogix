@@ -189,19 +189,23 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                 },{
                     label: this.rateText,
                     name: 'Rate',
-                    property: 'Rate'
+                    property: 'Rate',
+                    renderer: Mobile.SalesLogix.Format.currency
                 },{
                     label: this.totalLaborText,
                     name: 'TotalLabor',
-                    property: 'TotalLabor'
+                    property: 'TotalLabor',
+                    renderer: Mobile.SalesLogix.Format.currency
                 },{
                     label: this.totalPartsText,
                     name: 'TotalParts',
-                    property: 'TotalParts'
+                    property: 'TotalParts',
+                    renderer: Mobile.SalesLogix.Format.currency
                 },{
                     label: this.totalFeeText,
                     name: 'TotalFee',
-                    property: 'TotalFee'
+                    property: 'TotalFee',
+                    renderer: Mobile.SalesLogix.Format.currency
                 }]
             },{
                 list: true,
