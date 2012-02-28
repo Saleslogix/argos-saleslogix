@@ -239,8 +239,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
 
             this.registerToolbar(new Mobile.SalesLogix.Views.MainToolbar({
-                name: 'tbar',
-                title: this.titleText
+                name: 'tbar'
             }));
 
             this.registerToolbar(new Mobile.SalesLogix.Views.FooterToolbar({
