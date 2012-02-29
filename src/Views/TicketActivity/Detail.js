@@ -56,7 +56,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
             'Ticket/Account/AccountName',
             'Ticket/TicketNumber',
             'Ticket/Contact/Name',
-            'User/UserName'
+            'User/UserInfo/LastName',
+            'User/UserInfo/FirstName'
         ],
         resourceKind: 'ticketActivities',
 
@@ -137,9 +138,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     view: 'contact_detail',
                     key: 'Ticket.Contact.$key'
                 },{
-                    name: 'User.UserName',
-                    property: 'User.UserName',
-                    label: this.userText
+                    name: 'User.UserInfo',
+                    property: 'User.UserInfo',
+                    label: this.userText,
+                    tpl: Mobile.SalesLogix.Template.nameLF
                 },{
                     label: this.typeText,
                     name: 'ActivityTypeCode',
