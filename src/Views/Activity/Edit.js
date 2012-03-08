@@ -218,7 +218,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 this.fields['Rollover'].enable();
                 startDateField['dateFormatText'] = this.startingFormatTimelessText;
                 startDateField['showTimePicker'] = false;
-                startDateField['isUTC'] = true;
+                startDateField['asTimeless'] = true;
                 startDateField.setValue(startDateField.getValue());
             }
             else
@@ -227,7 +227,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 this.fields['Rollover'].disable();
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
-                startDateField['isUTC'] = false;
+                startDateField['asTimeless'] = false;
                 startDateField.setValue(startDateField.getValue());
             }
         },
@@ -530,7 +530,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 values['StartDate'] = timelessStartDate;
                 values['AlarmTime'] = timelessStartDate.clone().add({'minutes': -1 * reminderIn});
             }
-
+            var d = startDate.clone();
+            console.log(d);
+            console.log(d.clearTime());
+            console.log(d.add({minutes:-420, seconds:5}))
+console.log(values['StartDate']);
             return values;
         },
         createReminderData: function() {
@@ -604,7 +608,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 name: 'StartDate',
                 property: 'StartDate',
                 type: 'date',
-                isUTC: false,
+                asTimeless: false,
                 showTimePicker: true,
                 dateFormatText: this.startingFormatText,
                 minValue: (new Date(1900, 0, 1)),
@@ -633,6 +637,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             },{
                 label: this.reminderText,
                 title: this.reminderTitleText,
+                include: false,
                 name: 'Reminder',
                 property: 'Reminder',
                 type: 'duration',
