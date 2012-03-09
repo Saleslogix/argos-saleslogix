@@ -100,6 +100,11 @@
     -moz-background-clip: padding-box;
 }
 
+#login .clear-button
+{
+    right: 12px;
+}
+
 /* note view */
 .note-text
 {
