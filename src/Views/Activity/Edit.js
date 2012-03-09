@@ -530,11 +530,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 values['StartDate'] = timelessStartDate;
                 values['AlarmTime'] = timelessStartDate.clone().add({'minutes': -1 * reminderIn});
             }
-            var d = startDate.clone();
-            console.log(d);
-            console.log(d.clearTime());
-            console.log(d.add({minutes:-420, seconds:5}))
-console.log(values['StartDate']);
             return values;
         },
         createReminderData: function() {
