@@ -270,12 +270,11 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             var r = feed['$resources'],
                 feedLength = r.length,
                 dateCounts = {};
-
             for (var i = 0; i < feedLength; i++){
                 var row = r[i],
                     startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate),
                     endDay = Sage.Platform.Mobile.Convert.toDateFromString(row.EndDate);
-                while (startDay.getDate() <= endDay.getDate())
+                while (startDay.getTime() <= endDay.getTime())
                 {
                     var dateIndex = startDay.toString('yyyy-MM-dd');
                     dateCounts[dateIndex] = (dateCounts[dateIndex])
