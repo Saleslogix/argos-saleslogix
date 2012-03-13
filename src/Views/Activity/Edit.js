@@ -219,7 +219,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 startDateField['dateFormatText'] = this.startingFormatTimelessText;
                 startDateField['showTimePicker'] = false;
                 startDateField['asTimeless'] = true;
-                startDateField.setValue(startDateField.getValue());
+                var startDate =startDateField.getValue();
+                if(!this.isDateTimeless(startDate))
+                    startDate = startDate.clone().clearTime().add({minutes:-1*startDate.getTimezoneOffset(), seconds:5});
+                startDateField.setValue(startDate);
             }
             else
             {
@@ -228,7 +231,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
                 startDateField['asTimeless'] = false;
-                startDateField.setValue(startDateField.getValue());
+                var startDate =startDateField.getValue();
+                if(this.isDateTimeless(startDate))
+                    startDate = startDate.clone().add({minutes:startDate.getTimezoneOffset()+1, seconds: -5});
+                startDateField.setValue(startDate);
             }
         },
         onAlarmChange: function() {
@@ -458,7 +464,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         setValues: function(values) {
             if (values['StartDate'] && values['AlarmTime'])
             {
-                var span = values['StartDate'].getTime() - values['AlarmTime'].getTime(), // ms
+                var startTime = (this.isDateTimeless(values['StartDate']))
+                    ? values['StartDate'].clone().add({minutes: values['StartDate'].getTimezoneOffset()}).getTime()
+                    : values['StartDate'].getTime();
+
+
+                var span = startTime - values['AlarmTime'].getTime(), // ms
                     reminder = span / (1000 * 60);
                 
                 values['Reminder'] = reminder;
@@ -497,6 +508,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 this.enableFields(function(f) { return /^Alarm|Reminder$/.test(f.name) });
         },
         isDateTimeless: function(date) {
+            if (!date) return false;
             if (date.getUTCHours() != 0) return false;
             if (date.getUTCMinutes() != 0) return false;
             if (date.getUTCSeconds() != 5) return false;
@@ -506,30 +518,22 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         getValues: function() {
             var values = this.inherited(arguments),
                 isStartDateDirty = this.fields['StartDate'].isDirty(),
-                isTimelessDirty = this.fields['Timeless'].isDirty(),
                 isReminderDirty = this.fields['Reminder'].isDirty(),
                 startDate = this.fields['StartDate'].getValue(),
-                timeless = this.fields['Timeless'].getValue(),
-                reminderIn = this.fields['Reminder'].getValue();
+                reminderIn = this.fields['Reminder'].getValue(),
+                timeless = this.fields['Timeless'].getValue();
 
             // if StartDate is dirty, always update AlarmTime
             if (startDate && (isStartDateDirty || isReminderDirty))
             {
                 values = values || {};
                 values['AlarmTime'] = startDate.clone().add({'minutes': -1 * reminderIn});
+
+                // if timeless, convert back to local time
+                if (timeless)
+                    values['AlarmTime'].add({'minutes': startDate.getTimezoneOffset()});
             }
 
-            // if Timeless
-            if (timeless && !this.isDateTimeless(startDate) && (isStartDateDirty || isTimelessDirty))
-            {
-                var timelessStartDate = startDate.clone()
-                    .clearTime()
-                    .add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
-
-                values = values || {};
-                values['StartDate'] = timelessStartDate;
-                values['AlarmTime'] = timelessStartDate.clone().add({'minutes': -1 * reminderIn});
-            }
             return values;
         },
         createReminderData: function() {
