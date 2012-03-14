@@ -68,7 +68,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             '</div>'
         ]),
         activityRowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
             '<table class="calendar-entry-table"><tr>',
                 '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
                 '<td class="entry-table-time">{%! $$.activityTimeTemplate %}</td>',
@@ -86,15 +86,15 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
-            '{% if ($.Activity.Timeless) { %}',
+            '{% if ($.Timeless) { %}',
                 '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}</span>',
-                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>',
+                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>',
             '{% } %}'
         ]),
         activityItemTemplate: new Simplate([
-            '<h3 class="p-description">{%: $.Activity.Description %}</h3>',
+            '<h3 class="p-description">{%: $.Description %}</h3>',
             '<h4>{%= $$.activityNameTemplate.apply($) %}</h4>'
         ]),
         eventItemTemplate: new Simplate([
@@ -102,12 +102,12 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             '<h4>{%! $$.eventNameTemplate %}</h4>'
         ]),
         activityNameTemplate: new Simplate([
-            '{% if ($.Activity.ContactName) { %}',
-            '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
-            '{% } else if ($.Activity.AccountName) { %}',
-            '{%: $.Activity.AccountName %}',
+            '{% if ($.ContactName) { %}',
+            '{%: $.ContactName %} / {%: $.AccountName %}',
+            '{% } else if ($.AccountName) { %}',
+            '{%: $.AccountName %}',
             '{% } else { %}',
-            '{%: $.Activity.LeadName %}',
+            '{%: $.LeadName %}',
             '{% } %}'
         ]),
         eventNameTemplate: new Simplate([
@@ -188,10 +188,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
 
         pageSize: 500,
         queryWhere: null,
-        queryOrderBy: 'Activity.StartDate asc',
+        queryOrderBy: 'StartDate asc',
         querySelect: [
-            'Activity/StartDate',
-            'Activity/Timeless'
+            'StartDate',
+            'Timeless'
         ],
         feed: {},
         eventFeed: {},
@@ -213,18 +213,19 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         activityPageSize: 10,
         activityQueryWhere: null,
         activityQuerySelect: [
-            'Activity/StartDate',
-            'Activity/Description',
-            'Activity/Type',
-            'Activity/AccountName',
-            'Activity/ContactName',
-            'Activity/LeadId',
-            'Activity/LeadName',
-            'Activity/UserId',
-            'Activity/Timeless'
+            'StartDate',
+            'Description',
+            'Type',
+            'AccountName',
+            'ContactName',
+            'LeadId',
+            'LeadName',
+            'UserId',
+            'Timeless',
+            'Recurring'
         ],
 
-        resourceKind: 'useractivities',
+        resourceKind: 'activities',
 
         _onRefresh: function(o) {
            this.inherited(arguments);
@@ -304,6 +305,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             this.monthRequests = [];
 
             var request = this.createRequest();
+            request.setContractName('system');
+
             var xhr = request.read({
                 success: this.onRequestDataSuccess,
                 failure: this.onRequestDataFailure,
@@ -353,10 +356,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 endDate = this.getLastDayOfCurrentMonth();
             return dojo.string.substitute(
                     [
-                        'UserId eq "${0}" and (',
-                        '(Activity.Timeless eq false and Activity.StartDate',
+                        'UserActivities.UserId eq "${0}" and (',
+                        '(Timeless eq false and StartDate',
                         ' between @${1}@ and @${2}@) or ',
-                        '(Activity.Timeless eq true and Activity.StartDate',
+                        '(Timeless eq true and StartDate',
                         ' between @${3}@ and @${4}@))'
                     ].join(''),
                     [App.context['user'] && App.context['user']['$key'],
@@ -389,9 +392,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
 
             for(var i = 0; i < r.length; i++){
                 var row = r[i];
-                this.entries[row.Activity.$key] = row;
-                var startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.Activity.StartDate);
-                var dateIndex = (r[i].Activity.Timeless)
+                this.entries[row.$key] = row;
+                var startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate);
+                var dateIndex = (r[i].Timeless)
                     ? this.dateToUTC(startDay)
                     : startDay;
                 dateIndex = dateIndex.toString('yyyy-MM-dd');
@@ -489,7 +492,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
 
             var request = this.createSelectedDateRequest({
                 pageSize: this.activityPageSize,
-                resourceKind: 'useractivities',
+                resourceKind: 'activities',
+                contractName: 'system',
                 querySelect: this.activityQuerySelect,
                 queryWhere: this.getSelectedDateActivityQuery()
             });
@@ -524,6 +528,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
                 .setCount(o.pageSize)
                 .setStartIndex(1)
                 .setResourceKind(o.resourceKind)
+                .setContractName(o.contractName || App.defaultService.getContractName().text)
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.OrderBy, o.queryOrderBy || this.queryOrderBy)
                 .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(o.querySelect).join(','))
                 .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, o.queryWhere);
             return request;
@@ -531,9 +537,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         getSelectedDateActivityQuery: function(){
             var C = Sage.Platform.Mobile.Convert;
             var query = [
-                'UserId eq "${0}" and (',
-                '(Activity.Timeless eq false and Activity.StartDate between @${1}@ and @${2}@) or ',
-                '(Activity.Timeless eq true and Activity.StartDate between @${3}@ and @${4}@))'
+                'UserActivities.UserId eq "${0}" and (',
+                '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
+                '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
             return dojo.string.substitute(
                 query,
@@ -575,7 +581,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             for(var i = 0; i < feedLength; i++){
                 var row = r[i];
                 row.isEvent = false;
-                this.entries[row.Activity.$key] = row;
+                this.entries[row.$key] = row;
                 o.push(this.activityRowTemplate.apply(row, this));
             }
 
@@ -725,7 +731,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
                 view = App.getView(detailView);
-            descriptor = (entry.isEvent) ? descriptor : entry.Activity.Description;
+            descriptor = (entry.isEvent) ? descriptor : entry.Description;
             if (view)
                 view.show({
                     descriptor: descriptor,

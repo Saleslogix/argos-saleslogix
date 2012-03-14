@@ -20,6 +20,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         },
         actionsText: 'Quick Actions',
         completeActivityText: 'Complete Activity',
+        completeOccurrenceText: 'Complete Occurrence',
+        completeSeriesText: 'Complete Series',
         locationText: 'location',
         alarmText: 'alarm',
         alarmTimeText: 'alarm',
@@ -52,6 +54,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         completeView: 'activity_complete',
         editView: 'activity_edit',
         security: null, //'Entities/Activity/View',
+        contractName: 'system',
         querySelect: [
             'AccountId',
             'AccountName',
@@ -75,27 +78,42 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             'TicketId',
             'TicketNumber',
             'Timeless',
-            'Type'
+            'Type',
+            'Recurring',
+            'RecurrenceState'
         ],
         resourceKind: 'activities',
+        recurringActivityIdSeparator: ';',
 
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
-        completeActivity: function() {
+        completeActivity: function(completionTitle) {
             var view = App.getView(this.completeView);
             if (view)
             {
                 this.refreshRequired = true;
+                entryCopy = this.entry;
+                if (completionTitle == this.completeSeriesText)
+                    entryCopy['$key'] = this.entry['$key'].split(this.recurringActivityIdSeparator).shift();
 
                 view.show({
-                    title: 'Activity Complete',
+                    title: "string" == typeof(completionTitle) ? completionTitle : this.completeActivityText,
                     template: {},
-                    entry: this.entry
+                    entry: entryCopy
                 }, {
                     returnTo: -1
                 });
             }
+        },
+        completeOccurrence: function() {
+            this.completeActivity(this.completeOccurrenceText);
+        },
+        completeSeries: function() {
+            this.completeActivity(this.completeSeriesText);
+        },
+        isActivityRecurring: function(entry) {
+            return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -140,6 +158,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             }
         },
         checkCanComplete: function(entry) {
+            // * system endpoint does not return UserId for entry, ie. returns false always
             return !entry || (entry['UserId'] !== App.context['user']['$key'])
         },
         processEntry: function(entry) {
@@ -159,7 +178,25 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     label: this.completeActivityText,
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeActivity',
-                    disabled: this.checkCanComplete
+                    disabled: this.checkCanComplete,
+                    exclude: this.isActivityRecurring
+                },{
+                    name: 'completeOccurrenceAction',
+                    property: 'StartDate',
+                    label: this.completeOccurrenceText,
+                    icon: 'content/images/icons/Clear_Activity_24x24.png',
+                    action: 'completeOccurrence',
+                    disabled: this.checkCanComplete,
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startDateFormatText, false),
+                    include: this.isActivityRecurring
+                },{
+                    name: 'completeSeriesAction',
+                    property: 'Description',
+                    label: this.completeSeriesText,
+                    icon: 'content/images/icons/Clear_Activity_24x24.png',
+                    action: 'completeSeries',
+                    disabled: this.checkCanComplete,
+                    include: this.isActivityRecurring
                 }]
             },{
                 title: this.detailsText,

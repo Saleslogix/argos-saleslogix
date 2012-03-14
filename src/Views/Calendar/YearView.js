@@ -79,16 +79,17 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
 
         pageSize: 500,
         queryWhere: null,
-        queryOrderBy: 'Activity.StartDate asc',
+        queryOrderBy: 'StartDate asc',
         querySelect: [
-            'Activity/StartDate',
-            'Activity/Timeless'
+            'StartDate',
+            'Timeless'
         ],
         eventQuerySelect: [
             'StartDate',
             'EndDate'
         ],
-        resourceKind: 'useractivities',
+        contractName: 'system',
+        resourceKind: 'activities',
 
         _onRefresh: function(o) {
            this.inherited(arguments);
@@ -181,9 +182,11 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
             var querySelect = this.querySelect,
                 queryWhere = this.getActivityQuery(monthDate),
                 request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setContractName(this.contractName)
                 .setCount(this.pageSize)
                 .setStartIndex(1)
                 .setResourceKind(this.resourceKind)
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.OrderBy, this.queryOrderBy)
                 .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
                 .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
 
@@ -217,10 +220,10 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
                 endDate = this.getLastDayOfCurrentMonth(monthDate);
             return dojo.string.substitute(
                     [
-                        'UserId eq "${0}" and (',
-                        '(Activity.Timeless eq false and Activity.StartDate',
+                        'UserActivities.UserId eq "${0}" and (',
+                        '(Timeless eq false and StartDate',
                         ' between @${1}@ and @${2}@) or ',
-                        '(Activity.Timeless eq true and Activity.StartDate',
+                        '(Timeless eq true and StartDate',
                         ' between @${3}@ and @${4}@))'
                     ].join(''),
                     [App.context['user'] && App.context['user']['$key'],
@@ -254,8 +257,8 @@ define('Mobile/SalesLogix/Views/Calendar/YearView', ['Sage/Platform/Mobile/List'
 
             for (var i = 0; i < feedLength; i ++){
                 var row = r[i],
-                    startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.Activity.StartDate),
-                    dateIndex = (r[i].Activity.Timeless)
+                    startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate),
+                    dateIndex = (r[i].Timeless)
                         ? this.dateToUTC(startDay)
                         : startDay;
                 dateIndex = dateIndex.toString('yyyy-MM-dd');

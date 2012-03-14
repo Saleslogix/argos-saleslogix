@@ -285,6 +285,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
 
             var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
                 .setResourceKind('activities')
+                .setContractName('system')
                 .setOperationName('Complete');
 
             request.execute(completeActivityEntry, {
