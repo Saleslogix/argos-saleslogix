@@ -17,7 +17,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         dayText: 'Day',
         weekText: 'Week',
         monthText: 'Month',
-        yearText: 'Year',
         allDayText: 'All Day',
         eventHeaderText: 'Events',
         eventMoreText: 'View ${0} More Event(s)',
@@ -35,17 +34,17 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                 '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
                 '{%! $.eventMoreTemplate %}',
             '</div>',
-            '<div data-dojo-attach-point="contentNode"></div>',
+            '<div class="list-content" data-dojo-attach-point="contentNode">',
             '{%! $.moreTemplate %}',
             '</div>'
         ]),
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
             '<button data-tool="today" data-action="getThisWeekActivities" class="button">{%: $.todayText %}</button>',
-            '<button data-tool="day" data-action="navigateToUserActivityList" class="button">{%: $.dayText %}</button>',
-            '<button data-tool="week" data-action="getWeekActivities" class="button">{%: $.weekText %}</button>',
+            '<button data-tool="selectdate" data-action="selectDate" class="button"><span></span></button>',
+            '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
+            '<button data-tool="week" class="button">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
-            '<button data-tool="year" data-action="navigateToYearView" class="button">{%: $.yearText %}</button>',
             '</div>',
             '<div class="nav-bar">',
             '<button data-tool="next" data-action="getNextWeekActivities" class="button button-next"><span></span></button>',
@@ -71,7 +70,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
             '<td class="entry-table-description">{%! $$.itemTemplate %}</td>',
             '</tr></table>',
-            '',
             '</li>'
         ]),
         eventRowTemplate: new Simplate([
@@ -80,7 +78,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
             '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
             '</tr></table>',
-            '',
             '</li>'
         ]),
         timeTemplate: new Simplate([
@@ -148,7 +145,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         activityDetailView: 'activity_detail',
         eventDetailView: 'event_detail',
         monthView: 'calendar_monthlist',
-        yearView: 'calendar_yearlist',
+        datePickerView: 'generic_calendar',
         activityListView: 'calendar_daylist',
         insertView: 'activity_types_list',
         userWeekStartDay: 0, // 0-6, Sun-Sat
@@ -209,7 +206,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         },
         activateDayHeader: function(params){
             this.currentDate = Date.parseExact(params.date, 'yyyy-MM-dd');
-            this.navigateToUserActivityList();
+            this.navigateToDayView();
         },
         getThisWeekActivities: function(){
             if(!this.isInCurrentWeek(this.todayDate)){
@@ -494,13 +491,36 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             this.inherited(arguments);
             this.set('eventContent', '');
         },
-        navigateToUserActivityList: function() {
-            var view = App.getView(this.activityListView),
-                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
-            view.show(options);
+        selectDate: function() {
+            var options = {
+                date: this.currentDate,
+                showTimePicker: false,
+                asTimeless: false,
+                tools: {
+                    tbar: [{
+                        id: 'complete',
+                        fn: this.selectDateSuccess,
+                        scope: this
+                    },{
+                        id: 'cancel',
+                        side: 'left',
+                        fn: ReUI.back,
+                        scope: ReUI
+                    }]
+                    }
+                },
+                view = App.getView(this.datePickerView);
+            if(view)
+                view.show(options);
         },
-        navigateToYearView: function() {
-            var view = App.getView(this.yearView),
+        selectDateSuccess: function(){
+            var view = App.getPrimaryActiveView();
+            this.currentDate = view.getDateTime();
+            this.refresh();
+            ReUI.back();
+        },
+        navigateToDayView: function() {
+            var view = App.getView(this.activityListView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
         },
@@ -508,7 +528,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             var view = App.getView(this.monthView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
-       },
+        },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,

@@ -15,7 +15,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         dayText: 'Day',
         weekText: 'Week',
         monthText: 'Month',
-        yearText: 'Year',
         allDayText: 'All-Day',
         eventHeaderText: 'Events',
         activityHeaderText: 'Activities',
@@ -91,10 +90,10 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
             '<button data-tool="today" data-action="getToday" class="button">{%: $.todayText %}</button>',
-            '<button data-tool="day" data-action="getDayActivities" class="button">{%: $.dayText %}</button>',
+            '<button data-tool="selectdate" data-action="selectDate" class="button"><span></span></button>',
+            '<button data-tool="day" class="button">{%: $.dayText %}</button>',
             '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
-            '<button data-tool="year" data-action="navigateToYearView" class="button">{%: $.yearText %}</button>',
             '</div>',
             '<div class="nav-bar">',
             '<button data-tool="next" data-action="getNextDay" class="button button-next"><span></span></button>',
@@ -132,7 +131,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         id: 'calendar_daylist',
         cls: 'activities-for-day',
         icon: 'content/images/icons/Calendar_24x24.png',
-        yearView: 'calendar_yearlist',
+        datePickerView: 'generic_calendar',
         monthView: 'calendar_monthlist',
         weekView: 'calendar_weeklist',
         activityDetailView: 'activity_detail',
@@ -363,18 +362,41 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
                 this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
             );
         },
-        navigateToYearView: function() {
-            var view = App.getView(this.yearView),
+        selectDate: function() {
+            var options = {
+                date: this.currentDate,
+                showTimePicker: false,
+                asTimeless: false,
+                tools: {
+                    tbar: [{
+                        id: 'complete',
+                        fn: this.selectDateSuccess,
+                        scope: this
+                    },{
+                        id: 'cancel',
+                        side: 'left',
+                        fn: ReUI.back,
+                        scope: ReUI
+                    }]
+                    }
+                },
+                view = App.getView(this.datePickerView);
+            if(view)
+                view.show(options);
+        },
+        selectDateSuccess: function(){
+            var view = App.getPrimaryActiveView();
+            this.currentDate = view.getDateTime();
+            this.refresh();
+            ReUI.back();
+        },
+        navigateToWeekView: function(){
+            var view = App.getView(this.weekView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView),
-                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
-            view.show(options);
-        },
-        navigateToWeekView: function(){
-            var view = App.getView(this.weekView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
         },

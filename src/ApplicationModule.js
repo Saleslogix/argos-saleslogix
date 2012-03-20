@@ -33,7 +33,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Calendar/DayView',
     'Mobile/SalesLogix/Views/Calendar/WeekView',
     'Mobile/SalesLogix/Views/Calendar/MonthView',
-    'Mobile/SalesLogix/Views/Calendar/YearView',
     'Mobile/SalesLogix/Views/Competitor/List',
     'Mobile/SalesLogix/Views/Contact/List',
     'Mobile/SalesLogix/Views/Contact/Detail',
@@ -110,7 +109,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Calendar.YearView());
             this.registerView(new Mobile.SalesLogix.Views.Calendar.MonthView());
             this.registerView(new Mobile.SalesLogix.Views.Calendar.WeekView());
             this.registerView(new Mobile.SalesLogix.Views.Calendar.DayView());

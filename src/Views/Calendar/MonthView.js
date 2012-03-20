@@ -13,7 +13,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         dayText: 'Day',
         weekText: 'Week',
         monthText: 'Month',
-        yearText: 'Year',
         monthTitleFormatText: 'MMMM yyyy',
         dayTitleFormatText: 'ddd MMM d, yyyy',
         startTimeFormatText: 'h:mm',
@@ -53,11 +52,11 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         ]),
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
-                '<button data-tool="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>',
-                '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
-                '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
-                '<button data-tool="month" class="button">{%: $.monthText %}</button>',
-                '<button data-tool="year" data-action="navigateToYearView" class="button">{%: $.yearText %}</button>',
+            '<button data-tool="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>',
+            '<button data-tool="selectdate" data-action="selectDate" class="button"><span></span></button>',
+            '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
+            '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
+            '<button data-tool="month" class="button">{%: $.monthText %}</button>',
             '</div>'
         ]),
         navBarTemplate: new Simplate([
@@ -176,7 +175,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
         id: 'calendar_monthlist',
         cls: 'activities-for-month',
         dayView: 'calendar_daylist',
-        yearView: 'calendar_yearlist',
+        datePickerView: 'generic_calendar',
         weekView: 'calendar_weeklist',
         insertView: 'activity_types_list',
         activityDetailView: 'activity_detail',
@@ -706,10 +705,33 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', ['Sage/Platform/Mobile/List
             dojo.addClass(this.selectedDateNode, 'selected');
             this.getSelectedDate();
         },
-        navigateToYearView: function() {
-            var view = App.getView(this.yearView),
-                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
-            view.show(options);
+        selectDate: function() {
+            var options = {
+                date: this.currentDate,
+                showTimePicker: false,
+                asTimeless: false,
+                tools: {
+                    tbar: [{
+                        id: 'complete',
+                        fn: this.selectDateSuccess,
+                        scope: this
+                    },{
+                        id: 'cancel',
+                        side: 'left',
+                        fn: ReUI.back,
+                        scope: ReUI
+                    }]
+                    }
+                },
+                view = App.getView(this.datePickerView);
+            if(view)
+                view.show(options);
+        },
+        selectDateSuccess: function(){
+            var view = App.getPrimaryActiveView();
+            this.currentDate = view.getDateTime();
+            this.refresh();
+            ReUI.back();
         },
         navigateToWeekView: function() {
             var view = App.getView(this.weekView),
