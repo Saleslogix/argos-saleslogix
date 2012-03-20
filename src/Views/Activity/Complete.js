@@ -102,6 +102,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             'CompletedDate',
             'Description',
             'Duration',
+            'Leader/$key',
             'LeadId',
             'LeadName',
             'LongNotes',
@@ -119,6 +120,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             'UserId'
         ],
         resourceKind: 'activities',
+        contractName: 'system',
+        recurringActivityIdSeparator: ';',
 
         init: function() {
             this.inherited(arguments);
@@ -199,6 +202,14 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
 
             this.toggleSelectField(this.fields['CarryOverNotes'], true);
             this.toggleSelectField(this.fields['CompletedDate'], false);
+
+            if (this.options && this.options.series) {
+                // When completing series, refresh $key, and $etag
+                this.options.series = false; // no more refreshing
+                this.entry['$key'] = this.entry['$key'].split(this.recurringActivityIdSeparator).shift();
+                var request = this.requestData();
+                this.refresh();
+            }
         },
         onLeaderChange: function(value, field) {
             var userId = field.getValue();
@@ -267,7 +278,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                 "request": {
                     "entity": { '$key': entry.$key },
                     "ActivityId": entry.$key,
-                    "userId": entry.UserId,
+                    "userId": entry.Leader['$key'],
                     "result": this.fields['Result'].getValue(),
                     "completeDate":  this.fields['CompletedDate'].getValue()
                 }

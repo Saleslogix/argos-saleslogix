@@ -66,7 +66,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             'ContactName',
             'Description',
             'Duration',
-            'UserId',
+            'Leader/$key',
             'LeadId',
             'LeadName',
             'LongNotes',
@@ -83,34 +83,33 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             'RecurrenceState'
         ],
         resourceKind: 'activities',
-        recurringActivityIdSeparator: ';',
 
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
-        completeActivity: function(completionTitle) {
+        completeActivity: function(completionTitle, isSeries) {
             var view = App.getView(this.completeView);
+            completionTitle = "string" == typeof(completionTitle) ? completionTitle : this.completeActivityText;
             if (view)
             {
                 this.refreshRequired = true;
-                entryCopy = this.entry;
-                if (completionTitle == this.completeSeriesText)
-                    entryCopy['$key'] = this.entry['$key'].split(this.recurringActivityIdSeparator).shift();
 
                 view.show({
-                    title: "string" == typeof(completionTitle) ? completionTitle : this.completeActivityText,
+                    title: completionTitle,
                     template: {},
-                    entry: entryCopy
+                    entry: this.entry,
+                    series: isSeries
                 }, {
                     returnTo: -1
                 });
+
             }
         },
         completeOccurrence: function() {
             this.completeActivity(this.completeOccurrenceText);
         },
         completeSeries: function() {
-            this.completeActivity(this.completeSeriesText);
+            this.completeActivity(this.completeSeriesText, true);
         },
         isActivityRecurring: function(entry) {
             return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
@@ -158,8 +157,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             }
         },
         checkCanComplete: function(entry) {
-            // * system endpoint does not return UserId for entry, ie. returns false always
-            return !entry || (entry['UserId'] !== App.context['user']['$key'])
+            return !entry || (entry['Leader']['$key'] !== App.context['user']['$key'])
         },
         processEntry: function(entry) {
             this.inherited(arguments);
