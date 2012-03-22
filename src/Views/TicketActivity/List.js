@@ -61,7 +61,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
         },
         formatSearchQuery: function(query) {
             return dojo.string.substitute(
-                'ActivityDescription like "${0}%" or ActivityType like "${0}%"',
+                'ActivityDescription like "${0}%"',
                 [this.escapeSearchQuery(query.toUpperCase())]
             );
         }
