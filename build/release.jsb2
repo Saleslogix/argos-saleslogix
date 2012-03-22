@@ -259,10 +259,6 @@
           "path": "../src/Views/Calendar"
         },
         {
-          "text": "YearView.js",
-          "path": "../src/Views/Calendar"
-        },
-        {
           "text": "List.js",
           "path": "../src/Views/Competitor"
         },
