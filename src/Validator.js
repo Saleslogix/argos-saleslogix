@@ -2,11 +2,17 @@
 /// <reference path="../platform/Application.js"/>
 /// <reference path="../sdata/SDataService.js"/>
 
-define('Mobile/SalesLogix/Validator', ['dojo', 'dojo/string'], function() {
+define('Mobile/SalesLogix/Validator', [
+    'dojo/_base/lang',
+    'dojo/string'
+], function(
+    lang,
+    string
+) {
 
-    dojo.setObject('Mobile.SalesLogix.Validator', null);
+    lang.setObject('Mobile.SalesLogix.Validator', null);
     /// common frequently used templates
-    Mobile.SalesLogix.Validator = (function() {
+    return Mobile.SalesLogix.Validator = (function() {
         return {
             exists: {
                 fn: function(value) {
@@ -40,7 +46,7 @@ define('Mobile/SalesLogix/Validator', ['dojo', 'dojo/string'], function() {
             },
             isCurrency: {
                 fn: function(value, field){
-                    return !(new RegExp(dojo.string.substitute('^[\\d]+(\\.\\d{1,${0}})?$',[
+                    return !(new RegExp(string.substitute('^[\\d]+(\\.\\d{1,${0}})?$',[
                         Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'])).test(value));
                 },
                 message: "The value '${0}' is not a valid currency number."

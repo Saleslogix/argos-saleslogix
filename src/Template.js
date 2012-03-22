@@ -1,12 +1,13 @@
-/// <reference path="../ext/ext-core-debug.js"/>
 /// <reference path="../platform/Application.js"/>
 /// <reference path="../sdata/SDataService.js"/>
 
-define('Mobile/SalesLogix/Template', ['dojo'], function() {
-
-    dojo.setObject('Mobile.SalesLogix.Template', null);
-    
-    Mobile.SalesLogix.Template = (function() {
+define('Mobile/SalesLogix/Template', [
+    'dojo/_base/lang'
+], function(
+    lang
+) {
+    lang.setObject('Mobile.SalesLogix.Template', null);
+    return Mobile.SalesLogix.Template = (function() {
         return {
             nameLF: new Simplate([
                 '{% if ($) { %}',
@@ -42,5 +43,4 @@ define('Mobile/SalesLogix/Template', ['dojo'], function() {
             ])
         };
     })();
-    
 });

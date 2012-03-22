@@ -3,12 +3,20 @@
 /// <reference path="../../platform/Format.js"/>
 /// <reference path="../../sdata/SDataService.js"/>
 
-define('Mobile/SalesLogix/Format', ['Sage/Platform/Mobile/Format'], function() {
+define('Mobile/SalesLogix/Format', [
+    'dojo/_base/lang',
+    'dojo/string',
+    'Sage/Platform/Mobile/Format'
+], function(
+    lang,
+    string,
+    Format
+) {
     
-    dojo.setObject('Mobile.SalesLogix.Format', null);
+    lang.setObject('Mobile.SalesLogix.Format', null);
     
-    Mobile.SalesLogix.Format = (function(F) {
-        return dojo.mixin({}, {
+    return Mobile.SalesLogix.Format = (function(F) {
+        return lang.mixin({}, {
             /**
              * Address Culture Formats as defined by Mobile.SalesLogix.Format.address
              * Sources:
@@ -81,7 +89,7 @@ define('Mobile/SalesLogix/Format', ['Sage/Platform/Mobile/Format'], function() {
             address: function(o, asText, separator, fmt){
                 var lines = [],
                     isEmpty = function(line){
-                        var filterSymbols = dojo.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g,''));
+                        var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g,''));
                         return filterSymbols === '';
                     },
                     clean = function(line){
