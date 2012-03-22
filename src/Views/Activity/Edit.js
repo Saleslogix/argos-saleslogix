@@ -5,9 +5,23 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/Activity/Edit', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Mobile/SalesLogix/Template',
+    'Mobile/SalesLogix/Validator',
+    'Sage/Platform/Mobile/Utility',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    string,
+    Template,
+    Validator,
+    Utility,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Activity.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit], {
         //Localization
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',
@@ -248,12 +262,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             }
         },
         onLeadChange: function(value, field) {
-            var selection = field.getSelection(),
-                getV = Sage.Platform.Mobile.Utility.getValue;
+            var selection = field.getSelection();
 
             if (selection && this.insert)
             {
-                this.fields['AccountName'].setValue(getV(selection, 'Company'));
+                this.fields['AccountName'].setValue(Utility.getValue(selection, 'Company'));
             }
         },
         onLeaderChange: function(value, field) {
@@ -391,8 +404,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
         },
         applyContactContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry),
-                getV = Sage.Platform.Mobile.Utility.getValue;
+                entry = context.entry || (view && view.entry);
 
             if (!entry || !entry['$key']) return;
 
@@ -402,14 +414,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             });
 
             this.fields['Account'].setValue({
-                'AccountId': getV(entry, 'Account.$key'),
-                'AccountName': getV(entry, 'Account.AccountName')
+                'AccountId': Utility.getValue(entry, 'Account.$key'),
+                'AccountName': Utility.getValue(entry, 'Account.AccountName')
             });
         },
         applyTicketContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry),
-                getV = Sage.Platform.Mobile.Utility.getValue;
+                entry = context.entry || (view && view.entry);
 
             if (!entry || !entry['$key']) return;
 
@@ -419,19 +430,18 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             });
 
             this.fields['Contact'].setValue({
-                'ContactId': getV(entry, 'Contact.$key'),
-                'ContactName': getV(entry, 'Contact.NameLF')
+                'ContactId': Utility.getValue(entry, 'Contact.$key'),
+                'ContactName': Utility.getValue(entry, 'Contact.NameLF')
             });
 
             this.fields['Account'].setValue({
-                'AccountId': getV(entry, 'Account.$key'),
-                'AccountName': getV(entry, 'Account.AccountName')
+                'AccountId': Utility.getValue(entry, 'Account.$key'),
+                'AccountName': Utility.getValue(entry, 'Account.AccountName')
             });
         },
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry),
-                getV = Sage.Platform.Mobile.Utility.getValue;
+                entry = context.entry || (view && view.entry);
 
             if (!entry || !entry['$key']) return;
 
@@ -441,14 +451,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             });
 
             this.fields['Account'].setValue({
-                'AccountId': getV(entry, 'Account.$key'),
-                'AccountName': getV(entry, 'Account.AccountName')
+                'AccountId': Utility.getValue(entry, 'Account.$key'),
+                'AccountName': Utility.getValue(entry, 'Account.AccountName')
             });
         },
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry),
-                getV = Sage.Platform.Mobile.Utility.getValue;
+                entry = context.entry || (view && view.entry);
 
             if (!entry || !entry['$key']) return;
 
@@ -563,8 +572,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
             return {'$resources': list};
         },
         formatDependentQuery: function(dependentValue, format, property) {
-            var getV = Sage.Platform.Mobile.Utility.getValue;
-            return dojo.string.substitute(format, [getV(dependentValue, property || '$key')]);
+            return string.substitute(format, [Utility.getValue(dependentValue, property || '$key')]);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -581,7 +589,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 orderBy: 'text asc',
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },{
                 label: this.priorityText,
                 name: 'Priority',
@@ -590,7 +598,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 title: this.priorityTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },{
                 dependsOn: 'Type',
                 label: this.categoryText,
@@ -601,7 +609,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 title: this.activityCategoryTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },{
                 label: this.startingText,
                 name: 'StartDate',
@@ -612,8 +620,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 dateFormatText: this.startingFormatText,
                 minValue: (new Date(1900, 0, 1)),
                 validator: [
-                    Mobile.SalesLogix.Validator.exists,
-                    Mobile.SalesLogix.Validator.isDateInRange
+                    Validator.exists,
+                    Validator.isDateInRange
                 ]
             },{
                 label: this.timelessText,
@@ -658,7 +666,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', ['Sage/Platform/Mobile/Edit'], f
                 include: false,
                 type: 'lookup',
                 textProperty: 'UserInfo',
-                textTemplate: Mobile.SalesLogix.Template.nameLF,
+                textTemplate: Template.nameLF,
                 requireSelection: true,
                 view: 'user_list',
                 where: 'Type ne "Template" and Type ne "Retired"'

@@ -4,9 +4,19 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Activity/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Activity/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Convert'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Activity.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Activity.List', [List], {
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
@@ -67,7 +77,7 @@ define('Mobile/SalesLogix/Views/Activity/List', ['Sage/Platform/Mobile/List'], f
         resourceKind: 'activities',
                 
         formatSearchQuery: function(query) {
-            return dojo.string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+            return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
 });

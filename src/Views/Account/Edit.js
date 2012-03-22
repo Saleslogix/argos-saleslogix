@@ -6,9 +6,23 @@
 /// <reference path="../../Format.js"/>
 
 
-define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/Account/Edit', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Mobile/SalesLogix/Validator',
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Template',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    string,
+    Validator,
+    Format,
+    Template,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Account.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.Account.Edit', [Edit], {
         //Localization
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account Subtype',
@@ -57,7 +71,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
         resourceKind: 'accounts',
 
         formatDependentPicklist: function(dependentValue, format) {
-            return dojo.string.substitute(format, [dependentValue]);
+            return string.substitute(format, [dependentValue]);
         },
         applyContext: function() {
             this.inherited(arguments);
@@ -70,26 +84,26 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 name: 'AccountName',
                 property: 'AccountName',
                 type: 'text',
-                validator: Mobile.SalesLogix.Validator.hasText
+                validator: Validator.hasText
             },{
                 label: this.webText,
                 name: 'WebAddress',
                 property: 'WebAddress',
-                renderer: Mobile.SalesLogix.Format.link,
+                renderer: Format.link,
                 type: 'text',
                 inputType: 'url',
                 maxTextLength: 128,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },{
                 label: this.phoneText,
                 name: 'MainPhone',
                 property: 'MainPhone',
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },{
                 emptyText: '',
-                formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, [true], true),
+                formatValue: Format.address.bindDelegate(this, [true], true),
                 label: this.fullAddressText,
                 name: 'Address',
                 property: 'Address',
@@ -101,7 +115,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 property: 'Fax',
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },{
                 label: this.typeText,
                 name: 'Type',
@@ -122,7 +136,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 title: this.accountSubTypeTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },{
                 label: this.statusText,
                 name: 'Status',
@@ -140,7 +154,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 title: this.industryTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },{
                 label: this.businessDescriptionText,
                 name: 'BusinessDescription',
@@ -154,7 +168,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 name: 'AccountManager',
                 property: 'AccountManager',
                 textProperty: 'UserInfo',
-                textTemplate: Mobile.SalesLogix.Template.nameLF,
+                textTemplate: Template.nameLF,
                 type: 'lookup',
                 view: 'user_list'
             },{

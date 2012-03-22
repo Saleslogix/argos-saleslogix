@@ -4,9 +4,19 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/Account/Detail', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    string,
+    Format,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Account.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
@@ -95,7 +105,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                 'Type': 'atPhoneCall',
                 'AccountId': this.entry['$key'],
                 'AccountName': this.entry['AccountName'],
-                'Description': dojo.string.substitute(this.calledText, [this.entry['AccountName']]),
+                'Description': string.substitute(this.calledText, [this.entry['AccountName']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -113,10 +123,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
             return !value;
         },
         viewAddress: function() {
-            App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
+            App.showMapForAddress(Format.address(this.entry['Address'], true, ' '));
         },
         checkAddress: function(entry, value) {
-            return !Mobile.SalesLogix.Format.address(value, true, '');
+            return !Format.address(value, true, '');
         },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
@@ -144,7 +154,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callMainPhone',
                     disabled: this.checkMainPhone,
-                    renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false) 
+                    renderer: Format.phone.bindDelegate(this, false)
                 },{
                     name: 'ScheduleActivityAction',
                     property: 'AccountName',
@@ -164,7 +174,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: Mobile.SalesLogix.Format.address.bindDelegate(this, true, ' ')
+                    renderer: Format.address.bindDelegate(this, true, ' ')
                 }]
             },{
                 title: this.detailsText,
@@ -177,12 +187,12 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                     name: 'WebAddress',
                     property: 'WebAddress',
                     label: this.webText,
-                    renderer: Mobile.SalesLogix.Format.link
+                    renderer: Format.link
                 },{
                     name: 'Fax',
                     property: 'Fax',
                     label: this.faxText,
-                    renderer: Mobile.SalesLogix.Format.phone
+                    renderer: Format.phone
                 },{
                     name: 'Type',
                     property: 'Type',
