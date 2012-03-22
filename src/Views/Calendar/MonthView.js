@@ -6,8 +6,8 @@
 
 define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'dojo/_base/declare',
+    'dojo/_base/array',
     'dojo/string',
-    'dojo/array',
     'dojo/query',
     'dojo/dom-attr',
     'dojo/dom-class',
@@ -18,8 +18,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
-    string,
     array,
+    string,
     query,
     domAttr,
     domClass,

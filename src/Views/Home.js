@@ -4,9 +4,19 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], function() {
+define('Mobile/SalesLogix/Views/Home', [
+    'dojo/_base/declare',
+    'dojo/_base/array',
+    'dojo/_base/lang',
+    'Sage/Platform/Mobile/GroupedList'
+], function(
+    declare,
+    array,
+    lang,
+    GroupedList
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Home', [Sage.Platform.Mobile.GroupedList], {
+    return declare('Mobile.SalesLogix.Views.Home', [GroupedList], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
@@ -87,7 +97,7 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
         },
         createLayout: function() {
             // don't need to cache as it is only re-rendered when there is a change
-            var configured = dojo.getObject('preferences.home.visible', false, App) || [],
+            var configured = lang.getObject('preferences.home.visible', false, App) || [],
                 layout = [{
                     id: 'actions',
                     children: [{
@@ -126,8 +136,8 @@ define('Mobile/SalesLogix/Views/Home', ['Sage/Platform/Mobile/GroupedList'], fun
             var layout = this._createCustomizedLayout(this.createLayout()),
                 list = [];
 
-            dojo.forEach(layout, function(section) {
-                dojo.forEach(section['children'], function(row) {
+            array.forEach(layout, function(section) {
+                array.forEach(section['children'], function(row) {
                     if (row['security'] && !App.hasAccessTo(row['security'])) return;
                     if (typeof this.query !== 'function' || this.query(row)) list.push(row);
                 }, this);

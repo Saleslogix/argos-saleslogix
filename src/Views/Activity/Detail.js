@@ -10,7 +10,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'dojo/query',
     'dojo/dom-class',
     'Mobile/SalesLogix/Template',
-    'Mobile.SalesLogix.Format',
+    'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/Detail'
 ], function(

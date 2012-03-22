@@ -5,9 +5,17 @@
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 
-define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.TicketActivity.RateLookup', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.TicketActivity.RateLookup', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.RateTypeCode %} - {%: $.Amount %}</h3>',
@@ -29,7 +37,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', ['Sage/Platform/Mobi
         resourceKind: 'ticketActivityRates',
 
         formatSearchQuery: function(query) {
-            return dojo.string.substitute('upper(RateTypeCode) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+            return string.substitute('upper(RateTypeCode) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
         }
     });
 });

@@ -1,6 +1,16 @@
-define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/NameEdit', [
+    'dojo/_base/declare',
+    'dojo/_base/lang',
+    'Mobile/SalesLogix/Validator',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    lang,
+    Validator,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.NameEdit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.NameEdit', [Edit], {
         //Localization
         firstNameText: 'first',
         middleNameText: 'middle',
@@ -14,7 +24,7 @@ define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], functi
         id: 'name_edit',
 
         constructor: function(o) {
-            dojo.mixin(this, o, {
+            lang.mixin(this, o, {
                 expose: false
             });
 
@@ -35,7 +45,7 @@ define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], functi
                     label: this.firstNameText,
                     type: 'text',
                     maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'MiddleName',
@@ -43,7 +53,7 @@ define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], functi
                     label: this.middleNameText,
                     type: 'text',
                     maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: Validator.exceedsMaxTextLength
                 },
                 {
                     name: 'LastName',
@@ -51,7 +61,7 @@ define('Mobile/SalesLogix/Views/NameEdit', ['Sage/Platform/Mobile/Edit'], functi
                     label: this.lastNameText,
                     type: 'text',
                     maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: Validator.exceedsMaxTextLength
                 },
                 {
                     emptyText: '',

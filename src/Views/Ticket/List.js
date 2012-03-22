@@ -4,9 +4,17 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Ticket/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Ticket/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Ticket.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Ticket.List', [List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-ticket-type="{%: $.Status %}">',
@@ -47,7 +55,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', ['Sage/Platform/Mobile/List'], fun
         resourceKind: 'tickets',
 
         formatSearchQuery: function(query) {
-            return dojo.string.substitute(
+            return string.substitute(
                 'TicketNumber like "${0}%" or AlternateKeySuffix like "${0}%" or upper(Subject) like "${0}%" or Account.AccountNameUpper like "${0}%"',
                 [this.escapeSearchQuery(query.toUpperCase())]
             );

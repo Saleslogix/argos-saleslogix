@@ -4,9 +4,25 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/AddAccountContact', [
+    'dojo/_base/declare',
+    'dojo/_base/lang',
+    'dojo/string',
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Validator',
+    'Sage/Platform/Mobile/Utility',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    lang,
+    string,
+    Format,
+    Validator,
+    Utility,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.AddAccountContact', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.AddAccountContact', [Edit], {
         //Localization
         accountNameText: 'account',
         accountStatusTitleText: 'Account Status',
@@ -64,18 +80,17 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
 
             this.connect(this.fields['Contacts.$resources[0].Address'], 'onChange', this.onContactAddressChange);
         },
-        getValues: function(values) {
-            var U = Sage.Platform.Mobile.Utility,
-                values = this.inherited(arguments);
+        getValues: function(all) {
+            var values = this.inherited(arguments);
 
-                U.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
-                U.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
+            Utility.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
+            Utility.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
 
             return values;
         },
         formatDependentPicklist: function(dependentValue, format) {
-            if(!dojo.isArray(dependentValue)) dependentValue = [dependentValue];
-            return dojo.string.substitute(format, [dependentValue]);
+            if(!lang.isArray(dependentValue)) dependentValue = [dependentValue];
+            return string.substitute(format, [dependentValue]);
         },
         onInsertCompleted: function(entry) {
             var view = App.getView('account_detail');
@@ -98,12 +113,12 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
             return this.layout || (this.layout = [
                 {
                     emptyText: '',
-                    formatValue: Mobile.SalesLogix.Format.nameLF,
+                    formatValue: Format.nameLF,
                     label: this.nameText,
                     name: 'Contacts.$resources[0]',
                     property: 'Contacts.$resources[0]',
                     type: 'name',
-                    validator: Mobile.SalesLogix.Validator.name,
+                    validator: Validator.name,
                     view: 'name_edit'
                 },
                 {
@@ -111,7 +126,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                     name: 'AccountName',
                     property: 'AccountName',
                     type: 'text',
-                    validator: Mobile.SalesLogix.Validator.hasText
+                    validator: Validator.hasText
                 },
                 {
                     label: this.emailText,
@@ -127,7 +142,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                     type: 'text',
                     inputType: 'url',
                     maxTextLength: 128,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: Validator.exceedsMaxTextLength
                 },
                 {
                     label: this.workText,
@@ -135,7 +150,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                     property: 'MainPhone',
                     type: 'phone',
                     maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: Validator.exceedsMaxTextLength
                 },
                 {
                     title: this.detailsContactText,
@@ -155,7 +170,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                         property: 'Contacts.$resources[0].HomePhone',
                         type: 'phone',
                         maxTextLength: 32,
-                        validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                        validator: Validator.exceedsMaxTextLength
                     },
                     {
                         name: 'Contacts.$resources[0].Mobile',
@@ -163,7 +178,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                         label: this.mobileText,
                         type: 'phone',
                         maxTextLength: 32,
-                        validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                        validator: Validator.exceedsMaxTextLength
                     },
                     {
                         name: 'Contacts.$resources[0].Fax',
@@ -171,11 +186,11 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                         label: this.faxText,
                         type: 'phone',
                         maxTextLength: 32,
-                        validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                        validator: Validator.exceedsMaxTextLength
                     },
                     {
                         emptyText: '',
-                        formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true, true),
+                        formatValue: Format.address.bindDelegate(this, true, true),
                         label: this.addressText,
                         name: 'Contacts.$resources[0].Address',
                         property: 'Contacts.$resources[0].Address',
@@ -193,7 +208,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                         label: this.faxText,
                         type: 'phone',
                         maxTextLength: 32,
-                        validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                        validator: Validator.exceedsMaxTextLength
                     },
                     {
                         name: 'Type',
@@ -239,7 +254,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', ['Sage/Platform/Mobile/Edit'
                     },
                     {
                         emptyText: '',
-                        formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true, true),
+                        formatValue: Format.address.bindDelegate(this, true, true),
                         label: this.addressText,
                         name: 'Address',
                         property: 'Address',

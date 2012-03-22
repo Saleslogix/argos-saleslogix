@@ -3,9 +3,30 @@
 /// <reference path="../../sdata/SDataService.js"/>
 
 
-define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], function() {
+define('Mobile/SalesLogix/Application', [
+    'dojo/_base/declare',
+    'dojo/_base/array',
+    'dojo/_base/connect',
+    'dojo/_base/json',
+    'dojo/_base/lang',
+    'dojo/has',
+    'dojo/string',
+    'Mobile/SalesLogix/Environment',
+    'Sage/Platform/Mobile/Application',
+    'dojo/_base/sniff'
+], function(
+    declare,
+    array,
+    connect,
+    dojo,
+    lang,
+    has,
+    string,
+    Environment,
+    Application
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Application', [Sage.Platform.Mobile.Application], {
+    return declare('Mobile.SalesLogix.Application', [Application], {
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
@@ -34,7 +55,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
             'revision': 0
         },
         init: function() {
-            if (dojo.isIE && dojo.isIE < 9) window.location.href = 'unsupported.html';
+            if (has('ie') && has('ie') < 9) window.location.href = 'unsupported.html';
 
             this.inherited(arguments);
 
@@ -45,7 +66,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
             this.inherited(arguments);
 
             if (window.applicationCache)
-                this._connects.push(dojo.connect(window.applicationCache, 'updateready', this, this._checkForUpdate));
+                this._connects.push(connect.connect(window.applicationCache, 'updateready', this, this._checkForUpdate));
         },
         _viewTransitionTo: function(view) {
             this.inherited(arguments);
@@ -102,7 +123,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
 
             if (this.context['securedActions'])
             {
-                dojo.forEach(this.context['securedActions'], function(item) {
+                array.forEach(this.context['securedActions'], function(item) {
                     this[item] = true;
                 }, (this.context['userSecurity'] = {}));
             }
@@ -154,9 +175,9 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 .setOperationName('getCurrentUser');
 
             request.execute({}, {
-                success: dojo.hitch(this, this.onAuthenticateUserSuccess, credentials, options.success, options.scope), // this.onAuthenticateUserSuccess.createDelegate(this, [credentials, options.success, options.scope], true),
-                failure: dojo.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
-                aborted: dojo.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
+                success: lang.hitch(this, this.onAuthenticateUserSuccess, credentials, options.success, options.scope), // this.onAuthenticateUserSuccess.createDelegate(this, [credentials, options.success, options.scope], true),
+                failure: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
+                aborted: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
             });
         },
         hasAccessTo: function(security) {
@@ -267,7 +288,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         requestUserDetails: function() {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('users')
-                .setResourceSelector(dojo.string.substitute('"${0}"', [this.context['user']['$key']]))
+                .setResourceSelector(string.substitute('"${0}"', [this.context['user']['$key']]))
                 .setQueryArg('select', this.userDetailsQuerySelect.join(','));
 
             request.read({
@@ -291,11 +312,11 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
                 .setQueryArg('select', 'name,value')
                 .using(function() {
                     var service = this.getService();
-                    dojo.forEach(this.userOptionsToRequest, function(item) {
+                    array.forEach(this.userOptionsToRequest, function(item) {
                         new Sage.SData.Client.SDataSingleResourceRequest(this)
                             .setContractName('system')
                             .setResourceKind('useroptions')
-                            .setResourceSelector(dojo.string.substitute('"${0}"', [item]))
+                            .setResourceSelector(string.substitute('"${0}"', [item]))
                             .read();
                     }, service);
                 }, this);
@@ -308,7 +329,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         },
         onRequestUserOptionsSuccess: function(feed) {
             var userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
-            dojo.forEach(feed && feed['$resources'], function(item) {
+            array.forEach(feed && feed['$resources'], function(item) {
                 var key = item && item['$descriptor'],
                     value = item && item['value'];
                 if (value && key) userOptions[key] = value;
@@ -323,7 +344,7 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         requestOwnerDescription: function(key) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('owners')
-                .setResourceSelector(dojo.string.substitute('"${0}"', [key]))
+                .setResourceSelector(string.substitute('"${0}"', [key]))
                 .setQueryArg('select', 'OwnerDescription');
 
             request.read({
@@ -439,15 +460,15 @@ define('Mobile/SalesLogix/Application', ['Sage/Platform/Mobile/Application'], fu
         },
         initiateCall: function() {
             // shortcut for environment call
-            Mobile.SalesLogix.Environment.initiateCall.apply(this, arguments);
+            Environment.initiateCall.apply(this, arguments);
         },
         initiateEmail: function() {
             // shortcut for environment call
-            Mobile.SalesLogix.Environment.initiateEmail.apply(this, arguments);
+            Environment.initiateEmail.apply(this, arguments);
         },
         showMapForAddress: function() {
             // shortcut for environment call
-            Mobile.SalesLogix.Environment.showMapForAddress.apply(this, arguments);
+            Environment.showMapForAddress.apply(this, arguments);
         }
     });
 

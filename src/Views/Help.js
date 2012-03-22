@@ -4,9 +4,24 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Help', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/Help', [
+    'dojo/_base/declare',
+    'dojo/query',
+    'dojo/string',
+    'dojo/dom-class',
+    'Sage/Platform/Mobile/ErrorManager',
+    'Sage/Platform/Mobile/Detail',
+    'dojo/NodeList-manipulate'
+], function(
+    declare,
+    query,
+    string,
+    domClass,
+    ErrorManager,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Help', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.Help', [Detail], {
         //Templates
         errorTemplate: new Simplate([
             '<div data-dojo-attach-point="errorNode" class="panel-validation-summary">',
@@ -35,9 +50,9 @@ define('Mobile/SalesLogix/Views/Help', ['Sage/Platform/Mobile/Detail'], function
             return this.tools && (this.tools.tbar = []);
         },
         onRequestFailure: function(response, o) {
-            dojo.query(this.contentNode).append(this.errorTemplate.apply(this));
-            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
-            dojo.removeClass(this.domNode, 'panel-loading');
+            query(this.contentNode).append(this.errorTemplate.apply(this));
+            ErrorManager.addError(response, o, this.options, 'failure');
+            domClass.remove(this.domNode, 'panel-loading');
         },
         onLocalizedRequestFirstFailure: function(response, o) {
             Sage.SData.Client.Ajax.request({
@@ -59,20 +74,20 @@ define('Mobile/SalesLogix/Views/Help', ['Sage/Platform/Mobile/Detail'], function
         },
         onRequestSuccess: function(response, o) {
             this.processContent(response, o);
-            dojo.removeClass(this.domNode, 'panel-loading');
+            domClass.remove(this.domNode, 'panel-loading');
         },
         resolveLocalizedUrl: function() {
-            var localizedUrl = Mobile && Mobile['CultureInfo'] && dojo.string.substitute("help/help_${0}.html", [Mobile['CultureInfo']['name']]);
+            var localizedUrl = string.substitute("help/help_${0}.html", [Mobile.CultureInfo['name']]);
             return localizedUrl;
         },
         resolveGenericLocalizedUrl: function(){
-            var languageSpec = Mobile && Mobile['CultureInfo'] && Mobile['CultureInfo']['name'],
+            var languageSpec = Mobile.CultureInfo['name'],
                 languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec,
-                localizedUrl = dojo.string.substitute("help/help_${0}.html", [languageGen]);
+                localizedUrl = string.substitute("help/help_${0}.html", [languageGen]);
             return localizedUrl;
         },
         requestData: function() {
-            dojo.addClass(this.domNode, 'panel-loading');
+            domClass.add(this.domNode, 'panel-loading');
 
             Sage.SData.Client.Ajax.request({
                 url: this.resolveLocalizedUrl(),
@@ -83,7 +98,7 @@ define('Mobile/SalesLogix/Views/Help', ['Sage/Platform/Mobile/Detail'], function
             });
         },
         processContent: function(xhr, o) {
-            dojo.query(this.contentNode).append(xhr.responseText);
+            query(this.contentNode).append(xhr.responseText);
         }
     });
 });

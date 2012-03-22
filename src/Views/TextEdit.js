@@ -1,6 +1,12 @@
-define('Mobile/SalesLogix/Views/TextEdit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/TextEdit', [
+    'dojo/_base/declare',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.TextEdit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.TextEdit', [Edit], {
         //View Properties
         id: 'text_edit',
         expose: false,

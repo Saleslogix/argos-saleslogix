@@ -5,9 +5,23 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sage/Platform/Mobile/Utility'], function() {
+define('Mobile/SalesLogix/Views/Contact/Edit', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Template',
+    'Mobile/SalesLogix/Validator',
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/Utility'
+], function(
+    declare,
+    Format,
+    Template,
+    Validator,
+    Edit,
+    Utility
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Contact.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.Contact.Edit', [Edit], {
         //Localization
         titleText: 'Contact',
         nameText: 'name',
@@ -84,18 +98,17 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
-                entry = view && view.entry,
-                getV = Sage.Platform.Mobile.Utility.getValue;
+                entry = view && view.entry;
 
             this.fields['Account'].setValue(entry);
-            this.fields['AccountName'].setValue(getV(entry, 'AccountName'));
+            this.fields['AccountName'].setValue(Utility.getValue(entry, 'AccountName'));
 
             var account = entry,
-                accountName = getV(entry, 'AccountName'),
-                webAddress = getV(entry, 'WebAddress'),
-                mainPhone = getV(entry, 'MainPhone'),
-                address = getV(entry, 'Address'),
-                fax = getV(entry, 'Fax');
+                accountName = Utility.getValue(entry, 'AccountName'),
+                webAddress = Utility.getValue(entry, 'WebAddress'),
+                mainPhone = Utility.getValue(entry, 'MainPhone'),
+                address = Utility.getValue(entry, 'Address'),
+                fax = Utility.getValue(entry, 'Fax');
 
             if (account) this.fields['Account'].setValue(account);
             if (accountName) this.fields['AccountName'].setValue(accountName);
@@ -106,16 +119,15 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
         },
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
-                entry = view && view.entry,
-                getV = Sage.Platform.Mobile.Utility.getValue;
+                entry = view && view.entry;
 
-            var opportunityId = getV(entry, '$key'),
-                account = getV(entry, 'Account'),
-                accountName = getV(entry, 'Account.AccountName'),
-                webAddress = getV(entry, 'Account.WebAddress'),
-                mainPhone = getV(entry, 'Account.MainPhone'),
-                address = getV(entry, 'Account.Address'),
-                fax = getV(entry, 'Account.Fax');
+            var opportunityId = Utility.getValue(entry, '$key'),
+                account = Utility.getValue(entry, 'Account'),
+                accountName = Utility.getValue(entry, 'Account.AccountName'),
+                webAddress = Utility.getValue(entry, 'Account.WebAddress'),
+                mainPhone = Utility.getValue(entry, 'Account.MainPhone'),
+                address = Utility.getValue(entry, 'Account.Address'),
+                fax = Utility.getValue(entry, 'Account.Fax');
 
             if (opportunityId) this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(opportunityId);
             if (account) this.fields['Account'].setValue(account);
@@ -152,12 +164,12 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
         createLayout: function() {
             return this.layout || (this.layout = [{
                 applyTo: '.',
-                formatValue: Mobile.SalesLogix.Format.nameLF,
+                formatValue: Format.nameLF,
                 label: this.nameText,
                 name: 'ContactName',
                 property: 'ContactName',
                 type: 'name',
-                validator: Mobile.SalesLogix.Validator.name,
+                validator: Validator.name,
                 view: 'name_edit'
             },
             {
@@ -166,7 +178,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 property: 'Account',
                 textProperty: 'AccountName',
                 type: 'lookup',
-                validator: Mobile.SalesLogix.Validator.exists,
+                validator: Validator.exists,
                 view: 'account_related'
             },
             {
@@ -181,7 +193,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 type: 'text',
                 inputType: 'url',
                 maxTextLength: 128,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },
             {
                 name: 'WorkPhone',
@@ -189,7 +201,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 label: this.workText,
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },
             {
                 name: 'Email',
@@ -207,7 +219,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 type: 'picklist'
             },
             {
-                formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true),
+                formatValue: Format.address.bindDelegate(this, true),
                 label: this.addressText,
                 name: 'Address',
                 property: 'Address',
@@ -220,7 +232,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 label: this.homePhoneText,
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },
             {
                 name: 'Mobile',
@@ -228,7 +240,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 label: this.mobileText,
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },
             {
                 name: 'Fax',
@@ -236,14 +248,14 @@ define('Mobile/SalesLogix/Views/Contact/Edit', ['Sage/Platform/Mobile/Edit', 'Sa
                 label: this.faxText,
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: Validator.exceedsMaxTextLength
             },
             {
                 label: this.acctMgrText,
                 name: 'AccountManager',
                 property: 'AccountManager',
                 textProperty: 'UserInfo',
-                textTemplate: Mobile.SalesLogix.Template.nameLF,
+                textTemplate: Template.nameLF,
                 type: 'lookup',
                 view: 'user_list'
             },

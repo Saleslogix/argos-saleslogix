@@ -4,9 +4,27 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/TicketActivity/List', [
+    'dojo/_base/declare',
+    'dojo/_base/array',
+    'dojo/string',
+    'dojo/dom-style',
+    'dojo/dom-geometry',
+    'dojo/query',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    array,
+    string,
+    domStyle,
+    domGeom,
+    query,
+    Format,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.TicketActivity.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.TicketActivity.List', [List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}">',
@@ -43,12 +61,12 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
 
         _onResize: function() {
             dojo.query('.note-text-item', this.contentNode).forEach(function(node){
-                var wrapNode = dojo.query('.note-text-wrap', node)[0],
-                    moreNode = dojo.query('.note-text-more', node)[0];
-                if (dojo.marginBox(node).h < dojo.marginBox(wrapNode).h)
-                    dojo.style(moreNode, 'visibility', 'visible');
+                var wrapNode = query('.note-text-wrap', node)[0],
+                    moreNode = query('.note-text-more', node)[0];
+                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h)
+                    domStyle.set(moreNode, 'visibility', 'visible');
                 else
-                    dojo.style(moreNode, 'visibility', 'hidden');
+                    domStyle.set(moreNode, 'visibility', 'hidden');
             });
         },
         processFeed: function(){
@@ -60,7 +78,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', ['Sage/Platform/Mobile/Lis
             this.subscribe('/app/resize', this._onResize);
         },
         formatSearchQuery: function(query) {
-            return dojo.string.substitute(
+            return string.substitute(
                 'ActivityDescription like "${0}%"',
                 [this.escapeSearchQuery(query.toUpperCase())]
             );

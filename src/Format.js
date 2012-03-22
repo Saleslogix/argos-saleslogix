@@ -6,10 +6,12 @@
 define('Mobile/SalesLogix/Format', [
     'dojo/_base/lang',
     'dojo/string',
+    'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Format'
 ], function(
     lang,
     string,
+    Template,
     Format
 ) {
     
@@ -93,7 +95,7 @@ define('Mobile/SalesLogix/Format', [
                         return filterSymbols === '';
                     },
                     clean = function(line){
-                        return dojo.trim(line.replace(/ {2,}/g, ' '));
+                        return lang.trim(line.replace(/ {2,}/g, ' '));
                     },
                     _this = Mobile.SalesLogix.Format;
 
@@ -199,13 +201,13 @@ define('Mobile/SalesLogix/Format', [
                     var formatter = formatters[i],
                         match;
                     if ((match = formatter.test.exec(clean)))
-                        number = dojo.string.substitute(formatter.format, [val, clean].concat(match));
+                        number = string.substitute(formatter.format, [val, clean].concat(match));
                 }
 
                 if (number)
                     return withLink === false
                         ? number
-                        : dojo.string.substitute('<a href="tel:${0}">${1}</a>', [clean, number]);
+                        : string.substitute('<a href="tel:${0}">${1}</a>', [clean, number]);
 
                 return val;
             },
@@ -216,7 +218,7 @@ define('Mobile/SalesLogix/Format', [
                 var v = Mobile.SalesLogix.Format.fixed(val), // only 2 decimal places
                     f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
 
-                return dojo.string.substitute(
+                return string.substitute(
                     Mobile.CultureInfo.numberFormat.currencySymbol
                     + '${0}'
                     + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator
@@ -229,7 +231,7 @@ define('Mobile/SalesLogix/Format', [
             nameLF: function(val) {
                 if (!val) return '';
 
-                var name = Mobile.SalesLogix.Template.nameLF.apply(val);
+                var name = Template.nameLF.apply(val);
                 if (name == ', ')
                     name = '';
 
@@ -239,9 +241,9 @@ define('Mobile/SalesLogix/Format', [
                 if (typeof val !== 'string')
                     return val;
 
-                return dojo.string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
+                return string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
             }
         }, F);
-    })(Sage.Platform.Mobile.Format);
+    })(Format);
     
 });

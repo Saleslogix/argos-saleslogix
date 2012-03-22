@@ -5,9 +5,17 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Template',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    Template,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Edit], {
 
         //Localization
         titleText: 'Edit Ticket Activity',
@@ -76,7 +84,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
                     name: 'User',
                     property: 'User',
                     textProperty: 'UserInfo',
-                    textTemplate: Mobile.SalesLogix.Template.nameLF,
+                    textTemplate: Template.nameLF,
                     type: 'lookup',
                     view: 'user_list'
                 },{

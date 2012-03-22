@@ -4,9 +4,17 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', [List], {
         //Localization
         titleText: 'Ticket Urgency',
 
@@ -25,7 +33,7 @@ define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', ['Sage/Platform/Mobile/Li
         resourceKind: 'urgencies',
 
         formatSearchQuery: function(query) {
-            return dojo.string.substitute('upper(Description) like "%${0}%"', this.escapeSearchQuery(query.toUpperCase()));
+            return string.substitute('upper(Description) like "%${0}%"', this.escapeSearchQuery(query.toUpperCase()));
         }
     });
 });
