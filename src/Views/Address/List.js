@@ -9,11 +9,10 @@ define('Mobile/SalesLogix/Views/Address/List', ['Sage/Platform/Mobile/List'], fu
     return dojo.declare('Mobile.SalesLogix.Views.Address.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
-            '<h4>{%: $.$descriptor %}</h4>',
-            '<div class="note-text-item">',
+            '<div class="note-text-item" data-action="viewAddress" data-key="{%= $.$key %}">',
+                '<h4>{%: $.$descriptor %}</h4>',
                 '<div class="note-text-wrap">',
                     '{%: Mobile.SalesLogix.Format.address($, true, "\\n") %}',
-                    '<em>{%: $.IsPrimary ? " - Primary" : "" %}</em>',
                 '</div>',
             '</div>'
         ]),
@@ -22,14 +21,12 @@ define('Mobile/SalesLogix/Views/Address/List', ['Sage/Platform/Mobile/List'], fu
         titleText: 'Additional Addresses',
 
         //View Properties        
-        detailView: 'account_detail',
+        detailView: null,
         icon: 'content/images/icons/Map_24.png',
         id: 'address_list',
         security: null, //'Entities/Address/View',
         insertSecurity: 'Entities/Address/Add',
         insertView: 'address_edit',
-        // queryOrderBy: '',
-        // querySelect: [],
         queryWhere: 'EntityId eq "${0}" and id ne "${1}"',
         resourceKind: 'addresses',
 
@@ -42,7 +39,9 @@ define('Mobile/SalesLogix/Views/Address/List', ['Sage/Platform/Mobile/List'], fu
                 tbar: []
             });
         },
-        isNavigationDisabled: function() { return true; }
+        viewAddress: function(o) {
+            App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entries[o.key], true, ' '));
+        }
     });
     
 });
