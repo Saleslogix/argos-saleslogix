@@ -117,11 +117,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             'TicketNumber',
             'Timeless',
             'Type',
-            'UserId'
+            'Recurring',
+            'RecurrenceState'
         ],
         resourceKind: 'activities',
         contractName: 'system',
-        recurringActivityIdSeparator: ';',
 
         init: function() {
             this.inherited(arguments);
@@ -202,14 +202,6 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
 
             this.toggleSelectField(this.fields['CarryOverNotes'], true);
             this.toggleSelectField(this.fields['CompletedDate'], false);
-
-            if (this.options && this.options.series) {
-                // When completing series, refresh $key, and $etag
-                this.options.series = false; // no more refreshing
-                this.entry['$key'] = this.entry['$key'].split(this.recurringActivityIdSeparator).shift();
-                var request = this.requestData();
-                this.refresh();
-            }
         },
         onLeaderChange: function(value, field) {
             var userId = field.getValue();

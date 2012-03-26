@@ -83,13 +83,14 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             'RecurrenceState'
         ],
         resourceKind: 'activities',
+        recurringActivityIdSeparator: ';',
 
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
-        completeActivity: function(completionTitle, isSeries) {
+        navigateToCompleteView: function(completionTitle, isSeries) {
             var view = App.getView(this.completeView);
-            completionTitle = "string" == typeof(completionTitle) ? completionTitle : this.completeActivityText;
+
             if (view)
             {
                 this.refreshRequired = true;
@@ -97,19 +98,21 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                 view.show({
                     title: completionTitle,
                     template: {},
-                    entry: this.entry,
-                    series: isSeries
+                    key: isSeries ? this.entry['$key'].split(this.recurringActivityIdSeparator).shift() : this.entry['$key']
                 }, {
                     returnTo: -1
                 });
 
             }
         },
+        completeActivity: function() {
+            this.navigateToCompleteView(this.completeActivityText);
+        },
         completeOccurrence: function() {
-            this.completeActivity(this.completeOccurrenceText);
+            this.navigateToCompleteView(this.completeOccurrenceText);
         },
         completeSeries: function() {
-            this.completeActivity(this.completeSeriesText, true);
+            this.navigateToCompleteView(this.completeSeriesText, true);
         },
         isActivityRecurring: function(entry) {
             return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
