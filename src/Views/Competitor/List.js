@@ -36,8 +36,8 @@ define('Mobile/SalesLogix/Views/Competitor/List', [
         ],
         resourceKind: 'competitors',
 
-        formatSearchQuery: function(query) {
-            return string.substitute('(CompetitorName like "%${0}%")', [this.escapeSearchQuery(query)]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('(CompetitorName like "%${0}%")', [this.escapeSearchQuery(searchQuery)]);
         }
     });
 });

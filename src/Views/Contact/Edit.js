@@ -3,7 +3,7 @@
 /// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
-/// <reference path="../../Format.js"/>
+/// <reference path="../../format.js"/>
 
 define('Mobile/SalesLogix/Views/Contact/Edit', [
     'dojo/_base/declare',
@@ -14,11 +14,11 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     'Sage/Platform/Mobile/Utility'
 ], function(
     declare,
-    Format,
-    Template,
-    Validator,
+    format,
+    template,
+    validator,
     Edit,
-    Utility
+    utility
 ) {
 
     return declare('Mobile.SalesLogix.Views.Contact.Edit', [Edit], {
@@ -101,14 +101,14 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 entry = view && view.entry;
 
             this.fields['Account'].setValue(entry);
-            this.fields['AccountName'].setValue(Utility.getValue(entry, 'AccountName'));
+            this.fields['AccountName'].setValue(utility.getValue(entry, 'AccountName'));
 
             var account = entry,
-                accountName = Utility.getValue(entry, 'AccountName'),
-                webAddress = Utility.getValue(entry, 'WebAddress'),
-                mainPhone = Utility.getValue(entry, 'MainPhone'),
-                address = Utility.getValue(entry, 'Address'),
-                fax = Utility.getValue(entry, 'Fax');
+                accountName = utility.getValue(entry, 'AccountName'),
+                webAddress = utility.getValue(entry, 'WebAddress'),
+                mainPhone = utility.getValue(entry, 'MainPhone'),
+                address = utility.getValue(entry, 'Address'),
+                fax = utility.getValue(entry, 'Fax');
 
             if (account) this.fields['Account'].setValue(account);
             if (accountName) this.fields['AccountName'].setValue(accountName);
@@ -121,13 +121,13 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             var view = App.getView(context.id),
                 entry = view && view.entry;
 
-            var opportunityId = Utility.getValue(entry, '$key'),
-                account = Utility.getValue(entry, 'Account'),
-                accountName = Utility.getValue(entry, 'Account.AccountName'),
-                webAddress = Utility.getValue(entry, 'Account.WebAddress'),
-                mainPhone = Utility.getValue(entry, 'Account.MainPhone'),
-                address = Utility.getValue(entry, 'Account.Address'),
-                fax = Utility.getValue(entry, 'Account.Fax');
+            var opportunityId = utility.getValue(entry, '$key'),
+                account = utility.getValue(entry, 'Account'),
+                accountName = utility.getValue(entry, 'Account.AccountName'),
+                webAddress = utility.getValue(entry, 'Account.WebAddress'),
+                mainPhone = utility.getValue(entry, 'Account.MainPhone'),
+                address = utility.getValue(entry, 'Account.Address'),
+                fax = utility.getValue(entry, 'Account.Fax');
 
             if (opportunityId) this.fields['Opportunities.$resources[0].Opportunity.$key'].setValue(opportunityId);
             if (account) this.fields['Account'].setValue(account);
@@ -164,12 +164,12 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         createLayout: function() {
             return this.layout || (this.layout = [{
                 applyTo: '.',
-                formatValue: Format.nameLF,
+                formatValue: format.nameLF,
                 label: this.nameText,
                 name: 'ContactName',
                 property: 'ContactName',
                 type: 'name',
-                validator: Validator.name,
+                validator: validator.name,
                 view: 'name_edit'
             },
             {
@@ -178,7 +178,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 property: 'Account',
                 textProperty: 'AccountName',
                 type: 'lookup',
-                validator: Validator.exists,
+                validator: validator.exists,
                 view: 'account_related'
             },
             {
@@ -193,7 +193,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 type: 'text',
                 inputType: 'url',
                 maxTextLength: 128,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 name: 'WorkPhone',
@@ -201,7 +201,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 label: this.workText,
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 name: 'Email',
@@ -219,7 +219,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 type: 'picklist'
             },
             {
-                formatValue: Format.address.bindDelegate(this, true),
+                formatValue: format.address.bindDelegate(this, true),
                 label: this.addressText,
                 name: 'Address',
                 property: 'Address',
@@ -232,7 +232,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 label: this.homePhoneText,
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 name: 'Mobile',
@@ -240,7 +240,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 label: this.mobileText,
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 name: 'Fax',
@@ -248,14 +248,14 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 label: this.faxText,
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 label: this.acctMgrText,
                 name: 'AccountManager',
                 property: 'AccountManager',
                 textProperty: 'UserInfo',
-                textTemplate: Template.nameLF,
+                textTemplate: template.nameLF,
                 type: 'lookup',
                 view: 'user_list'
             },

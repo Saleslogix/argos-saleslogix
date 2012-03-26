@@ -5,9 +5,19 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/Event/Edit', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Validator',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    format,
+    validator,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Event.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.Event.Edit', [Edit], {
         //Localization
         titleText: 'Event',
         typeText: 'type',
@@ -111,8 +121,8 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
                 requireSelection: false,
                 maxTextLength: 64,
                 validator: [
-                    Mobile.SalesLogix.Validator.exceedsMaxTextLength,
-                    Mobile.SalesLogix.Validator.hasText
+                    validator.exceedsMaxTextLength,
+                    validator.hasText
                 ],
                 textRenderer: this.formatTypeText.bindDelegate(this),
                 data: this.createTypeData()
@@ -124,36 +134,36 @@ define('Mobile/SalesLogix/Views/Event/Edit', ['Sage/Platform/Mobile/Edit'], func
                 type: 'text',
                 maxTextLength: 64,
                 validator: [
-                    Mobile.SalesLogix.Validator.exceedsMaxTextLength,
-                    Mobile.SalesLogix.Validator.hasText
+                    validator.exceedsMaxTextLength,
+                    validator.hasText
                 ]
             },
             {
                 label: this.startDateText,
                 name: 'StartDate',
                 property: 'StartDate',
-                renderer: Mobile.SalesLogix.Format.date,
+                renderer: format.date,
                 type: 'date',
                 showTimePicker: true,
                 formatString: this.startingFormatText,
                 minValue: (new Date(1900, 0, 1)),
                 validator: [
-                    Mobile.SalesLogix.Validator.exists,
-                    Mobile.SalesLogix.Validator.isDateInRange
+                    validator.exists,
+                    validator.isDateInRange
                 ]
             },
             {
                 label: this.endDateText,
                 name: 'EndDate',
                 property: 'EndDate',
-                renderer: Mobile.SalesLogix.Format.date,
+                renderer: format.date,
                 type: 'date',
                 showTimePicker: true,
                 formatString: this.startingFormatText,
                 minValue: (new Date(1900, 0, 1)),
                 validator: [
-                    Mobile.SalesLogix.Validator.exists,
-                    Mobile.SalesLogix.Validator.isDateInRange
+                    validator.exists,
+                    validator.isDateInRange
                 ]
             }]);
         }

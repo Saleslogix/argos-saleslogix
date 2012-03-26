@@ -14,8 +14,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
 ], function(
     declare,
     string,
-    Format,
-    Validator,
+    format,
+    validator,
     Edit
 ) {
 
@@ -190,7 +190,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                     textProperty: 'AccountName',
                     type: 'lookup',
                     requireSelection: true,
-                    validator: Validator.exists,
+                    validator: validator.exists,
                     view: 'account_related'
                 },
                 {
@@ -200,7 +200,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                     textProperty: 'NameLF',
                     type: 'lookup',
                     requireSelection: true,
-                    validator: Validator.exists,
+                    validator: validator.exists,
                     view: 'contact_related',
                     where: this.formatAccountQuery.bindDelegate(this)
                 },
@@ -290,14 +290,14 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                     label: this.needByText,
                     name: 'NeededByDate',
                     property: 'NeededByDate',
-                    renderer: Format.date,
+                    renderer: format.date,
                     type: 'date'
                 },
                 {
                     label: this.assignedDateText,
                     name: 'AssignedDate',
                     property: 'AssignedDate',
-                    renderer: Format.date,
+                    renderer: format.date,
                     type: 'date'
                 },
                 {

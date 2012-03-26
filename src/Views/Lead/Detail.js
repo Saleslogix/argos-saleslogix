@@ -4,9 +4,19 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/Lead/Detail', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    string,
+    format,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Lead.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.Lead.Detail', [Detail], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
@@ -100,7 +110,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                 'AccountName': this.entry['Company'],
                 'LeadId': this.entry['$key'],
                 'LeadName': this.entry['LeadNameLastFirst'],
-                'Description': dojo.string.substitute(this.calledText, [this.entry['LeadNameLastFirst']]),
+                'Description': string.substitute(this.calledText, [this.entry['LeadNameLastFirst']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -116,7 +126,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                 'AccountName': this.entry['Company'],
                 'LeadId': this.entry['$key'],
                 'LeadName': this.entry['LeadNameLastFirst'],
-                'Description': dojo.string.substitute(this.emailedText, [this.entry['LeadNameLastFirst']]),
+                'Description': string.substitute(this.emailedText, [this.entry['LeadNameLastFirst']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -142,10 +152,10 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
             return !value;
         },
         viewAddress: function() {
-            App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entry['Address'], true, ' '));
+            App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
         },
         checkAddress: function(entry, value) {
-            return !Mobile.SalesLogix.Format.address(value, true, '');
+            return !format.address(value, true, '');
         },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
@@ -173,7 +183,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
                     disabled: this.checkWorkPhone,
-                    renderer: Mobile.SalesLogix.Format.phone.bindDelegate(this, false)
+                    renderer: format.phone.bindDelegate(this, false)
                 },{
                     name: 'CheckEmailAction',
                     property: 'Email',
@@ -202,7 +212,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: Mobile.SalesLogix.Format.address.bindDelegate(this, [true, ' '])
+                    renderer: format.address.bindDelegate(this, [true, ' '])
                 }]
             },{
                 title: this.detailsText,
@@ -219,7 +229,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     label: this.webText,
                     name: 'WebAddress',
                     property: 'WebAddress',
-                    renderer: Mobile.SalesLogix.Format.link
+                    renderer: format.link
                 },{
                     label: this.leadTitleText,
                     name: 'Title',
@@ -228,7 +238,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', ['Sage/Platform/Mobile/Detail'], f
                     label: this.tollFreeText,
                     name: 'TollFree',
                     property: 'TollFree',
-                    renderer: Mobile.SalesLogix.Format.phone
+                    renderer: format.phone
                 },{
                     label: this.leadSourceText,
                     name: 'LeadSource.Description',

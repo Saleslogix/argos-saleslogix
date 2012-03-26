@@ -60,8 +60,8 @@ define('Mobile/SalesLogix/Views/Home', [
                     insert: true
                 });
         },
-        formatSearchQuery: function(query) {
-            var expression = new RegExp(query, 'i');
+        formatSearchQuery: function(searchQuery) {
+            var expression = new RegExp(searchQuery, 'i');
 
             return function(entry) {
                 return expression.test(entry.title);

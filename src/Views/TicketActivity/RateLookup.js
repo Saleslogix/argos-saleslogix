@@ -36,8 +36,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', [
         ],
         resourceKind: 'ticketActivityRates',
 
-        formatSearchQuery: function(query) {
-            return string.substitute('upper(RateTypeCode) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(RateTypeCode) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

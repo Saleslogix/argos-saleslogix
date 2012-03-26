@@ -54,10 +54,10 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         ],
         resourceKind: 'tickets',
 
-        formatSearchQuery: function(query) {
+        formatSearchQuery: function(searchQuery) {
             return string.substitute(
                 'TicketNumber like "${0}%" or AlternateKeySuffix like "${0}%" or upper(Subject) like "${0}%" or Account.AccountNameUpper like "${0}%"',
-                [this.escapeSearchQuery(query.toUpperCase())]
+                [this.escapeSearchQuery(searchQuery.toUpperCase())]
             );
         }
     });

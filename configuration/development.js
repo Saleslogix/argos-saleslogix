@@ -1,8 +1,8 @@
-define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], function() {
+define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], function(ApplicationModule) {
 
     return {
         modules: [
-            new Mobile.SalesLogix.ApplicationModule()
+            new ApplicationModule()
         ],
         connections: {
             'crm': {

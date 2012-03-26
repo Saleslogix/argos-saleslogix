@@ -17,9 +17,9 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     declare,
     array,
     string,
-    Validator,
-    Template,
-    Utility,
+    validator,
+    template,
+    utility,
     Edit
 ) {
 
@@ -199,7 +199,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
 
             if (selection && this.insert)
             {
-                this.fields['Company'].setValue(Utility.getValue(selection, 'Company'));
+                this.fields['Company'].setValue(utility.getValue(selection, 'Company'));
             }
         },
         formatPicklistForType: function(type, which) {
@@ -318,7 +318,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         formatDependentQuery: function(dependentValue, format, property) {
             property = property || '$key';
 
-            return string.substitute(format, [Utility.getValue(dependentValue, property)]);
+            return string.substitute(format, [utility.getValue(dependentValue, property)]);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -339,7 +339,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     orderBy: 'text asc',
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },{
                     label: this.startingText,
                     name: 'StartDate',
@@ -349,8 +349,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     formatString: this.startingFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
-                        Validator.exists,
-                        Validator.isDateInRange
+                        validator.exists,
+                        validator.isDateInRange
                     ]
                 },{
                     label: this.durationText,
@@ -392,8 +392,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     formatString: this.completedFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
-                        Validator.exists,
-                        Validator.isDateInRange
+                        validator.exists,
+                        validator.isDateInRange
                     ]
                 },{
                     dependsOn: 'Type',
@@ -405,7 +405,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     orderBy: 'text asc',
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },{
                     label: this.followUpText,
                     title: this.followUpTitleText,
@@ -507,7 +507,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     title: this.priorityTitleText,
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },{
                     dependsOn: 'Type',
                     label: this.categoryText,
@@ -518,7 +518,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     title: this.categoryTitleText,
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },{
                     type: 'hidden',
                     name: 'UserId',
@@ -530,7 +530,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     include: false,
                     type: 'lookup',
                     textProperty: 'UserInfo',
-                    textTemplate: Template.nameLF,
+                    textTemplate: template.nameLF,
                     requireSelection: true,
                     view: 'user_list'
                 }]

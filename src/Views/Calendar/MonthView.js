@@ -24,9 +24,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     domAttr,
     domClass,
     domConstruct,
-    Format,
+    format,
     ErrorManager,
-    Convert,
+    convert,
     List
 ) {
 
@@ -388,8 +388,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                         ' between @${3}@ and @${4}@))'
                     ].join(''),
                     [App.context['user'] && App.context['user']['$key'],
-                    Convert.toIsoStringFromDate(startDate),
-                    Convert.toIsoStringFromDate(endDate),
+                    convert.toIsoStringFromDate(startDate),
+                    convert.toIsoStringFromDate(endDate),
                     startDate.toString('yyyy-MM-ddT00:00:00Z'),
                     endDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
@@ -405,8 +405,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                         ')'
                     ].join(''),
                     [App.context['user'] && App.context['user']['$key'],
-                    Convert.toIsoStringFromDate(startDate),
-                    Convert.toIsoStringFromDate(endDate)]
+                    convert.toIsoStringFromDate(startDate),
+                    convert.toIsoStringFromDate(endDate)]
                 );
         },
         processFeed: function(feed) {
@@ -418,7 +418,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             for(var i = 0; i < r.length; i++){
                 var row = r[i];
                 this.entries[row.Activity.$key] = row;
-                var startDay = Convert.toDateFromString(row.Activity.StartDate);
+                var startDay = convert.toDateFromString(row.Activity.StartDate);
                 var dateIndex = (r[i].Activity.Timeless)
                     ? this.dateToUTC(startDay)
                     : startDay;
@@ -441,8 +441,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 var row = r[i];
                 this.entries[row.$key] = row;
 
-                var startDay = Convert.toDateFromString(row.StartDate);
-                var endDay = Convert.toDateFromString(row.EndDate);
+                var startDay = convert.toDateFromString(row.StartDate);
+                var endDay = convert.toDateFromString(row.EndDate);
 
                 while(startDay.getDate() <= endDay.getDate()){
                     dateIndex = startDay.toString('yyyy-MM-dd');
@@ -565,8 +565,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             return string.substitute(
                 activityQuery,
                 [App.context['user'] && App.context['user']['$key'],
-                Convert.toIsoStringFromDate(this.currentDate),
-                Convert.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
+                convert.toIsoStringFromDate(this.currentDate),
+                convert.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
                 this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
                 this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
             );

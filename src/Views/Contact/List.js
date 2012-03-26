@@ -41,8 +41,8 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         ],        
         resourceKind: 'contacts',
 
-        formatSearchQuery: function(query) {
-            return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

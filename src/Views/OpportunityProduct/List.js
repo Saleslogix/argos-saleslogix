@@ -12,7 +12,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
 ], function(
     declare,
     string,
-    Format,
+    format,
     List
 ) {
 
@@ -56,8 +56,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
                 tbar: []
             });
         },
-        formatSearchQuery: function(query) {
-            return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

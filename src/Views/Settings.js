@@ -6,9 +6,11 @@
 
 define('Mobile/SalesLogix/Views/Settings', [
     'dojo/_base/declare',
+    'dojo/_base/connect',
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
+    connect,
     List
 ) {
 
@@ -68,6 +70,10 @@ define('Mobile/SalesLogix/Views/Settings', [
         clearLocalStorage: function() {
             if (window.localStorage)
                 window.localStorage.clear();
+
+            connect.publish('/app/refresh', [{
+                resourceKind: 'localStorage'
+            }]);
 
             alert(this.localStorageClearedText);
         },

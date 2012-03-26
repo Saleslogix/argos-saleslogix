@@ -37,8 +37,8 @@ define('Mobile/SalesLogix/Views/User/List', [
         ],
         resourceKind: 'users',
 
-        formatSearchQuery: function(query) {
-            return string.substitute('upper(UserInfo.UserName) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(UserInfo.UserName) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

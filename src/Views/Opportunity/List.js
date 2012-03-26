@@ -4,9 +4,19 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Opportunity/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Opportunity/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    format,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Opportunity.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-opportunity-status="{%: $.Status %}">',
@@ -61,8 +71,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', ['Sage/Platform/Mobile/List']
         ],
         resourceKind: 'opportunities',
 
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

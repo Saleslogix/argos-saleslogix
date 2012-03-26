@@ -15,7 +15,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
     declare,
     query,
     domClass,
-    Format,
+    format,
     ErrorManager,
     Detail
 ) {
@@ -196,7 +196,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                     label: this.needByText,
                     name: 'NeededByDate',
                     property: 'NeededByDate',
-                    renderer: Format.date
+                    renderer: format.date
                 },{
                     label: this.assignedToText,
                     name: 'AssignedTo.OwnerDescription',
@@ -221,7 +221,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                     label: this.assignedDateText,
                     name: 'AssignedDate',
                     property: 'AssignedDate',
-                    renderer: Format.date
+                    renderer: format.date
                 },{
                     label: this.resolutionText,
                     name: 'TicketSolution.Notes',

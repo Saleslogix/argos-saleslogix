@@ -3,7 +3,6 @@
 /// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
-/// <reference path="../../Format.js"/>
 
 
 define('Mobile/SalesLogix/Views/Account/Edit', [
@@ -16,9 +15,9 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
 ], function(
     declare,
     string,
-    Validator,
-    Format,
-    Template,
+    validator,
+    format,
+    template,
     Edit
 ) {
 
@@ -84,26 +83,26 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                 name: 'AccountName',
                 property: 'AccountName',
                 type: 'text',
-                validator: Validator.hasText
+                validator: validator.hasText
             },{
                 label: this.webText,
                 name: 'WebAddress',
                 property: 'WebAddress',
-                renderer: Format.link,
+                renderer: format.link,
                 type: 'text',
                 inputType: 'url',
                 maxTextLength: 128,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },{
                 label: this.phoneText,
                 name: 'MainPhone',
                 property: 'MainPhone',
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },{
                 emptyText: '',
-                formatValue: Format.address.bindDelegate(this, [true], true),
+                formatValue: format.address.bindDelegate(this, [true], true),
                 label: this.fullAddressText,
                 name: 'Address',
                 property: 'Address',
@@ -115,7 +114,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                 property: 'Fax',
                 type: 'phone',
                 maxTextLength: 32,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },{
                 label: this.typeText,
                 name: 'Type',
@@ -136,7 +135,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                 title: this.accountSubTypeTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },{
                 label: this.statusText,
                 name: 'Status',
@@ -154,7 +153,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                 title: this.industryTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },{
                 label: this.businessDescriptionText,
                 name: 'BusinessDescription',
@@ -168,7 +167,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                 name: 'AccountManager',
                 property: 'AccountManager',
                 textProperty: 'UserInfo',
-                textTemplate: Template.nameLF,
+                textTemplate: template.nameLF,
                 type: 'lookup',
                 view: 'user_list'
             },{

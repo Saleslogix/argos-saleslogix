@@ -15,9 +15,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 ], function(
     declare,
     string,
-    Template,
-    Validator,
-    Utility,
+    template,
+    validator,
+    utility,
     Edit
 ) {
 
@@ -266,7 +266,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (selection && this.insert)
             {
-                this.fields['AccountName'].setValue(Utility.getValue(selection, 'Company'));
+                this.fields['AccountName'].setValue(utility.getValue(selection, 'Company'));
             }
         },
         onLeaderChange: function(value, field) {
@@ -275,10 +275,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onAccountChange: function(value, field) {
             var fields = this.fields;
-            dojo.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
+            array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
                 if (value) {
                     fields[f].dependsOn = 'Account';
-                    fields[f].where = dojo.string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
+                    fields[f].where = string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
 
                     if (fields[f].currentSelection &&
                         fields[f].currentSelection.Account['$key'] != (value['AccountId'] || value['key'])) {
@@ -414,8 +414,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             });
 
             this.fields['Account'].setValue({
-                'AccountId': Utility.getValue(entry, 'Account.$key'),
-                'AccountName': Utility.getValue(entry, 'Account.AccountName')
+                'AccountId': utility.getValue(entry, 'Account.$key'),
+                'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
         },
         applyTicketContext: function(context) {
@@ -430,13 +430,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             });
 
             this.fields['Contact'].setValue({
-                'ContactId': Utility.getValue(entry, 'Contact.$key'),
-                'ContactName': Utility.getValue(entry, 'Contact.NameLF')
+                'ContactId': utility.getValue(entry, 'Contact.$key'),
+                'ContactName': utility.getValue(entry, 'Contact.NameLF')
             });
 
             this.fields['Account'].setValue({
-                'AccountId': Utility.getValue(entry, 'Account.$key'),
-                'AccountName': Utility.getValue(entry, 'Account.AccountName')
+                'AccountId': utility.getValue(entry, 'Account.$key'),
+                'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
         },
         applyOpportunityContext: function(context) {
@@ -451,8 +451,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             });
 
             this.fields['Account'].setValue({
-                'AccountId': Utility.getValue(entry, 'Account.$key'),
-                'AccountName': Utility.getValue(entry, 'Account.AccountName')
+                'AccountId': utility.getValue(entry, 'Account.$key'),
+                'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
         },
         applyLeadContext: function(context) {
@@ -572,7 +572,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return {'$resources': list};
         },
         formatDependentQuery: function(dependentValue, format, property) {
-            return string.substitute(format, [Utility.getValue(dependentValue, property || '$key')]);
+            return string.substitute(format, [utility.getValue(dependentValue, property || '$key')]);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -589,7 +589,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 orderBy: 'text asc',
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },{
                 label: this.priorityText,
                 name: 'Priority',
@@ -598,7 +598,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 title: this.priorityTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },{
                 dependsOn: 'Type',
                 label: this.categoryText,
@@ -609,7 +609,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 title: this.activityCategoryTitleText,
                 type: 'picklist',
                 maxTextLength: 64,
-                validator: Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },{
                 label: this.startingText,
                 name: 'StartDate',
@@ -620,8 +620,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 dateFormatText: this.startingFormatText,
                 minValue: (new Date(1900, 0, 1)),
                 validator: [
-                    Validator.exists,
-                    Validator.isDateInRange
+                    validator.exists,
+                    validator.isDateInRange
                 ]
             },{
                 label: this.timelessText,
@@ -666,7 +666,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 include: false,
                 type: 'lookup',
                 textProperty: 'UserInfo',
-                textTemplate: Template.nameLF,
+                textTemplate: template.nameLF,
                 requireSelection: true,
                 view: 'user_list',
                 where: 'Type ne "Template" and Type ne "Retired"'

@@ -10,7 +10,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', [
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
-    Format,
+    format,
     Detail
 ) {
 
@@ -62,7 +62,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', [
                     name: 'ItemAmount',
                     property: 'ItemAmount',
                     label: this.itemAmountText,
-                    renderer: Format.currency
+                    renderer: format.currency
                 },{
                     name: 'ItemDescription',
                     property: 'ItemDescription',

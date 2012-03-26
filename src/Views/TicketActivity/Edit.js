@@ -11,7 +11,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
-    Template,
+    template,
     Edit
 ) {
 
@@ -84,7 +84,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     name: 'User',
                     property: 'User',
                     textProperty: 'UserInfo',
-                    textTemplate: Template.nameLF,
+                    textTemplate: template.nameLF,
                     type: 'lookup',
                     view: 'user_list'
                 },{

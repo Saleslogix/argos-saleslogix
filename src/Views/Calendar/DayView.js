@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     query,
     domClass,
     ErrorManager,
-    Convert,
+    convert,
     List
 ) {
 
@@ -358,18 +358,17 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.refresh();
         },
         formatQueryForActivities: function() {
-            var C = Sage.Platform.Mobile.Convert;
-            var query = [
+            var queryWhere = [
                 'UserId eq "${0}" and (',
                 '(Activity.Timeless eq false and Activity.StartDate between @${1}@ and @${2}@) or ',
                 '(Activity.Timeless eq true and Activity.StartDate between @${3}@ and @${4}@))'
             ].join('');
 
             return string.substitute(
-                query,
+                queryWhere,
                 [App.context['user'] && App.context['user']['$key'],
-                C.toIsoStringFromDate(this.currentDate),
-                C.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
+                convert.toIsoStringFromDate(this.currentDate),
+                convert.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
                 this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
                 this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
             );

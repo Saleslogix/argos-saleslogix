@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     domStyle,
     domGeom,
     query,
-    Format,
+    format,
     List
 ) {
 
@@ -60,7 +60,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         resourceKind: 'ticketActivities',
 
         _onResize: function() {
-            dojo.query('.note-text-item', this.contentNode).forEach(function(node){
+            query('.note-text-item', this.contentNode).forEach(function(node){
                 var wrapNode = query('.note-text-wrap', node)[0],
                     moreNode = query('.note-text-more', node)[0];
                 if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h)
@@ -77,10 +77,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
             this.inherited(arguments);
             this.subscribe('/app/resize', this._onResize);
         },
-        formatSearchQuery: function(query) {
+        formatSearchQuery: function(searchQuery) {
             return string.substitute(
                 'ActivityDescription like "${0}%"',
-                [this.escapeSearchQuery(query.toUpperCase())]
+                [this.escapeSearchQuery(searchQuery.toUpperCase())]
             );
         }
     });

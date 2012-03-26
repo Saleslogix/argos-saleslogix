@@ -99,7 +99,7 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
         refreshRequiredFor: function(options) {
             return true; // todo: implement refresh detection?
         },
-        formatSearchQuery: function(query) {
+        formatSearchQuery: function(searchQuery) {
 
         }
     });

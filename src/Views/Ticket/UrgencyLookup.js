@@ -32,8 +32,8 @@ define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', [
         ],
         resourceKind: 'urgencies',
 
-        formatSearchQuery: function(query) {
-            return string.substitute('upper(Description) like "%${0}%"', this.escapeSearchQuery(query.toUpperCase()));
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(Description) like "%${0}%"', this.escapeSearchQuery(searchQuery.toUpperCase()));
         }
     });
 });

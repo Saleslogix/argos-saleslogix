@@ -18,15 +18,15 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     string,
     query,
     domClass,
-    Template,
-    Format,
-    Convert,
+    template,
+    format,
+    convert,
     Detail
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail], {
         //Templates
-        leaderTemplate: Template.nameLF,
+        leaderTemplate: template.nameLF,
 
         //Localization
         activityTypeText: {
@@ -119,10 +119,10 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
         isActivityTimeless: function(entry) {
-            return entry && Convert.toBoolean(entry['Timeless']);
+            return entry && convert.toBoolean(entry['Timeless']);
         },
         doesActivityHaveReminder: function(entry) {
-            return Convert.toBoolean(entry && entry['Alarm']);
+            return convert.toBoolean(entry && entry['Alarm']);
         },
         requestLeader: function(userId) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
@@ -154,7 +154,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     domClass.remove(rowNode[0], 'content-loading');
 
                 if (contentNode)
-                    contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
+                    contentNode[0].innerHTML = this.leadertemplate.apply(leader['UserInfo']);
             }
         },
         checkCanComplete: function(entry) {
@@ -211,13 +211,13 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     name: 'StartDate',
                     property: 'StartDate',
                     label: this.startTimeText,
-                    renderer: Format.date.bindDelegate(this, this.startDateFormatText, false),
+                    renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
                     exclude: this.isActivityTimeless
                 },{
                     name: 'StartDateTimeless',
                     property: 'StartDate',
                     label: this.allDayText,
-                    renderer: Format.date.bindDelegate(this, this.timelessDateFormatText, true),
+                    renderer: format.date.bindDelegate(this, this.timelessDateFormatText, true),
                     include: this.isActivityTimeless
                 },{
                     name: 'Timeless',
@@ -229,7 +229,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     name: 'Duration',
                     property: 'Duration',
                     label: this.durationText,
-                    renderer: Format.timespan,
+                    renderer: format.timespan,
                     exclude: this.isActivityTimeless
                 },{
                     name: 'Alarm',
@@ -240,7 +240,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     name: 'AlarmTime',
                     property: 'AlarmTime',
                     label: this.alarmTimeText,
-                    renderer: Format.date.bindDelegate(this, this.alarmDateFormatText, null, true),
+                    renderer: format.date.bindDelegate(this, this.alarmDateFormatText, null, true),
                     include: this.doesActivityHaveReminder
                 },{
                     name: 'Rollover',

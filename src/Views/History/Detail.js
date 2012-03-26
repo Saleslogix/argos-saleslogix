@@ -4,9 +4,19 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/History/Detail', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Template',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    format,
+    template,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.History.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.History.Detail', [Detail], {
         //Localization
         categoryText: 'category',
         completedText: 'completed',
@@ -93,7 +103,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     name: 'StartDate',
                     property: 'StartDate',
                     label: this.scheduledText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
+                    renderer: format.date.bindDelegate(
                         this, this.dateFormatText
                     ),
                     exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
@@ -101,7 +111,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     name: 'CompletedDate',
                     property: 'CompletedDate',
                     label: this.completedText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
+                    renderer: format.date.bindDelegate(
                         this, this.dateFormatText
                     ),
                     exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
@@ -109,7 +119,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     name: 'ModifyDate',
                     property: 'ModifyDate',
                     label: this.modifiedText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
+                    renderer: format.date.bindDelegate(
                         this, this.dateFormatText
                     ),
                     include: this.isHistoryOfType.bindDelegate(this, 'atNote')
@@ -127,7 +137,7 @@ define('Mobile/SalesLogix/Views/History/Detail', ['Sage/Platform/Mobile/Detail']
                     encode: false,
                     label: this.longNotesText,
                     provider: this.provideText.bindDelegate(this),
-                    use: Mobile.SalesLogix.Template.noteDetailProperty
+                    use: template.noteDetailProperty
                 }]
             },{
                 title: this.relatedItemsText,

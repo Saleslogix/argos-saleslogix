@@ -67,8 +67,8 @@ define('Mobile/SalesLogix/Views/PickList', [
             this.autoClearSelection = false;
             this._selectionModel.singleSelection = false;
         },
-        formatSearchQuery: function(query) {
-            return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
         createRequest: function() {
             return Mobile.SalesLogix.Views.PickList.superclass.createRequest.call(this)

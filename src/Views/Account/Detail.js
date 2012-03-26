@@ -12,7 +12,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
 ], function(
     declare,
     string,
-    Format,
+    format,
     Detail
 ) {
 
@@ -123,10 +123,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
             return !value;
         },
         viewAddress: function() {
-            App.showMapForAddress(Format.address(this.entry['Address'], true, ' '));
+            App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
         },
         checkAddress: function(entry, value) {
-            return !Format.address(value, true, '');
+            return !format.address(value, true, '');
         },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
@@ -154,7 +154,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callMainPhone',
                     disabled: this.checkMainPhone,
-                    renderer: Format.phone.bindDelegate(this, false)
+                    renderer: format.phone.bindDelegate(this, false)
                 },{
                     name: 'ScheduleActivityAction',
                     property: 'AccountName',
@@ -174,7 +174,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: Format.address.bindDelegate(this, true, ' ')
+                    renderer: format.address.bindDelegate(this, true, ' ')
                 }]
             },{
                 title: this.detailsText,
@@ -187,12 +187,12 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     name: 'WebAddress',
                     property: 'WebAddress',
                     label: this.webText,
-                    renderer: Format.link
+                    renderer: format.link
                 },{
                     name: 'Fax',
                     property: 'Fax',
                     label: this.faxText,
-                    renderer: Format.phone
+                    renderer: format.phone
                 },{
                     name: 'Type',
                     property: 'Type',

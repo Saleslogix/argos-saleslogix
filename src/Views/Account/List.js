@@ -43,8 +43,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
         ],
         resourceKind: 'accounts',
 
-        formatSearchQuery: function(query) {
-            return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
     

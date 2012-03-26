@@ -4,9 +4,17 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Lead/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Lead/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Lead.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Lead.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
@@ -32,8 +40,8 @@ define('Mobile/SalesLogix/Views/Lead/List', ['Sage/Platform/Mobile/List'], funct
         ],
         resourceKind: 'leads',
 
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

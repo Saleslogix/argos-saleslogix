@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     string,
     domClass,
     ErrorManager,
-    Convert,
+    convert,
     List
 ) {
 
@@ -263,8 +263,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                         '(Activity.Timeless eq true and Activity.StartDate between @${3}@ and @${4}@))'
                     ].join(''),[
                     App.context['user'] && App.context['user']['$key'],
-                    Convert.toIsoStringFromDate(this.weekStartDate),
-                    Convert.toIsoStringFromDate(this.weekEndDate),
+                    convert.toIsoStringFromDate(this.weekStartDate),
+                    convert.toIsoStringFromDate(this.weekEndDate),
                     this.weekStartDate.toString('yyyy-MM-ddT00:00:00Z'),
                     this.weekEndDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
@@ -272,7 +272,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         setWeekTitle: function(){
             var start = this.getStartDay(this.currentDate),
                 end = this.getEndDay(this.currentDate);
-            this.set('dateContent', dojo.string.substitute('${0}-${1}',
+            this.set('dateContent', string.substitute('${0}-${1}',
                 [start.toString(this.weekTitleFormatText),
                 end.toString(this.weekTitleFormatText)]
             ));
@@ -311,7 +311,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
 
                 for(var i = 0; i < feed['$resources'].length; i++){
                     currentEntry = feed['$resources'][i];
-                    startDate = Convert.toDateFromString(currentEntry.Activity.StartDate);
+                    startDate = convert.toDateFromString(currentEntry.Activity.StartDate);
                     if(currentEntry.Activity.Timeless){
                         startDate = this.dateToUTC(startDate);
                     }
@@ -447,8 +447,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             for(var i = 0; i < feedLength; i++){
                 event = feed['$resources'][i];
                 event.isEvent = true;
-                event.StartDate = Convert.toDateFromString(event.StartDate);
-                event.EndDate = Convert.toDateFromString(event.EndDate);
+                event.StartDate = convert.toDateFromString(event.StartDate);
+                event.EndDate = convert.toDateFromString(event.EndDate);
                 this.entries[event.$key] = event;
                 o.push(this.eventRowTemplate.apply(event, this));
             }

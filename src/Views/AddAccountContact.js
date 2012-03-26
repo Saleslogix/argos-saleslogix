@@ -16,9 +16,9 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     declare,
     lang,
     string,
-    Format,
-    Validator,
-    Utility,
+    format,
+    validator,
+    utility,
     Edit
 ) {
 
@@ -83,14 +83,14 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
         getValues: function(all) {
             var values = this.inherited(arguments);
 
-            Utility.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
-            Utility.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
+            utility.setValue(values, 'Contacts.$resources[0].$name', 'Contact');
+            utility.setValue(values, 'Contacts.$resources[0].AccountName', values['AccountName']);
 
             return values;
         },
-        formatDependentPicklist: function(dependentValue, format) {
+        formatDependentPicklist: function(dependentValue, fmt) {
             if(!lang.isArray(dependentValue)) dependentValue = [dependentValue];
-            return string.substitute(format, [dependentValue]);
+            return string.substitute(fmt, [dependentValue]);
         },
         onInsertCompleted: function(entry) {
             var view = App.getView('account_detail');
@@ -113,12 +113,12 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             return this.layout || (this.layout = [
                 {
                     emptyText: '',
-                    formatValue: Format.nameLF,
+                    formatValue: format.nameLF,
                     label: this.nameText,
                     name: 'Contacts.$resources[0]',
                     property: 'Contacts.$resources[0]',
                     type: 'name',
-                    validator: Validator.name,
+                    validator: validator.name,
                     view: 'name_edit'
                 },
                 {
@@ -126,7 +126,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                     name: 'AccountName',
                     property: 'AccountName',
                     type: 'text',
-                    validator: Validator.hasText
+                    validator: validator.hasText
                 },
                 {
                     label: this.emailText,
@@ -142,7 +142,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                     type: 'text',
                     inputType: 'url',
                     maxTextLength: 128,
-                    validator: Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.workText,
@@ -150,7 +150,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                     property: 'MainPhone',
                     type: 'phone',
                     maxTextLength: 32,
-                    validator: Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     title: this.detailsContactText,
@@ -170,7 +170,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                         property: 'Contacts.$resources[0].HomePhone',
                         type: 'phone',
                         maxTextLength: 32,
-                        validator: Validator.exceedsMaxTextLength
+                        validator: validator.exceedsMaxTextLength
                     },
                     {
                         name: 'Contacts.$resources[0].Mobile',
@@ -178,7 +178,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                         label: this.mobileText,
                         type: 'phone',
                         maxTextLength: 32,
-                        validator: Validator.exceedsMaxTextLength
+                        validator: validator.exceedsMaxTextLength
                     },
                     {
                         name: 'Contacts.$resources[0].Fax',
@@ -186,11 +186,11 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                         label: this.faxText,
                         type: 'phone',
                         maxTextLength: 32,
-                        validator: Validator.exceedsMaxTextLength
+                        validator: validator.exceedsMaxTextLength
                     },
                     {
                         emptyText: '',
-                        formatValue: Format.address.bindDelegate(this, true, true),
+                        formatValue: format.address.bindDelegate(this, true, true),
                         label: this.addressText,
                         name: 'Contacts.$resources[0].Address',
                         property: 'Contacts.$resources[0].Address',
@@ -208,7 +208,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                         label: this.faxText,
                         type: 'phone',
                         maxTextLength: 32,
-                        validator: Validator.exceedsMaxTextLength
+                        validator: validator.exceedsMaxTextLength
                     },
                     {
                         name: 'Type',
@@ -254,7 +254,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                     },
                     {
                         emptyText: '',
-                        formatValue: Format.address.bindDelegate(this, true, true),
+                        formatValue: format.address.bindDelegate(this, true, true),
                         label: this.addressText,
                         name: 'Address',
                         property: 'Address',

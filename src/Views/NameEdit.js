@@ -6,7 +6,7 @@ define('Mobile/SalesLogix/Views/NameEdit', [
 ], function(
     declare,
     lang,
-    Validator,
+    validator,
     Edit
 ) {
 
@@ -45,7 +45,7 @@ define('Mobile/SalesLogix/Views/NameEdit', [
                     label: this.firstNameText,
                     type: 'text',
                     maxTextLength: 32,
-                    validator: Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     name: 'MiddleName',
@@ -53,7 +53,7 @@ define('Mobile/SalesLogix/Views/NameEdit', [
                     label: this.middleNameText,
                     type: 'text',
                     maxTextLength: 32,
-                    validator: Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     name: 'LastName',
@@ -61,7 +61,7 @@ define('Mobile/SalesLogix/Views/NameEdit', [
                     label: this.lastNameText,
                     type: 'text',
                     maxTextLength: 32,
-                    validator: Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     emptyText: '',

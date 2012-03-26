@@ -16,8 +16,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     declare,
     query,
     domClass,
-    Format,
-    Template,
+    format,
+    template,
     ErrorManager,
     Detail
 ) {
@@ -157,7 +157,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
                     name: 'User.UserInfo',
                     property: 'User.UserInfo',
                     label: this.userText,
-                    tpl: Template.nameLF
+                    tpl: template.nameLF
                 },{
                     label: this.typeText,
                     name: 'ActivityTypeCode',
@@ -172,17 +172,17 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
                     label: this.assignedDateText,
                     name: 'AssignedDate',
                     property: 'AssignedDate',
-                    renderer: Format.date
+                    renderer: format.date
                 },{
                     label: this.completedDateText,
                     name: 'CompletedDate',
                     property: 'CompletedDate',
-                    renderer: Format.date
+                    renderer: format.date
                 },{
                     label: this.followUpText,
                     name: 'FollowUp',
                     property: 'FollowUp',
-                    renderer: Format.yesNo
+                    renderer: format.yesNo
                 },{
                     label: this.activityDescriptionText,
                     name: 'ActivityDescription',
@@ -208,22 +208,22 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
                     label: this.rateText,
                     name: 'Rate',
                     property: 'Rate',
-                    renderer: Format.currency
+                    renderer: format.currency
                 },{
                     label: this.totalLaborText,
                     name: 'TotalLabor',
                     property: 'TotalLabor',
-                    renderer: Format.currency
+                    renderer: format.currency
                 },{
                     label: this.totalPartsText,
                     name: 'TotalParts',
                     property: 'TotalParts',
-                    renderer: Format.currency
+                    renderer: format.currency
                 },{
                     label: this.totalFeeText,
                     name: 'TotalFee',
                     property: 'TotalFee',
-                    renderer: Format.currency
+                    renderer: format.currency
                 }]
             },{
                 list: true,

@@ -5,9 +5,19 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/OpportunityContact/Edit', ['Sage/Platform/Mobile/Edit', 'Sage/Platform/Mobile/Utility'], function() {
+define('Mobile/SalesLogix/Views/OpportunityContact/Edit', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Utility',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    format,
+    utility,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.OpportunityContact.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.OpportunityContact.Edit', [Edit], {
         //Localization
         titleText: 'Edit Opp. Contact',
         nameText: 'name',
@@ -42,7 +52,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', ['Sage/Platform/Mobile
                 name: 'ContactSection',
                 children: [
                     {
-                        formatValue: Mobile.SalesLogix.Format.nameLF,
+                        formatValue: format.nameLF,
                         label: this.nameText,
                         name: 'ContactName',
                         type: 'text',

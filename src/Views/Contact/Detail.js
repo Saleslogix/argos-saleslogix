@@ -13,8 +13,8 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
 ], function(
     declare,
     string,
-    Format,
-    Template,
+    format,
+    template,
     Detail
 ) {
 
@@ -157,10 +157,10 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
             return !value;        
         },
         viewAddress: function() {
-            App.showMapForAddress(Format.address(this.entry['Address'], true, ' '));
+            App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
         },
         checkAddress: function(entry, value) {
-            return !Format.address(value, true, '');
+            return !format.address(value, true, '');
         },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
@@ -188,7 +188,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                     icon: 'content/images/icons/Dial_24x24.png',
                     action: 'callWorkPhone',
                     disabled: this.checkValueExists,
-                    renderer: Format.phone.bindDelegate(this, false)
+                    renderer: format.phone.bindDelegate(this, false)
                 },{
                     name: 'CallMobilePhoneAction',
                     property: 'Mobile',
@@ -196,7 +196,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                     icon: 'content/images/icons/mobile_24.png',
                     action: 'callMobilePhone',
                     disabled: this.checkValueExists,
-                    renderer: Format.phone.bindDelegate(this, false)
+                    renderer: format.phone.bindDelegate(this, false)
                 },{
                     name: 'SendEmailAction',
                     property: 'Email',
@@ -225,7 +225,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                     icon: 'content/images/icons/Map_24.png',
                     action: 'viewAddress',
                     disabled: this.checkAddress,
-                    renderer: Format.address.bindDelegate(this, true, ' ')
+                    renderer: format.address.bindDelegate(this, true, ' ')
                 }]
             },{
                 title: this.detailsText,
@@ -245,7 +245,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                     name: 'WebAddress',
                     property: 'WebAddress',
                     label: this.webText,
-                    renderer: Format.link
+                    renderer: format.link
                 },{
                     name: 'Title',
                     property: 'Title',
@@ -259,17 +259,17 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                     name: 'HomePhone',
                     property: 'HomePhone',
                     label: this.homeText,
-                    renderer: Format.phone
+                    renderer: format.phone
                 },{
                     name: 'Fax',
                     property: 'Fax',
                     label: this.faxText,
-                    renderer: Format.phone
+                    renderer: format.phone
                 },{
                     name: 'AccountManager.UserInfo',
                     property: 'AccountManager.UserInfo',
                     label: this.acctMgrText,
-                    tpl: Template.nameLF
+                    tpl: template.nameLF
                 },{
                     name: 'Owner.OwnerDescription',
                     property: 'Owner.OwnerDescription',

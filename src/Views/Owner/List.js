@@ -33,8 +33,8 @@ define('Mobile/SalesLogix/Views/Owner/List', [
         ],
         resourceKind: 'owners',
 
-        formatSearchQuery: function(query) {
-            return string.substitute('upper(OwnerDescription) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(OwnerDescription) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });
