@@ -56,6 +56,11 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
 
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
             this.connect(this.fields['IsLead'], 'onChange', this.onIsLeadChange);
+
+            this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+            this.connect(this.fields['Contact'], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
         },
         isHistoryForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -97,6 +102,33 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
             if (selection && this.insert)
             {
                 this.fields['AccountName'].setValue(getV(selection, 'Company'));
+            }
+        },
+        onAccountChange: function(value, field) {
+            var fields = this.fields;
+            dojo.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
+                if (value) {
+                    fields[f].dependsOn = 'Account';
+                    fields[f].where = dojo.string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
+
+                    if (fields[f].currentSelection &&
+                        fields[f].currentSelection.Account['$key'] != (value['AccountId'] || value['key'])) {
+
+                        fields[f].setValue(false);
+                    }
+
+                } else {
+                    fields[f].dependsOn = null;
+                    fields[f].where = 'Account.AccountName ne null';
+                }
+            });
+        },
+        onAccountDependentChange: function(value, field) {
+            if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
+                this.fields['Account'].setValue({
+                    'AccountId': field.currentSelection.Account['$key'],
+                    'AccountName': field.currentSelection.Account['AccountName']
+                });
             }
         },
         showFieldsForLead: function() {
@@ -320,7 +352,6 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                     view: 'account_related',
                     validator: Mobile.SalesLogix.Validator.exists
                 },{
-                    dependsOn: 'Account',
                     label: this.contactText,
                     name: 'Contact',
                     property: 'Contact',
@@ -334,7 +365,6 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                         this, 'Account.Id eq "${0}"', 'AccountId'
                     )
                 },{
-                    dependsOn: 'Account',
                     label: this.opportunityText,
                     name: 'Opportunity',
                     property: 'Opportunity',
@@ -348,7 +378,6 @@ define('Mobile/SalesLogix/Views/History/Edit', ['Sage/Platform/Mobile/Edit'], fu
                         this, 'Account.Id eq "${0}"', 'AccountId'
                     )
                 },{
-                    dependsOn: 'Account',
                     label: this.ticketNumberText,
                     name: 'Ticket',
                     property: 'Ticket',
