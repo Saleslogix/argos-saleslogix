@@ -24,6 +24,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Account/List',
     'Mobile/SalesLogix/Views/Account/Detail',
     'Mobile/SalesLogix/Views/Account/Edit',
+    'Mobile/SalesLogix/Views/Address/List',
     'Mobile/SalesLogix/Views/Address/Edit',
     'Mobile/SalesLogix/Views/Activity/List',
     'Mobile/SalesLogix/Views/Activity/Detail',
@@ -99,6 +100,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerView(new Mobile.SalesLogix.Views.NameEdit());
             this.registerView(new Mobile.SalesLogix.Views.TextEdit());
+            this.registerView(new Mobile.SalesLogix.Views.Address.List({
+                id: 'address_related',
+                expose: false
+            }));
             this.registerView(new Mobile.SalesLogix.Views.Address.Edit());
 
             this.registerView(new Mobile.SalesLogix.Views.Account.List());

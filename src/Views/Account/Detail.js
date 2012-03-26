@@ -32,6 +32,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
         relatedNotesText: 'Notes',
         relatedOpportunitiesText: 'Opportunities',
         relatedTicketsText: 'Tickets',
+        relatedAddressesText: 'Additional Addresses',
         statusText: 'status',
         subTypeText: 'subtype',
         titleText: 'Account',
@@ -258,6 +259,13 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                     label: this.relatedHistoriesText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}" and Type ne "atDatabaseChange"'),
                     view: 'history_related'
+                },{
+                    name: 'AddressesRelated',
+                    icon: 'content/images/icons/Map_24.png',
+                    label: this.relatedAddressesText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
+                    // where: dojo.string.substitute('EntityId eq "${0}" and id ne "${1}"', [this.entry.Address.EntityId, this.entry.Address['$key']]),
+                    view: 'address_related'
                 }]
             }]);
         }
