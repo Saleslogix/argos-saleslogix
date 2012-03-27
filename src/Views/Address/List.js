@@ -9,12 +9,10 @@ define('Mobile/SalesLogix/Views/Address/List', ['Sage/Platform/Mobile/List'], fu
     return dojo.declare('Mobile.SalesLogix.Views.Address.List', [Sage.Platform.Mobile.List], {
         //Templates
         itemTemplate: new Simplate([
-            '<img src="{%: $$.icon %}" alt="icon" class="icon" />',
-            '<div class="note-text-item" data-action="viewAddress" data-key="{%= $.$key %}">',
-                '<h4>{%: $.$descriptor %}</h4>',
-                '<div class="note-text-wrap">',
-                    '{%: Mobile.SalesLogix.Format.address($, true, "\\n") %}',
-                '</div>',
+            '<img src="{%: $$.icon %}" alt="icon" class="icon" data-action="viewAddress" data-key="{%= $.$key %}" />',
+            '<div>',
+                '<h3>{%: $.$descriptor %}</h3>',
+                '<h4>{%= Mobile.SalesLogix.Format.address($, true) %}</h4>',
             '</div>'
         ]),
 
