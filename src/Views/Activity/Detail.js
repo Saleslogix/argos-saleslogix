@@ -20,6 +20,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         },
         actionsText: 'Quick Actions',
         completeActivityText: 'Complete Activity',
+        completeOccurrenceText: 'Complete Occurrence',
+        completeSeriesText: 'Complete Series',
         locationText: 'location',
         alarmText: 'alarm',
         alarmTimeText: 'alarm',
@@ -52,6 +54,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
         completeView: 'activity_complete',
         editView: 'activity_edit',
         security: null, //'Entities/Activity/View',
+        contractName: 'system',
         querySelect: [
             'AccountId',
             'AccountName',
@@ -63,7 +66,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             'ContactName',
             'Description',
             'Duration',
-            'UserId',
+            'Leader/$key',
             'LeadId',
             'LeadName',
             'LongNotes',
@@ -75,27 +78,44 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             'TicketId',
             'TicketNumber',
             'Timeless',
-            'Type'
+            'Type',
+            'Recurring',
+            'RecurrenceState'
         ],
         resourceKind: 'activities',
+        recurringActivityIdSeparator: ';',
 
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
-        completeActivity: function() {
+        navigateToCompleteView: function(completionTitle, isSeries) {
             var view = App.getView(this.completeView);
+
             if (view)
             {
                 this.refreshRequired = true;
 
                 view.show({
-                    title: 'Activity Complete',
+                    title: completionTitle,
                     template: {},
-                    entry: this.entry
+                    key: isSeries ? this.entry['$key'].split(this.recurringActivityIdSeparator).shift() : this.entry['$key']
                 }, {
                     returnTo: -1
                 });
+
             }
+        },
+        completeActivity: function() {
+            this.navigateToCompleteView(this.completeActivityText);
+        },
+        completeOccurrence: function() {
+            this.navigateToCompleteView(this.completeOccurrenceText);
+        },
+        completeSeries: function() {
+            this.navigateToCompleteView(this.completeSeriesText, true);
+        },
+        isActivityRecurring: function(entry) {
+            return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -140,7 +160,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             }
         },
         checkCanComplete: function(entry) {
-            return !entry || (entry['UserId'] !== App.context['user']['$key'])
+            return !entry || (entry['Leader']['$key'] !== App.context['user']['$key'])
         },
         processEntry: function(entry) {
             this.inherited(arguments);
@@ -159,7 +179,25 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     label: this.completeActivityText,
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeActivity',
-                    disabled: this.checkCanComplete
+                    disabled: this.checkCanComplete,
+                    exclude: this.isActivityRecurring
+                },{
+                    name: 'completeOccurrenceAction',
+                    property: 'StartDate',
+                    label: this.completeOccurrenceText,
+                    icon: 'content/images/icons/Clear_Activity_24x24.png',
+                    action: 'completeOccurrence',
+                    disabled: this.checkCanComplete,
+                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startDateFormatText, false),
+                    include: this.isActivityRecurring
+                },{
+                    name: 'completeSeriesAction',
+                    property: 'Description',
+                    label: this.completeSeriesText,
+                    icon: 'content/images/icons/Clear_Activity_24x24.png',
+                    action: 'completeSeries',
+                    disabled: this.checkCanComplete,
+                    include: this.isActivityRecurring
                 }]
             },{
                 title: this.detailsText,

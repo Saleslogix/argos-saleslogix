@@ -102,6 +102,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             'CompletedDate',
             'Description',
             'Duration',
+            'Leader/$key',
             'LeadId',
             'LeadName',
             'LongNotes',
@@ -116,9 +117,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             'TicketNumber',
             'Timeless',
             'Type',
-            'UserId'
+            'Recurring',
+            'RecurrenceState'
         ],
         resourceKind: 'activities',
+        contractName: 'system',
 
         init: function() {
             this.inherited(arguments);
@@ -267,7 +270,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                 "request": {
                     "entity": { '$key': entry.$key },
                     "ActivityId": entry.$key,
-                    "userId": entry.UserId,
+                    "userId": entry.Leader['$key'],
                     "result": this.fields['Result'].getValue(),
                     "completeDate":  this.fields['CompletedDate'].getValue()
                 }
@@ -285,6 +288,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
 
             var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
                 .setResourceKind('activities')
+                .setContractName('system')
                 .setOperationName('Complete');
 
             request.execute(completeActivityEntry, {
