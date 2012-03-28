@@ -56,6 +56,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
             'AccountManager/UserInfo/LastName',
             'AccountName',
             'Address/*',
+            'Addresses/$key',
             'CuisinePreference',
             'CreateDate',
             'CreateUser',
@@ -163,6 +164,15 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                     insert: true
                 });
             }
+        },
+        haveMultipleAddresses: function(entry) {
+            return (entry && 1 < entry['Addresses']['$resources'].length);
+        },
+        formatAddressesQuery: function(entry) {
+            return dojo.string.substitute('EntityId eq "${0}" and id ne "${1}"', [
+                Sage.Platform.Mobile.Utility.getValue(entry, 'Address.EntityId'),
+                Sage.Platform.Mobile.Utility.getValue(entry, 'Address.$key')
+                ]);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -300,8 +310,9 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
                     name: 'AddressesRelated',
                     icon: 'content/images/icons/Map_24.png',
                     label: this.relatedAddressesText,
-                    where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
-                    view: 'address_related'
+                    where: this.formatAddressesQuery.bindDelegate(this),
+                    view: 'address_related',
+                    include: this.haveMultipleAddresses
                 }]
             }]);
         }
