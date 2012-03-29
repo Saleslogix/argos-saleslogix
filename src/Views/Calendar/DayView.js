@@ -39,7 +39,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '</div>'
         ]),
         rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.Description %}" data-activity-type="{%: $.Activity.Type %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.Description %}" data-activity-type="{%: $.Type %}">',
             '<table class="calendar-entry-table"><tr>',
             '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
             '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
@@ -58,15 +58,15 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '</li>'
         ]),
         timeTemplate: new Simplate([
-            '{% if ($.Activity.Timeless) { %}',
+            '{% if ($.Timeless) { %}',
                 '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}</span>',
-                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>',
+                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>',
             '{% } %}'
         ]),
         itemTemplate: new Simplate([
-            '<h3 class="p-description">{%: $.Activity.Description %}</h3>',
+            '<h3 class="p-description">{%: $.Description %}</h3>',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
         ]),
         eventItemTemplate: new Simplate([
@@ -74,12 +74,12 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '<h4>{%! $$.eventNameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
-            '{% if ($.Activity.ContactName) { %}',
-            '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
-            '{% } else if ($.Activity.AccountName) { %}',
-            '{%: $.Activity.AccountName %}',
+            '{% if ($.ContactName) { %}',
+            '{%: $.ContactName %} / {%: $.AccountName %}',
+            '{% } else if ($.AccountName) { %}',
+            '{%: $.AccountName %}',
             '{% } else { %}',
-            '{%: $.Activity.LeadName %}',
+            '{%: $.LeadName %}',
             '{% } %}'
         ]),
         eventNameTemplate: new Simplate([
@@ -139,17 +139,19 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         insertView: 'activity_types_list',
         enableSearch: false,
         currentDate: null,
-        queryOrderBy: 'Activity.Timeless desc, Activity.StartDate',
+        contractName: 'system',
+        queryOrderBy: 'Timeless desc, StartDate',
         querySelect: [
-            'Activity/Description',
-            'Activity/StartDate',
-            'Activity/Type',
-            'Activity/AccountName',
-            'Activity/ContactName',
-            'Activity/LeadId',
-            'Activity/LeadName',
-            'Activity/UserId',
-            'Activity/Timeless'
+            'Description',
+            'StartDate',
+            'Type',
+            'AccountName',
+            'ContactName',
+            'LeadId',
+            'LeadName',
+            'UserId',
+            'Timeless',
+            'Recurring'
         ],
         eventFeed: null,
         eventPageSize: 3,
@@ -159,7 +161,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             'Description',
             'Type'
         ],
-        resourceKind: 'useractivities',
+        resourceKind: 'activities',
 
         _onRefresh: function(o) {
             this.inherited(arguments);
@@ -295,7 +297,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             for(var i = 0; i < feedLength; i++){
                 var row = r[i];
                 row.isEvent = false;
-                this.entries[row.Activity.$key] = row;
+                this.entries[row.$key] = row;
                 o.push(this.rowTemplate.apply(row, this));
             }
 
@@ -348,9 +350,9 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         formatQueryForActivities: function() {
             var C = Sage.Platform.Mobile.Convert;
             var query = [
-                'UserId eq "${0}" and (',
-                '(Activity.Timeless eq false and Activity.StartDate between @${1}@ and @${2}@) or ',
-                '(Activity.Timeless eq true and Activity.StartDate between @${3}@ and @${4}@))'
+                'UserActivities.UserId eq "${0}" and (',
+                '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
+                '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
 
             return dojo.string.substitute(
@@ -404,7 +406,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
                 view = App.getView(detailView);
-            descriptor = (entry.isEvent) ? descriptor : entry.Activity.Description;
+            descriptor = (entry.isEvent) ? descriptor : entry.Description;
             if (view)
                 view.show({
                     descriptor: descriptor,

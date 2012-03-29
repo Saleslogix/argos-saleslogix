@@ -19,15 +19,15 @@
       ]
     },
     {
-        "name": "SalesLogix Mobile Localization (en-US)",
-        "file": "localization/saleslogix/en.js",
-        "isDebug": true,
-        "fileIncludes":[
-            {
-                "text": "en.js",
-                "path": "../localization/saleslogix/"
-            }
-        ]
+      "name": "SalesLogix Mobile Localization (en-US)",
+      "file": "localization/saleslogix/en.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "en.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
     },
     {
       "name": "Core Mobile Localization (de-DE)",
@@ -45,15 +45,15 @@
       ]
     },
     {
-        "name": "SalesLogix Mobile Localization (de-DE)",
-        "file": "localization/saleslogix/de.js",
-        "isDebug": true,
-        "fileIncludes":[
-            {
-                "text": "de.js",
-                "path": "../localization/saleslogix/"
-            }
-        ]
+      "name": "SalesLogix Mobile Localization (de-DE)",
+      "file": "localization/saleslogix/de.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "de.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
     },
     {
       "name": "Core Mobile Localization (fr-FR)",
@@ -71,15 +71,15 @@
       ]
     },
     {
-        "name": "SalesLogix Mobile Localization (fr-FR)",
-        "file": "localization/saleslogix/fr.js",
-        "isDebug": true,
-        "fileIncludes":[
-            {
-                "text": "fr.js",
-                "path": "../localization/saleslogix/"
-            }
-        ]
+      "name": "SalesLogix Mobile Localization (fr-FR)",
+      "file": "localization/saleslogix/fr.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "fr.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
     },
     {
       "name": "Core Mobile Localization (ru-RU)",
@@ -97,15 +97,15 @@
       ]
     },
     {
-        "name": "SalesLogix Mobile Localization (ru-RU)",
-        "file": "localization/saleslogix/ru.js",
-        "isDebug": true,
-        "fileIncludes":[
-            {
-                "text": "ru.js",
-                "path": "../localization/saleslogix/"
-            }
-        ]
+      "name": "SalesLogix Mobile Localization (ru-RU)",
+      "file": "localization/saleslogix/ru.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "ru.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
     },
     {
       "name": "Core Mobile Localization (it-IT)",
@@ -123,15 +123,41 @@
       ]
     },
     {
-        "name": "SalesLogix Mobile Localization (it-IT)",
-        "file": "localization/saleslogix/it.js",
-        "isDebug": true,
-        "fileIncludes":[
-            {
-                "text": "it.js",
-                "path": "../localization/saleslogix/"
-            }
-        ]
+      "name": "SalesLogix Mobile Localization (it-IT)",
+      "file": "localization/saleslogix/it.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "it.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
+    },
+    {
+      "name": "Core Mobile Localization (en-GB)",
+      "file": "localization/en-GB.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "en-GB.js",
+          "path": "../localization/"
+        },
+        {
+          "text": "en-GB.js",
+          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+        }
+      ]
+    },
+    {
+      "name": "SalesLogix Mobile Localization (en-GB)",
+      "file": "localization/saleslogix/en-GB.js",
+      "isDebug": true,
+      "fileIncludes": [
+        {
+          "text": "en-GB.js",
+          "path": "../localization/saleslogix/"
+        }
+      ]
     },
     {
       "name": "SalesLogix Mobile",
@@ -280,6 +306,14 @@
         },
         {
           "text": "List.js",
+          "path": "../src/Views/ErrorLog"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/ErrorLog"
+        },
+        {
+          "text": "List.js",
           "path": "../src/Views/Event"
         },
         {
@@ -289,14 +323,6 @@
         {
           "text": "Edit.js",
           "path": "../src/Views/Event"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/ErrorLog"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/ErrorLog"
         },
         {
           "text": "List.js",
@@ -496,7 +522,7 @@
     {
       "src": "../content",
       "dest": "content",
-      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif|\\.swf)"
+      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif)"
     },
     {
       "src": "../configuration",

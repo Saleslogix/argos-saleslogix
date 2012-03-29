@@ -105,7 +105,7 @@
             "text": "it-IT.js",
             "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
         }]
-    }
+    },
     {
         "name": "SalesLogix Mobile Localization (it-IT)",
         "file": "localization/saleslogix/it.js",
@@ -113,6 +113,29 @@
         "fileIncludes":[
             {
                 "text": "it.js",
+                "path": "../localization/saleslogix/"
+            }
+        ]
+    },
+    {
+        "name": "Core Mobile Localization (en-GB)",
+        "file": "localization/en-GB.js",
+        "isDebug": true,
+        "fileIncludes": [{
+            "text": "en-GB.js",
+            "path": "../localization/"
+        },{
+            "text": "en-GB.js",
+            "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+        }]
+    },
+    {
+        "name": "SalesLogix Mobile Localization (en-GB)",
+        "file": "localization/saleslogix/en-GB.js",
+        "isDebug": true,
+        "fileIncludes":[
+            {
+                "text": "en-GB.js",
                 "path": "../localization/saleslogix/"
             }
         ]
