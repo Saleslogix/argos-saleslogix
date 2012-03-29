@@ -32,7 +32,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
         relatedNotesText: 'Notes',
         relatedOpportunitiesText: 'Opportunities',
         relatedTicketsText: 'Tickets',
-        relatedAddressesText: 'Additional Addresses',
+        relatedAddressesText: 'Addresses',
         statusText: 'status',
         subTypeText: 'subtype',
         titleText: 'Account',
@@ -264,7 +264,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', ['Sage/Platform/Mobile/Detail']
                     icon: 'content/images/icons/Map_24.png',
                     label: this.relatedAddressesText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
-                    // where: dojo.string.substitute('EntityId eq "${0}" and id ne "${1}"', [this.entry.Address.EntityId, this.entry.Address['$key']]),
                     view: 'address_related'
                 }]
             }]);

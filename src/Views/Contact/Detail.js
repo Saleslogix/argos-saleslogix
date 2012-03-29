@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', ['Sage/Platform/Mobile/Detail']
         relatedNotesText: 'Notes',
         relatedOpportunitiesText: 'Opportunities',
         relatedTicketsText: 'Tickets',
-        relatedAddressesText: 'Additional Addresses',
+        relatedAddressesText: 'Addresses',
         titleText: 'Contact',
         webText: 'web',
         workText: 'phone',
