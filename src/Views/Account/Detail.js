@@ -8,11 +8,13 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
     string,
     format,
+    template,
     Detail
 ) {
 
@@ -224,7 +226,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     name: 'AccountManager.UserInfo',
                     property: 'AccountManager.UserInfo',
                     label: this.acctMgrText,
-                    tpl: Mobile.SalesLogix.Template.nameLF
+                    tpl: template.nameLF
                 },{
                     name: 'Owner.OwnerDescription',
                     property: 'Owner.OwnerDescription',

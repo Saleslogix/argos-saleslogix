@@ -649,7 +649,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 domClass.add(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', string.substitute(this.countMoreText, [feed['$totalResults'] - feedLength]));
             } else {
-                domClass.removeClass(this.eventContainerNode, 'list-has-more');
+                domClass.remove(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', '');
             }
 

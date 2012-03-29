@@ -92,13 +92,14 @@ define('Mobile/SalesLogix/Format', [
                 },
                 clean = function(line){
                     return lang.trim(line.replace(/ {2,}/g, ' '));
-                };
+                },
+                _this = Mobile.SalesLogix.Format;
 
             if(!fmt)
-                fmt = this.countryCultures[o.Country] || Mobile.CultureInfo.name;
+                fmt = _this.countryCultures[o.Country] || Mobile.CultureInfo.name;
 
-            if(typeof this.addressCultureFormats[fmt] !== 'undefined')
-                fmt = this.addressCultureFormats[fmt];
+            if(typeof _this.addressCultureFormats[fmt] !== 'undefined')
+                fmt = _this.addressCultureFormats[fmt];
 
             if(fmt.indexOf('|') === -1)
                 lines = [fmt];
@@ -106,7 +107,7 @@ define('Mobile/SalesLogix/Format', [
                 lines = fmt.split('|');
 
             for(var i=0; i<lines.length; i++){
-                var line = this.replaceAddressPart(lines[i], o);
+                var line = _this.replaceAddressPart(lines[i], o);
                 if(isEmpty(line)){
                     lines.splice(i,1); i--;
                 } else {
@@ -185,7 +186,7 @@ define('Mobile/SalesLogix/Format', [
             if (typeof val !== 'string')
                 return val;
 
-            var formatters = this.phoneFormat,
+            var formatters = Mobile.SalesLogix.Format.phoneFormat,
                 clean = /^\+/.test(val)
                     ? val
                     : val.replace(/[^0-9x]/ig, ''),
@@ -210,7 +211,7 @@ define('Mobile/SalesLogix/Format', [
             if (isNaN(val) || val === null)
                 return val;
 
-            var v = this.fixed(val), // only 2 decimal places
+            var v = Mobile.SalesLogix.Format.fixed(val), // only 2 decimal places
                 f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
 
             return string.substitute(

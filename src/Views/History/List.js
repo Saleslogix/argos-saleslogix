@@ -43,7 +43,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             '<span class="p-time">{%: $$.formatDate($.CompletedDate) %}</span>',
             '<span class="p-meridiem">&nbsp;{%: $$.formatMeridiem($.CompletedDate) %}</span>',
             '{% } %}',
-            '<span class="p-description">&nbsp;{%! $.nameTemplate %}</span>',
+            '<span class="p-description">&nbsp;{%= $$.nameTemplate.apply($) %}</span>',
             '</h3>',
             '<h4>{%: $.Description %}</h4>',
             '<div class="note-text-item">',
@@ -154,7 +154,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             query('.note-text-item', this.contentNode).forEach(function(node){
                 var wrapNode = query('.note-text-wrap', node)[0],
                     moreNode = query('.note-text-more', node)[0];
-                if (domGeom.marginBox(node).h < domGeom.marginBox(wrapNode).h)
+                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h)
                     domStyle.set(moreNode, 'visibility', 'visible');
                 else
                     domStyle.set(moreNode, 'visibility', 'hidden');

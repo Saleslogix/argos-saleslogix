@@ -203,7 +203,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                     label: this.sendEmailText,
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
                     action: 'sendEmail',
-                    disabled: this.checkEmail
+                    disabled: this.checkValueExists
                 },{
                     name: 'ScheduleActivityAction',
                     label: this.scheduleActivityText,

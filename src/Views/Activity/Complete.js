@@ -8,6 +8,7 @@
 define('Mobile/SalesLogix/Views/Activity/Complete', [
     'dojo/_base/declare',
     'dojo/_base/array',
+    'dojo/_base/connect',
     'dojo/string',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
@@ -16,6 +17,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
 ], function(
     declare,
     array,
+    connect,
     string,
     validator,
     template,
@@ -151,7 +153,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         beforeTransitionTo: function() {
             this.inherited(arguments);
 
-            dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
@@ -290,7 +292,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
 
             var success = (function(scope, callback, entry) {
                 return function() {
-                    dojo.publish('/app/refresh',[{
+                    connect.publish('/app/refresh',[{
                         resourceKind: 'history'
                     }]);
 

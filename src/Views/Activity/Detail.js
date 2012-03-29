@@ -154,7 +154,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     domClass.remove(rowNode[0], 'content-loading');
 
                 if (contentNode)
-                    contentNode[0].innerHTML = this.leadertemplate.apply(leader['UserInfo']);
+                    contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
             }
         },
         checkCanComplete: function(entry) {

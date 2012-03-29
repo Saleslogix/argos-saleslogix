@@ -7,6 +7,7 @@
 
 define('Mobile/SalesLogix/Views/Activity/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
@@ -14,6 +15,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
+    array,
     string,
     template,
     validator,
@@ -198,23 +200,23 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.showFieldsForStandard();
         },
         showFieldsForLead: function() {
-            dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
 
-            dojo.forEach(this.fieldsForLeads, function(item) {
+            array.forEach(this.fieldsForLeads, function(item) {
                 if (this.fields[item])
                     this.fields[item].show();
             }, this);
         },
         showFieldsForStandard: function() {
-            dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
 
-            dojo.forEach(this.fieldsForStandard, function(item) {
+            array.forEach(this.fieldsForStandard, function(item) {
                     if (this.fields[item])
                         this.fields[item].show();
                 }, this);

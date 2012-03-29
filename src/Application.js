@@ -22,7 +22,7 @@ define('Mobile/SalesLogix/Application', [
     lang,
     has,
     string,
-    Environment,
+    environment,
     Application
 ) {
 
@@ -112,7 +112,7 @@ define('Mobile/SalesLogix/Application', [
         },
         onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
             var user = {
-                '$key': dojo.trim(result['response']['userId']),
+                '$key': lang.trim(result['response']['userId']),
                 '$descriptor': result['response']['prettyName'],
                 'UserName': result['response']['userName']
             };
@@ -460,15 +460,15 @@ define('Mobile/SalesLogix/Application', [
         },
         initiateCall: function() {
             // shortcut for environment call
-            Environment.initiateCall.apply(this, arguments);
+            environment.initiateCall.apply(this, arguments);
         },
         initiateEmail: function() {
             // shortcut for environment call
-            Environment.initiateEmail.apply(this, arguments);
+            environment.initiateEmail.apply(this, arguments);
         },
         showMapForAddress: function() {
             // shortcut for environment call
-            Environment.showMapForAddress.apply(this, arguments);
+            environment.showMapForAddress.apply(this, arguments);
         }
     });
 
