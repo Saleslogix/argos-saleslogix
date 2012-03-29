@@ -5,9 +5,21 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/Ticket/Edit', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Validator',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    string,
+    format,
+    validator,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Ticket.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.Ticket.Edit', [Edit], {
 
         //Localization
         accountText: 'acct',
@@ -101,7 +113,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
             {
                 var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
                     .setResourceKind('accounts')
-                    .setResourceSelector(dojo.string.substitute("'${0}'", [selection.$key]))
+                    .setResourceSelector(string.substitute("'${0}'", [selection.$key]))
                     .setResourceProperty('Contacts')
                     .setQueryArg('count', 1)
                     .setQueryArg('select', 'NameLF')
@@ -128,7 +140,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
             var value = this.fields['Account'].getValue(),
                 key = value && value['$key'];
 
-            return key ? dojo.string.substitute('Account.id eq "${0}"', [key]) : false;
+            return key ? string.substitute('Account.id eq "${0}"', [key]) : false;
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
@@ -178,7 +190,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                     textProperty: 'AccountName',
                     type: 'lookup',
                     requireSelection: true,
-                    validator: Mobile.SalesLogix.Validator.exists,
+                    validator: validator.exists,
                     view: 'account_related'
                 },
                 {
@@ -188,7 +200,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                     textProperty: 'NameLF',
                     type: 'lookup',
                     requireSelection: true,
-                    validator: Mobile.SalesLogix.Validator.exists,
+                    validator: validator.exists,
                     view: 'contact_related',
                     where: this.formatAccountQuery.bindDelegate(this)
                 },
@@ -278,14 +290,14 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', ['Sage/Platform/Mobile/Edit'], fun
                     label: this.needByText,
                     name: 'NeededByDate',
                     property: 'NeededByDate',
-                    renderer: Mobile.SalesLogix.Format.date,
+                    renderer: format.date,
                     type: 'date'
                 },
                 {
                     label: this.assignedDateText,
                     name: 'AssignedDate',
                     property: 'AssignedDate',
-                    renderer: Mobile.SalesLogix.Format.date,
+                    renderer: format.date,
                     type: 'date'
                 },
                 {

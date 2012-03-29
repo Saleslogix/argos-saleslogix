@@ -4,9 +4,19 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Event/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Event/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    format,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Event.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Event.List', [List], {
         // Localization
         titleText: 'Events',
         eventDateFormatText: 'M/d/yyyy',
@@ -39,8 +49,8 @@ define('Mobile/SalesLogix/Views/Event/List', ['Sage/Platform/Mobile/List'], func
         ],
         resourceKind: 'events',
 
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

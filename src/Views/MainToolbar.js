@@ -4,9 +4,15 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/MainToolbar', ['Sage/Platform/Mobile/MainToolbar'], function() {
+define('Mobile/SalesLogix/Views/MainToolbar', [
+    'dojo/_base/declare',
+    'Sage/Platform/Mobile/MainToolbar'
+], function(
+    declare,
+    MainToolbar
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.MainToolbar', [Sage.Platform.Mobile.MainToolbar], {
+    return declare('Mobile.SalesLogix.Views.MainToolbar', [MainToolbar], {
         titleText: 'Sage Saleslogix',
         showTools: function(tools) {
             var hasLeftSideTools;

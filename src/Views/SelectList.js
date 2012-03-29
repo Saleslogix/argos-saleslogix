@@ -4,9 +4,15 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/SelectList', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/SelectList', [
+    'dojo/_base/declare',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.SelectList', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.SelectList', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'

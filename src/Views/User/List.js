@@ -5,9 +5,17 @@
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 
-define('Mobile/SalesLogix/Views/User/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/User/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.User.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.User.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.UserInfo.LastName %}, {%: $.UserInfo.FirstName %}</h3>',
@@ -29,8 +37,8 @@ define('Mobile/SalesLogix/Views/User/List', ['Sage/Platform/Mobile/List'], funct
         ],
         resourceKind: 'users',
 
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('upper(UserInfo.UserName) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(UserInfo.UserName) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

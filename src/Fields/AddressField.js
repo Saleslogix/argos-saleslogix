@@ -13,8 +13,16 @@
  * limitations under the License.
  */
 
-define('Mobile/SalesLogix/Fields/AddressField', ['Sage/Platform/Mobile/Fields/EditorField'], function() {
-    var control = dojo.declare('Mobile.SalesLogix.Fields.AddressField', [Sage.Platform.Mobile.Fields.EditorField], {
+define('Mobile/SalesLogix/Fields/AddressField', [
+    'dojo/_base/declare',
+    'Sage/Platform/Mobile/Fields/EditorField',
+    'Sage/Platform/Mobile/FieldManager'
+], function(
+    declare,
+    EditorField,
+    FieldManager
+) {
+    var control = declare('Mobile.SalesLogix.Fields.AddressField', [EditorField], {
         widgetTemplate: new Simplate([
             '<label for="{%= $.name %}">{%: $.label %}</label>',
             '<button class="button simpleSubHeaderButton" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
@@ -39,5 +47,5 @@ define('Mobile/SalesLogix/Fields/AddressField', ['Sage/Platform/Mobile/Fields/Ed
         }
     });
 
-    return Sage.Platform.Mobile.FieldManager.register('address', control);
+    return FieldManager.register('address', control);
 });

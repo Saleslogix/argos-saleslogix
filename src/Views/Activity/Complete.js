@@ -5,9 +5,27 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/Activity/Complete', [
+    'dojo/_base/declare',
+    'dojo/_base/array',
+    'dojo/_base/connect',
+    'dojo/string',
+    'Mobile/SalesLogix/Validator',
+    'Mobile/SalesLogix/Template',
+    'Sage/Platform/Mobile/Utility',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    array,
+    connect,
+    string,
+    validator,
+    template,
+    utility,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Activity.Complete', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.Activity.Complete', [Edit], {
         //Localization
         activityInfoText: 'Activity Info',
         accountText: 'account',
@@ -138,7 +156,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
         beforeTransitionTo: function() {
             this.inherited(arguments);
 
-            dojo.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
                 if (this.fields[item])
                     this.fields[item].hide();
             }, this);
@@ -146,14 +164,14 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             var entry = this.options && this.options.entry;
             if (this.isActivityForLead(entry))
             {
-                dojo.forEach(this.fieldsForLeads, function(item) {
+                array.forEach(this.fieldsForLeads, function(item) {
                     if (this.fields[item])
                         this.fields[item].show();
                 }, this);
             }
             else
             {
-                dojo.forEach(this.fieldsForStandard, function(item) {
+                array.forEach(this.fieldsForStandard, function(item) {
                     if (this.fields[item])
                         this.fields[item].show();
                 }, this);
@@ -182,12 +200,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             this.toggleSelectField(this.fields['CarryOverNotes'], disable);
         },
         onLeadChange: function(value, field) {
-            var selection = field.getSelection(),
-                getV = Sage.Platform.Mobile.Utility.getValue;
+            var selection = field.getSelection();
 
             if (selection && this.insert)
             {
-                this.fields['Company'].setValue(getV(selection, 'Company'));
+                this.fields['Company'].setValue(utility.getValue(selection, 'Company'));
             }
         },
         formatPicklistForType: function(type, which) {
@@ -278,7 +295,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
 
             var success = (function(scope, callback, entry) {
                 return function() {
-                    dojo.publish('/app/refresh',[{
+                    connect.publish('/app/refresh',[{
                         resourceKind: 'history'
                     }]);
 
@@ -305,11 +322,9 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
             this.completeActivity(entry, followup);
         },
         formatDependentQuery: function(dependentValue, format, property) {
-            var getV = Sage.Platform.Mobile.Utility.getValue;
-
             property = property || '$key';
 
-            return dojo.string.substitute(format, [getV(dependentValue, property)]);
+            return string.substitute(format, [utility.getValue(dependentValue, property)]);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -330,7 +345,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     orderBy: 'text asc',
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },{
                     label: this.startingText,
                     name: 'StartDate',
@@ -340,8 +355,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     formatString: this.startingFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
-                        Mobile.SalesLogix.Validator.exists,
-                        Mobile.SalesLogix.Validator.isDateInRange
+                        validator.exists,
+                        validator.isDateInRange
                     ]
                 },{
                     label: this.durationText,
@@ -383,8 +398,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     formatString: this.completedFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
-                        Mobile.SalesLogix.Validator.exists,
-                        Mobile.SalesLogix.Validator.isDateInRange
+                        validator.exists,
+                        validator.isDateInRange
                     ]
                 },{
                     dependsOn: 'Type',
@@ -396,7 +411,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     orderBy: 'text asc',
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },{
                     label: this.followUpText,
                     title: this.followUpTitleText,
@@ -498,7 +513,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     title: this.priorityTitleText,
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },{
                     dependsOn: 'Type',
                     label: this.categoryText,
@@ -509,7 +524,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     title: this.categoryTitleText,
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },{
                     type: 'hidden',
                     name: 'UserId',
@@ -521,7 +536,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', ['Sage/Platform/Mobile/Edit'
                     include: false,
                     type: 'lookup',
                     textProperty: 'UserInfo',
-                    textTemplate: Mobile.SalesLogix.Template.nameLF,
+                    textTemplate: template.nameLF,
                     requireSelection: true,
                     view: 'user_list'
                 }]

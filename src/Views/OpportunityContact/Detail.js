@@ -4,9 +4,19 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
+    'dojo/_base/declare',
+    'dojo/_base/connect',
+    'dojo/string',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    connect,
+    string,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.OpportunityContact.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.OpportunityContact.Detail', [Detail], {
         //Localization
         titleText: 'Opportunity Contact',
         accountText: 'account',
@@ -52,7 +62,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
             return entry;
         },
         removeContact: function(){
-            var confirmMessage = dojo.string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+            var confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
             if (!confirm(confirmMessage))
                 return;
 
@@ -66,7 +76,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', ['Sage/Platform/Mobi
                 });
         },
         onDeleteSuccess: function(){
-            dojo.publish('/app/refresh',[{
+            connect.publish('/app/refresh',[{
                 resourceKind: this.resourceKind
             }]);
             ReUI.back();

@@ -4,9 +4,28 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Configure', [
+    'dojo/_base/declare',
+    'dojo/_base/array',
+    'dojo/_base/lang',
+    'dojo/query',
+    'dojo/string',
+    'dojo/dom-attr',
+    'dojo/dom-class',
+    'Sage/Platform/Mobile/List',
+    'dojo/Nodelist-traverse'
+], function(
+    declare,
+    array,
+    lang,
+    query,
+    string,
+    domAttr,
+    domClass,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Configure', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Configure', [List], {
         //Templates
         emptyTemplate: new Simplate(['']),
         itemTemplate: new Simplate([
@@ -57,13 +76,13 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
             var order = App.preferences.configure.order = [];
 
             // since the selection model does not have ordering, use the DOM
-            dojo.query('li', this.domNode).forEach(function(node) {
-                var key = dojo.attr(node, 'data-key');
+            query('li', this.domNode).forEach(function(node) {
+                var key = domAttr.get(node, 'data-key');
                 if (key)
                 {
                     order.push(key);
 
-                    if (dojo.hasClass(node, 'list-item-selected'))  {
+                    if (domClass.contains(node, 'list-item-selected'))  {
                         visible.push(key);
                     }
                 }
@@ -74,16 +93,16 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
             ReUI.back();
         },
         moveUp: function(params) {
-            var node = dojo.query(params.$source),
+            var node = query(params.$source),
             row = node.parents('li').first();
             if (row)
-                row.insertBefore(dojo.query(row).prev('li'))
+                row.insertBefore(query(row).prev('li'))
         },
         moveDown: function(params) {
-            var node = dojo.query(params.$source),
+            var node = query(params.$source),
             row = node.parents('li').first();
             if (row)
-                row.insertAfter(dojo.query(row).next('li'))
+                row.insertAfter(query(row).next('li'))
         },
         hasMoreData: function() {
             return false;
@@ -92,7 +111,7 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
             var list = [],
                 lookup = {},
                 exposed = App.getExposedViews(),
-                order = dojo.getObject('preferences.configure.order', false, App) || [],
+                order = lang.getObject('preferences.configure.order', false, App) || [],
                 view, i, n;
 
             for (i = 0; i < exposed.length; i++)
@@ -134,7 +153,7 @@ define('Mobile/SalesLogix/Views/Configure', ['Sage/Platform/Mobile/List'], funct
 
             for (i = 0; i < visible.length; i++)
             {
-                row = dojo.query((dojo.string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
+                row = query((string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
 
                 if (row) this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
             }

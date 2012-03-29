@@ -1,46 +1,45 @@
-/// <reference path="../ext/ext-core-debug.js"/>
 /// <reference path="../platform/Application.js"/>
 /// <reference path="../sdata/SDataService.js"/>
 
-define('Mobile/SalesLogix/Template', ['dojo'], function() {
-
-    dojo.setObject('Mobile.SalesLogix.Template', null);
-    
-    Mobile.SalesLogix.Template = (function() {
-        return {
-            nameLF: new Simplate([
-                '{% if ($) { %}',
-                    '{% if ($.LastName && $.FirstName) { %}',
-                        '{%= $.LastName %}, {%= $.FirstName%}',
-                    '{% } else { %}',
-                        '{%: $.LastName ? $.LastName : $.FirstName %}',
-                    '{% } %}',
-                '{% } %}'
-            ]),
-            alternateKeyPrefixSuffix: new Simplate([
-                '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}'
-            ]),
-            noteDetailPropertyOld: new Simplate([
-                '{% var F = Sage.Platform.Mobile.Format; %}',
-                '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
-                    '<label>{%: $.label %}</label>',
-                    '<div class="note-text-property">',
-                        '<div class="note-text-wrap">',
-                            '{%= F.nl2br(F.encode($.value)) %}',
-                        '</div>',
+define('Mobile/SalesLogix/Template', [
+    'dojo/_base/lang',
+    'Sage/Platform/Mobile/Format'
+], function(
+    lang,
+    format
+) {
+    return lang.setObject('Mobile.SalesLogix.Template', {
+        nameLF: new Simplate([
+            '{% if ($) { %}',
+                '{% if ($.LastName && $.FirstName) { %}',
+                    '{%= $.LastName %}, {%= $.FirstName%}',
+                '{% } else { %}',
+                    '{%: $.LastName ? $.LastName : $.FirstName %}',
+                '{% } %}',
+            '{% } %}'
+        ]),
+        alternateKeyPrefixSuffix: new Simplate([
+            '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}'
+        ]),
+        noteDetailPropertyOld: new Simplate([
+            '{% var F = Sage.Platform.Mobile.Format; %}',
+            '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
+                '<label>{%: $.label %}</label>',
+                '<div class="note-text-property">',
+                    '<div class="note-text-wrap">',
+                        '{%= F.nl2br(F.encode($.value)) %}',
                     '</div>',
-                '</div>'
-            ]),
-            noteDetailProperty: new Simplate([
-                '{% var F = Sage.Platform.Mobile.Format; %}',
-                '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
-                    '<label>{%: $.label %}</label>',
-                    '<pre>',
-                    '{%= F.encode($.value) %}',
-                    '</pre>',
-                '</div>'
-            ])
-        };
-    })();
-    
+                '</div>',
+            '</div>'
+        ]),
+        noteDetailProperty: new Simplate([
+            '{% var F = Sage.Platform.Mobile.Format; %}',
+            '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
+                '<label>{%: $.label %}</label>',
+                '<pre>',
+                '{%= F.encode($.value) %}',
+                '</pre>',
+            '</div>'
+        ])
+    });
 });

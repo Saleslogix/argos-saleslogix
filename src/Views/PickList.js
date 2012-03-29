@@ -4,9 +4,17 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/PickList', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.PickList', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.PickList', [List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" ',
@@ -59,8 +67,8 @@ define('Mobile/SalesLogix/Views/PickList', ['Sage/Platform/Mobile/List'], functi
             this.autoClearSelection = false;
             this._selectionModel.singleSelection = false;
         },
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
         createRequest: function() {
             return Mobile.SalesLogix.Views.PickList.superclass.createRequest.call(this)

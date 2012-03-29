@@ -4,9 +4,17 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/Event/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/Event/Detail', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    format,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Event.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.Event.Detail', [Detail], {
         //Localization
         eventTypeText: {
             'atToDo': 'To-Do',
@@ -65,13 +73,13 @@ define('Mobile/SalesLogix/Views/Event/Detail', ['Sage/Platform/Mobile/Detail'], 
                     name: 'StartDate',
                     property: 'StartDate',
                     label: this.startTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
+                    renderer: format.date.bindDelegate(
                         this, this.startDateFormatText)
                 },{
                     name: 'EndDate',
                     property: 'EndDate',
                     label: this.endTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(
+                    renderer: format.date.bindDelegate(
                         this, this.endDateFormatText)
                 }]
             }]);

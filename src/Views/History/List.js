@@ -4,9 +4,29 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/History/List', [
+    'dojo/_base/declare',
+    'dojo/_base/array',
+    'dojo/string',
+    'dojo/dom-style',
+    'dojo/dom-geometry',
+    'dojo/query',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Convert',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    array,
+    string,
+    domStyle,
+    domGeom,
+    query,
+    format,
+    convert,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.History.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.History.List', [List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}" data-entity-name="{%: $$.resolveEntityName($) %}">',
@@ -116,34 +136,28 @@ define('Mobile/SalesLogix/Views/History/List', ['Sage/Platform/Mobile/List'], fu
             }
         },
         formatDate: function(date) {
-            var toDateFromString = Sage.Platform.Mobile.Convert.toDateFromString,
-                formatDate = Mobile.SalesLogix.Format.date;
+            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours:24})))
+                return format.date(date, this.hourMinuteFormatText);
 
-            if (toDateFromString(date).between(Date.today(), Date.today().add({hours:24})))
-                return formatDate(date, this.hourMinuteFormatText);
-
-            return formatDate(date, this.dateFormatText);
+            return format.date(date, this.dateFormatText);
         },
         formatMeridiem: function(date) {
-            var toDateFromString = Sage.Platform.Mobile.Convert.toDateFromString,
-                formatDate = Mobile.SalesLogix.Format.date;
-
-            if (toDateFromString(date).between(Date.today(), Date.today().add({hours:24})))
-                return formatDate(date, "tt");
+            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours:24})))
+                return format.date(date, "tt");
 
             return "";
         },
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
         _onResize: function() {
-            dojo.query('.note-text-item', this.contentNode).forEach(function(node){
-                var wrapNode = dojo.query('.note-text-wrap', node)[0],
-                    moreNode = dojo.query('.note-text-more', node)[0];
-                if (dojo.marginBox(node).h < dojo.marginBox(wrapNode).h)
-                    dojo.style(moreNode, 'visibility', 'visible');
+            query('.note-text-item', this.contentNode).forEach(function(node){
+                var wrapNode = query('.note-text-wrap', node)[0],
+                    moreNode = query('.note-text-more', node)[0];
+                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h)
+                    domStyle.set(moreNode, 'visibility', 'visible');
                 else
-                    dojo.style(moreNode, 'visibility', 'hidden');
+                    domStyle.set(moreNode, 'visibility', 'hidden');
             });
         },
         processFeed: function(){

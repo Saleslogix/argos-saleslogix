@@ -4,9 +4,23 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/Ticket/Detail', [
+    'dojo/_base/declare',
+    'dojo/query',
+    'dojo/dom-class',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/ErrorManager',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    query,
+    domClass,
+    format,
+    ErrorManager,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Ticket.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.Ticket.Detail', [Detail], {
         //Localization
         accountText: 'account',
         areaText: 'area',
@@ -95,7 +109,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
         },
 
         onRequestCodeDataFailure: function(response, o) {
-            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
+            ErrorManager.addError(response, o, this.options, 'failure');
         },
 
         processCodeDataFeed: function(feed, currentValue, options) {
@@ -109,9 +123,9 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
             return currentValue;
         },
         setNodeText: function(node, value){
-            var contentNode = dojo.query('span', node)[0];
+            var contentNode = query('span', node)[0];
 
-            dojo.removeClass(node, 'content-loading');
+            domClass.remove(node, 'content-loading');
 
             if (contentNode)
                 contentNode.innerHTML = value;
@@ -182,7 +196,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     label: this.needByText,
                     name: 'NeededByDate',
                     property: 'NeededByDate',
-                    renderer: Mobile.SalesLogix.Format.date
+                    renderer: format.date
                 },{
                     label: this.assignedToText,
                     name: 'AssignedTo.OwnerDescription',
@@ -207,7 +221,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', ['Sage/Platform/Mobile/Detail'],
                     label: this.assignedDateText,
                     name: 'AssignedDate',
                     property: 'AssignedDate',
-                    renderer: Mobile.SalesLogix.Format.date
+                    renderer: format.date
                 },{
                     label: this.resolutionText,
                     name: 'TicketSolution.Notes',

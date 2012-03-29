@@ -13,8 +13,16 @@
  * limitations under the License.
  */
 
-define('Mobile/SalesLogix/Fields/NameField', ['Sage/Platform/Mobile/Fields/EditorField'], function() {
-    var control = dojo.declare('Mobile.SalesLogix.Fields.NameField', [Sage.Platform.Mobile.Fields.EditorField], {
+define('Mobile/SalesLogix/Fields/NameField', [
+    'dojo/_base/declare',
+    'Sage/Platform/Mobile/Fields/EditorField',
+    'Sage/Platform/Mobile/FieldManager'
+], function(
+    declare,
+    EditorField,
+    FieldManager
+) {
+    var control = declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
         // Localization
         emptyText: 'no name',
 
@@ -32,5 +40,5 @@ define('Mobile/SalesLogix/Fields/NameField', ['Sage/Platform/Mobile/Fields/Edito
         }
     });
 
-    return Sage.Platform.Mobile.FieldManager.register('name', control);
+    return FieldManager.register('name', control);
 });

@@ -4,9 +4,17 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    format,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.TicketActivityItem.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.TicketActivityItem.Detail', [Detail], {
         //Localization
         titleText: 'Ticket Activity Part',
         productNameText: 'product',
@@ -54,7 +62,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', ['Sage/Platform/Mobi
                     name: 'ItemAmount',
                     property: 'ItemAmount',
                     label: this.itemAmountText,
-                    renderer: Mobile.SalesLogix.Format.currency
+                    renderer: format.currency
                 },{
                     name: 'ItemDescription',
                     property: 'ItemDescription',

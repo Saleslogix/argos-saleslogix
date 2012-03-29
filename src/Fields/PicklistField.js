@@ -13,7 +13,19 @@
  * limitations under the License.
  */
 
-define('Mobile/SalesLogix/Fields/PicklistField', ['Sage/Platform/Mobile/Fields/LookupField', 'Mobile/SalesLogix/Views/PickList'], function() {
+define('Mobile/SalesLogix/Fields/PicklistField', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/Fields/LookupField',
+    'Mobile/SalesLogix/Views/PickList',
+    'Sage/Platform/Mobile/FieldManager'
+], function(
+    declare,
+    string,
+    LookupField,
+    PickList,
+    FieldManager
+) {
     var viewsByName = {},
         viewsByNameCount = 0;
 
@@ -21,8 +33,8 @@ define('Mobile/SalesLogix/Fields/PicklistField', ['Sage/Platform/Mobile/Fields/L
         if (viewsByName[name])
             return viewsByName[name];
 
-        var view = new Mobile.SalesLogix.Views.PickList({
-            id: 'pick_list_' + viewsByNameCount++,
+        var view = new PickList({
+            id: 'pick_list_' + (viewsByNameCount++),
             expose: false
         });
 
@@ -31,7 +43,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', ['Sage/Platform/Mobile/Fields/L
         return (viewsByName[name] = view);
     };
 
-    var control = dojo.declare('Mobile.SalesLogix.Fields.PicklistField', [Sage.Platform.Mobile.Fields.LookupField], {
+    var control = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {
         picklist: false,
         orderBy: 'number asc',
         storageMode: 'text',
@@ -65,7 +77,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', ['Sage/Platform/Mobile/Fields/L
             return !this.picklist;
         },
         formatResourcePredicate: function(name) {
-            return dojo.string.substitute('name eq "${0}"', [name]);
+            return string.substitute('name eq "${0}"', [name]);
         },
         createSelections: function(){
             var value = this.getText(),
@@ -117,5 +129,5 @@ define('Mobile/SalesLogix/Fields/PicklistField', ['Sage/Platform/Mobile/Fields/L
         }
     });
 
-    return Sage.Platform.Mobile.FieldManager.register('picklist', control);
+    return FieldManager.register('picklist', control);
 });

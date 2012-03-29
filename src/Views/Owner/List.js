@@ -4,9 +4,17 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Owner/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Owner/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    dojo.declare('Mobile.SalesLogix.Views.Owner.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Owner.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.OwnerDescription %}</h3>'
@@ -25,8 +33,8 @@ define('Mobile/SalesLogix/Views/Owner/List', ['Sage/Platform/Mobile/List'], func
         ],
         resourceKind: 'owners',
 
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('upper(OwnerDescription) like "%${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('upper(OwnerDescription) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

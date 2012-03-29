@@ -1,6 +1,6 @@
-define('localization/en-GB', ['dojo'], function() {
+define('localization/en-GB', ['dojo/_base/lang'], function(lang) {
 
-    return dojo.setObject('Mobile.CultureInfo', {
+    return lang.setObject('Mobile.CultureInfo', {
       "name": "en-GB",
       "englishName": "English (United Kingdom)",
       "nativeName": "English (United Kingdom)",

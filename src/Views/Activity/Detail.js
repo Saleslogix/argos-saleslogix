@@ -4,11 +4,29 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/Activity/Detail', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'dojo/query',
+    'dojo/dom-class',
+    'Mobile/SalesLogix/Template',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Convert',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    string,
+    query,
+    domClass,
+    template,
+    format,
+    convert,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Activity.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail], {
         //Templates
-        leaderTemplate: Mobile.SalesLogix.Template.nameLF,
+        leaderTemplate: template.nameLF,
 
         //Localization
         activityTypeText: {
@@ -121,15 +139,15 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
         isActivityTimeless: function(entry) {
-            return entry && Sage.Platform.Mobile.Convert.toBoolean(entry['Timeless']);
+            return entry && convert.toBoolean(entry['Timeless']);
         },
         doesActivityHaveReminder: function(entry) {
-            return Sage.Platform.Mobile.Convert.toBoolean(entry && entry['Alarm']);
+            return convert.toBoolean(entry && entry['Alarm']);
         },
         requestLeader: function(userId) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('users')
-                .setResourceSelector(dojo.string.substitute("'${0}'", [userId]))
+                .setResourceSelector(string.substitute("'${0}'", [userId]))
                 .setQueryArg('select', [
                     'UserInfo/FirstName',
                     'UserInfo/LastName'
@@ -149,11 +167,11 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
             {
                 this.entry['Leader'] = leader;
 
-                var rowNode = dojo.query('[data-property="Leader"]'),
-                    contentNode = rowNode && dojo.query('[data-property="Leader"] > span', this.domNode);
+                var rowNode = query('[data-property="Leader"]'),
+                    contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
 
                 if (rowNode)
-                    dojo.removeClass(rowNode[0], 'content-loading');
+                    domClass.remove(rowNode[0], 'content-loading');
 
                 if (contentNode)
                     contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
@@ -231,13 +249,13 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     name: 'StartDate',
                     property: 'StartDate',
                     label: this.startTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startDateFormatText, false),
+                    renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
                     exclude: this.isActivityTimeless
                 },{
                     name: 'StartDateTimeless',
                     property: 'StartDate',
                     label: this.allDayText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.timelessDateFormatText, true),
+                    renderer: format.date.bindDelegate(this, this.timelessDateFormatText, true),
                     include: this.isActivityTimeless
                 },{
                     name: 'Timeless',
@@ -249,7 +267,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     name: 'Duration',
                     property: 'Duration',
                     label: this.durationText,
-                    renderer: Mobile.SalesLogix.Format.timespan,
+                    renderer: format.timespan,
                     exclude: this.isActivityTimeless
                 },{
                     name: 'Alarm',
@@ -260,7 +278,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', ['Sage/Platform/Mobile/Detail'
                     name: 'AlarmTime',
                     property: 'AlarmTime',
                     label: this.alarmTimeText,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.alarmDateFormatText, null, true),
+                    renderer: format.date.bindDelegate(this, this.alarmDateFormatText, null, true),
                     include: this.doesActivityHaveReminder
                 },{
                     name: 'Rollover',

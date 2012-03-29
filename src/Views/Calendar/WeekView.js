@@ -4,9 +4,26 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List', 'Sage/Platform/Mobile/Convert'], function() {
+define('Mobile/SalesLogix/Views/Calendar/WeekView', [
+    'dojo/_base/declare',
+    'dojo/query',
+    'dojo/string',
+    'dojo/dom-class',
+    'Sage/Platform/Mobile/ErrorManager',
+    'Sage/Platform/Mobile/Convert',
+    'Sage/Platform/Mobile/List',
+    'Mobile/SalesLogix/Format'
+], function(
+    declare,
+    query,
+    string,
+    domClass,
+    ErrorManager,
+    convert,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Calendar.WeekView', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Calendar.WeekView', [List], {
         //Localization
         titleText: 'Calendar',
         weekTitleFormatText: 'MMM d, yyyy',
@@ -199,10 +216,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             this.inherited(arguments);
         },
         toggleGroup: function(params) {
-            var node = dojo.query(params.$source);
+            var node = query(params.$source);
             if (node && node.parent()) {
-                node.toggleClass('collapsed');
-                node.parent().toggleClass('collapsed-event');
+                domClass.toggle(node, 'collapsed');
+                domClass.toggle(node.parent(), 'collapsed-event');
             }
         },
         activateDayHeader: function(params){
@@ -240,15 +257,15 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             var setDate = this.currentDate || this.todayDate;
             this.weekStartDate = this.getStartDay(setDate);
             this.weekEndDate = this.getEndDay(setDate);
-            this.queryWhere =  dojo.string.substitute(
+            this.queryWhere =  string.substitute(
                     [
                         'UserActivities.UserId eq "${0}" and (',
                         '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
                         '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
                     ].join(''),[
                     App.context['user'] && App.context['user']['$key'],
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(this.weekStartDate),
-                    Sage.Platform.Mobile.Convert.toIsoStringFromDate(this.weekEndDate),
+                    convert.toIsoStringFromDate(this.weekStartDate),
+                    convert.toIsoStringFromDate(this.weekEndDate),
                     this.weekStartDate.toString('yyyy-MM-ddT00:00:00Z'),
                     this.weekEndDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
@@ -256,7 +273,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         setWeekTitle: function(){
             var start = this.getStartDay(this.currentDate),
                 end = this.getEndDay(this.currentDate);
-            this.set('dateContent', dojo.string.substitute('${0}-${1}',
+            this.set('dateContent', string.substitute('${0}-${1}',
                 [start.toString(this.weekTitleFormatText),
                 end.toString(this.weekTitleFormatText)]
             ));
@@ -276,7 +293,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
 
             if (this.feed['$totalResults'] === 0)
             {
-                dojo.query(this.contentNode).append(this.noDataTemplate.apply(this));
+                query(this.contentNode).append(this.noDataTemplate.apply(this));
             }
             else if (feed['$resources'])
             {
@@ -295,7 +312,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
 
                 for(var i = 0; i < feed['$resources'].length; i++){
                     currentEntry = feed['$resources'][i];
-                    startDate = Sage.Platform.Mobile.Convert.toDateFromString(currentEntry.StartDate);
+                    startDate = convert.toDateFromString(currentEntry.StartDate);
                     if(currentEntry.Timeless){
                         startDate = this.dateToUTC(startDate);
                     }
@@ -335,15 +352,15 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             }
 
             if (this.remainingContentNode)
-                this.set('remainingContent', dojo.string.substitute(
+                this.set('remainingContent', string.substitute(
                     this.remainingText,
                     [this.feed['$totalResults'] - (this.feed['$startIndex'] + this.feed['$itemsPerPage'] - 1)]
                 ));
 
             if (this.hasMoreData())
-                dojo.addClass(this.domNode, 'list-has-more');
+                domClass.add(this.domNode, 'list-has-more');
             else
-                dojo.removeClass(this.domNode, 'list-has-more');
+                domClass.remove(this.domNode, 'list-has-more');
         },
         addTodayDom: function(){
             if(!this.isInCurrentWeek(this.todayDate)) return null;
@@ -372,12 +389,12 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             });
         },
         onRequestEventDataFailure: function(response, o) {
-            alert(dojo.string.substitute(this.requestErrorText, [response, o]));
-            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
+            alert(string.substitute(this.requestErrorText, [response, o]));
+            ErrorManager.addError(response, o, this.options, 'failure');
         },
         onRequestEventDataAborted: function(response, o) {
             this.options = false; // force a refresh
-            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'aborted');
+            ErrorManager.addError(response, o, this.options, 'aborted');
         },
         onRequestEventDataSuccess: function(feed) {
             this.processEventFeed(feed);
@@ -396,7 +413,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
         getEventQuery: function(){
             var startDate = this.weekStartDate,
                 endDate = this.weekEndDate;
-            return dojo.string.substitute(
+            return string.substitute(
                     [
                         'UserId eq "${0}" and (',
                             '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
@@ -409,10 +426,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
                 );
         },
         hideEventList: function(){
-            dojo.addClass(this.eventContainerNode, 'event-hidden');
+            domClass.add(this.eventContainerNode, 'event-hidden');
         },
         showEventList: function(){
-            dojo.removeClass(this.eventContainerNode, 'event-hidden');
+            domClass.remove(this.eventContainerNode, 'event-hidden');
         },
         processEventFeed: function(feed){
             var o = [],
@@ -429,17 +446,17 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', ['Sage/Platform/Mobile/List'
             for(var i = 0; i < feedLength; i++){
                 event = feed['$resources'][i];
                 event.isEvent = true;
-                event.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(event.StartDate);
-                event.EndDate = Sage.Platform.Mobile.Convert.toDateFromString(event.EndDate);
+                event.StartDate = convert.toDateFromString(event.StartDate);
+                event.EndDate = convert.toDateFromString(event.EndDate);
                 this.entries[event.$key] = event;
                 o.push(this.eventRowTemplate.apply(event, this));
             }
 
             if(feed['$totalResults'] > feedLength) {
-                dojo.addClass(this.eventContainerNode, 'list-has-more');
-                this.set('eventRemainingContent', dojo.string.substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
+                domClass.add(this.eventContainerNode, 'list-has-more');
+                this.set('eventRemainingContent', string.substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
             } else {
-                dojo.removeClass(this.eventContainerNode, 'list-has-more');
+                domClass.remove(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', '');
             }
 

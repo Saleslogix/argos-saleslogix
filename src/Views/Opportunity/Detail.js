@@ -4,9 +4,19 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/Opportunity/Detail', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    string,
+    format,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -86,7 +96,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
             return values;
         },
         formatAccountRelatedQuery: function(fmt) {
-            return dojo.string.substitute(fmt, [this.entry['Account']['$key']]);
+            return string.substitute(fmt, [this.entry['Account']['$key']]);
         },                
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -130,12 +140,12 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     label: this.estCloseText,
                     name: 'EstimatedClose',
                     property: 'EstimatedClose',
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, null, true)
+                    renderer: format.date.bindDelegate(this, null, true)
                 },{
                     label: this.potentialText,
                     name: 'SalesPotential',
                     property: 'SalesPotential',
-                    renderer: Mobile.SalesLogix.Format.currency
+                    renderer: format.currency
                 },{
                     label: this.statusText,
                     name: 'Status',
@@ -157,7 +167,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', ['Sage/Platform/Mobile/Deta
                     label: this.acctMgrText,
                     name: 'AccountManager.UserInfo',
                     property: 'AccountManager.UserInfo',
-                    renderer: Mobile.SalesLogix.Format.nameLF
+                    renderer: format.nameLF
                 },{
                     label: this.importSourceText,
                     name: 'LeadSource.Description',

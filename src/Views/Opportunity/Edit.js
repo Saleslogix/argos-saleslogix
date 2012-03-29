@@ -5,23 +5,31 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/Opportunity/Edit', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Validator',
+    'Sage/Platform/Mobile/Utility',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    validator,
+    utility,
+    Edit
+) {
 
-    var U = Sage.Platform.Mobile.Utility;
-
-    return dojo.declare('Mobile.SalesLogix.Views.Opportunity.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.Edit', [Edit], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
         estCloseText: 'est close',
         importSourceText: 'lead source',
-        opportunityProbabilityTitleText: 'Opportunity Probability',
         opportunityStatusTitleText: 'Opportunity Status',
         opportunityText: 'opportunity',
-        opportunityTypeTitleText: 'Opportunity Type', // TODO: is this still in use?
+        opportunityTypeTitleText: 'Opportunity Type',
         ownerText: 'owner',
         potentialText: 'sales potential',
         probabilityText: 'close prob',
+        probabilityTitleText: 'Opportunity Probability',
         resellerText: 'reseller',
         statusText: 'status',
         titleText: 'Opportunity',
@@ -80,16 +88,16 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                 entry = view && view.entry;
 
             this.fields['Account'].setValue(entry);
-            this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
-            this.fields['Owner'].setValue(U.getValue(entry, 'Owner'));
+            this.fields['AccountManager'].setValue(utility.getValue(entry, 'AccountManager'));
+            this.fields['Owner'].setValue(utility.getValue(entry, 'Owner'));
         },
         applyContactContext: function(context) {
             var view = App.getView(context.id),
                 entry = view && view.entry;
 
-            this.fields['Account'].setValue(U.getValue(entry, 'Account'));
-            this.fields['AccountManager'].setValue(U.getValue(entry, 'AccountManager'));
-            this.fields['Owner'].setValue(U.getValue(entry, 'Owner'));
+            this.fields['Account'].setValue(utility.getValue(entry, 'Account'));
+            this.fields['AccountManager'].setValue(utility.getValue(entry, 'AccountManager'));
+            this.fields['Owner'].setValue(utility.getValue(entry, 'Owner'));
             this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
         },
         init: function() {
@@ -104,7 +112,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
             // it should be set to the AM for the selected account (and change each time).
             if (selection && this.insert)
             {
-                this.fields['AccountManager'].setValue(U.getValue(selection, 'AccountManager'));
+                this.fields['AccountManager'].setValue(utility.getValue(selection, 'AccountManager'));
             }   
         },
         createLayout: function() {
@@ -118,8 +126,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                     type: 'text',
                     maxTextLength: 64,
                     validator: [
-                        Mobile.SalesLogix.Validator.hasText,
-                        Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                        validator.hasText,
+                        validator.exceedsMaxTextLength
                     ]
                 },
                 {
@@ -128,7 +136,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                     property: 'Account',
                     textProperty: 'AccountName',
                     type: 'lookup',
-                    validator: Mobile.SalesLogix.Validator.exists,
+                    validator: validator.exists,
                     view: 'account_related'
                 },
                 {
@@ -154,7 +162,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                     property: 'EstimatedClose',
                     type: 'date',
                     asTimeless: true,
-                    validator: Mobile.SalesLogix.Validator.exists
+                    validator: validator.exists
                 },
                 {
                     label: this.potentialText,
@@ -163,17 +171,17 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                     precision: 2,
                     type: 'decimal',
                     validationTrigger: 'keyup',
-                    validator: Mobile.SalesLogix.Validator.isCurrency
+                    validator: validator.isCurrency
                 },
                 {
                     label: this.typeText,
                     name: 'Type',
                     property: 'Type',
                     picklist: 'Opportunity Type',
-                    title: 'Opportunity Type',
+                    title: this.opportunityTypeTitleText,
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.statusText,
@@ -199,7 +207,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                     keyProperty: '$key',
                     textProperty: 'OwnerDescription',
                     type: 'lookup',
-                    validator: Mobile.SalesLogix.Validator.exists,
+                    validator: validator.exists,
                     view: 'owner_list'
                 },
                 {
@@ -207,11 +215,11 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', ['Sage/Platform/Mobile/Edit']
                     name: 'CloseProbability',
                     property: 'CloseProbability',
                     picklist: 'Opportunity Probability',
-                    title: this.opportunityProbabilityTitleText,
+                    title: this.probabilityTitleText,
                     type: 'picklist',
                     validator: [
-                        Mobile.SalesLogix.Validator.isInt32,
-                        Mobile.SalesLogix.Validator.isInteger
+                        validator.isInt32,
+                        validator.isInteger
                     ]
                 },
                 {
