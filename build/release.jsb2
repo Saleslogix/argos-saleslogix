@@ -290,7 +290,21 @@
             text: 'it-IT.js',
             path: '../../../argos-sdk/libraries/datejs/src/globalization/'
         }]
-    }],
+    },{
+        name: 'Core Mobile Localization (en-GB)',
+        file: 'localization/en-GB.js',
+        isDebug: true,
+        fileIncludes: [{
+             text: 'en-GB.js',
+             path: '../localization/'
+         },{
+             text: 'en-GB.js',
+             path: '../localization/saleslogix/'
+         },{
+             text: 'en-GB.js',
+             path: '../../../argos-sdk/libraries/datejs/src/globalization/'
+         }]
+     }],
 	resources: [{
 		src: '../content',
 		dest: 'content',
