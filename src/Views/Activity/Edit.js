@@ -332,7 +332,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                         'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
                     });
                 }
-console.log(startDate);
+
                 this.fields['StartDate'].setValue(startDate);
             }
         },

@@ -45,6 +45,17 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
             "Conference": "Conference",
             "Holiday": "Holiday"
         },
+        startup: function() {
+            this.inherited(arguments);
+
+            this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);
+        },
+        onStartDateChange: function(val) {
+            var endDate = this.fields['EndDate'].getValue();
+
+            if (endDate < val)
+                this.fields['EndDate'].setValue(val);
+        },
         formatTypeText: function(val, key, text) {
             return this.eventTypes[key] || text;
         },
@@ -101,12 +112,13 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
 
-                return (/^(useractivities||events)$/.test(context.resourceKind));
+                return (/^(useractivities||activities||events)$/.test(context.resourceKind));
             });
 
             var context = (found && found.options && found.options.source) || found,
                 lookup = {
-                    'useractivities': this.applyUserActivityContext
+                    'useractivities': this.applyUserActivityContext,
+                    'activities': this.applyUserActivityContext
                 };
 
             if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);
