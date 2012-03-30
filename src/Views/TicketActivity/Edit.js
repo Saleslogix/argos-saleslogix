@@ -26,7 +26,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         userText: 'user',
         startDateText: 'start date',
         endDateText: 'end date',
-        chargeTypeText: 'charge type',
         commentsText: 'comments',
 
         //View Properties
@@ -38,9 +37,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
             'AssignedDate',
             'CompletedDate',
             'PublicAccessCode',
-            'RateTypeDescription/Amount',
-            'RateTypeDescription/RateTypeCode',
-            'RateTypeDescription/TypeDescription',
             'User/UserName',
             'User/UserInfo/FirstName',
             'User/UserInfo/LastName'
@@ -97,13 +93,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     name: 'CompletedDate',
                     property: 'CompletedDate',
                     type: 'date'
-                },{
-                    label: this.chargeTypeText,
-                    name: 'RateTypeDescription',
-                    property: 'RateTypeDescription',
-                    textProperty: 'RateTypeCode',
-                    type: 'lookup',
-                    view: 'ticketactivity_ratelookup'
                 },{
                     label: this.commentsText,
                     name: 'ActivityDescription',
