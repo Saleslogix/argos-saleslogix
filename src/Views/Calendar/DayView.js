@@ -227,14 +227,14 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.processEventFeed(feed);
         },
         createEventRequest: function(){
-            var querySelect = this.eventQuerySelect,
-                queryWhere = this.getEventQuery(),
+            var eventSelect = this.eventQuerySelect,
+                eventWhere = this.getEventQuery(),
                 request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
                 .setCount(this.eventPageSize)
                 .setStartIndex(1)
                 .setResourceKind('events')
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(eventSelect).join(','))
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, eventWhere);
             return request;
         },
         getEndOfDay: function(){
@@ -251,9 +251,11 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                             'StartDate lt @${2}@',
                         ')'
                     ].join(''),
-                [App.context['user'] && App.context['user']['$key'],
-                this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
-                this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
+                [
+                    App.context['user'] && App.context['user']['$key'],
+                    convert.toIsoStringFromDate(this.currentDate),
+                    convert.toIsoStringFromDate(this.getEndOfDay())
+                ]
                 );
         },
         activateEventMore: function(){

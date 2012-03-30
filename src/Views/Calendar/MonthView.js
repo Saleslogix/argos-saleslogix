@@ -591,9 +591,11 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                             'StartDate lt @${2}@',
                         ')'
                     ].join(''),
-                    [App.context['user'] && App.context['user']['$key'],
-                    this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
-                    this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
+                    [
+                        App.context['user'] && App.context['user']['$key'],
+                        convert.toIsoStringFromDate(this.currentDate),
+                        convert.toIsoStringFromDate(this.currentDate.clone().clearTime().add({hour:23,minute:59, second:59}))
+                    ]
                 );
         },
         onRequestSelectedDateActivityDataSuccess: function(feed){
