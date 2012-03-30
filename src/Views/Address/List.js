@@ -8,8 +8,13 @@ define('Mobile/SalesLogix/Views/Address/List', ['Sage/Platform/Mobile/List'], fu
 
     return dojo.declare('Mobile.SalesLogix.Views.Address.List', [Sage.Platform.Mobile.List], {
         //Templates
+        rowTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
+            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '{%! $$.itemTemplate %}',
+            '</li>'
+        ]),
         itemTemplate: new Simplate([
-            '<img src="{%: $$.icon %}" alt="icon" class="icon" data-action="viewAddress" data-key="{%= $.$key %}" />',
             '<div>',
                 '<h3>{%: $.$descriptor %}</h3>',
                 '<h4>{%= Mobile.SalesLogix.Format.address($, true) %}</h4>',
@@ -17,7 +22,7 @@ define('Mobile/SalesLogix/Views/Address/List', ['Sage/Platform/Mobile/List'], fu
         ]),
 
         //Localization
-        titleText: 'Additional Addresses',
+        titleText: 'Addresses',
 
         //View Properties        
         detailView: null,
@@ -26,11 +31,13 @@ define('Mobile/SalesLogix/Views/Address/List', ['Sage/Platform/Mobile/List'], fu
         security: null, //'Entities/Address/View',
         insertSecurity: 'Entities/Address/Add',
         insertView: 'address_edit',
-        queryWhere: 'EntityId eq "${0}" and id ne "${1}"',
         resourceKind: 'addresses',
 
+        queryWhere: function() {
+            return dojo.string.substitute('EntityId eq "${0}"', [this.feed.$resources[0].EntityId]);
+        },
         formatSearchQuery: function(query) {
-            return dojo.string.substitute(query, [this.entry.EntityId, this.entry[$key]]);
+            return dojo.string.substitute('(Description like "${0}%" or City like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
         },
         // Disable Add/Insert on toolbar
         createToolLayout: function() {
@@ -38,8 +45,12 @@ define('Mobile/SalesLogix/Views/Address/List', ['Sage/Platform/Mobile/List'], fu
                 tbar: []
             });
         },
-        viewAddress: function(o) {
-            App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entries[o.key], true, ' '));
+        selectEntry: function(params) {
+            var row = dojo.query(params.$source).closest('[data-key]')[0],
+                key = row ? row.getAttribute('data-key') : false;
+
+            if (this._selectionModel && key)
+                App.showMapForAddress(Mobile.SalesLogix.Format.address(this.entries[key], true, ' '));
         }
     });
     
