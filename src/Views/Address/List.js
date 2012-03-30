@@ -33,9 +33,6 @@ define('Mobile/SalesLogix/Views/Address/List', ['Sage/Platform/Mobile/List'], fu
         insertView: 'address_edit',
         resourceKind: 'addresses',
 
-        queryWhere: function() {
-            return dojo.string.substitute('EntityId eq "${0}"', [this.feed.$resources[0].EntityId]);
-        },
         formatSearchQuery: function(query) {
             return dojo.string.substitute('(Description like "${0}%" or City like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
         },
