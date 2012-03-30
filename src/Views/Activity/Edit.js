@@ -332,7 +332,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                         'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
                     });
                 }
-
+console.log(startDate);
                 this.fields['StartDate'].setValue(startDate);
             }
         },
@@ -378,7 +378,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 var context = (o.options && o.options.source) || o;
 
                 return (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) ||
-                       (/^(useractivities)$/.test(context.resourceKind));
+                       (/^(useractivities|activities)$/.test(context.resourceKind));
             });
 
             var context = (found && found.options && found.options.source) || found,
@@ -388,7 +388,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     'opportunities': this.applyOpportunityContext,
                     'tickets': this.applyTicketContext,
                     'leads': this.applyLeadContext,
-                    'useractivities': this.applyUserActivityContext
+                    'useractivities': this.applyUserActivityContext,
+                    'activities': this.applyUserActivityContext
                 };
 
             if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);
