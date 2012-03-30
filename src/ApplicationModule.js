@@ -1,11 +1,12 @@
 
 define('Mobile/SalesLogix/ApplicationModule', [
+    'dojo/_base/declare',
+    'dojo/_base/lang',
+    
     'Sage/Platform/Mobile/ApplicationModule',
-
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Environment',
+    'Sage/Platform/Mobile/Calendar',
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/Views/Signature',
 
     'Mobile/SalesLogix/Views/AddAccountContact',
     'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
@@ -73,167 +74,242 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
     'Mobile/SalesLogix/Fields/AddressField',
     'Mobile/SalesLogix/Fields/NameField',
-    'Mobile/SalesLogix/Fields/PicklistField'
-], function() {
+    'Mobile/SalesLogix/Fields/PicklistField',
 
-    return dojo.declare('Mobile.SalesLogix.ApplicationModule', [Sage.Platform.Mobile.ApplicationModule], {
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Template',
+    'Mobile/SalesLogix/Validator',
+    'Mobile/SalesLogix/Environment'
+    
+], function(
+    declare,
+    lang,
+    ApplicationModule,
+    Calendar,
+    List,
+    Signature,
+    AddAccountContact,
+    AreaCategoryIssueLookup,
+    MainToolbar,
+    FooterToolbar,
+    Home,
+    Login,
+    Settings,
+    Configure,
+    Help,
+    NameEdit,
+    PickList,
+    SelectList,
+    TextEdit,
+    AccountList,
+    AccountDetail,
+    AccountEdit,
+    AddressList,
+    AddressEdit,
+    ActivityList,
+    ActivityDetail,
+    ActivityEdit,
+    ActivityComplete,
+    ActivityTypesList,
+    CalendarDayView,
+    CalendarWeekView,
+    CalendarMonthView,
+    CompetitorList,
+    ContactList,
+    ContactDetail,
+    ContactEdit,
+    ContractList,
+    ErrorLogList,
+    ErrorLogDetail,
+    EventList,
+    EventDetail,
+    EventEdit,
+    LeadList,
+    LeadDetail,
+    LeadEdit,
+    LeadSourceList,
+    OpportunityList,
+    OpportunityDetail,
+    OpportunityEdit,
+    OpportunityContactList,
+    OpportunityContactDetail,
+    OpportunityContactEdit,
+    OpportunityProductList,
+    OwnerList,
+    TicketList,
+    TicketDetail,
+    TicketEdit,
+    TicketUrgencyLookup,
+    TicketActivityList,
+    TicketActivityDetail,
+    TicketActivityEdit,
+    TicketActivityRateLookup,
+    TicketActivityItemList,
+    TicketActivityItemDetail,
+    HistoryList,
+    HistoryDetail,
+    HistoryEdit,
+    UserList
+) {
+
+    return declare('Mobile.SalesLogix.ApplicationModule', [ApplicationModule], {
         loadViews: function() {
             this.inherited(arguments);
 
-            this.registerView(new Sage.Platform.Mobile.Calendar({
+            this.registerView(new Calendar({
                 expose:false
             }));
 
-            this.registerView(new Sage.Platform.Mobile.Views.Signature({
+            this.registerView(new Signature({
                 expose:false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Login());
-            this.registerView(new Mobile.SalesLogix.Views.Home());
-            this.registerView(new Mobile.SalesLogix.Views.Help());
-            this.registerView(new Mobile.SalesLogix.Views.Settings());
-            this.registerView(new Mobile.SalesLogix.Views.Configure());
-            this.registerView(new Mobile.SalesLogix.Views.PickList());
-            this.registerView(new Mobile.SalesLogix.Views.SelectList());
-            this.registerView(new Mobile.SalesLogix.Views.AddAccountContact());
-            this.registerView(new Mobile.SalesLogix.Views.AreaCategoryIssueLookup());
+            this.registerView(new Login());
+            this.registerView(new Home());
+            this.registerView(new Help());
+            this.registerView(new Settings());
+            this.registerView(new Configure());
+            this.registerView(new PickList());
+            this.registerView(new SelectList());
+            this.registerView(new AddAccountContact());
+            this.registerView(new AreaCategoryIssueLookup());
 
-            this.registerView(new Mobile.SalesLogix.Views.NameEdit());
-            this.registerView(new Mobile.SalesLogix.Views.TextEdit());
-            this.registerView(new Mobile.SalesLogix.Views.Address.List({
+            this.registerView(new NameEdit());
+            this.registerView(new TextEdit());
+            this.registerView(new AddressList({
                 id: 'address_related',
                 expose: false
             }));
-            this.registerView(new Mobile.SalesLogix.Views.Address.Edit());
+            this.registerView(new AddressEdit());
 
-            this.registerView(new Mobile.SalesLogix.Views.Account.List());
-            this.registerView(new Mobile.SalesLogix.Views.Account.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.Account.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.Account.List({
+            this.registerView(new AccountList());
+            this.registerView(new AccountDetail());
+            this.registerView(new AccountEdit());
+            this.registerView(new AccountList({
                 id: 'account_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Calendar.MonthView());
-            this.registerView(new Mobile.SalesLogix.Views.Calendar.WeekView());
-            this.registerView(new Mobile.SalesLogix.Views.Calendar.DayView());
+            this.registerView(new CalendarMonthView());
+            this.registerView(new CalendarWeekView());
+            this.registerView(new CalendarDayView());
 
-            this.registerView(new Mobile.SalesLogix.Views.Competitor.List({
+            this.registerView(new CompetitorList({
                 id: 'competitor_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Contact.List());
-            this.registerView(new Mobile.SalesLogix.Views.Contact.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.Contact.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.Contact.List({
+            this.registerView(new ContactList());
+            this.registerView(new ContactDetail());
+            this.registerView(new ContactEdit());
+            this.registerView(new ContactList({
                 id: 'contact_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Contract.List({
+            this.registerView(new ContractList({
                 id: 'contract_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.ErrorLog.List());
-            this.registerView(new Mobile.SalesLogix.Views.ErrorLog.Detail());
+            this.registerView(new ErrorLogList());
+            this.registerView(new ErrorLogDetail());
 
 
-            this.registerView(new Mobile.SalesLogix.Views.Event.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.Event.List({ expose: false }));
-            this.registerView(new Mobile.SalesLogix.Views.Event.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.Event.List({
+            this.registerView(new EventEdit());
+            this.registerView(new EventList({ expose: false }));
+            this.registerView(new EventDetail());
+            this.registerView(new EventList({
                 id: 'event_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Opportunity.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.Opportunity.List());
-            this.registerView(new Mobile.SalesLogix.Views.Opportunity.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.Opportunity.List({
+            this.registerView(new OpportunityEdit());
+            this.registerView(new OpportunityList());
+            this.registerView(new OpportunityDetail());
+            this.registerView(new OpportunityList({
                 id: 'opportunity_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.List());
-            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.OpportunityContact.List({
+            this.registerView(new OpportunityContactEdit());
+            this.registerView(new OpportunityContactList());
+            this.registerView(new OpportunityContactDetail());
+            this.registerView(new OpportunityContactList({
                 id: 'opportunitycontact_related',
                 expose: false
             }));
 
 
-            this.registerView(new Mobile.SalesLogix.Views.OpportunityProduct.List({
+            this.registerView(new OpportunityProductList({
                 id: 'opportunityproduct_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Lead.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.Lead.List());
-            this.registerView(new Mobile.SalesLogix.Views.Lead.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.Lead.List({
+            this.registerView(new LeadEdit());
+            this.registerView(new LeadList());
+            this.registerView(new LeadDetail());
+            this.registerView(new LeadList({
                 id: 'lead_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Ticket.List());
-            this.registerView(new Mobile.SalesLogix.Views.Ticket.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.Ticket.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.Ticket.List({
+            this.registerView(new TicketList());
+            this.registerView(new TicketDetail());
+            this.registerView(new TicketEdit());
+            this.registerView(new TicketList({
                 id: 'ticket_related',
                 expose: false
             }));
 
 
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivity.List());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivity.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivity.RateLookup());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivity.List({
+            this.registerView(new TicketActivityList());
+            this.registerView(new TicketActivityDetail());
+            this.registerView(new TicketActivityEdit());
+            this.registerView(new TicketActivityRateLookup());
+            this.registerView(new TicketActivityList({
                 id: 'ticketactivity_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.TicketActivityItem.List({
+            this.registerView(new TicketActivityItemList());
+            this.registerView(new TicketActivityItemDetail());
+            this.registerView(new TicketActivityItemList({
                 id: 'ticketactivityitem_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Activity.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.Activity.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.Activity.Complete());
-            this.registerView(new Mobile.SalesLogix.Views.Activity.TypesList());
-            this.registerView(new Mobile.SalesLogix.Views.Activity.List({
+            this.registerView(new ActivityDetail());
+            this.registerView(new ActivityEdit());
+            this.registerView(new ActivityComplete());
+            this.registerView(new ActivityTypesList());
+            this.registerView(new ActivityList({
                 id: 'activity_related',
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.History.Detail());
-            this.registerView(new Mobile.SalesLogix.Views.History.List());
-            this.registerView(new Mobile.SalesLogix.Views.History.Edit());
-            this.registerView(new Mobile.SalesLogix.Views.History.List({
+            this.registerView(new HistoryDetail());
+            this.registerView(new HistoryList());
+            this.registerView(new HistoryEdit());
+            this.registerView(new HistoryList({
                 id: 'history_related',
                 expose: false
             }));
 
 
-            this.registerView(new Mobile.SalesLogix.Views.User.List({
+            this.registerView(new UserList({
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Owner.List({
+            this.registerView(new OwnerList({
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.LeadSource.List({
+            this.registerView(new LeadSourceList({
                 expose: false
             }));
 
-            this.registerView(new Mobile.SalesLogix.Views.Ticket.UrgencyLookup({
+            this.registerView(new TicketUrgencyLookup({
                 expose: false
             }));
         },
@@ -241,11 +317,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.inherited(arguments);
 
 
-            this.registerToolbar(new Mobile.SalesLogix.Views.MainToolbar({
+            this.registerToolbar(new MainToolbar({
                 name: 'tbar'
             }));
 
-            this.registerToolbar(new Mobile.SalesLogix.Views.FooterToolbar({
+            this.registerToolbar(new FooterToolbar({
                 name: 'bbar'
             }));
         },
@@ -253,7 +329,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.loadBaseCustomizations();
         },
         loadBaseCustomizations: function() {
-            dojo.extend(Sage.Platform.Mobile.List, {
+            lang.extend(List, {
                 expose: true,
                 getSecurity: function() {
                     return (this.expose && this.security); // only check security on exposed views
@@ -261,8 +337,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
             });
 
             // Activity Location Sawgrass+
-            dojo.extend(Mobile.SalesLogix.Views.Activity.Detail, {
-                querySelect: Mobile.SalesLogix.Views.Activity.Detail.prototype.querySelect.concat([
+            lang.extend(ActivityDetail, {
+                querySelect: ActivityDetail.prototype.querySelect.concat([
                     'Location'])
             });
 
@@ -274,8 +350,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 where: 'before',
                 value: {
                     property: 'Location',
-                    exclude: Mobile.SalesLogix.Views.Activity.Detail.prototype.isLocationAware,
-                    label: Mobile.SalesLogix.Views.Activity.Detail.prototype.locationText
+                    exclude: ActivityDetail.prototype.isLocationAware,
+                    label: ActivityDetail.prototype.locationText
                 }
             });
             this.registerCustomization('edit', 'activity_edit', {
@@ -286,7 +362,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 where: 'before',
                 value: {
                     property: 'Location',
-                    label: Mobile.SalesLogix.Views.Activity.Edit.prototype.locationText,
+                    label: ActivityEdit.prototype.locationText,
                     type: 'text'
                 }
             });

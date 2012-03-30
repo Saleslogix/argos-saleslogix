@@ -4,10 +4,18 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-Ext.namespace("Mobile.SalesLogix");
-
-(function() {
-    Mobile.SalesLogix.UpdateToolbar = Ext.extend(Sage.Platform.Mobile.MainToolbar, {
+define('Mobile/SalesLogix/UpdateToolbar', [
+    'dojo/_base/declare',
+    'dojo/_base/window',
+    'dojo/dom-class',
+    'Sage/Platform/Mobile/MainToolbar'
+], function(
+    declare,
+    win,
+    domClass,
+    MainToolbar
+) {
+    return declare('Mobile.SalesLogix.UpdateToolbar', [MainToolbar], {
         barTemplate: new Simplate([
             '<div class="update-toolbar">',
             // action has to be defined at this level
@@ -21,7 +29,7 @@ Ext.namespace("Mobile.SalesLogix");
         managed: false,
 
         show: function() {
-            Ext.getBody().addClass('update-available');
+            domClass.add(win.body(), 'update-available');
 
             this.showTools([{
                 id: 'cancel',
@@ -31,7 +39,7 @@ Ext.namespace("Mobile.SalesLogix");
             }]);
         },
         hide: function() {
-            Ext.getBody().removeClass('update-available');
+            domClass.remove(win.body(), 'update-available');
         },
         reload: function() {
             App.reload();
@@ -40,4 +48,4 @@ Ext.namespace("Mobile.SalesLogix");
             this.hide();
         }
     });
-})();
+});

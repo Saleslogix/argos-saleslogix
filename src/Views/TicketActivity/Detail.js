@@ -4,9 +4,25 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
+    'dojo/_base/declare',
+    'dojo/query',
+    'dojo/dom-class',
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Template',
+    'Sage/Platform/Mobile/ErrorManager',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    query,
+    domClass,
+    format,
+    template,
+    ErrorManager,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.TicketActivity.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.TicketActivity.Detail', [Detail], {
         //Localization
         titleText: 'Ticket Activity',
 
@@ -91,7 +107,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
         },
 
         onRequestCodeDataFailure: function(response, o) {
-            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
+            ErrorManager.addError(response, o, this.options, 'failure');
         },
 
         processCodeDataFeed: function(feed, currentValue, options) {
@@ -105,9 +121,9 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
             return currentValue;
         },
         setNodeText: function(node, value){
-            var contentNode = dojo.query('span', node)[0];
+            var contentNode = query('span', node)[0];
 
-            dojo.removeClass(node, 'content-loading');
+            domClass.remove(node, 'content-loading');
 
             if (contentNode)
                 contentNode.innerHTML = value;
@@ -141,7 +157,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     name: 'User.UserInfo',
                     property: 'User.UserInfo',
                     label: this.userText,
-                    tpl: Mobile.SalesLogix.Template.nameLF
+                    tpl: template.nameLF
                 },{
                     label: this.typeText,
                     name: 'ActivityTypeCode',
@@ -156,17 +172,17 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     label: this.assignedDateText,
                     name: 'AssignedDate',
                     property: 'AssignedDate',
-                    renderer: Mobile.SalesLogix.Format.date
+                    renderer: format.date
                 },{
                     label: this.completedDateText,
                     name: 'CompletedDate',
                     property: 'CompletedDate',
-                    renderer: Mobile.SalesLogix.Format.date
+                    renderer: format.date
                 },{
                     label: this.followUpText,
                     name: 'FollowUp',
                     property: 'FollowUp',
-                    renderer: Mobile.SalesLogix.Format.yesNo
+                    renderer: format.yesNo
                 },{
                     label: this.activityDescriptionText,
                     name: 'ActivityDescription',
@@ -192,22 +208,22 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', ['Sage/Platform/Mobile/D
                     label: this.rateText,
                     name: 'Rate',
                     property: 'Rate',
-                    renderer: Mobile.SalesLogix.Format.currency
+                    renderer: format.currency
                 },{
                     label: this.totalLaborText,
                     name: 'TotalLabor',
                     property: 'TotalLabor',
-                    renderer: Mobile.SalesLogix.Format.currency
+                    renderer: format.currency
                 },{
                     label: this.totalPartsText,
                     name: 'TotalParts',
                     property: 'TotalParts',
-                    renderer: Mobile.SalesLogix.Format.currency
+                    renderer: format.currency
                 },{
                     label: this.totalFeeText,
                     name: 'TotalFee',
                     property: 'TotalFee',
-                    renderer: Mobile.SalesLogix.Format.currency
+                    renderer: format.currency
                 }]
             },{
                 list: true,

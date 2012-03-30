@@ -4,9 +4,17 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Contract/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Contract/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    dojo.declare('Mobile.SalesLogix.Views.Contract.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Contract.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',
@@ -31,8 +39,8 @@ define('Mobile/SalesLogix/Views/Contract/List', ['Sage/Platform/Mobile/List'], f
         ],
         resourceKind: 'contracts',
 
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('(ReferenceNumber like "%${0}%")', [this.escapeSearchQuery(query)]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('(ReferenceNumber like "%${0}%")', [this.escapeSearchQuery(searchQuery)]);
         }
     });
 });

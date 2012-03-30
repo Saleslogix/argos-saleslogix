@@ -4,9 +4,15 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/FooterToolbar', ['Sage/Platform/Mobile/MainToolbar'], function() {
+define('Mobile/SalesLogix/Views/FooterToolbar', [
+    'dojo/_base/declare',
+    'Sage/Platform/Mobile/MainToolbar'
+], function(
+    declare,
+    MainToolbar
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.FooterToolbar', [Sage.Platform.Mobile.MainToolbar], {
+    return declare('Mobile.SalesLogix.Views.FooterToolbar', [MainToolbar], {
         // Localization
         copyrightText: '&copy; 2012 Sage Software, Inc. All rights reserved.',
         logOutConfirmText: 'Are you sure you want to log out?',

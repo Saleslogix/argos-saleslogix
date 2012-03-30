@@ -5,9 +5,19 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/Lead/Edit', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Validator',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    format,
+    validator,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Lead.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.Lead.Edit', [Edit], {
         //Localization
         accountText: 'account',
         addressText: 'address',
@@ -65,12 +75,12 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
             return this.layout || (this.layout = [
                 {
                     applyTo: '',
-                    formatValue: Mobile.SalesLogix.Format.nameLF,
+                    formatValue: format.nameLF,
                     label: this.leadNameLastFirstText,
                     name: 'LeadNameLastFirst',
                     property: 'LeadNameLastFirst',
                     type: 'name',
-                    validator: Mobile.SalesLogix.Validator.name,
+                    validator: validator.name,
                     view: 'name_edit'
                 },
                 {
@@ -79,7 +89,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     property: 'Company',
                     type: 'text',
                     maxTextLength: 128,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.webText,
@@ -88,7 +98,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     type: 'text',
                     inputType: 'url',
                     maxTextLength: 128,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.workText,
@@ -96,7 +106,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     property: 'WorkPhone',
                     type: 'phone',
                     maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.emailText,
@@ -114,11 +124,11 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     type: 'picklist',
                     orderBy: 'text asc',
                     maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     emptyText: '',
-                    formatValue: Mobile.SalesLogix.Format.address.bindDelegate(this, true),
+                    formatValue: format.address.bindDelegate(this, true),
                     label: this.addressText,
                     name: 'Address',
                     property: 'Address',
@@ -131,7 +141,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     property: 'TollFree',
                     type: 'phone',
                     maxTextLength: 32,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.importSourceText,
@@ -140,7 +150,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     view: 'leadsource_list',
                     textProperty: 'Description',
                     type: 'lookup',
-                    validator: Mobile.SalesLogix.Validator.exists
+                    validator: validator.exists
                 },
                 {
                     label: this.interestsText,
@@ -148,7 +158,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     property: 'Interests',
                     type: 'text',
                     maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.industryText,
@@ -158,7 +168,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     title: this.industryTitleText,
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.sicCodeText,
@@ -166,7 +176,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', ['Sage/Platform/Mobile/Edit'], funct
                     property: 'SICCode',
                     type: 'text',
                     maxTextLength: 64,
-                    validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.businessText,

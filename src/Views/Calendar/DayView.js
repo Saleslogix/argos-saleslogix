@@ -4,9 +4,25 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List', 'Sage/Platform/Mobile/Convert'], function() {
+define('Mobile/SalesLogix/Views/Calendar/DayView', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'dojo/query',
+    'dojo/dom-class',
+    'Sage/Platform/Mobile/ErrorManager',
+    'Sage/Platform/Mobile/Convert',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    query,
+    domClass,
+    ErrorManager,
+    convert,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Calendar.DayView', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Calendar.DayView', [List], {
         // Localization
         titleText: 'Calendar',
         dateHeaderFormatText: 'dddd, MM/dd/yyyy',
@@ -39,13 +55,12 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '</div>'
         ]),
         rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.Description %}" data-activity-type="{%: $.Activity.Type %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.Description %}" data-activity-type="{%: $.Type %}">',
             '<table class="calendar-entry-table"><tr>',
             '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
             '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
             '<td class="entry-table-description">{%! $$.itemTemplate %}</td>',
             '</tr></table>',
-            '',
             '</li>'
         ]),
         eventRowTemplate: new Simplate([
@@ -54,19 +69,18 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
             '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
             '</tr></table>',
-            '',
             '</li>'
         ]),
         timeTemplate: new Simplate([
-            '{% if ($.Activity.Timeless) { %}',
+            '{% if ($.Timeless) { %}',
                 '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}</span>',
-                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>',
+                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>',
             '{% } %}'
         ]),
         itemTemplate: new Simplate([
-            '<h3 class="p-description">{%: $.Activity.Description %}</h3>',
+            '<h3 class="p-description">{%: $.Description %}</h3>',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>'
         ]),
         eventItemTemplate: new Simplate([
@@ -74,12 +88,12 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             '<h4>{%! $$.eventNameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
-            '{% if ($.Activity.ContactName) { %}',
-            '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
-            '{% } else if ($.Activity.AccountName) { %}',
-            '{%: $.Activity.AccountName %}',
+            '{% if ($.ContactName) { %}',
+            '{%: $.ContactName %} / {%: $.AccountName %}',
+            '{% } else if ($.AccountName) { %}',
+            '{%: $.AccountName %}',
             '{% } else { %}',
-            '{%: $.Activity.LeadName %}',
+            '{%: $.LeadName %}',
             '{% } %}'
         ]),
         eventNameTemplate: new Simplate([
@@ -139,17 +153,19 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
         insertView: 'activity_types_list',
         enableSearch: false,
         currentDate: null,
-        queryOrderBy: 'Activity.Timeless desc, Activity.StartDate',
+        contractName: 'system',
+        queryOrderBy: 'Timeless desc, StartDate',
         querySelect: [
-            'Activity/Description',
-            'Activity/StartDate',
-            'Activity/Type',
-            'Activity/AccountName',
-            'Activity/ContactName',
-            'Activity/LeadId',
-            'Activity/LeadName',
-            'Activity/UserId',
-            'Activity/Timeless'
+            'Description',
+            'StartDate',
+            'Type',
+            'AccountName',
+            'ContactName',
+            'LeadId',
+            'LeadName',
+            'UserId',
+            'Timeless',
+            'Recurring'
         ],
         eventFeed: null,
         eventPageSize: 3,
@@ -159,7 +175,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             'Description',
             'Type'
         ],
-        resourceKind: 'useractivities',
+        resourceKind: 'activities',
 
         _onRefresh: function(o) {
             this.inherited(arguments);
@@ -172,7 +188,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             this.currentDate = Date.today().clearTime();
         },
         toggleGroup: function(params) {
-            var node = dojo.query(params.$source);
+            var node = query(params.$source);
             if (node && node.parent()) {
                 node.toggleClass('collapsed');
                 node.parent().toggleClass('collapsed-event');
@@ -200,25 +216,25 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             });
         },
         onRequestEventDataFailure: function(response, o) {
-            alert(dojo.string.substitute(this.requestErrorText, [response, o]));
-            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'failure');
+            alert(string.substitute(this.requestErrorText, [response, o]));
+            ErrorManager.addError(response, o, this.options, 'failure');
         },
         onRequestEventDataAborted: function(response, o) {
             this.options = false; // force a refresh
-            Sage.Platform.Mobile.ErrorManager.addError(response, o, this.options, 'aborted');
+            ErrorManager.addError(response, o, this.options, 'aborted');
         },
         onRequestEventDataSuccess: function(feed) {
             this.processEventFeed(feed);
         },
         createEventRequest: function(){
-            var querySelect = this.eventQuerySelect,
-                queryWhere = this.getEventQuery(),
+            var eventSelect = this.eventQuerySelect,
+                eventWhere = this.getEventQuery(),
                 request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
                 .setCount(this.eventPageSize)
                 .setStartIndex(1)
                 .setResourceKind('events')
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(querySelect).join(','))
-                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.expandExpression(eventSelect).join(','))
+                .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, eventWhere);
             return request;
         },
         getEndOfDay: function(){
@@ -228,18 +244,18 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
                 23, 59, 59);
         },
         getEventQuery: function(){
-            var startDate = this.currentDate.clone().clearTime(),
-                endDate = this.getEndOfDay();
-            return dojo.string.substitute(
+            return string.substitute(
                     [
                         'UserId eq "${0}" and (',
                             '(StartDate gt @${1}@ or EndDate gt @${1}@) and ',
                             'StartDate lt @${2}@',
                         ')'
                     ].join(''),
-                [App.context['user'] && App.context['user']['$key'],
-                this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
-                this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
+                [
+                    App.context['user'] && App.context['user']['$key'],
+                    convert.toIsoStringFromDate(this.currentDate),
+                    convert.toIsoStringFromDate(this.getEndOfDay())
+                ]
                 );
         },
         activateEventMore: function(){
@@ -249,10 +265,10 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
                 view.show({"where": where});
         },
         hideEventList: function(){
-            dojo.addClass(this.eventContainerNode, 'event-hidden');
+            domClass.add(this.eventContainerNode, 'event-hidden');
         },
         showEventList: function(){
-            dojo.removeClass(this.eventContainerNode, 'event-hidden');
+            domClass.remove(this.eventContainerNode, 'event-hidden');
         },
         processEventFeed: function(feed){
             var r = feed['$resources'],
@@ -277,10 +293,10 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
 
 
             if(feed['$totalResults'] > feedLength) {
-                dojo.addClass(this.eventContainerNode, 'list-has-more');
-                this.set('eventRemainingContent', dojo.string.substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
+                domClass.add(this.eventContainerNode, 'list-has-more');
+                this.set('eventRemainingContent', string.substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
             } else {
-                dojo.removeClass(this.eventContainerNode, 'list-has-more');
+                domClass.remove(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', '');
             }
 
@@ -295,7 +311,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             for(var i = 0; i < feedLength; i++){
                 var row = r[i];
                 row.isEvent = false;
-                this.entries[row.Activity.$key] = row;
+                this.entries[row.$key] = row;
                 o.push(this.rowTemplate.apply(row, this));
             }
 
@@ -324,7 +340,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             }
         },
         isLoading: function(){
-            return dojo.hasClass(this.domNode, 'list-loading');
+            return domClass.contains(this.domNode, 'list-loading');
         },
         getNextDay: function() {
             if (this.isLoading()) return;
@@ -346,18 +362,17 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             this.refresh();
         },
         formatQueryForActivities: function() {
-            var C = Sage.Platform.Mobile.Convert;
-            var query = [
-                'UserId eq "${0}" and (',
-                '(Activity.Timeless eq false and Activity.StartDate between @${1}@ and @${2}@) or ',
-                '(Activity.Timeless eq true and Activity.StartDate between @${3}@ and @${4}@))'
+            var queryWhere = [
+                'UserActivities.UserId eq "${0}" and (',
+                '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
+                '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
 
-            return dojo.string.substitute(
-                query,
+            return string.substitute(
+                queryWhere,
                 [App.context['user'] && App.context['user']['$key'],
-                C.toIsoStringFromDate(this.currentDate),
-                C.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
+                convert.toIsoStringFromDate(this.currentDate),
+                convert.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
                 this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
                 this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
             );
@@ -404,7 +419,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', ['Sage/Platform/Mobile/List',
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
                 view = App.getView(detailView);
-            descriptor = (entry.isEvent) ? descriptor : entry.Activity.Description;
+            descriptor = (entry.isEvent) ? descriptor : entry.Description;
             if (view)
                 view.show({
                     descriptor: descriptor,

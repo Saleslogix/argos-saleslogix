@@ -4,9 +4,17 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Settings', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Settings', [
+    'dojo/_base/declare',
+    'dojo/_base/connect',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    connect,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Settings', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Settings', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3 data-action="{%= $.action %}">',
@@ -56,11 +64,16 @@ define('Mobile/SalesLogix/Views/Settings', ['Sage/Platform/Mobile/List'], functi
         },
         viewErrorLogs: function(){
             var view = App.getView('errorlog_list');
-            view.show();
+            if (view)
+                view.show();
         },
         clearLocalStorage: function() {
             if (window.localStorage)
                 window.localStorage.clear();
+
+            connect.publish('/app/refresh', [{
+                resourceKind: 'localStorage'
+            }]);
 
             alert(this.localStorageClearedText);
         },

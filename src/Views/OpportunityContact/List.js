@@ -4,9 +4,17 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/OpportunityContact/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/OpportunityContact/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.OpportunityContact.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.OpportunityContact.List', [List], {
         //Template
         itemTemplate: new Simplate([
             '<h3 class="{% if ($.IsPrimary) { %}primary{% } %}">{%: $.Contact.NameLF %}</h3>',
@@ -120,8 +128,8 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', ['Sage/Platform/Mobile
                 }]
             });
         },
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

@@ -5,8 +5,20 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], function() {
-    return dojo.declare('Mobile.SalesLogix.Views.Address.Edit', [Sage.Platform.Mobile.Edit], {
+define('Mobile/SalesLogix/Views/Address/Edit', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Validator',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    string,
+    format,
+    validator,
+    Edit
+) {
+    return declare('Mobile.SalesLogix.Views.Address.Edit', [Edit], {
         //Localization
         address1Text: 'address 1',
         address2Text: 'address 2',
@@ -45,7 +57,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
             this.connect(this.fields['Country'], 'onChange', this.onCountryChange);
         },
         onCountryChange: function(value, field){
-            var locale = Mobile.SalesLogix.Format.countryCultures[value] || 'en-US';
+            var locale = format.countryCultures[value] || 'en-US';
             this.hideFieldsForLocale(locale);
         },
         /**
@@ -64,7 +76,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
             }
         },
         formatDependentPicklist: function(format) {
-            return dojo.string.substitute(format, [this.options.entityName]);
+            return string.substitute(format, [this.options.entityName]);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -84,8 +96,8 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 type: 'picklist',
                 maxTextLength: 64,
                 validator: [
-                    Mobile.SalesLogix.Validator.exists,
-                    Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                    validator.exists,
+                    validator.exceedsMaxTextLength
                 ]
             },
             {
@@ -106,7 +118,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 label: this.address1Text,
                 type: 'text',
                 maxTextLength: 64,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 name: 'Address2',
@@ -114,7 +126,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 label: this.address2Text,
                 type: 'text',
                 maxTextLength: 64,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 name: 'Address3',
@@ -122,7 +134,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 label: this.address3Text,
                 type: 'text',
                 maxTextLength: 64,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 label: this.cityText,
@@ -133,7 +145,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 title: this.cityTitleText,
                 type: 'picklist',
                 maxTextLength: 32,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 label: this.stateText,
@@ -144,7 +156,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 title: this.stateTitleText,
                 type: 'picklist',
                 maxTextLength: 32,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 name: 'PostalCode',
@@ -152,7 +164,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 label: this.postalCodeText,
                 type: 'text',
                 maxTextLength: 24,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 label: this.countryText,
@@ -163,7 +175,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 title: this.countryTitleText,
                 type: 'picklist',
                 maxTextLength: 32,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             },
             {
                 label: this.salutationText,
@@ -171,7 +183,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', ['Sage/Platform/Mobile/Edit'], fu
                 property: 'Salutation',
                 type: 'text',
                 maxTextLength: 64,
-                validator: Mobile.SalesLogix.Validator.exceedsMaxTextLength
+                validator: validator.exceedsMaxTextLength
             }]);
         }
     });

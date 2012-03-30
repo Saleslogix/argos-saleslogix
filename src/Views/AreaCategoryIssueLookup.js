@@ -4,9 +4,15 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
+    'dojo/_base/declare',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'
@@ -62,18 +68,14 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', ['Sage/Platform/Mobile
             Mobile.SalesLogix.Views.AreaCategoryIssueLookup.superclass.processFeed.apply(this, [feed]);
         },
         createCacheFrom: function(feed) {
-            var i,
-                feedLength = feed['$resources'].length,
-                entry,
-                area,
-                category;
+            var feedLength = feed['$resources'].length;
             this.cache = {};
 
-            for (i = 0; i < feedLength; i += 1)
+            for (var i = 0; i < feedLength; i += 1)
             {
-                    entry = feed['$resources'][i],
-                    area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {}),
-                    category = area[entry['Category']] || (area[entry['Category']] = {});
+                var entry = feed['$resources'][i],
+                area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {}),
+                category = area[entry['Category']] || (area[entry['Category']] = {});
 
                 category[entry['Issue']] = true
             }
@@ -97,7 +99,7 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', ['Sage/Platform/Mobile
         refreshRequiredFor: function(options) {
             return true; // todo: implement refresh detection?
         },
-        formatSearchQuery: function(query) {
+        formatSearchQuery: function(searchQuery) {
 
         }
     });

@@ -5,9 +5,17 @@
 /// <reference path="../../../../../argos-sdk/src/Edit.js"/>
 /// <reference path="../../Format.js"/>
 
-define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Template',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    template,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Edit], {
 
         //Localization
         titleText: 'Edit Ticket Activity',
@@ -18,7 +26,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
         userText: 'user',
         startDateText: 'start date',
         endDateText: 'end date',
-        chargeTypeText: 'charge type',
         commentsText: 'comments',
 
         //View Properties
@@ -30,9 +37,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
             'AssignedDate',
             'CompletedDate',
             'PublicAccessCode',
-            'RateTypeDescription/Amount',
-            'RateTypeDescription/RateTypeCode',
-            'RateTypeDescription/TypeDescription',
             'User/UserName',
             'User/UserInfo/FirstName',
             'User/UserInfo/LastName'
@@ -76,7 +80,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
                     name: 'User',
                     property: 'User',
                     textProperty: 'UserInfo',
-                    textTemplate: Mobile.SalesLogix.Template.nameLF,
+                    textTemplate: template.nameLF,
                     type: 'lookup',
                     view: 'user_list'
                 },{
@@ -89,13 +93,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', ['Sage/Platform/Mobile/Edi
                     name: 'CompletedDate',
                     property: 'CompletedDate',
                     type: 'date'
-                },{
-                    label: this.chargeTypeText,
-                    name: 'RateTypeDescription',
-                    property: 'RateTypeDescription',
-                    textProperty: 'RateTypeCode',
-                    type: 'lookup',
-                    view: 'ticketactivity_ratelookup'
                 },{
                     label: this.commentsText,
                     name: 'ActivityDescription',

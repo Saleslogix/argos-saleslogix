@@ -4,9 +4,15 @@
 /// <reference path="../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../argos-sdk/src/Edit.js"/>
 
-define('Mobile/SalesLogix/Views/Login', ['Sage/Platform/Mobile/Edit'], function() {
+define('Mobile/SalesLogix/Views/Login', [
+    'dojo/_base/declare',
+    'Sage/Platform/Mobile/Edit'
+], function(
+    declare,
+    Edit
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Login', [Sage.Platform.Mobile.Edit], {
+    return declare('Mobile.SalesLogix.Views.Login', [Edit], {
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',

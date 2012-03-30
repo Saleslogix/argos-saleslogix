@@ -4,9 +4,23 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'], function() {
+define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
+    'dojo/_base/declare',
+    'dojo/_base/json',
+    'dojo/string',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/ErrorManager',
+    'Sage/Platform/Mobile/Detail'
+], function(
+    declare,
+    dojo,
+    string,
+    format,
+    ErrorManager,
+    Detail
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.ErrorLog.Detail', [Sage.Platform.Mobile.Detail], {
+    return declare('Mobile.SalesLogix.Views.ErrorLog.Detail', [Detail], {
         //Localization
         titleText: 'Error Log',
 
@@ -112,7 +126,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
         constructFlashVars: function(options){
             var flashVars = [];
             for (var key in options)
-                flashVars.push(dojo.string.substitute('${0}=${1}', [key, options[key]]));
+                flashVars.push(string.substitute('${0}=${1}', [key, options[key]]));
             return flashVars.join('&');
         },
 
@@ -121,7 +135,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
         },
 
         constructReport: function(){
-            var body = dojo.string.substitute('\r\n\r\n\r\n-----------------\r\n${0}',
+            var body = string.substitute('\r\n\r\n\r\n-----------------\r\n${0}',
                     [dojo.toJson(this.entry, true)]);
 
             if (this.sendType === 'mailto')
@@ -138,7 +152,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
         },
 
         requestData: function(){
-            var errorItem = Sage.Platform.Mobile.ErrorManager.getError('$key', this.options.key);
+            var errorItem = ErrorManager.getError('$key', this.options.key);
             this.processEntry(errorItem);
         },
 
@@ -150,7 +164,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', ['Sage/Platform/Mobile/Detail'
                     label: this.errorDateText,
                     name: 'errorDateStamp',
                     property: 'errorDateStamp',
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.errorDateFormatText)
+                    renderer: format.date.bindDelegate(this, this.errorDateFormatText)
                 },{
                     label: this.statusTextText,
                     name: 'serverResponse.statusText',

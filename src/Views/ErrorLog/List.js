@@ -4,9 +4,21 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/Detail.js"/>
 
-define('Mobile/SalesLogix/Views/ErrorLog/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/ErrorLog/List', [
+    'dojo/_base/declare',
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Convert',
+    'Sage/Platform/Mobile/ErrorManager',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    convert,
+    format,
+    ErrorManager,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.ErrorLog.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.ErrorLog.List', [List], {
         //Localization
         titleText: 'Error Logs',
         errorDateFormatText: 'MM/dd/yyyy hh:mm tt',
@@ -24,31 +36,28 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', ['Sage/Platform/Mobile/List'], f
         expose: false,
         detailView: 'errorlog_detail',
 
-        init: function() {
+        _onRefresh: function(o) {
             this.inherited(arguments);
-            dojo.connect(Sage.Platform.Mobile.ErrorManager, 'onErrorAdd', this, '_onRefresh');
-            dojo.connect(Mobile.SalesLogix.Views.Settings, 'clearLocalStorage', this, '_onRefresh');
-        },
-        
-        _onRefresh: function(){
-            this.inherited(arguments);
-            this.refreshRequired = true;
+            if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage'){
+                this.refreshRequired = true;
+            }
         },
 
         requestData: function(){
-            var errorItems = Sage.Platform.Mobile.ErrorManager.getAllErrors(),
-                C = Sage.Platform.Mobile.Convert;
+            var errorItems = ErrorManager.getAllErrors();
 
             errorItems.sort(function(a, b){
-               var A = C.toDateFromString(a.errorDateStamp), B = C.toDateFromString(b.errorDateStamp);
+               var A = convert.toDateFromString(a.errorDateStamp),
+                   B = convert.toDateFromString(b.errorDateStamp);
+
                return B.compareTo(A); // new -> old
             });
 
             this.processFeed({
                 '$resources': errorItems,
                 '$totalResults': errorItems.length,
-                '$startIndex':1,
-                '$itemsPerPage':20
+                '$startIndex': 1,
+                '$itemsPerPage': 20
             });
         },
 

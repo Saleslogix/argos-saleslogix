@@ -4,9 +4,17 @@
 /// <reference path="../../../../../argos-sdk/src/View.js"/>
 /// <reference path="../../../../../argos-sdk/src/List.js"/>
 
-define('Mobile/SalesLogix/Views/Account/List', ['Sage/Platform/Mobile/List'], function() {
+define('Mobile/SalesLogix/Views/Account/List', [
+    'dojo/_base/declare',
+    'dojo/string',
+    'Sage/Platform/Mobile/List'
+], function(
+    declare,
+    string,
+    List
+) {
 
-    return dojo.declare('Mobile.SalesLogix.Views.Account.List', [Sage.Platform.Mobile.List], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -35,8 +43,8 @@ define('Mobile/SalesLogix/Views/Account/List', ['Sage/Platform/Mobile/List'], fu
         ],
         resourceKind: 'accounts',
 
-        formatSearchQuery: function(query) {
-            return dojo.string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(query.toUpperCase())]);
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
     
