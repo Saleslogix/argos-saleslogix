@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Application', [
     declare,
     array,
     connect,
-    dojo,
+    json,
     lang,
     has,
     string,
@@ -50,7 +50,7 @@ define('Mobile/SalesLogix/Application', [
             'ActivityPersonalOptions;Duration'
         ],
         serverVersion: {
-            'major': 8,
+            'major': 7,
             'minor': 0,
             'revision': 0
         },
@@ -91,7 +91,7 @@ define('Mobile/SalesLogix/Application', [
             try
             {
                 if (window.localStorage)
-                    window.localStorage.setItem('navigationState', dojo.toJson(ReUI.context.history));
+                    window.localStorage.setItem('navigationState', json.toJson(ReUI.context.history));
             }
             catch (e) { }
         },
@@ -143,7 +143,7 @@ define('Mobile/SalesLogix/Application', [
                 try
                 {
                     if (window.localStorage)
-                        window.localStorage.setItem('credentials', Base64.encode(dojo.toJson({
+                        window.localStorage.setItem('credentials', Base64.encode(json.toJson({
                             username: credentials.username,
                             password: credentials.password || ''
                         })));
@@ -218,7 +218,7 @@ define('Mobile/SalesLogix/Application', [
                 {
                     var stored = window.localStorage.getItem('credentials'),
                         encoded = stored && Base64.decode(stored),
-                        credentials = encoded && dojo.fromJson(encoded);
+                        credentials = encoded && json.fromJson(encoded);
                 }
             }
             catch (e) { }
@@ -265,7 +265,7 @@ define('Mobile/SalesLogix/Application', [
         _loadPreferences: function() {
             try {
                 if (window.localStorage)
-                    this.preferences = dojo.fromJson(window.localStorage.getItem('preferences'));
+                    this.preferences = json.fromJson(window.localStorage.getItem('preferences'));
             }
             catch(e) {}
 
@@ -361,7 +361,7 @@ define('Mobile/SalesLogix/Application', [
         persistPreferences: function() {
             try {
                 if (window.localStorage)
-                    window.localStorage.setItem('preferences', dojo.toJson(App.preferences));
+                    window.localStorage.setItem('preferences', json.toJson(App.preferences));
             }
             catch(e) {}
         },
@@ -408,7 +408,7 @@ define('Mobile/SalesLogix/Application', [
             try
             {
                 var restoredState = this.navigationState,
-                    restoredHistory = restoredState && dojo.fromJson(restoredState),
+                    restoredHistory = restoredState && json.fromJson(restoredState),
                     cleanedHistory = this.cleanRestoredHistory(restoredHistory);
 
                 this._clearNavigationState();

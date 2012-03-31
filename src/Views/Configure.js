@@ -13,7 +13,7 @@ define('Mobile/SalesLogix/Views/Configure', [
     'dojo/dom-attr',
     'dojo/dom-class',
     'Sage/Platform/Mobile/List',
-    'dojo/Nodelist-traverse'
+    'dojo/NodeList-traverse'
 ], function(
     declare,
     array,

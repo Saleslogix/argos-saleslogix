@@ -87,6 +87,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             'Leader/$key',
             'LeadId',
             'LeadName',
+            'Location',
             'LongNotes',
             'OpportunityId',
             'OpportunityName',
@@ -233,6 +234,10 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     name: 'Category',
                     property: 'Category',
                     label: this.categoryText
+                },{
+                    name: 'Location',
+                    property: 'Location',
+                    label: this.locationText
                 },{
                     name: 'Priority',
                     property: 'Priority',

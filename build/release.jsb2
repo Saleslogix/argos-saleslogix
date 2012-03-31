@@ -456,6 +456,22 @@
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {
+          "text": "parser.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "url.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/_base"
+        },
+        {
+          "text": "stamp.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/date"
+        },
+        {
+          "text": "wai.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
+        },
+        {
           "text": "NodeList-manipulate.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },

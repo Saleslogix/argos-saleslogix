@@ -329,37 +329,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
                     return (this.expose && this.security); // only check security on exposed views
                 }
             });
-
-            // Activity Location Sawgrass+
-            lang.extend(ActivityDetail, {
-                querySelect: ActivityDetail.prototype.querySelect.concat([
-                    'Location'])
-            });
-
-            this.registerCustomization('detail', 'activity_detail', {
-                at: function(row) {
-                    return (App.serverVersion.major >= 8 && row.property === 'Priority');
-                },
-                type: 'insert',
-                where: 'before',
-                value: {
-                    property: 'Location',
-                    exclude: ActivityDetail.prototype.isLocationAware,
-                    label: ActivityDetail.prototype.locationText
-                }
-            });
-            this.registerCustomization('edit', 'activity_edit', {
-                at: function(row) {
-                    return (App.serverVersion.major >= 8 && row.property === 'Priority');
-                },
-                type: 'insert',
-                where: 'before',
-                value: {
-                    property: 'Location',
-                    label: ActivityEdit.prototype.locationText,
-                    type: 'text'
-                }
-            });
         }
     });
 

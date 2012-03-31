@@ -511,7 +511,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             var options = {
                 date: this.currentDate,
                 showTimePicker: false,
-                asTimeless: false,
+                timeless: false,
                 tools: {
                     tbar: [{
                         id: 'complete',

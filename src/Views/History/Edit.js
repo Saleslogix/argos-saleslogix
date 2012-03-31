@@ -119,10 +119,10 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         },
         onAccountChange: function(value, field) {
             var fields = this.fields;
-            dojo.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
+            array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
                 if (value) {
                     fields[f].dependsOn = 'Account';
-                    fields[f].where = dojo.string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
+                    fields[f].where = string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
 
                     if (fields[f].currentSelection &&
                         fields[f].currentSelection.Account['$key'] != (value['AccountId'] || value['key'])) {

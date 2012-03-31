@@ -122,6 +122,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             'Duration',
             'LeadId',
             'LeadName',
+            'Location',
             'LongNotes',
             'OpportunityId',
             'OpportunityName',
@@ -234,7 +235,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.fields['Rollover'].enable();
                 startDateField['dateFormatText'] = this.startingFormatTimelessText;
                 startDateField['showTimePicker'] = false;
-                startDateField['asTimeless'] = true;
+                startDateField['timeless'] = true;
                 var startDate =startDateField.getValue();
                 if(!this.isDateTimeless(startDate))
                     startDate = startDate.clone().clearTime().add({minutes:-1*startDate.getTimezoneOffset(), seconds:5});
@@ -246,7 +247,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.fields['Rollover'].disable();
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
-                startDateField['asTimeless'] = false;
+                startDateField['timeless'] = false;
                 var startDate =startDateField.getValue();
                 if(this.isDateTimeless(startDate))
                     startDate = startDate.clone().add({minutes:startDate.getTimezoneOffset()+1, seconds: -5});
@@ -594,6 +595,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 maxTextLength: 64,
                 validator: validator.exceedsMaxTextLength
             },{
+                name: 'Location',
+                property: 'Location',
+                label: this.locationText,
+                type: 'text'
+            },{
                 label: this.priorityText,
                 name: 'Priority',
                 property: 'Priority',
@@ -618,7 +624,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 name: 'StartDate',
                 property: 'StartDate',
                 type: 'date',
-                asTimeless: false,
+                timeless: false,
                 showTimePicker: true,
                 dateFormatText: this.startingFormatText,
                 minValue: (new Date(1900, 0, 1)),

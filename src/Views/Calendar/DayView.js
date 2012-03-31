@@ -381,7 +381,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             var options = {
                 date: this.currentDate,
                 showTimePicker: false,
-                asTimeless: false,
+                timeless: false,
                 tools: {
                     tbar: [{
                         id: 'complete',

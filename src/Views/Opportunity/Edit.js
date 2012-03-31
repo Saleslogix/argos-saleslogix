@@ -161,7 +161,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                     name: 'EstimatedClose',
                     property: 'EstimatedClose',
                     type: 'date',
-                    asTimeless: true,
+                    timeless: true,
                     validator: validator.exists
                 },
                 {

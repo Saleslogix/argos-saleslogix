@@ -13,7 +13,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
-    dojo,
+    json,
     string,
     format,
     ErrorManager,
@@ -136,7 +136,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
 
         constructReport: function(){
             var body = string.substitute('\r\n\r\n\r\n-----------------\r\n${0}',
-                    [dojo.toJson(this.entry, true)]);
+                    [json.toJson(this.entry, true)]);
 
             if (this.sendType === 'mailto')
                 this.sendEmailReport(body);
