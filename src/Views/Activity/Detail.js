@@ -184,7 +184,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         processEntry: function(entry) {
             this.inherited(arguments);
 
-            if (entry && entry['UserId']) this.requestLeader(entry['UserId']);
+            if (entry && entry['Leader']['$key']) this.requestLeader(entry['Leader']['$key']);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -207,7 +207,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeOccurrence',
                     disabled: this.checkCanComplete,
-                    renderer: Mobile.SalesLogix.Format.date.bindDelegate(this, this.startDateFormatText, false),
+                    renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
                     include: this.isActivityRecurring
                 },{
                     name: 'completeSeriesAction',

@@ -153,10 +153,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
         },
         currentUserCanEdit: function(entry) {
-            return !!entry && (entry['UserId'] === App.context['user']['$key']);
+            return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
         },
         currentUserCanSetAlarm: function(entry) {
-            return !!entry && (entry['UserId'] === App.context['user']['$key']);
+            return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -381,7 +381,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 return (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) ||
                        (/^(useractivities|activities)$/.test(context.resourceKind));
             });
-
             var context = (found && found.options && found.options.source) || found,
                 lookup = {
                     'accounts': this.applyAccountContext,
