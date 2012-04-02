@@ -6,6 +6,7 @@
 
 define('Mobile/SalesLogix/Views/Ticket/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
     'Mobile/SalesLogix/Format',
@@ -13,6 +14,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
+    lang,
     query,
     domClass,
     format,
@@ -47,6 +49,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         scheduleActivityText: 'Schedule activity',        
         moreDetailsText: 'More Details',
         relatedTicketActivitiesText: 'Ticket Activities',
+        loadingText: 'loading...',
 
         //View Properties
         id: 'ticket_detail',
@@ -96,13 +99,13 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         requestCodeData: function(row, node, value, entry, predicate) {
             var request = this.createPicklistRequest(predicate);
             request.read({
-                success: function(data) {this.onRequestCodeDataSuccess(data, row, node, value, entry);},
+                success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
                 failure: this.onRequestCodeDataFailure,
                 scope: this
             });
         },
 
-        onRequestCodeDataSuccess: function(data, row, node, value, entry){
+        onRequestCodeDataSuccess: function(row, node, value, entry, data){
             var value = this.processCodeDataFeed(data, entry[row.property]);
             this.setNodeText(node, value);
             this.entry[row.name] = value;
@@ -184,7 +187,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                 },{
                     label: this.statusText,
                     cls: 'content-loading',
-                    value: 'loading...',
+                    value: this.loadingText,
                     name: 'StatusCode',
                     property: 'StatusCode',
                     onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Status"')
@@ -214,7 +217,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                     label: this.sourceText,
                     name: 'ViaCode',
                     property: 'ViaCode',
-                    value: 'loading...',
+                    value: this.loadingText,
                     cls: 'content-loading',
                     onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Source"')
                 },{

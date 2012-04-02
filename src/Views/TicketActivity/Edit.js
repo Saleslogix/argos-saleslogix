@@ -7,11 +7,15 @@
 
 define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'Mobile/SalesLogix/Template',
+    'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
+    lang,
     template,
+    ErrorManager,
     Edit
 ) {
 
@@ -42,6 +46,51 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
             'User/UserInfo/LastName'
         ],
         resourceKind: 'ticketActivities',
+
+        processTemplateEntry: function(entry) {
+            this.inherited(arguments);
+
+            if (entry['PublicAccessCode'])
+                this.requestCodeData('name eq "Ticket Activity Public Access"', entry['PublicAccessCode'], this.fields['PublicAccessCode']);
+        },
+        createPicklistRequest: function(name) {
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+                .setResourceKind('picklists')
+                .setContractName('system');
+
+            var uri = request.getUri();
+            uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
+            uri.setCollectionPredicate(name);
+
+            request.allowCacheUse = true;
+            return request;
+        },
+        requestCodeData: function(picklistName, code, field) {
+            var request = this.createPicklistRequest(picklistName);
+            request.read({
+                success: lang.hitch(this, this.onRequestCodeDataSuccess, code, field),
+                failure: this.onRequestCodeDataFailure,
+                scope: this
+            });
+        },
+        onRequestCodeDataSuccess: function(code, field, feed){
+            var value = this.processCodeDataFeed(feed, code);
+            field.setText(value);
+        },
+        onRequestCodeDataFailure: function(response, o) {
+            ErrorManager.addError(response, o, this.options, 'failure');
+        },
+        processCodeDataFeed: function(feed, currentValue, options) {
+            var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+            var textProperty = options && options.textProperty ? options.textProperty : 'text';
+
+            for (var i = 0; i < feed.$resources.length; i++)
+            {
+                if (feed.$resources[i][keyProperty] === currentValue)
+                    return feed.$resources[i][textProperty];
+            }
+            return currentValue;
+        },
 
         applyContext: function(){
             this.inherited(arguments);

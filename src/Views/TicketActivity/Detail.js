@@ -6,6 +6,7 @@
 
 define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
     'Mobile/SalesLogix/Format',
@@ -14,6 +15,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
+    lang,
     query,
     domClass,
     format,
@@ -94,13 +96,13 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
         requestCodeData: function(row, node, value, entry, predicate) {
             var request = this.createPicklistRequest(predicate);
             request.read({
-                success: function(data) {this.onRequestCodeDataSuccess(data, row, node, value, entry);},
+                success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
                 failure: this.onRequestCodeDataFailure,
                 scope: this
             });
         },
 
-        onRequestCodeDataSuccess: function(data, row, node, value, entry){
+        onRequestCodeDataSuccess: function(row, node, value, entry, data){
             var value = this.processCodeDataFeed(data, entry[row.property]);
             this.setNodeText(node, value);
             this.entry[row.name] = value;
