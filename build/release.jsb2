@@ -165,11 +165,11 @@
       "isDebug": true,
       "fileIncludes": [
         {
-          "text": "Application.js",
+          "text": "Environment.js",
           "path": "../src"
         },
         {
-          "text": "Format.js",
+          "text": "Application.js",
           "path": "../src"
         },
         {
@@ -177,11 +177,11 @@
           "path": "../src"
         },
         {
-          "text": "Validator.js",
+          "text": "Format.js",
           "path": "../src"
         },
         {
-          "text": "Environment.js",
+          "text": "Validator.js",
           "path": "../src"
         },
         {
@@ -443,6 +443,10 @@
         {
           "text": "ApplicationModule.js",
           "path": "../src"
+        },
+        {
+          "text": "UpdateToolbar.js",
+          "path": "../src/Views"
         }
       ]
     },
@@ -456,27 +460,7 @@
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {
-          "text": "parser.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "url.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo/_base"
-        },
-        {
-          "text": "stamp.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo/date"
-        },
-        {
-          "text": "wai.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
-        },
-        {
           "text": "NodeList-manipulate.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "NodeList-traverse.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {
@@ -530,6 +514,26 @@
         {
           "text": "_Widget.js",
           "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "NodeList-traverse.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "url.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/_base"
+        },
+        {
+          "text": "stamp.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/date"
+        },
+        {
+          "text": "parser.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "wai.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
         }
       ]
     }
