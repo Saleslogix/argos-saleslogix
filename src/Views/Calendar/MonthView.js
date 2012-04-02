@@ -215,7 +215,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         queryOrderBy: 'StartDate asc',
         querySelect: [
             'StartDate',
-            'Timeless'
+            'Timeless',
+            'Type'
         ],
         feed: {},
         eventFeed: {},
@@ -384,7 +385,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 endDate = this.getLastDayOfCurrentMonth();
             return string.substitute(
                     [
-                        'UserActivities.UserId eq "${0}" and (',
+                        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
                         '(Timeless eq false and StartDate',
                         ' between @${1}@ and @${2}@) or ',
                         '(Timeless eq true and StartDate',
@@ -421,11 +422,12 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             for(var i = 0; i < r.length; i++){
                 var row = r[i];
                 this.entries[row.$key] = row;
-                var startDay = Sage.Platform.Mobile.Convert.toDateFromString(row.StartDate);
-                var dateIndex = (r[i].Timeless)
-                    ? this.dateToUTC(startDay)
-                    : startDay;
-                dateIndex = dateIndex.toString('yyyy-MM-dd');
+
+                var startDay = convert.toDateFromString(row.StartDate);
+                if (r[i].Timeless)
+                    startDay.add({minute: startDay.getTimezoneOffset()});
+
+                var dateIndex = startDay.toString('yyyy-MM-dd');
                 this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
                     ? this.dateCounts[dateIndex] + 1
                     : 1;
@@ -459,34 +461,25 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         },
 
         highlightActivities: function(){
-            var template = this.calendarActivityCountTemplate.apply(this),
+            var countTemplate = this.calendarActivityCountTemplate.apply(this),
                 dateCounts = this.dateCounts;
             query('.calendar-day').forEach( function(el) {
                 var dataDate = domAttr.get(el, 'data-date');
                 if (dateCounts[dataDate]) {
                     domClass.add(el, "activeDay");
                     if(query(el).children('div').length > 0){
-                        query(el).children('div')[0].innerHTML = string.substitute(template,
+                        query(el).children('div')[0].innerHTML = string.substitute(countTemplate,
                             [dateCounts[dataDate],
                             dateCounts[dataDate]]);
                     } else {
                         domConstruct.place(string.substitute(
-                            template,
+                            countTemplate,
                             [dateCounts[dataDate]]
                         ), el, 'first');
                     }
 
                 }
             });
-        },
-        dateToUTC: function(date){
-            return new Date(date.getUTCFullYear(),
-                date.getUTCMonth(),
-                date.getUTCDate(),
-                date.getUTCHours(),
-                date.getUTCMinutes(),
-                date.getUTCSeconds()
-            );
         },
         setCurrentDateTitle: function(){
             this.set('dayTitleContent', this.currentDate.toString(this.dayTitleFormatText));
@@ -564,7 +557,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         },
         getSelectedDateActivityQuery: function(){
             var activityQuery = [
-                'UserActivities.UserId eq "${0}" and (',
+                'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
                 '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
                 '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
@@ -574,7 +567,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 convert.toIsoStringFromDate(this.currentDate),
                 convert.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
                 this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
-                this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
+                this.currentDate.toString('yyyy-MM-ddT23:59:59Z')
+                ]
             );
         },
         getEndOfDay: function(){

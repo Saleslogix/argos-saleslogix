@@ -259,7 +259,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.weekEndDate = this.getEndDay(setDate);
             this.queryWhere =  string.substitute(
                     [
-                        'UserActivities.UserId eq "${0}" and (',
+                        'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
                         '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
                         '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
                     ].join(''),[
