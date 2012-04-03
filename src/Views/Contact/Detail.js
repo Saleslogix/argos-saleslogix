@@ -43,6 +43,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
         relatedNotesText: 'Notes',
         relatedOpportunitiesText: 'Opportunities',
         relatedTicketsText: 'Tickets',
+        relatedAddressesText: 'Addresses',
         titleText: 'Contact',
         webText: 'web',
         workText: 'phone',
@@ -307,6 +308,12 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                     label: this.relatedHistoriesText,
                     where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}" and Type ne "atDatabaseChange"'),
                     view: 'history_related'
+                },{
+                    name: 'AddressesRelated',
+                    icon: 'content/images/icons/Map_24.png',
+                    label: this.relatedAddressesText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
+                    view: 'address_related'
                 }]
             }]);
         }
