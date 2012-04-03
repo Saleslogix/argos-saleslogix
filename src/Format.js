@@ -5,11 +5,13 @@
 
 define('Mobile/SalesLogix/Format', [
     'dojo/_base/lang',
+    'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Format'
 ], function(
     lang,
+    array,
     string,
     template,
     format
@@ -17,10 +19,7 @@ define('Mobile/SalesLogix/Format', [
     return lang.setObject('Mobile.SalesLogix.Format', lang.mixin({}, format, {
         /**
          * Address Culture Formats as defined by Mobile.SalesLogix.Format.address
-         * Sources:
-         * http://www.columbia.edu/~fdc/postal/
          * http://msdn.microsoft.com/en-us/library/cc195167.aspx
-         * http://en.wikipedia.org/wiki/Address_(geography)
          */
         addressCultureFormats: {
             'en': 'a1|a2|a3|m R p|C',
@@ -32,7 +31,6 @@ define('Mobile/SalesLogix/Format', [
         },
         /**
          * Country name to culture identification
-         * Source:
          * http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx
          */
         countryCultures: {
@@ -77,54 +75,56 @@ define('Mobile/SalesLogix/Format', [
          |		separator			    					as defined by separator variable
          </pre>
          @param {object} o Address Entity containing all the SData properties
-         @param {bool} asText If set to true returns text only, if false returns anchor link to google maps
-         @param {string|bool} separator If false - separates with html <br>,
+         @param {boolean} asText If set to true returns text only, if false returns anchor link to google maps
+         @param {string|boolean} separator If false - separates with html <br>,
                               if true - separates with line return,
                               if defined as string - uses string to separate
          @param {string} fmt Address format to use, may also pass a culture string to use predefined format
          @return {string} Formatted address
         */
         address: function(o, asText, separator, fmt){
-            var lines = [],
-                isEmpty = function(line){
+            var isEmpty = function(line){
                     var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g,''));
                     return filterSymbols === '';
                 },
-                clean = function(line){
-                    return lang.trim(line.replace(/ {2,}/g, ' '));
-                },
                 _this = Mobile.SalesLogix.Format;
 
-            if(!fmt)
-                fmt = _this.countryCultures[o.Country] || Mobile.CultureInfo.name;
-
-            if(typeof _this.addressCultureFormats[fmt] !== 'undefined')
-                fmt = _this.addressCultureFormats[fmt];
-
-            if(fmt.indexOf('|') === -1)
-                lines = [fmt];
-            else
-                lines = fmt.split('|');
-
-            for(var i=0; i<lines.length; i++){
-                var line = _this.replaceAddressPart(lines[i], o);
-                if(isEmpty(line)){
-                    lines.splice(i,1); i--;
-                } else {
-                    lines[i] = clean(line);
-                }
+            if (!fmt)
+            {
+                var culture = _this.resolveAddressCulture(o);
+                fmt = _this.addressCultureFormats[culture] || _this.addressCultureFormats['en'];
             }
-            if (asText) return separator ? lines.join(typeof separator === 'string' ? separator : '\n') : lines.join('<br />');
+
+            var lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|'),
+                address = [];
+
+            array.forEach(lines, function(line) {
+                line = _this.replaceAddressPart(line, o);
+                if(!isEmpty(line))
+                    this.push( _this.encode(_this.collapseSpace(line)));
+            }, address);
+
+            if (asText)
+            {
+                if (separator === true) separator = '\n';
+                return address.join(separator || '<br />');
+            }
 
             return string.substitute(
                 '<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>',
-                [lines.join('<br />'), encodeURIComponent(lines.join(' '))]
+                [address.join('<br />'), encodeURIComponent(_this.decode(address.join(' ')))]
             );
         },
+        collapseSpace: function(text) {
+            return lang.trim(text.replace(/\s+/g, ' '));
+        },
+        resolveAddressCulture: function(o) {
+            return Mobile.SalesLogix.Format.countryCultures[o.Country] || Mobile.CultureInfo.name;
+        },
         replaceAddressPart: function(fmt, o){
-            return fmt.replace(/s|S|a1|a2|a3|m|M|z|Z|r|R|p|P|c|C/g,
-                function (format) {
-                    switch (format) {
+            return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g,
+                function (part) {
+                    switch (part) {
                     case "s":
                         return o.Salutation || '';
                     case "S":
@@ -135,6 +135,8 @@ define('Mobile/SalesLogix/Format', [
                         return o.Address2 || '';
                     case "a3":
                         return o.Address3 || '';
+                    case "a4":
+                        return o.Address4 || '';
                     case "m":
                         return o.City || '';
                     case "M":
