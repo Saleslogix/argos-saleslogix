@@ -249,6 +249,10 @@
           "path": "../src/Views/Account"
         },
         {
+          "text": "List.js",
+          "path": "../src/Views/Address"
+        },
+        {
           "text": "Edit.js",
           "path": "../src/Views/Address"
         },
