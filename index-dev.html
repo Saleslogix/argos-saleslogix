@@ -68,11 +68,31 @@
                 'localization/saleslogix/en'
             ];
             require(localization.concat('dojo/domReady!'), function() {
+                /*
                 var instance = new application(configuration);
 
                 instance.activate();
                 instance.init();
                 instance.run();
+                */
+
+                require(['dojo/_base/declare', 'dijit/layout/ContentPane', 'dijit/_Widget', 'Sage/Platform/Mobile/_Component'], function(declare, ContentPane, _Widget, _Component) {
+                    var Sample = declare('Sample', [_Widget, _Component], {
+                        components: [
+                            {type: ContentPane, attachPoint: '$test', attachEvent: {'onClick':'_click'}, props: {content: 'Test Me'}}
+                        ],
+                        _click: function() {
+                            console.log('click!');
+                        }
+                    });
+
+                    var pane = new ContentPane({content: 'Test'});
+                    pane.placeAt(document.body);
+
+                    var widget = new Sample();
+                    widget.placeAt(document.body);
+                    widget.startup();
+                });
             });
         });
     })();
