@@ -531,7 +531,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         },
         selectDateSuccess: function(){
             var view = App.getPrimaryActiveView();
-            this.currentDate = view.getDateTime();
+            this.currentDate = view.getDateTime().clearTime();
             this.refresh();
             ReUI.back();
         },
