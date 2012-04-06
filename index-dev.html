@@ -13,35 +13,12 @@
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
     <!-- CSS -->
-    <!--
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/reui/themes/sage-green/theme.css" />
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/base.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/layout.css" />
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/theme.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.css" />
-    -->
-    <!-- Dojo CSS -->
-    <style>
-        html, body
-        {
-            height: 100%;
-            margin: 0;
-        }
-    </style>
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/libraries/dojo/dojox/mobile/themes/common/FixedSplitter.css" />
 
     <!-- JSON -->
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
-
-    <!-- ReUI -->
-    <script type="text/javascript">
-    reConfig = {
-        autoInit: false,
-        legacyMode: false,
-        showInitialPage: false,
-        updateBackButtonText: false
-    };
-    </script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/reui/reui.js"></script>
 
     <!-- SData Client Library -->
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
@@ -88,44 +65,13 @@
                 */
 
                 require([
-                    'dojo/_base/declare',
-                    'dijit/layout/ContentPane',
-                    'dijit/_Widget',
-                    'Sage/Platform/Mobile/_Component',
-                    'dojox/mobile/FixedSplitter',
-                    'dojox/mobile/FixedSplitterPane'
+                    'Sage/Platform/Mobile/Shell'
                 ], function(
-                    declare,
-                    ContentPane,
-                    _Widget,
-                    _Component,
-                    FixedSplitter,
-                    FixedSplitterPane
+                    Shell
                 ) {
-                    /*
-                    var Sample = declare('Sample', [_Widget, _Component], {
-                        components: [
-                            {type: ContentPane, attachPoint: '_test', attachEvent: {'onClick':'_click'}, props: {content: 'Test Me'}}
-                        ],
-                        _click: function() {
-                            console.log('click!');
-                        }
-                    });
-                    */
-
-                    var Sample = declare('Sample', [FixedSplitter, _Component], {
-                        orientation: 'H',
-                        components: [
-                            {type: FixedSplitterPane, attachPoint: 'left', props: {'style': 'width: 100px; height: 100%;'}},
-                            {type: FixedSplitterPane, attachPoint: 'right', props: {'style': 'height: 100%;'}}
-                        ]
-                    });
-
-                    var widget = new Sample();
-                    widget.placeAt(document.body);
-                    widget.startup();
-
-
+                    var shell = new Shell();
+                    shell.placeAt(document.body);
+                    shell.startup();
                 });
             });
         });
