@@ -2,8 +2,7 @@
 define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    
-    'Sage/Platform/Mobile/ApplicationModule',
+    'Sage/Platform/Mobile/ApplicationModule'/*,
     'Sage/Platform/Mobile/Calendar',
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/Views/Signature',
@@ -79,11 +78,12 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Environment'
+    */
     
 ], function(
     declare,
     lang,
-    ApplicationModule,
+    ApplicationModule/*,
     Calendar,
     List,
     Signature,
@@ -147,13 +147,14 @@ define('Mobile/SalesLogix/ApplicationModule', [
     HistoryList,
     HistoryDetail,
     HistoryEdit,
-    UserList
+    UserList*/
 ) {
 
     return declare('Mobile.SalesLogix.ApplicationModule', [ApplicationModule], {
         loadViews: function() {
             this.inherited(arguments);
 
+            /*
             this.registerView(new Calendar({
                 expose:false
             }));
@@ -306,11 +307,12 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new TicketUrgencyLookup({
                 expose: false
             }));
+            */
         },
         loadToolbars: function() {
             this.inherited(arguments);
 
-
+            /*
             this.registerToolbar(new MainToolbar({
                 name: 'tbar'
             }));
@@ -318,9 +320,12 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerToolbar(new FooterToolbar({
                 name: 'bbar'
             }));
+            */
         },
         loadCustomizations: function() {
+            /*
             this.loadBaseCustomizations();
+            */
         },
         loadBaseCustomizations: function() {
             lang.extend(List, {
