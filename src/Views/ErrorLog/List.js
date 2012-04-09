@@ -12,8 +12,8 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
-    convert,
     format,
+    convert,
     ErrorManager,
     List
 ) {

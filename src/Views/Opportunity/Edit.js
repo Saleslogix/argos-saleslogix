@@ -8,11 +8,13 @@
 define('Mobile/SalesLogix/Views/Opportunity/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Validator',
+    'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
     validator,
+    template,
     utility,
     Edit
 ) {
@@ -144,7 +146,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                     name: 'AccountManager',
                     property: 'AccountManager',
                     textProperty: 'UserInfo',
-                    textTemplate: Mobile.SalesLogix.Template.nameLF,
+                    textTemplate: template.nameLF,
                     type: 'lookup',
                     view: 'user_list'
                 },

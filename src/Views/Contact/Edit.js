@@ -137,6 +137,15 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             if (address) this.fields['Address'].setValue(this.cleanAddressEntry(address));            
             if (fax) this.fields['Fax'].setValue(fax);
         },
+        formatCuisinePrefs: function(selections) {
+            if (typeof selections === 'string') return selections;
+
+            var values = [];
+            for (var key in selections)
+                values.push(selections[key].data);
+
+            return values.join(', ');
+        },
         cleanAddressEntry: function(address) {
             if (address)
             {
@@ -277,6 +286,8 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 property: 'CuisinePreference',
                 type: 'picklist',
                 picklist: 'CuisinePrefs',
+                textRenderer: this.formatCuisinePrefs.bindDelegate(this),
+                formatValue: this.formatCuisinePrefs.bindDelegate(this),
                 multi: true,
                 title: this.cuisinePreferenceTitleText
             }]);
