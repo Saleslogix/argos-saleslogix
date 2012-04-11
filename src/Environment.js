@@ -30,7 +30,7 @@ define('Mobile/SalesLogix/Environment', [
             setTimeout(function() {
                 var mailtoUri = (subject)
                     ? string.substitute("mailto:${0}?subject=${1}&body=${2}", [email, subject, body||''])
-                    : string.substitute("mailto:${0}", [email])
+                    : string.substitute("mailto:${0}", [email]);
                 window.location.href = mailtoUri;
             }, 50);
         },
