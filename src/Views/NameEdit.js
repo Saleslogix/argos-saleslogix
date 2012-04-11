@@ -12,6 +12,7 @@ define('Mobile/SalesLogix/Views/NameEdit', [
 
     return declare('Mobile.SalesLogix.Views.NameEdit', [Edit], {
         //Localization
+        titleText: 'Edit Name',
         firstNameText: 'first',
         middleNameText: 'middle',
         lastNameText: 'last',
@@ -23,12 +24,8 @@ define('Mobile/SalesLogix/Views/NameEdit', [
         //View Properties
         id: 'name_edit',
 
-        constructor: function(o) {
-            lang.mixin(this, o, {
-                expose: false
-            });
-
-            this.layout = [
+        createLayout: function() {
+            return this.layout || (this.layout = [
                 {
                     emptyText: '',
                     label: this.prefixText,
@@ -73,7 +70,7 @@ define('Mobile/SalesLogix/Views/NameEdit', [
                     title: this.suffixTitleText,
                     type: 'picklist'
                 }
-            ];
+            ]);
         }
     });
 });
