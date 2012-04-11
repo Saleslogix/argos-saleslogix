@@ -61,10 +61,10 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             'Weighted'
         ],
 
-        show: function(options) {
+        init: function() {
             this.inherited(arguments);
 
-            if (options.insert === true) this.applyContext();
+            this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
@@ -102,11 +102,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             this.fields['Owner'].setValue(utility.getValue(entry, 'Owner'));
             this.fields['Contacts.$resources[0].Contact.$key'].setValue(entry.$key);
         },
-        init: function() {
-            this.inherited(arguments);
-
-            this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
-        },
         onAccountChange: function(value, field) {
             var selection = field.getSelection();
 
@@ -118,8 +113,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             }   
         },
         createLayout: function() {
-            // todo: add account on change handling
-
             return this.layout || (this.layout = [
                 {
                     label: this.opportunityText,

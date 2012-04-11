@@ -9,8 +9,7 @@ define('Mobile/SalesLogix/Views/TextEdit', [
     return declare('Mobile.SalesLogix.Views.TextEdit', [Edit], {
         //View Properties
         id: 'text_edit',
-        expose: false,
-        titleText: 'Text',
+        titleText: 'Edit Text',
 
         createLayout: function() {
             return this.layout || (this.layout = [{

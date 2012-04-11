@@ -80,27 +80,25 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
                     startTime = startTimeOption && Date.parse(startTimeOption),
-                    startDate,
-                    endDate;
+                    startDate = currentDate.clone().clearTime();
 
                 if (startTime && (currentDate.compareTo(Date.today()) !== 0))
                 {
-                    startDate = currentDate.clone().set({
+                    startDate.set({
                         'hour': startTime.getHours(),
                         'minute': startTime.getMinutes()
                     });
-                    endDate = startDate.clone().add({minute:15});
                 }
                 else
                 {
-                    startTime = Date.now(),
-                    startDate = currentDate.clone().clearTime().set({
-                        'hour': startTime.getHours()
-                    }).add({
-                        'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
-                    });
-                    endDate = startDate.clone().add({minute:15});
+                    startTime = Date.now();
+                    startDate.set({'hour': startTime.getHours()})
+                        .add({
+                            'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
+                        });
                 }
+
+                var endDate = startDate.clone().add({minute:15});
 
                 this.fields['StartDate'].setValue(startDate);
                 this.fields['EndDate'].setValue(endDate);

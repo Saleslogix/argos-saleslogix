@@ -86,9 +86,9 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             this.inherited(arguments);
 
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
-            this.connect(this.fields['Account'], 'onChange', this.onUrgencyChange);
-            this.connect(this.fields['Account'], 'onChange', this.onAreaChange);
-            this.connect(this.fields['Account'], 'onChange', this.onCategoryChange);
+            this.connect(this.fields['Urgency'], 'onChange', this.onUrgencyChange);
+            this.connect(this.fields['Area'], 'onChange', this.onAreaChange);
+            this.connect(this.fields['Category'], 'onChange', this.onCategoryChange);
         },
         processTemplateEntry: function(entry) {
             this.inherited(arguments);
@@ -157,11 +157,12 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         },
         onAccountChange: function(value, field) {
             var selection = field.getSelection();
-            if (selection && selection.$key)
+
+            if (selection && selection['$key'])
             {
                 var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
                     .setResourceKind('accounts')
-                    .setResourceSelector(string.substitute("'${0}'", [selection.$key]))
+                    .setResourceSelector(string.substitute("'${0}'", [selection['$key']]))
                     .setResourceProperty('Contacts')
                     .setQueryArg('count', 1)
                     .setQueryArg('select', 'NameLF')
@@ -169,7 +170,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
 
                 request.readFeed({
                     success: function(feed) {
-                        if (feed && feed.$resources) this.fields['Contact'].setValue(feed.$resources[0]);
+                        if (feed && feed['$resources'])
+                            this.fields['Contact'].setValue(feed['$resources'][0]);
                     },
                     failure: function() {
                     },
@@ -206,13 +208,18 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             var view = App.getView(context.id),
                 entry = view && view.entry;
 
-            this.fields['Account'].setValue(entry);
+            var accountField = this.fields['Account'];
+            accountField.setValue(entry);
+            this.onAccountChange(entry, accountField);
         },
         applyContactContext: function(context) {
             var view = App.getView(context.id),
                 entry = view && view.entry;
 
-            this.fields['Account'].setValue(entry.Account);
+            var accountField = this.fields['Account'];
+            accountField['Account'].setValue(entry.Account);
+            this.onAccountChange(entry.Account, accountField);
+
             this.fields['Contact'].setValue(entry);
         },
         formatCategoryQuery: function(value) {
@@ -222,7 +229,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         },
         formatIssueQuery: function(value) {
             return {
-                'Area': this.fields['Area'].getValue(), // todo: find a better way?
+                'Area': this.fields['Area'].getValue(),
                 'Category': value // dependent value
             };
         },

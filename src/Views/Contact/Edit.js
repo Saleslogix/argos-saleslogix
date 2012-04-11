@@ -72,13 +72,13 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         ],
         resourceKind: 'contacts',
 
-        onAccountChange: function(value, field) {
-            this.fields['AccountName'].setValue(value.text);
-        },
-        show: function(options) {
+        startup: function() {
             this.inherited(arguments);
-
-            if (options.insert === true) this.applyContext();
+            this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+        },
+        onAccountChange: function(value, field) {
+            if(value && value.text)
+                this.fields['AccountName'].setValue(value.text);
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
@@ -99,9 +99,6 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
                 entry = view && view.entry;
-
-            this.fields['Account'].setValue(entry);
-            this.fields['AccountName'].setValue(utility.getValue(entry, 'AccountName'));
 
             var account = entry,
                 accountName = utility.getValue(entry, 'AccountName'),

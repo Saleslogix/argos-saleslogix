@@ -105,7 +105,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 'Category': 'E-mail Category Codes',
                 'Description': 'E-mail Regarding'
             }
-        },       
+        },
+        groupOptionsByType: {
+            atToDo: 'ActivityToDoOptions',
+            atPersonal: 'ActivityPersonalOptions',
+            atPhoneCall: 'ActivityPhoneOptions',
+            atAppointment: 'ActivityMeetingOptions'
+        },
 
         entityName: 'Activity', // todo: is this correct?
         insertSecurity: null, //'Entities/Activity/Add',
@@ -297,10 +303,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onAccountDependentChange: function(value, field) {
             if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
-                this.fields['Account'].setValue({
+
+                var accountField = this.fields['Account'];
+                accountField.setValue({
                     'AccountId': field.currentSelection.Account['$key'],
                     'AccountName': field.currentSelection.Account['AccountName']
                 });
+                this.onAccountChange(accountField.getValue(), accountField);
             }
         },
 
@@ -326,7 +335,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 }
                 else
                 {
-                    startTime = Date.now(),
+                    startTime = Date.now();
                     startDate = currentDate.clone().clearTime().set({
                         'hour': startTime.getHours()
                     }).add({
@@ -336,16 +345,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
                 this.fields['StartDate'].setValue(startDate);
             }
-        },
-        resolveActivityGroup: function(type){
-            var group = null;
-            switch(type){
-                case "atToDo": group = 'ActivityToDoOptions'; break;
-                case "atPersonal": group = 'ActivityPersonalOptions'; break;
-                case "atPhoneCall": group = 'ActivityPhoneOptions'; break;
-                case "atAppointment": group = 'ActivityMeetingOptions'; break;
-            }
-            return group;
         },
         applyContext: function() {
             this.inherited(arguments);
@@ -357,7 +356,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
                 }),
                 activityType = this.options && this.options.activityType,
-                activityGroup = this.resolveActivityGroup(activityType),
+                activityGroup = this.groupOptionsByType[activityType] || '',
                 activityDuration = App.context.userOptions && App.context.userOptions[activityGroup+':Duration'] || 15,
                 alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup+':AlarmEnabled'] || true,
                 alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup+':AlarmLead'] || 15;
@@ -372,7 +371,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (user)
             {    
                 this.fields['UserId'].setValue(user['$key']);
-                this.fields['Leader'].setValue(user);
+
+                var leaderField = this.fields['Leader'];
+                leaderField.setValue(user);
+                this.onLeaderChange(user, leaderField);
             }
 
             var found = App.queryNavigationContext(function(o) {
@@ -400,10 +402,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (!entry || !entry['$key']) return;
 
-            this.fields['Account'].setValue({
+            var accountField = this.fields['Account'];
+            accountField.setValue({
                 'AccountId': entry['$key'],
                 'AccountName': entry['$descriptor']
             });
+            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyContactContext: function(context) {
             var view = App.getView(context.id),
@@ -411,15 +415,19 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (!entry || !entry['$key']) return;
 
-            this.fields['Contact'].setValue({
+            var contactField = this.fields['Contact'];
+            contactField.setValue({
                 'ContactId': entry['$key'],
                 'ContactName': entry['$descriptor']
             });
+            this.onAccountDependentChange(contactField.getValue(), contactField);
 
-            this.fields['Account'].setValue({
+            var accountField = this.fields['Account'];
+            accountField.setValue({
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
+            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyTicketContext: function(context) {
             var view = App.getView(context.id),
@@ -427,20 +435,26 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (!entry || !entry['$key']) return;
 
-            this.fields['Ticket'].setValue({
+            var ticketField = this.fields['Ticket'];
+            ticketField.setValue({
                 'TicketId': entry['$key'],
                 'TicketNumber': entry['$descriptor']
             });
+            this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
-            this.fields['Contact'].setValue({
+            var contactField = this.fields['Contact'];
+            contactField.setValue({
                 'ContactId': utility.getValue(entry, 'Contact.$key'),
                 'ContactName': utility.getValue(entry, 'Contact.NameLF')
             });
+            this.onAccountDependentChange(contactField.getValue(), contactField);
 
-            this.fields['Account'].setValue({
+            var accountField = this.fields['Account'];
+            accountField.setValue({
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
+            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
@@ -448,15 +462,19 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (!entry || !entry['$key']) return;
 
-            this.fields['Opportunity'].setValue({
+            var opportunityField = this.fields['Opportunity'];
+            opportunityField.setValue({
                 'OpportunityId': entry['$key'],
                 'OpportunityName': entry['$descriptor']
             });
+            this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
 
-            this.fields['Account'].setValue({
+            var accountField = this.fields['Account'];
+            accountField.setValue({
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
+            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
@@ -464,15 +482,19 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (!entry || !entry['$key']) return;
 
-            this.fields['Lead'].setValue({
+            var leadField = this.fields['Lead'];
+            leadField.setValue({
                 'LeadId': entry['$key'],
                 'LeadName': entry['$descriptor']
             });
+            this.onLeadChange(leadField.getValue(), leadField);
 
             this.fields['AccountName'].setValue(entry['Company']);
 
-            this.fields['IsLead'].setValue(context.resourceKind == 'leads');
-        },        
+            var isLeadField = this.fields['IsLead'];
+            isLeadField.setValue(context.resourceKind == 'leads');
+            this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+        },
         setValues: function(values) {
             if (values['StartDate'] && values['AlarmTime'])
             {
@@ -507,7 +529,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             else
                 this.fields['Reminder'].disable();
 
-            this.fields['IsLead'].setValue(this.options.isForLead);
+            var isLeadField = this.fields['IsLead'];
+            isLeadField.setValue(this.options.isForLead);
+            this.onIsLeadChange(isLeadField.getValue(), isLeadField);
 
             var entry = this.options.entry,
                 denyEdit = !this.options.insert && !this.currentUserCanEdit(entry),

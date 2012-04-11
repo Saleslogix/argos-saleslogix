@@ -138,10 +138,13 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         },
         onAccountDependentChange: function(value, field) {
             if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
-                this.fields['Account'].setValue({
+
+                var accountField = this.fields['Account'];
+                accountField.setValue({
                     'AccountId': field.currentSelection.Account['$key'],
                     'AccountName': field.currentSelection.Account['AccountName']
                 });
+                this.onAccountChange(accountField.getValue(), accountField);
             }
         },
         showFieldsForLead: function() {
@@ -189,14 +192,20 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.fields['StartDate'].setValue(new Date());
         },
         applyAccountContext: function(context) {
-            this.fields['Account'].setValue({
+            var accountField = this.fields['Account'];
+            accountField.setValue({
                 'AccountId': context.key,
                 'AccountName': context.descriptor
             });
+            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyLeadContext: function(context) {
             this.options.isForLead = this.isInLeadContext();
-            this.fields['IsLead'].setValue(this.options.isForLead);
+
+
+            var isLeadField = this.fields['IsLead'];
+            isLeadField.setValue(this.options.isForLead);
+            this.onIsLeadChange(this.options.isForLead, isLeadField)
 
             this.fields['Lead'].setValue({
                 'LeadId': context.key,
@@ -206,72 +215,92 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             var view = App.getView(context.id),
                 entry = view && view.entry;
 
-            if (entry && entry['Company']) this.fields['AccountName'].setValue(entry['Company']);
+            if (entry && entry['Company'])
+                this.fields['AccountName'].setValue(entry['Company']);
         },
         applyOpportunityContext: function(context) {
-            this.fields['Opportunity'].setValue({
+
+            var opportunityField = this.fields['Opportunity'];
+            opportunityField.setValue({
                 'OpportunityId': context.key,
                 'OpportunityName': context.descriptor
             });
+            this.onAccountDependentChange(opportunityField.getValue, opportunityField);
 
             var view = App.getView(context.id),
                 entry = view && view.entry;
 
             if (entry && entry['Account'])
             {
-                this.fields['Account'].setValue({
+                var accountField = this.fields['Account'];
+                accountField.setValue({
                     'AccountId': entry['Account']['$key'],
                     'AccountName': entry['Account']['AccountName']
                 });
+                this.onAccountChange(accountField.getValue(), accountField);
             }
 
             // todo: find a good way to get the primary contact and apply
         },
         applyContactContext: function(context) {
-            this.fields['Contact'].setValue({
+            var contactField = this.fields['Contact'];
+            contactField.setValue({
                 'ContactId': context.key,
                 'ContactName': context.descriptor
             });
+            this.onAccountDependentChange(contactField.getValue(), contactField);
 
             var view = App.getView(context.id),
                 entry = view && view.entry;
 
             if (entry && entry['Account'])
             {
-                this.fields['Account'].setValue({
+                var accountField = this.fields['Account'];
+                accountField.setValue({
                     'AccountId': entry['Account']['$key'],
                     'AccountName': entry['Account']['AccountName']
                 });
+                this.onAccountChange(accountField.getValue(), accountField);
             }
         },
         applyTicketContext: function(context) {
-            this.fields['Ticket'].setValue({
+            var ticketField = this.fields['Ticket'];
+            ticketField.setValue({
                 'TicketId': context.key,
                 'TicketNumber': context.descriptor
             });
+            this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
             var view = App.getView(context.id),
                 entry = view && view.entry;
 
             if (entry && entry['Account'])
             {
-                this.fields['Account'].setValue({
+                var accountField = this.fields['Account'];
+                accountField.setValue({
                     'AccountId': entry['Account']['$key'],
                     'AccountName': entry['Account']['AccountName']
                 });
+                this.onAccountChange(accountField.getValue(), accountField);
             }
 
             if (entry && entry['Contact'])
             {
-                 this.fields['Contact'].setValue({
+                var contactField = this.fields['Contact'];
+                contactField.setValue({
                     'ContactId': entry['Contact']['$key'],
                     'ContactName': entry['Contact']['NameLF']
                 });
-            }            
+                this.onAccountDependentChange(contactField.getValue(), contactField);
+            }
         },
         setValues: function(values) {
             this.inherited(arguments);
-            this.fields['IsLead'].setValue(this.options.isForLead);
+
+            var isLeadField = this.fields['IsLead'];
+            isLeadField.setValue(this.options.isForLead);
+            this.onIsLeadChange(this.options.isForLead, isLeadField);
+
             this.fields['Text'].setValue(values['LongNotes'] || values['Notes'] || '');
         },
         formatDependentQuery: function(dependentValue, format, property) {
