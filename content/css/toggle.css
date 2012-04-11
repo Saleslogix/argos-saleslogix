@@ -8,38 +8,6 @@
 }
 
 .toggle {
-    border: 1px solid #333;    
-    background-color: #e6e6e6;
-    background-image: linear-gradient(bottom, #e6e6e6, #ccc);
-    background-image: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0, #e6e6e6),
-        color-stop(1, #ccc)
-    );
-    background-image: -moz-linear-gradient(bottom, #e6e6e6, #ccc);
-    border-radius: 6px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    font-size: .8em;
-    font-weight: bold;
-    line-height: 30px;
-    background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-}
-
-.toggle[toggled="true"] {
-    
-}
-
-.toggle-vertical
-{
-    width: 64px;
-    height: 126px;
-    margin: 0;
-    position: relative;
     border: 1px solid #333;
     background-color: #e6e6e6;
     background-image: linear-gradient(bottom, #e6e6e6, #ccc);
@@ -60,18 +28,31 @@
     background-clip: padding-box;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
+.toggle-vertical
+{
+    width: 64px;
+    height: 126px;
+    margin: 0;
+    position: relative;
+}
 
 .toggleOn {
     display: none;
     position: absolute;
     width: 60px;
     text-align: center;
-    left: 0;
-    top: 0;
     color: #FFFFFF;
     text-shadow: rgba(0, 0, 0, 1.0) 0px 1px 0;
+    left: 0;
+    top: 0;
 }
 .toggle-vertical > .toggleOn
 {
@@ -79,7 +60,8 @@
     width: 64px;
     top: 0;
 }
-.toggleOff {
+.toggleOff
+{
     position: absolute;
     width: 60px;
     text-align: center;
@@ -91,22 +73,12 @@
 .toggle-vertical > .toggleOff
 {
     width: 100%;
-    text-align:center;
     bottom: 0;
     top: auto;
 }
 
-.toggle[toggled="true"] > .toggleOn,
-.toggle-vertical[toggled="true"] > .toggleOn {
-    display: block;
-}
-
-.toggle[toggled="true"] > .toggleOff,
-.toggle-vertical[toggled="true"] > .toggleOff {
-    display: none;
-}
-
-.thumb {
+.toggle > .thumb
+{
     position: absolute;
     top: -1px;
     left: -1px;
@@ -130,26 +102,35 @@
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
 }
-.toggle-vertical > .thumb {
+.toggle-vertical > .thumb
+{
     width: 64px;
 }
 
-
-.toggle[toggled="true"] > .thumb {
+.toggleStateOn > .thumb
+{
     left: auto;
     right: -1px;
 }
-.toggle-vertical[toggled="true"] > .thumb {
+.toggleStateOn > .vertical
+{
+    left: -1px;
     top: auto;
     bottom: -1px;
 }
 
-.toggle {
-
+.toggleStateOn > .toggleOn
+{
+    display: block;
 }
 
-.toggle[toggled="true"],
-.toggle-vertical[toggled="true"] {
+.toggleStateOn > .toggleOff
+{
+    display: none;
+}
+
+.toggleStateOn
+{
     border: 1px solid #1a250f;    
     background-color: #69923a;
     background-image: linear-gradient(bottom, #4f6e2c, #35491d);
@@ -161,8 +142,4 @@
         color-stop(1, #35491d)
     );
     background-image: -moz-linear-gradient(bottom, #4f6e2c, #35491d);
-}
-
-.thumb {
-   
 }
