@@ -1,8 +1,3 @@
-/// <reference path="../../ext/ext-core-debug.js"/>
-/// <reference path="../../platform/Application.js"/>
-/// <reference path="../../platform/Format.js"/>
-/// <reference path="../../sdata/SDataService.js"/>
-
 define('Mobile/SalesLogix/Environment', [
     'dojo/_base/lang',
     'dojo/_base/window',

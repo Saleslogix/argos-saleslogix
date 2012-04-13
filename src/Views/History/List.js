@@ -1,9 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/List.js"/>
-
 define('Mobile/SalesLogix/Views/History/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -86,8 +80,6 @@ define('Mobile/SalesLogix/Views/History/List', [
           'personal': 'personal',
           'email': 'email'
         },
-
-		
         titleText: 'Notes/History',
         
         //View Properties
