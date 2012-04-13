@@ -1,6 +1,3 @@
-/// <reference path="../platform/Application.js"/>
-/// <reference path="../sdata/SDataService.js"/>
-
 define('Mobile/SalesLogix/Template', [
     'dojo/_base/lang',
     'Sage/Platform/Mobile/Format'

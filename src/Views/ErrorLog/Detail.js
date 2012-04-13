@@ -1,9 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
-
 define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     'dojo/_base/declare',
     'dojo/_base/json',
@@ -40,13 +34,13 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
 
         //Templates
         longDetailProperty: new Simplate([
-                '<div class="row note-text-row" data-property="{%= $.name %}">',
-                    '<label>{%: $.label %}</label>',
-                    '<pre>',
-                        '{%= $.value %}',
-                    '</pre>',
-                '</div>'
-            ]),
+            '<div class="row note-text-row" data-property="{%= $.name %}">',
+                '<label>{%: $.label %}</label>',
+                '<pre>',
+                    '{%= $.value %}',
+                '</pre>',
+            '</div>'
+        ]),
         copyButtonTemplate: new Simplate([
             '<div class="copyButton button toolButton toolButton-right">',
                 '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="40" height="36" id="errorlog-detail-copy">',
@@ -71,7 +65,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
          */
         defaultToAddress: null,
 
-        init: function(){
+        init: function() {
             this.inherited(arguments);
             this.determineSendType();
         },
@@ -81,7 +75,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
                 'tbar': []
             };
 
-            if(this.sendType === 'mailto')
+            if (this.sendType === 'mailto')
             {
                 tools.tbar.push({
                     id: 'generateEmail',
@@ -91,7 +85,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
                 });
             }
 
-            if(this.sendType === 'copy')
+            if (this.sendType === 'copy')
             {
                 var flashVars = this.constructFlashVars({
                     "retrieveFunction": "App.views."+this.id+".constructReport",
@@ -113,7 +107,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
          * 'mailto': Used on Mobile devices to indicate to form a mailto: url
          * 'copy': Used on desktops to indicate a "copy" button should be placed on the page
          */
-        determineSendType: function(){
+        determineSendType: function() {
             switch(true){
                 case (typeof window.orientation !== 'undefined'):
                     this.sendType = 'mailto';
@@ -123,18 +117,19 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
             }
         },
 
-        constructFlashVars: function(options){
+        constructFlashVars: function(options) {
             var flashVars = [];
             for (var key in options)
                 flashVars.push(string.substitute('${0}=${1}', [key, options[key]]));
+
             return flashVars.join('&');
         },
 
-        onCopySuccess: function(){
+        onCopySuccess: function() {
             alert(this.copiedSuccessText);
         },
 
-        constructReport: function(){
+        constructReport: function() {
             var body = string.substitute('\r\n\r\n\r\n-----------------\r\n${0}',
                     [json.toJson(this.entry, true)]);
 
@@ -144,14 +139,14 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
                 return body;
         },
 
-        sendEmailReport: function(body){
+        sendEmailReport: function(body) {
             var email = this.defaultToAddress || '',
                 subject = encodeURIComponent(this.emailSubjectText);
             body = encodeURIComponent(body);
             App.initiateEmail(email, subject, body);
         },
 
-        requestData: function(){
+        requestData: function() {
             var errorItem = ErrorManager.getError('$key', this.options.key);
             this.processEntry(errorItem);
         },

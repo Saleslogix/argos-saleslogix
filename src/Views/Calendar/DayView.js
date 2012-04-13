@@ -1,9 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/List.js"/>
-
 define('Mobile/SalesLogix/Views/Calendar/DayView', [
     'dojo/_base/declare',
     'dojo/string',
@@ -179,7 +173,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
 
         _onRefresh: function(o) {
             this.inherited(arguments);
-            if (o.resourceKind === 'activities' || o.resourceKind === 'events'){
+            if (o.resourceKind === 'activities' || o.resourceKind === 'events')
+            {
                 this.refreshRequired = true;
             }
         },
@@ -188,13 +183,13 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.currentDate = Date.today().clearTime();
         },
         toggleGroup: function(params) {
-            var node = query(params.$source);
-            if (node && node.parent()) {
-                node.toggleClass('collapsed');
-                node.parent().toggleClass('collapsed-event');
+            var node = params.$source;
+            if (node && node.parentNode) {
+                domClass.toggle(node, 'collapsed');
+                domClass.toggle(node.parentNode, 'collapsed-event');
             }
         },
-        refresh: function(){
+        refresh: function() {
             this.clear();
 
             this.options = this.options || {};
@@ -226,7 +221,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         onRequestEventDataSuccess: function(feed) {
             this.processEventFeed(feed);
         },
-        createEventRequest: function(){
+        createEventRequest: function() {
             var eventSelect = this.eventQuerySelect,
                 eventWhere = this.getEventQuery(),
                 request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
@@ -237,13 +232,13 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, eventWhere);
             return request;
         },
-        getEndOfDay: function(){
+        getEndOfDay: function() {
             return new Date(this.currentDate.getFullYear(),
                 this.currentDate.getMonth(),
                 this.currentDate.getDate(),
                 23, 59, 59);
         },
-        getEventQuery: function(){
+        getEventQuery: function() {
             return string.substitute(
                     [
                         'UserId eq "${0}" and (',
@@ -258,44 +253,50 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 ]
                 );
         },
-        activateEventMore: function(){
+        activateEventMore: function() {
             var view = App.getView("event_related"),
                 where = this.getEventQuery();
             if (view)
                 view.show({"where": where});
         },
-        hideEventList: function(){
+        hideEventList: function() {
             domClass.add(this.eventContainerNode, 'event-hidden');
         },
-        showEventList: function(){
+        showEventList: function() {
             domClass.remove(this.eventContainerNode, 'event-hidden');
         },
-        processEventFeed: function(feed){
+        processEventFeed: function(feed) {
             var r = feed['$resources'],
-                row,
                 feedLength = r.length,
                 o = [];
             this.eventFeed = feed;
 
-            if(feedLength === 0){
+            if (feedLength === 0)
+            {
                 this.hideEventList();
                 return false;
-            } else {
+            }
+            else
+            {
                 this.showEventList();
             }
 
-            for(var i = 0; i < feedLength; i++){
-                row = r[i];
+            for (var i = 0; i < feedLength; i++)
+            {
+                var row = r[i];
                 row.isEvent = true;
                 this.entries[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
             }
 
 
-            if(feed['$totalResults'] > feedLength) {
+            if (feed['$totalResults'] > feedLength)
+            {
                 domClass.add(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', string.substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
-            } else {
+            }
+            else
+            {
                 domClass.remove(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', '');
             }
@@ -308,14 +309,16 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 o = [];
 
             this.feed = feed;
-            for(var i = 0; i < feedLength; i++){
+            for (var i = 0; i < feedLength; i++)
+            {
                 var row = r[i];
                 row.isEvent = false;
                 this.entries[row.$key] = row;
                 o.push(this.rowTemplate.apply(row, this));
             }
 
-            if(feedLength === 0){
+            if (feedLength === 0)
+            {
                 this.set('listContent', this.noDataTemplate.apply(this));
                 return false;
             }
@@ -324,22 +327,23 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         },
 
         show: function(options) {
-            if(options)
+            if (options)
                 this.processShowOptions(options);
 
             options = options || {};
             options['where'] = this.formatQueryForActivities();
 
             this.set('dateContent', this.currentDate.toString(this.dateHeaderFormatText));
-            Mobile.SalesLogix.Views.Calendar.DayView.superclass.show.call(this, options);
+            this.inherited(arguments, [options]);
         },
-        processShowOptions: function(options){
-            if(options.currentDate){
+        processShowOptions: function(options) {
+            if (options.currentDate)
+            {
                 this.currentDate = Date.parseExact(options.currentDate,'yyyy-MM-dd').clearTime() || Date.today().clearTime();
                 this.refreshRequired = true;
             }
         },
-        isLoading: function(){
+        isLoading: function() {
             return domClass.contains(this.domNode, 'list-loading');
         },
         getNextDay: function() {
@@ -396,16 +400,16 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                     }
                 },
                 view = App.getView(this.datePickerView);
-            if(view)
+            if (view)
                 view.show(options);
         },
-        selectDateSuccess: function(){
+        selectDateSuccess: function() {
             var view = App.getPrimaryActiveView();
             this.currentDate = view.getDateTime().clearTime();
             this.refresh();
             ReUI.back();
         },
-        navigateToWeekView: function(){
+        navigateToWeekView: function() {
             var view = App.getView(this.weekView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);

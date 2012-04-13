@@ -37,10 +37,13 @@ define('Mobile/SalesLogix/Environment', [
         showMapForAddress: function(address) {
             setTimeout(function() {
                 var eventFire = function(node, eventType){
-                    if (node.fireEvent) { // for IE
+                    if (node.fireEvent)
+                    { // for IE
                         node.fireEvent('on' + eventType);
                         node[eventType]();
-                    } else {
+                    }
+                    else
+                    {
                         var event = document.createEvent('MouseEvents');
                         event.initMouseEvent(eventType, true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
                         node.dispatchEvent(event);

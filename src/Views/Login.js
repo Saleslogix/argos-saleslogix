@@ -1,9 +1,3 @@
-/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../argos-sdk/src/Edit.js"/>
-
 define('Mobile/SalesLogix/Views/Login', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/Edit'
@@ -36,9 +30,6 @@ define('Mobile/SalesLogix/Views/Login', [
         serverProblemText: 'A problem occured on the server.',
         requestAbortedText: 'The request was aborted.',
 
-        init: function() {
-            this.inherited(arguments);
-        },
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 bbar: false,

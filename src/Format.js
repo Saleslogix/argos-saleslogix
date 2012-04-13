@@ -1,8 +1,3 @@
-/// <reference path="../../ext/ext-core-debug.js"/>
-/// <reference path="../../platform/Application.js"/>
-/// <reference path="../../platform/Format.js"/>
-/// <reference path="../../sdata/SDataService.js"/>
-
 define('Mobile/SalesLogix/Format', [
     'dojo/_base/lang',
     'dojo/_base/array',
@@ -100,7 +95,7 @@ define('Mobile/SalesLogix/Format', [
 
             array.forEach(lines, function(line) {
                 line = _this.replaceAddressPart(line, o);
-                if(!isEmpty(line))
+                if (!isEmpty(line))
                     this.push( _this.encode(_this.collapseSpace(line)));
             }, address);
 

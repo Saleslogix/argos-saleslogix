@@ -1,10 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Edit.js"/>
-/// <reference path="../../Format.js"/>
-
 define('Mobile/SalesLogix/Views/Activity/Complete', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -108,7 +101,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             }
         },       
 
-        entityName: 'Activity', // todo: is this correct?
+        entityName: 'Activity',
         querySelect: [
             'AccountId',
             'AccountName',
@@ -177,7 +170,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                 }, this);
             }
         },
-        toggleSelectField: function(field, disable, options) {
+        toggleSelectField: function(field, disable) {
             disable === true ? field.disable() : field.enable();
         },
         onTimelessChange: function(value, field) {
@@ -285,9 +278,9 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             var completeActivityEntry = {
                 "$name": "ActivityComplete",
                 "request": {
-                    "entity": { '$key': entry.$key },
-                    "ActivityId": entry.$key,
-                    "userId": entry.Leader['$key'],
+                    "entity": { '$key': entry['$key'] },
+                    "ActivityId": entry['$key'],
+                    "userId": entry['Leader']['$key'],
                     "result": this.fields['Result'].getValue(),
                     "completeDate":  this.fields['CompletedDate'].getValue()
                 }
@@ -317,7 +310,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         onUpdateCompleted: function(entry) {
             var followup = this.fields['Followup'].getValue() !== 'none'
                     ? this.navigateToFollowUpView
-                    : Mobile.SalesLogix.Views.Activity.Complete.superclass.onUpdateCompleted;
+                    : this.getInherited(arguments);
 
             this.completeActivity(entry, followup);
         },

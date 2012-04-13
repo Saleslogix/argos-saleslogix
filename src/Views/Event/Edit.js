@@ -1,10 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Edit.js"/>
-/// <reference path="../../Format.js"/>
-
 define('Mobile/SalesLogix/Views/Event/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',

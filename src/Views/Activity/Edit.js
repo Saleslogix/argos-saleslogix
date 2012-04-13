@@ -1,10 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Edit.js"/>
-/// <reference path="../../Format.js"/>
-
 define('Mobile/SalesLogix/Views/Activity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -113,7 +106,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             atAppointment: 'ActivityMeetingOptions'
         },
 
-        entityName: 'Activity', // todo: is this correct?
+        entityName: 'Activity',
         insertSecurity: null, //'Entities/Activity/Add',
         updateSecurity: null, //'Entities/Activity/Edit',
         querySelect: [
@@ -228,13 +221,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                         this.fields[item].show();
                 }, this);
         },
-        toggleSelectField: function(field, disable, options) {
+        toggleSelectField: function(field, disable) {
             disable === true ? field.disable() : field.enable();
         },
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
 
-            var startDateField = this.fields['StartDate'];
+            var startDateField = this.fields['StartDate'],
+                startDate = startDateField.getValue();
 
             if (value)
             {
@@ -242,8 +236,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['dateFormatText'] = this.startingFormatTimelessText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
-                var startDate =startDateField.getValue();
-                if(!this.isDateTimeless(startDate))
+                if (!this.isDateTimeless(startDate))
                     startDate = startDate.clone().clearTime().add({minutes:-1*startDate.getTimezoneOffset(), seconds:5});
                 startDateField.setValue(startDate);
             }
@@ -254,14 +247,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
-                var startDate =startDateField.getValue();
-                if(this.isDateTimeless(startDate))
+                if (this.isDateTimeless(startDate))
                     startDate = startDate.clone().add({minutes:startDate.getTimezoneOffset()+1, seconds: -5});
                 startDateField.setValue(startDate);
             }
         },
         onAlarmChange: function() {
-            if(this.fields['Alarm'].getValue())
+            if (this.fields['Alarm'].getValue())
             {
                 this.fields['Reminder'].enable();
             }
@@ -285,29 +277,32 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         onAccountChange: function(value, field) {
             var fields = this.fields;
             array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
-                if (value) {
+                if (value)
+                {
                     fields[f].dependsOn = 'Account';
                     fields[f].where = string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
 
                     if (fields[f].currentSelection &&
-                        fields[f].currentSelection.Account['$key'] != (value['AccountId'] || value['key'])) {
+                        fields[f].currentSelection['Account']['$key'] != (value['AccountId'] || value['key'])) {
 
                         fields[f].setValue(false);
                     }
 
-                } else {
+                }
+                else
+                {
                     fields[f].dependsOn = null;
                     fields[f].where = 'Account.AccountName ne null';
                 }
             });
         },
         onAccountDependentChange: function(value, field) {
-            if (value && !field.dependsOn && field.currentSelection && field.currentSelection.Account) {
-
+            if (value && !field.dependsOn && field.currentSelection && field.currentSelection['Account'])
+            {
                 var accountField = this.fields['Account'];
                 accountField.setValue({
-                    'AccountId': field.currentSelection.Account['$key'],
-                    'AccountName': field.currentSelection.Account['AccountName']
+                    'AccountId': field.currentSelection['Account']['$key'],
+                    'AccountName': field.currentSelection['Account']['AccountName']
                 });
                 this.onAccountChange(accountField.getValue(), accountField);
             }

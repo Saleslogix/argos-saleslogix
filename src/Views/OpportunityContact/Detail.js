@@ -1,9 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
-
 define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
     'dojo/_base/declare',
     'dojo/_base/connect',
@@ -53,7 +47,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
         ],
         resourceKind: 'opportunityContacts',
 
-        createEntryForDelete: function(){
+        createEntryForDelete: function() {
            var entry = {
                 '$key': this.entry['$key'],
                 '$etag': this.entry['$etag'],
@@ -61,7 +55,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
             };
             return entry;
         },
-        removeContact: function(){
+        removeContact: function() {
             var confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
             if (!confirm(confirmMessage))
                 return;
@@ -75,7 +69,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
                     scope: this
                 });
         },
-        onDeleteSuccess: function(){
+        onDeleteSuccess: function() {
             connect.publish('/app/refresh',[{
                 resourceKind: this.resourceKind
             }]);

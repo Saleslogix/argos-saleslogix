@@ -1,9 +1,3 @@
-/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../argos-sdk/src/Detail.js"/>
-
 define('Mobile/SalesLogix/Views/PickList', [
     'dojo/_base/declare',
     'dojo/string',
@@ -18,7 +12,7 @@ define('Mobile/SalesLogix/Views/PickList', [
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" ',
-                '{% if($$.pickListType === "text" && $$.multi) { %}',
+                '{% if ($$.pickListType === "text" && $$.multi) { %}',
                     'data-key="{%: $.$descriptor %}" ',
                 '{% } else { %}',
                     'data-key="{%: $.$key %}" ',
@@ -26,7 +20,7 @@ define('Mobile/SalesLogix/Views/PickList', [
 
                 'data-descriptor="{%: $.$descriptor %}" ',
 
-                '{% if($$.multi && $$._selectionModel.selections[$.$descriptor]) { %}',
+                '{% if ($$.multi && $$._selectionModel.selections[$.$descriptor]) { %}',
                     'class="{%: $$.listSelectedClass %}"',
                 '{% } %}',
             '>',
@@ -56,12 +50,15 @@ define('Mobile/SalesLogix/Views/PickList', [
             this.multi = options.multi || false;
             this.previousSelections = options.previousSelections || [];
             this.pickListType = options.pickListType;
-            if(this.multi && this.pickListType === 'text') {
+
+            if (this.multi && this.pickListType === 'text')
+            {
                 this.enableMultiSelection();
             }
+
             this.inherited(arguments);
         },
-        enableMultiSelection: function(){
+        enableMultiSelection: function() {
             this.allowSelection = true;
             this.selectionOnly = true;
             this.autoClearSelection = false;
@@ -71,8 +68,7 @@ define('Mobile/SalesLogix/Views/PickList', [
             return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
         createRequest: function() {
-            return Mobile.SalesLogix.Views.PickList.superclass.createRequest.call(this)
-                .setContractName('system');
+            return this.inherited(arguments).setContractName('system');
         }
     });
 });

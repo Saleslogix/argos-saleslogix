@@ -1,8 +1,3 @@
-/// <reference path="../../ext/ext-core-debug.js"/>
-/// <reference path="../../platform/Application.js"/>
-/// <reference path="../../sdata/SDataService.js"/>
-
-
 define('Mobile/SalesLogix/Application', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -11,6 +6,7 @@ define('Mobile/SalesLogix/Application', [
     'dojo/_base/lang',
     'dojo/has',
     'dojo/string',
+    'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
     'dojo/_base/sniff'
@@ -22,6 +18,7 @@ define('Mobile/SalesLogix/Application', [
     lang,
     has,
     string,
+    ErrorManager,
     environment,
     Application
 ) {
@@ -50,7 +47,7 @@ define('Mobile/SalesLogix/Application', [
             'ActivityPersonalOptions;Duration'
         ],
         serverVersion: {
-            'major': 7,
+            'major': 8,
             'minor': 0,
             'revision': 0
         },
@@ -108,7 +105,8 @@ define('Mobile/SalesLogix/Application', [
                 this.navigateToHomeView();
             }
 
-            if (this.enableUpdateNotification) this._checkForUpdate();
+            if (this.enableUpdateNotification)
+                this._checkForUpdate();
         },
         onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
             var user = {
@@ -267,7 +265,7 @@ define('Mobile/SalesLogix/Application', [
                 if (window.localStorage)
                     this.preferences = json.fromJson(window.localStorage.getItem('preferences'));
             }
-            catch(e) {}
+            catch (e) { }
 
             //Probably, the first time, its being accessed, or user cleared
             //the data. So lets initialize the object, with default ones.
@@ -329,17 +327,23 @@ define('Mobile/SalesLogix/Application', [
         },
         onRequestUserOptionsSuccess: function(feed) {
             var userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
+
             array.forEach(feed && feed['$resources'], function(item) {
                 var key = item && item['$descriptor'],
                     value = item && item['value'];
-                if (value && key) userOptions[key] = value;
+
+                if (value && key)
+                    userOptions[key] = value;
             });
 
             var insertSecCode = userOptions['General:InsertSecCodeID'],
                 currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];
-            if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner != insertSecCode))) this.requestOwnerDescription(insertSecCode);
+
+            if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner != insertSecCode)))
+                this.requestOwnerDescription(insertSecCode);
         },
         onRequestUserOptionsFailure: function(response, o) {
+            ErrorManager.addError(response, o, {}, 'failure');
         },
         requestOwnerDescription: function(key) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
@@ -354,16 +358,19 @@ define('Mobile/SalesLogix/Application', [
             });
         },
         onRequestOwnerDescriptionSuccess: function(entry) {
-            if (entry) this.context['defaultOwner'] = entry;
+            if (entry)
+                this.context['defaultOwner'] = entry;
         },
         onRequestOwnerDescriptionFailure: function(response, o) {
+            ErrorManager.addError(response, o, {}, 'failure');
         },
         persistPreferences: function() {
-            try {
+            try
+            {
                 if (window.localStorage)
                     window.localStorage.setItem('preferences', json.toJson(App.preferences));
             }
-            catch(e) {}
+            catch(e) { }
         },
         getDefaultViews: function() {
             return [
@@ -377,12 +384,11 @@ define('Mobile/SalesLogix/Application', [
             ];
         },
         getExposedViews: function() {
-            var exposed = [],
-                view;
+            var exposed = [];
 
             for (var id in this.views)
             {
-                view = App.getView(id);
+                var view = App.getView(id);
 
                 if (view.id == 'home') continue;
                 if (view.expose) exposed.push(id);
@@ -471,5 +477,4 @@ define('Mobile/SalesLogix/Application', [
             environment.showMapForAddress.apply(this, arguments);
         }
     });
-
 });

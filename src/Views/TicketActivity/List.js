@@ -1,9 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/List.js"/>
-
 define('Mobile/SalesLogix/Views/TicketActivity/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -60,7 +54,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         resourceKind: 'ticketActivities',
 
         _onResize: function() {
-            query('.note-text-item', this.contentNode).forEach(function(node){
+            query('.note-text-item', this.contentNode).forEach(function(node) {
                 var wrapNode = query('.note-text-wrap', node)[0],
                     moreNode = query('.note-text-more', node)[0];
                 if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h)
@@ -69,7 +63,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
                     domStyle.set(moreNode, 'visibility', 'hidden');
             });
         },
-        processFeed: function(){
+        processFeed: function() {
             this.inherited(arguments);
             this._onResize();
         },

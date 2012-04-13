@@ -1,10 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Edit.js"/>
-/// <reference path="../../format.js"/>
-
 define('Mobile/SalesLogix/Views/Contact/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
@@ -77,7 +70,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
         },
         onAccountChange: function(value, field) {
-            if(value && value.text)
+            if (value && value.text)
                 this.fields['AccountName'].setValue(value.text);
         },
         applyContext: function() {
@@ -158,7 +151,9 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                         'CreateUser': true
                     };
 
-                for (var name in address) if (!skip[name]) clean[name] = address[name];
+                for (var name in address)
+                    if (!skip[name])
+                        clean[name] = address[name];
 
                 return clean;
             }

@@ -1,9 +1,3 @@
-/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../argos-sdk/src/Detail.js"/>
-
 define('Mobile/SalesLogix/Views/Configure', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -82,7 +76,8 @@ define('Mobile/SalesLogix/Views/Configure', [
                 {
                     order.push(key);
 
-                    if (domClass.contains(node, 'list-item-selected'))  {
+                    if (domClass.contains(node, 'list-item-selected'))
+                    {
                         visible.push(key);
                     }
                 }
@@ -94,15 +89,17 @@ define('Mobile/SalesLogix/Views/Configure', [
         },
         moveUp: function(params) {
             var node = query(params.$source),
-            row = node.parents('li').first();
+                row = node.parents('li');
+
             if (row)
-                row.insertBefore(query(row).prev('li'))
+                row.insertBefore(row.prev('li'))
         },
         moveDown: function(params) {
             var node = query(params.$source),
-            row = node.parents('li').first();
+                row = node.parents('li');
+
             if (row)
-                row.insertAfter(query(row).next('li'))
+                row.insertAfter(row.next('li'))
         },
         hasMoreData: function() {
             return false;
@@ -111,23 +108,22 @@ define('Mobile/SalesLogix/Views/Configure', [
             var list = [],
                 lookup = {},
                 exposed = App.getExposedViews(),
-                order = lang.getObject('preferences.configure.order', false, App) || [],
-                view, i, n;
+                order = lang.getObject('preferences.configure.order', false, App) || [];
 
-            for (i = 0; i < exposed.length; i++)
+            for (var i = 0; i < exposed.length; i++)
                 lookup[exposed[i]] = true;
 
-            for (i = 0; i < order.length; i++)
+            for (var i = 0; i < order.length; i++)
                 if (lookup[order[i]])
                     delete lookup[order[i]];
 
-            for (n in lookup)
+            for (var n in lookup)
                 order.push(n);
 
             for (i = 0; i < order.length; i++)
             {
-                view = App.getView(order[i]);
-                if (view && App.hasAccessTo(view.getSecurity()) && 0 <= exposed.indexOf(order[i]))
+                var view = App.getView(order[i]);
+                if (view && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(order[i]) >= 0)
                 {
                     list.push({
                         '$key': view.id,
@@ -147,15 +143,14 @@ define('Mobile/SalesLogix/Views/Configure', [
         processFeed: function(feed) {
             this.inherited(arguments);
 
-            var visible = (App.preferences.home && App.preferences.home.visible) || [],
-                row,
-                i;
+            var visible = (App.preferences.home && App.preferences.home.visible) || [];
 
-            for (i = 0; i < visible.length; i++)
+            for (var i = 0; i < visible.length; i++)
             {
-                row = query((string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
+                var row = query((string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
 
-                if (row) this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
+                if (row)
+                    this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
             }
         }
     });

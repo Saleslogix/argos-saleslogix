@@ -1,9 +1,3 @@
-/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../argos-sdk/src/List.js"/>
-
 define('Mobile/SalesLogix/Views/MainToolbar', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/MainToolbar'
@@ -44,7 +38,7 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
                         fn: this.navigateToHomeView,
                         scope: this
                     }]);
-                }                
+                }
             }
 
             this.inherited(arguments);

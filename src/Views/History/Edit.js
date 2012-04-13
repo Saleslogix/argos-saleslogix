@@ -1,10 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Edit.js"/>
-/// <reference path="../../Format.js"/>
-
 define('Mobile/SalesLogix/Views/History/Edit', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -120,7 +113,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         onAccountChange: function(value, field) {
             var fields = this.fields;
             array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
-                if (value) {
+                if (value)
+                {
                     fields[f].dependsOn = 'Account';
                     fields[f].where = string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
 
@@ -130,7 +124,9 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                         fields[f].setValue(false);
                     }
 
-                } else {
+                }
+                else
+                {
                     fields[f].dependsOn = null;
                     fields[f].where = 'Account.AccountName ne null';
                 }
@@ -182,7 +178,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 'tickets': this.applyTicketContext
             };
 
-            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
+            if (found && lookup[found.resourceKind])
+                lookup[found.resourceKind].call(this, found);
             
             var user = App.context && App.context.user;
 
@@ -205,7 +202,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
 
             var isLeadField = this.fields['IsLead'];
             isLeadField.setValue(this.options.isForLead);
-            this.onIsLeadChange(this.options.isForLead, isLeadField)
+            this.onIsLeadChange(this.options.isForLead, isLeadField);
 
             this.fields['Lead'].setValue({
                 'LeadId': context.key,

@@ -1,9 +1,3 @@
-/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../argos-sdk/src/List.js"/>
-
 define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/List'
@@ -39,7 +33,7 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
 
             options.where = false;
 
-            this.inherited(arguments);
+            this.inherited(arguments, [options]);
         },
         requestData: function() {
             if (this.cache)
@@ -65,7 +59,7 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
 
             feed = this.buildFeedFrom(use);
 
-            Mobile.SalesLogix.Views.AreaCategoryIssueLookup.superclass.processFeed.apply(this, [feed]);
+            this.inherited(arguments, [feed]);
         },
         createCacheFrom: function(feed) {
             var feedLength = feed['$resources'].length;

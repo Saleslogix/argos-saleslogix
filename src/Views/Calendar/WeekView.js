@@ -196,6 +196,13 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             'UserId',
             'Timeless'
         ],
+        eventQuerySelect: [
+            'StartDate',
+            'EndDate',
+            'Description',
+            'Type'
+        ],
+
         contractName: 'system',
         pageSize: 105, // gives 15 activities per day
         eventPageSize: 5,
@@ -203,7 +210,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
 
         _onRefresh: function(o) {
             this.inherited(arguments);
-            if (o.resourceKind === 'activities' || o.resourceKind === 'events'){
+            if (o.resourceKind === 'activities' || o.resourceKind === 'events')
+            {
                 this.refreshRequired = true;
             }
         },
@@ -212,9 +220,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.todayDate = Date.today().clearTime();
             this.currentDate = this.todayDate.clone();
         },
-        initEvents: function() {
-            this.inherited(arguments);
-        },
         toggleGroup: function(params) {
             var node = query(params.$source);
             if (node && node.parent()) {
@@ -222,38 +227,39 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 domClass.toggle(node.parent(), 'collapsed-event');
             }
         },
-        activateDayHeader: function(params){
+        activateDayHeader: function(params) {
             this.currentDate = Date.parseExact(params.date, 'yyyy-MM-dd');
             this.navigateToDayView();
         },
-        getThisWeekActivities: function(){
-            if(!this.isInCurrentWeek(this.todayDate)){
+        getThisWeekActivities: function() {
+            if (!this.isInCurrentWeek(this.todayDate))
+            {
                 this.currentDate = this.todayDate.clone();
                 this.refresh();
             }
         },
-        getStartDay: function(date){
-            return (date.getDay()===this.userWeekStartDay)
+        getStartDay: function(date) {
+            return (date.getDay() === this.userWeekStartDay)
                     ? date.clone().clearTime()
                     : date.clone().moveToDayOfWeek(this.userWeekStartDay, -1).clearTime();
         },
-        getEndDay: function(date){
-            return (date.getDay()===this.userWeekEndDay)
+        getEndDay: function(date) {
+            return (date.getDay() === this.userWeekEndDay)
                     ? date.clone().set({hour:23,minute:59,second:59})
                     : date.clone().moveToDayOfWeek(this.userWeekEndDay, 1).set({hour:23,minute:59,second:59});
         },
-        getNextWeekActivities: function(){
+        getNextWeekActivities: function() {
             this.currentDate = this.getStartDay(this.weekEndDate.clone().addDays(1));
             this.refresh();
         },
-        getPrevWeekActivities: function(){
+        getPrevWeekActivities: function() {
             this.currentDate = this.getStartDay(this.weekStartDate.clone().addDays(-1));
             this.refresh();
         },
-        getTypeIcon: function(type){
+        getTypeIcon: function(type) {
             return this.typeIcons[type] || this.typeIcons['defaultIcon'];
         },
-        setWeekQuery: function(){
+        setWeekQuery: function() {
             var setDate = this.currentDate || this.todayDate;
             this.weekStartDate = this.getStartDay(setDate);
             this.weekEndDate = this.getEndDay(setDate);
@@ -270,22 +276,22 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     this.weekEndDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
         },
-        setWeekTitle: function(){
+        setWeekTitle: function() {
             var start = this.getStartDay(this.currentDate),
                 end = this.getEndDay(this.currentDate);
-            this.set('dateContent', string.substitute('${0}-${1}',
-                [start.toString(this.weekTitleFormatText),
-                end.toString(this.weekTitleFormatText)]
-            ));
+
+            this.set('dateContent', string.substitute('${0}-${1}',[
+                start.toString(this.weekTitleFormatText),
+                end.toString(this.weekTitleFormatText)
+                ]));
         },
-        setWeekStartDay: function(){
-            var startDay = (typeof this.options !== 'undefined' && typeof this.options['startDay'] !== 'undefined')
-                ? this.options['startDay']
-                : this.userWeekStartDay;
-            this.userWeekStartDay = startDay;
+        setWeekStartDay: function() {
+            this.userWeekStartDay = (this.options && this.options['startDay'])
+                            ? this.options['startDay']
+                            : this.userWeekStartDay;
             this.userWeekEndDay = this.getStartDay(new Date()).addDays(6).getDay();
         },
-        isInCurrentWeek: function(date){
+        isInCurrentWeek: function(date) {
             return date.between(this.weekStartDate, this.weekEndDate);
         },
         processFeed: function(feed) {
@@ -307,13 +313,15 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     dateCompareString = 'yyyy-MM-dd',
                     o = [];
 
-                if(todayNode && !entryGroups[this.todayDate.toString(dateCompareString)])
+                if (todayNode && !entryGroups[this.todayDate.toString(dateCompareString)])
                     entryGroups[this.todayDate.toString(dateCompareString)] = [todayNode];
 
-                for(var i = 0; i < feed['$resources'].length; i++){
+                for (var i = 0; i < feed['$resources'].length; i++)
+                {
                     currentEntry = feed['$resources'][i];
                     startDate = convert.toDateFromString(currentEntry.StartDate);
-                    if(currentEntry.Timeless){
+                    if (currentEntry.Timeless)
+                    {
                         startDate = this.dateToUTC(startDate);
                     }
                     currentEntry.StartDate = startDate;
@@ -321,10 +329,14 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     this.entries[currentEntry.$key] = currentEntry;
 
                     currentGroup = entryGroups[currentEntry.StartDate.toString(dateCompareString)];
-                    if(currentGroup){
-                        if(currentEntry.Timeless) {
+                    if (currentGroup)
+                    {
+                        if (currentEntry.Timeless)
+                        {
                             currentGroup.splice(1, 0, this.rowTemplate.apply(currentEntry, this));
-                        } else {
+                        }
+                        else
+                        {
                             currentGroup.push(this.rowTemplate.apply(currentEntry, this));
                         }
                         continue;
@@ -335,15 +347,18 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     entryGroups[currentEntry.StartDate.toString(dateCompareString)] = currentGroup;
                 }
 
-                for(var entryGroup in entryGroups){
+                for (var entryGroup in entryGroups )
+                {
                     entryOrder.push(Date.parseExact(entryGroup, dateCompareString));
                 }
-                entryOrder.sort(function(a, b){
+
+                entryOrder.sort(function(a, b) {
                     return a.compareTo(b);
                 });
 
                 entryOrderLength = entryOrder.length;
-                for(var i = 0; i < entryOrderLength; i++){
+                for (var i = 0; i < entryOrderLength; i++)
+                {
                     o.push(entryGroups[entryOrder[i].toString(dateCompareString)].join('') + this.groupEndTemplate.apply(this));
                 }
 
@@ -352,25 +367,26 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             }
 
             if (this.remainingContentNode)
-                this.set('remainingContent', string.substitute(
-                    this.remainingText,
-                    [this.feed['$totalResults'] - (this.feed['$startIndex'] + this.feed['$itemsPerPage'] - 1)]
-                ));
+                this.set('remainingContent', string.substitute(this.remainingText,[
+                    this.feed['$totalResults'] - (this.feed['$startIndex'] + this.feed['$itemsPerPage'] - 1)
+                ]));
 
             if (this.hasMoreData())
                 domClass.add(this.domNode, 'list-has-more');
             else
                 domClass.remove(this.domNode, 'list-has-more');
         },
-        addTodayDom: function(){
-            if(!this.isInCurrentWeek(this.todayDate)) return null;
+        addTodayDom: function() {
+            if (!this.isInCurrentWeek(this.todayDate)) return null;
+
             var todayEntry = {
                     StartDate: this.todayDate,
                     headerClass: 'currentDate'
                 };
+
             return this.groupTemplate.apply(todayEntry, this);
         },
-        dateToUTC: function(date){
+        dateToUTC: function(date) {
             return new Date(date.getUTCFullYear(),
                 date.getUTCMonth(),
                 date.getUTCDate(),
@@ -399,8 +415,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         onRequestEventDataSuccess: function(feed) {
             this.processEventFeed(feed);
         },
-        createEventRequest: function(){
-            var querySelect = ['StartDate', 'EndDate', 'Description', 'Type'],
+        createEventRequest: function() {
+            var querySelect = this.eventQuerySelect,
                 queryWhere = this.getEventQuery(),
                 request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
                 .setCount(this.eventPageSize)
@@ -410,7 +426,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, queryWhere);
             return request;
         },
-        getEventQuery: function(){
+        getEventQuery: function() {
             var startDate = this.weekStartDate,
                 endDate = this.weekEndDate;
             return string.substitute(
@@ -425,26 +441,29 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     endDate.toString('yyyy-MM-ddT23:59:59Z')]
                 );
         },
-        hideEventList: function(){
+        hideEventList: function() {
             domClass.add(this.eventContainerNode, 'event-hidden');
         },
-        showEventList: function(){
+        showEventList: function() {
             domClass.remove(this.eventContainerNode, 'event-hidden');
         },
-        processEventFeed: function(feed){
+        processEventFeed: function(feed) {
             var o = [],
-                event,
                 feedLength = feed['$resources'].length;
 
-            if(feedLength === 0){
+            if (feedLength === 0)
+            {
                 this.hideEventList();
                 return false;
-            } else {
+            }
+            else
+            {
                 this.showEventList();
             }
 
-            for(var i = 0; i < feedLength; i++){
-                event = feed['$resources'][i];
+            for (var i = 0; i < feedLength; i++)
+            {
+                var event = feed['$resources'][i];
                 event.isEvent = true;
                 event.StartDate = convert.toDateFromString(event.StartDate);
                 event.EndDate = convert.toDateFromString(event.EndDate);
@@ -452,10 +471,13 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 o.push(this.eventRowTemplate.apply(event, this));
             }
 
-            if(feed['$totalResults'] > feedLength) {
+            if (feed['$totalResults'] > feedLength)
+            {
                 domClass.add(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', string.substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
-            } else {
+            }
+            else
+            {
                 domClass.remove(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', '');
             }
@@ -472,32 +494,35 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.setWeekQuery();
 
             this.clear();
-            this.entryGroups = {};
             this.requestData();
             this.requestEventData();
         },
         show: function(options) {
-            if(options)
+            if (options)
                 this.processShowOptions(options);
             
             this.setDefaultOptions();
             this.inherited(arguments);
         },
-        processShowOptions: function(options){
-            if(options.currentDate){
+        processShowOptions: function(options) {
+            if (options.currentDate)
+            {
                 this.currentDate = Date.parseExact(options.currentDate,'yyyy-MM-dd').clearTime() || Date.today().clearTime();
                 this.refreshRequired = true;
             }
         },
-        setDefaultOptions: function(){
-            if(typeof this.options === 'undefined') this.options = {};
-            if(typeof this.options['startDay'] === 'undefined'){
+        setDefaultOptions: function() {
+            if (typeof this.options === 'undefined')
+                this.options = {};
+
+            if (typeof this.options['startDay'] === 'undefined')
+            {
                 this.options['startDay'] = (App.context.userOptions)
-                    ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek'], 10)
+                    ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek'])
                     : this.userWeekStartDay;
             }
         },
-        activateEventMore: function(){
+        activateEventMore: function() {
             var view = App.getView("event_related"),
                 where = this.getEventQuery();
             if (view)
@@ -505,6 +530,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         },
         clear: function() {
             this.inherited(arguments);
+            this.entryGroups = {};
             this.set('eventContent', '');
         },
         selectDate: function() {
@@ -526,10 +552,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     }
                 },
                 view = App.getView(this.datePickerView);
-            if(view)
+            if (view)
                 view.show(options);
         },
-        selectDateSuccess: function(){
+        selectDateSuccess: function() {
             var view = App.getPrimaryActiveView();
             this.currentDate = view.getDateTime().clearTime();
             this.refresh();
@@ -549,7 +575,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
                 view = App.getView(detailView);
+
             descriptor = (entry.isEvent) ? descriptor : entry.Description;
+
             if (view)
                 view.show({
                     descriptor: descriptor,

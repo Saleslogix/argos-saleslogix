@@ -1,10 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Edit.js"/>
-/// <reference path="../../Format.js"/>
-
 define('Mobile/SalesLogix/Views/Address/Edit', [
     'dojo/_base/declare',
     'dojo/string',
@@ -67,9 +60,10 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
          */
         hideFieldsForLocale: function(locale){
             var fieldsToHide = this.localeFieldHidden[locale];
-            if(!fieldsToHide) return;
+            if (!fieldsToHide) return;
 
-            for(var i=0; i<fieldsToHide.length; i++){
+            for (var i=0; i<fieldsToHide.length; i++)
+            {
                 var field = this.fields[fieldsToHide[i]];
                 if (field)
                     field.hide();

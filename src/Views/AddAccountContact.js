@@ -1,9 +1,3 @@
-/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../argos-sdk/src/Detail.js"/>
-
 define('Mobile/SalesLogix/Views/AddAccountContact', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -89,7 +83,8 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             return values;
         },
         formatDependentPicklist: function(dependentValue, fmt) {
-            if(!lang.isArray(dependentValue)) dependentValue = [dependentValue];
+            if (!lang.isArray(dependentValue))
+                dependentValue = [dependentValue];
             return string.substitute(fmt, [dependentValue]);
         },
         onInsertCompleted: function(entry) {
@@ -105,7 +100,8 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                 this.inherited(arguments);
         },
         onContactAddressChange: function(value, field) {
-            if( this.fields['Address'].getValue() && !this.fields['Address'].getValue().Address1 ) {
+            if (this.fields['Address'].getValue() && !this.fields['Address'].getValue().Address1 )
+            {
                 this.fields['Address'].setValue(value);
             }
         },

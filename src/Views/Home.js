@@ -1,9 +1,3 @@
-/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../argos-sdk/src/List.js"/>
-
 define('Mobile/SalesLogix/Views/Home', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -136,12 +130,20 @@ define('Mobile/SalesLogix/Views/Home', [
             var layout = this._createCustomizedLayout(this.createLayout()),
                 list = [];
 
-            array.forEach(layout, function(section) {
-                array.forEach(section['children'], function(row) {
-                    if (row['security'] && !App.hasAccessTo(row['security'])) return;
-                    if (typeof this.query !== 'function' || this.query(row)) list.push(row);
-                }, this);
-            }, this);
+            for (var i = 0; i < layout.length; i++)
+            {
+                var section = layout[i].children;
+
+                for (var j = 0; j < section.length; j++)
+                {
+                    var row = section[j];
+
+                    if (row['security'] && !App.hasAccessTo(row['security']))
+                        return;
+                    if (typeof this.query !== 'function' || this.query(row))
+                        list.push(row);
+                }
+            }
 
             this.processFeed({'$resources': list});
         },
@@ -154,7 +156,7 @@ define('Mobile/SalesLogix/Views/Home', [
             this.refreshRequired = true;
         },
         refreshRequiredFor: function(options) {
-            var visible = App.preferences && App.preferences.home && App.preferences.home.visible,
+            var visible = lang.getObject('preferences.home.visible', false, App) || [],
                 shown = this.feed && this.feed['$resources'];
 
             if (!visible || !shown || (visible.length != shown.length))

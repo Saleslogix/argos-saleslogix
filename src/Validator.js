@@ -1,7 +1,3 @@
-/// <reference path="../ext/ext-core-debug.js"/>
-/// <reference path="../platform/Application.js"/>
-/// <reference path="../sdata/SDataService.js"/>
-
 define('Mobile/SalesLogix/Validator', [
     'dojo/_base/lang',
     'dojo/string'

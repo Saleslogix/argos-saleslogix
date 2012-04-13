@@ -1,9 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
-
 define('Mobile/SalesLogix/Views/ErrorLog/List', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
@@ -38,15 +32,16 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
 
         _onRefresh: function(o) {
             this.inherited(arguments);
-            if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage'){
+            if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage')
+            {
                 this.refreshRequired = true;
             }
         },
 
-        requestData: function(){
+        requestData: function() {
             var errorItems = ErrorManager.getAllErrors();
 
-            errorItems.sort(function(a, b){
+            errorItems.sort(function(a, b) {
                var A = convert.toDateFromString(a.errorDateStamp),
                    B = convert.toDateFromString(b.errorDateStamp);
 

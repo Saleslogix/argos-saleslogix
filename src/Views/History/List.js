@@ -160,7 +160,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                     domStyle.set(moreNode, 'visibility', 'hidden');
             });
         },
-        processFeed: function(){
+        processFeed: function() {
             this.inherited(arguments);
             this._onResize();
         },

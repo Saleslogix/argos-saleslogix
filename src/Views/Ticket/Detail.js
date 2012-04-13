@@ -1,9 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
-
 define('Mobile/SalesLogix/Views/Ticket/Detail', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -11,7 +5,8 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
     'dojo/dom-class',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    'dojo/NodeList-manipulate'
 ], function(
     declare,
     lang,
@@ -105,10 +100,10 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
             });
         },
 
-        onRequestCodeDataSuccess: function(row, node, value, entry, data){
-            var value = this.processCodeDataFeed(data, entry[row.property]);
-            this.setNodeText(node, value);
-            this.entry[row.name] = value;
+        onRequestCodeDataSuccess: function(row, node, value, entry, data) {
+            var codeText = this.processCodeDataFeed(data, entry[row.property]);
+            this.setNodeText(node, codeText);
+            this.entry[row.name] = codeText;
         },
 
         onRequestCodeDataFailure: function(response, o) {
@@ -118,20 +113,19 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         processCodeDataFeed: function(feed, currentValue, options) {
             var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             var textProperty = options && options.textProperty ? options.textProperty : 'text';
+
             for (var i = 0; i < feed.$resources.length; i++)
             {
                 if (feed.$resources[i][keyProperty] === currentValue)
                     return feed.$resources[i][textProperty];
             }
+
             return currentValue;
         },
-        setNodeText: function(node, value){
-            var contentNode = query('span', node)[0];
-
+        setNodeText: function(node, value) {
             domClass.remove(node, 'content-loading');
 
-            if (contentNode)
-                contentNode.innerHTML = value;
+            query('span', node).text(value);
         },
 
         createLayout: function() {

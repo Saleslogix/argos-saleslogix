@@ -1,9 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/List.js"/>
-
 define('Mobile/SalesLogix/Views/OpportunityContact/List', [
     'dojo/_base/declare',
     'dojo/string',
@@ -17,7 +11,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
     return declare('Mobile.SalesLogix.Views.OpportunityContact.List', [List], {
         //Template
         itemTemplate: new Simplate([
-            '<h3 class="{% if ($.IsPrimary) { %}primary{% } %}">{%: $.Contact.NameLF %}</h3>',
+            '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',
             '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">',
                 '{% if ($.SalesRole) { %}',
                     '{%: $.SalesRole %} | ',
@@ -51,10 +45,10 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
         ],
         resourceKind: 'opportunityContacts',
 
-        complete: function(){
+        complete: function() {
             var view = App.getPrimaryActiveView(),
                 selectionModel = view && view.get('selectionModel'),
-                entry = null;
+                entry;
             if (!selectionModel) return;
 
             if (selectionModel.getSelectionCount() == 0 && view.options.allowEmptySelection)
@@ -103,7 +97,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
             };
             return options;
         },
-        navigateToInsertView: function(entry){
+        navigateToInsertView: function(entry) {
             var view = App.getView(this.insertView),
                 options = {
                     entry: entry,

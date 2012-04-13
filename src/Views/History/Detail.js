@@ -1,9 +1,3 @@
-/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../../argos-sdk/src/Detail.js"/>
-
 define('Mobile/SalesLogix/Views/History/Detail', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
@@ -103,25 +97,19 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                     name: 'StartDate',
                     property: 'StartDate',
                     label: this.scheduledText,
-                    renderer: format.date.bindDelegate(
-                        this, this.dateFormatText
-                    ),
+                    renderer: format.date.bindDelegate(this, this.dateFormatText),
                     exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
                     name: 'CompletedDate',
                     property: 'CompletedDate',
                     label: this.completedText,
-                    renderer: format.date.bindDelegate(
-                        this, this.dateFormatText
-                    ),
+                    renderer: format.date.bindDelegate(this, this.dateFormatText),
                     exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
                     name: 'ModifyDate',
                     property: 'ModifyDate',
                     label: this.modifiedText,
-                    renderer: format.date.bindDelegate(
-                        this, this.dateFormatText
-                    ),
+                    renderer: format.date.bindDelegate(this, this.dateFormatText),
                     include: this.isHistoryOfType.bindDelegate(this, 'atNote')
                 },{
                     name: 'Description',

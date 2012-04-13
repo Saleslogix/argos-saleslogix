@@ -1,9 +1,3 @@
-/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../argos-sdk/src/List.js"/>
-
 define('Mobile/SalesLogix/Views/Settings', [
     'dojo/_base/declare',
     'dojo/_base/connect',
@@ -46,7 +40,7 @@ define('Mobile/SalesLogix/Views/Settings', [
             'clearLocalStorage',
             'viewErrorLogs'
         ],
-        createActions : function(){
+        createActions : function() {
             this.actions = {
                 'clearLocalStorage': {
                     title: this.clearLocalStorageTitleText,
@@ -62,7 +56,7 @@ define('Mobile/SalesLogix/Views/Settings', [
                 }
             };
         },
-        viewErrorLogs: function(){
+        viewErrorLogs: function() {
             var view = App.getView('errorlog_list');
             if (view)
                 view.show();

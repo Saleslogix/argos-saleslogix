@@ -1,22 +1,16 @@
-/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
-/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
-/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
-/// <reference path="../../../../argos-sdk/src/View.js"/>
-/// <reference path="../../../../argos-sdk/src/List.js"/>
-
 define('Mobile/SalesLogix/Views/Help', [
     'dojo/_base/declare',
-    'dojo/query',
     'dojo/string',
     'dojo/dom-class',
+    'dojo/dom-construct',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Detail',
     'dojo/NodeList-manipulate'
 ], function(
     declare,
-    query,
     string,
     domClass,
+    domConstruct,
     ErrorManager,
     Detail
 ) {
@@ -43,16 +37,14 @@ define('Mobile/SalesLogix/Views/Help', [
         icon: 'content/images/icons/help_24.png',
         expose: false,
 
-        init: function() {
-            this.inherited(arguments);
-        },
         createToolLayout: function() {
             return this.tools && (this.tools.tbar = []);
         },
         onRequestFailure: function(response, o) {
-            query(this.contentNode).append(this.errorTemplate.apply(this));
-            ErrorManager.addError(response, o, this.options, 'failure');
+            domConstruct.place(this.errorTemplate.apply(this), this.contentNode, 'last');
             domClass.remove(this.domNode, 'panel-loading');
+
+            ErrorManager.addError(response, o, this.options, 'failure');
         },
         onLocalizedRequestFirstFailure: function(response, o) {
             Sage.SData.Client.Ajax.request({
@@ -80,7 +72,7 @@ define('Mobile/SalesLogix/Views/Help', [
             var localizedUrl = string.substitute("help/help_${0}.html", [Mobile.CultureInfo['name']]);
             return localizedUrl;
         },
-        resolveGenericLocalizedUrl: function(){
+        resolveGenericLocalizedUrl: function() {
             var languageSpec = Mobile.CultureInfo['name'],
                 languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec,
                 localizedUrl = string.substitute("help/help_${0}.html", [languageGen]);
@@ -98,7 +90,7 @@ define('Mobile/SalesLogix/Views/Help', [
             });
         },
         processContent: function(xhr, o) {
-            query(this.contentNode).append(xhr.responseText);
+            domConstruct.place(xhr.responseText, this.contentNode, 'last');
         }
     });
 });
