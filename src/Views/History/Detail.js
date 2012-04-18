@@ -1,16 +1,30 @@
 define('Mobile/SalesLogix/Views/History/Detail', [
     'dojo/_base/declare',
+    'dojo/string',
+    'dojo/_base/lang',
+    'dojo/query',
+    'dojo/dom-class',
     'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    'dojo/NodeList-manipulate'
 ], function(
     declare,
+    string,
+    lang,
+    query,
+    domClass,
     format,
+    ErrorManager,
     template,
     Detail
 ) {
 
     return declare('Mobile.SalesLogix.Views.History.Detail', [Detail], {
+        //Templates
+        createUserTemplate: template.nameLF,
+
         //Localization
         categoryText: 'category',
         completedText: 'completed',
@@ -20,6 +34,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         notesText: 'Notes',
         priorityText: 'priority',
         regardingText: 'regarding',
+        scheduledByText: 'Scheduled by',
         scheduledText: 'scheduled',
         timelessText: 'timeless',
         companyText: 'company',
@@ -57,6 +72,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             'CompletedDate',
             'ContactId',
             'ContactName',
+            'CreateUser',
             'Description',
             'Duration',
             'Notes',
@@ -89,6 +105,44 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         provideText: function(entry) {
             return entry && (entry['LongNotes'] || entry['Notes']);
         },
+        requestCreateUser: function(entry) {
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                .setResourceKind('users')
+                .setResourceSelector(string.substitute("'${0}'", [entry['CreateUser']]))
+                .setQueryArg('select', [
+                    'UserInfo/FirstName',
+                    'UserInfo/LastName'
+                ].join(','));
+
+            request.allowCacheUse = true;
+
+            return request;
+        },
+        requestCodeData: function(row, node, value, entry, predicate) {
+            var request = this.requestCreateUser(entry);
+            request.read({
+                success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
+                failure: this.onRequestCodeDataFailure,
+                scope: this
+            });
+        },
+        onRequestCodeDataSuccess: function(row, node, value, entry, data) {
+            var codeText = entry[row.property];
+            this.setNodeText(node, this.createUserTemplate.apply(data.UserInfo));
+            this.entry[row.name] = codeText;
+        },
+        onRequestCodeDataFailure: function(response, o) {
+            var rowNode = query('[data-property="CreateUser"]');
+            if (rowNode)
+                this.setNodeText(rowNode[0], this.entry['UserName']);
+
+            ErrorManager.addError(response, o, this.options, 'failure');
+        },
+        setNodeText: function(node, value) {
+            domClass.remove(node, 'content-loading');
+
+            query('span', node).text(value);
+        },
         createLayout: function() {
             return this.layout || (this.layout = [{
                 title: this.detailsText,
@@ -115,6 +169,13 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                     name: 'Description',
                     property: 'Description',
                     label: this.regardingText
+                },{
+                    name: 'CreateUser',
+                    property: 'CreateUser',
+                    label: this.scheduledByText,
+                    value: this.loadingText,
+                    cls: 'content-loading',
+                    onCreate: this.requestCodeData.bindDelegate(this)
                 }]
             },{
                 title: this.notesText,
