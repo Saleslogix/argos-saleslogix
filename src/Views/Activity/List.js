@@ -32,10 +32,10 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         ]),
         itemTemplate: new Simplate([
             '<h3>',
-            '{%= $$.activityTimeTemplate.apply($) %}',
+            '{%! $$.activityTimeTemplate %}',
             '<span class="p-description">&nbsp;{%: $.Description %}</span>',
             '</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %} - {%= $$.nameTemplate.apply($) %}</h4>'
+            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.ContactName) { %}',
