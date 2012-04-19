@@ -63,7 +63,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             'none': 'None',
             'atPhoneCall': 'Phone Call',
             'atAppointment': 'Meeting',
-            'atToDo': 'To-Do'
+            'atToDo': 'To-Do',
+            'atPersonal': 'Personal Activity'
         },
 
         //View Properties
