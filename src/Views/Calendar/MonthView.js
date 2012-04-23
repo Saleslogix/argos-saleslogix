@@ -505,7 +505,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         cancelRequests: function(requests) {
             if (!requests) return;
             array.forEach(requests, function(xhr){
-                xhr.abort();
+                if (xhr) // if request was fulfilled by offline storage, xhr will be undefined
+                    xhr.abort();
             });
         },
         requestSelectedDateActivities: function() {
