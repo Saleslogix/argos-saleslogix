@@ -45,7 +45,7 @@ define('Mobile/SalesLogix/Environment', [
 
                         // FF 3.6-4 do not follow untrusted events, fixed in FF5+
                         // https://bugzilla.mozilla.org/show_bug.cgi?id=666604
-                        if (has('mozilla') < 5)
+                        if (has('ff') < 5)
                             window.open(node.href);
                     }
                 };
