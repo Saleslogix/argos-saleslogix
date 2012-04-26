@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Environment', [
                     ? string.substitute("mailto:${0}?subject=${1}&body=${2}", [email, subject, body||''])
                     : string.substitute("mailto:${0}", [email]);
                 window.location.href = mailtoUri;
-            }, 50);
+            }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
         },
         showMapForAddress: function(address) {
             setTimeout(function() {
