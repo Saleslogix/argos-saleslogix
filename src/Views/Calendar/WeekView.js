@@ -173,8 +173,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             'atAppointment': 'content/images/icons/Meeting_24x24.png',
             'atPhoneCall': 'content/images/icons/Call_24x24.png',
             'atToDo': 'content/images/icons/To_Do_24x24.png',
-            'atPersonal': 'content/images/icons/Personal_24x24.png',
-            'atLiterature': 'content/images/icons/letters_24.png'
+            'atPersonal': 'content/images/icons/Personal_24x24.png'
         },
 
         queryWhere: null,
@@ -564,6 +563,17 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             var view = App.getView(this.monthView),
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
+        },
+        navigateToInsertView: function(el) {
+            var view = App.getView(this.insertView || this.editView);
+            if (view)
+            {
+                view.show({
+                    negateHistory: true,
+                    returnTo: this.id,
+                    insert: true
+                });
+            }
         },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],

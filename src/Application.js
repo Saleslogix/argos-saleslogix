@@ -402,6 +402,12 @@ define('Mobile/SalesLogix/Application', [
 
             for (var i = restoredHistory.length - 1; i >= 0 && !hasRoot; i--)
             {
+                if (restoredHistory[i].data.options && restoredHistory[i].data.options.negateHistory)
+                {
+                    result = [];
+                    continue;
+                }
+
                 if (App.hasView(restoredHistory[i].page))
                     result.unshift(restoredHistory[i]);
 

@@ -795,6 +795,17 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
             view.show(options);
         },
+        navigateToInsertView: function(el) {
+            var view = App.getView(this.insertView || this.editView);
+            if (view)
+            {
+                view.show({
+                    negateHistory: true,
+                    returnTo: this.id,
+                    insert: true
+                });
+            }
+        },
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
