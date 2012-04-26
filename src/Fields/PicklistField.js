@@ -35,6 +35,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         requireSelection: false,
         valueKeyProperty: false,
         valueTextProperty: false,
+
         constructor: function(options) {
             switch (this.storageMode)
             {
@@ -83,12 +84,11 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                         ? this.expandExpression(this.picklist, options.dependentValue)
                         : this.expandExpression(this.picklist)
                 );
-                options.multi = this.multi;
-                options.singleSelect = !options.multi;
-                options.previousSelections = this.multi ? this.createSelections() : null;
-                options.pickListType = this.storageMode;
+                options.singleSelect = this.singleSelect;
+                options.previousSelections = !this.singleSelect ? this.createSelections() : null;
             }
-            if (this.multi)
+
+            if (!this.singleSelect)
             {
                 options.tools = {
                     tbar: [{
@@ -103,6 +103,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                     }]
                 };
             }
+
             return options;
         },
         navigateToListView: function() {

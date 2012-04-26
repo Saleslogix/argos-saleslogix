@@ -132,7 +132,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
 
             var values = [];
             for (var key in selections)
-                values.push(selections[key].data);
+                values.push(selections[key].data['text']);
 
             return values.join(', ');
         },
@@ -280,7 +280,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 picklist: 'CuisinePrefs',
                 textRenderer: this.formatCuisinePrefs.bindDelegate(this),
                 formatValue: this.formatCuisinePrefs.bindDelegate(this),
-                multi: true,
+                singleSelect: false,
                 title: this.cuisinePreferenceTitleText
             }]);
         }

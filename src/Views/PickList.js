@@ -11,19 +11,7 @@ define('Mobile/SalesLogix/Views/PickList', [
     return declare('Mobile.SalesLogix.Views.PickList', [List], {
         //Templates
         rowTemplate: new Simplate([
-            '<li data-action="activateEntry" ',
-                '{% if ($$.pickListType === "text" && $$.multi) { %}',
-                    'data-key="{%: $.$descriptor %}" ',
-                '{% } else { %}',
-                    'data-key="{%: $.$key %}" ',
-                '{% } %}',
-
-                'data-descriptor="{%: $.$descriptor %}" ',
-
-                '{% if ($$.multi && $$._selectionModel.selections[$.$descriptor]) { %}',
-                    'class="{%: $$.listSelectedClass %}"',
-                '{% } %}',
-            '>',
+            '<li data-action="activateEntry" data-key="{%: $.$key %}" data-descriptor="{%: $.$descriptor %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
             '{%! $$.itemTemplate %}',
             '</li>'
@@ -38,31 +26,14 @@ define('Mobile/SalesLogix/Views/PickList', [
         expose: false,
         resourceKind: 'picklists',
         resourceProperty: 'items',
-        listSelectedClass: 'list-item-selected',
-
-        multi: false,
-        previousSelections: null,
-        pickListType: null,
 
         show: function(options) {
             this.set('title', options && options.title || this.title);
-
-            this.multi = options.multi || false;
-            this.previousSelections = options.previousSelections || [];
-            this.pickListType = options.pickListType;
-
-            if (this.multi && this.pickListType === 'text')
-            {
-                this.enableMultiSelection();
-            }
-
             this.inherited(arguments);
         },
-        enableMultiSelection: function() {
-            this.allowSelection = true;
-            this.selectionOnly = true;
-            this.autoClearSelection = false;
-            this._selectionModel.singleSelection = false;
+        processFeed: function(feed) {
+            this.inherited(arguments);
+            this._loadPreviousSelections();
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
