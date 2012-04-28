@@ -69,32 +69,30 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
             var view = App.getView(context.id);
             if (view && view.currentDate)
             {
-                var currentDate = view.currentDate.clone().clearTime(),
+                var currentDate = moment(view.currentDate).clone().sod(),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && Date.parse(startTimeOption),
-                    startDate = currentDate.clone().clearTime();
+                    startTime = startTimeOption && moment(startTimeOption),
+                    startDate = currentDate.clone();
 
                 if (startTime && (currentDate.compareTo(Date.today()) !== 0))
                 {
-                    startDate.set({
-                        'hour': startTime.getHours(),
-                        'minute': startTime.getMinutes()
-                    });
+                    startDate.hours(startTime.hours());
+                    startDate.minutes(startTime.minutes());
                 }
                 else
                 {
-                    startTime = Date.now();
-                    startDate.set({'hour': startTime.getHours()})
-                        .add({
-                            'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
+                    startTime = moment();
+                    startDate.hours(startTime.hours());
+                    startDate.add({
+                            'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
                         });
                 }
 
-                var endDate = startDate.clone().add({minute:15});
+                var endDate = startDate.clone().add({minutes:15});
 
-                this.fields['StartDate'].setValue(startDate);
-                this.fields['EndDate'].setValue(endDate);
+                this.fields['StartDate'].setValue(startDate.toDate());
+                this.fields['EndDate'].setValue(endDate.toDate());
             }
         },
         applyContext: function() {

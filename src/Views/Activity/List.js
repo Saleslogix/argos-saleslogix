@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '<span class="p-meridiem">All-Day</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
-            '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
+            '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "A") %}</span>,',
             '{% } %}'
         ]),
         itemTemplate: new Simplate([

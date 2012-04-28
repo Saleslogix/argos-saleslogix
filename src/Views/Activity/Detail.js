@@ -57,9 +57,9 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         ticketNumberText: 'ticket',
         whenText: 'When',
         whoText: 'Who',
-        startDateFormatText: 'M/d/yyyy h:mm:ss tt',
-        timelessDateFormatText: 'M/d/yyyy',
-        alarmDateFormatText: 'M/d/yyyy h:mm:ss tt',
+        startDateFormatText: 'M/D/YYYY h:mm:ss A',
+        timelessDateFormatText: 'M/D/YYYY',
+        alarmDateFormatText: 'M/D/YYYY h:mm:ss A',
 
         //View Properties
         id: 'activity_detail',
