@@ -72,7 +72,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atEMail': 'E-mail'
         },
 		hourMinuteFormatText: "h:mm",
-		dateFormatText: "M/d/yy",
+		dateFormatText: "M/D/YY",
         hashTagQueriesText: {
           'note': 'note',
           'phonecall': 'phonecall',
@@ -132,7 +132,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                 nextDate = startDate.clone().add({hours: 24}),
                 fmt = this.dateFormatText;
 
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().valueOf())
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().sod().valueOf())
                 fmt = this.hourMinuteFormatText;
 
             return format.date(startDate.toDate(), fmt);
@@ -141,7 +141,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             var startDate = moment(convert.toDateFromString(date)),
                 nextDate = startDate.clone().add({hours: 24});
 
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().valueOf())
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().sod().valueOf())
                 return format.date(startDate.toDate(), 'A');
 
             return '';

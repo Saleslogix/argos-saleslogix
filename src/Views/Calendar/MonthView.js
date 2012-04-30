@@ -291,13 +291,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.getSelectedDate();
         },
         getFirstDayOfCurrentMonth: function() {
-            return this.currentDate.clone().moveToFirstDayOfMonth().sod();
+            return this.currentDate.clone().date(1).sod();
         },
         getLastDayOfCurrentMonth: function() {
-            return new Date(this.currentDate.getFullYear(),
-                this.currentDate.getMonth(),
-                this.currentDate.getDaysInMonth(),
-                23, 59, 59);
+            return this.currentDate.clone().date(this.currentDate.daysInMonth()).eod();
         },
         getTodayMonthActivities: function() {
             var today = moment().sod();
@@ -670,13 +667,13 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
         renderCalendar: function() {
             var calHTML = [],
-                startingDay = this.getFirstDayOfCurrentMonth().getDay(),
+                startingDay = this.getFirstDayOfCurrentMonth().day(),
                 dayClass = '',
                 weekendClass = '',
                 day = 1,
                 dayDate = moment().sod().date(1),
                 today = moment().sod(),
-                monthLength = this.currentDate.getDaysInMonth(),
+                monthLength = this.currentDate.daysInMonth(),
                 weekEnds = [0,6];
 
             calHTML.push(this.calendarStartTemplate);
@@ -684,7 +681,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             calHTML.push(this.calendarWeekHeaderStartTemplate);
             for (var i = 0; i <= 6; i++ )
             {
-                calHTML.push(string.substitute(this.calendarWeekHeaderTemplate, [moment.lang.weekdaysShort[i]]));
+                calHTML.push(string.substitute(this.calendarWeekHeaderTemplate, [moment.weekdaysShort[i]]));
             }
             calHTML.push(this.calendarWeekHeaderEndTemplate);
 
@@ -704,7 +701,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                                                     [
                                                         day,
                                                         (dayClass + weekendClass),
-                                                        dayDate.toString('YYYY-MM-DD')
+                                                        dayDate.format('YYYY-MM-DD')
                                                     ]));
                         day++;
                     }
