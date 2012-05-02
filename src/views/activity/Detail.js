@@ -40,6 +40,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         accountText: 'account',
         contactText: 'contact',
         opportunityText: 'opportunity',
+        recurringText: 'recurring',
         ticketNumberText: 'ticket',
         whenText: 'When',
         whoText: 'Who',
@@ -69,6 +70,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
             'OpportunityId',
             'OpportunityName',
             'Priority',
+            'Recurring',
             'Rollover',
             'StartDate',
             'TicketId',
@@ -153,8 +155,12 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     contentEl.update(this.leaderTemplate.apply(leader['UserInfo']));
             }
         },
-        checkCanComplete: function(entry) {
-            return !entry || (entry['UserId'] !== App.context['user']['$key'])
+        isCompleteDisabled: function(entry) {
+            if (!entry) return true;
+            if (entry['UserId'] !== App.context['user']['$key']) return true;
+            if (entry['Recurring']) return true;
+
+            return false;
         },
         processEntry: function(entry) {
             Mobile.SalesLogix.Activity.Detail.superclass.processEntry.apply(this, arguments);
@@ -173,7 +179,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                     label: this.completeActivityText,
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeActivity',
-                    disabled: this.checkCanComplete
+                    disabled: this.isCompleteDisabled
                 }]
             },{
                 options: {
@@ -192,6 +198,10 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },{
                     name: 'Priority',
                     label: this.priorityText
+                },{
+                    name: 'Recurring',
+                    label: this.recurringText,
+                    renderer: Mobile.SalesLogix.Format.yesNo
                 },{
                     name: 'LongNotes',
                     label: this.longNotesText
@@ -227,6 +237,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },{
                     name: 'Alarm',
                     label: this.alarmText,
+                    renderer: Mobile.SalesLogix.Format.yesNo,
                     exclude: this.doesActivityHaveReminder
                 },{
                     name: 'AlarmTime',
@@ -238,6 +249,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
                 },{
                     name: 'Rollover',
                     label: this.rolloverText,
+                    renderer: Mobile.SalesLogix.Format.yesNo,
                     include: this.isActivityTimeless
                 }]
             },{

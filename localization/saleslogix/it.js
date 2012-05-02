@@ -283,6 +283,7 @@
         accountText : 'azienda',
         contactText : 'cont.',
         opportunityText : 'opportunità',
+        recurringText: 'recurring',
         ticketNumberText : 'ticket',
         whenText : 'Data',
         whoText : 'Chi',

@@ -283,6 +283,7 @@
         accountText : 'субъект',
         contactText : 'контакт',
         opportunityText : 'сделка',
+        recurringText: 'recurring',
         ticketNumberText : 'заявка',
         whenText : 'Когда',
         whoText : 'Кто',

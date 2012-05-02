@@ -283,6 +283,7 @@
         accountText : 'Firma',
         contactText : 'Kontakt',
         opportunityText : 'Verk.chance',
+        recurringText: 'recurring',
         ticketNumberText : 'Ticket',
         whenText : 'Wann',
         whoText : 'Wer',

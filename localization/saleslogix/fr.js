@@ -283,6 +283,7 @@
         accountText : 'Compte',
         contactText : 'Contact',
         opportunityText : 'Opportunité',
+        recurringText: 'recurring',
         ticketNumberText : 'Ticket',
         whenText : 'Qd',
         whoText : 'Qui',
