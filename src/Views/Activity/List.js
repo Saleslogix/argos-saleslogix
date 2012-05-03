@@ -14,6 +14,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
+        allDayText: 'All-Day',
 
         //Templates
         rowTemplate: new Simplate([
@@ -24,7 +25,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         ]),
         activityTimeTemplate: new Simplate([
             '{% if ($.Timeless) { %}',
-            '<span class="p-meridiem">All-Day</span>',
+            '<span class="p-meridiem">{%: $$.allDayText %}</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
