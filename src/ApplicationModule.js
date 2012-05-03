@@ -152,6 +152,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
         loadViews: function() {
             this.inherited(arguments);
 
+            var views = {
+                'calendar': {type: 'Mobile/SalesLogix/Views/Calendar', props: {expose: false}},
+                'signature': {type: 'Mobile/SalesLogix/Views/Signature', props: {expose: false}}
+            };
+
             /*
             this.registerView(new Calendar({
                 expose:false
