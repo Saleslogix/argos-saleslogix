@@ -11,6 +11,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
+        allDayText: 'All-Day',
 
         //Templates
         itemTemplate: new Simplate([
@@ -21,7 +22,7 @@ Ext.namespace("Mobile.SalesLogix.Activity");
         ]),
         activityTimeTemplate: new Simplate([
             '{% if ($.Timeless) { %}',
-            '<span class="p-meridiem">All-Day</span>',
+            '<span class="p-meridiem">{%: $$.allDayText %}</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
             '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',

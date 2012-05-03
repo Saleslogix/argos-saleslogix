@@ -345,6 +345,7 @@
     localize('Mobile.SalesLogix.Activity.List',{
         startDateFormatText : 'ddd d/M/yy',
         startTimeFormatText : 'H:mm',
+        allDayText: 'Journée',
         titleText : 'Activités'
     });
     localize('Mobile.SalesLogix.Activity.TypesList',{
