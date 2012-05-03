@@ -4,7 +4,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/lang',
     'Sage/Platform/Mobile/ApplicationModule'/*,
     'Sage/Platform/Mobile/Calendar',
-    'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/Views/Signature',
 
     'Mobile/SalesLogix/Views/AddAccountContact',
@@ -85,7 +84,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     lang,
     ApplicationModule/*,
     Calendar,
-    List,
     Signature,
     AddAccountContact,
     AreaCategoryIssueLookup,
