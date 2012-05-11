@@ -5,7 +5,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Mobile/SalesLogix/Recurrence'
 ], function(
     declare,
     array,
@@ -13,7 +14,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     template,
     validator,
     utility,
-    Edit
+    Edit,
+    recur
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit], {
@@ -38,6 +40,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         regardingText: 'regarding',
         rolloverText: 'auto rollover',
         startingText: 'start time',
+        repeatsText: 'repeats',
+        recurringText: 'recurring',
+        recurringTitleText: 'Recurring',
 		startingFormatText: 'M/d/yyyy h:mm tt',
         startingFormatTimelessText: 'M/d/yyyy',
         timelessText: 'timeless',
@@ -109,6 +114,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         entityName: 'Activity',
         insertSecurity: null, //'Entities/Activity/Add',
         updateSecurity: null, //'Entities/Activity/Edit',
+        contractName: 'system',
         querySelect: [
             'AccountId',
             'AccountName',
@@ -119,6 +125,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             'ContactName',
             'Description',
             'Duration',
+            'Leader/$key',
             'LeadId',
             'LeadName',
             'Location',
@@ -129,13 +136,20 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             'Regarding',
             'Rollover',
             'StartDate',
+            'EndDate',
             'TicketId',
             'TicketNumber',
             'Timeless',
             'Type',
-            'UserId'
+            'UserId',
+            'Recurring',
+            'RecurrenceState',
+            'RecurPeriod',
+            'RecurPeriodSpec',
+            'RecurIterations'
         ],
         resourceKind: 'activities',
+        recurrence: {},
 
         init: function() {
             this.inherited(arguments);
@@ -150,6 +164,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.connect(this.fields['Contact'], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);
+            this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceChange);
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
@@ -159,6 +175,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
+        },
+        isActivityRecurring: function(entry) {
+            return /rstMaster/.test(this.fields['RecurrenceState'].getValue());
         },
         isInLeadContext: function() {
             var insert = this.options && this.options.insert,
@@ -307,9 +326,59 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.onAccountChange(accountField.getValue(), accountField);
             }
         },
+        onStartDateChange: function(value, field) {
+            this.recurrence.StartDate = value;
+            // Need recalculate RecurPeriodSpec in case weekday on StartDate changes
+            this.recurrence.RecurPeriodSpec = recur.getRecurPeriodSpec(
+                this.recurrence.RecurPeriod,
+                this.recurrence.StartDate,
+                this.recurrence.RecurPeriodSpec - this.recurrence.RecurPeriodSpec % 65536, // weekdays
+                this.recurrence.RecurPeriodSpec % 65536 // interval
+            );
+            this.resetRecurrence(this.recurrence);
+
+            recur.createSimplifiedOptions(value);
+
+            var repeats = ('rstMaster' == this.recurrence.RecurrenceState);
+            this.fields['RecurrenceUI'].setValue(recur.getPanel(repeats && this.recurrence.RecurPeriod));
+        },
+        onRecurrenceChange: function(value, field) {
+            var opt = recur.simplifiedOptions[field.currentSelection.$key];
+            // preserve #iterations (and EndDate) if matching recurrence
+            if (opt.RecurPeriodSpec == this.recurrence.RecurPeriodSpec)
+                opt.RecurIterations = this.recurrence.RecurIterations;
+
+            this.resetRecurrence(opt);
+        },
+        resetRecurrence: function(o) {
+            if (o.StartDate)
+                this.recurrence.StartDate = o.StartDate;
+
+            this.recurrence.Recurring = o.Recurring;
+            this.recurrence.RecurPeriod = o.RecurPeriod;
+            this.recurrence.RecurPeriodSpec = o.RecurPeriodSpec;
+            this.recurrence.RecurrenceState = o.RecurrenceState;
+            this.recurrence.RecurIterations = o.RecurIterations;
+            this.recurrence.EndDate = recur.calcEndDate(this.recurrence.StartDate, this.recurrence);
+
+            this.fields['RecurrenceUI'].setValue(recur.getPanel(o.RecurPeriod));
+            this.fields['Recurrence'].setValue(this.recurrence);
+
+            this.fields['Recurring'].setValue(this.recurrence.Recurring);
+            this.fields['RecurPeriod'].setValue(this.recurrence.RecurPeriod);
+            this.fields['RecurPeriodSpec'].setValue(this.recurrence.Recurring ? this.recurrence.RecurPeriodSpec : 0);
+            this.fields['RecurrenceState'].setValue(this.recurrence.RecurrenceState);
+            this.fields['RecurIterations'].setValue(this.recurrence.RecurIterations);
+            this.fields['EndDate'].setValue(this.recurrence.EndDate);
+        },
 
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
+        },
+        formatRecurrence: function(recurrence) {
+            if (typeof recurrence === 'string') return recurrence;
+
+            return recur.toString(recurrence, true);
         },
         applyUserActivityContext: function(context) {
             var view = App.getView(context.id);
@@ -339,6 +408,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 }
 
                 this.fields['StartDate'].setValue(startDate);
+                this.recurrence.StartDate = startDate;
             }
         },
         applyContext: function() {
@@ -528,7 +598,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             isLeadField.setValue(this.options.isForLead);
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
 
-            var entry = this.options.entry,
+            var entry = this.options.entry || this.entry,
                 denyEdit = !this.options.insert && !this.currentUserCanEdit(entry),
                 allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
 
@@ -537,6 +607,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (allowSetAlarm)
                 this.enableFields(function(f) { return /^Alarm|Reminder$/.test(f.name) });
+
+            this.recurrence.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values.StartDate);
+            this.resetRecurrence(values);
+            this.onStartDateChange(this.fields['StartDate'].getValue(), this.fields['StartDate'])
+
         },
         isDateTimeless: function(date) {
             if (!date) return false;
@@ -592,6 +667,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
 
             return {'$resources': list};
+        },
+        createRecurringData: function() {
+            return recur.createSimplifiedOptions(this.fields['StartDate'].getValue());
         },
         formatDependentQuery: function(dependentValue, format, property) {
             return string.substitute(format, [utility.getValue(dependentValue, property || '$key')]);
@@ -651,6 +729,55 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     validator.isDateInRange
                 ]
             },{
+                type: 'hidden',
+                name: 'EndDate',
+                property: 'EndDate',
+                include: this.isActivityRecurring
+            },{
+                dependsOn: 'StartDate',
+                label: this.repeatsText,
+                title: this.recurringTitleText,
+                name: 'RecurrenceUI',
+                property: 'RecurrenceUI',
+                type: 'select',
+                view: 'select_list',
+                data: this.createRecurringData.bindDelegate(this),
+                exclude: true
+            },{
+                dependsOn: 'RecurrenceUI',
+                label: this.recurringText,
+                name: 'Recurrence',
+                property: 'Recurrence',
+                type: 'recurrences',
+                view: 'recurrence_edit',
+                exclude: true,
+                formatValue: this.formatRecurrence.bindDelegate(this)
+            },{
+                type: 'hidden',
+                name: 'RecurPeriod',
+                property: 'RecurPeriod',
+                include: this.isActivityRecurring
+            },{
+                type: 'hidden',
+                name: 'RecurPeriodSpec',
+                property: 'RecurPeriodSpec',
+                include: this.isActivityRecurring
+            },{
+                type: 'hidden',
+                name: 'RecurrenceState',
+                property: 'RecurrenceState',
+                include: this.isActivityRecurring
+            },{
+                type: 'hidden',
+                name: 'Recurring',
+                property: 'Recurring',
+                include: this.isActivityRecurring
+            },{
+                type: 'hidden',
+                name: 'RecurIterations',
+                property: 'RecurIterations',
+                include: this.isActivityRecurring
+           },{
                 label: this.timelessText,
                 name: 'Timeless',
                 property: 'Timeless',
