@@ -526,6 +526,12 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.entryGroups = {};
             this.set('eventContent', '');
         },
+        selectEntry: function(params) {
+            var row = query(params.$source).closest('[data-key]')[0],
+                key = row ? row.getAttribute('data-key') : false;
+
+            this.navigateToDetailView(key);
+        },
         selectDate: function() {
             var options = {
                 date: this.currentDate,

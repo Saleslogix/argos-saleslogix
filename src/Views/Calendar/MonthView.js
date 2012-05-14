@@ -757,6 +757,12 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             domClass.add(this.selectedDateNode, 'selected');
             this.getSelectedDate();
         },
+        selectEntry: function(params) {
+            var row = query(params.$source).closest('[data-key]')[0],
+                key = row ? row.getAttribute('data-key') : false;
+
+            this.navigateToDetailView(key);
+        },
         selectDate: function() {
             var options = {
                 date: this.currentDate,

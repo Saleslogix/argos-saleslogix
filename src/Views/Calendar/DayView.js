@@ -381,6 +381,12 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
             );
         },
+        selectEntry: function(params) {
+            var row = query(params.$source).closest('[data-key]')[0],
+                key = row ? row.getAttribute('data-key') : false;
+
+            this.navigateToDetailView(key);
+        },
         selectDate: function() {
             var options = {
                 date: this.currentDate,
