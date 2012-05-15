@@ -165,7 +165,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);
-            this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceChange);
+            this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceUIChange);
+            this.connect(this.fields['Recurrence'], 'onChange', this.onRecurrenceChange);
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
@@ -342,7 +343,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var repeats = ('rstMaster' == this.recurrence.RecurrenceState);
             this.fields['RecurrenceUI'].setValue(recur.getPanel(repeats && this.recurrence.RecurPeriod));
         },
-        onRecurrenceChange: function(value, field) {
+        onRecurrenceUIChange: function(value, field) {
             var opt = recur.simplifiedOptions[field.currentSelection.$key];
             // preserve #iterations (and EndDate) if matching recurrence
             if (opt.RecurPeriodSpec == this.recurrence.RecurPeriodSpec)
@@ -350,18 +351,20 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             this.resetRecurrence(opt);
         },
+        onRecurrenceChange: function(value, field) {
+            this.resetRecurrence(value);
+        },
         resetRecurrence: function(o) {
-            if (o.StartDate)
-                this.recurrence.StartDate = o.StartDate;
+            this.recurrence.StartDate = this.fields['StartDate'].getValue();
 
             this.recurrence.Recurring = o.Recurring;
+            this.recurrence.RecurrenceState = o.RecurrenceState;
             this.recurrence.RecurPeriod = o.RecurPeriod;
             this.recurrence.RecurPeriodSpec = o.RecurPeriodSpec;
-            this.recurrence.RecurrenceState = o.RecurrenceState;
             this.recurrence.RecurIterations = o.RecurIterations;
             this.recurrence.EndDate = recur.calcEndDate(this.recurrence.StartDate, this.recurrence);
 
-            this.fields['RecurrenceUI'].setValue(recur.getPanel(o.RecurPeriod));
+            this.fields['RecurrenceUI'].setValue(recur.getPanel(this.recurrence.RecurPeriod));
             this.fields['Recurrence'].setValue(this.recurrence);
 
             this.fields['Recurring'].setValue(this.recurrence.Recurring);
