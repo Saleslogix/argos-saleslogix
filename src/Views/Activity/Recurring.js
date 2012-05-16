@@ -93,7 +93,6 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                     showthese = '';
                     // this.fields['RecurrenceState'].setValue('rsNotRecurring'); // Not recurring
             }
-// console.log('showthese:', showthese);
 
             for(var i in this.fields) {
                 if (0 <= showthese.indexOf(i)) {
@@ -133,7 +132,6 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.summarize();
         },
         onIntervalChange: function(value, field) {
-console.log('onIntervalChange');
             var currentSpec = this.fields['RecurPeriodSpec'].getValue(),
                 interval = currentSpec % 65536;
 
@@ -143,22 +141,27 @@ console.log('onIntervalChange');
                     this.fields['StartDate'].getValue(),
                     this.getRecurrence()
                 ));
+            } else {
+                // Invalid input, reset to current Interval
+                field.setValue(interval);
             }
 
             this.summarize();
         },
         onRecurIterationsChange: function(value, field) {
-console.log('onRecurIterationsChange');
-            if (!parseInt(value))
-                field.setValue(1);
+            if (parseInt(value)) {
+                var newEndDate = recur.calcEndDate(
+                    this.fields['StartDate'].getValue(),
+                    this.getRecurrence()
+                );
 
-            var newEndDate = recur.calcEndDate(
-                this.fields['StartDate'].getValue(),
-                this.getRecurrence()
-            );
+                if (newEndDate != this.fields['EndDate'].getValue())
+                    this.fields['EndDate'].setValue(newEndDate);
 
-            if (newEndDate != this.fields['EndDate'].getValue())
-                this.fields['EndDate'].setValue(newEndDate);
+            } else {
+                // Invalid input, reset to value calculated from EndDate
+                this.onEndDateChange(this.fields['EndDate'].getValue());
+            }
 
             this.summarize();
         },
@@ -311,7 +314,8 @@ console.log('onRecurIterationsChange');
                 property: 'Interval',
                 type: 'text',
                 inputType: 'numeric',
-                exclude: true
+                exclude: true,
+                notificationTrigger: 'blur'
             },{
                 label: this.afterCompletionText,
                 name: 'AfterCompletion',
@@ -372,8 +376,7 @@ console.log('onRecurIterationsChange');
                 type: 'text',
                 inputType: 'numeric',
                 include: true,
-                maxTextLength: 3,
-                validator: validator.isInteger
+                notificationTrigger: 'blur'
             },{
                 type: 'hidden',
                 name: 'RecurPeriod',
