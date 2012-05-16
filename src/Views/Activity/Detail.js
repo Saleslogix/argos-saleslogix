@@ -108,11 +108,17 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             {
                 this.refreshRequired = true;
 
-                view.show({
+                var options = {
                     title: completionTitle,
-                    template: {},
-                    key: isSeries ? this.entry['$key'].split(this.recurringActivityIdSeparator).shift() : this.entry['$key']
-                }, {
+                    template: {}
+                };
+
+                if (isSeries)
+                    options.key = this.entry['$key'].split(this.recurringActivityIdSeparator).shift();
+                else
+                    options.entry = this.entry;
+
+                view.show(options, {
                     returnTo: -1
                 });
 
