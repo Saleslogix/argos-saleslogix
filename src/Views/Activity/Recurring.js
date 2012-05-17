@@ -114,7 +114,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         summarize: function() {
             this.fields['Summary'].setValue(recur.toString(this.getRecurrence()));
         },
-        onAfterCompletionChange: function(value,field) {
+        onAfterCompletionChange: function(value, field) {
             var rp = parseInt(this.fields['RecurPeriod'].getValue());
 
             if (value) {
@@ -132,11 +132,11 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.summarize();
         },
         onIntervalChange: function(value, field) {
-            var currentSpec = this.fields['RecurPeriodSpec'].getValue(),
+            var currentSpec = parseInt(this.fields['RecurPeriodSpec'].getValue()),
                 interval = currentSpec % 65536;
 
             if (parseInt(value)) {
-                this.fields['RecurPeriodSpec'].setValue(currentSpec - interval + value);
+                this.fields['RecurPeriodSpec'].setValue(currentSpec - interval + parseInt(value));
                 this.fields['EndDate'].setValue(recur.calcEndDate(
                     this.fields['StartDate'].getValue(),
                     this.getRecurrence()

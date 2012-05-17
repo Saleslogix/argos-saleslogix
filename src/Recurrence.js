@@ -314,11 +314,11 @@ define('Mobile/SalesLogix/Recurrence', [
                 return '';
 
             var text,
-                rp = parseInt(entry['RecurPeriod'])
+                rp = parseInt(entry['RecurPeriod']),
                 recurPeriodSpec = parseInt(entry['RecurPeriodSpec']),
                 interval = recurPeriodSpec % 65536,
-                currentDate = Sage.Platform.Mobile.Convert.toDateFromString(entry['StartDate'])
-                day = currentDate.getDate()
+                currentDate = Sage.Platform.Mobile.Convert.toDateFromString(entry['StartDate']),
+                day = currentDate.getDate(),
                 weekday = Date.CultureInfo.dayNames[currentDate.getDay()];
 
             var ord = parseInt((day - 1)/7) + 1;
@@ -352,14 +352,18 @@ define('Mobile/SalesLogix/Recurrence', [
                     break;
                 case 5:
                     text = string.substitute("${0} ${1} on ${2} ${3}", [text, 1 < interval ? this.monthsText : '', ord, weekday]);
+                    break;
                 case 6:
+                    text = string.substitute("${0} ${1}", [text, 1 < interval ? this.monthsText : '']);
                     break;
                 case 7: // yearly
                     text = string.substitute("${0} ${1} on ${2}", [text, 1 < interval ? this.yearsText : '', currentDate.toString(Date.CultureInfo.formatPatterns.monthDay)]);
                     break;
                 case 8:
                     text = string.substitute("${0} ${1} on ${2} ${3} in ${4}", [text, 1 < interval ? this.yearsText : '', ord, weekday, Date.CultureInfo.monthNames[currentDate.getMonth()]]);
+                    break;
                 case 9:
+                    text = string.substitute("${0} ${1}", [text, 1 < interval ? this.yearsText : '']);
                     break;
                 default:
                     return '';
