@@ -352,6 +352,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.resetRecurrence(opt);
         },
         onRecurrenceChange: function(value, field) {
+            // did the StartDate change on the recurrence_edit screen?
+            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate'])
+                currentDate = this.fields['StartDate'].getValue();
+            if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth())
+                this.fields['StartDate'].setValue(startDate);
+
             this.resetRecurrence(value);
         },
         resetRecurrence: function(o) {

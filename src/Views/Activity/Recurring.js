@@ -52,6 +52,11 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.connect(this.fields['Interval'], 'onChange', this.onIntervalChange);
             this.connect(this.fields['RecurIterations'], 'onChange', this.onRecurIterationsChange);
             this.connect(this.fields['EndDate'], 'onChange', this.onEndDateChange);
+            // these necessarily affect the StartDate:
+            this.connect(this.fields['Weekdays'], 'onChange', this.onStartDateChange); // One or more days on Weekly options
+            this.connect(this.fields['OrdWeekday'], 'onChange', this.onStartDateChange); // Single day of week
+            this.connect(this.fields['OrdWeek'], 'onChange', this.onStartDateChange); // 1st..last week of month
+            this.connect(this.fields['OrdMonth'], 'onChange', this.onStartDateChange); // Month of year
         },
         resetUI: function() {
             // hide or reveal and set fields according to panel/RecurPeriod
@@ -135,7 +140,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             var currentSpec = parseInt(this.fields['RecurPeriodSpec'].getValue()),
                 interval = currentSpec % 65536;
 
-            if (parseInt(value)) {
+            value = parseInt(value);
+            if (value && 0 < value) {
                 this.fields['RecurPeriodSpec'].setValue(currentSpec - interval + parseInt(value));
                 this.fields['EndDate'].setValue(recur.calcEndDate(
                     this.fields['StartDate'].getValue(),
@@ -149,7 +155,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.summarize();
         },
         onRecurIterationsChange: function(value, field) {
-            if (parseInt(value)) {
+            value = parseInt(value);
+            if (value && 0 < value) {
                 var newEndDate = recur.calcEndDate(
                     this.fields['StartDate'].getValue(),
                     this.getRecurrence()
@@ -166,15 +173,60 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.summarize();
         },
         onEndDateChange: function(value, field) {
-            var iterations = recur.calcRecurIterations(
-                value,
-                this.fields['StartDate'].getValue(),
-                this.fields['Interval'].getValue(),
-                this.fields['RecurPeriod'].getValue()
-            );
+            if (value > this.fields['StartDate'].getValue()) {
+                var iterations = recur.calcRecurIterations(
+                    value,
+                    this.fields['StartDate'].getValue(),
+                    this.fields['Interval'].getValue(),
+                    this.fields['RecurPeriod'].getValue()
+                );
 
-            if (iterations != parseInt(this.fields['RecurIterations'].getValue()))
-                this.fields['RecurIterations'].setValue(iterations);
+                if (iterations != parseInt(this.fields['RecurIterations'].getValue()))
+                    this.fields['RecurIterations'].setValue(iterations);
+
+            } else {
+                // can't end before start! reset.
+                this.onRecurIterationsChange(this.fields['RecurIterations'].getValue());
+            }
+
+            this.summarize();
+        },
+        onStartDateChange: function(value, field) {
+            // when field alters StartDate, other fields need to be adjusted
+            var startDate = this.fields['StartDate'].getValue(),
+                weekday = startDate.getDay(),
+                weekdays = recur.getWeekdays(parseInt(this.fields['RecurPeriodSpec'].getValue())),
+                ordWeek = parseInt((startDate.getDate() - 1)/7),
+                month = parseInt(startDate.getMonth());
+
+            value = parseInt(value.key);
+            switch(field.name) {
+                case 'Weekdays':
+                    // only change StartDate if original weekday not included
+                    for(var wd = 0; wd < 7; wd++)
+                        if (weekdays[wd] && !weekdays[weekday])
+                            weekday = wd;
+
+                    break;
+                case 'OrdWeekday':
+                    weekday = value;
+                    break;
+                case 'OrdWeek':
+                    ordWeek = value;
+                    break;
+                case 'OrdMonth':
+                    startDate.setMonth(value);
+                    break;
+                default:
+            }
+// FIX: ordWeek off by 1
+            this.fields['StartDate'].setValue(recur.calcDateOfNthWeekday(
+                startDate, weekday, ordWeek + 1
+            ));
+            this.fields['EndDate'].setValue(recur.calcEndDate(
+                this.fields['StartDate'].getValue(),
+                this.getRecurrence()
+            ));
 
             this.summarize();
         },
@@ -215,6 +267,17 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 return selection['$descriptor'];
 
             return this.ordText[parseInt(selection)];
+        },
+        preselectWeekdays: function() {
+            var previousSelections = [],
+                weekdays = recur.getWeekdays(this.fields['RecurPeriodSpec'].getValue());
+
+            for(var i = 0; i < weekdays.length; i++) {
+                if (weekdays[i]) {
+                    previousSelections.push(i);
+                }
+            }
+            return previousSelections;
         },
         createWeekdaysData: function() {
             var list = [];
@@ -344,6 +407,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 singleSelect: false,
                 view: 'select_list',
                 data: this.createWeekdaysData(),
+                previousSelections: this.preselectWeekdays.bindDelegate(this),
                 textRenderer: this.formatWeekdays.bindDelegate(this),
                 formatValue: this.formatWeekdays.bindDelegate(this)
             },{
@@ -357,7 +421,6 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 view: 'select_list',
                 data: this.createWeekdaysData(),
                 textRenderer: this.formatSingleWeekday.bindDelegate(this)
-                // formatValue: this.formatWeekdays.bindDelegate(this)
             },{
                 label: this.monthText,
                 title: this.monthText,
