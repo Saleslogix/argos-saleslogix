@@ -175,25 +175,25 @@ define('Mobile/SalesLogix/Recurrence', [
 
             return {'$resources': list};
         },
-        getPanel: function(recurPeriod) {
+        getPanel: function(recurPeriod, plural) {
             switch(recurPeriod) {
                 case 0:
                 case 1:
-                    return this.dailyText;
+                    return plural ? this.daysText : this.dailyText;
                     break;
                 case 2:
                 case 3:
-                    return this.weeklyText;
+                    return plural ? this.weeksText : this.weeklyText;
                     break;
                 case 4:
                 case 5:
                 case 6:
-                    return this.monthlyText;
+                    return plural ? this.monthsText : this.monthlyText;
                     break;
                 case 7:
                 case 8:
                 case 9:
-                    return this.yearlyText;
+                    return plural ? this.yearsText : this.yearlyText;
                     break;
                 default:
                     return this.onceText;
@@ -276,7 +276,7 @@ define('Mobile/SalesLogix/Recurrence', [
 
                 case 5: // monthly on #ord #weekday
                     var weekDay = startDate.getDay() + 1;
-                    var nthWeek = parseInt(startDate.getDate() / 7) + 1;
+                    var nthWeek = parseInt((startDate.getDate() - 1)/ 7) + 1;
                     spec = ((weekDay * 524288) + ((nthWeek - 1) * 65536));
                     spec += interval; // + every interval month(s)
                     break;
@@ -293,7 +293,7 @@ define('Mobile/SalesLogix/Recurrence', [
                     spec = 18546688;
                     var weekDay = startDate.getDay() + 1;
                     var monthNum = startDate.getMonth() + 1;
-                    var nthWeek = parseInt(startDate.getDate() / 7) + 1;
+                    var nthWeek = parseInt((startDate.getDate() - 1)/ 7) + 1;
                     spec = ((monthNum * 4194304) + (weekDay * 524288) + ((nthWeek - 1) * 65536));
                     spec += interval; // + every interval year(s)
                     break;
@@ -370,7 +370,7 @@ define('Mobile/SalesLogix/Recurrence', [
             }
 
             if (this.isAfterCompletion(rp)) {
-                text = string.substitute("${0} ${1} ${2} ${3}", [text, entry['RecurIterations'], this.timesText, this.afterCompletionText]);
+                text = string.substitute("${0} ${1}", [text, this.afterCompletionText]);
             } else {
                 text = string.substitute("${0} until ${1}", [text, this.calcEndDate(currentDate, entry).toString(Date.CultureInfo.formatPatterns.shortDate)]);
                 // alternatively say # of iterations:

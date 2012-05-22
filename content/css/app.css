@@ -601,7 +601,8 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 }
 
 
-#activity_edit div.row-edit[data-field="Reminder"]
+#activity_edit div.row-edit[data-field="Reminder"],
+#recurrence_edit div.row-edit[data-field="Scale"]
 {
     border-top: none;
 }

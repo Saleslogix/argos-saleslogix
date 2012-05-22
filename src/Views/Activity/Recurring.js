@@ -20,13 +20,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         startingText: 'start date',
         endingTex: 'end date',
         repeatsText: 'repeats',
-        intervalText: 'interval',
-        afterCompletionText: 'aftercompletion',
+        everyText: 'every',
+        afterCompletionText: 'after completed',
         singleWeekdayText: 'weekday',
         weekdaysText: 'weekday(s)',
         monthText: 'month',
         onText: 'on',
-        repetitionsText: 'repetitions',
+        occurrencesText: 'occurrences',
         summaryText: 'summary',
         ordText: [
             'first',
@@ -107,7 +107,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 }
             }
             // always show these:
-            // this.fields['Panel'].show();
+            if (0 <= panel) this.fields['Scale'].show();
             this.fields['Summary'].show();
 
             // refresh some field values
@@ -118,6 +118,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         summarize: function() {
             this.fields['Summary'].setValue(recur.toString(this.getRecurrence()));
+            this.fields['Scale'].setValue(recur.getPanel(parseInt(this.fields['RecurPeriod'].getValue()), true));
         },
         onAfterCompletionChange: function(value, field) {
             var rp = parseInt(this.fields['RecurPeriod'].getValue());
@@ -128,7 +129,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 this.fields['EndDate'].hide();
 
             } else {
-                rp -= (0 <= '69'.indexOf(rp)) ? 2 : 1;
+                rp -= (0 <= '69'.indexOf(rp)) ? (this.fields['OrdWeekday'].isHidden() ? 2 : 1) : 1;
                 this.fields['RecurIterations'].show();
                 this.fields['EndDate'].show();
             }
@@ -219,7 +220,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                     break;
                 default:
             }
-// FIX: ordWeek off by 1
+
             this.fields['StartDate'].setValue(recur.calcDateOfNthWeekday(
                 startDate, weekday, ordWeek + 1
             ));
@@ -372,13 +373,20 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 type: 'date',
                 dateFormatText: this.startingFormatText
             },{
-                label: this.intervalText,
+                label: this.everyText,
                 name: 'Interval',
                 property: 'Interval',
                 type: 'text',
                 inputType: 'numeric',
                 exclude: true,
                 notificationTrigger: 'blur'
+            },{
+                label: '',
+                name: 'Scale',
+                property: 'Scale',
+                type: 'text',
+                exclude: true,
+                readonly: true
             },{
                 label: this.afterCompletionText,
                 name: 'AfterCompletion',
@@ -435,7 +443,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             },{
                 name: 'RecurIterations',
                 property: 'RecurIterations',
-                label: this.repetitionsText,
+                label: this.occurrencesText,
                 type: 'text',
                 inputType: 'numeric',
                 include: true,
