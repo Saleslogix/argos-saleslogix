@@ -25,25 +25,22 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
                 '<label data-dojo-attach-point="labelNode">{%= $.searchText %}</label>',
             '</div>'
         ]),
+        queryNode: null,
 
         searchText: 'Search+',
-        listView: 'speedsearch_list',
-
-        queryNode: null,
 
         clear: function() {
             domClass.remove(this.domNode, 'search-active');
             this.set('queryValue', '');
         },
         search: function() {
-            if (!lang.trim(this.queryNode.value)) return;
+            var queryTerm = this.getQuery();
+            if (!lang.trim(queryTerm)) return;
 
-            var view = App.getView(this.listView);
-
-            if (view)
-                view.show({
-                    searchQuery: this.queryNode.value
-                });
+            this.onSearchExpression(queryTerm, this)
+        },
+        getQuery: function() {
+            return this.queryNode.value;
         },
         configure: function(options) {
             lang.mixin(this, options);

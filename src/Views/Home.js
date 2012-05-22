@@ -43,6 +43,7 @@ define('Mobile/SalesLogix/Views/Home', [
         customizationSet: 'home',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
+        searchView: 'speedsearch_list',
 
         navigateToView: function(params) {
             var view = App.getView(params && params.view);
@@ -149,6 +150,16 @@ define('Mobile/SalesLogix/Views/Home', [
 
             this.processFeed({'$resources': list});
         },
+
+        _onSearchExpression: function(expression, widget) {
+            var view = App.getView(this.searchView);
+
+            if (view)
+                view.show({
+                    query: expression
+                });
+        },
+
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
             if (view)
