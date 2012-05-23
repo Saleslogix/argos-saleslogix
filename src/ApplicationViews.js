@@ -1,5 +1,6 @@
 define('Mobile/SalesLogix/ApplicationViews', {
-    'main': {type: 'Sage/Platform/Mobile/View'}
+    'main': {type: 'Sage/Platform/Mobile/List'},
+    'account_list': {type: 'Mobile/SalesLogix/Views/Account/List'}
 });
 
 /*

@@ -98,6 +98,9 @@ define('Mobile/SalesLogix/Application', [
         run: function() {
             this.inherited(arguments);
 
+            this.scene.showView('account_list', {});
+            return;
+
             if (App.isOnline() || !App.enableCaching)
             {
                 this.handleAuthentication();
