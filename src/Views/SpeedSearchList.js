@@ -22,7 +22,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.type %}">',
-            '<div class="list-item-static-icon"><img src="{%: $$.iconPathsByType[$.type] %}" alt="{%: $.type %}" /></div>',
+            '<div class="item-static-icon"><img src="{%: $$.iconPathsByType[$.type] %}" alt="{%: $.type %}" /></div>',
             '{%! $$.itemTemplate %}',
             '</li>'
         ]),
@@ -94,6 +94,8 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                     break;
                 case 'History': descriptor = string.substitute('${0} (${1})', this.getFieldValues(item.fields, ['subject', 'date_created']));
                     break;
+                case 'Ticket': descriptor = item['uiDisplayName'];
+                    break;
             }
             return descriptor;
         },
@@ -109,7 +111,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                     return field['fieldValue'];
             }
 
-            return null;
+            return '';
         },
         getFieldValues: function(fields, names) {
             var response = [];
@@ -139,7 +141,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             if (!this.feed) this.set('listContent', '');
 
             this.feed = feed = feed['response'];
-console.log(this.feed);
+
             if (feed['totalCount'] === 0)
             {
                 this.set('listContent', this.noDataTemplate.apply(this));
@@ -165,7 +167,6 @@ console.log(this.feed);
                     domConstruct.place(o.join(''), this.contentNode, 'last');
             }
 
-            // todo: add more robust handling when $totalResults does not exist, i.e., hide element completely
             if (typeof feed['totalCount'] !== 'undefined')
             {
                 var remaining = this.feed['totalCount'] - ( (this.currentPage + 1) * this.pageSize);
