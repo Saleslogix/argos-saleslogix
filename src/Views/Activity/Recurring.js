@@ -58,15 +58,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.connect(this.fields['Day'], 'onChange', this.onDayChange); // Day of the month
             this.connect(this.fields['Weekdays'], 'onChange', this.onStartDateChange); // One or more days on Weekly options
             this.connect(this.fields['OrdWeekday'], 'onChange', this.onStartDateChange); // Single day of week
-            this.connect(this.fields['OrdWeek'], 'onChange', this.onOrdWeekChange); // 1st..last week of month
+            this.connect(this.fields['OrdWeek'], 'onChange', this.onStartDateChange); // 1st..last week of month, or on Day #
             this.connect(this.fields['OrdMonth'], 'onChange', this.onStartDateChange); // Month of year
         },
         resetUI: function() {
             // hide or reveal and set fields according to panel/RecurPeriod
-            var rp = this.fields['RecurPeriod'].getValue(),
-                panel = parseInt(rp),
+            var rp = parseInt(this.fields['RecurPeriod'].getValue()),
                 startDate = this.fields['StartDate'].getValue(),
-                weekdays = recur.getWeekdays(this.fields['RecurPeriodSpec'].getValue()),
                 interval = this.fields['RecurPeriodSpec'].getValue() % 65536,
                 showthese = 'Interval,AfterCompletion,';
 
@@ -76,13 +74,15 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.fields['RecurrenceState'].setValue('rstMaster'); // undone when Once panel selected
 
             // determine which fields to hide according to panel
-            switch (panel) {
+            switch (rp) {
                 case 0: // daily
                 case 1:
                     break;
                 case 2: // weekly
-                case 3:
                     showthese += 'Weekdays,';
+                    this.formatWeekdays(this.entry.Weekdays);
+                    break;
+                case 3:
                     break;
                 case 4: // monthly
                     showthese += 'Day,OrdWeek';
@@ -112,12 +112,12 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 }
             }
             // always show these:
-            if (0 <= panel) this.fields['Scale'].show();
+            if (0 <= rp) this.fields['Scale'].show();
             this.fields['Summary'].show();
 
             // refresh some field values
             this.fields['RecurPeriod'].setValue(rp);
-            this.fields['RecurPeriodSpec'].setValue(recur.getRecurPeriodSpec(panel, startDate, weekdays, interval));
+            this.fields['RecurPeriodSpec'].setValue(recur.getRecurPeriodSpec(rp, startDate, this.entry.Weekdays, interval));
 
             this.summarize();
         },
@@ -209,27 +209,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             // weekday(s)/ordWeek/EndDate may need adjusting
             this.onStartDateChange(value, field);
         },
-        onOrdWeekChange: function(value, field) {
-            var panel = parseInt(this.fields['RecurPeriod'].getValue());
-
-            if (parseInt(value.key)) {
-                if (panel == 4 || panel == 7) {
-                    this.fields['RecurPeriod'].setValue(panel + 1);
-                    this.resetUI();
-                }
-            } else if (panel == 5 || panel == 8) {
-                this.fields['RecurPeriod'].setValue(panel - 1);
-                this.resetUI();
-            }
-
-            this.onStartDateChange(value, field);
-        },
         onStartDateChange: function(value, field) {
             // when field alters StartDate, other fields need to be adjusted
             var startDate = this.fields['StartDate'].getValue(),
                 weekday = startDate.getDay(),
                 weekdays = recur.getWeekdays(parseInt(this.fields['RecurPeriodSpec'].getValue())),
-                ordWeek = parseInt((startDate.getDate() - 1)/7) + 1;
+                ordWeek = parseInt((startDate.getDate() - 1)/7) + 1,
+                panel = parseInt(this.fields['RecurPeriod'].getValue());
 
             value = parseInt(value.key || value);
             switch(field.name) {
@@ -240,27 +226,38 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                             weekday = wd;
 
                     break;
+
                 case 'OrdWeekday':
                     weekday = value;
                     break;
+
                 case 'OrdWeek':
-                    if (0 < value) ordWeek = value;
+                    if (value) {
+                        ordWeek = value;
+                        if (panel == 4 || panel == 7) {
+                            this.fields['RecurPeriod'].setValue(panel + 1);
+                            this.resetUI();
+                        }
+                    } else if (panel == 5 || panel == 8) {
+                        this.fields['RecurPeriod'].setValue(panel - 1);
+                        this.resetUI();
+                    }
                     break;
+
                 case 'OrdMonth':
                     startDate.setMonth(value);
                     weekday = startDate.getDay(),
                     ordWeek = parseInt((startDate.getDate() - 1)/7) + 1;
                     break;
+
                 default:
             }
 
-            this.fields['StartDate'].setValue(recur.calcDateOfNthWeekday(
-                startDate, weekday, ordWeek
-            ));
-            this.fields['EndDate'].setValue(recur.calcEndDate(
-                this.fields['StartDate'].getValue(),
-                this.getRecurrence()
-            ));
+            startDate = recur.calcDateOfNthWeekday(startDate, weekday, ordWeek);
+            this.fields['StartDate'].setValue(startDate);
+            this.fields['EndDate'].setValue(recur.calcEndDate(startDate, this.getRecurrence()));
+            this.fields['Day'].setValue(startDate.getDate());
+            this.fields['OrdWeekday'].setValue(startDate.getDay());
 
             this.summarize();
         },
@@ -282,6 +279,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 parseInt(this.fields['Interval'].getValue())
             ));
 
+            this.entry.Weekdays = weekdays;
             return values.join(', ');
         },
         formatSingleWeekday: function(selection) {

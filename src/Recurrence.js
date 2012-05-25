@@ -345,9 +345,10 @@ define('Mobile/SalesLogix/Recurrence', [
                     text = string.substitute("${0} ${1}", [text, 1 < interval ? this.daysText : '']);
                     break;
                 case 2: // weekly
-                case 3:
                     var weekdays = this.getWeekdays(recurPeriodSpec, true);
                     text = string.substitute("${0} ${1} on ${2}.", [text, 1 < interval ? this.weeksText : '', weekdays.join(', ')]);
+                    break;
+                case 3:
                     break;
                 case 4: // monthly
                     text = string.substitute("${0} ${1} on day ${2}", [text, 1 < interval ? this.monthsText : '', day]);
@@ -379,7 +380,7 @@ define('Mobile/SalesLogix/Recurrence', [
                 // text = string.substitute("${0}, ${1} ${2}", [text, entry['RecurIterations'], this.timesText]);
             }
 
-            return text.replace(/^\s*/,'');
+            return text.replace(/^\s*/,'').replace(/\s\s/, ' ');
         },
         calcEndDate: function(date, entry) {
             var interval =  entry['RecurPeriodSpec'] % 65536,
