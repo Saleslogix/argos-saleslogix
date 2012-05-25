@@ -99,6 +99,7 @@ define('Mobile/SalesLogix/Application', [
             this.inherited(arguments);
 
             this.scene.showView('account_list', {});
+            //setTimeout(lang.hitch(this, function() {this.scene.showView('account_list', {});}), 0);
             return;
 
             if (App.isOnline() || !App.enableCaching)
