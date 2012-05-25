@@ -26,15 +26,21 @@ define('Mobile/SalesLogix/Fields/RecurrencesField', [
         // Localization
         titleText: 'Recurring',
         emptyText: '',
+        attributeMap: {
+            noteText: {
+                node: 'inputNode',
+                type: 'innerHTML'
+            }
+        },
 
         widgetTemplate: new Simplate([
             '<label for="{%= $.name %}">{%: $.label %}</label>',
             '<button class="button simpleSubHeaderButton" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
-            '<input data-dojo-attach-point="inputNode" readonly="readonly" type="text" />'
+            '<div data-dojo-attach-point="inputNode" class="note-text"></div>'
         ]),
 
         setText: function(text) {
-            this.set('inputValue', text);
+            this.set('noteText', text);
         }
     });
 

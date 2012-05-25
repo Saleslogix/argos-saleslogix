@@ -786,7 +786,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 name: 'RecurIterations',
                 property: 'RecurIterations',
                 include: this.isActivityRecurring
-           },{
+            },{
                 label: this.timelessText,
                 name: 'Timeless',
                 property: 'Timeless',

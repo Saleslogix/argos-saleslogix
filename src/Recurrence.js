@@ -228,12 +228,14 @@ define('Mobile/SalesLogix/Recurrence', [
             return weekdays;
         },
         getOrd: function(entry) {
-            var nthWeek, weekday, monthNum, weekBits, monthBits, ordBits;
+            var nthWeek = 0,
+                weekday = entry['StartDate'].getDay(),
+                monthNum = entry['StartDate'].getMonth() + 1,
+                ordBits = entry.RecurPeriodSpec % 524288,
+                monthBits = entry.RecurPeriodSpec % 4194304 - ordBits;
 
             if (entry && (5 == entry.RecurPeriod || 8 == entry.RecurPeriod)) {
-                ordBits = entry.RecurPeriodSpec % 524288;
-                monthBits = entry.RecurPeriodSpec % 4194304 - ordBits;
-                nthWeek = parseInt(ordBits / 65536);
+                nthWeek = parseInt(ordBits / 65536) + 1;
                 weekday = parseInt(monthBits / 524288) - 1;
                 monthNum = parseInt((entry.RecurPeriodSpec - monthBits - ordBits) / 4194304);
             }
@@ -377,7 +379,7 @@ define('Mobile/SalesLogix/Recurrence', [
                 // text = string.substitute("${0}, ${1} ${2}", [text, entry['RecurIterations'], this.timesText]);
             }
 
-            return text;
+            return text.replace(/^\s*/,'');
         },
         calcEndDate: function(date, entry) {
             var interval =  entry['RecurPeriodSpec'] % 65536,
@@ -394,7 +396,7 @@ define('Mobile/SalesLogix/Recurrence', [
                     tempDate.addMonths(interval * (entry['RecurIterations'] - 1));
                     break;
                 case 5:
-                    var weekDay = tempDate.getDay() + 1;
+                    var weekDay = tempDate.getDay();
                     var nthWeek = parseInt(tempDate.getDate() / 7) + 1;
                     tempDate.addMonths(interval * (entry['RecurIterations'] - 1));
                     tempDate = this.calcDateOfNthWeekday(tempDate, weekDay, nthWeek);
@@ -403,13 +405,13 @@ define('Mobile/SalesLogix/Recurrence', [
                     tempDate.addYears(interval * (entry['RecurIterations'] - 1));
                     break;
                 case 8:
-                    var weekDay = tempDate.getDay() + 1;
+                    var weekDay = tempDate.getDay();
                     var nthWeek = parseInt(tempDate.getDate() / 7) + 1;
                     tempDate.addYears(interval * (entry['RecurIterations'] - 1));
                     tempDate = this.calcDateOfNthWeekday(tempDate, weekDay, nthWeek);
                     break;
                 default:
-                    // RecurPeriod 1, 3, 6 & 9 are iterations after completion
+                    // RecurPeriod 1, 3, 6 & 9 are iterations after completion. No end date.
             }
 
             return tempDate;
