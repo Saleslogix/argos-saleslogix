@@ -130,9 +130,11 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             if (value) {
                 rp += (0 <= '0258'.indexOf(rp)) ? 1 : 2;
+                this.fields['RecurIterations'].setValue(-1);
 
             } else {
                 rp -= (0 <= '69'.indexOf(rp)) ? (parseInt(this.fields['OrdWeek'].getValue()) ? 1 : 2) : 1;
+                this.fields['RecurIterations'].setValue(this.entry.RecurIterations);
             }
 
             this.fields['RecurPeriod'].setValue(rp);
@@ -159,6 +161,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         onRecurIterationsChange: function(value, field) {
             value = parseInt(value);
             if (value && 0 < value) {
+                this.entry.RecurIterations = value;
                 var newEndDate = recur.calcEndDate(
                     this.fields['StartDate'].getValue(),
                     this.getRecurrence()
