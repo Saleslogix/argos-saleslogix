@@ -390,6 +390,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 };
 
             if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);
+
+            var accountField = this.fields['Account'];
+            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
@@ -422,7 +425,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
-            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyTicketContext: function(context) {
             var view = App.getView(context.id),
@@ -449,7 +451,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
-            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
@@ -469,7 +470,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
-            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
