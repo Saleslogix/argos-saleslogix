@@ -52,12 +52,17 @@ define('Mobile/SalesLogix/Recurrence', [
         afterCompletionText: 'after completion',
 
         interval: 1, // repeat every interval days/weeks/months/years
-        _panels: [
-            'onceText',
-            'dailyText',
-            'weeklyText',
-            'monthlyText',
-            'yearlyText'
+        defaultIterations: [ // by RecurPeriod, -1 for After Completed. Configurable.
+            7, // days
+            -1,
+            8, // weeks
+            -1,
+            12, // months
+            12,
+            -1,
+            5, // years
+            5,
+            -1
         ],
         _weekDayValues: [
              131072, // sun
@@ -84,7 +89,7 @@ define('Mobile/SalesLogix/Recurrence', [
                 RecurPeriod: 0,
                 basePeriodSpec: 0,
                 RecurPeriodSpec: 0,
-                RecurIterations: 7, // arbitrary No. of iterations
+                RecurIterations: 7, // override from this.defaultIterations
                 RecurrenceState: 'rstMaster'
             },
             {
@@ -166,6 +171,7 @@ define('Mobile/SalesLogix/Recurrence', [
 
             for (var recurOption in this.simplifiedOptions)
             {
+                this.simplifiedOptions[recurOption].RecurIterations = this.defaultIterations[this.simplifiedOptions[recurOption].RecurPeriod];
                 list.push({
                     '$key': recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
                     '$descriptor': string.substitute(this[this.simplifiedOptions[recurOption].label], dateOptions),
@@ -249,9 +255,11 @@ define('Mobile/SalesLogix/Recurrence', [
         getRecurPeriodSpec: function(recurPeriod, startDate, weekdays, interval) {
             var spec = 0;
             interval = interval || this.interval;
+
+            if (!startDate) return;
+
             switch(recurPeriod) {
                 case 0: // daily
-                    spec += interval; // + every interval day(s)
                     break;
 
                 case 1: // daily occurances *after completion*
@@ -265,7 +273,6 @@ define('Mobile/SalesLogix/Recurrence', [
                     if (0 == spec)
                         spec += this._weekDayValues[startDate.getDay()];
 
-                    spec += interval; // + every interval week(s)
                     break;
 
                 case 3: // weekly occurances *after completion*
@@ -273,14 +280,13 @@ define('Mobile/SalesLogix/Recurrence', [
                     break;
 
                 case 4: // monthly on day ##
-                    spec = 1048576 + interval; // + every interval month(s)
+                    spec = 1048576;
                     break;
 
                 case 5: // monthly on #ord #weekday
                     var weekDay = startDate.getDay() + 1;
                     var nthWeek = parseInt((startDate.getDate() - 1)/ 7) + 1;
                     spec = ((weekDay * 524288) + ((nthWeek - 1) * 65536));
-                    spec += interval; // + every interval month(s)
                     break;
 
                 case 6: // monthly occurances *after completion*
@@ -288,7 +294,7 @@ define('Mobile/SalesLogix/Recurrence', [
                     break;
 
                 case 7: // yearly on #month #day
-                    spec = 38797312 + interval; // + every interval year(s)
+                    spec = 38797312;
                     break;
 
                 case 8: // yearly on #ord #weekday of #month
@@ -297,7 +303,6 @@ define('Mobile/SalesLogix/Recurrence', [
                     var monthNum = startDate.getMonth() + 1;
                     var nthWeek = parseInt((startDate.getDate() - 1)/ 7) + 1;
                     spec = ((monthNum * 4194304) + (weekDay * 524288) + ((nthWeek - 1) * 65536));
-                    spec += interval; // + every interval year(s)
                     break;
 
                 case 9: // yearly occurances *after completion*
@@ -306,9 +311,10 @@ define('Mobile/SalesLogix/Recurrence', [
 
                 default:
                     // Not recurring, happens only once
+                    interval = 0;
             }
 
-            return spec;
+            return spec + interval; // + every interval days/weeks/months/years
         },
 
         toString: function(entry, dependsOnPanel) {
@@ -334,7 +340,7 @@ define('Mobile/SalesLogix/Recurrence', [
             }
 
             if (1 < interval) {
-                text = string.substitute("${0} ${1}", [this.everyText, interval]);
+                text = string.substitute("${0} ${1} ${2}", [this.everyText, interval, this.getPanel(rp, true)]);
             } else {
                 text = (true === dependsOnPanel) ? '' : this.getPanel(rp);
             }
@@ -342,31 +348,28 @@ define('Mobile/SalesLogix/Recurrence', [
             switch(rp) {
                 case 0: // daily
                 case 1:
-                    text = string.substitute("${0} ${1}", [text, 1 < interval ? this.daysText : '']);
                     break;
                 case 2: // weekly
                     var weekdays = this.getWeekdays(recurPeriodSpec, true);
-                    text = string.substitute("${0} ${1} on ${2}.", [text, 1 < interval ? this.weeksText : '', weekdays.join(', ')]);
+                    text = string.substitute("${0} on ${1}.", [text, weekdays.join(', ')]);
                     break;
                 case 3:
                     break;
                 case 4: // monthly
-                    text = string.substitute("${0} ${1} on day ${2}", [text, 1 < interval ? this.monthsText : '', day]);
+                    text = string.substitute("${0} on day ${1}", [text, day]);
                     break;
                 case 5:
-                    text = string.substitute("${0} ${1} on ${2} ${3}", [text, 1 < interval ? this.monthsText : '', ord, weekday]);
+                    text = string.substitute("${0} on ${1} ${2}", [text, ord, weekday]);
                     break;
                 case 6:
-                    text = string.substitute("${0} ${1}", [text, 1 < interval ? this.monthsText : '']);
                     break;
                 case 7: // yearly
-                    text = string.substitute("${0} ${1} on ${2}", [text, 1 < interval ? this.yearsText : '', currentDate.toString(Date.CultureInfo.formatPatterns.monthDay)]);
+                    text = string.substitute("${0} on ${1}", [text, currentDate.toString(Date.CultureInfo.formatPatterns.monthDay)]);
                     break;
                 case 8:
-                    text = string.substitute("${0} ${1} on ${2} ${3} in ${4}", [text, 1 < interval ? this.yearsText : '', ord, weekday, Date.CultureInfo.monthNames[currentDate.getMonth()]]);
+                    text = string.substitute("${0} on ${1} ${2} in ${3}", [text, ord, weekday, Date.CultureInfo.monthNames[currentDate.getMonth()]]);
                     break;
                 case 9:
-                    text = string.substitute("${0} ${1}", [text, 1 < interval ? this.yearsText : '']);
                     break;
                 default:
                     return '';

@@ -134,7 +134,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             } else {
                 rp -= (0 <= '69'.indexOf(rp)) ? (parseInt(this.fields['OrdWeek'].getValue()) ? 1 : 2) : 1;
-                this.fields['RecurIterations'].setValue(this.entry.RecurIterations);
+                this.fields['RecurIterations'].setValue(0 < this.entry.RecurIterations ? this.entry.RecurIterations : recur.defaultIterations[rp]);
             }
 
             this.fields['RecurPeriod'].setValue(rp);
