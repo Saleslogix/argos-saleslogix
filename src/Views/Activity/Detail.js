@@ -63,6 +63,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         timelessDateFormatText: 'M/d/yyyy',
         alarmDateFormatText: 'M/d/yyyy h:mm:ss tt',
         recurrenceText: 'recurrence',
+        confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',
 
         //View Properties
         id: 'activity_detail',
@@ -114,7 +115,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
 
             if (view)
             {
-                if (this.isActivityRecurring(this.entry) && confirm('Edit all Occurrences?\nCancel to edit single Occurrence.')) {
+                if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
                     this.recurrence.Leader = this.entry.Leader;
                     view.show({entry: this.recurrence});
 
@@ -151,6 +152,9 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         isActivityRecurring: function(entry) {
             return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
+        },
+        isActivityRecurringSeries: function(entry) {
+            return this.isActivityRecurring(entry) && !recur.isAfterCompletion(entry['RecurPeriod']);
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -244,7 +248,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeActivity',
                     disabled: this.checkCanComplete,
-                    exclude: this.isActivityRecurring
+                    exclude: this.isActivityRecurringSeries
                 },{
                     name: 'completeOccurrenceAction',
                     property: 'StartDate',
@@ -253,7 +257,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     action: 'completeOccurrence',
                     disabled: this.checkCanComplete,
                     renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
-                    include: this.isActivityRecurring
+                    include: this.isActivityRecurringSeries
                 },{
                     name: 'completeSeriesAction',
                     property: 'Description',
@@ -261,7 +265,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeSeries',
                     disabled: this.checkCanComplete,
-                    include: this.isActivityRecurring
+                    include: this.isActivityRecurringSeries
                 }]
             },{
                 title: this.detailsText,

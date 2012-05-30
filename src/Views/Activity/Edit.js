@@ -379,6 +379,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.fields['RecurrenceState'].setValue(this.recurrence.RecurrenceState);
             this.fields['RecurIterations'].setValue(this.recurrence.RecurIterations);
             this.fields['EndDate'].setValue(this.recurrence.EndDate);
+
+            if (o.Recurring)
+                this.fields['Recurrence'].enable();
+            else
+                this.fields['Recurrence'].disable();
+
         },
 
         formatPicklistForType: function(type, which) {
