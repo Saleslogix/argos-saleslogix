@@ -295,8 +295,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.inherited(arguments);
 
             var isLeadField = this.fields['IsLead'];
-            isLeadField.setValue(this.options.isForLead);
-            this.onIsLeadChange(this.options.isForLead, isLeadField);
+            isLeadField.setValue(this.isInLeadContext());
+            this.onIsLeadChange(isLeadField.getValue(), isLeadField);
 
             this.fields['Text'].setValue(values['LongNotes'] || values['Notes'] || '');
         },
@@ -343,7 +343,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                     property: 'StartDate',
                     type: 'date',
                     showTimePicker: true,
-                    formatString: this.startingFormatText,
+                    dateFormatText: this.startingFormatText,
                     minValue: (new Date(1900, 0, 1)),
                     validator: [
                         validator.exists,

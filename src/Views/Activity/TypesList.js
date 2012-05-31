@@ -8,13 +8,18 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
 
     return declare('Mobile.SalesLogix.Views.Activity.TypesList', [List], {
         //Templates
+        rowTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
+            '<div class="list-item-static-selector">',
+                '{% if ($.icon) { %}',
+                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                '{% } %}',
+            '</div>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+            '</li>'
+        ]),
         itemTemplate: new Simplate([
-            '<h3>',
-            '{% if ($.icon) { %}',
-            '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-            '{% } %}',
-            '<span>{%: $.$descriptor %}</span>',
-            '</h3>'
+            '<h3>{%: $.$descriptor %}</h3>'
         ]),
 
         //Localization

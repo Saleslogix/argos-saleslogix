@@ -525,7 +525,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.fields['Reminder'].disable();
 
             var isLeadField = this.fields['IsLead'];
-            isLeadField.setValue(this.options.isForLead);
+            isLeadField.setValue(this.isInLeadContext());
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
 
             var entry = this.options.entry,
