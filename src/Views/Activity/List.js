@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([

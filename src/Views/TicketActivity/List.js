@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         itemTemplate: new Simplate([

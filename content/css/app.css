@@ -3,13 +3,6 @@
     background-color: #D5EFFA;
 }
 
-.list-item-selected .list-item-selector
-{
-    background-image: url(../images/icons/OK_24.png) !important;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
 /* defect view */
 .defect-text-row
 {
@@ -208,15 +201,15 @@
     padding: 0 3px;
 }
 
-#configure > .list-content > li > .resource
+#configure > .list-content > li .resource
 {
     display: block;
     margin: -8px 0 -8px -10px;
     padding: 8px 32px 8px 36px;
 }
 
-#configure > .list-content > li > h3 > [data-action="moveUp"],
-#configure > .list-content > li > h3 > [data-action="moveDown"]
+#configure > .list-content > li h3 > [data-action="moveUp"],
+#configure > .list-content > li h3 > [data-action="moveDown"]
 {
     float: right;
     display: block;
@@ -227,17 +220,17 @@
     cursor: pointer;
 }
 
-#configure > .list-content > li:first-child > h3 > [data-action="moveUp"],
-#configure > .list-content > li:last-child > h3 > [data-action="moveDown"] {
+#configure > .list-content > li:first-child h3 > [data-action="moveUp"],
+#configure > .list-content > li:last-child h3 > [data-action="moveDown"] {
     visibility: hidden;
 }
 
-#configure > .list-content > li > h3 > [data-action="moveUp"]
+#configure > .list-content > li h3 > [data-action="moveUp"]
 {
     background-image: url(../images/icons/Sort_Down_24.png);
 }
 
-#configure > .list-content > li > h3 > [data-action="moveDown"]
+#configure > .list-content > li h3 > [data-action="moveDown"]
 {
     background-image: url(../images/icons/Sort_Up_24.png);
 }
@@ -245,11 +238,13 @@
 #configure > .list-content > li
 {
     color: #aaa;
+    padding-right: 6px;
 }
 
-#configure > .list-content > li > h3 > .icon
+#configure > .list-content > li h3 > .icon
 {
     opacity: 0.5;
+    margin-right: .2em;
 }
 
 #configure > .list-content > li.list-item-selected
@@ -258,16 +253,9 @@
     background: none;
 }
 
-#configure > .list-content > li.list-item-selected > h3 > .icon
+#configure > .list-content > li.list-item-selected h3 > .icon
 {
     opacity: 1.0;
-}
-
-#configure > .list-content > li.list-item-selected .list-item-selector
-{
-    background: url(../images/icons/OK_24.png) !important;
-    background-repeat: no-repeat;
-    background-position: center center;
 }
 
 #note_edit .row label,

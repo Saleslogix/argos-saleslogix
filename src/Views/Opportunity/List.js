@@ -15,7 +15,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-opportunity-status="{%: $.Status %}">',
             '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         //TODO: Support ExchangeRateCode with proper symbol

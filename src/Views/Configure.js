@@ -22,6 +22,16 @@ define('Mobile/SalesLogix/Views/Configure', [
     return declare('Mobile.SalesLogix.Views.Configure', [List], {
         //Templates
         emptyTemplate: new Simplate(['']),
+
+        rowTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
+            '<div data-action="selectEntry" class="list-item-selector {% if ($$.enableActions) { %}',
+                'button nonGlossExtraWhiteButton',
+            '{% } %}"><img src="{%= $$.selectIcon %}" class="icon" /></div>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+            '<ul class="list-item-actions"></ul>',
+            '</li>'
+        ]),
         itemTemplate: new Simplate([
             '<h3>',
             '{% if ($.icon) { %}',

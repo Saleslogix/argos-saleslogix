@@ -23,9 +23,11 @@ define('Mobile/SalesLogix/Views/History/List', [
     return declare('Mobile.SalesLogix.Views.History.List', [List], {
         //Templates
         rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}" data-entity-name="{%: $$.resolveEntityName($) %}">',
-            '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
+            '<div data-action="selectEntry" class="list-item-selector {% if ($$.enableActions) { %}',
+                'button nonGlossExtraWhiteButton',
+            '{% } %}"><img src="{%= $$.selectIcon %}" class="icon" /></div>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         itemTemplate: new Simplate([
@@ -114,6 +116,22 @@ define('Mobile/SalesLogix/Views/History/List', [
             'meeting': 'Type eq "atAppointment"',
             'personal': 'Type eq "atPersonal"',
             'email': 'Type eq "atEMail"'
+        },
+
+        allowSelection: true,
+        enableActions: true,
+
+        createActionLayout: function() {
+            return this.actions || (this.actions = [{
+                    id: 'edit',
+                    icon: 'content/images/icons/edit_24.png',
+                    label: 'Edit',
+                    action: 'navigateToEditView'
+                }]
+            );
+        },
+        testCustomAction: function() {
+            console.log(arguments);
         },
 
         resolveEntityName: function(entry) {

@@ -76,6 +76,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Fields/NameField',
     'Mobile/SalesLogix/Fields/PicklistField',
 
+    'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',

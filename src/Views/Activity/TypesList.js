@@ -60,6 +60,7 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
                 if (view)
                     view.show({
                         insert: true,
+                        entry: (this.options && this.options.entry) || null,
                         source: source,
                         activityType: params.key,
                         title: this.activityTypeText[params.key],
