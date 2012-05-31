@@ -37,6 +37,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             'fourth',
             'last'
         ],
+        frequencyOptionsText: [
+            'days',
+            'weeks',
+            'months',
+            'years'
+        ],
+        recurringFrequencyText: 'Recurring Frequency',
         yesText: 'Yes',
         noText: 'No',
         titleText: 'Recurrence',
@@ -55,6 +62,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.connect(this.fields['RecurIterations'], 'onChange', this.onRecurIterationsChange);
             this.connect(this.fields['EndDate'], 'onChange', this.onEndDateChange);
             // these affect the StartDate:
+            this.connect(this.fields['Scale'], 'onChange', this.onScaleChange);
             this.connect(this.fields['Day'], 'onChange', this.onDayChange); // Day of the month
             this.connect(this.fields['Weekdays'], 'onChange', this.onStartDateChange); // One or more days on Weekly options
             this.connect(this.fields['OrdWeekday'], 'onChange', this.onStartDateChange); // Single day of week
@@ -264,6 +272,42 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             this.summarize();
         },
+        onScaleChange: function(value, field) {
+            var startDate = this.fields['StartDate'].getValue(),
+                afterCompletion = this.fields['AfterCompletion'].getValue() ? 1 : 0,
+                interval = parseInt(this.fields['Interval'].getValue());
+                recurPeriod = parseInt(this.fields['RecurPeriod'].getValue());
+
+            switch (parseInt(value.key)) {
+                case 0: // days
+                    if (2 > recurPeriod) return;
+                    recurPeriod = 0 + afterCompletion;
+                    break;
+                case 1: // weeks
+                    if (1 < recurPeriod && recurPeriod < 4) return;
+                    recurPeriod = 2 + afterCompletion;
+                    break;
+                case 2: // months
+                    if (3 < recurPeriod && recurPeriod < 7) return;
+                    recurPeriod = 4 + afterCompletion + afterCompletion;
+                    break;
+                case 3: // years
+                    if (6 < recurPeriod) return;
+                    recurPeriod = 7 + afterCompletion + afterCompletion;
+                    break;
+                default:
+            }
+            this.fields['RecurPeriod'].setValue(recurPeriod);
+            this.fields['RecurIterations'].setValue(recur.defaultIterations[recurPeriod]);
+            this.fields['RecurPeriodSpec'].setValue(recur.getRecurPeriodSpec(recurPeriod, startDate, [], interval));
+            this.fields['Weekdays'].setValue(recur.getWeekdays(this.fields['RecurPeriodSpec'].getValue()));
+            this.fields['Day'].setValue(startDate.getDate());
+            this.fields['OrdMonth'].setValue(startDate.getMonth() + 1);
+            this.fields['OrdWeek'].setValue(0);
+            this.fields['EndDate'].setValue(recur.calcEndDate(startDate, this.getRecurrence()));
+
+            this.resetUI();
+        },
 
         formatWeekdays: function(selections) {
             var values = []
@@ -313,6 +357,17 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 }
             }
             return previousSelections;
+        },
+        createScaleData: function() {
+            var list = [];
+            for (var opt in this.frequencyOptionsText)
+            {
+                list.push({
+                    '$key': opt,
+                    '$descriptor': this.frequencyOptionsText[opt]
+                });
+            }
+            return {'$resources': list};
         },
         createWeekdaysData: function() {
             var list = [];
@@ -417,11 +472,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 notificationTrigger: 'blur'
             },{
                 label: '',
+                title: this.recurringFrequencyText,
                 name: 'Scale',
                 property: 'Scale',
-                type: 'text',
+                type: 'select',
+                view: 'select_list',
                 exclude: true,
-                readonly: true
+                data: this.createScaleData()
             },{
                 label: this.afterCompletionText,
                 name: 'AfterCompletion',
