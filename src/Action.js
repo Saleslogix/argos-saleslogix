@@ -78,7 +78,7 @@ define('Mobile/SalesLogix/Action', [
                 },
                 view = App.getView(o.view);
 
-            if (view)
+            if (view && options.key)
                 view.show(options);
         },
         sendEmail: function(action, key, descriptor, emailProperty, entry) {

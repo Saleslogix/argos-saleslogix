@@ -17,7 +17,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
             '<div data-action="selectEntry" class="list-item-selector {% if ($$.enableActions) { %}',
-                'button nonGlossExtraWhiteButton',
+                'button nonGlossExtraWhiteButton actions-enabled',
             '{% } %}"><img src="{%= $$.statusIcons[$.Status] || $$.icon %}" class="icon" /></div>',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'

@@ -7,6 +7,7 @@ define('Mobile/SalesLogix/Views/History/List', [
     'dojo/query',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
+    'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
@@ -17,16 +18,17 @@ define('Mobile/SalesLogix/Views/History/List', [
     query,
     format,
     convert,
+    action,
     List
 ) {
 
     return declare('Mobile.SalesLogix.Views.History.List', [List], {
         //Templates
         rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
             '<div data-action="selectEntry" class="list-item-selector {% if ($$.enableActions) { %}',
-                'button nonGlossExtraWhiteButton',
-            '{% } %}"><img src="{%= $$.selectIcon %}" class="icon" /></div>',
+                'button nonGlossExtraWhiteButton actions-enabled',
+            '{% } %}"><img src="{%= $$.entityIconByType[$.Type] || $$.selectIcon %}" class="icon" /></div>',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
@@ -83,7 +85,10 @@ define('Mobile/SalesLogix/Views/History/List', [
           'email': 'email'
         },
         titleText: 'Notes/History',
-        
+        viewAccountActionText: 'Account',
+        viewOpportunityActionText: 'Opp.',
+        viewContactActionText: 'Contact',
+
         //View Properties
         detailView: 'history_detail',
         icon: 'content/images/icons/journal_24.png',
@@ -103,6 +108,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             'Type',
             'LeadId',
             'OpportunityId',
+            'OpportunityName',
             'AccountId',
             'ContactId',
             'ModifyDate',
@@ -117,23 +123,84 @@ define('Mobile/SalesLogix/Views/History/List', [
             'personal': 'Type eq "atPersonal"',
             'email': 'Type eq "atEMail"'
         },
+        entityIconByType: {
+            'atToDo': 'content/images/icons/To_Do_24x24.png',
+            'atPhoneCall': 'content/images/icons/Call_24x24.png',
+            'atAppointment': 'content/images/icons/Meeting_24x24.png',
+            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
+            'atPersonal': 'content/images/icons/Personal_24x24.png',
+            'atQuestion': 'content/images/icons/help_24.png',
+            'atNote': 'content/images/icons/note_24.png',
+            'atEMail': 'content/images/icons/letters_24.png'
+        },
 
         allowSelection: true,
         enableActions: true,
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                    id: 'edit',
-                    icon: 'content/images/icons/edit_24.png',
-                    label: 'Edit',
-                    action: 'navigateToEditView'
+                    id: 'viewAccount',
+                    icon: 'content/images/icons/Company_24.png',
+                    label: this.viewAccountActionText,
+                    fn: action.navigateToEntity.bindDelegate(this, {
+                        view: 'account_detail',
+                        keyProperty: 'AccountId',
+                        textProperty: 'AccountName',
+                        entry: this.getEntry
+                    })
+                },{
+                    id: 'viewOpportunity',
+                    icon: 'content/images/icons/opportunity_24.png',
+                    label: this.viewOpportunityActionText,
+                    fn: action.navigateToEntity.bindDelegate(this, {
+                        view: 'opportunity_detail',
+                        keyProperty: 'OpportunityId',
+                        textProperty: 'OpportunityName',
+                        entry: this.getEntry
+                    })
+                },{
+                    id: 'viewContact',
+                    icon: 'content/images/icons/Contacts_24x24.png',
+                    label: this.viewContactActionText,
+                    action: 'navigateToContactOrLead'
                 }]
             );
         },
-        testCustomAction: function() {
-            console.log(arguments);
+        getEntry: function(key, descriptor) {
+            var selectedEntry = this.entries[key];
+            return {
+                selectedEntry: selectedEntry
+            };
         },
+        navigateToContactOrLead: function(action, key, descriptor) {
+            var selectedEntry = this.entries[key],
+                entity = this.resolveEntityName(selectedEntry),
+                viewId = null, options = null;
 
+            switch(entity)
+            {
+                case 'Contact':
+                    viewId = 'contact_detail';
+                    options = {
+                        key: selectedEntry['ContactId'],
+                        descriptor: selectedEntry['ContactName']
+                    };
+                    break;
+
+                case 'Lead':
+                    viewId = 'lead_detail';
+                    options = {
+                        key: selectedEntry['LeadId'],
+                        descriptor: selectedEntry['LeadName']
+                    };
+                    break;
+            }
+
+            var view = App.getView(viewId);
+
+            if (view && options)
+                view.show(options);
+        },
         resolveEntityName: function(entry) {
             var exists = this.existsRE;
 
