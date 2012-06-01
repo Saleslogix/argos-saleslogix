@@ -29,14 +29,6 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         onText: 'on',
         occurrencesText: 'occurrences',
         summaryText: 'summary',
-        ordText: [
-            'day',
-            'first',
-            'second',
-            'third',
-            'fourth',
-            'last'
-        ],
         frequencyOptionsText: [
             'days',
             'weeks',
@@ -345,7 +337,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             if (selection['$descriptor'])
                 return selection['$descriptor'];
 
-            return this.ordText[parseInt(selection)];
+            return recur.ordText[parseInt(selection)];
         },
         preselectWeekdays: function() {
             var previousSelections = [],
@@ -393,11 +385,11 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createOrdData: function() {
             var list = [];
-            for (var ord in this.ordText)
+            for (var ord in recur.ordText)
             {
                 list.push({
                     '$key': ord,
-                    '$descriptor': this.ordText[ord]
+                    '$descriptor': recur.ordText[ord]
                 });
             }
             return {'$resources': list};

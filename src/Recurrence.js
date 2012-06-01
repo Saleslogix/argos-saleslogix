@@ -32,24 +32,31 @@ define('Mobile/SalesLogix/Recurrence', [
 ) {
     return lang.setObject('Mobile.SalesLogix.Recurrence', {
         // Localization
-        lastText: 'last',
         onceText: 'Once',
         daysText: 'days',
         dailyText: 'Daily',
         weeksText: 'weeks',
         weeklyText: 'Weekly',
-        weeklyOnText: 'Weekly on ${2}', // weekday
+        weeklyOnText: '${0} on ${3}', // eg. {weekly} on {friday}
         monthsText: 'months',
         monthlyText: 'Monthly',
-        monthlyOnDayText: 'Monthly on day ${0}', // # day
-        monthlyOnText: 'Monthly on ${4} ${2}', // #ord weekday
+        monthlyOnDayText: '${0} on day ${1}', // eg. {monthly} on day {15}
+        monthlyOnText: '${0} on ${5} ${3}', // eg. {monthly} on {second} {Monday}
         yearsText: 'years',
         yearlyText: 'Yearly',
-        yearlyOnText: 'Yearly on ${1}', // month day
-        yearlyOnWeekdayText: 'Yearly on ${4} ${2} of ${3}', // #ord weekday of month
-        everyText: 'every',
-        timesText: 'times',
+        yearlyOnText: '${0} on ${2}', // eg. {yearly} on {short_date}
+        yearlyOnWeekdayText: '${0} on ${5} ${3} in ${4}', // eg. {yearly} on {first} {Thursday} in {April}
+        everyText: 'every ${0} ${1}', // eg. every {2} {weeks}
         afterCompletionText: 'after completion',
+        untilEndDateText: '${0} until ${1}', // eg. {daily} until {31/10/2012}
+        ordText: [
+            'day',
+            'first',
+            'second',
+            'third',
+            'fourth',
+            'last'
+        ],
 
         interval: 1, // repeat every interval days/weeks/months/years
         defaultIterations: [ // by RecurPeriod, -1 for After Completed. Configurable.
@@ -148,33 +155,25 @@ define('Mobile/SalesLogix/Recurrence', [
             this.recalculateSimplifiedPeriodSpec(startDate);
 
             var list = [],
-                dateOptions = [],
                 currentDate = startDate || new Date(),
                 day = currentDate.getDate(),
-                dateOptions = [
+                ord = this.ordText[parseInt((day - 1)/7) + 1],
+                textOptions = [
+                    null, // scale, replaced in loop
                     day,
                     currentDate.toString(Date.CultureInfo.formatPatterns.monthDay),
                     Date.CultureInfo.dayNames[currentDate.getDay()],
-                    Date.CultureInfo.abbreviatedMonthNames[currentDate.getMonth()]
+                    Date.CultureInfo.abbreviatedMonthNames[currentDate.getMonth()],
+                    ord
                 ];
-
-            var ord = parseInt((day - 1)/7) + 1;
-            if (4 < ord) { // 7 > (currentDate.getDaysInMonth() - day)
-                ord = this.lastText;
-            } else {
-                // ** Localization!
-                if (/^en-/.test(Date.CultureInfo.name))
-                    ord = ord + ['', 'st', 'nd', 'rd', 'th'][ord];
-
-            }
-            dateOptions.push(ord);
 
             for (var recurOption in this.simplifiedOptions)
             {
+                textOptions[0] = this.getPanel(this.simplifiedOptions[recurOption].RecurPeriod);
                 this.simplifiedOptions[recurOption].RecurIterations = this.defaultIterations[this.simplifiedOptions[recurOption].RecurPeriod];
                 list.push({
                     '$key': recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
-                    '$descriptor': string.substitute(this[this.simplifiedOptions[recurOption].label], dateOptions),
+                    '$descriptor': string.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
                     'recurrence': this.simplifiedOptions[recurOption]
                 });
             }
@@ -321,53 +320,49 @@ define('Mobile/SalesLogix/Recurrence', [
             if (entry.RecurrenceState != 'rstMaster' || !entry.StartDate)
                 return '';
 
-            var text,
-                rp = parseInt(entry['RecurPeriod']),
+            var rp = parseInt(entry['RecurPeriod']),
                 recurPeriodSpec = parseInt(entry['RecurPeriodSpec']),
                 interval = recurPeriodSpec % 65536,
+                text = (1 < interval)
+                    ? string.substitute(this.everyText, [interval, this.getPanel(rp, true)])
+                    : ((true === dependsOnPanel) ? '' : this.getPanel(rp)),
                 currentDate = Sage.Platform.Mobile.Convert.toDateFromString(entry['StartDate']),
                 day = currentDate.getDate(),
-                weekday = Date.CultureInfo.dayNames[currentDate.getDay()];
-
-            var ord = parseInt((day - 1)/7) + 1;
-            if (4 < ord) { // 7 > (currentDate.getDaysInMonth() - day)
-                ord = this.lastText;
-            } else {
-                // ** Localization!
-                if (/^en-/.test(Date.CultureInfo.name))
-                    ord = ord + ['', 'st', 'nd', 'rd', 'th'][ord];
-
-            }
-
-            if (1 < interval) {
-                text = string.substitute("${0} ${1} ${2}", [this.everyText, interval, this.getPanel(rp, true)]);
-            } else {
-                text = (true === dependsOnPanel) ? '' : this.getPanel(rp);
-            }
+                weekday = Date.CultureInfo.dayNames[currentDate.getDay()],
+                textOptions = [
+                    text,
+                    day,
+                    currentDate.toString(Date.CultureInfo.formatPatterns.monthDay),
+                    this.getWeekdays(recurPeriodSpec, true),
+                    Date.CultureInfo.abbreviatedMonthNames[currentDate.getMonth()],
+                    this.ordText[parseInt((day - 1)/7) + 1]
+                ];
 
             switch(rp) {
                 case 0: // daily
                 case 1:
                     break;
                 case 2: // weekly
-                    var weekdays = this.getWeekdays(recurPeriodSpec, true);
-                    text = string.substitute("${0} on ${1}.", [text, weekdays.join(', ')]);
+                    textOptions[2] = this.getWeekdays(recurPeriodSpec, true);
+                    text = string.substitute(this.weeklyOnText, textOptions);
                     break;
                 case 3:
                     break;
                 case 4: // monthly
-                    text = string.substitute("${0} on day ${1}", [text, day]);
+                    text = string.substitute(this.monthlyOnDayText, textOptions);
                     break;
                 case 5:
-                    text = string.substitute("${0} on ${1} ${2}", [text, ord, weekday]);
+                    textOptions[3] = weekday;
+                    text = string.substitute(this.monthlyOnText, textOptions);
                     break;
                 case 6:
                     break;
                 case 7: // yearly
-                    text = string.substitute("${0} on ${1}", [text, currentDate.toString(Date.CultureInfo.formatPatterns.monthDay)]);
+                    text = string.substitute(this.yearlyOnText, textOptions);
                     break;
                 case 8:
-                    text = string.substitute("${0} on ${1} ${2} in ${3}", [text, ord, weekday, Date.CultureInfo.monthNames[currentDate.getMonth()]]);
+                    textOptions[3] = weekday;
+                    text = string.substitute(this.yearlyOnWeekdayText, textOptions);
                     break;
                 case 9:
                     break;
@@ -378,12 +373,10 @@ define('Mobile/SalesLogix/Recurrence', [
             if (this.isAfterCompletion(rp)) {
                 text = string.substitute("${0} ${1}", [text, this.afterCompletionText]);
             } else {
-                text = string.substitute("${0} until ${1}", [text, this.calcEndDate(currentDate, entry).toString(Date.CultureInfo.formatPatterns.shortDate)]);
-                // alternatively say # of iterations:
-                // text = string.substitute("${0}, ${1} ${2}", [text, entry['RecurIterations'], this.timesText]);
+                text = string.substitute(this.untilEndDateText, [text, this.calcEndDate(currentDate, entry).toString(Date.CultureInfo.formatPatterns.shortDate)]);
             }
 
-            return text.replace(/^\s*/,'').replace(/\s\s/, ' ');
+            return text;
         },
         calcEndDate: function(date, entry) {
             var interval =  entry['RecurPeriodSpec'] % 65536,
