@@ -185,6 +185,10 @@
           "path": "../src"
         },
         {
+          "text": "Recurrence.js",
+          "path": "../src"
+        },
+        {
           "text": "AddAccountContact.js",
           "path": "../src/Views"
         },
@@ -274,6 +278,10 @@
         },
         {
           "text": "TypesList.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "Recurring.js",
           "path": "../src/Views/Activity"
         },
         {
@@ -442,6 +450,10 @@
         },
         {
           "text": "PicklistField.js",
+          "path": "../src/Fields"
+        },
+        {
+          "text": "RecurrencesField.js",
           "path": "../src/Fields"
         },
         {
