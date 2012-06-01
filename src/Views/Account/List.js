@@ -46,7 +46,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'MainPhone'
         ],
         resourceKind: 'accounts',
-        selectIcon: 'content/images/icons/Company_24.png',
         allowSelection: true,
         enableActions: true,
 
@@ -60,7 +59,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
                     id: 'callMain',
                     icon: 'content/images/icons/Call_24x24.png',
                     label: this.callMainActionText,
-                    fn: action.callPhone.bindDelegate(this, 'MainPhone', this.getEntry)
+                    fn: action.callPhone.bindDelegate(this, 'MainPhone')
                 },{
                     id: 'viewContacts',
                     icon: 'content/images/icons/Contacts_24x24.png',
@@ -70,24 +69,16 @@ define('Mobile/SalesLogix/Views/Account/List', [
                     id: 'addNote',
                     icon: 'content/images/icons/New_Note_24x24.png',
                     label: this.addNoteActionText,
-                    fn: action.addNote.bindDelegate(this, this.getEntry)
+                    fn: action.addNote.bindDelegate(this)
                 },{
                     id: 'addActivity',
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     label: this.addActivityActionText,
-                    fn: action.addActivity.bindDelegate(this, this.getEntry)
+                    fn: action.addActivity.bindDelegate(this)
                 }]
             );
         },
-        getEntry: function(key, descriptor) {
-             return {
-                 selectedEntry: this.entries[key],
-                 entry: {
-                     'AccountId': key,
-                     'AccountName': descriptor
-                 }
-             };
-        },
+
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }

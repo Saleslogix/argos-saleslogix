@@ -374,6 +374,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
+                console.log(context);
 
                 return (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) ||
                        (/^(useractivities|activities)$/.test(context.resourceKind));
@@ -393,7 +394,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+                entry = context.entry || (view && view.entry) || context;
 
             if (!entry || !entry['$key']) return;
 
@@ -406,7 +407,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         applyContactContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+                entry = context.entry || (view && view.entry) || context;
 
             if (!entry || !entry['$key']) return;
 

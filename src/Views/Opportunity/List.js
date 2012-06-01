@@ -96,8 +96,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'account_detail',
                         keyProperty: 'Account.$key',
-                        textProperty: 'Account.AccountName',
-                        entry: this.getEntry
+                        textProperty: 'Account.AccountName'
                     })
                 },{
                     id: 'viewContacts',
@@ -113,28 +112,15 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                     id: 'addNote',
                     icon: 'content/images/icons/New_Note_24x24.png',
                     label: this.addNoteActionText,
-                    fn: action.addNote.bindDelegate(this, this.getEntry)
+                    fn: action.addNote.bindDelegate(this)
                 },{
                     id: 'addActivity',
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     label: this.addActivityActionText,
-                    fn: action.addActivity.bindDelegate(this, this.getEntry)
+                    fn: action.addActivity.bindDelegate(this)
                 }]
             );
         },
-        getEntry: function(key, descriptor) {
-            var selectedEntry = this.entries[key];
-            return {
-                'selectedEntry': selectedEntry,
-                'entry': {
-                    OpportunityId: key,
-                    OpportunityName: descriptor,
-                    AccountId: selectedEntry['Account']['$key'],
-                    AccountName: selectedEntry['Account']['AccountName']
-                }
-            };
-        },
-
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

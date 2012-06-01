@@ -37,68 +37,56 @@ define('Mobile/SalesLogix/Action', [
             this.navigateToHistoryInsert(entry, complete);
         },
 
-        callPhone: function(action, key, descriptor, phoneProperty, entry) {
-            entry = this.expandExpression(entry, key, descriptor);
-
-            lang.mixin(entry.entry, {
+        callPhone: function(action, selection, phoneProperty) {
+            lang.mixin(selection.data, {
                 'Type': 'atPhoneCall',
-                'Description': string.substitute(Mobile.SalesLogix.Action.calledText, [descriptor])
+                'Description': string.substitute(Mobile.SalesLogix.Action.calledText, [selection.data['$descriptor']])
             });
 
             Mobile.SalesLogix.Action.recordToHistory(function() {
-                App.initiateCall(entry.selectedEntry[phoneProperty]);
-            }.bindDelegate(this), entry.entry);
+                App.initiateCall(selection.data[phoneProperty]);
+            }.bindDelegate(this), selection.data);
         },
 
-        addNote: function(action, key, descriptor, entry) {
-            entry = this.expandExpression(entry, key, descriptor);
+        addNote: function(action, selection) {
+            this.options.source = {
+                entry: selection.data,
+                resourceKind: this.resourceKind,
+                key: selection.data['$key']
+            };
 
-            var view = App.getView('history_edit'),
-                options = {
-                    entry: entry.entry,
-                    insert: true
-                };
+            var view = App.getView('history_edit');
 
             if (view)
-                view.show(options);
+                view.show({insert: true});
         },
-        addActivity: function(action, key, descriptor, entry) {
-            entry = this.expandExpression(entry, key, descriptor);
+        addActivity: function(action, selection) {
+            this.options.source = {
+                entry: selection.data,
+                resourceKind: this.resourceKind,
+                key: selection.data['$key']
+            };
+            App.navigateToActivityInsertView({insert: true});
+        },
+        navigateToEntity: function(action, selection, o) {
             var options = {
-                    entry: entry.entry,
-                    insert: true
-                };
-            App.navigateToActivityInsertView(options);
-        },
-        navigateToEntity: function(action, key, descriptor, o) {
-            var entry = this.expandExpression(o.entry, key, descriptor),
-                options = {
-                    key: utility.getValue(entry.selectedEntry, o.keyProperty),
-                    descriptor: utility.getValue(entry.selectedEntry, o.textProperty)
+                    key: utility.getValue(selection.data, o.keyProperty),
+                    descriptor: utility.getValue(selection.data, o.textProperty)
                 },
                 view = App.getView(o.view);
 
             if (view && options.key)
                 view.show(options);
         },
-        sendEmail: function(action, key, descriptor, emailProperty, entry) {
-            entry = this.expandExpression(entry, key, descriptor);
-
-            lang.mixin(entry.entry, {
+        sendEmail: function(action, selection, emailProperty) {
+            lang.mixin(selection.data, {
                 'Type': 'atEmail',
-                'Description': string.substitute(Mobile.SalesLogix.Action.emailedText, [descriptor])
+                'Description': string.substitute(Mobile.SalesLogix.Action.emailedText, [selection.data['$descriptor']])
             });
 
             Mobile.SalesLogix.Action.recordToHistory(function() {
-                App.initiateEmail(entry.selectedEntry[emailProperty]);
-            }.bindDelegate(this), entry.entry);
-        },
-        expandExpression: function(expression) {
-            if (typeof expression === 'function')
-                return expression.apply(this, Array.prototype.slice.call(arguments, 1));
-            else
-                return expression;
+                App.initiateEmail(selection.data[emailProperty]);
+            }.bindDelegate(this), selection.data);
         }
-
     });
 });

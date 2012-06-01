@@ -20,12 +20,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
 
     return declare('Mobile.SalesLogix.Views.TicketActivity.List', [List], {
         //Templates
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}">',
-            '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
-        ]),
         itemTemplate: new Simplate([
             '<h3>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h3>',
             '<div class="note-text-item">',

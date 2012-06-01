@@ -54,7 +54,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             '<td class="entry-table-icon">',
             '<div data-action="selectEntry" class="list-item-selector {% if ($$.enableActions) { %}',
             'button nonGlossExtraWhiteButton actions-enabled',
-            '{% } %}"><img src="{%= $$.activityIconByType[$.Type] || $$.selectIcon %}" class="icon" /></div>',
+            '{% } %}"><img src="{%= $$.activityIconByType[$.Type] || $$.icon %}" class="icon" /></div>',
             '</td>',
             '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
             '<td class="entry-table-description">{%! $$.itemTemplate %}</td>',

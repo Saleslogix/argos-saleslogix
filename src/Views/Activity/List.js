@@ -19,7 +19,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
-            '<div data-action="selectEntry" class="list-item-selector"></div>',
+            '<div data-action="selectEntry" class="list-item-static-selector {% if ($$.enableActions) { %}',
+                'button nonGlossExtraWhiteButton actions-enabled',
+            '{% } %}"><img src="{%= $$.activityIconByType[$.Type] || $$.icon %}" class="icon" /></div>',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
@@ -47,6 +49,16 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '{%: $.LeadName %}',
             '{% } %}'
         ]),
+        activityIconByType: {
+            'atToDo': 'content/images/icons/To_Do_24x24.png',
+            'atPhoneCall': 'content/images/icons/Call_24x24.png',
+            'atAppointment': 'content/images/icons/Meeting_24x24.png',
+            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
+            'atPersonal': 'content/images/icons/Personal_24x24.png',
+            'atQuestion': 'content/images/icons/help_24.png',
+            'atNote': 'content/images/icons/note_24.png',
+            'atEMail': 'content/images/icons/letters_24.png'
+        },
 
         //Localization
         titleText: 'Activities',      

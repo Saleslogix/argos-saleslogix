@@ -48,7 +48,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             'UrgencyCode'
         ],
         resourceKind: 'tickets',
-        selectIcon: 'content/images/icons/Ticket_24x24.png',
         allowSelection: true,
         enableActions: true,
 
@@ -65,8 +64,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'account_detail',
                         keyProperty: 'Account.$key',
-                        textProperty: 'Account.AccountName',
-                        entry: this.getEntry
+                        textProperty: 'Account.AccountName'
                     })
                 },{
                     id: 'viewContact',
@@ -75,35 +73,20 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'contact_detail',
                         keyProperty: 'Contact.$key',
-                        textProperty: 'Contact.NameLF',
-                        entry: this.getEntry
+                        textProperty: 'Contact.NameLF'
                     })
                 },{
                     id: 'addNote',
                     icon: 'content/images/icons/New_Note_24x24.png',
                     label: this.addNoteActionText,
-                    fn: action.addNote.bindDelegate(this, this.getEntry)
+                    fn: action.addNote.bindDelegate(this)
                 },{
                     id: 'addActivity',
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     label: this.addActivityActionText,
-                    fn: action.addActivity.bindDelegate(this, this.getEntry)
+                    fn: action.addActivity.bindDelegate(this)
                 }]
             );
-        },
-        getEntry: function(key, descriptor) {
-            var selectedEntry = this.entries[key];
-            return {
-                'selectedEntry': selectedEntry,
-                'entry': {
-                    'TicketId': key,
-                    'TicketNumber': descriptor,
-                    'ContactId': selectedEntry['Contact']['$key'],
-                    'ContactName': selectedEntry['Contact']['NameLF'],
-                    'AccountId': selectedEntry['Account']['$key'],
-                    'AccountName': selectedEntry['Account']['AccountName']
-                }
-            };
         },
 
         formatSearchQuery: function(searchQuery) {

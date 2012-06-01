@@ -46,7 +46,6 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             'Email'
         ],
         resourceKind: 'contacts',
-        selectIcon: 'content/images/icons/Contacts_24x24.png',
         allowSelection: true,
         enableActions: true,
 
@@ -60,12 +59,12 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                     id: 'callMain',
                     icon: 'content/images/icons/Call_24x24.png',
                     label: this.callMainActionText,
-                    fn: action.callPhone.bindDelegate(this, 'WorkPhone', this.getEntry)
+                    fn: action.callPhone.bindDelegate(this, 'WorkPhone')
                 },{
                     id: 'callMobile',
                     icon: 'content/images/icons/Call_24x24.png',
                     label: this.callMobileActionText,
-                    fn: action.callPhone.bindDelegate(this, 'Mobile', this.getEntry)
+                    fn: action.callPhone.bindDelegate(this, 'Mobile')
                 },{
                     id: 'viewAccount',
                     icon: 'content/images/icons/Company_24.png',
@@ -80,31 +79,19 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                     id: 'sendEmail',
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
                     label: this.sendEmailActionText,
-                    fn: action.sendEmail.bindDelegate(this, 'Email', this.getEntry)
+                    fn: action.sendEmail.bindDelegate(this, 'Email')
                 },{
                     id: 'addNote',
                     icon: 'content/images/icons/New_Note_24x24.png',
                     label: this.addNoteActionText,
-                    fn: action.addNote.bindDelegate(this, this.getEntry)
+                    fn: action.addNote.bindDelegate(this)
                 },{
                     id: 'addActivity',
                     icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                     label: this.addActivityActionText,
-                    fn: action.addActivity.bindDelegate(this, this.getEntry)
+                    fn: action.addActivity.bindDelegate(this)
                 }]
             );
-        },
-        getEntry: function(key, descriptor) {
-            var selectedEntry = this.entries[key];
-            return {
-                'selectedEntry': selectedEntry,
-                'entry': {
-                    'ContactId': key,
-                    'ContactName': descriptor,
-                    'AccountId': selectedEntry['Account']['$key'],
-                    'AccountName': selectedEntry['AccountName']
-                }
-            };
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

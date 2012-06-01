@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
             '<div data-action="selectEntry" class="list-item-selector {% if ($$.enableActions) { %}',
                 'button nonGlossExtraWhiteButton actions-enabled',
-            '{% } %}"><img src="{%= $$.entityIconByType[$.Type] || $$.selectIcon %}" class="icon" /></div>',
+            '{% } %}"><img src="{%= $$.entityIconByType[$.Type] || $$.icon %}" class="icon" /></div>',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
@@ -145,8 +145,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'account_detail',
                         keyProperty: 'AccountId',
-                        textProperty: 'AccountName',
-                        entry: this.getEntry
+                        textProperty: 'AccountName'
                     })
                 },{
                     id: 'viewOpportunity',
@@ -155,8 +154,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'opportunity_detail',
                         keyProperty: 'OpportunityId',
-                        textProperty: 'OpportunityName',
-                        entry: this.getEntry
+                        textProperty: 'OpportunityName'
                     })
                 },{
                     id: 'viewContact',
@@ -165,12 +163,6 @@ define('Mobile/SalesLogix/Views/History/List', [
                     action: 'navigateToContactOrLead'
                 }]
             );
-        },
-        getEntry: function(key, descriptor) {
-            var selectedEntry = this.entries[key];
-            return {
-                selectedEntry: selectedEntry
-            };
         },
         navigateToContactOrLead: function(action, key, descriptor) {
             var selectedEntry = this.entries[key],
