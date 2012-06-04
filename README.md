@@ -68,5 +68,5 @@ Installation
 *       You can customize the product without modifying the core views.
 *       See the [Argos Sample][argos-sample] customization module for a set of customization scenario examples.
 
-[argos-sdk]: https://github.com/SageScottsdalePlatform/argos-sdk "Argos SDK Source"
-[argos-sample]: https://github.com/SageScottsdalePlatform/argos-sample "Customization module for argos-saleslogix"
+[argos-sdk]: https://github.com/Sage/argos-sdk "Argos SDK Source"
+[argos-sample]: https://github.com/SageSalesLogix/argos-sample "Customization module for argos-saleslogix"
