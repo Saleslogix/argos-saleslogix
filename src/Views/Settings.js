@@ -17,7 +17,7 @@ define('Mobile/SalesLogix/Views/Settings', [
             '<img src="{%: $.icon %}" alt="icon" class="icon" />',
             '{% } %}',
         '</div>',
-        '{%! $$.itemTemplate %}',
+        '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
         '</li>'
         ]),
 
