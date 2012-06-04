@@ -98,7 +98,7 @@ define('Mobile/SalesLogix/Application', [
         run: function() {
             this.inherited(arguments);
 
-            //this.scene.showView('account_list', {});
+            this.scene.showView('account_list', {});
             this.scene.showView('account_detail', {key:'AGHEA0002669'});
             //setTimeout(lang.hitch(this, function() {this.scene.showView('account_list', {});}), 0);
             return;
