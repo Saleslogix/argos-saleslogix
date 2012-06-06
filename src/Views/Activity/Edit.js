@@ -375,8 +375,16 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
 
-                return (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) ||
-                       (/^(useractivities|activities)$/.test(context.resourceKind));
+                if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key)
+                    return true;
+
+                if (/^(useractivities)$/.test(context.resourceKind))
+                    return true;
+
+                if (/^(activities)$/.test(context.resourceKind) && context.currentDate)
+                    return true;
+
+                return false;
             });
             var context = (found && found.options && found.options.source) || found,
                 lookup = {
