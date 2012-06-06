@@ -1410,3 +1410,18 @@ td.entry-table-description {
     -webkit-box-sizing: content-box !important;
     -moz-box-sizing: content-box !important;
 }
+
+.quick-nav
+{
+
+}
+
+.quick-nav > button
+{
+    width: 30px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    margin: 6px auto 6px auto;
+}
+.quick-nav-back { background-image: url(../images/icons/Back_24.png); }
+.quick-nav-home { background-image: url(../images/icons/home_24.png); margin-top: 16px !important; }

@@ -1,7 +1,19 @@
 define('Mobile/SalesLogix/ApplicationViews', {
-    'main': {type: 'Sage/Platform/Mobile/List'},
-    'account_list': {type: 'Mobile/SalesLogix/Views/Account/List'},
-    'account_detail': {type: 'Mobile/SalesLogix/Views/Account/Detail'}
+    'quick_nav': {type: 'Mobile/SalesLogix/Views/QuickNav'},
+    'home': {type: 'Mobile/SalesLogix/Views/Home'},
+    'account_list': {type: 'Mobile/SalesLogix/Views/Account/List', security: 'Entities/Account/View'},
+    'account_detail': {type: 'Mobile/SalesLogix/Views/Account/Detail'},
+    'contact_list': {type: 'Mobile/SalesLogix/Views/Contact/List'},
+    'contact_detail': {type: 'Mobile/SalesLogix/Views/Contact/Detail'},
+    'lead_list': {type: 'Mobile/SalesLogix/Views/Lead/List'},
+    'lead_detail': {type: 'Mobile/SalesLogix/Views/Lead/Detail'},
+    'opportunity_list': {type: 'Mobile/SalesLogix/Views/Opportunity/List'},
+    'opportunity_detail': {type: 'Mobile/SalesLogix/Views/Opportunity/Detail'},
+    'ticket_list': {type: 'Mobile/SalesLogix/Views/Ticket/List'},
+    'ticket_detail': {type: 'Mobile/SalesLogix/Views/Ticket/Detail'},
+    'calendar_daylist': {type: 'Mobile/SalesLogix/Views/Calendar/DayView'},
+    'history_list': {type: 'Mobile/SalesLogix/Views/History/List'},
+    'history_detail': {type: 'Mobile/SalesLogix/Views/History/Detail'}
 });
 
 /*
