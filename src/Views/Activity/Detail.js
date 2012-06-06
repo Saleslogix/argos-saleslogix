@@ -6,7 +6,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    'Mobile/SalesLogix/Recurrence'
 ], function(
     declare,
     string,
@@ -15,7 +16,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     template,
     format,
     convert,
-    Detail
+    Detail,
+    recur
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail], {
@@ -60,6 +62,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         startDateFormatText: 'M/d/yyyy h:mm:ss tt',
         timelessDateFormatText: 'M/d/yyyy',
         alarmDateFormatText: 'M/d/yyyy h:mm:ss tt',
+        recurrenceText: 'recurrence',
+        confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',
 
         //View Properties
         id: 'activity_detail',
@@ -88,18 +92,37 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             'Priority',
             'Rollover',
             'StartDate',
+            'EndDate',
             'TicketId',
             'TicketNumber',
             'Timeless',
             'Type',
             'Recurring',
+            'RecurPeriod',
+            'RecurPeriodSpec',
+            'RecurIterations',
             'RecurrenceState'
         ],
         resourceKind: 'activities',
         recurringActivityIdSeparator: ';',
+        recurrence: {},
 
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
+        },
+        navigateToEditView: function(el) {
+            var view = App.getView(this.editView);
+
+            if (view)
+            {
+                if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
+                    this.recurrence.Leader = this.entry.Leader;
+                    view.show({entry: this.recurrence});
+
+                } else {
+                    view.show({entry: this.entry});
+                }
+            }
         },
         navigateToCompleteView: function(completionTitle, isSeries) {
             var view = App.getView(this.completeView);
@@ -135,6 +158,9 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         isActivityRecurring: function(entry) {
             return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
+        },
+        isActivityRecurringSeries: function(entry) {
+            return this.isActivityRecurring(entry) && !recur.isAfterCompletion(entry['RecurPeriod']);
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -178,6 +204,34 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
             }
         },
+        requestRecurrence: function(key) {
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                .setResourceKind(this.resourceKind)
+                .setResourceSelector(string.substitute("'${0}'", [key]))
+                .setContractName(this.contractName)
+                .setQueryArg('select', this.querySelect.join(','));
+
+            request.allowCacheUse = true;
+            request.read({
+                success: this.processRecurrence,
+                failure: this.requestRecurrenceFailure,
+                scope: this
+            });
+            return;
+        },
+        processRecurrence: function(recurrence) {
+            if (recurrence)
+            {
+                this.recurrence = recurrence;
+
+                var rowNode = query('[data-property="RecurrenceUI"]'),
+                    contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
+                if (rowNode) { domClass.remove(rowNode[0], 'content-loading'); }
+                if (contentNode) { contentNode[0].innerHTML = recur.toString(this.recurrence); }
+            }
+        },
+        requestRecurrenceFailure: function(xhr, o) {
+        },
         checkCanComplete: function(entry) {
             return !entry || (entry['Leader']['$key'] !== App.context['user']['$key'])
         },
@@ -185,6 +239,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             this.inherited(arguments);
 
             if (entry && entry['Leader']['$key']) this.requestLeader(entry['Leader']['$key']);
+            if (this.isActivityRecurring(entry)) this.requestRecurrence(entry['$key'].split(this.recurringActivityIdSeparator).shift());
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -199,7 +254,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeActivity',
                     disabled: this.checkCanComplete,
-                    exclude: this.isActivityRecurring
+                    exclude: this.isActivityRecurringSeries
                 },{
                     name: 'completeOccurrenceAction',
                     property: 'StartDate',
@@ -208,7 +263,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     action: 'completeOccurrence',
                     disabled: this.checkCanComplete,
                     renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
-                    include: this.isActivityRecurring
+                    include: this.isActivityRecurringSeries
                 },{
                     name: 'completeSeriesAction',
                     property: 'Description',
@@ -216,7 +271,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     action: 'completeSeries',
                     disabled: this.checkCanComplete,
-                    include: this.isActivityRecurring
+                    include: this.isActivityRecurringSeries
                 }]
             },{
                 title: this.detailsText,
@@ -290,6 +345,13 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     property: 'Rollover',
                     label: this.rolloverText,
                     include: this.isActivityTimeless
+                },{
+                    name: 'RecurrenceUI',
+                    property: 'RecurrenceUI',
+                    label: this.recurrenceText,
+                    include: this.isActivityRecurring,
+                    cls: 'content-loading',
+                    value: 'loading...'
                 }]
             },{
                 title: this.whoText,
