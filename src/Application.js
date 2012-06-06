@@ -95,6 +95,10 @@ define('Mobile/SalesLogix/Application', [
         run: function() {
             this.inherited(arguments);
 
+            this.scene.showView('quick_nav', {}, 'navigation');
+            this.scene.showView('home');
+            return;
+
             if (App.isOnline() || !App.enableCaching)
             {
                 this.handleAuthentication();
@@ -154,7 +158,7 @@ define('Mobile/SalesLogix/Application', [
 
         },
         onAuthenticateUserFailure: function(callback, scope, response, ajax) {
-            var service = this.getService();
+            var service = this.getConnection();
             if (service)
                 service
                     .setUserName(false)
@@ -164,7 +168,7 @@ define('Mobile/SalesLogix/Application', [
                 callback.call(scope || this, {response: response});
         },
         authenticateUser: function(credentials, options) {
-            var service = this.getService()
+            var service = this.getConnection()
                 .setUserName(credentials.username)
                 .setPassword(credentials.password || '');
 
@@ -179,6 +183,8 @@ define('Mobile/SalesLogix/Application', [
             });
         },
         hasAccessTo: function(security) {
+            return true; /* todo: remove */
+
             if (!security) return true;
 
             var user = this.context['user'],
@@ -201,7 +207,7 @@ define('Mobile/SalesLogix/Application', [
                 window.localStorage.removeItem('navigationState');
             }
 
-            var service = this.getService();
+            var service = this.getConnection();
             if (service)
                 service
                     .setUserName(false)
@@ -284,7 +290,7 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         requestUserDetails: function() {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
                 .setResourceKind('users')
                 .setResourceSelector(string.substitute('"${0}"', [this.context['user']['$key']]))
                 .setQueryArg('select', this.userDetailsQuerySelect.join(','));
@@ -304,12 +310,12 @@ define('Mobile/SalesLogix/Application', [
         onRequestUserDetailsFailure: function(response, o) {
         },
         requestUserOptions: function() {
-            var batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
+            var batch = new Sage.SData.Client.SDataBatchRequest(this.getConnection())
                 .setContractName('system')
                 .setResourceKind('useroptions')
                 .setQueryArg('select', 'name,value')
                 .using(function() {
-                    var service = this.getService();
+                    var service = this.getConnection();
                     array.forEach(this.userOptionsToRequest, function(item) {
                         new Sage.SData.Client.SDataSingleResourceRequest(this)
                             .setContractName('system')
@@ -346,7 +352,7 @@ define('Mobile/SalesLogix/Application', [
             ErrorManager.addError(response, o, {}, 'failure');
         },
         requestOwnerDescription: function(key) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
                 .setResourceKind('owners')
                 .setResourceSelector(string.substitute('"${0}"', [key]))
                 .setQueryArg('select', 'OwnerDescription');
@@ -417,6 +423,7 @@ define('Mobile/SalesLogix/Application', [
             return hasRoot && result;
         },
         navigateToInitialView: function() {
+            return;
             try
             {
                 var restoredState = this.navigationState,

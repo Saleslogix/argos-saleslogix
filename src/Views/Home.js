@@ -1,15 +1,30 @@
+/// <reference path="../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../argos-sdk/src/List.js"/>
+
 define('Mobile/SalesLogix/Views/Home', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/GroupedList'
+    'dojo/dom-attr',
+    'dojo/data/ItemFileReadStore',
+    'Sage/Platform/Mobile/GroupedList',
+    'argos!application',
+    'argos!scene',
+    'argos!customizations'
 ], function(
     declare,
     array,
     lang,
-    GroupedList
+    domAttr,
+    ItemFileReadStore,
+    GroupedList,
+    app,
+    scene,
+    customizations
 ) {
-
     return declare('Mobile.SalesLogix.Views.Home', [GroupedList], {
         //Templates
         rowTemplate: new Simplate([
@@ -33,6 +48,13 @@ define('Mobile/SalesLogix/Views/Home', [
         titleText: 'Home',
         actionsText: 'Quick Actions',
         viewsText: 'Go To',
+        accountsText: 'Accounts',
+        contactsText: 'Contacts',
+        leadsText: 'Leads',
+        opportunitiesText: 'Opportunities',
+        ticketsText: 'Tickets',
+        calendarText: 'Calendar',
+        historyText: 'History',
 
         //View Properties
         id: 'home',
@@ -41,18 +63,24 @@ define('Mobile/SalesLogix/Views/Home', [
         customizationSet: 'home',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
+        defaultViewOrder:  [
+            'account_list',
+            'contact_list',
+            'lead_list',
+            'opportunity_list',
+            'ticket_list',
+            'calendar_daylist',
+            'history_list'
+        ],
 
-        navigateToView: function(params) {
-            var view = App.getView(params && params.view);
-            if (view)
-                view.show();
+        navigateToView: function(evt, node) {
+            var view = node && domAttr.get(node, 'data-view');
+            if (view) scene().showView(view);
         },
-        addAccountContact: function(params) {
-            var view = App.getView(this.addAccountContactView);
-            if (view)
-                view.show({
-                    insert: true
-                });
+        addAccountContact: function() {
+            scene().showView(this.addAccountContactView, {
+                insert: true
+            });
         },
         formatSearchQuery: function(searchQuery) {
             var expression = new RegExp(searchQuery, 'i');
@@ -61,11 +89,8 @@ define('Mobile/SalesLogix/Views/Home', [
                 return expression.test(entry.title);
             };
         },
-        hasMoreData: function() {
-            return false;
-        },
-        getGroupForEntry: function(entry) {
-            if (entry.view)
+        getGroupForItem: function(item) {
+            if (item.action == 'navigateToView')
                 return {
                     tag: 'view',
                     title: this.viewsText
@@ -76,11 +101,6 @@ define('Mobile/SalesLogix/Views/Home', [
                 title: this.actionsText
             };
         },
-        init: function() {
-            this.inherited(arguments);
-
-            this.connect(App, 'onRegistered', this._onRegistered);
-        },
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 tbar: [{
@@ -90,73 +110,116 @@ define('Mobile/SalesLogix/Views/Home', [
             });
         },
         createLayout: function() {
-            // don't need to cache as it is only re-rendered when there is a change
-            var configured = lang.getObject('preferences.home.visible', false, App) || [],
-                layout = [{
-                    id: 'actions',
-                    children: [{
-                        'name': 'AddAccountContactAction',
-                        'action': 'addAccountContact',
-                        'icon': 'content/images/icons/New_Contact_24x24.png',
-                        'title': this.addAccountContactText
-                    }]
-                }];
-
-            var visible = {
+            return this.layout || (this.layout = [{
+                id: 'actions',
+                children: [{
+                    'name': 'AddAccountContactAction',
+                    'action': 'addAccountContact',
+                    'icon': 'content/images/icons/New_Contact_24x24.png',
+                    'title': this.addAccountContactText
+                }]
+            },{
                 id: 'views',
-                children: []
-            };
-
-            for (var i = 0; i < configured.length; i++)
-            {
-                var view = App.getView(configured[i]);
-                if (view)
-                {
-                    visible.children.push({
-                        'action': 'navigateToView',
-                        'view': view.id,
-                        'icon': view.icon,
-                        'title': view.titleText,
-                        'security': view.getSecurity()
-                    });
-                }
-            }
-
-            layout.push(visible);
-
-            return layout;
+                children: [{
+                    'name': 'account_list',
+                    'view': 'account_list',
+                    'action': 'navigateToView',
+                    'icon': 'content/images/icons/Company_24.png',
+                    'title': this.accountsText,
+                    'security': 'Entities/Account/View'
+                },{
+                    'name': 'contact_list',
+                    'view': 'contact_list',
+                    'action': 'navigateToView',
+                    'icon': 'content/images/icons/Contacts_24x24.png',
+                    'title': this.contactsText,
+                    'security': 'Entities/Contact/View'
+                },{
+                    'name': 'lead_list',
+                    'view': 'lead_list',
+                    'action': 'navigateToView',
+                    'icon': 'content/images/icons/Leads_24x24.png',
+                    'title': this.leadsText,
+                    'security': 'Entities/Lead/View'
+                },{
+                    'name': 'opportunity_list',
+                    'view': 'opportunity_list',
+                    'action': 'navigateToView',
+                    'icon': 'content/images/icons/opportunity_24.png',
+                    'title': this.opportunitiesText,
+                    'security': 'Entities/Opportunity/View'
+                },{
+                    'name': 'ticket_list',
+                    'view': 'ticket_list',
+                    'action': 'navigateToView',
+                    'icon': 'content/images/icons/Ticket_24x24.png',
+                    'title': this.ticketsText,
+                    'security': 'Entities/Ticket/View'
+                },{
+                    'name': 'calendar_daylist',
+                    'view': 'calendar_daylist',
+                    'action': 'navigateToView',
+                    'icon': 'content/images/icons/Calendar_24x24.png',
+                    'title': this.calendarText,
+                    'security': null
+                },{
+                    'name': 'history_list',
+                    'view': 'history_list',
+                    'action': 'navigateToView',
+                    'icon': 'content/images/icons/journal_24.png',
+                    'title': this.historyText,
+                    'security': null
+                }]
+            }]);
         },
-        requestData: function() {
-            var layout = this._createCustomizedLayout(this.createLayout()),
+        createListFrom: function(layout) {
+            var configured = lang.getObject('preferences.home.visible', false, app()) || this.defaultViewOrder,
+                visible = {},
+                views = null,
                 list = [];
 
-            for (var i = 0; i < layout.length; i++)
-            {
-                var section = layout[i].children;
+            array.forEach(configured, function(view, index) { this[view] = index; }, visible);
+            array.some(layout, function(row) { if (row.id == 'views') { views = row.children; return false; } });
+            array.forEach(views, function(view) { view.position = visible.hasOwnProperty(view.view) ? visible[view.view] : -1; });
 
-                for (var j = 0; j < section.length; j++)
-                {
-                    var row = section[j];
+            views.sort(function(a, b) {
+                return a.position < b.position ? -1 : a.position > b.position ? 1 : 0;
+            });
 
-                    if (row['security'] && !App.hasAccessTo(row['security']))
-                        return;
-                    if (typeof this.query !== 'function' || this.query(row))
-                        list.push(row);
-                }
-            }
+            /* todo: move this functionality into it's own store so that filters can be applied dynamically? */
 
-            this.processFeed({'$resources': list});
+            array.forEach(layout, function(section) {
+                array.forEach(section['children'], function(row) {
+                    if (row['position'] <= -1) return;
+                    if (row['security'] && !app().hasAccessTo(row['security'])) return;
+
+                    if (typeof this.query !== 'function' || this.query(row)) list.push(row);
+                }, this);
+            }, this);
+
+            return list;
+        },
+        createStore: function() {
+            var layout = customizations().apply(customizations().toPath(this.customizationSet, 'home', this.id), this.createLayout()),
+                store = new ItemFileReadStore({
+                    data: {
+                        identifier: 'name',
+                        items: this.createListFrom(layout)
+                    }
+                });
+
+            return store;
         },
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
             if (view)
                 view.show();
         },
-        _onRegistered: function() {
-            this.refreshRequired = true;
-        },
         refreshRequiredFor: function(options) {
-            var visible = lang.getObject('preferences.home.visible', false, App) || [],
+            /* todo: fix processing for refresh */
+            /*
+            var preferences = app().preferences,
+                visible = preferences && preferences.home && preferences.home.visible,
                 shown = this.feed && this.feed['$resources'];
 
             if (!visible || !shown || (visible.length != shown.length))
@@ -164,6 +227,7 @@ define('Mobile/SalesLogix/Views/Home', [
 
             for (var i = 0; i < visible.length; i++)
                 if (visible[i] != shown[i]['$key']) return true;
+            */
 
             return this.inherited(arguments);
         }
