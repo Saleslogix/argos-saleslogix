@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         regardingText: 'regarding',
         isLeadText: 'for lead',
         startingText: 'time',
-		startingFormatText : 'M/d/yyyy h:mm tt',
+		startingFormatText : 'M/D/YYYY h:mm A',
         titleText: 'Note',
         companyText: 'company',
         leadText: 'lead',

@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         categoryText: 'category',
         categoryTitleText: 'Activity Category',
         completedText: 'completed date',
-		completedFormatText: 'M/d/yyyy h:mm tt',
+		completedFormatText: 'M/D/YYYY h:mm A',
         completionText: 'Completion',
         durationText: 'duration',
 		durationInvalidText: "The field '${2}' must have a value.",
@@ -49,7 +49,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         resultText: 'result',
         resultTitleText: 'Result',
         startingText: 'start date',
-		startingFormatText: 'M/d/yyyy h:mm tt',
+		startingFormatText: 'M/D/YYYY h:mm A',
         timelessText: 'timeless',
         durationValueText: {
             0: 'none',
