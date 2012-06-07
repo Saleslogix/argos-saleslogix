@@ -21,7 +21,7 @@
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
 
     <!-- iScroll -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/iscroll.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/iscroll-lite.js"></script>
     <script type="text/javascript">
     document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
     </script>
@@ -46,16 +46,9 @@
         { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
         { name: 'Mobile/SalesLogix', location: 'src' }
     ]});
-    </script>
-    <!-- FIGURE OUT WHY LOAD EVENT IS NOT FIRING -->
+    </script>>
     <script type="text/javascript">
     (function() {
-        //window.addEventListener('load', function() { console.log('onload'); });
-        /*
-        require(['dojo/domReady!'], function(ready) {
-            console.log('domReady');
-        });
-        */
         var application = 'Mobile/SalesLogix/Application',
             configuration = [
                 'configuration/development'
@@ -66,15 +59,11 @@
                 'localization/saleslogix/en'
             ];
             require(['dojo/domReady!'].concat(localization), function(ready) {
-                //ready(function() {
-                    console.log('domReady!');
+                var instance = new application(configuration);
 
-                    var instance = new application(configuration);
-
-                    instance.activate();
-                    instance.startup();
-                    instance.run();
-                //});
+                instance.activate();
+                instance.startup();
+                instance.run();
             });
         });
     })();
