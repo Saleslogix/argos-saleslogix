@@ -50,7 +50,7 @@
     <!-- FIGURE OUT WHY LOAD EVENT IS NOT FIRING -->
     <script type="text/javascript">
     (function() {
-        window.addEventListener('load', function() { console.log('onload'); });
+        //window.addEventListener('load', function() { console.log('onload'); });
         /*
         require(['dojo/domReady!'], function(ready) {
             console.log('domReady');
@@ -65,8 +65,8 @@
                 'localization/en',
                 'localization/saleslogix/en'
             ];
-            require(['dojo/ready'].concat(localization), function(ready) {
-                ready(function() {
+            require(['dojo/domReady!'].concat(localization), function(ready) {
+                //ready(function() {
                     console.log('domReady!');
 
                     var instance = new application(configuration);
@@ -74,7 +74,7 @@
                     instance.activate();
                     instance.startup();
                     instance.run();
-                });
+                //});
             });
         });
     })();
