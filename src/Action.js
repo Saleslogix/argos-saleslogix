@@ -36,7 +36,6 @@ define('Mobile/SalesLogix/Action', [
 
             this.navigateToHistoryInsert(entry, complete);
         },
-
         callPhone: function(action, selection, phoneProperty) {
             lang.mixin(selection.data, {
                 'Type': 'atPhoneCall',
@@ -47,13 +46,23 @@ define('Mobile/SalesLogix/Action', [
                 App.initiateCall(selection.data[phoneProperty]);
             }.bindDelegate(this), selection.data);
         },
+        sendEmail: function(action, selection, emailProperty) {
+            lang.mixin(selection.data, {
+                'Type': 'atEmail',
+                'Description': string.substitute(Mobile.SalesLogix.Action.emailedText, [selection.data['$descriptor']])
+            });
+
+            Mobile.SalesLogix.Action.recordToHistory(function() {
+                App.initiateEmail(selection.data[emailProperty]);
+            }.bindDelegate(this), selection.data);
+        },
 
         addNote: function(action, selection) {
-            this.options.source = {
+            this.setSource({
                 entry: selection.data,
-                resourceKind: this.resourceKind,
+                descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
-            };
+            });
 
             var view = App.getView('history_edit');
 
@@ -61,11 +70,11 @@ define('Mobile/SalesLogix/Action', [
                 view.show({insert: true});
         },
         addActivity: function(action, selection) {
-            this.options.source = {
+            this.setSource({
                 entry: selection.data,
-                resourceKind: this.resourceKind,
+                descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
-            };
+            });
             App.navigateToActivityInsertView({insert: true});
         },
         navigateToEntity: function(action, selection, o) {
@@ -77,16 +86,6 @@ define('Mobile/SalesLogix/Action', [
 
             if (view && options.key)
                 view.show(options);
-        },
-        sendEmail: function(action, selection, emailProperty) {
-            lang.mixin(selection.data, {
-                'Type': 'atEmail',
-                'Description': string.substitute(Mobile.SalesLogix.Action.emailedText, [selection.data['$descriptor']])
-            });
-
-            Mobile.SalesLogix.Action.recordToHistory(function() {
-                App.initiateEmail(selection.data[emailProperty]);
-            }.bindDelegate(this), selection.data);
         }
     });
 });

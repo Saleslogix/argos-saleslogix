@@ -167,8 +167,11 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
-                return /^(accounts|contacts|opportunities|leads|tickets)$/.test(o.resourceKind) && o.key;
+                var context = (o.options && o.options.source) || o;
+                return /^(accounts|contacts|opportunities|leads|tickets)$/.test(context.resourceKind) && context.key;
             });
+
+            found = found.options.source || found;
 
             var lookup = {
                 'accounts': this.applyAccountContext,
@@ -209,11 +212,21 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 'LeadName': context.descriptor
             });
 
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var company;
 
-            if (entry && entry['Company'])
-                this.fields['AccountName'].setValue(entry['Company']);
+            if (context.entry['Company'])
+            {
+                company = context.entry['Company'];
+            }
+            else
+            {
+                var view = App.getView(context.id),
+                    entry = view && view.entry;
+                company = entry['Company'];
+            }
+
+            if (company)
+                this.fields['AccountName'].setValue(company);
         },
         applyOpportunityContext: function(context) {
 
@@ -224,15 +237,24 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             });
             this.onAccountDependentChange(opportunityField.getValue, opportunityField);
 
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var accountEntry;
+            if (context.entry['Account'])
+            {
+                accountEntry = context.entry['Account'];
+            }
+            else
+            {
+                var view = App.getView(context.id),
+                    entry = view && view.entry;
+                accountEntry = entry['Account'];
+            }
 
-            if (entry && entry['Account'])
+            if (accountEntry)
             {
                 var accountField = this.fields['Account'];
                 accountField.setValue({
-                    'AccountId': entry['Account']['$key'],
-                    'AccountName': entry['Account']['AccountName']
+                    'AccountId': accountEntry['$key'],
+                    'AccountName': accountEntry['AccountName']
                 });
                 this.onAccountChange(accountField.getValue(), accountField);
             }
@@ -247,15 +269,24 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             });
             this.onAccountDependentChange(contactField.getValue(), contactField);
 
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var accountEntry;
+            if (context.entry['Account'])
+            {
+                accountEntry = context.entry['Account'];
+            }
+            else
+            {
+                var view = App.getView(context.id),
+                    entry = view && view.entry;
+                accountEntry = entry['Account'];
+            }
 
-            if (entry && entry['Account'])
+            if (accountEntry)
             {
                 var accountField = this.fields['Account'];
                 accountField.setValue({
-                    'AccountId': entry['Account']['$key'],
-                    'AccountName': entry['Account']['AccountName']
+                    'AccountId': accountEntry['$key'],
+                    'AccountName': accountEntry['AccountName']
                 });
                 this.onAccountChange(accountField.getValue(), accountField);
             }
@@ -268,25 +299,36 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             });
             this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var accountEntry, contactEntry;
+            if (context.entry['Account'])
+            {
+                accountEntry = context.entry['Account'];
+                contactEntry = context.entry['Contact'];
+            }
+            else
+            {
+                var view = App.getView(context.id),
+                    entry = view && view.entry;
+                accountEntry = entry['Account'];
+                contactEntry = entry['Contact'];
+            }
 
-            if (entry && entry['Account'])
+            if (accountEntry)
             {
                 var accountField = this.fields['Account'];
                 accountField.setValue({
-                    'AccountId': entry['Account']['$key'],
-                    'AccountName': entry['Account']['AccountName']
+                    'AccountId': accountEntry['$key'],
+                    'AccountName': accountEntry['AccountName']
                 });
                 this.onAccountChange(accountField.getValue(), accountField);
             }
 
-            if (entry && entry['Contact'])
+            if (contactEntry)
             {
                 var contactField = this.fields['Contact'];
                 contactField.setValue({
-                    'ContactId': entry['Contact']['$key'],
-                    'ContactName': entry['Contact']['NameLF']
+                    'ContactId': contactEntry['$key'],
+                    'ContactName': contactEntry['NameLF']
                 });
                 this.onAccountDependentChange(contactField.getValue(), contactField);
             }

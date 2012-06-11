@@ -374,7 +374,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
-                console.log(context);
 
                 return (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) ||
                        (/^(useractivities|activities)$/.test(context.resourceKind));

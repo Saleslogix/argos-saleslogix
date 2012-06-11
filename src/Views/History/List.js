@@ -164,26 +164,26 @@ define('Mobile/SalesLogix/Views/History/List', [
                 }]
             );
         },
-        navigateToContactOrLead: function(action, key, descriptor) {
-            var selectedEntry = this.entries[key],
-                entity = this.resolveEntityName(selectedEntry),
-                viewId = null, options = null;
+        navigateToContactOrLead: function(action, selection) {
+            var entity = this.resolveEntityName(selection.data),
+                viewId,
+                options;
 
             switch(entity)
             {
                 case 'Contact':
                     viewId = 'contact_detail';
                     options = {
-                        key: selectedEntry['ContactId'],
-                        descriptor: selectedEntry['ContactName']
+                        key: selection.data['ContactId'],
+                        descriptor: selection.data['ContactName']
                     };
                     break;
 
                 case 'Lead':
                     viewId = 'lead_detail';
                     options = {
-                        key: selectedEntry['LeadId'],
-                        descriptor: selectedEntry['LeadName']
+                        key: selection.data['LeadId'],
+                        descriptor: selection.data['LeadName']
                     };
                     break;
             }
