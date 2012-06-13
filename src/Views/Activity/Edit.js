@@ -466,7 +466,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 if (/^(useractivities)$/.test(context.resourceKind))
                     return true;
 
-                if (/^(activities)$/.test(context.resourceKind) && context.currentDate)
+                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate'])
                     return true;
 
                 return false;
