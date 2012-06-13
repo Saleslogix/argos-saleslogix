@@ -31,6 +31,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         companyText: 'company',
         leadText: 'lead',
         relatedItemsText: 'Related Items',
+        yesText: 'YES',
+        noText: 'NO',
 
         //View Properties
         id: 'history_edit',
@@ -376,7 +378,9 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                     label: this.isLeadText,
                     name: 'IsLead',
                     include: false,
-                    type: 'boolean'
+                    type: 'boolean',
+                    onText: this.yesText,
+                    offText: this.noText
                 },{
                     label: this.accountText,
                     name: 'Account',
