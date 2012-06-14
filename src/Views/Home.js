@@ -139,7 +139,7 @@ define('Mobile/SalesLogix/Views/Home', [
                     var row = section[j];
 
                     if (row['security'] && !App.hasAccessTo(row['security']))
-                        return;
+                        continue;
                     if (typeof this.query !== 'function' || this.query(row))
                         list.push(row);
                 }
