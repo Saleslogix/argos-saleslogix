@@ -136,10 +136,12 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     template: {}
                 };
 
-                if (isSeries)
-                    options.key = this.entry['$key'].split(this.recurringActivityIdSeparator).shift();
-                else
+                if (isSeries){
+                    this.recurrence.Leader = this.entry.Leader;
+                    options.entry = this.recurrence;
+                } else {
                     options.entry = this.entry;
+                }
 
                 view.show(options, {
                     returnTo: -1
