@@ -32,7 +32,7 @@ define('Mobile/SalesLogix/Recurrence', [
 ) {
     return lang.setObject('Mobile.SalesLogix.Recurrence', {
         // Localization
-        onceText: 'Once',
+        neverText: 'Never',
         daysText: 'days',
         dailyText: 'Daily',
         weeksText: 'weeks',
@@ -82,7 +82,7 @@ define('Mobile/SalesLogix/Recurrence', [
         ],
         simplifiedOptions: [
             {
-                label: 'onceText',
+                label: 'neverText',
                 Recurring: false,
                 RecurPeriod: -1, // not recurring
                 basePeriodSpec: 0,
@@ -201,7 +201,7 @@ define('Mobile/SalesLogix/Recurrence', [
                     return plural ? this.yearsText : this.yearlyText;
                     break;
                 default:
-                    return this.onceText;
+                    return this.neverText;
             }
         },
         isAfterCompletion: function(panel) {
