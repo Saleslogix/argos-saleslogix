@@ -208,6 +208,10 @@
     padding: 8px 32px 8px 36px;
 }
 
+#configure > .list-content > li h3 > span:first-child
+{
+    float:left;
+}
 #configure > .list-content > li h3 > [data-action="moveUp"],
 #configure > .list-content > li h3 > [data-action="moveDown"]
 {

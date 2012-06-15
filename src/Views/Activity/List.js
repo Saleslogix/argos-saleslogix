@@ -19,10 +19,10 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
-            '<div data-action="selectEntry" class="list-item-static-selector {% if ($$.enableActions) { %}',
-                'button nonGlossExtraWhiteButton actions-enabled',
-            '{% } %}"><img src="{%= $$.activityIconByType[$.Type] || $$.icon %}" class="icon" /></div>',
-            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+                '<button data-action="selectEntry" class="list-item-selector button">',
+                    '<img src="{%= $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
+                '</button>',
+                '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
