@@ -59,6 +59,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
                     id: 'callMain',
                     icon: 'content/images/icons/Call_24x24.png',
                     label: this.callMainActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
                     fn: action.callPhone.bindDelegate(this, 'MainPhone')
                 },{
                     id: 'viewContacts',

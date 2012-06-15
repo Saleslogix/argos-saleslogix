@@ -57,11 +57,13 @@ define('Mobile/SalesLogix/Views/Lead/List', [
                     id: 'callMain',
                     icon: 'content/images/icons/Call_24x24.png',
                     label: this.callMainActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
                     fn: action.callPhone.bindDelegate(this, 'WorkPhone')
                 },{
                     id: 'sendEmail',
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
                     label: this.sendEmailActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'Email'),
                     fn: action.sendEmail.bindDelegate(this, 'Email')
                 },{
                     id: 'addNote',

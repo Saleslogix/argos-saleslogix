@@ -86,6 +86,10 @@ define('Mobile/SalesLogix/Action', [
 
             if (view && options.key)
                 view.show(options);
+        },
+
+        hasProperty: function(action, selection, property) {
+            return utility.getValue(selection.data, property);
         }
     });
 });

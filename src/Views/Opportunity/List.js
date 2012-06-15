@@ -93,6 +93,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                     id: 'viewAccount',
                     icon: 'content/images/icons/Company_24.png',
                     label: this.viewAccountActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'account_detail',
                         keyProperty: 'Account.$key',

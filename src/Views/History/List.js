@@ -142,6 +142,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                     id: 'viewAccount',
                     icon: 'content/images/icons/Company_24.png',
                     label: this.viewAccountActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'account_detail',
                         keyProperty: 'AccountId',
@@ -151,6 +152,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                     id: 'viewOpportunity',
                     icon: 'content/images/icons/opportunity_24.png',
                     label: this.viewOpportunityActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'opportunity_detail',
                         keyProperty: 'OpportunityId',
@@ -160,9 +162,13 @@ define('Mobile/SalesLogix/Views/History/List', [
                     id: 'viewContact',
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.viewContactActionText,
-                    action: 'navigateToContactOrLead'
+                    action: 'navigateToContactOrLead',
+                    enabled: this.hasContactOrLead
                 }]
             );
+        },
+        hasContactOrLead: function(action, selection) {
+            return (selection.data['ContactId']) || (selection.data['LeadId']);
         },
         navigateToContactOrLead: function(action, selection) {
             var entity = this.resolveEntityName(selection.data),

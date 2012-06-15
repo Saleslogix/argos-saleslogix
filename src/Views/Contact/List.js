@@ -59,26 +59,29 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                     id: 'callMain',
                     icon: 'content/images/icons/Call_24x24.png',
                     label: this.callMainActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
                     fn: action.callPhone.bindDelegate(this, 'WorkPhone')
                 },{
                     id: 'callMobile',
                     icon: 'content/images/icons/Call_24x24.png',
                     label: this.callMobileActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'Mobile'),
                     fn: action.callPhone.bindDelegate(this, 'Mobile')
                 },{
                     id: 'viewAccount',
                     icon: 'content/images/icons/Company_24.png',
                     label: this.viewAccountActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'account_detail',
                         keyProperty: 'Account.$key',
-                        textProperty: 'AccountName',
-                        entry: this.getEntry
+                        textProperty: 'AccountName'
                     })
                 },{
                     id: 'sendEmail',
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
                     label: this.sendEmailActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'Email'),
                     fn: action.sendEmail.bindDelegate(this, 'Email')
                 },{
                     id: 'addNote',

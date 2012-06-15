@@ -61,6 +61,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
                     id: 'viewAccount',
                     icon: 'content/images/icons/Company_24.png',
                     label: this.viewAccountActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'account_detail',
                         keyProperty: 'Account.$key',
@@ -70,6 +71,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
                     id: 'viewContact',
                     icon: 'content/images/icons/Contacts_24x24.png',
                     label: this.viewContactActionText,
+                    enabled: action.hasProperty.bindDelegate(this, 'Contact.$key'),
                     fn: action.navigateToEntity.bindDelegate(this, {
                         view: 'contact_detail',
                         keyProperty: 'Contact.$key',
