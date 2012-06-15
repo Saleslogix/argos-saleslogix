@@ -617,9 +617,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             else
                 this.fields['Reminder'].disable();
 
-            var isLeadField = this.fields['IsLead'];
-            isLeadField.setValue(this.options.isForLead);
-            this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+            if (this.isInLeadContext()) {
+                var isLeadField = this.fields['IsLead'];
+                isLeadField.setValue(true);
+                this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+                this.fields['Lead'].setValue(values, true);
+                this.fields['AccountName'].setValue(values['AccountName']);
+            }
 
             var entry = this.options.entry || this.entry,
                 denyEdit = !this.options.insert && !this.currentUserCanEdit(entry),
