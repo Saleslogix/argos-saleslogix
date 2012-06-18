@@ -171,7 +171,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 return /^(accounts|contacts|opportunities|leads|tickets)$/.test(context.resourceKind) && context.key;
             });
 
-            found = found.options.source || found;
+            found = (found && found.options && found.options.source) || found;
 
             var lookup = {
                 'accounts': this.applyAccountContext,
