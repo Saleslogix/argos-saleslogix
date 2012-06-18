@@ -486,8 +486,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     type: 'lookup',
                     emptyText: '',
                     applyTo: '.',
-                    textProperty: 'UserInfo',
-                    textTemplate: template.nameLF,
+                    valueKeyProperty: 'LeadId',
+                    valueTextProperty: 'LeadName',
                     view: 'lead_related'
                 },{
                     label: this.companyText,
