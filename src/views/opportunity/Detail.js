@@ -116,7 +116,9 @@ Ext.namespace("Mobile.SalesLogix.Opportunity");
                 },{
                     label: this.estCloseText,
                     name: 'EstimatedClose',
-                    renderer: Mobile.SalesLogix.Format.date
+                    renderer: Mobile.SalesLogix.Format.date.createDelegate(
+                        this, [null, true], true
+                    )
                 },{
                     label: this.potentialText,
                     name: 'SalesPotential',
