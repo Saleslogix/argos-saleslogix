@@ -10,7 +10,8 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
                 offline: true,
                 url: 'http://50.16.242.109/sdata/slx/dynamic/-/',
                 json: true,
-                userName: 'admin'
+                userName: 'lee',
+                password: ''
             }
         },
         enableUpdateNotification: true
