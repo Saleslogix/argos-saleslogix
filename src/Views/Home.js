@@ -14,17 +14,16 @@ define('Mobile/SalesLogix/Views/Home', [
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
-            '<div class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
+            '<div class="list-item-static-selector">',
+                '{% if ($.icon) { %}',
+                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                '{% } %}',
+            '</div>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         itemTemplate: new Simplate([
-            '<h3>',
-            '{% if ($.icon) { %}',
-            '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-            '{% } %}',
-            '<span>{%: $.title %}</span>',
-            '</h3>'
+            '<h3>{%: $.title %}</h3>'
         ]),
 
         //Localization

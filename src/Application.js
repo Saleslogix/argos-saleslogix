@@ -465,10 +465,10 @@ define('Mobile/SalesLogix/Application', [
             if (view)
                 view.show();
         },
-        navigateToActivityInsertView: function() {
+        navigateToActivityInsertView: function(options) {
             var view = this.getView('activity_types_list');
             if (view)
-                view.show();
+                view.show(options || {});
         },
         initiateCall: function() {
             // shortcut for environment call

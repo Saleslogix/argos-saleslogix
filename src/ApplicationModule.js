@@ -78,6 +78,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Fields/PicklistField',
     'Mobile/SalesLogix/Fields/RecurrencesField',
 
+    'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',

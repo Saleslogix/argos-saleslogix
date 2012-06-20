@@ -24,9 +24,6 @@ define('Mobile/SalesLogix/Views/Configure', [
         emptyTemplate: new Simplate(['']),
         itemTemplate: new Simplate([
             '<h3>',
-            '{% if ($.icon) { %}',
-            '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-            '{% } %}',
             '<span>{%: $.$descriptor %}</span>',
             '<span data-action="moveUp"></span>',
             '<span data-action="moveDown"></span>',

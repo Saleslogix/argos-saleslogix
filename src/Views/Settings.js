@@ -10,13 +10,19 @@ define('Mobile/SalesLogix/Views/Settings', [
 
     return declare('Mobile.SalesLogix.Views.Settings', [List], {
         //Templates
-        itemTemplate: new Simplate([
-            '<h3 data-action="{%= $.action %}">',
+        rowTemplate: new Simplate([
+        '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
+        '<div class="list-item-static-selector">',
             '{% if ($.icon) { %}',
             '<img src="{%: $.icon %}" alt="icon" class="icon" />',
             '{% } %}',
-            '<span>{%: $.title %}</span>',
-            '</h3>'
+        '</div>',
+        '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+        '</li>'
+        ]),
+
+        itemTemplate: new Simplate([
+            '<h3 data-action="{%= $.action %}">{%: $.title %}</h3>'
         ]),
 
         //Localization

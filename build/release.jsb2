@@ -181,6 +181,10 @@
           "path": "../src"
         },
         {
+          "text": "Action.js",
+          "path": "../src"
+        },
+        {
           "text": "Validator.js",
           "path": "../src"
         },

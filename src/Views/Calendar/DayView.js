@@ -51,7 +51,11 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.Description %}" data-activity-type="{%: $.Type %}">',
             '<table class="calendar-entry-table"><tr>',
-            '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
+            '<td class="entry-table-icon">',
+            '<button data-action="selectEntry" class="list-item-selector button">',
+                '<img src="{%= $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
+            '</button>',
+            '</td>',
             '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
             '<td class="entry-table-description">{%! $$.itemTemplate %}</td>',
             '</tr></table>',
@@ -60,7 +64,10 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         eventRowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
             '<table class="calendar-entry-table"><tr>',
-            '<td class="entry-table-icon"><div data-action="selectEntry" class="list-item-selector"></div></td>',
+            '<td class="entry-table-icon">',
+            '<button data-action="selectEntry" class="list-item-selector button">',
+            '<img src="{%= $$.eventIcon %}" class="icon" /></button>',
+            '</td>',
             '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
             '</tr></table>',
             '</li>'
@@ -169,6 +176,18 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             'Description',
             'Type'
         ],
+        activityIconByType: {
+            'atToDo': 'content/images/icons/To_Do_24x24.png',
+            'atPhoneCall': 'content/images/icons/Call_24x24.png',
+            'atAppointment': 'content/images/icons/Meeting_24x24.png',
+            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
+            'atPersonal': 'content/images/icons/Personal_24x24.png',
+            'atQuestion': 'content/images/icons/help_24.png',
+            'atNote': 'content/images/icons/note_24.png',
+            'atEMail': 'content/images/icons/letters_24.png'
+        },
+        eventIcon: 'content/images/icons/Holiday_schemes_24.png',
+
         resourceKind: 'activities',
 
         _onRefresh: function(o) {

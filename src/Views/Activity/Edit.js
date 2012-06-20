@@ -489,7 +489,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+                entry = context.entry || (view && view.entry) || context;
 
             if (!entry || !entry['$key']) return;
 
@@ -502,7 +502,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         applyContactContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+                entry = context.entry || (view && view.entry) || context;
 
             if (!entry || !entry['$key']) return;
 

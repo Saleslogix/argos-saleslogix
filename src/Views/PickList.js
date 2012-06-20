@@ -10,13 +10,6 @@ define('Mobile/SalesLogix/Views/PickList', [
 
     return declare('Mobile.SalesLogix.Views.PickList', [List], {
         //Templates
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%: $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-            '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
-            '</li>'
-        ]),
-
         itemTemplate: new Simplate([
             '<h3>{%: $.text %}</h3>'
         ]),
