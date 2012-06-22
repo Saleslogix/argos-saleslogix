@@ -3,6 +3,7 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'home': {type: 'Mobile/SalesLogix/Views/Home'},
     'account_list': {type: 'Mobile/SalesLogix/Views/Account/List', security: 'Entities/Account/View'},
     'account_detail': {type: 'Mobile/SalesLogix/Views/Account/Detail'},
+    'account_edit': {type: 'Mobile/SalesLogix/Views/Account/Edit'},
     'contact_list': {type: 'Mobile/SalesLogix/Views/Contact/List'},
     'contact_detail': {type: 'Mobile/SalesLogix/Views/Contact/Detail'},
     'lead_list': {type: 'Mobile/SalesLogix/Views/Lead/List'},

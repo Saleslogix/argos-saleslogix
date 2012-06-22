@@ -16,13 +16,13 @@
 define('Mobile/SalesLogix/Fields/RecurrencesField', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/Fields/EditorField',
-    'Sage/Platform/Mobile/FieldManager'
+    'Sage/Platform/Mobile/Fields/FieldRegistry'
 ], function(
     declare,
     EditorField,
-    FieldManager
+    FieldRegistry
 ) {
-    var control = declare('Mobile.SalesLogix.Fields.RecurrencesField', [EditorField], {
+    var RecurrencesField = declare('Mobile.SalesLogix.Fields.RecurrencesField', [EditorField], {
         // Localization
         titleText: 'Recurring',
         emptyText: '',
@@ -44,5 +44,7 @@ define('Mobile/SalesLogix/Fields/RecurrencesField', [
         }
     });
 
-    return FieldManager.register('recurrences', control);
+    FieldRegistry.register('recurrences', RecurrencesField);
+
+    return RecurrencesField;
 });

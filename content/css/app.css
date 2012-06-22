@@ -617,14 +617,14 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
     display: none;
 }
 
-.panel-content > fieldset > .row-error > div > input,
-.panel-content > fieldset > .row-error > div > textarea
+.edit-content > fieldset > .row-error > div > input,
+.edit-content > fieldset > .row-error > div > textarea
 {
     color: red;
 }
 
-.panel-content > fieldset > .row-error > div > input:focus,
-.panel-content > fieldset > .row-error > div > textarea:focus
+.edit-content > fieldset > .row-error > div > input:focus,
+.edit-content > fieldset > .row-error > div > textarea:focus
 {
     box-shadow: 0 0 5px red !important;
 }
@@ -1434,11 +1434,11 @@ td.entry-table-description {
 
 .quick-nav > button
 {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    margin: 6px auto 6px auto;
+    margin: 4px auto 4px auto;
 }
 
 .quick-nav > button > span

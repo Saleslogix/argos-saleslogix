@@ -2,14 +2,14 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
     'dojo/_base/declare',
     'dojo/string',
     'Sage/Platform/Mobile/Fields/LookupField',
-    'Mobile/SalesLogix/Views/PickList',
-    'Sage/Platform/Mobile/FieldManager'
+    'Sage/Platform/Mobile/Fields/FieldRegistry',
+    'Mobile/SalesLogix/Views/PickList'
 ], function(
     declare,
     string,
     LookupField,
-    PickList,
-    FieldManager
+    FieldRegistry,
+    PickList
 ) {
     var viewsByName = {},
         viewsByNameCount = 0;
@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         return (viewsByName[name] = view);
     };
 
-    var control = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {
+    var PicklistField = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {
         picklist: false,
         orderBy: 'number asc',
         storageMode: 'text',
@@ -115,5 +115,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         }
     });
 
-    return FieldManager.register('picklist', control);
+    FieldRegistry.register('picklist', PicklistField);
+
+    return PicklistField;
 });

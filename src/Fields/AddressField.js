@@ -1,13 +1,13 @@
 define('Mobile/SalesLogix/Fields/AddressField', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/Fields/EditorField',
-    'Sage/Platform/Mobile/FieldManager'
+    'Sage/Platform/Mobile/Fields/FieldRegistry'
 ], function(
     declare,
     EditorField,
-    FieldManager
+    FieldRegistry
 ) {
-    var control = declare('Mobile.SalesLogix.Fields.AddressField', [EditorField], {
+    var AddressField = declare('Mobile.SalesLogix.Fields.AddressField', [EditorField], {
         widgetTemplate: new Simplate([
             '<label for="{%= $.name %}">{%: $.label %}</label>',
             '<button class="button simpleSubHeaderButton" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
@@ -32,5 +32,7 @@ define('Mobile/SalesLogix/Fields/AddressField', [
         }
     });
 
-    return FieldManager.register('address', control);
+    FieldRegistry.register('address', AddressField);
+
+    return AddressField;
 });

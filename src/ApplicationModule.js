@@ -3,12 +3,20 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'Sage/Platform/Mobile/ApplicationModule',
-    './ApplicationViews'
+    './ApplicationViews',
+    './Fields/AddressField',
+    './Fields/NameField',
+    './Fields/PicklistField',
+    './Fields/RecurrencesField'
 ], function(
     declare,
     lang,
     ApplicationModule,
-    ApplicationViews
+    ApplicationViews,
+    AddressField,
+    NameField,
+    PicklistField,
+    RecurrencesField
 ) {
 
     return declare('Mobile.SalesLogix.ApplicationModule', [ApplicationModule], {
