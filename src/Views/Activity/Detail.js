@@ -346,7 +346,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     name: 'Rollover',
                     property: 'Rollover',
                     label: this.rolloverText,
-                    include: this.isActivityTimeless
+                    include: this.isActivityTimeless,
+                    renderer: format.yesNo
                 },{
                     name: 'RecurrenceUI',
                     property: 'RecurrenceUI',
