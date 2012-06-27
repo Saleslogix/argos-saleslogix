@@ -1,5 +1,6 @@
 define('Mobile/SalesLogix/Views/Activity/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/connect',
     'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Template',
@@ -9,6 +10,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Mobile/SalesLogix/Recurrence'
 ], function(
     declare,
+    connect,
     array,
     string,
     template,
@@ -77,6 +79,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
         //View Properties
         id: 'activity_edit',
+        detailView: 'activity_detail',
         fieldsForLeads: ['AccountName', 'Lead'],
         fieldsForStandard: ['Account', 'Contact', 'Opportunity', 'Ticket'],
         picklistsByType: {
@@ -167,6 +170,30 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);
             this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceUIChange);
             this.connect(this.fields['Recurrence'], 'onChange', this.onRecurrenceChange);
+        },
+        onUpdateSuccess: function(entry) {
+            var view = App.getView(this.detailView),
+                originalKey = this.options.entry['$key'];
+
+            this.enable();
+
+            connect.publish('/app/refresh', [{
+                resourceKind: this.resourceKind,
+                key: entry['$key'],
+                data: entry
+            }]);
+
+            if (entry['$key'] != originalKey && view) {
+                // Editing single occurrence results in new $key/record
+                view.show({
+                    key: entry['$key']
+                }, {
+                    returnTo: -2
+                });
+
+            } else {
+                this.onUpdateCompleted(entry);
+            }
         },
         currentUserCanEdit: function(entry) {
             return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
