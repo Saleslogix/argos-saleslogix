@@ -202,33 +202,23 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.onAccountChange(accountField.getValue(), accountField);
         },
         applyLeadContext: function(context) {
-            this.options.isForLead = this.isInLeadContext();
+            var view = App.getView(context.id),
+                entry = context.entry || (view && view.entry);
 
+            if (!entry || !entry['$key']) return;
+
+            var leadField = this.fields['Lead'];
+            leadField.setValue({
+                'LeadId': entry['$key'],
+                'LeadName': entry['$descriptor']
+            });
+            this.onLeadChange(leadField.getValue(), leadField);
+
+            this.fields['AccountName'].setValue(entry['Company']);
 
             var isLeadField = this.fields['IsLead'];
-            isLeadField.setValue(this.options.isForLead);
-            this.onIsLeadChange(this.options.isForLead, isLeadField);
-
-            this.fields['Lead'].setValue({
-                'LeadId': context.key,
-                'LeadName': context.descriptor
-            });
-
-            var company;
-
-            if (context.entry['Company'])
-            {
-                company = context.entry['Company'];
-            }
-            else
-            {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
-                company = entry['Company'];
-            }
-
-            if (company)
-                this.fields['AccountName'].setValue(company);
+            isLeadField.setValue(context.resourceKind == 'leads');
+            this.onIsLeadChange(isLeadField.getValue(), isLeadField);
         },
         applyOpportunityContext: function(context) {
 
@@ -338,9 +328,24 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         setValues: function(values) {
             this.inherited(arguments);
 
-            var isLeadField = this.fields['IsLead'];
-            isLeadField.setValue(this.isInLeadContext());
-            this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+            if (this.isInLeadContext()) {
+                var isLeadField = this.fields['IsLead'];
+                isLeadField.setValue(true);
+                this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+
+                // Lead may be passed as entire Lead entry and not just LeadId/LeadName
+                var leadField = this.fields['Lead'],
+                    lead = utility.getValue(values, leadField.applyTo);
+                if (lead && lead['$key'])
+                {
+                    var leadValue = {
+                        LeadId: lead['$key'],
+                        LeadName: lead['$descriptor']
+                    };
+                    leadField.setValue(leadValue, true);
+                    this.onIsLeadChange(leadValue);
+                }
+           }
 
             this.fields['Text'].setValue(values['LongNotes'] || values['Notes'] || '');
         },

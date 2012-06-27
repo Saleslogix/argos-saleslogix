@@ -37,6 +37,12 @@ define('Mobile/SalesLogix/Action', [
             this.navigateToHistoryInsert(entry, complete);
         },
         callPhone: function(action, selection, phoneProperty) {
+            this.setSource({
+                entry: selection.data,
+                descriptor: selection.data['$descriptor'],
+                key: selection.data['$key']
+            });
+
             lang.mixin(selection.data, {
                 'Type': 'atPhoneCall',
                 'Description': string.substitute(Mobile.SalesLogix.Action.calledText, [selection.data['$descriptor']])
