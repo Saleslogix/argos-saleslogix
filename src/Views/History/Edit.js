@@ -185,6 +185,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
 
             if (found && lookup[found.resourceKind])
                 lookup[found.resourceKind].call(this, found);
+
+            this.context = found;
             
             var user = App.context && App.context.user;
 
@@ -194,12 +196,13 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.fields['StartDate'].setValue(new Date());
         },
         applyAccountContext: function(context) {
-            var accountField = this.fields['Account'];
-            accountField.setValue({
-                'AccountId': context.key,
-                'AccountName': context.descriptor
-            });
-            this.onAccountChange(accountField.getValue(), accountField);
+            var accountField = this.fields['Account'],
+                accountValue = {
+                    'AccountId': context.key,
+                    'AccountName': context.descriptor
+                };
+            accountField.setValue(accountValue);
+            this.onAccountChange(accountValue, accountField);
         },
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
@@ -207,12 +210,13 @@ define('Mobile/SalesLogix/Views/History/Edit', [
 
             if (!entry || !entry['$key']) return;
 
-            var leadField = this.fields['Lead'];
-            leadField.setValue({
-                'LeadId': entry['$key'],
-                'LeadName': entry['$descriptor']
-            });
-            this.onLeadChange(leadField.getValue(), leadField);
+            var leadField = this.fields['Lead'],
+                leadValue = {
+                    'LeadId': entry['$key'],
+                    'LeadName': entry['$descriptor']
+                };
+            leadField.setValue(leadValue);
+            this.onLeadChange(leadValue, leadField);
 
             this.fields['AccountName'].setValue(entry['Company']);
 
@@ -221,7 +225,6 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
         },
         applyOpportunityContext: function(context) {
-
             var opportunityField = this.fields['Opportunity'];
             opportunityField.setValue({
                 'OpportunityId': context.key,
@@ -328,24 +331,29 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         setValues: function(values) {
             this.inherited(arguments);
 
-            if (this.isInLeadContext()) {
+            if (this.isInLeadContext())
+            {
                 var isLeadField = this.fields['IsLead'];
                 isLeadField.setValue(true);
-                this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+                this.onIsLeadChange(true, isLeadField);
 
-                // Lead may be passed as entire Lead entry and not just LeadId/LeadName
-                var leadField = this.fields['Lead'],
-                    lead = utility.getValue(values, leadField.applyTo);
-                if (lead && lead['$key'])
-                {
-                    var leadValue = {
-                        LeadId: lead['$key'],
-                        LeadName: lead['$descriptor']
-                    };
-                    leadField.setValue(leadValue, true);
-                    this.onIsLeadChange(leadValue);
-                }
-           }
+                var leadCompany = utility.getValue(values, 'Company');
+                if (leadCompany)
+                   this.fields['AccountName'].setValue(leadCompany);
+            }
+
+            // entry may have been passed as full entry, reapply context logic to extract properties
+            if (this.context && this.context.resourceKind)
+            {
+                var lookup = {
+                    'accounts': this.applyAccountContext,
+                    'contacts': this.applyContactContext,
+                    'opportunities': this.applyOpportunityContext,
+                    'leads': this.applyLeadContext,
+                    'tickets': this.applyTicketContext
+                };
+                lookup[this.context.resourceKind].call(this, this.context);
+            }
 
             this.fields['Text'].setValue(values['LongNotes'] || values['Notes'] || '');
         },
