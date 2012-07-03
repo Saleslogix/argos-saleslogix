@@ -7,7 +7,8 @@ define('Mobile/SalesLogix/Views/History/List', [
     'dojo/query',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataListMixin'
 ], function(
     declare,
     array,
@@ -17,10 +18,11 @@ define('Mobile/SalesLogix/Views/History/List', [
     query,
     format,
     convert,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List], {
+    return declare('Mobile.SalesLogix.Views.History.List', [List, _SDataListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}" data-entity-name="{%: $$.resolveEntityName($) %}">',

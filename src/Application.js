@@ -9,7 +9,6 @@ define('Mobile/SalesLogix/Application', [
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
-    'Sage/Platform/Mobile/WithSData',
     'dojo/_base/sniff'
 ], function(
     declare,
@@ -22,7 +21,6 @@ define('Mobile/SalesLogix/Application', [
     ErrorManager,
     environment,
     Application,
-    WithSData,
     sniff
 ) {
 

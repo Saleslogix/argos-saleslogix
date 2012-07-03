@@ -8,6 +8,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
+    'Sage/Platform/Mobile/_SDataDetailMixin',
     'dojo/NodeList-manipulate'
 ], function(
     declare,
@@ -18,10 +19,12 @@ define('Mobile/SalesLogix/Views/History/Detail', [
     format,
     ErrorManager,
     template,
-    Detail
+    Detail,
+    _SDataDetailMixin,
+    nodeListManipulate
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.History.Detail', [Detail, _SDataDetailMixin], {
         //Templates
         createUserTemplate: template.nameLF,
 
