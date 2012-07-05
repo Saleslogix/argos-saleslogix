@@ -4,27 +4,35 @@ define('Mobile/SalesLogix/Application', [
     'dojo/_base/connect',
     'dojo/_base/json',
     'dojo/_base/lang',
+    'dojo/_base/sniff',
     'dojo/has',
     'dojo/string',
     'Sage/Platform/Mobile/ErrorManager',
-    'Mobile/SalesLogix/Environment',
+    'Sage/Platform/Mobile/CustomizationSet',
     'Sage/Platform/Mobile/Application',
-    'dojo/_base/sniff'
+    './ApplicationScene',
+    './Environment'
 ], function(
     declare,
     array,
     connect,
     json,
     lang,
+    sniff,
     has,
     string,
     ErrorManager,
-    environment,
+    CustomizationSet,
     Application,
-    sniff
+    ApplicationScene,
+    environment
 ) {
 
     return declare('Mobile.SalesLogix.Application', [Application], {
+        components: [
+            {type: ApplicationScene, attachPoint: 'scene'},
+            {type: CustomizationSet, attachPoint: 'customizations'}
+        ],
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
@@ -96,7 +104,7 @@ define('Mobile/SalesLogix/Application', [
         run: function() {
             this.inherited(arguments);
 
-            this.scene.showView('quick_nav', {}, 'navigation');
+            //this.scene.showView('quick_nav', {}, 'navigation');
             this.scene.showView('home');
             this.scene.showView('account_edit', {insert: true});
             return;
