@@ -103,7 +103,7 @@ define('Mobile/SalesLogix/Views/Home', [
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
-                tbar: [{
+                top: [{
                     id: 'configure',
                     action: 'navigateToConfigurationView'
                 }]
