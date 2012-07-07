@@ -706,20 +706,20 @@ td.calendar-day {
     background-image: url(../images/icons/Show_Details_active_24.png);
 }
 
-.tool-button[data-tool="back"] > span { background-image: url(../images/icons/Back_24.png); }
-.tool-button[data-tool="home"] > span { background-image: url(../images/icons/home_24.png); }
-.tool-button[data-tool="edit"] > span { background-image: url(../images/icons/edit_24.png); }
-.tool-button[data-tool="new"] > span { background-image: url(../images/icons/add_24.png); }
-.tool-button[data-tool="save"] > span { background-image: url(../images/icons/save_24.png); }
-.tool-button[data-tool="help"] > span { background-image: url(../images/icons/help_24.png); }
-.tool-button[data-tool="cancel"] > span { background-image: url(../images/icons/cancl_24.png); }
-.tool-button[data-tool="complete"] > span { background-image: url(../images/icons/OK_24.png); }
-.tool-button[data-tool="configure"] > span { background-image: url(../images/icons/Tools_24x24.png); }
-.tool-button[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
-.tool-button[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
-.tool-button[data-tool="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }
+.tool-button[data-tool="back"] > div { background-image: url(../images/icons/Back_24.png); }
+.tool-button[data-tool="home"] > div { background-image: url(../images/icons/home_24.png); }
+.tool-button[data-tool="edit"] > div { background-image: url(../images/icons/edit_24.png); }
+.tool-button[data-tool="new"] > div { background-image: url(../images/icons/add_24.png); }
+.tool-button[data-tool="save"] > div { background-image: url(../images/icons/save_24.png); }
+.tool-button[data-tool="help"] > div { background-image: url(../images/icons/help_24.png); }
+.tool-button[data-tool="cancel"] > div { background-image: url(../images/icons/cancl_24.png); }
+.tool-button[data-tool="complete"] > div { background-image: url(../images/icons/OK_24.png); }
+.tool-button[data-tool="configure"] > div { background-image: url(../images/icons/Tools_24x24.png); }
+.tool-button[data-tool="settings"] > div { background-image: url(../images/icons/settings_24.png); }
+.tool-button[data-tool="logout"] > div { background-image: url(../images/icons/login_24.png); }
+.tool-button[data-tool="top"] > div { background-image: url(../images/icons/Hide_Details_active_24.png); }
 .toolbar > .is-disabled {}
-.toolbar > .is-disabled > span {
+.toolbar > .is-disabled > div {
     opacity: .1;
     cursor: help;
 }
