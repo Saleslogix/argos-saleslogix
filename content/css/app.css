@@ -701,7 +701,7 @@ td.calendar-day {
     border: none;
 }
 
-.collapsed > .collapsed-indicator
+.is-collapsed > .collapsed-indicator
 {
     background-image: url(../images/icons/Show_Details_active_24.png);
 }

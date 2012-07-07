@@ -37,7 +37,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
             '<div class="row note-text-row" data-property="{%= $.name %}">',
                 '<label>{%: $.label %}</label>',
                 '<pre>',
-                    '{%= $.value %}',
+                    '{%= $.formatted %}',
                 '</pre>',
             '</div>'
         ]),
