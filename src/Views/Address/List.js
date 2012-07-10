@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Views/Address/List', [
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-            '<div class="list-item-static-selector">',
+            '<div data-action="selectEntry" class="list-item-static-selector">',
                 '<img src="{%: $$.icon %}" alt="icon" class="icon" />',
             '</div>',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
