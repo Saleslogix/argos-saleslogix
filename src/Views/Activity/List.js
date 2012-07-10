@@ -19,9 +19,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
-                '<button data-action="selectEntry" class="list-item-selector button">',
+                '<div class="list-item-static-selector">',
                     '<img src="{%= $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
-                '</button>',
+                '</div>',
                 '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
