@@ -36,7 +36,7 @@ define('Mobile/SalesLogix/Application', [
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
-        enableCaching: true,
+        enableCaching: false,
         userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
         userOptionsToRequest: [
             'General;InsertSecCodeID',
@@ -60,7 +60,10 @@ define('Mobile/SalesLogix/Application', [
             'minor': 0,
             'revision': 0
         },
+        /* todo: move to startup */
         init: function() {
+            console.debug('init!');
+
             if (has('ie') && has('ie') < 9) window.location.href = 'unsupported.html';
 
             this.inherited(arguments);
@@ -106,7 +109,7 @@ define('Mobile/SalesLogix/Application', [
 
             //this.scene.showView('quick_nav', {}, 'navigation');
             this.scene.showView('home');
-            this.scene.showView('account_edit', {insert: true});
+            //this.scene.showView('account_edit', {insert: true});
             return;
 
             if (App.isOnline() || !App.enableCaching)
