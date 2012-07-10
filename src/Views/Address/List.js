@@ -17,6 +17,14 @@ define('Mobile/SalesLogix/Views/Address/List', [
 
     return declare('Mobile.SalesLogix.Views.Address.List', [List], {
         //Templates
+        rowTemplate: new Simplate([
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
+            '<div class="list-item-static-selector">',
+                '<img src="{%: $$.icon %}" alt="icon" class="icon" />',
+            '</div>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+            '</li>'
+        ]),
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>',
             '<h4>{%= Mobile.SalesLogix.Format.address($, true) %}</h4>'
