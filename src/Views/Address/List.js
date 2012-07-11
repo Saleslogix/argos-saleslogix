@@ -17,14 +17,6 @@ define('Mobile/SalesLogix/Views/Address/List', [
 
     return declare('Mobile.SalesLogix.Views.Address.List', [List], {
         //Templates
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-            '<div data-action="selectEntry" class="list-item-static-selector">',
-                '<img src="{%: $$.icon %}" alt="icon" class="icon" />',
-            '</div>',
-            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
-        ]),
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>',
             '<h4>{%= Mobile.SalesLogix.Format.address($, true) %}</h4>'
@@ -41,6 +33,8 @@ define('Mobile/SalesLogix/Views/Address/List', [
         insertSecurity: 'Entities/Address/Add',
         insertView: 'address_edit',
         resourceKind: 'addresses',
+        allowSelection: true,
+        enableActions: true,
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(Description like "${0}%" or City like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
