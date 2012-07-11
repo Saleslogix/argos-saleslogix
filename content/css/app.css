@@ -1432,13 +1432,108 @@ td.entry-table-description {
 
 }
 
-.quick-nav > button
+.has-expanded-navigation .quick-nav
+{
+    width: 250px;
+}
+
+.quick-nav-fixed,
+.quick-nav-item
+{
+    height: 44px;
+    line-height: 44px;
+}
+
+.quick-nav-fixed > button,
+.quick-nav-item > button,
+.quick-nav-toggle
 {
     width: 36px;
     height: 36px;
-    background-position: 50% 50%;
+    display: inline-block;
+}
+
+.quick-nav-fixed > button,
+.quick-nav-item > button
+{
+    margin: 4px 0 0 7px;
+}
+
+.quick-nav-item > button
+{
+    background: transparent;
+    border-width: 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.quick-nav-item > button > div,
+.quick-nav-fixed > button > div,
+.quick-nav-toggle > div
+{
+    width: 32px;
+    height: 32px;
     background-repeat: no-repeat;
-    margin: 4px auto 4px auto;
+    background-position: 50% 50%;
+}
+
+.quick-nav-content
+{
+    margin: 0;
+    padding: 0;
+    width: auto;
+}
+
+.quick-nav-content > li
+{
+    list-style: none;
+}
+
+.quick-nav-fixed > span,
+.quick-nav-item > span
+{
+    display: none;
+    vertical-align: top;
+    padding: 0 0 0 6px;
+    color: #444;
+    text-shadow: white 0px 1px 0px;
+}
+
+.has-expanded-navigation .quick-nav-fixed > span,
+.has-expanded-navigation .quick-nav-item > span
+{
+    display: inline-block;
+}
+
+
+.quick-nav-toggle
+{
+    position: absolute;
+    bottom: 4px;
+    left: 7px;
+}
+
+.quick-nav > .scroll-container
+{
+    top: 94px;
+    bottom: 50px;
+
+    border-style: solid;
+    border-width: 1px 0;
+    border-color: #ccc;
+
+    overflow: hidden;
+}
+
+.has-expanded-navigation .quick-nav > .scroll-container
+{
+    overflow: auto;
+}
+
+.quick-nav > .scroll-container > .scroll-content
+{
+    margin: 4px 0px;
 }
 
 .quick-nav > button > span
@@ -1451,6 +1546,15 @@ td.entry-table-description {
     height: 24px;
 }
 
-.quick-nav-back span { background-image: url(../images/icons/Back_24.png); }
-.quick-nav-home { margin-top: 10px !important; }
-.quick-nav-home span { background-image: url(../images/icons/home_24.png); }
+.quick-nav-fixed[data-action="navigateBack"] > button > div { background-image: url(../images/icons/Back_24.png); }
+.quick-nav-fixed[data-view="home"] > button > div { background-image: url(../images/icons/home_24.png); }
+
+.quick-nav-item[data-view="account_list"] > button > div { background-image: url(../images/icons/Company_24.png); }
+.quick-nav-item[data-view="contact_list"] > button > div { background-image: url(../images/icons/Contacts_24x24.png); }
+.quick-nav-item[data-view="lead_list"] > button > div { background-image: url(../images/icons/Leads_24x24.png); }
+.quick-nav-item[data-view="opportunity_list"] > button > div { background-image: url(../images/icons/opportunity_24.png); }
+.quick-nav-item[data-view="calendar_daylist"] > button > div { background-image: url(../images/icons/Calendar_24x24.png); }
+
+.quick-nav-toggle > div { background-image: url(../images/icons/Browse_Next_24.png); }
+
+.has-expanded-navigation .quick-nav-toggle > div { background-image: url(../images/icons/Browse_Previous_24.png); }
