@@ -68,6 +68,7 @@ define('Mobile/SalesLogix/QuickNav', [
 
         _expanded: false,
         expanded: false,
+        customizationSet: 'navigation',
 
         backText: 'Back',
         homeText: 'Home',
@@ -89,6 +90,8 @@ define('Mobile/SalesLogix/QuickNav', [
         },
         onStartup: function() {
             this.inherited(arguments);
+
+            this.subscribe('/app/navigation/expand/toggle', this.toggle);
 
             this.createNavigation();
         },
@@ -157,7 +160,14 @@ define('Mobile/SalesLogix/QuickNav', [
             this.onContentChange();
         },
         toggle: function() {
-            this.set('expanded', !this.get('expanded'));
+            var value = !this.get('expanded');
+
+            this.set('expanded', value);
+
+            this.onToggle(value);
+        },
+        onToggle: function(value)
+        {
         }
     });
 });
