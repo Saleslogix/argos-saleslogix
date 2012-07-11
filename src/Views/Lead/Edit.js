@@ -51,7 +51,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
             'Interests',
             'LastName',
             'LeadNameLastFirst',
-            'LeadSource',
+            'LeadSource/Description',
             'MiddleName',
             'Notes',
             'Prefix',
