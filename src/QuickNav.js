@@ -135,14 +135,14 @@ define('Mobile/SalesLogix/QuickNav', [
                 'icon': 'content/images/icons/opportunity_24.png',
                 'title': this.opportunitiesText,
                 'security': 'Entities/Opportunity/View'
-            },{
+            }/*,{
                 'name': 'calendar_daylist',
                 'view': 'calendar_daylist',
                 'action': 'navigateToView',
                 'icon': 'content/images/icons/Calendar_24x24.png',
                 'title': this.calendarText,
                 'security': null
-            }]);
+            }*/]);
         },
         createNavigation: function() {
             var layout = customizations().apply(customizations().toPath(this.customizationSet, 'navigation', this.id), this.createLayout()),
