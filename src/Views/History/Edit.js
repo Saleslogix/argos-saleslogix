@@ -233,7 +233,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.onAccountDependentChange(opportunityField.getValue, opportunityField);
 
             var accountEntry;
-            if (context.entry['Account'])
+            if (context.entry && context.entry['Account'])
             {
                 accountEntry = context.entry['Account'];
             }
@@ -265,7 +265,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.onAccountDependentChange(contactField.getValue(), contactField);
 
             var accountEntry;
-            if (context.entry['Account'])
+            if (context.entry && context.entry['Account'])
             {
                 accountEntry = context.entry['Account'];
             }
@@ -295,7 +295,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
             var accountEntry, contactEntry;
-            if (context.entry['Account'])
+            if (context.entry && context.entry['Account'])
             {
                 accountEntry = context.entry['Account'];
                 contactEntry = context.entry['Contact'];
