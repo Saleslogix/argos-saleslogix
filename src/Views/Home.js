@@ -9,7 +9,7 @@ define('Mobile/SalesLogix/Views/Home', [
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/dom-attr',
-    'dojo/data/ItemFileReadStore',
+    'dojo/store/Memory',
     'Sage/Platform/Mobile/GroupedList',
     'argos!application',
     'argos!scene',
@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Views/Home', [
     array,
     lang,
     domAttr,
-    ItemFileReadStore,
+    Memory,
     GroupedList,
     app,
     scene,
@@ -201,11 +201,9 @@ define('Mobile/SalesLogix/Views/Home', [
         },
         createStore: function() {
             var layout = customizations().apply(customizations().toPath(this.customizationSet, 'home', this.id), this.createLayout()),
-                store = new ItemFileReadStore({
-                    data: {
-                        identifier: 'name',
-                        items: this.createListFrom(layout)
-                    }
+                store = new Memory({
+                    idProperty: 'name',
+                    data: this.createListFrom(layout)
                 });
 
             return store;
