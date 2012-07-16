@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/TitleBar', [
             {
                 for (var i = 0; i < items.length; i++)
                 {
-                    if (items[i].side == 'left')
+                    if (items[i].place == 'left')
                     {
                         hasItemsOnLeft = true;
                         break;
