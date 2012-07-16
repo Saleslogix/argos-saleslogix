@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/UpdateToolbar', [
 
             this.showTools([{
                 id: 'cancel',
-                side: 'right',
+                place: 'right',
                 fn: this.cancel,
                 scope: this
             }]);

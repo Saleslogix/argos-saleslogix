@@ -89,7 +89,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
                         scope: this
                     },{
                         id: 'cancel',
-                        side: 'left',
+                        place: 'left',
                         fn: ReUI.back,
                         scope: ReUI
                     }]

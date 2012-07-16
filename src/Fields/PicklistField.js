@@ -97,7 +97,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                         scope: this
                     },{
                         id: 'cancel',
-                        side: 'left',
+                        place: 'left',
                         fn: ReUI.back,
                         scope: ReUI
                     }]

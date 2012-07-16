@@ -55,7 +55,7 @@ define('Mobile/SalesLogix/Views/Configure', [
                     scope: this
                 },{
                     id: 'cancel',
-                    side: 'left',
+                    place: 'left',
                     fn: ReUI.back,
                     scope: ReUI
                 }]

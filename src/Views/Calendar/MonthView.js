@@ -771,7 +771,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                         scope: this
                     },{
                         id: 'cancel',
-                        side: 'left',
+                        place: 'left',
                         fn: ReUI.back,
                         scope: ReUI
                     }]
