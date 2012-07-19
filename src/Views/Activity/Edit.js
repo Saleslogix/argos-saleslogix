@@ -803,6 +803,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 name: 'Recurrence',
                 property: 'Recurrence',
                 type: 'recurrences',
+                applyTo: '.',
                 view: 'recurrence_edit',
                 exclude: true,
                 formatValue: this.formatRecurrence.bindDelegate(this)
