@@ -35,6 +35,7 @@ define('Mobile/SalesLogix/ApplicationLayout', [
 ) {
     return declare('Mobile.SalesLogix.ApplicationLayout', [Layout], {
         tiers: 2,
+        maximized: -1,
         components: [
             {name: 'navigation', type: QuickNav, attachEvent: 'onToggle:_onNavigationToggle', props:{'class':'layout-left'}},
             {name: 'list', root: true, type: Pane, attachPoint: 'panes.list', props:{'class':'layout-center', tier: 0}, components: [
