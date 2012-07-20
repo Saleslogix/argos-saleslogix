@@ -688,18 +688,18 @@ td.calendar-day {
     background-image: url(../images/icons/Show_Details_active_24.png);
 }
 
-.toolButton[data-tool="back"] > span { background-image: url(../images/icons/Back_24.png); }
-.toolButton[data-tool="home"] > span { background-image: url(../images/icons/home_24.png); }
-.toolButton[data-tool="edit"] > span { background-image: url(../images/icons/edit_24.png); }
-.toolButton[data-tool="new"] > span { background-image: url(../images/icons/add_24.png); }
-.toolButton[data-tool="save"] > span { background-image: url(../images/icons/save_24.png); }
-.toolButton[data-tool="help"] > span { background-image: url(../images/icons/help_24.png); }
-.toolButton[data-tool="cancel"] > span { background-image: url(../images/icons/cancl_24.png); }
-.toolButton[data-tool="complete"] > span { background-image: url(../images/icons/OK_24.png); }
-.toolButton[data-tool="configure"] > span { background-image: url(../images/icons/Tools_24x24.png); }
-.toolButton[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
-.toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
-.toolButton[data-tool="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }
+.toolButton[data-command="back"] > span { background-image: url(../images/icons/Back_24.png); }
+.toolButton[data-command="home"] > span { background-image: url(../images/icons/home_24.png); }
+.toolButton[data-command="edit"] > span { background-image: url(../images/icons/edit_24.png); }
+.toolButton[data-command="new"] > span { background-image: url(../images/icons/add_24.png); }
+.toolButton[data-command="save"] > span { background-image: url(../images/icons/save_24.png); }
+.toolButton[data-command="help"] > span { background-image: url(../images/icons/help_24.png); }
+.toolButton[data-command="cancel"] > span { background-image: url(../images/icons/cancl_24.png); }
+.toolButton[data-command="complete"] > span { background-image: url(../images/icons/OK_24.png); }
+.toolButton[data-command="configure"] > span { background-image: url(../images/icons/Tools_24x24.png); }
+.toolButton[data-command="settings"] > span { background-image: url(../images/icons/settings_24.png); }
+.toolButton[data-command="logout"] > span { background-image: url(../images/icons/login_24.png); }
+.toolButton[data-command="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }
 .toolbar button.disabled {}
 .toolbar button.disabled > span {
     opacity: .1;
@@ -1183,8 +1183,8 @@ td.entry-table-description {
 }
 
 
-.split-buttons > .button[data-tool="day"],
-.split-buttons > .button[data-tool="today"]
+.split-buttons > .button[data-command="day"],
+.split-buttons > .button[data-command="today"]
 {
     margin: 0 0 0 16px;
 
@@ -1202,7 +1202,7 @@ td.entry-table-description {
     border-bottom-right-radius: 0;
 }
 
-.split-buttons > .button[data-tool="week"]
+.split-buttons > .button[data-command="week"]
 {
     margin: 0 -1px 0 -1px;
 
@@ -1220,8 +1220,8 @@ td.entry-table-description {
     border-bottom-left-radius: 0;
 }
 
-.split-buttons > .button[data-tool="month"],
-.split-buttons > .button[data-tool="selectdate"]
+.split-buttons > .button[data-command="month"],
+.split-buttons > .button[data-command="selectdate"]
 {
     margin: 0 2px 0 -1px;
 
@@ -1239,10 +1239,10 @@ td.entry-table-description {
     border-bottom-left-radius: 0;
 }
 
-.activities-for-day > .split-buttons > .button[data-tool="day"],
-.activities-for-month > .split-buttons > .button[data-tool="month"],
-.activities-for-year > .split-buttons > .button[data-tool="year"],
-.activities-for-week > .split-buttons > .button[data-tool="week"]
+.activities-for-day > .split-buttons > .button[data-command="day"],
+.activities-for-month > .split-buttons > .button[data-command="month"],
+.activities-for-year > .split-buttons > .button[data-command="year"],
+.activities-for-week > .split-buttons > .button[data-command="week"]
 {
     color: #000;
     text-shadow: #fff 0px 1px 0px;
@@ -1280,13 +1280,13 @@ td.entry-table-description {
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#eaf1df, endColorstr=#d6e3bf)";
 }
 
-.split-buttons > .button[data-tool="selectdate"]
+.split-buttons > .button[data-command="selectdate"]
 {
     vertical-align: bottom;
     padding: 0;
     width: 34px;
 }
-.split-buttons > .button[data-tool="selectdate"] > span
+.split-buttons > .button[data-command="selectdate"] > span
 {
     display: inline-block;
     background-image: url(../images/icons/Calendar_24x24.png);

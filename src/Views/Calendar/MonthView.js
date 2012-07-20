@@ -70,17 +70,17 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         ]),
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
-            '<button data-tool="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>',
-            '<button data-tool="selectdate" data-action="selectDate" class="button"><span></span></button>',
-            '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
-            '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
-            '<button data-tool="month" class="button">{%: $.monthText %}</button>',
+            '<button data-command="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>',
+            '<button data-command="selectdate" data-action="selectDate" class="button"><span></span></button>',
+            '<button data-command="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
+            '<button data-command="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
+            '<button data-command="month" class="button">{%: $.monthText %}</button>',
             '</div>'
         ]),
         navBarTemplate: new Simplate([
             '<div class="nav-bar">',
-                '<button data-tool="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
-                '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
+                '<button data-command="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
+                '<button data-command="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
                 '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '</div>'
         ]),

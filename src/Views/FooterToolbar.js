@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
             '</div>'
         ]),
         toolTemplate: new Simplate([
-            '<button class="button toolButton toolButton-{%= $.side || "right" %} {%= $.cls %}" data-action="invokeTool" data-tool="{%= $.id %}">',
+            '<button class="button toolButton toolButton-{%= $.side || "right" %} {%= $.cls %}" data-action="invoke" data-command="{%= $.id %}">',
             '{% if ($.icon) { %}',
             '<img src="{%= $.icon %}" alt="{%= $.id %}" />',
             '{% } %}',
