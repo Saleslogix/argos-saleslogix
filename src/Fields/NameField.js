@@ -12,7 +12,6 @@ define('Mobile/SalesLogix/Fields/NameField', [
         emptyText: 'no name',
 
         widgetTemplate: new Simplate([
-            '<label for="{%= $.name %}">{%: $.label %}</label>',
             '<button class="button simpleSubHeaderButton" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
             '<input data-dojo-attach-point="inputNode" readonly="readonly" type="text" />'
         ]),

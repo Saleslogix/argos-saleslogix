@@ -3,16 +3,18 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/_SDataEditMixin'
 ], function(
     declare,
     validator,
     template,
     utility,
-    Edit
+    Edit,
+    _SDataEditMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.Edit', [Edit, _SDataEditMixin], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',

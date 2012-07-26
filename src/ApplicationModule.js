@@ -6,8 +6,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     './ApplicationViews',
     './Fields/AddressField',
     './Fields/NameField',
-    './Fields/PicklistField',
-    './Fields/RecurrencesField'
+    './Fields/PicklistField'/*,
+    './Fields/RecurrencesField'*/
 ], function(
     declare,
     lang,
@@ -15,8 +15,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     ApplicationViews,
     AddressField,
     NameField,
-    PicklistField,
-    RecurrencesField
+    PicklistField/*,
+    RecurrencesField*/
 ) {
 
     return declare('Mobile.SalesLogix.ApplicationModule', [ApplicationModule], {

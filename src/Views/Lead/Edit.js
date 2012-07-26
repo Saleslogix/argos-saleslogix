@@ -2,15 +2,17 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/_SDataEditMixin'
 ], function(
     declare,
     format,
     validator,
-    Edit
+    Edit,
+    _SDataEditMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Lead.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.Lead.Edit', [Edit, _SDataEditMixin], {
         //Localization
         accountText: 'account',
         addressText: 'address',

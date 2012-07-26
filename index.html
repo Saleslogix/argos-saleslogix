@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html manifest="index.manifest.ashx">
+<!-- <html manifest="index.manifest"> -->
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
@@ -9,12 +10,14 @@
 
     <title>SalesLogix</title>
 
-    <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
-    <link rel="apple-touch-startup-image" href="content/images/loading.png">
+    <link rel="apple-touch-icon-precomposed" href="content/images/AppIcon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="content/images/AppIcon-114x114.png" />
 
-    <link type="text/css" rel="stylesheet" href="content/reui/themes/sage-green/theme.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/base.css" />
+    <link rel="apple-touch-startup-image" href="content/images/loading.png" />
+
+    <!-- CSS -->
+    <link type="text/css" rel="stylesheet" href="content/platform/css/layout.css" />
+    <link type="text/css" rel="stylesheet" href="content/platform/css/theme.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.css" />
 
     <!-- Dojo -->
@@ -29,19 +32,15 @@
         ]
     });
     </script>
+    <script type="text/javascript" src="content/dojo/dojox/gfx.js"></script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
 
     <!-- Core -->
-    <script type="text/javascript">
-    reConfig = {
-        autoInit: false,
-        legacyMode: false,
-        showInitialPage: false,
-        updateBackButtonText: false
-    };
-    </script>
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
     <script type="text/javascript" src="content/javascript/argos-sdk.js"></script>
+    <script type="text/javascript">
+    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    </script>
 
     <!-- Application -->
     <script type="text/javascript" src="content/javascript/argos-saleslogix.js"></script>
@@ -64,7 +63,7 @@
                 var instance = new application(configuration);
 
                 instance.activate();
-                instance.init();
+                instance.startup();
                 instance.run();
             });
         });

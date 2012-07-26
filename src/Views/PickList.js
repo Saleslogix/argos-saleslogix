@@ -1,14 +1,16 @@
 define('Mobile/SalesLogix/Views/PickList', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataListMixin'
 ], function(
     declare,
     string,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.PickList', [List], {
+    return declare('Mobile.SalesLogix.Views.PickList', [List, _SDataListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%: $.$key %}" data-descriptor="{%: $.$descriptor %}">',
@@ -24,22 +26,19 @@ define('Mobile/SalesLogix/Views/PickList', [
         //View Properties
         id: 'pick_list',
         expose: false,
+        contractName: 'system',
         resourceKind: 'picklists',
         resourceProperty: 'items',
 
-        show: function(options) {
-            this.set('title', options && options.title || this.title);
-            this.inherited(arguments);
-        },
+        /* todo: implement loading of previous selections */
+        /*
         processFeed: function(feed) {
             this.inherited(arguments);
             this._loadPreviousSelections();
         },
+        */
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-        },
-        createRequest: function() {
-            return this.inherited(arguments).setContractName('system');
         }
     });
 });

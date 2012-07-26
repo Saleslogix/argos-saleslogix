@@ -3,13 +3,15 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
     'dojo/string',
     'Sage/Platform/Mobile/Fields/LookupField',
     'Sage/Platform/Mobile/Fields/FieldRegistry',
-    'Mobile/SalesLogix/Views/PickList'
+    'Mobile/SalesLogix/Views/PickList',
+    'argos!scene'
 ], function(
     declare,
     string,
     LookupField,
     FieldRegistry,
-    PickList
+    PickList,
+    scene
 ) {
     var viewsByName = {},
         viewsByNameCount = 0;
@@ -29,6 +31,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
     };
 
     var PicklistField = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {
+        view: 'pick_list',
         picklist: false,
         orderBy: 'number asc',
         storageMode: 'text',
@@ -88,30 +91,21 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                 options.previousSelections = !this.singleSelect ? this.createSelections() : null;
             }
 
-            if (!this.singleSelect)
-            {
-                options.tools = {
-                    tbar: [{
-                        id: 'complete',
-                        fn: this.complete,
-                        scope: this
-                    },{
-                        id: 'cancel',
-                        place: 'left',
-                        fn: ReUI.back,
-                        scope: ReUI
-                    }]
-                };
-            }
-
             return options;
         },
         navigateToListView: function() {
+            var options = this.createNavigationOptions();
+
+            scene().showView(this.view, options);
+
+            /* todo: add support for multiple picklist list views */
+            /*
             var options = this.createNavigationOptions(),
                 view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
 
             if (view && options)
                 view.show(options);
+            */
         }
     });
 
