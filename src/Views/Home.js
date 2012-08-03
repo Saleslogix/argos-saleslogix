@@ -63,15 +63,6 @@ define('Mobile/SalesLogix/Views/Home', [
         customizationSet: 'home',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
-        defaultViewOrder:  [
-            'account_list',
-            'contact_list',
-            'lead_list',
-            'opportunity_list',
-            'ticket_list',
-            'calendar_daylist',
-            'history_list'
-        ],
 
         navigateToView: function(evt, node) {
             var view = node && domAttr.get(node, 'data-view');
@@ -124,6 +115,7 @@ define('Mobile/SalesLogix/Views/Home', [
                     'name': 'account_list',
                     'view': 'account_list',
                     'action': 'navigateToView',
+                    'default': true,
                     'icon': 'content/images/icons/Company_24.png',
                     'title': this.accountsText,
                     'security': 'Entities/Account/View'
@@ -131,6 +123,7 @@ define('Mobile/SalesLogix/Views/Home', [
                     'name': 'contact_list',
                     'view': 'contact_list',
                     'action': 'navigateToView',
+                    'default': true,
                     'icon': 'content/images/icons/Contacts_24x24.png',
                     'title': this.contactsText,
                     'security': 'Entities/Contact/View'
@@ -138,6 +131,7 @@ define('Mobile/SalesLogix/Views/Home', [
                     'name': 'lead_list',
                     'view': 'lead_list',
                     'action': 'navigateToView',
+                    'default': true,
                     'icon': 'content/images/icons/Leads_24x24.png',
                     'title': this.leadsText,
                     'security': 'Entities/Lead/View'
@@ -145,6 +139,7 @@ define('Mobile/SalesLogix/Views/Home', [
                     'name': 'opportunity_list',
                     'view': 'opportunity_list',
                     'action': 'navigateToView',
+                    'default': true,
                     'icon': 'content/images/icons/opportunity_24.png',
                     'title': this.opportunitiesText,
                     'security': 'Entities/Opportunity/View'
@@ -152,6 +147,7 @@ define('Mobile/SalesLogix/Views/Home', [
                     'name': 'ticket_list',
                     'view': 'ticket_list',
                     'action': 'navigateToView',
+                    'default': true,
                     'icon': 'content/images/icons/Ticket_24x24.png',
                     'title': this.ticketsText,
                     'security': 'Entities/Ticket/View'
@@ -166,14 +162,26 @@ define('Mobile/SalesLogix/Views/Home', [
                     'name': 'history_list',
                     'view': 'history_list',
                     'action': 'navigateToView',
+                    'default': true,
                     'icon': 'content/images/icons/journal_24.png',
                     'title': this.historyText,
                     'security': null
                 }]
             }]);
         },
+        createDefaultViewOrder: function(layout) {
+            var order = [];
+
+            array.forEach(layout, function(section) {
+                array.forEach(section['children'], function(row) {
+                    if (row['default']) order.push(row['view']);
+                }, this);
+            }, this);
+
+            return order;
+        },
         createListFrom: function(layout) {
-            var configured = lang.getObject('preferences.home.visible', false, app()) || this.defaultViewOrder,
+            var configured = lang.getObject('preferences.home.visible', false, app()) || this.createDefaultViewOrder(layout),
                 visible = {},
                 views = null,
                 list = [];
