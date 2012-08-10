@@ -724,6 +724,14 @@ td.calendar-day {
     cursor: help;
 }
 
+.toolbar.action-toolbar.toolbar-action {
+    background-color: #fff;
+    background-image: none;
+    border-bottom: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
 body.transition > .footer-toolbar
 {
     display: none !important;

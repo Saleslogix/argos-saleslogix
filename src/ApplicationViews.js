@@ -1,5 +1,6 @@
 define('Mobile/SalesLogix/ApplicationViews', {
     'home': {type: 'Mobile/SalesLogix/Views/Home'},
+    'login': {type: 'Mobile/SalesLogix/Views/Login'},
     'add_account_contact': {type: 'Mobile/SalesLogix/Views/AddAccountContact'},
     'pick_list': {type: 'Mobile/SalesLogix/Views/PickList', props: {tier: 1}},
     'name_edit': {type: 'Mobile/SalesLogix/Views/NameEdit'},

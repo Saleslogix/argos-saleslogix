@@ -1,24 +1,48 @@
 define('Mobile/SalesLogix/Views/Login', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/Edit'
+    'dojo/dom-class',
+    'dojo/_base/window',
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/ScrollContainer',
+    '../ActionBar',
+    'argos!scene',
+    'argos!application'
 ], function(
     declare,
-    Edit
+    domClass,
+    win,
+    Edit,
+    ScrollContainer,
+    ActionBar,
+    scene,
+    application
 ) {
 
     return declare('Mobile.SalesLogix.Views.Login', [Edit], {
         //Templates
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
-            '<div class="panel-content" data-dojo-attach-point="contentNode"></div>',
-            '<button class="button actionButton" data-action="authenticate"><span>{%: $.logOnText %}</span></button>',
-            '<span class="copyright">{%= $.copyrightText %}</span>',
-            '</div>'
-        ]),
+        components: [
+            {name: 'fix', content: '<a href="#" class="android-6059-fix">fix for android issue #6059</a>'},
+            {name: 'scroller', type: ScrollContainer, subscribeEvent: 'onContentChange:onContentChange', props: {enableFormFix: true}, components: [
+                {name: 'scroll', tag: 'div', components: [
+                    {name: 'loading', content: Simplate.make('<div class="loading-indicator"><div>{%: $.loadingText %}</div></div>')},
+                    {name: 'validation', tag: 'div', attrs: {'class': 'validation-summary'}, components: [
+                        {name: 'validationTitle', content: Simplate.make('<h2>{%: $.validationSummaryText %}</h2>')},
+                        {name: 'validationContent', tag: 'ul', attachPoint: 'validationContentNode'}
+                    ]},
+                    {name: 'content', tag: 'div', attrs: {'class': 'edit-content'}, attachPoint: 'contentNode'},
+                    {name: 'action', attachPoint: 'toolbars.action', type: ActionBar, props: {managed: true}},
+                    {name: 'copyright', tag: 'div', attrs: {'class': 'copyright'}, components:[
+                        {name: 'copyrightText', content: Simplate.make('<span>{%= $.copyrightText %}</span>')}
+                    ]}
+                ]}
+            ]}
+        ],
+
+        id: 'login',
+        tier: 0,
+        busy: false,
 
         //Localization
-        id: 'login',
-        busy: false,
         copyrightText: '&copy; 2012 Sage Software, Inc. All rights reserved.',
         logOnText: 'Log On',
         passText: 'password',
@@ -32,12 +56,19 @@ define('Mobile/SalesLogix/Views/Login', [
 
         createToolLayout: function() {
             return this.tools || (this.tools = {
-                bbar: false,
-                tbar: false
+                top: false,
+                action: [{
+                    name: 'login',
+                    baseClass: 'button action-button',
+                    label: this.logOnText,
+                    action: 'authenticate',
+                    place: 'full',
+                    scope: this
+                }]
             });
         },
         getContext: function() {
-            return {id: this.id};
+            return {view: this.id};
         },
         createLayout: function() {
             return this.layout || (this.layout = [
@@ -51,11 +82,6 @@ define('Mobile/SalesLogix/Views/Login', [
                     label: this.passText,
                     type: 'text',
                     inputType: 'password'
-                },
-                {
-                    name: 'remember',
-                    label: this.rememberText,
-                    type: 'boolean'
                 }
             ]);
         },
@@ -71,11 +97,12 @@ define('Mobile/SalesLogix/Views/Login', [
         validateCredentials: function (credentials) {
             this.disable();
 
-            App.authenticateUser(credentials, {
+            application().authenticateUser(credentials, {
                 success: function(result) {
                     this.enable();
-                    App.requestUserDetails();
-                    App.navigateToInitialView();
+                    application().requestUserDetails();
+                    domClass.remove(win.body(), 'has-hidden-plus-bar');
+                    scene().showView('home');
                 },
                 failure: function(result) {
                     this.enable();

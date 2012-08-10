@@ -108,7 +108,7 @@ define('Mobile/SalesLogix/Application', [
             this.inherited(arguments);
 
             //this.scene.showView('quick_nav', {}, 'navigation');
-            this.scene.showView('home');
+            this.scene.showView('login');
             //this.scene.showView('account_edit', {insert: true});
             return;
 
