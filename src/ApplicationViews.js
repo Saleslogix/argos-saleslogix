@@ -28,7 +28,8 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'calendar_daylist': {type: 'Mobile/SalesLogix/Views/Calendar/DayView'},
     'history_list': {type: 'Mobile/SalesLogix/Views/History/List'},
     'history_related': {type: 'Mobile/SalesLogix/Views/History/List', props: {tier: 1}},
-    'history_detail': {type: 'Mobile/SalesLogix/Views/History/Detail'}
+    'history_detail': {type: 'Mobile/SalesLogix/Views/History/Detail'},
+    'areacategoryissue_lookup': {type: 'Mobile/SalesLogix/Views/AreaCategoryIssueLookup', props: {tier: 1}}
 });
 
 /*

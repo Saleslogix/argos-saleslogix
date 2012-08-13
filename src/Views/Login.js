@@ -101,7 +101,8 @@ define('Mobile/SalesLogix/Views/Login', [
                 success: function(result) {
                     this.enable();
                     application().requestUserDetails();
-                    domClass.remove(win.body(), 'has-hidden-plus-bar');
+                    domClass.remove(win.body(), 'has-login');
+                    scene().layout.resize();
                     scene().showView('home');
                 },
                 failure: function(result) {

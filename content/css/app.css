@@ -58,23 +58,27 @@
 /* login view */
 #login
 {
-    padding: 24px 12px;
+    background-color: #FBFDF0;
 }
 
-#login .panel-content
+#login .row-edit
 {
-    background-color: transparent;
-    border-bottom: none 0px black;
+    background-color: transparent !important;
 }
 
-#login .button
+#login .action-toolbar
 {
-    margin: 12px 0 12px 0;
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    cursor: pointer;
-    font-size: .9em;
+    background-color: transparent !important;
+}
+
+#login > div > .scroll-content
+{
+    background: transparent;
+    padding: .25em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: none;
 }
 
 #login h2
@@ -82,27 +86,37 @@
     display: none;
 }
 
-#login fieldset
+#login .edit-content > fieldset
 {
-    padding: 0;
-    background: #fff;
-
-    border-width: 1px;
-    border-color: #b3b3b3;
-    border-style: solid;
-
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-
-    background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
+    margin: 2em 6px !important;
 }
 
-#login .clear-button
+#login input
 {
-    right: 12px;
+    background-color: #fff;
+    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
+
+}
+
+#login > div > .scroll-content .row-edit
+{
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+}
+
+#login .button[data-command="login"]
+{
+    height: 40px !important;
+    line-height: 40px !important;
+}
+
+#login.is-busy .button[data-command="login"] > div > span
+{
+    background: url('../images/loading-indicator-gray.gif') no-repeat scroll 0 50%;
+    padding: 0 0 0 20px;
 }
 
 /* note view */
@@ -1566,3 +1580,80 @@ td.entry-table-description {
 .quick-nav-toggle > div { background-image: url(../images/icons/Browse_Next_24.png); }
 
 .has-expanded-navigation .quick-nav-toggle > div { background-image: url(../images/icons/Browse_Previous_24.png); }
+
+.action-toolbar
+{
+    height: auto !important;
+    position: static !important;
+    width: 100%;
+    background: #F2F2F2;
+    padding: 12px 6px 6px 6px;
+    margin: 0;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.action-toolbar:before,
+.action-toolbar:after
+{
+    content: "";
+    display: table;
+}
+.action-toolbar:after
+{
+    clear: both;
+}
+
+.action-toolbar > button
+{
+    height: auto !important;
+}
+
+.action-toolbar > button > div
+{
+    height: auto !important;
+    width: auto !important;
+}
+
+.action-toolbar > .on-left
+{
+    float: left;
+    height: auto !important;
+    width: 44%;
+    margin: 0;
+}
+.action-toolbar > .on-right
+{
+    float: right;
+    height: auto !important;
+    width: 44%;
+    margin: 0;
+}
+.action-toolbar > .on-full
+{
+    width: 100%;
+    margin: 0;
+}
+
+.has-login
+{
+    background: #A6A89C !important;
+}
+
+.has-login > .mblFixedSpliter > .layout-left,
+.has-login > .mblFixedSpliter > .layout-right
+{
+    display: none;
+}
+
+.has-login > .mblFixedSpliter > .layout-center
+{
+    left: 25% !important;
+    right: 25% !important;
+    margin: 0 auto;
+    -webkit-box-shadow: rgba(0, 0, 0, 1) 0px 0px 10px;
+    -moz-box-shadow: rgba(0, 0, 0, 1) 0px 0px 10px;
+    box-shadow: rgba(0, 0, 0, 1) 0px 0px 10px;
+}
