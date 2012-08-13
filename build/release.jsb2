@@ -36,6 +36,10 @@
           "path": "../src"
         },
         {
+          "text": "ActionBar.js",
+          "path": "../src"
+        },
+        {
           "text": "QuickNav.js",
           "path": "../src"
         },
