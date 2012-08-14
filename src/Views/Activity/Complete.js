@@ -50,6 +50,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         resultTitleText: 'Result',
         startingText: 'start date',
 		startingFormatText: 'M/d/yyyy h:mm tt',
+        startingFormatTimelessText: 'M/d/yyyy',
         timelessText: 'timeless',
         durationValueText: {
             0: 'none',
@@ -176,6 +177,36 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         },
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
+
+            var startDateField = this.fields['StartDate'],
+                startDate = startDateField.getValue();
+
+            if (value)
+            {
+                startDateField['dateFormatText'] = this.startingFormatTimelessText;
+                startDateField['showTimePicker'] = false;
+                startDateField['timeless'] = true;
+                if (!this.isDateTimeless(startDate))
+                    startDate = startDate.clone().clearTime().add({minutes:-1*startDate.getTimezoneOffset(), seconds:5});
+                startDateField.setValue(startDate);
+            }
+            else
+            {
+                startDateField['dateFormatText'] = this.startingFormatText;
+                startDateField['showTimePicker'] = true;
+                startDateField['timeless'] = false;
+                if (this.isDateTimeless(startDate))
+                    startDate = startDate.clone().add({minutes:startDate.getTimezoneOffset()+1, seconds: -5});
+                startDateField.setValue(startDate);
+            }
+        },
+        isDateTimeless: function(date) {
+            if (!date) return false;
+            if (date.getUTCHours() != 0) return false;
+            if (date.getUTCMinutes() != 0) return false;
+            if (date.getUTCSeconds() != 5) return false;
+
+            return true;
         },
         onAsScheduledChange: function(scheduled, field) {
             if (scheduled)
