@@ -34,7 +34,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         notesText: 'Notes',
         priorityText: 'priority',
         regardingText: 'regarding',
-        scheduledByText: 'Scheduled by',
+        completedByText: 'completed by',
         scheduledText: 'scheduled',
         timelessText: 'timeless',
         companyText: 'company',
@@ -72,7 +72,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             'CompletedDate',
             'ContactId',
             'ContactName',
-            'CreateUser',
+            'CompletedUser',
             'Description',
             'Duration',
             'Notes',
@@ -105,10 +105,10 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         provideText: function(entry) {
             return entry && (entry['LongNotes'] || entry['Notes']);
         },
-        requestCreateUser: function(entry) {
+        requestCompletedUser: function(entry) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('users')
-                .setResourceSelector(string.substitute("'${0}'", [entry['CreateUser']]))
+                .setResourceSelector(string.substitute("'${0}'", [entry['CompletedUser']]))
                 .setQueryArg('select', [
                     'UserInfo/FirstName',
                     'UserInfo/LastName'
@@ -119,7 +119,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             return request;
         },
         requestCodeData: function(row, node, value, entry, predicate) {
-            var request = this.requestCreateUser(entry);
+            var request = this.requestCompletedUser(entry);
             request.read({
                 success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
                 failure: this.onRequestCodeDataFailure,
@@ -132,7 +132,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             this.entry[row.name] = codeText;
         },
         onRequestCodeDataFailure: function(response, o) {
-            var rowNode = query('[data-property="CreateUser"]');
+            var rowNode = query('[data-property="CompletedUser"]');
             if (rowNode)
                 this.setNodeText(rowNode[0], this.entry['UserName']);
 
@@ -170,9 +170,9 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                     property: 'Description',
                     label: this.regardingText
                 },{
-                    name: 'CreateUser',
-                    property: 'CreateUser',
-                    label: this.scheduledByText,
+                    name: 'CompletedUser',
+                    property: 'CompletedUser',
+                    label: this.completedByText,
                     value: this.loadingText,
                     cls: 'content-loading',
                     onCreate: this.requestCodeData.bindDelegate(this)
