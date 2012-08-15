@@ -213,7 +213,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 .setContractName(this.contractName)
                 .setQueryArg('select', this.querySelect.join(','));
 
-            request.allowCacheUse = true;
+            request.allowCacheUse = false;
             request.read({
                 success: this.processRecurrence,
                 failure: this.requestRecurrenceFailure,
