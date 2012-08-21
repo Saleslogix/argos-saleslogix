@@ -665,6 +665,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.recurrence.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values.StartDate);
             this.resetRecurrence(values);
             this.onStartDateChange(this.fields['StartDate'].getValue(), this.fields['StartDate'])
+            if (this.isActivityRecurring)
+                this.fields['EndDate'].hide();
 
         },
         isDateTimeless: function(date) {
@@ -783,7 +785,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     validator.isDateInRange
                 ]
             },{
-                type: 'hidden',
+                type: 'date',
                 name: 'EndDate',
                 property: 'EndDate',
                 include: this.isActivityRecurring
