@@ -448,6 +448,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                     view: 'account_related',
                     validator: validator.exists
                 },{
+                    dependsOn: 'Account',
                     label: this.contactText,
                     name: 'Contact',
                     property: 'Contact',
@@ -461,6 +462,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                         this, 'Account.Id eq "${0}"', 'AccountId'
                     )
                 },{
+                    dependsOn: 'Account',
                     label: this.opportunityText,
                     name: 'Opportunity',
                     property: 'Opportunity',
@@ -474,6 +476,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                         this, 'Account.Id eq "${0}"', 'AccountId'
                     )
                 },{
+                    dependsOn: 'Account',
                     label: this.ticketNumberText,
                     name: 'Ticket',
                     property: 'Ticket',
