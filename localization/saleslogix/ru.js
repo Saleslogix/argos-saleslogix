@@ -569,6 +569,39 @@ localize("Mobile.SalesLogix.Views.Activity.TypesList", {
   }
 });
 
+localize("Mobile.SalesLogix.Validator", {
+  "exists": {
+    "message": "Поле '${2}' должно быть заполнено."
+  },
+  "name": {
+    "message": "Поле '${2}' должно содержать имя и фамилию."
+  },
+  "notEmpty": {
+    "message": "Поле '${2}' не может быть пустым."
+  },
+  "hasText": {
+    "message": "Поле '${2}' должено содержать текст."
+  },
+  "isInteger": {
+    "message": "Значение '${0} \"не является допустимым числом."
+  },
+  "isDecimal": {
+    "message": "Значение '${0} \"не является допустимым числом."
+  },
+  "isCurrency": {
+    "message": "Значение '${0} \"не является допустимой суммой."
+  },
+  "isInt32": {
+    "message": "Поле '${2}' превышает допустимое значение числовое диапазона."
+  },
+  "exceedsMaxTextLength": {
+    "message": "Значение  поля '${2}' превышает допустимую длину."
+  },
+  "isDateInRange": {
+    "message": "Значение поля '${2}' вне разрешенного диапазона дат."
+  }
+});
+
 localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "accountNameText": "субъект",
   "accountStatusTitleText": "Статус субъекта",

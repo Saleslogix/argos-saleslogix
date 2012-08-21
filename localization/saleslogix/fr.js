@@ -569,6 +569,39 @@ localize("Mobile.SalesLogix.Views.Activity.TypesList", {
   }
 });
 
+localize("Mobile.SalesLogix.Validator", {
+  "exists": {
+    "message": "Champ '${2}' doit contenir une val."
+  },
+  "name": {
+    "message": "Le champ '${2}' doit contenir un nom et un prénom."
+  },
+  "notEmpty": {
+    "message": "Le champ '${2}' ne peut être vide"
+  },
+  "hasText": {
+    "message": "Le champ '${2}' doit contenir du texte."
+  },
+  "isInteger": {
+    "message": "Valeur '${0}' n'est pas un n° valide"
+  },
+  "isDecimal": {
+    "message": "Valeur '${0}' n'est pas un n° valide"
+  },
+  "isCurrency": {
+    "message": "Valeur '${0}' n'est pas un n° de devise valide"
+  },
+  "isInt32": {
+    "message": "La valeur du champ '${2}' dépasse la plage autorisée"
+  },
+  "exceedsMaxTextLength": {
+    "message": "La valeur du champ '${2}' dépasse la longueur autorisée"
+  },
+  "isDateInRange": {
+    "message": "Valeur du champ '${2}' hors de la plage de don. aut."
+  }
+});
+
 localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "accountNameText": "compte",
   "accountStatusTitleText": "État compte",

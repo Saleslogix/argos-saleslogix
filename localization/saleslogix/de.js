@@ -569,6 +569,39 @@ localize("Mobile.SalesLogix.Views.Activity.TypesList", {
   }
 });
 
+localize("Mobile.SalesLogix.Validator", {
+  "exists": {
+    "message": "Feld '${2}' muss einen Wert enthalten."
+  },
+  "name": {
+    "message": "Für Feld '${2}' müssen Vor- und Nachname angegeben werden."
+  },
+  "notEmpty": {
+    "message": "Feld '${2}' darf nicht leer sein."
+  },
+  "hasText": {
+    "message": "Das Feld '${2}' muss Text enthalten."
+  },
+  "isInteger": {
+    "message": "Der Wert '${0}' ist keine gültige Zahl."
+  },
+  "isDecimal": {
+    "message": "Der Wert '${0}' ist keine gültige Zahl."
+  },
+  "isCurrency": {
+    "message": "Wert '${0}' ist kein gültiger Währungsbetrag."
+  },
+  "isInt32": {
+    "message": "Wert von Feld '${2}' übersteigt zulässigen Zahlenbereich."
+  },
+  "exceedsMaxTextLength": {
+    "message": "Wert von Feld '${2}' übersteigt die zulässige Höchstlänge."
+  },
+  "isDateInRange": {
+    "message": "Wert von Feld '${2}' nicht im zuläss. Datumsbereich."
+  }
+});
+
 localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "accountNameText": "Firma",
   "accountStatusTitleText": "Firmenstatus",

@@ -569,6 +569,39 @@ localize("Mobile.SalesLogix.Views.Activity.TypesList", {
   }
 });
 
+localize("Mobile.SalesLogix.Validator", {
+  "exists": {
+    "message": "Il campo '${2}' deve avere valore."
+  },
+  "name": {
+    "message": "Il campo '${2}' deve avere un nome e cognome specificati."
+  },
+  "notEmpty": {
+    "message": "Campo '${2}' deve essere pieno."
+  },
+  "hasText": {
+    "message": "Il campo '${2}' deve contenere testo."
+  },
+  "isInteger": {
+    "message": "Non è un numero  valido '${0}'."
+  },
+  "isDecimal": {
+    "message": "Non è un numero  valido '${0}'."
+  },
+  "isCurrency": {
+    "message": "'${0}' non è una valuta valida."
+  },
+  "isInt32": {
+    "message": "Il campo '${2}' eccede l'intervallo numerico ammesso."
+  },
+  "exceedsMaxTextLength": {
+    "message": "Il campo '${2}' eccede la lunghezza massima ammessa."
+  },
+  "isDateInRange": {
+    "message": "Il campo '${2}' eccede l'intervallo di date ammesso."
+  }
+});
+
 localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "accountNameText": "azienda",
   "accountStatusTitleText": "Status Azienda",
