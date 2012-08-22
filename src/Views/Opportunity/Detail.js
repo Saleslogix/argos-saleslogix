@@ -2,15 +2,17 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    'Sage/Platform/Mobile/_SDataDetailMixin'
 ], function(
     declare,
     string,
     format,
-    Detail
+    Detail,
+    _SDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail, _SDataDetailMixin], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',

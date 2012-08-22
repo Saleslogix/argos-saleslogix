@@ -29,12 +29,12 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
                 {
                     tools = (tools || []).concat([{
                         id: 'back',
-                        side: 'left',
+                        place: 'left',
                         fn: this.navigateBack,
                         scope: this
                     },{
                         id: 'home',
-                        side: 'left',
+                        place: 'left',
                         fn: this.navigateToHomeView,
                         scope: this
                     }]);

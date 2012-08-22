@@ -4,17 +4,19 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/_SDataEditMixin'
 ], function(
     declare,
     string,
     validator,
     format,
     template,
-    Edit
+    Edit,
+    _SDataEditMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.Account.Edit', [Edit, _SDataEditMixin], {
         //Localization
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account Subtype',

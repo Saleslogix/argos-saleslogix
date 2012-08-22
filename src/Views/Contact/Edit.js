@@ -4,6 +4,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/_SDataEditMixin',
     'Sage/Platform/Mobile/Utility'
 ], function(
     declare,
@@ -11,10 +12,11 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     template,
     validator,
     Edit,
+    _SDataEditMixin,
     utility
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.Contact.Edit', [Edit, _SDataEditMixin], {
         //Localization
         titleText: 'Contact',
         nameText: 'name',

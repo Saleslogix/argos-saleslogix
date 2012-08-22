@@ -45,8 +45,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         repeatsText: 'repeats',
         recurringText: 'recurring',
         recurringTitleText: 'Recurring',
-		startingFormatText: 'M/d/yyyy h:mm tt',
-        startingFormatTimelessText: 'M/d/yyyy',
+		startingFormatText: 'M/D/YYYY h:mm A',
+        startingFormatTimelessText: 'M/D/YYYY',
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
@@ -426,41 +426,35 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var view = App.getView(context.id);
             if (view && view.currentDate)
             {
-                var currentDate = view.currentDate.clone().clearTime(),
+                var currentDate = view.currentDate.sod(),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && Date.parse(startTimeOption),
+                    startTime = startTimeOption && moment(startTimeOption),
                     startDate;
 
-                if (startTime && (currentDate.compareTo(Date.today()) !== 0))
+                if (startTime && (currentDate.valueOf() == moment().sod().valueOf()))
                 {
-                    startDate = currentDate.clone().set({
-                        'hour': startTime.getHours(),
-                        'minute': startTime.getMinutes()
-                    });
+                    startDate = currentDate.clone()
+                        .hours(startTime.hours())
+                        .minutes(startTime.minutes());
                 }
                 else
                 {
-                    startTime = Date.now();
-                    startDate = currentDate.clone().clearTime().set({
-                        'hour': startTime.getHours()
-                    }).add({
-                        'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
-                    });
+                    startTime = moment();
+                    startDate = currentDate.sod().hours(startTime.hours())
+                        .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
                 }
 
-                this.fields['StartDate'].setValue(startDate);
-                this.recurrence.StartDate = startDate;
+                this.fields['StartDate'].setValue(startDate.toDate());
+                this.recurrence.StartDate = startDate;                
             }
         },
         applyContext: function() {
             this.inherited(arguments);
 
-            var startTime = Date.now(),
-                startDate = Date.now().clearTime().set({
-                    'hour': startTime.getHours()
-                }).add({
-                    'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
+            var startTime = moment(),
+                startDate = moment().sod().hours(startTime.hours()).add({
+                    'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
                 }),
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
@@ -468,7 +462,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup+':AlarmEnabled'] || true,
                 alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup+':AlarmLead'] || 15;
 
-            this.fields['StartDate'].setValue(startDate);
+            this.fields['StartDate'].setValue(startDate.toDate());
             this.fields['Type'].setValue(activityType);
             this.fields['Duration'].setValue(activityDuration);
             this.fields['Alarm'].setValue(alarmEnabled);
@@ -689,11 +683,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (startDate && (isStartDateDirty || isReminderDirty))
             {
                 values = values || {};
-                values['AlarmTime'] = startDate.clone().add({'minutes': -1 * reminderIn});
+                values['AlarmTime'] = moment(startDate).clone().add({'minutes': -1 * reminderIn}).toDate();
 
                 // if timeless, convert back to local time
                 if (timeless)
-                    values['AlarmTime'].add({'minutes': startDate.getTimezoneOffset()});
+                    values['AlarmTime'] = moment(values['AlarmTime']).add({'minutes': startDate.getTimezoneOffset()}).toDate();
             }
 
             return values;

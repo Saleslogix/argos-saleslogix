@@ -13,31 +13,25 @@
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
     <!-- CSS -->
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/reui/themes/sage-green/theme.css" />
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/base.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/layout.css" />
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/theme.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.css" />
 
     <!-- JSON -->
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
 
-    <!-- ReUI -->
+    <!-- iScroll -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/iscroll-lite.js"></script>
     <script type="text/javascript">
-    reConfig = {
-        autoInit: false,
-        legacyMode: false,
-        showInitialPage: false,
-        updateBackButtonText: false
-    };
+    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
     </script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/reui/reui.js"></script>
 
     <!-- SData Client Library -->
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
 
-    <!-- DateJS -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/datejs/build/date.js"></script>
+    <!-- Moment.js -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/moment/min/moment.min.js"></script>
 
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
@@ -54,12 +48,16 @@
         { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
         { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
         { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
+        { name: 'argos', location: '../../argos-sdk/loader' },
         { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
         { name: 'Mobile/SalesLogix', location: 'src' }
     ]});
     </script>
 
     <script type="text/javascript">
+    var destroy = function() {
+        App.destroy();
+    };
     (function() {
         var application = 'Mobile/SalesLogix/Application',
             configuration = [
@@ -70,17 +68,17 @@
                 'localization/en',
                 'localization/saleslogix/en'
             ];
-            require(localization.concat('dojo/domReady!'), function() {
+            require(['dojo/domReady!'].concat(localization), function(ready) {
                 var instance = new application(configuration);
 
                 instance.activate();
-                instance.init();
+                instance.startup();
                 instance.run();
             });
         });
     })();
     </script>
 </head>
-<body>
+<body class="has-login">
 </body>
 </html>

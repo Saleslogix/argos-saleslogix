@@ -6,6 +6,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Detail',
+    'Sage/Platform/Mobile/_SDataDetailMixin',
     'dojo/NodeList-manipulate'
 ], function(
     declare,
@@ -14,10 +15,12 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
     domClass,
     format,
     ErrorManager,
-    Detail
+    Detail,
+    _SDataDetailMixin,
+    nodeListManipulate
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Ticket.Detail', [Detail, _SDataDetailMixin], {
         //Localization
         accountText: 'account',
         areaText: 'area',

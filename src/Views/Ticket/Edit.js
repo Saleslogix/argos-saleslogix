@@ -5,7 +5,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/_SDataEditMixin'
 ], function(
     declare,
     lang,
@@ -13,10 +14,11 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
     format,
     validator,
     ErrorManager,
-    Edit
+    Edit,
+    _SDataEditMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.Ticket.Edit', [Edit, _SDataEditMixin], {
 
         //Localization
         accountText: 'acct',

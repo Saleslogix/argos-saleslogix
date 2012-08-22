@@ -2,14 +2,16 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
     'dojo/_base/declare',
     'dojo/string',
     'Sage/Platform/Mobile/Fields/LookupField',
+    'Sage/Platform/Mobile/Fields/FieldRegistry',
     'Mobile/SalesLogix/Views/PickList',
-    'Sage/Platform/Mobile/FieldManager'
+    'argos!scene'
 ], function(
     declare,
     string,
     LookupField,
+    FieldRegistry,
     PickList,
-    FieldManager
+    scene
 ) {
     var viewsByName = {},
         viewsByNameCount = 0;
@@ -28,7 +30,8 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         return (viewsByName[name] = view);
     };
 
-    var control = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {
+    var PicklistField = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {
+        view: 'pick_list',
         picklist: false,
         orderBy: 'number asc',
         storageMode: 'text',
@@ -88,32 +91,25 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                 options.previousSelections = !this.singleSelect ? this.createSelections() : null;
             }
 
-            if (!this.singleSelect)
-            {
-                options.tools = {
-                    tbar: [{
-                        id: 'complete',
-                        fn: this.complete,
-                        scope: this
-                    },{
-                        id: 'cancel',
-                        side: 'left',
-                        fn: ReUI.back,
-                        scope: ReUI
-                    }]
-                };
-            }
-
             return options;
         },
         navigateToListView: function() {
+            var options = this.createNavigationOptions();
+
+            scene().showView(this.view, options);
+
+            /* todo: add support for multiple picklist list views */
+            /*
             var options = this.createNavigationOptions(),
                 view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
 
             if (view && options)
                 view.show(options);
+            */
         }
     });
 
-    return FieldManager.register('picklist', control);
+    FieldRegistry.register('picklist', PicklistField);
+
+    return PicklistField;
 });

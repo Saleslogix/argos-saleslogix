@@ -2,162 +2,25 @@
   "projectName": "SalesLogix Mobile",
   "licenseText": "",
   "deployDir": "deploy/",
-  "pkgs": [
-    {
-      "name": "Core Mobile Localization (en-US)",
-      "file": "localization/en.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "en.js",
-          "path": "../localization/"
-        },
-        {
-          "text": "en-US.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
-        }
-      ]
+  "pkgs": [{
+        "name": "Core Mobile Localization (en-US)",
+        "file": "localization/en.js",
+        "isDebug": true,
+        "fileIncludes": [{
+            "text": "en.js",
+            "path": "../localization/"
+        }]
     },
     {
-      "name": "SalesLogix Mobile Localization (en-US)",
-      "file": "localization/saleslogix/en.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "en.js",
-          "path": "../localization/saleslogix/"
-        }
-      ]
-    },
-    {
-      "name": "Core Mobile Localization (de-DE)",
-      "file": "localization/de.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "de.js",
-          "path": "../localization/"
-        },
-        {
-          "text": "de-DE.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
-        }
-      ]
-    },
-    {
-      "name": "SalesLogix Mobile Localization (de-DE)",
-      "file": "localization/saleslogix/de.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "de.js",
-          "path": "../localization/saleslogix/"
-        }
-      ]
-    },
-    {
-      "name": "Core Mobile Localization (fr-FR)",
-      "file": "localization/fr.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "fr.js",
-          "path": "../localization/"
-        },
-        {
-          "text": "fr-FR.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
-        }
-      ]
-    },
-    {
-      "name": "SalesLogix Mobile Localization (fr-FR)",
-      "file": "localization/saleslogix/fr.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "fr.js",
-          "path": "../localization/saleslogix/"
-        }
-      ]
-    },
-    {
-      "name": "Core Mobile Localization (ru-RU)",
-      "file": "localization/ru.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "ru.js",
-          "path": "../localization/"
-        },
-        {
-          "text": "ru-RU.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
-        }
-      ]
-    },
-    {
-      "name": "SalesLogix Mobile Localization (ru-RU)",
-      "file": "localization/saleslogix/ru.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "ru.js",
-          "path": "../localization/saleslogix/"
-        }
-      ]
-    },
-    {
-      "name": "Core Mobile Localization (it-IT)",
-      "file": "localization/it.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "it.js",
-          "path": "../localization/"
-        },
-        {
-          "text": "it-IT.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
-        }
-      ]
-    },
-    {
-      "name": "SalesLogix Mobile Localization (it-IT)",
-      "file": "localization/saleslogix/it.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "it.js",
-          "path": "../localization/saleslogix/"
-        }
-      ]
-    },
-    {
-      "name": "Core Mobile Localization (en-GB)",
-      "file": "localization/en-GB.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "en-GB.js",
-          "path": "../localization/"
-        },
-        {
-          "text": "en-GB.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
-        }
-      ]
-    },
-    {
-      "name": "SalesLogix Mobile Localization (en-GB)",
-      "file": "localization/saleslogix/en-GB.js",
-      "isDebug": true,
-      "fileIncludes": [
-        {
-          "text": "en-GB.js",
-          "path": "../localization/saleslogix/"
-        }
-      ]
+        "name": "SalesLogix Mobile Localization (en-US)",
+        "file": "localization/saleslogix/en.js",
+        "isDebug": true,
+        "fileIncludes":[
+            {
+                "text": "en.js",
+                "path": "../localization/saleslogix/"
+            }
+        ]
     },
     {
       "name": "SalesLogix Mobile",
@@ -169,7 +32,31 @@
           "path": "../src"
         },
         {
+          "text": "TitleBar.js",
+          "path": "../src"
+        },
+        {
+          "text": "ActionBar.js",
+          "path": "../src"
+        },
+        {
+          "text": "QuickNav.js",
+          "path": "../src"
+        },
+        {
+          "text": "ApplicationLayout.js",
+          "path": "../src"
+        },
+        {
+          "text": "ApplicationScene.js",
+          "path": "../src"
+        },
+        {
           "text": "Application.js",
+          "path": "../src"
+        },
+        {
+          "text": "ApplicationViews.js",
           "path": "../src"
         },
         {
@@ -177,19 +64,14 @@
           "path": "../src"
         },
         {
+          "text": "Action.js",
+          "path": "../src"
+        },
           "text": "Format.js",
           "path": "../src"
         },
         {
-          "text": "Action.js",
-          "path": "../src"
-        },
-        {
           "text": "Validator.js",
-          "path": "../src"
-        },
-        {
-          "text": "Recurrence.js",
           "path": "../src"
         },
         {
@@ -198,14 +80,6 @@
         },
         {
           "text": "AreaCategoryIssueLookup.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "MainToolbar.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "FooterToolbar.js",
           "path": "../src/Views"
         },
         {
@@ -263,30 +137,6 @@
         {
           "text": "Edit.js",
           "path": "../src/Views/Address"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Activity"
-        },
-        {
-          "text": "Detail.js",
-          "path": "../src/Views/Activity"
-        },
-        {
-          "text": "Edit.js",
-          "path": "../src/Views/Activity"
-        },
-        {
-          "text": "Complete.js",
-          "path": "../src/Views/Activity"
-        },
-        {
-          "text": "TypesList.js",
-          "path": "../src/Views/Activity"
-        },
-        {
-          "text": "Recurring.js",
-          "path": "../src/Views/Activity"
         },
         {
           "text": "DayView.js",
@@ -457,16 +307,8 @@
           "path": "../src/Fields"
         },
         {
-          "text": "RecurrencesField.js",
-          "path": "../src/Fields"
-        },
-        {
           "text": "ApplicationModule.js",
           "path": "../src"
-        },
-        {
-          "text": "UpdateToolbar.js",
-          "path": "../src/Views"
         }
       ]
     },
@@ -475,86 +317,282 @@
       "file": "content/dojo/dojo-dependencies.js",
       "isDebug": true,
       "fileIncludes": [
-        {
-          "text": "string.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "NodeList-manipulate.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "main.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit"
-        },
-        {
-          "text": "registry.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit"
-        },
-        {
-          "text": "Stateful.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "_WidgetBase.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit"
-        },
-        {
-          "text": "_OnDijitClickMixin.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit"
-        },
-        {
-          "text": "window.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "manager.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
-        },
-        {
-          "text": "a11y.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit"
-        },
-        {
-          "text": "focus.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit"
-        },
-        {
-          "text": "_FocusMixin.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit"
-        },
-        {
-          "text": "uacss.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "hccss.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit"
-        },
-        {
-          "text": "_Widget.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit"
-        },
-        {
-          "text": "NodeList-traverse.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "url.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo/_base"
-        },
-        {
-          "text": "stamp.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo/date"
-        },
-        {
-          "text": "parser.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "wai.js",
-          "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
-        }
+          {
+            "text": "string.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "Element.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
+          },
+          {
+            "text": "_PlotEvents.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "primitive.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/scaler"
+          },
+          {
+            "text": "main.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox"
+          },
+          {
+            "text": "lambda.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
+          },
+          {
+            "text": "array.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
+          },
+          {
+            "text": "object.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
+          },
+          {
+            "text": "functional.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/lang"
+          },
+          {
+            "text": "common.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/scaler"
+          },
+          {
+            "text": "common.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "matrix.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/gfx"
+          },
+          {
+            "text": "fx.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/gfx"
+          },
+          {
+            "text": "Base.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "reversed.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
+          },
+          {
+            "text": "utils.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/lang"
+          },
+          {
+            "text": "Default.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "Areas.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "Markers.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "Base.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/axis2d"
+          },
+          {
+            "text": "linear.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/scaler"
+          },
+          {
+            "text": "Invisible.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/axis2d"
+          },
+          {
+            "text": "common.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/axis2d"
+          },
+          {
+            "text": "Default.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/axis2d"
+          },
+          {
+            "text": "window.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "Bars.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "Columns.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "Lines.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "Pie.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "colors.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "_base.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/color"
+          },
+          {
+            "text": "Palette.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/color"
+          },
+          {
+            "text": "gradutils.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/gfx"
+          },
+          {
+            "text": "Theme.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
+          },
+          {
+            "text": "Series.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
+          },
+          {
+            "text": "fold.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/lang/functional"
+          },
+          {
+            "text": "Chart.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
+          },
+          {
+            "text": "main.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "registry.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "Stateful.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "_WidgetBase.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "_OnDijitClickMixin.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "manager.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
+          },
+          {
+            "text": "a11y.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "focus.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "_FocusMixin.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "uacss.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "hccss.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "_Widget.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "Legend.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/widget"
+          },
+          {
+            "text": "Grid.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "NodeList-manipulate.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "DeferredList.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "_Contained.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "_Container.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "FixedSplitterPane.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/mobile"
+          },
+          {
+            "text": "FixedSplitter.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/mobile"
+          },
+          {
+            "text": "url.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo/_base"
+          },
+          {
+            "text": "stamp.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo/date"
+          },
+          {
+            "text": "parser.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "html.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "QueryResults.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo/store/util"
+          },
+          {
+            "text": "NodeList-traverse.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "touch.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "text.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "cache.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo"
+          },
+          {
+            "text": "_TemplatedMixin.js",
+            "path": "../../../argos-sdk/libraries/dojo/dijit"
+          },
+          {
+            "text": "SimpleQueryEngine.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo/store/util"
+          },
+          {
+            "text": "Memory.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojo/store"
+          }
       ]
     }
   ],

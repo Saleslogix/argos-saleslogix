@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
             '</div>'
         ]),
         toolTemplate: new Simplate([
-            '<button class="button toolButton toolButton-{%= $.side || "right" %} {%= $.cls %}" data-action="invokeTool" data-tool="{%= $.id %}">',
+            '<button class="button toolButton toolButton-{%= $.side || "right" %} {%= $.cls %}" data-action="invoke" data-command="{%= $.id %}">',
             '{% if ($.icon) { %}',
             '<img src="{%= $.icon %}" alt="{%= $.id %}" />',
             '{% } %}',
@@ -47,19 +47,19 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
                 tools = [{
                     id: 'settings',
                     title: this.settingsText,
-                    side: 'left',
+                    place: 'left',
                     fn: this.navigateToSettingsView,
                     scope: this
                 },{
                     id: 'help',
                     title: this.helpText,
-                    side: 'left',
+                    place: 'left',
                     fn: this.navigateToHelpView,
                     scope: this
                 },{
                     id: 'top',
                     title: this.topText,
-                    side: 'left',
+                    place: 'left',
                     fn: this.scrollToTop,
                     scope: this
                 },{

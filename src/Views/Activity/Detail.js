@@ -59,11 +59,11 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         ticketNumberText: 'ticket',
         whenText: 'When',
         whoText: 'Who',
-        startDateFormatText: 'M/d/yyyy h:mm:ss tt',
-        timelessDateFormatText: 'M/d/yyyy',
-        alarmDateFormatText: 'M/d/yyyy h:mm:ss tt',
+		startDateFormatText: 'M/D/YYYY h:mm:ss A',
+        timelessDateFormatText: 'M/D/YYYY',
+        alarmDateFormatText: 'M/D/YYYY h:mm:ss A',
         recurrenceText: 'recurrence',
-        confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',
+        confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',        
 
         //View Properties
         id: 'activity_detail',

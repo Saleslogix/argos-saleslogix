@@ -66,8 +66,8 @@ define('Mobile/SalesLogix/Validator', [
                 //If value is empty, ignore comparison
                 if (!value) return false;
 
-                if (minValue && value instanceof Date && value.compareTo(minValue) === 1) return false;
-                if (maxValue && value instanceof Date && value.compareTo(maxValue) === -1) return false;
+                if (minValue && value instanceof Date && value.valueOf() > minValue.valueOf()) return false;
+                if (maxValue && value instanceof Date && value.valueOf() < maxValue.valueOf()) return false;
                 return true;
             },
             message: "The field '${2}' value is out of allowed date range."

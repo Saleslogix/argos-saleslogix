@@ -1,18 +1,17 @@
 define('Mobile/SalesLogix/Fields/NameField', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/Fields/EditorField',
-    'Sage/Platform/Mobile/FieldManager'
+    'Sage/Platform/Mobile/Fields/FieldRegistry'
 ], function(
     declare,
     EditorField,
-    FieldManager
+    FieldRegistry
 ) {
-    var control = declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
+    var NameField = declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
         // Localization
         emptyText: 'no name',
 
         widgetTemplate: new Simplate([
-            '<label for="{%= $.name %}">{%: $.label %}</label>',
             '<button class="button simpleSubHeaderButton" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
             '<input data-dojo-attach-point="inputNode" readonly="readonly" type="text" />'
         ]),
@@ -25,5 +24,7 @@ define('Mobile/SalesLogix/Fields/NameField', [
         }
     });
 
-    return FieldManager.register('name', control);
+    FieldRegistry.register('name', NameField);
+
+    return NameField;
 });

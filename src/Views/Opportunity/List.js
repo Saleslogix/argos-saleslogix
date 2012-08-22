@@ -3,16 +3,18 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'dojo/string',
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataListMixin'
 ], function(
     declare,
     string,
     action,
     format,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _SDataListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
