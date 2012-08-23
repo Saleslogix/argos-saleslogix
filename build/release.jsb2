@@ -44,6 +44,10 @@
           "path": "../src"
         },
         {
+          "text": "FlashToolbarButton.js",
+          "path": "../src"
+        },
+        {
           "text": "ApplicationLayout.js",
           "path": "../src"
         },

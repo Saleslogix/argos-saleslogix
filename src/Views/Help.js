@@ -44,7 +44,11 @@ define('Mobile/SalesLogix/Views/Help', [
             domConstruct.place(this.errorTemplate.apply(this), this.contentNode, 'last');
             domClass.remove(this.domNode, 'panel-loading');
 
-            ErrorManager.addError(response, o, this.options, 'failure');
+            var errorItem = {
+                viewOptions: this.options,
+                serverError: response
+            };
+            ErrorManager.addError(this.errorMessageText, errorItem);
         },
         onLocalizedRequestFirstFailure: function(response, o) {
             Sage.SData.Client.Ajax.request({

@@ -384,11 +384,20 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         },
         onRequestEventDataFailure: function(response, o) {
             alert(string.substitute(this.requestErrorText, [response, o]));
-            ErrorManager.addError(response, o, this.options, 'failure');
+            var errorItem = {
+                viewOptions: this.options,
+                serverError: response
+            };
+            ErrorManager.addError(this.requestErrorText, errorItem);
         },
         onRequestEventDataAborted: function(response, o) {
+            var errorItem = {
+                viewOptions: this.options,
+                serverError: response
+            };
+            ErrorManager.addError(this.requestErrorText, errorItem);
+
             this.options = false; // force a refresh
-            ErrorManager.addError(response, o, this.options, 'aborted');
         },
         onRequestEventDataSuccess: function(feed) {
             this.processEventFeed(feed);

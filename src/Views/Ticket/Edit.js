@@ -116,7 +116,11 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             field.setText(value);
         },
         onRequestCodeDataFailure: function(response, o) {
-            ErrorManager.addError(response, o, this.options, 'failure');
+            var errorItem = {
+                viewOptions: this.options,
+                serverError: response
+            };
+            ErrorManager.addError(this.requestErrorText, errorItem);
         },
         processCodeDataFeed: function(feed, currentValue, options) {
             var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';

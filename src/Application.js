@@ -362,7 +362,10 @@ define('Mobile/SalesLogix/Application', [
                 this.requestOwnerDescription(insertSecCode);
         },
         onRequestUserOptionsFailure: function(response, o) {
-            ErrorManager.addError(response, o, {}, 'failure');
+            var errorItem = {
+                serverError: response
+            };
+            ErrorManager.addError(this.requestErrorText, errorItem);
         },
         requestOwnerDescription: function(key) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
@@ -381,7 +384,10 @@ define('Mobile/SalesLogix/Application', [
                 this.context['defaultOwner'] = entry;
         },
         onRequestOwnerDescriptionFailure: function(response, o) {
-            ErrorManager.addError(response, o, {}, 'failure');
+            var errorItem = {
+                serverError: response
+            };
+            ErrorManager.addError(this.requestErrorText, errorItem);
         },
         persistPreferences: function() {
             try

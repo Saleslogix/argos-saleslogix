@@ -13,6 +13,8 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'contact_related': {type: 'Mobile/SalesLogix/Views/Contact/List', props: {tier: 1}},
     'contact_detail': {type: 'Mobile/SalesLogix/Views/Contact/Detail'},
     'contact_edit': {type: 'Mobile/SalesLogix/Views/Contact/Edit'},
+    'errorlog_list': {type: 'Mobile/SalesLogix/Views/ErrorLog/List'},
+    'errorlog_detail': {type: 'Mobile/SalesLogix/Views/ErrorLog/Detail'},
     'lead_list': {type: 'Mobile/SalesLogix/Views/Lead/List'},
     'lead_related': {type: 'Mobile/SalesLogix/Views/Lead/List', props: {tier: 1}},
     'lead_detail': {type: 'Mobile/SalesLogix/Views/Lead/Detail'},

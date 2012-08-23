@@ -2,32 +2,36 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     'dojo/_base/declare',
     'dojo/_base/json',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
+    '../../FlashToolbarButton',
+    '../../Format',
+    '../../Environment',
+    'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    'Sage/Platform/Mobile/_SDataDetailMixin'
 ], function(
     declare,
     json,
     string,
+    FlashToolbarButton,
     format,
+    environment,
+    utility,
     ErrorManager,
-    Detail
+    Detail,
+    _SDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.ErrorLog.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.ErrorLog.Detail', [Detail, _SDataDetailMixin], {
         //Localization
         titleText: 'Error Log',
 
         detailsText: 'Details',
         errorDateText: 'date',
         errorDateFormatText: 'MM/DD/YYYY hh:mm A',
-        statusTextText: 'error',
-        urlText: 'url',
+        descriptionText: 'description',
 
         moreDetailsText: 'More Details',
-        severityText: 'severity',
-        statusCodeText: 'status code',
-        errorText: 'error',
 
         emailSubjectText: 'Error received in Sage SalesLogix Mobile Client',
         copiedSuccessText: 'Copied to clipboard',
@@ -41,20 +45,6 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
                 '</pre>',
             '</div>'
         ]),
-        copyButtonTemplate: new Simplate([
-            '<div class="copyButton button toolButton toolButton-right">',
-                '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="40" height="36" id="errorlog-detail-copy">',
-                    '<param name="movie" value="content/clippy.swf"/>',
-                    '<param name="allowScriptAccess" value="always" />',
-                    '<param name="quality" value="high" />',
-                    '<param name="scale" value="noscale" />',
-                    '<param name="FlashVars" value="{%= $.flashVars %}" />',
-                    '<param name="wmode" value="transparent" />',
-                    '<embed src="content/clippy.swf" width="45" height="36" scale="noscale" name="clippy" quality="high" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" FlashVars="{%= $.flashVars %}" wmode="transparent" />',
-                '</object>',
-            '</div>'
-        ]),
-
 
         //View Properties
         id: 'errorlog_detail',
@@ -65,19 +55,19 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
          */
         defaultToAddress: null,
 
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
             this.determineSendType();
         },
 
         createToolLayout: function() {
             var tools = {
-                'tbar': []
+                'top': []
             };
 
             if (this.sendType === 'mailto')
             {
-                tools.tbar.push({
+                tools.top.push({
                     id: 'generateEmail',
                     action: 'constructReport',
                     icon: 'content/images/icons/Send_Write_email_24x24.png',
@@ -88,18 +78,21 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
             if (this.sendType === 'copy')
             {
                 var flashVars = this.constructFlashVars({
-                    "retrieveFunction": "App.views."+this.id+".constructReport",
-                    "callbackFunction": "App.views."+this.id+".onCopySuccess",
+                    "retrieveFunction": "App.scene.getView('"+this.id+"').constructReport",
+                    "callbackFunction": "App.scene.getView('"+this.id+"').onCopySuccess",
                     "labelVisible": "0"
                 });
 
-                tools.tbar.push({
-                    template: this.copyButtonTemplate,
+                tools.top.push({
+                    cls: 'copyButton',
+                    type: FlashToolbarButton,
+                    id: 'errorlog-detail-copy',
+                    swf: 'content/clippy.swf',
                     flashVars: flashVars
                 });
             }
 
-            return this.tools || tools;
+            return this.tools || (this.tools = tools);
         },
 
         /**
@@ -131,7 +124,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
 
         constructReport: function() {
             var body = string.substitute('\r\n\r\n\r\n-----------------\r\n${0}',
-                    [json.toJson(this.entry, true)]);
+                    [json.toJson(utility.sanitizeForJson(this.item), true)]);
 
             if (this.sendType === 'mailto')
                 this.sendEmailReport(body);
@@ -143,12 +136,13 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
             var email = this.defaultToAddress || '',
                 subject = encodeURIComponent(this.emailSubjectText);
             body = encodeURIComponent(body);
-            App.initiateEmail(email, subject, body);
+            environment.initiateEmail(email, subject, body);
         },
 
-        requestData: function() {
+        _requestData: function() {
             var errorItem = ErrorManager.getError('$key', this.options.key);
-            this.processEntry(errorItem);
+
+            this._onGetComplete(errorItem);
         },
 
         createLayout: function() {
@@ -156,36 +150,23 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
                 title: this.detailsText,
                 name: 'DetailsSection',
                 children: [{
+                    label: this.descriptionText,
+                    name: 'Description',
+                    property: 'Description'
+                },{
                     label: this.errorDateText,
-                    name: 'errorDateStamp',
-                    property: 'errorDateStamp',
+                    name: 'Date',
+                    property: 'Date',
                     renderer: format.date.bindDelegate(this, this.errorDateFormatText)
-                },{
-                    label: this.statusTextText,
-                    name: 'serverResponse.statusText',
-                    property: 'serverResponse.statusText'
-                },{
-                    label: this.urlText,
-                    name: 'url',
-                    property: 'url',
-                    use: this.longDetailProperty
                 }]
             },{
                 title: this.moreDetailsText,
                 collapsed: true,
                 name: 'MoreDetailsTextSection',
                 children: [{
-                    label: this.severityText,
-                    name: 'severity',
-                    property: 'serverResponse.responseText.severity'
-                },{
-                    label: this.statusCodeText,
-                    name: 'statusCode',
-                    property: 'serverResponse.status'
-                },{
                     label: this.errorText,
-                    name: 'ErrorMessage',
-                    property: 'serverResponse.responseText.message',
+                    name: 'Error',
+                    property: 'Error',
                     use: this.longDetailProperty
                 }]
             }]);

@@ -139,7 +139,11 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             if (rowNode)
                 this.setNodeText(rowNode[0], this.entry['UserName']);
 
-            ErrorManager.addError(response, o, this.options, 'failure');
+            var errorItem = {
+                viewOptions: this.options,
+                serverError: response
+            };
+            ErrorManager.addError(this.requestErrorText, errorItem);
         },
         setNodeText: function(node, value) {
             domClass.remove(node, 'content-loading');
