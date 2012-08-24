@@ -1355,6 +1355,8 @@ td.entry-table-description {
     box-sizing: content-box !important;
     -webkit-box-sizing: content-box !important;
     -moz-box-sizing: content-box !important;
+    position: relative;
+    left: -3px;
 }
 
 .quick-nav

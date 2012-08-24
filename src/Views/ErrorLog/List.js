@@ -1,26 +1,30 @@
 define('Mobile/SalesLogix/Views/ErrorLog/List', [
     'dojo/_base/declare',
+    'dojo/_base/array',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataListMixin'
 ], function(
     declare,
+    array,
     format,
     convert,
     ErrorManager,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.ErrorLog.List', [List], {
+    return declare('Mobile.SalesLogix.Views.ErrorLog.List', [List, _SDataListMixin], {
         //Localization
         titleText: 'Error Logs',
         errorDateFormatText: 'MM/DD/YYYY hh:mm A',
 
         //Templates
         itemTemplate: new Simplate([
-            '<h3>{%: Mobile.SalesLogix.Format.date($.errorDateStamp, $$.errorDateFormatText) %}</h3>',
-            '<h4>{%: $.serverResponse.statusText || "" %}</h4>'
+            '<h3>{%: moment($.Date).format($$.errorDateFormatText) %}</h3>',
+            '<h4>{%: $.Description %}</h4>'
         ]),
 
         //View Properties
@@ -38,22 +42,17 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
             }
         },
 
-        requestData: function() {
+        _requestData: function() {
             var errorItems = ErrorManager.getAllErrors();
 
             errorItems.sort(function(a, b) {
-               var A = convert.toDateFromString(a.errorDateStamp),
-                   B = convert.toDateFromString(b.errorDateStamp);
+               var A = new Date(a.Date).getTime(),
+                   B = new Date(b.Date).getTime();
 
-               return B.compareTo(A); // new -> old
+               return B > A;
             });
 
-            this.processFeed({
-                '$resources': errorItems,
-                '$totalResults': errorItems.length,
-                '$startIndex': 1,
-                '$itemsPerPage': 20
-            });
+            this._onQueryComplete({total: errorItems.length}, errorItems);
         },
 
         createToolLayout: function() {
