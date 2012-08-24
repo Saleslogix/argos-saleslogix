@@ -109,7 +109,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             return entry && (entry['LongNotes'] || entry['Notes']);
         },
         requestCompletedUser: function(entry) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
                 .setResourceKind('users')
                 .setResourceSelector(string.substitute("'${0}'", [entry['CompletedUser']]))
                 .setQueryArg('select', [
@@ -132,7 +132,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         onRequestCodeDataSuccess: function(row, node, value, entry, data) {
             var codeText = entry[row.property];
             this.setNodeText(node, this.createUserTemplate.apply(data.UserInfo));
-            this.entry[row.name] = codeText;
+            this.item[row.name] = codeText;
         },
         onRequestCodeDataFailure: function(response, o) {
             var rowNode = query('[data-property="CompletedUser"]');
