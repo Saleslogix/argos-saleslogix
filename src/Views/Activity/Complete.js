@@ -6,7 +6,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/_SDataEditMixin'
 ], function(
     declare,
     array,
@@ -15,10 +16,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     validator,
     template,
     utility,
-    Edit
+    Edit,
+    _SDataEditMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.Complete', [Edit], {
+    return declare('Mobile.SalesLogix.Views.Activity.Complete', [Edit, _SDataEditMixin], {
         //Localization
         activityInfoText: 'Activity Info',
         accountText: 'account',
@@ -328,7 +330,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                 };
             })(this, callback, entry);
 
-            var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
+            var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getConnection())
                 .setResourceKind('activities')
                 .setContractName('system')
                 .setOperationName('Complete');

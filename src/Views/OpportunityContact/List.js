@@ -1,14 +1,16 @@
 define('Mobile/SalesLogix/Views/OpportunityContact/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataListMixin'
 ], function(
     declare,
     string,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityContact.List', [List], {
+    return declare('Mobile.SalesLogix.Views.OpportunityContact.List', [List, _SDataListMixin], {
         //Template
         itemTemplate: new Simplate([
             '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',

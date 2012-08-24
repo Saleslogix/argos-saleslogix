@@ -2,15 +2,17 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataListMixin'
 ], function(
     declare,
     string,
     format,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityProduct.List', [List], {
+    return declare('Mobile.SalesLogix.Views.OpportunityProduct.List', [List, _SDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
