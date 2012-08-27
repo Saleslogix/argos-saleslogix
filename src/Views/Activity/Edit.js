@@ -7,6 +7,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/_SDataEditMixin',
     'Mobile/SalesLogix/Recurrence'
 ], function(
     declare,
@@ -17,10 +18,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     validator,
     utility,
     Edit,
+    _SDataEditMixin,
     recur
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit, _SDataEditMixin], {
         //Localization
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',

@@ -4,17 +4,19 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     'dojo/string',
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/_SDataEditMixin'
 ], function(
     declare,
     array,
     string,
     validator,
     utility,
-    Edit
+    Edit,
+    _SDataEditMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.History.Edit', [Edit, _SDataEditMixin], {
         //Localization
         accountText: 'account',
         noteDescriptionTitleText: 'Note Description',

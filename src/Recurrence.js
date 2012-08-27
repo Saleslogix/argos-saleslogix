@@ -17,18 +17,12 @@ define('Mobile/SalesLogix/Recurrence', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
-    'dijit/_Widget',
-    'Sage/Platform/Mobile/_ActionMixin',
-    'Sage/Platform/Mobile/_CustomizationMixin',
-    'Sage/Platform/Mobile/_Templated'
+    'dijit/_Widget'
 ], function(
     declare,
     lang,
     string,
-    _Widget,
-    _ActionMixin,
-    _CustomizationMixin,
-    _Templated
+    _Widget
 ) {
     return lang.setObject('Mobile.SalesLogix.Recurrence', {
         // Localization
@@ -161,9 +155,9 @@ define('Mobile/SalesLogix/Recurrence', [
                 textOptions = [
                     null, // scale, replaced in loop
                     day,
-                    currentDate.toString(Date.CultureInfo.formatPatterns.monthDay),
-                    Date.CultureInfo.dayNames[currentDate.getDay()],
-                    Date.CultureInfo.abbreviatedMonthNames[currentDate.getMonth()],
+                    moment(currentDate).format(moment.longDateFormat.L.replace(/\W*Y+\W*/, '')),
+                    moment.weekdays[currentDate.getDay()],
+                    moment.monthShort[currentDate.getMonth()],
                     ord
                 ];
 
@@ -224,7 +218,7 @@ define('Mobile/SalesLogix/Recurrence', [
             for(var i = 0; i < this._weekDayValues.length; i++) {
                 if (names) {
                     if (rps & this._weekDayValues[i])
-                        weekdays.push(Date.CultureInfo.abbreviatedDayNames[i]);
+                        weekdays.push(moment.weekdaysShort[i]);
 
                 } else {
                     weekdays.push((rps & this._weekDayValues[i]) ? 1 : 0);
@@ -328,13 +322,13 @@ define('Mobile/SalesLogix/Recurrence', [
                     : ((true === dependsOnPanel) ? '' : this.getPanel(rp)),
                 currentDate = Sage.Platform.Mobile.Convert.toDateFromString(entry['StartDate']),
                 day = currentDate.getDate(),
-                weekday = Date.CultureInfo.dayNames[currentDate.getDay()],
+                weekday = moment.weekdays[currentDate.getDay()],
                 textOptions = [
                     text,
                     day,
-                    currentDate.toString(Date.CultureInfo.formatPatterns.monthDay),
+                    moment(currentDate).format(moment.longDateFormat.L.replace(/\W*Y+\W*/, '')),
                     this.getWeekdays(recurPeriodSpec, true),
-                    Date.CultureInfo.abbreviatedMonthNames[currentDate.getMonth()],
+                    moment.monthsShort[currentDate.getMonth()],
                     this.ordText[parseInt((day - 1)/7) + 1]
                 ];
 
@@ -373,7 +367,7 @@ define('Mobile/SalesLogix/Recurrence', [
             if (this.isAfterCompletion(rp)) {
                 text = string.substitute("${0} ${1}", [text, this.afterCompletionText]);
             } else {
-                text = string.substitute(this.untilEndDateText, [text, this.calcEndDate(currentDate, entry).toString(Date.CultureInfo.formatPatterns.shortDate)]);
+                text = string.substitute(this.untilEndDateText, [text, moment(this.calcEndDate(currentDate, entry)).format(moment.longDateFormat.L)]);
             }
 
             return text;
@@ -384,27 +378,27 @@ define('Mobile/SalesLogix/Recurrence', [
 
             switch(parseInt(entry['RecurPeriod'])) {
                 case 0:
-                    tempDate.addDays(interval * (entry['RecurIterations'] - 1));
+                    moment(tempDate).add('days', interval * (entry['RecurIterations'] - 1));
                     break;
                 case 2:
-                    tempDate.addWeeks(interval * (entry['RecurIterations'] - 1));
+                    moment(tempDate).add('weeks', interval * (entry['RecurIterations'] - 1));
                     break;
                 case 4:
-                    tempDate.addMonths(interval * (entry['RecurIterations'] - 1));
+                    moment(tempDate).add('months', interval * (entry['RecurIterations'] - 1));
                     break;
                 case 5:
                     var weekDay = tempDate.getDay();
                     var nthWeek = parseInt(tempDate.getDate() / 7) + 1;
-                    tempDate.addMonths(interval * (entry['RecurIterations'] - 1));
+                    moment(tempDate).add('months', interval * (entry['RecurIterations'] - 1));
                     tempDate = this.calcDateOfNthWeekday(tempDate, weekDay, nthWeek);
                     break;
                 case 7:
-                    tempDate.addYears(interval * (entry['RecurIterations'] - 1));
+                    moment(tempDate).add('years', interval * (entry['RecurIterations'] - 1));
                     break;
                 case 8:
                     var weekDay = tempDate.getDay();
                     var nthWeek = parseInt(tempDate.getDate() / 7) + 1;
-                    tempDate.addYears(interval * (entry['RecurIterations'] - 1));
+                    moment(tempDate).add('years', interval * (entry['RecurIterations'] - 1));
                     tempDate = this.calcDateOfNthWeekday(tempDate, weekDay, nthWeek);
                     break;
                 default:

@@ -6,7 +6,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     'dojo/dom-geometry',
     'dojo/query',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataListMixin'
 ], function(
     declare,
     array,
@@ -15,10 +16,11 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     domGeom,
     query,
     format,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.List', [List], {
+    return declare('Mobile.SalesLogix.Views.TicketActivity.List', [List, _SDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h3>',

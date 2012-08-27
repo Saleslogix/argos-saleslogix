@@ -5,6 +5,7 @@ define('Mobile/SalesLogix/Views/Address/List', [
     'dojo/query',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataListMixin',
     'dojo/NodeList-traverse'
 ], function(
     declare,
@@ -12,10 +13,11 @@ define('Mobile/SalesLogix/Views/Address/List', [
     domAttr,
     query,
     format,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Address.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Address.List', [List, _SDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>',
@@ -50,7 +52,7 @@ define('Mobile/SalesLogix/Views/Address/List', [
                 key = row ? domAttr.get(row, 'data-key') : false;
 
             if (this._selectionModel && key)
-                App.showMapForAddress(format.address(this.entries[key], true, ' '));
+                App.showMapForAddress(format.address(this.items[key], true, ' '));
         }
     });
 });

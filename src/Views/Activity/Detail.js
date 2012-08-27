@@ -7,7 +7,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/Detail',
-    'Mobile/SalesLogix/Recurrence'
+    'Mobile/SalesLogix/Recurrence',
+    'Sage/Platform/Mobile/_SDataListMixin'
 ], function(
     declare,
     string,
@@ -17,10 +18,11 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     format,
     convert,
     Detail,
-    recur
+    recur,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail, _SDataListMixin], {
         //Templates
         leaderTemplate: template.nameLF,
 
@@ -115,12 +117,12 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
 
             if (view)
             {
-                if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
-                    this.recurrence.Leader = this.entry.Leader;
+                if (this.isActivityRecurringSeries(this.item) && confirm(this.confirmEditRecurrenceText)) {
+                    this.recurrence.Leader = this.item.Leader;
                     view.show({entry: this.recurrence});
 
                 } else {
-                    view.show({entry: this.entry});
+                    view.show({entry: this.item});
                 }
             }
         },
@@ -137,10 +139,10 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 };
 
                 if (isSeries){
-                    this.recurrence.Leader = this.entry.Leader;
+                    this.recurrence.Leader = this.item.Leader;
                     options.entry = this.recurrence;
                 } else {
-                    options.entry = this.entry;
+                    options.entry = this.item;
                 }
 
                 view.show(options, {
@@ -173,28 +175,30 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         doesActivityHaveReminder: function(entry) {
             return convert.toBoolean(entry && entry['Alarm']);
         },
-        requestLeader: function(userId) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-                .setResourceKind('users')
-                .setResourceSelector(string.substitute("'${0}'", [userId]))
-                .setQueryArg('select', [
-                    'UserInfo/FirstName',
-                    'UserInfo/LastName'
-                ].join(','));
+        requestLeader: function(entry) {
+            if (this.item && this.item['Leader']['$key']) {
+                var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
+                    .setResourceKind('users')
+                    .setResourceSelector(string.substitute("'${0}'", [this.item['Leader']['$key']]))
+                    .setQueryArg('select', [
+                        'UserInfo/FirstName',
+                        'UserInfo/LastName'
+                    ].join(','));
 
-            request.allowCacheUse = true;
-            request.read({
-                success: this.processLeader,
-                failure: this.requestLeaderFailure,
-                scope: this
-            });
+                request.allowCacheUse = true;
+                request.read({
+                    success: this.processLeader,
+                    failure: this.requestLeaderFailure,
+                    scope: this
+                });
+            }
         },
         requestLeaderFailure: function(xhr, o) {
         },
         processLeader: function(leader) {
             if (leader)
             {
-                this.entry['Leader'] = leader;
+                this.item['Leader'] = leader;
 
                 var rowNode = query('[data-property="Leader"]'),
                     contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
@@ -206,20 +210,23 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
             }
         },
-        requestRecurrence: function(key) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-                .setResourceKind(this.resourceKind)
-                .setResourceSelector(string.substitute("'${0}'", [key]))
-                .setContractName(this.contractName)
-                .setQueryArg('select', this.querySelect.join(','));
+        requestRecurrence: function(entry) {
+            var key = this.isActivityRecurring(this.item) ? this.item['$key'].split(this.recurringActivityIdSeparator).shift() : null;
 
-            request.allowCacheUse = false;
-            request.read({
-                success: this.processRecurrence,
-                failure: this.requestRecurrenceFailure,
-                scope: this
-            });
-            return;
+            if (key) {
+                var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
+                    .setResourceKind(this.resourceKind)
+                    .setResourceSelector(string.substitute("'${0}'", [key]))
+                    .setContractName(this.contractName)
+                    .setQueryArg('select', this.querySelect.join(','));
+
+                request.allowCacheUse = false;
+                request.read({
+                    success: this.processRecurrence,
+                    failure: this.requestRecurrenceFailure,
+                    scope: this
+                });
+            }
         },
         processRecurrence: function(recurrence) {
             if (recurrence)
@@ -236,12 +243,6 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         checkCanComplete: function(entry) {
             return !entry || (entry['Leader']['$key'] !== App.context['user']['$key'])
-        },
-        processEntry: function(entry) {
-            this.inherited(arguments);
-
-            if (entry && entry['Leader']['$key']) this.requestLeader(entry['Leader']['$key']);
-            if (this.isActivityRecurring(entry)) this.requestRecurrence(entry['$key'].split(this.recurringActivityIdSeparator).shift());
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -354,7 +355,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     label: this.recurrenceText,
                     include: this.isActivityRecurring,
                     cls: 'content-loading',
-                    value: 'loading...'
+                    value: 'loading...',
+                    onCreate: this.requestRecurrence.bindDelegate(this)
                 }]
             },{
                 title: this.whoText,
@@ -364,7 +366,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     property: 'Leader',
                     label: this.leaderText,
                     cls: 'content-loading',
-                    value: 'loading...'
+                    value: 'loading...',
+                    onCreate: this.requestLeader.bindDelegate(this)
                 },{
                     name: 'ContactName',
                     property: 'ContactName',

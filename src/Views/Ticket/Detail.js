@@ -81,7 +81,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         },
 
         createPicklistRequest: function(predicate) {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getConnection())
                 .setResourceKind('picklists')
                 .setContractName('system');
             var uri = request.getUri();
@@ -106,7 +106,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         onRequestCodeDataSuccess: function(row, node, value, entry, data) {
             var codeText = this.processCodeDataFeed(data, entry[row.property]);
             this.setNodeText(node, codeText);
-            this.entry[row.name] = codeText;
+            this.item[row.name] = codeText;
         },
 
         onRequestCodeDataFailure: function(response, o) {
