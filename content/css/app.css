@@ -718,7 +718,7 @@ body.transition > .footer-toolbar
 }
 
 /* Excludes iphone <= 3 */
-@media all and (min-width: 500px) {
+@media all and (min-width: 500px) and (-webkit-min-device-pixel-ratio: 2) {
     body.landscape > #calendar_monthlist > .month-content,
     body.landscape > #calendar_monthlist > .day-content
     {
@@ -735,7 +735,7 @@ body.transition > .footer-toolbar
     }
 }
 /* Tablets */
-@media all and (min-width: 768px) {
+@media all and (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
     body.landscape > #calendar_yearlist > .year-content > .year-table
     {
         float:left;
