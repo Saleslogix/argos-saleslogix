@@ -104,7 +104,7 @@ define('Mobile/SalesLogix/Views/Settings', [
 
             this.processFeed({'$resources': list});
         },
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
             this.createActions();
         },

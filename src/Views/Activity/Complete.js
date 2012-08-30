@@ -138,7 +138,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         resourceKind: 'activities',
         contractName: 'system',
 
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
 
             this.connect(this.fields['Leader'], 'onChange', this.onLeaderChange);

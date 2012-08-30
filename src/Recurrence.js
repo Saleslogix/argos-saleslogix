@@ -157,7 +157,7 @@ define('Mobile/SalesLogix/Recurrence', [
                     day,
                     moment(currentDate).format(moment.longDateFormat.L.replace(/\W*Y+\W*/, '')),
                     moment.weekdays[currentDate.getDay()],
-                    moment.monthShort[currentDate.getMonth()],
+                    moment.monthsShort[currentDate.getMonth()],
                     ord
                 ];
 
@@ -250,6 +250,7 @@ define('Mobile/SalesLogix/Recurrence', [
             interval = interval || this.interval;
 
             if (!startDate) return;
+            startDate = Sage.Platform.Mobile.Convert.toDateFromString(startDate);
 
             switch(recurPeriod) {
                 case 0: // daily
@@ -412,12 +413,12 @@ define('Mobile/SalesLogix/Recurrence', [
             var tempDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
             if (nthWeek === 5) {
                 //"last" - count backwards...
-                tempDate.setDate(tempDate.getDaysInMonth());
+                tempDate.setDate(moment(tempDate).daysInMonth());
                 for (var i = 0; i < 7; i++) {
                     if (tempDate.getDay() === weekDay) {
                         break;
                     }
-                    tempDate.addDays(-1);
+                    moment(tempDate).add('days', -1);
                 }
             } else {
                 // count from the beginning...
@@ -427,10 +428,10 @@ define('Mobile/SalesLogix/Recurrence', [
                     if (tempDate.getDay() === weekDay) {
                         break;
                     }
-                    tempDate.addDays(1);
+                    moment(tempDate).add('days', 1);
                 }
                 //then add correct number of weeks (first week - add 0 etc.)
-                tempDate.addWeeks(nthWeek - 1);
+                moment(tempDate).add('weeks', nthWeek - 1);
             }
             return tempDate;
         },

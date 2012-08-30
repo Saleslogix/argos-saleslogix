@@ -270,7 +270,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         clear: function() {
             //this.inherited(arguments);
         },
-        startup: function() {
+        onStartup: function() {
             this.inherited(arguments);
             this.currentDate = moment().sod();
         },

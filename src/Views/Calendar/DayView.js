@@ -197,7 +197,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 this.refreshRequired = true;
             }
         },
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
             this.currentDate = moment().sod();
         },

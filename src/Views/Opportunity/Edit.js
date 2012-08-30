@@ -56,7 +56,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             'Weighted'
         ],
 
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
 
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);

@@ -47,7 +47,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                 this.requestCodeData('name eq "Ticket Activity Public Access"', entry['PublicAccessCode'], this.fields['PublicAccessCode']);
         },
         createPicklistRequest: function(name) {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getConnection())
                 .setResourceKind('picklists')
                 .setContractName('system');
 

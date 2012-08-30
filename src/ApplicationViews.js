@@ -1,14 +1,21 @@
 define('Mobile/SalesLogix/ApplicationViews', {
     'home': {type: 'Mobile/SalesLogix/Views/Home'},
     'login': {type: 'Mobile/SalesLogix/Views/Login'},
+    // 'configure': {type: 'Mobile/SalesLogix/Views/Configure'},
     'add_account_contact': {type: 'Mobile/SalesLogix/Views/AddAccountContact'},
     'pick_list': {type: 'Mobile/SalesLogix/Views/PickList', props: {tier: 1}},
+    'select_list': {type: 'Mobile/SalesLogix/Views/SelectList', props: {tier: 1}},
+    'text_edit': {type: 'Mobile/SalesLogix/Views/TextEdit', props: {tier: 1}},
     'name_edit': {type: 'Mobile/SalesLogix/Views/NameEdit'},
     'address_edit': {type: 'Mobile/SalesLogix/Views/Address/Edit'},
     'address_related': {type: 'Mobile/SalesLogix/Views/Address/List', props: {tier: 1}},
     'activity_list': {type: 'Mobile/SalesLogix/Views/Activity/List', security: 'Entities/Activity/View'},
     'activity_related': {type: 'Mobile/SalesLogix/Views/Activity/List', props: {tier: 1}},
     'activity_detail': {type: 'Mobile/SalesLogix/Views/Activity/Detail'},
+    'activity_edit': {type: 'Mobile/SalesLogix/Views/Activity/Edit'},
+    'activity_complete': {type: 'Mobile/SalesLogix/Views/Activity/Complete'},
+    'activity_types_list': {type: 'Mobile/SalesLogix/Views/Activity/TypesList', props: {tier: 1}},
+    'recurrence_edit': {type: 'Mobile/SalesLogix/Views/Activity/Recurring', props: {tier: 1}},
     'account_list': {type: 'Mobile/SalesLogix/Views/Account/List', security: 'Entities/Account/View'},
     'account_related': {type: 'Mobile/SalesLogix/Views/Account/List', props: {tier: 1}},
     'account_detail': {type: 'Mobile/SalesLogix/Views/Account/Detail'},
@@ -17,6 +24,7 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'contact_related': {type: 'Mobile/SalesLogix/Views/Contact/List', props: {tier: 1}},
     'contact_detail': {type: 'Mobile/SalesLogix/Views/Contact/Detail'},
     'contact_edit': {type: 'Mobile/SalesLogix/Views/Contact/Edit'},
+    'contract_related': {type: 'Mobile/SalesLogix/Views/Contract/List', props: {tier: 1}},
     'errorlog_list': {type: 'Mobile/SalesLogix/Views/ErrorLog/List'},
     'errorlog_detail': {type: 'Mobile/SalesLogix/Views/ErrorLog/Detail'},
     'lead_list': {type: 'Mobile/SalesLogix/Views/Lead/List'},
@@ -39,6 +47,7 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'history_list': {type: 'Mobile/SalesLogix/Views/History/List'},
     'history_related': {type: 'Mobile/SalesLogix/Views/History/List', props: {tier: 1}},
     'history_detail': {type: 'Mobile/SalesLogix/Views/History/Detail'},
+    'history_edit': {type: 'Mobile/SalesLogix/Views/History/Edit'},
     'areacategoryissue_lookup': {type: 'Mobile/SalesLogix/Views/AreaCategoryIssueLookup', props: {tier: 1}}
 });
 

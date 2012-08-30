@@ -4,14 +4,16 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
-    'Sage/Platform/Mobile/_SDataDetailMixin'
+    'Sage/Platform/Mobile/_SDataDetailMixin',
+    'argos!scene'
 ], function(
     declare,
     string,
     format,
     template,
     Detail,
-    _SDataDetailMixin
+    _SDataDetailMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Contact.Detail', [Detail, _SDataDetailMixin], {
@@ -163,14 +165,10 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
             App.navigateToActivityInsertView();
         },
         addNote: function() {
-            var view = App.getView(this.noteEditView);
-            if (view)
-            {
-                view.show({
-                    template: {},
-                    insert: true
-                });
-            }
+            scene().showView(this.noteEditView, {
+                template: {},
+                insert: true
+            });
         },
         createLayout: function() {
             return this.layout || (this.layout = [{

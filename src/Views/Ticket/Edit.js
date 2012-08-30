@@ -77,7 +77,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         ],
         resourceKind: 'tickets',
 
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
 
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
@@ -92,7 +92,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                 this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode']);
         },
         createPicklistRequest: function(name) {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getConnection())
                 .setResourceKind('picklists')
                 .setContractName('system');
 
@@ -160,7 +160,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
 
             if (selection && selection['$key'])
             {
-                var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
+                var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getConnection())
                     .setResourceKind('accounts')
                     .setResourceSelector(string.substitute("'${0}'", [selection['$key']]))
                     .setResourceProperty('Contacts')

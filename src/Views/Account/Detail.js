@@ -4,14 +4,16 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
-    'Sage/Platform/Mobile/_SDataDetailMixin'
+    'Sage/Platform/Mobile/_SDataDetailMixin',
+    'argos!scene'
 ], function(
     declare,
     string,
     format,
     template,
     Detail,
-    _SDataDetailMixin
+    _SDataDetailMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail, _SDataDetailMixin], {
@@ -84,27 +86,23 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         resourceKind: 'accounts',
 
         navigateToHistoryInsert: function(type, entry, complete) {
-            var view = App.getView(this.historyEditView);
-            if (view)
-            {
-                this.refreshRequired = true;
-                
-                view.show({
-                    title: this.activityTypeText[type],
-                    template: {},
-                    entry: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
-            }
+            this.refreshRequired = true;
+
+            scene().showView(this.historyEditView, {
+                title: this.activityTypeText[type],
+                template: {},
+                item: entry,
+                insert: true
+            }, {
+                complete: complete
+            });
         },
         recordCallToHistory: function(complete) {
             var entry = {
                 'Type': 'atPhoneCall',
-                'AccountId': this.entry['$key'],
-                'AccountName': this.entry['AccountName'],
-                'Description': string.substitute(this.calledText, [this.entry['AccountName']]),
+                'AccountId': this.item['$key'],
+                'AccountName': this.item['AccountName'],
+                'Description': string.substitute(this.calledText, [this.item['AccountName']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -115,14 +113,14 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         },
         callMainPhone: function() {
             this.recordCallToHistory(function() {
-                App.initiateCall(this.entry['MainPhone']);
+                App.initiateCall(this.item['MainPhone']);
             }.bindDelegate(this));
         },
         checkMainPhone: function(entry, value) {
             return !value;
         },
         viewAddress: function() {
-            App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
+            App.showMapForAddress(format.address(this.item['Address'], true, ' '));
         },
         checkAddress: function(entry, value) {
             return !format.address(value, true, '');
@@ -131,14 +129,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
             App.navigateToActivityInsertView();
         },
         addNote: function() {
-            var view = App.getView(this.noteEditView);
-            if (view)
-            {
-                view.show({
-                    template: {},
-                    insert: true
-                });
-            }
+            scene().showView(this.noteEditView, {
+                template: {},
+                insert: true
+            });
         },
         createLayout: function() {
             return this.layout || (this.layout = [{

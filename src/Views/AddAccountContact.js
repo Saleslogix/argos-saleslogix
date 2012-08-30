@@ -69,7 +69,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             'SubType',
             'Type'
         ],
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
 
             this.connect(this.fields['Contacts.$resources[0].Address'], 'onChange', this.onContactAddressChange);

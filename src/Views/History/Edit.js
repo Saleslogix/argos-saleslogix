@@ -62,7 +62,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             'StartDate'
         ],
 
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
 
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
@@ -78,7 +78,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         },
         isInLeadContext: function() {
             var insert = this.options && this.options.insert,
-                entry = this.options && this.options.entry,
+                entry = this.options && this.options.item,
                 lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) { return c.resourceKind === 'leads'; })) || this.isHistoryForLead(entry);
             return !!lead;
         },

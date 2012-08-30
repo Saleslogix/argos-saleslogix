@@ -1,14 +1,16 @@
 define('Mobile/SalesLogix/Views/Contract/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataEditMixin'
 ], function(
     declare,
     string,
-    List
+    List,
+    _SDataEditMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contract.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Contract.List', [List, _SDataEditMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',

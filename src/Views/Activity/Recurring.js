@@ -41,13 +41,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         titleText: 'Recurrence',
 
         //View Properties
-        weekdayNames: Date.CultureInfo.dayNames,
-        weekdayNamesAbbreviated: Date.CultureInfo.abbreviatedDayNames,
-        monthNames: Date.CultureInfo.monthNames,
+        weekdayNames: moment.weekdays,
+        weekdayNamesAbbreviated: moment.weekdaysShort,
+        monthNames: moment.months,
 
         id: 'recurrence_edit',
 
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
             this.connect(this.fields['AfterCompletion'], 'onChange', this.onAfterCompletionChange);
             this.connect(this.fields['Interval'], 'onChange', this.onIntervalChange);
@@ -80,7 +80,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                     break;
                 case 2: // weekly
                     showthese += 'Weekdays,';
-                    this.formatWeekdays(this.entry.Weekdays);
+                    this.formatWeekdays(this.item.Weekdays);
                     break;
                 case 3:
                     break;
@@ -117,7 +117,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             // refresh some field values
             this.fields['RecurPeriod'].setValue(rp);
-            this.fields['RecurPeriodSpec'].setValue(recur.getRecurPeriodSpec(rp, startDate, this.entry.Weekdays, interval));
+            this.fields['RecurPeriodSpec'].setValue(recur.getRecurPeriodSpec(rp, startDate, this.item.Weekdays, interval));
 
             this.summarize();
         },
@@ -134,7 +134,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             } else {
                 rp -= (0 <= '69'.indexOf(rp)) ? (parseInt(this.fields['OrdWeek'].getValue()) ? 1 : 2) : 1;
-                this.fields['RecurIterations'].setValue(0 < this.entry.RecurIterations ? this.entry.RecurIterations : recur.defaultIterations[rp]);
+                this.fields['RecurIterations'].setValue(0 < this.item.RecurIterations ? this.item.RecurIterations : recur.defaultIterations[rp]);
             }
 
             this.fields['RecurPeriod'].setValue(rp);
@@ -161,7 +161,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         onRecurIterationsChange: function(value, field) {
             value = parseInt(value);
             if (value && 0 < value) {
-                this.entry.RecurIterations = value;
+                this.item.RecurIterations = value;
                 var newEndDate = recur.calcEndDate(
                     this.fields['StartDate'].getValue(),
                     this.getRecurrence()
@@ -307,7 +307,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             for (var key in selections) {
                 if (selections[key]) {
-                    values.push(Date.CultureInfo.abbreviatedDayNames[key]);
+                    values.push(moment.weekdaysShort[key]);
                     weekdays[key] = 1;
                 }
             }
@@ -318,7 +318,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 parseInt(this.fields['Interval'].getValue())
             ));
 
-            this.entry.Weekdays = weekdays;
+            this.item.Weekdays = weekdays;
             return values.join(', ');
         },
         formatSingleWeekday: function(selection) {
@@ -399,25 +399,25 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             var field, ord;
 
             // calculate some values from the ones provided
-            this.entry = values;
-            this.entry.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values['StartDate']);
-            this.entry.EndDate = recur.calcEndDate(values.StartDate, values);
-            this.entry.Recurring = (typeof values.Recurring === 'string') ? /^true$/i.test(values.Recurring) : values.Recurring;
-            ord = recur.getOrd(this.entry);
-            this.entry.Interval = values.RecurPeriodSpec % 65536;
-            this.entry.AfterCompletion = recur.isAfterCompletion(values.RecurPeriod);
-            this.entry.Day = this.entry.StartDate.getDate();
-            this.entry.Weekdays = recur.getWeekdays(values.RecurPeriodSpec);
-            this.entry.OrdWeek = ord.week;
-            this.entry.OrdWeekday = ord.weekday;
-            this.entry.OrdMonth = ord.month;
+            this.item = values;
+            this.item.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values['StartDate']);
+            this.item.EndDate = recur.calcEndDate(values.StartDate, values);
+            this.item.Recurring = (typeof values.Recurring === 'string') ? /^true$/i.test(values.Recurring) : values.Recurring;
+            ord = recur.getOrd(this.item);
+            this.item.Interval = values.RecurPeriodSpec % 65536;
+            this.item.AfterCompletion = recur.isAfterCompletion(values.RecurPeriod);
+            this.item.Day = this.item.StartDate.getDate();
+            this.item.Weekdays = recur.getWeekdays(values.RecurPeriodSpec);
+            this.item.OrdWeek = ord.week;
+            this.item.OrdWeekday = ord.weekday;
+            this.item.OrdMonth = ord.month;
 
             // Even hidden and falsy fields need their values set (not from parent)
             for(var name in this.fields)
             {
                 field = this.fields[name];
                 // 0 (Daily panel) or false (AfterCompletion) are legitimate values!
-                if (undefined !== this.entry[name]) field.setValue(this.entry[name]);
+                if (undefined !== this.item[name]) field.setValue(this.item[name]);
             }
 
             this.resetUI();

@@ -6,6 +6,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
+    'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/Edit',
     'Sage/Platform/Mobile/_SDataEditMixin',
     'Mobile/SalesLogix/Recurrence'
@@ -17,6 +18,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     template,
     validator,
     utility,
+    convert,
     Edit,
     _SDataEditMixin,
     recur
@@ -156,7 +158,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         resourceKind: 'activities',
         recurrence: {},
 
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
 
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
@@ -175,7 +177,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onUpdateSuccess: function(entry) {
             var view = App.getView(this.detailView),
-                originalKey = this.options.entry['$key'];
+                originalKey = this.options.item['$key'];
 
             this.enable();
 
@@ -211,7 +213,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         isInLeadContext: function() {
             var insert = this.options && this.options.insert,
-                entry = this.options && this.options.entry,
+                entry = this.options && this.options.item,
                 lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) { return c.key; })) || this.isActivityForLead(entry);
 
             return !!lead;
@@ -277,7 +279,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.toggleSelectField(this.fields['Duration'], value);
 
             var startDateField = this.fields['StartDate'],
-                startDate = startDateField.getValue();
+                startDate = convert.toDateFromString(startDateField.getValue());
 
             if (value)
             {
@@ -286,7 +288,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 if (!this.isDateTimeless(startDate))
-                    startDate = startDate.clone().clearTime().add({minutes:-1*startDate.getTimezoneOffset(), seconds:5});
+                    startDate = moment(startDate).clone().clearTime().add({minutes:-1*startDate.getTimezoneOffset(), seconds:5});
                 startDateField.setValue(startDate);
             }
             else
@@ -297,7 +299,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
                 if (this.isDateTimeless(startDate))
-                    startDate = startDate.clone().add({minutes:startDate.getTimezoneOffset()+1, seconds: -5});
+                    startDate = moment(startDate).clone().add({minutes:startDate.getTimezoneOffset()+1, seconds: -5});
                 startDateField.setValue(startDate);
             }
         },
@@ -382,7 +384,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onRecurrenceChange: function(value, field) {
             // did the StartDate change on the recurrence_edit screen?
-            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate'])
+            var startDate = convert.toDateFromString(value['StartDate']),
                 currentDate = this.fields['StartDate'].getValue();
             if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth())
                 this.fields['StartDate'].setValue(startDate);
@@ -436,7 +438,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
                 if (startTime && (currentDate.valueOf() == moment().sod().valueOf()))
                 {
-                    startDate = currentDate.clone()
+                    startDate = moment(currentDate).clone()
                         .hours(startTime.hours())
                         .minutes(startTime.minutes());
                 }
@@ -609,12 +611,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         setValues: function(values) {
             if (values['StartDate'] && values['AlarmTime'])
             {
-                var startTime = (this.isDateTimeless(values['StartDate']))
-                    ? values['StartDate'].clone().add({minutes: values['StartDate'].getTimezoneOffset()}).getTime()
-                    : values['StartDate'].getTime();
+                var alarmTime = convert.toDateFromString(values['AlarmTime']),
+                    startDate = convert.toDateFromString(values['StartDate']),
+                    startTime = (this.isDateTimeless(startDate))
+                        ? moment(startDate).clone().add({minutes: startDate.getTimezoneOffset()}).toDate().getTime()
+                        : moment(startDate).toDate().getTime();
 
 
-                var span = startTime - values['AlarmTime'].getTime(), // ms
+                var span = startTime - alarmTime.getTime(), // ms
                     reminder = span / (1000 * 60);
                 
                 values['Reminder'] = reminder;
@@ -648,7 +652,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.fields['AccountName'].setValue(values['AccountName']);
             }
 
-            var entry = this.options.entry || this.entry,
+            var entry = this.options.item || this.item,
                 denyEdit = !this.options.insert && !this.currentUserCanEdit(entry),
                 allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
 
@@ -658,7 +662,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (allowSetAlarm)
                 this.enableFields(function(f) { return /^Alarm|Reminder$/.test(f.name) });
 
-            this.recurrence.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values.StartDate);
+            this.recurrence.StartDate = convert.toDateFromString(values.StartDate);
             this.resetRecurrence(values);
             this.onStartDateChange(this.fields['StartDate'].getValue(), this.fields['StartDate'])
             if (this.isActivityRecurring)
@@ -667,6 +671,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         isDateTimeless: function(date) {
             if (!date) return false;
+            date = convert.toDateFromString(date);
             if (date.getUTCHours() != 0) return false;
             if (date.getUTCMinutes() != 0) return false;
             if (date.getUTCSeconds() != 5) return false;
@@ -677,7 +682,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var values = this.inherited(arguments),
                 isStartDateDirty = this.fields['StartDate'].isDirty(),
                 isReminderDirty = this.fields['Reminder'].isDirty(),
-                startDate = this.fields['StartDate'].getValue(),
+                startDate = convert.toDateFromString(this.fields['StartDate'].getValue()),
                 reminderIn = this.fields['Reminder'].getValue(),
                 timeless = this.fields['Timeless'].getValue();
 

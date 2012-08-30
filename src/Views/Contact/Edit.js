@@ -67,7 +67,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         ],
         resourceKind: 'contacts',
 
-        startup: function() {
+        onStartup: function() {
             this.inherited(arguments);
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
         },

@@ -1,8 +1,10 @@
 define('Mobile/SalesLogix/Views/SelectList', [
     'dojo/_base/declare',
+    'dojo/store/Memory',
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
+    Memory,
     List
 ) {
 
@@ -15,7 +17,12 @@ define('Mobile/SalesLogix/Views/SelectList', [
         //View Properties
         id: 'select_list',
         expose: false,
+        memory: null,
 
+        onActivate: function() {
+            if (this.memory && this.memory.setData)
+                this.memory.setData(this.options && this.options.data['$resources']);
+        },
         refreshRequiredFor: function(options) {
             if (this.options)
                 return options ? (this.options.data != options.data) : false;
@@ -25,11 +32,13 @@ define('Mobile/SalesLogix/Views/SelectList', [
         hasMoreData: function() {
             return false;
         },
-        requestData: function() {
-            // caller is responsible for passing in a well-structured feed object.
-            var data = this.expandExpression(this.options && this.options.data);
-            if (data)
-                this.processFeed(data);
+        createStore: function() {
+            this.memory = this.memory || new Memory({
+                idProperty: '$key',
+                data: this.options && this.options.data['$resources']
+            });
+
+            return this.memory;
         }
     });
 });

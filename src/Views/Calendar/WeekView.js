@@ -216,7 +216,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 this.refreshRequired = true;
             }
         },
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
             this.todayDate = moment().sod();
             this.currentDate = this.todayDate.clone();

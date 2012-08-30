@@ -61,7 +61,7 @@ define('Mobile/SalesLogix/Application', [
             'revision': 0
         },
         /* todo: move to startup */
-        init: function() {
+        startup: function() {
             console.debug('init!');
 
             if (has('ie') && has('ie') < 9) window.location.href = 'unsupported.html';
@@ -492,9 +492,7 @@ define('Mobile/SalesLogix/Application', [
                 view.show();
         },
         navigateToActivityInsertView: function(options) {
-            var view = this.getView('activity_types_list');
-            if (view)
-                view.show(options || {});
+            this.scene.showView('activity_types_list', options || {});
         },
         initiateCall: function() {
             // shortcut for environment call

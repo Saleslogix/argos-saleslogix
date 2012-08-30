@@ -8,7 +8,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/Detail',
     'Mobile/SalesLogix/Recurrence',
-    'Sage/Platform/Mobile/_SDataListMixin'
+    'Sage/Platform/Mobile/_SDataListMixin',
+    'argos!scene'
 ], function(
     declare,
     string,
@@ -19,7 +20,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     convert,
     Detail,
     recur,
-    _SDataListMixin
+    _SDataListMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail, _SDataListMixin], {
@@ -113,43 +115,36 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             return this.activityTypeText[val] || val;
         },
         navigateToEditView: function(el) {
-            var view = App.getView(this.editView);
+            if (this.isActivityRecurringSeries(this.item) && confirm(this.confirmEditRecurrenceText)) {
+                this.recurrence.Leader = this.item.Leader;
+                scene().showView( this.editView, {
+                    item: this.recurrence
+                });
 
-            if (view)
-            {
-                if (this.isActivityRecurringSeries(this.item) && confirm(this.confirmEditRecurrenceText)) {
-                    this.recurrence.Leader = this.item.Leader;
-                    view.show({entry: this.recurrence});
-
-                } else {
-                    view.show({entry: this.item});
-                }
+            } else {
+                scene().showView( this.editView, {
+                    item: this.item
+                });
             }
         },
         navigateToCompleteView: function(completionTitle, isSeries) {
-            var view = App.getView(this.completeView);
+            this.refreshRequired = true;
 
-            if (view)
-            {
-                this.refreshRequired = true;
+            var options = {
+                title: completionTitle,
+                template: {}
+            };
 
-                var options = {
-                    title: completionTitle,
-                    template: {}
-                };
-
-                if (isSeries){
-                    this.recurrence.Leader = this.item.Leader;
-                    options.entry = this.recurrence;
-                } else {
-                    options.entry = this.item;
-                }
-
-                view.show(options, {
-                    returnTo: -1
-                });
-
+            if (isSeries){
+                this.recurrence.Leader = this.item.Leader;
+                options.item = this.recurrence;
+            } else {
+                options.item = this.item;
             }
+
+            scene().showView( this.completeView, options, {
+                returnTo: -1
+            });
         },
         completeActivity: function() {
             this.navigateToCompleteView(this.completeActivityText);

@@ -1,9 +1,11 @@
 define('Mobile/SalesLogix/Views/Activity/TypesList', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'argos!scene'
 ], function(
     declare,
-    List
+    List,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.TypesList', [List], {
@@ -60,19 +62,18 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
             if (params.key)
             {
                 var source = this.options && this.options.source,
-                    view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
+                    view = (params.key === 'event') ? this.eventEditView : this.editView;
 
-                if (view)
-                    view.show({
-                        insert: true,
-                        entry: (this.options && this.options.entry) || null,
-                        source: source,
-                        activityType: params.key,
-                        title: this.activityTypeText[params.key],
-                        returnTo: this.options && this.options.returnTo
-                    }, {
-                        returnTo: -1
-                    });
+                scene().showView(view, {
+                    insert: true,
+                    item: (this.options && this.options.item) || null,
+                    source: source,
+                    activityType: params.key,
+                    title: this.activityTypeText[params.key],
+                    returnTo: this.options && this.options.returnTo
+                }, {
+                    returnTo: -1
+                });
             }
         },
         refreshRequiredFor: function(options) {

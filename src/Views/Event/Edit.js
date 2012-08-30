@@ -38,7 +38,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
             "Conference": "Conference",
             "Holiday": "Holiday"
         },
-        startup: function() {
+        onStartup: function() {
             this.inherited(arguments);
 
             this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);

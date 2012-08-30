@@ -45,7 +45,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
         //View Properties
         id: 'address_edit',
 
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
             this.connect(this.fields['Country'], 'onChange', this.onCountryChange);
         },

@@ -1,24 +1,26 @@
 define('Mobile/SalesLogix/Action', [
     'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/Utility'
+    'Sage/Platform/Mobile/Utility',
+    'argos!scene'
 ], function(
     lang,
     string,
-    utility
+    utility,
+    scene
 ) {
     return lang.setObject('Mobile.SalesLogix.Action', {
         calledText: 'Called ${0}',
         emailedText: 'E-mailed ${0}',
 
         navigateToHistoryInsert: function(entry, complete) {
-            var view = App.getView('history_edit');
+            var view = scene.getView('history_edit');
             if (view)
             {
                 view.show({
                     title: entry['Title'] || null,
                     template: {},
-                    entry: entry,
+                    item: entry,
                     insert: true
                 }, {
                     complete: complete
@@ -70,7 +72,7 @@ define('Mobile/SalesLogix/Action', [
                 key: selection.data['$key']
             });
 
-            var view = App.getView('history_edit');
+            var view = scene.getView('history_edit');
 
             if (view)
                 view.show({insert: true});
@@ -88,7 +90,7 @@ define('Mobile/SalesLogix/Action', [
                     key: utility.getValue(selection.data, o.keyProperty),
                     descriptor: utility.getValue(selection.data, o.textProperty)
                 },
-                view = App.getView(o.view);
+                view = scene.getView(o.view);
 
             if (view && options.key)
                 view.show(options);
