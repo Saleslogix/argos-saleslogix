@@ -150,14 +150,14 @@ define('Mobile/SalesLogix/Views/Home', [
                     'icon': 'content/images/icons/Ticket_24x24.png',
                     'title': this.ticketsText,
                     'security': 'Entities/Ticket/View'
-                },/*{
+                },{
                     'name': 'calendar_daylist',
                     'view': 'calendar_daylist',
                     'action': 'navigateToView',
                     'icon': 'content/images/icons/Calendar_24x24.png',
                     'title': this.calendarText,
                     'security': null
-                },*/{
+                },{
                     'name': 'history_list',
                     'view': 'history_list',
                     'action': 'navigateToView',
@@ -220,9 +220,7 @@ define('Mobile/SalesLogix/Views/Home', [
             return store;
         },
         navigateToConfigurationView: function() {
-            var view = App.getView(this.configurationView);
-            if (view)
-                view.show();
+            scene().showView(this.configurationView);
         },
         refreshRequiredFor: function(options) {
             /* todo: fix processing for refresh */

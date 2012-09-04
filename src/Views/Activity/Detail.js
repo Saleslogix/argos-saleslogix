@@ -8,7 +8,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/Detail',
     'Mobile/SalesLogix/Recurrence',
-    'Sage/Platform/Mobile/_SDataListMixin',
+    'Sage/Platform/Mobile/_SDataDetailMixin',
     'argos!scene'
 ], function(
     declare,
@@ -20,11 +20,11 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     convert,
     Detail,
     recur,
-    _SDataListMixin,
+    _SDataDetailMixin,
     scene
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail, _SDataListMixin], {
+    return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail, _SDataDetailMixin], {
         //Templates
         leaderTemplate: template.nameLF,
 

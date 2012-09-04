@@ -865,7 +865,7 @@ body.transition > .footer-toolbar
 #calendar_monthlist .event-content > h2,
 #calendar_monthlist .activity-content > h2,
 #calendar_monthlist .day-content > h2,
-#calendar_daylist > h2,
+#calendar_daylist h2,
 #calendar_weeklist > div > h2
 {
     border-bottom: 1px solid #000;
@@ -971,10 +971,10 @@ body.transition > .footer-toolbar
     padding: 5px 0 0 0;
 }
 
-#calendar_monthlist > .split-buttons,
-#calendar_weeklist > .split-buttons,
-#calendar_yearlist > .split-buttons,
-#calendar_daylist > .split-buttons
+#calendar_monthlist .split-buttons,
+#calendar_weeklist .split-buttons,
+#calendar_yearlist .split-buttons,
+#calendar_daylist .split-buttons
 {
     text-align: center;
 

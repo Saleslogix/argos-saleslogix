@@ -3,16 +3,16 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
     'dojo/_base/connect',
     'dojo/string',
     'Sage/Platform/Mobile/Detail',
-    'Sage/Platform/Mobile/_SDataListMixin'
+    'Sage/Platform/Mobile/_SDataDetailMixin'
 ], function(
     declare,
     connect,
     string,
     Detail,
-    _SDataListMixin
+    _SDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityContact.Detail', [Detail, _SDataListMixin], {
+    return declare('Mobile.SalesLogix.Views.OpportunityContact.Detail', [Detail, _SDataDetailMixin], {
         //Localization
         titleText: 'Opportunity Contact',
         accountText: 'account',

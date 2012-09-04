@@ -3,16 +3,18 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
     'dojo/_base/lang',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/_SDataEditMixin',
 ], function(
     declare,
     lang,
     template,
     ErrorManager,
-    Edit
+    Edit,
+    _SDataEditMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Edit, _SDataEditMixin], {
 
         //Localization
         titleText: 'Edit Ticket Activity',

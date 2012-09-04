@@ -8,7 +8,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Detail',
     'dojo/NodeList-manipulate',
-    'Sage/Platform/Mobile/_SDataListMixin'
+    'Sage/Platform/Mobile/_SDataDetailMixin'
 ], function(
     declare,
     lang,
@@ -18,10 +18,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     template,
     ErrorManager,
     Detail,
-    _SDataListMixin
+    _SDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.Detail', [Detail, _SDataListMixin], {
+    return declare('Mobile.SalesLogix.Views.TicketActivity.Detail', [Detail, _SDataDetailMixin], {
         //Localization
         titleText: 'Ticket Activity',
 
@@ -77,7 +77,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
         resourceKind: 'ticketActivities',
 
         createPicklistRequest: function(predicate) {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getConnection())
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getConnection())
                 .setResourceKind('picklists')
                 .setContractName('system');
             var uri = request.getUri();
