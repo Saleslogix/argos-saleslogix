@@ -719,18 +719,18 @@ body.transition > .footer-toolbar
 
 /* Excludes iphone <= 3 */
 @media all and (min-width: 500px) and (-webkit-min-device-pixel-ratio: 2) {
-    body.landscape > #calendar_monthlist > .month-content,
-    body.landscape > #calendar_monthlist > .day-content
+    body.landscape #calendar_monthlist > .month-content,
+    body.landscape #calendar_monthlist > .day-content
     {
         width:50%;
         float:left;
     }
-    body.landscape > #calendar_monthlist > .day-content > h2 {
+    body.landscape #calendar_monthlist > .day-content > h2 {
         margin-top:0;
         border-top: none;
         border-left: 1px solid #000000;
     }
-    body.landscape > #calendar_monthlist > .day-content > div > h2 {
+    body.landscape #calendar_monthlist > .day-content > div > h2 {
         border-left: 1px solid #000000;
     }
 }
@@ -864,9 +864,9 @@ body.transition > .footer-toolbar
 #calendar_daylist .event-content > h2,
 #calendar_monthlist .event-content > h2,
 #calendar_monthlist .activity-content > h2,
-#calendar_monthlist .day-content > h2,
+#calendar_monthlist .day-content h2,
 #calendar_daylist h2,
-#calendar_weeklist > div > h2
+#calendar_weeklist div > h2
 {
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
@@ -1073,6 +1073,150 @@ td.entry-table-icon .list-item-selector {
 }
 #calendar_weeklist .event-rows {
     padding: 0px;
+}
+/* Calendar */
+
+.calendar-content
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 4px;
+}
+
+.calendar-table
+{
+    width: 100%;
+}
+
+.calendar-month-header
+{
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.1em;
+    height: 2em;
+}
+
+.calendar-prev-month
+{
+    text-align: left;
+    font-weight: normal;
+}
+
+.calendar-next-month
+{
+    text-align: right;
+    font-weight: normal;
+}
+
+.calendar-week-header
+{
+    font-size: .9em;
+    text-align: center;
+}
+
+.calendar-day
+{
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    height: 30px;
+    font-size: .9em;
+    font-weight: bold;
+}
+
+.time-content
+{
+    text-align: center;
+    margin-top: 6px;
+}
+
+.time-content .date-tt
+{
+    width: 100px;
+    height: 18px;
+    margin: 3px 0px 3px 0px;
+    position: relative;
+    right: auto;
+    display: inline-block;
+}
+
+.time-content .date-tt > .toggle
+{
+    height: 28px;
+}
+
+.time-content .date-tt > .toggle > .thumb
+{
+    top: 0px;
+}
+
+.calendar-day
+{
+    color: #000;
+    background-color: #e9eed7;
+    background-image: linear-gradient(top, #e9eed7, #dae2bb);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #e9eed7),
+        color-stop(1, #dae2bb)
+    );
+    background-image: -moz-linear-gradient(top, #e9eed7, #dae2bb);
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e9eed7, endColorstr=#dae2bb)";
+}
+
+.calendar-day.today
+{
+    color: #fff;
+    background-color: #4e5b2f;
+    background-image: linear-gradient(top, #4e5b2f, #8a9e57);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #4e5b2f),
+        color-stop(1, #8a9e57)
+    );
+    background-image: -moz-linear-gradient(top, #4e5b2f, #8a9e57);
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4e5b2f, endColorstr=#8a9e57)";
+}
+
+
+.calendar-day.weekend
+{
+    background-color: #c4cfa5;
+    background-image: linear-gradient(top, #c4cfa5, #a6b979);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #c4cfa5),
+        color-stop(1, #a6b979)
+    );
+    background-image: -moz-linear-gradient(top, #c4cfa5, #a6b979);
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#c4cfa5, endColorstr=#a6b979)";
+}
+
+.calendar-day.selected
+{
+    color: #000;
+    background-color: #CAE2EB;
+    background-image: linear-gradient(top, #CAE2EB, #7EB7CC);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #CAE2EB),
+        color-stop(1, #7EB7CC)
+    );
+    background-image: -moz-linear-gradient(top, #CAE2EB, #7EB7CC);
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#CAE2EB, endColorstr=#7EB7CC)";
 }
 
 

@@ -411,8 +411,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 [App.context['user'] && App.context['user']['$key'],
                 convert.toIsoStringFromDate(startDate),
                 convert.toIsoStringFromDate(endDate),
-                this.currentDate.format('YYYY-MM-DDT00:00:00Z'),
-                this.currentDate.format('YYYY-MM-DDT23:59:59Z')]
+                this.currentDate.format('YYYY-MM-DDT00:00:00\\Z'),
+                this.currentDate.format('YYYY-MM-DDT23:59:59\\Z')]
             );
         },
         selectEntry: function(params) {

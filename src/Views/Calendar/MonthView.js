@@ -1,6 +1,8 @@
 define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'dojo/_base/declare',
     'dojo/_base/array',
+    'dojo/_base/lang',
+    'dojo/_base/Deferred',
     'dojo/string',
     'dojo/query',
     'dojo/dom-attr',
@@ -9,10 +11,16 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_SDataListMixin',
+    'Sage/Platform/Mobile/ScrollContainer',
+    'Sage/Platform/Mobile/SearchWidget',
+    'argos!scene'
 ], function(
     declare,
     array,
+    lang,
+    Deferred,
     string,
     query,
     domAttr,
@@ -21,10 +29,14 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     format,
     ErrorManager,
     convert,
-    List
+    List,
+    _SDataListMixin,
+    ScrollContainer,
+    SearchWidget,
+    scene
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List], {
+    return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List, _SDataListMixin], {
         // Localization
         titleText: 'Calendar',
         todayText: 'Today',
@@ -32,7 +44,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         weekText: 'Week',
         monthText: 'Month',
         monthTitleFormatText: 'MMMM YYYY',
-        dayTitleFormatText: 'ddd MMM d, YYYY',
+        dayTitleFormatText: 'ddd MMM D, YYYY',
         startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
         eventText: 'Event',
@@ -41,49 +53,56 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         activityHeaderText: 'Activities',
         toggleCollapseText: 'toggle collapse',
 
+        components: [
+            {name: 'search', type: SearchWidget, attachEvent: 'onQuery:_onSearchQuery,onClear:_onSearchClear'},
+            {name: 'fix', content: '<a href="#" class="android-6059-fix">fix for android issue #6059</a>'},
+            {name: 'scroller', type: ScrollContainer, subscribeEvent: 'onContentChange:onContentChange', components: [
+                {name: 'scroll', tag: 'div', components: [
+                    {name: 'navigation', tag: 'div', components: [
+                        {name: 'splitButtons', tag: 'div', attrs: {'class': 'split-buttons'}, components: [
+                            {name: 'butToday', content: Simplate.make('<button data-command="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>')},
+                            {name: 'butSelectDate', content: '<button data-command="selectdate" data-action="selectDate" class="button"><span></span></button>'},
+                            {name: 'butDay', content: Simplate.make('<button data-command="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>')},
+                            {name: 'butWeek', content: Simplate.make('<button data-command="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>')},
+                            {name: 'butMonth', content: Simplate.make('<button data-command="month" class="button">{%: $.monthText %}</button>')}
+                        ]}
+                    ]},
+                    {name: 'clear', content: '<div style="clear:both"></div>'},
+                    {name: 'monthContent', tag: 'div', attrs: {'class': 'month-content'}, attachPoint: 'monthNode', components: [
+                        {name: 'navBar', tag: 'div', attrs: {'class': 'nav-bar'}, components: [
+                            {name: 'next', content: '<button data-command="next" data-action="goToNextMonth" class="button button-next"><span></span></button>'},
+                            {name: 'prev', content: '<button data-command="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>'},
+                            {name: 'dateNode', tag: 'h3', attrs: {'class': 'date-text'}, attachPoint: 'dateNode'}
+                        ]},
+                        {name: 'monthCalendar', tag: 'div', attrs: {'class': 'month-calendar'}, attachPoint: 'contentNode'}
+                    ]},
+                    {name: 'dayContent', tag: 'div', attrs: {'class': 'day-content'}, components: [
+                        {name: 'dayTitle', tag: 'h2', attrs: {'class': 'date-day-text'}, attachPoint: 'dayTitleNode'},
+                        {name: 'events', tag: 'div', attrs: {'class': 'event-content event-hidden'}, attachPoint: 'eventContainerNode', components: [
+                            {name: 'eventsHeader', content: Simplate.make('<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>')},
+                            {name: 'eventsList', tag: 'ul', attrs: {'class': 'list-content'}, attachPoint: 'eventContentNode'},
+                            {name: 'eventsMore', tag: 'div', attrs: {'class': 'list-more'}, attachPoint: 'eventMoreNode', components: [
+                                {name: 'butEvents', tag: 'button', attrs: {'class': 'button', 'data-action': 'activateEventMore'}, components: [
+                                    {name: 'eventRemaining', tag: 'span', attachPoint: 'eventRemainingContentNode', content: Simplate.make('{%= $.countMoreText %}')}
+                                ]}
+                            ]}
+                        ]},
+                        {name: 'activityContainer', tag: 'div', attachPoint: 'activityContainerNode', components: [
+                            {name: 'activityHeader', content: Simplate.make('<h2>{%= $.activityHeaderText %}</h2>')},
+                            {name: 'content', tag: 'ul', attrs: {'class': 'list-content'}, attachPoint: 'activityContentNode'},
+                            {name: 'more', tag: 'div', attrs: {'class': 'list-more'}, attachPoint: 'activityMoreNode', components: [
+                                {name: 'moreActivity', tag: 'button', attrs: {'class': 'button', 'data-action': 'activateActivityMore'}, components: [
+                                    {name: 'remainingContent', tag: 'span', attachPoint: 'remainingContentNode', content: Simplate.make('{%= $.countMoreText %}')}
+                                ]}
+                            ]}
+                        ]},
+                    ]},
+                    {name: 'clear2', content: '<div style="clear:both"></div>'},
+                ]}
+            ]}
+        ],
+
         //Templates
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-                '<div data-dojo-attach-point="searchNode"></div>',
-                '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
-                '{%! $.navigationTemplate %}',
-                '<div style="clear:both"></div>',
-                '<div class="month-content" data-dojo-attach-point="monthNode">',
-                    '{%! $.navBarTemplate %}',
-                    '<div class="month-calendar" data-dojo-attach-point="contentNode"></div>',
-                '</div>',
-                '<div class="day-content">',
-                    '<h2 class="date-day-text" data-dojo-attach-point="dayTitleNode"></h2>',
-                    '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-                        '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
-                        '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
-                        '{%! $.eventMoreTemplate %}',
-                    '</div>',
-                    '<div class="activity-content" data-dojo-attach-point="activityContainerNode">',
-                        '<h2>{%= $.activityHeaderText %}</h2>',
-                        '<ul class="list-content" data-dojo-attach-point="activityContentNode"></ul>',
-                        '{%! $.activityMoreTemplate %}',
-                    '</div>',
-                '</div>',
-                '<div style="clear:both"></div>',
-            '</div>'
-        ]),
-        navigationTemplate: new Simplate([
-            '<div class="split-buttons">',
-            '<button data-command="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>',
-            '<button data-command="selectdate" data-action="selectDate" class="button"><span></span></button>',
-            '<button data-command="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
-            '<button data-command="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
-            '<button data-command="month" class="button">{%: $.monthText %}</button>',
-            '</div>'
-        ]),
-        navBarTemplate: new Simplate([
-            '<div class="nav-bar">',
-                '<button data-command="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
-                '<button data-command="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
-                '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
-            '</div>'
-        ]),
         activityRowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
             '<table class="calendar-entry-table"><tr>',
@@ -135,20 +154,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             '&nbsp;-&nbsp;',
             '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
         ]),
-        activityMoreTemplate: new Simplate([
-            '<div class="list-more" data-dojo-attach-point="activityMoreNode">',
-            '<button class="button" data-action="activateActivityMore">',
-            '<span data-dojo-attach-point="activityRemainingContentNode">{%= $.countMoreText %}</span>',
-            '</button>',
-            '</div>'
-        ]),
-        eventMoreTemplate: new Simplate([
-            '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
-            '<button class="button" data-action="activateEventMore">',
-            '<span data-dojo-attach-point="eventRemainingContentNode">{%= $.countMoreText %}</span>',
-            '</button>',
-            '</div>'
-        ]),
         calendarStartTemplate: '<table class="calendar-table">',
         calendarWeekHeaderStartTemplate: '<tr class="calendar-week-header">',
         calendarWeekHeaderTemplate: '<td class="calendar-weekday">${0}</td>',
@@ -186,7 +191,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 type: 'innerHTML'
             },
             activityRemainingContent: {
-                node: 'activityRemainingContentNode',
+                node: 'remainingContentNode',
                 type: 'innerHTML'
             }
         },
@@ -203,6 +208,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         activityDetailView: 'activity_detail',
         eventDetailView: 'event_detail',
         enableSearch: false,
+        hideSearch: true,
         expose: false,
         dateCounts: {},
         currentDate: null,
@@ -267,9 +273,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 this.refreshRequired = true;
            }
         },
-        clear: function() {
-            //this.inherited(arguments);
-        },
         onStartup: function() {
             this.inherited(arguments);
             this.currentDate = moment().sod();
@@ -282,10 +285,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.navigateToDayView();
         },
         activateEventMore: function() {
-            var view = App.getView("event_related"),
-                where = this.getSelectedDateEventQuery();
-            if (view)
-                view.show({"where": where});
+            var where = this.getSelectedDateEventQuery();
+            scene().showView("event_related", {"where": where});
         },
         toggleGroup: function(params) {
             var node = params.$source;
@@ -295,14 +296,14 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 domClass.toggle(node.parentNode, 'collapsed-event');
             }
         },
-        selectDay: function(params, evt, el) {
+        selectDay: function(/*params,*/ evt, el) {
             if (this.selectedDateNode)
                 domClass.remove(this.selectedDateNode, 'selected');
 
             this.selectedDateNode = el;
             domClass.add(el, 'selected');
 
-            this.currentDate = moment(params.date, 'YYYY-MM-DD');
+            this.currentDate = moment(/*params.date*/ el.dataset.date, 'YYYY-MM-DD');
             this.getSelectedDate();
         },
         getFirstDayOfCurrentMonth: function() {
@@ -334,33 +335,25 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.refresh();
         },
         refresh: function() {
-            this.renderCalendar();
-            this.queryWhere = this.getActivityQuery();
             this.feed = null;
             this.eventFeed = null;
-            this.dateCounts = [];
-            this.requestData();
+            this._requestData();
             this.requestEventData();
         },
-        requestData: function() {
-            this.cancelRequests(this.monthRequests);
-            this.monthRequests = [];
+        _requestData: function() {
+            this.dateCounts = [];
+            this.position = 0;
+            this.options = this.options || {};
+            this.options['where'] = this.getActivityQuery();
 
-            var request = this.createRequest();
-            request.setContractName('system');
+            this.inherited(arguments);
 
-            var xhr = request.read({
-                success: this.onRequestDataSuccess,
-                failure: this.onRequestDataFailure,
-                aborted: this.onRequestDataAborted,
-                scope: this
-            });
-            this.monthRequests.push(xhr);
+            this.renderCalendar();
         },
         createEventRequest: function() {
             var querySelect = this.eventQuerySelect,
                 queryWhere = this.getEventQuery(),
-                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getConnection())
                 .setCount(this.pageSize)
                 .setStartIndex(1)
                 .setResourceKind('events')
@@ -416,8 +409,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                     [App.context['user'] && App.context['user']['$key'],
                     convert.toIsoStringFromDate(startDate.toDate()),
                     convert.toIsoStringFromDate(endDate.toDate()),
-                    startDate.format('YYYY-MM-DDT00:00:00Z'),
-                    endDate.format('YYYY-MM-DDT23:59:59Z')]
+                    startDate.format('YYYY-MM-DDT00:00:00\\Z'),
+                    endDate.format('YYYY-MM-DDT23:59:59\\Z')]
                 );
         },
         getEventQuery: function() {
@@ -435,27 +428,33 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                     convert.toIsoStringFromDate(endDate.toDate())]
                 );
         },
-        processFeed: function(feed) {
-            if (!feed) return;
+        _processData: function(items) {
+            var store = this.get('store'),
+                count = items.length;
 
-            var r = feed['$resources'];
-            this.feed = feed;
-
-            for (var i = 0; i < r.length; i++)
+            if (count > 0)
             {
-                var row = r[i];
-                this.entries[row.$key] = row;
+                var output = [];
 
-                var startDay = moment(convert.toDateFromString(row.StartDate));
-                if (r[i].Timeless)
-                    startDay.add({minutes: startDay.zone()});
+                for (var i = 0; i < count; i++)
+                {
+                    var item = this._processItem(items[i]);
 
-                var dateIndex = startDay.format('YYYY-MM-DD');
-                this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
-                    ? this.dateCounts[dateIndex] + 1
-                    : 1;
+                    this.items[store.getIdentity(item)] = item;
+                    var startDay = moment(convert.toDateFromString(item.StartDate));
+                    if (item.Timeless)
+                        startDay.add({minutes: startDay.zone()});
+
+                    var dateIndex = startDay.format('YYYY-MM-DD');
+                    this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
+                        ? this.dateCounts[dateIndex] + 1
+                        : 1;
+
+                    output.push(this.rowTemplate.apply(item, this));
+                }
+
+                this.highlightActivities();
             }
-            this.highlightActivities();
         },
         processEventFeed: function(feed) {
             if (!feed) return;
@@ -468,7 +467,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             for (var i = 0; i < feedLength; i ++)
             {
                 var row = r[i];
-                this.entries[row.$key] = row;
+                this.items[row.$key] = row;
 
                 var startDay = moment(convert.toDateFromString(row.StartDate));
                 var endDay = convert.toDateFromString(row.EndDate);
@@ -559,6 +558,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             var request = this.createSelectedDateRequest({
                 pageSize: this.eventPageSize,
                 resourceKind: 'events',
+                contractName: 'dynamic',
                 querySelect: this.eventQuerySelect,
                 queryWhere: this.getSelectedDateEventQuery()
             });
@@ -571,7 +571,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.selectedDateEventRequests.push(xhr);
         },
         createSelectedDateRequest: function(o){
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getConnection())
                 .setCount(o.pageSize)
                 .setStartIndex(1)
                 .setResourceKind(o.resourceKind)
@@ -592,8 +592,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 [App.context['user'] && App.context['user']['$key'],
                 convert.toIsoStringFromDate(this.currentDate.toDate()),
                 convert.toIsoStringFromDate(this.currentDate.clone().eod().toDate()),
-                this.currentDate.format('YYYY-MM-DDT00:00:00Z'),
-                this.currentDate.format('YYYY-MM-DDT23:59:59Z')
+                this.currentDate.format('YYYY-MM-DDT00:00:00\\Z'),
+                this.currentDate.format('YYYY-MM-DDT23:59:59\\Z')
                 ]
             );
         },
@@ -625,7 +625,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             {
                 var row = r[i];
                 row.isEvent = false;
-                this.entries[row.$key] = row;
+                this.items[row.$key] = row;
                 o.push(this.activityRowTemplate.apply(row, this));
             }
 
@@ -670,7 +670,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             {
                 var row = r[i];
                 row.isEvent = true;
-                this.entries[row.$key] = row;
+                this.items[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
             }
 
@@ -695,8 +695,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 dayClass = '',
                 weekendClass = '',
                 day = 1,
-                dayDate = moment().sod().date(1),
-                today = moment().sod(),
+                dayDate = moment(this.currentDate).sod().date(1),
+                today = moment(this.currentDate).sod(),
                 monthLength = this.currentDate.daysInMonth(),
                 weekEnds = [0,6];
 
@@ -748,7 +748,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         setDateTitle: function() {
             this.set('dateContent', this.currentDate.format(this.monthTitleFormatText));
         },
-        show: function(options) {
+        activate: function(options) {
             this.inherited(arguments);
 
             if (options)
@@ -789,61 +789,52 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 showTimePicker: false,
                 timeless: false,
                 tools: {
-                    tbar: [{
+                    top: [{
                         id: 'complete',
                         fn: this.selectDateSuccess,
                         scope: this
                     },{
                         id: 'cancel',
                         place: 'left',
-                        fn: ReUI.back,
-                        scope: ReUI
+                        fn: scene().back(),
+                        scope: this
                     }]
                     }
-                },
-                view = App.getView(this.datePickerView);
-            if (view)
-                view.show(options);
+                };
+
+            scene().showView(this.datePickerView, options);
         },
         selectDateSuccess: function() {
-            var view = App.getPrimaryActiveView();
+            var view = App.scene.getView(this.datePickerView);
             this.currentDate = moment(view.getDateTime()).sod();
             this.refresh();
-            ReUI.back();
+            scene().back();
         },
         navigateToWeekView: function() {
-            var view = App.getView(this.weekView),
-                options = {currentDate: this.currentDate.valueOf() || moment().sod()};
-            view.show(options);
+            var options = {currentDate: this.currentDate.valueOf() || moment().sod()};
+            scene().showView(this.weekView, options);
         },
         navigateToDayView: function() {
-            var view = App.getView(this.dayView),
-                options = {currentDate: this.currentDate.valueOf() || moment().sod()};
-            view.show(options);
+            var options = {currentDate: this.currentDate.valueOf() || moment().sod()};
+            scene().showView(this.dayView, options);
         },
         navigateToInsertView: function(el) {
-            var view = App.getView(this.insertView || this.editView);
-
             this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || Date.today();
-            if (view)
-            {
-                view.show({
-                    negateHistory: true,
-                    returnTo: this.id,
-                    insert: true
-                });
-            }
+            scene().showView(this.insertView || this.editView, {
+                negateHistory: true,
+                returnTo: this.id,
+                insert: true
+            });
         },
         navigateToDetailView: function(key, descriptor) {
-            var entry = this.entries[key],
-                detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
-                view = App.getView(detailView);
+            var entry = this.items[key],
+                detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
+
             descriptor = (entry.isEvent) ? descriptor : entry.Description;
-            if (view)
-                view.show({
-                    descriptor: descriptor,
-                    key: key
-                });
+            scene().showView(detailView, {
+                descriptor: descriptor,
+                key: key
+            });
         }
 
     });
