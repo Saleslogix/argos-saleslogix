@@ -57,15 +57,13 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             {name: 'search', type: SearchWidget, attachEvent: 'onQuery:_onSearchQuery,onClear:_onSearchClear'},
             {name: 'fix', content: '<a href="#" class="android-6059-fix">fix for android issue #6059</a>'},
             {name: 'scroller', type: ScrollContainer, subscribeEvent: 'onContentChange:onContentChange', components: [
-                {name: 'scroll', tag: 'div', components: [
-                    {name: 'navigation', tag: 'div', components: [
-                        {name: 'splitButtons', tag: 'div', attrs: {'class': 'split-buttons'}, components: [
-                            {name: 'butToday', content: Simplate.make('<button data-command="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>')},
-                            {name: 'butSelectDate', content: '<button data-command="selectdate" data-action="selectDate" class="button"><span></span></button>'},
-                            {name: 'butDay', content: Simplate.make('<button data-command="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>')},
-                            {name: 'butWeek', content: Simplate.make('<button data-command="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>')},
-                            {name: 'butMonth', content: Simplate.make('<button data-command="month" class="button">{%: $.monthText %}</button>')}
-                        ]}
+                {name: 'scroll', tag: 'div', attrs: {'class' : 'list activities-for-month'}, components: [
+                    {name: 'splitButtons', tag: 'div', attrs: {'class': 'split-buttons'}, components: [
+                        {name: 'butToday', content: Simplate.make('<button data-command="today" data-action="getTodayMonthActivities" class="button">{%: $.todayText %}</button>')},
+                        {name: 'butSelectDate', content: '<button data-command="selectdate" data-action="selectDate" class="button"><span></span></button>'},
+                        {name: 'butDay', content: Simplate.make('<button data-command="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>')},
+                        {name: 'butWeek', content: Simplate.make('<button data-command="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>')},
+                        {name: 'butMonth', content: Simplate.make('<button data-command="month" class="button">{%: $.monthText %}</button>')}
                     ]},
                     {name: 'clear', content: '<div style="clear:both"></div>'},
                     {name: 'monthContent', tag: 'div', attrs: {'class': 'month-content'}, attachPoint: 'monthNode', components: [

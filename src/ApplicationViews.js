@@ -52,6 +52,7 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'ticketactivityitem_related': {type: 'Mobile/SalesLogix/Views/TicketActivityItem/List'},
     'calendar_daylist': {type: 'Mobile/SalesLogix/Views/Calendar/DayView'},
     'calendar_monthlist': {type: 'Mobile/SalesLogix/Views/Calendar/MonthView'},
+    'calendar_weeklist': {type: 'Mobile/SalesLogix/Views/Calendar/WeekView'},
     'history_list': {type: 'Mobile/SalesLogix/Views/History/List'},
     'history_related': {type: 'Mobile/SalesLogix/Views/History/List'},
     'history_detail': {type: 'Mobile/SalesLogix/Views/History/Detail'},

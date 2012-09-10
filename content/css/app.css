@@ -942,18 +942,18 @@ body.transition > .footer-toolbar
     z-index: 100;
 }
 
-#calendar_weeklist > div > h2 > .dayHeaderLeft {
+#calendar_weeklist div > h2 > .dayHeaderLeft {
 	float:left;
 }
-#calendar_weeklist > div > h2 > .dayHeaderRight {
+#calendar_weeklist div > h2 > .dayHeaderRight {
 	float:right;
 	padding-right: 3px;
 }
-#calendar_weeklist > div > ul:last-child {
+#calendar_weeklist div > ul:last-child {
     padding-bottom: 18px;
 }
 
-#calendar_weeklist > div > h2.currentDate {
+#calendar_weeklist div > h2.currentDate {
 	color:#00338D;
 }
 #calendar_monthlist,

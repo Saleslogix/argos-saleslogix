@@ -7,7 +7,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
-    'Mobile/SalesLogix/Format'
+    'Sage/Platform/Mobile/_SDataListMixin',
+    'Sage/Platform/Mobile/ScrollContainer',
+    'Sage/Platform/Mobile/SearchWidget',
+    'argos!scene'
 ], function(
     declare,
     query,
@@ -16,10 +19,14 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     domClass,
     ErrorManager,
     convert,
-    List
+    List,
+    _SDataListMixin,
+    ScrollContainer,
+    SearchWidget,
+    scene
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Calendar.WeekView', [List], {
+    return declare('Mobile.SalesLogix.Views.Calendar.WeekView', [List, _SDataListMixin], {
         //Localization
         titleText: 'Calendar',
         weekTitleFormatText: 'MMM D, YYYY',
@@ -35,40 +42,47 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         eventMoreText: 'View ${0} More Event(s)',
         toggleCollapseText: 'toggle collapse',
 
+        components: [
+            {name: 'search', type: SearchWidget, attachEvent: 'onQuery:_onSearchQuery,onClear:_onSearchClear'},
+            {name: 'fix', content: '<a href="#" class="android-6059-fix">fix for android issue #6059</a>'},
+            {name: 'scroller', type: ScrollContainer, subscribeEvent: 'onContentChange:onContentChange', components: [
+                {name: 'scroll', tag: 'div', attrs: {'class' : 'list activities-for-week'}, components: [
+                    {name: 'splitButtons', tag: 'div', attrs: {'class': 'split-buttons'}, components: [
+                        {name: 'butToday', content: Simplate.make('<button data-command="today" data-action="getThisWeekActivities" class="button">{%: $.todayText %}</button>')},
+                        {name: 'butSelectDate', content: '<button data-command="selectdate" data-action="selectDate" class="button"><span></span></button>'},
+                        {name: 'butDay', content: Simplate.make('<button data-command="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>')},
+                        {name: 'butWeek', content: Simplate.make('<button data-command="week" class="button">{%: $.weekText %}</button>')},
+                        {name: 'butMonth', content: Simplate.make('<button data-command="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>')}
+                    ]},
+                    {name: 'navBar', tag: 'div', attrs: {'class': 'nav-bar'}, components: [
+                        {name: 'next', content: '<button data-command="next" data-action="getNextWeekActivities" class="button button-next"><span></span></button>'},
+                        {name: 'prev', content: '<button data-command="prev" data-action="getPrevWeekActivities" class="button button-prev"><span></span></button>'},
+                        {name: 'dateNode', tag: 'h3', attrs: {'class': 'date-text'}, attachPoint: 'dateNode'}
+                    ]},
+                    {name: 'clear', content: '<div style="clear:both"></div>'},
+                    {name: 'events', tag: 'div', attrs: {'class': 'event-content event-hidden'}, attachPoint: 'eventContainerNode', components: [
+                        {name: 'eventsHeader', content: Simplate.make('<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>')},
+                        {name: 'eventsList', tag: 'ul', attrs: {'class': 'list-content'}, attachPoint: 'eventContentNode'},
+                        {name: 'eventsMore', tag: 'div', attrs: {'class': 'list-more'}, attachPoint: 'eventMoreNode', components: [
+                            {name: 'butEvents', tag: 'button', attrs: {'class': 'button', 'data-action': 'activateEventMore'}, components: [
+                                {name: 'eventRemaining', tag: 'span', attachPoint: 'eventRemainingContentNode', content: Simplate.make('{%= $.eventMoreText %}')}
+                            ]}
+                        ]}
+                    ]},
+                    {name: 'content', tag: 'div', attrs: {'class': 'list-content'}, attachPoint: 'contentNode'},
+                    {name: 'more', tag: 'div', attrs: {'class': 'list-more'}, components: [
+                        {name: 'moreRemaining', tag: 'span', attrs: {'class': 'list-remaining'}, attachPoint: 'remainingContentNode'},
+                        {name: 'moreButton', content: Simplate.make('<button class="button" data-action="more"><span>{%: $.moreText %}</span></button>')}
+                    ]}
+                ]}
+            ]}
+        ],
+
         // Templates
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="{%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-            '<div data-dojo-attach-point="searchNode"></div>',
-            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
-            '{%! $.navigationTemplate %}',
-            '<div style="clear:both"></div>',
-            '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-                '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
-                '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
-                '{%! $.eventMoreTemplate %}',
-            '</div>',
-            '<div class="list-content" data-dojo-attach-point="contentNode">',
-            '{%! $.moreTemplate %}',
-            '</div>'
-        ]),
-        navigationTemplate: new Simplate([
-            '<div class="split-buttons">',
-            '<button data-command="today" data-action="getThisWeekActivities" class="button">{%: $.todayText %}</button>',
-            '<button data-command="selectdate" data-action="selectDate" class="button"><span></span></button>',
-            '<button data-command="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
-            '<button data-command="week" class="button">{%: $.weekText %}</button>',
-            '<button data-command="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
-            '</div>',
-            '<div class="nav-bar">',
-            '<button data-command="next" data-action="getNextWeekActivities" class="button button-next"><span></span></button>',
-            '<button data-command="prev" data-action="getPrevWeekActivities" class="button button-prev"><span></span></button>',
-            '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
-            '</div>'
-        ]),
         groupTemplate: new Simplate([
-            '<h2 data-action="activateDayHeader" class="dayHeader {%= $.headerClass %}" data-date="{%: $.StartDate.toString(\'YYYY-MM-DD\') %}">',
-                '<span class="dayHeaderLeft">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.dayHeaderLeftFormatText) %}</span>',
-                '<span class="dayHeaderRight">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.dayHeaderRightFormatText) %}</span>',
+            '<h2 data-action="activateDayHeader" class="dayHeader {%= $.headerClass %}" data-date="{%: moment($.StartDate).format(\'YYYY-MM-DD\') %}">',
+                '<span class="dayHeaderLeft">{%: moment($.StartDate).format($$.dayHeaderLeftFormatText) %}</span>',
+                '<span class="dayHeaderRight">{%: moment($.StartDate).format($$.dayHeaderRightFormatText) %}</span>',
                 '<div style="clear:both"></div>',
             '</h2>',
             '<ul class="list-content">'
@@ -101,8 +115,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             '{% if ($.Timeless) { %}',
                 '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-                '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
-                '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "A") %}</span>',
+                '<span class="p-time">{%: moment($.StartDate).format($$.startTimeFormatText) %}</span>',
+                '<span class="p-meridiem">{%: moment($.StartDate).format("A") %}</span>',
             '{% } %}'
         ]),
         itemTemplate: new Simplate([
@@ -123,16 +137,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             '{% } %}'
         ]),
         eventNameTemplate: new Simplate([
-            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+            '{%: moment($.StartDate).format($$.eventDateFormatText) %}',
             '&nbsp;-&nbsp;',
-            '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
-        ]),
-        eventMoreTemplate: new Simplate([
-            '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
-            '<button class="button" data-action="activateEventMore">',
-            '<span data-dojo-attach-point="eventRemainingContentNode">{%= $$.eventMoreText %}</span>',
-            '</button>',
-            '</div>'
+            '{%: moment($.EndDate).format($$.eventDateFormatText) %}'
         ]),
         noDataTemplate: new Simplate([
             '<div class="no-data"><h3>{%= $.noDataText %}</h3></div>'
@@ -159,6 +166,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         userWeekEndDay: 6,
         currentDate: null,
         enableSearch: false,
+        hideSearch: true,
         expose: false,
         entryGroups: {},
         weekStartDate: null,
@@ -254,7 +262,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.refresh();
         },
         getPrevWeekActivities: function() {
-            this.currentDate = this.getStartDay(this.weekStartDate.clone().add({days:1}));
+            this.currentDate = this.getStartDay(this.weekStartDate.clone().add({days:-1}));
             this.refresh();
         },
         getTypeIcon: function(type) {
@@ -262,9 +270,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         },
         setWeekQuery: function() {
             var setDate = this.currentDate || this.todayDate;
+            this.options = this.options || {};
             this.weekStartDate = this.getStartDay(setDate);
             this.weekEndDate = this.getEndDay(setDate);
-            this.queryWhere =  string.substitute(
+            this.options['where'] =  string.substitute(
                     [
                         'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
                         '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
@@ -273,8 +282,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     App.context['user'] && App.context['user']['$key'],
                     convert.toIsoStringFromDate(this.weekStartDate.toDate()),
                     convert.toIsoStringFromDate(this.weekEndDate.toDate()),
-                    this.weekStartDate.format('YYYY-MM-DDT00:00:00Z'),
-                    this.weekEndDate.format('YYYY-MM-DDT23:59:59Z')]
+                    this.weekStartDate.format('YYYY-MM-DDT00:00:00\\Z'),
+                    this.weekEndDate.format('YYYY-MM-DDT23:59:59\\Z')]
                 );
         },
         setWeekTitle: function() {
@@ -295,14 +304,14 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         isInCurrentWeek: function(date) {
             return (date.valueOf() > this.weekStartDate.valueOf() && date.valueOf() < this.weekEndDate.valueOf());
         },
-        processFeed: function(feed) {
+        _processData: function(feed) {
             this.feed = feed;
 
-            if (this.feed['$totalResults'] === 0)
+            if (this.feed.length === 0)
             {
                 domConstruct(this.noDataTemplate.apply(this), this.contentNode, 'last');
             }
-            else if (feed['$resources'])
+            else
             {
                 var todayNode = this.addTodayDom(),
                     entryGroups = this.entryGroups,
@@ -313,9 +322,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 if (todayNode && !entryGroups[this.todayDate.format(dateCompareString)])
                     entryGroups[this.todayDate.format(dateCompareString)] = [todayNode];
 
-                for (var i = 0; i < feed['$resources'].length; i++)
+                for (var i = 0; i < feed.length; i++)
                 {
-                    var currentEntry = feed['$resources'][i],
+                    var currentEntry = feed[i],
                         startDate = convert.toDateFromString(currentEntry.StartDate);
 
                     if (currentEntry.Timeless)
@@ -324,7 +333,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     }
                     currentEntry['StartDate'] = startDate;
                     currentEntry['isEvent'] = false;
-                    this.entries[currentEntry.$key] = currentEntry;
+                    this.items[currentEntry.$key] = currentEntry;
 
                     var currentDateCompareKey = moment(currentEntry.StartDate).format(dateCompareString);
                     var currentGroup = entryGroups[currentDateCompareKey];
@@ -363,15 +372,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     domConstruct.place(o.join(''), this.contentNode, 'only');
             }
 
-            if (this.remainingContentNode)
-                this.set('remainingContent', string.substitute(this.remainingText,[
-                    this.feed['$totalResults'] - (this.feed['$startIndex'] + this.feed['$itemsPerPage'] - 1)
-                ]));
-
-            if (this.hasMoreData())
-                domClass.add(this.domNode, 'list-has-more');
-            else
-                domClass.remove(this.domNode, 'list-has-more');
         },
         addTodayDom: function() {
             if (!this.isInCurrentWeek(this.todayDate)) return null;
@@ -424,7 +424,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         createEventRequest: function() {
             var querySelect = this.eventQuerySelect,
                 queryWhere = this.getEventQuery(),
-                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getConnection())
                 .setCount(this.eventPageSize)
                 .setStartIndex(1)
                 .setResourceKind('events')
@@ -443,8 +443,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                         ')'
                     ].join(''),
                     [App.context['user'] && App.context['user']['$key'],
-                    startDate.format('YYYY-MM-DDT00:00:00Z'),
-                    endDate.format('YYYY-MM-DDT23:59:59Z')]
+                    startDate.format('YYYY-MM-DDT00:00:00\\Z'),
+                    endDate.format('YYYY-MM-DDT23:59:59\\Z')]
                 );
         },
         hideEventList: function() {
@@ -473,7 +473,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 event['isEvent'] = true;
                 event['StartDate'] = moment(convert.toDateFromString(event.StartDate));
                 event['EndDate'] = moment(convert.toDateFromString(event.EndDate));
-                this.entries[event.$key] = event;
+                this.items[event.$key] = event;
                 o.push(this.eventRowTemplate.apply(event, this));
             }
 
@@ -494,21 +494,19 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             var startDate = this.currentDate.clone();
             this.setWeekStartDay();
             this.currentDate = startDate.clone();
-            this.weekStartDate = this.getStartDay(startDate);
-            this.weekEndDate = this.getEndDay(startDate);
             this.setWeekTitle();
             this.setWeekQuery();
 
             this.clear();
-            this.requestData();
+            this._requestData();
             this.requestEventData();
         },
-        show: function(options) {
+        activate: function(options) {
             if (options)
                 this.processShowOptions(options);
             
             this.setDefaultOptions();
-            this.inherited(arguments);
+            this.inherited(arguments, [this.options]);
         },
         processShowOptions: function(options) {
             if (options.currentDate)
@@ -527,12 +525,13 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek'], 10)
                     : this.userWeekStartDay;
             }
+
+            this.setWeekTitle();
+            this.setWeekQuery();
         },
         activateEventMore: function() {
-            var view = App.getView("event_related"),
-                where = this.getEventQuery();
-            if (view)
-                view.show({"where": where});
+            var where = this.getEventQuery();
+            scene().showView('event_related', {"where": where});
         },
         clear: function() {
             this.inherited(arguments);
@@ -551,63 +550,52 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 showTimePicker: false,
                 timeless: false,
                 tools: {
-                    tbar: [{
+                    top: [{
                         id: 'complete',
                         fn: this.selectDateSuccess,
                         scope: this
                     },{
                         id: 'cancel',
                         place: 'left',
-                        fn: ReUI.back,
-                        scope: ReUI
+                        fn: scene().back(),
+                        scope: this
                     }]
                     }
-                },
-                view = App.getView(this.datePickerView);
-            if (view)
-                view.show(options);
+                };
+
+            scene().showView(this.datePickerView, options);
         },
         selectDateSuccess: function() {
-            var view = App.getPrimaryActiveView();
+            var view = App.scene.getView(this.datePickerView);
             this.currentDate = moment(view.getDateTime()).sod();
             this.refresh();
-            ReUI.back();
+            scene().back();
         },
         navigateToDayView: function() {
-            var view = App.getView(this.activityListView),
-                options = {currentDate: this.currentDate.valueOf() || moment().sod().valueOf()};
-            view.show(options);
+            var options = {currentDate: this.currentDate.valueOf() || moment().sod().valueOf()};
+            scene().showView(this.activityListView, options);
         },
         navigateToMonthView: function() {
-            var view = App.getView(this.monthView),
-                options = {currentDate: this.currentDate.valueOf() || moment().sod().valueOf()};
-            view.show(options);
+            var options = {currentDate: this.currentDate.valueOf() || moment().sod().valueOf()};
+            scene().showView(this.monthView, options);
         },
         navigateToInsertView: function(el) {
-            var view = App.getView(this.insertView || this.editView);
-
-            this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || Date.today();
-            if (view)
-            {
-                view.show({
-                    negateHistory: true,
-                    returnTo: this.id,
-                    insert: true
-                });
-            }
+            this.options.currentDate = this.currentDate.format('yyyy-MM-dd') || Date.today();
+            scene().showView(this.insertView || this.editView, {
+                negateHistory: true,
+                returnTo: this.id,
+                insert: true
+            });
         },
         navigateToDetailView: function(key, descriptor) {
-            var entry = this.entries[key],
-                detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
-                view = App.getView(detailView);
+            var entry = this.items[key],
+                detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView;
 
             descriptor = (entry.isEvent) ? descriptor : entry.Description;
-
-            if (view)
-                view.show({
-                    descriptor: descriptor,
-                    key: key
-                });
+            scene().showView(detailView, {
+                descriptor: descriptor,
+                key: key
+            });
         }
     });
 });

@@ -43,20 +43,18 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             {name: 'search', type: SearchWidget, attachEvent: 'onQuery:_onSearchQuery,onClear:_onSearchClear'},
             {name: 'fix', content: '<a href="#" class="android-6059-fix">fix for android issue #6059</a>'},
             {name: 'scroller', type: ScrollContainer, subscribeEvent: 'onContentChange:onContentChange', components: [
-                {name: 'scroll', tag: 'div', components: [
-                    {name: 'navigation', tag: 'div', components: [
-                        {name: 'splitButtons', tag: 'div', attrs: {'class': 'split-buttons'}, components: [
-                            {name: 'butToday', content: Simplate.make('<button data-command="today" data-action="getToday" class="button">{%: $.todayText %}</button>')},
-                            {name: 'butSelectDate', content: '<button data-command="selectdate" data-action="selectDate" class="button"><span></span></button>'},
-                            {name: 'butDay', content: Simplate.make('<button data-command="day" class="button">{%: $.dayText %}</button>')},
-                            {name: 'butWeek', content: Simplate.make('<button data-command="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>')},
-                            {name: 'butMonth', content: Simplate.make('<button data-command="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>')}
-                        ]},
-                        {name: 'navBar', tag: 'div', attrs: {'class': 'nav-bar'}, components: [
-                            {name: 'next', content: '<button data-command="next" data-action="getNextDay" class="button button-next"><span></span></button>'},
-                            {name: 'prev', content: '<button data-command="prev" data-action="getPrevDay" class="button button-prev"><span></span></button>'},
-                            {name: 'dateNode', tag: 'h3', attrs: {'class': 'date-text'}, attachPoint: 'dateNode'}
-                        ]}
+                {name: 'scroll', tag: 'div', attrs: {'class' : 'list activities-for-day'}, components: [
+                    {name: 'splitButtons', tag: 'div', attrs: {'class': 'split-buttons'}, components: [
+                        {name: 'butToday', content: Simplate.make('<button data-command="today" data-action="getToday" class="button">{%: $.todayText %}</button>')},
+                        {name: 'butSelectDate', content: '<button data-command="selectdate" data-action="selectDate" class="button"><span></span></button>'},
+                        {name: 'butDay', content: Simplate.make('<button data-command="day" class="button">{%: $.dayText %}</button>')},
+                        {name: 'butWeek', content: Simplate.make('<button data-command="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>')},
+                        {name: 'butMonth', content: Simplate.make('<button data-command="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>')}
+                    ]},
+                    {name: 'navBar', tag: 'div', attrs: {'class': 'nav-bar'}, components: [
+                        {name: 'next', content: '<button data-command="next" data-action="getNextDay" class="button button-next"><span></span></button>'},
+                        {name: 'prev', content: '<button data-command="prev" data-action="getPrevDay" class="button button-prev"><span></span></button>'},
+                        {name: 'dateNode', tag: 'h3', attrs: {'class': 'date-text'}, attachPoint: 'dateNode'}
                     ]},
                     {name: 'clear', content: '<div style="clear:both"></div>'},
                     {name: 'events', tag: 'div', attrs: {'class': 'event-content event-hidden'}, attachPoint: 'eventContainerNode', components: [
