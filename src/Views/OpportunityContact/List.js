@@ -74,6 +74,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
                 singleSelect: true,
                 singleSelectAction: 'complete',
                 allowEmptySelection: false,
+                enableActions: false,
                 title: this.selectTitleText,
                 select: [
                     'Account/AccountName',
