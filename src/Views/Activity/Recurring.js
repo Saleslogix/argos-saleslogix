@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     return declare('Mobile.SalesLogix.Views.Activity.Recurring', [Edit], {
         //Localization
         startingText: 'start date',
-        endingTex: 'end date',
+        endingText: 'end date',
         repeatsText: 'repeats',
         everyText: 'every',
         afterCompletionText: 'after completed',
@@ -563,7 +563,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 include: true,
                 formatValue: format.bool
             },{
-                label: this.endingTex,
+                label: this.endingText,
                 name: 'EndDate',
                 property: 'EndDate',
                 type: 'date',
