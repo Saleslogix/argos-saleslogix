@@ -4,7 +4,7 @@ define('Mobile/SalesLogix/Views/Login', [
     'dojo/_base/window',
     'Sage/Platform/Mobile/Edit',
     'Sage/Platform/Mobile/ScrollContainer',
-    '../ActionBar',
+    'Sage/Platform/Mobile/ActionBar',
     'argos!scene',
     'argos!application'
 ], function(
@@ -64,6 +64,11 @@ define('Mobile/SalesLogix/Views/Login', [
                     action: 'authenticate',
                     place: 'full',
                     scope: this
+                },{
+                    name: 'x',
+                    baseClass: 'button action-button',
+                    label: 'cal',
+                    fn: function(){ App.scene.showView('calendar'); }
                 }]
             });
         },

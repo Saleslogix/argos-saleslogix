@@ -1635,62 +1635,6 @@ td.entry-table-description {
 
 .has-expanded-navigation .quick-nav-toggle > div { background-image: url(../images/icons/Browse_Previous_24.png); }
 
-.action-toolbar
-{
-    height: auto !important;
-    position: static !important;
-    width: 100%;
-    background: #F2F2F2;
-    padding: 12px 6px 6px 6px;
-    margin: 0;
-    border: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-
-.action-toolbar:before,
-.action-toolbar:after
-{
-    content: "";
-    display: table;
-}
-.action-toolbar:after
-{
-    clear: both;
-}
-
-.action-toolbar > button
-{
-    height: auto !important;
-}
-
-.action-toolbar > button > div
-{
-    height: auto !important;
-    width: auto !important;
-}
-
-.action-toolbar > .on-left
-{
-    float: left;
-    height: auto !important;
-    width: 44%;
-    margin: 0;
-}
-.action-toolbar > .on-right
-{
-    float: right;
-    height: auto !important;
-    width: 44%;
-    margin: 0;
-}
-.action-toolbar > .on-full
-{
-    width: 100%;
-    margin: 0;
-}
-
 .has-login
 {
     background: #A6A89C !important;
