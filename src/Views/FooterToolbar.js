@@ -100,7 +100,7 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
                 view.show();
         },
         scrollToTop: function() {
-            scrollTo(0, 1); 
+            // scrollTo(0, 1); 
         },
         logOut: function() {
             var sure = window.confirm(this.logOutConfirmText);
