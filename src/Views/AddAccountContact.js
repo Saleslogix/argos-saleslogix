@@ -4,8 +4,8 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    'Argos/Utility',
+    'Argos/Edit'
 ], function(
     declare,
     lang,

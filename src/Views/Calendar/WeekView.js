@@ -4,9 +4,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     'dojo/string',
     'dojo/dom-construct',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
+    'Argos/ErrorManager',
+    'Argos/Convert',
+    'Argos/List',
     'Mobile/SalesLogix/Format'
 ], function(
     declare,

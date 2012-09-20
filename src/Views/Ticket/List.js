@@ -2,8 +2,8 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_SDataListMixin'
+    'Argos/List',
+    'Argos/_SDataListMixin'
 ], function(
     declare,
     string,

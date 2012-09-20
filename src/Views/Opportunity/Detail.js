@@ -2,8 +2,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail',
-    'Sage/Platform/Mobile/_SDataDetailMixin'
+    'Argos/Detail',
+    'Argos/_SDataDetailMixin'
 ], function(
     declare,
     string,

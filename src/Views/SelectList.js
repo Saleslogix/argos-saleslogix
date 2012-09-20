@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Views/SelectList', [
     'dojo/_base/declare',
     'dojo/store/Memory',
-    'Sage/Platform/Mobile/List'
+    'Argos/List'
 ], function(
     declare,
     Memory,

@@ -1,13 +1,11 @@
 define('Mobile/SalesLogix/Fields/AddressField', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/Fields/EditorField',
-    'Sage/Platform/Mobile/Fields/FieldRegistry'
+    'Argos/Fields/EditorField'
 ], function(
     declare,
-    EditorField,
-    FieldRegistry
+    EditorField
 ) {
-    var AddressField = declare('Mobile.SalesLogix.Fields.AddressField', [EditorField], {
+    return declare('Mobile.SalesLogix.Fields.AddressField', [EditorField], {
         widgetTemplate: new Simplate([
             '<button class="button simpleSubHeaderButton" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
             '<div data-dojo-attach-point="inputNode"></div>'
@@ -30,8 +28,4 @@ define('Mobile/SalesLogix/Fields/AddressField', [
             this.set('addressContent', text);
         }
     });
-
-    FieldRegistry.register('address', AddressField);
-
-    return AddressField;
 });

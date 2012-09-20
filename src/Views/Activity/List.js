@@ -1,10 +1,10 @@
 define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_SDataListMixin',
+    'Argos/List',
+    'Argos/_SDataListMixin',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Convert'
+    'Argos/Convert'
 ], function(
     declare,
     string,
@@ -40,7 +40,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '{%! $$.activityTimeTemplate %}',
             '<span class="p-description">&nbsp;{%: $.Description %}</span>',
             '</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
+            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, Argos.Convert.toBoolean($.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.ContactName) { %}',

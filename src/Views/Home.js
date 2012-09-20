@@ -10,7 +10,7 @@ define('Mobile/SalesLogix/Views/Home', [
     'dojo/_base/lang',
     'dojo/dom-attr',
     'dojo/store/Memory',
-    'Sage/Platform/Mobile/GroupedList',
+    'Argos/GroupedList',
     'argos!application',
     'argos!scene',
     'argos!customizations'

@@ -2,8 +2,8 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/_SDataEditMixin'
+    'Argos/Edit',
+    'Argos/_SDataEditMixin'
 ], function(
     declare,
     format,

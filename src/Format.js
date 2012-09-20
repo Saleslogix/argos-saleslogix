@@ -3,7 +3,7 @@ define('Mobile/SalesLogix/Format', [
     'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Format'
+    'Argos/Format'
 ], function(
     lang,
     array,

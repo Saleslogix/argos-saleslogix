@@ -3,12 +3,12 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_SDataListMixin',
-    'Sage/Platform/Mobile/ScrollContainer',
-    'Sage/Platform/Mobile/SearchWidget',
+    'Argos/ErrorManager',
+    'Argos/Convert',
+    'Argos/List',
+    'Argos/_SDataListMixin',
+    'Argos/ScrollContainer',
+    'Argos/SearchWidget',
     'argos!scene'
 ], function(
     declare,

@@ -1,6 +1,6 @@
 define('Mobile/SalesLogix/Template', [
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/Format'
+    'Argos/Format'
 ], function(
     lang,
     format
@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Template', [
             '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}'
         ]),
         noteDetailPropertyOld: new Simplate([
-            '{% var F = Sage.Platform.Mobile.Format; %}',
+            '{% var F = Argos.Format; %}',
             '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
                 '<label>{%: $.label %}</label>',
                 '<div class="note-text-property">',
@@ -30,7 +30,7 @@ define('Mobile/SalesLogix/Template', [
             '</div>'
         ]),
         noteDetailProperty: new Simplate([
-            '{% var F = Sage.Platform.Mobile.Format; %}',
+            '{% var F = Argos.Format; %}',
             '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
                 '<label>{%: $.label %}</label>',
                 '<pre>',

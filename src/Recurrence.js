@@ -17,12 +17,14 @@ define('Mobile/SalesLogix/Recurrence', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
-    'dijit/_Widget'
+    'dijit/_Widget',
+    'Argos/Convert'
 ], function(
     declare,
     lang,
     string,
-    _Widget
+    _Widget,
+    convert
 ) {
     return lang.setObject('Mobile.SalesLogix.Recurrence', {
         // Localization
@@ -250,7 +252,7 @@ define('Mobile/SalesLogix/Recurrence', [
             interval = interval || this.interval;
 
             if (!startDate) return;
-            startDate = Sage.Platform.Mobile.Convert.toDateFromString(startDate);
+            startDate = convert.toDateFromString(startDate);
 
             switch(recurPeriod) {
                 case 0: // daily
@@ -321,7 +323,7 @@ define('Mobile/SalesLogix/Recurrence', [
                 text = (1 < interval)
                     ? string.substitute(this.everyText, [interval, this.getPanel(rp, true)])
                     : ((true === dependsOnPanel) ? '' : this.getPanel(rp)),
-                currentDate = Sage.Platform.Mobile.Convert.toDateFromString(entry['StartDate']),
+                currentDate = convert.toDateFromString(entry['StartDate']),
                 day = currentDate.getDate(),
                 weekday = moment.weekdays[currentDate.getDay()],
                 textOptions = [

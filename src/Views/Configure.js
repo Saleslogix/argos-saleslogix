@@ -6,7 +6,7 @@ define('Mobile/SalesLogix/Views/Configure', [
     'dojo/string',
     'dojo/dom-attr',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/List',
+    'Argos/List',
     'dojo/NodeList-traverse'
 ], function(
     declare,

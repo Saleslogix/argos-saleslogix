@@ -3,7 +3,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit'
+    'Argos/Edit'
 ], function(
     declare,
     string,

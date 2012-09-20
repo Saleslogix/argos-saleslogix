@@ -11,8 +11,8 @@ define('Mobile/SalesLogix/ApplicationLayout', [
     'dojo/dom-construct',
     'dojo/query',
     'dojo/NodeList-traverse',
-    'Sage/Platform/Mobile/Layout',
-    'Sage/Platform/Mobile/Pane',
+    'Argos/Layout',
+    'Argos/Pane',
     './TitleBar',
     './QuickNav'
 ], function(

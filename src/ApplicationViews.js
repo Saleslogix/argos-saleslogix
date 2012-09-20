@@ -3,8 +3,8 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'login': {type: 'Mobile/SalesLogix/Views/Login'},
     // 'configure': {type: 'Mobile/SalesLogix/Views/Configure'},
 
-    'datetimepicker': {type: 'Sage/Platform/Mobile/Views/DateTimePicker', props: {tier: 1}},
-    'calendar': {type: 'Sage/Platform/Mobile/Views/Calendar'},
+    'datetimepicker': {type: 'Argos/Views/DateTimePicker', props: {tier: 1}},
+    'calendar': {type: 'Argos/Views/Calendar'},
 
     'add_account_contact': {type: 'Mobile/SalesLogix/Views/AddAccountContact'},
     'pick_list': {type: 'Mobile/SalesLogix/Views/PickList', props: {tier: 1}},
@@ -64,8 +64,8 @@ define('Mobile/SalesLogix/ApplicationViews', {
 });
 
 /*
-'Sage/Platform/Mobile/Calendar',
-'Sage/Platform/Mobile/Views/Signature',
+'Argos/Calendar',
+'Argos/Views/Signature',
 
 'Mobile/SalesLogix/Views/AddAccountContact',
 'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',

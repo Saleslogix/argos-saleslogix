@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Views/Event/Detail', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail'
+    'Argos/Detail'
 ], function(
     declare,
     format,

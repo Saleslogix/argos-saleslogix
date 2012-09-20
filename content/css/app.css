@@ -718,6 +718,9 @@ body.transition > .footer-toolbar
 }
 
 /* Excludes iphone <= 3 */
+/* Disabled until dual view to single view detection is done
+For dual view we want the list to always be on the bottom.
+For single view we want the list to adjust to screen (50/50 split on wide enough screens)
 @media all and (min-width: 500px) and (-webkit-min-device-pixel-ratio: 2) {
     body.landscape #calendar_monthlist > .month-content,
     body.landscape #calendar_monthlist > .day-content
@@ -734,7 +737,9 @@ body.transition > .footer-toolbar
         border-left: 1px solid #000000;
     }
 }
+*/
 /* Tablets */
+/* See disabled reason above
 @media all and (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
     body.landscape > #calendar_yearlist > .year-content > .year-table
     {
@@ -765,8 +770,8 @@ body.transition > .footer-toolbar
         border-right: none;
         font-size: 70%;
     }
-
 }
+*/
 
 #calendar_daylist .event-hidden,
 #calendar_weeklist .event-hidden,
@@ -1629,7 +1634,7 @@ td.entry-table-description {
 .quick-nav-item[data-view="contact_list"] > button > div { background-image: url(../images/icons/Contacts_24x24.png); }
 .quick-nav-item[data-view="lead_list"] > button > div { background-image: url(../images/icons/Leads_24x24.png); }
 .quick-nav-item[data-view="opportunity_list"] > button > div { background-image: url(../images/icons/opportunity_24.png); }
-.quick-nav-item[data-view="calendar_daylist"] > button > div { background-image: url(../images/icons/Calendar_24x24.png); }
+.quick-nav-item[data-view="calendar_monthlist"] > button > div { background-image: url(../images/icons/Calendar_24x24.png); }
 
 .quick-nav-toggle > div { background-image: url(../images/icons/Browse_Next_24.png); }
 

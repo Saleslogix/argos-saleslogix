@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Views/Competitor/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'Argos/List'
 ], function(
     declare,
     string,

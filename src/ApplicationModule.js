@@ -1,10 +1,12 @@
 define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/ApplicationModule',
+    'Argos/ApplicationModule',
     './ApplicationViews',
+    'Argos/Fields/FieldRegistry',
     './Fields/AddressField',
     './Fields/NameField',
+    './Fields/NoteField',
     './Fields/PicklistField',
     './Fields/RecurrencesField'
 ], function(
@@ -12,8 +14,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
     lang,
     ApplicationModule,
     ApplicationViews,
+    FieldRegistry,
     AddressField,
     NameField,
+    NoteField,
     PicklistField,
     RecurrencesField
 ) {
@@ -23,6 +27,18 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.inherited(arguments);
 
             scene.registerViews(ApplicationViews);
+            this.registerFields();
+        },
+        registerFields: function() {
+            var fieldMap = {
+                'address': AddressField,
+                'name': NameField,
+                'note': NoteField,
+                'picklist': PicklistField,
+                'recurrences': RecurrencesField
+            };
+
+            FieldRegistry.register(fieldMap);
         },
         loadCustomizations: function() {
             /*

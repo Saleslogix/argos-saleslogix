@@ -8,9 +8,9 @@ define('Mobile/SalesLogix/QuickNav', [
     'dojo/dom-class',
     'dojo/topic',
     'dojox/mobile/FixedSplitterPane',
-    'Sage/Platform/Mobile/_UiComponent',
-    'Sage/Platform/Mobile/_EventMapMixin',
-    'Sage/Platform/Mobile/ScrollContainer',
+    'Argos/_UiComponent',
+    'Argos/_EventMapMixin',
+    'Argos/ScrollContainer',
     'argos!scene',
     'argos!customizations'
 ], function(
@@ -138,14 +138,14 @@ define('Mobile/SalesLogix/QuickNav', [
                 'icon': 'content/images/icons/opportunity_24.png',
                 'title': this.opportunitiesText,
                 'security': 'Entities/Opportunity/View'
-            }/*,{
-                'name': 'calendar_daylist',
-                'view': 'calendar_daylist',
+            },{
+                'name': 'calendar_monthlist',
+                'view': 'calendar_monthlist',
                 'action': 'navigateToView',
                 'icon': 'content/images/icons/Calendar_24x24.png',
                 'title': this.calendarText,
                 'security': null
-            }*/]);
+            }]);
         },
         createNavigation: function() {
             var layout = customizations().apply(customizations().toPath(this.customizationSet, 'navigation', this.id), this.createLayout()),
