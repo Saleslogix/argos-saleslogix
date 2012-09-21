@@ -331,6 +331,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     name: 'Alarm',
                     property: 'Alarm',
                     label: this.alarmText,
+                    renderer: format.yesNo,
                     exclude: this.doesActivityHaveReminder
                 },{
                     name: 'AlarmTime',

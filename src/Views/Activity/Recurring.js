@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     return declare('Mobile.SalesLogix.Views.Activity.Recurring', [Edit], {
         //Localization
         startingText: 'start date',
-        endingTex: 'end date',
+        endingText: 'end date',
         repeatsText: 'repeats',
         everyText: 'every',
         afterCompletionText: 'after completed',
@@ -41,9 +41,9 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         titleText: 'Recurrence',
 
         //View Properties
-        weekdayNames: moment.weekdays,
-        weekdayNamesAbbreviated: moment.weekdaysShort,
-        monthNames: moment.months,
+        weekdayNamesText: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        weekdayNamesAbbreviatedText: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        monthNamesText: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 
         id: 'recurrence_edit',
 
@@ -307,7 +307,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             for (var key in selections) {
                 if (selections[key]) {
-                    values.push(moment.weekdaysShort[key]);
+                    values.push(this.weekdayNamesAbbreviatedText[key]);
                     weekdays[key] = 1;
                 }
             }
@@ -325,13 +325,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             if (selection['$descriptor'])
                 return selection['$descriptor'];
 
-            return this.weekdayNames[parseInt(selection)];
+            return this.weekdayNamesText[parseInt(selection)];
         },
         formatMonth: function(selection) {
             if (selection['$descriptor'])
                 return selection['$descriptor'];
 
-            return this.monthNames[parseInt(selection) - 1];
+            return this.monthNamesText[parseInt(selection) - 1];
         },
         formatOrd: function(selection) {
             if (selection['$descriptor'])
@@ -363,22 +363,22 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createWeekdaysData: function() {
             var list = [];
-            for (var weekday in this.weekdayNames)
+            for (var weekday in this.weekdayNamesText)
             {
                 list.push({
                     '$key': weekday,
-                    '$descriptor': this.weekdayNames[weekday]
+                    '$descriptor': this.weekdayNamesText[weekday]
                 });
             }
             return {'$resources': list};
         },
         createMonthsData: function() {
             var list = [];
-            for (var month in this.monthNames)
+            for (var month in this.monthNamesText)
             {
                 list.push({
                     '$key': month,
-                    '$descriptor': this.monthNames[month]
+                    '$descriptor': this.monthNamesText[month]
                 });
             }
             return {'$resources': list};
@@ -563,7 +563,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 include: true,
                 formatValue: format.bool
             },{
-                label: this.endingTex,
+                label: this.endingText,
                 name: 'EndDate',
                 property: 'EndDate',
                 type: 'date',
