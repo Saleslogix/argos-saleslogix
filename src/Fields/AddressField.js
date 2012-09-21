@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Fields/AddressField', [
         },
         rows: 4,
         lookupLabelText: 'edit',
-        emptyText: 'no address',
+        emptyText: '',
 
         _enableTextElement: function() {
         },

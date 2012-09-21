@@ -9,7 +9,7 @@ define('Mobile/SalesLogix/Fields/NameField', [
 ) {
     var control = declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
         // Localization
-        emptyText: 'no name',
+        emptyText: '',
 
         widgetTemplate: new Simplate([
             '<label for="{%= $.name %}">{%: $.label %}</label>',
