@@ -3,8 +3,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'Argos/Utility',
-    'Argos/Edit',
+    'argos/Utility',
+    'argos/Edit',
     'Mobile/SalesLogix/Recurrence'
 ], function(
     declare,

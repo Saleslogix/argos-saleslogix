@@ -4,8 +4,8 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
-    'Argos/Edit',
-    'Argos/_SDataEditMixin'
+    'argos/Edit',
+    'argos/_SDataEditMixin'
 ], function(
     declare,
     string,

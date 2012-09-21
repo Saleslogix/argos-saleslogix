@@ -1,6 +1,6 @@
 define('Mobile/SalesLogix/Views/FooterToolbar', [
     'dojo/_base/declare',
-    'Argos/MainToolbar'
+    'argos/MainToolbar'
 ], function(
     declare,
     MainToolbar

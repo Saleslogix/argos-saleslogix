@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Views/LeadSource/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Argos/List'
+    'argos/List'
 ], function(
     declare,
     string,

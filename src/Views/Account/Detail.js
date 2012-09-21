@@ -3,8 +3,8 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
-    'Argos/Detail',
-    'Argos/_SDataDetailMixin',
+    'argos/Detail',
+    'argos/_SDataDetailMixin',
     'argos!scene'
 ], function(
     declare,

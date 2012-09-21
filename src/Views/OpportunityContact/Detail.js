@@ -2,8 +2,8 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
     'dojo/_base/declare',
     'dojo/_base/connect',
     'dojo/string',
-    'Argos/Detail',
-    'Argos/_SDataDetailMixin'
+    'argos/Detail',
+    'argos/_SDataDetailMixin'
 ], function(
     declare,
     connect,

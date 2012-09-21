@@ -5,10 +5,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     'dojo/dom-class',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
-    'Argos/ErrorManager',
-    'Argos/Detail',
+    'argos/ErrorManager',
+    'argos/Detail',
     'dojo/NodeList-manipulate',
-    'Argos/_SDataDetailMixin'
+    'argos/_SDataDetailMixin'
 ], function(
     declare,
     lang,

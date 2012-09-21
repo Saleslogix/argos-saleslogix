@@ -9,12 +9,12 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'dojo/dom-class',
     'dojo/dom-construct',
     'Mobile/SalesLogix/Format',
-    'Argos/ErrorManager',
-    'Argos/Convert',
-    'Argos/List',
-    'Argos/_SDataListMixin',
-    'Argos/ScrollContainer',
-    'Argos/SearchWidget',
+    'argos/ErrorManager',
+    'argos/Convert',
+    'argos/List',
+    'argos/_SDataListMixin',
+    'argos/ScrollContainer',
+    'argos/SearchWidget',
     'argos!scene'
 ], function(
     declare,

@@ -1,10 +1,10 @@
 define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Argos/List',
-    'Argos/_SDataListMixin',
+    'argos/List',
+    'argos/_SDataListMixin',
     'Mobile/SalesLogix/Format',
-    'Argos/Convert'
+    'argos/Convert'
 ], function(
     declare,
     string,

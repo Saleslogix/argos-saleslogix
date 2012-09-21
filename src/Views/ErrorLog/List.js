@@ -2,10 +2,10 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'Mobile/SalesLogix/Format',
-    'Argos/Convert',
-    'Argos/ErrorManager',
-    'Argos/List',
-    'Argos/_SDataListMixin'
+    'argos/Convert',
+    'argos/ErrorManager',
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     array,

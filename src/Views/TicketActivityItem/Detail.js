@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
-    'Argos/Detail'
+    'argos/Detail'
 ], function(
     declare,
     format,

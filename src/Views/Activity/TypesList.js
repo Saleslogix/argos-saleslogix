@@ -1,6 +1,6 @@
 define('Mobile/SalesLogix/Views/Activity/TypesList', [
     'dojo/_base/declare',
-    'Argos/List',
+    'argos/List',
     'argos!scene'
 ], function(
     declare,

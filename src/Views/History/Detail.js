@@ -5,10 +5,10 @@ define('Mobile/SalesLogix/Views/History/Detail', [
     'dojo/query',
     'dojo/dom-class',
     'Mobile/SalesLogix/Format',
-    'Argos/ErrorManager',
+    'argos/ErrorManager',
     'Mobile/SalesLogix/Template',
-    'Argos/Detail',
-    'Argos/_SDataDetailMixin',
+    'argos/Detail',
+    'argos/_SDataDetailMixin',
     'dojo/NodeList-manipulate'
 ], function(
     declare,

@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Views/Settings', [
     'dojo/_base/declare',
     'dojo/_base/connect',
-    'Argos/List'
+    'argos/List'
 ], function(
     declare,
     connect,

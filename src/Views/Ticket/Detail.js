@@ -4,9 +4,9 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
     'dojo/query',
     'dojo/dom-class',
     'Mobile/SalesLogix/Format',
-    'Argos/ErrorManager',
-    'Argos/Detail',
-    'Argos/_SDataDetailMixin',
+    'argos/ErrorManager',
+    'argos/Detail',
+    'argos/_SDataDetailMixin',
     'dojo/NodeList-manipulate'
 ], function(
     declare,

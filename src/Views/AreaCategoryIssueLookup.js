@@ -3,9 +3,9 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
     'dojo/_base/lang',
     'dojo/_base/Deferred',
     'dojo/store/util/QueryResults',
-    'Argos/Store/SData',
-    'Argos/List',
-    'Argos/_SDataListMixin'
+    'argos/Store/SData',
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     lang,

@@ -1,6 +1,6 @@
 define('Mobile/SalesLogix/Fields/NameField', [
     'dojo/_base/declare',
-    'Argos/Fields/EditorField'
+    'argos/Fields/EditorField'
 ], function(
     declare,
     EditorField

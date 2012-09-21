@@ -5,10 +5,10 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'dojo/dom-class',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Format',
-    'Argos/Convert',
-    'Argos/Detail',
+    'argos/Convert',
+    'argos/Detail',
     'Mobile/SalesLogix/Recurrence',
-    'Argos/_SDataDetailMixin',
+    'argos/_SDataDetailMixin',
     'argos!scene'
 ], function(
     declare,

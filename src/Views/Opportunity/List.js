@@ -3,8 +3,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'dojo/string',
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
-    'Argos/List',
-    'Argos/_SDataListMixin'
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     string,

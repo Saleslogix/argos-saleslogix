@@ -62,7 +62,7 @@
         { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
         { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
         { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
-        { name: 'Argos', location: '../../argos-sdk/src' },
+        { name: 'argos', location: '../../argos-sdk/src' },
         { name: 'Mobile/SalesLogix', location: 'src' }
     ]});
     </script>

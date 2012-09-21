@@ -3,8 +3,8 @@ define('Mobile/SalesLogix/Views/Help', [
     'dojo/string',
     'dojo/dom-class',
     'dojo/dom-construct',
-    'Argos/ErrorManager',
-    'Argos/Detail',
+    'argos/ErrorManager',
+    'argos/Detail',
     'dojo/NodeList-manipulate'
 ], function(
     declare,

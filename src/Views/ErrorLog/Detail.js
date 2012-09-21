@@ -5,10 +5,10 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     '../../FlashToolbarButton',
     '../../Format',
     '../../Environment',
-    'Argos/Utility',
-    'Argos/ErrorManager',
-    'Argos/Detail',
-    'Argos/_SDataDetailMixin'
+    'argos/Utility',
+    'argos/ErrorManager',
+    'argos/Detail',
+    'argos/_SDataDetailMixin'
 ], function(
     declare,
     json,

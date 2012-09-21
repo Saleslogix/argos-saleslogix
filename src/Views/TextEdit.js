@@ -1,6 +1,6 @@
 define('Mobile/SalesLogix/Views/TextEdit', [
     'dojo/_base/declare',
-    'Argos/Edit'
+    'argos/Edit'
 ], function(
     declare,
     Edit

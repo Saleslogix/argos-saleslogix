@@ -2,7 +2,7 @@ define('Mobile/SalesLogix/UpdateToolbar', [
     'dojo/_base/declare',
     'dojo/_base/window',
     'dojo/dom-class',
-    'Argos/MainToolbar'
+    'argos/MainToolbar'
 ], function(
     declare,
     win,

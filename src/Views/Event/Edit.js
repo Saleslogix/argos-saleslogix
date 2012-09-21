@@ -2,7 +2,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'Argos/Edit'
+    'argos/Edit'
 ], function(
     declare,
     format,

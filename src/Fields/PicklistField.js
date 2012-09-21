@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Fields/PicklistField', [
     'dojo/_base/declare',
     'dojo/string',
-    'Argos/Fields/LookupField',
+    'argos/Fields/LookupField',
     '../Views/PickList',
     'argos!scene'
 ], function(

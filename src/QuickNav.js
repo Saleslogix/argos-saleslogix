@@ -8,9 +8,9 @@ define('Mobile/SalesLogix/QuickNav', [
     'dojo/dom-class',
     'dojo/topic',
     'dojox/mobile/FixedSplitterPane',
-    'Argos/_UiComponent',
-    'Argos/_EventMapMixin',
-    'Argos/ScrollContainer',
+    'argos/_UiComponent',
+    'argos/_EventMapMixin',
+    'argos/ScrollContainer',
     'argos!scene',
     'argos!customizations'
 ], function(

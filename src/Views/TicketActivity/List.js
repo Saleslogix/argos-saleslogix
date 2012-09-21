@@ -6,8 +6,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     'dojo/dom-geometry',
     'dojo/query',
     'Mobile/SalesLogix/Format',
-    'Argos/List',
-    'Argos/_SDataListMixin'
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     array,

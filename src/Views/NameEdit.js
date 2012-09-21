@@ -2,7 +2,7 @@ define('Mobile/SalesLogix/Views/NameEdit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'Mobile/SalesLogix/Validator',
-    'Argos/Edit'
+    'argos/Edit'
 ], function(
     declare,
     lang,

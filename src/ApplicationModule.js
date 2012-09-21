@@ -1,9 +1,9 @@
 define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Argos/ApplicationModule',
+    'argos/ApplicationModule',
     './ApplicationViews',
-    'Argos/Fields/FieldRegistry',
+    'argos/Fields/FieldRegistry',
     './Fields/AddressField',
     './Fields/NameField',
     './Fields/NoteField',
