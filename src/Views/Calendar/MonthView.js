@@ -464,7 +464,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 var startDay = convert.toDateFromString(row.StartDate);
                 var endDay = convert.toDateFromString(row.EndDate);
 
-                while(startDay.getDate() <= endDay.getDate())
+                while(startDay.compareTo(endDay) <= 0)
                 {
                     dateIndex = startDay.toString('yyyy-MM-dd');
                     this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
