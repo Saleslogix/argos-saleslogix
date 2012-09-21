@@ -37,15 +37,15 @@ define('Mobile/SalesLogix/Recurrence', [
         dailyText: 'Daily',
         weeksText: 'weeks',
         weeklyText: 'Weekly',
-        weeklyOnText: '${0} on ${3}', // eg. {weekly} on {friday}
+        weeklyOnText: 'Weekly on ${3}', // eg. {weekly} on {friday}
         monthsText: 'months',
         monthlyText: 'Monthly',
-        monthlyOnDayText: '${0} on day ${1}', // eg. {monthly} on day {15}
-        monthlyOnText: '${0} on ${5} ${3}', // eg. {monthly} on {second} {Monday}
+        monthlyOnDayText: 'Monthly on day ${1}', // eg. {monthly} on day {15}
+        monthlyOnText: 'Monthly on ${5} ${3}', // eg. {monthly} on {second} {Monday}
         yearsText: 'years',
         yearlyText: 'Yearly',
-        yearlyOnText: '${0} on ${2}', // eg. {yearly} on {short_date}
-        yearlyOnWeekdayText: '${0} on ${5} ${3} in ${4}', // eg. {yearly} on {first} {Thursday} in {April}
+        yearlyOnText: 'Yearly on ${2}', // eg. {yearly} on {short_date}
+        yearlyOnWeekdayText: 'Yearly on ${5} ${3} in ${4}', // eg. {yearly} on {first} {Thursday} in {April}
         everyText: 'every ${0} ${1}', // eg. every {2} {weeks}
         afterCompletionText: 'after completion',
         untilEndDateText: '${0} until ${1}', // eg. {daily} until {31/10/2012}

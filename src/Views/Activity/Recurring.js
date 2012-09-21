@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     return declare('Mobile.SalesLogix.Views.Activity.Recurring', [Edit], {
         //Localization
         startingText: 'start date',
-        endingTex: 'end date',
+        endingText: 'end date',
         repeatsText: 'repeats',
         everyText: 'every',
         afterCompletionText: 'after completed',
@@ -325,13 +325,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             if (selection['$descriptor'])
                 return selection['$descriptor'];
 
-            return this.weekdayNames[parseInt(selection)];
+            return  Date.CultureInfo.dayNames[parseInt(selection)];
         },
         formatMonth: function(selection) {
             if (selection['$descriptor'])
                 return selection['$descriptor'];
 
-            return this.monthNames[parseInt(selection) - 1];
+            return Date.CultureInfo.monthNames[parseInt(selection) - 1];
         },
         formatOrd: function(selection) {
             if (selection['$descriptor'])
@@ -363,22 +363,22 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createWeekdaysData: function() {
             var list = [];
-            for (var weekday in this.weekdayNames)
+            for (var weekday in  Date.CultureInfo.dayNames)
             {
                 list.push({
                     '$key': weekday,
-                    '$descriptor': this.weekdayNames[weekday]
+                    '$descriptor':  Date.CultureInfo.dayNames[weekday]
                 });
             }
             return {'$resources': list};
         },
         createMonthsData: function() {
             var list = [];
-            for (var month in this.monthNames)
+            for (var month in Date.CultureInfo.monthNames)
             {
                 list.push({
                     '$key': month,
-                    '$descriptor': this.monthNames[month]
+                    '$descriptor': Date.CultureInfo.monthNames[month]
                 });
             }
             return {'$resources': list};
@@ -563,7 +563,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 include: true,
                 formatValue: format.bool
             },{
-                label: this.endingTex,
+                label: this.endingText,
                 name: 'EndDate',
                 property: 'EndDate',
                 type: 'date',
