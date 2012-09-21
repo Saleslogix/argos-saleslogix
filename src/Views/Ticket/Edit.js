@@ -224,7 +224,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                 entry = view && view.entry;
 
             var accountField = this.fields['Account'];
-            accountField['Account'].setValue(entry.Account);
+            accountField.setValue(entry.Account);
             this.onAccountChange(entry.Account, accountField);
 
             this.fields['Contact'].setValue(entry);
