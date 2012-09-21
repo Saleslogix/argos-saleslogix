@@ -2,8 +2,11 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'home': {type: 'Mobile/SalesLogix/Views/Home'},
     'login': {type: 'Mobile/SalesLogix/Views/Login'},
     // 'configure': {type: 'Mobile/SalesLogix/Views/Configure'},
+
+    'datetimepicker': {type: 'argos/Views/DateTimePicker', props: {tier: 1}},
+    'calendar': {type: 'argos/Views/Calendar'},
+
     'add_account_contact': {type: 'Mobile/SalesLogix/Views/AddAccountContact'},
-    'generic_calendar': {type: 'Sage/Platform/Mobile/Calendar', props: {tier: 1}},
     'pick_list': {type: 'Mobile/SalesLogix/Views/PickList', props: {tier: 1}},
     'select_list': {type: 'Mobile/SalesLogix/Views/SelectList', props: {tier: 1}},
     'text_edit': {type: 'Mobile/SalesLogix/Views/TextEdit', props: {tier: 1}},
@@ -62,8 +65,8 @@ define('Mobile/SalesLogix/ApplicationViews', {
 });
 
 /*
-'Sage/Platform/Mobile/Calendar',
-'Sage/Platform/Mobile/Views/Signature',
+'argos/Calendar',
+'argos/Views/Signature',
 
 'Mobile/SalesLogix/Views/AddAccountContact',
 'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',

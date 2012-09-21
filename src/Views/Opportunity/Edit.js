@@ -2,9 +2,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/_SDataEditMixin'
+    'argos/Utility',
+    'argos/Edit',
+    'argos/_SDataEditMixin'
 ], function(
     declare,
     validator,

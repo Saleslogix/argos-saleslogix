@@ -5,10 +5,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'dojo/string',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/_SDataEditMixin',
+    'argos/Utility',
+    'argos/Convert',
+    'argos/Edit',
+    'argos/_SDataEditMixin',
     'Mobile/SalesLogix/Recurrence'
 ], function(
     declare,

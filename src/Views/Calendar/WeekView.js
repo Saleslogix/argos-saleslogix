@@ -4,13 +4,14 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     'dojo/string',
     'dojo/dom-construct',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_SDataListMixin',
-    'Sage/Platform/Mobile/ScrollContainer',
-    'Sage/Platform/Mobile/SearchWidget',
-    'argos!scene'
+    'argos/ErrorManager',
+    'argos/Convert',
+    'argos/List',
+    'argos/_SDataListMixin',
+    'argos/ScrollContainer',
+    'argos/SearchWidget',
+    'argos!scene',
+    'Mobile/SalesLogix/Format'
 ], function(
     declare,
     query,

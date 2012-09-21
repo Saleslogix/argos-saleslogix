@@ -3,9 +3,9 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/_SDataEditMixin'
+    'argos/Utility',
+    'argos/Edit',
+    'argos/_SDataEditMixin'
 ], function(
     declare,
     array,

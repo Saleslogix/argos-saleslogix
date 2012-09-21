@@ -4,9 +4,9 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/_SDataEditMixin'
+    'argos/ErrorManager',
+    'argos/Edit',
+    'argos/_SDataEditMixin'
 ], function(
     declare,
     lang,

@@ -3,8 +3,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
+    'argos/Utility',
+    'argos/Edit',
     'Mobile/SalesLogix/Recurrence'
 ], function(
     declare,
@@ -400,7 +400,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             // calculate some values from the ones provided
             this.item = values;
-            this.item.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values['StartDate']);
+            this.item.StartDate = Argos.Convert.toDateFromString(values['StartDate']);
             this.item.EndDate = recur.calcEndDate(values.StartDate, values);
             this.item.Recurring = (typeof values.Recurring === 'string') ? /^true$/i.test(values.Recurring) : values.Recurring;
             ord = recur.getOrd(this.item);

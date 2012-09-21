@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Action', [
     'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/Utility',
+    'argos/Utility',
     'argos!scene'
 ], function(
     lang,

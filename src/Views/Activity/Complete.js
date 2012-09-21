@@ -5,9 +5,9 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     'dojo/string',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/_SDataEditMixin'
+    'argos/Utility',
+    'argos/Edit',
+    'argos/_SDataEditMixin'
 ], function(
     declare,
     array,
@@ -204,7 +204,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         },
         isDateTimeless: function(date) {
             if (!date) return false;
-            date = Sage.Platform.Mobile.Convert.toDateFromString(date);
+            date = Argos.Convert.toDateFromString(date);
             if (date.getUTCHours() != 0) return false;
             if (date.getUTCMinutes() != 0) return false;
             if (date.getUTCSeconds() != 5) return false;

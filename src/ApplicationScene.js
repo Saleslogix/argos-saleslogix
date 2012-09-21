@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/ApplicationScene', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/Scene',
+    'argos/Scene',
     './ApplicationLayout'
 ], function(
     declare,

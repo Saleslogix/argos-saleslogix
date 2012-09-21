@@ -2,9 +2,9 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/_SDataEditMixin',
+    'argos/ErrorManager',
+    'argos/Edit',
+    'argos/_SDataEditMixin'
 ], function(
     declare,
     lang,

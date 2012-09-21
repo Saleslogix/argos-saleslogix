@@ -1,13 +1,11 @@
 define('Mobile/SalesLogix/Fields/NameField', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/Fields/EditorField',
-    'Sage/Platform/Mobile/Fields/FieldRegistry'
+    'argos/Fields/EditorField'
 ], function(
     declare,
-    EditorField,
-    FieldRegistry
+    EditorField
 ) {
-    var NameField = declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
+    declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
         // Localization
         emptyText: 'no name',
 
@@ -23,8 +21,4 @@ define('Mobile/SalesLogix/Fields/NameField', [
             return options;
         }
     });
-
-    FieldRegistry.register('name', NameField);
-
-    return NameField;
 });

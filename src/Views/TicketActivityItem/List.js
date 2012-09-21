@@ -2,7 +2,7 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,

@@ -6,10 +6,10 @@ define('Mobile/SalesLogix/Views/History/List', [
     'dojo/dom-geometry',
     'dojo/query',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Convert',
+    'argos/Convert',
     'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_SDataListMixin'
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     array,

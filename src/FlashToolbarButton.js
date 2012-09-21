@@ -3,7 +3,7 @@ define('Mobile/SalesLogix/FlashToolbarButton', [
     'dojo/_base/lang',
     'dojo/dom-class',
     'dojo/dom-attr',
-    'Sage/Platform/Mobile/Control'
+    'argos/Control'
 ], function(
     declare,
     lang,

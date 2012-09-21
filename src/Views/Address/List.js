@@ -4,8 +4,8 @@ define('Mobile/SalesLogix/Views/Address/List', [
     'dojo/dom-attr',
     'dojo/query',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_SDataListMixin',
+    'argos/List',
+    'argos/_SDataListMixin',
     'dojo/NodeList-traverse'
 ], function(
     declare,

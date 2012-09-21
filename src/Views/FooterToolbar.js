@@ -1,6 +1,6 @@
 define('Mobile/SalesLogix/Views/FooterToolbar', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/MainToolbar'
+    'argos/MainToolbar'
 ], function(
     declare,
     MainToolbar
@@ -78,7 +78,7 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
                 }
 
             // skip parent implementation
-            Sage.Platform.Mobile.MainToolbar.superclass.showTools.apply(this, arguments);
+            Argos.MainToolbar.superclass.showTools.apply(this, arguments);
 
             if (tools)
             {

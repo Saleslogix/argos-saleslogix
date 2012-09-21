@@ -2,9 +2,9 @@ define('Mobile/SalesLogix/Views/Login', [
     'dojo/_base/declare',
     'dojo/dom-class',
     'dojo/_base/window',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/ScrollContainer',
-    '../ActionBar',
+    'argos/Edit',
+    'argos/ScrollContainer',
+    'argos/ActionBar',
     'argos!scene',
     'argos!application'
 ], function(

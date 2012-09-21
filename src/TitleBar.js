@@ -1,6 +1,6 @@
 define('Mobile/SalesLogix/TitleBar', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/TitleBar'
+    'argos/TitleBar'
 ], function(
     declare,
     TitleBar

@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,

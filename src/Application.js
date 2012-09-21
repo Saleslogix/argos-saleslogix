@@ -7,9 +7,9 @@ define('Mobile/SalesLogix/Application', [
     'dojo/_base/sniff',
     'dojo/has',
     'dojo/string',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/CustomizationSet',
-    'Sage/Platform/Mobile/Application',
+    'argos/ErrorManager',
+    'argos/CustomizationSet',
+    'argos/Application',
     './ApplicationScene',
     './Environment'
 ], function(

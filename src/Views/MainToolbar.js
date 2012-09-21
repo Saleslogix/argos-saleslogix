@@ -1,6 +1,6 @@
 define('Mobile/SalesLogix/Views/MainToolbar', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/MainToolbar'
+    'argos/MainToolbar'
 ], function(
     declare,
     MainToolbar
