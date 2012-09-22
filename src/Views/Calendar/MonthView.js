@@ -93,9 +93,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                                     {name: 'remainingContent', tag: 'span', attachPoint: 'remainingContentNode', content: Simplate.make('{%= $.countMoreText %}')}
                                 ]}
                             ]}
-                        ]},
+                        ]}
                     ]},
-                    {name: 'clear2', content: '<div style="clear:both"></div>'},
+                    {name: 'clear2', content: '<div style="clear:both"></div>'}
                 ]}
             ]}
         ],
