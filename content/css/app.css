@@ -328,6 +328,14 @@
     font-size: .75em;
 }
 
+.search-header .search-button > span
+{
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 64px;
+    background: url('../images/icons/srch_24.png') 14px 50% no-repeat;
+}
+
 #activity_edit div[data-field="Alarm"]
 {
     border-bottom: none 0px black;
