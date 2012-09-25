@@ -10,7 +10,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'dojo/dom-construct',
     'Mobile/SalesLogix/Format',
     'argos/ErrorManager',
-    'argos/Convert',
+    'argos/convert',
     'argos/List',
     'argos/_SDataListMixin',
     'argos/ScrollContainer',

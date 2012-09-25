@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Action', [
     'dojo/_base/lang',
     'dojo/string',
-    'argos/Utility',
+    'argos/utility',
     'argos!scene'
 ], function(
     lang,
@@ -14,18 +14,14 @@ define('Mobile/SalesLogix/Action', [
         emailedText: 'E-mailed ${0}',
 
         navigateToHistoryInsert: function(entry, complete) {
-            var view = scene.getView('history_edit');
-            if (view)
-            {
-                view.show({
-                    title: entry['Title'] || null,
-                    template: {},
-                    item: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
-            }
+            scene().showView('history_edit',{
+                title: entry['Title'] || null,
+                template: {},
+                item: entry,
+                insert: true
+            }, {
+                complete: complete
+            });
         },
         recordToHistory: function(complete, o) {
             var entry = {
@@ -72,7 +68,7 @@ define('Mobile/SalesLogix/Action', [
                 key: selection.data['$key']
             });
 
-            var view = scene.getView('history_edit');
+            var view = scene().getView('history_edit');
 
             if (view)
                 view.show({insert: true});
@@ -89,11 +85,9 @@ define('Mobile/SalesLogix/Action', [
             var options = {
                     key: utility.getValue(selection.data, o.keyProperty),
                     descriptor: utility.getValue(selection.data, o.textProperty)
-                },
-                view = scene.getView(o.view);
+                };
 
-            if (view && options.key)
-                view.show(options);
+            scene().showView(o.view, options);
         },
 
         hasProperty: function(action, selection, property) {

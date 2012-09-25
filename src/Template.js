@@ -1,6 +1,6 @@
 define('Mobile/SalesLogix/Template', [
     'dojo/_base/lang',
-    'argos/Format'
+    'argos/format'
 ], function(
     lang,
     format

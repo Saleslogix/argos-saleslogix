@@ -5,7 +5,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     'dojo/dom-construct',
     'dojo/dom-class',
     'argos/ErrorManager',
-    'argos/Convert',
+    'argos/convert',
     'argos/List',
     'argos/_SDataListMixin',
     'argos/ScrollContainer',

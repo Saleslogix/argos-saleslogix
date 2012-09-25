@@ -5,7 +5,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'dojo/dom-class',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Format',
-    'argos/Convert',
+    'argos/convert',
     'argos/Detail',
     'Mobile/SalesLogix/Recurrence',
     'argos/_SDataDetailMixin',

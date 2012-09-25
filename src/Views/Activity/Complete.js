@@ -5,7 +5,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     'dojo/string',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
-    'argos/Utility',
+    'argos/utility',
     'argos/Edit',
     'argos/_SDataEditMixin'
 ], function(

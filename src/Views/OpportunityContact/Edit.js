@@ -1,7 +1,7 @@
 define('Mobile/SalesLogix/Views/OpportunityContact/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
-    'argos/Utility',
+    'argos/utility',
     'argos/Edit'
 ], function(
     declare,

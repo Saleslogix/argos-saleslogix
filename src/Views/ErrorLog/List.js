@@ -2,7 +2,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'Mobile/SalesLogix/Format',
-    'argos/Convert',
+    'argos/convert',
     'argos/ErrorManager',
     'argos/List',
     'argos/_SDataListMixin'

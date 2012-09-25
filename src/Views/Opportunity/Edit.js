@@ -2,7 +2,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
-    'argos/Utility',
+    'argos/utility',
     'argos/Edit',
     'argos/_SDataEditMixin'
 ], function(

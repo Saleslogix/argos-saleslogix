@@ -5,8 +5,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'dojo/string',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
-    'argos/Utility',
-    'argos/Convert',
+    'argos/utility',
+    'argos/convert',
     'argos/Edit',
     'argos/_SDataEditMixin',
     'Mobile/SalesLogix/Recurrence'

@@ -5,7 +5,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     '../../FlashToolbarButton',
     '../../Format',
     '../../Environment',
-    'argos/Utility',
+    'argos/utility',
     'argos/ErrorManager',
     'argos/Detail',
     'argos/_SDataDetailMixin'

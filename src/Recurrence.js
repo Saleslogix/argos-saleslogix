@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Recurrence', [
     'dojo/_base/lang',
     'dojo/string',
     'dijit/_Widget',
-    'argos/Convert'
+    'argos/convert'
 ], function(
     declare,
     lang,

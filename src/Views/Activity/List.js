@@ -4,7 +4,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     'argos/List',
     'argos/_SDataListMixin',
     'Mobile/SalesLogix/Format',
-    'argos/Convert'
+    'argos/convert'
 ], function(
     declare,
     string,

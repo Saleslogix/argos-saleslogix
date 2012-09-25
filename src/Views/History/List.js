@@ -6,7 +6,7 @@ define('Mobile/SalesLogix/Views/History/List', [
     'dojo/dom-geometry',
     'dojo/query',
     'Mobile/SalesLogix/Format',
-    'argos/Convert',
+    'argos/convert',
     'Mobile/SalesLogix/Action',
     'argos/List',
     'argos/_SDataListMixin'

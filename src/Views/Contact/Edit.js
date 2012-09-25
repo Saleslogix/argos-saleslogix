@@ -5,7 +5,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     'Mobile/SalesLogix/Validator',
     'argos/Edit',
     'argos/_SDataEditMixin',
-    'argos/Utility'
+    'argos/utility'
 ], function(
     declare,
     format,

@@ -4,7 +4,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     'dojo/query',
     'dojo/dom-class',
     'argos/ErrorManager',
-    'argos/Convert',
+    'argos/convert',
     'argos/List',
     'argos/_SDataListMixin',
     'argos/ScrollContainer',
