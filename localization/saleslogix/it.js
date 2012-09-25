@@ -37,6 +37,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "esito",
   "resultTitleText": "Risul.",
   "startingText": "data iniz.",
+  "startingFormatTimelessText": "d/M/yyyy",
   "timelessText": "No ora",
   "durationValueText": {
     "0": "ness",
@@ -214,12 +215,12 @@ localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
   "titleText": "Log Error",
   "detailsText": "Dett.",
   "errorDateText": "data",
-  "statusTextText": "error",
+  "statusTextText": "errore",
   "urlText": "url",
   "moreDetailsText": "Più Dettagli",
   "severityText": "gravità",
   "statusCodeText": "cod. status",
-  "errorText": "error",
+  "errorText": "errore",
   "emailSubjectText": "Errore ricevuto nel Mobile Client SalesLogix",
   "copiedSuccessText": "Copiato in Appunti"
 });
@@ -264,7 +265,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   "notesText": "Note",
   "priorityText": "priorità",
   "regardingText": "argomento",
-  "scheduledByText": "Pianif. da",
+  "completedByText": "completato da",
   "scheduledText": "pianif.",
   "timelessText": "No ora",
   "companyText": "società",
@@ -328,7 +329,10 @@ localize("Mobile.SalesLogix.Views.History.List", {
     "personal": "person.",
     "email": "email"
   },
-  "titleText": "Note/Cronol."
+  "titleText": "Note/Cronol.",
+  "viewAccountActionText": "Azienda",
+  "viewOpportunityActionText": "Opp.",
+  "viewContactActionText": "Contat."
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
@@ -362,6 +366,11 @@ localize("Sage.Platform.Mobile.Edit", {
   "requestErrorText": "Errore server durante la richiesta dei dati."
 });
 
+localize("Sage.Platform.Mobile.ErrorManager", {
+  "abortedText": "Interrotto",
+  "scopeSaveText": "Campo non salvato in report errori"
+});
+
 localize("Sage.Platform.Mobile.Fields.BooleanField", {
   "onText": "ON",
   "offText": "OFF"
@@ -371,11 +380,11 @@ localize("Sage.Platform.Mobile.Fields.DurationField", {
   "emptyText": "",
   "invalidDurationErrorText": "Campo '${0}' è durata invalida.",
   "autoCompleteText": {
-    "minute(s)": "1",
-    "hour(s)": "60",
-    "day(s)": "1440",
-    "week(s)": "10080",
-    "year(s)": "525960"
+    "1": "minuto(i)",
+    "60": "ora(e)",
+    "1440": "Giorno(i)",
+    "10080": "sett.",
+    "525960": "anno"
   }
 });
 
@@ -395,20 +404,23 @@ localize("Sage.Platform.Mobile.Fields.LookupField", {
 });
 
 localize("Sage.Platform.Mobile.Fields.NoteField", {
-  "attributeMap": {
-    "noteText": {
-      "node": "inputNode",
-      "type": "innerHTML"
-    }
-  },
   "emptyText": ""
 });
 
 localize("Sage.Platform.Mobile.Fields.SignatureField", {
-  "emptyText": "",
-  "titleText": "Firma",
   "signatureLabelText": "firma",
   "signatureText": "..."
+});
+
+localize("Sage.Platform.Mobile.Format", {
+  "yesText": "Sì",
+  "noText": "No",
+  "trueText": "T",
+  "falseText": "F",
+  "hoursText": "ore",
+  "hourText": "ora",
+  "minutesText": "Minuti",
+  "minuteText": "minuto"
 });
 
 localize("Sage.Platform.Mobile.GroupedList", {
@@ -445,6 +457,11 @@ localize("Sage.Platform.Mobile.Views.Signature", {
   "undoText": "Undo"
 });
 
+localize("Mobile.SalesLogix.Action", {
+  "calledText": "Chiam. ${0}",
+  "emailedText": "E-mailed ${0}"
+});
+
 localize("Mobile.SalesLogix.Fields.AddressField", {
   "lookupLabelText": "mod.",
   "emptyText": "nessun ind"
@@ -456,12 +473,68 @@ localize("Mobile.SalesLogix.Fields.NameField", {
 
 localize("Mobile.SalesLogix.Fields.RecurrencesField", {
   "titleText": "Ricorrente",
-  "emptyText": "",
-  "attributeMap": {
-    "noteText": {
-      "node": "inputNode",
-      "type": "innerHTML"
-    }
+  "emptyText": ""
+});
+
+localize("Mobile.SalesLogix.Recurrence", {
+  "neverText": "Mai",
+  "daysText": "Giorni",
+  "dailyText": "Giornalmente",
+  "weeksText": "sett.",
+  "weeklyText": "Settimanalmente",
+  "weeklyOnText": "Settimanale il ${3}",
+  "monthsText": "mesi",
+  "monthlyText": "Mensilmente",
+  "monthlyOnDayText": "Mensile il giorno ${1}",
+  "monthlyOnText": "Mensile il ${5} ${3}",
+  "yearsText": "anni",
+  "yearlyText": "Annualmente",
+  "yearlyOnText": "Annuale il ${2}",
+  "yearlyOnWeekdayText": "Annuale il ${5} ${3} in ${4}",
+  "everyText": "ogni ${0} ${1}",
+  "afterCompletionText": "dopo completam.",
+  "untilEndDateText": "${0} fino a ${1}",
+  "ordText": {
+    "0": "giorno",
+    "1": "nome",
+    "2": "secondo",
+    "3": "terzo",
+    "4": "quarto",
+    "5": "cogn"
+  }
+});
+
+localize("Mobile.SalesLogix.Validator", {
+  "exists": {
+    "message": "Campo '${2}' deve avere valore."
+  },
+  "name": {
+    "message": "Il campo '${2}' deve avere un nome e cognome specificato."
+  },
+  "notEmpty": {
+    "message": "Il campo '${2}' non può essere vuoto."
+  },
+  "hasText": {
+    "test": "",
+    "message": "Il campo '${2}' deve contenere del testo."
+  },
+  "isInteger": {
+    "message": "Il valore '${0}' non è un numero valido."
+  },
+  "isDecimal": {
+    "message": "Il valore '${0}' non è un numero valido."
+  },
+  "isCurrency": {
+    "message": "Il valore '${0}' non è un numero valido di valuta."
+  },
+  "isInt32": {
+    "message": "Il valore del campo '${2}' supera l'intervallo numerico consentito."
+  },
+  "exceedsMaxTextLength": {
+    "message": "Il valore del campo '${2}' supera il limite consentito in lunghezza."
+  },
+  "isDateInRange": {
+    "message": "Il valore del campo '${2}' è fuori dell'intervallo di date consentito."
   }
 });
 
@@ -530,17 +603,23 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "titleText": "Aziende",
   "activitiesText": "Attività",
   "notesText": "Note",
-  "scheduleText": "Pianif."
+  "scheduleText": "Pianif.",
+  "editActionText": "Mod.",
+  "callMainActionText": "Chiama Principale",
+  "viewContactsActionText": "Contatti",
+  "addNoteActionText": "Aggiungi Nota",
+  "addActivityActionText": "Aggiungi Attività"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Recurring", {
   "startingText": "data iniz.",
+  "endingText": "data fin",
   "repeatsText": "ripeti",
   "everyText": "ogni",
   "afterCompletionText": "dopo completam.",
   "singleWeekdayText": "feriali",
   "weekdaysText": "feriali",
-  "dayText": "day",
+  "dayText": "giorno",
   "monthText": "mese",
   "onText": "su",
   "occurrencesText": "occorrenze",
@@ -566,39 +645,6 @@ localize("Mobile.SalesLogix.Views.Activity.TypesList", {
     "atLiterature": "Rich. Mat. Inform.",
     "atPersonal": "Attività Person.",
     "event": "Evento"
-  }
-});
-
-localize("Mobile.SalesLogix.Validator", {
-  "exists": {
-    "message": "Il campo '${2}' deve avere valore."
-  },
-  "name": {
-    "message": "Il campo '${2}' deve avere un nome e cognome specificati."
-  },
-  "notEmpty": {
-    "message": "Campo '${2}' deve essere pieno."
-  },
-  "hasText": {
-    "message": "Il campo '${2}' deve contenere testo."
-  },
-  "isInteger": {
-    "message": "Non è un numero  valido '${0}'."
-  },
-  "isDecimal": {
-    "message": "Non è un numero  valido '${0}'."
-  },
-  "isCurrency": {
-    "message": "'${0}' non è una valuta valida."
-  },
-  "isInt32": {
-    "message": "Il campo '${2}' eccede l'intervallo numerico ammesso."
-  },
-  "exceedsMaxTextLength": {
-    "message": "Il campo '${2}' eccede la lunghezza massima ammessa."
-  },
-  "isDateInRange": {
-    "message": "Il campo '${2}' eccede l'intervallo di date ammesso."
   }
 });
 
@@ -727,7 +773,14 @@ localize("Mobile.SalesLogix.Views.Contact.List", {
   "titleText": "Contatti",
   "activitiesText": "Attività",
   "notesText": "Note",
-  "scheduleText": "Pianif."
+  "scheduleText": "Pianif.",
+  "editActionText": "Mod.",
+  "callMainActionText": "Chiama Principale",
+  "callMobileActionText": "Chiama Cell.",
+  "sendEmailActionText": "E-Mail",
+  "viewAccountActionText": "Azienda",
+  "addNoteActionText": "Aggiungi Nota",
+  "addActivityActionText": "Aggiungi Attività"
 });
 
 localize("Mobile.SalesLogix.Views.Contract.List", {
@@ -833,7 +886,14 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "titleText": "Lead",
   "activitiesText": "Attività",
   "notesText": "Note",
-  "scheduleText": "Pianif."
+  "scheduleText": "Pianif.",
+  "emailedText": "E-mailed ${0}",
+  "calledText": "Chiam. ${0}",
+  "editActionText": "Mod.",
+  "callMainActionText": "Chiama Principale",
+  "sendEmailActionText": "E-Mail",
+  "addNoteActionText": "Aggiungi Nota",
+  "addActivityActionText": "Aggiungi Attività"
 });
 
 localize("Mobile.SalesLogix.Views.LeadSource.List", {
@@ -918,6 +978,12 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
   "activitiesText": "Attività",
   "notesText": "Note",
   "scheduleText": "Pianif.",
+  "editActionText": "Mod.",
+  "viewAccountActionText": "Azienda",
+  "viewContactsActionText": "Contatti",
+  "viewProductsActionText": "Prodotti",
+  "addNoteActionText": "Aggiungi Nota",
+  "addActivityActionText": "Aggiungi Attività",
   "hashTagQueriesText": {
     "open": "apri",
     "closed": "chiuso",
@@ -1054,7 +1120,12 @@ localize("Mobile.SalesLogix.Views.Ticket.List", {
   "titleText": "Ticket",
   "activitiesText": "Attività",
   "scheduleText": "Pianif.",
-  "notAssignedText": "Non assegn."
+  "notAssignedText": "Non assegn.",
+  "editActionText": "Mod.",
+  "viewAccountActionText": "Azienda",
+  "viewContactActionText": "Contat.",
+  "addNoteActionText": "Aggiungi Nota",
+  "addActivityActionText": "Aggiungi Attività"
 });
 
 localize("Mobile.SalesLogix.Views.Ticket.UrgencyLookup", {
@@ -1073,7 +1144,7 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Detail", {
   "unitsText": "unità temp",
   "elapsedUnitsText": "unità trasco.",
   "rateTypeDescriptionText": "tipo carica",
-  "rateText": "rate",
+  "rateText": "tasso",
   "totalLaborText": "lav. totale",
   "totalPartsText": "tot. parti",
   "totalFeeText": "costo tot",
