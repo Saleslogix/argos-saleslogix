@@ -400,7 +400,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             // calculate some values from the ones provided
             this.item = values;
-            this.item.StartDate = Argos.Convert.toDateFromString(values['StartDate']);
+            this.item.StartDate = argos.convert.toDateFromString(values['StartDate']);
             this.item.EndDate = recur.calcEndDate(values.StartDate, values);
             this.item.Recurring = (typeof values.Recurring === 'string') ? /^true$/i.test(values.Recurring) : values.Recurring;
             ord = recur.getOrd(this.item);

@@ -204,7 +204,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         },
         isDateTimeless: function(date) {
             if (!date) return false;
-            date = Argos.Convert.toDateFromString(date);
+            date = argos.convert.toDateFromString(date);
             if (date.getUTCHours() != 0) return false;
             if (date.getUTCMinutes() != 0) return false;
             if (date.getUTCSeconds() != 5) return false;

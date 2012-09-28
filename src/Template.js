@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Template', [
             '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}'
         ]),
         noteDetailPropertyOld: new Simplate([
-            '{% var F = Argos.Format; %}',
+            '{% var F = argos.format; %}',
             '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
                 '<label>{%: $.label %}</label>',
                 '<div class="note-text-property">',
@@ -30,7 +30,7 @@ define('Mobile/SalesLogix/Template', [
             '</div>'
         ]),
         noteDetailProperty: new Simplate([
-            '{% var F = Argos.Format; %}',
+            '{% var F = argos.format; %}',
             '<div class="row note-text-row {%= $.cls %}" data-property="{%= $.name %}">',
                 '<label>{%: $.label %}</label>',
                 '<pre>',
