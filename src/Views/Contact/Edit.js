@@ -77,6 +77,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
+                o =  (o.options && o.options.source) || o;
                 return /^(accounts|opportunities)$/.test(o.resourceKind) && o.key;
             });
 
@@ -93,7 +94,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
-                entry = view && view.entry;
+                entry = view && view.entry || context.options && context.options.source && context.options.source.entry;
 
             var account = entry,
                 accountName = utility.getValue(entry, 'AccountName'),

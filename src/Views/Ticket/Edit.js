@@ -81,6 +81,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             this.inherited(arguments);
 
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
+            this.connect(this.fields['Contact'], 'onChange', this.onContactChange);
             this.connect(this.fields['Urgency'], 'onChange', this.onUrgencyChange);
             this.connect(this.fields['Area'], 'onChange', this.onAreaChange);
             this.connect(this.fields['Category'], 'onChange', this.onCategoryChange);
@@ -113,6 +114,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         },
         onRequestCodeDataSuccess: function(code, field, feed) {
             var value = this.processCodeDataFeed(feed, code);
+            field.setValue(code);
             field.setText(value);
         },
         onRequestCodeDataFailure: function(response, o) {
@@ -153,6 +155,18 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             if (selection)
             {
                 this.fields['UrgencyCode'].setValue(selection['UrgencyCode']);
+            }
+        },
+        onContactChange: function(value, field) {
+            var selection = field.getSelection(),
+                accountField = this.fields['Account'];
+
+            if (selection && selection['Account'] && !accountField.getValue())
+            {
+                accountField.setValue({
+                    '$key': selection['Account']['$key'],
+                    'AccountName': selection['Account']['AccountName']
+                });
             }
         },
         onAccountChange: function(value, field) {
@@ -217,7 +231,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                 entry = view && view.entry;
 
             var accountField = this.fields['Account'];
-            accountField['Account'].setValue(entry.Account);
+            accountField.setValue(entry.Account);
             this.onAccountChange(entry.Account, accountField);
 
             this.fields['Contact'].setValue(entry);

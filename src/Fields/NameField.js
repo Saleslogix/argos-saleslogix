@@ -7,7 +7,7 @@ define('Mobile/SalesLogix/Fields/NameField', [
 ) {
     declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
         // Localization
-        emptyText: 'no name',
+        emptyText: '',
 
         widgetTemplate: new Simplate([
             '<button class="button simpleSubHeaderButton" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
