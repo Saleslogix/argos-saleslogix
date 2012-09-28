@@ -40,7 +40,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '{%! $$.activityTimeTemplate %}',
             '<span class="p-description">&nbsp;{%: $.Description %}</span>',
             '</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, Argos.Convert.toBoolean($.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
+            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, argos.convert.toBoolean($.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.ContactName) { %}',
