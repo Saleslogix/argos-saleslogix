@@ -72,6 +72,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         onAccountChange: function(value, field) {
             if (value && value.text)
                 this.fields['AccountName'].setValue(value.text);
+                this.requestAccount(value['key']);
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
