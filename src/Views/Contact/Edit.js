@@ -74,6 +74,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         onAccountChange: function(value, field) {
             if (value && value.text)
                 this.fields['AccountName'].setValue(value.text);
+                this.requestAccount(value.key);
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
@@ -94,8 +95,35 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
-                entry = view && view.entry || context.options && context.options.source && context.options.source.entry;
+                entry = view && view.entry;
 
+            if (!entry && context.options && context.options.source && context.options.source.entry)
+                this.requestAccount(context.options.source.entry['$key']);
+
+            this.processAccount(entry);
+        },
+        requestAccount: function(accountId) {
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                .setResourceKind('accounts')
+                .setResourceSelector(dojo.string.substitute("'${0}'", [accountId]))
+                .setQueryArg('select', [
+                    'AccountName',
+                    'Address/*',
+                    'Fax',
+                    'MainPhone',
+                    'WebAddress'
+                ].join(','));
+
+            request.allowCacheUse = true;
+            request.read({
+                success: this.processAccount,
+                failure: this.requestAccountFailure,
+                scope: this
+            });
+        },
+        requestAccountFailure: function(xhr, o) {
+        },
+        processAccount: function(entry) {
             var account = entry,
                 accountName = utility.getValue(entry, 'AccountName'),
                 webAddress = utility.getValue(entry, 'WebAddress'),
