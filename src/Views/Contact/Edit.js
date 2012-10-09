@@ -103,7 +103,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             this.processAccount(entry);
         },
         requestAccount: function(accountId) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
                 .setResourceKind('accounts')
                 .setResourceSelector(dojo.string.substitute("'${0}'", [accountId]))
                 .setQueryArg('select', [

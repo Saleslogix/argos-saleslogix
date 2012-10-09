@@ -160,7 +160,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         activityDetailView: 'activity_detail',
         eventDetailView: 'event_detail',
         monthView: 'calendar_monthlist',
-        datePickerView: 'generic_calendar',
+        datePickerView: 'datetimepicker',
         activityListView: 'calendar_daylist',
         insertView: 'activity_types_list',
         userWeekStartDay: 0, // 0-6, Sun-Sat
@@ -558,8 +558,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     },{
                         id: 'cancel',
                         place: 'left',
-                        fn: scene().back(),
-                        scope: this
+                        fn: scene().back,
+                        scope: scene()
                     }]
                     }
                 };
@@ -567,10 +567,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             scene().showView(this.datePickerView, options);
         },
         selectDateSuccess: function() {
+            scene().back();
             var view = App.scene.getView(this.datePickerView);
             this.currentDate = moment(view.getDateTime()).sod();
             this.refresh();
-            scene().back();
         },
         navigateToDayView: function() {
             var options = {currentDate: this.currentDate.valueOf() || moment().sod().valueOf()};

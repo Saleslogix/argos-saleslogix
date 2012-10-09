@@ -200,7 +200,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         id: 'calendar_monthlist',
         cls: 'activities-for-month',
         dayView: 'calendar_daylist',
-        datePickerView: 'generic_calendar',
+        datePickerView: 'datetimepicker',
         weekView: 'calendar_weeklist',
         insertView: 'activity_types_list',
         activityDetailView: 'activity_detail',
@@ -794,8 +794,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                     },{
                         id: 'cancel',
                         place: 'left',
-                        fn: scene().back(),
-                        scope: this
+                        fn: scene().back,
+                        scope: scene()
                     }]
                     }
                 };
@@ -803,10 +803,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             scene().showView(this.datePickerView, options);
         },
         selectDateSuccess: function() {
+            scene().back();
             var view = App.scene.getView(this.datePickerView);
             this.currentDate = moment(view.getDateTime()).sod();
             this.refresh();
-            scene().back();
         },
         navigateToWeekView: function() {
             var options = {currentDate: this.currentDate.valueOf() || moment().sod()};

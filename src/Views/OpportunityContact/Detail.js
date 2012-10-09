@@ -51,14 +51,14 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
 
         createEntryForDelete: function() {
            var entry = {
-                '$key': this.entry['$key'],
-                '$etag': this.entry['$etag'],
-                '$name': this.entry['$name']
+                '$key': this.item['$key'],
+                '$etag': this.item['$etag'],
+                '$name': this.item['$name']
             };
             return entry;
         },
         removeContact: function() {
-            var confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+            var confirmMessage = string.substitute(this.confirmDeleteText, [this.item.Contact.NameLF]);
             if (!confirm(confirmMessage))
                 return;
 
@@ -79,7 +79,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
-                'tbar': [{
+                'top': [{
                     id: 'edit',
                     action: 'navigateToEditView',
                     security: App.getViewSecurity(this.editView, 'update')

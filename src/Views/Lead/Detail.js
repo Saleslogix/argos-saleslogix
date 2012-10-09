@@ -103,10 +103,10 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
             var entry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
-                'AccountName': this.entry['Company'],
-                'LeadId': this.entry['$key'],
-                'LeadName': this.entry['LeadNameLastFirst'],
-                'Description': string.substitute(this.calledText, [this.entry['LeadNameLastFirst']]),
+                'AccountName': this.item['Company'],
+                'LeadId': this.item['$key'],
+                'LeadName': this.item['LeadNameLastFirst'],
+                'Description': string.substitute(this.calledText, [this.item['LeadNameLastFirst']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -119,10 +119,10 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
             var entry = {
                 '$name': 'History',
                 'Type': 'atEMail',
-                'AccountName': this.entry['Company'],
-                'LeadId': this.entry['$key'],
-                'LeadName': this.entry['LeadNameLastFirst'],
-                'Description': string.substitute(this.emailedText, [this.entry['LeadNameLastFirst']]),
+                'AccountName': this.item['Company'],
+                'LeadId': this.item['$key'],
+                'LeadName': this.item['LeadNameLastFirst'],
+                'Description': string.substitute(this.emailedText, [this.item['LeadNameLastFirst']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -133,7 +133,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
         },
         callWorkPhone: function() {
             this.recordCallToHistory(function() {
-                App.initiateCall(this.entry['WorkPhone']);
+                App.initiateCall(this.item['WorkPhone']);
             }.bindDelegate(this));
         },
         checkWorkPhone: function(entry, value) {
@@ -141,14 +141,14 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
         },
         sendEmail: function() {
             this.recordEmailToHistory(function() {
-                App.initiateEmail(this.entry['Email']);
+                App.initiateEmail(this.item['Email']);
             }.bindDelegate(this));
         },
         checkEmail: function(entry, value) {
             return !value;
         },
         viewAddress: function() {
-            App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
+            App.showMapForAddress(format.address(this.item['Address'], true, ' '));
         },
         checkAddress: function(entry, value) {
             return !format.address(value, true, '');

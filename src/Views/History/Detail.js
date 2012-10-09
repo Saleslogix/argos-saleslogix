@@ -137,7 +137,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         onRequestCodeDataFailure: function(response, o) {
             var rowNode = query('[data-property="CompletedUser"]');
             if (rowNode)
-                this.setNodeText(rowNode[0], this.entry['UserName']);
+                this.setNodeText(rowNode[0], this.item['UserName']);
 
             var errorItem = {
                 viewOptions: this.options,

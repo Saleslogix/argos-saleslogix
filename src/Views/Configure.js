@@ -7,7 +7,8 @@ define('Mobile/SalesLogix/Views/Configure', [
     'dojo/dom-attr',
     'dojo/dom-class',
     'argos/List',
-    'dojo/NodeList-traverse'
+    'dojo/NodeList-traverse',
+    'argos!scene'
 ], function(
     declare,
     array,
@@ -16,7 +17,8 @@ define('Mobile/SalesLogix/Views/Configure', [
     string,
     domAttr,
     domClass,
-    List
+    List,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Configure', [List], {
@@ -41,20 +43,20 @@ define('Mobile/SalesLogix/Views/Configure', [
         allowSelection: true,
         autoClearSelection: false,
 
-        init: function() {
+        onStartup: function() {
             this.inherited(arguments);
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
-                tbar: [{
+                top: [{
                     id: 'save',
                     fn: this.savePreferences,
                     scope: this
                 },{
                     id: 'cancel',
                     place: 'left',
-                    fn: ReUI.back,
-                    scope: ReUI
+                    fn: scene().back,
+                    scope: scene()
                 }]
             });
         },
@@ -101,7 +103,7 @@ define('Mobile/SalesLogix/Views/Configure', [
         hasMoreData: function() {
             return false;
         },
-        requestData: function() {
+        _requestData: function() {
             var list = [],
                 lookup = {},
                 exposed = App.getExposedViews(),
@@ -119,7 +121,7 @@ define('Mobile/SalesLogix/Views/Configure', [
 
             for (i = 0; i < order.length; i++)
             {
-                var view = App.getView(order[i]);
+                var view = App.scene.getView(order[i]);
                 if (view && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(order[i]) >= 0)
                 {
                     list.push({
@@ -135,9 +137,9 @@ define('Mobile/SalesLogix/Views/Configure', [
                 }
             }
 
-            this.processFeed({'$resources': list});
+            this._processData({'$resources': list});
         },
-        processFeed: function(feed) {
+        _processData: function(feed) {
             this.inherited(arguments);
 
             var visible = (App.preferences.home && App.preferences.home.visible) || [];

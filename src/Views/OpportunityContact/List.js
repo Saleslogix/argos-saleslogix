@@ -2,12 +2,14 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
     'dojo/_base/declare',
     'dojo/string',
     'argos/List',
-    'argos/_SDataListMixin'
+    'argos/_SDataListMixin',
+    'argos!scene'
 ], function(
     declare,
     string,
     List,
-    _SDataListMixin
+    _SDataListMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.OpportunityContact.List', [List, _SDataListMixin], {
@@ -85,7 +87,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
                     'Title'
                 ],
                 tools: {
-                    tbar: [{
+                    top: [{
                         id: 'complete',
                         fn: this.complete,
                         cls: 'invisible',
@@ -93,31 +95,27 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
                     },{
                         id: 'cancel',
                         place: 'left',
-                        fn: ReUI.back,
-                        scope: ReUI
+                        fn: scene().back,
+                        scope: scene()
                     }]
                 }
             };
             return options;
         },
         navigateToInsertView: function(entry) {
-            var view = App.getView(this.insertView),
-                options = {
-                    entry: entry,
-                    insert: true
-                };
-            if (view && options)
-                view.show(options, { returnTo: -1 });
+            scene().showView(this.insertView, {
+                entry: entry,
+                insert: true
+            },{
+                returnTo: -1
+            });
         },
         navigateToSelectView: function() {
-            var view = App.getView(this.selectView),
-                options = this.createNavigationOptions();
-            if (view && options)
-                view.show(options);
+            scene().showView(this.selectView, this.createNavigationOptions());
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
-                'tbar': [{
+                'top': [{
                     id: 'associate',
                     icon: 'content/images/icons/add_24.png',
                     action: 'navigateToSelectView',

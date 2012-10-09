@@ -107,11 +107,11 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
             var entry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
-                'ContactName': this.entry['NameLF'],
-                'ContactId': this.entry['$key'],
-                'AccountName': this.entry['AccountName'],
-                'AccountId': this.entry['Account']['$key'],
-                'Description': string.substitute("Called ${0}", [this.entry['NameLF']]),
+                'ContactName': this.item['NameLF'],
+                'ContactId': this.item['$key'],
+                'AccountName': this.item['AccountName'],
+                'AccountId': this.item['Account']['$key'],
+                'Description': string.substitute("Called ${0}", [this.item['NameLF']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -124,11 +124,11 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
             var entry = {
                 '$name': 'History',
                 'Type': 'atEMail',
-                'ContactName': this.entry['NameLF'],
-                'ContactId': this.entry['$key'],
-                'AccountName': this.entry['AccountName'],
-                'AccountId': this.entry['Account']['$key'],
-                'Description': string.substitute("Emailed ${0}", [this.entry['NameLF']]),
+                'ContactName': this.item['NameLF'],
+                'ContactId': this.item['$key'],
+                'AccountName': this.item['AccountName'],
+                'AccountId': this.item['Account']['$key'],
+                'Description': string.substitute("Emailed ${0}", [this.item['NameLF']]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -139,24 +139,24 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
         },
         callWorkPhone: function() {
             this.recordCallToHistory(function() {
-                App.initiateCall(this.entry['WorkPhone']);
+                App.initiateCall(this.item['WorkPhone']);
             }.bindDelegate(this));
         },
         callMobilePhone: function() {
             this.recordCallToHistory(function() {
-                App.initiateCall(this.entry['Mobile']);
+                App.initiateCall(this.item['Mobile']);
             }.bindDelegate(this));
         },
         sendEmail: function() {
             this.recordEmailToHistory(function() {
-                App.initiateEmail(this.entry['Email'])
+                App.initiateEmail(this.item['Email'])
             }.bindDelegate(this));
         },
         checkValueExists: function(entry, value) {
             return !value;        
         },
         viewAddress: function() {
-            App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
+            App.showMapForAddress(format.address(this.item['Address'], true, ' '));
         },
         checkAddress: function(entry, value) {
             return !format.address(value, true, '');

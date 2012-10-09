@@ -92,7 +92,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
             return values;
         },
         formatAccountRelatedQuery: function(fmt) {
-            return string.substitute(fmt, [this.entry['Account']['$key']]);
+            return string.substitute(fmt, [this.item['Account']['$key']]);
         },                
         createLayout: function() {
             return this.layout || (this.layout = [{

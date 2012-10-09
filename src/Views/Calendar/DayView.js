@@ -154,7 +154,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         id: 'calendar_daylist',
         cls: 'activities-for-day',
         icon: 'content/images/icons/Calendar_24x24.png',
-        datePickerView: 'generic_calendar',
+        datePickerView: 'datetimepicker',
         monthView: 'calendar_monthlist',
         weekView: 'calendar_weeklist',
         activityDetailView: 'activity_detail',
@@ -436,10 +436,10 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             scene().showView(this.datePickerView, options);
         },
         selectDateSuccess: function() {
+            scene().back();
             var view = App.scene.getView(this.datePickerView);
             this.currentDate = moment(view.getDateTime()).sod();
             this.refresh();
-            scene().back();
         },
         navigateToWeekView: function() {
             var navDate = this.currentDate ? this.currentDate : moment().sod(),
