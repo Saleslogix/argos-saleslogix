@@ -53,23 +53,25 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
             'event'
         ],
         expose: false,
-        enableSearch: false,
+        hideSearch: true,
         id: 'activity_types_list',
         editView: 'activity_edit',
         eventEditView: 'event_edit',
 
-        activateEntry: function(params) {
-            if (params.key)
+        activateEntry: function(evt, node) {
+            var key = node && node.getAttribute('data-key');
+
+            if (key)
             {
                 var source = this.options && this.options.source,
-                    view = (params.key === 'event') ? this.eventEditView : this.editView;
+                    view = (key === 'event') ? this.eventEditView : this.editView;
 
                 scene().showView(view, {
                     insert: true,
                     item: (this.options && this.options.item) || null,
                     source: source,
-                    activityType: params.key,
-                    title: this.activityTypeText[params.key],
+                    activityType: key,
+                    title: this.activityTypeText[key],
                     returnTo: this.options && this.options.returnTo
                 }, {
                     returnTo: -1
@@ -82,10 +84,7 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
             else
                 return true;
         },
-        hasMoreData: function() {
-            return false;
-        },
-        requestData: function() {
+        _requestData: function() {
             var list = [],
                 eventViews = [
                     'calendar_monthlist',
@@ -107,10 +106,29 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
                 list.pop(); // remove event for non event views
             }
 
-            this.processFeed({'$resources': list});
+            this._processData({'$resources': list});
         },
-        init: function() {
-            this.inherited(arguments);
+        _processData: function(feed) {
+            var r = feed['$resources'],
+                feedLength = r.length,
+                o = [];
+
+            this.feed = feed;
+            for (var i = 0; i < feedLength; i++)
+            {
+                var row = r[i];
+                row.isEvent = false;
+                this.items[row.$key] = row;
+                o.push(this.rowTemplate.apply(row, this));
+            }
+
+            if (feedLength === 0)
+            {
+                this.set('listContent', this.noDataTemplate.apply(this));
+                return false;
+            }
+
+            this.set('listContent', o.join(''));
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {

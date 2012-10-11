@@ -84,7 +84,7 @@ define('Mobile/SalesLogix/Views/Configure', [
 
             App.persistPreferences();
 
-            ReUI.back();
+            scene().back();
         },
         moveUp: function(params) {
             var node = query(params.$source),
