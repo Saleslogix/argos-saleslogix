@@ -36,6 +36,12 @@
     user-select: none;
 }
 
+.row .toggle span
+{
+    padding-left: 0;
+    position: absolute;
+}
+
 .toggle-vertical
 {
     width: 64px;
@@ -119,9 +125,13 @@
     bottom: -1px;
 }
 
+.toggle > .toggleOn
+{
+    display: none;
+}
 .toggleStateOn > .toggleOn
 {
-    display: block;
+    display: block !important;
 }
 
 .toggleStateOn > .toggleOff
