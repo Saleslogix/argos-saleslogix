@@ -5,7 +5,7 @@ define('Mobile/SalesLogix/Fields/NameField', [
     declare,
     EditorField
 ) {
-    declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
+    return declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
         // Localization
         emptyText: '',
 
