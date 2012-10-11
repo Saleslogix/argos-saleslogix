@@ -207,8 +207,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.onAccountChange(accountValue, accountField);
         },
         applyLeadContext: function(context) {
-            var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+            var view = App.scene.getView(context.view),
+                entry = context.entry || (view && view.item);
 
             if (!entry || !entry['$key']) return;
 
@@ -241,8 +241,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
             else
             {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
+                var view = App.scene.getView(context.view),
+                    entry = view && view.item;
                 accountEntry = entry['Account'];
             }
 
@@ -273,8 +273,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
             else
             {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
+                var view = App.scene.getView(context.view),
+                    entry = view && view.item;
                 accountEntry = entry['Account'];
             }
 
@@ -304,8 +304,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
             else
             {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
+                var view = App.scene.getView(context.view),
+                    entry = view && view.item;
                 accountEntry = entry['Account'];
                 contactEntry = entry['Contact'];
             }

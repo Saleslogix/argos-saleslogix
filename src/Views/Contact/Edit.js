@@ -94,8 +94,8 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 lookup[found.resourceKind].call(this, found);            
         },
         applyAccountContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var view = App.scene.getView(context.view),
+                entry = view && view.item;
 
             if (!entry && context.options && context.options.source && context.options.source.entry)
                 this.requestAccount(context.options.source.entry['$key']);
@@ -139,8 +139,8 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             if (fax) this.fields['Fax'].setValue(fax);
         },
         applyOpportunityContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var view = App.scene.getView(context.view),
+                entry = view && view.item;
 
             var opportunityId = utility.getValue(entry, '$key'),
                 account = utility.getValue(entry, 'Account'),

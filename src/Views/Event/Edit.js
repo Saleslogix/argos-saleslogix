@@ -66,7 +66,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
             return {'$resources': list};
         },
         applyUserActivityContext: function(context) {
-            var view = App.getView(context.id);
+            var view = App.scene.getView(context.view);
             if (view && view.currentDate)
             {
                 var currentDate = moment(view.currentDate).clone().sod(),

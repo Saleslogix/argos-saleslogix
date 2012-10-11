@@ -81,16 +81,16 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             this.fields['Owner'].setValue(App.context['defaultOwner']);
         },
         applyAccountContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var view = App.scene.getView(context.view),
+                entry = view && view.item;
 
             this.fields['Account'].setValue(entry);
             this.fields['AccountManager'].setValue(utility.getValue(entry, 'AccountManager'));
             this.fields['Owner'].setValue(utility.getValue(entry, 'Owner'));
         },
         applyContactContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var view = App.scene.getView(context.view),
+                entry = view && view.item;
 
             this.fields['Account'].setValue(utility.getValue(entry, 'Account'));
             this.fields['AccountManager'].setValue(utility.getValue(entry, 'AccountManager'));

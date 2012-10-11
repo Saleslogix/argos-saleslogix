@@ -219,16 +219,16 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
         },
         applyAccountContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var view = App.scene.getView(context.view),
+                entry = view && view.item;
 
             var accountField = this.fields['Account'];
             accountField.setValue(entry);
             this.onAccountChange(entry, accountField);
         },
         applyContactContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var view = App.scene.getView(context.view),
+                entry = view && view.item;
 
             var accountField = this.fields['Account'];
             accountField.setValue(entry.Account);
