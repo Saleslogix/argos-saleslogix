@@ -19,7 +19,6 @@ define('Mobile/SalesLogix/Views/User/List', [
         titleText: 'Users',
 
         //View Properties
-        icon: 'content/images/Accounts_24x24.gif',
         id: 'user_list',
         queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
         querySelect: [
