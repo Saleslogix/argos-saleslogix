@@ -21,6 +21,7 @@ define('Mobile/SalesLogix/Views/User/List', [
         //View Properties
         id: 'user_list',
         queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
+        queryWhere: 'Enabled eq true',
         querySelect: [
             'UserInfo/FirstName',
             'UserInfo/LastName',
