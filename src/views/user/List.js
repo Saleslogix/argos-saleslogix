@@ -21,6 +21,7 @@ Ext.namespace("Mobile.SalesLogix.User");
         icon: 'content/images/Accounts_24x24.gif',
         id: 'user_list',
         queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
+        queryWhere: 'Enabled eq true',
         querySelect: [
             'UserInfo/FirstName',
             'UserInfo/LastName',
