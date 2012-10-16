@@ -2,15 +2,17 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Format',
-    'argos/List'
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     string,
     format,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivityItem.List', [List], {
+    return declare('Mobile.SalesLogix.Views.TicketActivityItem.List', [List, _SDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',

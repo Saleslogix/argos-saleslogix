@@ -1,14 +1,16 @@
 define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
-    'argos/Detail'
+    'argos/Detail',
+    'argos/_SDataDetailMixin'
 ], function(
     declare,
     format,
-    Detail
+    Detail,
+    _SDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivityItem.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.TicketActivityItem.Detail', [Detail, _SDataDetailMixin], {
         //Localization
         titleText: 'Ticket Activity Part',
         productNameText: 'product',

@@ -7,7 +7,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     'Mobile/SalesLogix/Template',
     'argos/ErrorManager',
     'argos/Detail',
-    'dojo/NodeList-manipulate',
     'argos/_SDataDetailMixin'
 ], function(
     declare,
