@@ -50,21 +50,25 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
         resourceKind: 'opportunityContacts',
 
         complete: function() {
-            var view = App.getPrimaryActiveView(),
+            var view = scene().getView(this.selectView),
                 selectionModel = view && view.get('selectionModel'),
                 entry;
             if (!selectionModel) return;
 
             if (selectionModel.getSelectionCount() == 0 && view.options.allowEmptySelection)
-                ReUI.back();
+                scene.back();
 
-            var context = App.isNavigationFromResourceKind(['opportunities']),
+            var found = App.queryNavigationContext(function(o) {
+                    var context = o && o.context || o;
+                    return (/^opportunities$/).test(context.resourceKind) && context.options && context.options.key;
+                }),
+                context = found && found.options,
                 selections = selectionModel.getSelections();
             for (var selectionKey in selections)
             {
                 entry = {
                     'Opportunity': {'$key': context.key},
-                    'Contact': view.entries[selectionKey]
+                    'Contact': view.items[selectionKey]
                 };
             }
 

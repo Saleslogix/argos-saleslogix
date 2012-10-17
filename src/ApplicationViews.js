@@ -40,6 +40,8 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'opportunity_detail': {type: 'Mobile/SalesLogix/Views/Opportunity/Detail'},
     'opportunity_edit': {type: 'Mobile/SalesLogix/Views/Opportunity/Edit'},
     'opportunitycontact_detail': {type: 'Mobile/SalesLogix/Views/OpportunityContact/Detail'},
+    'opportunitycontact_edit': {type: 'Mobile/SalesLogix/Views/OpportunityContact/Edit'},
+    'opportunitycontact_list': {type: 'Mobile/SalesLogix/Views/OpportunityContact/List'},
     'opportunitycontact_related': {type: 'Mobile/SalesLogix/Views/OpportunityContact/List'},
     'opportunityproduct_related': {type: 'Mobile/SalesLogix/Views/OpportunityProduct/List', props: {tier: 1}},
     'ticket_list': {type: 'Mobile/SalesLogix/Views/Ticket/List'},

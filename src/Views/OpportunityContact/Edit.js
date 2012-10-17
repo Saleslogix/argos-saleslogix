@@ -2,15 +2,17 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
     'argos/utility',
-    'argos/Edit'
+    'argos/Edit',
+    'argos/_SDataEditMixin'
 ], function(
     declare,
     format,
     utility,
-    Edit
+    Edit,
+    _SDataEditMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityContact.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.OpportunityContact.Edit', [Edit, _SDataEditMixin], {
         //Localization
         titleText: 'Edit Opp. Contact',
         nameText: 'name',
