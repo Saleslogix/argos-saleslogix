@@ -5,7 +5,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     'Mobile/SalesLogix/Validator',
     'argos/utility',
     'argos/Edit',
-    'argos/_SDataEditMixin'
+    'argos/_SDataEditMixin',
+    'argos!scene'
 ], function(
     declare,
     array,
@@ -13,7 +14,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     validator,
     utility,
     Edit,
-    _SDataEditMixin
+    _SDataEditMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.History.Edit', [Edit, _SDataEditMixin], {
@@ -207,7 +209,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.onAccountChange(accountValue, accountField);
         },
         applyLeadContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = context.entry || (view && view.item);
 
             if (!entry || !entry['$key']) return;
@@ -241,7 +243,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
             else
             {
-                var view = App.scene.getView(context.view),
+                var view = scene().getView(context.view),
                     entry = view && view.item;
                 accountEntry = entry['Account'];
             }
@@ -273,7 +275,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
             else
             {
-                var view = App.scene.getView(context.view),
+                var view = scene().getView(context.view),
                     entry = view && view.item;
                 accountEntry = entry['Account'];
             }
@@ -304,7 +306,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
             else
             {
-                var view = App.scene.getView(context.view),
+                var view = scene().getView(context.view),
                     entry = view && view.item;
                 accountEntry = entry['Account'];
                 contactEntry = entry['Contact'];

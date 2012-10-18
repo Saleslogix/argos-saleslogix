@@ -2,12 +2,14 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'argos/Edit'
+    'argos/Edit',
+    'argos!scene'
 ], function(
     declare,
     format,
     validator,
-    Edit
+    Edit,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Event.Edit', [Edit], {
@@ -66,7 +68,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
             return {'$resources': list};
         },
         applyUserActivityContext: function(context) {
-            var view = App.scene.getView(context.view);
+            var view = scene().getView(context.view);
             if (view && view.currentDate)
             {
                 var currentDate = moment(view.currentDate).clone().sod(),

@@ -5,7 +5,8 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     'Mobile/SalesLogix/Validator',
     'argos/Edit',
     'argos/_SDataEditMixin',
-    'argos/utility'
+    'argos/utility',
+    'argos!scene'
 ], function(
     declare,
     format,
@@ -13,7 +14,8 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     validator,
     Edit,
     _SDataEditMixin,
-    utility
+    utility,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Contact.Edit', [Edit, _SDataEditMixin], {
@@ -94,7 +96,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 lookup[found.resourceKind].call(this, found);            
         },
         applyAccountContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = view && view.item;
 
             if (!entry && context.options && context.options.source && context.options.source.entry)
@@ -139,7 +141,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             if (fax) this.fields['Fax'].setValue(fax);
         },
         applyOpportunityContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = view && view.item;
 
             var opportunityId = utility.getValue(entry, '$key'),

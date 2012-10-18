@@ -437,7 +437,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         },
         selectDateSuccess: function() {
             scene().back();
-            var view = App.scene.getView(this.datePickerView);
+            var view = scene().getView(this.datePickerView);
             this.currentDate = moment(view.getDateTime()).sod();
             this.refresh();
         },

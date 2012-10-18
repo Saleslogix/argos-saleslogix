@@ -8,7 +8,8 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     'argos/utility',
     'argos/ErrorManager',
     'argos/Detail',
-    'argos/_SDataDetailMixin'
+    'argos/_SDataDetailMixin',
+    'argos!scene'
 ], function(
     declare,
     json,
@@ -19,7 +20,8 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     utility,
     ErrorManager,
     Detail,
-    _SDataDetailMixin
+    _SDataDetailMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.ErrorLog.Detail', [Detail, _SDataDetailMixin], {
@@ -78,8 +80,8 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
             if (this.sendType === 'copy')
             {
                 var flashVars = this.constructFlashVars({
-                    "retrieveFunction": "App.scene.getView('"+this.id+"').constructReport",
-                    "callbackFunction": "App.scene.getView('"+this.id+"').onCopySuccess",
+                    "retrieveFunction": "scene().getView('"+this.id+"').constructReport",
+                    "callbackFunction": "scene().getView('"+this.id+"').onCopySuccess",
                     "labelVisible": "0"
                 });
 

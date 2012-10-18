@@ -121,7 +121,7 @@ define('Mobile/SalesLogix/Views/Configure', [
 
             for (i = 0; i < order.length; i++)
             {
-                var view = App.scene.getView(order[i]);
+                var view = scene().getView(order[i]);
                 if (view && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(order[i]) >= 0)
                 {
                     list.push({

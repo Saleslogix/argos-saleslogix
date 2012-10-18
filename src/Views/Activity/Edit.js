@@ -9,7 +9,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'argos/convert',
     'argos/Edit',
     'argos/_SDataEditMixin',
-    'Mobile/SalesLogix/Recurrence'
+    'Mobile/SalesLogix/Recurrence',
+    'argos!scene'
 ], function(
     declare,
     connect,
@@ -21,7 +22,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     convert,
     Edit,
     _SDataEditMixin,
-    recur
+    recur,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit, _SDataEditMixin], {
@@ -176,7 +178,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.connect(this.fields['Recurrence'], 'onChange', this.onRecurrenceChange);
         },
         onUpdateSuccess: function(entry) {
-            var view = App.scene.getView(this.detailView),
+            var view = scene().getView(this.detailView),
                 originalKey = this.options.item['$key'];
 
             this.enable();
@@ -427,7 +429,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return recur.toString(recurrence, true);
         },
         applyUserActivityContext: function(context) {
-            var view = App.scene.getView(context.view);
+            var view = scene().getView(context.view);
             if (view && view.currentDate)
             {
                 var currentDate = view.currentDate.sod(),
@@ -513,7 +515,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.onAccountChange(accountField.getValue(), accountField);
         },
         applyAccountContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = context.entry || (view && view.item) || context;
 
             if (!entry || !entry['$key']) return;
@@ -526,7 +528,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.onAccountChange(accountField.getValue(), accountField);
         },
         applyContactContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = context.entry || (view && view.item) || context;
 
             if (!entry || !entry['$key']) return;
@@ -545,7 +547,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             });
         },
         applyTicketContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = context.entry || (view && view.item);
 
             if (!entry || !entry['$key']) return;
@@ -571,7 +573,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             });
         },
         applyOpportunityContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = context.entry || (view && view.item);
 
             if (!entry || !entry['$key']) return;
@@ -590,7 +592,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             });
         },
         applyLeadContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = context.entry || (view && view.item);
 
             if (!entry || !entry['$key']) return;

@@ -6,7 +6,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
     'Mobile/SalesLogix/Validator',
     'argos/ErrorManager',
     'argos/Edit',
-    'argos/_SDataEditMixin'
+    'argos/_SDataEditMixin',
+    'argos!scene'
 ], function(
     declare,
     lang,
@@ -15,7 +16,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
     validator,
     ErrorManager,
     Edit,
-    _SDataEditMixin
+    _SDataEditMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Ticket.Edit', [Edit, _SDataEditMixin], {
@@ -219,7 +221,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
         },
         applyAccountContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = view && view.item;
 
             var accountField = this.fields['Account'];
@@ -227,7 +229,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             this.onAccountChange(entry, accountField);
         },
         applyContactContext: function(context) {
-            var view = App.scene.getView(context.view),
+            var view = scene().getView(context.view),
                 entry = view && view.item;
 
             var accountField = this.fields['Account'];
