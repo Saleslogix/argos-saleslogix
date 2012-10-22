@@ -7,7 +7,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     'Mobile/SalesLogix/Template',
     'argos/utility',
     'argos/Edit',
-    'argos/_SDataEditMixin'
+    'argos/_SDataEditMixin',
+    'argos!scene'
 ], function(
     declare,
     array,
@@ -17,7 +18,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     template,
     utility,
     Edit,
-    _SDataEditMixin
+    _SDataEditMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Complete', [Edit, _SDataEditMixin], {
@@ -282,8 +284,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             return {'$resources': list};
         },
         navigateToFollowUpView: function(entry) {
-            var view = App.getView(this.followupView),
-                followupEntry = {
+            var followupEntry = {
                     'Type': this.fields['Followup'].getValue(),
                     'Description': entry.Description,
                     'AccountId': entry.AccountId,
@@ -301,7 +302,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                 };
 
             //Return to activity list view after follow up.
-            view.show({
+            scene.showView(this.followupView, {
                 entry: followupEntry,
                 insert: true,
                 title: this.followupValueText[this.fields['Followup'].getValue()]

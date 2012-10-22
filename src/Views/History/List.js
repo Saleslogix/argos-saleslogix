@@ -9,7 +9,8 @@ define('Mobile/SalesLogix/Views/History/List', [
     'argos/convert',
     'Mobile/SalesLogix/Action',
     'argos/List',
-    'argos/_SDataListMixin'
+    'argos/_SDataListMixin',
+    'argos!scene'
 ], function(
     declare,
     array,
@@ -21,7 +22,8 @@ define('Mobile/SalesLogix/Views/History/List', [
     convert,
     action,
     List,
-    _SDataListMixin
+    _SDataListMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.History.List', [List, _SDataListMixin], {
@@ -196,7 +198,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                     break;
             }
 
-            var view = App.getView(viewId);
+            var view = scene().getView(viewId);
 
             if (view && options)
                 view.show(options);

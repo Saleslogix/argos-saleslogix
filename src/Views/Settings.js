@@ -1,11 +1,13 @@
 define('Mobile/SalesLogix/Views/Settings', [
     'dojo/_base/declare',
     'dojo/_base/connect',
-    'argos/List'
+    'argos/List',
+    'argos!scene'
 ], function(
     declare,
     connect,
-    List
+    List,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Settings', [List], {
@@ -63,9 +65,7 @@ define('Mobile/SalesLogix/Views/Settings', [
             };
         },
         viewErrorLogs: function() {
-            var view = App.getView('errorlog_list');
-            if (view)
-                view.show();
+            scene().showView('errorlog_list');
         },
         clearLocalStorage: function() {
             if (window.localStorage)

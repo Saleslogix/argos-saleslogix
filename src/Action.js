@@ -68,10 +68,7 @@ define('Mobile/SalesLogix/Action', [
                 key: selection.data['$key']
             });
 
-            var view = scene().getView('history_edit');
-
-            if (view)
-                view.show({insert: true});
+            scene().showView('history_edit', {insert: true});
         },
         addActivity: function(action, selection) {
             this.setSource({

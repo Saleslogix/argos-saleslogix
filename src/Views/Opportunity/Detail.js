@@ -3,13 +3,15 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'argos/Detail',
-    'argos/_SDataDetailMixin'
+    'argos/_SDataDetailMixin',
+    'argos!scene'
 ], function(
     declare,
     string,
     format,
     Detail,
-    _SDataDetailMixin
+    _SDataDetailMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail, _SDataDetailMixin], {
@@ -70,14 +72,10 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
             App.navigateToActivityInsertView();
         },
         addNote: function() {
-            var view = App.getView(this.noteEditView);
-            if (view)
-            {
-                view.show({
-                    template: {},
-                    insert: true
-                });
-            }
+            scene().showView(this.noteEditView, {
+                template: {},
+                insert: true
+            });
         },
         getValues: function() {
             var values = this.inherited(arguments),

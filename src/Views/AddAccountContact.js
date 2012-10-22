@@ -5,7 +5,8 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
     'argos/utility',
-    'argos/Edit'
+    'argos/Edit',
+    'argos!scene'
 ], function(
     declare,
     lang,
@@ -13,7 +14,8 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     format,
     validator,
     utility,
-    Edit
+    Edit,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.AddAccountContact', [Edit], {
@@ -88,7 +90,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             return string.substitute(fmt, [dependentValue]);
         },
         onInsertCompleted: function(entry) {
-            var view = App.getView('account_detail');
+            var view = scene().getView('account_detail');
             if (view)
                 view.show({
                     descriptor: entry.$descriptor,

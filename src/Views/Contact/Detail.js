@@ -88,20 +88,16 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
         resourceKind: 'contacts',
         
         navigateToHistoryInsert: function(type, entry, complete) {
-            var view = App.getView(this.historyEditView);
-            if (view)
-            {
-                this.refreshRequired = true;
+            this.refreshRequired = true;
 
-                view.show({
-                    title: this.activityTypeText[type],
-                    template: {},
-                    entry: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
-            }
+            scene().showView(this.historyEditView, {
+                title: this.activityTypeText[type],
+                template: {},
+                entry: entry,
+                insert: true
+            }, {
+                complete: complete
+            });
         },
         recordCallToHistory: function(complete) {
             var entry = {

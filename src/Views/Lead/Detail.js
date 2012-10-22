@@ -3,13 +3,15 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'argos/Detail',
-    'argos/_SDataDetailMixin'
+    'argos/_SDataDetailMixin',
+    'argos!scene'
 ], function(
     declare,
     string,
     format,
     Detail,
-    _SDataDetailMixin
+    _SDataDetailMixin,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.Lead.Detail', [Detail, _SDataDetailMixin], {
@@ -84,20 +86,16 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
         resourceKind: 'leads',
         
         navigateToHistoryInsert: function(type, entry, complete) {
-            var view = App.getView(this.historyEditView);
-            if (view)
-            {
-                this.refreshRequired = true;
-                
-                view.show({
-                    title: this.activityTypeText[type],
-                    template: {},
-                    entry: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
-            }
+            this.refreshRequired = true;
+
+            scene().showView(this.historyEditView, {
+                title: this.activityTypeText[type],
+                template: {},
+                entry: entry,
+                insert: true
+            }, {
+                complete: complete
+            });
         },
         recordCallToHistory: function(complete) {
             var entry = {
@@ -157,14 +155,10 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
             App.navigateToActivityInsertView();
         },
         addNote: function() {
-            var view = App.getView(this.noteEditView);
-            if (view)
-            {
-                view.show({
-                    template: {},
-                    insert: true
-                });
-            }
+            scene().showView(this.noteEditView, {
+                template: {},
+                insert: true
+            });
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
