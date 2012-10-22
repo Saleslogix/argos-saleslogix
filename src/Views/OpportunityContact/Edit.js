@@ -40,6 +40,11 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', [
         ],
         resourceKind: 'opportunityContacts',
 
+        applyContext: function() {
+            if (this.options && this.options.item || this.options.entry)
+                this.setValues(this.options.item || this.options.entry);
+
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
             {
