@@ -9,7 +9,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     'argos/_SDataListMixin',
     'argos/ScrollContainer',
     'argos/SearchWidget',
-    'argos/Dialog',
     'argos!scene'
 ], function(
     declare,
@@ -22,7 +21,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     _SDataListMixin,
     ScrollContainer,
     SearchWidget,
-    Dialog,
     scene
 ) {
 
@@ -212,26 +210,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         onStartup: function() {
             this.inherited(arguments);
             this.currentDate = moment().sod();
-            
-            this.activityTypeDialog = new Dialog({
-                content: [
-                    {name: 'message', content: '<p>Hello World!</p>'}
-                ],
-                owner: this
-            });
-            this.activityTypeDialog.startup();
-        },
-        createToolLayout: function() {
-            return this.tools || (this.tools = {
-                'top': [{
-                    id: 'new',
-                    action: 'openActivityTypeDialog',
-                    security: App.getViewSecurity(this.insertView, 'insert')
-                }]
-            });
-        },
-        openActivityTypeDialog: function() {
-            this.activityTypeDialog.open();            
         },
         toggleGroup: function(params) {
             var node = params.$source;
