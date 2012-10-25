@@ -1,9 +1,11 @@
 define('Mobile/SalesLogix/Views/FooterToolbar', [
     'dojo/_base/declare',
-    'argos/MainToolbar'
+    'argos/MainToolbar',
+    'argos!scene'
 ], function(
     declare,
-    MainToolbar
+    MainToolbar,
+    scene
 ) {
 
     return declare('Mobile.SalesLogix.Views.FooterToolbar', [MainToolbar], {
@@ -90,14 +92,10 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
             }
         },
         navigateToSettingsView: function() {
-            var view = App.getView(this.settingsView);
-            if (view)
-                view.show();
+            scene().showView(this.settingsView);
         },
         navigateToHelpView: function() {
-            var view = App.getView(this.helpView);
-            if (view)
-                view.show();
+            scene().showView(this.helpView);
         },
         scrollToTop: function() {
             scrollTo(0, 1); 
