@@ -1650,35 +1650,10 @@ td.entry-table-description {
 
 .has-expanded-navigation .quick-nav-toggle > div { background-image: url(../images/icons/Browse_Previous_24.png); }
 
-.has-login
-{
-    background: #A6A89C !important;
-}
-
 .has-login > .mblFixedSpliter > .layout-left,
 .has-login > .mblFixedSpliter > .layout-right
 {
     display: none;
-}
-
-.has-login > .mblFixedSpliter > .layout-center
-{
-    left: 25% !important;
-    right: 25% !important;
-    margin: 0 auto;
-    -webkit-box-shadow: rgba(0, 0, 0, 1) 0px 0px 10px;
-    -moz-box-shadow: rgba(0, 0, 0, 1) 0px 0px 10px;
-    box-shadow: rgba(0, 0, 0, 1) 0px 0px 10px;
-}
-
-#login
-{
-    visibility: hidden;
-}
-
-.has-login #login
-{
-    visibility: visible;
 }
 
 /* toggle styles */

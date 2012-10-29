@@ -79,7 +79,7 @@
     })();
     </script>
 </head>
-<body>
+<body class="has-login">
 </body>
 </html>
 
