@@ -1,14 +1,16 @@
 define('Mobile/SalesLogix/Views/Event/Detail', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
+    'argos/_SDataDetailMixin',
     'argos/Detail'
 ], function(
     declare,
     format,
+    _SDataDetailMixin,
     Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Event.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Event.Detail', [Detail, _SDataDetailMixin], {
         //Localization
         eventTypeText: {
             'atToDo': 'To-Do',

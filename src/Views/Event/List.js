@@ -2,15 +2,17 @@ define('Mobile/SalesLogix/Views/Event/List', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Format',
+    'argos/_SDataListMixin',
     'argos/List'
 ], function(
     declare,
     string,
     format,
+    _SDataListMixin,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Event.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Event.List', [List, _SDataListMixin], {
         // Localization
         titleText: 'Events',
         eventDateFormatText: 'M/d/YYYY',
