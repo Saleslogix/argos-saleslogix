@@ -120,8 +120,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 'top': [{
-                    id: 'associate',
-                    icon: 'content/images/icons/add_24.png',
+                    id: 'new',
                     action: 'navigateToSelectView',
                     security: App.getViewSecurity(this.insertView, 'insert')
                 }]

@@ -169,6 +169,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         enableSearch: false,
         hideSearch: true,
         expose: false,
+        eventFeed: null,
         entryGroups: {},
         weekStartDate: null,
         weekEndDate: null,
@@ -231,7 +232,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.currentDate = this.todayDate.clone();
         },
         toggleGroup: function(params) {
-            var node = query(params.$source);
+            console.log(arguments);
+            var node = query(params.$source, this.contentNode);
             if (node && node.parent()) {
                 domClass.toggle(node, 'collapsed');
                 domClass.toggle(node.parent(), 'collapsed-event');
@@ -306,9 +308,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             return (date.valueOf() > this.weekStartDate.valueOf() && date.valueOf() < this.weekEndDate.valueOf());
         },
         _processData: function(feed) {
-            this.feed = feed;
+            var store = this.get('store');
 
-            if (this.feed.length === 0)
+            if (feed.length === 0)
             {
                 domConstruct(this.noDataTemplate.apply(this), this.contentNode, 'last');
             }
@@ -325,8 +327,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
 
                 for (var i = 0; i < feed.length; i++)
                 {
-                    var currentEntry = feed[i],
+                    var currentEntry = this._processItem(feed[i]),
                         startDate = convert.toDateFromString(currentEntry.StartDate);
+
 
                     if (currentEntry.Timeless)
                     {
@@ -334,7 +337,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     }
                     currentEntry['StartDate'] = startDate;
                     currentEntry['isEvent'] = false;
-                    this.items[currentEntry.$key] = currentEntry;
+                    this.items[store.getIdentity(currentEntry)] = currentEntry;
 
                     var currentDateCompareKey = moment(currentEntry.StartDate).format(dateCompareString);
                     var currentGroup = entryGroups[currentDateCompareKey];
@@ -458,6 +461,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             var o = [],
                 feedLength = feed['$resources'].length;
 
+            this.eventFeed = feed;
+
             if (feedLength === 0)
             {
                 this.hideEventList();
@@ -510,7 +515,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.inherited(arguments, [this.options]);
         },
         processShowOptions: function(options) {
-            if (options.currentDate)
+            if (options.currentDate && options.currentDate !== this.currentDate.unix() || !this.eventFeed)
             {
                 this.currentDate = moment(options.currentDate).sod() || moment().sod();
                 this.refreshRequired = true;
@@ -573,15 +578,15 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.refresh();
         },
         navigateToDayView: function() {
-            var options = {currentDate: this.currentDate.valueOf() || moment().sod().valueOf()};
+            var options = {currentDate: this.currentDate.valueOf() };
             scene().showView(this.activityListView, options);
         },
         navigateToMonthView: function() {
-            var options = {currentDate: this.currentDate.valueOf() || moment().sod().valueOf()};
+            var options = {currentDate: this.currentDate.valueOf() };
             scene().showView(this.monthView, options);
         },
         navigateToInsertView: function(el) {
-            this.options.currentDate = this.currentDate.format('yyyy-MM-dd') || Date.today();
+            this.options.currentDate = this.currentDate.valueOf();
             scene().showView(this.insertView || this.editView, {
                 negateHistory: true,
                 returnTo: this.id,
