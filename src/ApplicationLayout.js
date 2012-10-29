@@ -11,6 +11,7 @@ define('Mobile/SalesLogix/ApplicationLayout', [
     'dojo/dom-construct',
     'dojo/query',
     'dojo/NodeList-traverse',
+    'argos/DialogPane',
     'argos/Layout',
     'argos/Pane',
     './TitleBar',
@@ -28,6 +29,7 @@ define('Mobile/SalesLogix/ApplicationLayout', [
     domConstruct,
     query,
     nodeListTraverse,
+    DialogPane,
     Layout,
     Pane,
     TitleBar,
@@ -42,7 +44,8 @@ define('Mobile/SalesLogix/ApplicationLayout', [
                 {name: 'top', type: TitleBar, attachEvent: 'onPositionChange:_onToolbarPositionChange', props: {managed: true, visible: false}},
                 {name: 'container', tag: 'div', attrs: {'class': 'view-container'}, attachPoint: 'viewContainerNode'}
             ]},
-            {name: 'detail', type: Pane, attachPoint: 'panes.detail', props:{'class':'layout-right', tier: 1}}
+            {name: 'detail', type: Pane, attachPoint: 'panes.detail', props:{'class':'layout-right', tier: 1}},
+            {name: 'dialog', type: DialogPane, attachPoint: 'panes.dialog'}
         ],
 
         _onLayoutClickHandle: null,

@@ -198,6 +198,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         eventIcon: 'content/images/icons/Holiday_schemes_24.png',
 
         resourceKind: 'activities',
+        activityTypeDialog: null,
 
         _onRefresh: function(o) {
             this.inherited(arguments);
