@@ -964,20 +964,16 @@ For single view we want the list to adjust to screen (50/50 split on wide enough
 	float:right;
 	padding-right: 3px;
 }
-#calendar_weeklist div > ul:last-child {
-    padding-bottom: 18px;
-}
 
 #calendar_weeklist div > h2.currentDate {
 	color:#00338D;
 }
-#calendar_monthlist,
-#calendar_weeklist,
-#calendar_yearlist,
-#calendar_daylist {
+#calendar_daylist > .scroll-container > .scroll-content,
+#calendar_weeklist > .scroll-container > .scroll-content,
+#calendar_monthlist > .scroll-container > .scroll-content
+{
     background-color: #fff;
 }
-
 #calendar_monthlist .nav-bar,
 #calendar_yearlist .nav-bar,
 #calendar_daylist .nav-bar,

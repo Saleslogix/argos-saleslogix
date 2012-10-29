@@ -366,7 +366,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.inherited(arguments, [options]);
         },
         processShowOptions: function(options) {
-            if (options.currentDate)
+            if (options.currentDate && options.currentDate !== this.currentDate.unix() || !this.items)
             {
                 this.currentDate = moment(options.currentDate).sod() || moment().sod();
                 this.refreshRequired = true;
@@ -442,17 +442,15 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.refresh();
         },
         navigateToWeekView: function() {
-            var navDate = this.currentDate ? this.currentDate : moment().sod(),
-                options = {currentDate: navDate.valueOf()};
+            var options = {currentDate: this.currentDate.valueOf() };
             scene().showView(this.weekView, options);
         },
         navigateToMonthView: function() {
-            var navDate = this.currentDate ? this.currentDate : moment().sod(),
-                options = {currentDate: navDate.valueOf()};
+            var options = {currentDate: this.currentDate.valueOf() };
             scene().showView(this.monthView, options);
         },
         navigateToInsertView: function(el) {
-            this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || moment().sod();
+            this.options.currentDate = this.currentDate.valueOf();
             scene().showView(this.insertView || this.editView, {
                 negateHistory: true,
                 returnTo: this.id,

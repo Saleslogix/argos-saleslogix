@@ -759,7 +759,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             }
         },
         processShowOptions: function(options) {
-            if (options.currentDate)
+            if (options.currentDate && options.currentDate !== this.currentDate.unix() || !this.items)
             {
                 this.currentDate = moment(options.currentDate).sod() || moment().sod();
                 this.refreshRequired = true;
@@ -809,15 +809,15 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.refresh();
         },
         navigateToWeekView: function() {
-            var options = {currentDate: this.currentDate.valueOf() || moment().sod()};
+            var options = {currentDate: this.currentDate.valueOf() };
             scene().showView(this.weekView, options);
         },
         navigateToDayView: function() {
-            var options = {currentDate: this.currentDate.valueOf() || moment().sod()};
+            var options = {currentDate: this.currentDate.valueOf() };
             scene().showView(this.dayView, options);
         },
         navigateToInsertView: function(el) {
-            this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || Date.today();
+            this.options.currentDate = this.currentDate.valueOf();
             scene().showView(this.insertView || this.editView, {
                 negateHistory: true,
                 returnTo: this.id,
