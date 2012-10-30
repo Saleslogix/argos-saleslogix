@@ -1647,6 +1647,7 @@ td.entry-table-description {
 .has-expanded-navigation .quick-nav-toggle > div { background-image: url(../images/icons/Browse_Previous_24.png); }
 
 .has-login > .mblFixedSpliter > .layout-left,
+.has-login > .mblFixedSpliter > .layout-center,
 .has-login > .mblFixedSpliter > .layout-right
 {
     display: none;
