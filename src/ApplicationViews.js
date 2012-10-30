@@ -39,6 +39,7 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'lead_related': {type: 'Mobile/SalesLogix/Views/Lead/List'},
     'lead_detail': {type: 'Mobile/SalesLogix/Views/Lead/Detail'},
     'lead_edit': {type: 'Mobile/SalesLogix/Views/Lead/Edit'},
+    'leadsource_list': {type: 'Mobile/SalesLogix/Views/LeadSource/List', props: {tier: 1}},
     'opportunity_list': {type: 'Mobile/SalesLogix/Views/Opportunity/List'},
     'opportunity_related': {type: 'Mobile/SalesLogix/Views/Opportunity/List'},
     'opportunity_detail': {type: 'Mobile/SalesLogix/Views/Opportunity/Detail'},
@@ -67,7 +68,10 @@ define('Mobile/SalesLogix/ApplicationViews', {
     'history_detail': {type: 'Mobile/SalesLogix/Views/History/Detail'},
     'history_edit': {type: 'Mobile/SalesLogix/Views/History/Edit'},
     'areacategoryissue_lookup': {type: 'Mobile/SalesLogix/Views/AreaCategoryIssueLookup', props: {tier: 1}},
-    'user_list': {type: 'Mobile/SalesLogix/Views/User/List', props: {tier: 1}}
+    'owner_list': {type: 'Mobile/SalesLogix/Views/Owner/List', props: {tier: 1}},
+    'urgency_list': {type: 'Mobile/SalesLogix/Views/Ticket/UrgencyLookup', props: {tier: 1}},
+    'user_list': {type: 'Mobile/SalesLogix/Views/User/List', props: {tier: 1}},
+    'competitor_related': {type: 'Mobile/SalesLogix/Views/Competitor/List', props: {tier: 1}}
 });
 
 /*

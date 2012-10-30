@@ -1,14 +1,16 @@
 define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', [
     'dojo/_base/declare',
     'dojo/string',
-    'argos/List'
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     string,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', [List], {
+    return declare('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', [List, _SDataListMixin], {
         //Localization
         titleText: 'Ticket Urgency',
 
