@@ -53,6 +53,9 @@
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
+    <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
