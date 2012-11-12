@@ -284,22 +284,6 @@ define('Mobile/SalesLogix/Application', [
                     this.preferences = json.fromJson(window.localStorage.getItem('preferences'));
             }
             catch (e) { }
-
-            //Probably, the first time, its being accessed, or user cleared
-            //the data. So lets initialize the object, with default ones.
-            if (!this.preferences)
-            {
-                var views = this.getDefaultViews();
-
-                this.preferences = {
-                    home: {
-                        visible: views
-                    },
-                    configure: {
-                        order: views.slice(0)
-                    }
-                };
-            }
         },
         requestUserDetails: function() {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
