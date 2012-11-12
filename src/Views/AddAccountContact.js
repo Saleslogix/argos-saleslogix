@@ -92,16 +92,12 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             return string.substitute(fmt, [dependentValue]);
         },
         onInsertCompleted: function(entry) {
-            var view = scene().getView('account_detail');
-            if (view)
-                view.show({
-                    descriptor: entry.$descriptor,
-                    key: entry.$key
-                }, {
-                    returnTo: -1
-                });
-            else
-                this.inherited(arguments);
+            scene().showView('account_detail', {
+                descriptor: entry.$descriptor,
+                key: entry.$key
+            }, {
+                returnTo: -1
+            });
         },
         onContactAddressChange: function(value, field) {
             if (this.fields['Address'].getValue() && !this.fields['Address'].getValue().Address1 )
