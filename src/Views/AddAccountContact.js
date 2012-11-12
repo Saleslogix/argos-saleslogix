@@ -6,6 +6,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     'Mobile/SalesLogix/Validator',
     'argos/utility',
     'argos/Edit',
+    'argos/_SDataEditMixin',
     'argos!scene'
 ], function(
     declare,
@@ -15,10 +16,11 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     validator,
     utility,
     Edit,
+    _SDataEditMixin,
     scene
 ) {
 
-    return declare('Mobile.SalesLogix.Views.AddAccountContact', [Edit], {
+    return declare('Mobile.SalesLogix.Views.AddAccountContact', [Edit, _SDataEditMixin], {
         //Localization
         accountNameText: 'account',
         accountStatusTitleText: 'Account Status',

@@ -1,14 +1,16 @@
 define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', [
     'dojo/_base/declare',
     'dojo/string',
-    'argos/List'
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     string,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.RateLookup', [List], {
+    return declare('Mobile.SalesLogix.Views.TicketActivity.RateLookup', [List, _SDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.RateTypeCode %} - {%: $.Amount %}</h3>',

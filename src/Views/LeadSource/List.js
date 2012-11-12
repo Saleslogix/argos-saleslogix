@@ -1,14 +1,16 @@
 define('Mobile/SalesLogix/Views/LeadSource/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'argos/List'
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     string,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.LeadSource.List', [List], {
+    return declare('Mobile.SalesLogix.Views.LeadSource.List', [List, _SDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Description %}</h3>',
@@ -19,7 +21,6 @@ define('Mobile/SalesLogix/Views/LeadSource/List', [
         titleText: 'Lead Sources',
 
         //View Properties
-        icon: 'content/images/Accounts_24x24.gif',
         id: 'leadsource_list',
         security: 'Entities/LeadSource/View',
         queryOrderBy: 'Description',

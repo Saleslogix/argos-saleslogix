@@ -3,16 +3,18 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
     'argos/Edit',
+    'argos/_SDataEditMixin',
     'argos!scene'
 ], function(
     declare,
     format,
     validator,
     Edit,
+    _SDataEditMixin,
     scene
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Event.Edit', [Edit], {
+    return declare('Mobile.SalesLogix.Views.Event.Edit', [Edit, _SDataEditMixin], {
         //Localization
         titleText: 'Event',
         typeText: 'type',
@@ -77,7 +79,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
                     startTime = startTimeOption && moment(startTimeOption),
                     startDate = currentDate.clone();
 
-                if (startTime && (currentDate.compareTo(Date.today()) !== 0))
+                if (startTime && (currentDate.valueOf() == moment().sod().valueOf()))
                 {
                     startDate.hours(startTime.hours());
                     startDate.minutes(startTime.minutes());

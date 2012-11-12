@@ -1,14 +1,16 @@
 define('Mobile/SalesLogix/Views/Owner/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'argos/List'
+    'argos/List',
+    'argos/_SDataListMixin'
 ], function(
     declare,
     string,
-    List
+    List,
+    _SDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Owner.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Owner.List', [List, _SDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.OwnerDescription %}</h3>'
@@ -18,7 +20,6 @@ define('Mobile/SalesLogix/Views/Owner/List', [
         titleText: 'Owners',
 
         //View Properties
-        icon: 'content/images/Accounts_24x24.gif',
         id: 'owner_list',
         security: 'Entities/Owner/View',
         queryOrderBy: 'OwnerDescription',
