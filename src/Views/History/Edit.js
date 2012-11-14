@@ -241,7 +241,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             {
                 var view = App.getView(context.id),
                     entry = view && view.entry;
-                accountEntry = entry['Account'];
+                accountEntry = entry && entry['Account'];
             }
 
             if (accountEntry)
@@ -273,7 +273,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             {
                 var view = App.getView(context.id),
                     entry = view && view.entry;
-                accountEntry = entry['Account'];
+                accountEntry = entry && entry['Account'];
             }
 
             if (accountEntry)
@@ -304,8 +304,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             {
                 var view = App.getView(context.id),
                     entry = view && view.entry;
-                accountEntry = entry['Account'];
-                contactEntry = entry['Contact'];
+                accountEntry = entry && entry['Account'];
+                contactEntry = entry && entry['Contact'];
             }
 
             if (accountEntry)
