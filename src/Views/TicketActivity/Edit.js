@@ -2,12 +2,14 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'Mobile/SalesLogix/Template',
+    'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
     lang,
     template,
+	validator,
     ErrorManager,
     Edit
 ) {
@@ -24,6 +26,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         startDateText: 'start date',
         endDateText: 'end date',
         commentsText: 'comments',
+        startingFormatText: 'M/d/yyyy h:mm tt',
 
         //View Properties
         entityName: 'TicketActivity',
@@ -132,12 +135,28 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     label: this.startDateText,
                     name: 'AssignedDate',
                     property: 'AssignedDate',
-                    type: 'date'
+                    type: 'date',
+                    showTimePicker: true,
+                    dateFormatText: this.startingFormatText,
+                    minValue: (new Date(1900, 0, 1)),
+                    validator: [
+                        validator.exists,
+                        validator.isDateInRange
+                    ]
+
                 },{
                     label: this.endDateText,
                     name: 'CompletedDate',
                     property: 'CompletedDate',
-                    type: 'date'
+                    type: 'date',
+                    showTimePicker: true,
+                    dateFormatText: this.startingFormatText,
+                    minValue: (new Date(1900, 0, 1)),
+                    validator: [
+                        validator.exists,
+                        validator.isDateInRange
+                    ]
+
                 },{
                     label: this.commentsText,
                     name: 'ActivityDescription',
