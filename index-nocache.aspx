@@ -19,9 +19,8 @@
     <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <link type="text/css" rel="stylesheet" href="content/reui/themes/sage-green/theme.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/base.css" />
+    <link type="text/css" rel="stylesheet" href="content/platform/css/layout.css" />
+    <link type="text/css" rel="stylesheet" href="content/platform/css/theme.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.css" />
 
     <!-- Dojo -->
@@ -72,7 +71,7 @@
                 var instance = new application(configuration);
 
                 instance.activate();
-                instance.init();
+                instance.startup();
                 instance.run();
             });
         });

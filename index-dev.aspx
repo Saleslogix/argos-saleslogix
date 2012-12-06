@@ -20,9 +20,8 @@
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
     <!-- CSS -->
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/reui/themes/sage-green/theme.css" />
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/base.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/layout.css" />
+    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/theme.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.css" />
 
     <!-- JSON -->
@@ -82,7 +81,7 @@
                 var instance = new application(configuration);
 
                 instance.activate();
-                instance.init();
+                instance.startup();
                 instance.run();
             });
         });

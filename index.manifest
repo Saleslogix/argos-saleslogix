@@ -6,8 +6,9 @@ CACHE:
 # css
 content/css/app.css
 content/css/awesome-buttons.css
-content/css/base.css
-content/css/toggle.css
+content/platform/css/base.css
+content/platform/css/layout.css
+content/platform/css/themes.css
 content/reui/themes/sage-green/base.css
 content/reui/themes/sage-green/theme.css
 

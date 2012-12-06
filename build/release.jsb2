@@ -36,11 +36,11 @@
           "path": "../src"
         },
         {
-          "text": "ActionBar.js",
+          "text": "QuickNav.js",
           "path": "../src"
         },
         {
-          "text": "QuickNav.js",
+          "text": "Recurrence.js",
           "path": "../src"
         },
         {
@@ -71,6 +71,7 @@
           "text": "Action.js",
           "path": "../src"
         },
+        {
           "text": "Format.js",
           "path": "../src"
         },
@@ -133,6 +134,30 @@
         {
           "text": "Edit.js",
           "path": "../src/Views/Account"
+        },
+        {
+          "text": "Complete.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "Recurring.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "TypesList.js",
+          "path": "../src/Views/Activity"
         },
         {
           "text": "List.js",
@@ -303,6 +328,14 @@
           "path": "../src/Fields"
         },
         {
+          "text": "NoteField.js",
+          "path": "../src/Fields"
+        },
+        {
+          "text": "RecurrencesField.js",
+          "path": "../src/Fields"
+        },
+        {
           "text": "NameField.js",
           "path": "../src/Fields"
         },
@@ -364,6 +397,10 @@
           {
             "text": "common.js",
             "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+          },
+          {
+            "text": "_base.js",
+            "path": "../../../argos-sdk/libraries/dojo/dojox/gfx"
           },
           {
             "text": "matrix.js",
