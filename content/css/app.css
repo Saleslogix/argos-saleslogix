@@ -368,6 +368,28 @@
     font-size: 0.75em;
 }
 
+.metric-list
+{
+    list-style-type: none;
+}
+
+.metric-list,
+.metric-widget,
+.metric-detail
+{
+    display: inline;
+}
+
+/*.metric-detail
+{
+    padding: 3px;
+}
+
+.metric-widget
+{
+    padding: 3px;
+}*/
+
 li[data-activity-type] .list-item-selector,
 li[data-opportunity-status] .list-item-selector,
 li[data-ticket-status] .list-item-selector,

@@ -1,4 +1,4 @@
-define('Mobile/SalesLogix/Format', [
+﻿define('Mobile/SalesLogix/Format', [
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',

@@ -1,19 +1,34 @@
 define('Mobile/SalesLogix/Views/Opportunity/List', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Views/MetricWidget',
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
     string,
+    array,
     action,
     format,
+    MetricWidget,
     List
 ) {
 
     return declare('Mobile.SalesLogix.Views.Opportunity.List', [List], {
         //Templates
+        widgetTemplate: new Simplate([
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+            '<div data-dojo-attach-point="searchNode"></div>',
+            '<ul data-dojo-attach-point="metricNode" class="metric-list"></ul>',
+            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
+            '{%! $.emptySelectionTemplate %}',
+            '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
+            '{%! $.moreTemplate %}',
+            '{%! $.listActionTemplate %}',
+            '</div>'
+        ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
                 '<button data-action="selectEntry" class="list-item-selector button">',
@@ -83,6 +98,48 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         allowSelection: true,
         enableActions: true,
 
+        // Metrics
+        metricNode: null,
+        metricWidgets: null,
+        entityName: 'opporuntity',
+
+        postCreate: function() {
+            this.inherited(arguments);
+            // Create metrics widget
+            // TODO: Add data-actions or a navigate to view id
+            this.metricWidgets = [];
+            this.metricWidgets.push(new MetricWidget({
+                resourceKind: this.resourceKind,
+                title: 'Sales Potential',
+                queryName: 'executeMetric',
+                queryArgs: {
+                    '_filterName': 'Stage',
+                    '_metricName': 'SumSalesPotential'
+                },
+                formatter: Mobile.SalesLogix.Format.currency
+            }));
+
+            this.metricWidgets.push(new MetricWidget({
+                resourceKind: this.resourceKind,
+                title: 'Actual Amount',
+                queryName: 'executeMetric',
+                queryArgs: {
+                    '_filterName': 'Stage',
+                    '_metricName': 'SumActualAmount'
+                },
+                formatter: Mobile.SalesLogix.Format.currency
+            }));
+
+            array.forEach(this.metricWidgets, function(metricWidget) {
+                metricWidget.placeAt(this.metricNode, 'last');
+            }, this);
+        },
+        onShow: function() {
+            this.inherited(arguments);
+            array.forEach(this.metricWidgets, function(metricWidget) {
+                metricWidget.requestData();
+            }, this);
+        },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                     id: 'edit',
