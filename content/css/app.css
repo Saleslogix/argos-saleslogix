@@ -368,6 +368,12 @@
     font-size: 0.75em;
 }
 
+.list-content
+{
+    /* TODO: create a wrapper for the metric widget and place this there. */
+    border-top: solid 1px #DDD;
+}
+
 .metric-list
 {
     list-style-type: none;

@@ -23,6 +23,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Charts/SalesPotential', [
         id: 'chart_opportunity_salesotential',
         titleText: 'Sales Potential',
         expose: false,
+        loaded: false,
 
         formatter: function(val) {
             return val;
@@ -38,6 +39,10 @@ define('Mobile/SalesLogix/Views/Opportunity/Charts/SalesPotential', [
             '</div>'
         ]),
         createChart: function (feedData) {
+            if (this.loaded) {
+                return;
+            }
+
             var chart, data, labels;
 
             labels = this._labels(feedData);
@@ -56,6 +61,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Charts/SalesPotential', [
             chart.addSeries('Sales Potential', labels);
             chart.render();
             this.createLegend(chart);
+            this.loaded = true;
         },
         createLegend: function(chart) {
             return new Legend({chart: chart}, this.legendNode);

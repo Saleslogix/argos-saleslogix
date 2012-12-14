@@ -112,11 +112,12 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             this.metricWidgets = [];
             this.metricWidgets.push(new MetricWidget({
                 resourceKind: this.resourceKind,
-                title: 'Sales Potential',
+                title: 'Open Sales Potential',
                 queryName: 'executeMetric',
                 queryArgs: {
-                    '_filterName': 'Status',
-                    '_metricName': 'SumSalesPotential'
+                    '_filterName': 'Stage',
+                    '_metricName': 'SumSalesPotential',
+                    '_activeFilter': 'Closed eq false'
                 },
                 formatter: Mobile.SalesLogix.Format.bigNumber, 
                 reportViewId: 'chart_opportunity_salesotential'
@@ -127,8 +128,21 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                 title: 'Actual Amount',
                 queryName: 'executeMetric',
                 queryArgs: {
-                    '_filterName': 'Probability',
+                    '_filterName': 'Stage',
                     '_metricName': 'SumActualAmount'
+                },
+                formatter: Mobile.SalesLogix.Format.bigNumber, 
+                reportViewId: 'chart_opportunity_actualamount'
+            }));
+
+            this.metricWidgets.push(new MetricWidget({
+                resourceKind: this.resourceKind,
+                title: 'Open Opportunities',
+                queryName: 'executeMetric',
+                queryArgs: {
+                    '_filterName': 'AccountManager',
+                    '_metricName': 'CountOpportunities',
+                    '_activeFilter': 'Closed ne true'
                 },
                 formatter: Mobile.SalesLogix.Format.bigNumber, 
                 reportViewId: 'chart_opportunity_actualamount'

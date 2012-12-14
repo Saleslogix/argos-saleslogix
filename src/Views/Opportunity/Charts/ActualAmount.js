@@ -23,6 +23,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Charts/ActualAmount', [
         id: 'chart_opportunity_actualamount',
         titleText: 'Actual Amount',
         expose: false,
+        loaded: false,
 
         formatter: function(val) {
             return val;
@@ -38,6 +39,10 @@ define('Mobile/SalesLogix/Views/Opportunity/Charts/ActualAmount', [
             '</div>'
         ]),
         createChart: function (feedData) {
+            if (this.loaded) {
+                return;
+            }
+
             var chart, data, labels;
 
             labels = this._labels(feedData);
@@ -56,6 +61,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Charts/ActualAmount', [
             chart.addSeries('Actual Amount', labels);
             chart.render();
             //this.createLegend(chart);
+            this.loaded = true;
         },
         createLegend: function(chart) {
             return new Legend({chart: chart}, this.legendNode);
