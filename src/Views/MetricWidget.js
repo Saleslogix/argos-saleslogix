@@ -4,6 +4,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
     'dojo/_base/array',
     'dojo/_base/Deferred',
     'dojo/dom-construct',
+    'dojo/aspect',
     'dijit/_Widget',
     'Sage/Platform/Mobile/_Templated',
     'Mobile/SalesLogix/Store/SData'
@@ -13,6 +14,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
     array,
     Deferred,
     domConstruct,
+    aspect,
     _Widget,
     _Templated,
     SDataStore
@@ -24,7 +26,10 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
          */
         widgetTemplate: new Simplate([
             '<li class="metric-widget">',
-                '<div data-dojo-attach-point="metricDetailNode"></div>',
+                '<button data-dojo-attach-event="onclick:navToReportView">',
+                    '<div data-dojo-attach-point="metricDetailNode" class="metric-detail">',
+                    '</div>',
+                '</button>',
             '</li>'
         ]),
 
@@ -33,14 +38,8 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
          * HTML markup for the metric detail (name/value) 
          */
         itemTemplate: new Simplate([
-            '<div class="metric-detail">',
-                //'<div>{%: $$.queryArgs._filterName %}: {%: $.$descriptor %}</div>',
-                //'<div>{%: $$.queryArgs._metricName %}: <strong>{%: $$.formatter($.value) %}</strong></div>',
-                '<button>',
-                '<div>{%: $$.title %}</div>',
-                '<div>{%: $$.formatter($.value) %}</div>',
-                '</button>',
-            '</div>'
+            '<div class="metric-title">{%: $$.title %}</div>',
+            '<div class="metric-value">{%: $$.formatter($.value) %}</div>'
         ]),
 
         title: '',
@@ -65,6 +64,8 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         _dataDeferred: null,
 
         metricDetailNode: null,
+        reportViewId: null,
+
         formatter: function(val) {
             return val;
         },
@@ -81,6 +82,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             this._getData();
 
             this._dataDeferred.then(lang.hitch(this, function(data) {
+                // TODO: Allow this transform to be overridable
                 var total = 0;
                 array.forEach(data, function(item) {
                     total = total + item.value;
@@ -90,6 +92,18 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             }), function(err) {
                 console.error(err);
             });
+        },
+        navToReportView: function() {
+            var view = App.getView(this.reportViewId);
+
+            if (view) {
+                aspect.after(view, 'show', lang.hitch(this, function() {
+                    view.formatter = this.formatter;
+                    view.createChart(this._data);
+                }));
+
+                view.show({ returnTo: -1 });
+            }
         },
         _getData: function() {
             var store, queryOptions, queryResults;

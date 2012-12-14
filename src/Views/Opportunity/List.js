@@ -4,6 +4,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Format',
     'Mobile/SalesLogix/Views/MetricWidget',
     'Sage/Platform/Mobile/List'
 ], function(
@@ -12,6 +13,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     array,
     action,
     format,
+    platformFormat,
     MetricWidget,
     List
 ) {
@@ -113,10 +115,11 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                 title: 'Sales Potential',
                 queryName: 'executeMetric',
                 queryArgs: {
-                    '_filterName': 'Stage',
+                    '_filterName': 'Status',
                     '_metricName': 'SumSalesPotential'
                 },
-                formatter: Mobile.SalesLogix.Format.currency
+                formatter: Mobile.SalesLogix.Format.bigNumber, 
+                reportViewId: 'chart_opportunity_salesotential'
             }));
 
             this.metricWidgets.push(new MetricWidget({
@@ -124,10 +127,11 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                 title: 'Actual Amount',
                 queryName: 'executeMetric',
                 queryArgs: {
-                    '_filterName': 'Stage',
+                    '_filterName': 'Probability',
                     '_metricName': 'SumActualAmount'
                 },
-                formatter: Mobile.SalesLogix.Format.currency
+                formatter: Mobile.SalesLogix.Format.bigNumber, 
+                reportViewId: 'chart_opportunity_actualamount'
             }));
 
             array.forEach(this.metricWidgets, function(metricWidget) {

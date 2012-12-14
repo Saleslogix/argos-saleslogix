@@ -53,6 +53,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Opportunity/List',
     'Mobile/SalesLogix/Views/Opportunity/Detail',
     'Mobile/SalesLogix/Views/Opportunity/Edit',
+    'Mobile/SalesLogix/Views/Opportunity/Charts/SalesPotential',
+    'Mobile/SalesLogix/Views/Opportunity/Charts/ActualAmount',
     'Mobile/SalesLogix/Views/OpportunityContact/List',
     'Mobile/SalesLogix/Views/OpportunityContact/Detail',
     'Mobile/SalesLogix/Views/OpportunityContact/Edit',
@@ -135,6 +137,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     OpportunityList,
     OpportunityDetail,
     OpportunityEdit,
+    OpportunityChartSalesPotential,
+    OpportunityChartActualAmount,
     OpportunityContactList,
     OpportunityContactDetail,
     OpportunityContactEdit,
@@ -235,6 +239,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'opportunity_related',
                 expose: false
             }));
+
+            // Opportunity Charts
+            this.registerView(new OpportunityChartSalesPotential({ expose: false }));
+            this.registerView(new OpportunityChartActualAmount({ expose: false }));
 
             this.registerView(new OpportunityContactEdit());
             this.registerView(new OpportunityContactList());
