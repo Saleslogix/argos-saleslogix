@@ -7,7 +7,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
     'dojo/aspect',
     'dijit/_Widget',
     'Sage/Platform/Mobile/_Templated',
-    'Mobile/SalesLogix/Store/SData'
+    'Sage/Platform/Mobile/Store/SData'
 ], function(
     declare,
     lang,
@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         /**
          * @property {Simplate}
          * Simple that defines the HTML Markup
-         */
+        */
         widgetTemplate: new Simplate([
             '<li class="metric-widget">',
                 '<button data-dojo-attach-event="onclick:navToReportView">',
@@ -36,13 +36,13 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         /**
          * @property {Simplate}
          * HTML markup for the metric detail (name/value) 
-         */
+        */
         itemTemplate: new Simplate([
-            '<div class="metric-title">{%: $$.title %}</div>',
+            '<div class="metric-title">{%: $$.metricTitleText %}</div>',
             '<div class="metric-value">{%: $$.formatter($.value) %}</div>'
         ]),
 
-        title: '',
+        metricTitleText: '',
 
         // Store Options
         querySelect: null, 
@@ -66,8 +66,27 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         metricDetailNode: null,
         reportViewId: null,
 
+        /**
+         * Formats the value shown in the metric widget button.
+         * @param {int} val Value to format
+         * @return {String} Return formatted value
+        */
         formatter: function(val) {
             return val;
+        },
+
+        /**
+         * Calculates the value shown in the metric widget button.
+         * @param {Array} data Array of data used for the metric
+         * @return {int} Returns a value calculated from data (SUM/AVG/MAX/MIN/Whatever)
+        */
+        valueFn: function(data) {
+            var total = 0;
+            array.forEach(data, function(item) {
+                total = total + item.value;
+            }, this);
+
+            return total;
         },
 
         requestData: function() {
@@ -82,13 +101,8 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             this._getData();
 
             this._dataDeferred.then(lang.hitch(this, function(data) {
-                // TODO: Allow this transform to be overridable
-                var total = 0;
-                array.forEach(data, function(item) {
-                    total = total + item.value;
-                }, this);
-
-                domConstruct.place(this.itemTemplate.apply({value: total}, this), this.metricDetailNode, 'replace');
+                var value = this.valueFn.call(this, data);
+                domConstruct.place(this.itemTemplate.apply({value: value}, this), this.metricDetailNode, 'replace');
             }), function(err) {
                 console.error(err);
             });
@@ -98,6 +112,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
             if (view) {
                 aspect.after(view, 'show', lang.hitch(this, function() {
+                    view.titleText = this.metricTitleText;
                     view.formatter = this.formatter;
                     view.createChart(this._data);
                 }));
@@ -151,20 +166,9 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                 queryArgs: this.queryArgs,
                 orderBy: this.queryOrderBy,
                 idProperty: this.keyProperty,
+                applicationName: this.applicationName,
                 scope: this
             });
-
-            if (this.applicationName) {
-                // TODO: SDK should allow setting of applicationName 
-                aspect.around(store, '_createFeedRequest', lang.hitch(this, function(orig) {
-                    var appName = this.applicationName;
-                    return function(query, queryOptions) {
-                        var request = orig.call(store, query, queryOptions);
-                        request.setApplicationName(appName);
-                        return request;
-                    };
-                }));
-            }
 
             return store;
         },

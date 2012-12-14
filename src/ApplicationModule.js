@@ -36,6 +36,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Calendar/DayView',
     'Mobile/SalesLogix/Views/Calendar/WeekView',
     'Mobile/SalesLogix/Views/Calendar/MonthView',
+
+    'Mobile/SalesLogix/Views/Charts/GenericBar',
+    'Mobile/SalesLogix/Views/Charts/GenericPie',
+
     'Mobile/SalesLogix/Views/Competitor/List',
     'Mobile/SalesLogix/Views/Contact/List',
     'Mobile/SalesLogix/Views/Contact/Detail',
@@ -53,8 +57,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Opportunity/List',
     'Mobile/SalesLogix/Views/Opportunity/Detail',
     'Mobile/SalesLogix/Views/Opportunity/Edit',
-    'Mobile/SalesLogix/Views/Opportunity/Charts/SalesPotential',
-    'Mobile/SalesLogix/Views/Opportunity/Charts/ActualAmount',
     'Mobile/SalesLogix/Views/OpportunityContact/List',
     'Mobile/SalesLogix/Views/OpportunityContact/Detail',
     'Mobile/SalesLogix/Views/OpportunityContact/Edit',
@@ -120,6 +122,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     CalendarDayView,
     CalendarWeekView,
     CalendarMonthView,
+    GenericBar,
+    GenericPie,
     CompetitorList,
     ContactList,
     ContactDetail,
@@ -137,8 +141,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     OpportunityList,
     OpportunityDetail,
     OpportunityEdit,
-    OpportunityChartSalesPotential,
-    OpportunityChartActualAmount,
     OpportunityContactList,
     OpportunityContactDetail,
     OpportunityContactEdit,
@@ -202,6 +204,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new CalendarWeekView());
             this.registerView(new CalendarDayView());
 
+            // Charts
+            this.registerView(new GenericBar({ expose: false }));
+            this.registerView(new GenericPie({ expose: false }));
+
             this.registerView(new CompetitorList({
                 id: 'competitor_related',
                 expose: false
@@ -239,10 +245,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'opportunity_related',
                 expose: false
             }));
-
-            // Opportunity Charts
-            this.registerView(new OpportunityChartSalesPotential({ expose: false }));
-            this.registerView(new OpportunityChartActualAmount({ expose: false }));
 
             this.registerView(new OpportunityContactEdit());
             this.registerView(new OpportunityContactList());

@@ -228,17 +228,15 @@ define('Mobile/SalesLogix/Format', [
                 var numParse = dojoNumber.parse(val);
 
                 if (numParse && numParse >= 1000000) {
-                    numParse = Math.round(numParse / 1000000);
-                    return dojoNumber.format(numParse, { places: 0 }) + 'M';
+                    numParse = numParse / 1000000;
+                    return dojoNumber.format(numParse, { places: 1 }) + 'M';
                 } else if (numParse && numParse >= 1000) {
-                    numParse = Math.round(numParse / 1000);
-                    return dojoNumber.format(numParse, { places: 0 }) + 'K';
+                    numParse = numParse / 1000;
+                    return dojoNumber.format(numParse, { places: 1 }) + 'K';
                 }
+            } catch(ex) {}
 
-                return val;
-            } catch(ex) {
-                return val;
-            }
+            return val;
         },
         nameLF: function(val) {
             if (!val) return '';

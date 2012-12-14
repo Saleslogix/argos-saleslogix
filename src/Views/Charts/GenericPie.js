@@ -1,4 +1,4 @@
-define('Mobile/SalesLogix/Views/Opportunity/Charts/SalesPotential', [
+define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
@@ -19,11 +19,12 @@ define('Mobile/SalesLogix/Views/Opportunity/Charts/SalesPotential', [
     JulieTheme,
     View
 ) {
-    return declare('Mobile.SalesLogix.Views.Opportunity.Charts.SalesPotential', [View], {
-        id: 'chart_opportunity_salesotential',
-        titleText: 'Sales Potential',
+    return declare('Mobile.SalesLogix.Views.Charts.GenericPie', [View], {
+        id: 'chart_generic_pie',
+        titleText: '',
         expose: false,
-        loaded: false,
+        chart: null,
+        legend: null,
 
         formatter: function(val) {
             return val;
@@ -32,6 +33,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Charts/SalesPotential', [
         attributeMap: {
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
+
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
                 '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
@@ -39,32 +41,33 @@ define('Mobile/SalesLogix/Views/Opportunity/Charts/SalesPotential', [
             '</div>'
         ]),
         createChart: function (feedData) {
-            if (this.loaded) {
-                return;
+            if (this.chart) {
+                this.chart.destroy(true);
             }
 
-            var chart, data, labels;
+            var labels;
 
             labels = this._labels(feedData);
 
-            chart = new Chart(this.contentNode);
-            chart.setTheme(JulieTheme);
-            chart.addPlot('default', {
+            this.chart = new Chart(this.contentNode);
+            this.chart.setTheme(JulieTheme);
+            this.chart.addPlot('default', {
                 type: PlotType,
                 radius: 75,
-                //fontColor: 'black',
-                labelOffset: -100,
-                labelStyle: 'columns',
-                labelWiring: 'ccc'
+                fontColor: 'black',
+                labelOffset: -60
             });
 
-            chart.addSeries('Sales Potential', labels);
-            chart.render();
-            this.createLegend(chart);
-            this.loaded = true;
+            this.chart.addSeries('default', labels);
+            this.chart.render();
+            //this.createLegend();
         },
-        createLegend: function(chart) {
-            return new Legend({chart: chart}, this.legendNode);
+        createLegend: function() {
+            if (this.legend) {
+                this.legend.destroy(true);
+            }
+
+            this.legend = new Legend({chart: this.chart}, this.legendNode);
         },
         _labels: function(feedData) {
             var data = [];

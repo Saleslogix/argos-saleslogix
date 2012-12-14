@@ -101,18 +101,18 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         enableActions: true,
 
         // Metrics
+        // TODO: Make this a metric list view mixin
         metricNode: null,
         metricWidgets: null,
         entityName: 'opporuntity',
 
         postCreate: function() {
             this.inherited(arguments);
-            // Create metrics widget
-            // TODO: Add data-actions or a navigate to view id
+            // Create metrics widgets
             this.metricWidgets = [];
             this.metricWidgets.push(new MetricWidget({
                 resourceKind: this.resourceKind,
-                title: 'Open Sales Potential',
+                metricTitleText: 'Open Sales Potential',
                 queryName: 'executeMetric',
                 queryArgs: {
                     '_filterName': 'Stage',
@@ -120,24 +120,24 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                     '_activeFilter': 'Closed eq false'
                 },
                 formatter: Mobile.SalesLogix.Format.bigNumber, 
-                reportViewId: 'chart_opportunity_salesotential'
+                reportViewId: 'chart_generic_pie'
             }));
 
             this.metricWidgets.push(new MetricWidget({
                 resourceKind: this.resourceKind,
-                title: 'Actual Amount',
+                metricTitleText: 'Actual Amount',
                 queryName: 'executeMetric',
                 queryArgs: {
-                    '_filterName': 'Stage',
+                    '_filterName': 'AccountManager',
                     '_metricName': 'SumActualAmount'
                 },
                 formatter: Mobile.SalesLogix.Format.bigNumber, 
-                reportViewId: 'chart_opportunity_actualamount'
+                reportViewId: 'chart_generic_bar'
             }));
 
             this.metricWidgets.push(new MetricWidget({
                 resourceKind: this.resourceKind,
-                title: 'Open Opportunities',
+                metricTitleText: 'Open Opportunities',
                 queryName: 'executeMetric',
                 queryArgs: {
                     '_filterName': 'AccountManager',
@@ -145,7 +145,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                     '_activeFilter': 'Closed ne true'
                 },
                 formatter: Mobile.SalesLogix.Format.bigNumber, 
-                reportViewId: 'chart_opportunity_actualamount'
+                reportViewId: 'chart_generic_bar'
             }));
 
             array.forEach(this.metricWidgets, function(metricWidget) {
