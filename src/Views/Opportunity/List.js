@@ -5,7 +5,6 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Format',
-    'Mobile/SalesLogix/Views/MetricWidget',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin'
 ], function(
@@ -15,7 +14,6 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     action,
     format,
     platformFormat,
-    MetricWidget,
     List,
     _MetricListMixin
 ) {
@@ -102,8 +100,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         enableActions: true,
 
         createMetricWidgetsLayout: function() {
-            return this.metricWidgets || (this.metricWidgets = [
-                new MetricWidget({
+            return [
+                {
                     resourceKind: this.resourceKind,
                     metricTitleText: 'Open Sales Potential',
                     queryName: 'executeMetric',
@@ -114,8 +112,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                     },
                     formatter: Mobile.SalesLogix.Format.bigNumber, 
                     reportViewId: 'chart_generic_pie'
-                }),
-                new MetricWidget({
+                },{
                     resourceKind: this.resourceKind,
                     metricTitleText: 'Actual Amount',
                     queryName: 'executeMetric',
@@ -125,8 +122,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                     },
                     formatter: Mobile.SalesLogix.Format.bigNumber, 
                     reportViewId: 'chart_generic_bar'
-                }),
-                new MetricWidget({
+                },{
                     resourceKind: this.resourceKind,
                     metricTitleText: 'Open Opportunities',
                     queryName: 'executeMetric',
@@ -137,7 +133,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                     },
                     formatter: Mobile.SalesLogix.Format.bigNumber, 
                     reportViewId: 'chart_generic_bar'
-                })]);
+                }
+            ];
         },
         createActionLayout: function() {
             return this.actions || (this.actions = [{

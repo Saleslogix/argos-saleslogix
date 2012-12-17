@@ -1,11 +1,12 @@
 define('Mobile/SalesLogix/Views/_MetricListMixin', [
     'dojo/_base/declare',
-    'dojo/_base/array'
+    'dojo/_base/array',
+    './MetricWidget'
 ], function(
     declare,
-    array
+    array,
+    MetricWidget
 ) {
-
     return declare('Mobile.SalesLogix.Views._MetricListMixin', null, {
         // Metrics
         metricNode: null,
@@ -28,10 +29,16 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         },
         postCreate: function() {
             this.inherited(arguments);
-            // Create metrics widgets
-            this.metricWidgets = this.metricWidgets || this.createMetricWidgetsLayout();
-            array.forEach(this.metricWidgets, function(metricWidget) {
-                metricWidget.placeAt(this.metricNode, 'last');
+
+            var widgetOptions;
+            this.metricWidgets = [];
+
+            // Create metrics widgets and place them in the metricNode
+            widgetOptions = this.createMetricWidgetsLayout() || [];
+            array.forEach(widgetOptions, function(options) {
+                var widget = new MetricWidget(options);
+                widget.placeAt(this.metricNode, 'last');
+                this.metricWidgets.push(widget);
             }, this);
         },
         onShow: function() {
