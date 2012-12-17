@@ -6,7 +6,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Format',
     'Mobile/SalesLogix/Views/MetricWidget',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_MetricListMixin'
 ], function(
     declare,
     string,
@@ -15,15 +16,15 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     format,
     platformFormat,
     MetricWidget,
-    List
+    List,
+    _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _MetricListMixin], {
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
             '<div data-dojo-attach-point="searchNode"></div>',
-            '<ul data-dojo-attach-point="metricNode" class="metric-list"></ul>',
             '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
             '{%! $.emptySelectionTemplate %}',
             '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
@@ -77,7 +78,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         insertView: 'opportunity_edit',
         hashTagQueries: {
             'open': 'Closed eq false',
-            'closed': 'Closed eq true',
+            
             'won': 'Status eq "Closed - Won"',
             'lost': 'Status eq "Closed - Lost"'
         },
@@ -100,63 +101,43 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         allowSelection: true,
         enableActions: true,
 
-        // Metrics
-        // TODO: Make this a metric list view mixin
-        metricNode: null,
-        metricWidgets: null,
-        entityName: 'opporuntity',
-
-        postCreate: function() {
-            this.inherited(arguments);
-            // Create metrics widgets
-            this.metricWidgets = [];
-            this.metricWidgets.push(new MetricWidget({
-                resourceKind: this.resourceKind,
-                metricTitleText: 'Open Sales Potential',
-                queryName: 'executeMetric',
-                queryArgs: {
-                    '_filterName': 'Stage',
-                    '_metricName': 'SumSalesPotential',
-                    '_activeFilter': 'Closed eq false'
-                },
-                formatter: Mobile.SalesLogix.Format.bigNumber, 
-                reportViewId: 'chart_generic_pie'
-            }));
-
-            this.metricWidgets.push(new MetricWidget({
-                resourceKind: this.resourceKind,
-                metricTitleText: 'Actual Amount',
-                queryName: 'executeMetric',
-                queryArgs: {
-                    '_filterName': 'AccountManager',
-                    '_metricName': 'SumActualAmount'
-                },
-                formatter: Mobile.SalesLogix.Format.bigNumber, 
-                reportViewId: 'chart_generic_bar'
-            }));
-
-            this.metricWidgets.push(new MetricWidget({
-                resourceKind: this.resourceKind,
-                metricTitleText: 'Open Opportunities',
-                queryName: 'executeMetric',
-                queryArgs: {
-                    '_filterName': 'AccountManager',
-                    '_metricName': 'CountOpportunities',
-                    '_activeFilter': 'Closed ne true'
-                },
-                formatter: Mobile.SalesLogix.Format.bigNumber, 
-                reportViewId: 'chart_generic_bar'
-            }));
-
-            array.forEach(this.metricWidgets, function(metricWidget) {
-                metricWidget.placeAt(this.metricNode, 'last');
-            }, this);
-        },
-        onShow: function() {
-            this.inherited(arguments);
-            array.forEach(this.metricWidgets, function(metricWidget) {
-                metricWidget.requestData();
-            }, this);
+        createMetricWidgetsLayout: function() {
+            return this.metricWidgets || (this.metricWidgets = [
+                new MetricWidget({
+                    resourceKind: this.resourceKind,
+                    metricTitleText: 'Open Sales Potential',
+                    queryName: 'executeMetric',
+                    queryArgs: {
+                        '_filterName': 'Stage',
+                        '_metricName': 'SumSalesPotential',
+                        '_activeFilter': 'Closed eq false'
+                    },
+                    formatter: Mobile.SalesLogix.Format.bigNumber, 
+                    reportViewId: 'chart_generic_pie'
+                }),
+                new MetricWidget({
+                    resourceKind: this.resourceKind,
+                    metricTitleText: 'Actual Amount',
+                    queryName: 'executeMetric',
+                    queryArgs: {
+                        '_filterName': 'AccountManager',
+                        '_metricName': 'SumActualAmount'
+                    },
+                    formatter: Mobile.SalesLogix.Format.bigNumber, 
+                    reportViewId: 'chart_generic_bar'
+                }),
+                new MetricWidget({
+                    resourceKind: this.resourceKind,
+                    metricTitleText: 'Open Opportunities',
+                    queryName: 'executeMetric',
+                    queryArgs: {
+                        '_filterName': 'AccountManager',
+                        '_metricName': 'CountOpportunities',
+                        '_activeFilter': 'Closed ne true'
+                    },
+                    formatter: Mobile.SalesLogix.Format.bigNumber, 
+                    reportViewId: 'chart_generic_bar'
+                })]);
         },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
