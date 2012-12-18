@@ -100,7 +100,10 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         enableActions: true,
 
         createMetricWidgetsLayout: function() {
-            return [
+            return App.preferences && App.preferences.metrics[this.resourceKind];
+
+            // TODO: Load default set here and save it to prefs?
+            /*return [
                 {
                     resourceKind: this.resourceKind,
                     metricTitleText: 'Open Sales Potential',
@@ -110,7 +113,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                         '_metricName': 'SumSalesPotential',
                         '_activeFilter': 'Closed eq false'
                     },
-                    formatter: Mobile.SalesLogix.Format.bigNumber, 
+                    formatType: 'Mobile/SalesLogix/Format',
+                    formatFunc: 'bigNumber',
                     reportViewId: 'chart_generic_pie'
                 },{
                     resourceKind: this.resourceKind,
@@ -120,7 +124,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                         '_filterName': 'AccountManager',
                         '_metricName': 'SumActualAmount'
                     },
-                    formatter: Mobile.SalesLogix.Format.bigNumber, 
+                    formatType: 'Mobile/SalesLogix/Format',
+                    formatFunc: 'bigNumber',
                     reportViewId: 'chart_generic_bar'
                 },{
                     resourceKind: this.resourceKind,
@@ -131,10 +136,11 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                         '_metricName': 'CountOpportunities',
                         '_activeFilter': 'Closed ne true'
                     },
-                    formatter: Mobile.SalesLogix.Format.bigNumber, 
+                    formatType: 'Mobile/SalesLogix/Format',
+                    formatFunc: 'bigNumber',
                     reportViewId: 'chart_generic_bar'
                 }
-            ];
+            ];*/
         },
         createActionLayout: function() {
             return this.actions || (this.actions = [{

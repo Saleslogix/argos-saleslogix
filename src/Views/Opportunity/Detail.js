@@ -1,12 +1,10 @@
 define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     'dojo/_base/declare',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
     string,
-    format,
     Detail
 ) {
 

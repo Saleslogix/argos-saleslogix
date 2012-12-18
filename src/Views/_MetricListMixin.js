@@ -1,16 +1,21 @@
 define('Mobile/SalesLogix/Views/_MetricListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
+    'dojo/_base/lang',
+    'dojo/aspect',
     './MetricWidget'
 ], function(
     declare,
     array,
+    lang,
+    aspect,
     MetricWidget
 ) {
     return declare('Mobile.SalesLogix.Views._MetricListMixin', null, {
         // Metrics
         metricNode: null,
         metricWidgets: null,
+        configurationView: 'metric_configure',
 
         postMixInProperties: function() {
             this.widgetTemplate =  new Simplate([
@@ -27,12 +32,29 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         },
         createMetricWidgetsLayout: function() {
         },
+        createToolLayout: function() {
+            return this.tools || (this.tools = {
+                tbar: [{
+                    id: 'configure',
+                    action: 'navigateToConfigurationView'
+                }]
+            });
+        },
+        navigateToConfigurationView: function() {
+            var view = App.getView(this.configurationView);
+            if (view) {
+                view.resourceKind = this.resourceKind;
+                view.show({ returnTo: -1 });
+            }
+        },
         postCreate: function() {
             this.inherited(arguments);
-
-            var widgetOptions;
+        },
+        onShow: function() {
+            this.inherited(arguments);
             this.metricWidgets = [];
 
+            var widgetOptions;
             // Create metrics widgets and place them in the metricNode
             widgetOptions = this.createMetricWidgetsLayout() || [];
             array.forEach(widgetOptions, function(options) {
@@ -40,9 +62,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                 widget.placeAt(this.metricNode, 'last');
                 this.metricWidgets.push(widget);
             }, this);
-        },
-        onShow: function() {
-            this.inherited(arguments);
+
             array.forEach(this.metricWidgets, function(metricWidget) {
                 metricWidget.requestData();
             }, this);

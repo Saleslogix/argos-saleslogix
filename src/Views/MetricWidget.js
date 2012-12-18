@@ -65,6 +65,11 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
         metricDetailNode: null,
         reportViewId: null,
+        chartType: null,
+        chartTypeMapping: {
+            'pie': 'chart_generic_pie',
+            'bar': 'chart_generic_bar'
+        },
 
         /**
          * Formats the value shown in the metric widget button.
@@ -73,6 +78,25 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         */
         formatter: function(val) {
             return val;
+        },
+
+        // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
+        formatType: 'Mobile/SalesLogix/Format',// AMD Module
+        formatFunc: 'bigNumber',// Function of formatType module 
+
+        _loadFormatter: function() {
+            // Attempt to load the formatType AMD module and return its formatFun 
+            var def = new Deferred();
+            try {
+                require([this.formatType], lang.hitch(this, function(f) {
+                    // TODO: Handle cases where f is ctor?
+                    def.resolve(f[this.formatFunc]);
+                }));
+            } catch (err) {
+                def.reject(err);
+            }
+
+            return def.promise;
         },
 
         /**
@@ -88,7 +112,6 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
             return total;
         },
-
         requestData: function() {
             this.inherited(arguments);
             if (this._data && this._data.length > 0) {
@@ -100,15 +123,28 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             this._dataDeferred = new Deferred();
             this._getData();
 
-            this._dataDeferred.then(lang.hitch(this, function(data) {
+            var loadFormatter = this._loadFormatter();// deferred for loading in our formatter
+
+            // Chained deferreds
+            // Load the format function via require -> then load the data
+            loadFormatter.then(lang.hitch(this, function(fn) {
+                // Formatter deferred.then
+                if (typeof fn === 'function') {
+                    this.formatter = fn;
+                }
+
+                // Return the data deferred for the next part of the chain
+                return this._dataDeferred;
+
+            })).then(lang.hitch(this, function(data) {
+                // Data deferred.then
                 var value = this.valueFn.call(this, data);
                 domConstruct.place(this.itemTemplate.apply({value: value}, this), this.metricDetailNode, 'replace');
-            }), function(err) {
-                console.error(err);
-            });
+
+            }));
         },
         navToReportView: function() {
-            var view = App.getView(this.reportViewId);
+            var view = App.getView(this.chartTypeMapping[this.chartType] || this.reportViewId);
 
             if (view) {
                 aspect.after(view, 'show', lang.hitch(this, function() {
