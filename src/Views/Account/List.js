@@ -3,16 +3,18 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_MetricListMixin'
 ], function(
     declare,
     array,
     string,
     action,
-    List
+    List,
+    _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List, _MetricListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',

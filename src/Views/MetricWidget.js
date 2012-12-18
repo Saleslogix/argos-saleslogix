@@ -85,18 +85,14 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         formatFunc: 'bigNumber',// Function of formatType module 
 
         _loadFormatter: function() {
-            // Attempt to load the formatType AMD module and return its formatFun 
-            var def = new Deferred();
-            try {
-                require([this.formatType], lang.hitch(this, function(f) {
-                    // TODO: Handle cases where f is ctor?
-                    def.resolve(f[this.formatFunc]);
-                }));
-            } catch (err) {
-                def.reject(err);
+            if (this.formatType && this.formatFunc) {
+                return this._loadModuleFunction(this.formatType, this.formatFunc);
             }
 
-            return def.promise;
+            // Return the default fn if valueType and valueFunc were not assigned
+            var d = new Deferred();
+            d.resolve(this.formatter);
+            return d;
         },
 
         /**
@@ -112,6 +108,41 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
             return total;
         },
+
+        // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
+        valueType: null,//'Mobile/SalesLogix/Views/MetricWidget',
+        valueFunc: null,//'valueFn',
+
+        _loadValueFn: function() {
+            if (this.valueType && this.valueFunc) {
+                return this._loadModuleFunction(this.valueType, this.valueFunc);
+            }
+
+            // Return the default fn if valueType and valueFunc were not assigned
+            var d = new Deferred();
+            d.resolve(this.valueFn);
+            return d;
+        },
+        _loadModuleFunction: function(module, fn) {
+            // Attempt to load the function fn from the AMD module 
+            var def = new Deferred();
+            try {
+                require([module], lang.hitch(this, function(mod) {
+                    var instance;
+                    // Handle if required module is a ctor else object
+                    if (typeof mod === 'function') {
+                        instance = new mod();
+                        def.resolve(instance[fn]);
+                    } else {
+                        def.resolve(mod[fn]);
+                    }
+                }));
+            } catch (err) {
+                def.reject(err);
+            }
+
+            return def.promise;
+        },
         requestData: function() {
             this.inherited(arguments);
             if (this._data && this._data.length > 0) {
@@ -124,10 +155,19 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             this._getData();
 
             var loadFormatter = this._loadFormatter();// deferred for loading in our formatter
+            var loadValueFn = this._loadValueFn();// deferred for loading in value function
 
             // Chained deferreds
-            // Load the format function via require -> then load the data
-            loadFormatter.then(lang.hitch(this, function(fn) {
+            // Load the value function -> format function -> then load the data
+            loadValueFn.then(lang.hitch(this, function(fn) {
+                // value fn deferred.then
+                if (typeof fn === 'function') {
+                    this.valueFn = fn;
+                }
+
+                // Return the data deferred for the next part of the chain
+                return loadFormatter;
+            })).then(lang.hitch(this, function(fn) {
                 // Formatter deferred.then
                 if (typeof fn === 'function') {
                     this.formatter = fn;

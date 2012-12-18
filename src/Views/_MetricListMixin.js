@@ -31,6 +31,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             ]);
         },
         createMetricWidgetsLayout: function() {
+            return App.preferences && App.preferences.metrics[this.resourceKind];
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
@@ -50,22 +51,41 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         postCreate: function() {
             this.inherited(arguments);
         },
+        destroyWidgets: function() {
+            array.forEach(this.metricWidgets, function(widget) {
+                widget.destroy();
+            }, this);
+        },
+        // TODO: Be smart about a refresh required (when prefs change)
         onShow: function() {
             this.inherited(arguments);
+            this._rebuildWidgets();
+        },
+        onActivate: function() {
+            this.inherited(arguments);
+            this._rebuildWidgets();
+        },
+        _rebuildWidgets: function() {
+            this.destroyWidgets();
             this.metricWidgets = [];
 
             var widgetOptions;
             // Create metrics widgets and place them in the metricNode
             widgetOptions = this.createMetricWidgetsLayout() || [];
             array.forEach(widgetOptions, function(options) {
-                var widget = new MetricWidget(options);
-                widget.placeAt(this.metricNode, 'last');
-                this.metricWidgets.push(widget);
+                if (this._hasValidOptions(options)) {
+                    var widget = new MetricWidget(options);
+                    widget.placeAt(this.metricNode, 'last');
+                    widget.requestData();
+                    this.metricWidgets.push(widget);
+                }
             }, this);
-
-            array.forEach(this.metricWidgets, function(metricWidget) {
-                metricWidget.requestData();
-            }, this);
+        },
+        _hasValidOptions: function(options) {
+            return options 
+                && options.queryArgs 
+                && options.queryArgs._filterName 
+                && options.queryArgs._metricName
         }
     });
 });

@@ -100,8 +100,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         enableActions: true,
 
         createMetricWidgetsLayout: function() {
-            return App.preferences && App.preferences.metrics[this.resourceKind];
-
+            this.inherited(arguments);
             // TODO: Load default set here and save it to prefs?
             /*return [
                 {
