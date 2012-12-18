@@ -14,10 +14,10 @@ define('Mobile/SalesLogix/Aggregate', [
             return data && data.length;
         },
         first: function(data) {
-            return data && data.length && data[0];
+            return data && data.length && data[0].value;
         },
         last: function(data) {
-            return data && data.length && data[data.length - 1];
+            return data && data.length && data[data.length - 1].value;
         },
         max: function(data) {
             var flatten = [];

@@ -181,6 +181,10 @@
           "path": "../src"
         },
         {
+          "text": "Aggregate.js",
+          "path": "../src"
+        },
+        {
           "text": "Action.js",
           "path": "../src"
         },
@@ -244,6 +248,32 @@
           "text": "TextEdit.js",
           "path": "../src/Views"
         },
+        
+        {
+          "text": "_MetricListMixin.js",
+          "path": "../src/Views"
+        },
+        
+        {
+          "text": "MetricConfigure.js",
+          "path": "../src/Views"
+        },
+        
+        {
+          "text": "MetricWidget.js",
+          "path": "../src/Views"
+        },
+        
+        {
+          "text": "GenericBar.js",
+          "path": "../src/Views/Charts"
+        },
+        
+        {
+          "text": "GenericPie.js",
+          "path": "../src/Views/Charts"
+        },
+        
         {
           "text": "List.js",
           "path": "../src/Views/Account"
