@@ -119,7 +119,14 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
                         },{
                             name: key + '-chartType',
                             label: this.chartTypeText,
-                            type: 'text'
+                            type: 'select',
+                            view: 'select_list',
+                            data: {
+                                '$resources': [
+                                    {'$key': 'bar', '$descriptor': 'bar'},
+                                    {'$key': 'pie', '$descriptor': 'pie'}
+                                ]
+                            }
                         },{
                             title: this.metricText + ' ' + (i + 1) + ' ' + this.advancedText,
                             collapsed: true,
