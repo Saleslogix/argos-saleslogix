@@ -48,6 +48,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'MainPhone'
         ],
         resourceKind: 'accounts',
+        entityName: 'Account',
         allowSelection: true,
         enableActions: true,
 

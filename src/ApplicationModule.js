@@ -17,6 +17,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Settings',
     'Mobile/SalesLogix/Views/Configure',
     'Mobile/SalesLogix/Views/MetricConfigure',
+    'Mobile/SalesLogix/Views/MetricFilterLookup',
     'Mobile/SalesLogix/Views/Help',
     'Mobile/SalesLogix/Views/NameEdit',
     'Mobile/SalesLogix/Views/PickList',
@@ -105,6 +106,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     Settings,
     Configure,
     MetricConfigure,
+    MetricFilterLookup,
     Help,
     NameEdit,
     PickList,
@@ -182,6 +184,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Settings());
             this.registerView(new Configure());
             this.registerView(new MetricConfigure());
+            this.registerView(new MetricFilterLookup());
             this.registerView(new PickList());
             this.registerView(new SelectList());
             this.registerView(new AddAccountContact());

@@ -1,9 +1,11 @@
 define('Mobile/SalesLogix/Views/MetricConfigure', [
        'dojo/_base/declare',
+       'dojo/_base/lang',
        'dojo/_base/array',
        'Sage/Platform/Mobile/Edit'
 ],function(
     declare,
+    lang,
     array,
     Edit
 ) {
@@ -13,6 +15,7 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
         expose: false,
 
         resourceKind: '',
+        entityName: '',
 
         metricTitleText: 'title',
         metricFilterText: 'filter',
@@ -41,6 +44,32 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
                 }]
             });
         },
+        init: function() {
+            this.inherited(arguments);
+
+            var i;
+
+            for (i = 0; i < this.metricsSupported; i++) {
+                this.connect(this.fields['metric' + i + '-metric'], 'onChange', lang.hitch(this, this.onMetricChange, i));
+                this.connect(this.fields['metric' + i + '-filter'], 'onChange', lang.hitch(this, this.onFilterChange, i));
+            }
+        },
+        onMetricChange: function(index, value, field) {
+            var selection = field.getSelection(),
+                key = 'metric' + index;
+
+            if (selection) {
+                this.fields[key + '-metricName'].setValue(selection.filterName);
+            }
+        },
+        onFilterChange: function(index, value, field) {
+            var selection = field.getSelection(),
+                key = 'metric' + index;
+
+            if (selection) {
+                this.fields[key + '-filterName'].setValue(selection.filterName);
+            }
+        },
         createLayout: function() {
             if (this.layout) {
                 return this.layout;
@@ -60,13 +89,33 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
                             label: this.metricTitleText,
                             type: 'text'
                         },{
-                            name: key + '-metric',
                             label: this.metricText,
-                            type: 'text'
+                            name: key + '-metric',
+                            keyProperty: 'filterName',
+                            type: 'lookup',
+                            view: 'metric_filter_lookup',
+                            resourcePredicate: lang.hitch(this, function() {
+                                return "'" + this.entityName + "'";
+                            }),
+                            where: "filterType eq 'analyticsMetric'" 
                         },{
-                            name: key + '-filter',
+                            name: key + '-filterName',
+                            property: key + '-filterName',
+                            type: 'hidden'
+                        },{
                             label: this.metricFilterText,
-                            type: 'text'
+                            name: key + '-filter',
+                            keyProperty: 'filterName',
+                            type: 'lookup',
+                            view: 'metric_filter_lookup',
+                            resourcePredicate: lang.hitch(this, function() {
+                                return "'" + this.entityName + "'";
+                            }),
+                            where: "filterType ne 'analyticsMetric'" 
+                        },{
+                            name: key + '-metricName',
+                            property: key + '-metricName',
+                            type: 'hidden'
                         },{
                             name: key + '-chartType',
                             label: this.chartTypeText,
@@ -110,20 +159,36 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
         },
         refresh: function() {
             this.inherited(arguments);
-            var metrics = App.preferences.metrics[this.resourceKind];
+            var metrics = App.preferences.metrics && App.preferences.metrics[this.resourceKind];
 
             array.forEach(metrics, function(item, i) {
-                var o = {};
-                o['metric' + i + '-title'] = item.metricTitleText;
-                o['metric' + i + '-filter'] = item.queryArgs._filterName;
-                o['metric' + i + '-metric'] = item.queryArgs._metricName;
-                o['metric' + i + '-query'] = item.queryArgs._activeFilter;
-                o['metric' + i + '-chartType'] = item.chartType;
-                o['metric' + i + '-reportViewId'] = item.reportViewId;
-                o['metric' + i + '-formatType'] = item.formatType || this.defaultFormatType;
-                o['metric' + i + '-formatFunc'] = item.formatFunc || this.defaultFormatFunc;
-                o['metric' + i + '-valueType'] = item.valueType || this.defaultValueType;
-                o['metric' + i + '-valueFunc'] = item.valueFunc || this.defaultValueFunc;
+                var o = {}, key = 'metric' + i;
+
+                o[key + '-title'] = item.metricTitleText;
+
+                // Hidden fields
+                o[key + '-filterName'] = item.queryArgs._filterName;
+                o[key + '-metricName'] = item.queryArgs._metricName;
+
+                // Display name for filter
+                o[key + '-filter'] = {
+                    filterName: item.queryArgs._filterName,
+                    $descriptor: item.filterDisplayName
+                };
+
+                // Display name for metric
+                o[key + '-metric'] = {
+                    filterName: item.queryArgs._metricName,
+                    $descriptor: item.metricDisplayName
+                };
+
+                o[key + '-query'] = item.queryArgs._activeFilter;
+                o[key + '-chartType'] = item.chartType;
+                o[key + '-reportViewId'] = item.reportViewId;
+                o[key + '-formatType'] = item.formatType || this.defaultFormatType;
+                o[key + '-formatFunc'] = item.formatFunc || this.defaultFormatFunc;
+                o[key + '-valueType'] = item.valueType || this.defaultValueType;
+                o[key + '-valueFunc'] = item.valueFunc || this.defaultValueFunc;
                 this.setValues(o, true);
             }, this);
         },
@@ -131,32 +196,42 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
             var values = this.getValues();
             App.preferences.metrics = App.preferences.metrics || {};
 
-            var i, key, items = [];
+            var i, key, items = [], filterItem, metricItem, filterHidden, metricHidden;
 
             for (i = 0; i < this.metricsSupported; i++) {
                 key = 'metric' + i;
 
+                // Display name (object)
+                filterItem = this.fields[key + '-filter'].getValue();
+                metricItem = this.fields[key + '-metric'].getValue();
+
+                // Hidden field values (string)
+                filterHidden = this.fields[key + '-filterName'].getValue();
+                metricHidden = this.fields[key + '-metricName'].getValue();
+
                 items.push({
                     resourceKind: this.resourceKind,
-                    metricTitleText: this.fields['metric' + i + '-title'].getValue(),//'Open Sales Potential',
+                    metricTitleText: this.fields[key + '-title'].getValue(),//'Open Sales Potential',
                     queryName: 'executeMetric',
                     queryArgs: {
-                        '_filterName': this.fields['metric' + i + '-filter'].getValue(), //'Stage',
-                        '_metricName': this.fields['metric' + i + '-metric'].getValue(), //'SumSalesPotential',
-                        '_activeFilter': this.fields['metric' + i + '-query'].getValue() //'Closed eq false'
+                        '_filterName': filterHidden,
+                        '_metricName': metricHidden, 
+                        '_activeFilter': this.fields[key + '-query'].getValue() //'Closed eq false'
                     },
-                    formatType: this.fields['metric' + i + '-formatType'].getValue() || this.defaultFormatType,
-                    formatFunc: this.fields['metric' + i + '-formatFunc'].getValue() || this.defaultFormatFunc,
-                    valueType: this.fields['metric' + i + '-valueType'].getValue() || this.defaultValueType,
-                    valueFunc: this.fields['metric' + i + '-valueFunc'].getValue() || this.defaultValueFunc,
-                    reportViewId: this.fields['metric' + i + '-reportViewId'].getValue(),
-                    chartType: this.fields['metric' + i + '-chartType'].getValue() //'pie'
+                    formatType: this.fields[key + '-formatType'].getValue() || this.defaultFormatType,
+                    formatFunc: this.fields[key + '-formatFunc'].getValue() || this.defaultFormatFunc,
+                    valueType: this.fields[key + '-valueType'].getValue() || this.defaultValueType,
+                    valueFunc: this.fields[key + '-valueFunc'].getValue() || this.defaultValueFunc,
+                    reportViewId: this.fields[key + '-reportViewId'].getValue(),
+                    chartType: this.fields[key + '-chartType'].getValue(), //'pie', 'bar'
+                    metricDisplayName: metricItem && metricItem.$descriptor, 
+                    filterDisplayName: filterItem && filterItem.$descriptor 
                 });
             }
 
             App.preferences.metrics[this.resourceKind] = items;
             App.persistPreferences();
             ReUI.back();
-        },
+        }
     });
 });

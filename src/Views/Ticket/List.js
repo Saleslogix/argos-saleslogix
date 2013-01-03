@@ -50,6 +50,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             'UrgencyCode'
         ],
         resourceKind: 'tickets',
+        entityName: 'Ticket',
         allowSelection: true,
         enableActions: true,
 

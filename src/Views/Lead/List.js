@@ -46,6 +46,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
             'WorkPhone'
         ],
         resourceKind: 'leads',
+        entityName: 'Lead', 
         allowSelection: true,
         enableActions: true,
 

@@ -8,7 +8,8 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
             'crm': {
                 isDefault: true,
                 offline: true,
-                url: 'http://10.40.201.25/sdata/slx/dynamic/-/',
+                //url: 'http://10.40.201.33/sdata/slx/dynamic/-/',
+                url: 'http://localhost/sdata/slx/dynamic/-/',
                 json: true
             }
         },

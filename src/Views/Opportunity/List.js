@@ -96,51 +96,10 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'SalesPotential'
         ],
         resourceKind: 'opportunities',
+        entityName: 'Opportunity',
         allowSelection: true,
         enableActions: true,
 
-        createMetricWidgetsLayout: function() {
-            this.inherited(arguments);
-            // TODO: Load default set here and save it to prefs?
-            /*return [
-                {
-                    resourceKind: this.resourceKind,
-                    metricTitleText: 'Open Sales Potential',
-                    queryName: 'executeMetric',
-                    queryArgs: {
-                        '_filterName': 'Stage',
-                        '_metricName': 'SumSalesPotential',
-                        '_activeFilter': 'Closed eq false'
-                    },
-                    formatType: 'Mobile/SalesLogix/Format',
-                    formatFunc: 'bigNumber',
-                    reportViewId: 'chart_generic_pie'
-                },{
-                    resourceKind: this.resourceKind,
-                    metricTitleText: 'Actual Amount',
-                    queryName: 'executeMetric',
-                    queryArgs: {
-                        '_filterName': 'AccountManager',
-                        '_metricName': 'SumActualAmount'
-                    },
-                    formatType: 'Mobile/SalesLogix/Format',
-                    formatFunc: 'bigNumber',
-                    reportViewId: 'chart_generic_bar'
-                },{
-                    resourceKind: this.resourceKind,
-                    metricTitleText: 'Open Opportunities',
-                    queryName: 'executeMetric',
-                    queryArgs: {
-                        '_filterName': 'AccountManager',
-                        '_metricName': 'CountOpportunities',
-                        '_activeFilter': 'Closed ne true'
-                    },
-                    formatType: 'Mobile/SalesLogix/Format',
-                    formatFunc: 'bigNumber',
-                    reportViewId: 'chart_generic_bar'
-                }
-            ];*/
-        },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                     id: 'edit',

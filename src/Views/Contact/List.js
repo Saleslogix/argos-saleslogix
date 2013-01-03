@@ -48,7 +48,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             'Email'
         ],
         resourceKind: 'contacts',
-        allowSelection: true,
+        entityName: 'Contact',
         enableActions: true,
 
         createActionLayout: function() {

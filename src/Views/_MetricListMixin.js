@@ -16,6 +16,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         metricNode: null,
         metricWidgets: null,
         configurationView: 'metric_configure',
+        entityName: '',
 
         postMixInProperties: function() {
             this.widgetTemplate =  new Simplate([
@@ -31,7 +32,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             ]);
         },
         createMetricWidgetsLayout: function() {
-            return App.preferences && App.preferences.metrics[this.resourceKind];
+            return App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
@@ -45,6 +46,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             var view = App.getView(this.configurationView);
             if (view) {
                 view.resourceKind = this.resourceKind;
+                view.entityName = this.entityName;
                 view.show({ returnTo: -1 });
             }
         },
