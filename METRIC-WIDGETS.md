@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     return declare('Mobile.SalesLogix.Views.Account.List', [List, _MetricListMixin], {});
 }
 ```
-* Set a property on the list view for entity name. This is used by the metadata sdata endpoint to get a list of metrics/fitlers for that view
+* Set a property on the list view for entity name. This is used by the metadata sdata endpoint to get a list of metrics/filters for that view
 ```javascript
 entityName: 'Account',
 ```
