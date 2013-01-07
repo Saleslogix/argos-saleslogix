@@ -61,7 +61,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
         // Chart Properties
         _data: null,
-        _dataDeferred: null,
+        requestDataDeferred: null,
 
         metricDetailNode: null,
         reportViewId: null,
@@ -84,7 +84,11 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         formatType: 'Mobile/SalesLogix/Format',// AMD Module
         formatFunc: 'bigNumber',// Function of formatType module 
 
-        _loadFormatter: function() {
+        /**
+         * Loads a module/function via AMD and wraps it in a deferred 
+         * @return {object} Returns a deferred with the function loaded via AMD require
+        */
+        getFormatterFnDeferred: function() {
             if (this.formatType && this.formatFunc) {
                 return this._loadModuleFunction(this.formatType, this.formatFunc);
             }
@@ -113,7 +117,11 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         valueType: null,//'Mobile/SalesLogix/Views/MetricWidget',
         valueFunc: null,//'valueFn',
 
-        _loadValueFn: function() {
+        /**
+         * Loads a module/function via AMD and wraps it in a deferred 
+         * @return {object} Returns a deferred with the function loaded via AMD require
+        */
+        getValueFnDeferred: function() {
             if (this.valueType && this.valueFunc) {
                 return this._loadModuleFunction(this.valueType, this.valueFunc);
             }
@@ -143,6 +151,9 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
             return def.promise;
         },
+        /**
+         * Requests the widget's data, value fn, format fn, and renders it's itemTemplate 
+        */
         requestData: function() {
             this.inherited(arguments);
             if (this._data && this._data.length > 0) {
@@ -151,11 +162,11 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
             this._data = [];
 
-            this._dataDeferred = new Deferred();
+            this.requestDataDeferred = new Deferred();
             this._getData();
 
-            var loadFormatter = this._loadFormatter();// deferred for loading in our formatter
-            var loadValueFn = this._loadValueFn();// deferred for loading in value function
+            var loadFormatter = this.getFormatterFnDeferred();// deferred for loading in our formatter
+            var loadValueFn = this.getValueFnDeferred();// deferred for loading in value function
 
             // Chained deferreds
             // Load the value function -> format function -> then load the data
@@ -165,7 +176,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                     this.valueFn = fn;
                 }
 
-                // Return the data deferred for the next part of the chain
+                // Return the deferred for the next part of the chain
                 return loadFormatter;
             })).then(lang.hitch(this, function(fn) {
                 // Formatter deferred.then
@@ -173,14 +184,12 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                     this.formatter = fn;
                 }
 
-                // Return the data deferred for the next part of the chain
-                return this._dataDeferred;
-
+                // Return the deferred for the next part of the chain
+                return this.requestDataDeferred;
             })).then(lang.hitch(this, function(data) {
                 // Data deferred.then
                 var value = this.valueFn.call(this, data);
                 domConstruct.place(this.itemTemplate.apply({value: value}, this), this.metricDetailNode, 'replace');
-
             }));
         },
         navToReportView: function() {
@@ -223,7 +232,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                 this._getData();
             } else {
                 // Signal complete
-                this._dataDeferred.callback(this._data);
+                this.requestDataDeferred.callback(this._data);
             }
         },
         _processItem: function(item) {
@@ -249,7 +258,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             return store;
         },
         _getStoreAttr: function() {
-            return (this.store = this.createStore());
+            return this.store || (this.store = this.createStore());
         }
     });
 });

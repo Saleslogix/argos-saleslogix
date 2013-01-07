@@ -12,16 +12,30 @@ define('spec/Views/MetricWidget.spec', [
     var data = json.parse(feed);
 
     describe('Mobile.SalesLogix.Views.MetricWidget', function() {
-        it('should be true', function() {
-            var widget = new MetricWidget();
-            widget.createStore = function() {
-                return new MemoryStore({ data: data.$resources });
-            };
+        it('should query a store when requesting data', function() {
+            var store, widget;
+            store = new MemoryStore({ data: data.$resources });
+            widget = new MetricWidget({ store: store });
 
-            spyOn(widget, 'createStore');
+            spyOn(widget.store, 'query').andCallThrough();
+            widget.requestData();
+            expect(widget.store.query).toHaveBeenCalled();
+        });
 
-            //widget.requestData();
-            //expect(widget.createStore).toHaveBeenCalled();
+        it('should render an itemTemplate when requesting data completes', function() {
+            runs(function() {
+                this.store = new MemoryStore({ data: data.$resources });
+                this.widget = new MetricWidget({ store: this.store });
+
+                spyOn(this.widget.itemTemplate, 'apply').andCallThrough();
+                this.widget.requestData();
+            });
+
+            waits(100);
+
+            runs(function() {
+                expect(this.widget.itemTemplate.apply).toHaveBeenCalled();
+            });
         });
     });
 });
