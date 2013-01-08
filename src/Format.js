@@ -204,7 +204,11 @@ define('Mobile/SalesLogix/Format', [
                 test: /[TUV]/ig,
                 val: '8'
             },{
-                test: /[WXYZ]/ig,
+                test: /[WYZ]/ig,
+                val: '9'
+            },{
+                // Don't ignore case with X, as it can be used for an extension
+                test: /[X]/g,
                 val: '9'
             }
         ],
