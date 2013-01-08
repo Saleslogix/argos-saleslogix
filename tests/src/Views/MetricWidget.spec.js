@@ -11,7 +11,7 @@ define('spec/Views/MetricWidget.spec', [
 ) {
     var data = json.parse(feed);
 
-    describe('Mobile.SalesLogix.Views.MetricWidget', function() {
+    describe('Mobile/SalesLogix/Views/MetricWidget', function() {
         it('should query a store when requesting data', function() {
             var store, widget;
             store = new MemoryStore({ data: data.$resources });
