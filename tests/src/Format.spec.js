@@ -11,5 +11,12 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
                 expect(Format.bigNumber(999999)).toEqual('1,000.0K');
             });
         });
+
+        describe('phone', function() {
+            it('should convert alpha', function() {
+                expect(Format.phone('800-FOX-BORO', false)).toEqual('(800)-369-2676');
+                expect(Format.phone('FOX-BORO', false)).toEqual('369-2676');
+            });
+        });
     });
 });
