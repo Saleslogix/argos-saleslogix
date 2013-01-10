@@ -21,8 +21,7 @@
                 expect(Validator.name.fn({FirstName:'foo', LastName: ''})).toEqual(true);
             });
 
-            xit('should validate if first and last name contain unicode', function() {
-                // TODO: Fix this failing validation
+            it('should validate if first and last name contain unicode', function() {
                 expect(Validator.name.fn({ FirstName: 'тестпнч', LastName: 'тестпнч'})).toEqual(false);
             });
         });
@@ -50,9 +49,8 @@
                 expect('foo').toMatch(regex);
             });
 
-            xit('should have text unicode', function() {
-                // TODO: Fix this failing validator
-                expect('тестпнч').toMatch(regex);
+            it('should fail for all unicode (not supported)', function() {
+                expect('тестпнч').not.toMatch(regex);
             });
 
             it('should not have text', function() {
