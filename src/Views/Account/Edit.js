@@ -76,7 +76,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                 name: 'AccountName',
                 property: 'AccountName',
                 type: 'text',
-                validator: validator.hasText
+                validator: validator.notEmpty
             },{
                 label: this.webText,
                 name: 'WebAddress',

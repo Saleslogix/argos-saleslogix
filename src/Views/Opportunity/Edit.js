@@ -114,7 +114,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                     type: 'text',
                     maxTextLength: 64,
                     validator: [
-                        validator.hasText,
+                        validator.notEmpty,
                         validator.exceedsMaxTextLength
                     ]
                 },

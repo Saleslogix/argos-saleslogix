@@ -15,7 +15,7 @@ define('Mobile/SalesLogix/Validator', [
         name: {
             fn: function(value) {
                 if (value)
-                    return !/\w+/.test(value.FirstName || '') || !/\w+/.test(value.LastName || '');
+                    return !/.+/.test(value.FirstName || '') || !/.+/.test(value.LastName || '');
                 return true;
             },
             message: "The field '${2}' must have a first and last name specified."
@@ -24,6 +24,10 @@ define('Mobile/SalesLogix/Validator', [
             test: /.+/,
             message: "The field '${2}' cannot be empty."
         },
+        /*
+         * deprecated
+         * WARN: hasText will not work with unicode
+         */
         hasText: {
             test: /\w+/,
             message: "The field '${2}' must contain some text."

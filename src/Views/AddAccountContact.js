@@ -122,7 +122,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                     name: 'AccountName',
                     property: 'AccountName',
                     type: 'text',
-                    validator: validator.hasText
+                    validator: validator.notEmpty
                 },
                 {
                     label: this.emailText,

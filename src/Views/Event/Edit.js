@@ -125,7 +125,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
                 maxTextLength: 64,
                 validator: [
                     validator.exceedsMaxTextLength,
-                    validator.hasText
+                    validator.notEmpty
                 ],
                 textRenderer: this.formatTypeText.bindDelegate(this),
                 data: this.createTypeData()
@@ -138,7 +138,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
                 maxTextLength: 64,
                 validator: [
                     validator.exceedsMaxTextLength,
-                    validator.hasText
+                    validator.notEmpty
                 ]
             },
             {
