@@ -32,7 +32,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
         completedDateText: 'end date',
         followUpText: 'follow up',
         unitsText: 'time units',
-        elapsedUnitsText: 'elapsed units',
+        elapsedUnitsText: 'elapsed hours',
         rateTypeDescriptionText: 'charge type',
         rateText: 'rate',
         totalLaborText: 'total labor',
