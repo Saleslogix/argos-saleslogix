@@ -81,8 +81,11 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
 
-            this.fields['Status'].setValue(this.defaultStatus);
-            this.fields['CloseProbability'].setValue(this.defaultCloseProb);
+            // These need to come from user options
+            // These rules exist in our web client business rules dll.
+            //this.fields['Status'].setValue(this.defaultStatus);
+            //this.fields['CloseProbability'].setValue(this.defaultCloseProb);
+            //this.fields['EstimatedClose'].setValue();
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
