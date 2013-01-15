@@ -53,16 +53,12 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             'Type',
             'Weighted'
         ],
-
-        defaultStatus: 'Status',
-        defaultCloseProb: 1,
-
         init: function() {
             this.inherited(arguments);
 
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
         },
-        applyContext: function() {
+        applyContext: function(templateEntry) {
             var found = App.queryNavigationContext(function(o) {
                 return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
             });
@@ -72,20 +68,19 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                 'contacts': this.applyContactContext
             };
 
-            if (found && lookup[found.resourceKind])
+            if (found && lookup[found.resourceKind]) {
                 lookup[found.resourceKind].call(this, found);
-            else
-                this.applyDefaultContext();
+            } else {
+                this.applyDefaultContext(templateEntry);
+            }
         },
-        applyDefaultContext: function() {
+        applyDefaultContext: function(templateEntry) {
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
 
-            // These need to come from user options
-            // These rules exist in our web client business rules dll.
-            //this.fields['Status'].setValue(this.defaultStatus);
-            //this.fields['CloseProbability'].setValue(this.defaultCloseProb);
-            //this.fields['EstimatedClose'].setValue();
+            this.fields['Status'].setValue(templateEntry.Status);
+            this.fields['CloseProbability'].setValue(templateEntry.CloseProbability);
+            this.fields['EstimatedClose'].setValue(templateEntry.EstimatedClose);
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),

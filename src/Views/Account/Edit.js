@@ -37,9 +37,6 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
         typeText: 'type',
         webText: 'web',
 
-        defaultType: 'Prospect',
-        defaultStatus: 'Active',
-
         //View Properties
         entityName: 'Account',
         id: 'account_edit',
@@ -68,14 +65,14 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
         formatDependentPicklist: function(dependentValue, format) {
             return string.substitute(format, [dependentValue]);
         },
-        applyContext: function() {
+        applyContext: function(templateEntry) {
             this.inherited(arguments);
 
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
 
-            this.fields['Type'].setValue(this.defaultType);
-            this.fields['Status'].setValue(this.defaultStatus);
+            this.fields['Type'].setValue(templateEntry.Type);
+            this.fields['Status'].setValue(templateEntry.Status);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
