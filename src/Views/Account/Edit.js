@@ -74,8 +74,8 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
 
-            this.fields['Type'].setValue(defaultType);
-            this.fields['Status'].setValue(defaultStatus);
+            this.fields['Type'].setValue(this.defaultType);
+            this.fields['Status'].setValue(this.defaultStatus);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{

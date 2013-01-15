@@ -54,6 +54,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             'Weighted'
         ],
 
+        defaultStatus: 'Status',
+        defaultCloseProb: 1,
+
         init: function() {
             this.inherited(arguments);
 
@@ -77,6 +80,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         applyDefaultContext: function() {
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
+
+            this.fields['Status'].setValue(this.defaultStatus);
+            this.fields['CloseProbability'].setValue(this.defaultCloseProb);
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
