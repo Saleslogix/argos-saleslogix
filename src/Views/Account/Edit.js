@@ -37,6 +37,9 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
         typeText: 'type',
         webText: 'web',
 
+        defaultType: 'Prospect',
+        defaultStatus: 'Active',
+
         //View Properties
         entityName: 'Account',
         id: 'account_edit',
@@ -67,8 +70,12 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
         },
         applyContext: function() {
             this.inherited(arguments);
+
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
+
+            this.fields['Type'].setValue(defaultType);
+            this.fields['Status'].setValue(defaultStatus);
         },
         createLayout: function() {
             return this.layout || (this.layout = [{

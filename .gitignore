@@ -44,3 +44,6 @@ deploy/
 
 # module development shells
 index-dev-*.html
+
+# vim temp files
+*.swp
