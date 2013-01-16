@@ -381,6 +381,14 @@
           "path": "../src/Views/OpportunityContact"
         },
         {
+          "text": "Detail.js",
+          "path": "../src/Views/OpportunityProduct"
+        },
+        {
+          "text": "Edit.js",
+          "path": "../src/Views/OpportunityProduct"
+        },
+        {
           "text": "List.js",
           "path": "../src/Views/OpportunityProduct"
         },

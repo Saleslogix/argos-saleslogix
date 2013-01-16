@@ -31,6 +31,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
         //View Properties       
         id: 'opportunityproduct_list',
         security: 'Entities/OpportunityProduct/View',
+        detailView: 'opportunityproduct_detail',
+        insertView: 'opportunityproduct_edit',
         icon: 'content/images/icons/product_24.png',
         queryOrderBy: 'Sort',
         querySelect: [
@@ -44,12 +46,9 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
             'ExtendedPrice'
         ],
         resourceKind: 'opportunityproducts',
+        allowSelection: true,
+        enableActions: true,
         
-        createToolLayout: function() {
-            return this.tools || (this.tools = {
-                tbar: []
-            });
-        },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }

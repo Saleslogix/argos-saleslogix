@@ -57,6 +57,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/OpportunityContact/Detail',
     'Mobile/SalesLogix/Views/OpportunityContact/Edit',
     'Mobile/SalesLogix/Views/OpportunityProduct/List',
+    'Mobile/SalesLogix/Views/OpportunityProduct/Detail',
+    'Mobile/SalesLogix/Views/OpportunityProduct/Edit',
     'Mobile/SalesLogix/Views/Owner/List',
     'Mobile/SalesLogix/Views/Ticket/List',
     'Mobile/SalesLogix/Views/Ticket/Detail',
@@ -139,6 +141,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     OpportunityContactDetail,
     OpportunityContactEdit,
     OpportunityProductList,
+    OpportunityProductDetail,
+    OpportunityProductEdit,
     OwnerList,
     TicketList,
     TicketDetail,
@@ -247,6 +251,16 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerView(new OpportunityProductList({
                 id: 'opportunityproduct_related',
+                expose: false
+            }));
+
+            this.registerView(new OpportunityProductDetail({
+                id: 'opportunityproduct_detail',
+                expose: false
+            }));
+
+            this.registerView(new OpportunityProductEdit({
+                id: 'opportunityproduct_edit',
                 expose: false
             }));
 
