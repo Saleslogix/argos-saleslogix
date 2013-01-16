@@ -17,7 +17,7 @@ define('Mobile/SalesLogix/Format', [
          * http://msdn.microsoft.com/en-us/library/cc195167.aspx
          */
         addressCultureFormats: {
-            'en': 'a1|a2|a3|m R p|C',
+            'en': 'a1|a2|a3|m, R p|C',
             'en-GB': 'a1|a2|a3|M|P|C',
             'fr': 'a1|a2|a3|p M|C',
             'de': 'a1|a2|a3|p m|C',
