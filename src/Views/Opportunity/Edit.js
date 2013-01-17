@@ -73,14 +73,14 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             } else {
                 this.applyDefaultContext(templateEntry);
             }
-        },
-        applyDefaultContext: function(templateEntry) {
-            this.fields['AccountManager'].setValue(App.context.user);
-            this.fields['Owner'].setValue(App.context['defaultOwner']);
 
             this.fields['Status'].setValue(templateEntry.Status);
             this.fields['CloseProbability'].setValue(templateEntry.CloseProbability);
             this.fields['EstimatedClose'].setValue(templateEntry.EstimatedClose);
+        },
+        applyDefaultContext: function(templateEntry) {
+            this.fields['AccountManager'].setValue(App.context.user);
+            this.fields['Owner'].setValue(App.context['defaultOwner']);
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
