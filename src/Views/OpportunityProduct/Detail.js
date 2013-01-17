@@ -30,6 +30,10 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
             'Opportunity/Description',
             'Product/Description',
             'Product/Family',
+            'Product/Name',
+            'Product/Price',
+            'Product/Program',
+            'Product/FixedCost',
             'AdjustedPrice',
             'CalculatedPrice',
             'Discount',
@@ -52,8 +56,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                     },
                     {
                         label: this.productText,
-                        name: '$descriptor',
-                        property: '$descriptor'
+                        name: 'Product.Name',
+                        property: 'Product.Name'
                     },
                     {
                         label: this.productFamilyText,

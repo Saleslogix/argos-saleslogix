@@ -398,6 +398,14 @@
         },
         {
           "text": "List.js",
+          "path": "../src/Views/Product"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/ProductProgram"
+        },
+        {
+          "text": "List.js",
           "path": "../src/Views/Ticket"
         },
         {

@@ -60,6 +60,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/OpportunityProduct/Detail',
     'Mobile/SalesLogix/Views/OpportunityProduct/Edit',
     'Mobile/SalesLogix/Views/Owner/List',
+    'Mobile/SalesLogix/Views/Product/List',
+    'Mobile/SalesLogix/Views/ProductProgram/List',
     'Mobile/SalesLogix/Views/Ticket/List',
     'Mobile/SalesLogix/Views/Ticket/Detail',
     'Mobile/SalesLogix/Views/Ticket/Edit',
@@ -144,6 +146,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     OpportunityProductDetail,
     OpportunityProductEdit,
     OwnerList,
+    ProductList,
+    ProductProgramList,
     TicketList,
     TicketDetail,
     TicketEdit,
@@ -321,6 +325,16 @@ define('Mobile/SalesLogix/ApplicationModule', [
             }));
 
             this.registerView(new OwnerList({
+                expose: false
+            }));
+
+            this.registerView(new ProductList({
+                id: 'product_related',
+                expose: false
+            }));
+
+            this.registerView(new ProductProgramList({
+                id: 'productprogram_related',
                 expose: false
             }));
 
