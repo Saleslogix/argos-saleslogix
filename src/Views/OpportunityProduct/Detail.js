@@ -10,7 +10,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
 
     return declare('Mobile.SalesLogix.Views.OpportunityProduct.Detail', [Detail], {
         //Localization
-        detailsText: 'details',
+        detailsText: 'Details',
         opportunityText: 'opportunity',
         productText: 'product',
         productFamilyText: 'product family',
