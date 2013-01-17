@@ -17,7 +17,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
     return declare('Mobile.SalesLogix.Views.OpportunityProduct.Edit', [Edit], {
         //Localization
         titleText: 'Opportunity Product',
-        detailsText: 'details',
+        detailsText: 'Details',
         opportunityText: 'opportunity',
         productText: 'product',
         productFamilyText: 'product family',
