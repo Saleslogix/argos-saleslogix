@@ -83,8 +83,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                     {
                         label: this.adjustedPriceText,
                         name: 'AdjustedPrice',
-                        property: 'AdjustedPrice',
-                        renderer: format.currency
+                        property: 'AdjustedPrice'//,
+                        //renderer: format.currency
                     },
                     {
                         label: this.quantityText,

@@ -36,7 +36,14 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         updateSecurity: 'Entities/OpportunityProduct/Edit',
         querySelect: [
             'Opportunity/Description',
-            'Product/Name'
+            'Product/Name',
+            'Product/Family',
+            'Program',
+            'Price',
+            'Discount',
+            'AdjustedPrice',
+            'Quantity',
+            'ExtendedPrice'
         ],
         init: function() {
             this.inherited(arguments);
@@ -49,6 +56,16 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         setValues: function(values) {
             this.inherited(arguments);
             this.fields['Program'].setValue({'$key':'', 'Program': values.Program});
+        },
+        getValues: function() {
+            var o = this.inherited(arguments);
+            o.Program = o.Program.Program;
+
+            if (o.AdjustedPrice === false) {
+                delete o.AdjustedPrice;
+            }
+
+            return o;
         },
         applyContext: function(templateEntry) {
             var context, view, entry;
