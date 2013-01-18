@@ -61,7 +61,13 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             var o = this.inherited(arguments);
             o.Program = o.Program.Program;
 
-            if (o.AdjustedPrice === false) {
+            /*
+             * 'AdjustedPrice' is a lie. The underlying database field is actually PRICEADJUSTED and 
+             * is a boolean, not a price that has been adjusted. Since we use the adjusted price to calculate
+             * the discount %, we will remove it from getValues so we aren't trying to save the wrong data type when sending
+             * the sdata request.
+             */
+            if (o.AdjustedPrice) {
                 delete o.AdjustedPrice;
             }
 

@@ -17,7 +17,6 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         priceLevelText: 'price level',
         priceText: 'price',
         discountText: 'discount',
-        adjustedPriceText: 'adjusted price',
         quantityText: 'quantity',
         extendedPriceText: 'extended price',
 
@@ -79,12 +78,6 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         label: this.discountText,
                         name: 'Discount',
                         property: 'Discount'
-                    },
-                    {
-                        label: this.adjustedPriceText,
-                        name: 'AdjustedPrice',
-                        property: 'AdjustedPrice'//,
-                        //renderer: format.currency
                     },
                     {
                         label: this.quantityText,
