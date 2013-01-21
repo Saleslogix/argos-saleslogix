@@ -31,6 +31,7 @@ define('Mobile/SalesLogix/Application', [
         userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
         userOptionsToRequest: [
             'General;InsertSecCodeID',
+            'General;Currency',
             'Calendar;DayStartTime',
             'Calendar;FirstDayofWeek',
             'ActivityMeetingOptions;AlarmEnabled',
@@ -45,6 +46,12 @@ define('Mobile/SalesLogix/Application', [
             'ActivityPersonalOptions;AlarmEnabled',
             'ActivityPersonalOptions;AlarmLead',
             'ActivityPersonalOptions;Duration'
+        ],
+        systemOptionsToRequest: [
+            'BaseCurrency',
+            'MultiCurrency',
+            'ChangeOpportunityRate',
+            'LockOpportunityRate'
         ],
         serverVersion: {
             'major': 8,
@@ -300,6 +307,7 @@ define('Mobile/SalesLogix/Application', [
             this.context['defaultOwner'] = entry && entry['DefaultOwner'];
 
             this.requestUserOptions();
+            this.requestSystemOptions();
         },
         onRequestUserDetailsFailure: function(response, o) {
         },
@@ -343,6 +351,69 @@ define('Mobile/SalesLogix/Application', [
                 this.requestOwnerDescription(insertSecCode);
         },
         onRequestUserOptionsFailure: function(response, o) {
+            ErrorManager.addError(response, o, {}, 'failure');
+        },
+        requestSystemOptions: function() {
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setContractName('system')
+                .setResourceKind('systemoptions')
+                .setQueryArg('select', 'name,value');
+
+            request.read({
+                success: this.onRequestSystemOptionsSuccess,
+                failure: this.onRequestSystemOptionsFailure,
+                scope: this
+            });
+        },
+        onRequestSystemOptionsSuccess: function(feed) {
+            // TODO: Would be nice if the systemoptions feed supported batch operations like useroptions
+            var systemOptions, multiCurrency;
+            systemOptions = this.context['systemOptions'] = this.context['systemOptions'] || {};
+
+            array.forEach(feed && feed['$resources'], function(item) {
+                var key = item && item['name'],
+                    value = item && item['value'];
+
+                if (value && key && array.indexOf(this.systemOptionsToRequest, key) > -1) {
+                    systemOptions[key] = value;
+                }
+            }, this);
+
+            multiCurrency = systemOptions['MultiCurrency'];
+            
+            if (multiCurrency && multiCurrency === 'True') {
+                this.requestExchangeRates();
+            }
+        },
+        onRequestSystemOptionsFailure: function(response, o) {
+            ErrorManager.addError(response, o, {}, 'failure');
+        },
+        requestExchangeRates: function() {
+            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                .setContractName('dynamic')
+                .setResourceKind('exchangeRates')
+                .setQueryArg('select', 'Rate');
+
+            request.read({
+                success: this.onRequestExchangeRatesSuccess,
+                failure: this.onRequestExchangeRatesFailure,
+                scope: this
+            });
+        },
+        onRequestExchangeRatesSuccess: function(feed) {
+            var exchangeRates;
+            exchangeRates = this.context['exchangeRates'] = this.context['exchangeRates'] || {};
+
+            array.forEach(feed && feed['$resources'], function(item) {
+                var key = item && item['$key'],
+                    value = item && item['Rate'];
+
+                if (value && key) {
+                    exchangeRates[key] = value;
+                }
+            }, this);
+        },
+        onRequestExchangeRatesFailure: function(response, o) {
             ErrorManager.addError(response, o, {}, 'failure');
         },
         requestOwnerDescription: function(key) {
