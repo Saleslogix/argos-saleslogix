@@ -95,10 +95,16 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         name: 'ExtendedPrice',
                         property: 'ExtendedPrice',
                         renderer: (function(val) {
+                        var baseCode, baseRate, convertedValue;
                             if (App.hasMultiCurrency()) {
-                            return format.multiCurrency.call(null, convertedValue, myCode);
+                                baseCode = App.context['systemOptions']['BaseCurrency'];
+                                // Should we assume the base rate is going to be 1 and not bother with the conversion?
+                                baseRate = App.context['exchangeRates'][baseCode];
+                                convertedValue = val * baseRate;
+                                return format.multiCurrency.call(null, convertedValue, baseCode);
                             }
-                            return ;
+
+                            return format.currency.call(null, val);
                         }).bindDelegate(this)
                     }
                 ]
