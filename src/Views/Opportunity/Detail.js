@@ -93,6 +93,14 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                 });
             }
         },
+        processEntry: function() {
+            this.inherited(arguments);
+
+            if (App.hasMultiCurrency() && this.options && this.entry && this.entry.ExchangeRate) {
+                this.options.ExchangeRate = this.entry.ExchangeRate;
+                this.options.ExchangeRateCode = this.entry.ExchangeRateCode;
+            }
+        },
         getValues: function() {
             var values = this.inherited(arguments),
                 estimatedCloseDate = this.fields['EstimatedClose'].getValue(),

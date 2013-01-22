@@ -19,6 +19,9 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         discountText: 'discount',
         quantityText: 'quantity',
         extendedPriceText: 'extended price',
+        extendedPriceBaseText: 'extended price (base rate)',
+        extendedPriceMineText: 'extended price (my rate)',
+        extendedPriceOpportunityText: 'extended price (opportunity)',
 
         //View Properties
         id: 'opportunityproduct_detail',
@@ -44,7 +47,10 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         resourceKind: 'opportunityProducts',
 
         createLayout: function() {
-            return this.layout || (this.layout = [{
+            var layout, details, multiCurrency;
+            layout = this.layout || (this.layout = []);
+
+            details = {
                 title: this.detailsText,
                 name: 'DetailsSection',
                 children: [
@@ -85,13 +91,61 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         property: 'Quantity'
                     },
                     {
-                        label: this.extendedPriceText,
+                        label: App.hasMultiCurrency() ? this.extendedPriceBaseText : this.extendedPriceText,
                         name: 'ExtendedPrice',
                         property: 'ExtendedPrice',
-                        renderer: format.currency
+                        renderer: (function(val) {
+                            if (App.hasMultiCurrency()) {
+                            return format.multiCurrency.call(null, convertedValue, myCode);
+                            }
+                            return ;
+                        }).bindDelegate(this)
                     }
                 ]
-            }]);
+            };
+
+            if (App.hasMultiCurrency()) {
+                details.children.push({
+                    label: this.extendedPriceMineText,
+                    name: 'ExtendedPriceMine',
+                    property: 'ExtendedPriceMine',
+                    renderer: (function(val) {
+                        var myCode, myRate, convertedValue;
+
+                        myCode = App.context['userOptions']['General:Currency'];
+                        myRate = App.context['exchangeRates'][myCode];
+                        convertedValue = val.ExtendedPrice * myRate;
+                        return format.multiCurrency.call(null, convertedValue, myCode);
+
+                        return '-';
+                    }).bindDelegate(this)
+                },{
+                    label: this.extendedPriceOpportunityText,
+                    name: 'ExtendedPriceOpportunity',
+                    property: 'ExtendedPriceOpportunity',
+                    renderer: (function(val) {
+                        var code, rate, convertedValue, found;
+
+                        found = App.queryNavigationContext(function(o) {
+                            return /^(opportunities)$/.test(o.resourceKind) && o.key;
+                        });
+
+                        found = found && found.options;
+
+                        if (found) {
+                            rate = found.ExchangeRate;
+                            code = found.ExchangeRateCode;
+                            convertedValue = val.ExtendedPrice * rate;
+                            return format.multiCurrency.call(null, convertedValue, code);
+                        }
+
+                        return '-';
+                    }).bindDelegate(this)
+                });
+            }
+
+            layout.push(details);
+            return layout;
         }        
     });
 });
