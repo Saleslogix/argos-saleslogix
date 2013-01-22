@@ -92,6 +92,16 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                 if (values && values.ExchangeRateCode) {
                     this.fields['ExchangeRateCode'].setValue({'$key': values.ExchangeRateCode, '$descriptor': values.ExchangeRateCode});
                 }
+
+                if (!App.canLockOpportunityRate()) {
+                    this.fields['ExchangeRateLocked'].disable();
+                }
+
+                if (!App.canChangeOpportunityRate()) {
+                    this.fields['ExchangeRate'].disable();
+                    // TODO: Check if this should be here
+                    this.fields['ExchangeRateCode'].disable();
+                }
             } else {
                 this.fields['ExchangeRate'].disable();
                 this.fields['ExchangeRateCode'].disable();
@@ -135,6 +145,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             var selection = field.getSelection();
             if (selection && selection.Rate) {
                 this.fields['ExchangeRate'].setValue(selection.Rate);
+                this.fields['ExchangeRateDate'].setValue(new Date(Date.now()));
             }
         },
         onExchangeRateLockedChange: function(value, field) {
@@ -145,6 +156,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                 this.fields['ExchangeRate'].enable();
                 this.fields['ExchangeRateCode'].enable();
             }
+
+            this.fields['ExchangeRateDate'].setValue(new Date(Date.now()));
         },
         onAccountChange: function(value, field) {
             var selection = field.getSelection();

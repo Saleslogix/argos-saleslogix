@@ -108,6 +108,24 @@ define('Mobile/SalesLogix/Application', [
 
             return false;
         },
+        canLockOpportunityRate: function() {
+            if (App.context &&
+                App.context['systemOptions'] && 
+                App.context['systemOptions']['LockOpportunityRate'] === 'True') {
+                return true;
+            }
+
+            return false;
+        },
+        canChangeOpportunityRate: function() {
+            if (App.context &&
+                App.context['systemOptions'] && 
+                App.context['systemOptions']['ChangeOpportunityRate'] === 'True') {
+                return true;
+            }
+
+            return false;
+        },
         run: function() {
             this.inherited(arguments);
 
