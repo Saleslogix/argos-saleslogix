@@ -362,7 +362,8 @@ define('Mobile/SalesLogix/Application', [
             request.read({
                 success: this.onRequestSystemOptionsSuccess,
                 failure: this.onRequestSystemOptionsFailure,
-                scope: this
+                scope: this,
+                async: false
             });
         },
         onRequestSystemOptionsSuccess: function(feed) {

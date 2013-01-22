@@ -212,8 +212,7 @@ define('Mobile/SalesLogix/Format', [
                 f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
 
             return string.substitute(
-                Mobile.CultureInfo.numberFormat.currencySymbol
-                + '${0}'
+                '${0}'
                 + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator
                 + '${1}', [
                     (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1'+Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace("\\.",'.')),

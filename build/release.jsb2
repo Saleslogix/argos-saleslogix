@@ -201,6 +201,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "ExchangeRateLookup.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "MainToolbar.js",
           "path": "../src/Views"
         },

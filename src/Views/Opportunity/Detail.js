@@ -21,7 +21,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         opportunityText: 'opportunity',
         ownerText: 'owner',
         actionsText: 'Quick Actions',
-        potentialText: 'sales potential',
+        potentialBaseText: 'sales potential (base)',
+        potentialOpportunityText: 'sales potential (opportunity)',
+        potentialMyRateText: 'sales potential (my currency)',
         probabilityText: 'close prob',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Opportunity Contacts',
@@ -36,6 +38,11 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         scheduleActivityText: 'Schedule activity',
         addNoteText: 'Add note',
         moreDetailsText: 'More Details',
+        multiCurrencyText: 'Multi Currency',
+        multiCurrencyRateText: 'rate',
+        multiCurrencyCodeText: 'code',
+        multiCurrencyDateText: 'date',
+        multiCurrencyLockedText: 'locked',
 
         //View Properties
         id: 'opportunity_detail',
@@ -53,6 +60,10 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
             'CloseProbability',
             'Description',
             'EstimatedClose',
+            'ExchangeRate',
+            'ExchangeRateCode',
+            'ExchangeRateDate',
+            'ExchangeRateLocked',
             'LeadSource/Description',
             'Owner/OwnerDescription',
             'Reseller/AccountName',
@@ -93,7 +104,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
             return string.substitute(fmt, [this.entry['Account']['$key']]);
         },                
         createLayout: function() {
-            return this.layout || (this.layout = [{
+            var layout, quickActions, details, moreDetails, multiCurrency, relatedItems;
+
+            quickActions = {
                 list: true,
                 title: this.actionsText,
                 cls: 'action-list',
@@ -111,7 +124,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     icon: 'content/images/icons/New_Note_24x24.png',
                     action: 'addNote'
                 }]
-            },{
+            };
+
+            details = {
                 title: this.detailsText,
                 name: 'DetailsSection',
                 children: [{
@@ -136,10 +151,33 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     property: 'EstimatedClose',
                     renderer: format.date.bindDelegate(this, null, true)
                 },{
-                    label: this.potentialText,
+                    label: this.potentialBaseText,
                     name: 'SalesPotential',
                     property: 'SalesPotential',
-                    renderer: format.currency
+                    renderer: function(val) {
+                        // TODO: Use string.substitute and check if multicurrency is enabled
+                        var baseCode = App.context['systemOptions']['BaseCurrency'];
+                        var baseRate = App.context['exchangeRates'][baseCode];
+                        return format.currency.call(null, (val * baseRate)) + ' ' + baseCode;
+                    }
+                },{
+                    label: this.potentialOpportunityText,
+                    name: 'SalesPotentialOpportunity',
+                    property: 'SalesPotentialOpportunity',
+                    renderer: function(val) {
+                        // TODO: Use string.substitute and check if multicurrency is enabled
+                        return format.currency.call(null, (val.SalesPotential * val.ExchangeRate)) + ' ' + val.ExchangeRateCode;
+                    }
+                },{
+                    label: this.potentialMyRateText,
+                    name: 'SalesPotentialMine',
+                    property: 'SalesPotentialMine',
+                    renderer: function(val) {
+                        // TODO: Use string.substitute and check if multicurrency is enabled
+                        var myCode = App.context['userOptions']['General:Currency'];
+                        var myRate = App.context['exchangeRates'][myCode];
+                        return format.currency.call(null, (val.SalesPotential * myRate)) + ' ' + myCode;
+                    }
                 },{
                     label: this.statusText,
                     name: 'Status',
@@ -153,7 +191,32 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     name: 'CloseProbability',
                     property: 'CloseProbability'
                 }]
-            },{
+            };
+
+            multiCurrency = {
+                title: this.multiCurrencyText, 
+                name: 'MultiCurrencySection',
+                children: [{
+                    label: this.multiCurrencyRateText, 
+                    name: 'ExchangeRate',
+                    property: 'ExchangeRate'
+                },{
+                    label: this.multiCurrencyCodeText, 
+                    name: 'ExchangeRateCode',
+                    property: 'ExchangeRateCode'
+                },{
+                    label: this.multiCurrencyDateText, 
+                    name: 'ExchangeRateDate',
+                    property: 'ExchangeRateDate',
+                    renderer: format.date.bindDelegate(this, null, true)
+                },{
+                    label: this.multiCurrencyLockedText,
+                    name: 'ExchangeRateLocked',
+                    property: 'ExchangeRateLocked'
+                }]
+            };
+
+            moreDetails = {
                 title: this.moreDetailsText,
                 name: 'MoreDetailsSection',
                 collapsed: true,
@@ -167,7 +230,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     name: 'LeadSource.Description',
                     property: 'LeadSource.Description'
                 }]
-            },{
+            };
+
+            relatedItems = {
                 list: true,
                 title: this.relatedItemsText,
                 name: 'RelatedItemsSection',
@@ -199,7 +264,20 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}" and Type ne "atDatabaseChange"'),
                     view: 'history_related'
                 }]
-            }]);
+            };
+
+            layout = this.layout || (this.layout = []);
+
+            layout.push(quickActions);
+            layout.push(details);
+
+            if (App.context['systemOptions'] && App.context['systemOptions']['MultiCurrency'] === 'True') {
+                layout.push(multiCurrency);
+            }
+
+            layout.push(moreDetails);
+            layout.push(relatedItems);
+            return layout;
         }        
     });
 });

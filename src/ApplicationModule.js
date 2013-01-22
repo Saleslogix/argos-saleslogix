@@ -10,6 +10,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
     'Mobile/SalesLogix/Views/AddAccountContact',
     'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
+    'Mobile/SalesLogix/Views/ExchangeRateLookup',
     'Mobile/SalesLogix/Views/MainToolbar',
     'Mobile/SalesLogix/Views/FooterToolbar',
     'Mobile/SalesLogix/Views/Home',
@@ -97,6 +98,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     Signature,
     AddAccountContact,
     AreaCategoryIssueLookup,
+    ExchangeRateLookup,
     MainToolbar,
     FooterToolbar,
     Home,
@@ -185,6 +187,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new SelectList());
             this.registerView(new AddAccountContact());
             this.registerView(new AreaCategoryIssueLookup());
+            this.registerView(new ExchangeRateLookup());
 
             this.registerView(new NameEdit());
             this.registerView(new TextEdit());
