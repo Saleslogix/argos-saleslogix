@@ -88,7 +88,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             this.inherited(arguments);
             var nodes;
 
-            if (App.context['systemOptions'] && App.context['systemOptions']['MultiCurrency'] === 'True') {
+            if (App.hasMultiCurrency()) {
                 if (values && values.ExchangeRateCode) {
                     this.fields['ExchangeRateCode'].setValue({'$key': values.ExchangeRateCode, '$descriptor': values.ExchangeRateCode});
                 }

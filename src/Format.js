@@ -220,6 +220,9 @@ define('Mobile/SalesLogix/Format', [
                 ]
             ).replace(/ /g, '\u00A0'); //keep numbers from breaking
         },
+        multiCurrency: function(val, code) {
+            return string.substitute('${0} ${1}', [Mobile.SalesLogix.Format.currency(val), code]);
+        },
         nameLF: function(val) {
             if (!val) return '';
 

@@ -1,10 +1,14 @@
 define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     'dojo/_base/declare',
+    'dojo/dom-construct',
+    'dojo/query',
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
+    domConstruct,
+    query,
     string,
     format,
     Detail
@@ -21,6 +25,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         opportunityText: 'opportunity',
         ownerText: 'owner',
         actionsText: 'Quick Actions',
+        potentialText: 'sales potential',
         potentialBaseText: 'sales potential (base)',
         potentialOpportunityText: 'sales potential (opportunity)',
         potentialMyRateText: 'sales potential (my currency)',
@@ -151,34 +156,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     property: 'EstimatedClose',
                     renderer: format.date.bindDelegate(this, null, true)
                 },{
-                    label: this.potentialBaseText,
-                    name: 'SalesPotential',
-                    property: 'SalesPotential',
-                    renderer: function(val) {
-                        // TODO: Use string.substitute and check if multicurrency is enabled
-                        var baseCode = App.context['systemOptions']['BaseCurrency'];
-                        var baseRate = App.context['exchangeRates'][baseCode];
-                        return format.currency.call(null, (val * baseRate)) + ' ' + baseCode;
-                    }
-                },{
-                    label: this.potentialOpportunityText,
-                    name: 'SalesPotentialOpportunity',
-                    property: 'SalesPotentialOpportunity',
-                    renderer: function(val) {
-                        // TODO: Use string.substitute and check if multicurrency is enabled
-                        return format.currency.call(null, (val.SalesPotential * val.ExchangeRate)) + ' ' + val.ExchangeRateCode;
-                    }
-                },{
-                    label: this.potentialMyRateText,
-                    name: 'SalesPotentialMine',
-                    property: 'SalesPotentialMine',
-                    renderer: function(val) {
-                        // TODO: Use string.substitute and check if multicurrency is enabled
-                        var myCode = App.context['userOptions']['General:Currency'];
-                        var myRate = App.context['exchangeRates'][myCode];
-                        return format.currency.call(null, (val.SalesPotential * myRate)) + ' ' + myCode;
-                    }
-                },{
                     label: this.statusText,
                     name: 'Status',
                     property: 'Status'
@@ -190,6 +167,21 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     label: this.probabilityText,
                     name: 'CloseProbability',
                     property: 'CloseProbability'
+                },{
+                    label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
+                    name: 'SalesPotential',
+                    property: 'SalesPotential',
+                    renderer: (function(val) {
+                        var baseCode, baseRate, convertedValue;
+                        if (App.hasMultiCurrency()) {
+                            baseCode = App.context['systemOptions']['BaseCurrency'];
+                            baseRate = App.context['exchangeRates'][baseCode];
+                            convertedValue = val * baseRate;
+                            return format.multiCurrency.call(null, convertedValue, baseCode);
+                        }
+
+                        return format.currency.call(null, val);
+                    }).bindDelegate(this)
                 }]
             };
 
@@ -271,7 +263,35 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
             layout.push(quickActions);
             layout.push(details);
 
-            if (App.context['systemOptions'] && App.context['systemOptions']['MultiCurrency'] === 'True') {
+            if (App.hasMultiCurrency()) {
+                details.children.push({
+                    label: this.potentialOpportunityText,
+                    name: 'SalesPotentialOpportunity',
+                    property: 'SalesPotentialOpportunity',
+                    renderer: function(val) {
+                        if (App.hasMultiCurrency()) {
+                            return format.multiCurrency.call(null, (val.SalesPotential * val.ExchangeRate), val.ExchangeRateCode);
+                        }
+
+                        return '-';
+                    }
+                },{
+                    label: this.potentialMyRateText,
+                    name: 'SalesPotentialMine',
+                    property: 'SalesPotentialMine',
+                    renderer: (function(val) {
+                        var myCode, myRate, convertedValue;
+                        if (App.hasMultiCurrency()) {
+                            myCode = App.context['userOptions']['General:Currency'];
+                            myRate = App.context['exchangeRates'][myCode];
+                            convertedValue = val.SalesPotential * myRate;
+                            return format.multiCurrency.call(null, convertedValue, myCode);
+                        }
+
+                        return '-';
+                    }).bindDelegate(this)
+                });
+
                 layout.push(multiCurrency);
             }
 

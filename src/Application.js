@@ -99,6 +99,15 @@ define('Mobile/SalesLogix/Application', [
             }
             catch (e) { }
         },
+        hasMultiCurrency: function() {
+            if (App.context &&
+                App.context['systemOptions'] && 
+                App.context['systemOptions']['MultiCurrency'] === 'True') {
+                return true;
+            }
+
+            return false;
+        },
         run: function() {
             this.inherited(arguments);
 
@@ -330,7 +339,8 @@ define('Mobile/SalesLogix/Application', [
             batch.commit({
                 success: this.onRequestUserOptionsSuccess,
                 failure: this.onRequestUserOptionsFailure,
-                scope: this
+                scope: this,
+                async: false
             });
         },
         onRequestUserOptionsSuccess: function(feed) {
@@ -398,7 +408,8 @@ define('Mobile/SalesLogix/Application', [
             request.read({
                 success: this.onRequestExchangeRatesSuccess,
                 failure: this.onRequestExchangeRatesFailure,
-                scope: this
+                scope: this,
+                async: false
             });
         },
         onRequestExchangeRatesSuccess: function(feed) {
