@@ -268,6 +268,10 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
 
             layout = this.layout || (this.layout = []);
 
+            if (layout.length > 0) {
+                return layout;
+            }
+
             layout.push(quickActions);
             layout.push(details);
 

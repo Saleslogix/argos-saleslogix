@@ -50,6 +50,10 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
             var layout, details, multiCurrency;
             layout = this.layout || (this.layout = []);
 
+            if (layout.length > 0) {
+                return layout;
+            }
+
             details = {
                 title: this.detailsText,
                 name: 'DetailsSection',

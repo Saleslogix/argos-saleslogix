@@ -322,6 +322,11 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             };
 
             layout = this.layout || (this.layout = []);
+
+            if (layout.length > 0) {
+                return layout;
+            }
+
             layout.push(details);
             layout.push(multiCurrency);
 
