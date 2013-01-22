@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Views/Login', [
         //Localization
         id: 'login',
         busy: false,
-        copyrightText: '&copy; 2012 Sage Software, Inc. All rights reserved.',
+        copyrightText: '&copy; 2013 Sage Software, Inc. All rights reserved.',
         logOnText: 'Log On',
         passText: 'password',
         rememberText: 'remember',

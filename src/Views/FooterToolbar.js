@@ -8,7 +8,7 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
 
     return declare('Mobile.SalesLogix.Views.FooterToolbar', [MainToolbar], {
         // Localization
-        copyrightText: '&copy; 2012 Sage Software, Inc. All rights reserved.',
+        copyrightText: '&copy; 2013 Sage Software, Inc. All rights reserved.',
         logOutConfirmText: 'Are you sure you want to log out?',
         settingsText: 'Settings',
         helpText: 'Help',
