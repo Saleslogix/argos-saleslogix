@@ -158,6 +158,20 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
 
             this.fields['ExtendedPrice'].setValue(extended);
         },
+        onUpdateCompleted: function(entry) {
+            this._refreshOpportunityProductListView();
+            this.inherited(arguments);
+        },
+        onInsertCompleted: function(entry) {
+            this._refreshOpportunityProductListView();
+            this.inherited(arguments);
+        },
+        _refreshOpportunityProductListView: function() {
+            var view = App.getView('opportunityproduct_related');
+            if (view) {
+                view.refreshRequired = true;
+            }
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
