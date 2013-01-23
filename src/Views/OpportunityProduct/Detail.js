@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         id: 'opportunityproduct_detail',
         editView: 'opportunityproduct_edit',
 
-        security: 'Entities/OpportunityProduct/View',
+        security: 'Entities/Opportunity/View',
         querySelect: [
             'Opportunity/Description',
             'Product/Description',
@@ -87,7 +87,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                     {
                         label: this.discountText,
                         name: 'Discount',
-                        property: 'Discount'
+                        property: 'Discount',
+                        renderer: format.percent
                     },
                     {
                         label: this.quantityText,

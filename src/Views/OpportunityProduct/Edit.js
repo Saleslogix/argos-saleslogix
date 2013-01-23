@@ -32,8 +32,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         entityName: 'Opportunity',
         id: 'opportunityproduct_edit',
         resourceKind: 'opportunityProducts',
-        insertSecurity: 'Entities/OpportunityProduct/Add',
-        updateSecurity: 'Entities/OpportunityProduct/Edit',
+        insertSecurity: 'Entities/Opportunity/Add',
+        updateSecurity: 'Entities/Opportunity/Edit',
         querySelect: [
             'Opportunity/Description',
             'Product/Name',
@@ -56,6 +56,15 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         setValues: function(values) {
             this.inherited(arguments);
             this.fields['Program'].setValue({'$key':'', 'Program': values.Program});
+
+            if (values.Discount > 0) { 
+                adjusted = values.Price - (values.Discount * values.Price)
+                this.fields['AdjustedPrice'].setValue(adjusted);
+                // transform the discount into a whole number .10 to 10%
+                this.fields['Discount'].setValue(values.Discount * 100);
+            } else {
+                this.fields['AdjustedPrice'].setValue(values.Price);
+            }
         },
         getValues: function() {
             var o = this.inherited(arguments);
@@ -70,6 +79,9 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             if (o.AdjustedPrice) {
                 delete o.AdjustedPrice;
             }
+
+            // transform the discount back into a decimal
+            o.Discount = o.Discount / 100;
 
             return o;
         },

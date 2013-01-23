@@ -30,7 +30,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
 
         //View Properties       
         id: 'opportunityproduct_list',
-        security: 'Entities/OpportunityProduct/View',
+        security: 'Entities/Opportunity/View',
         detailView: 'opportunityproduct_detail',
         insertView: 'opportunityproduct_edit',
         icon: 'content/images/icons/product_24.png',
