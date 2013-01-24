@@ -1,3 +1,19 @@
+.row > div > label,
+.row > label
+{
+    float: none;
+}
+
+.row > div > label,
+.row > label,
+.row > div > span,
+.row > div > a,
+.row > span,
+.row > a
+{
+    display: inline-block;
+}
+
 .list-item-selected
 {
     background-color: #D5EFFA;
