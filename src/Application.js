@@ -103,35 +103,86 @@ define('Mobile/SalesLogix/Application', [
         },
         hasMultiCurrency: function() {
             // Check if the configuration specified multiCurrency, this will override the dynamic check.
+            // A configuration is not ideal, and we should refactor the edit view to process the layout when it first recieves its data,
+            // instead of on startup. We cannot check App.context data that was loaded after login when the startup method is used.
             if (this.multiCurrency) {
                 return true;
             }
 
-            if (App.context &&
-                App.context['systemOptions'] && 
-                App.context['systemOptions']['MultiCurrency'] === 'True') {
+            if (this.context &&
+                this.context['systemOptions'] && 
+                this.context['systemOptions']['MultiCurrency'] === 'True') {
                 return true;
             }
 
             return false;
         },
         canLockOpportunityRate: function() {
-            if (App.context &&
-                App.context['systemOptions'] && 
-                App.context['systemOptions']['LockOpportunityRate'] === 'True') {
+            if (this.context &&
+                this.context['systemOptions'] && 
+                this.context['systemOptions']['LockOpportunityRate'] === 'True') {
                 return true;
             }
 
             return false;
         },
         canChangeOpportunityRate: function() {
-            if (App.context &&
-                App.context['systemOptions'] && 
-                App.context['systemOptions']['ChangeOpportunityRate'] === 'True') {
+            if (this.context &&
+                this.context['systemOptions'] && 
+                this.context['systemOptions']['ChangeOpportunityRate'] === 'True') {
                 return true;
             }
 
             return false;
+        },
+        getMyExchangeRate: function() {
+            var myCode, myRate, results = {code: '', rate: 1};
+
+            if (this.hasMultiCurrency() &&
+                this.context &&
+                this.context['exchangeRates'] &&
+                this.context['userOptions'] &&
+                this.context['userOptions']['General:Currency']) {
+
+                myCode = this.context['userOptions']['General:Currency'];
+                myRate = this.context['exchangeRates'][myCode];
+                lang.mixin(results, {code: myCode, rate: myRate});
+            }
+
+            return results;
+        },
+        getBaseExchangeRate: function() {
+            var baseCode, baseRate, convertedValue, results = {code: '', rate: 1};
+
+            if (this.hasMultiCurrency() &&
+                this.context &&
+                this.context['exchangeRates'] &&
+                this.context['systemOptions'] &&
+                this.context['systemOptions']['BaseCurrency']) {
+
+                baseCode = this.context['systemOptions']['BaseCurrency'];
+                baseRate = this.context['exchangeRates'][baseCode];
+                lang.mixin(results, {code: baseCode, rate: baseRate});
+            }
+
+            return results;
+        },
+        getCurrentOpportunityExchangeRate: function() {
+            var rate, found, results = {code: '', rate: 1};
+
+            found = this.queryNavigationContext(function(o) {
+                return /^(opportunities)$/.test(o.resourceKind) && o.key;
+            });
+
+            found = found && found.options;
+
+            if (found) {
+                rate = found.ExchangeRate;
+                code = found.ExchangeRateCode;
+                lang.mixin(results, {code: code, rate: rate});
+            }
+
+            return results;
         },
         run: function() {
             this.inherited(arguments);

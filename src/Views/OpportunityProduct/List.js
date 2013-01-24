@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
             '<h4>',
             '{%: $.Quantity %} x {%: Mobile.SalesLogix.Format.currency($.CalculatedPrice) %} ',
             '({%: Mobile.SalesLogix.Format.percent($.Discount) %}) = ',
-            '<b>{%: Mobile.SalesLogix.Format.currency($.ExtendedPrice) %}</b>',
+            '<b>{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice, App.getBaseExchangeRate().code) %}</b>',
             '</h4>'
         ]),
 

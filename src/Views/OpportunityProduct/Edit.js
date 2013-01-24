@@ -80,26 +80,10 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             this._updateExtendedPrice();
         },
         _getMyRate: function() {
-            var myCode, myRate;
-
-            myCode = App.context['userOptions']['General:Currency'];
-            myRate = App.context['exchangeRates'][myCode];
-            return myRate;
+            return App.getMyExchangeRate().rate;
         },
         _getOpportunityRate: function() {
-            var rate, found;
-
-            found = App.queryNavigationContext(function(o) {
-                return /^(opportunities)$/.test(o.resourceKind) && o.key;
-            });
-
-            found = found && found.options;
-
-            if (found) {
-                rate = found.ExchangeRate;
-            }
-
-            return rate;
+            return App.getCurrentOpportunityExchangeRate().rate;
         },
         getValues: function() {
             var o = this.inherited(arguments);
