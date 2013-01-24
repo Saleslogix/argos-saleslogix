@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         extendedPriceText: 'extended price',
         extendedPriceBaseText: 'extended price (base rate)',
         extendedPriceMineText: 'extended price (my rate)',
-        extendedPriceOpportunityText: 'extended price (opportunity)',
+        extendedPriceOpportunityText: 'extended price (opp. rate)',
 
         //View Properties
         id: 'opportunityproduct_detail',

@@ -12,7 +12,8 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
                 json: true
             }
         },
-        enableUpdateNotification: true
+        enableUpdateNotification: true,
+        multiCurrency: true
     };
 
 });

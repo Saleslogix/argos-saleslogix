@@ -26,9 +26,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         ownerText: 'owner',
         actionsText: 'Quick Actions',
         potentialText: 'sales potential',
-        potentialBaseText: 'sales potential (base)',
-        potentialOpportunityText: 'sales potential (opportunity)',
-        potentialMyRateText: 'sales potential (my currency)',
+        potentialBaseText: 'sales potential (base rate)',
+        potentialOpportunityText: 'sales potential (opp. rate)',
+        potentialMyRateText: 'sales potential (my rate)',
         probabilityText: 'close prob',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Opportunity Contacts',
@@ -277,17 +277,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
 
             if (App.hasMultiCurrency()) {
                 details.children.push({
-                    label: this.potentialOpportunityText,
-                    name: 'SalesPotentialOpportunity',
-                    property: 'SalesPotentialOpportunity',
-                    renderer: function(val) {
-                        if (App.hasMultiCurrency()) {
-                            return format.multiCurrency.call(null, (val.SalesPotential * val.ExchangeRate), val.ExchangeRateCode);
-                        }
-
-                        return '-';
-                    }
-                },{
                     label: this.potentialMyRateText,
                     name: 'SalesPotentialMine',
                     property: 'SalesPotentialMine',
@@ -302,6 +291,17 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
 
                         return '-';
                     }).bindDelegate(this)
+                },{
+                    label: this.potentialOpportunityText,
+                    name: 'SalesPotentialOpportunity',
+                    property: 'SalesPotentialOpportunity',
+                    renderer: function(val) {
+                        if (App.hasMultiCurrency()) {
+                            return format.multiCurrency.call(null, (val.SalesPotential * val.ExchangeRate), val.ExchangeRateCode);
+                        }
+
+                        return '-';
+                    }
                 });
 
                 layout.push(multiCurrency);

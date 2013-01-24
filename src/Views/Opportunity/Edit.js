@@ -59,7 +59,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         ],
         init: function() {
             this.inherited(arguments);
-
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
             this.connect(this.fields['ExchangeRateCode'], 'onChange', this.onExchangeRateCodeChange);
             this.connect(this.fields['ExchangeRateLocked'], 'onChange', this.onExchangeRateLockedChange);

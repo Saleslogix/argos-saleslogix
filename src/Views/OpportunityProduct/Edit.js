@@ -25,8 +25,14 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         priceText: 'price',
         discountText: 'discount',
         adjustedPriceText: 'adjusted price',
+        adjustedPriceBaseText: 'adj. (base rate)',
+        adjustedPriceMineText: 'adj. (my rate)',
+        adjustedPriceOpportunityText: 'adj. (opp rate)',
         quantityText: 'quantity',
-        extendedPriceText: 'extended price',
+        extendedPriceText: 'extended',
+        extendedPriceBaseText: 'ext. (base)',
+        extendedPriceMineText: 'ext. (my rate)',
+        extendedPriceOpportunityText: 'ext. (opp rate)',
 
         //View Properties
         entityName: 'Opportunity',
@@ -51,20 +57,49 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             this.connect(this.fields['Program'], 'onChange', this.onProgramChange);
             this.connect(this.fields['Discount'], 'onChange', this.onDiscountChange);
             this.connect(this.fields['AdjustedPrice'], 'onChange', this.onAdjustedPriceChange);
+            this.connect(this.fields['AdjustedPriceMine'], 'onChange', this.onAdjustedPriceMineChange);
+            this.connect(this.fields['AdjustedPriceOpportunity'], 'onChange', this.onAdjustedPriceOpportunityChange);
             this.connect(this.fields['Quantity'], 'onChange', this.onQuantityChange);
         },
         setValues: function(values) {
             this.inherited(arguments);
+            var adjusted;
             this.fields['Program'].setValue({'$key':'', 'Program': values.Program});
 
             if (values.Discount > 0) { 
-                adjusted = values.Price - (values.Discount * values.Price)
-                this.fields['AdjustedPrice'].setValue(adjusted);
+                adjusted = values.Price - (values.Discount * values.Price);
                 // transform the discount into a whole number .10 to 10%
                 this.fields['Discount'].setValue(values.Discount * 100);
             } else {
-                this.fields['AdjustedPrice'].setValue(values.Price);
+                adjusted = values.Price;
             }
+
+            this.fields['AdjustedPrice'].setValue(adjusted);
+            this.fields['AdjustedPriceMine'].setValue(this._getMyRate() * adjusted);
+            this.fields['AdjustedPriceOpportunity'].setValue(this._getOpportunityRate() * adjusted);
+            this._updateExtendedPrice();
+        },
+        _getMyRate: function() {
+            var myCode, myRate;
+
+            myCode = App.context['userOptions']['General:Currency'];
+            myRate = App.context['exchangeRates'][myCode];
+            return myRate;
+        },
+        _getOpportunityRate: function() {
+            var rate, found;
+
+            found = App.queryNavigationContext(function(o) {
+                return /^(opportunities)$/.test(o.resourceKind) && o.key;
+            });
+
+            found = found && found.options;
+
+            if (found) {
+                rate = found.ExchangeRate;
+            }
+
+            return rate;
         },
         getValues: function() {
             var o = this.inherited(arguments);
@@ -76,9 +111,11 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
              * the discount %, we will remove it from getValues so we aren't trying to save the wrong data type when sending
              * the sdata request.
              */
-            if (o.AdjustedPrice) {
-                delete o.AdjustedPrice;
-            }
+            delete o.AdjustedPrice;
+            delete o.AdjustedPriceMine;
+            delete o.AdjustedPriceOpportunity;
+            delete o.ExtendedPriceMine;
+            delete o.ExtendedPriceOpportunity;
 
             // transform the discount back into a decimal
             o.Discount = o.Discount / 100;
@@ -126,8 +163,9 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             discount = this.fields['Discount'].getValue();
             quantity = parseFloat(this.fields['Quantity'].getValue(), 10) || 0;
 
-            adjusted = price - ((discount / 100) * price)
+            adjusted = discount > 0 ? price - ((discount / 100) * price) : price;
             this.fields['AdjustedPrice'].setValue(adjusted);
+            this._updateAdjustedPrices(adjusted);
 
             adjusted = this.fields['AdjustedPrice'].getValue();
             extended = adjusted * quantity;
@@ -138,15 +176,38 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             var price, discount, adjusted;
             price = parseFloat(this.fields['Price'].getValue(), 10) || 0;
             adjusted = parseFloat(this.fields['AdjustedPrice'].getValue(), 10) || price;
-            quantity = parseFloat(this.fields['Quantity'].getValue(), 10) || 0;
 
             discount = (1 - (adjusted / price)) * 100;
             this.fields['Discount'].setValue(discount);
-
+            this._updateAdjustedPrices(adjusted);
             this._updateExtendedPrice();
+        },
+        onAdjustedPriceMineChange: function(value, field) {
+            var price, discount, myAdjusted;
+            myAdjusted = this.fields['AdjustedPriceMine'].getValue();
+            price = this.fields['Price'].getValue() || 0;
+            price = price * this._getMyRate();// get the price in the users exchange rate
+
+            discount = (1 - (myAdjusted / price)) * 100;
+            this.fields['Discount'].setValue(discount);
+            this.onDiscountChange();
+        },
+        onAdjustedPriceOpportunityChange: function(value, field) {
+            var price, discount, opportunityAdjusted;
+            opportunityAdjusted = this.fields['AdjustedPriceOpportunity'].getValue();
+            price = this.fields['Price'].getValue() || 0;
+            price = price * this._getOpportunityRate();// get the price in the opportunity exchange rate
+
+            discount = (1 - (opportunityAdjusted / price)) * 100;
+            this.fields['Discount'].setValue(discount);
+            this.onDiscountChange();
         },
         onQuantityChange: function(value, field) {
             this._updateExtendedPrice();
+        },
+        _updateAdjustedPrices: function(adjusted) {
+            this.fields['AdjustedPriceMine'].setValue(this._getMyRate() * adjusted);
+            this.fields['AdjustedPriceOpportunity'].setValue(this._getOpportunityRate() * adjusted);
         },
         _updateExtendedPrice: function() {
             var price, discount, adjusted, quantity, extended;
@@ -157,6 +218,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             extended = adjusted * quantity;
 
             this.fields['ExtendedPrice'].setValue(extended);
+            this.fields['ExtendedPriceMine'].setValue(extended * this._getMyRate());
+            this.fields['ExtendedPriceOpportunity'].setValue(extended * this._getOpportunityRate());
         },
         onUpdateCompleted: function(entry) {
             this._refreshOpportunityProductListView();
@@ -229,10 +292,24 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     notificationTrigger: 'blur'
                 },
                 {
-                    label: this.adjustedPriceText,
+                    label: App.hasMultiCurrency() ? this.adjustedPriceBaseText : this.adjustedPriceText,
                     name: 'AdjustedPrice',
                     property: 'AdjustedPrice',
                     type: 'decimal',
+                    notificationTrigger: 'blur'
+                },
+                {
+                    label: this.adjustedPriceOpportunityText,
+                    name: 'AdjustedPriceOpportunity',
+                    property: 'AdjustedPriceOpportunity',
+                    type: App.hasMultiCurrency() ? 'decimal' : 'hidden',
+                    notificationTrigger: 'blur'
+                },
+                {
+                    label: this.adjustedPriceMineText,
+                    name: 'AdjustedPriceMine',
+                    property: 'AdjustedPriceMine',
+                    type: App.hasMultiCurrency() ? 'decimal' : 'hidden',
                     notificationTrigger: 'blur'
                 },
                 {
@@ -243,12 +320,26 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     notificationTrigger: 'blur'
                 },
                 {
-                    label: this.extendedPriceText,
+                    label: App.hasMultiCurrency() ? this.extendedPriceBaseText : this.extendedPriceText,
                     name: 'ExtendedPrice',
                     property: 'ExtendedPrice',
                     type: 'decimal',
                     readonly: true
-                }
+                },
+                {
+                    label: this.extendedPriceOpportunityText,
+                    name: 'ExtendedPriceOpportunity',
+                    property: 'ExtendedPriceOpportunity',
+                    type: App.hasMultiCurrency() ? 'decimal' : 'hidden',
+                    readonly: true
+                },
+                {
+                    label: this.extendedPriceMineText,
+                    name: 'ExtendedPriceMine',
+                    property: 'ExtendedPriceMine',
+                    type: App.hasMultiCurrency() ? 'decimal' : 'hidden',
+                    readonly: true
+                },
             ]);
         }
     });

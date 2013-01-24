@@ -27,6 +27,8 @@ define('Mobile/SalesLogix/Application', [
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
+        multiCurrency: false,
+
         enableCaching: true,
         userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
         userOptionsToRequest: [
@@ -100,6 +102,11 @@ define('Mobile/SalesLogix/Application', [
             catch (e) { }
         },
         hasMultiCurrency: function() {
+            // Check if the configuration specified multiCurrency, this will override the dynamic check.
+            if (this.multiCurrency) {
+                return true;
+            }
+
             if (App.context &&
                 App.context['systemOptions'] && 
                 App.context['systemOptions']['MultiCurrency'] === 'True') {
