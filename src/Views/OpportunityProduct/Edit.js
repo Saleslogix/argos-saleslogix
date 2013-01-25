@@ -25,14 +25,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         priceText: 'price',
         discountText: 'discount',
         adjustedPriceText: 'adjusted price',
-        adjustedPriceBaseText: 'adj. (base rate)',
-        adjustedPriceMineText: 'adj. (my rate)',
-        adjustedPriceOpportunityText: 'adj. (opp rate)',
         quantityText: 'quantity',
-        extendedPriceText: 'extended',
-        extendedPriceBaseText: 'ext. (base)',
-        extendedPriceMineText: 'ext. (my rate)',
-        extendedPriceOpportunityText: 'ext. (opp rate)',
+        extendedPriceText: 'extended price',
 
         //View Properties
         entityName: 'Opportunity',
@@ -63,7 +57,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         },
         setValues: function(values) {
             this.inherited(arguments);
-            var adjusted;
+            var adjusted, myCode, oppCode, baseCode;
             this.fields['Program'].setValue({'$key':'', 'Program': values.Program});
 
             if (values.Discount > 0) { 
@@ -74,9 +68,23 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                 adjusted = values.Price;
             }
 
+            myCode = App.getMyExchangeRate().code;
+            baseCode = App.getBaseExchangeRate().code;
+            oppCode = App.getCurrentOpportunityExchangeRate().code;
+
             this.fields['AdjustedPrice'].setValue(adjusted);
+            this.fields['AdjustedPrice'].setCurrencyCode(baseCode);
+
             this.fields['AdjustedPriceMine'].setValue(this._getMyRate() * adjusted);
+            this.fields['AdjustedPriceMine'].setCurrencyCode(myCode);
+
             this.fields['AdjustedPriceOpportunity'].setValue(this._getOpportunityRate() * adjusted);
+            this.fields['AdjustedPriceOpportunity'].setCurrencyCode(oppCode);
+
+            this.fields['ExtendedPrice'].setCurrencyCode(baseCode);
+            this.fields['ExtendedPriceMine'].setCurrencyCode(myCode);
+            this.fields['ExtendedPriceOpportunity'].setCurrencyCode(oppCode);
+
             this._updateExtendedPrice();
         },
         _getMyRate: function() {
@@ -276,24 +284,24 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     notificationTrigger: 'blur'
                 },
                 {
-                    label: App.hasMultiCurrency() ? this.adjustedPriceBaseText : this.adjustedPriceText,
+                    label: this.adjustedPriceText,
                     name: 'AdjustedPrice',
                     property: 'AdjustedPrice',
-                    type: 'decimal',
+                    type: 'multiCurrency',
                     notificationTrigger: 'blur'
                 },
                 {
-                    label: this.adjustedPriceOpportunityText,
+                    label: this.adjustedPriceText,
                     name: 'AdjustedPriceOpportunity',
                     property: 'AdjustedPriceOpportunity',
-                    type: App.hasMultiCurrency() ? 'decimal' : 'hidden',
+                    type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
                     notificationTrigger: 'blur'
                 },
                 {
-                    label: this.adjustedPriceMineText,
+                    label: this.adjustedPriceText,
                     name: 'AdjustedPriceMine',
                     property: 'AdjustedPriceMine',
-                    type: App.hasMultiCurrency() ? 'decimal' : 'hidden',
+                    type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
                     notificationTrigger: 'blur'
                 },
                 {
@@ -304,24 +312,24 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     notificationTrigger: 'blur'
                 },
                 {
-                    label: App.hasMultiCurrency() ? this.extendedPriceBaseText : this.extendedPriceText,
+                    label: this.extendedPriceText,
                     name: 'ExtendedPrice',
                     property: 'ExtendedPrice',
-                    type: 'decimal',
+                    type: 'multiCurrency',
                     readonly: true
                 },
                 {
-                    label: this.extendedPriceOpportunityText,
+                    label: this.extendedPriceText,
                     name: 'ExtendedPriceOpportunity',
                     property: 'ExtendedPriceOpportunity',
-                    type: App.hasMultiCurrency() ? 'decimal' : 'hidden',
+                    type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
                     readonly: true
                 },
                 {
-                    label: this.extendedPriceMineText,
+                    label: this.extendedPriceText,
                     name: 'ExtendedPriceMine',
                     property: 'ExtendedPriceMine',
-                    type: App.hasMultiCurrency() ? 'decimal' : 'hidden',
+                    type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
                     readonly: true
                 },
             ]);

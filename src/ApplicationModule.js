@@ -79,6 +79,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/User/List',
 
     'Mobile/SalesLogix/Fields/AddressField',
+    'Mobile/SalesLogix/Fields/MultiCurrencyField',
     'Mobile/SalesLogix/Fields/NameField',
     'Mobile/SalesLogix/Fields/PicklistField',
     'Mobile/SalesLogix/Fields/RecurrencesField',

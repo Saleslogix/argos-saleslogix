@@ -469,6 +469,10 @@
           "path": "../src/Fields"
         },
         {
+          "text": "MultiCurrencyField.js",
+          "path": "../src/Fields"
+        },
+        {
           "text": "NameField.js",
           "path": "../src/Fields"
         },

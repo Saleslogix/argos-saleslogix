@@ -107,6 +107,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                 this.fields['ExchangeRateLocked'].disable();
                 this.fields['ExchangeRateDate'].disable();
             }
+
+            this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
         },
         getValues: function() {
             var values, code;
@@ -225,7 +227,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         name: 'SalesPotential',
                         property: 'SalesPotential',
                         precision: 2,
-                        type: 'decimal',
+                        type: 'multiCurrency',
                         validationTrigger: 'keyup',
                         validator: validator.isCurrency
                     },
