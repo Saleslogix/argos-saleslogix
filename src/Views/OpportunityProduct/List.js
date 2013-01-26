@@ -21,8 +21,12 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
             '<h4>',
             '{%: $.Quantity %} x {%: Mobile.SalesLogix.Format.currency($.CalculatedPrice) %} ',
             '({%: Mobile.SalesLogix.Format.percent($.Discount) %}) = ',
-            '<b>{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice, App.getBaseExchangeRate().code) %}</b>',
-            '</h4>'
+            '</h4>',
+            '<h4><b>{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice, App.getBaseExchangeRate().code) %}</b></h4>',
+            '{% if (App.hasMultiCurrency()) { %}',
+                '<h4><b>{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice * App.getMyExchangeRate().rate, App.getMyExchangeRate().code) %}</b></h4>',
+                '<h4><b>{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice * App.getCurrentOpportunityExchangeRate().rate, App.getCurrentOpportunityExchangeRate().code) %}</b></h4>',
+            '{% } %}'
         ]),
 
         //Localization

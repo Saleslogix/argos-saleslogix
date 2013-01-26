@@ -98,7 +98,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
 
                 if (!App.canChangeOpportunityRate()) {
                     this.fields['ExchangeRate'].disable();
-                    // TODO: Check if this should be here
                     this.fields['ExchangeRateCode'].disable();
                 }
             } else {
