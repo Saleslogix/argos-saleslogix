@@ -19,9 +19,6 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         discountText: 'discount',
         quantityText: 'quantity',
         extendedPriceText: 'extended price',
-        extendedPriceBaseText: 'extended price (base rate)',
-        extendedPriceMineText: 'extended price (my rate)',
-        extendedPriceOpportunityText: 'extended price (opp. rate)',
 
         //View Properties
         id: 'opportunityproduct_detail',
@@ -96,7 +93,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         property: 'Quantity'
                     },
                     {
-                        label: App.hasMultiCurrency() ? this.extendedPriceBaseText : this.extendedPriceText,
+                        label: this.extendedPriceText,
                         name: 'ExtendedPrice',
                         property: 'ExtendedPrice',
                         renderer: (function(val) {
@@ -117,7 +114,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
 
             if (App.hasMultiCurrency()) {
                 details.children.push({
-                    label: this.extendedPriceMineText,
+                    label: this.extendedPriceText,
                     name: 'ExtendedPriceMine',
                     property: 'ExtendedPriceMine',
                     renderer: (function(val) {
@@ -131,7 +128,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         return '-';
                     }).bindDelegate(this)
                 },{
-                    label: this.extendedPriceOpportunityText,
+                    label: this.extendedPriceText,
                     name: 'ExtendedPriceOpportunity',
                     property: 'ExtendedPriceOpportunity',
                     renderer: (function(val) {
