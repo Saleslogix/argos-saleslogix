@@ -1,5 +1,6 @@
 define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
@@ -7,6 +8,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
+    array,
     string,
     validator,
     template,
@@ -214,18 +216,25 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             this.fields['ExtendedPriceOpportunity'].setValue(extended * this._getOpportunityRate());
         },
         onUpdateCompleted: function(entry) {
-            this._refreshOpportunityProductListView();
+            this._refreshOpportunityViews();
             this.inherited(arguments);
         },
         onInsertCompleted: function(entry) {
-            this._refreshOpportunityProductListView();
+            this._refreshOpportunityViews();
             this.inherited(arguments);
         },
-        _refreshOpportunityProductListView: function() {
-            var view = App.getView('opportunityproduct_related');
-            if (view) {
-                view.refreshRequired = true;
-            }
+        _refreshOpportunityViews: function() {
+            var views = [
+                App.getView('opportunityproduct_related'),
+                App.getView('opportunity_detail'),
+                App.getView('opportunity_list')
+            ];
+
+            array.forEach(views, function(view) {
+                if (view) {
+                    view.refreshRequired = true;
+                }
+            }, this);
         },
         createLayout: function() {
             return this.layout || (this.layout = [

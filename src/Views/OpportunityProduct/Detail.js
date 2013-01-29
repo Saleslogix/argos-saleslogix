@@ -144,7 +144,9 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                             rate = found.ExchangeRate;
                             code = found.ExchangeRateCode;
                             convertedValue = val.ExtendedPrice * rate;
-                            return format.multiCurrency.call(null, convertedValue, code);
+                            if (!isNaN(convertedValue) && code) {
+                                return format.multiCurrency.call(null, convertedValue, code);
+                            }
                         }
 
                         return '-';
