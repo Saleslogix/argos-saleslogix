@@ -55,8 +55,10 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 
         //View Properties
         id: 'myactivity_list',
-        //detailView: 'activity_detail',
-        //insertView: 'activity_types_list',
+
+        queryWhere: function() {
+            return string.substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context['user'].$key]);
+        },
         queryOrderBy: 'Activity.Timeless desc, Activity.StartDate desc',
         querySelect: [
             'Alarm',
