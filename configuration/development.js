@@ -13,7 +13,7 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
             }
         },
         enableUpdateNotification: true,
-        multiCurrency: true
+        multiCurrency: false
     };
 
 });

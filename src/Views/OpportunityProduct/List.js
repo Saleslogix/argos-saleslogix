@@ -15,18 +15,20 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
             '<h4>',
-            '{% if ($.Product) { %} {%: $.Product.Family %} | {% } %}',
-            '{%: $.Program %} | {%: Mobile.SalesLogix.Format.currency($.Price) %}',
+                '{% if ($.Product) { %} {%: $.Product.Family %} | {% } %}',
+                '{%: $.Program %} | {%: Mobile.SalesLogix.Format.currency($.Price) %}',
             '</h4>',
             '<h4>',
-            '{%: $.Quantity %} x {%: Mobile.SalesLogix.Format.currency($.CalculatedPrice) %} ',
-            '({%: Mobile.SalesLogix.Format.percent($.Discount) %}) = ',
-            '</h4>',
-            '<h4><b>{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice, App.getBaseExchangeRate().code) %}</b></h4>',
-            '{% if (App.hasMultiCurrency()) { %}',
-                '<h4><b>{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice * App.getMyExchangeRate().rate, App.getMyExchangeRate().code) %}</b></h4>',
-                '<h4><b>{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice * App.getCurrentOpportunityExchangeRate().rate, App.getCurrentOpportunityExchangeRate().code) %}</b></h4>',
-            '{% } %}'
+                '{%: $.Quantity %} x {%: Mobile.SalesLogix.Format.currency($.CalculatedPrice) %} ',
+                '({%: Mobile.SalesLogix.Format.percent($.Discount) %}) = ',
+                '<strong>',
+                    '{% if (App.hasMultiCurrency()) { %}',
+                        '{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice * App.getCurrentOpportunityExchangeRate().rate, App.getCurrentOpportunityExchangeRate().code) %}',
+                    '{% } else { %}',
+                        '{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice, App.getBaseExchangeRate().code) %}',
+                    '{% } %}',
+                '</strong>',
+            '</h4>'
         ]),
 
         //Localization
