@@ -269,6 +269,10 @@
           "path": "../src/Views/Activity"
         },
         {
+          "text": "MyList.js",
+          "path": "../src/Views/Activity"
+        },
+        {
           "text": "Detail.js",
           "path": "../src/Views/Activity"
         },

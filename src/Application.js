@@ -380,7 +380,8 @@ define('Mobile/SalesLogix/Application', [
                 'opportunity_list',
                 'ticket_list',
                 'calendar_daylist',
-                'history_list'
+                'history_list',
+                'myactivity_list'
             ];
         },
         getExposedViews: function() {
