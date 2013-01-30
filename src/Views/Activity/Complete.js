@@ -31,10 +31,10 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         categoryText: 'category',
         categoryTitleText: 'Activity Category',
         completedText: 'completed date',
-		completedFormatText: 'M/d/yyyy h:mm tt',
+        completedFormatText: 'M/d/yyyy h:mm tt',
         completionText: 'Completion',
         durationText: 'duration',
-		durationInvalidText: "The field '${2}' must have a value.",
+        durationInvalidText: "The field '${2}' must have a value.",
         carryOverNotesText: 'carry over notes',
         followUpText: 'follow-up',
         followUpTitleText: 'Follow-up type',
@@ -49,7 +49,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         resultText: 'result',
         resultTitleText: 'Result',
         startingText: 'start date',
-		startingFormatText: 'M/d/yyyy h:mm tt',
+        startingFormatText: 'M/d/yyyy h:mm tt',
         startingFormatTimelessText: 'M/d/yyyy',
         timelessText: 'timeless',
         durationValueText: {
@@ -353,58 +353,6 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                title: this.activityInfoText,
-                name: 'ActivityInfoSection',
-                collapsed: false,
-                children: [{
-                    name: 'Type',
-                    property: 'Type',
-                    type: 'hidden'
-                },{
-                    dependsOn: 'Type',
-                    label: this.regardingText,
-                    name: 'Description',
-                    property: 'Description',
-                    picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
-                    title: this.regardingTitleText,
-                    orderBy: 'text asc',
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
-                },{
-                    label: this.startingText,
-                    name: 'StartDate',
-                    property: 'StartDate',
-                    type: 'date',
-                    showTimePicker: true,
-                    formatString: this.startingFormatText,
-                    minValue: (new Date(1900, 0, 1)),
-                    validator: [
-                        validator.exists,
-                        validator.isDateInRange
-                    ]
-                },{
-                    label: this.durationText,
-                    title: this.durationTitleText,
-                    name: 'Duration',
-                    property: 'Duration',
-                    type: 'duration',
-                    view: 'select_list',
-                    data: this.createDurationData(),
-                    validator: {
-                        fn: function(val, field) {
-                            if (field.isDisabled()) return false;
-                            if (!/^\d+$/.test(val)) return true;
-                        },
-                        message: this.durationInvalidText
-                    }
-                },{
-                    label: this.timelessText,
-                    name: 'Timeless',
-                    property: 'Timeless',
-                    type: 'boolean'
-                }]
-            },{
                 title: this.completionText,
                 name: 'CompletionSection',
                 collapsed: false,
@@ -464,6 +412,97 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     title: this.longNotesTitleText,
                     type: 'note',
                     view: 'text_edit'
+                }]
+            },{
+                title: this.activityInfoText,
+                name: 'ActivityInfoSection',
+                collapsed: true,
+                children: [{
+                    name: 'Type',
+                    property: 'Type',
+                    type: 'hidden'
+                },{
+                    dependsOn: 'Type',
+                    label: this.regardingText,
+                    name: 'Description',
+                    property: 'Description',
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
+                    title: this.regardingTitleText,
+                    orderBy: 'text asc',
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: validator.exceedsMaxTextLength
+                },{
+                    label: this.startingText,
+                    name: 'StartDate',
+                    property: 'StartDate',
+                    type: 'date',
+                    showTimePicker: true,
+                    formatString: this.startingFormatText,
+                    minValue: (new Date(1900, 0, 1)),
+                    validator: [
+                        validator.exists,
+                        validator.isDateInRange
+                    ]
+                },{
+                    label: this.durationText,
+                    title: this.durationTitleText,
+                    name: 'Duration',
+                    property: 'Duration',
+                    type: 'duration',
+                    view: 'select_list',
+                    data: this.createDurationData(),
+                    validator: {
+                        fn: function(val, field) {
+                            if (field.isDisabled()) return false;
+                            if (!/^\d+$/.test(val)) return true;
+                        },
+                        message: this.durationInvalidText
+                    }
+                },{
+                    label: this.timelessText,
+                    name: 'Timeless',
+                    property: 'Timeless',
+                    type: 'boolean'
+                }]
+            },{
+                title: this.otherInfoText,
+                name: 'OtherInfoSection',
+                collapsed: true,
+                children: [{
+                    label: this.priorityText,
+                    name: 'Priority',
+                    property: 'Priority',
+                    picklist: 'Priorities',
+                    title: this.priorityTitleText,
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: validator.exceedsMaxTextLength
+                },{
+                    dependsOn: 'Type',
+                    label: this.categoryText,
+                    name: 'Category',
+                    property: 'Category',
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
+                    orderBy: 'text asc',
+                    title: this.categoryTitleText,
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: validator.exceedsMaxTextLength
+                },{
+                    type: 'hidden',
+                    name: 'UserId',
+                    property: 'UserId'
+                },{
+                    label: this.leaderText,
+                    name: 'Leader',
+                    property: 'Leader',
+                    include: false,
+                    type: 'lookup',
+                    textProperty: 'UserInfo',
+                    textTemplate: template.nameLF,
+                    requireSelection: true,
+                    view: 'user_list'
                 },{
                     label: this.accountText,
                     name: 'Account',
@@ -525,45 +564,6 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     name: 'AccountName',
                     property: 'AccountName',
                     type: 'text'
-                }]
-            },{
-                title: this.otherInfoText,
-                name: 'OtherInfoSection',
-                collapsed: false,
-                children: [{
-                    label: this.priorityText,
-                    name: 'Priority',
-                    property: 'Priority',
-                    picklist: 'Priorities',
-                    title: this.priorityTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
-                },{
-                    dependsOn: 'Type',
-                    label: this.categoryText,
-                    name: 'Category',
-                    property: 'Category',
-                    picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
-                    orderBy: 'text asc',
-                    title: this.categoryTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
-                },{
-                    type: 'hidden',
-                    name: 'UserId',
-                    property: 'UserId'
-                },{
-                    label: this.leaderText,
-                    name: 'Leader',
-                    property: 'Leader',
-                    include: false,
-                    type: 'lookup',
-                    textProperty: 'UserInfo',
-                    textTemplate: template.nameLF,
-                    requireSelection: true,
-                    view: 'user_list'
                 }]
             }]);
         }
