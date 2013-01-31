@@ -87,9 +87,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         isActivityRecurring: function(entry) {
             return entry && (entry['Activity']['Recurring'] || entry['Activity']['RecurrenceState'] == 'rstOccurrence');
         },
-        isActivityRecurringSeries: function(entry) {
-            return this.isActivityRecurring(entry.Activity) && !recur.isAfterCompletion(entry['Activity']['RecurPeriod']);
-        },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                     id: 'complete',
@@ -101,7 +98,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                             return false;
                         }
 
-                        return entry.Activity['Leader']['$key'] === App.context['user']['$key'];
+                        return entry.Activity['Leader']['$key'] === App.context['user']['$key'] && !this.isActivityRecurring(entry);
                     },
                     fn: (function(action, selection) {
                         var view, entry, options;
@@ -117,7 +114,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                                 template: {}
                             };
 
-                            // TODO: Activity detail handles series a bit different here.
                             options.entry = entry.Activity; 
 
                             view.show(options, {});
