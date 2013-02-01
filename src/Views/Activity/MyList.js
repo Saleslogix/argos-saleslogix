@@ -42,9 +42,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         itemTemplate: new Simplate([
             '<h3>',
             '{%! $$.activityTimeTemplate %}',
-            '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
+            '<span class="p-description">&nbsp;{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: Mobile.SalesLogix.Format.userActivityStatus($.Status) %}) {% } %}</span>',
             '</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.userActivityStatus($.Status) %}</h4>',
             '<h4>{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
