@@ -44,7 +44,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             '{%! $$.activityTimeTemplate %}',
             '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
             '</h3>',
-            '<h4>{%: $.Status %}</h4>',
+            '<h4>{%: Mobile.SalesLogix.Format.userActivityStatus($.Status) %}</h4>',
             '<h4>{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
