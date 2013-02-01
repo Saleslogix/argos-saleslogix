@@ -2,20 +2,22 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/query',
+    'dojo/_base/connect',
     'Sage/Platform/Mobile/List',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Views/Activity/List',
     'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Recurrence'
+    'Sage/Platform/Mobile/ErrorManager'
 ], function(
     declare,
     string,
     query,
+    connect,
     List,
     format,
     ActivityList,
     convert,
-    recur
+    ErrorManager
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
@@ -42,6 +44,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             '{%! $$.activityTimeTemplate %}',
             '<span class="p-description">&nbsp;{%: $.Activity.Description %}</span>',
             '</h3>',
+            '<h4>{%: $.Status %}</h4>',
             '<h4>{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
@@ -57,7 +60,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         //Localization
         titleText: 'My Activities',      
         completeActivityText: 'Complete',
-        completeView: 'activity_complete',
+        acceptActivityText: 'Accept',
+        declineActivityText: 'Decline',
 
         //View Properties
         id: 'myactivity_list',
@@ -84,9 +88,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         allowSelection: true,
         enableActions: true,
 
-        isActivityRecurring: function(entry) {
-            return entry && (entry['Activity']['Recurring'] || entry['Activity']['RecurrenceState'] == 'rstOccurrence');
-        },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                     id: 'complete',
@@ -98,27 +99,58 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                             return false;
                         }
 
-                        return entry.Activity['Leader']['$key'] === App.context['user']['$key'] && !this.isActivityRecurring(entry);
+                        return entry.Activity['Leader']['$key'] === App.context['user']['$key'];
                     },
                     fn: (function(action, selection) {
-                        var view, entry, options;
+                        var entry;
 
-                        view = App.getView(this.completeView);
+                        entry = selection && selection.data && selection.data.Activity;
+
+                        entry['CompletedDate'] = new Date();
+                        entry['Result'] = 'Complete';
+
+                        this.refreshRequired = true;
+                        this.completeActivity(entry);
+
+                    }).bindDelegate(this)
+                },{
+                    id: 'accept',
+                    icon: 'content/images/icons/OK_24.png',
+                    label: this.acceptActivityText,
+                    enabled: function(action, selection) {
+                        var entry = selection && selection.data;
+                        if (!entry) {
+                            return false;
+                        }
+
+                        return entry.Status === 'asUnconfirmed';
+                    },
+                    fn: (function(action, selection) {
+                        var entry;
+
+                        entry = selection && selection.data;
+                        this.refreshRequired = true;
+                        this.confirmActivityFor(entry.Activity.$key, App.context['user']['$key']);
+
+                    }).bindDelegate(this)
+                },{
+                    id: 'decline',
+                    icon: 'content/images/icons/cancl_24.png',
+                    label: this.declineActivityText,
+                    enabled: function(action, selection) {
+                        var entry = selection && selection.data;
+                        if (!entry) {
+                            return false;
+                        }
+
+                        return entry.Status === 'asUnconfirmed';
+                    },
+                    fn: (function(action, selection) {
+                        var entry;
                         entry = selection && selection.data;
 
-                        if (view) {
-                            this.refreshRequired = true;
-
-                            options = {
-                                title: 'Complete',
-                                template: {}
-                            };
-
-                            options.entry = entry.Activity; 
-
-                            view.show(options, {});
-
-                        }
+                        this.refreshRequired = true;
+                        this.declineActivityFor(entry.Activity.$key, App.context['user']['$key']);
                     }).bindDelegate(this)
                 }]
             );
@@ -141,6 +173,111 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Activity.Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-        }
+        },
+        declineActivityFor: function(activityId, userId) {
+            this._getUserNotifications(activityId, userId, false);
+        },
+        confirmActivityFor: function(activityId, userId) {
+            this._getUserNotifications(activityId, userId, true);
+        },
+        _getUserNotifications: function(activityId, userId, accept) {
+            var req;
+
+            if (activityId) {
+                activityId = activityId.substring(0, 12);
+            }
+
+            req = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService());
+            req.setResourceKind('userNotifications');
+            req.setContractName('dynamic');
+            req.setQueryArg('where', string.substitute('ActivityId eq \'${0}\' and ToUser.Id eq \'${1}\'', [activityId, userId]));
+            req.setQueryArg('precedence', '0');
+            req.read({
+                success: function(userNotifications) {
+                    if (userNotifications['$resources'] && userNotifications['$resources'].length > 0) {
+                        if (accept) {
+                            this.acceptConfirmation(userNotifications['$resources'][0]);
+                        } else {
+                            this.declineConfirmation(userNotifications['$resources'][0]);
+                        }
+                    }
+                },
+                failure: this.onRequestFailure, 
+                scope: this
+            });
+        },
+        declineConfirmation: function(notification) {
+            this._postUserNotifications(notification, 'Decline');
+        },
+        acceptConfirmation: function(notification) {
+            this._postUserNotifications(notification, 'Accept');
+        },
+        _postUserNotifications: function(notification, operation) {
+            if (!notification || typeof operation !== "string") {
+                return;
+            }
+
+            var payload, request;
+
+            /*
+             * To get the payload template:
+             * http://localhost:6666/SlxClient/slxdata.ashx/slx/dynamic/-/userNotifications/$service/accept/$template?format=json
+            */
+            var payload = {
+                "$name": operation,
+                "request": {
+                    "entity": notification,
+                    "UserNotificationId": notification['$key']
+                }
+            };
+
+            var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
+                .setContractName('dynamic')
+                .setResourceKind('usernotifications')
+                .setOperationName(operation.toLowerCase());
+            request.execute(payload, {
+                success: function() {
+                    this.clear();
+                    this.refresh();
+                },
+                failure: this.onRequestFailure,
+                scope: this
+            });
+        },
+        completeActivity: function(entry) {
+            var completeActivity, request;
+
+            completeActivityEntry = {
+                "$name": "ActivityComplete",
+                "request": {
+                    "entity": { '$key': entry['$key'] },
+                    "ActivityId": entry['$key'],
+                    "userId": entry['Leader']['$key'],
+                    "result": entry['Result'],
+                    "completeDate": entry['CompletedDate']
+                }
+            };
+
+            request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
+                .setResourceKind('activities')
+                .setContractName('system')
+                .setOperationName('Complete');
+
+            request.execute(completeActivityEntry, {
+                success: function() {
+                    connect.publish('/app/refresh',[{
+                        resourceKind: 'history'
+                    }]);
+
+                    this.clear();
+                    this.refresh();
+                },
+                failure: this.onRequestFailure,
+                scope: this
+            });
+        },
+        onRequestFailure: function(response, o) {
+            ErrorManager.addError(response, o, {}, 'failure');
+        },
     });
 });
