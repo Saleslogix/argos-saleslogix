@@ -237,6 +237,14 @@ define('Mobile/SalesLogix/Format', [
                 return val;
 
             return string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
+        },
+        userActivityFormats: {
+            'asUnconfirmed': 'Unconfirmed',
+            'asAccepted': 'Accepted',
+            'asDeclned': 'Declined'
+        },
+        userActivityStatus: function(val) {
+            return Mobile.SalesLogix.Format.userActivityFormats[val];
         }
     }));
 });

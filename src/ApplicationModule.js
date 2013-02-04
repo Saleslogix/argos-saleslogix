@@ -29,6 +29,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Address/List',
     'Mobile/SalesLogix/Views/Address/Edit',
     'Mobile/SalesLogix/Views/Activity/List',
+    'Mobile/SalesLogix/Views/Activity/MyList',
     'Mobile/SalesLogix/Views/Activity/Detail',
     'Mobile/SalesLogix/Views/Activity/Edit',
     'Mobile/SalesLogix/Views/Activity/Complete',
@@ -117,6 +118,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     AddressList,
     AddressEdit,
     ActivityList,
+    MyActivityList,
     ActivityDetail,
     ActivityEdit,
     ActivityComplete,
@@ -313,6 +315,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'activity_related',
                 expose: false
             }));
+
+            this.registerView(new MyActivityList());
             this.registerView(new ActivityRecurring());
 
             this.registerView(new HistoryDetail());

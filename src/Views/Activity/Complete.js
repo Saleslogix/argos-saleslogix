@@ -31,10 +31,10 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         categoryText: 'category',
         categoryTitleText: 'Activity Category',
         completedText: 'completed date',
-		completedFormatText: 'M/d/yyyy h:mm tt',
+        completedFormatText: 'M/d/yyyy h:mm tt',
         completionText: 'Completion',
         durationText: 'duration',
-		durationInvalidText: "The field '${2}' must have a value.",
+        durationInvalidText: "The field '${2}' must have a value.",
         carryOverNotesText: 'carry over notes',
         followUpText: 'follow-up',
         followUpTitleText: 'Follow-up type',
@@ -49,7 +49,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         resultText: 'result',
         resultTitleText: 'Result',
         startingText: 'start date',
-		startingFormatText: 'M/d/yyyy h:mm tt',
+        startingFormatText: 'M/d/yyyy h:mm tt',
         startingFormatTimelessText: 'M/d/yyyy',
         timelessText: 'timeless',
         durationValueText: {
@@ -464,6 +464,45 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     title: this.longNotesTitleText,
                     type: 'note',
                     view: 'text_edit'
+                }]
+            },{
+                title: this.otherInfoText,
+                name: 'OtherInfoSection',
+                collapsed: false,
+                children: [{
+                    label: this.priorityText,
+                    name: 'Priority',
+                    property: 'Priority',
+                    picklist: 'Priorities',
+                    title: this.priorityTitleText,
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: validator.exceedsMaxTextLength
+                },{
+                    dependsOn: 'Type',
+                    label: this.categoryText,
+                    name: 'Category',
+                    property: 'Category',
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
+                    orderBy: 'text asc',
+                    title: this.categoryTitleText,
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: validator.exceedsMaxTextLength
+                },{
+                    type: 'hidden',
+                    name: 'UserId',
+                    property: 'UserId'
+                },{
+                    label: this.leaderText,
+                    name: 'Leader',
+                    property: 'Leader',
+                    include: false,
+                    type: 'lookup',
+                    textProperty: 'UserInfo',
+                    textTemplate: template.nameLF,
+                    requireSelection: true,
+                    view: 'user_list'
                 },{
                     label: this.accountText,
                     name: 'Account',
@@ -525,45 +564,6 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     name: 'AccountName',
                     property: 'AccountName',
                     type: 'text'
-                }]
-            },{
-                title: this.otherInfoText,
-                name: 'OtherInfoSection',
-                collapsed: false,
-                children: [{
-                    label: this.priorityText,
-                    name: 'Priority',
-                    property: 'Priority',
-                    picklist: 'Priorities',
-                    title: this.priorityTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
-                },{
-                    dependsOn: 'Type',
-                    label: this.categoryText,
-                    name: 'Category',
-                    property: 'Category',
-                    picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
-                    orderBy: 'text asc',
-                    title: this.categoryTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
-                },{
-                    type: 'hidden',
-                    name: 'UserId',
-                    property: 'UserId'
-                },{
-                    label: this.leaderText,
-                    name: 'Leader',
-                    property: 'Leader',
-                    include: false,
-                    type: 'lookup',
-                    textProperty: 'UserInfo',
-                    textTemplate: template.nameLF,
-                    requireSelection: true,
-                    view: 'user_list'
                 }]
             }]);
         }
