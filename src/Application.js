@@ -109,11 +109,11 @@ define('Mobile/SalesLogix/Application', [
                 return true;
             }
 
-            if (this.context &&
+            /*if (this.context &&
                 this.context['systemOptions'] && 
                 this.context['systemOptions']['MultiCurrency'] === 'True') {
                 return true;
-            }
+            }*/
 
             return false;
         },

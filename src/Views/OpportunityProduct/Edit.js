@@ -78,14 +78,20 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             this.fields['AdjustedPrice'].setCurrencyCode(baseCode);
 
             this.fields['AdjustedPriceMine'].setValue(this._getMyRate() * adjusted);
-            this.fields['AdjustedPriceMine'].setCurrencyCode(myCode);
+            if (App.hasMultiCurrency()) {
+                this.fields['AdjustedPriceMine'].setCurrencyCode(myCode);
+            }
 
             this.fields['AdjustedPriceOpportunity'].setValue(this._getOpportunityRate() * adjusted);
-            this.fields['AdjustedPriceOpportunity'].setCurrencyCode(oppCode);
+            if (App.hasMultiCurrency()) {
+                this.fields['AdjustedPriceOpportunity'].setCurrencyCode(oppCode);
+            }
 
             this.fields['ExtendedPrice'].setCurrencyCode(baseCode);
-            this.fields['ExtendedPriceMine'].setCurrencyCode(myCode);
-            this.fields['ExtendedPriceOpportunity'].setCurrencyCode(oppCode);
+            if (App.hasMultiCurrency()) {
+                this.fields['ExtendedPriceMine'].setCurrencyCode(myCode);
+                this.fields['ExtendedPriceOpportunity'].setCurrencyCode(oppCode);
+            }
 
             this._updateExtendedPrice();
         },
