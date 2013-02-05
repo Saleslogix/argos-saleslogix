@@ -19,10 +19,12 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
         },
         widgetTemplate: new Simplate([
             '<div class="search-widget">',
-                '<input type="text" name="query" class="query" autocorrect="off" autocapitalize="off" data-dojo-attach-point="queryNode" data-dojo-attach-event="onfocus:_onFocus,onblur:_onBlur,onkeypress:_onKeyPress" />',
-                '<button class="clear-button" data-dojo-attach-event="onclick: _onClearClick"></button>',
-                '<button class="subHeaderButton searchButton" data-dojo-attach-event="click: search">{%= $.searchText %}</button>',
-                '<label data-dojo-attach-point="labelNode">{%= $.searchText %}</label>',
+            '<div class="table-layout">',
+                '<div><input type="text" name="query" class="query" autocorrect="off" autocapitalize="off" data-dojo-attach-point="queryNode" data-dojo-attach-event="onfocus:_onFocus,onblur:_onBlur,onkeypress:_onKeyPress" /></div>',
+                '<div class="hasButton"><button class="clear-button" data-dojo-attach-event="onclick: _onClearClick"></button></div>',
+                '<div class="hasButton"><button class="subHeaderButton searchButton" data-dojo-attach-event="click: search">{%= $.searchText %}</button></div>',
+            '</div>',
+            '<label data-dojo-attach-point="labelNode">{%= $.searchText %}</label>',
             '</div>'
         ]),
         queryNode: null,
