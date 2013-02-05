@@ -136,7 +136,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             var count = (this.currentPage + 1) * this.pageSize;
             return count < total;
         },
-
         processFeed: function(feed) {
             if (!this.feed) this.set('listContent', '');
 
