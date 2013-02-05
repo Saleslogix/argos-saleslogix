@@ -179,28 +179,67 @@ define('Mobile/SalesLogix/Format', [
             test: /^(\d{11,})(.*)$/,
             format: '${1}'
         }],
-        phone: function(val, withLink) {
-            if (typeof val !== 'string')
-                return val;
-
-            var formatters = Mobile.SalesLogix.Format.phoneFormat,
-                clean = /^\+/.test(val)
-                    ? val
-                    : val.replace(/[^0-9x]/ig, ''),
-                number;
-
-            for (var i = 0; i < formatters.length; i++)
+        phoneLettersMap: [
             {
-                var formatter = formatters[i],
-                    match;
-                if ((match = formatter.test.exec(clean)))
-                    number = string.substitute(formatter.format, [val, clean].concat(match));
+                test: /[ABC]/ig,
+                val: '2'
+            },{
+                test: /[DEF]/ig,
+                val: '3'
+            },{
+                test: /[GHI]/ig,
+                val: '4'
+            },{
+                test: /[JKL]/ig,
+                val: '5'
+            },{
+                test: /[MNO]/ig,
+                val: '6'
+            },{
+                test: /[PQRS]/ig,
+                val: '7'
+            },{
+                test: /[TUV]/ig,
+                val: '8'
+            },{
+                test: /[WYZ]/ig,
+                val: '9'
+            },{
+                // Don't ignore case with X, as it can be used for an extension
+                test: /[X]/g,
+                val: '9'
+            }
+        ],
+        phone: function(val, withLink) {
+            if (typeof val !== 'string') {
+                return val;
             }
 
-            if (number)
+            var formatters, clean, number, i, j, formatter, match, alphaMap;
+
+            formatters = Mobile.SalesLogix.Format.phoneFormat;
+            alphaMap = Mobile.SalesLogix.Format.phoneLettersMap;
+
+            for (j = 0; j < alphaMap.length; j++) {
+                val = val.replace(alphaMap[j].test, alphaMap[j].val);
+            }
+
+            clean = /^\+/.test(val)
+                ? val
+                : val.replace(/[^0-9x]/ig, '');
+
+            for (i = 0; i < formatters.length; i++) {
+                formatter = formatters[i];
+                if ((match = formatter.test.exec(clean))) {
+                    number = string.substitute(formatter.format, [val, clean].concat(match));
+                }
+            }
+
+            if (number) {
                 return withLink === false
                     ? number
                     : string.substitute('<a href="tel:${0}">${1}</a>', [clean, number]);
+            }
 
             return val;
         },
