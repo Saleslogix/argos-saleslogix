@@ -157,92 +157,10 @@ define('Mobile/SalesLogix/Format', [
                 }
             );
         },
-        /*
-            {0}: original value
-            {1}: cleaned value
-            {2}: entire match (against clean value)
-            {3..n}: match groups (against clean value)
-        */
-        phoneFormat: [{
-            test: /^\+.*/,
-            format: '${0}'
-        },{
-            test: /^(\d{3})(\d{3,4})$/,
-            format: '${3}-${4}'
-        },{
-            test: /^(\d{3})(\d{3})(\d{2,4})$/, // 555 555 5555
-            format: '(${3})-${4}-${5}'
-        },{
-            test: /^(\d{3})(\d{3})(\d{2,4})([^0-9]{1,}.*)$/, // 555 555 5555x
-            format: '(${3})-${4}-${5}${6}'
-        },{
-            test: /^(\d{11,})(.*)$/,
-            format: '${1}'
-        }],
-        phoneLettersMap: [
-            {
-                test: /[ABC]/ig,
-                val: '2'
-            },{
-                test: /[DEF]/ig,
-                val: '3'
-            },{
-                test: /[GHI]/ig,
-                val: '4'
-            },{
-                test: /[JKL]/ig,
-                val: '5'
-            },{
-                test: /[MNO]/ig,
-                val: '6'
-            },{
-                test: /[PQRS]/ig,
-                val: '7'
-            },{
-                test: /[TUV]/ig,
-                val: '8'
-            },{
-                test: /[WYZ]/ig,
-                val: '9'
-            },{
-                // Don't ignore case with X, as it can be used for an extension
-                test: /[X]/g,
-                val: '9'
-            }
-        ],
-        phone: function(val, withLink) {
-            if (typeof val !== 'string') {
-                return val;
-            }
-
-            var formatters, clean, number, i, j, formatter, match, alphaMap;
-
-            formatters = Mobile.SalesLogix.Format.phoneFormat;
-            alphaMap = Mobile.SalesLogix.Format.phoneLettersMap;
-
-            for (j = 0; j < alphaMap.length; j++) {
-                val = val.replace(alphaMap[j].test, alphaMap[j].val);
-            }
-
-            clean = /^\+/.test(val)
-                ? val
-                : val.replace(/[^0-9x]/ig, '');
-
-            for (i = 0; i < formatters.length; i++) {
-                formatter = formatters[i];
-                if ((match = formatter.test.exec(clean))) {
-                    number = string.substitute(formatter.format, [val, clean].concat(match));
-                }
-            }
-
-            if (number) {
-                return withLink === false
-                    ? number
-                    : string.substitute('<a href="tel:${0}">${1}</a>', [clean, number]);
-            }
-
-            return val;
-        },
+        // These already existed in the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
+        // TODO: Remove
+        phoneFormat: format.phoneFormat,
+        phone: format.phone,
         currency: function(val) {
             if (isNaN(val) || val === null)
                 return val;
