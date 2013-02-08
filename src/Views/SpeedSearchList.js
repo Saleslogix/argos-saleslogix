@@ -66,7 +66,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
             this.currentPage = 0;
         },
-
         extractTypeFromItem: function(item) {
             for (var i = 0; i < this.types.length; i++)
             {
@@ -76,7 +75,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
             return null;
         },
-
         extractDescriptorFromItem: function(item, type) {
             var descriptor = '';
 
@@ -100,7 +98,15 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             return descriptor;
         },
         extractKeyFromItem: function(item) {
-            return item['fileName'].substr(-12);
+            // Extract the entityId from the display name, which is the last 12 characters
+            var displayName, len;
+            displayName = item['displayName'];
+            if (!displayName) {
+                return '';
+            }
+            
+            len = displayName.length;
+            return displayName.substring(len - 12);
         },
 
         getFieldValue: function(fields, name) {
@@ -155,7 +161,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
                     entry['type'] = this.extractTypeFromItem(entry);
                     entry['$descriptor'] = entry['$descriptor'] || this.extractDescriptorFromItem(entry, entry['type']);
-                    entry['$key'] = entry['$key'] || this.extractKeyFromItem(entry);
+                    entry['$key'] = this.extractKeyFromItem(entry);
 
                     this.entries[entry['$key']] = entry;
 
