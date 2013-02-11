@@ -157,8 +157,7 @@ define('Mobile/SalesLogix/Format', [
                 }
             );
         },
-        // These already existed in the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
-        // TODO: Remove
+        // These were added to the SDK, and should not be here. Keeping the alias to not break anyone with a minor update.
         phoneFormat: format.phoneFormat,
         phone: format.phone,
         currency: function(val) {
