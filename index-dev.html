@@ -30,9 +30,6 @@
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
 
-    <!-- Moment.js -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/moment/min/moment.min.js"></script>
-
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
@@ -45,12 +42,18 @@
     require({
         baseUrl: "./",
         packages: [
-        { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
-        { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
-        { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
-        { name: 'argos', location: '../../argos-sdk/src' },
-        { name: 'Mobile/SalesLogix', location: 'src' }
-    ]});
+            { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
+            { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
+            { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
+            { name: 'argos', location: '../../argos-sdk/src' },
+            { name: 'configuration', location: 'configuration' },
+            { name: 'localization', location: 'localization' },
+            { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment'}
+        ],
+        paths: {
+            "Mobile/SalesLogix": "./src"
+        }
+    });
     </script>
 
     <script type="text/javascript">

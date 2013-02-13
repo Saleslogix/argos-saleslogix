@@ -39,7 +39,7 @@ define('Mobile/SalesLogix/ApplicationLayout', [
         tiers: 2,
         maximized: -1,
         components: [
-            {name: 'navigation', type: QuickNav, attachEvent: 'onToggle:_onNavigationToggle', props:{'class':'layout-left'}},
+            {name: 'navigation', type: QuickNav, attachPoint: 'panes.navigation', attachEvent: 'onToggle:_onNavigationToggle', props:{'class':'layout-left'}},
             {name: 'list', root: true, type: Pane, attachPoint: 'panes.list', props:{'class':'layout-center', tier: 0}, components: [
                 {name: 'top', type: TitleBar, attachEvent: 'onPositionChange:_onToolbarPositionChange', props: {managed: true, visible: false}},
                 {name: 'container', tag: 'div', attrs: {'class': 'view-container'}, attachPoint: 'viewContainerNode'}
