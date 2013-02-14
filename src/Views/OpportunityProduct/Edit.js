@@ -307,15 +307,15 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                 },
                 {
                     label: this.adjustedPriceText,
-                    name: 'AdjustedPriceOpportunity',
-                    property: 'AdjustedPriceOpportunity',
+                    name: 'AdjustedPriceMine',
+                    property: 'AdjustedPriceMine',
                     type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
                     notificationTrigger: 'blur'
                 },
                 {
                     label: this.adjustedPriceText,
-                    name: 'AdjustedPriceMine',
-                    property: 'AdjustedPriceMine',
+                    name: 'AdjustedPriceOpportunity',
+                    property: 'AdjustedPriceOpportunity',
                     type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
                     notificationTrigger: 'blur'
                 },
@@ -335,18 +335,18 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                 },
                 {
                     label: this.extendedPriceText,
-                    name: 'ExtendedPriceOpportunity',
-                    property: 'ExtendedPriceOpportunity',
-                    type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
-                    readonly: true
-                },
-                {
-                    label: this.extendedPriceText,
                     name: 'ExtendedPriceMine',
                     property: 'ExtendedPriceMine',
                     type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
                     readonly: true
                 },
+                {
+                    label: this.extendedPriceText,
+                    name: 'ExtendedPriceOpportunity',
+                    property: 'ExtendedPriceOpportunity',
+                    type: App.hasMultiCurrency() ? 'multiCurrency' : 'hidden',
+                    readonly: true
+                }
             ]);
         }
     });
