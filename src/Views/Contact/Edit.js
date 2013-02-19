@@ -157,11 +157,19 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             if (fax) this.fields['Fax'].setValue(fax);
         },
         formatCuisinePrefs: function(selections) {
-            if (typeof selections === 'string') return selections;
+            if (typeof selections === 'string') {
+                return selections;
+            }
 
             var values = [];
-            for (var key in selections)
-                values.push(selections[key].data['text']);
+            for (var key in selections) {
+                var data = selections[key].data;
+                if (data && data.text) {
+                    values.push(data.text);
+                } else if (typeof data === 'string') {
+                    values.push(data);
+                }
+            }
 
             return values.join(', ');
         },
