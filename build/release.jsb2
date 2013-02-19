@@ -193,6 +193,10 @@
           "path": "../src"
         },
         {
+          "text": "SpeedSearchWidget.js",
+          "path": "../src"
+        },
+        {
           "text": "AddAccountContact.js",
           "path": "../src/Views"
         },
@@ -242,6 +246,10 @@
         },
         {
           "text": "SelectList.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "SpeedSearchList.js",
           "path": "../src/Views"
         },
         {
@@ -578,6 +586,10 @@
         {
           "text": "parser.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "QueryResults.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/store/util"
         },
         {
           "text": "wai.js",

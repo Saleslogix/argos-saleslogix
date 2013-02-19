@@ -21,6 +21,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/NameEdit',
     'Mobile/SalesLogix/Views/PickList',
     'Mobile/SalesLogix/Views/SelectList',
+    'Mobile/SalesLogix/Views/SpeedSearchList',
     'Mobile/SalesLogix/Views/TextEdit',
 
     'Mobile/SalesLogix/Views/Account/List',
@@ -111,6 +112,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     NameEdit,
     PickList,
     SelectList,
+    SpeedSearchList,
     TextEdit,
     AccountList,
     AccountDetail,
@@ -188,6 +190,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Configure());
             this.registerView(new PickList());
             this.registerView(new SelectList());
+            this.registerView(new SpeedSearchList());
             this.registerView(new AddAccountContact());
             this.registerView(new AreaCategoryIssueLookup());
             this.registerView(new ExchangeRateLookup());

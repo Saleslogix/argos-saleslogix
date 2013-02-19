@@ -2,11 +2,13 @@ define('Mobile/SalesLogix/Views/Home', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
+    'Mobile/SalesLogix/SpeedSearchWidget',
     'Sage/Platform/Mobile/GroupedList'
 ], function(
     declare,
     array,
     lang,
+    SpeedSearchWidget,
     GroupedList
 ) {
 
@@ -36,10 +38,12 @@ define('Mobile/SalesLogix/Views/Home', [
         //View Properties
         id: 'home',
         expose: false,
-        enableSearch: false,
+        enableSearch: true,
+        searchWidgetClass: SpeedSearchWidget,
         customizationSet: 'home',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
+        searchView: 'speedsearch_list',
 
         navigateToView: function(params) {
             var view = App.getView(params && params.view);
@@ -146,6 +150,16 @@ define('Mobile/SalesLogix/Views/Home', [
 
             this.processFeed({'$resources': list});
         },
+
+        _onSearchExpression: function(expression, widget) {
+            var view = App.getView(this.searchView);
+
+            if (view)
+                view.show({
+                    query: expression
+                });
+        },
+
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
             if (view)
