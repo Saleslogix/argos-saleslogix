@@ -5,6 +5,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     'dojo/_base/connect',
     'Sage/Platform/Mobile/List',
     'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Format',
     'Mobile/SalesLogix/Views/Activity/List',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/ErrorManager'
@@ -15,6 +16,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     connect,
     List,
     format,
+    platformFormat,
     ActivityList,
     convert,
     ErrorManager
@@ -53,6 +55,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             '{%: $.Activity.AccountName %}',
             '{% } else { %}',
             '{%: $.Activity.LeadName %}',
+            '{% } %}',
+            '{% if ($.Activity.PhoneNumber) { %}',
+            ' [{%: Sage.Platform.Mobile.Format.phone($.Activity.PhoneNumber) %}]',
             '{% } %}'
         ]),
 
@@ -81,7 +86,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/Leader',
             'Activity/LeadName',
             'Activity/UserId',
-            'Activity/Timeless'
+            'Activity/Timeless',
+            'Activity/PhoneNumber'
         ],
         resourceKind: 'userActivities',
         allowSelection: true,
