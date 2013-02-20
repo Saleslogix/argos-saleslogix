@@ -66,6 +66,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         completeActivityText: 'Complete',
         acceptActivityText: 'Accept',
         declineActivityText: 'Decline',
+        callText: 'Call',
 
         //View Properties
         id: 'myactivity_list',
@@ -157,6 +158,23 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         this.refreshRequired = true;
                         this.declineActivityFor(entry.Activity.$key, App.context['user']['$key']);
                     }).bindDelegate(this)
+                },{
+                    id: 'call',
+                    icon: 'content/images/icons/Dial_24x24.png',
+                    label: this.callText,
+                    enabled: function(action, selection) {
+                        var entry;
+                        entry = selection && selection.data;
+                        return entry && entry.Activity && entry.Activity.PhoneNumber;
+                    },
+                    fn: function(action, selection) {
+                        var entry, phone;
+                        entry = selection && selection.data;
+                        phone = entry && entry.Activity && entry.Activity.PhoneNumber;
+                        if (phone) {
+                            App.initiateCall(phone);
+                        }
+                    }
                 }]
             );
         },
