@@ -67,9 +67,16 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         acceptActivityText: 'Accept',
         declineActivityText: 'Decline',
         callText: 'Call',
+        calledText: 'Called',
+        activityTypeText: {
+            'atPhoneCall': 'Phone Call',
+            'atEMail': 'E-mail'
+        },
 
         //View Properties
         id: 'myactivity_list',
+
+        historyEditView: 'history_edit',
 
         queryWhere: function() {
             return string.substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context['user'].$key]);
@@ -83,6 +90,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/StartDate',
             'Activity/Type',
             'Activity/AccountName',
+            'Activity/AccountId',
+            'Activity/ContactId',
             'Activity/ContactName',
             'Activity/Leader',
             'Activity/LeadName',
@@ -93,6 +102,41 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         resourceKind: 'userActivities',
         allowSelection: true,
         enableActions: true,
+
+        recordCallToHistory: function(complete, entry) {
+            var entry = {
+                '$name': 'History',
+                'Type': 'atPhoneCall',
+                'ContactName': entry['Activity']['ContactName'],
+                'ContactId': entry['Activity']['ContactId'],
+                'AccountName': entry['Activity']['AccountName'],
+                'AccountId': entry['Activity']['AccountId'],
+                'Description': string.substitute("${0} ${1}", [this.calledText, (entry['Activity']['ContactName'] || '')]),
+                'UserId': App.context && App.context.user['$key'],
+                'UserName': App.context && App.context.user['UserName'],
+                'Duration': 15,
+                'CompletedDate': (new Date())
+            };
+
+            this.navigateToHistoryInsert('atPhoneCall', entry, complete);
+        },
+
+        navigateToHistoryInsert: function(type, entry, complete) {
+            var view = App.getView(this.historyEditView);
+            if (view)
+            {
+                this.refreshRequired = true;
+
+                view.show({
+                    title: this.activityTypeText[type],
+                    template: {},
+                    entry: entry,
+                    insert: true
+                }, {
+                    complete: complete
+                });
+            }
+        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
@@ -172,9 +216,11 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         entry = selection && selection.data;
                         phone = entry && entry.Activity && entry.Activity.PhoneNumber;
                         if (phone) {
-                            App.initiateCall(phone);
+                            this.recordCallToHistory(function() {
+                                App.initiateCall(phone);
+                            }.bindDelegate(this), entry);
                         }
-                    }
+                    }.bindDelegate(this)
                 }]
             );
         },
