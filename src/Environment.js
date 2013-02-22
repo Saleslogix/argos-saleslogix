@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Environment', [
         initiateCall: function(number) {
             setTimeout(function() {
                 window.location.href = string.substitute("tel:${0}", [number]);
-            }, 50);
+            }, 500);
         },
         initiateEmail: function(email, subject, body) {
             setTimeout(function() {
