@@ -13,6 +13,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/ExchangeRateLookup',
     'Mobile/SalesLogix/Views/MainToolbar',
     'Mobile/SalesLogix/Views/FooterToolbar',
+    'Mobile/SalesLogix/Views/UpdateToolbar',
     'Mobile/SalesLogix/Views/Home',
     'Mobile/SalesLogix/Views/Login',
     'Mobile/SalesLogix/Views/Settings',
@@ -104,6 +105,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     ExchangeRateLookup,
     MainToolbar,
     FooterToolbar,
+    UpdateToolbar,
     Home,
     Login,
     Settings,
@@ -367,6 +369,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerToolbar(new FooterToolbar({
                 name: 'bbar'
+            }));
+
+            this.registerToolbar(new UpdateToolbar({
+                name: 'updatebar'
             }));
         },
         loadCustomizations: function() {

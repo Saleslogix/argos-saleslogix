@@ -217,6 +217,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "UpdateToolbar.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "Home.js",
           "path": "../src/Views"
         },
@@ -499,10 +503,6 @@
         {
           "text": "ApplicationModule.js",
           "path": "../src"
-        },
-        {
-          "text": "UpdateToolbar.js",
-          "path": "../src/Views"
         }
       ]
     },

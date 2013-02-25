@@ -84,9 +84,10 @@ define('Mobile/SalesLogix/Application', [
         },
         _checkForUpdate: function() {
             var applicationCache = window.applicationCache;
-            if (applicationCache && this.enableUpdateNotification)
-            {
-                if (applicationCache.status == 4) this._notifyUpdateAvailable();
+            if (applicationCache && this.enableUpdateNotification) {
+                if (applicationCache.status === applicationCache.UPDATEREADY) {
+                    this._notifyUpdateAvailable();
+                }
             }
         },
         _notifyUpdateAvailable: function() {
