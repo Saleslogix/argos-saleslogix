@@ -62,7 +62,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             var adjusted, myCode, oppCode, baseCode;
             this.fields['Program'].setValue({'$key':'', 'Program': values.Program});
 
-            if (values.Discount > 0) { 
+            if (values.Discount > 0) {
                 adjusted = values.Price - (values.Discount * values.Price);
                 // transform the discount into a whole number .10 to 10%
                 this.fields['Discount'].setValue(values.Discount * 100);
@@ -106,7 +106,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             o.Program = o.Program.Program;
 
             /*
-             * 'AdjustedPrice' is a lie. The underlying database field is actually PRICEADJUSTED and 
+             * 'AdjustedPrice' is a lie. The underlying database field is actually PRICEADJUSTED and
              * is a boolean, not a price that has been adjusted. Since we use the adjusted price to calculate
              * the discount %, we will remove it from getValues so we aren't trying to save the wrong data type when sending
              * the sdata request.
@@ -245,7 +245,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
-                    label: this.opportunityText, 
+                    label: this.opportunityText,
                     name: 'Opportunity',
                     property: 'Opportunity',
                     type: 'lookup',

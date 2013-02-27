@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/Address/List', [
         //Localization
         titleText: 'Addresses',
 
-        //View Properties        
+        //View Properties
         detailView: null,
         icon: 'content/images/icons/Map_24.png',
         id: 'address_list',
