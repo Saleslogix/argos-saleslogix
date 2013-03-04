@@ -1,12 +1,13 @@
 require "selenium-webdriver"
 require "rspec"
+require "spec_helper"
 include RSpec::Expectations
 
-describe "CanLogin" do
+describe "JasmineSpec" do
 
   before(:each) do
     @driver = Selenium::WebDriver.for :firefox
-    @base_url = "http://localhost/"
+    @base_url = RSpec.configuration.base_url
     @accept_next_alert = true
     @driver.manage.timeouts.implicit_wait = 30
     @verification_errors = []
@@ -17,12 +18,10 @@ describe "CanLogin" do
     @verification_errors.should == []
   end
   
-  it "test_can_login" do
-    @driver.get(@base_url + "/slxmobile/")
-    @driver.find_element(:css, "input[name=\"username\"]").clear
-    @driver.find_element(:css, "input[name=\"username\"]").send_keys "admin"
-    @driver.find_element(:css, "button.button.actionButton").click
-    verify { element_present?(:id, "pageTitle").should be_true }
+  it "test_jasmine_spec" do
+    @driver.get(@base_url + RSpec.configuration.dev_argos_tests)
+    !60.times{ break if (element_present?(:css, "span.duration") rescue false); sleep 1 }
+    !60.times{ break if (element_present?(:css, "span.passingAlert.bar") rescue false); sleep 1 }
   end
   
   def element_present?(how, what)
