@@ -1,4 +1,6 @@
-## Required gems:
+# Selenium Tests
+
+### Required gems:
   * rspec
   * selenium-webdriver
 
