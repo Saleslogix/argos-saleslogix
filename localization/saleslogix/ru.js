@@ -335,6 +335,19 @@ localize("Mobile.SalesLogix.Views.History.List", {
   "viewContactActionText": "Контакт"
 });
 
+localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
+  "startingFormatText": "dd.MM.yyyy hh:mm tt",
+  "titleText": "Измен. дело по заявке",
+  "activityTypeText": "тип",
+  "activityTypeTitleText": "Тип",
+  "publicAccessText": "публичный доступ",
+  "publicAccessTitleText": "Публичный доступ",
+  "userText": "пользователь",
+  "startDateText": "дата начала",
+  "endDateText": "дата окончания",
+  "commentsText": "комментарии"
+});
+
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
   "startDateFormatText": "dd.MM.yyyy hh:mm tt",
   "titleText": "Дела по заявке"
@@ -464,11 +477,11 @@ localize("Mobile.SalesLogix.Action", {
 
 localize("Mobile.SalesLogix.Fields.AddressField", {
   "lookupLabelText": "редактировать",
-  "emptyText": "нет адреса"
+  "emptyText": ""
 });
 
 localize("Mobile.SalesLogix.Fields.NameField", {
-  "emptyText": "нет имени"
+  "emptyText": ""
 });
 
 localize("Mobile.SalesLogix.Fields.RecurrencesField", {
@@ -1155,18 +1168,6 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Detail", {
   "moreDetailsText": "Подробнее",
   "relatedItemsText": "Связанные записи",
   "relatedTicketActivityItemText": "Компоненты дела по заявке"
-});
-
-localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
-  "titleText": "Измен. дело по заявке",
-  "activityTypeText": "тип",
-  "activityTypeTitleText": "Тип",
-  "publicAccessText": "публичный доступ",
-  "publicAccessTitleText": "Публичный доступ",
-  "userText": "пользователь",
-  "startDateText": "дата начала",
-  "endDateText": "дата окончания",
-  "commentsText": "комментарии"
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.RateLookup", {
