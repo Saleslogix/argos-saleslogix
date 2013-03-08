@@ -335,6 +335,19 @@ localize("Mobile.SalesLogix.Views.History.List", {
   "viewContactActionText": "Contact"
 });
 
+localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
+  "startingFormatText": "d/M/yyyy h:mm tt",
+  "titleText": "Modifier l'activité du ticket",
+  "activityTypeText": "type",
+  "activityTypeTitleText": "Type",
+  "publicAccessText": "accès public",
+  "publicAccessTitleText": "Accès public",
+  "userText": "utilisateur",
+  "startDateText": "date début",
+  "endDateText": "date de fin",
+  "commentsText": "comm."
+});
+
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
   "startDateFormatText": "dd/MM/yyyy h:mmtt",
   "titleText": "Activités du ticket"
@@ -464,11 +477,11 @@ localize("Mobile.SalesLogix.Action", {
 
 localize("Mobile.SalesLogix.Fields.AddressField", {
   "lookupLabelText": "modif",
-  "emptyText": "aucune adr"
+  "emptyText": ""
 });
 
 localize("Mobile.SalesLogix.Fields.NameField", {
-  "emptyText": "0 nom"
+  "emptyText": ""
 });
 
 localize("Mobile.SalesLogix.Fields.RecurrencesField", {
@@ -1155,18 +1168,6 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Detail", {
   "moreDetailsText": "Plus détails",
   "relatedItemsText": "Élém. assoc.",
   "relatedTicketActivityItemText": "Parties de l'activité du ticket"
-});
-
-localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
-  "titleText": "Modifier l'activité du ticket",
-  "activityTypeText": "type",
-  "activityTypeTitleText": "Type",
-  "publicAccessText": "accès public",
-  "publicAccessTitleText": "Accès public",
-  "userText": "utilisateur",
-  "startDateText": "date début",
-  "endDateText": "date de fin",
-  "commentsText": "comm."
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.RateLookup", {
