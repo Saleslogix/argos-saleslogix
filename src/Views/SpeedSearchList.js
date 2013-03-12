@@ -42,12 +42,12 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
         indexes: [
             {indexName: 'Account', indexType: 1, isSecure: true},
-            {indexName: 'Activity', indexType: 1, isSecure: true},
+            {indexName: 'Activity', indexType: 1, isSecure: false},
             {indexName: 'Contact', indexType: 1, isSecure: true},
-            {indexName: 'History', indexType: 1, isSecure: true},
+            {indexName: 'History', indexType: 1, isSecure: false},
             {indexName: 'Lead', indexType: 1, isSecure: true},
             {indexName: 'Opportunity', indexType: 1, isSecure: true},
-            {indexName: 'Ticket', indexType: 1, isSecure: true}
+            {indexName: 'Ticket', indexType: 1, isSecure: false}
         ],
         types: ['Account', 'Activity', 'Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
         iconPathsByType: {
