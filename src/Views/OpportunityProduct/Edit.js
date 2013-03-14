@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         productFamilyText: 'product family',
         priceLevelText: 'price level',
         priceText: 'price',
-        discountText: 'discount',
+        discountText: 'discount %',
         adjustedPriceText: 'adjusted price',
         quantityText: 'quantity',
         extendedPriceText: 'extended price',
