@@ -47,3 +47,6 @@ index-dev-*.html
 
 # vim temp files
 *.swp
+
+# nodejs
+node_modules
