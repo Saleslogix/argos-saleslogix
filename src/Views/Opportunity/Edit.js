@@ -60,8 +60,11 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         init: function() {
             this.inherited(arguments);
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
-            this.connect(this.fields['ExchangeRateCode'], 'onChange', this.onExchangeRateCodeChange);
-            this.connect(this.fields['ExchangeRateLocked'], 'onChange', this.onExchangeRateLockedChange);
+
+            if (App.hasMultiCurrency()) {
+                this.connect(this.fields['ExchangeRateCode'], 'onChange', this.onExchangeRateCodeChange);
+                this.connect(this.fields['ExchangeRateLocked'], 'onChange', this.onExchangeRateLockedChange);
+            }
         },
         applyContext: function(templateEntry) {
             var found = App.queryNavigationContext(function(o) {
@@ -100,11 +103,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                     this.fields['ExchangeRate'].disable();
                     this.fields['ExchangeRateCode'].disable();
                 }
-            } else {
-                this.fields['ExchangeRate'].disable();
-                this.fields['ExchangeRateCode'].disable();
-                this.fields['ExchangeRateLocked'].disable();
-                this.fields['ExchangeRateDate'].disable();
             }
 
             this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
@@ -328,7 +326,10 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             }
 
             layout.push(details);
-            layout.push(multiCurrency);
+
+            if (App.hasMultiCurrency()) {
+                layout.push(multiCurrency);
+            }
 
             return layout;
         }
