@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         discountText: 'discount',
         adjustedPriceText: 'adjusted price',
         quantityText: 'quantity',
-        extendedPriceText: 'extended price',       
+        extendedPriceText: 'extended price',
 
         //View Properties
         entityName: 'Opportunity',
@@ -256,7 +256,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                 {
                     name: 'ProductId',
                     property: 'ProductId',
-                    type: 'hidden'                 
+                    type: 'hidden'
                 },
                 {
                     label: this.productText,
