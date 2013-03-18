@@ -105,6 +105,11 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                 this.fields['Address'].setValue(value);
             }
         },
+        applyContext: function (templateEntry) {
+            this.inherited(arguments);
+            this.fields['Type'].setValue(templateEntry.Type);
+            this.fields['Status'].setValue(templateEntry.Status);
+        },
         createLayout: function() {
             return this.layout || (this.layout = [
                 {
