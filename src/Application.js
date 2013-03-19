@@ -69,6 +69,11 @@ define('Mobile/SalesLogix/Application', [
             'minor': 0,
             'revision': 0
         },
+        mobileVersion: {
+            'major': 2,
+            'minor': 1,
+            'revision': 0
+        },
         init: function() {
             if (has('ie') && has('ie') < 9) window.location.href = 'unsupported.html';
 
@@ -651,6 +656,19 @@ define('Mobile/SalesLogix/Application', [
         showMapForAddress: function() {
             // shortcut for environment call
             environment.showMapForAddress.apply(this, arguments);
-        }
+        },
+        getVersionInfo: function(){
+                 
+            var info = string.substitute('Mobile V${0}.${1}.${2} / SalesLogix V${3}.${4}.${5}',
+                 [this.mobileVersion.major,
+                 this.mobileVersion.minor,
+                 this.mobileVersion.revision,
+                 this.serverVersion.major,
+                 this.serverVersion.minor,
+                 this.serverVersion.revision]);
+            return info;
+
+
+       }
     });
 });
