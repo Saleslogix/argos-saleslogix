@@ -250,7 +250,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     property: 'Opportunity',
                     type: 'lookup',
                     textProperty: 'Description',
-                    view: 'opportunity_related'
+                    view: 'opportunity_related',
+                    validator: validator.exists
                 },
                 {
                     name: 'ProductId',
@@ -263,7 +264,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     property: 'Product',
                     type: 'lookup',
                     textProperty: 'Name',
-                    view: 'product_related'
+                    view: 'product_related',
+                    validator: validator.exists
                 },
                 {
                     label: this.productFamilyText,
@@ -279,6 +281,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     textProperty: 'Program',
                     type: 'lookup',
                     view: 'productprogram_related',
+                    validator: validator.exists,
                     where: (function(){
                         var val = this.fields['Product'].getValue();
                         return string.substitute('Product.Name eq "${0}"', [val.Name]);
