@@ -145,7 +145,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                 this.fields['Discount'].clearValue();
                 this.fields['AdjustedPrice'].clearValue();
                 this.fields['Quantity'].setValue(1);
-                this.fields['ExtendedPrice'].setValue(selection.Price);
+                this._updateExtendedPrice();
             }
         },
         onProgramChange: function(value, field) {
@@ -218,8 +218,11 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             extended = adjusted * quantity;
 
             this.fields['ExtendedPrice'].setValue(extended);
-            this.fields['ExtendedPriceMine'].setValue(extended * this._getMyRate());
-            this.fields['ExtendedPriceOpportunity'].setValue(extended * this._getOpportunityRate());
+
+            if (App.hasMultiCurrency()) {
+                this.fields['ExtendedPriceMine'].setValue(extended * this._getMyRate());
+                this.fields['ExtendedPriceOpportunity'].setValue(extended * this._getOpportunityRate());
+            }
         },
         onUpdateCompleted: function(entry) {
             this._refreshOpportunityViews();
