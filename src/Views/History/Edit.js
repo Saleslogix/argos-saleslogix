@@ -194,6 +194,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.fields['UserId'].setValue(user && user['$key']);
             this.fields['UserName'].setValue(user && user['$descriptor']);
             this.fields['StartDate'].setValue(new Date());
+            this.fields['Text'].setValue('');
         },
         applyAccountContext: function(context) {
             var accountField = this.fields['Account'],
@@ -354,8 +355,6 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 };
                 lookup[this.context.resourceKind].call(this, this.context);
             }
-
-            this.fields['Text'].setValue(values['LongNotes'] || values['Notes'] || '');
         },
         formatDependentQuery: function(dependentValue, format, property) {
             property = property || '$key';

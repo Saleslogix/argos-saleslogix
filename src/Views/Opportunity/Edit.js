@@ -103,6 +103,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                     this.fields['ExchangeRate'].disable();
                     this.fields['ExchangeRateCode'].disable();
                 }
+
+                this.fields['ExchangeRateDate'].disable();
             }
 
             this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
@@ -314,7 +316,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         name: 'ExchangeRateDate',
                         property: 'ExchangeRateDate',
                         type: 'date',
-                        disabled: true
+                        disabled: true // TODO: Create an SDK issue for this (NOT WORKING!!!)
                     }
                 ]
             };
