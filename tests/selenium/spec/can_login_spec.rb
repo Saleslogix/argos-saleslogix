@@ -24,7 +24,7 @@ describe "CanLogin" do
     @driver.find_element(:css, "input[name=\"username\"]").clear
     @driver.find_element(:css, "input[name=\"username\"]").send_keys "admin"
     @driver.find_element(:css, "button.button.actionButton").click
-    verify { element_present?(:id, "pageTitle").should be_true }
+    !60.times{ break if (element_present?(:id, "pageTitle") rescue false); sleep 1 }
   end
   
   def element_present?(how, what)
