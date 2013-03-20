@@ -17,6 +17,7 @@ RSpec.configure do |config|
   
   # Custom settings for test locations
   config.add_setting :base_url, :default => "http://localhost/"
+  config.add_setting :dev_url, :default => "mobile/products/argos-saleslogix/index-dev.html"
   config.add_setting :dev_sdk_tests, :default => "mobile/argos-sdk/tests/index.html"
   config.add_setting :dev_argos_tests, :default => "mobile/products/argos-saleslogix/tests/index.html"
 end

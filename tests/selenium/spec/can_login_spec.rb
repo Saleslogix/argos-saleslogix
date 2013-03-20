@@ -8,6 +8,7 @@ describe "CanLogin" do
   before(:each) do
     @driver = Selenium::WebDriver.for :firefox
     @base_url = RSpec.configuration.base_url
+    @dev_url = RSpec.configuration.dev_url
     @accept_next_alert = true
     @driver.manage.timeouts.implicit_wait = 30
     @verification_errors = []
@@ -19,7 +20,7 @@ describe "CanLogin" do
   end
   
   it "test_can_login" do
-    @driver.get(@base_url + "slxmobile/")
+    @driver.get(@base_url + @dev_url)
     @driver.find_element(:css, "input[name=\"username\"]").clear
     @driver.find_element(:css, "input[name=\"username\"]").send_keys "admin"
     @driver.find_element(:css, "button.button.actionButton").click
