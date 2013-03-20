@@ -20,6 +20,7 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
             '<hr />',
             '<div data-dojo-attach-point="contentNode"></div>',
             '<span data-dojo-attach-point="copyrightNode" class="copyright">{%= $.copyrightText %}</span>',
+            '<span data-dojo-attach-point="version" class="copyright">{%= App.getVersionInfo() %}</span>',
             '</div>'
         ]),
         toolTemplate: new Simplate([

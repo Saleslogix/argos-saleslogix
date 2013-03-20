@@ -13,6 +13,7 @@ define('Mobile/SalesLogix/Views/Login', [
             '<div class="panel-content" data-dojo-attach-point="contentNode"></div>',
             '<button class="button actionButton" data-action="authenticate"><span>{%: $.logOnText %}</span></button>',
             '<span class="copyright">{%= $.copyrightText %}</span>',
+            '<span class="copyright">{%= App.getVersionInfo() %}</span>',
             '</div>'
         ]),
 
