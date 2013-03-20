@@ -170,7 +170,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             adjusted = this.fields['AdjustedPrice'].getValue();
             extended = adjusted * quantity;
 
-            this.fields['ExtendedPrice'].setValue(extended);
+            this._updateExtendedPrice();
         },
         onAdjustedPriceChange: function(value, field) {
             var price, discount, adjusted;
