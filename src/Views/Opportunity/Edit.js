@@ -29,6 +29,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         statusText: 'status',
         titleText: 'Opportunity',
         typeText: 'type',
+        exchangeRateDateFormatText: 'M/d/yyyy h:mm tt',
 
         //View Properties
         entityName: 'Opportunity',
@@ -85,14 +86,31 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             this.fields['Status'].setValue(templateEntry.Status);
             this.fields['CloseProbability'].setValue(templateEntry.CloseProbability);
             this.fields['EstimatedClose'].setValue(templateEntry.EstimatedClose);
+
+            if (App.hasMultiCurrency() && templateEntry) {
+
+                if (templateEntry.ExchangeRateCode) {
+                    this.fields['ExchangeRateCode'].setValue({ '$key': templateEntry.ExchangeRateCode, '$descriptor': templateEntry.ExchangeRateCode });
+                }
+
+                if (templateEntry.ExchangeRate) {
+                    this.fields['ExchangeRate'].setValue(templateEntry.ExchangeRate);
+                }
+
+                if (templateEntry.ExchangeRateDate) {
+                    this.fields['ExchangeRateDate'].setValue(templateEntry.ExchangeRateDate);
+                }
+            }
+
         },
         setValues: function(values) {
             this.inherited(arguments);
             var nodes;
 
             if (App.hasMultiCurrency()) {
+
                 if (values && values.ExchangeRateCode) {
-                    this.fields['ExchangeRateCode'].setValue({'$key': values.ExchangeRateCode, '$descriptor': values.ExchangeRateCode});
+                    this.fields['ExchangeRateCode'].setValue({ '$key': values.ExchangeRateCode, '$descriptor': values.ExchangeRateCode });
                 }
 
                 if (!App.canLockOpportunityRate()) {
@@ -106,7 +124,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
 
                 this.fields['ExchangeRateDate'].disable();
             }
-
+            
             this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
         },
         getValues: function() {
@@ -295,7 +313,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         label: 'exchange rate',
                         name: 'ExchangeRate',
                         property: 'ExchangeRate',
-                        type: 'text'
+                        type: 'text',
+                        validator: validator.isDecimal
                     },
                     {
                         label: 'code',
@@ -316,6 +335,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         name: 'ExchangeRateDate',
                         property: 'ExchangeRateDate',
                         type: 'date',
+                        timeless: false,
+                        dateFormatText: this.exchangeRateDateFormatText,
                         disabled: true // TODO: Create an SDK issue for this (NOT WORKING!!!)
                     }
                 ]
