@@ -125,11 +125,15 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             }
         },
         navigateToCompleteView: function(completionTitle, isSeries) {
-            var view = App.getView(this.completeView);
+            var view, myActivitesListView;
+
+            view = App.getView(this.completeView);
+            myActivitesListView = App.getView('myactivity_list');
 
             if (view)
             {
                 this.refreshRequired = true;
+                myActivitesListView.refreshRequired = true;
 
                 var options = {
                     title: completionTitle,
@@ -416,3 +420,4 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         }        
     });
 });
+
