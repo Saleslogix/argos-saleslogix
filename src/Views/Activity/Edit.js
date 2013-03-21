@@ -3,6 +3,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'dojo/_base/connect',
     'dojo/_base/array',
     'dojo/string',
+    'Mobile/SalesLogix/Environment',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
@@ -13,6 +14,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     connect,
     array,
     string,
+    environment,
     template,
     validator,
     utility,
@@ -171,12 +173,17 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceUIChange);
             this.connect(this.fields['Recurrence'], 'onChange', this.onRecurrenceChange);
         },
+        onInsertSuccess: function(entry) {
+            environment.refreshActivityLists();
+            this.inherited(arguments);
+        },
         onUpdateSuccess: function(entry) {
             var view = App.getView(this.detailView),
                 originalKey = this.options.entry['$key'];
 
             this.enable();
 
+            environment.refreshActivityLists();
             connect.publish('/app/refresh', [{
                 resourceKind: this.resourceKind,
                 key: entry['$key'],
@@ -968,3 +975,4 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         }
     });     
 });
+

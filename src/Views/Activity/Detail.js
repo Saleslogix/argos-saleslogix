@@ -5,6 +5,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'dojo/dom-class',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/Detail',
     'Mobile/SalesLogix/Recurrence'
@@ -15,6 +16,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     domClass,
     template,
     format,
+    environment,
     convert,
     Detail,
     recur
@@ -125,16 +127,13 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             }
         },
         navigateToCompleteView: function(completionTitle, isSeries) {
-            var view, myActivitesListView;
+            var view;
 
             view = App.getView(this.completeView);
-            myActivitesListView = App.getView('myactivity_list');
 
             if (view)
             {
-                this.refreshRequired = true;
-                myActivitesListView.refreshRequired = true;
-
+                environment.refreshActivityLists();
                 var options = {
                     title: completionTitle,
                     template: {}

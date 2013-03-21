@@ -1,6 +1,7 @@
 define('Mobile/SalesLogix/Environment', [
     'dojo/_base/lang',
     'dojo/_base/window',
+    'dojo/_base/array',
     'dojo/has',
     'dojo/string',
     'dojo/dom-construct',
@@ -8,6 +9,7 @@ define('Mobile/SalesLogix/Environment', [
 ], function(
     lang,
     win,
+    array,
     has,
     string,
     domConstruct
@@ -60,6 +62,23 @@ define('Mobile/SalesLogix/Environment', [
                 domConstruct.destroy(hiddenLink);
 
             }, 50);
+        },
+        activityViewsToRefresh: [
+            'myactivity_list',
+            'activity_list',
+            'activity_related',
+            'ticketactivity_related',
+            'history_related',
+            'history_list'
+        ],
+        refreshActivityLists: function () {
+            var views = Mobile.SalesLogix.Environment.activityViewsToRefresh || [];
+            array.forEach(views, function (view_id) {
+                var view = App.getView(view_id);
+                if (view) {
+                    view.refreshRequired = true;
+                }
+            });
         }
     });
 });
