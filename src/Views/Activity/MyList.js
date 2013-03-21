@@ -5,6 +5,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     'dojo/_base/connect',
     'Sage/Platform/Mobile/List',
     'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Format',
     'Mobile/SalesLogix/Views/Activity/List',
     'Sage/Platform/Mobile/Convert',
@@ -16,6 +17,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     connect,
     List,
     format,
+    environment,
     platformFormat,
     ActivityList,
     convert,
@@ -125,8 +127,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             var view = App.getView(this.historyEditView);
             if (view)
             {
-                this.refreshRequired = true;
-
+                environment.refreshActivityLists();
                 view.show({
                     title: this.activityTypeText[type],
                     template: {},
@@ -159,7 +160,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         entry['CompletedDate'] = new Date();
                         entry['Result'] = 'Complete';
 
-                        this.refreshRequired = true;
+                        environment.refreshActivityLists();
                         this.completeActivity(entry);
 
                     }).bindDelegate(this)
@@ -179,7 +180,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         var entry;
 
                         entry = selection && selection.data;
-                        this.refreshRequired = true;
+                        environment.refreshActivityLists();
                         this.confirmActivityFor(entry.Activity.$key, App.context['user']['$key']);
 
                     }).bindDelegate(this)
@@ -199,7 +200,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         var entry;
                         entry = selection && selection.data;
 
-                        this.refreshRequired = true;
+                        environment.refreshActivityLists();
                         this.declineActivityFor(entry.Activity.$key, App.context['user']['$key']);
                     }).bindDelegate(this)
                 },{
