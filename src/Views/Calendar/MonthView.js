@@ -215,9 +215,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             'Timeless',
             'Type'
         ],
-        feed: {},
-        eventFeed: {},
-        entries: {},
+        feed: null,
+        eventFeed: null,
+        entries: null,
         selectedDateRequests: null,
         selectedDateEventRequests: null,
         monthRequests: null,
@@ -260,6 +260,11 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
         resourceKind: 'activities',
 
+        constructor: function() {
+            this.feed = {};
+            this.eventFeed = {};
+            this.entries = {};
+        },
         _onRefresh: function(o) {
            this.inherited(arguments);
            if (o.resourceKind === 'activities' || o.resourceKind === 'events')
@@ -284,8 +289,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         activateEventMore: function() {
             var view = App.getView("event_related"),
                 where = this.getSelectedDateEventQuery();
-            if (view)
+            if (view) {
                 view.show({"where": where});
+            }
         },
         toggleGroup: function(params) {
             var node = params.$source;
@@ -429,19 +435,26 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         processFeed: function(feed) {
             if (!feed) return;
 
-            var r = feed['$resources'];
+            var r, row, i, dateIndex, startDay;
+
+            r = feed['$resources'];
             this.feed = feed;
 
-            for (var i = 0; i < r.length; i++)
-            {
-                var row = r[i];
+            for (i = 0; i < r.length; i++) {
+                row = r[i];
+
+                // Preserve the isEvent flag if we have an existing entry for it already,
+                // the order of processFeed and processEventFeed is not predictable
+                row.isEvent = isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
+
                 this.entries[row.$key] = row;
 
-                var startDay = convert.toDateFromString(row.StartDate);
-                if (r[i].Timeless)
+                startDay = convert.toDateFromString(row.StartDate);
+                if (r[i].Timeless) {
                     startDay.add({minute: startDay.getTimezoneOffset()});
+                }
 
-                var dateIndex = startDay.toString('yyyy-MM-dd');
+                dateIndex = startDay.toString('yyyy-MM-dd');
                 this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
                     ? this.dateCounts[dateIndex] + 1
                     : 1;
@@ -453,16 +466,24 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
             var dateIndex,
                 r = feed['$resources'],
-                feedLength = r.length;
+                feedLength = r.length,
+                i,
+                row,
+                startDay,
+                endDay;
+
             this.eventFeed = feed;
 
-            for (var i = 0; i < feedLength; i ++)
+            for (i = 0; i < feedLength; i ++)
             {
-                var row = r[i];
+                row = r[i];
+                // Preserve the isEvent flag if we have an existing entry for it already,
+                // the order of processFeed and processEventFeed is not predictable
+                row.isEvent = isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
                 this.entries[row.$key] = row;
 
-                var startDay = convert.toDateFromString(row.StartDate);
-                var endDay = convert.toDateFromString(row.EndDate);
+                startDay = convert.toDateFromString(row.StartDate);
+                endDay = convert.toDateFromString(row.EndDate);
 
                 while(startDay.compareTo(endDay) <= 0)
                 {
@@ -550,6 +571,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             var request = this.createSelectedDateRequest({
                 pageSize: this.eventPageSize,
                 resourceKind: 'events',
+                contractName: 'dynamic',
                 querySelect: this.eventQuerySelect,
                 queryWhere: this.getSelectedDateEventQuery()
             });
@@ -843,3 +865,4 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
     });
 });
+
