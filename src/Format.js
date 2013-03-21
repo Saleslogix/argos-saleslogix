@@ -161,10 +161,11 @@ define('Mobile/SalesLogix/Format', [
         phoneFormat: format.phoneFormat,
         phone: format.phone,
         currency: function(val) {
-            if (isNaN(val) || val === null)
+            if (isNaN(val) || val === null) {
                 return val;
+            }
 
-            var v = Mobile.SalesLogix.Format.fixed(val), // only 2 decimal places
+            var v = val.toFixed(2), // only 2 decimal places
                 f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
 
             return string.substitute(
