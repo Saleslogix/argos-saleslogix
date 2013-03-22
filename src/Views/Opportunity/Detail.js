@@ -48,6 +48,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         multiCurrencyCodeText: 'code',
         multiCurrencyDateText: 'date',
         multiCurrencyLockedText: 'locked',
+        exchangeRateDateFormatText: 'M/d/yyyy h:mm tt',
 
         //View Properties
         id: 'opportunity_detail',
@@ -208,7 +209,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     label: this.multiCurrencyDateText, 
                     name: 'ExchangeRateDate',
                     property: 'ExchangeRateDate',
-                    renderer: format.date.bindDelegate(this, null, true)
+                    renderer:  format.date.bindDelegate(this, this.exchangeRateDateFormatText, false), 
                 },{
                     label: this.multiCurrencyLockedText,
                     name: 'ExchangeRateLocked',
