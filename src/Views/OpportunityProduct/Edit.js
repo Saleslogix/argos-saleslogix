@@ -154,6 +154,12 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                 this.fields['Price'].setValue(selection.Price);
                 this.fields['Discount'].clearValue();
                 this.fields['AdjustedPrice'].clearValue();
+
+                if (App.hasMultiCurrency()) {
+                    this.fields['AdjustedPriceMine'].clearValue();
+                    this.fields['AdjustedPriceOpportunity'].clearValue();
+                }
+
                 this._updateExtendedPrice();
             }
         },
