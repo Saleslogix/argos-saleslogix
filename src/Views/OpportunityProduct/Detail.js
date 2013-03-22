@@ -1,9 +1,15 @@
 define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
     'dojo/_base/declare',
+    'dojo/string',
+    'dojo/_base/connect',
+    'dojo/_base/array',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
+    string,
+    connect,
+    array,
     format,
     Detail
 ) {
@@ -19,6 +25,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         discountText: 'discount',
         quantityText: 'quantity',
         extendedPriceText: 'extended price',
+        confirmDeleteText: 'Remove ${0} from the opportunity products?',
+        removeOppProductTitleText: 'remove opportunity product',
 
         //View Properties
         id: 'opportunityproduct_detail',
@@ -43,6 +51,64 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         ],
         resourceKind: 'opportunityProducts',
 
+        createEntryForDelete: function(e) {
+           var entry = {
+                '$key': e['$key'],
+                '$etag': e['$etag'],
+                '$name': e['$name']
+            };
+            return entry;
+        },
+        removeOpportunityProduct: function() {
+            var confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
+
+            if (!confirm(confirmMessage)) {
+                return;
+            }
+
+            var entry = this.createEntryForDelete(this.entry),
+                request = this.createRequest();
+
+            if (request) {
+                request['delete'](entry, {
+                    success: this.onDeleteSuccess,
+                    failure: this.onRequestDataFailure,
+                    scope: this
+                });
+            }
+        },
+        onDeleteSuccess: function() {
+            var views = [
+                App.getView('opportunityproduct_related'),
+                App.getView('opportunity_detail'),
+                App.getView('opportunity_list')
+            ];
+
+            array.forEach(views, function(view) {
+                if (view) {
+                    view.refreshRequired = true;
+                }
+            }, this);
+
+            connect.publish('/app/refresh',[{
+                resourceKind: this.resourceKind
+            }]);
+            ReUI.back();
+        },
+        createToolLayout: function() {
+            return this.tools || (this.tools = {
+                'tbar': [{
+                    id: 'edit',
+                    action: 'navigateToEditView',
+                    security: App.getViewSecurity(this.editView, 'update')
+                },{
+                    id: 'removeOpportunityProduct',
+                    icon: 'content/images/icons/del_24.png',
+                    action: 'removeOpportunityProduct',
+                    title:  this.removeOppProductTitleText
+                }]
+            });
+        },
         createLayout: function() {
             var layout, details, multiCurrency;
             layout = this.layout || (this.layout = []);
