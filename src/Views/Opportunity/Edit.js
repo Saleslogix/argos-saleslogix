@@ -106,7 +106,6 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         setValues: function(values) {
             this.inherited(arguments);
             var nodes;
-
             if (App.hasMultiCurrency()) {
 
                 if (values && values.ExchangeRateCode) {
@@ -171,8 +170,14 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                 this.fields['ExchangeRate'].disable();
                 this.fields['ExchangeRateCode'].disable();
             } else {
-                this.fields['ExchangeRate'].enable();
-                this.fields['ExchangeRateCode'].enable();
+
+                if (!App.canChangeOpportunityRate()) {
+                    this.fields['ExchangeRate'].disable();
+                    this.fields['ExchangeRateCode'].disable();
+                } else {
+                    this.fields['ExchangeRate'].enable();
+                    this.fields['ExchangeRateCode'].enable();
+                }
             }
 
             this.fields['ExchangeRateDate'].setValue(new Date(Date.now()));
