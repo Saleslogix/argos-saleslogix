@@ -548,14 +548,14 @@ define('Mobile/SalesLogix/Application', [
         },
         getDefaultViews: function() {
             return [
+                'myactivity_list',
+                'calendar_daylist',
+                'history_list',
                 'account_list',
                 'contact_list',
                 'lead_list',
                 'opportunity_list',
-                'ticket_list',
-                'calendar_daylist',
-                'history_list',
-                'myactivity_list'
+                'ticket_list'
             ];
         },
         getExposedViews: function() {
