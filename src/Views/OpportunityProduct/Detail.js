@@ -173,8 +173,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         label: this.quantityText,
                         name: 'Quantity',
                         property: 'Quantity'
-                    },
-                   
+                    }
                 ]
             };
 

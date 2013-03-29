@@ -182,8 +182,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     name: 'SalesPotential',
                     property: 'SalesPotential',
                     renderer: (function(val) {
-                       if (App.hasMultiCurrency()) {
-                            var exhangeRate, convertedValue;
+                        var exhangeRate, convertedValue;
+                        if (App.hasMultiCurrency()) {
                             exhangeRate = App.getBaseExchangeRate();
                             convertedValue = val * exhangeRate.rate;
                             return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
@@ -281,8 +281,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     name: 'SalesPotentialMine',
                     property: 'SalesPotential',
                     renderer: (function(val) {
+                        var exhangeRate, convertedValue;
                         if (App.hasMultiCurrency()) {
-                            var exhangeRate, convertedValue;
                             exhangeRate = App.getMyExchangeRate();
                             convertedValue = val * exhangeRate.rate;
                             return format.multiCurrency.call(null, convertedValue, exhangeRate.code);

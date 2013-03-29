@@ -315,7 +315,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                     }
                 ]
             };
-            
+
             multiCurrency = {
                 title: this.multiCurrencyText,
                 name: 'OpportunityMultiCurrencyEdit',

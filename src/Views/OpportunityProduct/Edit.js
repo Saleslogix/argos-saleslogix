@@ -198,7 +198,6 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         },
         _updateExtendedPrice: function() {
             var  adjusted, quantity, extended;
-           // price = parseFloat(this.fields['Price'].getValue(), 10) || 0;
             quantity = parseFloat(this.fields['Quantity'].getValue(), 10) || 0;
             adjusted = parseFloat(this.fields['CalculatedPrice'].getValue(), 10) || 0;
             extended = adjusted * quantity;
@@ -225,87 +224,87 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                 }
             }, this);
         },
-        createLayout: function() {
+        createLayout: function () {
             var layout, details, extendedPrice, adjustedPrice;
 
             details = {
                 title: this.detailsText,
                 name: 'OpportunityProductDetailsEdit',
                 children: [
-                {
-                    label: this.opportunityText,
-                    name: 'Opportunity',
-                    property: 'Opportunity',
-                    type: 'lookup',
-                    textProperty: 'Description',
-                    view: 'opportunity_related',
-                    validator: validator.exists
-                },
-                {
-                    name: 'ProductId',
-                    property: 'ProductId',
-                    type: 'hidden'
-                },
-                {
-                    label: this.productText, 
-                    name: 'Product',
-                    property: 'Product',
-                    type: 'lookup',
-                    textProperty: 'Name',
-                    view: 'product_related',
-                    validator: validator.exists
-                },
-                {
-                    label: this.productFamilyText,
-                    name: 'Product.Family',
-                    property: 'Product.Family',
-                    type: 'text',
-                    readonly: true
-                },
-                {
-                    label: this.priceLevelText,
-                    name: 'Program',
-                    property: 'Program',
-                    textProperty: 'Program',
-                    type: 'lookup',
-                    view: 'productprogram_related',
-                    validator: validator.exists,
-                    where: (function () {
-                        var val = this.fields['Product'].getValue();
-                        return string.substitute('Product.Name eq "${0}"', [val.Name]);
-                    }).bindDelegate(this)
-                },
-                {
-                    label: App.hasMultiCurrency() ? this.basePriceText : this.priceText,
-                    name: 'Price',
-                    property: 'Price',
-                    type: 'multiCurrency',
-                    readonly: true
-                },
-                {
-                    label: this.discountText,
-                    name: 'Discount',
-                    property: 'Discount',
-                    type: 'decimal',
-                    notificationTrigger: 'blur'
-                },
-                {
-                    label: this.quantityText,
-                    name: 'Quantity',
-                    property: 'Quantity',
-                    type: 'decimal',
-                    notificationTrigger: 'blur'
-                }               
+                    {
+                        label: this.opportunityText,
+                        name: 'Opportunity',
+                        property: 'Opportunity',
+                        type: 'lookup',
+                        textProperty: 'Description',
+                        view: 'opportunity_related',
+                        validator: validator.exists
+                    },
+                    {
+                        name: 'ProductId',
+                        property: 'ProductId',
+                        type: 'hidden'
+                    },
+                    {
+                        label: this.productText,
+                        name: 'Product',
+                        property: 'Product',
+                        type: 'lookup',
+                        textProperty: 'Name',
+                        view: 'product_related',
+                        validator: validator.exists
+                    },
+                    {
+                        label: this.productFamilyText,
+                        name: 'Product.Family',
+                        property: 'Product.Family',
+                        type: 'text',
+                        readonly: true
+                    },
+                    {
+                        label: this.priceLevelText,
+                        name: 'Program',
+                        property: 'Program',
+                        textProperty: 'Program',
+                        type: 'lookup',
+                        view: 'productprogram_related',
+                        validator: validator.exists,
+                        where: (function(){
+                            var val = this.fields['Product'].getValue();
+                            return string.substitute('Product.Name eq "${0}"', [val.Name]);
+                        }).bindDelegate(this)
+                    },
+                    {
+                        label: App.hasMultiCurrency() ? this.basePriceText : this.priceText,
+                        name: 'Price',
+                        property: 'Price',
+                        type: 'multiCurrency',
+                        readonly: true
+                    },
+                    {
+                        label: this.discountText,
+                        name: 'Discount',
+                        property: 'Discount',
+                        type: 'decimal',
+                        notificationTrigger: 'blur'
+                    },
+                    {
+                        label: this.quantityText,
+                        name: 'Quantity',
+                        property: 'Quantity',
+                        type: 'decimal',
+                        notificationTrigger: 'blur'
+                    }
                 ]
             };
 
             if (!App.hasMultiCurrency()) {
                 details.children.push({
-                        label: this.adjustedPriceText,
-                        name: 'CalculatedPrice',
-                        property: 'CalculatedPrice',
-                        type: 'multiCurrency',
-                        notificationTrigger: 'blur'
+                    label: this.adjustedPriceText,
+                    name: 'CalculatedPrice',
+                    property: 'CalculatedPrice',
+                    type: 'multiCurrency',
+                    notificationTrigger: 'blur'
                 });
                 details.children.push({
                     label: this.extendedPriceText,
@@ -326,9 +325,10 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                         property: 'ExtendedPrice',
                         type: 'multiCurrency',
                         readonly: true
-                   }
+                    }
                 ]
             };
+
             adjustedPrice = {
                 title: this.adjustedPriceSectionText,
                 name: 'OpportunityProductAdjustedPriceEdit',
@@ -349,20 +349,20 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     }
                 ]
             };
-         layout = this.layout || (this.layout = []);
 
-         if (layout.length > 0) {
-             return layout;
-         }
+            layout = this.layout || (this.layout = []);
 
-         layout.push(details);
+            if (layout.length > 0) {
+                return layout;
+            }
 
-         if (App.hasMultiCurrency()) {
-             layout.push(adjustedPrice);
-             layout.push(extendedPrice);            
-         }
-         return layout;
+            layout.push(details);
+
+            if (App.hasMultiCurrency()) {
+                layout.push(adjustedPrice);
+                layout.push(extendedPrice);
+            }
+            return layout;
         }
-       
     });
 });
