@@ -224,7 +224,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                 }
             }, this);
         },
-        createLayout: function () {
+        createLayout: function() {
             var layout, details, extendedPrice, adjustedPrice;
 
             details = {
@@ -269,7 +269,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                         type: 'lookup',
                         view: 'productprogram_related',
                         validator: validator.exists,
-                        where: (function(){
+                        where: (function() {
                             var val = this.fields['Product'].getValue();
                             return string.substitute('Product.Name eq "${0}"', [val.Name]);
                         }).bindDelegate(this)

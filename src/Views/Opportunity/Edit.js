@@ -202,7 +202,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             var layout, details, multiCurrency;
 
             details = {
-                title:  this.detailsText,
+                title: this.detailsText,
                 name: 'OpportunityDetailsEdit',
                 children: [
                     {
