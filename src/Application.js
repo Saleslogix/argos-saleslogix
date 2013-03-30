@@ -37,7 +37,13 @@ define('Mobile/SalesLogix/Application', [
         rememberNavigationState: true,
         enableUpdateNotification: false,
         multiCurrency: false,
-
+        speedSearch: {
+            includeStemming: true,
+            includePhonic: true,
+            includeThesaurus: false,
+            useFrequentFilter: false,
+            searchType: 1
+        },
         enableCaching: true,
         userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
         userOptionsToRequest: [
