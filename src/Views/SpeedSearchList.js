@@ -63,14 +63,13 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
         clear: function() {
             this.inherited(arguments);
-
             this.currentPage = 0;
         },
         extractTypeFromItem: function(item) {
-            for (var i = 0; i < this.types.length; i++)
-            {
-                if (item.source.indexOf(this.types[i]) !== -1)
+            for (var i = 0; i < this.types.length; i++) {
+                if (item.source.indexOf(this.types[i]) !== -1) {
                     return this.types[i];
+                }
             }
 
             return null;
@@ -78,21 +77,21 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         extractDescriptorFromItem: function(item, type) {
             var descriptor = '';
 
-            switch (type)
-            {
+            switch (type) {
                 case 'Account': descriptor = this.getFieldValue(item.fields, 'account');
                     break;
-                case 'Activity': descriptor = string.substitute('${0} (${1})', this.getFieldValues(item.fields, ['subject', 'date_created']));
+                case 'Activity': descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
                     break;
-                case 'Contact': descriptor = string.substitute('${0} ${1} (${2})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
+                case 'Contact': descriptor = string.substitute('${firstname} ${lastname} (${account})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
                     break;
-                case 'Lead': descriptor = string.substitute('${0} ${1} (${2})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
+                case 'Lead': descriptor = string.substitute('${firstname} ${lastname} (${account})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
                     break;
-                case 'Opportunity': descriptor = this.getFieldValue(item.fields, 'subject');
+                case 'Opportunity':
+                    descriptor = this.getFieldValue(item.fields, 'subject');
                     break;
-                case 'History': descriptor = string.substitute('${0} (${1})', this.getFieldValues(item.fields, ['subject', 'date_created']));
+                case 'History': descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
                     break;
-                case 'Ticket': descriptor = item['uiDisplayName'];
+                case 'Ticket': descriptor = item.uiDisplayName;
                     break;
             }
             return descriptor;
@@ -100,7 +99,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         extractKeyFromItem: function(item) {
             // Extract the entityId from the display name, which is the last 12 characters
             var displayName, len;
-            displayName = item['displayName'];
+            displayName = item.displayName;
             if (!displayName) {
                 return '';
             }
@@ -108,79 +107,81 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             len = displayName.length;
             return displayName.substring(len - 12);
         },
-
         getFieldValue: function(fields, name) {
-            for (var i = 0; i < fields.length; i++)
-            {
+            for (var i = 0; i < fields.length; i++) {
                 var field = fields[i];
-                if (field['fieldName'] == name)
-                    return field['fieldValue'];
+                if (field.fieldName == name) {
+                    return field.fieldValue;
+                }
             }
 
             return '';
         },
         getFieldValues: function(fields, names) {
-            var response = [];
+            var results = {};
+
+            // Assign each field in the results to an empty string,
+            // so that dojo's string substitute won't blow up on undefined.
+            array.forEach(names, function(name) {
+                results[name] = '';
+            });
+
             array.forEach(fields, function(field) {
                 array.forEach(names, function(name, i) {
-                    if (field['fieldName'] == name)
-                        response[i] = field['fieldValue']
+                    if (field.fieldName === name) {
+                        results[name] = field.fieldValue;
+                    }
                 });
             });
 
-            return response;
+            return results;
         },
-
-
         more: function() {
             this.currentPage += 1;
-
             this.inherited(arguments);
         },
         hasMoreData: function() {
-            var total = this.feed['totalCount'];
-            var count = (this.currentPage + 1) * this.pageSize;
+            var total, count;
+            total = this.feed.totalCount;
+            count = (this.currentPage + 1) * this.pageSize;
             return count < total;
         },
         processFeed: function(feed) {
-            if (!this.feed) this.set('listContent', '');
-
-            this.feed = feed = feed['response'];
-
-            if (feed['totalCount'] === 0)
-            {
-                this.set('listContent', this.noDataTemplate.apply(this));
+            if (!this.feed) {
+                this.set('listContent', '');
             }
-            else if (feed['items'])
-            {
+
+            this.feed = feed = feed.response;
+
+            if (feed.totalCount === 0) {
+                this.set('listContent', this.noDataTemplate.apply(this));
+            } else if (feed.items) {
                 var o = [];
 
-                for (var i = 0; i < feed['items'].length; i++)
-                {
-                    var entry = feed['items'][i];
+                for (var i = 0; i < feed.items.length; i++) {
+                    var entry = feed.items[i];
 
-                    entry['type'] = this.extractTypeFromItem(entry);
-                    entry['$descriptor'] = entry['$descriptor'] || this.extractDescriptorFromItem(entry, entry['type']);
-                    entry['$key'] = this.extractKeyFromItem(entry);
+                    entry.type = this.extractTypeFromItem(entry);
+                    entry.$descriptor = entry.$descriptor || this.extractDescriptorFromItem(entry, entry.type);
+                    entry.$key = this.extractKeyFromItem(entry);
 
-                    this.entries[entry['$key']] = entry;
+                    this.entries[entry.$key] = entry;
 
                     o.push(this.rowTemplate.apply(entry, this));
                 }
 
-                if (o.length > 0)
+                if (o.length > 0) {
                     domConstruct.place(o.join(''), this.contentNode, 'last');
+                }
             }
 
-            if (typeof feed['totalCount'] !== 'undefined')
-            {
-                var remaining = this.feed['totalCount'] - ( (this.currentPage + 1) * this.pageSize);
+            if (typeof feed.totalCount !== 'undefined') {
+                var remaining = this.feed.totalCount - ((this.currentPage + 1) * this.pageSize);
                 this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
             }
 
             domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
         },
-
         createRequest: function() {
             var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
                 .setContractName('system')
@@ -219,15 +220,15 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                 failture: lang.hitch(this, this.onRequestDataFailure)
             });
         },
-
         navigateToDetailView: function(key, type) {
             var view = App.getView(type.toLowerCase() + '_detail');
-            if (view)
+
+            if (view) {
                 view.show({
                     key: key
                 });
+            }
         },
-
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 'tbar': []

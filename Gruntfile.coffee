@@ -10,6 +10,7 @@ module.exports = (grunt) ->
             server: {
                 options: {
                     port: 8000,
+                    hostname: '127.0.0.1',
                     base: '../../'
                 }
             }
@@ -18,7 +19,7 @@ module.exports = (grunt) ->
             src: ['src/**/*.js'],
             options: {
                 specs: 'tests/**/*.spec.js',
-                host: 'http://localhost:8000/products/argos-saleslogix/',
+                host: 'http://127.0.0.1:8000/products/argos-saleslogix/',
                 template: 'GruntRunner.tmpl'
             }
         }
