@@ -95,7 +95,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/AccountId',
             'Activity/ContactId',
             'Activity/ContactName',
-            'Activity/Leader',
+            'Activity/Leader/$key',
             'Activity/LeadName',
             'Activity/UserId',
             'Activity/Timeless',
