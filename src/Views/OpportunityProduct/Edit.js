@@ -61,7 +61,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             this.connect(this.fields['Discount'], 'onChange', this.onDiscountChange);
             this.connect(this.fields['CalculatedPrice'], 'onChange', this.onAdjustedPriceChange);
             this.connect(this.fields['CalculatedPriceMine'], 'onChange', this.onAdjustedPriceMineChange);
-            this.connect(this.fields['Quantity'], 'onChange', this.onQuantityChange);
+            this.connect(this.fields['Quantity'], 'onChange', this.onQuantityChange);            
         },
         setValues: function(values) {
             this.inherited(arguments);
@@ -80,8 +80,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             baseCode = App.getBaseExchangeRate().code;
             this.fields['Price'].setCurrencyCode(baseCode);
             this.fields['CalculatedPrice'].setCurrencyCode(baseCode);
-            if (App.hasMultiCurrency()) {              
-                this.fields['CalculatedPriceMine'].setValue(this._getMyRate() * values.CalculatedPrice);
+            if (App.hasMultiCurrency()) {
+                this.fields['CalculatedPriceMine'].setValueNoTrigger(this._getMyRate() * values.CalculatedPrice);
                 this.fields['CalculatedPriceMine'].setCurrencyCode(myCode);
             }
             this.fields['ExtendedPrice'].setCurrencyCode(baseCode);
@@ -122,78 +122,104 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         onProductChange: function(value, field) {
             var selection = field && field.currentSelection;
             if (selection) {
-                this.fields['ProductId'].setValue(value.key);
-                this.fields['Product.Family'].setValue(selection.Family);
+                this.fields['ProductId'].setValueNoTrigger(value.key);
+                this.fields['Product.Family'].setValueNoTrigger(selection.Family);
                 this.fields['Program'].clearValue();
 
-                this.fields['Price'].setValue(selection.Price);
+                this.fields['Price'].setValueNoTrigger(selection.Price);
                 this.fields['Discount'].clearValue();
-                this.fields['CalculatedPrice'].setValue(selection.Price);
+                this.fields['CalculatedPrice'].setValueNoTrigger(selection.Price);
 
                 if (App.hasMultiCurrency()) {
-                    this.fields['CalculatedPriceMine'].setValue(this._getMyRate() * selection.Price);                   
+                    this.fields['CalculatedPriceMine'].setValueNoTrigger(this._getMyRate() * selection.Price);
                 }
-                this.fields['Quantity'].setValue(1);
+                this.fields['Quantity'].setValueNoTrigger(1);
                 this._updateExtendedPrice();
             }
         },
         onProgramChange: function(value, field) {
             var selection = field && field.currentSelection;
             if (selection) {
-                this.fields['Price'].setValue(selection.Price);
+                this.fields['Price'].setValueNoTrigger(selection.Price);
                 this.fields['Discount'].clearValue();
-                this.fields['CalculatedPrice'].setValue(selection.Price);
+                this.fields['CalculatedPrice'].setValueNoTrigger(selection.Price);
                 if (App.hasMultiCurrency()) {
-                    this.fields['CalculatedPriceMine'].setValue(this._getMyRate() * selection.Price);
+                    this.fields['CalculatedPriceMine'].setValueNoTrigger(this._getMyRate() * selection.Price);
                 }
                 this._updateExtendedPrice();
             }
         },
         onDiscountChange: function(value, field) {
-
             var price, discount, adjusted, quantity, extended;
             price = parseFloat(this.fields['Price'].getValue(), 10) || 0;
             discount = this.fields['Discount'].getValue();
             quantity = parseFloat(this.fields['Quantity'].getValue(), 10) || 0;
-            if (discount === 0) {
-                adjusted = price;
-            } else {
 
-                adjusted = price - ((discount / 100) * price);
-            }
-           
+            adjusted = this._calculateAdjustedPrice(price, discount);
+            this.fields['CalculatedPrice'].setValueNoTrigger(adjusted);
+
             this._updateAdjustedPrices(adjusted);
             this._updateExtendedPrice();
         },
         onAdjustedPriceChange: function(value, field) {
-            var price, discount, adjusted;
+            var price, discount, adjusted, myadjusted;
             price = parseFloat(this.fields['Price'].getValue(), 10) || 0;
-            adjusted = parseFloat(this.fields['CalculatedPrice'].getValue(), 10) || price;
+            adjusted = parseFloat(this.fields['CalculatedPrice'].getValue(), 10) ||0;
 
-            discount = (1 - (adjusted / price)) * 100;
-            this.fields['Discount'].setValue(discount);
+            discount = this._calculateDiscount(price, adjusted);
+            this.fields['Discount'].setValueNoTrigger(discount);
+
             if (App.hasMultiCurrency()) {
-                this.fields['CalculatedPriceMine'].setValue(this._getMyRate() * adjusted);
+                myadjusted = this._getMyRate() * adjusted;
+                this.fields['CalculatedPriceMine'].setValueNoTrigger(myadjusted);               
             }
             this._updateExtendedPrice();
         },
         onAdjustedPriceMineChange: function(value, field) {
-            var price, discount, myAdjusted;
-            myAdjusted = this.fields['CalculatedPriceMine'].getValue();
+            var price, myprice, discount, myadjusted, adjusted, myrate;
+            myadjusted = this.fields['CalculatedPriceMine'].getValue();
             price = this.fields['Price'].getValue() || 0;
-            price = price * this._getMyRate();// get the price in the users exchange rate
 
-            discount = (1 - (myAdjusted / price)) * 100;
-            this.fields['Discount'].setValue(discount);
-            this.onDiscountChange();
+            myrate = this._getMyRate()
+            myprice = price * myrate;// get the price in the users exchange rate
+
+            discount = this._calculateDiscount(myprice, myadjusted);
+            this.fields['Discount'].setValueNoTrigger(discount);
+
+            adjusted = this._calculateAdjustedPrice(price, discount);
+            this.fields['CalculatedPrice'].setValueNoTrigger(adjusted);
+
+            this._updateExtendedPrice();
         },
         onQuantityChange: function(value, field) {
             this._updateExtendedPrice();
         },
+        _calculateDiscount: function(price, adjusted) {
+            var discount;
+            if (price === 0) {
+                discount = 0.0;
+            }
+            else {
+                discount = (1 - (adjusted / price)) * 100;
+            }
+            return discount;
+        },
+        _calculateAdjustedPrice: function(price, discount) {
+            var adjusted;
+            if (discount === 0) {
+                adjusted = price;
+            }
+            else {
+                adjusted = price - (price * (discount/100));
+            }
+            return adjusted;
+        },
         _updateAdjustedPrices: function (adjusted) {
-            this.fields['CalculatedPrice'].setValue(adjusted);
+            var myadjusted;
+            this.fields['CalculatedPrice'].setValueNoTrigger(adjusted);
             if (App.hasMultiCurrency()) {
-                this.fields['CalculatedPriceMine'].setValue(this._getMyRate() * adjusted);
+                myadjusted = this._getMyRate() * adjusted;
+                this.fields['CalculatedPriceMine'].setValueNoTrigger(myadjusted);
             }
         },
         _updateExtendedPrice: function() {
@@ -201,7 +227,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             quantity = parseFloat(this.fields['Quantity'].getValue(), 10) || 0;
             adjusted = parseFloat(this.fields['CalculatedPrice'].getValue(), 10) || 0;
             extended = adjusted * quantity;
-            this.fields['ExtendedPrice'].setValue(extended);
+            this.fields['ExtendedPrice'].setValueNoTrigger(extended);
         },
         onUpdateCompleted: function(entry) {
             this._refreshOpportunityViews();
