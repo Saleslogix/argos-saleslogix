@@ -19,6 +19,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         accountText: 'acct',
         acctMgrText: 'acct mgr',
         estCloseText: 'est close',
+        detailsText: 'Details',
         fbarHomeTitleText: 'home',
         fbarScheduleTitleText: 'schedule',
         importSourceText: 'lead source',
@@ -44,10 +45,10 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         addNoteText: 'Add note',
         moreDetailsText: 'More Details',
         multiCurrencyText: 'Multi Currency',
-        multiCurrencyRateText: 'rate',
+        multiCurrencyRateText: 'exchange rate',
         multiCurrencyCodeText: 'code',
-        multiCurrencyDateText: 'date',
-        multiCurrencyLockedText: 'locked',
+        multiCurrencyDateText: 'rate date',
+        multiCurrencyLockedText: 'rate locked',
         exchangeRateDateFormatText: 'M/d/yyyy h:mm tt',
 
         //View Properties
@@ -181,14 +182,12 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     name: 'SalesPotential',
                     property: 'SalesPotential',
                     renderer: (function(val) {
-                        var baseCode, baseRate, convertedValue;
+                        var exhangeRate, convertedValue;
                         if (App.hasMultiCurrency()) {
-                            baseCode = App.context['systemOptions']['BaseCurrency'];
-                            baseRate = App.context['exchangeRates'][baseCode];
-                            convertedValue = val * baseRate;
-                            return format.multiCurrency.call(null, convertedValue, baseCode);
+                            exhangeRate = App.getBaseExchangeRate();
+                            convertedValue = val * exhangeRate.rate;
+                            return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
                         }
-
                         return format.currency.call(null, val);
                     }).bindDelegate(this)
                 }]
@@ -280,14 +279,13 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                 details.children.push({
                     label: this.potentialMyRateText,
                     name: 'SalesPotentialMine',
-                    property: 'SalesPotentialMine',
+                    property: 'SalesPotential',
                     renderer: (function(val) {
-                        var myCode, myRate, convertedValue;
+                        var exhangeRate, convertedValue;
                         if (App.hasMultiCurrency()) {
-                            myCode = App.context['userOptions']['General:Currency'];
-                            myRate = App.context['exchangeRates'][myCode];
-                            convertedValue = val.SalesPotential * myRate;
-                            return format.multiCurrency.call(null, convertedValue, myCode);
+                            exhangeRate = App.getMyExchangeRate();
+                            convertedValue = val * exhangeRate.rate;
+                            return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
                         }
 
                         return '-';
