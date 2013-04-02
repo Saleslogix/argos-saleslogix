@@ -61,7 +61,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             this.connect(this.fields['Discount'], 'onChange', this.onDiscountChange);
             this.connect(this.fields['CalculatedPrice'], 'onChange', this.onAdjustedPriceChange);
             this.connect(this.fields['CalculatedPriceMine'], 'onChange', this.onAdjustedPriceMineChange);
-            this.connect(this.fields['Quantity'], 'onChange', this.onQuantityChange);            
+            this.connect(this.fields['Quantity'], 'onChange', this.onQuantityChange);
         },
         setValues: function(values) {
             this.inherited(arguments);
