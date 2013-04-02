@@ -99,7 +99,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/LeadName',
             'Activity/UserId',
             'Activity/Timeless',
-            'Activity/PhoneNumber'
+            'Activity/PhoneNumber',
+            'Activity/Recurring'
         ],
         resourceKind: 'userActivities',
         allowSelection: true,
@@ -145,12 +146,14 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     icon: 'content/images/icons/Clear_Activity_24x24.png',
                     label: this.completeActivityText,
                     enabled: function(action, selection) {
-                        var entry = selection && selection.data;
+                        var recur, entry = selection && selection.data;
                         if (!entry) {
                             return false;
                         }
 
-                        return entry.Activity['Leader']['$key'] === App.context['user']['$key'];
+                        recur = entry.Activity.Recurring;
+
+                        return entry.Activity['Leader']['$key'] === App.context['user']['$key'] && !recur;
                     },
                     fn: (function(action, selection) {
                         var entry;
