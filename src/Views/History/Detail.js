@@ -106,25 +106,32 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             return entry && (entry['LongNotes'] || entry['Notes']);
         },
         requestCompletedUser: function(entry) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-                .setResourceKind('users')
-                .setResourceSelector(string.substitute("'${0}'", [entry['CompletedUser']]))
-                .setQueryArg('select', [
-                    'UserInfo/FirstName',
-                    'UserInfo/LastName'
-                ].join(','));
+            var request, completedUser;
+            completedUser = entry['CompletedUser'];
 
-            request.allowCacheUse = true;
+            if (completedUser) {
+                request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                    .setResourceKind('users')
+                    .setResourceSelector(string.substitute("'${0}'", [completedUser]))
+                    .setQueryArg('select', [
+                        'UserInfo/FirstName',
+                        'UserInfo/LastName'
+                    ].join(','));
 
-            return request;
+                request.allowCacheUse = true;
+
+                return request;
+            }
         },
         requestCodeData: function(row, node, value, entry, predicate) {
             var request = this.requestCompletedUser(entry);
-            request.read({
-                success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
-                failure: this.onRequestCodeDataFailure,
-                scope: this
-            });
+            if (request) {
+                request.read({
+                    success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
+                    failure: this.onRequestCodeDataFailure,
+                    scope: this
+                });
+            }
         },
         onRequestCodeDataSuccess: function(row, node, value, entry, data) {
             var codeText = entry[row.property];
@@ -241,3 +248,4 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         }
     });
 });
+
