@@ -80,12 +80,37 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             baseCode = App.getBaseExchangeRate().code;
             this.fields['Price'].setCurrencyCode(baseCode);
             this.fields['CalculatedPrice'].setCurrencyCode(baseCode);
+
             if (App.hasMultiCurrency()) {
                 this.fields['CalculatedPriceMine'].setValueNoTrigger(this._getMyRate() * values.CalculatedPrice);
                 this.fields['CalculatedPriceMine'].setCurrencyCode(myCode);
             }
+
             this.fields['ExtendedPrice'].setCurrencyCode(baseCode);
             this._updateExtendedPrice();
+
+            if ((values.Product.Family !== null) && (values.Price !== null))
+                this._enableUI(true);
+            else{
+                this._enableUI(false);
+            }
+        },
+        _enableUI: function(enable) {
+            if (enable) {
+                this.fields['Discount'].enable();
+                this.fields['Quantity'].enable();
+                this.fields['CalculatedPrice'].enable();
+                if (App.hasMultiCurrency()) {
+                    this.fields['CalculatedPriceMine'].enable();
+                }
+            } else {
+                this.fields['Discount'].disable();
+                this.fields['Quantity'].disable();
+                this.fields['CalculatedPrice'].disable();
+                if (App.hasMultiCurrency()) {
+                    this.fields['CalculatedPriceMine'].disable();
+                }
+            }
         },
         _getMyRate: function() {
             return App.getMyExchangeRate().rate;
@@ -147,6 +172,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     this.fields['CalculatedPriceMine'].setValueNoTrigger(this._getMyRate() * selection.Price);
                 }
                 this._updateExtendedPrice();
+                this._enableUI(true);                
             }
         },
         onDiscountChange: function(value, field) {
@@ -192,6 +218,9 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             this._updateExtendedPrice();
         },
         onQuantityChange: function(value, field) {
+            if (isNaN(value)) {
+                this.fields['Quantity'].setValueNoTrigger(0);
+            }
             this._updateExtendedPrice();
         },
         _calculateDiscount: function(price, adjusted) {
