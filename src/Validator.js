@@ -67,11 +67,23 @@ define('Mobile/SalesLogix/Validator', [
             fn: function(value, field) {
                 var minValue = field.minValue,
                     maxValue = field.maxValue;
-                //If value is empty, ignore comparison
-                if (!value) return false;
 
-                if (minValue && value instanceof Date && value.compareTo(minValue) === 1) return false;
-                if (maxValue && value instanceof Date && value.compareTo(maxValue) === -1) return false;
+                // if value is empty or not a date, ignore comparison
+                if (!value || !(value instanceof Date)) {
+                    return false;
+                }
+
+                // compareTo is added to the Date prototype by the datejs library
+                if (minValue && maxValue) {
+                    if (value.compareTo(minValue) === 1 && value.compareTo(maxValue) === -1) {
+                        return false;
+                    }
+                } else if (minValue && value.compareTo(minValue) === 1) {
+                        return false;
+                } else if (maxValue && value.compareTo(maxValue) === -1) {
+                        return false;
+                }
+
                 return true;
             },
             message: "The field '${2}' value is out of allowed date range."
@@ -79,3 +91,4 @@ define('Mobile/SalesLogix/Validator', [
         isPhoneNumber: { /* todo: remove, depreciated */ }
     });
 });
+
