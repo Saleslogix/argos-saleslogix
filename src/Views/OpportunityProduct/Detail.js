@@ -22,9 +22,16 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         productFamilyText: 'product family',
         priceLevelText: 'price level',
         priceText: 'price',
+        basePriceText: 'base price',
         discountText: 'discount',
         quantityText: 'quantity',
+        baseExtendedPriceText: 'base',
         extendedPriceText: 'extended price',
+        extendedPriceSectionText: 'Extended Price',
+        adjustedPriceSectionText: 'Adjusted Price',
+        baseAdjustedPriceText: 'base',
+        adjustedPriceText: 'adjusted price',
+        myAdjustedPriceText: 'user',
         confirmDeleteText: 'Remove ${0} from the opportunity products?',
         removeOppProductTitleText: 'remove opportunity product',
 
@@ -142,10 +149,19 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         property: 'Program'
                     },
                     {
-                        label: this.priceText,
+                        label: App.hasMultiCurrency() ? this.basePriceText : this.priceText,
                         name: 'Price',
                         property: 'Price',
-                        renderer: format.currency
+                        renderer: (function (val) {
+                            var exhangeRate, convertedValue;
+                            if (App.hasMultiCurrency()) {
+                                exhangeRate = App.getBaseExchangeRate();
+                                convertedValue = val * exhangeRate.rate;
+                                return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
+                            }
+
+                            return format.currency.call(null, val);
+                        }).bindDelegate(this)
                     },
                     {
                         label: this.discountText,
@@ -157,70 +173,91 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         label: this.quantityText,
                         name: 'Quantity',
                         property: 'Quantity'
-                    },
-                    {
+                    }
+                ]
+            };
+
+            if (!App.hasMultiCurrency()) {
+                
+                details.children.push({
+                    label: this.adjustedPriceText,
+                    name: 'CalculatedPrice',
+                    property: 'CalculatedPrice',
+                    renderer: format.currency
+                });                                
+                details.children.push({
                         label: this.extendedPriceText,
                         name: 'ExtendedPrice',
                         property: 'ExtendedPrice',
+                        renderer: format.currency
+                });               
+            }
+            extendedPrice = {
+                title: this.extendedPriceSectionText,
+                name: 'OpportunityProductExtendedPriceDetail',
+                children: [
+                    {
+                        label: this.baseExtendedPriceText,
+                        name: 'ExtendedPrice',
+                        property: 'ExtendedPrice',
                         renderer: (function(val) {
-                        var baseCode, baseRate, convertedValue;
+                            var exchangeRate, convertedValue;
                             if (App.hasMultiCurrency()) {
-                                baseCode = App.context['systemOptions']['BaseCurrency'];
-                                // Should we assume the base rate is going to be 1 and not bother with the conversion?
-                                baseRate = App.context['exchangeRates'][baseCode];
-                                convertedValue = val * baseRate;
-                                return format.multiCurrency.call(null, convertedValue, baseCode);
+                                exhangeRate = App.getBaseExchangeRate();
+                                convertedValue = val * exhangeRate.rate;
+                                return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
                             }
 
                             return format.currency.call(null, val);
+                        }).bindDelegate(this)
+                    }                   
+                ]
+            };
+            adjustedPrice = {
+                title: this.adjustedPriceSectionText,
+                name: 'OpportunityProductAdjustedPriceDetail',
+                children: [
+                    {
+                        label: this.baseAdjustedPriceText,
+                        name: 'CalculatedPrice',
+                        property: 'CalculatedPrice',
+                        renderer: (function(val) {
+                            var exhangeRate, convertedValue;
+                            if (App.hasMultiCurrency()) {
+                                exhangeRate = App.getBaseExchangeRate();
+                                convertedValue = val * exhangeRate.rate;
+                                return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
+                            }
+
+                            return format.currency.call(null, val);
+                        }).bindDelegate(this)
+                    },
+                    {
+                        label: this.myAdjustedPriceText,
+                        name: 'CalculatedPriceMine',
+                        property: 'CalculatedPrice',
+                        renderer: (function (val) {
+                            var exhangeRate, convertedValue;
+                            exhangeRate = App.getMyExchangeRate();
+                            convertedValue = val * exhangeRate.rate;
+                            return format.multiCurrency.call(null, convertedValue, exhangeRate.code);                          
                         }).bindDelegate(this)
                     }
                 ]
             };
 
-            if (App.hasMultiCurrency()) {
-                details.children.push({
-                    label: this.extendedPriceText,
-                    name: 'ExtendedPriceMine',
-                    property: 'ExtendedPriceMine',
-                    renderer: (function(val) {
-                        var myCode, myRate, convertedValue;
+            layout = this.layout || (this.layout = []);
 
-                        myCode = App.context['userOptions']['General:Currency'];
-                        myRate = App.context['exchangeRates'][myCode];
-                        convertedValue = val.ExtendedPrice * myRate;
-                        return format.multiCurrency.call(null, convertedValue, myCode);
-
-                        return '-';
-                    }).bindDelegate(this)
-                },{
-                    label: this.extendedPriceText,
-                    name: 'ExtendedPriceOpportunity',
-                    property: 'ExtendedPriceOpportunity',
-                    renderer: (function(val) {
-                        var code, rate, convertedValue, found;
-
-                        found = App.queryNavigationContext(function(o) {
-                            return /^(opportunities)$/.test(o.resourceKind) && o.key;
-                        });
-
-                        found = found && found.options;
-
-                        if (found) {
-                            rate = found.ExchangeRate;
-                            code = found.ExchangeRateCode;
-                            convertedValue = val.ExtendedPrice * rate;
-                            if (!isNaN(convertedValue) && code) {
-                                return format.multiCurrency.call(null, convertedValue, code);
-                            }
-                        }
-
-                        return '-';
-                    }).bindDelegate(this)
-                });
+            if (layout.length > 0) {
+                return layout;
             }
 
             layout.push(details);
+
+            if (App.hasMultiCurrency()) {
+                layout.push(adjustedPrice);
+                layout.push(extendedPrice);
+            }
             return layout;
         }        
     });

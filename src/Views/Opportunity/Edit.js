@@ -18,6 +18,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         acctMgrText: 'acct mgr',
         estCloseText: 'est close',
         importSourceText: 'lead source',
+        detailsText: 'Details',
         opportunityStatusTitleText: 'Opportunity Status',
         opportunityText: 'opportunity',
         opportunityTypeTitleText: 'Opportunity Type',
@@ -29,6 +30,11 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         statusText: 'status',
         titleText: 'Opportunity',
         typeText: 'type',
+        multiCurrencyText: 'Multi Currency',
+        multiCurrencyRateText: 'exchange rate',
+        multiCurrencyCodeText: 'code',
+        multiCurrencyDateText: 'rate date',
+        multiCurrencyLockedText: 'rate locked',
         exchangeRateDateFormatText: 'M/d/yyyy h:mm tt',
 
         //View Properties
@@ -196,7 +202,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             var layout, details, multiCurrency;
 
             details = {
-                title: 'Details',
+                title: this.detailsText,
                 name: 'OpportunityDetailsEdit',
                 children: [
                     {
@@ -311,18 +317,18 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             };
 
             multiCurrency = {
-                title: 'Multi Currency',
+                title: this.multiCurrencyText,
                 name: 'OpportunityMultiCurrencyEdit',
                 children: [
                     {
-                        label: 'exchange rate',
+                        label: this.multiCurrencyRateText,
                         name: 'ExchangeRate',
                         property: 'ExchangeRate',
                         type: 'text',
                         validator: validator.isDecimal
                     },
                     {
-                        label: 'code',
+                        label: this.multiCurrencyCodeText,
                         name: 'ExchangeRateCode',
                         property: 'ExchangeRateCode',
                         textProperty: '$key',
@@ -330,13 +336,13 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         view: 'exchangerate_lookup'
                     },
                     {
-                        label: 'rate locked',
+                        label: this.multiCurrencyLockedText,
                         name: 'ExchangeRateLocked',
                         property: 'ExchangeRateLocked',
                         type: 'boolean'
                     },
                     {
-                        label: 'rate date',
+                        label: this.multiCurrencyDateText,
                         name: 'ExchangeRateDate',
                         property: 'ExchangeRateDate',
                         type: 'date',
