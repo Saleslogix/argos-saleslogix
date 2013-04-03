@@ -43,7 +43,8 @@
         { name: 'dojox', location: '../../../argos-sdk/libraries/dojo/dojox' },
         { name: 'Sage/Platform/Mobile', location: '../../../argos-sdk/src' },
         { name: 'Mobile/SalesLogix', location: '../src' },
-        { name: 'spec', location: 'src' }
+        { name: 'spec', location: 'src' },
+        { name: 'localization', location: '../localization' }
     ]});
     </script>
 </head>
@@ -52,7 +53,9 @@
   require([
     'spec/Format.spec',
     'spec/Validator.spec',
-    'spec/Views/ExchangeRateLookup.spec'
+    'spec/Views/ExchangeRateLookup.spec',
+    'localization/en',
+    'localization/saleslogix/en'
   ], function() {
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
