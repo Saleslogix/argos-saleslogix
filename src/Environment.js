@@ -66,6 +66,7 @@ define('Mobile/SalesLogix/Environment', [
         activityViewsToRefresh: [
             'myactivity_list',
             'activity_list',
+            'activity_detail',
             'activity_related',
             'ticketactivity_related',
             'history_related',
