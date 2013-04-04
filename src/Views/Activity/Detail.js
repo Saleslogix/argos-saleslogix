@@ -115,8 +115,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         navigateToEditView: function(el) {
             var view = App.getView(this.editView);
 
-            if (view)
-            {
+            if (view) {
                 if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
                     this.recurrence.Leader = this.entry.Leader;
                     view.show({entry: this.recurrence});
@@ -127,19 +126,18 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             }
         },
         navigateToCompleteView: function(completionTitle, isSeries) {
-            var view;
+            var view, options;
 
             view = App.getView(this.completeView);
 
-            if (view)
-            {
+            if (view) {
                 environment.refreshActivityLists();
-                var options = {
+                options = {
                     title: completionTitle,
                     template: {}
                 };
 
-                if (isSeries){
+                if (isSeries) {
                     this.recurrence.Leader = this.entry.Leader;
                     options.entry = this.recurrence;
                 } else {
@@ -149,14 +147,37 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 view.show(options, {
                     returnTo: -1
                 });
-
             }
         },
         completeActivity: function() {
             this.navigateToCompleteView(this.completeActivityText);
         },
         completeOccurrence: function() {
-            this.navigateToCompleteView(this.completeOccurrenceText);
+            var request, key, entry = this.entry;
+            key = entry['$key'];
+
+            // Check to ensure we have a composite key (meaning we have the occurance, not the master)
+            if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
+                // Fetch the occurance, and continue on to the complete screen
+                request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+                    .setResourceKind('activities')
+                    .setContractName('system')
+                    .setQueryArg('where', "id eq '" + key + "'")
+                    .setCount(1);
+
+                request.read({
+                    success: this.processOccurance,
+                    scope: this
+                });
+            } else {
+                this.navigateToCompleteView(this.completeOccurrenceText);
+            }
+        },
+        processOccurance: function(feed) {
+            if (feed && feed.$resources && feed.$resources.length > 0) {
+                this.entry = feed.$resources[0];
+                this.navigateToCompleteView(this.completeOccurrenceText);
+            }
         },
         completeSeries: function() {
             this.navigateToCompleteView(this.completeSeriesText, true);
@@ -225,14 +246,21 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             return;
         },
         processRecurrence: function(recurrence) {
-            if (recurrence)
-            {
+            var rowNode, contentNode;
+
+            if (recurrence) {
                 this.recurrence = recurrence;
 
-                var rowNode = query('[data-property="RecurrenceUI"]'),
-                    contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
-                if (rowNode) { domClass.remove(rowNode[0], 'content-loading'); }
-                if (contentNode) { contentNode[0].innerHTML = recur.toString(this.recurrence); }
+                rowNode = query('[data-property="RecurrenceUI"]');
+                contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
+
+                if (rowNode) {
+                    domClass.remove(rowNode[0], 'content-loading');
+                }
+
+                if (contentNode) {
+                    contentNode[0].innerHTML = recur.toString(this.recurrence);
+                }
             }
         },
         requestRecurrenceFailure: function(xhr, o) {
