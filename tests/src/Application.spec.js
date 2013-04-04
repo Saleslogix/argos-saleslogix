@@ -51,6 +51,101 @@ define('spec/Application.spec', [
                 expect(instance.multiCurrency).toBe(false);
             });
         });
+
+        describe('multicurrency', function() {
+            it('should check if multicurrency is on or off', function() {
+                var instance = new application(configuration);
+                expect(instance.hasMultiCurrency()).toBe(false);
+            });
+
+            it('should check if user can lock opportunity rate', function() {
+                var instance = new application(configuration);
+                expect(instance.canLockOpportunityRate()).toBe(false);
+
+                // Fake what we store in the context when we hit the system options endpoint
+                instance.context = {
+                    systemOptions: {
+                        LockOpportunityRate: 'True'
+                    }
+                };
+
+                expect(instance.canLockOpportunityRate()).toBe(true);
+            });
+
+            it('should check if user can change opportunity rate', function() {
+                var instance = new application(configuration);
+                expect(instance.canChangeOpportunityRate()).toBe(false);
+
+                instance.context = {
+                    systemOptions: {
+                        ChangeOpportunityRate: 'True'
+                    }
+                };
+
+                expect(instance.canChangeOpportunityRate()).toBe(true);
+            });
+
+            it('should get my exchange rate', function() {
+                var instance = new application(configuration);
+
+                // Test with multicurrency off
+                expect(instance.getMyExchangeRate()).toEqual({code: '', rate: 1});
+
+                // with multicurrency on
+                spyOn(instance, 'hasMultiCurrency').andReturn(true);
+                expect(instance.getMyExchangeRate()).toEqual({code: '', rate: 1});
+
+                instance.context = {
+                    exchangeRates: {
+                        'USD': 2,
+                        'AUD': 4
+                    },
+                    userOptions: {
+                        'General:Currency': 'USD'
+                    }
+                };
+
+                expect(instance.getMyExchangeRate()).toEqual({code: 'USD', rate: 2});
+            });
+
+            it('should get base exchange rate', function() {
+                var instance = new application(configuration);
+
+                // Test with multicurrency off
+                expect(instance.getBaseExchangeRate()).toEqual({code: '', rate: 1});
+
+                // Test with it on
+                spyOn(instance, 'hasMultiCurrency').andReturn(true);
+                expect(instance.getBaseExchangeRate()).toEqual({code: '', rate: 1});
+
+                instance.context = {
+                    exchangeRates: {
+                        'USD': 3,
+                        'EUR': 4
+                    },
+                    systemOptions: {
+                        'BaseCurrency': 'EUR'
+                    }
+                };
+
+                expect(instance.getBaseExchangeRate()).toEqual({code: 'EUR', rate: 4});
+            });
+
+            it('should get current opportunity exchange rate', function() {
+                var instance = new application(configuration);
+
+                expect(instance.getCurrentOpportunityExchangeRate()).toEqual({code: '', rate: 1});
+
+                spyOn(instance, 'queryNavigationContext').andReturn({
+                    options: {
+                        ExchangeRateCode: 'EUR',
+                        ExchangeRate: 5
+                    }
+                });
+
+                expect(instance.getCurrentOpportunityExchangeRate()).toEqual({code: 'EUR', rate: 5});
+            });
+        });
     });
 });
 
