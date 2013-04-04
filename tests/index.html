@@ -44,13 +44,15 @@
         { name: 'Sage/Platform/Mobile', location: '../../../argos-sdk/src' },
         { name: 'Mobile/SalesLogix', location: '../src' },
         { name: 'spec', location: 'src' },
-        { name: 'localization', location: '../localization' }
+        { name: 'localization', location: '../localization' },
+        { name: 'configuration', location: '../configuration' }
     ]});
     </script>
 </head>
 <body>
   <script type="text/javascript">
   require([
+    'spec/Application.spec', 
     'spec/Format.spec',
     'spec/Validator.spec',
     'spec/Views/ExchangeRateLookup.spec',
