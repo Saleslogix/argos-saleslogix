@@ -45,7 +45,7 @@ define('Mobile/SalesLogix/Application', [
             searchType: 1
         },
         enableCaching: true,
-        userDetailsQuerySelect: ['UserName','UserInfo/UserName','UserInfo/FirstName','UserInfo/LastName','DefaultOwner/OwnerDescription'],
+        userDetailsQuerySelect: ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'],
         userOptionsToRequest: [
             'General;InsertSecCodeID',
             'General;Currency',
@@ -123,7 +123,7 @@ define('Mobile/SalesLogix/Application', [
                 if (window.localStorage) {
                     window.localStorage.setItem('navigationState', json.toJson(ReUI.context.history));
                 }
-            } catch (e) {
+            } catch(e) {
             }
         },
         hasMultiCurrency: function() {
@@ -144,7 +144,7 @@ define('Mobile/SalesLogix/Application', [
         },
         canLockOpportunityRate: function() {
             if (this.context &&
-                this.context['systemOptions'] && 
+                this.context['systemOptions'] &&
                 this.context['systemOptions']['LockOpportunityRate'] === 'True') {
                 return true;
             }
@@ -153,7 +153,7 @@ define('Mobile/SalesLogix/Application', [
         },
         canChangeOpportunityRate: function() {
             if (this.context &&
-                this.context['systemOptions'] && 
+                this.context['systemOptions'] &&
                 this.context['systemOptions']['ChangeOpportunityRate'] === 'True') {
                 return true;
             }
@@ -230,7 +230,7 @@ define('Mobile/SalesLogix/Application', [
                 'UserName': result['response']['userName']
             };
 
-            this.context['user' ] = user;
+            this.context['user'] = user;
             this.context['roles'] = result['response']['roles'];
             this.context['securedActions'] = result['response']['securedActions'];
 
@@ -247,7 +247,7 @@ define('Mobile/SalesLogix/Application', [
                     'revision': 4
                 };
             }
-            
+
             if (credentials.remember) {
                 try {
                     if (window.localStorage) {
@@ -256,7 +256,7 @@ define('Mobile/SalesLogix/Application', [
                             password: credentials.password || ''
                         })));
                     }
-                } catch (e) {
+                } catch(e) {
                 }
             }
 
@@ -336,7 +336,7 @@ define('Mobile/SalesLogix/Application', [
                         encoded = stored && Base64.decode(stored),
                         credentials = encoded && json.fromJson(encoded);
                 }
-            } catch (e) {
+            } catch(e) {
             }
 
             if (credentials) {
@@ -358,32 +358,30 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         _clearNavigationState: function() {
-            try
-            {
+            try {
                 this.initialNavigationState = null;
 
                 if (window.localStorage) {
                     window.localStorage.removeItem('navigationState');
                 }
+            } catch(e) {
             }
-            catch (e) { }
         },
         _loadNavigationState: function() {
-            try
-            {
+            try {
                 if (window.localStorage) {
                     this.navigationState = window.localStorage.getItem('navigationState');
                 }
+            } catch(e) {
             }
-            catch (e) { }
         },
         _loadPreferences: function() {
             try {
                 if (window.localStorage) {
                     this.preferences = json.fromJson(window.localStorage.getItem('preferences'));
                 }
+            } catch(e) {
             }
-            catch (e) { }
 
             //Probably, the first time, its being accessed, or user cleared
             //the data. So lets initialize the object, with default ones.
@@ -494,7 +492,7 @@ define('Mobile/SalesLogix/Application', [
             }, this);
 
             multiCurrency = systemOptions['MultiCurrency'];
-            
+
             if (multiCurrency && multiCurrency === 'True') {
                 this.requestExchangeRates();
             }
@@ -552,13 +550,12 @@ define('Mobile/SalesLogix/Application', [
             ErrorManager.addError(response, o, {}, 'failure');
         },
         persistPreferences: function() {
-            try
-            {
+            try {
                 if (window.localStorage) {
                     window.localStorage.setItem('preferences', json.toJson(App.preferences));
                 }
+            } catch(e) {
             }
-            catch(e) { }
         },
         getDefaultViews: function() {
             return [
@@ -609,8 +606,7 @@ define('Mobile/SalesLogix/Application', [
             return hasRoot && result;
         },
         navigateToInitialView: function() {
-            try
-            {
+            try {
                 var restoredState = this.navigationState,
                     restoredHistory = restoredState && json.fromJson(restoredState),
                     cleanedHistory = this.cleanRestoredHistory(restoredHistory);
@@ -635,9 +631,7 @@ define('Mobile/SalesLogix/Application', [
                 } else {
                     this.navigateToHomeView();
                 }
-            }
-            catch (e)
-            {
+            } catch(e) {
                 this._clearNavigationState();
                 this.navigateToHomeView();
             }
@@ -672,15 +666,15 @@ define('Mobile/SalesLogix/Application', [
             // shortcut for environment call
             environment.showMapForAddress.apply(this, arguments);
         },
-        getVersionInfo: function(){
+        getVersionInfo: function() {
             var info = string.substitute('Mobile V${0}.${1}.${2} / SalesLogix V${3}.${4}.${5}',
-                 [this.mobileVersion.major,
-                 this.mobileVersion.minor,
-                 this.mobileVersion.revision,
-                 this.serverVersion.major,
-                 this.serverVersion.minor,
-                 this.serverVersion.revision]);
+                [this.mobileVersion.major,
+                    this.mobileVersion.minor,
+                    this.mobileVersion.revision,
+                    this.serverVersion.major,
+                    this.serverVersion.minor,
+                    this.serverVersion.revision]);
             return info;
-       }
+        } 
     });
 });
