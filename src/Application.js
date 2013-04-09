@@ -675,6 +675,7 @@ define('Mobile/SalesLogix/Application', [
                     this.serverVersion.minor,
                     this.serverVersion.revision]);
             return info;
-        } 
+        }
     });
 });
+

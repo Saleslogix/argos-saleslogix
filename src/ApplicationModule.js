@@ -178,11 +178,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.inherited(arguments);
 
             this.registerView(new Calendar({
-                expose:false
+                expose: false
             }));
 
             this.registerView(new Signature({
-                expose:false
+                expose: false
             }));
 
             this.registerView(new Login());
@@ -238,9 +238,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new ErrorLogList());
             this.registerView(new ErrorLogDetail());
 
-
             this.registerView(new EventEdit());
-            this.registerView(new EventList({ expose: false }));
+            this.registerView(new EventList({expose: false}));
             this.registerView(new EventDetail());
             this.registerView(new EventList({
                 id: 'event_related',
@@ -262,7 +261,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'opportunitycontact_related',
                 expose: false
             }));
-
 
             this.registerView(new OpportunityProductList({
                 id: 'opportunityproduct_related',
@@ -294,7 +292,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'ticket_related',
                 expose: false
             }));
-
 
             this.registerView(new TicketActivityList());
             this.registerView(new TicketActivityDetail());
@@ -332,7 +329,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose: false
             }));
 
-
             this.registerView(new UserList({
                 expose: false
             }));
@@ -362,7 +358,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
         loadToolbars: function() {
             this.inherited(arguments);
 
-
             this.registerToolbar(new MainToolbar({
                 name: 'tbar'
             }));
@@ -387,5 +382,4 @@ define('Mobile/SalesLogix/ApplicationModule', [
             });
         }
     });
-
 });
