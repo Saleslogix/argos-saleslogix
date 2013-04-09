@@ -49,33 +49,33 @@ define('Mobile/SalesLogix/Views/Lead/List', [
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                    id: 'edit',
-                    icon: 'content/images/icons/edit_24.png',
-                    label: this.editActionText,
-                    action: 'navigateToEditView'
-                },{
-                    id: 'callMain',
-                    icon: 'content/images/icons/Call_24x24.png',
-                    label: this.callMainActionText,
-                    enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
-                    fn: action.callPhone.bindDelegate(this, 'WorkPhone')
-                },{
-                    id: 'sendEmail',
-                    icon: 'content/images/icons/Send_Write_email_24x24.png',
-                    label: this.sendEmailActionText,
-                    enabled: action.hasProperty.bindDelegate(this, 'Email'),
-                    fn: action.sendEmail.bindDelegate(this, 'Email')
-                },{
-                    id: 'addNote',
-                    icon: 'content/images/icons/New_Note_24x24.png',
-                    label: this.addNoteActionText,
-                    fn: action.addNote.bindDelegate(this)
-                },{
-                    id: 'addActivity',
-                    icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                    label: this.addActivityActionText,
-                    fn: action.addActivity.bindDelegate(this)
-                }]
+                        id: 'edit',
+                        icon: 'content/images/icons/edit_24.png',
+                        label: this.editActionText,
+                        action: 'navigateToEditView'
+                    }, {
+                        id: 'callMain',
+                        icon: 'content/images/icons/Call_24x24.png',
+                        label: this.callMainActionText,
+                        enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
+                        fn: action.callPhone.bindDelegate(this, 'WorkPhone')
+                    }, {
+                        id: 'sendEmail',
+                        icon: 'content/images/icons/Send_Write_email_24x24.png',
+                        label: this.sendEmailActionText,
+                        enabled: action.hasProperty.bindDelegate(this, 'Email'),
+                        fn: action.sendEmail.bindDelegate(this, 'Email')
+                    }, {
+                        id: 'addNote',
+                        icon: 'content/images/icons/New_Note_24x24.png',
+                        label: this.addNoteActionText,
+                        fn: action.addNote.bindDelegate(this)
+                    }, {
+                        id: 'addActivity',
+                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                        label: this.addActivityActionText,
+                        fn: action.addActivity.bindDelegate(this)
+                    }]
             );
         },
 
@@ -84,3 +84,4 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         }
     });
 });
+

@@ -96,7 +96,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             if (App.hasMultiCurrency() && templateEntry) {
 
                 if (templateEntry.ExchangeRateCode) {
-                    this.fields['ExchangeRateCode'].setValue({ '$key': templateEntry.ExchangeRateCode, '$descriptor': templateEntry.ExchangeRateCode });
+                    this.fields['ExchangeRateCode'].setValue({'$key': templateEntry.ExchangeRateCode, '$descriptor': templateEntry.ExchangeRateCode});
                 }
 
                 if (templateEntry.ExchangeRate) {
@@ -115,7 +115,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
             if (App.hasMultiCurrency()) {
 
                 if (values && values.ExchangeRateCode) {
-                    this.fields['ExchangeRateCode'].setValue({ '$key': values.ExchangeRateCode, '$descriptor': values.ExchangeRateCode });
+                    this.fields['ExchangeRateCode'].setValue({'$key': values.ExchangeRateCode, '$descriptor': values.ExchangeRateCode});
                 }
 
                 if (!App.canLockOpportunityRate()) {
@@ -129,7 +129,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
 
                 this.fields['ExchangeRateDate'].disable();
             }
-            
+
             this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
         },
         getValues: function() {
@@ -193,10 +193,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
 
             // todo: match behavior in web client; if the account manager (AM) is explicitly set, it should stay, otherwise
             // it should be set to the AM for the selected account (and change each time).
-            if (selection && this.insert)
-            {
+            if (selection && this.insert) {
                 this.fields['AccountManager'].setValue(utility.getValue(selection, 'AccountManager'));
-            }   
+            }
         },
         createLayout: function() {
             var layout, details, multiCurrency;
@@ -369,3 +368,4 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         }
     });
 });
+

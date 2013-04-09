@@ -152,3 +152,4 @@ define('Mobile/SalesLogix/Views/Configure', [
         }
     });
 });
+

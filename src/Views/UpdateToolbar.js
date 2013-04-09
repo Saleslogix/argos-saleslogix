@@ -48,3 +48,4 @@ define('Mobile/SalesLogix/Views/UpdateToolbar', [
         }
     });
 });
+

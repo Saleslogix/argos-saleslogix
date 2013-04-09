@@ -36,7 +36,7 @@ define('Mobile/SalesLogix/Views/Product/List', [
             'FixedCost'
         ],
         resourceKind: 'products',
-        
+
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(upper(Name) like "${0}%" or upper(Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }

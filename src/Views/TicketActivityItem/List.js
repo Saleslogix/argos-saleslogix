@@ -44,3 +44,4 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', [
         }
     });
 });
+

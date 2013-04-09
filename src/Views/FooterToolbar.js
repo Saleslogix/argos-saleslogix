@@ -107,3 +107,4 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
         }
     });
 });
+

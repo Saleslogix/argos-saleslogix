@@ -189,3 +189,4 @@ define('Mobile/SalesLogix/Views/Home', [
         }
     });
 });
+

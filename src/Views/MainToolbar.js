@@ -46,3 +46,4 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
         }
     });
 });
+

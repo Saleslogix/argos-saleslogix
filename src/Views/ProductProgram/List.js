@@ -33,7 +33,7 @@ define('Mobile/SalesLogix/Views/ProductProgram/List', [
             'Price'
         ],
         resourceKind: 'productPrograms',
-        
+
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(upper(Program) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }

@@ -25,14 +25,13 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
-
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
-                '<div data-action="selectEntry" class="list-item-static-selector">',
-                    '<img src="{%= $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
-                '</div>',
-                '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+            '<div data-action="selectEntry" class="list-item-static-selector">',
+            '<img src="{%= $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
+            '</div>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
@@ -64,7 +63,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         ]),
 
         //Localization
-        titleText: 'My Activities',      
+        titleText: 'My Activities',
         completeActivityText: 'Complete',
         acceptActivityText: 'Accept',
         declineActivityText: 'Decline',
@@ -126,106 +125,105 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
-            if (view)
-            {
+            if (view) {
                 environment.refreshActivityLists();
                 view.show({
-                    title: this.activityTypeText[type],
-                    template: {},
-                    entry: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
+                        title: this.activityTypeText[type],
+                        template: {},
+                        entry: entry,
+                        insert: true
+                    }, {
+                        complete: complete
+                    });
             }
         },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                    id: 'complete',
-                    icon: 'content/images/icons/Clear_Activity_24x24.png',
-                    label: this.completeActivityText,
-                    enabled: function(action, selection) {
-                        var recur, entry = selection && selection.data;
-                        if (!entry) {
-                            return false;
-                        }
+                        id: 'complete',
+                        icon: 'content/images/icons/Clear_Activity_24x24.png',
+                        label: this.completeActivityText,
+                        enabled: function(action, selection) {
+                            var recur, entry = selection && selection.data;
+                            if (!entry) {
+                                return false;
+                            }
 
-                        recur = entry.Activity.Recurring;
+                            recur = entry.Activity.Recurring;
 
-                        return entry.Activity['Leader']['$key'] === App.context['user']['$key'] && !recur;
-                    },
-                    fn: (function(action, selection) {
-                        var entry;
+                            return entry.Activity['Leader']['$key'] === App.context['user']['$key'] && !recur;
+                        },
+                        fn: (function(action, selection) {
+                            var entry;
 
-                        entry = selection && selection.data && selection.data.Activity;
+                            entry = selection && selection.data && selection.data.Activity;
 
-                        entry['CompletedDate'] = new Date();
-                        entry['Result'] = 'Complete';
+                            entry['CompletedDate'] = new Date();
+                            entry['Result'] = 'Complete';
 
-                        environment.refreshActivityLists();
-                        this.completeActivity(entry);
+                            environment.refreshActivityLists();
+                            this.completeActivity(entry);
 
-                    }).bindDelegate(this)
-                },{
-                    id: 'accept',
-                    icon: 'content/images/icons/OK_24.png',
-                    label: this.acceptActivityText,
-                    enabled: function(action, selection) {
-                        var entry = selection && selection.data;
-                        if (!entry) {
-                            return false;
-                        }
+                        }).bindDelegate(this)
+                    }, {
+                        id: 'accept',
+                        icon: 'content/images/icons/OK_24.png',
+                        label: this.acceptActivityText,
+                        enabled: function(action, selection) {
+                            var entry = selection && selection.data;
+                            if (!entry) {
+                                return false;
+                            }
 
-                        return entry.Status === 'asUnconfirmed';
-                    },
-                    fn: (function(action, selection) {
-                        var entry;
+                            return entry.Status === 'asUnconfirmed';
+                        },
+                        fn: (function(action, selection) {
+                            var entry;
 
-                        entry = selection && selection.data;
-                        environment.refreshActivityLists();
-                        this.confirmActivityFor(entry.Activity.$key, App.context['user']['$key']);
+                            entry = selection && selection.data;
+                            environment.refreshActivityLists();
+                            this.confirmActivityFor(entry.Activity.$key, App.context['user']['$key']);
 
-                    }).bindDelegate(this)
-                },{
-                    id: 'decline',
-                    icon: 'content/images/icons/cancl_24.png',
-                    label: this.declineActivityText,
-                    enabled: function(action, selection) {
-                        var entry = selection && selection.data;
-                        if (!entry) {
-                            return false;
-                        }
+                        }).bindDelegate(this)
+                    }, {
+                        id: 'decline',
+                        icon: 'content/images/icons/cancl_24.png',
+                        label: this.declineActivityText,
+                        enabled: function(action, selection) {
+                            var entry = selection && selection.data;
+                            if (!entry) {
+                                return false;
+                            }
 
-                        return entry.Status === 'asUnconfirmed';
-                    },
-                    fn: (function(action, selection) {
-                        var entry;
-                        entry = selection && selection.data;
+                            return entry.Status === 'asUnconfirmed';
+                        },
+                        fn: (function(action, selection) {
+                            var entry;
+                            entry = selection && selection.data;
 
-                        environment.refreshActivityLists();
-                        this.declineActivityFor(entry.Activity.$key, App.context['user']['$key']);
-                    }).bindDelegate(this)
-                },{
-                    id: 'call',
-                    icon: 'content/images/icons/Dial_24x24.png',
-                    label: this.callText,
-                    enabled: function(action, selection) {
-                        var entry;
-                        entry = selection && selection.data;
-                        return entry && entry.Activity && entry.Activity.PhoneNumber;
-                    },
-                    fn: function(action, selection) {
-                        var entry, phone;
-                        entry = selection && selection.data;
-                        phone = entry && entry.Activity && entry.Activity.PhoneNumber;
-                        if (phone) {
-                            this.recordCallToHistory(function() {
-                                App.initiateCall(phone);
-                            }.bindDelegate(this), entry);
-                        }
-                    }.bindDelegate(this)
-                }]
+                            environment.refreshActivityLists();
+                            this.declineActivityFor(entry.Activity.$key, App.context['user']['$key']);
+                        }).bindDelegate(this)
+                    }, {
+                        id: 'call',
+                        icon: 'content/images/icons/Dial_24x24.png',
+                        label: this.callText,
+                        enabled: function(action, selection) {
+                            var entry;
+                            entry = selection && selection.data;
+                            return entry && entry.Activity && entry.Activity.PhoneNumber;
+                        },
+                        fn: function(action, selection) {
+                            var entry, phone;
+                            entry = selection && selection.data;
+                            phone = entry && entry.Activity && entry.Activity.PhoneNumber;
+                            if (phone) {
+                                this.recordCallToHistory(function() {
+                                    App.initiateCall(phone);
+                                }.bindDelegate(this), entry);
+                            }
+                        }.bindDelegate(this)
+                    }]
             );
         },
         selectEntry: function(params, evt, node) {
@@ -275,7 +273,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         }
                     }
                 },
-                failure: this.onRequestFailure, 
+                failure: this.onRequestFailure,
                 scope: this
             });
         },
@@ -323,7 +321,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             completeActivityEntry = {
                 "$name": "ActivityComplete",
                 "request": {
-                    "entity": { '$key': entry['$key'] },
+                    "entity": {'$key': entry['$key']},
                     "ActivityId": entry['$key'],
                     "userId": entry['Leader']['$key'],
                     "result": entry['Result'],
@@ -338,7 +336,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 
             request.execute(completeActivityEntry, {
                 success: function() {
-                    connect.publish('/app/refresh',[{
+                    connect.publish('/app/refresh', [{
                         resourceKind: 'history'
                     }]);
 
@@ -354,3 +352,4 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         },
     });
 });
+

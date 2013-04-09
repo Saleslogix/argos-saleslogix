@@ -77,3 +77,4 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
         }
     });
 });
+

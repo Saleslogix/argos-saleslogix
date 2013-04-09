@@ -26,10 +26,10 @@ define('Mobile/SalesLogix/Views/History/List', [
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-                '<button data-action="selectEntry" class="list-item-selector button">',
-                    '<img src="{%= $$.entityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
-                '</button>',
-                '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+            '<button data-action="selectEntry" class="list-item-selector button">',
+            '<img src="{%= $$.entityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
+            '</button>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         itemTemplate: new Simplate([
@@ -45,10 +45,10 @@ define('Mobile/SalesLogix/Views/History/List', [
             '</h3>',
             '<h4>{%: $.Description %}</h4>',
             '<div class="note-text-item">',
-                '<div class="note-text-wrap">',
-                    '{%: $.Notes %}',
-                '</div>',
-                '<div class="note-text-more"></div>',
+            '<div class="note-text-wrap">',
+            '{%: $.Notes %}',
+            '</div>',
+            '<div class="note-text-more"></div>',
             '</div>'
         ]),
         nameTemplate: new Simplate([
@@ -75,14 +75,14 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atQuestion': 'Question',
             'atEMail': 'E-mail'
         },
-		hourMinuteFormatText: "h:mm",
-		dateFormatText: "M/d/yy",
+        hourMinuteFormatText: "h:mm",
+        dateFormatText: "M/d/yy",
         hashTagQueriesText: {
-          'note': 'note',
-          'phonecall': 'phonecall',
-          'meeting': 'meeting',
-          'personal': 'personal',
-          'email': 'email'
+            'note': 'note',
+            'phonecall': 'phonecall',
+            'meeting': 'meeting',
+            'personal': 'personal',
+            'email': 'email'
         },
         titleText: 'Notes/History',
         viewAccountActionText: 'Account',
@@ -139,32 +139,32 @@ define('Mobile/SalesLogix/Views/History/List', [
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                    id: 'viewAccount',
-                    icon: 'content/images/icons/Company_24.png',
-                    label: this.viewAccountActionText,
-                    enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
-                    fn: action.navigateToEntity.bindDelegate(this, {
-                        view: 'account_detail',
-                        keyProperty: 'AccountId',
-                        textProperty: 'AccountName'
-                    })
-                },{
-                    id: 'viewOpportunity',
-                    icon: 'content/images/icons/opportunity_24.png',
-                    label: this.viewOpportunityActionText,
-                    enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
-                    fn: action.navigateToEntity.bindDelegate(this, {
-                        view: 'opportunity_detail',
-                        keyProperty: 'OpportunityId',
-                        textProperty: 'OpportunityName'
-                    })
-                },{
-                    id: 'viewContact',
-                    icon: 'content/images/icons/Contacts_24x24.png',
-                    label: this.viewContactActionText,
-                    action: 'navigateToContactOrLead',
-                    enabled: this.hasContactOrLead
-                }]
+                        id: 'viewAccount',
+                        icon: 'content/images/icons/Company_24.png',
+                        label: this.viewAccountActionText,
+                        enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
+                        fn: action.navigateToEntity.bindDelegate(this, {
+                            view: 'account_detail',
+                            keyProperty: 'AccountId',
+                            textProperty: 'AccountName'
+                        })
+                    }, {
+                        id: 'viewOpportunity',
+                        icon: 'content/images/icons/opportunity_24.png',
+                        label: this.viewOpportunityActionText,
+                        enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
+                        fn: action.navigateToEntity.bindDelegate(this, {
+                            view: 'opportunity_detail',
+                            keyProperty: 'OpportunityId',
+                            textProperty: 'OpportunityName'
+                        })
+                    }, {
+                        id: 'viewContact',
+                        icon: 'content/images/icons/Contacts_24x24.png',
+                        label: this.viewContactActionText,
+                        action: 'navigateToContactOrLead',
+                        enabled: this.hasContactOrLead
+                    }]
             );
         },
         hasContactOrLead: function(action, selection) {
@@ -175,8 +175,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                 viewId,
                 options;
 
-            switch(entity)
-            {
+            switch (entity) {
                 case 'Contact':
                     viewId = 'contact_detail';
                     options = {
@@ -184,7 +183,6 @@ define('Mobile/SalesLogix/Views/History/List', [
                         descriptor: selection.data['ContactName']
                     };
                     break;
-
                 case 'Lead':
                     viewId = 'lead_detail';
                     options = {
@@ -196,29 +194,39 @@ define('Mobile/SalesLogix/Views/History/List', [
 
             var view = App.getView(viewId);
 
-            if (view && options)
+            if (view && options) {
                 view.show(options);
+            }
         },
         resolveEntityName: function(entry) {
             var exists = this.existsRE;
 
-            if (entry)
-            {
-                if (exists.test(entry['LeadId'])) return 'Lead';
-                if (exists.test(entry['OpportunityId'])) return 'Opportunity';
-                if (exists.test(entry['ContactId'])) return 'Contact';
-                if (exists.test(entry['AccountId'])) return 'Account';
+            if (entry) {
+                if (exists.test(entry['LeadId'])) {
+                    return 'Lead';
+                }
+                if (exists.test(entry['OpportunityId'])) {
+                    return 'Opportunity';
+                }
+                if (exists.test(entry['ContactId'])) {
+                    return 'Contact';
+                }
+                if (exists.test(entry['AccountId'])) {
+                    return 'Account';
+                }
             }
         },
         formatDate: function(date) {
-            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours:24})))
+            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours: 24}))) {
                 return format.date(date, this.hourMinuteFormatText);
+            }
 
             return format.date(date, this.dateFormatText);
         },
         formatMeridiem: function(date) {
-            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours:24})))
+            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours: 24}))) {
                 return format.date(date, "tt");
+            }
 
             return "";
         },
@@ -226,13 +234,14 @@ define('Mobile/SalesLogix/Views/History/List', [
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
         _onResize: function() {
-            query('.note-text-item', this.contentNode).forEach(function(node){
+            query('.note-text-item', this.contentNode).forEach(function(node) {
                 var wrapNode = query('.note-text-wrap', node)[0],
                     moreNode = query('.note-text-more', node)[0];
-                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h)
+                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {
                     domStyle.set(moreNode, 'visibility', 'visible');
-                else
+                } else {
                     domStyle.set(moreNode, 'visibility', 'hidden');
+                }
             });
         },
         processFeed: function() {
@@ -245,3 +254,4 @@ define('Mobile/SalesLogix/Views/History/List', [
         }
     });
 });
+

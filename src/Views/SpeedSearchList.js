@@ -242,3 +242,4 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         }
     });
 });
+

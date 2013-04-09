@@ -95,3 +95,4 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
         }
     });
 });
+

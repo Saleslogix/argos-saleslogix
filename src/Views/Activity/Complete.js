@@ -101,7 +101,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                 'Category': 'E-mail Category Codes',
                 'Description': 'E-mail Regarding'
             }
-        },       
+        },
 
         entityName: 'Activity',
         querySelect: [
@@ -152,23 +152,23 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             this.inherited(arguments);
 
             array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
-                if (this.fields[item])
+                if (this.fields[item]) {
                     this.fields[item].hide();
+                }
             }, this);
 
             var entry = this.options && this.options.entry;
-            if (this.isActivityForLead(entry))
-            {
+            if (this.isActivityForLead(entry)) {
                 array.forEach(this.fieldsForLeads, function(item) {
-                    if (this.fields[item])
+                    if (this.fields[item]) {
                         this.fields[item].show();
+                    }
                 }, this);
-            }
-            else
-            {
+            } else {
                 array.forEach(this.fieldsForStandard, function(item) {
-                    if (this.fields[item])
+                    if (this.fields[item]) {
                         this.fields[item].show();
+                    }
                 }, this);
             }
         },
@@ -181,41 +181,45 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             var startDateField = this.fields['StartDate'],
                 startDate = startDateField.getValue();
 
-            if (value)
-            {
+            if (value) {
                 startDateField['dateFormatText'] = this.startingFormatTimelessText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
-                if (!this.isDateTimeless(startDate))
-                    startDate = startDate.clone().clearTime().add({minutes:-1*startDate.getTimezoneOffset(), seconds:5});
+                if (!this.isDateTimeless(startDate)) {
+                    startDate = startDate.clone().clearTime().add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
+                }
                 startDateField.setValue(startDate);
-            }
-            else
-            {
+            } else {
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
-                if (this.isDateTimeless(startDate))
-                    startDate = startDate.clone().add({minutes:startDate.getTimezoneOffset()+1, seconds: -5});
+                if (this.isDateTimeless(startDate)) {
+                    startDate = startDate.clone().add({minutes: startDate.getTimezoneOffset() + 1, seconds: -5});
+                }
                 startDateField.setValue(startDate);
             }
         },
         isDateTimeless: function(date) {
-            if (!date) return false;
-            if (date.getUTCHours() != 0) return false;
-            if (date.getUTCMinutes() != 0) return false;
-            if (date.getUTCSeconds() != 5) return false;
+            if (!date) {
+                return false;
+            }
+            if (date.getUTCHours() != 0) {
+                return false;
+            }
+            if (date.getUTCMinutes() != 0) {
+                return false;
+            }
+            if (date.getUTCSeconds() != 5) {
+                return false;
+            }
 
             return true;
         },
         onAsScheduledChange: function(scheduled, field) {
-            if (scheduled)
-            {
+            if (scheduled) {
                 this.toggleSelectField(this.fields['CompletedDate'], true);
                 this.fields['CompletedDate'].setValue(this.fields['StartDate'].getValue());
-            }
-            else
-            {
+            } else {
                 this.toggleSelectField(this.fields['CompletedDate'], false);
                 this.fields['CompletedDate'].setValue(new Date());
             }
@@ -227,8 +231,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         onLeadChange: function(value, field) {
             var selection = field.getSelection();
 
-            if (selection && this.insert)
-            {
+            if (selection && this.insert) {
                 this.fields['Company'].setValue(utility.getValue(selection, 'Company'));
             }
         },
@@ -255,8 +258,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         createDurationData: function() {
             var list = [];
 
-            for (var duration in this.durationValueText)
-            {
+            for (var duration in this.durationValueText) {
                 list.push({
                     '$key': duration,
                     '$descriptor': this.durationValueText[duration]
@@ -264,12 +266,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             }
 
             return {'$resources': list};
-        },        
+        },
         createFollowupData: function() {
             var list = [];
 
-            for (var followup in this.followupValueText)
-            {
+            for (var followup in this.followupValueText) {
                 list.push({
                     '$key': followup,
                     '$descriptor': this.followupValueText[followup]
@@ -299,28 +300,28 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
 
             //Return to activity list view after follow up.
             view.show({
-                entry: followupEntry,
-                insert: true,
-                title: this.followupValueText[this.fields['Followup'].getValue()]
-            }, {
-                returnTo: -1
-            });
+                    entry: followupEntry,
+                    insert: true,
+                    title: this.followupValueText[this.fields['Followup'].getValue()]
+                }, {
+                    returnTo: -1
+                });
         },
         completeActivity: function(entry, callback) {
             var completeActivityEntry = {
                 "$name": "ActivityComplete",
                 "request": {
-                    "entity": { '$key': entry['$key'] },
+                    "entity": {'$key': entry['$key']},
                     "ActivityId": entry['$key'],
                     "userId": entry['Leader']['$key'],
                     "result": this.fields['Result'].getValue(),
-                    "completeDate":  this.fields['CompletedDate'].getValue()
+                    "completeDate": this.fields['CompletedDate'].getValue()
                 }
             };
 
             var success = (function(scope, callback, entry) {
                 return function() {
-                    connect.publish('/app/refresh',[{
+                    connect.publish('/app/refresh', [{
                         resourceKind: 'history'
                     }]);
 
@@ -341,8 +342,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         },
         onUpdateCompleted: function(entry) {
             var followup = this.fields['Followup'].getValue() !== 'none'
-                    ? this.navigateToFollowUpView
-                    : this.getInherited(arguments);
+                ? this.navigateToFollowUpView
+                : this.getInherited(arguments);
 
             this.completeActivity(entry, followup);
         },
@@ -353,219 +354,224 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                title: this.activityInfoText,
-                name: 'ActivityInfoSection',
-                collapsed: false,
-                children: [{
-                    name: 'Type',
-                    property: 'Type',
-                    type: 'hidden'
-                },{
-                    dependsOn: 'Type',
-                    label: this.regardingText,
-                    name: 'Description',
-                    property: 'Description',
-                    picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
-                    title: this.regardingTitleText,
-                    orderBy: 'text asc',
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
-                },{
-                    label: this.startingText,
-                    name: 'StartDate',
-                    property: 'StartDate',
-                    type: 'date',
-                    showTimePicker: true,
-                    formatString: this.startingFormatText,
-                    minValue: (new Date(1900, 0, 1)),
-                    validator: [
-                        validator.exists,
-                        validator.isDateInRange
-                    ]
-                },{
-                    label: this.durationText,
-                    title: this.durationTitleText,
-                    name: 'Duration',
-                    property: 'Duration',
-                    type: 'duration',
-                    view: 'select_list',
-                    data: this.createDurationData(),
-                    validator: {
-                        fn: function(val, field) {
-                            if (field.isDisabled()) return false;
-                            if (!/^\d+$/.test(val)) return true;
-                        },
-                        message: this.durationInvalidText
-                    }
-                },{
-                    label: this.timelessText,
-                    name: 'Timeless',
-                    property: 'Timeless',
-                    type: 'boolean'
-                }]
-            },{
-                title: this.completionText,
-                name: 'CompletionSection',
-                collapsed: false,
-                children: [{
-                    label: this.asScheduledText,
-                    include: false,
-                    name: 'AsScheduled',
-                    property: 'AsScheduled',
-                    type: 'boolean'
-                },{
-                    label: this.completedText,
-                    name: 'CompletedDate',
-                    property: 'CompletedDate',
-                    type: 'date',
-                    showTimePicker: true,
-                    formatString: this.completedFormatText,
-                    minValue: (new Date(1900, 0, 1)),
-                    validator: [
-                        validator.exists,
-                        validator.isDateInRange
-                    ]
-                },{
-                    dependsOn: 'Type',
-                    label: this.resultText,
-                    name: 'Result',
-                    property: 'Result',
-                    picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
-                    title: this.resultTitleText,
-                    orderBy: 'text asc',
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
-                },{
-                    label: this.followUpText,
-                    title: this.followUpTitleText,
-                    name: 'Followup',
-                    property: 'Followup',
-                    type: 'select',
-                    view: 'select_list',
-                    textRenderer: this.formatFollowupText.bindDelegate(this),
-                    requireSelection: true,
-                    valueKeyProperty: false,
-                    valueTextProperty: false,
-                    data: this.createFollowupData(),
-                    include: false
-                },{
-                    label: this.carryOverNotesText,
-                    include: false,
-                    name: 'CarryOverNotes',
-                    property: 'CarryOverNotes',
-                    type: 'boolean'
-                },{
-                    label: this.longNotesText,
-                    noteProperty: false,
-                    name: 'LongNotes',
-                    property: 'LongNotes',
-                    title: this.longNotesTitleText,
-                    type: 'note',
-                    view: 'text_edit'
-                }]
-            },{
-                title: this.otherInfoText,
-                name: 'OtherInfoSection',
-                collapsed: false,
-                children: [{
-                    label: this.priorityText,
-                    name: 'Priority',
-                    property: 'Priority',
-                    picklist: 'Priorities',
-                    title: this.priorityTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
-                },{
-                    dependsOn: 'Type',
-                    label: this.categoryText,
-                    name: 'Category',
-                    property: 'Category',
-                    picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
-                    orderBy: 'text asc',
-                    title: this.categoryTitleText,
-                    type: 'picklist',
-                    maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
-                },{
-                    type: 'hidden',
-                    name: 'UserId',
-                    property: 'UserId'
-                },{
-                    label: this.leaderText,
-                    name: 'Leader',
-                    property: 'Leader',
-                    include: false,
-                    type: 'lookup',
-                    textProperty: 'UserInfo',
-                    textTemplate: template.nameLF,
-                    requireSelection: true,
-                    view: 'user_list'
-                },{
-                    label: this.accountText,
-                    name: 'Account',
-                    property: 'Account',
-                    type: 'lookup',
-                    emptyText: '',
-                    applyTo: '.',
-                    valueKeyProperty: 'AccountId',
-                    valueTextProperty: 'AccountName',
-                    view: 'account_related'
-                },{
-                    dependsOn: 'Account',
-                    label: this.contactText,
-                    name: 'Contact',
-                    property: 'Contact',
-                    type: 'lookup',
-                    emptyText: '',
-                    applyTo: '.',
-                    valueKeyProperty: 'ContactId',
-                    valueTextProperty: 'ContactName',
-                    view: 'contact_related',
-                    where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
-                },{
-                    dependsOn: 'Account',
-                    label: this.opportunityText,
-                    name: 'Opportunity',
-                    property: 'Opportunity',
-                    type: 'lookup',
-                    emptyText: '',
-                    applyTo: '.',
-                    valueKeyProperty: 'OpportunityId',
-                    valueTextProperty: 'OpportunityName',
-                    view: 'opportunity_related',
-                    where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
-                },{
-                    dependsOn: 'Account',
-                    label: this.ticketNumberText,
-                    name: 'Ticket',
-                    property: 'Ticket',
-                    type: 'lookup',
-                    emptyText: '',
-                    applyTo: '.',
-                    valueKeyProperty: 'TicketId',
-                    valueTextProperty: 'TicketNumber',
-                    view: 'ticket_related',
-                    where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
-                },{
-                    label: this.leadText,
-                    name: 'Lead',
-                    property: 'Lead',
-                    type: 'lookup',
-                    emptyText: '',
-                    applyTo: '.',
-                    valueKeyProperty: 'LeadId',
-                    valueTextProperty: 'LeadName',
-                    view: 'lead_related'
-                },{
-                    label: this.companyText,
-                    name: 'AccountName',
-                    property: 'AccountName',
-                    type: 'text'
-                }]
-            }]);
+                    title: this.activityInfoText,
+                    name: 'ActivityInfoSection',
+                    collapsed: false,
+                    children: [{
+                            name: 'Type',
+                            property: 'Type',
+                            type: 'hidden'
+                        }, {
+                            dependsOn: 'Type',
+                            label: this.regardingText,
+                            name: 'Description',
+                            property: 'Description',
+                            picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
+                            title: this.regardingTitleText,
+                            orderBy: 'text asc',
+                            type: 'picklist',
+                            maxTextLength: 64,
+                            validator: validator.exceedsMaxTextLength
+                        }, {
+                            label: this.startingText,
+                            name: 'StartDate',
+                            property: 'StartDate',
+                            type: 'date',
+                            showTimePicker: true,
+                            formatString: this.startingFormatText,
+                            minValue: (new Date(1900, 0, 1)),
+                            validator: [
+                                validator.exists,
+                                validator.isDateInRange
+                            ]
+                        }, {
+                            label: this.durationText,
+                            title: this.durationTitleText,
+                            name: 'Duration',
+                            property: 'Duration',
+                            type: 'duration',
+                            view: 'select_list',
+                            data: this.createDurationData(),
+                            validator: {
+                                fn: function(val, field) {
+                                    if (field.isDisabled()) {
+                                        return false;
+                                    }
+                                    if (!/^\d+$/.test(val)) {
+                                        return true;
+                                    }
+                                },
+                                message: this.durationInvalidText
+                            }
+                        }, {
+                            label: this.timelessText,
+                            name: 'Timeless',
+                            property: 'Timeless',
+                            type: 'boolean'
+                        }]
+                }, {
+                    title: this.completionText,
+                    name: 'CompletionSection',
+                    collapsed: false,
+                    children: [{
+                            label: this.asScheduledText,
+                            include: false,
+                            name: 'AsScheduled',
+                            property: 'AsScheduled',
+                            type: 'boolean'
+                        }, {
+                            label: this.completedText,
+                            name: 'CompletedDate',
+                            property: 'CompletedDate',
+                            type: 'date',
+                            showTimePicker: true,
+                            formatString: this.completedFormatText,
+                            minValue: (new Date(1900, 0, 1)),
+                            validator: [
+                                validator.exists,
+                                validator.isDateInRange
+                            ]
+                        }, {
+                            dependsOn: 'Type',
+                            label: this.resultText,
+                            name: 'Result',
+                            property: 'Result',
+                            picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
+                            title: this.resultTitleText,
+                            orderBy: 'text asc',
+                            type: 'picklist',
+                            maxTextLength: 64,
+                            validator: validator.exceedsMaxTextLength
+                        }, {
+                            label: this.followUpText,
+                            title: this.followUpTitleText,
+                            name: 'Followup',
+                            property: 'Followup',
+                            type: 'select',
+                            view: 'select_list',
+                            textRenderer: this.formatFollowupText.bindDelegate(this),
+                            requireSelection: true,
+                            valueKeyProperty: false,
+                            valueTextProperty: false,
+                            data: this.createFollowupData(),
+                            include: false
+                        }, {
+                            label: this.carryOverNotesText,
+                            include: false,
+                            name: 'CarryOverNotes',
+                            property: 'CarryOverNotes',
+                            type: 'boolean'
+                        }, {
+                            label: this.longNotesText,
+                            noteProperty: false,
+                            name: 'LongNotes',
+                            property: 'LongNotes',
+                            title: this.longNotesTitleText,
+                            type: 'note',
+                            view: 'text_edit'
+                        }]
+                }, {
+                    title: this.otherInfoText,
+                    name: 'OtherInfoSection',
+                    collapsed: false,
+                    children: [{
+                            label: this.priorityText,
+                            name: 'Priority',
+                            property: 'Priority',
+                            picklist: 'Priorities',
+                            title: this.priorityTitleText,
+                            type: 'picklist',
+                            maxTextLength: 64,
+                            validator: validator.exceedsMaxTextLength
+                        }, {
+                            dependsOn: 'Type',
+                            label: this.categoryText,
+                            name: 'Category',
+                            property: 'Category',
+                            picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
+                            orderBy: 'text asc',
+                            title: this.categoryTitleText,
+                            type: 'picklist',
+                            maxTextLength: 64,
+                            validator: validator.exceedsMaxTextLength
+                        }, {
+                            type: 'hidden',
+                            name: 'UserId',
+                            property: 'UserId'
+                        }, {
+                            label: this.leaderText,
+                            name: 'Leader',
+                            property: 'Leader',
+                            include: false,
+                            type: 'lookup',
+                            textProperty: 'UserInfo',
+                            textTemplate: template.nameLF,
+                            requireSelection: true,
+                            view: 'user_list'
+                        }, {
+                            label: this.accountText,
+                            name: 'Account',
+                            property: 'Account',
+                            type: 'lookup',
+                            emptyText: '',
+                            applyTo: '.',
+                            valueKeyProperty: 'AccountId',
+                            valueTextProperty: 'AccountName',
+                            view: 'account_related'
+                        }, {
+                            dependsOn: 'Account',
+                            label: this.contactText,
+                            name: 'Contact',
+                            property: 'Contact',
+                            type: 'lookup',
+                            emptyText: '',
+                            applyTo: '.',
+                            valueKeyProperty: 'ContactId',
+                            valueTextProperty: 'ContactName',
+                            view: 'contact_related',
+                            where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
+                        }, {
+                            dependsOn: 'Account',
+                            label: this.opportunityText,
+                            name: 'Opportunity',
+                            property: 'Opportunity',
+                            type: 'lookup',
+                            emptyText: '',
+                            applyTo: '.',
+                            valueKeyProperty: 'OpportunityId',
+                            valueTextProperty: 'OpportunityName',
+                            view: 'opportunity_related',
+                            where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
+                        }, {
+                            dependsOn: 'Account',
+                            label: this.ticketNumberText,
+                            name: 'Ticket',
+                            property: 'Ticket',
+                            type: 'lookup',
+                            emptyText: '',
+                            applyTo: '.',
+                            valueKeyProperty: 'TicketId',
+                            valueTextProperty: 'TicketNumber',
+                            view: 'ticket_related',
+                            where: this.formatDependentQuery.bindDelegate(this, 'Account.Id eq "${0}"', 'AccountId')
+                        }, {
+                            label: this.leadText,
+                            name: 'Lead',
+                            property: 'Lead',
+                            type: 'lookup',
+                            emptyText: '',
+                            applyTo: '.',
+                            valueKeyProperty: 'LeadId',
+                            valueTextProperty: 'LeadName',
+                            view: 'lead_related'
+                        }, {
+                            label: this.companyText,
+                            name: 'AccountName',
+                            property: 'AccountName',
+                            type: 'text'
+                        }]
+                }]);
         }
-    });     
+    });
 });
+
