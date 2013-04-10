@@ -7,6 +7,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Sage/Platform/Mobile/Calendar',
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/Views/Signature',
+    'Sage/Platform/Mobile/SearchWidget',
 
     'Mobile/SalesLogix/Views/AddAccountContact',
     'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
@@ -100,6 +101,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     Calendar,
     List,
     Signature,
+    SearchWidget,
     AddAccountContact,
     AreaCategoryIssueLookup,
     ExchangeRateLookup,
@@ -172,8 +174,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     HistoryEdit,
     UserList
 ) {
-
     return declare('Mobile.SalesLogix.ApplicationModule', [ApplicationModule], {
+        searchText: 'Lookup',
         loadViews: function() {
             this.inherited(arguments);
 
@@ -379,6 +381,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 getSecurity: function() {
                     return (this.expose && this.security); // only check security on exposed views
                 }
+            });
+
+            lang.extend(SearchWidget, {
+                searchText: this.searchText 
             });
         }
     });

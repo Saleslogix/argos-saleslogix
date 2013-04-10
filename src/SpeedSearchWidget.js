@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
         ]),
         queryNode: null,
 
-        searchText: 'Search+',
+        searchText: 'SpeedSearch',
 
         clear: function() {
             domClass.remove(this.domNode, 'search-active');
