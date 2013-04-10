@@ -33,8 +33,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         categoryText: 'category',
         durationText: 'duration',
         durationTitleText: 'Duration',
-		durationInvalidText: "The field '${2}' must have a value.",
-		reminderInvalidText: "The field 'reminder' must have a value.",
+        durationInvalidText: "The field '${2}' must have a value.",
+        reminderInvalidText: "The field 'reminder' must have a value.",
         reminderTitleText: 'Reminder',
         leaderText: 'leader',
         longNotesText: 'notes',
@@ -47,7 +47,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         repeatsText: 'repeats',
         recurringText: 'recurring',
         recurringTitleText: 'Recurring',
-		startingFormatText: 'M/d/yyyy h:mm tt',
+        startingFormatText: 'M/d/yyyy h:mm tt',
         startingFormatTimelessText: 'M/d/yyyy',
         timelessText: 'timeless',
         titleText: 'Activity',
@@ -193,10 +193,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (entry['$key'] != originalKey && view) {
                 // Editing single occurrence results in new $key/record
                 view.show({
-                    key: entry['$key']
-                }, {
-                    returnTo: -2
-                });
+                        key: entry['$key']
+                    }, {
+                        returnTo: -2
+                    });
 
             } else {
                 this.onUpdateCompleted(entry);
@@ -217,7 +217,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         isInLeadContext: function() {
             var insert = this.options && this.options.insert,
                 entry = this.options && this.options.entry,
-                lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) { return c.key; })) || this.isActivityForLead(entry);
+                lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) {
+                    return c.key;
+                })) || this.isActivityForLead(entry);
 
             return !!lead;
         },
@@ -226,54 +228,66 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
-            if (this.options.isForLead != undefined) return;
+            if (this.options.isForLead != undefined) {
+                return;
+            }
 
             this.options.isForLead = this.isInLeadContext();
 
-            if (this.options.isForLead)
+            if (this.options.isForLead) {
                 this.showFieldsForLead();
-            else
+            } else {
                 this.showFieldsForStandard();
+            }
         },
         disableFields: function(predicate) {
-            for (var name in this.fields)
-                if (!predicate || predicate(this.fields[name]))
+            for (var name in this.fields) {
+                if (!predicate || predicate(this.fields[name])) {
                     this.fields[name].disable();
+                }
+            }
         },
         enableFields: function(predicate) {
-            for (var name in this.fields)
-                if (!predicate || predicate(this.fields[name]))
+            for (var name in this.fields) {
+                if (!predicate || predicate(this.fields[name])) {
                     this.fields[name].enable();
+                }
+            }
         },
         onIsLeadChange: function(value, field) {
             this.options.isForLead = value;
 
-            if (this.options.isForLead)
+            if (this.options.isForLead) {
                 this.showFieldsForLead();
-            else
+            } else {
                 this.showFieldsForStandard();
+            }
         },
         showFieldsForLead: function() {
             array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
-                if (this.fields[item])
+                if (this.fields[item]) {
                     this.fields[item].hide();
+                }
             }, this);
 
             array.forEach(this.fieldsForLeads, function(item) {
-                if (this.fields[item])
+                if (this.fields[item]) {
                     this.fields[item].show();
+                }
             }, this);
         },
         showFieldsForStandard: function() {
             array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
-                if (this.fields[item])
+                if (this.fields[item]) {
                     this.fields[item].hide();
+                }
             }, this);
 
             array.forEach(this.fieldsForStandard, function(item) {
-                    if (this.fields[item])
-                        this.fields[item].show();
-                }, this);
+                if (this.fields[item]) {
+                    this.fields[item].show();
+                }
+            }, this);
         },
         toggleSelectField: function(field, disable) {
             disable === true ? field.disable() : field.enable();
@@ -284,43 +298,38 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var startDateField = this.fields['StartDate'],
                 startDate = startDateField.getValue();
 
-            if (value)
-            {
+            if (value) {
                 this.fields['Rollover'].enable();
                 startDateField['dateFormatText'] = this.startingFormatTimelessText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
-                if (!this.isDateTimeless(startDate))
-                    startDate = startDate.clone().clearTime().add({minutes:-1*startDate.getTimezoneOffset(), seconds:5});
+                if (!this.isDateTimeless(startDate)) {
+                    startDate = startDate.clone().clearTime().add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
+                }
                 startDateField.setValue(startDate);
-            }
-            else
-            {
+            } else {
                 this.fields['Rollover'].setValue(false);
                 this.fields['Rollover'].disable();
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
-                if (this.isDateTimeless(startDate))
-                    startDate = startDate.clone().add({minutes:startDate.getTimezoneOffset()+1, seconds: -5});
+                if (this.isDateTimeless(startDate)) {
+                    startDate = startDate.clone().add({minutes: startDate.getTimezoneOffset() + 1, seconds: -5});
+                }
                 startDateField.setValue(startDate);
             }
         },
         onAlarmChange: function() {
-            if (this.fields['Alarm'].getValue())
-            {
+            if (this.fields['Alarm'].getValue()) {
                 this.fields['Reminder'].enable();
-            }
-            else
-            {
+            } else {
                 this.fields['Reminder'].disable();
             }
         },
         onLeadChange: function(value, field) {
             var selection = field.getSelection();
 
-            if (selection && this.insert)
-            {
+            if (selection && this.insert) {
                 this.fields['AccountName'].setValue(utility.getValue(selection, 'Company'));
             }
         },
@@ -331,8 +340,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         onAccountChange: function(value, field) {
             var fields = this.fields;
             array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
-                if (value)
-                {
+                if (value) {
                     fields[f].dependsOn = 'Account';
                     fields[f].where = string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
 
@@ -342,17 +350,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                         fields[f].setValue(false);
                     }
 
-                }
-                else
-                {
+                } else {
                     fields[f].dependsOn = null;
                     fields[f].where = 'Account.AccountName ne null';
                 }
             });
         },
         onAccountDependentChange: function(value, field) {
-            if (value && !field.dependsOn && field.currentSelection && field.currentSelection['Account'])
-            {
+            if (value && !field.dependsOn && field.currentSelection && field.currentSelection['Account']) {
                 var accountField = this.fields['Account'];
                 accountField.setValue({
                     'AccountId': field.currentSelection['Account']['$key'],
@@ -380,17 +385,19 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         onRecurrenceUIChange: function(value, field) {
             var opt = recur.simplifiedOptions[field.currentSelection.$key];
             // preserve #iterations (and EndDate) if matching recurrence
-            if (opt.RecurPeriodSpec == this.recurrence.RecurPeriodSpec)
+            if (opt.RecurPeriodSpec == this.recurrence.RecurPeriodSpec) {
                 opt.RecurIterations = this.recurrence.RecurIterations;
+            }
 
             this.resetRecurrence(opt);
         },
         onRecurrenceChange: function(value, field) {
             // did the StartDate change on the recurrence_edit screen?
-            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate'])
-                currentDate = this.fields['StartDate'].getValue();
-            if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth())
+            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate']);
+            currentDate = this.fields['StartDate'].getValue();
+            if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth()) {
                 this.fields['StartDate'].setValue(startDate);
+            }
 
             this.resetRecurrence(value);
         },
@@ -414,10 +421,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.fields['RecurIterations'].setValue(this.recurrence.RecurIterations);
             this.fields['EndDate'].setValue(this.recurrence.EndDate);
 
-            if (o.Recurring)
+            if (o.Recurring) {
                 this.fields['Recurrence'].enable();
-            else
+            } else {
                 this.fields['Recurrence'].disable();
+            }
 
         },
 
@@ -425,29 +433,27 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
         formatRecurrence: function(recurrence) {
-            if (typeof recurrence === 'string') return recurrence;
+            if (typeof recurrence === 'string') {
+                return recurrence;
+            }
 
             return recur.toString(recurrence, true);
         },
         applyUserActivityContext: function(context) {
             var view = App.getView(context.id);
-            if (view && view.currentDate)
-            {
+            if (view && view.currentDate) {
                 var currentDate = view.currentDate.clone().clearTime(),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
                     startTime = startTimeOption && Date.parse(startTimeOption),
                     startDate;
 
-                if (startTime && (currentDate.compareTo(Date.today()) !== 0))
-                {
+                if (startTime && (currentDate.compareTo(Date.today()) !== 0)) {
                     startDate = currentDate.clone().set({
                         'hour': startTime.getHours(),
                         'minute': startTime.getMinutes()
                     });
-                }
-                else
-                {
+                } else {
                     startTime = Date.now();
                     startDate = currentDate.clone().clearTime().set({
                         'hour': startTime.getHours()
@@ -471,9 +477,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 }),
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
-                activityDuration = App.context.userOptions && App.context.userOptions[activityGroup+':Duration'] || 15,
-                alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup+':AlarmEnabled'] || true,
-                alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup+':AlarmLead'] || 15;
+                activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15,
+                alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true,
+                alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
 
             this.fields['StartDate'].setValue(startDate);
             this.fields['Type'].setValue(activityType);
@@ -482,8 +488,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.fields['Reminder'].setValue(alarmDuration);
 
             var user = App.context['user'];
-            if (user)
-            {    
+            if (user) {
                 this.fields['UserId'].setValue(user['$key']);
 
                 var leaderField = this.fields['Leader'];
@@ -494,14 +499,17 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
 
-                if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key)
+                if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
                     return true;
+                }
 
-                if (/^(useractivities)$/.test(context.resourceKind))
+                if (/^(useractivities)$/.test(context.resourceKind)) {
                     return true;
+                }
 
-                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate'])
+                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate']) {
                     return true;
+                }
 
                 return false;
             });
@@ -516,7 +524,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     'activities': this.applyUserActivityContext
                 };
 
-            if (context && lookup[context.resourceKind]) lookup[context.resourceKind].call(this, context);
+            if (context && lookup[context.resourceKind]) {
+                lookup[context.resourceKind].call(this, context);
+            }
 
             var accountField = this.fields['Account'];
             this.onAccountChange(accountField.getValue(), accountField);
@@ -525,7 +535,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry) || context;
 
-            if (!entry || !entry['$key']) return;
+            if (!entry || !entry['$key']) {
+                return;
+            }
 
             var accountField = this.fields['Account'];
             accountField.setValue({
@@ -538,7 +550,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry) || context;
 
-            if (!entry || !entry['$key']) return;
+            if (!entry || !entry['$key']) {
+                return;
+            }
 
             var contactField = this.fields['Contact'];
             contactField.setValue({
@@ -557,7 +571,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry);
 
-            if (!entry || !entry['$key']) return;
+            if (!entry || !entry['$key']) {
+                return;
+            }
 
             var ticketField = this.fields['Ticket'];
             ticketField.setValue({
@@ -583,7 +599,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry);
 
-            if (!entry || !entry['$key']) return;
+            if (!entry || !entry['$key']) {
+                return;
+            }
 
             var opportunityField = this.fields['Opportunity'];
             opportunityField.setValue({
@@ -602,7 +620,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry);
 
-            if (!entry || !entry['$key']) return;
+            if (!entry || !entry['$key']) {
+                return;
+            }
 
             var leadField = this.fields['Lead'];
             leadField.setValue({
@@ -618,16 +638,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
         },
         setValues: function(values) {
-            if (values['StartDate'] && values['AlarmTime'])
-            {
+            if (values['StartDate'] && values['AlarmTime']) {
                 var startTime = (this.isDateTimeless(values['StartDate']))
                     ? values['StartDate'].clone().add({minutes: values['StartDate'].getTimezoneOffset()}).getTime()
                     : values['StartDate'].getTime();
 
-
                 var span = startTime - values['AlarmTime'].getTime(), // ms
                     reminder = span / (1000 * 60);
-                
+
                 values['Reminder'] = reminder;
             }
 
@@ -635,21 +653,19 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             this.enableFields();
 
-            if (values['Timeless'])
-            {
+            if (values['Timeless']) {
                 this.fields['Duration'].disable();
                 this.fields['Rollover'].enable();
-            }
-            else
-            {
+            } else {
                 this.fields['Duration'].enable();
                 this.fields['Rollover'].disable();
             }
 
-            if (values['Alarm'])
+            if (values['Alarm']) {
                 this.fields['Reminder'].enable();
-            else
+            } else {
                 this.fields['Reminder'].disable();
+            }
 
             if (this.isInLeadContext()) {
                 var isLeadField = this.fields['IsLead'];
@@ -663,24 +679,37 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 denyEdit = !this.options.insert && !this.currentUserCanEdit(entry),
                 allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
 
-            if (denyEdit)
+            if (denyEdit) {
                 this.disableFields();
+            }
 
-            if (allowSetAlarm)
-                this.enableFields(function(f) { return /^Alarm|Reminder$/.test(f.name) });
+            if (allowSetAlarm) {
+                this.enableFields(function(f) {
+                    return /^Alarm|Reminder$/.test(f.name);
+                });
+            }
 
             this.recurrence.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values.StartDate);
             this.resetRecurrence(values);
-            this.onStartDateChange(this.fields['StartDate'].getValue(), this.fields['StartDate'])
-            if (this.isActivityRecurring)
+            this.onStartDateChange(this.fields['StartDate'].getValue(), this.fields['StartDate']);
+            if (this.isActivityRecurring) {
                 this.fields['EndDate'].hide();
+            }
 
         },
         isDateTimeless: function(date) {
-            if (!date) return false;
-            if (date.getUTCHours() != 0) return false;
-            if (date.getUTCMinutes() != 0) return false;
-            if (date.getUTCSeconds() != 5) return false;
+            if (!date) {
+                return false;
+            }
+            if (date.getUTCHours() != 0) {
+                return false;
+            }
+            if (date.getUTCMinutes() != 0) {
+                return false;
+            }
+            if (date.getUTCSeconds() != 5) {
+                return false;
+            }
 
             return true;
         },
@@ -693,14 +722,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 timeless = this.fields['Timeless'].getValue();
 
             // if StartDate is dirty, always update AlarmTime
-            if (startDate && (isStartDateDirty || isReminderDirty))
-            {
+            if (startDate && (isStartDateDirty || isReminderDirty)) {
                 values = values || {};
                 values['AlarmTime'] = startDate.clone().add({'minutes': -1 * reminderIn});
 
                 // if timeless, convert back to local time
-                if (timeless)
+                if (timeless) {
                     values['AlarmTime'].add({'minutes': startDate.getTimezoneOffset()});
+                }
             }
 
             return values;
@@ -708,8 +737,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         createReminderData: function() {
             var list = [];
 
-            for (var duration in this.reminderValueText)
-            {
+            for (var duration in this.reminderValueText) {
                 list.push({
                     '$key': duration,
                     '$descriptor': this.reminderValueText[duration]
@@ -721,8 +749,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         createDurationData: function() {
             var list = [];
 
-            for (var duration in this.durationValueText)
-            {
+            for (var duration in this.durationValueText) {
                 list.push({
                     '$key': duration,
                     '$descriptor': this.durationValueText[duration]
@@ -739,240 +766,240 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                name: 'Type',
-                property: 'Type',
-                type: 'hidden'
-            },{
-                dependsOn: 'Type',
-                label: this.regardingText,
-                name: 'Description',
-                property: 'Description',
-                picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
-                title: this.activityDescriptionTitleText,
-                orderBy: 'text asc',
-                type: 'picklist',
-                maxTextLength: 64,
-                validator: validator.exceedsMaxTextLength
-            },{
-                name: 'Location',
-                property: 'Location',
-                label: this.locationText,
-                type: 'text'
-            },{
-                label: this.priorityText,
-                name: 'Priority',
-                property: 'Priority',
-                picklist: 'Priorities',
-                title: this.priorityTitleText,
-                type: 'picklist',
-                maxTextLength: 64,
-                validator: validator.exceedsMaxTextLength
-            },{
-                dependsOn: 'Type',
-                label: this.categoryText,
-                name: 'Category',
-                property: 'Category',
-                picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
-                orderBy: 'text asc',
-                title: this.activityCategoryTitleText,
-                type: 'picklist',
-                maxTextLength: 64,
-                validator: validator.exceedsMaxTextLength
-            },{
-                label: this.startingText,
-                name: 'StartDate',
-                property: 'StartDate',
-                type: 'date',
-                timeless: false,
-                showTimePicker: true,
-                dateFormatText: this.startingFormatText,
-                minValue: (new Date(1900, 0, 1)),
-                validator: [
-                    validator.exists,
-                    validator.isDateInRange
-                ]
-            },{
-                type: 'date',
-                name: 'EndDate',
-                property: 'EndDate',
-                include: this.isActivityRecurring
-            },{
-                dependsOn: 'StartDate',
-                label: this.repeatsText,
-                title: this.recurringTitleText,
-                name: 'RecurrenceUI',
-                property: 'RecurrenceUI',
-                type: 'select',
-                view: 'select_list',
-                data: this.createRecurringData.bindDelegate(this),
-                exclude: true
-            },{
-                dependsOn: 'RecurrenceUI',
-                label: this.recurringText,
-                name: 'Recurrence',
-                property: 'Recurrence',
-                type: 'recurrences',
-                applyTo: '.',
-                view: 'recurrence_edit',
-                exclude: true,
-                formatValue: this.formatRecurrence.bindDelegate(this)
-            },{
-                type: 'hidden',
-                name: 'RecurPeriod',
-                property: 'RecurPeriod',
-                include: this.isActivityRecurring
-            },{
-                type: 'hidden',
-                name: 'RecurPeriodSpec',
-                property: 'RecurPeriodSpec',
-                include: this.isActivityRecurring
-            },{
-                type: 'hidden',
-                name: 'RecurrenceState',
-                property: 'RecurrenceState',
-                include: this.isActivityRecurring
-            },{
-                type: 'hidden',
-                name: 'Recurring',
-                property: 'Recurring',
-                include: this.isActivityRecurring
-            },{
-                type: 'hidden',
-                name: 'RecurIterations',
-                property: 'RecurIterations',
-                include: this.isActivityRecurring
-            },{
-                label: this.timelessText,
-                name: 'Timeless',
-                property: 'Timeless',
-                type: 'boolean'
-            },{
-                label: this.durationText,
-                title: this.durationTitleText,
-                name: 'Duration',
-                property: 'Duration',
-                type: 'duration',
-                view: 'select_list',
-                data: this.createDurationData()
-            },{
-                name: 'Alarm',
-                property: 'Alarm',
-                label: this.alarmText,
-                type: 'boolean'
-            },{
-                label: this.reminderText,
-                title: this.reminderTitleText,
-                include: false,
-                name: 'Reminder',
-                property: 'Reminder',
-                type: 'duration',
-                view: 'select_list',
-                data: this.createReminderData()
-            },{
-                label: this.rolloverText,
-                name: 'Rollover',
-                property: 'Rollover',
-                type: 'boolean'
-            },{
-                type: 'hidden',
-                name: 'UserId',
-                property: 'UserId'
-            },{
-                label: this.leaderText,
-                name: 'Leader',
-                property: 'Leader',
-                include: false,
-                type: 'lookup',
-                textProperty: 'UserInfo',
-                textTemplate: template.nameLF,
-                requireSelection: true,
-                view: 'user_list',
-                where: 'Type ne "Template" and Type ne "Retired"'
-            },{
-                label: this.longNotesText,
-                noteProperty: false,
-                name: 'LongNotes',
-                property: 'LongNotes',
-                title: this.longNotesTitleText,
-                type: 'note',
-                view: 'text_edit'
-            },{
-                label: this.isLeadText,
-                name: 'IsLead',
-                property: 'IsLead',
-                include: false,
-                type: 'boolean',
-                onText: this.yesText,
-                offText: this.noText
-            },{
-                label: this.accountText,
-                name: 'Account',
-                property: 'Account',
-                type: 'lookup',
-                emptyText: '',
-                applyTo: '.',
-                valueKeyProperty: 'AccountId',
-                valueTextProperty: 'AccountName',
-                view: 'account_related'
-            },{
-                dependsOn: 'Account',
-                label: this.contactText,
-                name: 'Contact',
-                property: 'Contact',
-                type: 'lookup',
-                emptyText: '',
-                applyTo: '.',
-                valueKeyProperty: 'ContactId',
-                valueTextProperty: 'ContactName',
-                view: 'contact_related',
-                where: this.formatDependentQuery.bindDelegate(
-                    this, 'Account.Id eq "${0}"', 'AccountId'
-                )
-            },{
-                dependsOn: 'Account',
-                label: this.opportunityText,
-                name: 'Opportunity',
-                property: 'Opportunity',
-                type: 'lookup',
-                emptyText: '',
-                applyTo: '.',
-                valueKeyProperty: 'OpportunityId',
-                valueTextProperty: 'OpportunityName',
-                view: 'opportunity_related',
-                where: this.formatDependentQuery.bindDelegate(
-                    this, 'Account.Id eq "${0}"', 'AccountId'
-                )
-            },{
-                dependsOn: 'Account',
-                label: this.ticketNumberText,
-                name: 'Ticket',
-                property: 'Ticket',
-                type: 'lookup',
-                emptyText: '',
-                applyTo: '.',
-                valueKeyProperty: 'TicketId',
-                valueTextProperty: 'TicketNumber',
-                view: 'ticket_related',
-                where: this.formatDependentQuery.bindDelegate(
-                    this, 'Account.Id eq "${0}"', 'AccountId'
-                )
-            },{
-                label: this.leadText,
-                name: 'Lead',
-                property: 'Lead',
-                type: 'lookup',
-                emptyText: '',
-                applyTo: '.',
-                valueKeyProperty: 'LeadId',
-                valueTextProperty: 'LeadName',
-                view: 'lead_related'
-            },{
-                label: this.companyText,
-                name: 'AccountName',
-                property: 'AccountName',
-                type: 'text'
-            }]);
+                    name: 'Type',
+                    property: 'Type',
+                    type: 'hidden'
+                }, {
+                    dependsOn: 'Type',
+                    label: this.regardingText,
+                    name: 'Description',
+                    property: 'Description',
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Description'),
+                    title: this.activityDescriptionTitleText,
+                    orderBy: 'text asc',
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: validator.exceedsMaxTextLength
+                }, {
+                    name: 'Location',
+                    property: 'Location',
+                    label: this.locationText,
+                    type: 'text'
+                }, {
+                    label: this.priorityText,
+                    name: 'Priority',
+                    property: 'Priority',
+                    picklist: 'Priorities',
+                    title: this.priorityTitleText,
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: validator.exceedsMaxTextLength
+                }, {
+                    dependsOn: 'Type',
+                    label: this.categoryText,
+                    name: 'Category',
+                    property: 'Category',
+                    picklist: this.formatPicklistForType.bindDelegate(this, 'Category'),
+                    orderBy: 'text asc',
+                    title: this.activityCategoryTitleText,
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: validator.exceedsMaxTextLength
+                }, {
+                    label: this.startingText,
+                    name: 'StartDate',
+                    property: 'StartDate',
+                    type: 'date',
+                    timeless: false,
+                    showTimePicker: true,
+                    dateFormatText: this.startingFormatText,
+                    minValue: (new Date(1900, 0, 1)),
+                    validator: [
+                        validator.exists,
+                        validator.isDateInRange
+                    ]
+                }, {
+                    type: 'date',
+                    name: 'EndDate',
+                    property: 'EndDate',
+                    include: this.isActivityRecurring
+                }, {
+                    dependsOn: 'StartDate',
+                    label: this.repeatsText,
+                    title: this.recurringTitleText,
+                    name: 'RecurrenceUI',
+                    property: 'RecurrenceUI',
+                    type: 'select',
+                    view: 'select_list',
+                    data: this.createRecurringData.bindDelegate(this),
+                    exclude: true
+                }, {
+                    dependsOn: 'RecurrenceUI',
+                    label: this.recurringText,
+                    name: 'Recurrence',
+                    property: 'Recurrence',
+                    type: 'recurrences',
+                    applyTo: '.',
+                    view: 'recurrence_edit',
+                    exclude: true,
+                    formatValue: this.formatRecurrence.bindDelegate(this)
+                }, {
+                    type: 'hidden',
+                    name: 'RecurPeriod',
+                    property: 'RecurPeriod',
+                    include: this.isActivityRecurring
+                }, {
+                    type: 'hidden',
+                    name: 'RecurPeriodSpec',
+                    property: 'RecurPeriodSpec',
+                    include: this.isActivityRecurring
+                }, {
+                    type: 'hidden',
+                    name: 'RecurrenceState',
+                    property: 'RecurrenceState',
+                    include: this.isActivityRecurring
+                }, {
+                    type: 'hidden',
+                    name: 'Recurring',
+                    property: 'Recurring',
+                    include: this.isActivityRecurring
+                }, {
+                    type: 'hidden',
+                    name: 'RecurIterations',
+                    property: 'RecurIterations',
+                    include: this.isActivityRecurring
+                }, {
+                    label: this.timelessText,
+                    name: 'Timeless',
+                    property: 'Timeless',
+                    type: 'boolean'
+                }, {
+                    label: this.durationText,
+                    title: this.durationTitleText,
+                    name: 'Duration',
+                    property: 'Duration',
+                    type: 'duration',
+                    view: 'select_list',
+                    data: this.createDurationData()
+                }, {
+                    name: 'Alarm',
+                    property: 'Alarm',
+                    label: this.alarmText,
+                    type: 'boolean'
+                }, {
+                    label: this.reminderText,
+                    title: this.reminderTitleText,
+                    include: false,
+                    name: 'Reminder',
+                    property: 'Reminder',
+                    type: 'duration',
+                    view: 'select_list',
+                    data: this.createReminderData()
+                }, {
+                    label: this.rolloverText,
+                    name: 'Rollover',
+                    property: 'Rollover',
+                    type: 'boolean'
+                }, {
+                    type: 'hidden',
+                    name: 'UserId',
+                    property: 'UserId'
+                }, {
+                    label: this.leaderText,
+                    name: 'Leader',
+                    property: 'Leader',
+                    include: false,
+                    type: 'lookup',
+                    textProperty: 'UserInfo',
+                    textTemplate: template.nameLF,
+                    requireSelection: true,
+                    view: 'user_list',
+                    where: 'Type ne "Template" and Type ne "Retired"'
+                }, {
+                    label: this.longNotesText,
+                    noteProperty: false,
+                    name: 'LongNotes',
+                    property: 'LongNotes',
+                    title: this.longNotesTitleText,
+                    type: 'note',
+                    view: 'text_edit'
+                }, {
+                    label: this.isLeadText,
+                    name: 'IsLead',
+                    property: 'IsLead',
+                    include: false,
+                    type: 'boolean',
+                    onText: this.yesText,
+                    offText: this.noText
+                }, {
+                    label: this.accountText,
+                    name: 'Account',
+                    property: 'Account',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'AccountId',
+                    valueTextProperty: 'AccountName',
+                    view: 'account_related'
+                }, {
+                    dependsOn: 'Account',
+                    label: this.contactText,
+                    name: 'Contact',
+                    property: 'Contact',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'ContactId',
+                    valueTextProperty: 'ContactName',
+                    view: 'contact_related',
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
+                    )
+                }, {
+                    dependsOn: 'Account',
+                    label: this.opportunityText,
+                    name: 'Opportunity',
+                    property: 'Opportunity',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'OpportunityId',
+                    valueTextProperty: 'OpportunityName',
+                    view: 'opportunity_related',
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
+                    )
+                }, {
+                    dependsOn: 'Account',
+                    label: this.ticketNumberText,
+                    name: 'Ticket',
+                    property: 'Ticket',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'TicketId',
+                    valueTextProperty: 'TicketNumber',
+                    view: 'ticket_related',
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
+                    )
+                }, {
+                    label: this.leadText,
+                    name: 'Lead',
+                    property: 'Lead',
+                    type: 'lookup',
+                    emptyText: '',
+                    applyTo: '.',
+                    valueKeyProperty: 'LeadId',
+                    valueTextProperty: 'LeadName',
+                    view: 'lead_related'
+                }, {
+                    label: this.companyText,
+                    name: 'AccountName',
+                    property: 'AccountName',
+                    type: 'text'
+                }]);
         }
-    });     
+    });
 });
 

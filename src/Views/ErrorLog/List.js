@@ -32,8 +32,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
 
         _onRefresh: function(o) {
             this.inherited(arguments);
-            if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage')
-            {
+            if (o.resourceKind === 'errorlogs' || o.resourceKind === 'localStorage') {
                 this.refreshRequired = true;
             }
         },
@@ -42,10 +41,10 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
             var errorItems = ErrorManager.getAllErrors();
 
             errorItems.sort(function(a, b) {
-               var A = convert.toDateFromString(a.errorDateStamp),
-                   B = convert.toDateFromString(b.errorDateStamp);
+                var A = convert.toDateFromString(a.errorDateStamp),
+                    B = convert.toDateFromString(b.errorDateStamp);
 
-               return B.compareTo(A); // new -> old
+                return B.compareTo(A); // new -> old
             });
 
             this.processFeed({
@@ -63,3 +62,4 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
         }
     });
 });
+

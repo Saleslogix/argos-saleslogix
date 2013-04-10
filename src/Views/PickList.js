@@ -36,3 +36,4 @@ define('Mobile/SalesLogix/Views/PickList', [
         }
     });
 });
+

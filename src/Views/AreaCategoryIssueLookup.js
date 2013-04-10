@@ -36,26 +36,26 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
             this.inherited(arguments, [options]);
         },
         requestData: function() {
-            if (this.cache)
-            {
+            if (this.cache) {
                 this.processFeed();
-            }
-            else
-            {
+            } else {
                 this.inherited(arguments);
             }
         },
         processFeed: function(feed) {
             // assume order is preserved
-            if (feed)
-            {
+            if (feed) {
                 this.createCacheFrom(feed);
             }
 
             var use = this.cache;
 
-            if (use && this.active && this.active['Area']) use = use[this.active['Area']];
-            if (use && this.active && this.active['Category']) use = use[this.active['Category']];
+            if (use && this.active && this.active['Area']) {
+                use = use[this.active['Area']];
+            }
+            if (use && this.active && this.active['Category']) {
+                use = use[this.active['Category']];
+            }
 
             feed = this.buildFeedFrom(use);
 
@@ -65,20 +65,18 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
             var feedLength = feed['$resources'].length;
             this.cache = {};
 
-            for (var i = 0; i < feedLength; i += 1)
-            {
+            for (var i = 0; i < feedLength; i += 1) {
                 var entry = feed['$resources'][i],
-                area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {}),
-                category = area[entry['Category']] || (area[entry['Category']] = {});
+                    area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {}),
+                    category = area[entry['Category']] || (area[entry['Category']] = {});
 
-                category[entry['Issue']] = true
+                category[entry['Issue']] = true;
             }
         },
         buildFeedFrom: function(segment) {
             var list = [];
 
-            for (var n in segment)
-            {
+            for (var n in segment) {
                 list.push({
                     '$key': n,
                     '$descriptor': n
@@ -94,7 +92,7 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
             return true; // todo: implement refresh detection?
         },
         formatSearchQuery: function(searchQuery) {
-
         }
     });
 });
+

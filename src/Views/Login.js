@@ -60,16 +60,19 @@ define('Mobile/SalesLogix/Views/Login', [
                 }
             ]);
         },
-        authenticate: function () {
-            if (this.busy) return;
+        authenticate: function() {
+            if (this.busy) {
+                return;
+            }
 
             var credentials = this.getValues(),
                 username = credentials && credentials.username;
 
-            if (username && /\w+/.test(username))
+            if (username && /\w+/.test(username)) {
                 this.validateCredentials(credentials);
+            }
         },
-        validateCredentials: function (credentials) {
+        validateCredentials: function(credentials) {
             this.disable();
 
             App.authenticateUser(credentials, {
@@ -81,15 +84,13 @@ define('Mobile/SalesLogix/Views/Login', [
                 failure: function(result) {
                     this.enable();
 
-                    if (result.response)
-                    {
-                        if (result.response.status == 403)
+                    if (result.response) {
+                        if (result.response.status == 403) {
                             alert(this.invalidUserText);
-                        else
+                        } else {
                             alert(this.serverProblemText);
-                    }
-                    else
-                    {
+                        }
+                    } else {
                         alert(this.missingUserText);
                     }
                 },
@@ -103,3 +104,4 @@ define('Mobile/SalesLogix/Views/Login', [
         }
     });
 });
+

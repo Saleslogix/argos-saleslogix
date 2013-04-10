@@ -68,30 +68,35 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 interval = this.fields['RecurPeriodSpec'].getValue() % 65536,
                 showthese = 'Interval,AfterCompletion,';
 
-            if (!recur.isAfterCompletion(rp))
-                    showthese += 'RecurIterations,EndDate,';
+            if (!recur.isAfterCompletion(rp)) {
+                showthese += 'RecurIterations,EndDate,';
+            }
 
             this.fields['RecurrenceState'].setValue('rstMaster'); // undone when Once panel selected
 
             // determine which fields to hide according to panel
             switch (rp) {
-                case 0: // daily
+                case 0:
+                // daily
                 case 1:
                     break;
-                case 2: // weekly
+                case 2:
+                    // weekly
                     showthese += 'Weekdays,';
                     this.formatWeekdays(this.entry.Weekdays);
                     break;
                 case 3:
                     break;
-                case 4: // monthly
+                case 4:
+                    // monthly
                     showthese += 'Day,OrdWeek';
                     break;
                 case 5:
                     showthese += 'OrdWeek,OrdWeekday,';
                 case 6:
                     break;
-                case 7: // yearly
+                case 7:
+                    // yearly
                     showthese += 'Day,OrdWeek,OrdMonth';
                     break;
                 case 8:
@@ -99,12 +104,13 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                     break;
                 case 9:
                     break;
-                default: // once
+                default:
+                    // once
                     showthese = '';
-                    // this.fields['RecurrenceState'].setValue('rsNotRecurring'); // Not recurring
+                // this.fields['RecurrenceState'].setValue('rsNotRecurring'); // Not recurring
             }
 
-            for(var i in this.fields) {
+            for (var i in this.fields) {
                 if (0 <= showthese.indexOf(i)) {
                     this.fields[i].show();
                 } else {
@@ -112,7 +118,9 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 }
             }
             // always show these:
-            if (0 <= rp) this.fields['Scale'].show();
+            if (0 <= rp) {
+                this.fields['Scale'].show();
+            }
             this.fields['Summary'].show();
 
             // refresh some field values
@@ -167,8 +175,9 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                     this.getRecurrence()
                 );
 
-                if (newEndDate != this.fields['EndDate'].getValue())
+                if (newEndDate != this.fields['EndDate'].getValue()) {
                     this.fields['EndDate'].setValue(newEndDate);
+                }
 
             } else {
                 // Invalid input, reset to value calculated from EndDate
@@ -186,8 +195,9 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                     this.fields['RecurPeriod'].getValue()
                 );
 
-                if (iterations != parseInt(this.fields['RecurIterations'].getValue()))
+                if (iterations != parseInt(this.fields['RecurIterations'].getValue())) {
                     this.fields['RecurIterations'].setValue(iterations);
+                }
 
             } else {
                 // can't end before start! reset.
@@ -204,7 +214,9 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 startDate.setDate(value);
 
             } else { // reset field to acceptable value
-                if (0 < value) startDate.setDate(maxValue);
+                if (0 < value) {
+                    startDate.setDate(maxValue);
+                }
                 field.setValue(startDate.getDate());
             }
 
@@ -217,23 +229,23 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             var startDate = this.fields['StartDate'].getValue(),
                 weekday = startDate.getDay(),
                 weekdays = recur.getWeekdays(parseInt(this.fields['RecurPeriodSpec'].getValue())),
-                ordWeek = parseInt((startDate.getDate() - 1)/7) + 1,
+                ordWeek = parseInt((startDate.getDate() - 1) / 7) + 1,
                 panel = parseInt(this.fields['RecurPeriod'].getValue());
 
             value = parseInt(value.key || value);
-            switch(field.name) {
+            switch (field.name) {
                 case 'Weekdays':
                     // only change StartDate if original weekday not included
-                    for(var wd = 0; wd < 7; wd++)
-                        if (weekdays[wd] && !weekdays[weekday])
+                    for (var wd = 0; wd < 7; wd++) {
+                        if (weekdays[wd] && !weekdays[weekday]) {
                             weekday = wd;
+                        }
+                    }
 
                     break;
-
                 case 'OrdWeekday':
                     weekday = value;
                     break;
-
                 case 'OrdWeek':
                     if (value) {
                         ordWeek = value;
@@ -246,13 +258,11 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                         this.resetUI();
                     }
                     break;
-
                 case 'OrdMonth':
                     startDate.setMonth(value);
                     weekday = startDate.getDay(),
-                    ordWeek = parseInt((startDate.getDate() - 1)/7) + 1;
+                    ordWeek = parseInt((startDate.getDate() - 1) / 7) + 1;
                     break;
-
                 default:
             }
 
@@ -268,23 +278,35 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             var startDate = this.fields['StartDate'].getValue(),
                 afterCompletion = this.fields['AfterCompletion'].getValue() ? 1 : 0,
                 interval = parseInt(this.fields['Interval'].getValue());
-                recurPeriod = parseInt(this.fields['RecurPeriod'].getValue());
+            recurPeriod = parseInt(this.fields['RecurPeriod'].getValue());
 
             switch (parseInt(value.key)) {
-                case 0: // days
-                    if (2 > recurPeriod) return;
+                case 0:
+                    // days
+                    if (2 > recurPeriod) {
+                        return;
+                    }
                     recurPeriod = 0 + afterCompletion;
                     break;
-                case 1: // weeks
-                    if (1 < recurPeriod && recurPeriod < 4) return;
+                case 1:
+                    // weeks
+                    if (1 < recurPeriod && recurPeriod < 4) {
+                        return;
+                    }
                     recurPeriod = 2 + afterCompletion;
                     break;
-                case 2: // months
-                    if (3 < recurPeriod && recurPeriod < 7) return;
+                case 2:
+                    // months
+                    if (3 < recurPeriod && recurPeriod < 7) {
+                        return;
+                    }
                     recurPeriod = 4 + afterCompletion + afterCompletion;
                     break;
-                case 3: // years
-                    if (6 < recurPeriod) return;
+                case 3:
+                    // years
+                    if (6 < recurPeriod) {
+                        return;
+                    }
                     recurPeriod = 7 + afterCompletion + afterCompletion;
                     break;
                 default:
@@ -302,8 +324,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
 
         formatWeekdays: function(selections) {
-            var values = []
-                weekdays = [0,0,0,0,0,0,0];
+            var values = [];
+            weekdays = [0, 0, 0, 0, 0, 0, 0];
 
             for (var key in selections) {
                 if (selections[key]) {
@@ -322,20 +344,23 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             return values.join(', ');
         },
         formatSingleWeekday: function(selection) {
-            if (selection['$descriptor'])
+            if (selection['$descriptor']) {
                 return selection['$descriptor'];
+            }
 
-            return  Date.CultureInfo.dayNames[parseInt(selection)];
+            return Date.CultureInfo.dayNames[parseInt(selection)];
         },
         formatMonth: function(selection) {
-            if (selection['$descriptor'])
+            if (selection['$descriptor']) {
                 return selection['$descriptor'];
+            }
 
             return Date.CultureInfo.monthNames[parseInt(selection) - 1];
         },
         formatOrd: function(selection) {
-            if (selection['$descriptor'])
+            if (selection['$descriptor']) {
                 return selection['$descriptor'];
+            }
 
             return recur.ordText[parseInt(selection)];
         },
@@ -343,7 +368,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             var previousSelections = [],
                 weekdays = recur.getWeekdays(this.fields['RecurPeriodSpec'].getValue());
 
-            for(var i = 0; i < weekdays.length; i++) {
+            for (var i = 0; i < weekdays.length; i++) {
                 if (weekdays[i]) {
                     previousSelections.push(i);
                 }
@@ -352,8 +377,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createScaleData: function() {
             var list = [];
-            for (var opt in this.frequencyOptionsText)
-            {
+            for (var opt in this.frequencyOptionsText) {
                 list.push({
                     '$key': opt,
                     '$descriptor': this.frequencyOptionsText[opt]
@@ -363,19 +387,17 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createWeekdaysData: function() {
             var list = [];
-            for (var weekday in  Date.CultureInfo.dayNames)
-            {
+            for (var weekday in  Date.CultureInfo.dayNames) {
                 list.push({
                     '$key': weekday,
-                    '$descriptor':  Date.CultureInfo.dayNames[weekday]
+                    '$descriptor': Date.CultureInfo.dayNames[weekday]
                 });
             }
             return {'$resources': list};
         },
         createMonthsData: function() {
             var list = [];
-            for (var month in Date.CultureInfo.monthNames)
-            {
+            for (var month in Date.CultureInfo.monthNames) {
                 list.push({
                     '$key': month,
                     '$descriptor': Date.CultureInfo.monthNames[month]
@@ -385,8 +407,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createOrdData: function() {
             var list = [];
-            for (var ord in recur.ordText)
-            {
+            for (var ord in recur.ordText) {
                 list.push({
                     '$key': ord,
                     '$descriptor': recur.ordText[ord]
@@ -413,11 +434,12 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.entry.OrdMonth = ord.month;
 
             // Even hidden and falsy fields need their values set (not from parent)
-            for(var name in this.fields)
-            {
+            for (var name in this.fields) {
                 field = this.fields[name];
                 // 0 (Daily panel) or false (AfterCompletion) are legitimate values!
-                if (undefined !== this.entry[name]) field.setValue(this.entry[name]);
+                if (undefined !== this.entry[name]) {
+                    field.setValue(this.entry[name]);
+                }
             }
 
             this.resetUI();
@@ -426,7 +448,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             var o = this.getRecurrence();
 
             o['Recurring'] = (0 <= o['RecurPeriod']);
-            o['EndDate'] = recur.calcEndDate( o.StartDate, o);
+            o['EndDate'] = recur.calcEndDate(o.StartDate, o);
 
             return o;
         },
@@ -441,141 +463,142 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-            {
-                label: this.summaryText,
-                name: 'Summary',
-                property: 'Summary',
-                exclude: true,
-                type: 'textarea',
-                readonly: true
-            },{
-                label: this.startingText,
-                name: 'StartDate',
-                property: 'StartDate',
-                type: 'date',
-                dateFormatText: this.startingFormatText
-            },{
-                label: this.everyText,
-                name: 'Interval',
-                property: 'Interval',
-                type: 'text',
-                inputType: 'numeric',
-                exclude: true,
-                notificationTrigger: 'blur'
-            },{
-                label: '',
-                title: this.recurringFrequencyText,
-                name: 'Scale',
-                property: 'Scale',
-                type: 'select',
-                view: 'select_list',
-                exclude: true,
-                data: this.createScaleData()
-            },{
-                label: this.afterCompletionText,
-                name: 'AfterCompletion',
-                property: 'AfterCompletion',
-                type: 'boolean',
-                exclude: true,
-                onText: this.yesText,
-                offText: this.noText
-            },{
-                label: this.onText,
-                title: this.onText,
-                name: 'OrdWeek',
-                property: 'OrdWeek',
-                exclude: true,
-                type: 'select',
-                view: 'select_list',
-                data: this.createOrdData(),
-                textRenderer: this.formatOrd.bindDelegate(this)
-            },{
-                label: this.dayText,
-                title: this.dayText,
-                name: 'Day',
-                property: 'Day',
-                type: 'text',
-                inputType: 'numeric',
-                exclude: true,
-                notificationTrigger: 'blur'
-            },{
-                label: this.weekdaysText,
-                title: this.weekdaysText,
-                name: 'Weekdays',
-                property: 'Weekdays',
-                exclude: true,
-                type: 'select',
-                singleSelect: false,
-                view: 'select_list',
-                data: this.createWeekdaysData(),
-                previousSelections: this.preselectWeekdays.bindDelegate(this),
-                textRenderer: this.formatWeekdays.bindDelegate(this),
-                formatValue: this.formatWeekdays.bindDelegate(this)
-            },{
-                label: this.singleWeekdayText,
-                title: this.singleWeekdayText,
-                name: 'OrdWeekday',
-                property: 'OrdWeekday',
-                exclude: true,
-                type: 'select',
-                singleSelect: true,
-                view: 'select_list',
-                data: this.createWeekdaysData(),
-                textRenderer: this.formatSingleWeekday.bindDelegate(this)
-            },{
-                label: this.monthText,
-                title: this.monthText,
-                name: 'OrdMonth',
-                property: 'OrdMonth',
-                exclude: true,
-                type: 'select',
-                singleSelect: true,
-                view: 'select_list',
-                data: this.createMonthsData(),
-                textRenderer: this.formatMonth.bindDelegate(this)
-            },{
-                name: 'RecurIterations',
-                property: 'RecurIterations',
-                label: this.occurrencesText,
-                type: 'text',
-                inputType: 'numeric',
-                include: true,
-                notificationTrigger: 'blur'
-            },{
-                type: 'hidden',
-                name: 'RecurPeriod',
-                property: 'RecurPeriod',
-                include: true
-            },{
-                type: 'hidden',
-                name: 'RecurPeriodSpec',
-                property: 'RecurPeriodSpec',
-                include: true
-            },{
-                type: 'hidden',
-                name: 'RecurrenceState',
-                property: 'RecurrenceState',
-                include: true
-            },{
-                type: 'hidden',
-                name: 'Recurring',
-                property: 'Recurring',
-                include: true,
-                formatValue: format.bool
-            },{
-                label: this.endingText,
-                name: 'EndDate',
-                property: 'EndDate',
-                type: 'date',
-                timeless: false,
-                showTimePicker: false,
-                dateFormatText: this.startingFormatText,
-                minValue: (new Date(1900, 0, 1)),
-                validator: [
-                    validator.exists,
-                    validator.isDateInRange
-                ]
-            }]);
+                {
+                    label: this.summaryText,
+                    name: 'Summary',
+                    property: 'Summary',
+                    exclude: true,
+                    type: 'textarea',
+                    readonly: true
+                }, {
+                    label: this.startingText,
+                    name: 'StartDate',
+                    property: 'StartDate',
+                    type: 'date',
+                    dateFormatText: this.startingFormatText
+                }, {
+                    label: this.everyText,
+                    name: 'Interval',
+                    property: 'Interval',
+                    type: 'text',
+                    inputType: 'numeric',
+                    exclude: true,
+                    notificationTrigger: 'blur'
+                }, {
+                    label: '',
+                    title: this.recurringFrequencyText,
+                    name: 'Scale',
+                    property: 'Scale',
+                    type: 'select',
+                    view: 'select_list',
+                    exclude: true,
+                    data: this.createScaleData()
+                }, {
+                    label: this.afterCompletionText,
+                    name: 'AfterCompletion',
+                    property: 'AfterCompletion',
+                    type: 'boolean',
+                    exclude: true,
+                    onText: this.yesText,
+                    offText: this.noText
+                }, {
+                    label: this.onText,
+                    title: this.onText,
+                    name: 'OrdWeek',
+                    property: 'OrdWeek',
+                    exclude: true,
+                    type: 'select',
+                    view: 'select_list',
+                    data: this.createOrdData(),
+                    textRenderer: this.formatOrd.bindDelegate(this)
+                }, {
+                    label: this.dayText,
+                    title: this.dayText,
+                    name: 'Day',
+                    property: 'Day',
+                    type: 'text',
+                    inputType: 'numeric',
+                    exclude: true,
+                    notificationTrigger: 'blur'
+                }, {
+                    label: this.weekdaysText,
+                    title: this.weekdaysText,
+                    name: 'Weekdays',
+                    property: 'Weekdays',
+                    exclude: true,
+                    type: 'select',
+                    singleSelect: false,
+                    view: 'select_list',
+                    data: this.createWeekdaysData(),
+                    previousSelections: this.preselectWeekdays.bindDelegate(this),
+                    textRenderer: this.formatWeekdays.bindDelegate(this),
+                    formatValue: this.formatWeekdays.bindDelegate(this)
+                }, {
+                    label: this.singleWeekdayText,
+                    title: this.singleWeekdayText,
+                    name: 'OrdWeekday',
+                    property: 'OrdWeekday',
+                    exclude: true,
+                    type: 'select',
+                    singleSelect: true,
+                    view: 'select_list',
+                    data: this.createWeekdaysData(),
+                    textRenderer: this.formatSingleWeekday.bindDelegate(this)
+                }, {
+                    label: this.monthText,
+                    title: this.monthText,
+                    name: 'OrdMonth',
+                    property: 'OrdMonth',
+                    exclude: true,
+                    type: 'select',
+                    singleSelect: true,
+                    view: 'select_list',
+                    data: this.createMonthsData(),
+                    textRenderer: this.formatMonth.bindDelegate(this)
+                }, {
+                    name: 'RecurIterations',
+                    property: 'RecurIterations',
+                    label: this.occurrencesText,
+                    type: 'text',
+                    inputType: 'numeric',
+                    include: true,
+                    notificationTrigger: 'blur'
+                }, {
+                    type: 'hidden',
+                    name: 'RecurPeriod',
+                    property: 'RecurPeriod',
+                    include: true
+                }, {
+                    type: 'hidden',
+                    name: 'RecurPeriodSpec',
+                    property: 'RecurPeriodSpec',
+                    include: true
+                }, {
+                    type: 'hidden',
+                    name: 'RecurrenceState',
+                    property: 'RecurrenceState',
+                    include: true
+                }, {
+                    type: 'hidden',
+                    name: 'Recurring',
+                    property: 'Recurring',
+                    include: true,
+                    formatValue: format.bool
+                }, {
+                    label: this.endingText,
+                    name: 'EndDate',
+                    property: 'EndDate',
+                    type: 'date',
+                    timeless: false,
+                    showTimePicker: false,
+                    dateFormatText: this.startingFormatText,
+                    minValue: (new Date(1900, 0, 1)),
+                    validator: [
+                        validator.exists,
+                        validator.isDateInRange
+                    ]
+                }]);
         }
     });
 });
+

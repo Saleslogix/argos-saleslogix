@@ -59,7 +59,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         resourceKind: 'opportunityProducts',
 
         createEntryForDelete: function(e) {
-           var entry = {
+            var entry = {
                 '$key': e['$key'],
                 '$etag': e['$etag'],
                 '$name': e['$name']
@@ -97,7 +97,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                 }
             }, this);
 
-            connect.publish('/app/refresh',[{
+            connect.publish('/app/refresh', [{
                 resourceKind: this.resourceKind
             }]);
             ReUI.back();
@@ -105,15 +105,15 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 'tbar': [{
-                    id: 'edit',
-                    action: 'navigateToEditView',
-                    security: App.getViewSecurity(this.editView, 'update')
-                },{
-                    id: 'removeOpportunityProduct',
-                    icon: 'content/images/icons/del_24.png',
-                    action: 'removeOpportunityProduct',
-                    title:  this.removeOppProductTitleText
-                }]
+                        id: 'edit',
+                        action: 'navigateToEditView',
+                        security: App.getViewSecurity(this.editView, 'update')
+                    }, {
+                        id: 'removeOpportunityProduct',
+                        icon: 'content/images/icons/del_24.png',
+                        action: 'removeOpportunityProduct',
+                        title: this.removeOppProductTitleText
+                    }]
             });
         },
         createLayout: function() {
@@ -129,7 +129,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                 name: 'DetailsSection',
                 children: [
                     {
-                        label: this.opportunityText, 
+                        label: this.opportunityText,
                         name: 'Opportunity.Description',
                         property: 'Opportunity.Description'
                     },
@@ -152,7 +152,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         label: App.hasMultiCurrency() ? this.basePriceText : this.priceText,
                         name: 'Price',
                         property: 'Price',
-                        renderer: (function (val) {
+                        renderer: (function(val) {
                             var exhangeRate, convertedValue;
                             if (App.hasMultiCurrency()) {
                                 exhangeRate = App.getBaseExchangeRate();
@@ -178,19 +178,19 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
             };
 
             if (!App.hasMultiCurrency()) {
-                
+
                 details.children.push({
                     label: this.adjustedPriceText,
                     name: 'CalculatedPrice',
                     property: 'CalculatedPrice',
                     renderer: format.currency
-                });                                
+                });
                 details.children.push({
-                        label: this.extendedPriceText,
-                        name: 'ExtendedPrice',
-                        property: 'ExtendedPrice',
-                        renderer: format.currency
-                });               
+                    label: this.extendedPriceText,
+                    name: 'ExtendedPrice',
+                    property: 'ExtendedPrice',
+                    renderer: format.currency
+                });
             }
             extendedPrice = {
                 title: this.extendedPriceSectionText,
@@ -210,7 +210,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
 
                             return format.currency.call(null, val);
                         }).bindDelegate(this)
-                    }                   
+                    }
                 ]
             };
             adjustedPrice = {
@@ -236,11 +236,11 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         label: this.myAdjustedPriceText,
                         name: 'CalculatedPriceMine',
                         property: 'CalculatedPrice',
-                        renderer: (function (val) {
+                        renderer: (function(val) {
                             var exhangeRate, convertedValue;
                             exhangeRate = App.getMyExchangeRate();
                             convertedValue = val * exhangeRate.rate;
-                            return format.multiCurrency.call(null, convertedValue, exhangeRate.code);                          
+                            return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
                         }).bindDelegate(this)
                     }
                 ]
@@ -259,6 +259,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                 layout.push(extendedPrice);
             }
             return layout;
-        }        
+        }
     });
 });
+

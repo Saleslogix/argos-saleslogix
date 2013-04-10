@@ -14,7 +14,7 @@ define('Mobile/SalesLogix/Fields/AddressField', [
             '<div data-dojo-attach-point="inputNode"></div>'
         ]),
         attributeMap: {
-            addressContent : {
+            addressContent: {
                 node: 'inputNode',
                 type: 'innerHTML'
             }

@@ -14,8 +14,9 @@ define('Mobile/SalesLogix/Validator', [
         },
         name: {
             fn: function(value) {
-                if (value)
+                if (value) {
                     return !/.+/.test(value.FirstName || '') || !/.+/.test(value.LastName || '');
+                }
                 return true;
             },
             message: "The field '${2}' must have a first and last name specified."
@@ -41,24 +42,26 @@ define('Mobile/SalesLogix/Validator', [
             message: "The value '${0}' is not a valid number."
         },
         isCurrency: {
-            fn: function(value, field){
-                return !(new RegExp(string.substitute('^[\\d]+(\\.\\d{1,${0}})?$',[
+            fn: function(value, field) {
+                return !(new RegExp(string.substitute('^[\\d]+(\\.\\d{1,${0}})?$', [
                     Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'])).test(value));
             },
             message: "The value '${0}' is not a valid currency number."
         },
         isInt32: {
             fn: function(value, field) {
-                if (value && (!/^\d{1,10}$/.test(value) || parseInt(value, 10) > 2147483647))
+                if (value && (!/^\d{1,10}$/.test(value) || parseInt(value, 10) > 2147483647)) {
                     return true;
+                }
                 return false;
             },
             message: "The field '${2}' value exceeds the allowed numeric range."
         },
         exceedsMaxTextLength: {
             fn: function(value, field) {
-                if (value && field && field.maxTextLength && value.length > field.maxTextLength)
+                if (value && field && field.maxTextLength && value.length > field.maxTextLength) {
                     return true;
+                }
                 return false;
             },
             message: "The field '${2}' value exceeds the allowed limit in length."
@@ -79,16 +82,16 @@ define('Mobile/SalesLogix/Validator', [
                         return false;
                     }
                 } else if (minValue && value.compareTo(minValue) === 1) {
-                        return false;
+                    return false;
                 } else if (maxValue && value.compareTo(maxValue) === -1) {
-                        return false;
+                    return false;
                 }
 
                 return true;
             },
             message: "The field '${2}' value is out of allowed date range."
         },
-        isPhoneNumber: { /* todo: remove, depreciated */ }
+        isPhoneNumber: { /* todo: remove, depreciated */}
     });
 });
 
