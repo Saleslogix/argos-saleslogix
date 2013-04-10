@@ -54,3 +54,4 @@ define('Mobile/SalesLogix/Views/ExchangeRateLookup', [
         }
     });
 });
+

@@ -21,3 +21,4 @@ define('Mobile/SalesLogix/Views/TextEdit', [
         }
     });
 });
+

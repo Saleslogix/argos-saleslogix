@@ -111,10 +111,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
             var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             var textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-            for (var i = 0; i < feed.$resources.length; i++)
-            {
-                if (feed.$resources[i][keyProperty] === currentValue)
+            for (var i = 0; i < feed.$resources.length; i++) {
+                if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
+                }
             }
 
             return currentValue;
@@ -127,112 +127,113 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
 
         createLayout: function() {
             return this.layout || (this.layout = [{
-                title: this.detailsText,
-                name: 'DetailsSection',
-                children: [{
-                    label: this.ticketNumberText,
-                    name: 'Ticket.TicketNumber',
-                    property: 'Ticket.TicketNumber',
-                    view: 'ticket_detail',
-                    key: 'Ticket.$key'
-                },{
-                    name: 'Ticket.Account.AccountName',
-                    property: 'Ticket.Account.AccountName',
-                    descriptor: 'Ticket.Account.AccountName',
-                    label: this.accountText,
-                    view: 'account_detail',
-                    key: 'Ticket.Account.$key'
-                },{
-                    name: 'Ticket.Contact',
-                    property: 'Ticket.Contact.Name',
-                    descriptor: 'Ticket.Contact.Name',
-                    label: this.contactText,
-                    view: 'contact_detail',
-                    key: 'Ticket.Contact.$key'
-                },{
-                    name: 'User.UserInfo',
-                    property: 'User.UserInfo',
-                    label: this.userText,
-                    tpl: template.nameLF
-                },{
-                    label: this.typeText,
-                    name: 'ActivityTypeCode',
-                    property: 'ActivityTypeCode',
-                    onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity"')
-                },{
-                    label: this.publicAccessText,
-                    name: 'PublicAccessCode',
-                    property: 'PublicAccessCode',
-                    onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity Public Access"')
-                },{
-                    label: this.assignedDateText,
-                    name: 'AssignedDate',
-                    property: 'AssignedDate',
-                    renderer: format.date
-                },{
-                    label: this.completedDateText,
-                    name: 'CompletedDate',
-                    property: 'CompletedDate',
-                    renderer: format.date
-                },{
-                    label: this.followUpText,
-                    name: 'FollowUp',
-                    property: 'FollowUp',
-                    renderer: format.yesNo
-                },{
-                    label: this.activityDescriptionText,
-                    name: 'ActivityDescription',
-                    property: 'ActivityDescription'
-                }]
-            },{
-                title: this.moreDetailsText,
-                collapsed: true,
-                name: 'MoreDetailsTextSection',
-                children: [{
-                    label: this.unitsText,
-                    name: 'Units',
-                    property: 'Units'
-                },{
-                    label: this.elapsedUnitsText,
-                    name: 'ElapsedUnits',
-                    property: 'ElapsedUnits'
-                },{
-                    label: this.rateTypeDescriptionText,
-                    name: 'RateTypeDescription.RateTypeCode',
-                    property: 'RateTypeDescription.RateTypeCode'
-                },{
-                    label: this.rateText,
-                    name: 'Rate',
-                    property: 'Rate',
-                    renderer: format.currency
-                },{
-                    label: this.totalLaborText,
-                    name: 'TotalLabor',
-                    property: 'TotalLabor',
-                    renderer: format.currency
-                },{
-                    label: this.totalPartsText,
-                    name: 'TotalParts',
-                    property: 'TotalParts',
-                    renderer: format.currency
-                },{
-                    label: this.totalFeeText,
-                    name: 'TotalFee',
-                    property: 'TotalFee',
-                    renderer: format.currency
-                }]
-            },{
-                list: true,
-                title: this.relatedItemsText,
-                name: 'RelatedItemsSection',
-                children: [{
-                    name: 'TicketActivityItemRelated',
-                    icon: 'content/images/icons/product_24.png',
-                    label: this.relatedTicketActivityItemText,
-                    where: this.formatRelatedQuery.bindDelegate(this, 'TicketActivity.Id eq "${0}"'),
-                    view: 'ticketactivityitem_related'
-                }]
-            }]);
+                    title: this.detailsText,
+                    name: 'DetailsSection',
+                    children: [{
+                            label: this.ticketNumberText,
+                            name: 'Ticket.TicketNumber',
+                            property: 'Ticket.TicketNumber',
+                            view: 'ticket_detail',
+                            key: 'Ticket.$key'
+                        }, {
+                            name: 'Ticket.Account.AccountName',
+                            property: 'Ticket.Account.AccountName',
+                            descriptor: 'Ticket.Account.AccountName',
+                            label: this.accountText,
+                            view: 'account_detail',
+                            key: 'Ticket.Account.$key'
+                        }, {
+                            name: 'Ticket.Contact',
+                            property: 'Ticket.Contact.Name',
+                            descriptor: 'Ticket.Contact.Name',
+                            label: this.contactText,
+                            view: 'contact_detail',
+                            key: 'Ticket.Contact.$key'
+                        }, {
+                            name: 'User.UserInfo',
+                            property: 'User.UserInfo',
+                            label: this.userText,
+                            tpl: template.nameLF
+                        }, {
+                            label: this.typeText,
+                            name: 'ActivityTypeCode',
+                            property: 'ActivityTypeCode',
+                            onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity"')
+                        }, {
+                            label: this.publicAccessText,
+                            name: 'PublicAccessCode',
+                            property: 'PublicAccessCode',
+                            onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Activity Public Access"')
+                        }, {
+                            label: this.assignedDateText,
+                            name: 'AssignedDate',
+                            property: 'AssignedDate',
+                            renderer: format.date
+                        }, {
+                            label: this.completedDateText,
+                            name: 'CompletedDate',
+                            property: 'CompletedDate',
+                            renderer: format.date
+                        }, {
+                            label: this.followUpText,
+                            name: 'FollowUp',
+                            property: 'FollowUp',
+                            renderer: format.yesNo
+                        }, {
+                            label: this.activityDescriptionText,
+                            name: 'ActivityDescription',
+                            property: 'ActivityDescription'
+                        }]
+                }, {
+                    title: this.moreDetailsText,
+                    collapsed: true,
+                    name: 'MoreDetailsTextSection',
+                    children: [{
+                            label: this.unitsText,
+                            name: 'Units',
+                            property: 'Units'
+                        }, {
+                            label: this.elapsedUnitsText,
+                            name: 'ElapsedUnits',
+                            property: 'ElapsedUnits'
+                        }, {
+                            label: this.rateTypeDescriptionText,
+                            name: 'RateTypeDescription.RateTypeCode',
+                            property: 'RateTypeDescription.RateTypeCode'
+                        }, {
+                            label: this.rateText,
+                            name: 'Rate',
+                            property: 'Rate',
+                            renderer: format.currency
+                        }, {
+                            label: this.totalLaborText,
+                            name: 'TotalLabor',
+                            property: 'TotalLabor',
+                            renderer: format.currency
+                        }, {
+                            label: this.totalPartsText,
+                            name: 'TotalParts',
+                            property: 'TotalParts',
+                            renderer: format.currency
+                        }, {
+                            label: this.totalFeeText,
+                            name: 'TotalFee',
+                            property: 'TotalFee',
+                            renderer: format.currency
+                        }]
+                }, {
+                    list: true,
+                    title: this.relatedItemsText,
+                    name: 'RelatedItemsSection',
+                    children: [{
+                        name: 'TicketActivityItemRelated',
+                        icon: 'content/images/icons/product_24.png',
+                        label: this.relatedTicketActivityItemText,
+                        where: this.formatRelatedQuery.bindDelegate(this, 'TicketActivity.Id eq "${0}"'),
+                        view: 'ticketactivityitem_related'
+                    }]
+                }]);
         }
     });
 });
+

@@ -57,29 +57,30 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
         eventEditView: 'event_edit',
 
         activateEntry: function(params) {
-            if (params.key)
-            {
+            if (params.key) {
                 var source = this.options && this.options.source,
                     view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
 
-                if (view)
+                if (view) {
                     view.show({
-                        insert: true,
-                        entry: (this.options && this.options.entry) || null,
-                        source: source,
-                        activityType: params.key,
-                        title: this.activityTypeText[params.key],
-                        returnTo: this.options && this.options.returnTo
-                    }, {
-                        returnTo: -1
-                    });
+                            insert: true,
+                            entry: (this.options && this.options.entry) || null,
+                            source: source,
+                            activityType: params.key,
+                            title: this.activityTypeText[params.key],
+                            returnTo: this.options && this.options.returnTo
+                        }, {
+                            returnTo: -1
+                        });
+                }
             }
         },
         refreshRequiredFor: function(options) {
-            if (this.options)
+            if (this.options) {
                 return options;
-            else
+            } else {
                 return true;
+            }
         },
         hasMoreData: function() {
             return false;
@@ -93,16 +94,14 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
                     'calendar_yearlist'
                 ];
 
-            for (var i = 0; i < this.activityTypeOrder.length; i++)
-            {
+            for (var i = 0; i < this.activityTypeOrder.length; i++) {
                 list.push({
                     '$key': this.activityTypeOrder[i],
                     '$descriptor': this.activityTypeText[this.activityTypeOrder[i]],
-                    'icon':this.activityTypeIcons[this.activityTypeOrder[i]]
+                    'icon': this.activityTypeIcons[this.activityTypeOrder[i]]
                 });
             }
-            if (eventViews.indexOf(this.options.returnTo) === -1)
-            {
+            if (eventViews.indexOf(this.options.returnTo) === -1) {
                 list.pop(); // remove event for non event views
             }
 
@@ -118,3 +117,4 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
         }
     });
 });
+

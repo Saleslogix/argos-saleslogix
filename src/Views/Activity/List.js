@@ -83,9 +83,10 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         ],
         resourceKind: 'activities',
         contractName: 'system',
-                
+
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });
+

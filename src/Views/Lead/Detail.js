@@ -80,21 +80,20 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
             'WorkPhone'
         ],
         resourceKind: 'leads',
-        
+
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
-            if (view)
-            {
+            if (view) {
                 this.refreshRequired = true;
-                
+
                 view.show({
-                    title: this.activityTypeText[type],
-                    template: {},
-                    entry: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
+                        title: this.activityTypeText[type],
+                        template: {},
+                        entry: entry,
+                        insert: true
+                    }, {
+                        complete: complete
+                    });
             }
         },
         recordCallToHistory: function(complete) {
@@ -156,8 +155,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
         },
         addNote: function() {
             var view = App.getView(this.noteEditView);
-            if (view)
-            {
+            if (view) {
                 view.show({
                     template: {},
                     insert: true
@@ -166,126 +164,127 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                list: true,
-                title: this.actionsText,
-                cls: 'action-list',
-                name: 'QuickActionSection',
-                children: [{
-                    name: 'CallWorkPhoneAction',
-                    property: 'WorkPhone',
-                    label: this.callWorkNumberText,
-                    icon: 'content/images/icons/Dial_24x24.png',
-                    action: 'callWorkPhone',
-                    disabled: this.checkWorkPhone,
-                    renderer: format.phone.bindDelegate(this, false)
-                },{
-                    name: 'CheckEmailAction',
-                    property: 'Email',
-                    label: this.sendEmailText,
-                    icon: 'content/images/icons/Send_Write_email_24x24.png',
-                    action: 'sendEmail',
-                    disabled: this.checkEmail
-                },{
-                    name: 'ScheduleActivityAction',
-                    label: this.scheduleActivityText,
-                    icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                    action: 'scheduleActivity',
-                    tpl: new Simplate([
-                        '{%: $.Company %} / {%: $.LeadNameLastFirst %}'
-                    ])
-                },{
-                    name: 'AddNoteAction',
-                    property: 'LeadNameLastFirst',
-                    label: this.addNoteText,
-                    icon: 'content/images/icons/New_Note_24x24.png',
-                    action: 'addNote'
-                },{
-                    name: 'ViewAddressAction',
-                    property: 'Address',
-                    label: this.viewAddressText,
-                    icon: 'content/images/icons/Map_24.png',
-                    action: 'viewAddress',
-                    disabled: this.checkAddress,
-                    renderer: format.address.bindDelegate(this, [true, ' '])
-                }]
-            },{
-                title: this.detailsText,
-                name: 'DetailsSection',
-                children: [{
-                    label: this.nameText,
-                    name: 'LeadNameLastFirst',
-                    property: 'LeadNameLastFirst'
-                },{
-                    label: this.accountText,
-                    name: 'Company',
-                    property: 'Company'
-                },{
-                    label: this.webText,
-                    name: 'WebAddress',
-                    property: 'WebAddress',
-                    renderer: format.link
-                },{
-                    label: this.leadTitleText,
-                    name: 'Title',
-                    property: 'Title'
-                },{
-                    label: this.tollFreeText,
-                    name: 'TollFree',
-                    property: 'TollFree',
-                    renderer: format.phone
-                },{
-                    label: this.leadSourceText,
-                    name: 'LeadSource.Description',
-                    property: 'LeadSource.Description'
-                }]
-            },{
-                title: this.moreDetailsText,
-                name: 'MoreDetailsSection',
-                collapsed: true,
-                children: [{
-                    label: this.interestsText,
-                    name: 'Interests',
-                    property: 'Interests'
-                },{
-                    label: this.industryText,
-                    name: 'Industry',
-                    property: 'Industry'
-                },{
-                    label: this.sicCodeText,
-                    name: 'SICCode',
-                    property: 'SICCode'
-                },{
-                    label: this.businessDescriptionText,
-                    name: 'BusinessDescription',
-                    property: 'BusinessDescription'
-                },{
-                    label: this.notesText,
-                    name: 'Notes',
-                    property: 'Notes'
-                },{
-                    label: this.ownerText,
-                    name: 'Owner.OwnerDescription',
-                    property: 'Owner.OwnerDescription'
-                }]
-            },{
-                list: true,
-                title: this.relatedItemsText,
-                name: 'RelatedItemsSection',
-                children: [{
-                    name: 'ActivityRelated',
-                    icon: 'content/images/icons/To_Do_24x24.png',
-                    label: this.relatedActivitiesText,
-                    view: 'activity_related',
-                    where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}"')
-                },
-                {
-                    name: 'HistoryRelated',
-                    icon: 'content/images/icons/journal_24.png',
-                    label: this.relatedHistoriesText,
-                    where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}" and Type ne "atDatabaseChange"'),
-                    view: 'history_related'
-                }]
-            }]);
+                    list: true,
+                    title: this.actionsText,
+                    cls: 'action-list',
+                    name: 'QuickActionSection',
+                    children: [{
+                            name: 'CallWorkPhoneAction',
+                            property: 'WorkPhone',
+                            label: this.callWorkNumberText,
+                            icon: 'content/images/icons/Dial_24x24.png',
+                            action: 'callWorkPhone',
+                            disabled: this.checkWorkPhone,
+                            renderer: format.phone.bindDelegate(this, false)
+                        }, {
+                            name: 'CheckEmailAction',
+                            property: 'Email',
+                            label: this.sendEmailText,
+                            icon: 'content/images/icons/Send_Write_email_24x24.png',
+                            action: 'sendEmail',
+                            disabled: this.checkEmail
+                        }, {
+                            name: 'ScheduleActivityAction',
+                            label: this.scheduleActivityText,
+                            icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                            action: 'scheduleActivity',
+                            tpl: new Simplate([
+                                '{%: $.Company %} / {%: $.LeadNameLastFirst %}'
+                            ])
+                        }, {
+                            name: 'AddNoteAction',
+                            property: 'LeadNameLastFirst',
+                            label: this.addNoteText,
+                            icon: 'content/images/icons/New_Note_24x24.png',
+                            action: 'addNote'
+                        }, {
+                            name: 'ViewAddressAction',
+                            property: 'Address',
+                            label: this.viewAddressText,
+                            icon: 'content/images/icons/Map_24.png',
+                            action: 'viewAddress',
+                            disabled: this.checkAddress,
+                            renderer: format.address.bindDelegate(this, [true, ' '])
+                        }]
+                }, {
+                    title: this.detailsText,
+                    name: 'DetailsSection',
+                    children: [{
+                            label: this.nameText,
+                            name: 'LeadNameLastFirst',
+                            property: 'LeadNameLastFirst'
+                        }, {
+                            label: this.accountText,
+                            name: 'Company',
+                            property: 'Company'
+                        }, {
+                            label: this.webText,
+                            name: 'WebAddress',
+                            property: 'WebAddress',
+                            renderer: format.link
+                        }, {
+                            label: this.leadTitleText,
+                            name: 'Title',
+                            property: 'Title'
+                        }, {
+                            label: this.tollFreeText,
+                            name: 'TollFree',
+                            property: 'TollFree',
+                            renderer: format.phone
+                        }, {
+                            label: this.leadSourceText,
+                            name: 'LeadSource.Description',
+                            property: 'LeadSource.Description'
+                        }]
+                }, {
+                    title: this.moreDetailsText,
+                    name: 'MoreDetailsSection',
+                    collapsed: true,
+                    children: [{
+                            label: this.interestsText,
+                            name: 'Interests',
+                            property: 'Interests'
+                        }, {
+                            label: this.industryText,
+                            name: 'Industry',
+                            property: 'Industry'
+                        }, {
+                            label: this.sicCodeText,
+                            name: 'SICCode',
+                            property: 'SICCode'
+                        }, {
+                            label: this.businessDescriptionText,
+                            name: 'BusinessDescription',
+                            property: 'BusinessDescription'
+                        }, {
+                            label: this.notesText,
+                            name: 'Notes',
+                            property: 'Notes'
+                        }, {
+                            label: this.ownerText,
+                            name: 'Owner.OwnerDescription',
+                            property: 'Owner.OwnerDescription'
+                        }]
+                }, {
+                    list: true,
+                    title: this.relatedItemsText,
+                    name: 'RelatedItemsSection',
+                    children: [{
+                            name: 'ActivityRelated',
+                            icon: 'content/images/icons/To_Do_24x24.png',
+                            label: this.relatedActivitiesText,
+                            view: 'activity_related',
+                            where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}"')
+                        },
+                        {
+                            name: 'HistoryRelated',
+                            icon: 'content/images/icons/journal_24.png',
+                            label: this.relatedHistoriesText,
+                            where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}" and Type ne "atDatabaseChange"'),
+                            view: 'history_related'
+                        }]
+                }]);
         }
     });
 });
+

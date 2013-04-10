@@ -66,7 +66,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         setValues: function(values) {
             this.inherited(arguments);
             var adjusted, myCode, oppCode, baseCode;
-            this.fields['Program'].setValue({'$key':'', 'Program': values.Program});
+            this.fields['Program'].setValue({'$key': '', 'Program': values.Program});
 
             if (values.Discount > 0) {
                 adjusted = values.Price - (values.Discount * values.Price);
@@ -89,9 +89,9 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             this.fields['ExtendedPrice'].setCurrencyCode(baseCode);
             this._updateExtendedPrice();
 
-            if ((values.Product.Family !== null) && (values.Price !== null))
+            if ((values.Product.Family !== null) && (values.Price !== null)) {
                 this._enableUI(true);
-            else{
+            } else {
                 this._enableUI(false);
             }
         },
@@ -172,7 +172,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                     this.fields['CalculatedPriceMine'].setValueNoTrigger(this._getMyRate() * selection.Price);
                 }
                 this._updateExtendedPrice();
-                this._enableUI(true);                
+                this._enableUI(true);
             }
         },
         onDiscountChange: function(value, field) {
@@ -190,14 +190,14 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         onAdjustedPriceChange: function(value, field) {
             var price, discount, adjusted, myadjusted;
             price = parseFloat(this.fields['Price'].getValue(), 10) || 0;
-            adjusted = parseFloat(this.fields['CalculatedPrice'].getValue(), 10) ||0;
+            adjusted = parseFloat(this.fields['CalculatedPrice'].getValue(), 10) || 0;
 
             discount = this._calculateDiscount(price, adjusted);
             this.fields['Discount'].setValueNoTrigger(discount);
 
             if (App.hasMultiCurrency()) {
                 myadjusted = this._getMyRate() * adjusted;
-                this.fields['CalculatedPriceMine'].setValueNoTrigger(myadjusted);               
+                this.fields['CalculatedPriceMine'].setValueNoTrigger(myadjusted);
             }
             this._updateExtendedPrice();
         },
@@ -206,8 +206,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             myadjusted = this.fields['CalculatedPriceMine'].getValue();
             price = this.fields['Price'].getValue() || 0;
 
-            myrate = this._getMyRate()
-            myprice = price * myrate;// get the price in the users exchange rate
+            myrate = this._getMyRate();
+            myprice = price * myrate; // get the price in the users exchange rate
 
             discount = this._calculateDiscount(myprice, myadjusted);
             this.fields['Discount'].setValueNoTrigger(discount);
@@ -227,8 +227,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             var discount;
             if (price === 0) {
                 discount = 0.0;
-            }
-            else {
+            } else {
                 discount = (1 - (adjusted / price)) * 100;
             }
             return discount;
@@ -237,13 +236,12 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             var adjusted;
             if (discount === 0) {
                 adjusted = price;
-            }
-            else {
-                adjusted = price - (price * (discount/100));
+            } else {
+                adjusted = price - (price * (discount / 100));
             }
             return adjusted;
         },
-        _updateAdjustedPrices: function (adjusted) {
+        _updateAdjustedPrices: function(adjusted) {
             var myadjusted;
             this.fields['CalculatedPrice'].setValueNoTrigger(adjusted);
             if (App.hasMultiCurrency()) {
@@ -252,7 +250,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             }
         },
         _updateExtendedPrice: function() {
-            var  adjusted, quantity, extended;
+            var adjusted, quantity, extended;
             quantity = parseFloat(this.fields['Quantity'].getValue(), 10) || 0;
             adjusted = parseFloat(this.fields['CalculatedPrice'].getValue(), 10) || 0;
             extended = adjusted * quantity;
@@ -421,3 +419,4 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         }
     });
 });
+

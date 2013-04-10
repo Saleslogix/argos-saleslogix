@@ -47,15 +47,17 @@ define('Mobile/SalesLogix/Views/Home', [
 
         navigateToView: function(params) {
             var view = App.getView(params && params.view);
-            if (view)
+            if (view) {
                 view.show();
+            }
         },
         addAccountContact: function(params) {
             var view = App.getView(this.addAccountContactView);
-            if (view)
+            if (view) {
                 view.show({
                     insert: true
                 });
+            }
         },
         formatSearchQuery: function(searchQuery) {
             var expression = new RegExp(searchQuery, 'i');
@@ -68,11 +70,12 @@ define('Mobile/SalesLogix/Views/Home', [
             return false;
         },
         getGroupForEntry: function(entry) {
-            if (entry.view)
+            if (entry.view) {
                 return {
                     tag: 'view',
                     title: this.viewsText
                 };
+            }
 
             return {
                 tag: 'action',
@@ -110,11 +113,9 @@ define('Mobile/SalesLogix/Views/Home', [
                 children: []
             };
 
-            for (var i = 0; i < configured.length; i++)
-            {
+            for (var i = 0; i < configured.length; i++) {
                 var view = App.getView(configured[i]);
-                if (view)
-                {
+                if (view) {
                     visible.children.push({
                         'action': 'navigateToView',
                         'view': view.id,
@@ -133,18 +134,18 @@ define('Mobile/SalesLogix/Views/Home', [
             var layout = this._createCustomizedLayout(this.createLayout()),
                 list = [];
 
-            for (var i = 0; i < layout.length; i++)
-            {
+            for (var i = 0; i < layout.length; i++) {
                 var section = layout[i].children;
 
-                for (var j = 0; j < section.length; j++)
-                {
+                for (var j = 0; j < section.length; j++) {
                     var row = section[j];
 
-                    if (row['security'] && !App.hasAccessTo(row['security']))
+                    if (row['security'] && !App.hasAccessTo(row['security'])) {
                         continue;
-                    if (typeof this.query !== 'function' || this.query(row))
+                    }
+                    if (typeof this.query !== 'function' || this.query(row)) {
                         list.push(row);
+                    }
                 }
             }
 
@@ -154,16 +155,18 @@ define('Mobile/SalesLogix/Views/Home', [
         _onSearchExpression: function(expression, widget) {
             var view = App.getView(this.searchView);
 
-            if (view)
+            if (view) {
                 view.show({
                     query: expression
                 });
+            }
         },
 
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
-            if (view)
+            if (view) {
                 view.show();
+            }
         },
         _onRegistered: function() {
             this.refreshRequired = true;
@@ -172,13 +175,18 @@ define('Mobile/SalesLogix/Views/Home', [
             var visible = lang.getObject('preferences.home.visible', false, App) || [],
                 shown = this.feed && this.feed['$resources'];
 
-            if (!visible || !shown || (visible.length != shown.length))
+            if (!visible || !shown || (visible.length != shown.length)) {
                 return true;
+            }
 
-            for (var i = 0; i < visible.length; i++)
-                if (visible[i] != shown[i]['$key']) return true;
+            for (var i = 0; i < visible.length; i++) {
+                if (visible[i] != shown[i]['$key']) {
+                    return true;
+                }
+            }
 
             return this.inherited(arguments);
         }
     });
 });
+

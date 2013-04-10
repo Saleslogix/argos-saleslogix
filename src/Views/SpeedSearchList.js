@@ -78,20 +78,26 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             var descriptor = '';
 
             switch (type) {
-                case 'Account': descriptor = this.getFieldValue(item.fields, 'account');
+                case 'Account':
+                    descriptor = this.getFieldValue(item.fields, 'account');
                     break;
-                case 'Activity': descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
+                case 'Activity':
+                    descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
                     break;
-                case 'Contact': descriptor = string.substitute('${firstname} ${lastname} (${account})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
+                case 'Contact':
+                    descriptor = string.substitute('${firstname} ${lastname} (${account})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
                     break;
-                case 'Lead': descriptor = string.substitute('${firstname} ${lastname} (${account})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
+                case 'Lead':
+                    descriptor = string.substitute('${firstname} ${lastname} (${account})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
                     break;
                 case 'Opportunity':
                     descriptor = this.getFieldValue(item.fields, 'subject');
                     break;
-                case 'History': descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
+                case 'History':
+                    descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
                     break;
-                case 'Ticket': descriptor = item.uiDisplayName;
+                case 'Ticket':
+                    descriptor = item.uiDisplayName;
                     break;
             }
             return descriptor;
@@ -103,7 +109,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             if (!displayName) {
                 return '';
             }
-            
+
             len = displayName.length;
             return displayName.substring(len - 12);
         },
@@ -190,22 +196,22 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         },
         createSearchEntry: function() {
             var entry = {
-                    request: {
-                        docTextItem: -1,
-                        searchText: this.query,
-                        searchType: App.speedSearch.searchType,
-                        noiseFile: 'PMINoise.dat',
-                        includeStemming: App.speedSearch.includeStemming,
-                        includeThesaurus: App.speedSearch.includeThesaurus,
-                        includePhonic: App.speedSearch.includePhonic,
-                        useFrequentFilter: App.speedSearch.useFrequentFilter,
-                        indexes: this.indexes,
-                        whichPage: this.currentPage,
-                        itemsPerPage: this.pageSize,
-                        filters: null
-                    },
-                    response: null
-                };
+                request: {
+                    docTextItem: -1,
+                    searchText: this.query,
+                    searchType: App.speedSearch.searchType,
+                    noiseFile: 'PMINoise.dat',
+                    includeStemming: App.speedSearch.includeStemming,
+                    includeThesaurus: App.speedSearch.includeThesaurus,
+                    includePhonic: App.speedSearch.includePhonic,
+                    useFrequentFilter: App.speedSearch.useFrequentFilter,
+                    indexes: this.indexes,
+                    whichPage: this.currentPage,
+                    itemsPerPage: this.pageSize,
+                    filters: null
+                },
+                response: null
+            };
 
             return entry;
         },
@@ -236,3 +242,4 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         }
     });
 });
+

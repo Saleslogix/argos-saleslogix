@@ -13,16 +13,15 @@ define('Mobile/SalesLogix/Action', [
 
         navigateToHistoryInsert: function(entry, complete) {
             var view = App.getView('history_edit');
-            if (view)
-            {
+            if (view) {
                 view.show({
-                    title: entry['Title'] || null,
-                    template: {},
-                    entry: entry,
-                    insert: true
-                }, {
-                    complete: complete
-                });
+                        title: entry['Title'] || null,
+                        template: {},
+                        entry: entry,
+                        insert: true
+                    }, {
+                        complete: complete
+                    });
             }
         },
         recordToHistory: function(complete, o) {
@@ -72,8 +71,9 @@ define('Mobile/SalesLogix/Action', [
 
             var view = App.getView('history_edit');
 
-            if (view)
+            if (view) {
                 view.show({insert: true});
+            }
         },
         addActivity: function(action, selection) {
             this.setSource({
@@ -85,13 +85,14 @@ define('Mobile/SalesLogix/Action', [
         },
         navigateToEntity: function(action, selection, o) {
             var options = {
-                    key: utility.getValue(selection.data, o.keyProperty),
-                    descriptor: utility.getValue(selection.data, o.textProperty)
-                },
+                key: utility.getValue(selection.data, o.keyProperty),
+                descriptor: utility.getValue(selection.data, o.textProperty)
+            },
                 view = App.getView(o.view);
 
-            if (view && options.key)
+            if (view && options.key) {
                 view.show(options);
+            }
         },
 
         hasProperty: function(action, selection, property) {
@@ -99,3 +100,4 @@ define('Mobile/SalesLogix/Action', [
         }
     });
 });
+

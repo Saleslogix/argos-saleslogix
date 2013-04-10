@@ -37,32 +37,33 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-            {
-                title: this.detailsText,
-                name: 'DetailsSection',
-                children: [{
-                    name: 'ProductName',
-                    property: 'Product.Name',
-                    label: this.productNameText
-                },{
-                    name: 'ProductActualId',
-                    property: 'Product.ActualId',
-                    label: this.skuText
-                },{
-                    name: 'SerialNumber',
-                    property: 'AccountProduct.SerialNumber',
-                    label: this.serialNumberText
-                },{
-                    name: 'ItemAmount',
-                    property: 'ItemAmount',
-                    label: this.itemAmountText,
-                    renderer: format.currency
-                },{
-                    name: 'ItemDescription',
-                    property: 'ItemDescription',
-                    label: this.itemDescriptionText
-                }]
-            }]);
+                {
+                    title: this.detailsText,
+                    name: 'DetailsSection',
+                    children: [{
+                            name: 'ProductName',
+                            property: 'Product.Name',
+                            label: this.productNameText
+                        }, {
+                            name: 'ProductActualId',
+                            property: 'Product.ActualId',
+                            label: this.skuText
+                        }, {
+                            name: 'SerialNumber',
+                            property: 'AccountProduct.SerialNumber',
+                            label: this.serialNumberText
+                        }, {
+                            name: 'ItemAmount',
+                            property: 'ItemAmount',
+                            label: this.itemAmountText,
+                            renderer: format.currency
+                        }, {
+                            name: 'ItemDescription',
+                            property: 'ItemDescription',
+                            label: this.itemDescriptionText
+                        }]
+                }]);
         }
     });
 });
+

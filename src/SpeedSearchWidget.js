@@ -15,7 +15,7 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
 ) {
     return declare('Mobile.SalesLogix.SpeedSearchWidget', [_Widget, _Templated], {
         attributeMap: {
-            queryValue: { node: 'queryNode', type: 'attribute', attribute: 'value' }
+            queryValue: {node: 'queryNode', type: 'attribute', attribute: 'value'}
         },
         widgetTemplate: new Simplate([
             '<div class="search-widget">',
@@ -37,9 +37,11 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
         },
         search: function() {
             var queryTerm = this.getQuery();
-            if (!lang.trim(queryTerm)) return;
+            if (!lang.trim(queryTerm)) {
+                return;
+            }
 
-            this.onSearchExpression(queryTerm, this)
+            this.onSearchExpression(queryTerm, this);
         },
         getQuery: function() {
             return this.queryNode.value;
@@ -47,7 +49,7 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
         configure: function(options) {
             lang.mixin(this, options);
         },
-        _onClearClick: function(evt){
+        _onClearClick: function(evt) {
             event.stop(evt);
             this.clear();
             this.queryNode.focus();
@@ -60,8 +62,7 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
             domClass.add(this.domNode, 'search-active');
         },
         _onKeyPress: function(evt) {
-            if (evt.keyCode == 13 || evt.keyCode == 10)
-            {
+            if (evt.keyCode == 13 || evt.keyCode == 10) {
                 event.stop(evt);
                 this.queryNode.blur();
                 this.search();
@@ -73,7 +74,7 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
          * @param widget
          */
         onSearchExpression: function(expression, widget) {
-
         }
     });
 });
+

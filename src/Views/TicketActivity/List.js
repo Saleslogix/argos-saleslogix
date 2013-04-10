@@ -23,10 +23,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         itemTemplate: new Simplate([
             '<h3>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h3>',
             '<div class="note-text-item">',
-                '<div class="note-text-wrap">',
-                    '{%: $.ActivityDescription %}',
-                '</div>',
-                '<div class="note-text-more"></div>',
+            '<div class="note-text-wrap">',
+            '{%: $.ActivityDescription %}',
+            '</div>',
+            '<div class="note-text-more"></div>',
             '</div>'
         ]),
 
@@ -51,10 +51,11 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
             query('.note-text-item', this.contentNode).forEach(function(node) {
                 var wrapNode = query('.note-text-wrap', node)[0],
                     moreNode = query('.note-text-more', node)[0];
-                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h)
+                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {
                     domStyle.set(moreNode, 'visibility', 'visible');
-                else
+                } else {
                     domStyle.set(moreNode, 'visibility', 'hidden');
+                }
             });
         },
         processFeed: function() {
@@ -73,3 +74,4 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         }
     });
 });
+

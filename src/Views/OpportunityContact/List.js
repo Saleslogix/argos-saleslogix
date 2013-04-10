@@ -13,9 +13,9 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
         itemTemplate: new Simplate([
             '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',
             '<h4 class="{% if ($.IsPrimary) { %} primary {% } %}">',
-                '{% if ($.SalesRole) { %}',
-                    '{%: $.SalesRole %} | ',
-                '{% } %}',
+            '{% if ($.SalesRole) { %}',
+            '{%: $.SalesRole %} | ',
+            '{% } %}',
             '{%: $.Contact.Title %}</h4>'
         ]),
 
@@ -49,23 +49,26 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
             var view = App.getPrimaryActiveView(),
                 selectionModel = view && view.get('selectionModel'),
                 entry;
-            if (!selectionModel) return;
+            if (!selectionModel) {
+                return;
+            }
 
-            if (selectionModel.getSelectionCount() == 0 && view.options.allowEmptySelection)
+            if (selectionModel.getSelectionCount() == 0 && view.options.allowEmptySelection) {
                 ReUI.back();
+            }
 
             var context = App.isNavigationFromResourceKind(['opportunities']),
                 selections = selectionModel.getSelections();
-            for (var selectionKey in selections)
-            {
+            for (var selectionKey in selections) {
                 entry = {
                     'Opportunity': {'$key': context.key},
                     'Contact': view.entries[selectionKey]
                 };
             }
 
-            if (entry)
+            if (entry) {
                 this.navigateToInsertView(entry);
+            }
         },
         createNavigationOptions: function() {
             var options = {
@@ -84,16 +87,16 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
                 ],
                 tools: {
                     tbar: [{
-                        id: 'complete',
-                        fn: this.complete,
-                        cls: 'invisible',
-                        scope: this
-                    },{
-                        id: 'cancel',
-                        side: 'left',
-                        fn: ReUI.back,
-                        scope: ReUI
-                    }]
+                            id: 'complete',
+                            fn: this.complete,
+                            cls: 'invisible',
+                            scope: this
+                        }, {
+                            id: 'cancel',
+                            side: 'left',
+                            fn: ReUI.back,
+                            scope: ReUI
+                        }]
                 }
             };
             return options;
@@ -104,14 +107,16 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
                     entry: entry,
                     insert: true
                 };
-            if (view && options)
-                view.show(options, { returnTo: -1 });
+            if (view && options) {
+                view.show(options, {returnTo: -1});
+            }
         },
         navigateToSelectView: function() {
             var view = App.getView(this.selectView),
                 options = this.createNavigationOptions();
-            if (view && options)
+            if (view && options) {
                 view.show(options);
+            }
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
@@ -128,3 +133,4 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
         }
     });
 });
+
