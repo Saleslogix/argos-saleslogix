@@ -65,12 +65,19 @@
     require({
         baseUrl: "./",
         packages: [
-        { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
-        { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
-        { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
-        { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
-        { name: 'Mobile/SalesLogix', location: 'src' }
-    ]});
+            { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
+            { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
+            { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
+            { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
+            { name: 'Mobile/SalesLogix', location: 'src' }
+        ],
+        paths: {
+            'Mobile/SalesLogix': './src',
+            'Sage/Platform/Mobile': '../../argos-sdk/src',
+            'configuration': './configuration',
+            'localization': './localization'
+        }
+    });
     </script>
 
     <script type="text/javascript">
