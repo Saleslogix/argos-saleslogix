@@ -17,3 +17,4 @@ define('spec/Views/ExchangeRateLookup.spec', [
         });
     });
 });
+

@@ -35,3 +35,4 @@ define('Mobile/SalesLogix/Views/Competitor/List', [
         }
     });
 });
+

@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
         contactTitleText: 'title',
         emailText: 'email',
         faxText: 'fax',
-        importSourceText : 'lead source',
+        importSourceText: 'lead source',
         industryText: 'industry',
         industryTitleText: 'Industry',
         interestsText: 'interests',
@@ -201,3 +201,4 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
         }
     });
 });
+

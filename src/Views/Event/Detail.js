@@ -48,35 +48,36 @@ define('Mobile/SalesLogix/Views/Event/Detail', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                title: this.detailsText,
-                name: 'DetailsSection',
-                children: [{
-                    name: 'Type',
-                    property: 'Type',
-                    label: this.typeText,
-                    renderer: this.formatEventType.bindDelegate(this)
-                },{
-                    name: 'Description',
-                    property: 'Description',
-                    label: this.descriptionText
-                }]
-            },{
-                title: this.whenText,
-                name: 'WhenSection',
-                children: [{
-                    name: 'StartDate',
-                    property: 'StartDate',
-                    label: this.startTimeText,
-                    renderer: format.date.bindDelegate(
-                        this, this.startDateFormatText)
-                },{
-                    name: 'EndDate',
-                    property: 'EndDate',
-                    label: this.endTimeText,
-                    renderer: format.date.bindDelegate(
-                        this, this.endDateFormatText)
-                }]
-            }]);
-        }        
+                    title: this.detailsText,
+                    name: 'DetailsSection',
+                    children: [{
+                            name: 'Type',
+                            property: 'Type',
+                            label: this.typeText,
+                            renderer: this.formatEventType.bindDelegate(this)
+                        }, {
+                            name: 'Description',
+                            property: 'Description',
+                            label: this.descriptionText
+                        }]
+                }, {
+                    title: this.whenText,
+                    name: 'WhenSection',
+                    children: [{
+                            name: 'StartDate',
+                            property: 'StartDate',
+                            label: this.startTimeText,
+                            renderer: format.date.bindDelegate(
+                                this, this.startDateFormatText)
+                        }, {
+                            name: 'EndDate',
+                            property: 'EndDate',
+                            label: this.endTimeText,
+                            renderer: format.date.bindDelegate(
+                                this, this.endDateFormatText)
+                        }]
+                }]);
+        }
     });
 });
+

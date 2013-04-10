@@ -51,32 +51,32 @@ define('Mobile/SalesLogix/Views/Account/List', [
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                    id: 'edit',
-                    icon: 'content/images/icons/edit_24.png',
-                    label: this.editActionText,
-                    action: 'navigateToEditView'
-                },{
-                    id: 'callMain',
-                    icon: 'content/images/icons/Call_24x24.png',
-                    label: this.callMainActionText,
-                    enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
-                    fn: action.callPhone.bindDelegate(this, 'MainPhone')
-                },{
-                    id: 'viewContacts',
-                    icon: 'content/images/icons/Contacts_24x24.png',
-                    label: this.viewContactsActionText,
-                    fn: this.navigateToRelatedView.bindDelegate(this, 'contact_related', 'Account.id eq "${0}"')
-                },{
-                    id: 'addNote',
-                    icon: 'content/images/icons/New_Note_24x24.png',
-                    label: this.addNoteActionText,
-                    fn: action.addNote.bindDelegate(this)
-                },{
-                    id: 'addActivity',
-                    icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                    label: this.addActivityActionText,
-                    fn: action.addActivity.bindDelegate(this)
-                }]
+                        id: 'edit',
+                        icon: 'content/images/icons/edit_24.png',
+                        label: this.editActionText,
+                        action: 'navigateToEditView'
+                    }, {
+                        id: 'callMain',
+                        icon: 'content/images/icons/Call_24x24.png',
+                        label: this.callMainActionText,
+                        enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
+                        fn: action.callPhone.bindDelegate(this, 'MainPhone')
+                    }, {
+                        id: 'viewContacts',
+                        icon: 'content/images/icons/Contacts_24x24.png',
+                        label: this.viewContactsActionText,
+                        fn: this.navigateToRelatedView.bindDelegate(this, 'contact_related', 'Account.id eq "${0}"')
+                    }, {
+                        id: 'addNote',
+                        icon: 'content/images/icons/New_Note_24x24.png',
+                        label: this.addNoteActionText,
+                        fn: action.addNote.bindDelegate(this)
+                    }, {
+                        id: 'addActivity',
+                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                        label: this.addActivityActionText,
+                        fn: action.addActivity.bindDelegate(this)
+                    }]
             );
         },
 
@@ -85,3 +85,4 @@ define('Mobile/SalesLogix/Views/Account/List', [
         }
     });
 });
+

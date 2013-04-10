@@ -83,29 +83,30 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             return values;
         },
         formatDependentPicklist: function(dependentValue, fmt) {
-            if (!lang.isArray(dependentValue))
+            if (!lang.isArray(dependentValue)) {
                 dependentValue = [dependentValue];
+            }
             return string.substitute(fmt, [dependentValue]);
         },
         onInsertCompleted: function(entry) {
             var view = App.getView('account_detail');
-            if (view)
+            if (view) {
                 view.show({
-                    descriptor: entry.$descriptor,
-                    key: entry.$key
-                }, {
-                    returnTo: -1
-                });
-            else
+                        descriptor: entry.$descriptor,
+                        key: entry.$key
+                    }, {
+                        returnTo: -1
+                    });
+            } else {
                 this.inherited(arguments);
+            }
         },
         onContactAddressChange: function(value, field) {
-            if (this.fields['Address'].getValue() && !this.fields['Address'].getValue().Address1 )
-            {
+            if (this.fields['Address'].getValue() && !this.fields['Address'].getValue().Address1) {
                 this.fields['Address'].setValue(value);
             }
         },
-        applyContext: function (templateEntry) {
+        applyContext: function(templateEntry) {
             this.inherited(arguments);
             this.fields['Type'].setValue(templateEntry.Type);
             this.fields['Status'].setValue(templateEntry.Status);
@@ -157,114 +158,116 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                     title: this.detailsContactText,
                     name: 'ContactInfoSection',
                     children: [{
-                        label: this.contactTitleText,
-                        name: 'Contacts.$resources[0].Title',
-                        property: 'Contacts.$resources[0].Title',
-                        picklist: 'Title',
-                        title: this.contactTitleText,
-                        type: 'picklist',
-                        orderBy: 'text asc'
-                    },
-                    {
-                        label: this.homePhoneText,
-                        name: 'Contacts.$resources[0].HomePhone',
-                        property: 'Contacts.$resources[0].HomePhone',
-                        type: 'phone',
-                        maxTextLength: 32,
-                        validator: validator.exceedsMaxTextLength
-                    },
-                    {
-                        name: 'Contacts.$resources[0].Mobile',
-                        property: 'Contacts.$resources[0].Mobile',
-                        label: this.mobileText,
-                        type: 'phone',
-                        maxTextLength: 32,
-                        validator: validator.exceedsMaxTextLength
-                    },
-                    {
-                        name: 'Contacts.$resources[0].Fax',
-                        property: 'Contacts.$resources[0].Fax',
-                        label: this.faxText,
-                        type: 'phone',
-                        maxTextLength: 32,
-                        validator: validator.exceedsMaxTextLength
-                    },
-                    {
-                        emptyText: '',
-                        formatValue: format.address.bindDelegate(this, true, true),
-                        label: this.addressText,
-                        name: 'Contacts.$resources[0].Address',
-                        property: 'Contacts.$resources[0].Address',
-                        type: 'address',
-                        view: 'address_edit',
-                        entityName: 'Contact'
-                    }]
+                            label: this.contactTitleText,
+                            name: 'Contacts.$resources[0].Title',
+                            property: 'Contacts.$resources[0].Title',
+                            picklist: 'Title',
+                            title: this.contactTitleText,
+                            type: 'picklist',
+                            orderBy: 'text asc'
+                        },
+                        {
+                            label: this.homePhoneText,
+                            name: 'Contacts.$resources[0].HomePhone',
+                            property: 'Contacts.$resources[0].HomePhone',
+                            type: 'phone',
+                            maxTextLength: 32,
+                            validator: validator.exceedsMaxTextLength
+                        },
+                        {
+                            name: 'Contacts.$resources[0].Mobile',
+                            property: 'Contacts.$resources[0].Mobile',
+                            label: this.mobileText,
+                            type: 'phone',
+                            maxTextLength: 32,
+                            validator: validator.exceedsMaxTextLength
+                        },
+                        {
+                            name: 'Contacts.$resources[0].Fax',
+                            property: 'Contacts.$resources[0].Fax',
+                            label: this.faxText,
+                            type: 'phone',
+                            maxTextLength: 32,
+                            validator: validator.exceedsMaxTextLength
+                        },
+                        {
+                            emptyText: '',
+                            formatValue: format.address.bindDelegate(this, true, true),
+                            label: this.addressText,
+                            name: 'Contacts.$resources[0].Address',
+                            property: 'Contacts.$resources[0].Address',
+                            type: 'address',
+                            view: 'address_edit',
+                            entityName: 'Contact'
+                        }]
                 },
                 {
                     title: this.detailsAccountText,
                     name: 'AccountInfoSection',
                     children: [{
-                        name: 'Fax',
-                        property: 'Fax',
-                        label: this.faxText,
-                        type: 'phone',
-                        maxTextLength: 32,
-                        validator: validator.exceedsMaxTextLength
-                    },
-                    {
-                        name: 'Type',
-                        property: 'Type',
-                        label: this.typeText,
-                        type: 'picklist',
-                        picklist: 'Account Type',
-                        title: this.accountTypeTitleText
-                    },
-                    {
-                        name: 'SubType',
-                        property: 'SubType',
-                        label: this.subTypeText,
-                        type: 'picklist',
-                        requireSelection: false,
-                        picklist: this.formatDependentPicklist.bindDelegate(
-                            this, 'Account ${0}', true
-                        ),
-                        title: this.accountSubTypeTitleText,
-                        dependsOn: 'Type'
-                    },
-                    {
-                        name: 'Status',
-                        property: 'Status',
-                        label: this.statusText,
-                        type: 'picklist',
-                        picklist: 'Account Status',
-                        title: this.accountStatusTitleText
-                    },
-                    {
-                        name: 'Industry',
-                        property: 'Industry',
-                        label: this.industryText,
-                        type: 'picklist',
-                        picklist: 'Industry',
-                        title: this.industryTitleText
-                    },
-                    {
-                        name: 'BusinessDescription',
-                        property: 'BusinessDescription',
-                        label: this.descriptionText,
-                        type: 'text'
-                    },
-                    {
-                        emptyText: '',
-                        formatValue: format.address.bindDelegate(this, true, true),
-                        label: this.addressText,
-                        name: 'Address',
-                        property: 'Address',
-                        type: 'address',
-                        view: 'address_edit',
-                        entityName: 'Account'
-                    }
-                ]}
+                            name: 'Fax',
+                            property: 'Fax',
+                            label: this.faxText,
+                            type: 'phone',
+                            maxTextLength: 32,
+                            validator: validator.exceedsMaxTextLength
+                        },
+                        {
+                            name: 'Type',
+                            property: 'Type',
+                            label: this.typeText,
+                            type: 'picklist',
+                            picklist: 'Account Type',
+                            title: this.accountTypeTitleText
+                        },
+                        {
+                            name: 'SubType',
+                            property: 'SubType',
+                            label: this.subTypeText,
+                            type: 'picklist',
+                            requireSelection: false,
+                            picklist: this.formatDependentPicklist.bindDelegate(
+                                this, 'Account ${0}', true
+                            ),
+                            title: this.accountSubTypeTitleText,
+                            dependsOn: 'Type'
+                        },
+                        {
+                            name: 'Status',
+                            property: 'Status',
+                            label: this.statusText,
+                            type: 'picklist',
+                            picklist: 'Account Status',
+                            title: this.accountStatusTitleText
+                        },
+                        {
+                            name: 'Industry',
+                            property: 'Industry',
+                            label: this.industryText,
+                            type: 'picklist',
+                            picklist: 'Industry',
+                            title: this.industryTitleText
+                        },
+                        {
+                            name: 'BusinessDescription',
+                            property: 'BusinessDescription',
+                            label: this.descriptionText,
+                            type: 'text'
+                        },
+                        {
+                            emptyText: '',
+                            formatValue: format.address.bindDelegate(this, true, true),
+                            label: this.addressText,
+                            name: 'Address',
+                            property: 'Address',
+                            type: 'address',
+                            view: 'address_edit',
+                            entityName: 'Account'
+                        }
+                    ]
+                }
             ]);
         }
     });
 });
+

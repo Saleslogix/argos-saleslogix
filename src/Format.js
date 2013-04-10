@@ -33,10 +33,10 @@ define('Mobile/SalesLogix/Format', [
             'United States': 'en',
             'United States of America': 'en',
             'US': 'en',
-            'United Kingdom':'en-GB',
-            'UK':'en-GB',
-            'Britain':'en-GB',
-            'England':'en-GB',
+            'United Kingdom': 'en-GB',
+            'UK': 'en-GB',
+            'Britain': 'en-GB',
+            'England': 'en-GB',
             'Russia': 'ru',
             'Россия': 'ru',
             'Italy': 'it',
@@ -77,15 +77,14 @@ define('Mobile/SalesLogix/Format', [
          @param {string} fmt Address format to use, may also pass a culture string to use predefined format
          @return {string} Formatted address
         */
-        address: function(o, asText, separator, fmt){
-            var isEmpty = function(line){
-                    var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g,''));
-                    return filterSymbols === '';
-                },
+        address: function(o, asText, separator, fmt) {
+            var isEmpty = function(line) {
+                var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));
+                return filterSymbols === '';
+            },
                 _this = Mobile.SalesLogix.Format;
 
-            if (!fmt)
-            {
+            if (!fmt) {
                 var culture = _this.resolveAddressCulture(o);
                 fmt = _this.addressCultureFormats[culture] || _this.addressCultureFormats['en'];
             }
@@ -95,13 +94,15 @@ define('Mobile/SalesLogix/Format', [
 
             array.forEach(lines, function(line) {
                 line = _this.replaceAddressPart(line, o);
-                if (!isEmpty(line))
-                    this.push( _this.encode(_this.collapseSpace(line)));
+                if (!isEmpty(line)) {
+                    this.push(_this.encode(_this.collapseSpace(line)));
+                }
             }, address);
 
-            if (asText)
-            {
-                if (separator === true) separator = '\n';
+            if (asText) {
+                if (separator === true) {
+                    separator = '\n';
+                }
                 return address.join(separator || '<br />');
             }
 
@@ -116,43 +117,44 @@ define('Mobile/SalesLogix/Format', [
         resolveAddressCulture: function(o) {
             return Mobile.SalesLogix.Format.countryCultures[o.Country] || Mobile.CultureInfo.name;
         },
-        replaceAddressPart: function(fmt, o){
+        replaceAddressPart: function(fmt, o) {
             return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g,
-                function (part) {
+                function(part) {
                     switch (part) {
-                    case "s":
-                        return o.Salutation || '';
-                    case "S":
-                        return (o.Salutation && o.Salutation.toUpperCase()) || '';
-                    case "a1":
-                        return o.Address1 || '';
-                    case "a2":
-                        return o.Address2 || '';
-                    case "a3":
-                        return o.Address3 || '';
-                    case "a4":
-                        return o.Address4 || '';
-                    case "m":
-                        return o.City || '';
-                    case "M":
-                        return (o.City && o.City.toUpperCase()) || '';
-                    case "z":
-                        return o.County || '';
-                    case "Z":
-                        return (o.County && o.County.toUpperCase()) || '';
-                    case "r":
-                        return o.State || '';
-                    case "R":
-                        return (o.State && o.State.toUpperCase()) || '';
-                    case "p":
-                        return o.PostalCode || '';
-                    case "P":
-                        return (o.PostalCode && o.PostalCode.toUpperCase()) || '';
-                    case "c":
-                        return o.Country || '';
-                    case "C":
-                        return (o.Country && o.Country.toUpperCase()) || '';
-                    default: return '';
+                        case "s":
+                            return o.Salutation || '';
+                        case "S":
+                            return (o.Salutation && o.Salutation.toUpperCase()) || '';
+                        case "a1":
+                            return o.Address1 || '';
+                        case "a2":
+                            return o.Address2 || '';
+                        case "a3":
+                            return o.Address3 || '';
+                        case "a4":
+                            return o.Address4 || '';
+                        case "m":
+                            return o.City || '';
+                        case "M":
+                            return (o.City && o.City.toUpperCase()) || '';
+                        case "z":
+                            return o.County || '';
+                        case "Z":
+                            return (o.County && o.County.toUpperCase()) || '';
+                        case "r":
+                            return o.State || '';
+                        case "R":
+                            return (o.State && o.State.toUpperCase()) || '';
+                        case "p":
+                            return o.PostalCode || '';
+                        case "P":
+                            return (o.PostalCode && o.PostalCode.toUpperCase()) || '';
+                        case "c":
+                            return o.Country || '';
+                        case "C":
+                            return (o.Country && o.Country.toUpperCase()) || '';
+                        default:
+                            return '';
                     }
                 }
             );
@@ -170,28 +172,32 @@ define('Mobile/SalesLogix/Format', [
 
             return string.substitute(
                 '${0}'
-                + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator
-                + '${1}', [
-                    (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1'+Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace("\\.",'.')),
-                    (f.toString().length < 2) ? '0' + f.toString() : f.toString()
-                ]
+                    + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator
+                    + '${1}', [
+                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace("\\.", '.')),
+                        (f.toString().length < 2) ? '0' + f.toString() : f.toString()
+                    ]
             ).replace(/ /g, '\u00A0'); //keep numbers from breaking
         },
         multiCurrency: function(val, code) {
             return string.substitute('${0} ${1}', [Mobile.SalesLogix.Format.currency(val), code]);
         },
         nameLF: function(val) {
-            if (!val) return '';
+            if (!val) {
+                return '';
+            }
 
             var name = template.nameLF.apply(val);
-            if (name == ', ')
+            if (name == ', ') {
                 name = '';
+            }
 
             return name;
         },
         mail: function(val) {
-            if (typeof val !== 'string')
+            if (typeof val !== 'string') {
                 return val;
+            }
 
             return string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
         },
@@ -205,3 +211,4 @@ define('Mobile/SalesLogix/Format', [
         }
     }));
 });
+

@@ -54,9 +54,10 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
         resourceKind: 'opportunityproducts',
         allowSelection: true,
         enableActions: true,
-        
+
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });
+

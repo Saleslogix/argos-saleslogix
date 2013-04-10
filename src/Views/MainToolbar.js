@@ -11,33 +11,28 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
         showTools: function(tools) {
             var hasLeftSideTools;
 
-            if (tools)
-            {
-                for (var i = 0; i < tools.length; i++)
-                {
-                    if (tools[i].side == 'left')
-                    {
+            if (tools) {
+                for (var i = 0; i < tools.length; i++) {
+                    if (tools[i].side == 'left') {
                         hasLeftSideTools = true;
                         break;
                     }
                 }
             }
 
-            if (!hasLeftSideTools && tools !== false)
-            {
-                if (App.getPrimaryActiveView() != App.getView('home'))
-                {
+            if (!hasLeftSideTools && tools !== false) {
+                if (App.getPrimaryActiveView() != App.getView('home')) {
                     tools = (tools || []).concat([{
-                        id: 'back',
-                        side: 'left',
-                        fn: this.navigateBack,
-                        scope: this
-                    },{
-                        id: 'home',
-                        side: 'left',
-                        fn: this.navigateToHomeView,
-                        scope: this
-                    }]);
+                            id: 'back',
+                            side: 'left',
+                            fn: this.navigateBack,
+                            scope: this
+                        }, {
+                            id: 'home',
+                            side: 'left',
+                            fn: this.navigateToHomeView,
+                            scope: this
+                        }]);
                 }
             }
 
@@ -51,3 +46,4 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
         }
     });
 });
+
