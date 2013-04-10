@@ -79,8 +79,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
                     name: 'EntityId',
                     property: 'EntityId',
                     type: 'hidden'
-                },
-                {
+                }, {
                     label: this.descriptionText,
                     name: 'Description',
                     property: 'Description',
@@ -95,44 +94,38 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
                         validator.exists,
                         validator.exceedsMaxTextLength
                     ]
-                },
-                {
+                }, {
                     name: 'IsPrimary',
                     property: 'IsPrimary',
                     label: this.isPrimaryText,
                     type: 'boolean'
-                },
-                {
+                }, {
                     name: 'IsMailing',
                     property: 'IsMailing',
                     label: this.isMailingText,
                     type: 'boolean'
-                },
-                {
+                }, {
                     name: 'Address1',
                     property: 'Address1',
                     label: this.address1Text,
                     type: 'text',
                     maxTextLength: 64,
                     validator: validator.exceedsMaxTextLength
-                },
-                {
+                }, {
                     name: 'Address2',
                     property: 'Address2',
                     label: this.address2Text,
                     type: 'text',
                     maxTextLength: 64,
                     validator: validator.exceedsMaxTextLength
-                },
-                {
+                }, {
                     name: 'Address3',
                     property: 'Address3',
                     label: this.address3Text,
                     type: 'text',
                     maxTextLength: 64,
                     validator: validator.exceedsMaxTextLength
-                },
-                {
+                }, {
                     label: this.cityText,
                     name: 'City',
                     property: 'City',
@@ -142,8 +135,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
                     type: 'picklist',
                     maxTextLength: 32,
                     validator: validator.exceedsMaxTextLength
-                },
-                {
+                }, {
                     label: this.stateText,
                     name: 'State',
                     property: 'State',
@@ -153,16 +145,14 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
                     type: 'picklist',
                     maxTextLength: 32,
                     validator: validator.exceedsMaxTextLength
-                },
-                {
+                }, {
                     name: 'PostalCode',
                     property: 'PostalCode',
                     label: this.postalCodeText,
                     type: 'text',
                     maxTextLength: 24,
                     validator: validator.exceedsMaxTextLength
-                },
-                {
+                }, {
                     label: this.countryText,
                     name: 'Country',
                     property: 'Country',
@@ -172,8 +162,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
                     type: 'picklist',
                     maxTextLength: 32,
                     validator: validator.exceedsMaxTextLength
-                },
-                {
+                }, {
                     label: this.salutationText,
                     name: 'Salutation',
                     property: 'Salutation',
