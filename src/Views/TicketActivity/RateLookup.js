@@ -34,3 +34,4 @@ define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', [
         }
     });
 });
+

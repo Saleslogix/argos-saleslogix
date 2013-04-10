@@ -38,3 +38,4 @@ define('Mobile/SalesLogix/Views/Contract/List', [
         }
     });
 });
+

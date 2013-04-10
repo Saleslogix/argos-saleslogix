@@ -12,7 +12,7 @@ define('Mobile/SalesLogix/Views/UpdateToolbar', [
     return declare('Mobile.SalesLogix.Views.UpdateToolbar', [MainToolbar], {
         widgetTemplate: new Simplate([
             '<div class="update-toolbar">',
-                '<h1 data-action="reload">{%= $.updateText %}</h1>',
+            '<h1 data-action="reload">{%= $.updateText %}</h1>',
             '</div>'
         ]),
 
@@ -24,13 +24,13 @@ define('Mobile/SalesLogix/Views/UpdateToolbar', [
             domClass.add(win.body(), 'update-available');
 
             this.showTools([{
-                    id: 'cancel',
-                    side: 'right',
-                    fn: this.cancel,
-                    scope: this
-                }]);
+                id: 'cancel',
+                side: 'right',
+                fn: this.cancel,
+                scope: this
+            }]);
 
-           this.inherited(arguments);
+            this.inherited(arguments);
         },
 
         showTools: function(tools) {
@@ -48,3 +48,4 @@ define('Mobile/SalesLogix/Views/UpdateToolbar', [
         }
     });
 });
+

@@ -48,7 +48,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
         resourceKind: 'opportunityContacts',
 
         createEntryForDelete: function() {
-           var entry = {
+            var entry = {
                 '$key': this.entry['$key'],
                 '$etag': this.entry['$etag'],
                 '$name': this.entry['$name']
@@ -57,20 +57,22 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
         },
         removeContact: function() {
             var confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
-            if (!confirm(confirmMessage))
+            if (!confirm(confirmMessage)) {
                 return;
+            }
 
             var entry = this.createEntryForDelete(),
                 request = this.createRequest();
-            if (request)
+            if (request) {
                 request['delete'](entry, {
                     success: this.onDeleteSuccess,
                     failure: this.onRequestDataFailure,
                     scope: this
                 });
+            }
         },
         onDeleteSuccess: function() {
-            connect.publish('/app/refresh',[{
+            connect.publish('/app/refresh', [{
                 resourceKind: this.resourceKind
             }]);
             ReUI.back();
@@ -78,70 +80,71 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 'tbar': [{
-                    id: 'edit',
-                    action: 'navigateToEditView',
-                    security: App.getViewSecurity(this.editView, 'update')
-                },{
-                    id: 'removeContact',
-                    icon: 'content/images/icons/del_24.png',
-                    action: 'removeContact',
-                    title: this.removeContactTitleText
-                }]
+                        id: 'edit',
+                        action: 'navigateToEditView',
+                        security: App.getViewSecurity(this.editView, 'update')
+                    }, {
+                        id: 'removeContact',
+                        icon: 'content/images/icons/del_24.png',
+                        action: 'removeContact',
+                        title: this.removeContactTitleText
+                    }]
             });
         },
         createLayout: function() {
             return this.layout || (this.layout = [
-            {
-                title: this.contactText,
-                name: 'DetailsSection',
-                children: [{
-                    name: 'NameLF',
-                    property: 'Contact.NameLF',
-                    label: this.nameText,
-                    view: 'contact_detail',
-                    key: 'Contact.$key',
-                    descriptor: 'Contact.NameLF'
-                },{
-                    name: 'AccountName',
-                    property: 'Contact.AccountName',
-                    descriptor: 'AccountName',
-                    label: this.accountText,
-                    view: 'account_detail',
-                    key: 'Contact.Account.$key'
-                },{
-                    name: 'Title',
-                    property: 'Contact.Title',
-                    label: this.contactTitleText
-                }]
-            },{
-                title: this.detailsText,
-                name: 'MoreDetailsSection',
-                children: [{
-                    name: 'SalesRole',
-                    property: 'SalesRole',
-                    label: this.salesRoleText
-                },{
-                    name: 'Standing',
-                    property: 'Standing',
-                    label: this.standingText
-                },{
-                    name: 'PersonalBenefits',
-                    property: 'PersonalBenefits',
-                    label: this.personalBenefitsText
-                },{
-                    name: 'CompetitorName',
-                    property: 'Competitors.CompetitorName',
-                    label: this.competitorNameText
-                },{
-                    name: 'Strategy',
-                    property: 'Strategy',
-                    label: this.strategyText
-                },{
-                    name: 'Issues',
-                    property: 'Issues',
-                    label: this.issuesText
-                }]
-            }]);
+                {
+                    title: this.contactText,
+                    name: 'DetailsSection',
+                    children: [{
+                            name: 'NameLF',
+                            property: 'Contact.NameLF',
+                            label: this.nameText,
+                            view: 'contact_detail',
+                            key: 'Contact.$key',
+                            descriptor: 'Contact.NameLF'
+                        }, {
+                            name: 'AccountName',
+                            property: 'Contact.AccountName',
+                            descriptor: 'AccountName',
+                            label: this.accountText,
+                            view: 'account_detail',
+                            key: 'Contact.Account.$key'
+                        }, {
+                            name: 'Title',
+                            property: 'Contact.Title',
+                            label: this.contactTitleText
+                        }]
+                }, {
+                    title: this.detailsText,
+                    name: 'MoreDetailsSection',
+                    children: [{
+                            name: 'SalesRole',
+                            property: 'SalesRole',
+                            label: this.salesRoleText
+                        }, {
+                            name: 'Standing',
+                            property: 'Standing',
+                            label: this.standingText
+                        }, {
+                            name: 'PersonalBenefits',
+                            property: 'PersonalBenefits',
+                            label: this.personalBenefitsText
+                        }, {
+                            name: 'CompetitorName',
+                            property: 'Competitors.CompetitorName',
+                            label: this.competitorNameText
+                        }, {
+                            name: 'Strategy',
+                            property: 'Strategy',
+                            label: this.strategyText
+                        }, {
+                            name: 'Issues',
+                            property: 'Issues',
+                            label: this.issuesText
+                        }]
+                }]);
         }
     });
 });
+
