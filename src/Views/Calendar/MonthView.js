@@ -25,6 +25,16 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List], {
+        gestures: ['swipe'],
+        onGesture: function(evt) {
+            if (evt.type === 'swipe') {
+                if (evt.gesture.direction === 'left') {
+                    this.goToNextMonth();
+                } else if (evt.gesture.direction === 'right') {
+                    this.goToPreviousMonth();
+                }
+            }
+        },
         // Localization
         titleText: 'Calendar',
         todayText: 'Today',
