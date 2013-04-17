@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Defect_12091019</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Defect_12091019</td></tr>
+</thead><tbody>
+<!--SE Test: SETest-Defect_13091230-->
+<!--Desc: validates that a comma is inserted between a city & state within an entity address field-->
+<!--====================================-->
+<!--'Step: navigate to Home screen...-->
+<tr>
+	<td>open</td>
+	<td>#_home</td>
+	<td></td>
+</tr>
+<!--Step: navigate to Contacts list view...-->
+<tr>
+	<td>click</td>
+	<td>//div[@id='home']/div[3]/ul[2]/li[5]/div[2]/h3</td>
+	<td></td>
+</tr>
+<!--Step: click "+" button to add a new Contact record...-->
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Contacts</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Contact</td>
+</tr>
+<!--Step: click the "address" field edit button...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Fields_AddressField_3']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Address</td>
+</tr>
+<!--Step: click Address - city field selection button...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Fields_PicklistField_8']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>City</td>
+</tr>
+<!--Step: select city from list...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_0']/ul/li[14]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Address</td>
+</tr>
+<!--Step: click Address - state field selection button...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Fields_PicklistField_9']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>State</td>
+</tr>
+<!--Step: select state from list...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_1']/ul/li[3]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Address</td>
+</tr>
+<!--Step: click Address - description field selection button...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Fields_PicklistField_8']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Description</td>
+</tr>
+<!--Step: select description item...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_2']/ul/li[1]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Address</td>
+</tr>
+<!--Step: click Top - Check button...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<!--VP: check that comma is present within address field value...-->
+<tr>
+	<td>verifyTextPresent</td>
+	<td>, </td>
+	<td></td>
+</tr>
+<!--'End: navigate back to Home...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

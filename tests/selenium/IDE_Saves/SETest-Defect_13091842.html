@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Defect_12091019</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Defect_12091019</td></tr>
+</thead><tbody>
+<!--SE Test: SETest-Defect_13091842-->
+<!--Desc: checks that there is no error when a new Opportunity record is saved...-->
+<!--Pre-Run Steps: Logoff, then Log back in as 'Lee'...-->
+<!--Required Entity: TBD-->
+<!--====================================-->
+<!--'Step: navigate to Home screen...-->
+<tr>
+	<td>open</td>
+	<td>#_home</td>
+	<td></td>
+</tr>
+<!--Step: navigate to Opportunities list view...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='home']/descendant::*[text()=&quot;Opportunities&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Opportunities</td>
+</tr>
+<!--Step: click the Top "+" (Add) button...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Opportunity</td>
+</tr>
+<!--Step: setup the required fields of the new Opportunity...-->
+<tr>
+	<td>type</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_Fields_TextField_19']/input</td>
+	<td>Test Opp for Defect Fix Test-13091842</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_Fields_LookupField_6']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Accounts</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='account_related']/descendant::*[text()=&quot;Abbott WorldWide&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Opportunity</td>
+</tr>
+<!--Verify: save the Opportunity and confirm that there is no error message...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Opportunities</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Test Opp for Defect Fix Test-13091842</td>
+	<td></td>
+</tr>
+<!--'End: navigate back to Home...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

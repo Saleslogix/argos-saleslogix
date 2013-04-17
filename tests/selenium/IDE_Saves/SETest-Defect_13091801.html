@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Defect_12091019</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Defect_12091019</td></tr>
+</thead><tbody>
+<!--SE Test: SETest-Defect_13091801-->
+<!--Desc: validates that completing an occurrence of a Recurring Activity will not complete the entire series-->
+<!--Pre-Run Steps: Logoff, then Log back in as 'Lee'...-->
+<!--Required Entity: Contact - Douglas Adi-->
+<!--====================================-->
+<!--'Step: navigate to Home screen...-->
+<tr>
+	<td>open</td>
+	<td>#_home</td>
+	<td></td>
+</tr>
+<!--Step: navigate to Calendar view to add a new Recurring Activity...-->
+<tr>
+	<td>click</td>
+	<td>//div[@id='home']/div[3]/ul[2]/li[2]/div[2]/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Calendar</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Schedule...</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#activity_types_list &gt; ul.list-content &gt; li &gt; div.list-item-content &gt; h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Mobile_SalesLogix_Fields_PicklistField_28 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activity Description</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_0']/ul/li[5]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Location&quot;]</td>
+	<td>Arriba</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Mobile_SalesLogix_Fields_PicklistField_30 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activity Category</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_0']/ul/li[5]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_Fields_DateField_8 &gt; button.button.whiteButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Calendar</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td &gt; button.button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td &gt; button.button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=day-field</td>
+	<td>label=29</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=hour-field</td>
+	<td>label=11</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_Fields_SelectField_1 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Recurring</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='select_list']/ul/li[3]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Mobile_SalesLogix_Fields_RecurrencesField_0 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Recurrence</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;RecurIterations&quot;]</td>
+	<td>5</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_Fields_DurationField_0 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Duration</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='select_list']/ul/li[6]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_Fields_NoteField_6 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Notes</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea[name=&quot;Notes&quot;]</td>
+	<td>Recurring test activity for Defect# 13091801</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_Fields_LookupField_29 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Contacts</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#Sage_Platform_Mobile_SearchWidget_7 &gt; div.table-layout &gt; div &gt; input[name=&quot;query&quot;]</td>
+	<td>Adi</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_SearchWidget_7 &gt; div.table-layout &gt; div.hasButton &gt; button.subHeaderButton.searchButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='contact_related']/ul/li/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Calendar</td>
+</tr>
+<!--Step: navigate to Contacts detail page to view the Activity list...-->
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='home']/div[3]/ul[2]/li[5]/div[2]/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Contacts</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_6']/div/div[1]/input</td>
+	<td>Adi</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_6']/div/div[3]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='contact_list']/ul/li/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Adi, Douglas</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='contact_detail']/div[2]/ul[2]/li/a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activities</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[1]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[2]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[3]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[4]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[5]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<!--Step: re-open one of the Activity occurrences to complete it...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[1]/div[2]/h3/span[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting - Regarding: Lunch meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a &gt; label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Complete Occurrence</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Mobile_SalesLogix_Fields_PicklistField_32 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Result</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Complete Occurrence</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activities</td>
+</tr>
+<!--Verify: remaining Recurring Activities are still listed in the Activities list view...-->
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[1]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[2]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[3]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[4]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li[5]/div[2]/h3/span[3]</td>
+	<td>*Lunch meeting</td>
+</tr>
+<!--Step: Navigate back to the Home screen...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

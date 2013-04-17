@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Defect_12091019</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Defect_12091019</td></tr>
+</thead><tbody>
+<!--SE Test: SETest-TC-MyActivities-AddNew-->
+<!--Desc: validates that a new Activity can be scheduled from the My Activities list view...-->
+<!--Pre-Run Steps: Logoff, then Log back in as 'Lee'...-->
+<!--Required Entity: Contact - Douglas Adi-->
+<!--====================================-->
+<!--'Step: navigate to Home screen...-->
+<tr>
+	<td>open</td>
+	<td>#_home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<!--Step: navigate to My Activities view to add a new Recurring Activity...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='home']/descendant::*[text()=&quot;My Activities&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>My Activities</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Schedule...</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='activity_types_list']/descendant::*[text()=&quot;Meeting&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Mobile_SalesLogix_Fields_PicklistField_28 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activity Description</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_0']/descendant::*[text()=&quot;Lunch meeting&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Location&quot;]</td>
+	<td>TSR Resort</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Mobile_SalesLogix_Fields_PicklistField_30 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activity Category</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_0']/descendant::*[text()=&quot;Other Visit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_Fields_DateField_8 &gt; button.button.whiteButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Calendar</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='datetime-picker-date']/tbody/tr[1]/td[1]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=day-field</td>
+	<td>label=15</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=hour-field</td>
+	<td>label=12</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_Fields_DurationField_0 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Duration</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='select_list']/descendant::*[text()=&quot;1 hour&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_Fields_NoteField_6 &gt; button.button.simpleSubHeaderButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Notes</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=textarea[name=&quot;Notes&quot;]</td>
+	<td>test activity for SETest-TC-MyActivities-AddNew</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_Fields_LookupField_29']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Contacts</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_7']/div/div[1]/input</td>
+	<td>Adi</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_7']/div/div[3]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='contact_related']/ul/li/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Meeting</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>My Activities</td>
+</tr>
+<!--Step: navigate back to the Home screen...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Home</td>
+</tr>
+<!--Step: nav back to the My Activities list view... -->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='home']/descendant::*[text()=&quot;My Activities&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>My Activities</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='myactivity_list']/ul/li[1]/div[2]/h3/span[3]</td>
+	<td>Lunch meeting</td>
+</tr>
+<!--Verify: click the Activity icon to see that the Complete & Call actions are available in the actions panel...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='myactivity_list']/ul/li[1]/div[1]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>XPath=.//*[@id='myactivity_list']/ul/li[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>XPath=.//*[@id='myactivity_list']/ul/li[2]/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>XPath=.//*[@id='myactivity_list']/ul/li[2]/button[4]</td>
+	<td></td>
+</tr>
+<!--Step: click the Activity icon to close the available actions panel...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='myactivity_list']/ul/li[1]/div[1]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<!--Step: Navigate back to the Home screen...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

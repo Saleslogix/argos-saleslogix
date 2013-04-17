@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Defect_12091019</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Defect_12091019</td></tr>
+</thead><tbody>
+<!--SE Test: SETest-Defect_13091678-->
+<!--Desc: validates that a Multi Currency field section is not available when editing an Opportunity Edit for non-Multi-Currency site-->
+<!--Required Environment: non-Multi-Currency Mobile Client site-->
+<!--Required Entity: Opportunity - Abbott WorldWide-Phase I-->
+<!--====================================-->
+<!--'Step: navigate to Home screen...-->
+<tr>
+	<td>open</td>
+	<td>/mobile-builds/topic/jenkins-argos-saleslogix-topic-18/#_home</td>
+	<td></td>
+</tr>
+<!--Step: navigate to Opportunities list view...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[4]/div[2]/h3</td>
+	<td></td>
+</tr>
+<!--Step: perform a search of a target Opportunity...-->
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Opportunities</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_11']/div/div[1]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_11']/div/div[1]/input</td>
+	<td>Abbott WorldWide-Phase I</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_11']/div/div[3]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>(Abbott WorldWide)</td>
+	<td></td>
+</tr>
+<!--Step: click the Opportunity list item for editing...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='opportunity_list']/ul/li/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Abbott WorldWide-Phase I</td>
+</tr>
+<!--VP: check that the Multi Currency section & fields are not displayed...-->
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Multi Currency</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>locked</td>
+	<td></td>
+</tr>
+<!--'End: navigate back to Home...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

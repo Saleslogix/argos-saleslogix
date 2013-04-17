@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Defect_12091019</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Defect_12091019</td></tr>
+</thead><tbody>
+<!--SE Test: SETest-Defect_12091019-->
+<!--Desc: validates that 'elapsed hours' used in Ticket Activity - More Details edit view-->
+<!--Required Entity: Ticket 000-00-000011-->
+<!--====================================-->
+<!--'Step: navigate to Home screen...-->
+<tr>
+	<td>open</td>
+	<td>/mobile-builds/stable/jenkins-argos-saleslogix-v2.1-51/#_home</td>
+	<td></td>
+</tr>
+<!--Step: navigate to Tickets list view...-->
+<tr>
+	<td>click</td>
+	<td>//div[@id='home']/div[3]/ul[2]/li[8]/div[2]/h3</td>
+	<td></td>
+</tr>
+<!--Step: perform ticket search...-->
+<tr>
+	<td>type</td>
+	<td>css=#Sage_Platform_Mobile_SearchWidget_18 &gt; div.table-layout &gt; div &gt; input[name=&quot;query&quot;]</td>
+	<td>000-00-000011</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Sage_Platform_Mobile_SearchWidget_18 &gt; div.table-layout &gt; div.hasButton &gt; button.subHeaderButton.searchButton</td>
+	<td></td>
+</tr>
+<!--Step: navigate to target Ticket record...-->
+<tr>
+	<td>click</td>
+	<td>css=#ticket_list &gt; ul.list-content &gt; li &gt; div.list-item-content &gt; h3</td>
+	<td></td>
+</tr>
+<!--Step: expand Ticket Details - Mote Details section...-->
+<tr>
+	<td>click</td>
+	<td>//div[@id='ticket_detail']/div[2]/ul[2]/li[2]/a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=h3</td>
+	<td></td>
+</tr>
+<!--VP: check that "elapsed hours" field is available...-->
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='ticketactivity_detail']/div[2]/div[2]/div[2]/label</td>
+	<td>elapsed hours</td>
+</tr>
+<!--'End: navigate back to Home...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
