@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Defect_12091019</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Defect_12091019</td></tr>
+</thead><tbody>
+<!--SE Test: SETest-Defect_13091724-->
+<!--Desc: validates that a completed Activity no longer appears in the associated Contacts Activities tab... -->
+<!--Pre-Run Steps: Logoff, then Log back in as 'Lee'...-->
+<!--Required Login: 'Lee' (non-Admin)-->
+<!--====================================-->
+<!--'Step: navigate to Home screen...-->
+<tr>
+	<td>open</td>
+	<td>#_home</td>
+	<td></td>
+</tr>
+<!--Step: navigate to Contacts view...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[5]/div[2]/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Contacts</td>
+</tr>
+<!--Step: perform a Contacts search...(Linda Alvarez)-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_6']/div/div[1]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_6']/div/div[1]/input</td>
+	<td>Alvarez</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_6']/div/div[3]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<!--Step: click the Contact search results link...-->
+<tr>
+	<td>assertTextPresent</td>
+	<td>Alvarez, Linda</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='contact_list']/ul/li/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Alvarez, Linda</td>
+</tr>
+<!--Step: click the Quick Actions - Schedule activity link...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='contact_detail']/div[2]/ul[1]/li[4]/a/label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Schedule...</td>
+</tr>
+<!--Step: click the Activity type link...(Phone Call-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='activity_types_list']/ul/li[3]/div[2]/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Phone Call</td>
+</tr>
+<!--Step: select a Regarding value...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Fields_PicklistField_28']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activity Description</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_0']/ul/li[3]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Phone Call</td>
+</tr>
+<!--Step: select a Category value...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Fields_PicklistField_30']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activity Category</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_0']/ul/li[2]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Phone Call</td>
+</tr>
+<!--Step: click the Notes edit button and enter notes text...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_Fields_NoteField_6']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Notes</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_Fields_TextAreaField_0']/textarea</td>
+	<td>activity test note for SETest-Defect_13091724...</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Phone Call</td>
+</tr>
+<!--Step: click the Top Save button...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Alvarez, Linda</td>
+</tr>
+<!--Step: click the Related Item - Activities link...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='contact_detail']/div[2]/ul[2]/li[1]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activities</td>
+</tr>
+<!--Step: click the scheduled Activity link...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='activity_related']/ul/li/div[2]/h3/span[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Phone Call - Regarding: Discuss Opportunities</td>
+</tr>
+<!--Step: click the Complete Activity link...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='activity_detail']/div[2]/ul/li/a/label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Complete Activity</td>
+</tr>
+<!--Step: cick the Top Save button..-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activities</td>
+</tr>
+<!--Step: navigate back to Home...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Home</td>
+</tr>
+<!--Step: navigate to Contacts view...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[5]/div[2]/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Contacts</td>
+</tr>
+<!--Step: perform a Contacts search...(Linda Alvarez)-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_6']/div/div[1]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_6']/div/div[1]/input</td>
+	<td>Alvarez</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_SearchWidget_6']/div/div[3]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<!--Step: click the Contact search results link...-->
+<tr>
+	<td>assertTextPresent</td>
+	<td>Alvarez, Linda</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='contact_list']/ul/li/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Alvarez, Linda</td>
+</tr>
+<!--Step: click the Related Item - Activities link...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='contact_detail']/div[2]/ul[2]/li[1]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activities</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>activity test note for SETest-Defect_13091724</td>
+	<td></td>
+</tr>
+<!--Step: click the Top Back button...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Alvarez, Linda</td>
+</tr>
+<!--Step: click the Related Items - Notes/History link...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='contact_detail']/div[2]/ul[2]/li[4]/a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Notes/History</td>
+</tr>
+<!--VP: check that the completed Activity is listed in the Notes/History list...-->
+<tr>
+	<td>verifyTextPresent</td>
+	<td>activity test note for SETest-Defect_13091724</td>
+	<td></td>
+</tr>
+<!--'End: navigate back to Home...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

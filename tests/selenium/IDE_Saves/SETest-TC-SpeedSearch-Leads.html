@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Defect_12091019</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Defect_12091019</td></tr>
+</thead><tbody>
+<!--SE Test: SETest-TC-SpeedSearch-Leads-->
+<!--Desc: Search on Leads-->
+<!--Required Entity: TYPE - NAME-->
+<!--====================================-->
+<!--'Step: navigate to Home screen...-->
+<tr>
+	<td>open</td>
+	<td>#_home</td>
+	<td></td>
+</tr>
+<!--Step: UI element check-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_SpeedSearchWidget_0']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_SpeedSearchWidget_0']/label</td>
+	<td>Search+</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_SpeedSearchWidget_0']/div/div[3]/button</td>
+	<td></td>
+</tr>
+<!--Step: perform 1st SpeedSearch on Leads...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_SpeedSearchWidget_0']/div/div[1]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_SpeedSearchWidget_0']/div/div[1]/input</td>
+	<td>Pacific</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_SpeedSearchWidget_0']/div/div[3]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Search Results</td>
+</tr>
+<!--Step: check search results...-->
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>no records</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>James Sibr*</td>
+	<td></td>
+</tr>
+<!--Step: click to open the 1st matching Account link...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='speedsearch_list']/ul/li[6]/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<!--Verify: confirm that the correct Account Detail View was opened...-->
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Contact</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='contact_detail']/div[2]/div[1]/div[1]/span</td>
+	<td>Sibr, James</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Search Results</td>
+</tr>
+<!--Step: navigate back to Home...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='speedsearch_list']/div[3]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

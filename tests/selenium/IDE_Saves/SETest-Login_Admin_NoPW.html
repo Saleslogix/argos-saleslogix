@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Login_Admin_NoPW</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Login_Admin_NoPW</td></tr>
+</thead><tbody>
+<!--Load: SLX Mobile Client URL into FF..-->
+<tr>
+	<td>open</td>
+	<td>#_login</td>
+	<td></td>
+</tr>
+<!--Validate: Page Title-->
+<tr>
+	<td>assertTitle</td>
+	<td>SalesLogix</td>
+	<td></td>
+</tr>
+<!--Validate: Copyright Info...-->
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='login']/span[1]</td>
+	<td>© 2013 Sage Software, Inc. All rights reserved.</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='login']/span[2]</td>
+	<td>Mobile V2.1.0 / SalesLogix V8.0.0</td>
+</tr>
+<!--Step: Login as 'Admin' (no Password)...-->
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;username&quot;]</td>
+	<td>Admin</td>
+</tr>
+<!--Step: Set remember option to ON...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_Fields_BooleanField_0']/div/span[1]</td>
+	<td></td>
+</tr>
+<!--Step: Click Log On button to login...-->
+<tr>
+	<td>click</td>
+	<td>css=button.button.actionButton</td>
+	<td></td>
+</tr>
+<!--Verify: Home Page is loaded...-->
+<tr>
+	<td>waitForText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Home</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Home</td>
+</tr>
+<!--Verify: Copyright Info...-->
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='login']/span[1]</td>
+	<td>© 2013 Sage Software, Inc. All rights reserved.</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='login']/span[2]</td>
+	<td>Mobile V2.1.0 / SalesLogix V8.0.0</td>
+</tr>
+<!--Verify: order of Go To links...-->
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[1]/li/div[2]/h3</td>
+	<td>Add Account/Contact</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[1]/div[2]/h3</td>
+	<td>My Activities</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[2]/div[2]/h3</td>
+	<td>Calendar</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[3]/div[2]/h3</td>
+	<td>Notes/History</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[4]/div[2]/h3</td>
+	<td>Accounts</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[5]/div[2]/h3</td>
+	<td>Contacts</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[6]/div[2]/h3</td>
+	<td>Leads</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[7]/div[2]/h3</td>
+	<td>Opportunities</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[8]/div[2]/h3</td>
+	<td>Tickets</td>
+</tr>
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://107.21.243.158/mobile-builds/stable/latest/" />
+<title>SETest-Defect_12091019</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SETest-Defect_12091019</td></tr>
+</thead><tbody>
+<!--SE Test: SETest-Defect_13091717-->
+<!--Desc: validates that a completed Activity no longer appears in the My Activity list -->
+<!--Pre-Run Steps: Logoff, then Log back in as 'Lee'...-->
+<!--Required Login: 'Lee' (non-Admin)-->
+<!--====================================-->
+<!--'Step: navigate to Home screen...-->
+<tr>
+	<td>open</td>
+	<td>#_home</td>
+	<td></td>
+</tr>
+<!--Step: navigate to Calendar view...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[2]/div[2]/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Calendar</td>
+</tr>
+<!--Step: click "+" to schedule a new Activity...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Schedule...</td>
+</tr>
+<!--Step: select an Activity type...(Personal Activity)-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='activity_types_list']/ul/li[2]/div[2]/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Personal Activity</td>
+</tr>
+<!--Step: select a Regarding value...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Fields_PicklistField_28']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activity Description</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_0']/ul/li[16]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Personal Activity</td>
+</tr>
+<!--Step: select a Category value...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Fields_PicklistField_30']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activity Category</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='pick_list_0']/ul/li[7]/div/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Personal Activity</td>
+</tr>
+<!--Step: click the Notes edit button and enter notes text...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_Fields_NoteField_6']/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Notes</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>XPath=.//*[@id='Sage_Platform_Mobile_Fields_TextAreaField_0']/textarea</td>
+	<td>activity test note for SETest-Defect_1309171...</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Personal Activity</td>
+</tr>
+<!--Step: click the Top Save button...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Calendar</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Staff Meeting</td>
+	<td></td>
+</tr>
+<!--Step: navigate back to Home...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Home</td>
+</tr>
+<!--Step: click the My Activities link...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='home']/div[3]/ul[2]/li[1]/div[2]/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>My Activities</td>
+</tr>
+<!--Step: click the top-most Activity item...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='myactivity_list']/ul/li[1]/div[2]/h3/span[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Activity</td>
+</tr>
+<!--Step: click the Complete Activity link...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='activity_detail']/div[2]/ul/li/a/label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>Complete Activity</td>
+</tr>
+<!--Step: cick the Top Save button..-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>XPath=.//*[@id='pageTitle']</td>
+	<td>My Activities</td>
+</tr>
+<!--VP: check that the completed Activity is no longer available in the My Activities list...-->
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>send e-mail message</td>
+	<td></td>
+</tr>
+<!--'End: navigate back to Home...-->
+<tr>
+	<td>click</td>
+	<td>XPath=.//*[@id='Mobile_SalesLogix_Views_MainToolbar_0']/button[3]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
