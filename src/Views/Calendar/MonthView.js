@@ -25,14 +25,33 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List], {
-        gestures: ['swipe'],
+        gestures: ['swipe', 'drag', 'dragleft', 'dragright', 'dragend'],
+        getGestureDomNode: function() {
+            return this.monthNode;
+        },
+        isSwiping: false,
         onGesture: function(evt) {
+            if (this.isSwiping) {
+                evt.gesture.preventDefault();
+            }
+
+            if (evt.type === 'dragleft' || evt.type === 'dragright') {
+                // User is starting the swipe movement,
+                // set a flag so we can prevent event bubbling (to prevent scrolling)
+                this.isSwiping = true;
+            }
+
             if (evt.type === 'swipe') {
                 if (evt.gesture.direction === 'left') {
                     this.goToNextMonth();
                 } else if (evt.gesture.direction === 'right') {
                     this.goToPreviousMonth();
                 }
+            }
+            
+            // Reset flag so scrolling can resume
+            if (evt.type === 'swipe' || evt.type === 'dragend') {
+                this.isSwiping = false;
             }
         },
         // Localization
