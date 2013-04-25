@@ -221,6 +221,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "LeftDrawer.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "Home.js",
           "path": "../src/Views"
         },

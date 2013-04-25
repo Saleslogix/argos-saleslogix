@@ -2,13 +2,11 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/SpeedSearchWidget',
     'Sage/Platform/Mobile/GroupedList'
 ], function(
     declare,
     array,
     lang,
-    SpeedSearchWidget,
     GroupedList
 ) {
 

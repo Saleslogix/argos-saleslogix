@@ -1,5 +1,4 @@
 define('Mobile/SalesLogix/Application', [
-    'hammer',
     'dojo/_base/window',
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -14,7 +13,6 @@ define('Mobile/SalesLogix/Application', [
     'dojo/_base/sniff',
     'snap'
 ], function(
-    hammer,
     win,
     declare,
     array,
