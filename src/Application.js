@@ -11,7 +11,8 @@ define('Mobile/SalesLogix/Application', [
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
-    'dojo/_base/sniff'
+    'dojo/_base/sniff',
+    'snap'
 ], function(
     hammer,
     win,
@@ -25,7 +26,8 @@ define('Mobile/SalesLogix/Application', [
     ErrorManager,
     environment,
     Application,
-    sniff
+    sniff,
+    snap
 ) {
 
     // TODO: Move this to the SDK?
@@ -69,6 +71,7 @@ define('Mobile/SalesLogix/Application', [
     }());
 
     return declare('Mobile.SalesLogix.Application', [Application], {
+        snapper: null,
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
@@ -258,6 +261,7 @@ define('Mobile/SalesLogix/Application', [
             if (this.enableUpdateNotification) {
                 this._checkForUpdate();
             }
+
         },
         onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
             var user = {
@@ -642,6 +646,8 @@ define('Mobile/SalesLogix/Application', [
             return hasRoot && result;
         },
         navigateToInitialView: function() {
+            this.loadSnapper();
+
             try {
                 var restoredState = this.navigationState,
                     restoredHistory = restoredState && json.fromJson(restoredState),
@@ -678,7 +684,44 @@ define('Mobile/SalesLogix/Application', [
                 view.show();
             }
         },
+        showLeftDrawer: function() {
+            var view = this.getView('left_drawer');
+            if (view) {
+                view.show();
+            }
+        },
+        loadSnapper: function() {
+            var snapper, view;
+
+            if (this.snapper) {
+                return;
+            }
+
+            snapper = new snap({
+                element: document.getElementById('viewContainer'),
+                disable: 'right',
+                addBodyClasses: true,
+                resistance: 0.5,
+                flickThreshold: 50,
+                transitionSpeed: 0.3,
+                easing: 'ease',
+                maxPosition: 266,
+                minPosition: -266,
+                tapToClose: true,
+                touchToDrag: true,
+                slideIntent: 40,
+                minDragDistance: 5
+            });
+
+            view = this.getView('left_drawer');
+            snapper.on('start', function() {
+                view.show();
+            });
+
+            this.snapper = snapper;
+        },
         navigateToHomeView: function() {
+            this.loadSnapper();
             var view = this.getView('home');
             if (view) {
                 view.show();
