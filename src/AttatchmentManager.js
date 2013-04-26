@@ -67,17 +67,9 @@ define('Mobile/SalesLogix/AttatchmentManager', [
             if (!mixin.hasOwnProperty('description')) {
                 mixin['description'] = this._getDefaultDescription(file.name);
             }
-            //console.log("creating attachment silently - desc: " + mixin['description']);
-            //this._mixinsByName[file.name] = lang.mixin(mixin, {
-                //attachDate: Utility.Convert.toIsoStringFromDate(new Date()),
-            //    dataType: 'R'
-           // });
+
             this._files.push(file);
-            //if (!this._attachmentTemplate) {
-            //    this.getAttachmentTemplate(this.uploadFiles);
-            //} else {
-              this.uploadFiles();
-            //}
+            this.uploadFiles();
         },
         _getDefaultDescription: function(filename) {
             return filename.replace(/\.[\w]*/, '');
@@ -202,17 +194,15 @@ define('Mobile/SalesLogix/AttatchmentManager', [
         uploadFiles: function() {
             this._isUploading = true;
             this._fileCount = this._files.length;
-            //if (this._attachmentTemplate) {
-                while (this._files.length > 0) {
-                    var file = this._files.pop();
-                    this._fileManager.uploadFile(file,
-                    this._uploadUrl,
-                    this._updateProgress,
-                    this._onSuccessUpload,
-                    this._onFailedUpload,
-                    this);
-                }
-           // }
+            while (this._files.length > 0) {
+                var file = this._files.pop();
+                this._fileManager.uploadFile(file,
+                this._uploadUrl,
+                this._updateProgress,
+                this._onSuccessUpload,
+                this._onFailedUpload,
+                this);
+            }
         },
         _onSuccessUpload: function(request) {
             //the id of the new attachment is buried in the Location response header...
@@ -232,7 +222,7 @@ define('Mobile/SalesLogix/AttatchmentManager', [
                          var request = this.createDataRequest(id);
                          if (request){
                              request.update(attachment, {
-                                 success: this._onSuccessUpdate,
+                                 success: this.onSuccessUpdate,
                                  failure: this._onFailedUpdate,
                                  scope: this
                              });
@@ -255,8 +245,7 @@ define('Mobile/SalesLogix/AttatchmentManager', [
         _onFailedAdd: function(resp) {
             console.warn('Attachment failed to save %o', resp);
         },
-        _onSuccessUpdate: function(attachment) {
-            //dojo.publish('/entity/attachment/update', attachment);
+        onSuccessUpdate: function(attachment) {
         },
         _onFailedUpdate: function(resp) {
             console.warn('Attachment failed to update %o', resp);

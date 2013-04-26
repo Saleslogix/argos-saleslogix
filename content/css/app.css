@@ -1387,3 +1387,7 @@ td.entry-table-description {
     -webkit-box-sizing: content-box !important;
     -moz-box-sizing: content-box !important;
 }
+.inline
+{
+    display: inline;
+}

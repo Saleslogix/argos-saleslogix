@@ -41,9 +41,11 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
             '{% } %}'            
         ]),
+
         //Localization
         titleText: 'Attachments',
         attachmentDateFormatText: 'ddd M/d/yy h:mm:tt',
+
         //View Properties       
         id: 'attachment_list',
         security: null,
@@ -55,9 +57,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         resourceKind: 'attachments',
         contractName: 'system',
         queryInclude: ['$descriptors'],
-        //include=$descriptors
-        //allowSelection: true,
-        //enableActions: true,
+
         createRequest: function() {
             var request = this.inherited(arguments);
             request.setQueryArg('_includeFile', 'false');
@@ -65,7 +65,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return '';
-            //return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

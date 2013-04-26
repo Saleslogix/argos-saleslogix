@@ -3,36 +3,39 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Views/FileSelect',
-    'Mobile/SalesLogix/AttatchmentManager'
+    'Mobile/SalesLogix/AttatchmentManager',
+    'Mobile/SalesLogix/Environment'
 ], function(
     declare,
     string,
     format,
     FileSelect,
-    AttatchmentManager
+    AttatchmentManager,
+    Environment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Attachment.AddAttachment', [FileSelect], {
-        //Templates
-        /*itemTemplate: new Simplate([
-            '<h3>{%: $.description %}</h3>',
-            '<h4>',
-                '<span>{%: $.fileName %}&nbsp;</span>',
-                '<span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
-                '<span>{%: $.fileSize %} Bytes </span>',
-            '</h4>'
-
-        ]),
-        */
         //Localization
         titleText: 'Add Attachments',
         attachmentDateFormatText: 'ddd M/d/yy h:mm:tt',
+
         //View Properties       
         id: 'attachment_Add',
         icon: 'content/images/icons/attachment_24.png',
-        _okSelect: function() {
-            var am = new AttatchmentManager();
-            am.createAttachment(this._files[0], {});
+
+        okSelect: function() {
+            if (this._files && this._files.length > 0) {
+                this.inherited(arguments);
+                var am = new AttatchmentManager();
+                am.createAttachment(this._files[0], {});
+                am.onSuccessUpdate = function() {
+                    Environment.refreshAttachmentViews();
+                    ReUI.back();
+                }
+            }
+        },
+        cancelSelect: function() {
+            ReUI.back();
         }
     });
 });
