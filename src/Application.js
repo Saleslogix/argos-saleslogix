@@ -566,7 +566,8 @@ define('Mobile/SalesLogix/Application', [
                 'contact_list',
                 'lead_list',
                 'opportunity_list',
-                'ticket_list'
+                'ticket_list',
+                'myattachment_list'
             ];
         },
         getExposedViews: function() {
