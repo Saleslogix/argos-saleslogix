@@ -16,7 +16,7 @@
 /**
  * Attatchment Manager 
  */
-define('Mobile/SalesLogix/AttatchmentManager', [
+define('Mobile/SalesLogix/AttachmenManager', [
     'Sage/Platform/Mobile/FileManager',
     'dojo/_base/lang',
     'dojo/_base/declare',
@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/AttatchmentManager', [
     dNumber,
     convert
 ) {
-    return declare('Mobile.SalesLogix.AttatchmentManager', null, {
+    return declare('Mobile.SalesLogix.AttachmentManager', null, {
         _fileManager: null,
         _entityContext: null,
         _uploadUrl: 'sdata/slx/system/-/attachments/file',

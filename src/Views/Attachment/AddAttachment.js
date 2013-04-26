@@ -3,14 +3,14 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Views/FileSelect',
-    'Mobile/SalesLogix/AttatchmentManager',
+    'Mobile/SalesLogix/AttachmentManager',
     'Mobile/SalesLogix/Environment'
 ], function(
     declare,
     string,
     format,
     FileSelect,
-    AttatchmentManager,
+    AttachmentManager,
     Environment
 ) {
 
@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
         okSelect: function() {
             if (this._files && this._files.length > 0) {
                 this.inherited(arguments);
-                var am = new AttatchmentManager();
+                var am = new AttachmentManager();
                 am.createAttachment(this._files[0], {});
                 am.onSuccessUpdate = function() {
                     Environment.refreshAttachmentViews();
