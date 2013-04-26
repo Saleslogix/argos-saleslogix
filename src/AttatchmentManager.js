@@ -39,18 +39,25 @@ define('Mobile/SalesLogix/AttatchmentManager', [
         serviceName: false,
         contractName: 'system',
         resourceKind: 'attachments',
-        querySelect:[],
-        queryInclude: [],
-        _files: [],
+        querySelect: null,
+        queryInclude: null,
+        _files: null,
         _filesUploadedCount: 0,
         _fileCount: 0,
         _totalProgress: 0,
         _isUploading:false,
         constructor: function() {
+            var service, oldContractName;
+            this.querySelect = [];
+            this.queryInclude = [];
+            this._files = [];
+
             this._fileManager = new FileManager();
-            var service = App.getService(this.serviceName);
+            service = App.getService(this.serviceName);
+            oldContractName = service.getContractName();
             service.setContractName(this.contractName);
             this._uploadUrl = service.getUri() + '/attachments/file';
+            service.setContractName(oldContractName);
             
         },
         createAttachments: function(files) {
@@ -214,7 +221,6 @@ define('Mobile/SalesLogix/AttatchmentManager', [
             var matches = url.match(re);
             if (matches) {
                 var id = matches[0].replace(/\'/g, '');
-                debugger;
                 //now that we have the id, we can fetch it using the SingleEntrySDataStore
                 this.requestData(id, function(attachment) {
                      var mixin = this._getAttachmentContextMixin(attachment.fileName);

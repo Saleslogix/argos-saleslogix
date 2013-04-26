@@ -64,7 +64,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             return request;
         },
         formatSearchQuery: function(searchQuery) {
-            debugger;
             return '';
             //return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }

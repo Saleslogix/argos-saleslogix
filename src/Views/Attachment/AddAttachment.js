@@ -31,7 +31,6 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
         id: 'attachment_Add',
         icon: 'content/images/icons/attachment_24.png',
         _okSelect: function() {
-            debugger;
             var am = new AttatchmentManager();
             am.createAttachment(this._files[0], {});
         }
