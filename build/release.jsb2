@@ -532,6 +532,10 @@
       "isDebug": true,
       "fileIncludes": [
         {
+          "text": "i18n.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
           "text": "regexp.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
