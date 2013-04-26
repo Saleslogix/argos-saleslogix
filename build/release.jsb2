@@ -532,7 +532,15 @@
       "isDebug": true,
       "fileIncludes": [
         {
+          "text": "regexp.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
           "text": "string.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "number.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {

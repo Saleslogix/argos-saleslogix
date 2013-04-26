@@ -16,7 +16,7 @@
 /**
  * Attatchment Manager 
  */
-define('Mobile/SalesLogix/AttachmenManager', [
+define('Mobile/SalesLogix/AttachmentManager', [
     'Sage/Platform/Mobile/FileManager',
     'dojo/_base/lang',
     'dojo/_base/declare',
