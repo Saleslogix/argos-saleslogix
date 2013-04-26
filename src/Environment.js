@@ -63,7 +63,8 @@ define('Mobile/SalesLogix/Environment', [
         },
         attachmentViewsToRefresh: [
             'myattachment_list',
-            'attachment_list'
+            'attachment_list',
+            'attachment_related'
         ],
         activityViewsToRefresh: [
             'myactivity_list',
