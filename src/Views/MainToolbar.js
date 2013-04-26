@@ -21,8 +21,17 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
             }
 
             if (!hasLeftSideTools && tools !== false) {
+                tools = tools || [];
+
+                tools = tools.concat([{
+                    id: 'toggleLeftDrawer',
+                    side: 'left',
+                    fn: this.toggleLeftDrawer,
+                    scope: this
+                }]);
+
                 if (App.getPrimaryActiveView() != App.getView('home')) {
-                    tools = (tools || []).concat([{
+                    tools = tools.concat([{
                             id: 'back',
                             side: 'left',
                             fn: this.navigateBack,
@@ -43,6 +52,14 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
         },
         navigateToHomeView: function() {
             App.navigateToHomeView();
+        },
+        toggleLeftDrawer: function() {
+            var state = App.snapper.state();
+            if (state.state !== 'closed') {
+                App.snapper.close();
+            } else {
+                App.snapper.open('left');
+            }
         }
     });
 });
