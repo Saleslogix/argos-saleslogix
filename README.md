@@ -1,7 +1,23 @@
 Installation
 ------------
 ### Prerequisites
-*	A web server
+*	A web server (see NodeJS steps if you do not have a web server installed or would like to use a lightweight dev server)
+
+### NodeJS (optional)
+1.	Install NodeJS from: http://nodejs.org/
+2.	Open a command prompt in the argos-saleslogix directory
+3.	Install gruntjs (http://gruntjs.com/getting-started)
+
+		npm install -g grunt-cli
+4. 	The package.json file in the root of argos-saleslogix contains nodejs dependencies, to install them run:
+	
+		npm install
+
+GruntJS is a task runner. We have defined tasks to run in Gruntfile.coffee. Here are some commands you can run via the command line (in the argos-saleslogix directory)
+* Unit tests: `grunt test`
+* Missing a web server? Run `grunt connect:server:keepalive` and open your browsser to http://localhost:8000/
+* JSHint: `grunt jshint`
+* Plus many more: http://gruntjs.com/plugins
 
 ### Clone repository
 1.	Open a command prompt.

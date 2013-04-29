@@ -7,11 +7,14 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Sage/Platform/Mobile/Calendar',
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/Views/Signature',
+    'Sage/Platform/Mobile/SearchWidget',
 
     'Mobile/SalesLogix/Views/AddAccountContact',
     'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
+    'Mobile/SalesLogix/Views/ExchangeRateLookup',
     'Mobile/SalesLogix/Views/MainToolbar',
     'Mobile/SalesLogix/Views/FooterToolbar',
+    'Mobile/SalesLogix/Views/UpdateToolbar',
     'Mobile/SalesLogix/Views/Home',
     'Mobile/SalesLogix/Views/Login',
     'Mobile/SalesLogix/Views/Settings',
@@ -22,6 +25,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/NameEdit',
     'Mobile/SalesLogix/Views/PickList',
     'Mobile/SalesLogix/Views/SelectList',
+    'Mobile/SalesLogix/Views/SpeedSearchList',
     'Mobile/SalesLogix/Views/TextEdit',
 
     'Mobile/SalesLogix/Views/Account/List',
@@ -30,6 +34,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Address/List',
     'Mobile/SalesLogix/Views/Address/Edit',
     'Mobile/SalesLogix/Views/Activity/List',
+    'Mobile/SalesLogix/Views/Activity/MyList',
     'Mobile/SalesLogix/Views/Activity/Detail',
     'Mobile/SalesLogix/Views/Activity/Edit',
     'Mobile/SalesLogix/Views/Activity/Complete',
@@ -63,7 +68,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/OpportunityContact/Detail',
     'Mobile/SalesLogix/Views/OpportunityContact/Edit',
     'Mobile/SalesLogix/Views/OpportunityProduct/List',
+    'Mobile/SalesLogix/Views/OpportunityProduct/Detail',
+    'Mobile/SalesLogix/Views/OpportunityProduct/Edit',
     'Mobile/SalesLogix/Views/Owner/List',
+    'Mobile/SalesLogix/Views/Product/List',
+    'Mobile/SalesLogix/Views/ProductProgram/List',
     'Mobile/SalesLogix/Views/Ticket/List',
     'Mobile/SalesLogix/Views/Ticket/Detail',
     'Mobile/SalesLogix/Views/Ticket/Edit',
@@ -80,6 +89,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/User/List',
 
     'Mobile/SalesLogix/Fields/AddressField',
+    'Mobile/SalesLogix/Fields/MultiCurrencyField',
     'Mobile/SalesLogix/Fields/NameField',
     'Mobile/SalesLogix/Fields/PicklistField',
     'Mobile/SalesLogix/Fields/RecurrencesField',
@@ -97,10 +107,13 @@ define('Mobile/SalesLogix/ApplicationModule', [
     Calendar,
     List,
     Signature,
+    SearchWidget,
     AddAccountContact,
     AreaCategoryIssueLookup,
+    ExchangeRateLookup,
     MainToolbar,
     FooterToolbar,
+    UpdateToolbar,
     Home,
     Login,
     Settings,
@@ -111,6 +124,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     NameEdit,
     PickList,
     SelectList,
+    SpeedSearchList,
     TextEdit,
     AccountList,
     AccountDetail,
@@ -118,6 +132,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     AddressList,
     AddressEdit,
     ActivityList,
+    MyActivityList,
     ActivityDetail,
     ActivityEdit,
     ActivityComplete,
@@ -149,7 +164,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
     OpportunityContactDetail,
     OpportunityContactEdit,
     OpportunityProductList,
+    OpportunityProductDetail,
+    OpportunityProductEdit,
     OwnerList,
+    ProductList,
+    ProductProgramList,
     TicketList,
     TicketDetail,
     TicketEdit,
@@ -165,17 +184,17 @@ define('Mobile/SalesLogix/ApplicationModule', [
     HistoryEdit,
     UserList
 ) {
-
     return declare('Mobile.SalesLogix.ApplicationModule', [ApplicationModule], {
+        searchText: 'Lookup',
         loadViews: function() {
             this.inherited(arguments);
 
             this.registerView(new Calendar({
-                expose:false
+                expose: false
             }));
 
             this.registerView(new Signature({
-                expose:false
+                expose: false
             }));
 
             this.registerView(new Login());
@@ -187,8 +206,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new MetricFilterLookup());
             this.registerView(new PickList());
             this.registerView(new SelectList());
+            this.registerView(new SpeedSearchList());
             this.registerView(new AddAccountContact());
             this.registerView(new AreaCategoryIssueLookup());
+            this.registerView(new ExchangeRateLookup());
 
             this.registerView(new NameEdit());
             this.registerView(new TextEdit());
@@ -235,9 +256,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new ErrorLogList());
             this.registerView(new ErrorLogDetail());
 
-
             this.registerView(new EventEdit());
-            this.registerView(new EventList({ expose: false }));
+            this.registerView(new EventList({expose: false}));
             this.registerView(new EventDetail());
             this.registerView(new EventList({
                 id: 'event_related',
@@ -260,9 +280,18 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose: false
             }));
 
-
             this.registerView(new OpportunityProductList({
                 id: 'opportunityproduct_related',
+                expose: false
+            }));
+
+            this.registerView(new OpportunityProductDetail({
+                id: 'opportunityproduct_detail',
+                expose: false
+            }));
+
+            this.registerView(new OpportunityProductEdit({
+                id: 'opportunityproduct_edit',
                 expose: false
             }));
 
@@ -281,7 +310,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'ticket_related',
                 expose: false
             }));
-
 
             this.registerView(new TicketActivityList());
             this.registerView(new TicketActivityDetail());
@@ -307,6 +335,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'activity_related',
                 expose: false
             }));
+
+            this.registerView(new MyActivityList());
             this.registerView(new ActivityRecurring());
 
             this.registerView(new HistoryDetail());
@@ -317,12 +347,21 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose: false
             }));
 
-
             this.registerView(new UserList({
                 expose: false
             }));
 
             this.registerView(new OwnerList({
+                expose: false
+            }));
+
+            this.registerView(new ProductList({
+                id: 'product_related',
+                expose: false
+            }));
+
+            this.registerView(new ProductProgramList({
+                id: 'productprogram_related',
                 expose: false
             }));
 
@@ -337,13 +376,16 @@ define('Mobile/SalesLogix/ApplicationModule', [
         loadToolbars: function() {
             this.inherited(arguments);
 
-
             this.registerToolbar(new MainToolbar({
                 name: 'tbar'
             }));
 
             this.registerToolbar(new FooterToolbar({
                 name: 'bbar'
+            }));
+
+            this.registerToolbar(new UpdateToolbar({
+                name: 'updatebar'
             }));
         },
         loadCustomizations: function() {
@@ -356,7 +398,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
                     return (this.expose && this.security); // only check security on exposed views
                 }
             });
+
+            lang.extend(SearchWidget, {
+                searchText: this.searchText 
+            });
         }
     });
-
 });
+

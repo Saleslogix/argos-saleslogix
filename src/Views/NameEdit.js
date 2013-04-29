@@ -74,3 +74,4 @@ define('Mobile/SalesLogix/Views/NameEdit', [
         }
     });
 });
+

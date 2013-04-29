@@ -335,6 +335,19 @@ localize("Mobile.SalesLogix.Views.History.List", {
   "viewContactActionText": "Contat."
 });
 
+localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
+  "startingFormatText": "d/M/yyyy h:mm tt",
+  "titleText": "Modifica Attività Ticket",
+  "activityTypeText": "tipo",
+  "activityTypeTitleText": "Tipo",
+  "publicAccessText": "acc. pubblico",
+  "publicAccessTitleText": "Acc. pubblico",
+  "userText": "utente",
+  "startDateText": "data iniz.",
+  "endDateText": "data fin",
+  "commentsText": "commenti"
+});
+
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
   "startDateFormatText": "dd/MM/yyyy h:mmtt",
   "titleText": "Attività Ticket"
@@ -459,16 +472,16 @@ localize("Sage.Platform.Mobile.Views.Signature", {
 
 localize("Mobile.SalesLogix.Action", {
   "calledText": "Chiam. ${0}",
-  "emailedText": "E-mailed ${0}"
+  "emailedText": "Inviato per email ${0}"
 });
 
 localize("Mobile.SalesLogix.Fields.AddressField", {
   "lookupLabelText": "mod.",
-  "emptyText": "nessun ind"
+  "emptyText": ""
 });
 
 localize("Mobile.SalesLogix.Fields.NameField", {
-  "emptyText": "no nome"
+  "emptyText": ""
 });
 
 localize("Mobile.SalesLogix.Fields.RecurrencesField", {
@@ -887,7 +900,7 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "activitiesText": "Attività",
   "notesText": "Note",
   "scheduleText": "Pianif.",
-  "emailedText": "E-mailed ${0}",
+  "emailedText": "Inviato per email ${0}",
   "calledText": "Chiam. ${0}",
   "editActionText": "Mod.",
   "callMainActionText": "Chiama Principale",
@@ -1155,18 +1168,6 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Detail", {
   "moreDetailsText": "Più Dettagli",
   "relatedItemsText": "VociCorrelate",
   "relatedTicketActivityItemText": "Ricambi"
-});
-
-localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
-  "titleText": "Modifica Attività Ticket",
-  "activityTypeText": "tipo",
-  "activityTypeTitleText": "Tipo",
-  "publicAccessText": "acc. pubblico",
-  "publicAccessTitleText": "Acc. pubblico",
-  "userText": "utente",
-  "startDateText": "data iniz.",
-  "endDateText": "data fin",
-  "commentsText": "commenti"
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.RateLookup", {

@@ -106,25 +106,32 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             return entry && (entry['LongNotes'] || entry['Notes']);
         },
         requestCompletedUser: function(entry) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
-                .setResourceKind('users')
-                .setResourceSelector(string.substitute("'${0}'", [entry['CompletedUser']]))
-                .setQueryArg('select', [
-                    'UserInfo/FirstName',
-                    'UserInfo/LastName'
-                ].join(','));
+            var request, completedUser;
+            completedUser = entry['CompletedUser'];
 
-            request.allowCacheUse = true;
+            if (completedUser) {
+                request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+                    .setResourceKind('users')
+                    .setResourceSelector(string.substitute("'${0}'", [completedUser]))
+                    .setQueryArg('select', [
+                        'UserInfo/FirstName',
+                        'UserInfo/LastName'
+                    ].join(','));
 
-            return request;
+                request.allowCacheUse = true;
+
+                return request;
+            }
         },
         requestCodeData: function(row, node, value, entry, predicate) {
             var request = this.requestCompletedUser(entry);
-            request.read({
-                success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
-                failure: this.onRequestCodeDataFailure,
-                scope: this
-            });
+            if (request) {
+                request.read({
+                    success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
+                    failure: this.onRequestCodeDataFailure,
+                    scope: this
+                });
+            }
         },
         onRequestCodeDataSuccess: function(row, node, value, entry, data) {
             var codeText = entry[row.property];
@@ -133,8 +140,9 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         },
         onRequestCodeDataFailure: function(response, o) {
             var rowNode = query('[data-property="CompletedUser"]');
-            if (rowNode)
+            if (rowNode) {
                 this.setNodeText(rowNode[0], this.entry['UserName']);
+            }
 
             ErrorManager.addError(response, o, this.options, 'failure');
         },
@@ -145,99 +153,100 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                title: this.detailsText,
-                name: 'DetailsSection',
-                children: [{
-                    name: 'StartDate',
-                    property: 'StartDate',
-                    label: this.scheduledText,
-                    renderer: format.date.bindDelegate(this, this.dateFormatText),
-                    exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
-                },{
-                    name: 'CompletedDate',
-                    property: 'CompletedDate',
-                    label: this.completedText,
-                    renderer: format.date.bindDelegate(this, this.dateFormatText),
-                    exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
-                },{
-                    name: 'ModifyDate',
-                    property: 'ModifyDate',
-                    label: this.modifiedText,
-                    renderer: format.date.bindDelegate(this, this.dateFormatText),
-                    include: this.isHistoryOfType.bindDelegate(this, 'atNote')
-                },{
-                    name: 'Description',
-                    property: 'Description',
-                    label: this.regardingText
-                },{
-                    name: 'CompletedUser',
-                    property: 'CompletedUser',
-                    label: this.completedByText,
-                    value: this.loadingText,
-                    cls: 'content-loading',
-                    onCreate: this.requestCodeData.bindDelegate(this)
-                }]
-            },{
-                title: this.notesText,
-                name: 'NotesSection',
-                children: [{
-                    name: 'LongNotes',
-                    property: 'LongNotes',
-                    encode: false,
-                    label: this.longNotesText,
-                    provider: this.provideText.bindDelegate(this),
-                    use: template.noteDetailProperty
-                }]
-            },{
-                title: this.relatedItemsText,
-                name: 'RelatedItemsSection',
-                children: [{
-                    name: 'AccountName',
-                    property: 'AccountName',
-                    exclude: this.isHistoryForLead,
-                    label: this.accountText,
-                    view: 'account_detail',
-                    key: 'AccountId',
-                    descriptor: 'AccountName'
-                },{
-                    name: 'ContactName',
-                    property: 'ContactName',
-                    exclude: this.isHistoryForLead,
-                    label: this.contactText,
-                    view: 'contact_detail',
-                    key: 'ContactId',
-                    descriptor: 'ContactName'
-                },{
-                    name: 'OpportunityName',
-                    property: 'OpportunityName',
-                    exclude: this.isHistoryForLead,
-                    label: this.opportunityText,
-                    view: 'opportunity_detail',
-                    key: 'OpportunityId',
-                    descriptor: 'OpportunityName'
-                },{
-                    name: 'TicketNumber',
-                    property: 'TicketNumber',
-                    exclude: this.isHistoryForLead,
-                    label: this.ticketNumberText,
-                    view: 'ticket_detail',
-                    key: 'TicketId',
-                    descriptor: 'TicketNumber'
-                },{
-                    name: 'LeadName',
-                    property: 'LeadName',
-                    include: this.isHistoryForLead,
-                    label: this.leadText,
-                    view: 'lead_detail',
-                    key: 'LeadId',
-                    descriptor: 'LeadName'
-                },{
-                    name: 'AccountName',
-                    property: 'AccountName',
-                    include: this.isHistoryForLead,
-                    label: this.companyText
-                }]
-            }]);
+                    title: this.detailsText,
+                    name: 'DetailsSection',
+                    children: [{
+                            name: 'StartDate',
+                            property: 'StartDate',
+                            label: this.scheduledText,
+                            renderer: format.date.bindDelegate(this, this.dateFormatText),
+                            exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
+                        }, {
+                            name: 'CompletedDate',
+                            property: 'CompletedDate',
+                            label: this.completedText,
+                            renderer: format.date.bindDelegate(this, this.dateFormatText),
+                            exclude: this.isHistoryOfType.bindDelegate(this, 'atNote')
+                        }, {
+                            name: 'ModifyDate',
+                            property: 'ModifyDate',
+                            label: this.modifiedText,
+                            renderer: format.date.bindDelegate(this, this.dateFormatText),
+                            include: this.isHistoryOfType.bindDelegate(this, 'atNote')
+                        }, {
+                            name: 'Description',
+                            property: 'Description',
+                            label: this.regardingText
+                        }, {
+                            name: 'CompletedUser',
+                            property: 'CompletedUser',
+                            label: this.completedByText,
+                            value: this.loadingText,
+                            cls: 'content-loading',
+                            onCreate: this.requestCodeData.bindDelegate(this)
+                        }]
+                }, {
+                    title: this.notesText,
+                    name: 'NotesSection',
+                    children: [{
+                        name: 'LongNotes',
+                        property: 'LongNotes',
+                        encode: false,
+                        label: this.longNotesText,
+                        provider: this.provideText.bindDelegate(this),
+                        use: template.noteDetailProperty
+                    }]
+                }, {
+                    title: this.relatedItemsText,
+                    name: 'RelatedItemsSection',
+                    children: [{
+                            name: 'AccountName',
+                            property: 'AccountName',
+                            exclude: this.isHistoryForLead,
+                            label: this.accountText,
+                            view: 'account_detail',
+                            key: 'AccountId',
+                            descriptor: 'AccountName'
+                        }, {
+                            name: 'ContactName',
+                            property: 'ContactName',
+                            exclude: this.isHistoryForLead,
+                            label: this.contactText,
+                            view: 'contact_detail',
+                            key: 'ContactId',
+                            descriptor: 'ContactName'
+                        }, {
+                            name: 'OpportunityName',
+                            property: 'OpportunityName',
+                            exclude: this.isHistoryForLead,
+                            label: this.opportunityText,
+                            view: 'opportunity_detail',
+                            key: 'OpportunityId',
+                            descriptor: 'OpportunityName'
+                        }, {
+                            name: 'TicketNumber',
+                            property: 'TicketNumber',
+                            exclude: this.isHistoryForLead,
+                            label: this.ticketNumberText,
+                            view: 'ticket_detail',
+                            key: 'TicketId',
+                            descriptor: 'TicketNumber'
+                        }, {
+                            name: 'LeadName',
+                            property: 'LeadName',
+                            include: this.isHistoryForLead,
+                            label: this.leadText,
+                            view: 'lead_detail',
+                            key: 'LeadId',
+                            descriptor: 'LeadName'
+                        }, {
+                            name: 'AccountName',
+                            property: 'AccountName',
+                            include: this.isHistoryForLead,
+                            label: this.companyText
+                        }]
+                }]);
         }
     });
 });
+

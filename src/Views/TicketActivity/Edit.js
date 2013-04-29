@@ -15,7 +15,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Edit], {
-
         //Localization
         titleText: 'Edit Ticket Activity',
         activityTypeText: 'type',
@@ -46,8 +45,9 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         processTemplateEntry: function(entry) {
             this.inherited(arguments);
 
-            if (entry['PublicAccessCode'])
+            if (entry['PublicAccessCode']) {
                 this.requestCodeData('name eq "Ticket Activity Public Access"', entry['PublicAccessCode'], this.fields['PublicAccessCode']);
+            }
         },
         createPicklistRequest: function(name) {
             var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
@@ -80,10 +80,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
             var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             var textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-            for (var i = 0; i < feed.$resources.length; i++)
-            {
-                if (feed.$resources[i][keyProperty] === currentValue)
+            for (var i = 0; i < feed.$resources.length; i++) {
+                if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
+                }
             }
 
             return currentValue;
@@ -91,12 +91,13 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
 
         applyContext: function() {
             this.inherited(arguments);
-            
-            var ticketContext = App.isNavigationFromResourceKind( ['tickets'] ),
+
+            var ticketContext = App.isNavigationFromResourceKind(['tickets']),
                 ticketKey = ticketContext && ticketContext.key;
 
-            if (ticketKey)
+            if (ticketKey) {
                 this.fields['TicketId'].setValue(ticketKey);
+            }
         },
 
         createLayout: function() {
@@ -115,7 +116,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     storageMode: 'code',
                     picklist: 'Ticket Activity',
                     type: 'picklist'
-                },{
+                }, {
                     label: this.publicAccessText,
                     name: 'PublicAccessCode',
                     property: 'PublicAccessCode',
@@ -123,7 +124,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     storageMode: 'code',
                     picklist: 'Ticket Activity Public Access',
                     type: 'picklist'
-                },{
+                }, {
                     label: this.userText,
                     name: 'User',
                     property: 'User',
@@ -131,7 +132,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     textTemplate: template.nameLF,
                     type: 'lookup',
                     view: 'user_list'
-                },{
+                }, {
                     label: this.startDateText,
                     name: 'AssignedDate',
                     property: 'AssignedDate',
@@ -143,8 +144,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                         validator.exists,
                         validator.isDateInRange
                     ]
-
-                },{
+                }, {
                     label: this.endDateText,
                     name: 'CompletedDate',
                     property: 'CompletedDate',
@@ -156,8 +156,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                         validator.exists,
                         validator.isDateInRange
                     ]
-
-                },{
+                }, {
                     label: this.commentsText,
                     name: 'ActivityDescription',
                     property: 'ActivityDescription',
@@ -168,3 +167,4 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         }
     });
 });
+

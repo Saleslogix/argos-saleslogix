@@ -45,5 +45,8 @@ deploy/
 # module development shells
 index-dev-*.html
 
-# tmp vim
+# vim temp files
 *.swp
+
+# nodejs
+node_modules

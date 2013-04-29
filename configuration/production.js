@@ -15,6 +15,8 @@ define('configuration/production', ['Mobile/SalesLogix/ApplicationModule'], func
                 protocol: /https/i.test(window.location.protocol) ? 'https' : false,
                 json: true
             }
-        }
+        },
+        enableUpdateNotification: true,
+        multiCurrency: false
     };
 });

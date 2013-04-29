@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/Address/List', [
         //Localization
         titleText: 'Addresses',
 
-        //View Properties        
+        //View Properties
         detailView: null,
         icon: 'content/images/icons/Map_24.png',
         id: 'address_list',
@@ -49,8 +49,10 @@ define('Mobile/SalesLogix/Views/Address/List', [
             var row = query(params.$source).closest('[data-key]')[0],
                 key = row ? domAttr.get(row, 'data-key') : false;
 
-            if (this._selectionModel && key)
+            if (this._selectionModel && key) {
                 App.showMapForAddress(format.address(this.entries[key], true, ' '));
+            }
         }
     });
 });
+

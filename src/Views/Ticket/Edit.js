@@ -17,7 +17,6 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Ticket.Edit', [Edit], {
-
         //Localization
         accountText: 'acct',
         areaText: 'area',
@@ -87,8 +86,9 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         processTemplateEntry: function(entry) {
             this.inherited(arguments);
 
-            if (entry['StatusCode'])
+            if (entry['StatusCode']) {
                 this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode']);
+            }
         },
         createPicklistRequest: function(name) {
             var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
@@ -122,10 +122,10 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             var textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-            for (var i = 0; i < feed.$resources.length; i++)
-            {
-                if (feed.$resources[i][keyProperty] === currentValue)
+            for (var i = 0; i < feed.$resources.length; i++) {
+                if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
+                }
             }
 
             return currentValue;
@@ -134,20 +134,17 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         setValues: function(entry) {
             this.inherited(arguments);
 
-            if (entry['SourceText'])
-            {
+            if (entry['SourceText']) {
                 this.fields['ViaCode'].setText(entry['SourceText']);
             }
 
-            if (entry['Status'])
-            {
+            if (entry['Status']) {
                 this.fields['StatusCode'].setText(entry['Status']);
             }
         },
         onUrgencyChange: function(value, field) {
             var selection = field.getSelection();
-            if (selection)
-            {
+            if (selection) {
                 this.fields['UrgencyCode'].setValue(selection['UrgencyCode']);
             }
         },
@@ -155,8 +152,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             var selection = field.getSelection(),
                 accountField = this.fields['Account'];
 
-            if (selection && selection['Account'] && !accountField.getValue())
-            {
+            if (selection && selection['Account'] && !accountField.getValue()) {
                 accountField.setValue({
                     '$key': selection['Account']['$key'],
                     'AccountName': selection['Account']['AccountName']
@@ -166,8 +162,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         onAccountChange: function(value, field) {
             var selection = field.getSelection();
 
-            if (selection && selection['$key'])
-            {
+            if (selection && selection['$key']) {
                 var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
                     .setResourceKind('accounts')
                     .setResourceSelector(string.substitute("'${0}'", [selection['$key']]))
@@ -178,8 +173,9 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
 
                 request.readFeed({
                     success: function(feed) {
-                        if (feed && feed['$resources'])
+                        if (feed && feed['$resources']) {
                             this.fields['Contact'].setValue(feed['$resources'][0]);
+                        }
                     },
                     failure: function() {
                     },
@@ -210,7 +206,9 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                 'contacts': this.applyContactContext
             };
 
-            if (found && lookup[found.resourceKind]) lookup[found.resourceKind].call(this, found);
+            if (found && lookup[found.resourceKind]) {
+                lookup[found.resourceKind].call(this, found);
+            }
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
@@ -245,7 +243,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             return value;
         },
         createLayout: function() {
-            return this.layout || (this.layout = [                
+            return this.layout || (this.layout = [
                 {
                     label: this.accountText,
                     name: 'Account',
@@ -418,3 +416,4 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         }
     });
 });
+

@@ -32,10 +32,10 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
-                '<button data-action="selectEntry" class="list-item-selector button">',
-                    '<img src="{%= $$.statusIcons[$.Status] || $$.icon || $$.selectIcon %}" class="icon" />',
-                '</button>',
-                '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+            '<button data-action="selectEntry" class="list-item-selector button">',
+            '<img src="{%= $$.statusIcons[$.Status] || $$.icon || $$.selectIcon %}" class="icon" />',
+            '</button>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
 
@@ -43,7 +43,14 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         itemTemplate: new Simplate([
             '<h3>{%: $.Description %} <span class="p-account">{% if ($.Account) { %}({%: $.Account.AccountName %}){% } %}</span></h3>',
             '<h4>',
-            '{%: $.Status %} {%: Mobile.SalesLogix.Format.currency($.SalesPotential) %}',
+            '{%: $.Status %} ',
+            '<strong>',
+            '{% if (App.hasMultiCurrency()) { %}',
+            '{%: Mobile.SalesLogix.Format.multiCurrency($.SalesPotential * $.ExchangeRate, $.ExchangeRateCode) %}',
+            '{% } else { %}',
+            '{%: Mobile.SalesLogix.Format.multiCurrency($.SalesPotential, App.getBaseExchangeRate().code) %}',
+            '{% } %}',
+            '</strong>',
             '{% if ($.Stage) { %} | {%: $.Stage %}{% } %}',
             '{% if ($.Account) { %} | {%: $.Account.AccountManager.UserInfo.UserName %}{% } %}',
             '{% if ($.Account && $.Account.AccountManager.UserInfo.Region) { %} - {%: $.Account.AccountManager.UserInfo.Region %}{% } %}',
@@ -62,10 +69,10 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
         hashTagQueriesText: {
-          'open': 'open',
-          'closed': 'closed',
-          'won': 'won',
-          'lost': 'lost'
+            'open': 'open',
+            'closed': 'closed',
+            'won': 'won',
+            'lost': 'lost'
         },
 
         //View Properties
@@ -93,7 +100,9 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'Description',
             'Stage',
             'Status',
-            'SalesPotential'
+            'SalesPotential',
+            'ExchangeRate',
+            'ExchangeRateCode',
         ],
         resourceKind: 'opportunities',
         entityName: 'Opportunity',
@@ -102,41 +111,41 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                    id: 'edit',
-                    icon: 'content/images/icons/edit_24.png',
-                    label: this.editActionText,
-                    action: 'navigateToEditView'
-                },{
-                    id: 'viewAccount',
-                    icon: 'content/images/icons/Company_24.png',
-                    label: this.viewAccountActionText,
-                    enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
-                    fn: action.navigateToEntity.bindDelegate(this, {
-                        view: 'account_detail',
-                        keyProperty: 'Account.$key',
-                        textProperty: 'Account.AccountName'
-                    })
-                },{
-                    id: 'viewContacts',
-                    icon: 'content/images/icons/Contacts_24x24.png',
-                    label: 'Contacts',
-                    fn: this.navigateToRelatedView.bindDelegate(this, 'opportunitycontact_related', 'Opportunity.Id eq "${0}"')
-                },{
-                    id: 'viewProducts',
-                    icon: 'content/images/icons/product_24.png',
-                    label: this.viewProductsActionText,
-                    fn: this.navigateToRelatedView.bindDelegate(this, 'opportunityproduct_related', 'Opportunity.Id eq "${0}"')
-                },{
-                    id: 'addNote',
-                    icon: 'content/images/icons/New_Note_24x24.png',
-                    label: this.addNoteActionText,
-                    fn: action.addNote.bindDelegate(this)
-                },{
-                    id: 'addActivity',
-                    icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                    label: this.addActivityActionText,
-                    fn: action.addActivity.bindDelegate(this)
-                }]
+                        id: 'edit',
+                        icon: 'content/images/icons/edit_24.png',
+                        label: this.editActionText,
+                        action: 'navigateToEditView'
+                    }, {
+                        id: 'viewAccount',
+                        icon: 'content/images/icons/Company_24.png',
+                        label: this.viewAccountActionText,
+                        enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
+                        fn: action.navigateToEntity.bindDelegate(this, {
+                            view: 'account_detail',
+                            keyProperty: 'Account.$key',
+                            textProperty: 'Account.AccountName'
+                        })
+                    }, {
+                        id: 'viewContacts',
+                        icon: 'content/images/icons/Contacts_24x24.png',
+                        label: 'Contacts',
+                        fn: this.navigateToRelatedView.bindDelegate(this, 'opportunitycontact_related', 'Opportunity.Id eq "${0}"')
+                    }, {
+                        id: 'viewProducts',
+                        icon: 'content/images/icons/product_24.png',
+                        label: this.viewProductsActionText,
+                        fn: this.navigateToRelatedView.bindDelegate(this, 'opportunityproduct_related', 'Opportunity.Id eq "${0}"')
+                    }, {
+                        id: 'addNote',
+                        icon: 'content/images/icons/New_Note_24x24.png',
+                        label: this.addNoteActionText,
+                        fn: action.addNote.bindDelegate(this)
+                    }, {
+                        id: 'addActivity',
+                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                        label: this.addActivityActionText,
+                        fn: action.addActivity.bindDelegate(this)
+                    }]
             );
         },
 
@@ -145,3 +154,4 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         }
     });
 });
+

@@ -1,6 +1,7 @@
 define('Mobile/SalesLogix/Environment', [
     'dojo/_base/lang',
     'dojo/_base/window',
+    'dojo/_base/array',
     'dojo/has',
     'dojo/string',
     'dojo/dom-construct',
@@ -8,6 +9,7 @@ define('Mobile/SalesLogix/Environment', [
 ], function(
     lang,
     win,
+    array,
     has,
     string,
     domConstruct
@@ -19,34 +21,32 @@ define('Mobile/SalesLogix/Environment', [
         initiateCall: function(number) {
             setTimeout(function() {
                 window.location.href = string.substitute("tel:${0}", [number]);
-            }, 50);
+            }, 500);
         },
         initiateEmail: function(email, subject, body) {
             setTimeout(function() {
                 var mailtoUri = (subject)
-                    ? string.substitute("mailto:${0}?subject=${1}&body=${2}", [email, subject, body||''])
+                    ? string.substitute("mailto:${0}?subject=${1}&body=${2}", [email, subject, body || ''])
                     : string.substitute("mailto:${0}", [email]);
                 window.location.href = mailtoUri;
             }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
         },
         showMapForAddress: function(address) {
             setTimeout(function() {
-                var eventFire = function(node, eventType){
-                    if (node.fireEvent)
-                    { // for IE
+                var eventFire = function(node, eventType) {
+                    if (node.fireEvent) { // for IE
                         node.fireEvent('on' + eventType);
                         node[eventType]();
-                    }
-                    else
-                    {
+                    } else {
                         var event = document.createEvent('MouseEvents');
                         event.initMouseEvent(eventType, true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
                         node.dispatchEvent(event);
 
                         // FF 3.6-4 do not follow untrusted events, fixed in FF5+
                         // https://bugzilla.mozilla.org/show_bug.cgi?id=666604
-                        if (has('ff') < 5)
+                        if (has('ff') < 5) {
                             window.open(node.href);
+                        }
                     }
                 };
 
@@ -60,6 +60,25 @@ define('Mobile/SalesLogix/Environment', [
                 domConstruct.destroy(hiddenLink);
 
             }, 50);
+        },
+        activityViewsToRefresh: [
+            'myactivity_list',
+            'activity_list',
+            'activity_detail',
+            'activity_related',
+            'ticketactivity_related',
+            'history_related',
+            'history_list'
+        ],
+        refreshActivityLists: function() {
+            var views = Mobile.SalesLogix.Environment.activityViewsToRefresh || [];
+            array.forEach(views, function(view_id) {
+                var view = App.getView(view_id);
+                if (view) {
+                    view.refreshRequired = true;
+                }
+            });
         }
     });
 });
+

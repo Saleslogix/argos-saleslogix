@@ -17,10 +17,11 @@ define('Mobile/SalesLogix/Views/SelectList', [
         expose: false,
 
         refreshRequiredFor: function(options) {
-            if (this.options)
+            if (this.options) {
                 return options ? (this.options.data != options.data) : false;
-            else
+            } else {
                 return true;
+            }
         },
         hasMoreData: function() {
             return false;
@@ -28,8 +29,10 @@ define('Mobile/SalesLogix/Views/SelectList', [
         requestData: function() {
             // caller is responsible for passing in a well-structured feed object.
             var data = this.expandExpression(this.options && this.options.data);
-            if (data)
+            if (data) {
                 this.processFeed(data);
+            }
         }
     });
 });
+

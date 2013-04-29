@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Jasmine Spec Runner</title>
+<% with (scripts) { %>
+ <% jasmine.forEach(function(script) { %>
+   <script type="text/javascript" src="<%= script %>"></script>
+ <% }); %>
+ 
+  <% vendor.forEach(function(script) { %>
+   <script type="text/javascript" src="<%= script %>"></script>
+ <% }); %>
+ 
+ <% helpers.forEach(function(script) { %>
+   <script type="text/javascript" src="<%= script %>"></script>
+ <% }); %>
+ 
+ <% reporters.forEach(function(script) { %>
+   <script type="text/javascript" src="<%= script %>"></script>
+ <% }); %>
+<% }; %>
+
+  <!-- JSON -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
+
+  <!-- ReUI -->
+  <script type="text/javascript">
+  reConfig = {
+      autoInit: false,
+      legacyMode: false,
+      showInitialPage: false,
+      updateBackButtonText: false
+  };
+  </script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/reui/reui.js"></script>
+
+  <!-- SData Client Library -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
+  <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
+
+  <!-- DateJS -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/datejs/build/date.js"></script>
+
+  <!-- Simplate -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
+
+  <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
+
+  <!-- Dojo -->
+  <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
+  <script type="text/javascript">
+  require({
+      baseUrl: "./",
+      packages: [
+      { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
+      { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
+      { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
+      { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
+      { name: 'Mobile/SalesLogix', location: 'src' },
+      { name: 'spec', location: 'tests/src' },
+      { name: 'localization', location: 'localization' },
+      { name: 'configuration', location: 'configuration' }
+  ]});
+  </script>
+  <% css.forEach(function(style){ %>
+  <link rel="stylesheet" type="text/css" href="<%= style %>">
+  <% }); %>
+
+</head>
+<body>
+  <script type="text/javascript">
+  <% with (scripts) { %>
+  require([
+  <% specs.forEach(function(spec) { %>
+    '<%= spec.replace("./tests/src", "spec").replace(".js", "") %>',
+  <% }); %>
+    'localization/en',
+    'localization/saleslogix/en'
+  ], function() {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+
+      var htmlReporter = new jasmine.HtmlReporter();
+
+      jasmineEnv.addReporter(htmlReporter);
+
+      jasmineEnv.specFilter = function(spec) {
+        return htmlReporter.specFilter(spec);
+      };
+
+      var currentWindowOnload = window.onload;
+
+      window.onload = function() {
+        if (currentWindowOnload) {
+          currentWindowOnload();
+        }
+        execJasmine();
+      };
+
+      function execJasmine() {
+        jasmineEnv.execute();
+      }
+
+  });
+  <% }; %>
+  </script>
+</body>
+</html>
