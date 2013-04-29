@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             '<h3>{%: $.Description %} <span class="p-account">{% if ($.Account) { %}({%: $.Account.AccountName %}){% } %}</span></h3>',
             '<h4>',
             '{%: $.Status %} ',
-            '{% if ($.SalesPotential) { %}'
+            '{% if ($.SalesPotential) { %}',
                 '<strong>',
                 '{% if (App.hasMultiCurrency()) { %}',
                     '{%: Mobile.SalesLogix.Format.multiCurrency($.SalesPotential * $.ExchangeRate, $.ExchangeRateCode) %}',
