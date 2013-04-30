@@ -160,7 +160,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
                     requireSelection: false,
                     title: this.countryTitleText,
                     type: 'picklist',
-                    maxTextLength: 32,
+                    maxTextLength: 64,
                     validator: validator.exceedsMaxTextLength
                 }, {
                     label: this.salutationText,
