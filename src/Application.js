@@ -23,15 +23,6 @@ define('Mobile/SalesLogix/Application', [
     Application
 ) {
 
-    // TODO: Move this to the SDK?
-    has.add('html5-file-api', function(global, document) {
-        if (global.File && global.FileReader && global.FileList && global.Blob) {
-            return true;
-        } else {
-            return false;
-        }
-    });
-
     return declare('Mobile.SalesLogix.Application', [Application], {
         navigationState: null,
         rememberNavigationState: true,
