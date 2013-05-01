@@ -654,6 +654,8 @@ td.calendar-day {
 .toolButton[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
 .toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
 .toolButton[data-tool="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }
+.toolButton[data-tool="toggleLeftDrawer"] > span { background-image: url(../images/icons/drawer_24.png); }
+.toolButton[data-tool="toggleRightDrawer"] > span { background-image: url(../images/icons/drawer_24.png); }
 .toolbar button.disabled {}
 .toolbar button.disabled > span {
     opacity: .1;

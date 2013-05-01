@@ -2,11 +2,13 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
+    'Mobile/SalesLogix/SpeedSearchWidget',
     'Sage/Platform/Mobile/GroupedList'
 ], function(
     declare,
     array,
     lang,
+    SpeedSearchWidget,
     GroupedList
 ) {
 
@@ -40,7 +42,8 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         //View Properties
         id: 'left_drawer',
         expose: false,
-        enableSearch: false,
+        enableSearch: true,
+        searchWidgetClass: SpeedSearchWidget,
         customizationSet: 'left_drawer',
 
         settingsView: 'settings',
@@ -54,7 +57,10 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                 App.logOut();
             }
         },
-
+        loadAndNavigateToView: function (params) {
+            var view = App.getView(params && params.view);
+            this.navigateToView(view);
+        },
         navigateToView: function(view) {
             App.snapper.close();
             if (view) {
@@ -63,6 +69,10 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         },
         addAccountContact: function(params) {
             var view = App.getView(this.addAccountContactView);
+            this.navigateToView(view);
+        },
+        navigateToConfigurationView: function() {
+            var view = App.getView(this.configurationView);
             this.navigateToView(view);
         },
         navigateToSettingsView: function() {
@@ -96,28 +106,63 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                 title: this.actionsText
             };
         },
+        scroller: null,
         init: function() {
             this.inherited(arguments);
-
             this.connect(App, 'onRegistered', this._onRegistered);
-        },
-        createToolLayout: function() {
-            return this.tools || (this.tools = {
-                tbar: [{
-                    id: 'configure',
-                    action: 'navigateToConfigurationView'
-                }]
-            });
+            this.scroller = new iScroll(this.id);
         },
         createLayout: function() {
-            // don't need to cache as it is only re-rendered when there is a change
-            var layout = this.layout || [{
-                    id: 'actions',
-                    children: [{
+            if (this.layout) {
+                return this.layout;
+            }
+
+            var quickActions, goTo, footer, layout, configured;
+            layout = [];
+
+            quickActions = {
+                id: 'actions',
+                children: [
+                    {
                         'name': 'AddAccountContactAction',
                         'action': 'addAccountContact',
                         'icon': 'content/images/icons/New_Contact_24x24.png',
                         'title': this.addAccountContactText
+                    }
+                ]
+            };
+
+            layout.push(quickActions);
+
+            goTo = {
+                id: 'views',
+                children: []
+            };
+
+            configured = lang.getObject('preferences.home.visible', false, window.App);
+            for (var i = 0; i < configured.length; i++) {
+                var view = App.getView(configured[i]);
+                if (view) {
+                    goTo.children.push({
+                        'action': 'loadAndNavigateToView',
+                        'view': view.id,
+                        'icon': view.icon,
+                        'title': view.titleText,
+                        'security': view.getSecurity()
+                    });
+                }
+            }
+            
+            layout.push(goTo);
+
+            footer = {
+                id: 'footer',
+                children: [
+                    {
+                        'name': 'ConfigureMenu',
+                        'action': 'navigateToConfigurationView',
+                        'icon': 'content/images/icons/Tools_24x24.png',
+                        'title': this.configureText 
                     }, {
                         'name': 'SettingsAction',
                         'action': 'navigateToSettingsView',
@@ -134,8 +179,10 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                         'icon': 'content/images/icons/login_24.png',
                         'title': this.logOutText
                     }
-                    ]
-                }];
+                ]
+            };
+
+            layout.push(footer);
 
             return layout;
         },
@@ -179,17 +226,27 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             }
 
             this.refresh();
+            this.scroller.refresh();
             this._shown = true;
-        },
-
-        navigateToConfigurationView: function() {
-            var view = App.getView(this.configurationView);
-            if (view) {
-                view.show();
-            }
         },
         _onRegistered: function() {
             this.refreshRequired = true;
+        },
+        refreshRequiredFor: function(options) {
+            var visible = lang.getObject('preferences.home.visible', false, App) || [],
+                shown = this.feed && this.feed['$resources'];
+
+            if (!visible || !shown || (visible.length != shown.length)) {
+                return true;
+            }
+
+            for (var i = 0; i < visible.length; i++) {
+                if (visible[i] != shown[i]['$key']) {
+                    return true;
+                }
+            }
+
+            return this.inherited(arguments);
         }
     });
 });

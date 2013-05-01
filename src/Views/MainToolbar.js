@@ -36,13 +36,15 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
                             side: 'left',
                             fn: this.navigateBack,
                             scope: this
-                        }, {
-                            id: 'home',
-                            side: 'left',
-                            fn: this.navigateToHomeView,
-                            scope: this
                         }]);
                 }
+
+                /*tools.unshift([{
+                    id: 'toggleRightDrawer',
+                    side: 'right',
+                    fn: this.toggleRightDrawer,
+                    scope: this
+                }]);*/
             }
 
             this.inherited(arguments);
@@ -54,11 +56,17 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
             App.navigateToHomeView();
         },
         toggleLeftDrawer: function() {
-            var state = App.snapper.state();
-            if (state.state !== 'closed') {
+            this._toggleDrawer('left');
+        },
+        toggleRightDrawer: function() {
+            this._toggleDrawer('right');
+        },
+        _toggleDrawer: function(state) {
+            var snapperState = App.snapper.state();
+            if (snapperState.state === state) {
                 App.snapper.close();
             } else {
-                App.snapper.open('left');
+                App.snapper.open(state);
             }
         }
     });

@@ -17,7 +17,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/MainToolbar',
     'Mobile/SalesLogix/Views/FooterToolbar',
     'Mobile/SalesLogix/Views/UpdateToolbar',
-    'Mobile/SalesLogix/Views/Home',
     'Mobile/SalesLogix/Views/LeftDrawer',
     'Mobile/SalesLogix/Views/Login',
     'Mobile/SalesLogix/Views/Settings',
@@ -113,7 +112,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     MainToolbar,
     FooterToolbar,
     UpdateToolbar,
-    Home,
     LeftDrawer,
     Login,
     Settings,
@@ -194,9 +192,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
             }));
 
             this.registerView(new Login());
-
-
-            this.registerView(new Home());
 
             this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
 

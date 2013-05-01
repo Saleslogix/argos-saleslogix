@@ -697,7 +697,7 @@ define('Mobile/SalesLogix/Application', [
 
             snapper = new snap({
                 element: document.getElementById('viewContainer'),
-                disable: 'right',
+                disable: 'right', // use 'none' to do both
                 addBodyClasses: true,
                 resistance: 0.5,
                 flickThreshold: 50,
@@ -720,7 +720,7 @@ define('Mobile/SalesLogix/Application', [
         },
         navigateToHomeView: function() {
             this.loadSnapper();
-            var view = this.getView('home');
+            var view = this.getView('myactivity_list');
             if (view) {
                 view.show();
             }
