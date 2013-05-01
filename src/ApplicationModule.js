@@ -97,7 +97,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Environment'
+    'Mobile/SalesLogix/Environment',
+    'Mobile/SalesLogix/Utility'
     
 ], function(
     declare,

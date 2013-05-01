@@ -34,7 +34,8 @@ define('Mobile/SalesLogix/AttachmentManager', [
     return declare('Mobile.SalesLogix.AttachmentManager', null, {
         _fileManager: null,
         _entityContext: null,
-        _uploadUrl: 'sdata/slx/system/-/attachments/file',
+        _uploadUrl: '',
+        _baseUrl: '',
         _attachmentTemplate: false,
         serviceName: false,
         contractName: 'system',
@@ -51,12 +52,12 @@ define('Mobile/SalesLogix/AttachmentManager', [
             this.querySelect = [];
             this.queryInclude = [];
             this._files = [];
-
             this._fileManager = new FileManager();
             service = App.getService(this.serviceName);
             oldContractName = service.getContractName();
             service.setContractName(this.contractName);
-            this._uploadUrl = service.getUri() + '/attachments/file';
+            this._baseUrl = service.getUri().toString();
+            this._uploadUrl = this._baseUrl + '/attachments/file';
             service.setContractName(oldContractName);
             
         },
@@ -82,6 +83,10 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 },
                 this.onRequestTemplateFailure
             );
+        },
+        getAttachmentUrl: function(attachmentId) {
+            var fileUrl = this._baseUrl + '/attachments(\'' + attachmentId + '\')/file';
+            return fileUrl;
         },
         _getAttachmentContextMixin: function(fileName) {
             var contextMixin;

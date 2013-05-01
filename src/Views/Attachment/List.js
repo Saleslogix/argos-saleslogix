@@ -12,6 +12,14 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
 
     return declare('Mobile.SalesLogix.Views.Attachment.List', [List], {
         //Templates
+        rowTemplate: new Simplate([
+            '<li data-action="xactivateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
+                '<button data-action="selectEntry" class="list-item-selector button">',
+                    '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
+                '</button>',
+                '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+            '</li>'
+        ]),
         itemTemplate: new Simplate([
            '{% if ($.dataType === "R") { %}',
             '<div class="list-item-static-selector">',
@@ -23,8 +31,9 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
            '{% } %}',
         ]),
         fileTemplate: new Simplate([
-            '<h3>{%: $.description %}</h3>',
-            '<h4><span>{%: $.fileName %}&nbsp;</span></h4>',
+            //'<h3>{%: $.description %}</h3>',
+           '<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" title="{%: $.$descriptor %}">{%: $.$descriptor %}</a>',
+             // '<h4><span>{%: $.fileName %}&nbsp;</span></h4>',
             '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
             '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
             '{% if($.user) { %}',
@@ -32,7 +41,8 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             '{% } %}'
         ]),
         urlTemplate: new Simplate([
-            '<h3>{%: $.description %}</h3>',
+           // '<h3>{%: $.description %}</h3>',
+            '<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" target="_blank" title="{%: $.url %}">{%: $.$descriptor %}</a>',
             '<h4>',
                 '<span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
                 '<span>URL:{%: $.url %})&nbsp;</span>',
@@ -49,7 +59,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         //View Properties       
         id: 'attachment_list',
         security: null,
-        detailView: 'attachment_detail',
+        //detailView: 'attachment_detail',
         insertView: 'attachment_Add',
         icon: 'content/images/icons/attachment_24.png',
         queryOrderBy: 'attachDate desc',
@@ -65,6 +75,20 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return '';
+        },
+        getLink: function(attachment) {
+            if (attachment['url']) {
+                var href = attachment['url'] || '';
+                href = (href.indexOf('http') < 0) ? 'http://' + href : href;
+                return string.substitute('<a href="${0}" target="_blank" title="${1}">${2}</a>', [href, attachment['url'], attachment['$descriptor']]);
+            } else {
+                if (attachment['fileExists']) {
+                    return string.substitute('<a href="javascript: Sage.Utility.File.Attachment.getAttachment(\'${0}\');" title="${1}">${1}</a>',
+                        [attachment['$key'], attachment['$descriptor']]);
+                } else {
+                    return attachment['$descriptor'];
+                }
+            }
         }
     });
 });
