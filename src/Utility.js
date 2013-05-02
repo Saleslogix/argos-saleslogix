@@ -35,19 +35,35 @@ define('Mobile/SalesLogix/Utility', [
                 return href;
             } else {
                 if (attachment['fileExists']) {
-                    return string.substitute('javascript: Mobile.SalesLogix.Utility.getAttachment(\'${0}\');',
+                    return string.substitute('javascript: Mobile.SalesLogix.Utility.openAttachmentFile(\'${0}\');',
                         [attachment['$key'], attachment['$descriptor']]);
                 } else {
                     return attachment['$descriptor'];
                 }
             }
         },
-        getAttachment: function(attachmentId) {
+        openAttachmentFile: function(attachmentId) {
             if (attachmentId && attachmentId.length === 12) {
                 var am = new AttachmentManager();
-                var url = am.getAttachmentUrl(attachmentId);
-                window.open(url, 'file');
-             }
+                am.getAttachmentFile(attachmentId, function(responseInfo) {
+                    var blob, url, a;
+
+                    blob = new Blob([responseInfo.response], { type: responseInfo.contentType });
+
+                    // Use the URL object to create a temporary URL
+                    url = (window.webkitURL || window.URL).createObjectURL(blob);
+                    // myWindow = window.open();
+                    // myWindow.location = url;
+
+                    //create html element to assign file name.
+                    a = document.createElement('a');
+                    a.href = url;
+                    a.download = responseInfo.fileName;
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
+                });
+            }
         }
     });
 });

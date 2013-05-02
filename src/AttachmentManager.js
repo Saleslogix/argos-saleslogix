@@ -162,8 +162,8 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 });
         },
         onRequestTemplateFailure: function(response, o) {
-           // alert(string.substitute(this.requestErrorText, [response, o]));
-           // ErrorManager.addError(response, o, this.options, 'failure');
+            // alert(string.substitute(this.requestErrorText, [response, o]));
+            // ErrorManager.addError(response, o, this.options, 'failure');
         },
         onRequestTemplateSuccess: function(entry) {
             this.processTemplateEntry(entry);
@@ -218,31 +218,31 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 var id = matches[0].replace(/\'/g, '');
                 //now that we have the id, we can fetch it using the SingleEntrySDataStore
                 this.requestData(id, function(attachment) {
-                     var mixin = this._getAttachmentContextMixin(attachment.fileName);
-                     if (mixin) {
-                         attachment.attachDate = convert.toIsoStringFromDate(new Date());
-                         attachment.dataType = 'R';
-                         attachment.description = this._getDefaultDescription(attachment.fileName);
-                         attachment = lang.mixin(attachment, mixin);
-                         var request = this.createDataRequest(id);
-                         if (request){
-                             request.update(attachment, {
-                                 success: this.onSuccessUpdate,
-                                 failure: this._onFailedUpdate,
-                                 scope: this
-                             });
-                         }
-                     }
-                     //clean up in case they upload the same file again to another entity or something
-                     //delete (this._mixinsByName[attachment.fileName]);
+                    var mixin = this._getAttachmentContextMixin(attachment.fileName);
+                    if (mixin) {
+                        attachment.attachDate = convert.toIsoStringFromDate(new Date());
+                        attachment.dataType = 'R';
+                        attachment.description = this._getDefaultDescription(attachment.fileName);
+                        attachment = lang.mixin(attachment, mixin);
+                        var request = this.createDataRequest(id);
+                        if (request){
+                            request.update(attachment, {
+                                success: this.onSuccessUpdate,
+                                failure: this._onFailedUpdate,
+                                scope: this
+                            });
+                        }
+                    }
+                    //clean up in case they upload the same file again to another entity or something
+                    //delete (this._mixinsByName[attachment.fileName]);
                 
-                    },
+                },
                     this.onRequestDataFailure
                 );
                
             }
-           // this._filesUploadedCount = this._filesUploadedCount + 1;
-           // this._updateProgress((this._fileCount < 1) ? 100 : (this._filesUploadedCount / this._fileCount) * 100);
+            // this._filesUploadedCount = this._filesUploadedCount + 1;
+            // this._updateProgress((this._fileCount < 1) ? 100 : (this._filesUploadedCount / this._fileCount) * 100);
         },
         _onFailedUpload: function(resp) {
             console.warn('Attachment failed to upload %o', resp);
@@ -268,12 +268,12 @@ define('Mobile/SalesLogix/AttachmentManager', [
             this._totalProgress = pct;
             //console.log('now calculated pct: ' + pct);
             if (pct < 99) {
-               // dialogs.showProgressBar({
-               //     pct: pct,
-               //     title: this.percentComplete
-               // });
+                // dialogs.showProgressBar({
+                //     pct: pct,
+                //     title: this.percentComplete
+                // });
             } else {
-              //  dialogs.closeProgressBar();
+                //  dialogs.closeProgressBar();
                 this._resetCounts();
 
             }
@@ -283,6 +283,10 @@ define('Mobile/SalesLogix/AttachmentManager', [
             this._filesUploadedCount = 0;
             this._isUploading = false;
             this._totalProgress = 0;
+        },
+        getAttachmentFile: function(attachmentId, onSuccsess) {
+            var url = this.getAttachmentUrl(attachmentId);
+            var fm = this._fileManager.getFile(url, onSuccsess);
         }
     });
 });
