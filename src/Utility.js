@@ -52,16 +52,16 @@ define('Mobile/SalesLogix/Utility', [
 
                     // Use the URL object to create a temporary URL
                     url = (window.webkitURL || window.URL).createObjectURL(blob);
-                    // myWindow = window.open();
-                    // myWindow.location = url;
+                    myWindow = window.open();
+                    myWindow.location = url;
 
                     //create html element to assign file name.
-                    a = document.createElement('a');
-                    a.href = url;
-                    a.download = responseInfo.fileName;
-                    a.style.display = 'none';
-                    document.body.appendChild(a);
-                    a.click();
+                   // a = document.createElement('a');
+                  //  a.href = url;
+                  //  a.download = responseInfo.fileName;
+                  //  a.style.display = 'none';
+                  //  document.body.appendChild(a);
+                 //   a.click();
                 });
             }
         }
