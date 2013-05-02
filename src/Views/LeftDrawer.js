@@ -106,11 +106,9 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                 title: this.actionsText
             };
         },
-        scroller: null,
         init: function() {
             this.inherited(arguments);
             this.connect(App, 'onRegistered', this._onRegistered);
-            this.scroller = new iScroll(this.id);
         },
         createLayout: function() {
             if (this.layout) {
@@ -226,7 +224,6 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             }
 
             this.refresh();
-            this.scroller.refresh();
             this._shown = true;
         },
         _onRegistered: function() {
