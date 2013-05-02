@@ -15,7 +15,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
     'Mobile/SalesLogix/Views/ExchangeRateLookup',
     'Mobile/SalesLogix/Views/MainToolbar',
-    'Mobile/SalesLogix/Views/FooterToolbar',
     'Mobile/SalesLogix/Views/UpdateToolbar',
     'Mobile/SalesLogix/Views/LeftDrawer',
     'Mobile/SalesLogix/Views/Login',
@@ -110,7 +109,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
     AreaCategoryIssueLookup,
     ExchangeRateLookup,
     MainToolbar,
-    FooterToolbar,
     UpdateToolbar,
     LeftDrawer,
     Login,
@@ -368,10 +366,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerToolbar(new MainToolbar({
                 name: 'tbar'
-            }));
-
-            this.registerToolbar(new FooterToolbar({
-                name: 'bbar'
             }));
 
             this.registerToolbar(new UpdateToolbar({
