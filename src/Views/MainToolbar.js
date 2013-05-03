@@ -68,6 +68,16 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
         toggleRightDrawer: function() {
             this._toggleDrawer('right');
         },
+        onTitleClick: function() {
+            var view, state;
+
+            state = App.snapper && App.snapper.state();
+            view = App.getPrimaryActiveView();
+
+            if (view && state && state.state === 'closed') {
+                view.domNode.scrollTop = 0;
+            }
+        },
         _toggleDrawer: function(state) {
             var snapperState = App.snapper.state();
             if (snapperState.state === state) {
