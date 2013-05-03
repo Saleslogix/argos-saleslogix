@@ -9,34 +9,41 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
     return declare('Mobile.SalesLogix.Views.MainToolbar', [MainToolbar], {
         titleText: 'Sage Saleslogix',
         showTools: function(tools) {
-            var hasLeftSideTools;
+            var hasLeftDrawer, hasBackMenu;
 
             if (tools) {
                 for (var i = 0; i < tools.length; i++) {
-                    if (tools[i].side == 'left') {
-                        hasLeftSideTools = true;
-                        break;
+                    if (tools[i].id == 'toggleLeftDrawer') {
+                        hasLeftDrawer = true;
+                    }
+
+                    if (tools[i].id == 'back') {
+                        hasLeftDrawer = true;
                     }
                 }
             }
 
-            if (!hasLeftSideTools && tools !== false) {
+            if (tools !== false) {
                 tools = tools || [];
 
-                tools = tools.concat([{
-                    id: 'toggleLeftDrawer',
-                    side: 'left',
-                    fn: this.toggleLeftDrawer,
-                    scope: this
-                }]);
+                if (!hasLeftDrawer) {
+                    tools.unshift({
+                        id: 'toggleLeftDrawer',
+                        side: 'left',
+                        fn: this.toggleLeftDrawer,
+                        scope: this
+                    });
+                }
 
-                if (App.getPrimaryActiveView() != App.getView('home')) {
-                    tools = tools.concat([{
-                            id: 'back',
-                            side: 'left',
-                            fn: this.navigateBack,
-                            scope: this
-                        }]);
+                if (!hasBackMenu) {
+                    if (App.getPrimaryActiveView() != App.getView('home')) {
+                        tools = tools.concat([{
+                                id: 'back',
+                                side: 'left',
+                                fn: this.navigateBack,
+                                scope: this
+                            }]);
+                    }
                 }
 
                 /*tools.unshift([{
