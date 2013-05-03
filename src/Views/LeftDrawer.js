@@ -50,6 +50,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         helpView: 'help',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
+        searchView: 'speedsearch_list',
 
         logOut: function() {
             var sure = window.confirm(this.logOutConfirmText);
@@ -207,13 +208,29 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         },
 
         _onSearchExpression: function(expression, widget) {
-            var view = App.getView(this.searchView);
+            var view, current;
+            view = App.getView(this.searchView);
+            current = App.getPrimaryActiveView();
 
             if (view) {
-                view.show({
-                    query: expression
-                });
+                // If the speedsearch list is not our current view, show it first
+                if (view.id !== current.id) {
+                    view.show({
+                        query: expression
+                    });
+                }
+
+                // Set the search term on the list and call search.
+                // This will keep the search terms on each widget in sync. 
+                setTimeout(function() {
+                    view.setSearchTerm(expression);
+                    if (current && current.id === view.id) {
+                        view.search();
+                    }
+                }, 10);
             }
+
+            App.snapper.close();
         },
 
         _shown: false,
