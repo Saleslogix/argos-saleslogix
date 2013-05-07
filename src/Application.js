@@ -712,8 +712,9 @@ define('Mobile/SalesLogix/Application', [
             });
 
             view = this.getView('left_drawer');
+            view.show();
+
             snapper.on('start', function() {
-                view.show();
             });
 
             this.snapper = snapper;
