@@ -123,7 +123,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
                         contextData = { contactId: entry['$key'], contactName: entry['$descriptor'], accountId: entry['AccountId'], accountName: entry['AccountName'] };
                         break;
                     case 'opportunities':
-                        contextData = { opportuntityId: entry['$key'], description: entry['$descriptor'], accountId: entry['AccountId'], accountName: entry['AccountName'] };
+                        contextData = { opportunityId: entry['$key'], description: entry['$descriptor'], accountId: entry['AccountId'], accountName: entry['AccountName'] };
                         break;
                     case 'tickets':
                         contextData = { ticketId: entry['$key'], ticketNumber: entry['$descriptor'], accountId: entry['AccountId'], accountName: entry['AccountName'] };
