@@ -86,3 +86,4 @@ GruntJS is a task runner. We have defined tasks to run in Gruntfile.coffee. Here
 
 [argos-sdk]: https://github.com/SageSalesLogix/argos-sdk "Argos SDK Source"
 [argos-sample]: https://github.com/SageSalesLogix/argos-sample "Customization module for argos-saleslogix"
+[argos]: https://github.com/SageSalesLogix/argos "Argos SDK API Documentation"
