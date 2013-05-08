@@ -697,6 +697,7 @@ define('Mobile/SalesLogix/Application', [
 
             snapper = new snap({
                 element: document.getElementById('viewContainer'),
+                dragElement: document.getElementById('pageTitle'),
                 disable: 'right', // use 'none' to do both
                 addBodyClasses: true,
                 resistance: 0.5,
