@@ -598,6 +598,10 @@
         {
           "text": "wai.js",
           "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
+        },
+        {
+          "text": "sniff.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojox/mobile"
         }
       ]
     }

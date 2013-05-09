@@ -11,6 +11,7 @@ define('Mobile/SalesLogix/Application', [
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
     'dojo/_base/sniff',
+    'dojox/mobile/sniff',
     'snap'
 ], function(
     win,
@@ -25,6 +26,7 @@ define('Mobile/SalesLogix/Application', [
     environment,
     Application,
     sniff,
+    mobileSniff,
     snap
 ) {
 
@@ -697,7 +699,7 @@ define('Mobile/SalesLogix/Application', [
 
             snapper = new snap({
                 element: document.getElementById('viewContainer'),
-                dragElement: document.getElementById('pageTitle'),
+                dragElement: has('android') ? document.getElementById('pageTitle') : null, // android has a severe scrolling issue, allow swipe at title bar only
                 disable: 'right', // use 'none' to do both
                 addBodyClasses: true,
                 resistance: 0.5,
