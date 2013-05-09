@@ -59,12 +59,14 @@ define('Mobile/SalesLogix/Views/Configure', [
             });
         },
         savePreferences: function() {
+            var visible, order, view;
+
             App.preferences.home = App.preferences.home || {};
             App.preferences.configure = App.preferences.configure || {};
 
             // clear existing
-            var visible = App.preferences.home.visible = [];
-            var order = App.preferences.configure.order = [];
+            visible = App.preferences.home.visible = [];
+            order = App.preferences.configure.order = [];
 
             // since the selection model does not have ordering, use the DOM
             query('li', this.domNode).forEach(function(node) {
@@ -81,6 +83,10 @@ define('Mobile/SalesLogix/Views/Configure', [
             App.persistPreferences();
 
             ReUI.back();
+            view = App.getView('left_drawer');
+            if (view) {
+                view.refresh();
+            }
         },
         moveUp: function(params) {
             var node = query(params.$source),

@@ -206,7 +206,42 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
 
             this.processFeed({'$resources': list});
         },
+        /**
+         * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
+         */
+        refresh: function() {
+            this.clear();
+            this.requestData();
+        },
+        /**
+         * Override the List show to not use RUI (this view will always be on the screen, just hidden behind the main content)
+         */
+        show: function() {
+            if (this.onShow(this) === false){
+                return;
+            }
 
+            this.refresh();
+        },
+        refreshRequiredFor: function(options) {
+            var visible = lang.getObject('preferences.home.visible', false, App) || [],
+                shown = this.feed && this.feed['$resources'];
+
+            if (!visible || !shown || (visible.length != shown.length)) {
+                return true;
+            }
+
+            for (var i = 0; i < visible.length; i++) {
+                if (visible[i] != shown[i]['$key']) {
+                    return true;
+                }
+            }
+
+            return this.inherited(arguments);
+        },
+        _onRegistered: function() {
+            this.refreshRequired = true;
+        },
         _onSearchExpression: function(expression, widget) {
             var view, current;
             view = App.getView(this.searchView);
@@ -231,36 +266,6 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             }
 
             App.snapper.close();
-        },
-
-        _shown: false,
-
-        show: function() {
-            if (this.onShow(this) === false || this._shown === true){
-                return;
-            }
-
-            this.refresh();
-            this._shown = true;
-        },
-        _onRegistered: function() {
-            this.refreshRequired = true;
-        },
-        refreshRequiredFor: function(options) {
-            var visible = lang.getObject('preferences.home.visible', false, App) || [],
-                shown = this.feed && this.feed['$resources'];
-
-            if (!visible || !shown || (visible.length != shown.length)) {
-                return true;
-            }
-
-            for (var i = 0; i < visible.length; i++) {
-                if (visible[i] != shown[i]['$key']) {
-                    return true;
-                }
-            }
-
-            return this.inherited(arguments);
         }
     });
 });
