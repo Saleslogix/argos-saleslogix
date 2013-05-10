@@ -173,6 +173,10 @@
           "path": "../src"
         },
         {
+          "text": "FileManager.js",
+          "path": "../src"
+        },
+        {
           "text": "AttachmentManager.js",
           "path": "../src"
         },

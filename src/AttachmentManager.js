@@ -17,7 +17,7 @@
  * Attatchment Manager 
  */
 define('Mobile/SalesLogix/AttachmentManager', [
-    'Sage/Platform/Mobile/FileManager',
+    'Mobile/SalesLogix/FileManager',
     'dojo/_base/lang',
     'dojo/_base/declare',
     'dojo/string',
@@ -131,14 +131,15 @@ define('Mobile/SalesLogix/AttachmentManager', [
                     case 'leads':
                         contextData = { leadId: entry['$key'], accountName: entry['$descriptor'] };
                         break;
-                    case 'activites':
-                        contextData = { actviityId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'] };
+                    case 'activities':
+                        contextData = { activityId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
                         break;
                     default:
                         contextData = { entityId: entry['$key'], entityName: contextView.id, description: entry['$descriptor'] };
                         break;
                 }
             }
+            debugger;
             return contextData;
         },
         getService: function() {
@@ -284,9 +285,9 @@ define('Mobile/SalesLogix/AttachmentManager', [
             this._isUploading = false;
             this._totalProgress = 0;
         },
-        getAttachmentFile: function(attachmentId, onSuccsess) {
+        getAttachmentFile: function(attachmentId, responseType, onSuccsess) {
             var url = this.getAttachmentUrl(attachmentId);
-            var fm = this._fileManager.getFile(url, onSuccsess);
+            var fm = this._fileManager.getFile(url, responseType, onSuccsess);
         }
     });
 });

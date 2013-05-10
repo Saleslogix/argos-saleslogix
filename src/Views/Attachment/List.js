@@ -31,17 +31,15 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
            '{% } %}',
         ]),
         fileTemplate: new Simplate([
-            //'<h3>{%: $.description %}</h3>',
-           '<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" title="{%: $.$descriptor %}">{%: $.$descriptor %}</a>',
-             // '<h4><span>{%: $.fileName %}&nbsp;</span></h4>',
-            '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
+            '<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" title="{%: $.$descriptor %}">{%: $.$descriptor %}</a>',
+             '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
             '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
+            '<h4><span>{%: Mobile.SalesLogix.Utility.getFileExtension($.fileName) %} </span></h4>',
             '{% if($.user) { %}',
                 '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
             '{% } %}'
         ]),
         urlTemplate: new Simplate([
-           // '<h3>{%: $.description %}</h3>',
             '<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" target="_blank" title="{%: $.url %}">{%: $.$descriptor %}</a>',
             '<h4>',
                 '<span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
@@ -49,7 +47,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             '</h4>',
             '{% if($.user) { %}',
             '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
-            '{% } %}'            
+            '{% } %}'
         ]),
 
         //Localization
@@ -74,7 +72,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             return request;
         },
         formatSearchQuery: function(searchQuery) {
-            return '';
+            return string.substitute('upper(description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
         getLink: function(attachment) {
             if (attachment['url']) {

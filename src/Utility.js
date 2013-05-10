@@ -45,25 +45,36 @@ define('Mobile/SalesLogix/Utility', [
         openAttachmentFile: function(attachmentId) {
             if (attachmentId && attachmentId.length === 12) {
                 var am = new AttachmentManager();
-                am.getAttachmentFile(attachmentId, function(responseInfo) {
+                am.getAttachmentFile(attachmentId,'blob', function(responseInfo) {
                     var blob, url, a;
 
                     blob = new Blob([responseInfo.response], { type: responseInfo.contentType });
 
                     // Use the URL object to create a temporary URL
-                    url = (window.webkitURL || window.URL).createObjectURL(blob);
-                    myWindow = window.open();
-                    myWindow.location = url;
+                    if (window.webkitURL) {
+                        url = window.webkitURL.createObjectURL(blob, { oneTimeOnly: true });
+                    } else {
+                        url = window.URL.createObjectURL(blob, { oneTimeOnly: true });
+                    }
+
+                    //myWindow = window.open();
+                    //myWindow.location = url;
 
                     //create html element to assign file name.
-                   // a = document.createElement('a');
-                  //  a.href = url;
-                  //  a.download = responseInfo.fileName;
-                  //  a.style.display = 'none';
-                  //  document.body.appendChild(a);
-                 //   a.click();
+                    a = document.createElement('a');
+                    a.href = url;
+                    a.download = responseInfo.fileName;
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
                 });
             }
+        },
+        getFileExtension: function(fileName) {
+            if (!fileName){
+                return '.';
+            }
+            return fileName.substr(fileName.lastIndexOf('.'));
         }
     });
 });
