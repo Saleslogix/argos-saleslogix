@@ -29,11 +29,12 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         ]),
 
         //Localization
-        configureText: 'Configure',
+        configureText: 'Configure Menu',
         addAccountContactText: 'Add Account/Contact',
         titleText: 'Main Menu',
         actionsText: 'Quick Actions',
         viewsText: 'Go To',
+        footerText: 'Other',
         settingsText: 'Settings',
         helpText: 'Help',
         logOutText: 'Log Out',
@@ -95,10 +96,24 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             return false;
         },
         getGroupForEntry: function(entry) {
+            var footerItems = [
+                'ConfigureMenu',
+                'SettingsAction',
+                'HelpAction',
+                'Logout'
+            ];
+
             if (entry.view) {
                 return {
                     tag: 'view',
                     title: this.viewsText
+                };
+            }
+
+            if (array.indexOf(footerItems, entry.name) >= 0) {
+                return {
+                    tag: 'footer',
+                    title: this.footerText
                 };
             }
 
