@@ -101,7 +101,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
             var found;
             found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
-                if (/^(accounts|contacts|opportunities|tickets|leads|activities)$/.test(context.resourceKind) && context.key) {
+                if (/^(accounts|contacts|opportunities|tickets|leads|activities|history)$/.test(context.resourceKind) && context.key) {
                     return true;
                 }
                 return false;
@@ -134,12 +134,14 @@ define('Mobile/SalesLogix/AttachmentManager', [
                     case 'activities':
                         contextData = { activityId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
                         break;
+                    case 'history':
+                        contextData = { historyId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
+                        break;
                     default:
                         contextData = { entityId: entry['$key'], entityName: contextView.id, description: entry['$descriptor'] };
                         break;
                 }
             }
-            debugger;
             return contextData;
         },
         getService: function() {
