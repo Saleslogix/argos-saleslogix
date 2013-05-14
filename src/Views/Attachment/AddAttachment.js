@@ -24,14 +24,16 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
         icon: 'content/images/icons/attachment_24.png',
 
         okSelect: function() {
+            var fileItems;
             if (this._files && this._files.length > 0) {
                 this.inherited(arguments);
+                fileItems = this.getFileItems();
                 var am = new AttachmentManager();
-                am.createAttachment(this._files[0], {});
                 am.onSuccessUpdate = function() {
                     Environment.refreshAttachmentViews();
                     ReUI.back();
                 }
+                am.createAttachment(fileItems[0].file, {description: fileItems[0].description});              
             }
         },
         cancelSelect: function() {

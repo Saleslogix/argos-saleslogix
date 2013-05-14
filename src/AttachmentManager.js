@@ -43,6 +43,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
         querySelect: null,
         queryInclude: null,
         _files: null,
+        _fileDescriptions: null,
         _filesUploadedCount: 0,
         _fileCount: 0,
         _totalProgress: 0,
@@ -52,14 +53,14 @@ define('Mobile/SalesLogix/AttachmentManager', [
             this.querySelect = [];
             this.queryInclude = [];
             this._files = [];
+            this._fileDescriptions = [];
             this._fileManager = new FileManager();
             service = App.getService(this.serviceName);
             oldContractName = service.getContractName();
             service.setContractName(this.contractName);
             this._baseUrl = service.getUri().toString();
             this._uploadUrl = this._baseUrl + '/attachments/file';
-            service.setContractName(oldContractName);
-            
+            service.setContractName(oldContractName);            
         },
         createAttachments: function(files) {
 
@@ -68,8 +69,11 @@ define('Mobile/SalesLogix/AttachmentManager', [
             if (!mixin.hasOwnProperty('description')) {
                 mixin['description'] = this._getDefaultDescription(file.name);
             }
-
             this._files.push(file);
+            this._fileDescriptions.push({
+                fileName:file.name, 
+                description: mixin['description']
+            });
             this.uploadFiles();
         },
         _getDefaultDescription: function(filename) {
@@ -88,9 +92,21 @@ define('Mobile/SalesLogix/AttachmentManager', [
             var fileUrl = this._baseUrl + '/attachments(\'' + attachmentId + '\')/file';
             return fileUrl;
         },
+        _getFileDescription: function(fileName) {
+            var description = this._getDefaultDescription(fileName);
+            for (var i = 0; i < this._fileDescriptions.length; i++) {
+                if (fileName === this._fileDescriptions[i].fileName) {
+                    description = this._fileDescriptions[i].description;
+                }
+            }
+            if ((description === null)|| (description === '')) {
+                description = this._getDefaultDescription(fileName);
+            }
+            return description;
+        },
         _getAttachmentContextMixin: function(fileName) {
             var contextMixin;
-            contextMixin = this._getAttachmentContext();
+            contextMixin = this._getAttachmentContext();            
             return contextMixin;
         },
         _getAttachmentContext: function() {
@@ -112,7 +128,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 entry = contextView.entry || (view && view.entry) || contextView;
 
                 if (!entry || !entry['$key']) {
-                    return null;
+                    return {};
                 }
 
                 switch (contextView.resourceKind) {
@@ -225,7 +241,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
                     if (mixin) {
                         attachment.attachDate = convert.toIsoStringFromDate(new Date());
                         attachment.dataType = 'R';
-                        attachment.description = this._getDefaultDescription(attachment.fileName);
+                        attachment.description = this._getFileDescription(attachment.fileName);
                         attachment = lang.mixin(attachment, mixin);
                         var request = this.createDataRequest(id);
                         if (request){
@@ -236,13 +252,10 @@ define('Mobile/SalesLogix/AttachmentManager', [
                             });
                         }
                     }
-                    //clean up in case they upload the same file again to another entity or something
-                    //delete (this._mixinsByName[attachment.fileName]);
-                
                 },
                     this.onRequestDataFailure
                 );
-               
+
             }
             // this._filesUploadedCount = this._filesUploadedCount + 1;
             // this._updateProgress((this._fileCount < 1) ? 100 : (this._filesUploadedCount / this._fileCount) * 100);

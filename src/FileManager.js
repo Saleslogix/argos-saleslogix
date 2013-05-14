@@ -138,7 +138,6 @@ define('Mobile/SalesLogix/FileManager', [
                         progress.call(scope || this, e);
                     });
                 }
-
                 request.setRequestHeader('Content-Type', 'multipart/attachment; boundary=' + boundary);
                 request.send(new Blob(bb));
             });
