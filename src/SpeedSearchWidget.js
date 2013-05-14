@@ -31,6 +31,10 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
 
         searchText: 'SpeedSearch',
 
+        _setQueryValueAttr: function(value) {
+            this._onFocus();
+            this.queryNode.value = value;
+        },
         clear: function() {
             domClass.remove(this.domNode, 'search-active');
             this.set('queryValue', '');

@@ -1,3 +1,4 @@
+
 h4
 {
     color: #000;
@@ -653,13 +654,15 @@ td.calendar-day {
 .toolButton[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
 .toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
 .toolButton[data-tool="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }
+.toolButton[data-tool="toggleLeftDrawer"] > span { background-image: url(../images/icons/drawer_24.png); }
+.toolButton[data-tool="toggleRightDrawer"] > span { background-image: url(../images/icons/drawer_24.png); }
 .toolbar button.disabled {}
 .toolbar button.disabled > span {
     opacity: .1;
     cursor: help;
 }
 
-body.transition > .footer-toolbar
+body.transition > .viewContainer > .footer-toolbar
 {
     display: none !important;
 }
@@ -729,42 +732,42 @@ body.transition > .footer-toolbar
 
 /* Excludes iphone <= 3 */
 @media only screen and (min-width: 500px), only screen and (-webkit-min-device-pixel-ratio: 2) {
-    body.landscape > #calendar_monthlist > .month-content,
-    body.landscape > #calendar_monthlist > .day-content
+    body.landscape > .viewContainer > #calendar_monthlist > .month-content,
+    body.landscape > .viewContainer > #calendar_monthlist > .day-content
     {
         width:50%;
         float:left;
     }
-    body.landscape > #calendar_monthlist > .day-content > h2 {
+    body.landscape > .viewContainer > #calendar_monthlist > .day-content > h2 {
         margin-top:0;
         border-top: none;
         border-left: 1px solid #000000;
     }
-    body.landscape > #calendar_monthlist > .day-content > div > h2 {
+    body.landscape > .viewContainer > #calendar_monthlist > .day-content > div > h2 {
         border-left: 1px solid #000000;
     }
 }
 /* Tablets */
 @media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
-    body.landscape > #calendar_yearlist > .year-content > .year-table
+    body.landscape > .viewContainer > #calendar_yearlist > .year-content > .year-table
     {
         float:left;
         width: 240px;
         height:210px;
         margin: 6px;
     }
-    body.landscape > #calendar_yearlist td.calendar-day
+    body.landscape > .viewContainer > #calendar_yearlist td.calendar-day
     {
         padding: 6px 0px 6px 0px !important;
         width: 34px;
         font-size:.7em;
     }
-    body.landscape > #calendar_yearlist tr.calendar-week-header
+    body.landscape > .viewContainer > #calendar_yearlist tr.calendar-week-header
     {
         padding: 3px 0 0 0 !important;
         font-size: 0.7em;
     }
-    body.landscape > #calendar_yearlist .activity-count
+    body.landscape > .viewContainer > #calendar_yearlist .activity-count
     {
         top: 8px;
         right: 0px !important;

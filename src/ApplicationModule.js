@@ -2,6 +2,8 @@
 define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',
+    'dojo/query',
+    'dojo/_base/window',
     
     'Sage/Platform/Mobile/ApplicationModule',
     'Sage/Platform/Mobile/Calendar',
@@ -14,9 +16,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
     'Mobile/SalesLogix/Views/ExchangeRateLookup',
     'Mobile/SalesLogix/Views/MainToolbar',
-    'Mobile/SalesLogix/Views/FooterToolbar',
     'Mobile/SalesLogix/Views/UpdateToolbar',
-    'Mobile/SalesLogix/Views/Home',
+    'Mobile/SalesLogix/Views/LeftDrawer',
     'Mobile/SalesLogix/Views/Login',
     'Mobile/SalesLogix/Views/Settings',
     'Mobile/SalesLogix/Views/Configure',
@@ -103,6 +104,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
 ], function(
     declare,
     lang,
+    query,
+    win,
     ApplicationModule,
     Calendar,
     List,
@@ -113,9 +116,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     AreaCategoryIssueLookup,
     ExchangeRateLookup,
     MainToolbar,
-    FooterToolbar,
     UpdateToolbar,
-    Home,
+    LeftDrawer,
     Login,
     Settings,
     Configure,
@@ -199,7 +201,9 @@ define('Mobile/SalesLogix/ApplicationModule', [
             }));
 
             this.registerView(new Login());
-            this.registerView(new Home());
+
+            this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
+
             this.registerView(new Help());
             this.registerView(new Settings());
             this.registerView(new Configure());
@@ -383,10 +387,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerToolbar(new MainToolbar({
                 name: 'tbar'
-            }));
-
-            this.registerToolbar(new FooterToolbar({
-                name: 'bbar'
             }));
 
             this.registerToolbar(new UpdateToolbar({
