@@ -200,20 +200,6 @@ define('Mobile/SalesLogix/FileManager', [
                 }
             }, false);
             request.send(null);
-        },
-        toBinaryString: function(data) {
-            var ret, len, byte;
-
-            ret = [];
-            len = data.length;
-            byte;
-
-            for (var i = 0; i < len; i++) {
-                byte = (data.charCodeAt(i) & 0xFF) >>> 0;
-                ret.push(String.fromCharCode(byte));
-            }
-
-            return ret.join('');
         }
     });
 });
