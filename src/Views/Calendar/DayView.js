@@ -17,16 +17,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Calendar.DayView', [List], {
-        gestures: ['swipe'],
-        onGesture: function(evt) {
-            if (evt.type === 'swipe') {
-                if (evt.gesture.direction === 'left') {
-                    this.getNextDay();
-                } else if (evt.gesture.direction === 'right') {
-                    this.getPrevDay();
-                }
-            }
-        },
         // Localization
         titleText: 'Calendar',
         dateHeaderFormatText: 'dddd, MM/dd/yyyy',

@@ -18,16 +18,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Calendar.WeekView', [List], {
-        gestures: ['swipe'],
-        onGesture: function(evt) {
-            if (evt.type === 'swipe') {
-                if (evt.gesture.direction === 'left') {
-                    this.getNextWeekActivities();
-                } else if (evt.gesture.direction === 'right') {
-                    this.getPrevWeekActivities();
-                }
-            }
-        },
         //Localization
         titleText: 'Calendar',
         weekTitleFormatText: 'MMM d, yyyy',
