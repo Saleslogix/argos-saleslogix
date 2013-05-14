@@ -52,7 +52,7 @@ define('Mobile/SalesLogix/Utility', [
             if (attachmentId && attachmentId.length === 12) {
                 var am = new AttachmentManager();
 
-                if (true/*has('ios')*/) {
+                if (!has('android')) {
                     // temp solution to IOS problems below (window.open on an sdata url will issue a 401 challenge)
                     window.open(am.getAttachmentUrl(attachmentId));
                 } else {
@@ -79,9 +79,10 @@ define('Mobile/SalesLogix/Utility', [
                         */
 
                         blobURL = url.createObjectURL(blob);
+                        window.open(blobURL);
 
                         // create html element to assign file name.
-                        a = document.createElement('a');
+                        /*a = document.createElement('a');
                         a.href = blobURL;
                         a.download = responseInfo.fileName;
                         a.style.display = 'none';
@@ -92,7 +93,7 @@ define('Mobile/SalesLogix/Utility', [
                             "click", true, false, window, 0, 0, 0, 0, 0
                             , false, false, false, false, 0, null
                         );
-                        a.dispatchEvent(event);
+                        a.dispatchEvent(event);*/
                     });
                 }
             }
