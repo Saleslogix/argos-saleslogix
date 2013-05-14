@@ -61,6 +61,11 @@ define('Mobile/SalesLogix/Environment', [
 
             }, 50);
         },
+        attachmentViewsToRefresh: [
+            'myattachment_list',
+            'attachment_list',
+            'attachment_related'
+        ],
         activityViewsToRefresh: [
             'myactivity_list',
             'activity_list',
@@ -72,12 +77,21 @@ define('Mobile/SalesLogix/Environment', [
         ],
         refreshActivityLists: function() {
             var views = Mobile.SalesLogix.Environment.activityViewsToRefresh || [];
-            array.forEach(views, function(view_id) {
-                var view = App.getView(view_id);
-                if (view) {
-                    view.refreshRequired = true;
-                }
-            });
+            Mobile.SalesLogix.Environment.refreshViews(views);
+        },
+        refreshAttachmentViews: function() {
+            var views = Mobile.SalesLogix.Environment.attachmentViewsToRefresh || [];
+            Mobile.SalesLogix.Environment.refreshViews(views);
+        },
+        refreshViews: function(views) {
+            if (views && views.length > 0) {
+                array.forEach(views, function(view_id) {
+                    var view = App.getView(view_id);
+                    if (view) {
+                        view.refreshRequired = true;
+                    }
+                });
+            }
         }
     });
 });
