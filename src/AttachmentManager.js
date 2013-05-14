@@ -181,8 +181,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 });
         },
         onRequestTemplateFailure: function(response, o) {
-            // alert(string.substitute(this.requestErrorText, [response, o]));
-            // ErrorManager.addError(response, o, this.options, 'failure');
+
         },
         onRequestTemplateSuccess: function(entry) {
             this.processTemplateEntry(entry);
@@ -208,18 +207,17 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 });
         },
         onRequestTemplateFailure: function(response, o) {
-            // alert(string.substitute(this.requestErrorText, [response, o]));
-            // ErrorManager.addError(response, o, this.options, 'failure');
+
         },
         onRequestDataFailure: function(response, o) {
-            // alert(string.substitute(this.requestErrorText, [response, o]));
-            // ErrorManager.addError(response, o, this.options, 'failure');
+
         },
         uploadFiles: function() {
+            var file
             this._isUploading = true;
             this._fileCount = this._files.length;
             while (this._files.length > 0) {
-                var file = this._files.pop();
+                file = this._files.pop();
                 this._fileManager.uploadFile(file,
                 this._uploadUrl,
                 this._updateProgress,
@@ -237,13 +235,14 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 var id = matches[0].replace(/\'/g, '');
                 //now that we have the id, we can fetch it using the SingleEntrySDataStore
                 this.requestData(id, function(attachment) {
+                    var request;
                     var mixin = this._getAttachmentContextMixin(attachment.fileName);
                     if (mixin) {
                         attachment.attachDate = convert.toIsoStringFromDate(new Date());
                         attachment.dataType = 'R';
                         attachment.description = this._getFileDescription(attachment.fileName);
                         attachment = lang.mixin(attachment, mixin);
-                        var request = this.createDataRequest(id);
+                        request = this.createDataRequest(id);
                         if (request){
                             request.update(attachment, {
                                 success: this.onSuccessUpdate,
@@ -257,8 +256,6 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 );
 
             }
-            // this._filesUploadedCount = this._filesUploadedCount + 1;
-            // this._updateProgress((this._fileCount < 1) ? 100 : (this._filesUploadedCount / this._fileCount) * 100);
         },
         _onFailedUpload: function(resp) {
             console.warn('Attachment failed to upload %o', resp);
@@ -272,26 +269,19 @@ define('Mobile/SalesLogix/AttachmentManager', [
             console.warn('Attachment failed to update %o', resp);
         },
         _updateProgress: function(curFileProgress) {
-            //console.log('progress obj: %o', curFileProgress);
             var pct = this._totalProgress;
-            //console.log('pct: ' + pct);
+            var filePercent;
             if (curFileProgress && curFileProgress.lengthComputable) {
-                var thisFilePercent = (curFileProgress.loaded / curFileProgress.total) * 100;
-                pct += Math.round(thisFilePercent / this._fileCount);
+                filePercent = (curFileProgress.loaded / curFileProgress.total) * 100;
+                pct += Math.round(filePercent / this._fileCount);
             } else if (curFileProgress) {
                 pct = curFileProgress;
             }
             this._totalProgress = pct;
-            //console.log('now calculated pct: ' + pct);
             if (pct < 99) {
-                // dialogs.showProgressBar({
-                //     pct: pct,
-                //     title: this.percentComplete
-                // });
-            } else {
-                //  dialogs.closeProgressBar();
-                this._resetCounts();
 
+            } else {
+                this._resetCounts();
             }
         },
         _resetCounts: function() {

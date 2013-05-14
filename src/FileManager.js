@@ -162,6 +162,7 @@ define('Mobile/SalesLogix/FileManager', [
         },
         getFile: function(fileUrl, responseType , onSuccess) {
             var request = new XMLHttpRequest(), service = App.getService();
+            var self = this;
             request.open("GET", fileUrl, true);
 
             if (responseType) {
@@ -174,8 +175,6 @@ define('Mobile/SalesLogix/FileManager', [
                 request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
                 request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
             }
-
-            var self = this;
             request.addEventListener("load", function() {
                 var data = this.response;
                 var contentType = this.getResponseHeader("Content-Type");
