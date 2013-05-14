@@ -173,6 +173,18 @@
           "path": "../src"
         },
         {
+          "text": "FileManager.js",
+          "path": "../src"
+        },
+        {
+          "text": "AttachmentManager.js",
+          "path": "../src"
+        },
+        {
+          "text": "Utility.js",
+          "path": "../src"
+        },
+        {
           "text": "Template.js",
           "path": "../src"
         },
@@ -263,6 +275,22 @@
         {
           "text": "TextEdit.js",
           "path": "../src/Views"
+        },
+        {
+          "text": "AddAttachment.js",
+          "path": "../src/Views/Attachment"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Attachment"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Attachment"
+        },
+        {
+          "text": "MyAttachmentList.js",
+          "path": "../src/Views/Attachment"
         },
         {
           "text": "List.js",
@@ -516,7 +544,19 @@
       "isDebug": true,
       "fileIncludes": [
         {
+          "text": "i18n.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "regexp.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
           "text": "string.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "number.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {
