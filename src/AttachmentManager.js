@@ -110,11 +110,9 @@ define('Mobile/SalesLogix/AttachmentManager', [
             return contextMixin;
         },
         _getAttachmentContext: function() {
-            var contextView;
-            var view;
-            var entry;
-            var contextData = {};
-            var found;
+            var contextView, view, entry, contextData, found;
+
+            contextData = {};
             found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
                 if (/^(accounts|contacts|opportunities|tickets|leads|activities|history)$/.test(context.resourceKind) && context.key) {
@@ -228,15 +226,18 @@ define('Mobile/SalesLogix/AttachmentManager', [
         },
         _onSuccessUpload: function(request) {
             //the id of the new attachment is buried in the Location response header...
-            var url = request.getResponseHeader('Location');
-            var re = /\'\w+\'/g;
-            var matches = url.match(re);
+            var url, re, matches, id;
+           
+            url = request.getResponseHeader('Location');
+            re = /\'\w+\'/g;
+            matches = url.match(re);
+
             if (matches) {
-                var id = matches[0].replace(/\'/g, '');
+                id = matches[0].replace(/\'/g, '');
                 //now that we have the id, we can fetch it using the SingleEntrySDataStore
                 this.requestData(id, function(attachment) {
-                    var request;
-                    var mixin = this._getAttachmentContextMixin(attachment.fileName);
+                    var request, mixin;
+                    mixin = this._getAttachmentContextMixin(attachment.fileName);
                     if (mixin) {
                         attachment.attachDate = convert.toIsoStringFromDate(new Date());
                         attachment.dataType = 'R';
@@ -269,8 +270,10 @@ define('Mobile/SalesLogix/AttachmentManager', [
             console.warn('Attachment failed to update %o', resp);
         },
         _updateProgress: function(curFileProgress) {
-            var pct = this._totalProgress;
-            var filePercent;
+            var pct, filePercent;
+
+            pct = this._totalProgress;
+      
             if (curFileProgress && curFileProgress.lengthComputable) {
                 filePercent = (curFileProgress.loaded / curFileProgress.total) * 100;
                 pct += Math.round(filePercent / this._fileCount);
@@ -291,8 +294,9 @@ define('Mobile/SalesLogix/AttachmentManager', [
             this._totalProgress = 0;
         },
         getAttachmentFile: function(attachmentId, responseType, onSuccsess) {
-            var url = this.getAttachmentUrl(attachmentId);
-            var fm = this._fileManager.getFile(url, responseType, onSuccsess);
+             var url, fm;
+             url = this.getAttachmentUrl(attachmentId);
+             fm = this._fileManager.getFile(url, responseType, onSuccsess);
         }
     });
 });

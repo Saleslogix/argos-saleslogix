@@ -161,8 +161,12 @@ define('Mobile/SalesLogix/FileManager', [
             return dNumber.format(Math.round(size / 1024)) + ' KB';
         },
         getFile: function(fileUrl, responseType , onSuccess) {
-            var request = new XMLHttpRequest(), service = App.getService();
-            var self = this;
+            var request, service, self;
+
+            request = new XMLHttpRequest();
+            service = App.getService();
+            self = this;
+
             request.open("GET", fileUrl, true);
 
             if (responseType) {
@@ -176,11 +180,14 @@ define('Mobile/SalesLogix/FileManager', [
                 request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
             }
             request.addEventListener("load", function() {
-                var data = this.response;
-                var contentType = this.getResponseHeader("Content-Type");
-                var contentInfo = this.getResponseHeader("Content-Disposition");
-                var responseInfo = {};
-                var fileName = contentInfo.split('=')[1];
+                var data, contentType, contentInfo, responseInfo, fileName;
+
+                data = this.response;
+                contentType = this.getResponseHeader("Content-Type");
+                contentInfo = this.getResponseHeader("Content-Disposition");
+                responseInfo = {};
+                fileName = contentInfo.split('=')[1];
+
                 responseInfo = {
                     request: this,
                     responseTye: responseType,
@@ -195,9 +202,12 @@ define('Mobile/SalesLogix/FileManager', [
             request.send(null);
         },
         toBinaryString: function(data) {
-            var ret = [];
-            var len = data.length;
-            var byte;
+            var ret, len, byte;
+
+            ret = [];
+            len = data.length;
+            byte;
+
             for (var i = 0; i < len; i++) {
                 byte = (data.charCodeAt(i) & 0xFF) >>> 0;
                 ret.push(String.fromCharCode(byte));
