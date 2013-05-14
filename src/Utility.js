@@ -52,7 +52,7 @@ define('Mobile/SalesLogix/Utility', [
             if (attachmentId && attachmentId.length === 12) {
                 var am = new AttachmentManager();
 
-                if (has('ios')) {
+                if (true/*has('ios')*/) {
                     // temp solution to IOS problems below (window.open on an sdata url will issue a 401 challenge)
                     window.open(am.getAttachmentUrl(attachmentId));
                 } else {
