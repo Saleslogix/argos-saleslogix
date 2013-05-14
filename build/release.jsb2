@@ -221,6 +221,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "LeftDrawer.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "Home.js",
           "path": "../src/Views"
         },
@@ -594,6 +598,10 @@
         {
           "text": "wai.js",
           "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
+        },
+        {
+          "text": "sniff.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojox/mobile"
         }
       ]
     }

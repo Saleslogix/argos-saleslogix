@@ -1,4 +1,5 @@
 define('Mobile/SalesLogix/Application', [
+    'dojo/_base/window',
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/connect',
@@ -9,8 +10,11 @@ define('Mobile/SalesLogix/Application', [
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
-    'dojo/_base/sniff'
+    'dojo/_base/sniff',
+    'dojox/mobile/sniff',
+    'snap'
 ], function(
+    win,
     declare,
     array,
     connect,
@@ -20,7 +24,10 @@ define('Mobile/SalesLogix/Application', [
     string,
     ErrorManager,
     environment,
-    Application
+    Application,
+    sniff,
+    mobileSniff,
+    snap
 ) {
 
     // TODO: Move this to the SDK?
@@ -32,7 +39,39 @@ define('Mobile/SalesLogix/Application', [
         }
     });
 
+    // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+    // http://gist.github.com/paulirish/1579671
+    // http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+     
+    // requestAnimationFrame polyfill by Erik Möller
+    // fixes from Paul Irish and Tino Zijdel
+    (function() {
+        var lastTime = 0;
+        var vendors = ['ms', 'moz', 'webkit', 'o'];
+        for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+            window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+            window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
+                                       || window[vendors[x]+'CancelRequestAnimationFrame'];
+        }
+     
+        if (!window.requestAnimationFrame)
+            window.requestAnimationFrame = function(callback, element) {
+                var currTime = new Date().getTime();
+                var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+                  timeToCall);
+                lastTime = currTime + timeToCall;
+                return id;
+            };
+     
+        if (!window.cancelAnimationFrame)
+            window.cancelAnimationFrame = function(id) {
+                clearTimeout(id);
+            };
+    }());
+
     return declare('Mobile.SalesLogix.Application', [Application], {
+        snapper: null,
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
@@ -222,6 +261,7 @@ define('Mobile/SalesLogix/Application', [
             if (this.enableUpdateNotification) {
                 this._checkForUpdate();
             }
+
         },
         onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
             var user = {
@@ -606,6 +646,8 @@ define('Mobile/SalesLogix/Application', [
             return hasRoot && result;
         },
         navigateToInitialView: function() {
+            this.loadSnapper();
+
             try {
                 var restoredState = this.navigationState,
                     restoredHistory = restoredState && json.fromJson(restoredState),
@@ -642,8 +684,44 @@ define('Mobile/SalesLogix/Application', [
                 view.show();
             }
         },
+        showLeftDrawer: function() {
+            var view = this.getView('left_drawer');
+            if (view) {
+                view.show();
+            }
+        },
+        loadSnapper: function() {
+            var snapper, view;
+
+            if (this.snapper) {
+                return;
+            }
+
+            snapper = new snap({
+                element: document.getElementById('viewContainer'),
+                dragElement: has('android') ? document.getElementById('pageTitle') : null, // android has a severe scrolling issue, allow swipe at title bar only
+                disable: 'right', // use 'none' to do both
+                addBodyClasses: true,
+                resistance: 0.5,
+                flickThreshold: 50,
+                transitionSpeed: 0.3,
+                easing: 'ease',
+                maxPosition: 266,
+                minPosition: -266,
+                tapToClose: true,
+                touchToDrag: true,
+                slideIntent: 40,
+                minDragDistance: 5
+            });
+
+            view = this.getView('left_drawer');
+            view.show();
+
+            this.snapper = snapper;
+        },
         navigateToHomeView: function() {
-            var view = this.getView('home');
+            this.loadSnapper();
+            var view = this.getView('myactivity_list');
             if (view) {
                 view.show();
             }
