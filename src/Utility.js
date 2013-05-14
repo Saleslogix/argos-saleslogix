@@ -21,10 +21,16 @@
 define('Mobile/SalesLogix/Utility', [
     'dojo/_base/lang',
     'dojo/string',
+    'dojo/has',
+    'dojo/_base/sniff',
+    'dojox/mobile/sniff',
     'Mobile/SalesLogix/AttachmentManager'
 ], function(
     lang,
     string,
+    has,
+    baseSniff,
+    mobileSniff,
     AttachmentManager
 ) {
     return lang.setObject('Mobile.SalesLogix.Utility', {
@@ -45,29 +51,50 @@ define('Mobile/SalesLogix/Utility', [
         openAttachmentFile: function(attachmentId) {
             if (attachmentId && attachmentId.length === 12) {
                 var am = new AttachmentManager();
-                am.getAttachmentFile(attachmentId,'blob', function(responseInfo) {
-                    var blob, url, a;
 
-                    blob = new Blob([responseInfo.response], { type: responseInfo.contentType });
+                if (has('ios')) {
+                    // temp solution to IOS problems below (window.open on an sdata url will issue a 401 challenge)
+                    window.open(am.getAttachmentUrl(attachmentId));
+                } else {
+                    am.getAttachmentFile(attachmentId,'blob', function(responseInfo) {
+                        var blob, url, a, blobURL, event, reader;
 
-                    // Use the URL object to create a temporary URL
-                    if (window.webkitURL) {
-                        url = window.webkitURL.createObjectURL(blob, { oneTimeOnly: true });
-                    } else {
-                        url = window.URL.createObjectURL(blob, { oneTimeOnly: true });
-                    }
+                        blob = responseInfo.response;
+                        url = window.URL || window.webkitURL;
 
-                    //myWindow = window.open();
-                    //myWindow.location = url;
+                        /*
+                         * TODO: Why is this not working on IOS??????
+                        alert('pre');
+                        reader = new FileReader(blob);
+                        for(var p in reader) {
+                            //alert(p);
+                        }
+                        reader.addEventListener('load', function(e) {
+                            // not hitting on IOS
+                            alert('HIT');
+                            var reader = e.target;
+                            window.open(reader.result);
+                        });
+                        reader.readAsDataURL(blob);
+                        */
 
-                    //create html element to assign file name.
-                    a = document.createElement('a');
-                    a.href = url;
-                    a.download = responseInfo.fileName;
-                    a.style.display = 'none';
-                    document.body.appendChild(a);
-                    a.click();
-                });
+                        blobURL = url.createObjectURL(blob);
+
+                        // create html element to assign file name.
+                        a = document.createElement('a');
+                        a.href = blobURL;
+                        a.download = responseInfo.fileName;
+                        a.style.display = 'none';
+                        document.body.appendChild(a);
+                        
+                        event = window.document.createEvent("MouseEvents");
+                        event.initMouseEvent(
+                            "click", true, false, window, 0, 0, 0, 0, 0
+                            , false, false, false, false, 0, null
+                        );
+                        a.dispatchEvent(event);
+                    });
+                }
             }
         },
         getFileExtension: function(fileName) {
@@ -78,3 +105,4 @@ define('Mobile/SalesLogix/Utility', [
         }
     });
 });
+
