@@ -67,6 +67,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         recurrenceText: 'recurrence',
         confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',
         relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'Activity Attachments',
         relatedItemsText:'Related Items',
 
         //View Properties
@@ -459,7 +460,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                         icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'ActivityId eq "${0}"'),
-                        view: 'attachment_related'
+                        view: 'attachment_related',
+                        title: this.relatedAttachmentTitleText
                     }]
                 }]);
         }

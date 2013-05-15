@@ -39,6 +39,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
         relatedTicketsText: 'Tickets',
         relatedAddressesText: 'Addresses',
         relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'Contact Attachments',
         titleText: 'Contact',
         webText: 'web',
         workText: 'phone',
@@ -313,7 +314,8 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}"'),
-                            view: 'attachment_related'
+                            view: 'attachment_related',
+                            title: this.relatedAttachmentTitleText
                         }]
                 }]);
         }
