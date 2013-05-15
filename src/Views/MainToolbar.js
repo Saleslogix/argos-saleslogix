@@ -9,7 +9,17 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
     return declare('Mobile.SalesLogix.Views.MainToolbar', [MainToolbar], {
         titleText: 'Sage Saleslogix',
         showTools: function(tools) {
-            var hasLeftDrawer, hasBackMenu, isOnEdit;
+            var hasLeftDrawer, isOnFirstView, isOnEdit, history;
+
+            history = ReUI && ReUI.context && ReUI.context.history;
+
+            if (history.length > 0) {
+                if (history[0].page === 'login') {
+                    isOnFirstView = history.length === 2;
+                } else {
+                    isOnFirstView = history.length === 1;
+                }
+            }
 
             if (tools) {
                 for (var i = 0; i < tools.length; i++) {
@@ -39,7 +49,7 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
                     });
                 }
 
-                if (!hasBackMenu && !isOnEdit) {
+                if (!isOnEdit && !isOnFirstView) {
                     tools = tools.concat([{
                             id: 'back',
                             side: 'left',
