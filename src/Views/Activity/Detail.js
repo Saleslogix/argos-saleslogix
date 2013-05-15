@@ -67,7 +67,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         recurrenceText: 'recurrence',
         confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',
         relatedAttachmentText: 'Attachments',
-        relatedItemsText:'Realated Items',
+        relatedItemsText:'Related Items',
 
         //View Properties
         id: 'activity_detail',
