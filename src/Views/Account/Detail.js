@@ -40,6 +40,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         relatedTicketsText: 'Tickets',
         relatedAddressesText: 'Addresses',
         relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'Account Attachments',
         statusText: 'status',
         subTypeText: 'subtype',
         titleText: 'Account',
@@ -275,7 +276,8 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}"'),
-                            view: 'attachment_related'
+                            view: 'attachment_related',
+                            title:  this.relatedAttachmentTitleText
                         }]
                 }]);
         }
