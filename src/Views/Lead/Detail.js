@@ -34,6 +34,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
         relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'Lead Attachments',
         sicCodeText: 'sic code',
         titleText: 'Lead',
         tollFreeText: 'toll free',
@@ -288,7 +289,8 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                             icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}"'),
-                            view: 'attachment_related'
+                            view: 'attachment_related',
+                            title:  this.relatedAttachmentTitleText
                         }]
                 }]);
         }

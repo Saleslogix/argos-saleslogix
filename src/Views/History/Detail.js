@@ -47,6 +47,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         moreDetailsText: 'More Details',
         relatedItemsText: 'Related Items',
         relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'History Attachments',
         modifiedText: 'modified',
         typeText: 'type',
         activityTypeText: {
@@ -255,7 +256,8 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                         icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'HistoryId eq "${0}"'),
-                        view: 'attachment_related'
+                        view: 'attachment_related',
+                        title:  this.relatedAttachmentTitleText
                     }]
                 }]);
         }
