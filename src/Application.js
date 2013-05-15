@@ -663,22 +663,21 @@ define('Mobile/SalesLogix/Application', [
                 dragElement: has('android') ? document.getElementById('pageTitle') : null, // android has a severe scrolling issue, allow swipe at title bar only
                 disable: 'right', // use 'none' to do both
                 addBodyClasses: true,
-                resistance: 0.5,
-                flickThreshold: 50,
-                transitionSpeed: 0.3,
+                resistance: 0.1,
+                flickThreshold: has('android') ? 5 : 50,
+                transitionSpeed: 0.2,
                 easing: 'ease',
                 maxPosition: 266,
                 minPosition: -266,
                 tapToClose: true,
                 touchToDrag: true,
-                slideIntent: 40,
-                minDragDistance: 5
+                slideIntent: has('android') ? 90 : 40,
+                minDragDistance: has('android') ? 1 : 5 
             });
 
-            view = this.getView('left_drawer');
-            view.show();
-
             this.snapper = snapper;
+
+            this.showLeftDrawer();
         },
         navigateToHomeView: function() {
             this.loadSnapper();
