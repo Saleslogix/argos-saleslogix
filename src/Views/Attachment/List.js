@@ -1,11 +1,13 @@
 define('Mobile/SalesLogix/Views/Attachment/List', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/has',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
     string,
+    has,
     format,
     List
 ) {
@@ -70,6 +72,13 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         contractName: 'system',
         queryInclude: ['$descriptors'],
 
+        createToolLayout: function() {
+            if (!has('html5-file-api')) {
+                this.insertView = null;
+            } else {
+                return this.inherited(arguments);
+            }
+        },
         createRequest: function() {
             var request = this.inherited(arguments);
             request.setQueryArg('_includeFile', 'false');
