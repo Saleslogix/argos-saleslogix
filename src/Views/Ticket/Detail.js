@@ -32,6 +32,8 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         notesText: 'comments',
         phoneText: 'phone',
         actionsText: 'Quick Actions',
+        relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'Ticket Attachments',
         relatedActivitiesText: 'Activities',
         relatedItemsText: 'Related Items',
         resolutionText: 'resolution',
@@ -244,6 +246,13 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                             label: this.relatedTicketActivitiesText,
                             view: 'ticketactivity_related',
                             where: this.formatRelatedQuery.bindDelegate(this, 'Ticket.Id eq "${0}"')
+                        }, {
+                            name: 'AttachmentRelated',
+                            icon: 'content/images/icons/Attachment_24.png',
+                            label: this.relatedAttachmentText,
+                            where: this.formatRelatedQuery.bindDelegate(this, 'TicketId eq "${0}"'),
+                            view: 'attachment_related',
+                            title:  this.relatedAttachmentTitleText
                         }]
                 }]);
         }

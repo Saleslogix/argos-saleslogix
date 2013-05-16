@@ -2,20 +2,22 @@
 define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',
+    'dojo/query',
+    'dojo/_base/window',
     
     'Sage/Platform/Mobile/ApplicationModule',
     'Sage/Platform/Mobile/Calendar',
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/Views/Signature',
     'Sage/Platform/Mobile/SearchWidget',
+    'Sage/Platform/Mobile/Views/FileSelect',
 
     'Mobile/SalesLogix/Views/AddAccountContact',
     'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
     'Mobile/SalesLogix/Views/ExchangeRateLookup',
     'Mobile/SalesLogix/Views/MainToolbar',
-    'Mobile/SalesLogix/Views/FooterToolbar',
     'Mobile/SalesLogix/Views/UpdateToolbar',
-    'Mobile/SalesLogix/Views/Home',
+    'Mobile/SalesLogix/Views/LeftDrawer',
     'Mobile/SalesLogix/Views/Login',
     'Mobile/SalesLogix/Views/Settings',
     'Mobile/SalesLogix/Views/Configure',
@@ -87,6 +89,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/History/Detail',
     'Mobile/SalesLogix/Views/History/Edit',
     'Mobile/SalesLogix/Views/User/List',
+    'Mobile/SalesLogix/Views/Attachment/Detail',
+    'Mobile/SalesLogix/Views/Attachment/List',
+    'Mobile/SalesLogix/Views/Attachment/AddAttachment',
+    'Mobile/SalesLogix/Views/Attachment/MyAttachmentList',
 
     'Mobile/SalesLogix/Fields/AddressField',
     'Mobile/SalesLogix/Fields/MultiCurrencyField',
@@ -98,23 +104,26 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Environment'
+    'Mobile/SalesLogix/Environment',
+    'Mobile/SalesLogix/Utility'
     
 ], function(
     declare,
     lang,
+    query,
+    win,
     ApplicationModule,
     Calendar,
     List,
     Signature,
     SearchWidget,
+    FileSelect,
     AddAccountContact,
     AreaCategoryIssueLookup,
     ExchangeRateLookup,
     MainToolbar,
-    FooterToolbar,
     UpdateToolbar,
-    Home,
+    LeftDrawer,
     Login,
     Settings,
     Configure,
@@ -182,7 +191,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
     HistoryList,
     HistoryDetail,
     HistoryEdit,
-    UserList
+    UserList,
+    AttachmentDetail,
+    AttachmentList,
+    AddAttachment,
+    MyAttachmentList
 ) {
     return declare('Mobile.SalesLogix.ApplicationModule', [ApplicationModule], {
         searchText: 'Lookup',
@@ -198,7 +211,9 @@ define('Mobile/SalesLogix/ApplicationModule', [
             }));
 
             this.registerView(new Login());
-            this.registerView(new Home());
+
+            this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
+
             this.registerView(new Help());
             this.registerView(new Settings());
             this.registerView(new Configure());
@@ -210,6 +225,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new AddAccountContact());
             this.registerView(new AreaCategoryIssueLookup());
             this.registerView(new ExchangeRateLookup());
+            this.registerView(new FileSelect());
 
             this.registerView(new NameEdit());
             this.registerView(new TextEdit());
@@ -372,16 +388,21 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new TicketUrgencyLookup({
                 expose: false
             }));
+
+            this.registerView(new AttachmentDetail());
+            this.registerView(new AddAttachment());
+            this.registerView(new MyAttachmentList());
+            this.registerView(new AttachmentList({
+                id: 'attachment_related',
+                expose: false
+            }));
+
         },
         loadToolbars: function() {
             this.inherited(arguments);
 
             this.registerToolbar(new MainToolbar({
                 name: 'tbar'
-            }));
-
-            this.registerToolbar(new FooterToolbar({
-                name: 'bbar'
             }));
 
             this.registerToolbar(new UpdateToolbar({

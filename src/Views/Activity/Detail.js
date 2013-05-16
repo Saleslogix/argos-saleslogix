@@ -66,6 +66,9 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         alarmDateFormatText: 'M/d/yyyy h:mm:ss tt',
         recurrenceText: 'recurrence',
         confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',
+        relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'Activity Attachments',
+        relatedItemsText:'Related Items',
 
         //View Properties
         id: 'activity_detail',
@@ -448,6 +451,18 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             include: this.isActivityForLead,
                             label: this.companyText
                         }]
+                },{
+                    title: this.relatedItemsText,
+                    list: true,
+                    name: 'RelatedItemsSection',
+                    children: [{
+                        name: 'AttachmentRelated',
+                        icon: 'content/images/icons/Attachment_24.png',
+                        label: this.relatedAttachmentText,
+                        where: this.formatRelatedQuery.bindDelegate(this, 'ActivityId eq "${0}"'),
+                        view: 'attachment_related',
+                        title: this.relatedAttachmentTitleText
+                    }]
                 }]);
         }
     });

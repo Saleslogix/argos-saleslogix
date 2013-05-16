@@ -173,6 +173,18 @@
           "path": "../src"
         },
         {
+          "text": "FileManager.js",
+          "path": "../src"
+        },
+        {
+          "text": "AttachmentManager.js",
+          "path": "../src"
+        },
+        {
+          "text": "Utility.js",
+          "path": "../src"
+        },
+        {
           "text": "Template.js",
           "path": "../src"
         },
@@ -222,6 +234,10 @@
         },
         {
           "text": "UpdateToolbar.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "LeftDrawer.js",
           "path": "../src/Views"
         },
         {
@@ -295,6 +311,22 @@
           "path": "../src/Views/Charts"
         },
         
+        {
+          "text": "AddAttachment.js",
+          "path": "../src/Views/Attachment"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Attachment"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Attachment"
+        },
+        {
+          "text": "MyAttachmentList.js",
+          "path": "../src/Views/Attachment"
+        },
         {
           "text": "List.js",
           "path": "../src/Views/Account"
@@ -547,7 +579,19 @@
       "isDebug": true,
       "fileIncludes": [
         {
+          "text": "i18n.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "regexp.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
           "text": "string.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "number.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {
@@ -629,22 +673,6 @@
         {
           "text": "wai.js",
           "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
-        },
-        {
-          "text": "i18n.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "regexp.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
-        },
-        {
-          "text": "QueryResults.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo/store/util"
-        },
-        {
-          "text": "number.js",
-          "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {
           "text": "main.js",
@@ -781,6 +809,10 @@
         {
           "text": "Legend.js",
           "path": "../../../argos-sdk/libraries/dojo/dojox/charting/widget"
+        },
+        {
+          "text": "sniff.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojox/mobile"
         }
       ]
     }

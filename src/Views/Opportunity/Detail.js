@@ -37,6 +37,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
         relatedProductsText: 'Products',
+        relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'Opportunity Attachments',
         resellerText: 'reseller',
         statusText: 'status',
         titleText: 'Opportunity',
@@ -262,6 +264,13 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         label: this.relatedHistoriesText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}" and Type ne "atDatabaseChange"'),
                         view: 'history_related'
+                    }, {
+                        name: 'AttachmentRelated',
+                        icon: 'content/images/icons/Attachment_24.png',
+                        label: this.relatedAttachmentText,
+                        where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}"'),
+                        view: 'attachment_related',
+                        title: this.relatedAttachmentTitleText
                     }]
             };
 

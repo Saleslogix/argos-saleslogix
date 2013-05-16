@@ -38,15 +38,24 @@
     require({
         baseUrl: "./",
         packages: [
-        { name: 'dojo', location: '../../../argos-sdk/libraries/dojo/dojo' },
-        { name: 'dijit', location: '../../../argos-sdk/libraries/dojo/dijit' },
-        { name: 'dojox', location: '../../../argos-sdk/libraries/dojo/dojox' },
-        { name: 'Sage/Platform/Mobile', location: '../../../argos-sdk/src' },
-        { name: 'Mobile/SalesLogix', location: '../src' },
-        { name: 'spec', location: 'src' },
-        { name: 'localization', location: '../localization' },
-        { name: 'configuration', location: '../configuration' }
-    ]});
+            { name: 'dojo', location: '../../../argos-sdk/libraries/dojo/dojo' },
+            { name: 'dijit', location: '../../../argos-sdk/libraries/dojo/dijit' },
+            { name: 'dojox', location: '../../../argos-sdk/libraries/dojo/dojox' },
+            { name: 'snap', location: '../../../argos-sdk/libraries/snap', main: 'snap' },
+            { name: 'Sage/Platform/Mobile', location: '../../../argos-sdk/src' },
+            { name: 'Mobile/SalesLogix', location: '../src' },
+            { name: 'spec', location: 'src' },
+            { name: 'localization', location: '../localization' },
+            { name: 'configuration', location: '../configuration' },
+            { name: 'hammer', location: '../../../argos-sdk/libraries/hammer', main: 'hammer' }
+        ],
+        paths: {
+            'Mobile/SalesLogix': '../src',
+            'Sage/Platform/Mobile': '../../../argos-sdk/src',
+            'configuration': '../configuration',
+            'localization': '../localization'
+        }
+    });
     </script>
 </head>
 <body>

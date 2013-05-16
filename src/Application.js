@@ -1,4 +1,5 @@
 define('Mobile/SalesLogix/Application', [
+    'dojo/_base/window',
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/connect',
@@ -9,8 +10,11 @@ define('Mobile/SalesLogix/Application', [
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
-    'dojo/_base/sniff'
+    'dojo/_base/sniff',
+    'dojox/mobile/sniff',
+    'snap'
 ], function(
+    win,
     declare,
     array,
     connect,
@@ -20,19 +24,14 @@ define('Mobile/SalesLogix/Application', [
     string,
     ErrorManager,
     environment,
-    Application
+    Application,
+    sniff,
+    mobileSniff,
+    snap
 ) {
 
-    // TODO: Move this to the SDK?
-    has.add('html5-file-api', function(global, document) {
-        if (global.File && global.FileReader && global.FileList && global.Blob) {
-            return true;
-        } else {
-            return false;
-        }
-    });
-
     return declare('Mobile.SalesLogix.Application', [Application], {
+        snapper: null,
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
@@ -222,6 +221,7 @@ define('Mobile/SalesLogix/Application', [
             if (this.enableUpdateNotification) {
                 this._checkForUpdate();
             }
+
         },
         onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
             var user = {
@@ -566,7 +566,8 @@ define('Mobile/SalesLogix/Application', [
                 'contact_list',
                 'lead_list',
                 'opportunity_list',
-                'ticket_list'
+                'ticket_list',
+                'myattachment_list'
             ];
         },
         getExposedViews: function() {
@@ -606,6 +607,8 @@ define('Mobile/SalesLogix/Application', [
             return hasRoot && result;
         },
         navigateToInitialView: function() {
+            this.loadSnapper();
+
             try {
                 var restoredState = this.navigationState,
                     restoredHistory = restoredState && json.fromJson(restoredState),
@@ -642,8 +645,43 @@ define('Mobile/SalesLogix/Application', [
                 view.show();
             }
         },
+        showLeftDrawer: function() {
+            var view = this.getView('left_drawer');
+            if (view) {
+                view.show();
+            }
+        },
+        loadSnapper: function() {
+            var snapper, view;
+
+            if (this.snapper) {
+                return;
+            }
+
+            snapper = new snap({
+                element: document.getElementById('viewContainer'),
+                dragElement: has('android') ? document.getElementById('pageTitle') : null, // android has a severe scrolling issue, allow swipe at title bar only
+                disable: 'right', // use 'none' to do both
+                addBodyClasses: true,
+                resistance: 0.1,
+                flickThreshold: has('android') ? 5 : 50,
+                transitionSpeed: 0.2,
+                easing: 'ease',
+                maxPosition: 266,
+                minPosition: -266,
+                tapToClose: true,
+                touchToDrag: has('android') ? false : true,
+                slideIntent: has('android') ? 90 : 40,
+                minDragDistance: has('android') ? 1 : 5 
+            });
+
+            this.snapper = snapper;
+
+            this.showLeftDrawer();
+        },
         navigateToHomeView: function() {
-            var view = this.getView('home');
+            this.loadSnapper();
+            var view = this.getView('myactivity_list');
             if (view) {
                 view.show();
             }

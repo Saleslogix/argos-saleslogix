@@ -33,6 +33,8 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
         relatedHistoriesText: 'Notes/History',
         relatedItemsText: 'Related Items',
         relatedNotesText: 'Notes',
+        relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'Lead Attachments',
         sicCodeText: 'sic code',
         titleText: 'Lead',
         tollFreeText: 'toll free',
@@ -282,6 +284,13 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                             label: this.relatedHistoriesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}" and Type ne "atDatabaseChange"'),
                             view: 'history_related'
+                        }, {
+                            name: 'AttachmentRelated',
+                            icon: 'content/images/icons/Attachment_24.png',
+                            label: this.relatedAttachmentText,
+                            where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}"'),
+                            view: 'attachment_related',
+                            title:  this.relatedAttachmentTitleText
                         }]
                 }]);
         }

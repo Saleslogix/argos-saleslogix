@@ -46,6 +46,8 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         ticketNumberText: 'ticket',
         moreDetailsText: 'More Details',
         relatedItemsText: 'Related Items',
+        relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'History Attachments',
         modifiedText: 'modified',
         typeText: 'type',
         activityTypeText: {
@@ -245,6 +247,18 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                             include: this.isHistoryForLead,
                             label: this.companyText
                         }]
+                }, {
+                    title: this.relatedItemsText,
+                    list: true,
+                    name: 'RelatedItemsSection',
+                    children: [{
+                        name: 'AttachmentRelated',
+                        icon: 'content/images/icons/Attachment_24.png',
+                        label: this.relatedAttachmentText,
+                        where: this.formatRelatedQuery.bindDelegate(this, 'HistoryId eq "${0}"'),
+                        view: 'attachment_related',
+                        title:  this.relatedAttachmentTitleText
+                    }]
                 }]);
         }
     });

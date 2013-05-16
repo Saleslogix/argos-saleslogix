@@ -38,6 +38,8 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
         relatedOpportunitiesText: 'Opportunities',
         relatedTicketsText: 'Tickets',
         relatedAddressesText: 'Addresses',
+        relatedAttachmentText: 'Attachments',
+        relatedAttachmentTitleText: 'Contact Attachments',
         titleText: 'Contact',
         webText: 'web',
         workText: 'phone',
@@ -307,6 +309,13 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             label: this.relatedAddressesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
                             view: 'address_related'
+                        }, {
+                            name: 'AttachmentRelated',
+                            icon: 'content/images/icons/Attachment_24.png',
+                            label: this.relatedAttachmentText,
+                            where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}"'),
+                            view: 'attachment_related',
+                            title: this.relatedAttachmentTitleText
                         }]
                 }]);
         }

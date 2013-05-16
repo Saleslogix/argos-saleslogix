@@ -11,6 +11,7 @@ define('configuration/production', ['Mobile/SalesLogix/ApplicationModule'], func
                 virtualDirectory: 'sdata',
                 applicationName: 'slx',
                 contractName: 'dynamic',
+                dataSet: '-',
                 port: window.location.port && window.location.port != 80 ? window.location.port : false,
                 protocol: /https/i.test(window.location.protocol) ? 'https' : false,
                 json: true
