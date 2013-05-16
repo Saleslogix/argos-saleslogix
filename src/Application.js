@@ -670,7 +670,7 @@ define('Mobile/SalesLogix/Application', [
                 maxPosition: 266,
                 minPosition: -266,
                 tapToClose: true,
-                touchToDrag: true,
+                touchToDrag: has('android') ? false : true,
                 slideIntent: has('android') ? 90 : 40,
                 minDragDistance: has('android') ? 1 : 5 
             });
