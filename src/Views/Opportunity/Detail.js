@@ -122,7 +122,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
             return string.substitute(fmt, [this.entry['Account']['$key']]);
         },
         createMetricWidgetsLayout: function (entry) {
-            return [{
+            /*return [{
                     chartType: 'bar',
                     filterDisplayName: 'Account Manager',
                     formatFunc: 'bigNumber',
@@ -157,7 +157,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     valueFunc: 'sum',
                     valueType: 'Mobile/SalesLogix/Aggregate'
                 }
-            ];
+            ];*/
         },
         createLayout: function() {
             var layout, quickActions, details, moreDetails, multiCurrency, relatedItems;
