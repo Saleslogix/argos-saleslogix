@@ -460,7 +460,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                         icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'ActivityId eq "${0}"'),
-                        view: 'attachment_related',
+                        view: 'activity_attachment_related',
                         title: this.relatedAttachmentTitleText
                     }]
                 }]);
