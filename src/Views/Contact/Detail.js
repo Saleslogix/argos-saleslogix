@@ -314,7 +314,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}"'),
-                            view: 'attachment_related',
+                            view: 'contact_attachment_related',
                             title: this.relatedAttachmentTitleText
                         }]
                 }]);

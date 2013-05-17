@@ -269,7 +269,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}"'),
-                        view: 'attachment_related',
+                        view: 'opportunity_attachment_related',
                         title: this.relatedAttachmentTitleText
                     }]
             };
