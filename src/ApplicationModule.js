@@ -377,10 +377,33 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new AddAttachment());
             this.registerView(new MyAttachmentList());
             this.registerView(new AttachmentList({
-                id: 'attachment_related',
+                id: 'account_attachment_related',
                 expose: false
             }));
-
+            this.registerView(new AttachmentList({
+                id: 'contact_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'lead_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'ticket_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'opportunity_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'activity_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'history_attachment_related',
+                expose: false
+            }));
         },
         loadToolbars: function() {
             this.inherited(arguments);
