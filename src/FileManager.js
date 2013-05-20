@@ -32,18 +32,21 @@ define('Mobile/SalesLogix/FileManager', [
     return declare('Mobile.SalesLogix.FileManager', null, {
         unableToUploadText: 'Browser does not support HTML5 File API.',
         unknownSizeText: 'unknown',
+        unknownErrorText: 'Warning: An error occured and the file fail to upload.',
         largeFileWarningText: 'Warning: This request exceed the size limit set by your administrator and fail to upload.',
         largeFileWarningTitle: 'Warning',
         percentCompleteText: 'Uploading, please wait...',
         fileUploadOptions: { maxFileSize: 4000000 },
         _store: false,
         _totalProgress: 0,
-        _files: [],
+        _files: null,
         _fileCount: 0,
         _filesUploadedCount: 0,
         _isUploading: false,
 
         constructor: function() {
+            this._files = [];
+            this.fileUploadOptions.maxFileSize = App.maxUploadFileSize;
         },
         isHTML5Supported:function(){
             var results = has('html5-file-api');
@@ -74,12 +77,13 @@ define('Mobile/SalesLogix/FileManager', [
         },
         uploadFileHTML5: function(file, url, progress, complete, error, scope, asPut) {
             if (!this.isFileSizeAllowed([file])) {
+                this._onUnableToUploadError(this.largeFileWarningText, error);
                 return;
             }
             if (this.isHTML5Supported()) {
                 this._uploadFileHTML5_asBinary(file, url, progress, complete, error, scope, asPut);
             } else {
-                this._showUnableToUploadError();
+                this._onUnableToUploadError(this.unableToUploadText, error);
             }
         },
         _uploadFileHTML5_asBinary: function(file, url, progress, complete, error, scope, asPut) {
@@ -100,8 +104,8 @@ define('Mobile/SalesLogix/FileManager', [
 
             reader = new FileReader();
             reader.onload = lang.hitch(this, function(evt) {
-                var binary, boundary, dashdash, crlf, bb;
-
+                var binary, boundary, dashdash, crlf, bb, unknownErrorText;
+                unknownErrorText = this.unknownErrorText;
                 bb = [];
                 binary = evt.target.result;
                 boundary = "---------------------------" + (new Date()).getTime();
@@ -124,7 +128,8 @@ define('Mobile/SalesLogix/FileManager', [
                         if (request.readyState === 4) {
                             if (Math.floor(request.status / 100) !== 2) {
                                 if (error) {
-                                    error.call(scope || this, request);
+                                    error.call(scope || this, unknownErrorText);
+                                    console.warn(unknownErrorText + " "+ request.responseText);
                                 }
                             } else {
                                 complete.call(scope || this, request);
@@ -144,8 +149,15 @@ define('Mobile/SalesLogix/FileManager', [
 
             reader.readAsArrayBuffer(file);
         },
-        _showUnableToUploadError: function() {
-            window.alert(this.unableToUploadText);
+        _onUnableToUploadError: function(msg, onError) {
+            if (!msg) {
+                msg = this.unableToUploadText
+            }
+            if (onError) {
+                onError([msg])
+            } else {
+                console.warn([msg]);
+            }
         },
         formatFileSize: function(size) {
             size = parseInt(size, 10);
