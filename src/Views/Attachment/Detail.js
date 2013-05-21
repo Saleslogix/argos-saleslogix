@@ -4,6 +4,10 @@ define('Mobile/SalesLogix/Views/Attachment/Detail', [
     'dojo/_base/connect',
     'dojo/_base/array',
     'Mobile/SalesLogix/Format',
+     'dojo/dom-construct',
+    'dojo/dom-attr',
+    'dojo/dom-class',
+    'Mobile/SalesLogix/AttachmentManager',
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
@@ -11,6 +15,10 @@ define('Mobile/SalesLogix/Views/Attachment/Detail', [
     connect,
     array,
     format,
+    domConstruct,
+    domAttr,
+    domClass,
+    AttachmentManager,
     Detail
 ) {
 
@@ -32,6 +40,31 @@ define('Mobile/SalesLogix/Views/Attachment/Detail', [
         resourceKind: 'attachments',
         contractName: 'system',
         queryInclude: ['$descriptors'],
+        widgetTemplate: new Simplate([
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+            '{%! $.loadingTemplate %}',
+            '<div class="panel-content" data-dojo-attach-point="contentNode"></div>',
+            '<div class="panel-content" data-dojo-attach-point="attachmentViewerNode"></div>',
+            '</div>'
+        ]),
+        attachmnetVieweTemplate: new Simplate([
+               '<div class="file-name">{%: $.fileName %}</div>',
+               '<div class="file-label"><label>{%: $$.descriptionText %}</label></div>',
+               '<div data-dojo-attach-point="fileViewer"class="file-viewer-area">',
+                   '<iframe src="{%= $.url %}""></iframe>',
+               '</div>'
+        ]),
+        show: function(options) {
+
+            this.inherited(arguments);
+            this.attachmentViewerNode.innerHTML = "";
+            //domClass.remove(this.fileArea, 'display-none');
+        },
+        processEntry: function(entry) {
+
+            this.inherited(arguments);
+            this._loadAttachmentView(entry);
+        },
         createRequest: function() {
             var request = this.inherited(arguments);
             request.setQueryArg('_includeFile', 'false');
@@ -143,6 +176,18 @@ define('Mobile/SalesLogix/Views/Attachment/Detail', [
             layout.push(details);
 
             return layout;
+        },
+        _loadAttachmentView: function(entry) {
+
+            var data, am, url;
+            am = new AttachmentManager();
+            url = am.getAttachmentUrl(entry.$key);
+            data = {
+                fileName: entry.fileName,
+                url:url,
+                description: entry.description
+            };
+            var rowNode = domConstruct.place(this.attachmnetVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
         }
     });
 });

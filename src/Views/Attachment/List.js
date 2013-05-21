@@ -15,7 +15,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     return declare('Mobile.SalesLogix.Views.Attachment.List', [List], {
         //Templates
         rowTemplate: new Simplate([
-            '<li data-action="xactivateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
                 '<button data-action="selectEntry" class="list-item-selector button">',
                     '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
                 '</button>',
@@ -62,7 +62,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         //View Properties       
         id: 'attachment_list',
         security: null,
-        //detailView: 'attachment_detail',
+        detailView: 'attachment_detail',
         insertView: 'attachment_Add',
         icon: 'content/images/icons/Attachment_24.png',
         iconurl: 'content/images/icons/Attachment_URL_24.png',
