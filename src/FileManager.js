@@ -30,7 +30,7 @@ define('Mobile/SalesLogix/FileManager', [
     sniff
 ) {
     return declare('Mobile.SalesLogix.FileManager', null, {
-        unableToUploadText: 'Browser does not support HTML5 File API.',
+        unableToUploadText: 'This browser does not support HTML5 File API.',
         unknownSizeText: 'unknown',
         unknownErrorText: 'Warning: An error occured and the file failed to upload.',
         largeFileWarningText: 'Warning: This request exceeds the size limit set by your administrator and failed to upload.',
