@@ -32,8 +32,8 @@ define('Mobile/SalesLogix/FileManager', [
     return declare('Mobile.SalesLogix.FileManager', null, {
         unableToUploadText: 'Browser does not support HTML5 File API.',
         unknownSizeText: 'unknown',
-        unknownErrorText: 'Warning: An error occured and the file fail to upload.',
-        largeFileWarningText: 'Warning: This request exceed the size limit set by your administrator and fail to upload.',
+        unknownErrorText: 'Warning: An error occured and the file failed to upload.',
+        largeFileWarningText: 'Warning: This request exceeds the size limit set by your administrator and failed to upload.',
         largeFileWarningTitle: 'Warning',
         percentCompleteText: 'Uploading, please wait...',
         fileUploadOptions: { maxFileSize: 4000000 },
