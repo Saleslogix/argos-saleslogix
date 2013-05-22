@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
         id: 'attachment_Add',
         icon: 'content/images/icons/attachment_24.png',
 
-        uploadFiles: function() {
+        onUploadFiles: function() {
             var fileItems, self;
             self = this;
             if (this._files && this._files.length > 0) {
@@ -37,13 +37,13 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
                     ReUI.back();
                 }
                 am.onFailedUpload = function(errorMessage) {
-                    self.updateProgress(errorMessage);
+                    self.onUpdateFailed(errorMessage);
                     alert(errorMessage);
                     ReUI.back();
                 }
                 am.onUpdateProgress = function(percent) {
                     var msg = sdkFormat.percent(percent / 100);
-                    self.updateProgress(msg);
+                    self.onUpdateProgress(msg);
                 }
                 am.createAttachment(fileItems[0].file, {description: fileItems[0].description});
             }
