@@ -83,7 +83,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/History/Detail',
     'Mobile/SalesLogix/Views/History/Edit',
     'Mobile/SalesLogix/Views/User/List',
-    'Mobile/SalesLogix/Views/Attachment/Detail',
+    'Mobile/SalesLogix/Views/Attachment/ViewAttachment',
     'Mobile/SalesLogix/Views/Attachment/List',
     'Mobile/SalesLogix/Views/Attachment/AddAttachment',
     'Mobile/SalesLogix/Views/Attachment/MyAttachmentList',
@@ -182,7 +182,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     HistoryDetail,
     HistoryEdit,
     UserList,
-    AttachmentDetail,
+    ViewAttachment,
     AttachmentList,
     AddAttachment,
     MyAttachmentList
@@ -373,7 +373,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose: false
             }));
 
-            this.registerView(new AttachmentDetail());
+            this.registerView(new ViewAttachment());
             this.registerView(new AddAttachment());
             this.registerView(new MyAttachmentList());
             this.registerView(new AttachmentList({

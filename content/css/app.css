@@ -1399,3 +1399,31 @@ td.entry-table-description {
 {
     display: inline;
 }
+.attachment-viewer-content
+{
+    margin: 12px 0 !important;
+    width: 100% !important; 
+    height: 95% !important;
+}
+.attachment-viewer-label > label {
+    color: #0079A7 !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    margin-left: 10px !important;
+}
+.attachment-viewer-area 
+{
+    moz-box-sizing: border-box !important;
+    border: 1px solid #000000 !important;
+    border-radius: 3px 3px 3px 3px !important;
+    margin: 10px !important;
+    padding:5px !important;
+    width: auto !important; 
+    height:95% !important;
+}
+.attachment-viewer-area > iframe
+{
+    border: 0px solid #000000 !important;
+    width: 100% !important; 
+    height:100% !important;
+}
