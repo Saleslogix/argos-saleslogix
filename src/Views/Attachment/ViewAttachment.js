@@ -8,8 +8,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/has',
-    "dojo/on",
-     'dojo/_base/lang',
+    'dojo/dom',
+    //'dojo/on',
+    // 'dojo/_base/lang',
     'Mobile/SalesLogix/AttachmentManager',
     'Sage/Platform/Mobile/Detail'
 ], function(
@@ -22,8 +23,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     domAttr,
     domClass,
     has,
-    on,
-    lang,
+    dom,
+    //on,
+    //lang,
     AttachmentManager,
     Detail
 ) {
@@ -143,7 +145,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             tpl = this.downloadingTemplate.apply(this);
             dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
 
-            iframe = dojo.byId('attachment-Iframe');
+            iframe = dom.byId('attachment-Iframe');
             domClass.add(iframe, 'attachment-viewer-min');
             iframe.onload = function() {
                 domClass.add(iframe, 'attachment-viewer-min');
@@ -177,7 +179,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             tpl = this.downloadingTemplate.apply(this);
             dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
 
-            iframe = dojo.byId('attachment-Iframe');
+            iframe = dom.byId('attachment-Iframe');
             domClass.add(iframe, 'attachment-viewer-min');
             iframe.onload = function() {
                 domClass.add(iframe, 'attachment-viewer-min');
@@ -203,7 +205,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         },
         _zoomAttachment: function() {
 
-            iframe = dojo.byId('attachment-Iframe');
+            iframe = dom.byId('attachment-Iframe');
             if (this.imageZoomed) {
                 this.imageZoomed = false;
                 domClass.add(iframe, 'attachment-viewer-min');
