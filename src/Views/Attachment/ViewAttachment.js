@@ -8,6 +8,8 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/has',
+    "dojo/on",
+     'dojo/_base/lang',
     'Mobile/SalesLogix/AttachmentManager',
     'Sage/Platform/Mobile/Detail'
 ], function(
@@ -20,6 +22,8 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     domAttr,
     domClass,
     has,
+    on,
+    lang,
     AttachmentManager,
     Detail
 ) {
@@ -41,6 +45,8 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
         resourceKind: 'attachments',
         contractName: 'system',
+        icon: 'content/images/icons/Attachment_24.png',
+        imageZoomed: false,
         queryInclude: ['$descriptors'],
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
@@ -53,11 +59,16 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             '<div class="list-loading-indicator">{%= $.loadingText %}</div>'
         ]),
         attachmnetVieweTemplate: new Simplate([
-               '<div class="attachment-viewer-label"><label>{%= $.description %}</label></div>',
+            '<div class="attachment-viewer-label" style="white-space:nowrap;"  >',
+              '<button data-action="_zoomAttachment" class="list-item-selector button">',
+                    '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" text="zoom" />',
+               '</button>',
+               '<label>{%= $.description %}</label>',
+            '</div>',
                //'<h3><div><label>{%= $.fileName %}</div></h3>',
-               '<div class="attachment-viewer-area">',
-                   '<iframe id="attachment-Iframe" src="{%= $.url %}" ></iframe>',
-               '</div>'
+            '<div class="attachment-viewer-area">',
+                   '<iframe id="attachment-Iframe" src="{%= $.url %}"></iframe>',
+            '</div>'
         ]),
         downloadingTemplate: new Simplate([
             '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>',
@@ -98,30 +109,108 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             return layout;
         },
         _loadAttachmentView: function(entry) {
-            var data, am, url, rowNode, tpl,dl, iframe;
+            if (has('ios')) {
+                this._loadAttachmentViewIOS(entry);
+            }
+            else if (has('android')) {
+                this._loadAttachmentViewAndroid(entry);
+            } else {
+                this._loadAttachmentViewOther(entry);
+            }
+        },
+        _loadAttachmentViewIOS: function(entry) {
+            var data, am, url, viewNode, tpl, dl, iframe;
             am = new AttachmentManager();
             url = am.getAttachmentUrl(entry.$key);
             data = {
                 fileName: entry.fileName,
                 type: entry.type,
                 size: entry.size,
-                url:url,
-                description: entry.description + ' (' + entry.fileName + ')' 
+                url: '',
+                description: entry.description + ' (' + entry.fileName + ')'
             };
-            rowNode = domConstruct.place(this.attachmnetVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            this.imageZoomed = false;
+            viewNode = domConstruct.place(this.attachmnetVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            
+           /* iframe = domConstruct.create("iframe");
+            domAttr.set(iframe, 'id', 'attachment-Iframe');
+            on(iframe, "onload", lang.hitch(this, this._onAttachmentLoad));
+            domConstruct.place(iframe, this.attachmentViewerNode, 'last');
+            domAttr.set(iframe, 'src', url);
+            */
 
-            tpl = this.downloadingTemplate.apply(this);
             domClass.add(this.domNode, 'list-loading');
+            tpl = this.downloadingTemplate.apply(this);
             dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
 
             iframe = dojo.byId('attachment-Iframe');
+            domClass.add(iframe, 'attachment-viewer-min');
             iframe.onload = function() {
-
+                domClass.add(iframe, 'attachment-viewer-min');
                 domClass.add(dl, 'display-none');
-                if (!has('ios')) {
-                    ReUI.back();
-                }
             };
+            domAttr.set(iframe, 'src', url);
+
+        },
+        _loadAttachmentViewAndroid: function(entry) {
+            var data, am, url, viewNode, tpl, dl, iframe;
+            am = new AttachmentManager();
+            url = am.getAttachmentUrl(entry.$key);
+            data = {
+                fileName: entry.fileName,
+                type: entry.type,
+                size: entry.size,
+                url: '',
+                description: entry.description + ' (' + entry.fileName + ')'
+            };
+            this.imageZoomed = false;
+            viewNode = domConstruct.place(this.attachmnetVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+
+            /* iframe = domConstruct.create("iframe");
+             domAttr.set(iframe, 'id', 'attachment-Iframe');
+             on(iframe, "onload", lang.hitch(this, this._onAttachmentLoad));
+             domConstruct.place(iframe, this.attachmentViewerNode, 'last');
+             domAttr.set(iframe, 'src', url);
+             */
+
+            domClass.add(this.domNode, 'list-loading');
+            tpl = this.downloadingTemplate.apply(this);
+            dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+
+            iframe = dojo.byId('attachment-Iframe');
+            domClass.add(iframe, 'attachment-viewer-min');
+            iframe.onload = function() {
+                domClass.add(iframe, 'attachment-viewer-min');
+                domClass.add(dl, 'display-none');
+            };
+            domAttr.set(iframe, 'src', url);
+
+
+        },
+        _loadAttachmentViewOther: function(entry) {
+            var data, am, url
+            am = new AttachmentManager();
+            url = am.getAttachmentUrl(entry.$key);
+            data = {
+                fileName: entry.fileName,
+                type: entry.type,
+                size: entry.size,
+                url: '',
+                description: entry.description + ' (' + entry.fileName + ')'
+            };
+            window.open(url);
+           // ReUI.back();
+        },
+        _zoomAttachment: function() {
+
+            iframe = dojo.byId('attachment-Iframe');
+            if (this.imageZoomed) {
+                this.imageZoomed = false;
+                domClass.add(iframe, 'attachment-viewer-min');
+            } else {
+                this.imageZoomed = true;
+                domClass.remove(iframe, 'attachment-viewer-min');
+            }
         }
     });
 });

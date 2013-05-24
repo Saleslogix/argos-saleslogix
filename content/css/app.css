@@ -1411,19 +1411,46 @@ td.entry-table-description {
     text-align: left !important;
     margin-left: 10px !important;
 }
+.attachment-viewer-label > button {
+    margin-left: 10px !important;
+    float:left !important;
+}
 .attachment-viewer-area 
 {
     moz-box-sizing: border-box !important;
-    border: 1px solid #000000 !important;
+    border: 0px solid #000000 !important;
     border-radius: 3px 3px 3px 3px !important;
     margin: 10px !important;
     padding:5px !important;
     width: auto !important; 
     height:95% !important;
 }
+
 .attachment-viewer-area > iframe
 {
     border: 0px solid #000000 !important;
     width: 100% !important; 
     height:100% !important;
+	-moz-transform-origin: top left;
+    -webkit-transform-origin: top left;
+    -o-transform-origin: top left;
+    -ms-transform-origin: top left;
+    transform-origin: top left;
 }
+.attachment-viewer-min 
+{
+    -moz-transform: scale(0.15, 0.15); 
+    -webkit-transform: scale(0.15, 0.15); 
+    -o-transform: scale(0.15, 0.15);
+    -ms-transform: scale(0.15, 0.15);
+    transform: scale(0.15, 0.15); 
+}
+.attachment-viewer-med 
+{
+   	-moz-transform: scale(0.50, 0.50); 
+    -webkit-transform: scale(0.50, 0.50); 
+    -o-transform: scale(0.50, 0.50);
+    -ms-transform: scale(0.50, 0.50);
+    transform: scale(0.50, 0.50); 
+}
+
