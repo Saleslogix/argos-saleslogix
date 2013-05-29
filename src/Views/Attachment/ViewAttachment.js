@@ -107,14 +107,14 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         },
         createLayout: function() {
             if (has('ios')) {
-                return this.tools || (this.tools = {
+                this.tools = {
                     'tbar': [{
                         id: 'zoomAttachmnet',
                         icon: 'content/images/icons/Scale_24.png',
                         action: '_zoomAttachment',
                         title: 'zoom attachment'
                     }]
-                });
+                };
             }
             return this.tools || (this.tools = [{}]);
         },
