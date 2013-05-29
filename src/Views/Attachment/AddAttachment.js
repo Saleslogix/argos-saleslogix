@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
 
     return declare('Mobile.SalesLogix.Views.Attachment.AddAttachment', [FileSelect], {
         //Localization
-        titleText: 'Add Attachments',
+        titleText: 'xAdd Attachments',
         attachmentDateFormatText: 'ddd M/d/yy h:mm:tt',
 
         //View Properties       

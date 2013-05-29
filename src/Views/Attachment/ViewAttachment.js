@@ -47,7 +47,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
         resourceKind: 'attachments',
         contractName: 'system',
-        icon: 'content/images/icons/Attachment_24.png',
+        icon: 'content/images/icons/Scale_24.png',
         imageZoomed: false,
         queryInclude: ['$descriptors'],
         widgetTemplate: new Simplate([
@@ -62,9 +62,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         ]),
         attachmnetVieweTemplate: new Simplate([
             '<div class="attachment-viewer-label" style="white-space:nowrap;"  >',
-              '<button data-action="_zoomAttachment" class="list-item-selector button">',
-                    '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" text="zoom" />',
-               '</button>',
+           //   '<button data-action="_zoomAttachment" class="list-item-selector button">',
+           //         '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" text="zoom" />',
+           //    '</button>',
                '<label>{%= $.description %}</label>',
             '</div>',
                //'<h3><div><label>{%= $.fileName %}</div></h3>',
@@ -106,9 +106,17 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             return this.tools;
         },
         createLayout: function() {
-            var layout, details;
-            layout = this.layout || (this.layout = []);
-            return layout;
+            if (has('ios')) {
+                return this.tools || (this.tools = {
+                    'tbar': [{
+                        id: 'zoomAttachmnet',
+                        icon: 'content/images/icons/Scale_24.png',
+                        action: '_zoomAttachment',
+                        title: 'zoom attachment'
+                    }]
+                });
+            }
+            return this.tools || (this.tools = [{}]);
         },
         _loadAttachmentView: function(entry) {
             if (has('ios')) {
@@ -190,6 +198,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
         },
         _loadAttachmentViewOther: function(entry) {
+
             var data, am, url
             am = new AttachmentManager();
             url = am.getAttachmentUrl(entry.$key);

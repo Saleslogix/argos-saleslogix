@@ -1428,7 +1428,7 @@ td.entry-table-description {
 
 .attachment-viewer-area > iframe
 {
-    border: 0px solid #000000 !important;
+    border: 1px solid #000000 !important;
     width: 100% !important; 
     height:100% !important;
 	-moz-transform-origin: top left;
