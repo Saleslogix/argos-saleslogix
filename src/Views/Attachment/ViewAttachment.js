@@ -60,7 +60,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         attachmentLoadingTemplate: new Simplate([
             '<div class="list-loading-indicator">{%= $.loadingText %}</div>'
         ]),
-        attachmnetVieweTemplate: new Simplate([
+        attachmentVieweTemplate: new Simplate([
             '<div class="attachment-viewer-label" style="white-space:nowrap;"  >',
            //   '<button data-action="_zoomAttachment" class="list-item-selector button">',
            //         '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" text="zoom" />',
@@ -116,7 +116,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                     }]
                 };
             }
-            return this.tools || (this.tools = [{}]);
+            return this.tools || (this.tools = []);
         },
         _loadAttachmentView: function(entry) {
             if (has('ios')) {
@@ -140,7 +140,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 description: entry.description + ' (' + entry.fileName + ')'
             };
             this.imageZoomed = false;
-            viewNode = domConstruct.place(this.attachmnetVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            viewNode = domConstruct.place(this.attachmentVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
             
            /* iframe = domConstruct.create("iframe");
             domAttr.set(iframe, 'id', 'attachment-Iframe');
@@ -174,7 +174,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 description: entry.description + ' (' + entry.fileName + ')'
             };
             this.imageZoomed = false;
-            viewNode = domConstruct.place(this.attachmnetVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            viewNode = domConstruct.place(this.attachmentVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
 
             /* iframe = domConstruct.create("iframe");
              domAttr.set(iframe, 'id', 'attachment-Iframe');
@@ -195,10 +195,10 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             };
             domAttr.set(iframe, 'src', url);
 
-
         },
         _loadAttachmentViewOther: function(entry) {
             var data, am, url
+
             am = new AttachmentManager();
             url = am.getAttachmenturlByEntity(entry);
             data = {
