@@ -92,6 +92,16 @@ define('Mobile/SalesLogix/AttachmentManager', [
             var fileUrl = this._baseUrl + '/attachments(\'' + attachmentId + '\')/file';
             return fileUrl;
         },
+        getAttachmenturlByEntity: function(attachment) {
+            var href;
+            if (attachment['url']) {
+                href = attachment['url'] || '';
+                href = (href.indexOf('http') < 0) ? 'http://' + href : href;
+            } else {
+                href = this._baseUrl + '/attachments(\'' + attachment.$key + '\')/file';
+            }
+            return href;
+        },
         _getFileDescription: function(fileName) {
             var description = this._getDefaultDescription(fileName);
             for (var i = 0; i < this._fileDescriptions.length; i++) {
