@@ -131,7 +131,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         _loadAttachmentViewIOS: function(entry) {
             var data, am, url, viewNode, tpl, dl, iframe;
             am = new AttachmentManager();
-            url = am.getAttachmentUrl(entry.$key);
+            url = am.getAttachmenturlByEntity(entry);
             data = {
                 fileName: entry.fileName,
                 type: entry.type,
@@ -165,7 +165,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         _loadAttachmentViewAndroid: function(entry) {
             var data, am, url, viewNode, tpl, dl, iframe;
             am = new AttachmentManager();
-            url = am.getAttachmentUrl(entry.$key);
+            url = am.getAttachmenturlByEntity(entry);
             data = {
                 fileName: entry.fileName,
                 type: entry.type,
@@ -198,10 +198,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
         },
         _loadAttachmentViewOther: function(entry) {
-
             var data, am, url
             am = new AttachmentManager();
-            url = am.getAttachmentUrl(entry.$key);
+            url = am.getAttachmenturlByEntity(entry);
             data = {
                 fileName: entry.fileName,
                 type: entry.type,
@@ -209,6 +208,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 url: '',
                 description: entry.description + ' (' + entry.fileName + ')'
             };
+
             window.open(url);
            // ReUI.back();
         },
