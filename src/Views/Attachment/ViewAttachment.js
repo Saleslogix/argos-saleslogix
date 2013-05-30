@@ -129,15 +129,20 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             }
         },
         _loadAttachmentViewIOS: function(entry) {
-            var data, am, url, viewNode, tpl, dl, iframe;
+            var data, am, url, viewNode, tpl, dl, iframe, description;
             am = new AttachmentManager();
             url = am.getAttachmenturlByEntity(entry);
+            if (entr.dataType === "R") {
+                description = entry.description + ' (' + entry.fileName + ')';
+            } else {
+                description = entry.description + ' (' + entry.url + ')';
+            }
             data = {
                 fileName: entry.fileName,
                 type: entry.type,
                 size: entry.size,
                 url: '',
-                description: entry.description + ' (' + entry.fileName + ')'
+                description: description
             };
             this.imageZoomed = false;
             viewNode = domConstruct.place(this.attachmentVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
