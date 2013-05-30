@@ -132,7 +132,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             var data, am, url, viewNode, tpl, dl, iframe, description;
             am = new AttachmentManager();
             url = am.getAttachmenturlByEntity(entry);
-            if (entr.dataType === "R") {
+            if (entry.dataType === "R") {
                 description = entry.description + ' (' + entry.fileName + ')';
             } else {
                 description = entry.description + ' (' + entry.url + ')';
