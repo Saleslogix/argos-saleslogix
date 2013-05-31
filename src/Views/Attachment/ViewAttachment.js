@@ -38,6 +38,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         attachDateText: 'attachment date',
         fileSizeText: 'file size',
         userText: 'user',
+        checkBrowserText: 'The browser is processing the attachment please check if it has downloaded successfully.',
         attachmentDateFormatText: 'ddd M/d/yy h:mm:tt',
         //View Properties
         id: 'view_attachment',
@@ -60,8 +61,8 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         attachmentLoadingTemplate: new Simplate([
             '<div class="list-loading-indicator">{%= $.loadingText %}</div>'
         ]),
-        attachmentVieweTemplate: new Simplate([
-            '<div class="attachment-viewer-label" style="white-space:nowrap;"  >',
+        attachmentViewTemplate: new Simplate([
+            '<div class="attachment-viewer-label" style="white-space:nowrap;">',
            //   '<button data-action="_zoomAttachment" class="list-item-selector button">',
            //         '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" text="zoom" />',
            //    '</button>',
@@ -71,6 +72,11 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             '<div class="attachment-viewer-area">',
                    '<iframe id="attachment-Iframe" src="{%= $.url %}"></iframe>',
             '</div>'
+        ]),
+        attachmentViewOtherTemplate: new Simplate([
+                '<div class="attachment-viewer-label">',
+                '<label>{%= $$.checkBrowserText %}</label>',
+                '</div>'
         ]),
         downloadingTemplate: new Simplate([
             '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>',
@@ -145,7 +151,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 description: description
             };
             this.imageZoomed = false;
-            viewNode = domConstruct.place(this.attachmentVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
             
            /* iframe = domConstruct.create("iframe");
             domAttr.set(iframe, 'id', 'attachment-Iframe');
@@ -179,7 +185,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 description: entry.description + ' (' + entry.fileName + ')'
             };
             this.imageZoomed = false;
-            viewNode = domConstruct.place(this.attachmentVieweTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
 
             /* iframe = domConstruct.create("iframe");
              domAttr.set(iframe, 'id', 'attachment-Iframe');
@@ -202,7 +208,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
         },
         _loadAttachmentViewOther: function(entry) {
-            var data, am, url
+            var data, am, url, viewNode
 
             am = new AttachmentManager();
             url = am.getAttachmenturlByEntity(entry);
@@ -213,7 +219,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 url: '',
                 description: entry.description + ' (' + entry.fileName + ')'
             };
-
+            viewNode = domConstruct.place(this.attachmentViewOtherTemplate.apply(data, this), this.attachmentViewerNode, 'last');
             window.open(url);
            // ReUI.back();
         },
