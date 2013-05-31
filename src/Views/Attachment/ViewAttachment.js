@@ -174,9 +174,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
         },
         _loadAttachmentViewAndroid: function(entry) {
-            var data, am, url, viewNode, tpl, dl, iframe;
+            var data, am, url , viewNode, tpl, dl, iframe, attachmentid;
             am = new AttachmentManager();
-            url = am.getAttachmenturlByEntity(entry);
+            //url = am.getAttachmenturlByEntity(entry);
             data = {
                 fileName: entry.fileName,
                 type: entry.type,
@@ -184,8 +184,17 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 url: '',
                 description: entry.description + ' (' + entry.fileName + ')'
             };
-            this.imageZoomed = false;
-            viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            attachmentid = entry.$key;
+            am.getAttachmentFile(attachmentId,'blob', function(responseInfo) {
+                var blob, url, a, blobURL;
+                blob = responseInfo.response;
+                url = window.URL || window.webkitURL;
+                blobURL = url.createObjectURL(blob);
+                window.open(blobURL);
+            });
+
+            //this.imageZoomed = false;
+            //viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
 
             /* iframe = domConstruct.create("iframe");
              domAttr.set(iframe, 'id', 'attachment-Iframe');
@@ -194,17 +203,17 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
              domAttr.set(iframe, 'src', url);
              */
 
-            domClass.add(this.domNode, 'list-loading');
-            tpl = this.downloadingTemplate.apply(this);
-            dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+            //domClass.add(this.domNode, 'list-loading');
+            //tpl = this.downloadingTemplate.apply(this);
+            //dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
 
-            iframe = dom.byId('attachment-Iframe');
-            domClass.add(iframe, 'attachment-viewer-min');
-            iframe.onload = function() {
-                domClass.add(iframe, 'attachment-viewer-min');
-                domClass.add(dl, 'display-none');
-            };
-            domAttr.set(iframe, 'src', url);
+            //iframe = dom.byId('attachment-Iframe');
+            //domClass.add(iframe, 'attachment-viewer-min');
+            //iframe.onload = function() {
+            //    domClass.add(iframe, 'attachment-viewer-min');
+            //    domClass.add(dl, 'display-none');
+            //};
+            //domAttr.set(iframe, 'src', url);
 
         },
         _loadAttachmentViewOther: function(entry) {
