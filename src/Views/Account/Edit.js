@@ -4,7 +4,8 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/Views/Signature'
 ], function(
     declare,
     string,
@@ -181,6 +182,13 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                     textProperty: 'Description',
                     type: 'lookup',
                     view: 'leadsource_list'
+                }, {
+                    label: 'signature',
+                    name: 'Notes',
+                    property: 'Notes',
+                    textProperty: 'Notes',
+                    type: 'signature',
+                    view: 'signature_edit'
                 }]);
         }
     });
