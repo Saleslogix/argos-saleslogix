@@ -208,7 +208,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
         },
         _loadAttachmentViewOther: function(entry) {
-            var data, am, url, viewNode
+            var data, am, url, viewNode;
 
             am = new AttachmentManager();
             url = am.getAttachmenturlByEntity(entry);
