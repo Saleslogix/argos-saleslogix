@@ -251,7 +251,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                             icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'TicketId eq "${0}"'),
-                            view: 'attachment_related',
+                            view: 'ticket_attachment_related',
                             title:  this.relatedAttachmentTitleText
                         }]
                 }]);

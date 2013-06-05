@@ -1,8 +1,14 @@
 define('Mobile/SalesLogix/Views/MainToolbar', [
     'dojo/_base/declare',
+    'dojo/dom-style',
+    'dojo/has',
+    'dojox/mobile/sniff',
     'Sage/Platform/Mobile/MainToolbar'
 ], function(
     declare,
+    domStyle,
+    has,
+    mobileSniff,
     MainToolbar
 ) {
 
@@ -87,7 +93,14 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
             view = App.getPrimaryActiveView();
 
             if (view && state && state.state === 'closed') {
-                view.domNode.scrollTop = 0;
+                if (has('android')) {
+                    // Hack to work around https://code.google.com/p/android/issues/detail?id=19625
+                    domStyle.set(view.domNode, 'overflow', 'hidden');
+                    view.domNode.scrollTop = 0;
+                    domStyle.set(view.domNode, 'overflow', 'auto');
+                } else {
+                    view.domNode.scrollTop = 0;
+                }
             }
         },
         _toggleDrawer: function(state) {

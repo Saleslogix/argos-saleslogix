@@ -64,7 +64,14 @@ define('Mobile/SalesLogix/Environment', [
         attachmentViewsToRefresh: [
             'myattachment_list',
             'attachment_list',
-            'attachment_related'
+            'attachment_related',
+            'account_attachment_related',
+            'contact_attachment_related',
+            'lead_attachment_related',
+            'opportunity_attachment_related',
+            'ticket_attachment_related',
+            'activity_attachment_related',
+            'history_attachment_related'
         ],
         activityViewsToRefresh: [
             'myactivity_list',

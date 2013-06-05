@@ -2,6 +2,7 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Views/FileSelect',
     'Mobile/SalesLogix/AttachmentManager',
     'Mobile/SalesLogix/Environment'
@@ -9,6 +10,7 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
     declare,
     string,
     format,
+    sdkFormat,
     FileSelect,
     AttachmentManager,
     Environment
@@ -23,8 +25,9 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
         id: 'attachment_Add',
         icon: 'content/images/icons/attachment_24.png',
 
-        okSelect: function() {
-            var fileItems;
+        onUploadFiles: function() {
+            var fileItems, self;
+            self = this;
             if (this._files && this._files.length > 0) {
                 this.inherited(arguments);
                 fileItems = this.getFileItems();
@@ -33,7 +36,16 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
                     Environment.refreshAttachmentViews();
                     ReUI.back();
                 }
-                am.createAttachment(fileItems[0].file, {description: fileItems[0].description});              
+                am.onFailedUpload = function(errorMessage) {
+                    self.onUpdateFailed(errorMessage);
+                    alert(errorMessage);
+                    ReUI.back();
+                }
+                am.onUpdateProgress = function(percent) {
+                    var msg = sdkFormat.percent(percent / 100);
+                    self.onUpdateProgress(msg);
+                }
+                am.createAttachment(fileItems[0].file, {description: fileItems[0].description});
             }
         },
         cancelSelect: function() {

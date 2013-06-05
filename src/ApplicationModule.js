@@ -89,7 +89,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/History/Detail',
     'Mobile/SalesLogix/Views/History/Edit',
     'Mobile/SalesLogix/Views/User/List',
-    'Mobile/SalesLogix/Views/Attachment/Detail',
+    'Mobile/SalesLogix/Views/Attachment/ViewAttachment',
     'Mobile/SalesLogix/Views/Attachment/List',
     'Mobile/SalesLogix/Views/Attachment/AddAttachment',
     'Mobile/SalesLogix/Views/Attachment/MyAttachmentList',
@@ -192,7 +192,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     HistoryDetail,
     HistoryEdit,
     UserList,
-    AttachmentDetail,
+    ViewAttachment,
     AttachmentList,
     AddAttachment,
     MyAttachmentList
@@ -389,14 +389,37 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 expose: false
             }));
 
-            this.registerView(new AttachmentDetail());
+            this.registerView(new ViewAttachment());
             this.registerView(new AddAttachment());
             this.registerView(new MyAttachmentList());
             this.registerView(new AttachmentList({
-                id: 'attachment_related',
+                id: 'account_attachment_related',
                 expose: false
             }));
-
+            this.registerView(new AttachmentList({
+                id: 'contact_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'lead_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'ticket_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'opportunity_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'activity_attachment_related',
+                expose: false
+            }));
+            this.registerView(new AttachmentList({
+                id: 'history_attachment_related',
+                expose: false
+            }));
         },
         loadToolbars: function() {
             this.inherited(arguments);

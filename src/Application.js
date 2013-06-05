@@ -11,8 +11,7 @@ define('Mobile/SalesLogix/Application', [
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
     'dojo/_base/sniff',
-    'dojox/mobile/sniff',
-    'snap'
+    'dojox/mobile/sniff'
 ], function(
     win,
     declare,
@@ -26,12 +25,10 @@ define('Mobile/SalesLogix/Application', [
     environment,
     Application,
     sniff,
-    mobileSniff,
-    snap
+    mobileSniff
 ) {
 
     return declare('Mobile.SalesLogix.Application', [Application], {
-        snapper: null,
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
@@ -650,34 +647,6 @@ define('Mobile/SalesLogix/Application', [
             if (view) {
                 view.show();
             }
-        },
-        loadSnapper: function() {
-            var snapper, view;
-
-            if (this.snapper) {
-                return;
-            }
-
-            snapper = new snap({
-                element: document.getElementById('viewContainer'),
-                dragElement: has('android') ? document.getElementById('pageTitle') : null, // android has a severe scrolling issue, allow swipe at title bar only
-                disable: 'right', // use 'none' to do both
-                addBodyClasses: true,
-                resistance: 0.1,
-                flickThreshold: has('android') ? 5 : 50,
-                transitionSpeed: 0.2,
-                easing: 'ease',
-                maxPosition: 266,
-                minPosition: -266,
-                tapToClose: true,
-                touchToDrag: has('android') ? false : true,
-                slideIntent: has('android') ? 90 : 40,
-                minDragDistance: has('android') ? 1 : 5 
-            });
-
-            this.snapper = snapper;
-
-            this.showLeftDrawer();
         },
         navigateToHomeView: function() {
             this.loadSnapper();

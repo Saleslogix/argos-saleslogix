@@ -92,6 +92,16 @@ define('Mobile/SalesLogix/AttachmentManager', [
             var fileUrl = this._baseUrl + '/attachments(\'' + attachmentId + '\')/file';
             return fileUrl;
         },
+        getAttachmenturlByEntity: function(attachment) {
+            var href;
+            if (attachment['url']) {
+                href = attachment['url'] || '';
+                href = (href.indexOf('http') < 0) ? 'http://' + href : href;
+            } else {
+                href = this._baseUrl + '/attachments(\'' + attachment.$key + '\')/file';
+            }
+            return href;
+        },
         _getFileDescription: function(fileName) {
             var description = this._getDefaultDescription(fileName);
             for (var i = 0; i < this._fileDescriptions.length; i++) {
@@ -219,12 +229,12 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 this._fileManager.uploadFile(file,
                 this._uploadUrl,
                 this._updateProgress,
-                this._onSuccessUpload,
-                this._onFailedUpload,
+                this.onSuccessUpload,
+                this.onFailedUpload,
                 this);
             }
         },
-        _onSuccessUpload: function(request) {
+        onSuccessUpload: function(request) {
             //the id of the new attachment is buried in the Location response header...
             var url, re, matches, id;
            
@@ -247,7 +257,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
                         if (request){
                             request.update(attachment, {
                                 success: this.onSuccessUpdate,
-                                failure: this._onFailedUpdate,
+                                failure: this.onFailedUpdate,
                                 scope: this
                             });
                         }
@@ -258,7 +268,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
 
             }
         },
-        _onFailedUpload: function(resp) {
+        onFailedUpload: function(resp) {
             console.warn('Attachment failed to upload %o', resp);
         },
         _onFailedAdd: function(resp) {
@@ -266,26 +276,36 @@ define('Mobile/SalesLogix/AttachmentManager', [
         },
         onSuccessUpdate: function(attachment) {
         },
-        _onFailedUpdate: function(resp) {
+        onFailedUpdate: function(resp) {
             console.warn('Attachment failed to update %o', resp);
+        },
+        onUpdateProgress: function(pecent) {
+
         },
         _updateProgress: function(curFileProgress) {
             var pct, filePercent;
 
             pct = this._totalProgress;
-      
+
             if (curFileProgress && curFileProgress.lengthComputable) {
                 filePercent = (curFileProgress.loaded / curFileProgress.total) * 100;
-                pct += Math.round(filePercent / this._fileCount);
+                pct =  filePercent; ;//+= Math.round(filePercent);
             } else if (curFileProgress) {
                 pct = curFileProgress;
             }
             this._totalProgress = pct;
+           
             if (pct < 99) {
-
+                if (this.onUpdateProgress) {
+                    this.onUpdateProgress(pct);
+                }
             } else {
                 this._resetCounts();
+                if (this.onUpdateProgress) {
+                    this.onUpdateProgress(100.00);
+                }
             }
+
         },
         _resetCounts: function() {
             this._fileCount = 0;

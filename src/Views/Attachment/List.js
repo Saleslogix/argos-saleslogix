@@ -15,7 +15,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     return declare('Mobile.SalesLogix.Views.Attachment.List', [List], {
         //Templates
         rowTemplate: new Simplate([
-            '<li data-action="xactivateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
                 '<button data-action="selectEntry" class="list-item-selector button">',
                     '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
                 '</button>',
@@ -36,7 +36,8 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
            '{% } %}',
         ]),
         fileTemplate: new Simplate([
-            '<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" title="{%: $.$descriptor %}">{%: $.$descriptor %}</a>',
+            //'<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" title="{%: $.$descriptor %}">{%: $.$descriptor %}</a>',
+             '<h3><span>{%: $.description %}&nbsp;</span></h3>',
              '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
             '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
             '<h4><span>{%: Mobile.SalesLogix.Utility.getFileExtension($.fileName) %} </span></h4>',
@@ -45,11 +46,10 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             '{% } %}'
         ]),
         urlTemplate: new Simplate([
-            '<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" target="_blank" title="{%: $.url %}">{%: $.$descriptor %}</a>',
-            '<h4>',
-                '<span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
-                '<span>URL:{%: $.url %})&nbsp;</span>',
-            '</h4>',
+            //'<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" target="_blank" title="{%: $.url %}">{%: $.$descriptor %}</a>',
+            '<h3><span>{%: $.description %} &nbsp;</span></h3>',
+            '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span></h4>',
+            '<h4><span>{%: $.url %}&nbsp;</span></h4>',
             '{% if($.user) { %}',
             '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
             '{% } %}'
@@ -62,7 +62,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         //View Properties       
         id: 'attachment_list',
         security: null,
-        //detailView: 'attachment_detail',
+        detailView: 'view_attachment',
         insertView: 'attachment_Add',
         icon: 'content/images/icons/Attachment_24.png',
         iconurl: 'content/images/icons/Attachment_URL_24.png',
