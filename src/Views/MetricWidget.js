@@ -193,13 +193,17 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             }));
         },
         navToReportView: function() {
-            var view = App.getView(this.chartTypeMapping[this.chartType] || this.reportViewId);
+            var view, signal;
+            view = App.getView(this.chartTypeMapping[this.chartType] || this.reportViewId);
 
             if (view) {
-                aspect.after(view, 'show', lang.hitch(this, function() {
-                    view.titleText = this.metricTitleText;
-                    view.formatter = this.formatter;
-                    view.createChart(this._data);
+                signal = aspect.after(view, 'show', lang.hitch(this, function() {
+                    setTimeout(lang.hitch(this, function() {
+                        view.titleText = this.metricTitleText;
+                        view.formatter = this.formatter;
+                        view.createChart(this._data);
+                        signal.remove();
+                    }), 1);
                 }));
 
                 view.show({ returnTo: -1 });

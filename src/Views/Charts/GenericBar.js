@@ -2,6 +2,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
+    'dojo/dom-geometry',
     'dojox/charting/Chart',
     'dojox/charting/plot2d/Bars',
     'dojox/charting/axis2d/Default',
@@ -11,6 +12,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     declare,
     lang,
     array,
+    domGeo,
     Chart,
     PlotType,
     Default,
@@ -43,8 +45,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
                 this.chart.destroy(true);
             }
 
-            var labels;
+            var labels, box;
 
+            box = domGeo.getMarginBox(this.domNode);
             labels = this._labels(feedData);
 
             this.chart = new Chart(this.contentNode);
@@ -76,6 +79,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
 
             this.chart.addSeries('default', labels);
             this.chart.render();
+            this.chart.resize(box.w, box.h);
         },
         _labels: function(feedData) {
             var data = [];

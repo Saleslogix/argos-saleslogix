@@ -2,6 +2,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
+    'dojo/dom-geometry',
     'dojox/charting/Chart',
     'dojox/charting/plot2d/Pie',
     'dojox/charting/axis2d/Default',
@@ -12,6 +13,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     declare,
     lang,
     array,
+    domGeo,
     Chart,
     PlotType,
     Default,
@@ -45,22 +47,22 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
                 this.chart.destroy(true);
             }
 
-            var labels;
+            var labels, box;
 
             labels = this._labels(feedData);
+            box = domGeo.getMarginBox(this.domNode);
 
             this.chart = new Chart(this.contentNode);
             this.chart.setTheme(JulieTheme);
             this.chart.addPlot('default', {
                 type: PlotType,
-                radius: 75,
                 fontColor: 'black',
                 labelOffset: -60
             });
 
             this.chart.addSeries('default', labels);
             this.chart.render();
-            //this.createLegend();
+            this.chart.resize(box.w, box.h);
         },
         createLegend: function() {
             if (this.legend) {
