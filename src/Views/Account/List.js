@@ -3,12 +3,14 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Action',
+    'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
     array,
     string,
     action,
+    Format,
     List
 ) {
 
@@ -16,8 +18,25 @@ define('Mobile/SalesLogix/Views/Account/List', [
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
-            '<h4>{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %}</h4>'
+            '<h4>{%: $.Industry %}</h4>',
+            '<h4>{%: $.Type %} | {%: $.SubType %}</h4>',
+            '<h4>{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</h4>',
+            '<h4>{%: $.WebAddress %}</h4>',
+            '<h4>{%: $$._callInfo($) %}</h4>'
         ]),
+
+        _callInfo: function(item) {
+            var results, phone, fax;
+
+            phone = Format.phone(item.MainPhone);
+            fax = Format.phone(item.Fax);
+
+            results = [];
+            results.push(this.phoneAbbreviationText + phone, this.faxAbbreviationText + fax);
+            return array.filter(results, function(i) {
+                return i !== null && typeof i !== 'undefined' && i !== '' && i.length > 3;
+            }).join(' | ');
+        },
 
         //Localization
         titleText: 'Accounts',
@@ -29,6 +48,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
         viewContactsActionText: 'Contacts',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        phoneAbbreviationText: 'P: ',
+        faxAbbreviationText: 'F: ',
 
         //View Properties        
         detailView: 'account_detail',
@@ -43,11 +64,21 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'AccountManager/UserInfo/UserName',
             'AccountManager/UserInfo/LastName',
             'AccountManager/UserInfo/FirstName',
-            'MainPhone'
+            'Owner/OwnerDescription',
+            'MainPhone',
+            'WebAddress',
+            'Industry',
+            'LeadSource/Description',
+            'MainPhone',
+            'Fax',
+            'Status',
+            'SubType',
+            'Type'
         ],
         resourceKind: 'accounts',
         allowSelection: true,
         enableActions: true,
+        pageSize: 10,
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
