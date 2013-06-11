@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         //Template
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
-            '<h4>{%: $.Title %} | {%: $.AccountName %}</h4>',
+            '<h4>{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</h4>',
             '<h4>{%: $.WebAddress %}</h4>',
             '{% if ($.WorkPhone) { %}',
                 '<h4>',
@@ -29,7 +29,12 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                 '<h4>',
                     '{%: $$.mobileAbbreviationText + Sage.Platform.Mobile.Format.phone($.Mobile) %}',
                 '</h4>',
-            '{% } %}'
+            '{% } %}',
+            '{% if ($.Email) { %}',
+                '<h4>',
+                    '{%: $.Email %}',
+                '</h4>',
+            '{% } %}',
         ]),
 
         //Localization
@@ -44,9 +49,8 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         viewAccountActionText: 'Account',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
-        phoneAbbreviationText: 'P: ',
-        mobileAbbreviationText: 'M: ',
-        faxAbbreviationText: 'F: ',
+        phoneAbbreviationText: 'Work: ',
+        mobileAbbreviationText: 'Mobile: ',
 
         //View Properties        
         detailView: 'contact_detail',

@@ -22,21 +22,17 @@ define('Mobile/SalesLogix/Views/Account/List', [
             '<h4>{%: $.Type %} | {%: $.SubType %}</h4>',
             '<h4>{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</h4>',
             '<h4>{%: $.WebAddress %}</h4>',
-            '<h4>{%: $$._callInfo($) %}</h4>'
+            '{% if ($.MainPhone) { %}',
+                '<h4>',
+                    '{%: $$.phoneAbbreviationText + Sage.Platform.Mobile.Format.phone($.MainPhone) %}',
+                '</h4>',
+            '{% } %}',
+            '{% if ($.Fax) { %}',
+                '<h4>',
+                    '{%: $$.faxAbbreviationText + Sage.Platform.Mobile.Format.phone($.Fax) %}',
+                '</h4>',
+            '{% } %}'
         ]),
-
-        _callInfo: function(item) {
-            var results, phone, fax;
-
-            phone = Format.phone(item.MainPhone);
-            fax = Format.phone(item.Fax);
-
-            results = [];
-            results.push(this.phoneAbbreviationText + phone, this.faxAbbreviationText + fax);
-            return array.filter(results, function(i) {
-                return i !== null && typeof i !== 'undefined' && i !== '' && i.length > 3;
-            }).join(' | ');
-        },
 
         //Localization
         titleText: 'Accounts',
@@ -48,8 +44,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
         viewContactsActionText: 'Contacts',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
-        phoneAbbreviationText: 'P: ',
-        faxAbbreviationText: 'F: ',
+        phoneAbbreviationText: 'Phone: ',
+        faxAbbreviationText: 'Fax: ',
 
         //View Properties        
         detailView: 'account_detail',
