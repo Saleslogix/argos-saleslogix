@@ -202,7 +202,7 @@ define('Mobile/SalesLogix/FileManager', [
 
                 responseInfo = {
                     request: this,
-                    responseTye: responseType,
+                    responseType: responseType,
                     response: this.response,
                     contentType: contentType,
                     fileName: fileName

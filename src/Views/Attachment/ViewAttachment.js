@@ -9,9 +9,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     'dojo/dom-class',
     'dojo/has',
     'dojo/dom',
-    //'dojo/on',
-    // 'dojo/_base/lang',
+    'dojo/dom-geometry',
     'Mobile/SalesLogix/AttachmentManager',
+    'Mobile/SalesLogix/Utility',
     'Sage/Platform/Mobile/Detail'
 ], function(
     declare,
@@ -24,9 +24,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     domClass,
     has,
     dom,
-    //on,
-    //lang,
+    domGeom,
     AttachmentManager,
+    Utility,
     Detail
 ) {
 
@@ -45,11 +45,12 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         editView: '',
         downloadingText:'down loading attachment ...',
         security: null,
-        querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
+        querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType','fileType'],
         resourceKind: 'attachments',
         contractName: 'system',
         icon: 'content/images/icons/Scale_24.png',
         imageZoomed: false,
+        orginalImageSize: { width: 0, height: 0 },
         queryInclude: ['$descriptors'],
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
@@ -63,15 +64,21 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         ]),
         attachmentViewTemplate: new Simplate([
             '<div class="attachment-viewer-label" style="white-space:nowrap;">',
-           //   '<button data-action="_zoomAttachment" class="list-item-selector button">',
-           //         '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" text="zoom" />',
-           //    '</button>',
                '<label>{%= $.description %}</label>',
             '</div>',
-               //'<h3><div><label>{%= $.fileName %}</div></h3>',
             '<div class="attachment-viewer-area">',
                    '<iframe id="attachment-Iframe" src="{%= $.url %}"></iframe>',
             '</div>'
+        ]),
+        attachmentViewImageTemplate: new Simplate([
+           '<div class="attachment-viewer-label" style="white-space:nowrap;">',
+              '<label>{%= $.description %}</label>',
+           '</div>',
+           '<div class="attachment-viewer-area">',
+               '<table><tr valign="middle"><td align="center">',
+                 '<image id="attachment-image"></image>',
+                 '</table></td></tr>',
+           '</div>'
         ]),
         attachmentViewOtherTemplate: new Simplate([
                 '<div class="attachment-viewer-label">',
@@ -125,14 +132,82 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             return this.tools || (this.tools = []);
         },
         _loadAttachmentView: function(entry) {
-            if (has('ios')) {
-                this._loadAttachmentViewIOS(entry);
+            if (this._viewImageOnly()) {
+                this._loadAttachmentViewImageOnly(entry);
             }
-            else if (has('android')) {
-                this._loadAttachmentViewAndroid(entry);
+            else {
+                if (has('ios')) {
+                    this._loadAttachmentViewIOS(entry);
+                }
+                else if (has('android')) {
+                    this._loadAttachmentViewAndroid(entry);
+                } else {
+                    this._loadAttachmentViewOther(entry);
+                }
+            }
+        },
+        _loadAttachmentViewImageOnly: function(entry) {
+            var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self;
+            am = new AttachmentManager();
+            
+            if (entry.dataType === "R") {
+                description = entry.description + ' (' + entry.fileName + ')';
+                fileType = Utility.getFileExtension(entry.fileName);
+                isFile = true;
             } else {
-                this._loadAttachmentViewOther(entry);
+                isFile = false;
+                description = entry.description + ' (' + entry.url + ')';
             }
+            data = {
+                fileName: entry.fileName,
+                size: entry.fileSize,
+                type: fileType,
+                url: '',
+                description: description
+            };
+            if (isFile) {
+               fileType = Utility.getFileExtension(entry.fileName)
+               if (this._isfileTypeImage(fileType)) {
+                    viewNode = domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+                    self = this;
+                    attachmentid = entry.$key;
+                   //Blob url
+                    //am.getAttachmentFile(attachmentid, 'blob', function(responseInfo) {
+                    //    var blob, url, a, blobURL, image;
+                    //    blob = responseInfo.response;
+                    //    url = window.URL || window.webkitURL;
+                    //    blobURL = url.createObjectURL(blob);
+                    //    image = dom.byId('attachment-image');
+                    //    image.onload = function() {
+                    //        self._sizeImage(self.domNode, image);
+                    //    }
+                    //    domAttr.set(image, 'src', blobURL);
+                        
+                   // });
+
+                   //dataurl
+                    am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
+                        var rData, url, a, dataUrl, image;
+                        
+                        rData = Utility.base64ArrayBuffer(responseInfo.response);
+                        dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
+                        image = dom.byId('attachment-image');
+                        image.onload = function() {
+                            self._orginalImageSize = { width: image.width, height: image.height };
+                            self._sizeImage(self.domNode, image);
+                        }
+                        domAttr.set(image, 'src', dataUrl);
+
+                    });
+                } else {
+
+                }
+            } else {
+
+                url = am.getAttachmenturlByEntity(entry);
+                window.open(url);
+            }
+
         },
         _loadAttachmentViewIOS: function(entry) {
             var data, am, url, viewNode, tpl, dl, iframe, description;
@@ -152,13 +227,6 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             };
             this.imageZoomed = false;
             viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-            
-           /* iframe = domConstruct.create("iframe");
-            domAttr.set(iframe, 'id', 'attachment-Iframe');
-            on(iframe, "onload", lang.hitch(this, this._onAttachmentLoad));
-            domConstruct.place(iframe, this.attachmentViewerNode, 'last');
-            domAttr.set(iframe, 'src', url);
-            */
 
             domClass.add(this.domNode, 'list-loading');
             tpl = this.downloadingTemplate.apply(this);
@@ -174,46 +242,40 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
         },
         _loadAttachmentViewAndroid: function(entry) {
-            var data, am, url , viewNode, tpl, dl, iframe, attachmentid;
+            var data, am, isFile, url, viewNode, tpl, dl, iframe,description, attachmentid;
             am = new AttachmentManager();
             //url = am.getAttachmenturlByEntity(entry);
+            if (entry.dataType === "R") {
+                description = entry.description + ' (' + entry.fileName + ')';
+                isFile = true;
+            } else {
+                isFile = false;
+                description = entry.description + ' (' + entry.url + ')';
+            }
             data = {
                 fileName: entry.fileName,
                 type: entry.type,
                 size: entry.size,
                 url: '',
-                description: entry.description + ' (' + entry.fileName + ')'
+                description: description
             };
-            attachmentid = entry.$key;
-            am.getAttachmentFile(attachmentId,'blob', function(responseInfo) {
-                var blob, url, a, blobURL;
-                blob = responseInfo.response;
-                url = window.URL || window.webkitURL;
-                blobURL = url.createObjectURL(blob);
-                window.open(blobURL);
-            });
+            if (isFile) {
+                attachmentid = entry.$key;
+                //Blob url
+                am.getAttachmentFile(attachmentid, 'blob', function(responseInfo) {
+                    var blob, url, a, blobURL;
+                    blob = responseInfo.response;
+                    url = window.URL || window.webkitURL;
+                    blobURL = url.createObjectURL(blob);
+                    window.open(blobURL);
+                });
+              
 
-            //this.imageZoomed = false;
-            //viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+            } else {
 
-            /* iframe = domConstruct.create("iframe");
-             domAttr.set(iframe, 'id', 'attachment-Iframe');
-             on(iframe, "onload", lang.hitch(this, this._onAttachmentLoad));
-             domConstruct.place(iframe, this.attachmentViewerNode, 'last');
-             domAttr.set(iframe, 'src', url);
-             */
-
-            //domClass.add(this.domNode, 'list-loading');
-            //tpl = this.downloadingTemplate.apply(this);
-            //dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-
-            //iframe = dom.byId('attachment-Iframe');
-            //domClass.add(iframe, 'attachment-viewer-min');
-            //iframe.onload = function() {
-            //    domClass.add(iframe, 'attachment-viewer-min');
-            //    domClass.add(dl, 'display-none');
-            //};
-            //domAttr.set(iframe, 'src', url);
+                url = am.getAttachmenturlByEntity(entry);
+                window.open(url);
+            }            
 
         },
         _loadAttachmentViewOther: function(entry) {
@@ -241,6 +303,61 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             } else {
                 this.imageZoomed = true;
                 domClass.remove(iframe, 'attachment-viewer-min');
+            }
+        },
+        _isfileTypeImage: function(fileType){
+            var imageType;
+            fileType = fileType.split('.')[1].toLowerCase();
+            imageType = { jpg: true, gif: true, png: true };
+            if(imageType[fileType]){
+                return true;
+            }
+        },
+        _viewImageOnly: function(){
+            return true // Add checking for SLXDataPortal Version;
+        },
+        _sizeImage: function (containerNode,image) {
+            var wH, wW, iH, iW, contentBox, scale
+
+           contentBox = domGeom.getContentBox(containerNode);
+            wH = contentBox.h - 100;
+            wW = contentBox.w -60;
+            iH = image.height;
+            iW = image.width;
+
+            // if the image is smaller than the window do nothing
+            if(iW>wW && iH>wH){
+
+                if (wH < wW) {
+                    scale = 1-((iH - wH) / iH);
+                    image.height = scale * iH; 
+                    image.width =  scale * iW;
+                } else {
+                    scale = 1-((iW - wW) / iW);
+                    image.height = scale * iH;
+                    image.width = scale * iW;
+                }
+            } else if (iW > wW) {
+                scale =1-((iW - wW) / iW);
+                image.height = scale * iH;
+                image.width = scale * iW;
+            }
+            else if (iH > wH) {
+                 scale = 1-((iH - wH) / iH);
+                image.height = scale * iH;
+                image.width = scale * iW;
+
+            } else {
+               //Image is samller than view so we could zoom
+                if (wH / iH > wW / iW) {
+                    scale = 1+((wH - iH) / wH);
+                    image.height = scale * iH;
+                    image.width = scale * iW;
+                } else {
+                    scale = 1+((wW - iW) / wW);
+                    image.height = scale * iH;
+                    image.width = scale * iW;
+                }
             }
         }
     });
