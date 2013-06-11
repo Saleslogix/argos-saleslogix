@@ -68,9 +68,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         ]),
 
         //Localization
-        startDateFormatText: 'ddd M/d/yy',
-        startTimeFormatText: 'h:mm',
-        allDayText: 'All-Day',
         titleText: 'My Activities',
         completeActivityText: 'Complete',
         acceptActivityText: 'Accept',

@@ -1,12 +1,16 @@
 define('Mobile/SalesLogix/Views/Contact/List', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/_base/array',
     'Mobile/SalesLogix/Action',
+    'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
     string,
+    array,
     action,
+    format,
     List
 ) {
 
@@ -14,7 +18,18 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         //Template
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
-            '<h4>{%: $.AccountName %}</h4>'
+            '<h4>{%: $.Title %} | {%: $.AccountName %}</h4>',
+            '<h4>{%: $.WebAddress %}</h4>',
+            '{% if ($.WorkPhone) { %}',
+                '<h4>',
+                    '{%: $$.phoneAbbreviationText + Sage.Platform.Mobile.Format.phone($.WorkPhone) %}',
+                '</h4>',
+            '{% } %}',
+            '{% if ($.Mobile) { %}',
+                '<h4>',
+                    '{%: $$.mobileAbbreviationText + Sage.Platform.Mobile.Format.phone($.Mobile) %}',
+                '</h4>',
+            '{% } %}'
         ]),
 
         //Localization
@@ -29,6 +44,9 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         viewAccountActionText: 'Account',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        phoneAbbreviationText: 'P: ',
+        mobileAbbreviationText: 'M: ',
+        faxAbbreviationText: 'F: ',
 
         //View Properties        
         detailView: 'contact_detail',
@@ -43,7 +61,8 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             'NameLF',
             'WorkPhone',
             'Mobile',
-            'Email'
+            'Email',
+            'Title'
         ],
         resourceKind: 'contacts',
         allowSelection: true,
