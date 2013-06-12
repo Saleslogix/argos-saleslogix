@@ -1437,22 +1437,27 @@ td.entry-table-description {
     -ms-transform-origin: top left;
     transform-origin: top left;
 }
-.attachment-viewer-area > img
-{
-    border: 5px solid #000000 !important;
-    margin: 3px  !important;
-}
 .attachment-viewer-area > table
 {
-    border: 0px solid #000000;
-    width: 100% !important; 
-    height:100% !important;
-    background-color: beige;
+    border-color: #e6e6e6;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-width: 1px;
+    width: 95% !important; 
+    height:95% !important;
+    background-color: #e6e6e6;
 }
+
 .attachment-viewer-area > table> tbody > tr > td
 {
     padding: 4px;
 }
+
+.attachment-viewer-area > table> tbody > tr > td > img
+{
+    border: 0px solid #000000;
+}
+
 .attachment-viewer-min 
 {
     -moz-transform: scale(0.15, 0.15); 
