@@ -23,81 +23,15 @@ define('Mobile/SalesLogix/Utility', [
     'dojo/string',
     'dojo/has',
     'dojo/_base/sniff',
-    'dojox/mobile/sniff',
-    'Mobile/SalesLogix/AttachmentManager'
+    'dojox/mobile/sniff'
 ], function(
     lang,
     string,
     has,
     baseSniff,
-    mobileSniff,
-    AttachmentManager
+    mobileSniff
 ) {
     return lang.setObject('Mobile.SalesLogix.Utility', {
-        getAttachmentRef: function(attachment) {
-            if (attachment['url']) {
-                var href = attachment['url'] || '';
-                href = (href.indexOf('http') < 0) ? 'http://' + href : href;
-                return href;
-            } else {
-                if (attachment['fileExists']) {
-                    return string.substitute('javascript: Mobile.SalesLogix.Utility.openAttachmentFile(\'${0}\');',
-                        [attachment['$key'], attachment['$descriptor']]);
-                } else {
-                    return attachment['$descriptor'];
-                }
-            }
-        },
-        openAttachmentFile: function(attachmentId) {
-            if (attachmentId && attachmentId.length === 12) {
-                var am = new AttachmentManager();
-
-                if (!has('android')) {
-                    // temp solution to IOS problems below (window.open on an sdata url will issue a 401 challenge)
-                    window.open(am.getAttachmentUrl(attachmentId));
-                } else {
-                    am.getAttachmentFile(attachmentId,'blob', function(responseInfo) {
-                        var blob, url, a, blobURL, event, reader;
-
-                        blob = responseInfo.response;
-                        url = window.URL || window.webkitURL;
-
-                        /*
-                         * TODO: Why is this not working on IOS??????
-                        alert('pre');
-                        reader = new FileReader(blob);
-                        for(var p in reader) {
-                            //alert(p);
-                        }
-                        reader.addEventListener('load', function(e) {
-                            // not hitting on IOS
-                            alert('HIT');
-                            var reader = e.target;
-                            window.open(reader.result);
-                        });
-                        reader.readAsDataURL(blob);
-                        */
-
-                        blobURL = url.createObjectURL(blob);
-                        window.open(blobURL);
-
-                        // create html element to assign file name.
-                        /*a = document.createElement('a');
-                        a.href = blobURL;
-                        a.download = responseInfo.fileName;
-                        a.style.display = 'none';
-                        document.body.appendChild(a);
-                        
-                        event = window.document.createEvent("MouseEvents");
-                        event.initMouseEvent(
-                            "click", true, false, window, 0, 0, 0, 0, 0
-                            , false, false, false, false, 0, null
-                        );
-                        a.dispatchEvent(event);*/
-                    });
-                }
-            }
-        },
         base64ArrayBuffer: function (arrayBuffer) {
             var base64    = ''
             var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'

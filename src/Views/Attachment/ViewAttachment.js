@@ -139,7 +139,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             am = new AttachmentManager();
 
             if (entry.dataType === "R") {
-                description = entry.description + ' (' + entry.fileName + ')';
+                description = entry.description; // + ' (' + entry.fileName + ')';
                 fileType = Utility.getFileExtension(entry.fileName);
                 isFile = true;
             } else {
