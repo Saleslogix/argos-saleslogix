@@ -145,6 +145,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             } else {
                 isFile = false;
                 description = entry.description + ' (' + entry.url + ')';
+                fileType = 'url';
             }
 
             data = {
@@ -157,52 +158,58 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
             if (isFile) {
                 fileType = Utility.getFileExtension(entry.fileName)
-                if (this._isfileTypeImage(fileType)) {
-                    viewNode = domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-                    tpl = this.downloadingTemplate.apply(this);
-                    dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-                    domClass.add(this.domNode, 'list-loading');
-                    self = this;
-                    attachmentid = entry.$key;
-                    //dataurl
-                    am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                        var rData, url, a, dataUrl, image;
-
-                        rData = Utility.base64ArrayBuffer(responseInfo.response);
-                        dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
-                        image = dom.byId('attachment-image');
-                        image.onload = function() {
-                            self._orginalImageSize = { width: image.width, height: image.height };
-                            self._sizeImage(self.domNode, image);
-                        }
-                        domAttr.set(image, 'src', dataUrl);
-                        domClass.add(dl, 'display-none');
-                    });
-                } else {
-                    if (this._isfileTypeAllowed(fileType)&&(this._viewImageOnly() === false)) {
-                        viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+                if (this._isfileTypeAllowed(fileType)) {
+                    if (this._isfileTypeImage(fileType)) {
+                        viewNode = domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
                         tpl = this.downloadingTemplate.apply(this);
                         dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
                         domClass.add(this.domNode, 'list-loading');
                         self = this;
                         attachmentid = entry.$key;
+                        //dataurl
                         am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                            var rData, url, a, dataUrl, iframe;
+                            var rData, url, a, dataUrl, image;
+
                             rData = Utility.base64ArrayBuffer(responseInfo.response);
                             dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
+                            image = dom.byId('attachment-image');
+                            image.onload = function() {
+                                self._orginalImageSize = { width: image.width, height: image.height };
+                                self._sizeImage(self.domNode, image);
+                            }
+                            domAttr.set(image, 'src', dataUrl);
                             domClass.add(dl, 'display-none');
-                            iframe = dom.byId('attachment-Iframe');
-                            iframe.onload = function() {
-                                domClass.add(dl, 'display-none');
-                            };
-                            domClass.add(dl, 'display-none');
-                            domAttr.set(iframe, 'src', dataUrl);
                         });
-                    } else {
-                        viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+                    } else { //View file type in Iframe
+                        if (this._viewImageOnly() === false) {
+                            viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+                            tpl = this.downloadingTemplate.apply(this);
+                            dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+                            domClass.add(this.domNode, 'list-loading');
+                            self = this;
+                            attachmentid = entry.$key;
+                            am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
+                                var rData, url, a, dataUrl, iframe;
+
+                                rData = Utility.base64ArrayBuffer(responseInfo.response);
+                                dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
+                                domClass.add(dl, 'display-none');
+                                iframe = dom.byId('attachment-Iframe');
+                                iframe.onload = function() {
+                                    domClass.add(dl, 'display-none');
+                                };
+                                domClass.add(dl, 'display-none');
+                                domAttr.set(iframe, 'src', dataUrl);
+                            });
+                        } else { //Only view images
+                            viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+                        }
                     }
+                } else { //File type not allowed 
+                    viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
                 }
-            } else {
+
+            } else { // url Attachment
                 viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
                 url = am.getAttachmenturlByEntity(entry);
                 domClass.add(this.domNode, 'list-loading');
@@ -219,7 +226,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         },
         _isfileTypeImage: function(fileType){
             var imageType;
-            fileType = fileType.split('.')[1].toLowerCase();
+            fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
             imageTypes = { jpg: true, gif: true, png: true, bmp:true, tif:true };
             if(imageTypes[fileType]){
                 return true;
@@ -227,8 +234,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         },
         _isfileTypeAllowed: function(fileType) {
             var imageType;
-            fileType = fileType.substr(fileType.lastIndexOf('.')+1);
-            //fileType = fileType.split('.')[1].toLowerCase();
+            fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
             fileTypes = { exe: true, dll: true};
             if (fileTypes[fileType]) {
                 return false;
