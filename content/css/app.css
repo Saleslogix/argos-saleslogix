@@ -286,7 +286,6 @@ h4
 #configure > .list-content > li.list-item-selected
 {
     color: #000;
-    background: none;
 }
 
 #configure > .list-content > li.list-item-selected h3 > .icon
