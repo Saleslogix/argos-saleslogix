@@ -41,7 +41,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             '{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}',
             '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %},',
             '{% } %}',
-            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}',
+            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
@@ -59,7 +59,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         ]),
         nameTemplate: new Simplate([
             '{% if ($.Activity.ContactName) { %}',
-            '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
+            '{%: $.Activity.ContactName %} | {%: $.Activity.AccountName %}',
             '{% } else if ($.Activity.AccountName) { %}',
             '{%: $.Activity.AccountName %}',
             '{% } else { %}',
