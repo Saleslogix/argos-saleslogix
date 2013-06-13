@@ -1437,20 +1437,29 @@ td.entry-table-description {
     -ms-transform-origin: top left;
     transform-origin: top left;
 }
-.attachment-viewer-min 
+.attachment-viewer-area > table
 {
-    -moz-transform: scale(0.15, 0.15); 
-    -webkit-transform: scale(0.15, 0.15); 
-    -o-transform: scale(0.15, 0.15);
-    -ms-transform: scale(0.15, 0.15);
-    transform: scale(0.15, 0.15); 
+    border-color: #e6e6e6;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-width: 1px;
+    width: 100% !important; 
+    height:100% !important;
+    background-color: #e6e6e6;
 }
-.attachment-viewer-med 
+
+.attachment-viewer-area > table> tbody > tr > td
 {
-   	-moz-transform: scale(0.50, 0.50); 
-    -webkit-transform: scale(0.50, 0.50); 
-    -o-transform: scale(0.50, 0.50);
-    -ms-transform: scale(0.50, 0.50);
-    transform: scale(0.50, 0.50); 
+    padding: 4px;
+}
+
+.attachment-viewer-area > table> tbody > tr > td > img
+{
+    border: 0px solid #000000;
+}
+.attachment-viewer-not-supported
+{
+    margin: 10px !important;
+
 }
 
