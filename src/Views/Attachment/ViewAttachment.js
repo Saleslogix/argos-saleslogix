@@ -38,7 +38,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         attachDateText: 'attachment date',
         fileSizeText: 'file size',
         userText: 'user',
-        checkBrowserText: 'The browser is processing the attachment please check if it has downloaded successfully.',
+        attachmentNotSupportedText: 'The attachment type is not supported for viewing.',
         attachmentDateFormatText: 'ddd M/d/yy h:mm:tt',
         //View Properties
         id: 'view_attachment',
@@ -49,7 +49,6 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         resourceKind: 'attachments',
         contractName: 'system',
         icon: 'content/images/icons/Scale_24.png',
-        imageZoomed: false,
         orginalImageSize: { width: 0, height: 0 },
         queryInclude: ['$descriptors'],
         widgetTemplate: new Simplate([
@@ -80,11 +79,21 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                  '</table></td></tr>',
            '</div>'
         ]),
-        attachmentViewOtherTemplate: new Simplate([
+        attachmentViewNotSupportedTemplate: new Simplate([
                 '<div class="attachment-viewer-label">',
-                '<label>{%= $$.checkBrowserText %}</label>',
-                '</div>'
+                '<label>{%= $$.attachmentNotSupportedText %}</label>',
+                '</div>',
+                '<div class="attachment-viewer-not-supported">',
+                '<h3><span>{%: $.description %}&nbsp;</span></h3>',
+                '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
+                '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
+                '<h4><span>{%: Mobile.SalesLogix.Utility.getFileExtension($.fileName) %} </span></h4>',
+                '{% if($.user) { %}',
+                    '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
+               '{% } %}',
+               '</div>'
         ]),
+
         downloadingTemplate: new Simplate([
             '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>',
         ]),
@@ -119,25 +128,16 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             return this.tools;
         },
         createLayout: function() {
-           // if (has('ios')) {
-          //      this.tools = {
-          //          'tbar': [{
-          //              id: 'zoomAttachmnet',
-          //              icon: 'content/images/icons/Scale_24.png',
-          //              action: '_zoomAttachment',
-          //              title: 'zoom attachment'
-          //          }]
-          //      };
-          //  }
-            return this.tools || (this.tools = []);
+             return this.tools || (this.tools = []);
         },
         _loadAttachmentView: function(entry) {
                 this._loadAttachmentView(entry);
         },
         _loadAttachmentView: function(entry) {
             var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self;
+
             am = new AttachmentManager();
-            
+
             if (entry.dataType === "R") {
                 description = entry.description + ' (' + entry.fileName + ')';
                 fileType = Utility.getFileExtension(entry.fileName);
@@ -146,6 +146,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 isFile = false;
                 description = entry.description + ' (' + entry.url + ')';
             }
+
             data = {
                 fileName: entry.fileName,
                 size: entry.fileSize,
@@ -153,19 +154,20 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 url: '',
                 description: description
             };
+
             if (isFile) {
-               fileType = Utility.getFileExtension(entry.fileName)
-               if (this._isfileTypeImage(fileType)) {
-                   viewNode = domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-                   tpl = this.downloadingTemplate.apply(this);
-                   dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-                   domClass.add(this.domNode, 'list-loading');
+                fileType = Utility.getFileExtension(entry.fileName)
+                if (this._isfileTypeImage(fileType)) {
+                    viewNode = domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+                    tpl = this.downloadingTemplate.apply(this);
+                    dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+                    domClass.add(this.domNode, 'list-loading');
                     self = this;
                     attachmentid = entry.$key;
-                   //dataurl
-                   am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
+                    //dataurl
+                    am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
                         var rData, url, a, dataUrl, image;
-                        
+
                         rData = Utility.base64ArrayBuffer(responseInfo.response);
                         dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
                         image = dom.byId('attachment-image');
@@ -176,25 +178,29 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                         domAttr.set(image, 'src', dataUrl);
                         domClass.add(dl, 'display-none');
                     });
-               } else {
-                   viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
-                   tpl = this.downloadingTemplate.apply(this);
-                   dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
-                   domClass.add(this.domNode, 'list-loading');
-                   self = this;
-                   attachmentid = entry.$key;
-                   am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                       var rData, url, a, dataUrl, iframe;
-                       rData = Utility.base64ArrayBuffer(responseInfo.response);
-                       dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
-                       domClass.add(dl, 'display-none');
-                       iframe = dom.byId('attachment-Iframe');
-                       iframe.onload = function() {
-                           domClass.add(dl, 'display-none');
-                       };
-                       domClass.add(dl, 'display-none');
-                       domAttr.set(iframe, 'src', dataUrl);
-                   });
+                } else {
+                    if (this._isfileTypeAllowed(fileType)) {
+                        viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
+                        tpl = this.downloadingTemplate.apply(this);
+                        dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
+                        domClass.add(this.domNode, 'list-loading');
+                        self = this;
+                        attachmentid = entry.$key;
+                        am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
+                            var rData, url, a, dataUrl, iframe;
+                            rData = Utility.base64ArrayBuffer(responseInfo.response);
+                            dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
+                            domClass.add(dl, 'display-none');
+                            iframe = dom.byId('attachment-Iframe');
+                            iframe.onload = function() {
+                                domClass.add(dl, 'display-none');
+                            };
+                            domClass.add(dl, 'display-none');
+                            domAttr.set(iframe, 'src', dataUrl);
+                        });
+                    } else {
+                        viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
+                    }
                 }
             } else {
                 viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
@@ -211,24 +217,22 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             }
 
         },
-        _zoomAttachment: function() {
-
-            iframe = dom.byId('attachment-Iframe');
-            if (this.imageZoomed) {
-                this.imageZoomed = false;
-                domClass.add(iframe, 'attachment-viewer-min');
-            } else {
-                this.imageZoomed = true;
-                domClass.remove(iframe, 'attachment-viewer-min');
-            }
-        },
         _isfileTypeImage: function(fileType){
             var imageType;
             fileType = fileType.split('.')[1].toLowerCase();
-            imageType = { jpg: true, gif: true, png: true };
-            if(imageType[fileType]){
+            imageTypes = { jpg: true, gif: true, png: true, bmp:true, tiff:true };
+            if(imageTypes[fileType]){
                 return true;
             }
+        },
+        _isfileTypeAllowed: function(fileType) {
+            var imageType;
+            fileType = fileType.split('.')[1].toLowerCase();
+            fileTypes = { exe: true, dll: true};
+            if (fileTypes[fileType]) {
+                return false;
+            }
+            return true;
         },
         _viewImageOnly: function(){
             return true // Add checking for SLXDataPortal Version;
@@ -280,8 +284,8 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                     scale = 1+((wW - iW) / wW);
                 }
             }
-            image.height = scale * iH;
-            image.width = scale * iW;
+            image.height = 0.90 *scale * iH;
+            image.width = 0.90*scale * iW;
 
         }
     });

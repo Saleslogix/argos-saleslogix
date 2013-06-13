@@ -1457,21 +1457,9 @@ td.entry-table-description {
 {
     border: 0px solid #000000;
 }
+.attachment-viewer-not-supported
+{
+    margin: 10px !important;
 
-.attachment-viewer-min 
-{
-    -moz-transform: scale(0.15, 0.15); 
-    -webkit-transform: scale(0.15, 0.15); 
-    -o-transform: scale(0.15, 0.15);
-    -ms-transform: scale(0.15, 0.15);
-    transform: scale(0.15, 0.15); 
-}
-.attachment-viewer-med 
-{
-   	-moz-transform: scale(0.50, 0.50); 
-    -webkit-transform: scale(0.50, 0.50); 
-    -o-transform: scale(0.50, 0.50);
-    -ms-transform: scale(0.50, 0.50);
-    transform: scale(0.50, 0.50); 
 }
 
