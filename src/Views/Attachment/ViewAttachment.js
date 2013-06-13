@@ -45,7 +45,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         editView: '',
         downloadingText:'Downloading attachment ...',
         security: null,
-        querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType','fileType'],
+        querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
         resourceKind: 'attachments',
         contractName: 'system',
         icon: 'content/images/icons/Scale_24.png',
@@ -63,7 +63,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         ]),
         attachmentViewTemplate: new Simplate([
             '<div class="attachment-viewer-label" style="white-space:nowrap;">',
-               '<label>{%= $.description %}</label>',
+               '<label>{%= $.description + " (" + $.fileType + ")"  %}</label>',
             '</div>',
             '<div class="attachment-viewer-area">',
                    '<iframe id="attachment-Iframe" src="{%= $.url %}"></iframe>',
@@ -71,7 +71,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         ]),
         attachmentViewImageTemplate: new Simplate([
            '<div class="attachment-viewer-label" style="white-space:nowrap;">',
-              '<label>{%= $.description %}</label>',
+               '<label>{%= $.description + " (" + $.fileType + ")"  %}</label>',
            '</div>',
            '<div class="attachment-viewer-area">',
                '<table><tr valign="middle"><td align="center">',
@@ -149,8 +149,8 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
             data = {
                 fileName: entry.fileName,
-                size: entry.fileSize,
-                type: fileType,
+                fileSize: entry.fileSize,
+                fileType: fileType,
                 url: '',
                 description: description
             };
@@ -220,14 +220,15 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         _isfileTypeImage: function(fileType){
             var imageType;
             fileType = fileType.split('.')[1].toLowerCase();
-            imageTypes = { jpg: true, gif: true, png: true, bmp:true, tiff:true };
+            imageTypes = { jpg: true, gif: true, png: true, bmp:true, tif:true };
             if(imageTypes[fileType]){
                 return true;
             }
         },
         _isfileTypeAllowed: function(fileType) {
             var imageType;
-            fileType = fileType.split('.')[1].toLowerCase();
+            fileType = fileType.substr(fileType.lastIndexOf('.')+1);
+            //fileType = fileType.split('.')[1].toLowerCase();
             fileTypes = { exe: true, dll: true};
             if (fileTypes[fileType]) {
                 return false;
