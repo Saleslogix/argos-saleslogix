@@ -43,7 +43,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         //View Properties
         id: 'view_attachment',
         editView: '',
-        downloadingText:'down loading attachment ...',
+        downloadingText:'Downloading attachment ...',
         security: null,
         querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType','fileType'],
         resourceKind: 'attachments',
@@ -179,7 +179,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                         domClass.add(dl, 'display-none');
                     });
                 } else {
-                    if (this._isfileTypeAllowed(fileType)) {
+                    if (this._isfileTypeAllowed(fileType)&&(this._viewImageOnly() === false)) {
                         viewNode = domConstruct.place(this.attachmentViewTemplate.apply(data, this), this.attachmentViewerNode, 'last');
                         tpl = this.downloadingTemplate.apply(this);
                         dl = domConstruct.place(tpl, this.attachmentViewerNode, 'first');
@@ -235,7 +235,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             return true;
         },
         _viewImageOnly: function(){
-            return true // Add checking for SLXDataPortal Version;
+            return false;
         },
         _sizeImage: function (containerNode,image) {
             var wH, wW, iH, iW, contentBox, scale
