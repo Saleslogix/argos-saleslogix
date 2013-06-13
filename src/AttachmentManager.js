@@ -176,7 +176,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
             request.setResourceKind(this.resourceKind);
             request.setContractName(this.contractName);
             request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.querySelect.join(','));
-            request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, this.queryInclude.join(','));            
+            request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, this.queryInclude.join(','));
             return request;
         },
         requestTemplate: function(onSucess, onFailure) {

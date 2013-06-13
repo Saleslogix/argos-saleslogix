@@ -23,80 +23,65 @@ define('Mobile/SalesLogix/Utility', [
     'dojo/string',
     'dojo/has',
     'dojo/_base/sniff',
-    'dojox/mobile/sniff',
-    'Mobile/SalesLogix/AttachmentManager'
+    'dojox/mobile/sniff'
 ], function(
     lang,
     string,
     has,
     baseSniff,
-    mobileSniff,
-    AttachmentManager
+    mobileSniff
 ) {
     return lang.setObject('Mobile.SalesLogix.Utility', {
-        getAttachmentRef: function(attachment) {
-            if (attachment['url']) {
-                var href = attachment['url'] || '';
-                href = (href.indexOf('http') < 0) ? 'http://' + href : href;
-                return href;
-            } else {
-                if (attachment['fileExists']) {
-                    return string.substitute('javascript: Mobile.SalesLogix.Utility.openAttachmentFile(\'${0}\');',
-                        [attachment['$key'], attachment['$descriptor']]);
-                } else {
-                    return attachment['$descriptor'];
-                }
+        base64ArrayBuffer: function (arrayBuffer) {
+            var base64    = ''
+            var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+
+            var bytes         = new Uint8Array(arrayBuffer)
+            var byteLength    = bytes.byteLength
+            var byteRemainder = byteLength % 3
+            var mainLength    = byteLength - byteRemainder
+
+            var a, b, c, d
+            var chunk
+
+            // Main loop deals with bytes in chunks of 3
+            for (var i = 0; i < mainLength; i = i + 3) {
+                // Combine the three bytes into a single integer
+                chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2]
+
+                // Use bitmasks to extract 6-bit segments from the triplet
+                a = (chunk & 16515072) >> 18 // 16515072 = (2^6 - 1) << 18
+                b = (chunk & 258048)   >> 12 // 258048   = (2^6 - 1) << 12
+                c = (chunk & 4032)     >>  6 // 4032     = (2^6 - 1) << 6
+                d = chunk & 63               // 63       = 2^6 - 1
+
+                // Convert the raw binary segments to the appropriate ASCII encoding
+                base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d]
             }
-        },
-        openAttachmentFile: function(attachmentId) {
-            if (attachmentId && attachmentId.length === 12) {
-                var am = new AttachmentManager();
 
-                if (!has('android')) {
-                    // temp solution to IOS problems below (window.open on an sdata url will issue a 401 challenge)
-                    window.open(am.getAttachmentUrl(attachmentId));
-                } else {
-                    am.getAttachmentFile(attachmentId,'blob', function(responseInfo) {
-                        var blob, url, a, blobURL, event, reader;
+            // Deal with the remaining bytes and padding
+            if (byteRemainder == 1) {
+                chunk = bytes[mainLength]
 
-                        blob = responseInfo.response;
-                        url = window.URL || window.webkitURL;
+                a = (chunk & 252) >> 2 // 252 = (2^6 - 1) << 2
 
-                        /*
-                         * TODO: Why is this not working on IOS??????
-                        alert('pre');
-                        reader = new FileReader(blob);
-                        for(var p in reader) {
-                            //alert(p);
-                        }
-                        reader.addEventListener('load', function(e) {
-                            // not hitting on IOS
-                            alert('HIT');
-                            var reader = e.target;
-                            window.open(reader.result);
-                        });
-                        reader.readAsDataURL(blob);
-                        */
+                // Set the 4 least significant bits to zero
+                b = (chunk & 3)   << 4 // 3   = 2^2 - 1
 
-                        blobURL = url.createObjectURL(blob);
-                        window.open(blobURL);
+                base64 += encodings[a] + encodings[b] + '=='
+            } else if (byteRemainder == 2) {
+                chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1]
 
-                        // create html element to assign file name.
-                        /*a = document.createElement('a');
-                        a.href = blobURL;
-                        a.download = responseInfo.fileName;
-                        a.style.display = 'none';
-                        document.body.appendChild(a);
-                        
-                        event = window.document.createEvent("MouseEvents");
-                        event.initMouseEvent(
-                            "click", true, false, window, 0, 0, 0, 0, 0
-                            , false, false, false, false, 0, null
-                        );
-                        a.dispatchEvent(event);*/
-                    });
-                }
+                a = (chunk & 64512) >> 10 // 64512 = (2^6 - 1) << 10
+                b = (chunk & 1008)  >>  4 // 1008  = (2^6 - 1) << 4
+
+                // Set the 2 least significant bits to zero
+                c = (chunk & 15)    <<  2 // 15    = 2^4 - 1
+
+                base64 += encodings[a] + encodings[b] + encodings[c] + '='
             }
+
+            return base64
         },
         getFileExtension: function(fileName) {
             if (!fileName){
