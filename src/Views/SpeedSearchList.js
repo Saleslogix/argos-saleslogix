@@ -32,13 +32,14 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         ]),
 
         //Localization
-        titleText: 'Search Results',
+        titleText: 'SpeedSearch',
 
         //View Properties
         id: 'speedsearch_list',
+        icon: 'content/images/icons/Company_24.png',// TODO: Need an icon for speedsearch
         enableSearch: true,
         searchWidgetClass: SpeedSearchWidget,
-        expose: false,
+        expose: true,
 
         indexes: [
             {indexName: 'Account', indexType: 1, isSecure: true},
