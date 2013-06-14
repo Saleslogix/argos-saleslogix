@@ -1000,7 +1000,7 @@ body.transition > .viewContainer > .footer-toolbar
 #calendar_weeklist,
 #calendar_yearlist,
 #calendar_daylist {
-    background-color: #fff;
+    background-color: #e6e6e6;
 }
 
 #calendar_monthlist .nav-bar,
