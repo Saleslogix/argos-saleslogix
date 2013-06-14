@@ -33,7 +33,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
 
         // Templates
         widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
             '<div data-dojo-attach-point="searchNode"></div>',
             '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
             '{%! $.navigationTemplate %}',
