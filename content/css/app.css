@@ -1420,7 +1420,7 @@ td.entry-table-description {
     moz-box-sizing: border-box !important;
     border: 0px solid #000000 !important;
     border-radius: 3px 3px 3px 3px !important;
-    margin: 10px !important;
+    margin: 10px 10px 10px 50px;
     padding:5px !important;
     width: auto !important; 
     height:95% !important;
