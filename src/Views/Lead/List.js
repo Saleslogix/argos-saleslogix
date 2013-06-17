@@ -16,7 +16,17 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
-            '<h4>{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.Company %}</h4>',
+            '<h4>',
+                '{% if($.Title) { %}',
+                    '{%: $.Title %}',
+                '{% } %}',
+                '{% if($.Title && $.Company) { %}',
+                    ' | ',
+                '{% } %}',
+                '{% if($.Company) { %}',
+                    '{%: $.Company %}',
+                '{% } %}',
+            '</h4>',
             '{% if ($.WorkPhone) { %}',
                 '<h4>',
                     '{%: $$.phoneAbbreviationText + Sage.Platform.Mobile.Format.phone($.WorkPhone) %}',
