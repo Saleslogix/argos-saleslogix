@@ -36,29 +36,34 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         ]),
         activityTimeTemplate: new Simplate([
             '{% if ($.Activity.Timeless) { %}',
-            '<span class="p-meridiem">{%: $$.allDayText %}</span>',
+            '{%: $$.allDayText %},',
             '{% } else { %}',
-            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}</span>',
-            '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}</span>,',
-            '{% } %}'
+            '{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}',
+            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %},',
+            '{% } %}',
+            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
-            '{%! $$.activityTimeTemplate %}',
-            '<span class="p-description">&nbsp;{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: Mobile.SalesLogix.Format.userActivityStatus($.Status) %}) {% } %}</span>',
+                '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: Mobile.SalesLogix.Format.userActivityStatus($.Status) %}) {% } %}</span>',
             '</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
+            '<h4>',
+                '<strong>{%! $$.activityTimeTemplate %}</strong>',
+            '</h4>',
+            '<h4>{%! $$.nameTemplate %}</h4>',
+            '<h4>',
+                '{% if ($.Activity.PhoneNumber) { %}',
+                    '{%: Sage.Platform.Mobile.Format.phone($.Activity.PhoneNumber) %}',
+                '{% } %}',
+            '</h4>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.Activity.ContactName) { %}',
-            '{%: $.Activity.ContactName %} / {%: $.Activity.AccountName %}',
+            '{%: $.Activity.ContactName %} | {%: $.Activity.AccountName %}',
             '{% } else if ($.Activity.AccountName) { %}',
             '{%: $.Activity.AccountName %}',
             '{% } else { %}',
             '{%: $.Activity.LeadName %}',
-            '{% } %}',
-            '{% if ($.Activity.PhoneNumber) { %}',
-            ' [{%: Sage.Platform.Mobile.Format.phone($.Activity.PhoneNumber) %}]',
             '{% } %}'
         ]),
 
@@ -95,6 +100,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/ContactId',
             'Activity/ContactName',
             'Activity/Leader/$key',
+            'Activity/Leader/$descriptor',
             'Activity/LeadName',
             'Activity/UserId',
             'Activity/Timeless',

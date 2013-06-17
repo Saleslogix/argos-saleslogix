@@ -25,22 +25,33 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
 
         //TODO: Support ExchangeRateCode with proper symbol
         itemTemplate: new Simplate([
-            '<h3>{%: $.Description %} <span class="p-account">{% if ($.Account) { %}({%: $.Account.AccountName %}){% } %}</span></h3>',
+            '<h3>{%: $.Description %}</h3>',
+            '{% if ($.Account) { %}',
+                '<h4>',
+                    '{%: $.Account.AccountName %}',
+                '</h4>',
+                '<h4>',
+                    '{%: $.Account.AccountManager.UserInfo.UserName %}',
+                    '{% if ($.Account && $.Account.AccountManager.UserInfo.Region) { %}',
+                        ' | {%: $.Account.AccountManager.UserInfo.Region %}',
+                    '{% } %}',
+                '</h4>',
+            '{% } %}',
             '<h4>',
-            '{%: $.Status %} ',
+                '{%: $.Status %}',
+                '{% if ($.Stage) { %}',
+                    ' | {%: $.Stage %}',
+                '{% } %}',
+            '</h4>',
             '{% if ($.SalesPotential) { %}',
-                '<strong>',
+                '<h4><strong>',
                 '{% if (App.hasMultiCurrency()) { %}',
                     '{%: Mobile.SalesLogix.Format.multiCurrency($.SalesPotential * $.ExchangeRate, $.ExchangeRateCode) %}',
                 '{% } else { %}',
                     '{%: Mobile.SalesLogix.Format.multiCurrency($.SalesPotential, App.getBaseExchangeRate().code) %}',
                 '{% } %}',
-                '</strong>',
-            '{% } %}',
-            '{% if ($.Stage) { %} | {%: $.Stage %}{% } %}',
-            '{% if ($.Account) { %} | {%: $.Account.AccountManager.UserInfo.UserName %}{% } %}',
-            '{% if ($.Account && $.Account.AccountManager.UserInfo.Region) { %} - {%: $.Account.AccountManager.UserInfo.Region %}{% } %}',
-            '</h4>'
+                '</strong></h4>',
+            '{% } %}'
         ]),
 
         //Localization

@@ -1,4 +1,8 @@
-.viewContainer > .list,
+.viewContainer > .list
+{
+    background-color: #e6e6e6;
+}
+
 .viewContainer > .panel
 {
     background-color: #fff;
@@ -172,6 +176,7 @@ h4
     font-weight: normal;
     line-height: 1.25em;
     margin-top: 0;
+    font-style: italic;
 }
 
 .note-text-more
@@ -281,7 +286,6 @@ h4
 #configure > .list-content > li.list-item-selected
 {
     color: #000;
-    background: none;
 }
 
 #configure > .list-content > li.list-item-selected h3 > .icon
@@ -996,7 +1000,7 @@ body.transition > .viewContainer > .footer-toolbar
 #calendar_weeklist,
 #calendar_yearlist,
 #calendar_daylist {
-    background-color: #fff;
+    background-color: #e6e6e6;
 }
 
 #calendar_monthlist .nav-bar,
