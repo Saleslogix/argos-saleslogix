@@ -3,12 +3,14 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     'dojo/string',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
+    'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/List'
 ], function(
     declare,
     string,
     action,
     format,
+    utility,
     List
 ) {
 
@@ -17,15 +19,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
             '<h4>',
-                '{% if($.Title) { %}',
-                    '{%: $.Title %}',
-                '{% } %}',
-                '{% if($.Title && $.Company) { %}',
-                    ' | ',
-                '{% } %}',
-                '{% if($.Company) { %}',
-                    '{%: $.Company %}',
-                '{% } %}',
+                '{%: $$.joinFields(" | ", [$.Title, $.Company]) %}',
             '</h4>',
             '{% if ($.WorkPhone) { %}',
                 '<h4>',
@@ -44,6 +38,10 @@ define('Mobile/SalesLogix/Views/Lead/List', [
                 '</h4>',
             '{% } %}',
         ]),
+
+        joinFields: function(sep, fields) {
+            return utility.joinFields(sep, fields);
+        },
 
         //Localization
         titleText: 'Leads',
