@@ -36,7 +36,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
         //View Properties
         id: 'speedsearch_list',
-        icon: 'content/images/icons/Company_24.png',// TODO: Need an icon for speedsearch
+        icon: 'content/images/icons/SpeedSearch_24x24.png',
         enableSearch: true,
         searchWidgetClass: SpeedSearchWidget,
         expose: true,
