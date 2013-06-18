@@ -87,6 +87,9 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Attachment/List',
     'Mobile/SalesLogix/Views/Attachment/AddAttachment',
     'Mobile/SalesLogix/Views/Attachment/MyAttachmentList',
+    'Mobile/SalesLogix/Views/Library/SearchList',
+    'Mobile/SalesLogix/Views/Library/ViewLibraryFile',
+    'Mobile/SalesLogix/Views/Library/List',
 
     'Mobile/SalesLogix/Fields/AddressField',
     'Mobile/SalesLogix/Fields/MultiCurrencyField',
@@ -185,7 +188,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
     ViewAttachment,
     AttachmentList,
     AddAttachment,
-    MyAttachmentList
+    MyAttachmentList,
+    LibrarySearchList,
+    ViewLibraryFile,
+    LibraryList
 ) {
     return declare('Mobile.SalesLogix.ApplicationModule', [ApplicationModule], {
         searchText: 'Lookup',
@@ -404,6 +410,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 id: 'history_attachment_related',
                 expose: false
             }));
+
+           // this.registerView(new LibrarySearchList());
+            this.registerView(new LibraryList());
+            this.registerView(new ViewLibraryFile());
         },
         loadToolbars: function() {
             this.inherited(arguments);
