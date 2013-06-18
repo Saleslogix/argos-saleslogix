@@ -181,6 +181,10 @@
           "path": "../src"
         },
         {
+          "text": "LibraryManager.js",
+          "path": "../src"
+        },
+        {
           "text": "Utility.js",
           "path": "../src"
         },
@@ -292,6 +296,18 @@
           "text": "MyAttachmentList.js",
           "path": "../src/Views/Attachment"
         },
+        {
+          "text": "List.js",
+          "path": "../src/Views/Library"
+        },
+        {
+          "text": "ViewLibraryFile.js",
+          "path": "../src/Views/Library"
+        },
+        {
+          "text": "SearchList.js",
+          "path": "../src/Views/Library"
+        },       
         {
           "text": "List.js",
           "path": "../src/Views/Account"
