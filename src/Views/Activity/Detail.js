@@ -8,7 +8,10 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/Detail',
-    'Mobile/SalesLogix/Recurrence'
+    'Mobile/SalesLogix/Recurrence',
+    'Mobile/SalesLogix/Utility',
+     'Sage/Platform/Mobile/Utility',
+
 ], function(
     declare,
     string,
@@ -19,7 +22,9 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     environment,
     convert,
     Detail,
-    recur
+    recur,
+    utility,
+    platformUtility
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail], {
@@ -282,6 +287,14 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 this.requestRecurrence(entry['$key'].split(this.recurringActivityIdSeparator).shift());
             }
         },
+        formatRelatedQuery: function(entry, fmt, property) {
+            if (property === 'activityId') {
+                  return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
+            } else {
+                property = property || '$key';
+                return string.substitute(fmt, [platformUtility.getValue(entry, property, "")]);
+            }
+        },
         createLayout: function() {
             return this.layout || (this.layout = [{
                     list: true,
@@ -459,7 +472,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                         name: 'AttachmentRelated',
                         icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
-                        where: this.formatRelatedQuery.bindDelegate(this, 'ActivityId eq "${0}"'),
+                        where: this.formatRelatedQuery.bindDelegate(this, 'ActivityId eq "${0}"','activityId'),
                         view: 'activity_attachment_related',
                         title: this.relatedAttachmentTitleText
                     }]

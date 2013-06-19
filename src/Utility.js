@@ -88,6 +88,17 @@ define('Mobile/SalesLogix/Utility', [
                 return '.';
             }
             return fileName.substr(fileName.lastIndexOf('.'));
+        },
+        getRealActivityId: function(activityId) {
+            var Id = activityId;
+            if (activityId) {
+                if (activityId.indexOf(';') > 0) {
+                    Id = activityId.substring(0, 12);
+                } else {
+                    Id = activityId;
+                }
+            }
+            return Id;
         }
     });
 });

@@ -22,14 +22,17 @@ define('Mobile/SalesLogix/AttachmentManager', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/number',
-    'Sage/Platform/Mobile/Convert'
+    'Sage/Platform/Mobile/Convert',
+    'Mobile/SalesLogix/Utility',
+
 ], function(
     FileManager,
     lang,
     declare,
     string,
     dNumber,
-    convert
+    convert,
+    utility
 ) {
     return declare('Mobile.SalesLogix.AttachmentManager', null, {
         _fileManager: null,
@@ -156,7 +159,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
                         contextData = { leadId: entry['$key'], accountName: entry['$descriptor'] };
                         break;
                     case 'activities':
-                        contextData = { activityId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
+                        contextData = { activityId: utility.getRealActivityId(entry['$key']), contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
                         break;
                     case 'history':
                         contextData = { historyId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
