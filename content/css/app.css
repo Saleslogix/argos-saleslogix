@@ -790,6 +790,12 @@ body.transition > .viewContainer > .footer-toolbar
 
 }
 
+.month-content,
+.day-content
+{
+    background-color: #e6e6e6;
+}
+
 #calendar_daylist .event-hidden,
 #calendar_weeklist .event-hidden,
 #calendar_monthlist .event-hidden
