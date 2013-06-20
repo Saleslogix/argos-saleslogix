@@ -159,10 +159,10 @@ define('Mobile/SalesLogix/AttachmentManager', [
                         contextData = { leadId: entry['$key'], accountName: entry['$descriptor'] };
                         break;
                     case 'activities':
-                        contextData = { activityId: utility.getRealActivityId(entry['$key']), contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
+                        contextData = { activityId: utility.getRealActivityId(entry['$key']), contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], leadId: entry['LeadId'] };
                         break;
                     case 'history':
-                        contextData = { historyId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
+                        contextData = { historyId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], leadId: entry['LeadId'] };
                         break;
                     default:
                         contextData = { entityId: entry['$key'], entityName: contextView.id, description: entry['$descriptor'] };
