@@ -675,7 +675,7 @@ define('Mobile/SalesLogix/Application', [
             environment.showMapForAddress.apply(this, arguments);
         },
         getVersionInfo: function() {
-            var info = string.substitute('Mobile v${0}.${1}.${2} / Saleslogix v${3}.${4}.${5}',
+            var info = string.substitute('Mobile v${0}.${1}.${2} / SalesLogix v${3}.${4}.${5}',
                 [this.mobileVersion.major,
                     this.mobileVersion.minor,
                     this.mobileVersion.revision,
