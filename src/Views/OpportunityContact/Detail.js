@@ -1,19 +1,28 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.OpportunityContact.Detail
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ */
 define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
     'dojo/_base/declare',
     'dojo/_base/connect',
     'dojo/string',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
 ], function(
     declare,
     connect,
     string,
-    Detail
+    Detail,
+    _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityContact.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
         //Localization
         titleText: 'Opportunity Contact',
         accountText: 'account',

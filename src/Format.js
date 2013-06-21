@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Format
+ *
+ * @extends Sage.Platform.Mobile.Format
+ * @requires Mobile.SalesLogix.Template
+ *
+ */
 define('Mobile/SalesLogix/Format', [
     'dojo/_base/lang',
     'dojo/_base/array',

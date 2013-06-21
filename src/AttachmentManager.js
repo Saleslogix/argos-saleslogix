@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.AttachmentManager
+ *
+ * @requires Sage.Platform.Mobile.Convert
+ * @requires Mobile.SalesLogix.Utility
+ * @requires Mobile.SalesLogix.FileManager
+ */
 define('Mobile/SalesLogix/AttachmentManager', [
     'Mobile/SalesLogix/FileManager',
     'dojo/_base/lang',

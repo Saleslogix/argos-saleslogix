@@ -1,6 +1,18 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.TicketActivity.Detail
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ *
+ * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires Sage.Platform.Mobile.Format
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Template
+ */
 define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     'dojo/_base/declare',
     'dojo/_base/lang',

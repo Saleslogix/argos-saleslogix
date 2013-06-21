@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.OpportunityContact.Edit
+ *
+ * @extends Sage.Platform.Mobile.Edit
+ *
+ * @requires Sage.Platform.Mobile.Utility
+ */
 define('Mobile/SalesLogix/Views/OpportunityContact/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',

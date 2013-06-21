@@ -1,6 +1,17 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Address.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ *
+ * @requires Sage.Platform.Mobile.List
+ *
+ * @requires Mobile.SalesLogix.Format
+ *
+ */
 define('Mobile/SalesLogix/Views/Address/List', [
     'dojo/_base/declare',
     'dojo/string',
@@ -15,7 +26,8 @@ define('Mobile/SalesLogix/Views/Address/List', [
     domAttr,
     query,
     format,
-    List
+    List,
+    NodeListTraverse
 ) {
 
     return declare('Mobile.SalesLogix.Views.Address.List', [List], {

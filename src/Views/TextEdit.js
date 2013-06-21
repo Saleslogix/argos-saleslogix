@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.TextEdit
+ *
+ *
+ * @extends Sage.Platform.Mobile.Edit
+ *
+ */
 define('Mobile/SalesLogix/Views/TextEdit', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/Edit'

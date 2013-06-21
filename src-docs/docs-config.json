@@ -1,0 +1,32 @@
+{
+    "--title": "Argos development",
+    "--footer": "Argos is maintained by Saleslogix",
+    "--body-html": [
+        "<style>",
+            ".left-column, .middle-column { width: 350px !important; }",
+        "</style>",
+        "<script type='text/javascript'>",
+        "Docs.otherProducts = [",
+            "{text: 'v2.2', href: 'http://saleslogix.github.io/argos/v2.2/index.html'},",
+            "{text: 'v3.0', href: 'http://saleslogix.github.io/argos/v3.0/index.html'},",
+            "{text: 'development', href: 'http://saleslogix.github.io/argos/development/index.html'}",
+        "];",
+        "</script>"
+    ],
+    "--categories": "docs-categories.json",
+    "--guides": "docs-guides.json",
+    "--warnings": ["-all"],
+    "--ignore-global": true,
+    "--builtin-classes": true,
+    "-o": "../docs-output",
+    "--images": "images",
+    "--": [
+        "../src",
+        "../../../argos-sdk/src",
+        "../../../argos-sdk/libraries/Simplate.js",
+        "../../../argos-sdk/libraries/moment/moment.js",
+        "../../../argos-sdk/libraries/snap/snap.js",
+        "../../../argos-sdk/libraries/sdata/sdata-client.js",
+        "../../../argos-sdk/libraries/jasmine/jasmine.js"
+    ]
+}

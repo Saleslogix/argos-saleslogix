@@ -1,6 +1,21 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/** 
+ * @class Mobile.SalesLogix.Views.Opportunity.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @mixins Mobile.SalesLogix.Views._MetricListMixin
+ * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ *
+ * @requires Sage.Platform.Mobile.Format
+ *
+ * @requires Mobile.SalesLogix.Action
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Views.History.RelatedView
+ */
 define('Mobile/SalesLogix/Views/Opportunity/List', [
     'dojo/_base/declare',
     'dojo/string',

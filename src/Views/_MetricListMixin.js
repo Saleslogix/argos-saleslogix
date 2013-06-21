@@ -1,6 +1,17 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views._MetricListMixin
+ *
+ * Mixin for adding KPI widgets to list views. 
+ *
+ * @since 3.0
+ *
+ * @requires Mobile.SalesLogix.Views.MetricWidget 
+ *
+ */
 define('Mobile/SalesLogix/Views/_MetricListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',

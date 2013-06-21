@@ -1,6 +1,17 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.History.Edit
+ *
+ * @extends Sage.Platform.Mobile.Edit
+ *
+ * @requires Sage.Platform.Mobile.Utility
+ *
+ * @requires Mobile.SalesLogix.Environment
+ * @requires Mobile.SalesLogix.Validator
+ */
 define('Mobile/SalesLogix/Views/History/Edit', [
     'dojo/_base/declare',
     'dojo/_base/array',

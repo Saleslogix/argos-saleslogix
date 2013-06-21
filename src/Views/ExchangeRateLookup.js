@@ -1,15 +1,26 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.ExchangeRateLookup
+ *
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ *
+ */
 define('Mobile/SalesLogix/Views/ExchangeRateLookup', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_LegacySDataListMixin'
 ], function(
     declare,
-    List
+    List,
+    _LegacySDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.ExchangeRateLookup', [List], {
+    return declare('Mobile.SalesLogix.Views.ExchangeRateLookup', [List, _LegacySDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$key %} ({%: $.Rate %})</h3>'

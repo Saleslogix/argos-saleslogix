@@ -1,16 +1,26 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.LeftDrawer
+ *
+ *
+ * @extends Sage.Platform.Mobile.GroupedList
+ *
+ */
 define('Mobile/SalesLogix/Views/LeftDrawer', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
+    'dojo/store/Memory',
     'Mobile/SalesLogix/SpeedSearchWidget',
     'Sage/Platform/Mobile/GroupedList'
 ], function(
     declare,
     array,
     lang,
+    Memory,
     SpeedSearchWidget,
     GroupedList
 ) {
@@ -209,15 +219,20 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
 
             return layout;
         },
-        requestData: function() {
+        createStore: function() {
             var layout = this._createCustomizedLayout(this.createLayout()),
-                list = [];
+                list = [],
+                store,
+                i,
+                section,
+                j,
+                row;
 
-            for (var i = 0; i < layout.length; i++) {
-                var section = layout[i].children;
+            for (i = 0; i < layout.length; i++) {
+                section = layout[i].children;
 
-                for (var j = 0; j < section.length; j++) {
-                    var row = section[j];
+                for (j = 0; j < section.length; j++) {
+                    row = section[j];
 
                     if (row['security'] && !App.hasAccessTo(row['security'])) {
                         continue;
@@ -228,7 +243,8 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                 }
             }
 
-            this.processFeed({'$resources': list});
+            store = new Memory({data: list});
+            return store;
         },
         /**
          * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)

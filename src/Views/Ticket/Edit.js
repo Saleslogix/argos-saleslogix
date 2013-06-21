@@ -1,6 +1,17 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Ticket.Edit
+ *
+ * @extends Sage.Platform.Mobile.Edit
+ *
+ * @requires Sage.Platform.Mobile.ErrorManager
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Validator
+ */
 define('Mobile/SalesLogix/Views/Ticket/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -386,8 +397,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                 },
                 {
                     label: this.descriptionText,
-                    name: 'TicketProblem.Notes',
-                    property: 'TicketProblem.Notes',
+                    name: 'TicketProblem',
+                    property: 'TicketProblem',
                     title: this.descriptionTitleText,
                     type: 'note',
                     view: 'text_edit'
@@ -400,8 +411,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                 },
                 {
                     label: this.resolutionText,
-                    name: 'TicketSolution.Notes',
-                    property: 'TicketSolution.Notes',
+                    name: 'TicketSolution',
+                    property: 'TicketSolution',
                     title: this.resolutionTitleText,
                     type: 'note',
                     view: 'text_edit'

@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/** 
+ * @class Mobile.SalesLogix.Views.Opportunity.Detail
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ *
+ * @requires Mobile.SalesLogix.Format
+ */
 define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     'dojo/_base/declare',
     'dojo/dom-construct',
@@ -19,7 +27,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail /*, _MetricDetailMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',

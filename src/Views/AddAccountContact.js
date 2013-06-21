@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.AddAccountContact
+ *
+ *
+ * @extends Sage.Platform.Mobile.Edit
+ *
+ */
 define('Mobile/SalesLogix/Views/AddAccountContact', [
     'dojo/_base/declare',
     'dojo/_base/lang',

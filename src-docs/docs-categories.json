@@ -1,0 +1,186 @@
+[
+    {
+        "name": "Argos SDK",
+        "groups": [
+            {
+                "name": "Base",
+                "classes": [
+                    "Sage.Platform.Mobile.Application",
+                    "Sage.Platform.Mobile.ApplicationModule",
+                    "Sage.Platform.Mobile.Calendar",
+                    "Sage.Platform.Mobile.ConfigurableSelectionModel",
+                    "Sage.Platform.Mobile.ErrorManager",
+                    "Sage.Platform.Mobile.Convert",
+                    "Sage.Platform.Mobile.Format",
+                    "Sage.Platform.Mobile.MainToolbar",
+                    "Sage.Platform.Mobile.SearchWidget",
+                    "Sage.Platform.Mobile.SelectionModel",
+                    "Sage.Platform.Mobile.Toolbar",
+                    "Sage.Platform.Mobile.RelatedViewManager",
+                    "Sage.Platform.Mobile.RelatedViewWidget",
+                    "Sage.Platform.Mobile.Utility"
+                ]
+            },
+            {
+                "name": "Views",
+                "classes": [
+                    "Sage.Platform.Mobile.View",
+                    "Sage.Platform.Mobile._ListBase",
+                    "Sage.Platform.Mobile.List",
+                    "Sage.Platform.Mobile.GroupedList",
+                    "Sage.Platform.Mobile._DetailBase",
+                    "Sage.Platform.Mobile.Detail",
+                    "Sage.Platform.Mobile._EditBase",
+                    "Sage.Platform.Mobile.Edit",
+                    "Sage.Platform.Mobile.Views.*"
+                ]
+            },
+            {
+                "name": "Fields",
+                "classes": [
+                    "Sage.Platform.Mobile.FieldManager",
+                    "Sage.Platform.Mobile.Fields.*"
+                ]
+            },
+            {
+                "name": "Mixins",
+                "classes": [
+                    "Sage.Platform.Mobile._ActionMixin",
+                    "Sage.Platform.Mobile._CustomizationMixin",
+                    "Sage.Platform.Mobile._ServiceMixin",
+                    "Sage.Platform.Mobile._Templated",
+                    "Sage.Platform.Mobile._SDataListMixin",
+                    "Sage.Platform.Mobile._LegacySDataListMixin",
+                    "Sage.Platform.Mobile._SDataDetailMixin",
+                    "Sage.Platform.Mobile._LegacySDataDetailMixin",
+                    "Sage.Platform.Mobile._SDataEditMixin",
+                    "Sage.Platform.Mobile._LegacySDataEditMixin"
+                ]
+            },
+            {
+                "name": "Stores",
+                "classes": [
+                    "Sage.Platform.Mobile.Store.*"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Libraries",
+        "groups": [
+            {
+                "name": "Simplate",
+                "classes": [
+                    "Simplate"
+                ]
+            },
+            {
+                "name": "jasmine",
+                "classes": [
+                    "jasmine.Block",
+                    "jasmine.Clock",
+                    "jasmine.Env",
+                    "jasmine.JsApiReporter",
+                    "jasmine.Matchers",
+                    "jasmine.MultiReporter",
+                    "jasmine.NestedResults",
+                    "jasmine.PrettyPrinter",
+                    "jasmine.Reporter",
+                    "jasmine.Runner",
+                    "jasmine.Spec",
+                    "jasmine.Spy",
+                    "jasmine.Suite"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "argos-saleslogix",
+        "groups": [
+            {
+                "name": "Base",
+                "classes": [
+                    "Mobile.SalesLogix.Action",
+                    "Mobile.SalesLogix.Aggregate",
+                    "Mobile.SalesLogix.Application",
+                    "Mobile.SalesLogix.ApplicationModule",
+                    "Mobile.SalesLogix.AttachmentManager",
+                    "Mobile.SalesLogix.Environment",
+                    "Mobile.SalesLogix.FileManager",
+                    "Mobile.SalesLogix.Format",
+                    "Mobile.SalesLogix.Recurrence",
+                    "Mobile.SalesLogix.SpeedSearchWidget",
+                    "Mobile.SalesLogix.Template",
+                    "Mobile.SalesLogix.Utility",
+                    "Mobile.SalesLogix.Validator"
+                ]
+            },
+            {
+                "name": "Base Views",
+                "classes": [
+                    "Mobile.SalesLogix.Views.AddAccountContact",
+                    "Mobile.SalesLogix.Views.AreaCategoryIssueLookup",
+                    "Mobile.SalesLogix.Views.Configure",
+                    "Mobile.SalesLogix.Views.ExchangeRateLookup",
+                    "Mobile.SalesLogix.Views.FooterToolbar",
+                    "Mobile.SalesLogix.Views.Help",
+                    "Mobile.SalesLogix.Views.Home",
+                    "Mobile.SalesLogix.Views.LeftDrawer",
+                    "Mobile.SalesLogix.Views.Login",
+                    "Mobile.SalesLogix.Views.MainToolbar",
+                    "Mobile.SalesLogix.Views.MetricConfigure",
+                    "Mobile.SalesLogix.Views.MetricFilterLookup",
+                    "Mobile.SalesLogix.Views.MetricWidget",
+                    "Mobile.SalesLogix.Views.NameEdit",
+                    "Mobile.SalesLogix.Views.PickList",
+                    "Mobile.SalesLogix.Views.RightDrawer",
+                    "Mobile.SalesLogix.Views.SelectList",
+                    "Mobile.SalesLogix.Views.Settings",
+                    "Mobile.SalesLogix.Views.SpeedSearchList",
+                    "Mobile.SalesLogix.Views.TextEdit",
+                    "Mobile.SalesLogix.Views.UpdateToolbar"
+                ]
+            },
+            {
+                "name": "Views",
+                "classes": [
+                    "Mobile.SalesLogix.Views.Account.*",
+                    "Mobile.SalesLogix.Views.Activity.*",
+                    "Mobile.SalesLogix.Views.Address.*",
+                    "Mobile.SalesLogix.Views.Attachment.*",
+                    "Mobile.SalesLogix.Views.Calendar.*",
+                    "Mobile.SalesLogix.Views.Charts.*",
+                    "Mobile.SalesLogix.Views.Competitor.*",
+                    "Mobile.SalesLogix.Views.Contact.*",
+                    "Mobile.SalesLogix.Views.Contract.*",
+                    "Mobile.SalesLogix.Views.ErrorLog.*",
+                    "Mobile.SalesLogix.Views.Event.*",
+                    "Mobile.SalesLogix.Views.History.*",
+                    "Mobile.SalesLogix.Views.Lead.*",
+                    "Mobile.SalesLogix.Views.LeadSource.*",
+                    "Mobile.SalesLogix.Views.Opportunity.*",
+                    "Mobile.SalesLogix.Views.OpportunityContact.*",
+                    "Mobile.SalesLogix.Views.OpportunityProduct.*",
+                    "Mobile.SalesLogix.Views.Owner.*",
+                    "Mobile.SalesLogix.Views.Product.*",
+                    "Mobile.SalesLogix.Views.ProductProgram.*",
+                    "Mobile.SalesLogix.Views.Ticket.*",
+                    "Mobile.SalesLogix.Views.TicketActivity.*",
+                    "Mobile.SalesLogix.Views.TicketActivityItem.*",
+                    "Mobile.SalesLogix.Views.User.*"
+                ]
+            },
+            {
+                "name": "Mixins",
+                "classes": [
+                    "Mobile.SalesLogix.Views._CardLayoutListMixin",
+                    "Mobile.SalesLogix.Views._MetricDetailMixin",
+                    "Mobile.SalesLogix.Views._MetricListMixin",
+                    "Mobile.SalesLogix.Views._RightDrawerBaseMixin",
+                    "Mobile.SalesLogix.Views._RightDrawerListMixin",
+                    "Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin"
+                ]
+            }
+        ]
+    }
+]

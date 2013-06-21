@@ -1,6 +1,15 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Competitor.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ *
+ * @requires Sage.Platform.Mobile.List
+ *
+ */
 define('Mobile/SalesLogix/Views/Competitor/List', [
     'dojo/_base/declare',
     'dojo/string',

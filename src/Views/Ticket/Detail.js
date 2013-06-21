@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Ticket.Detail
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ *
+ * @requires Sage.Platform.Mobile.ErrorManager
+ *
+ * @requires Mobile.SalesLogix.Format
+ */
 define('Mobile/SalesLogix/Views/Ticket/Detail', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -17,7 +27,8 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
     domClass,
     format,
     ErrorManager,
-    Detail
+    Detail,
+    NodeList
 ) {
 
     return declare('Mobile.SalesLogix.Views.Ticket.Detail', [Detail], {

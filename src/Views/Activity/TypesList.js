@@ -1,17 +1,33 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Activity.TypesList
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ *
+ * @requires Sage.Platform.Mobile.List
+ * @requires Sage.Platform.Mobile._LegacySDataListMixin
+ *
+ * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
+ *
+ */
 define('Mobile/SalesLogix/Views/Activity/TypesList', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_LegacySDataListMixin',
     'Mobile/SalesLogix/Views/_CardLayoutListMixin'
 ], function(
     declare,
     List,
+    _LegacySDataListMixin,
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.TypesList', [List, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Activity.TypesList', [List, _LegacySDataListMixin, _CardLayoutListMixin], {
         //Templates
         itemIndicatorTemplate: new Simplate(['<div/> ']),
         itemIconTemplate: new Simplate([

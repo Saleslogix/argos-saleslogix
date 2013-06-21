@@ -1,6 +1,15 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Recurrence
+ *
+ * @requires Sage.Platform.Mobile._ActionMixin
+ * @requires Sage.Platform.Mobile._CustomizationMixin
+ * @requires Sage.Platform.Mobile._Templated
+ *
+ */
 define('Mobile/SalesLogix/Recurrence', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -142,7 +151,6 @@ define('Mobile/SalesLogix/Recurrence', [
         ],
 
         createSimplifiedOptions: function(startDate) {
-
             this.recalculateSimplifiedPeriodSpec(startDate);
 
             var list = [],

@@ -1,6 +1,27 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Activity.MyList
+ *
+ * @extends Mobile.SalesLogix.Views.Activity.List
+ * @mixins Mobile.SalesLogix.Views.Activity.List
+ *
+ * @requires Sage.Platform.Mobile.List
+ * @requires Sage.Platform.Mobile.Format
+ * @requires Sage.Platform.Mobile.Utility
+ * @requires Sage.Platform.Mobile.Convert
+ * @requires Sage.Platform.Mobile.ErrorManager
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Environment
+ * @requires Mobile.SalesLogix.Views.Activity.List
+ * @requires Mobile.SalesLogix.Action
+ *
+ * @requires moment
+ *
+ */
 define('Mobile/SalesLogix/Views/Activity/MyList', [
     'dojo/_base/declare',
     'dojo/string',
@@ -14,7 +35,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Groups/DateTimeSection',
     'moment',
     'Mobile/SalesLogix/Action'
 ], function(
@@ -30,7 +50,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     Utility,
     convert,
     ErrorManager,
-    DateTimeSection,
     moment,
     action
 ) {

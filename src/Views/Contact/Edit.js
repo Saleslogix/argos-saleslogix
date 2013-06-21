@@ -1,9 +1,20 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Contact.Edit
+ *
+ * @extends Sage.Platform.Mobile.Edit
+ *
+ * @requires Sage.Platform.Mobile.Utility
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Template
+ * @requires Mobile.SalesLogix.Validator
+ */
 define('Mobile/SalesLogix/Views/Contact/Edit', [
     'dojo/_base/declare',
-    'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
@@ -11,7 +22,6 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     'Sage/Platform/Mobile/Utility'
 ], function(
     declare,
-    dString,
     format,
     template,
     validator,
@@ -111,7 +121,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         requestAccount: function(accountId) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('accounts')
-                .setResourceSelector(dString.substitute("'${0}'", [accountId]))
+                .setResourceSelector(dojo.string.substitute("'${0}'", [accountId]))
                 .setQueryArg('select', [
                     'AccountName',
                     'Address/*',

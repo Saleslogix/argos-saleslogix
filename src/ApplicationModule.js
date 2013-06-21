@@ -1,6 +1,20 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.ApplicationModule
+ *
+ * @extends Sage.Platform.Mobile.ApplicationModule
+ * @requires Sage.Platform.Mobile.Calendar
+ * @requires Sage.Platform.Mobile.RelatedViewManager
+ * @requires Sage.Platform.Mobile.RelatedViewWidget
+ * @requires Sage.Platform.Mobile.List
+ * @requires Sage.Platform.Mobile.Views.Signature
+ * @requires Sage.Platform.Mobile.Views.FileSelect
+ * @requires Sage.Platform.Mobile.SearchWidget
+ *
+ */
 define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',

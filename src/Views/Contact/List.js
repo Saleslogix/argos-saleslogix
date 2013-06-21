@@ -1,6 +1,24 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Contact.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @mixins Mobile.SalesLogix.Views._MetricListMixin
+ * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ *
+ * @requires Sage.Platform.Mobile.List
+ * @requires Sage.Platform.Mobile.Format
+ * @requires Sage.Platform.Mobile.Convert
+ * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @requires Mobile.SalesLogix.Views._MetricListMixin
+ * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @requires Mobile.SalesLogix.Action
+ *
+ */
 define('Mobile/SalesLogix/Views/Contact/List', [
     'dojo/_base/declare',
     'dojo/string',

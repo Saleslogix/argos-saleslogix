@@ -1,10 +1,20 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.ErrorLog.Detail
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Sage.Platform.Mobile.ErrorManager
+ */
 define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     'dojo/_base/declare',
     'dojo/_base/json',
     'dojo/string',
+    'dojo/store/Memory',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Detail'
@@ -12,6 +22,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     declare,
     json,
     string,
+    Memory,
     format,
     ErrorManager,
     Detail
@@ -28,8 +39,6 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
         urlText: 'url',
 
         moreDetailsText: 'More Details',
-        severityText: 'severity',
-        statusCodeText: 'status code',
         errorText: 'error',
 
         emailSubjectText: 'Error received in Saleslogix Mobile Client',
@@ -151,7 +160,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
 
         requestData: function() {
             var errorItem = ErrorManager.getError('$key', this.options.key);
-            this.processEntry(errorItem);
+            this.processData(errorItem);
         },
 
         createLayout: function() {
@@ -160,36 +169,22 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
                     name: 'DetailsSection',
                     children: [{
                             label: this.errorDateText,
-                            name: 'errorDateStamp',
-                            property: 'errorDateStamp',
+                            name: 'Date',
+                            property: 'Date',
                             renderer: format.date.bindDelegate(this, this.errorDateFormatText)
                         }, {
                             label: this.statusTextText,
-                            name: 'serverResponse.statusText',
-                            property: 'serverResponse.statusText'
-                        }, {
-                            label: this.urlText,
-                            name: 'url',
-                            property: 'url',
-                            use: this.longDetailProperty
+                            name: 'Description',
+                            property: 'Description'
                         }]
                 }, {
                     title: this.moreDetailsText,
                     collapsed: true,
                     name: 'MoreDetailsTextSection',
                     children: [{
-                            label: this.severityText,
-                            name: 'severity',
-                            property: 'serverResponse.responseText.severity'
-                        }, {
-                            label: this.statusCodeText,
-                            name: 'statusCode',
-                            property: 'serverResponse.status'
-                        }, {
                             label: this.errorText,
-                            name: 'ErrorMessage',
-                            property: 'serverResponse.responseText.message',
-                            use: this.longDetailProperty
+                            name: 'Error',
+                            property: 'Error'
                         }]
                 }]);
         }

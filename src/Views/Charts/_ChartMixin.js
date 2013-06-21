@@ -1,6 +1,12 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+/** 
+ * @class Mobile.SalesLogix.Views.Charts._ChartMixin
+ *
+ * Base mixin for creating chart views.
+ *
+ */
 define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
     'dojo/_base/declare',
     'dojo/_base/lang',

@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views._RightDrawerListMixin
+ *
+ * List mixin for right drawers.
+ *
+ * @since 3.0
+ * @mixins Mobile.SalesLogix.Views._RightDrawerBaseMixin
+ *
+ */
 define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',

@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Application
+ *
+ * @extends Sage.Platform.Mobile.Application
+ * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires Mobile.SalesLogix.Environment
+ * @requires moment
+ *
+ */
 define('Mobile/SalesLogix/Application', [
     'dojo/_base/window',
     'dojo/_base/declare',

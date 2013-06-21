@@ -1,6 +1,17 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.OpportunityProduct.Edit
+ *
+ * @extends Sage.Platform.Mobile.Edit
+ *
+ * @requires Sage.Platform.Mobile.Utility
+ *
+ * @requires Mobile.SalesLogix.Validator
+ * @requires Mobile.SalesLogix.Template
+ */
 define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
     'dojo/_base/declare',
     'dojo/_base/array',

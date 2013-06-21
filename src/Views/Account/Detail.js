@@ -1,6 +1,18 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Account.Detail
+ *
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ * @requires Sage.Platform.Mobile.Detail
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Template
+ * @requires Mobile.SalesLogix._MetricDetailMixin
+ *
+ */
 define('Mobile/SalesLogix/Views/Account/Detail', [
     'dojo/_base/declare',
     'dojo/string',
@@ -17,7 +29,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail /*, _MetricDetailMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',

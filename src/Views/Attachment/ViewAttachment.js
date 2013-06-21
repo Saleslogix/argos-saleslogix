@@ -1,13 +1,30 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Attachment.ViewAttachment
+ *
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ * @mixins Sage.Platform.Mobile.Detail
+ * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ *
+ * @requires Sage.Platform.Mobile.Detail
+ * @requires Sage.Platform.Mobile._LegacySDataDetailMixin
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.AttachmentManager
+ * @requires Mobile.SalesLogix.Utility
+ *
+ */
 define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/connect',
     'dojo/_base/array',
     'Mobile/SalesLogix/Format',
-     'dojo/dom-construct',
+    'dojo/dom-construct',
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/has',
@@ -15,7 +32,8 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     'dojo/dom-geometry',
     'Mobile/SalesLogix/AttachmentManager',
     'Mobile/SalesLogix/Utility',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
 ], function(
     declare,
     string,
@@ -30,10 +48,11 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     domGeom,
     AttachmentManager,
     Utility,
-    Detail
+    Detail,
+    _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.ViewAttachment', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
         //Localization
         detailsText: 'Attachment Details',
         descriptionText: 'description',
@@ -41,7 +60,6 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         attachDateText: 'attachment date',
         fileSizeText: 'file size',
         userText: 'user',
-        newWindowText: 'Open in new window',
         attachmentNotSupportedText: 'The attachment type is not supported for viewing.',
         attachmentDateFormatText: 'ddd M/D/YYYY h:mm a',
         //View Properties
@@ -55,7 +73,6 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         icon: 'content/images/icons/Scale_24.png',
         orginalImageSize: { width: 0, height: 0 },
         queryInclude: ['$descriptors'],
-        dataURL: null,
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
             '{%! $.loadingTemplate %}',
@@ -68,11 +85,10 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         ]),
         attachmentViewTemplate: new Simplate([
             '<div class="attachment-viewer-label" style="white-space:nowrap;">',
-                '<label>{%= $.description + " (" + $.fileType + ")"  %}</label>',
+               '<label>{%= $.description + " (" + $.fileType + ")"  %}</label>',
             '</div>',
             '<div class="attachment-viewer-area">',
-                '<button class="button" data-action="openNewWindow">{%: $$.newWindowText %}</button>',
-                '<iframe id="attachment-Iframe" src="{%= $.url %}"></iframe>',
+                   '<iframe id="attachment-Iframe" src="{%= $.url %}"></iframe>',
             '</div>'
         ]),
         attachmentViewImageTemplate: new Simplate([
@@ -81,8 +97,8 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
            '</div>',
            '<div class="attachment-viewer-area">',
                '<table><tr valign="middle"><td align="center">',
-                   '<image id="attachment-image" border="1"></image>',
-               '</table></td></tr>',
+                 '<image id="attachment-image" border="1"></image>',
+                 '</table></td></tr>',
            '</div>'
         ]),
         attachmentViewNotSupportedTemplate: new Simplate([
@@ -136,12 +152,6 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         createLayout: function() {
              return this.tools || (this.tools = []);
         },
-        openNewWindow: function() {
-            console.log(this.dataURL);
-            if (this.dataURL) {
-                window.open(this.dataURL);
-            }
-        },
         _loadAttachmentView: function(entry) {
             var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self, iframe;
 
@@ -177,16 +187,16 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                         attachmentid = entry.$key;
                         //dataurl
                         am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                            var rData, url, a, image;
+                            var rData, url, a, dataUrl, image;
 
                             rData = Utility.base64ArrayBuffer(responseInfo.response);
-                            self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
+                            dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
                             image = dom.byId('attachment-image');
                             image.onload = function() {
                                 self._orginalImageSize = { width: image.width, height: image.height };
                                 self._sizeImage(self.domNode, image);
                             };
-                            domAttr.set(image, 'src', self.dataURL);
+                            domAttr.set(image, 'src', dataUrl);
                             domClass.add(dl, 'display-none');
                         });
                     } else { //View file type in Iframe
@@ -198,17 +208,17 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                             self = this;
                             attachmentid = entry.$key;
                             am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                                var rData, url, a, iframe;
+                                var rData, url, a, dataUrl, iframe;
 
                                 rData = Utility.base64ArrayBuffer(responseInfo.response);
-                                self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
+                                dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
                                 domClass.add(dl, 'display-none');
                                 iframe = dom.byId('attachment-Iframe');
                                 iframe.onload = function() {
                                     domClass.add(dl, 'display-none');
                                 };
                                 domClass.add(dl, 'display-none');
-                                domAttr.set(iframe, 'src', self.dataURL);
+                                domAttr.set(iframe, 'src', dataUrl);
                             });
                         } else { //Only view images
                             viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
@@ -234,26 +244,17 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
         },
         _isfileTypeImage: function(fileType){
-            var imageTypes;
+            var imageType;
             fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
-            if (App.imageFileTypes) {
-                imageTypes = App.imageFileTypes;
-            } else {
-                imageTypes = { jpg: true, gif: true, png: true, bmp: true, tif: true };
-            }
-            if (imageTypes[fileType]) {
+            imageTypes = { jpg: true, gif: true, png: true, bmp:true, tif:true };
+            if(imageTypes[fileType]){
                 return true;
             }
-            return false;
         },
         _isfileTypeAllowed: function(fileType) {
-            var fileTypes;
+            var imageType;
             fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
-            if (App.nonViewableFileTypes) {
-                fileTypes = App.nonViewableFileTypes;
-            } else {
-                fileTypes = { exe: true, dll: true };
-            }
+            fileTypes = { exe: true, dll: true};
             if (fileTypes[fileType]) {
                 return false;
             }
