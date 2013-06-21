@@ -24,7 +24,7 @@ define('Mobile/SalesLogix/Views/Login', [
         logOnText: 'Log On',
         passText: 'password',
         rememberText: 'remember',
-        titleText: 'SalesLogix',
+        titleText: 'Saleslogix',
         userText: 'user name',
         invalidUserText: 'The user name or password is invalid.',
         missingUserText: 'The user record was not found.',
