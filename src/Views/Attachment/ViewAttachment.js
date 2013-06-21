@@ -225,17 +225,26 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
 
         },
         _isfileTypeImage: function(fileType){
-            var imageType;
+            var imageTypes;
             fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
-            imageTypes = { jpg: true, gif: true, png: true, bmp:true, tif:true };
-            if(imageTypes[fileType]){
+            if (App.imageFileTypes) {
+                imageTypes = App.imageFileTypes;
+            } else {
+                imageTypes = { jpg: true, gif: true, png: true, bmp: true, tif: true };
+            }
+            if (imageTypes[fileType]) {
                 return true;
             }
+            return false;
         },
         _isfileTypeAllowed: function(fileType) {
-            var imageType;
+            var fileTypes;
             fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
-            fileTypes = { exe: true, dll: true};
+            if (App.nonViewableFileTypes) {
+                fileTypes = App.nonViewableFileTypes;
+            } else {
+                fileTypes = { exe: true, dll: true };
+            }
             if (fileTypes[fileType]) {
                 return false;
             }
