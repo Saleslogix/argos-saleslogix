@@ -68,13 +68,20 @@
     require({
         baseUrl: "./",
         packages: [
-        { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
-        { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
-        { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
-        { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
-        { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
-        { name: 'Mobile/SalesLogix', location: 'src' }
-    ]});
+            { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
+            { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
+            { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
+            { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
+            { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
+            { name: 'Mobile/SalesLogix', location: 'src' },
+            { name: 'configuration', location: 'configuration' },
+            { name: 'localization', location: 'localization' }
+        ],
+        paths: {
+            'Mobile/SalesLogix': './src',
+            'Sage/Platform/Mobile': '../../argos-sdk/src'
+        }
+    });
     </script>
 
     <script type="text/javascript">

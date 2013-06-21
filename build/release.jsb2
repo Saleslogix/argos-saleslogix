@@ -173,15 +173,15 @@
           "path": "../src"
         },
         {
+          "text": "Utility.js",
+          "path": "../src"
+        },
+        {
           "text": "FileManager.js",
           "path": "../src"
         },
         {
           "text": "AttachmentManager.js",
-          "path": "../src"
-        },
-        {
-          "text": "Utility.js",
           "path": "../src"
         },
         {
@@ -560,11 +560,31 @@
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {
+          "text": "touch.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
           "text": "NodeList-manipulate.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {
+          "text": "hccss.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "all.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/promise"
+        },
+        {
           "text": "main.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "Destroyable.js",
+          "path": "../../../argos-sdk/libraries/dojo/dijit"
+        },
+        {
+          "text": "a11yclick.js",
           "path": "../../../argos-sdk/libraries/dojo/dijit"
         },
         {
