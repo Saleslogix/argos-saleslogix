@@ -21,7 +21,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     return declare('Mobile.SalesLogix.Views.TicketActivity.List', [List], {
         //Templates
         itemTemplate: new Simplate([
-            '<h3>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h3>',
+            '<h3>{%: $.Ticket.TicketNumber %}</h3>',
+            '<h4>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h4>',
             '<div class="note-text-item">',
             '<div class="note-text-wrap">',
             '{%: $.ActivityDescription %}',
@@ -43,7 +44,25 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         queryOrderBy: 'AssignedDate asc',
         querySelect: [
             'ActivityDescription',
-            'AssignedDate'
+            'ActivityTypeCode',
+            'AssignedDate',
+            'CompletedDate',
+            'ElapsedUnits',
+            'FollowUp',
+            'PublicAccessCode',
+            'Rate',
+            'RateTypeDescription/Amount',
+            'RateTypeDescription/RateTypeCode',
+            'RateTypeDescription/TypeDescription',
+            'TotalFee',
+            'TotalLabor',
+            'TotalParts',
+            'Units',
+            'Ticket/Account/AccountName',
+            'Ticket/TicketNumber',
+            'Ticket/Contact/Name',
+            'User/UserInfo/LastName',
+            'User/UserInfo/FirstName'
         ],
         resourceKind: 'ticketActivities',
 

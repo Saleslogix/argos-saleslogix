@@ -27,22 +27,25 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         ]),
         activityTimeTemplate: new Simplate([
             '{% if ($.Timeless) { %}',
-            '<span class="p-meridiem">{%: $$.allDayText %}</span>',
+            '{%: $$.allDayText %},',
             '{% } else { %}',
-            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
-            '<span class="p-meridiem">&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>,',
-            '{% } %}'
+            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}',
+            '&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %},',
+            '{% } %}',
+            '&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
-            '{%! $$.activityTimeTemplate %}',
-            '<span class="p-description">&nbsp;{%: $.Description %}</span>',
+                '<span class="p-description">{%: $.Description %}</span>',
             '</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %} - {%! $$.nameTemplate %}</h4>'
+            '<h4>',
+                '<strong>{%! $$.activityTimeTemplate %}</strong>',
+            '</h4>',
+            '<h4>{%! $$.nameTemplate %}</h4>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.ContactName) { %}',
-            '{%: $.ContactName %} / {%: $.AccountName %}',
+            '{%: $.ContactName %} | {%: $.AccountName %}',
             '{% } else if ($.AccountName) { %}',
             '{%: $.AccountName %}',
             '{% } else { %}',

@@ -1,13 +1,17 @@
 define('Mobile/SalesLogix/Views/Contact/List', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/_base/array',
     'Mobile/SalesLogix/Action',
+    'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin'
 ], function(
     declare,
     string,
+    array,
     action,
+    format,
     List,
     _MetricListMixin
 ) {
@@ -16,7 +20,23 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         //Template
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
-            '<h4>{%: $.AccountName %}</h4>'
+            '<h4>{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</h4>',
+            '<h4>{%: $.WebAddress %}</h4>',
+            '{% if ($.WorkPhone) { %}',
+                '<h4>',
+                    '{%: $$.phoneAbbreviationText + Sage.Platform.Mobile.Format.phone($.WorkPhone) %}',
+                '</h4>',
+            '{% } %}',
+            '{% if ($.Mobile) { %}',
+                '<h4>',
+                    '{%: $$.mobileAbbreviationText + Sage.Platform.Mobile.Format.phone($.Mobile) %}',
+                '</h4>',
+            '{% } %}',
+            '{% if ($.Email) { %}',
+                '<h4>',
+                    '{%: $.Email %}',
+                '</h4>',
+            '{% } %}',
         ]),
 
         //Localization
@@ -31,6 +51,8 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         viewAccountActionText: 'Account',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        phoneAbbreviationText: 'Work: ',
+        mobileAbbreviationText: 'Mobile: ',
 
         //View Properties        
         detailView: 'contact_detail',
@@ -45,7 +67,8 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             'NameLF',
             'WorkPhone',
             'Mobile',
-            'Email'
+            'Email',
+            'Title'
         ],
         resourceKind: 'contacts',
         entityName: 'Contact',

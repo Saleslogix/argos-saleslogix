@@ -1,12 +1,14 @@
 define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin'
 ], function(
     declare,
     string,
+    array,
     action,
     List,
     _MetricListMixin
@@ -15,10 +17,26 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _MetricListMixin], {
         //Templates
         itemTemplate: new Simplate([
-            '<h3>{%: $.TicketNumber %} <span class="p-ticket-subject"> {%: $.Subject %} </span></h3>',
-            '<h4>{%: $.Account ? ($.Contact.NameLF + " / " + $.Account.AccountName) : "" %}</h4>',
-            '<h4>{%: $.Area ? ($.Area + " | ") : "" %} {%: $.AssignedTo ? $.AssignedTo.OwnerDescription : this.notAssignedText %}</h4>'
+            '<h3>{%: $.TicketNumber %}</h3>',
+            '<h4>{%: $.Subject %}</h3>',
+            '{% if($.Account) { %}',
+                '<h4>{%: $$.viewContactActionText + ": " + $.Contact.NameLF + " | " + $.Account.AccountName %}</h4>',
+            '{% } %}',
+            '<h4> {%: $.AssignedTo ? ($$.assignedToText + $.AssignedTo.OwnerDescription) : this.notAssignedText %}</h4>',
+            '{% if($.Urgency) { %}',
+                '<h4>{%: $$.urgencyText + $.Urgency.Description %}</h4>',
+            '{% } %}',
+            '{% if($.Area) { %}',
+                '<h4>{%: $$._areaCategoryIssueText($) %}</h4>',
+            '{% } %}',
         ]),
+
+        _areaCategoryIssueText: function(feedItem) {
+            var results = [feedItem.Area, feedItem.Category, feedItem.Issue];
+            return array.filter(results, function(item) {
+                return item !== '' && typeof item !== 'undefined' && item !== null;
+            }).join(' > ');
+        },
 
         //Localization
         titleText: 'Tickets',
@@ -30,6 +48,8 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         viewContactActionText: 'Contact',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        assignedToText: 'Assigned To: ',
+        urgencyText: 'Urgency: ',
 
         //View Properties       
         detailView: 'ticket_detail',
@@ -41,13 +61,16 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         querySelect: [
             'Account/AccountName',
             'Area',
+            'Category',
+            'Issue',
             'AssignedTo/OwnerDescription',
             'Contact/NameLF',
             'ReceivedDate',
             'StatusCode',
             'Subject',
             'TicketNumber',
-            'UrgencyCode'
+            'UrgencyCode',
+            'Urgency/Description',
         ],
         resourceKind: 'tickets',
         entityName: 'Ticket',

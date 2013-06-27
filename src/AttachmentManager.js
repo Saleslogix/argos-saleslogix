@@ -22,14 +22,17 @@ define('Mobile/SalesLogix/AttachmentManager', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/number',
-    'Sage/Platform/Mobile/Convert'
+    'Sage/Platform/Mobile/Convert',
+    'Mobile/SalesLogix/Utility',
+
 ], function(
     FileManager,
     lang,
     declare,
     string,
     dNumber,
-    convert
+    convert,
+    utility
 ) {
     return declare('Mobile.SalesLogix.AttachmentManager', null, {
         _fileManager: null,
@@ -156,10 +159,10 @@ define('Mobile/SalesLogix/AttachmentManager', [
                         contextData = { leadId: entry['$key'], accountName: entry['$descriptor'] };
                         break;
                     case 'activities':
-                        contextData = { activityId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
+                        contextData = { activityId: utility.getRealActivityId(entry['$key']), contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], leadId: entry['LeadId'] };
                         break;
                     case 'history':
-                        contextData = { historyId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], };
+                        contextData = { historyId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], leadId: entry['LeadId'] };
                         break;
                     default:
                         contextData = { entityId: entry['$key'], entityName: contextView.id, description: entry['$descriptor'] };
@@ -176,7 +179,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
             request.setResourceKind(this.resourceKind);
             request.setContractName(this.contractName);
             request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Select, this.querySelect.join(','));
-            request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, this.queryInclude.join(','));            
+            request.setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Include, this.queryInclude.join(','));
             return request;
         },
         requestTemplate: function(onSucess, onFailure) {

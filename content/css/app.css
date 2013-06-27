@@ -1,4 +1,8 @@
-.viewContainer > .list,
+.viewContainer > .list
+{
+    background-color: #e6e6e6;
+}
+
 .viewContainer > .panel
 {
     background-color: #fff;
@@ -172,6 +176,7 @@ h4
     font-weight: normal;
     line-height: 1.25em;
     margin-top: 0;
+    font-style: italic;
 }
 
 .note-text-more
@@ -281,7 +286,6 @@ h4
 #configure > .list-content > li.list-item-selected
 {
     color: #000;
-    background: none;
 }
 
 #configure > .list-content > li.list-item-selected h3 > .icon
@@ -839,6 +843,12 @@ body.transition > .viewContainer > .footer-toolbar
 
 }
 
+.month-content,
+.day-content
+{
+    background-color: #e6e6e6;
+}
+
 #calendar_daylist .event-hidden,
 #calendar_weeklist .event-hidden,
 #calendar_monthlist .event-hidden
@@ -1049,7 +1059,7 @@ body.transition > .viewContainer > .footer-toolbar
 #calendar_weeklist,
 #calendar_yearlist,
 #calendar_daylist {
-    background-color: #fff;
+    background-color: #e6e6e6;
 }
 
 #calendar_monthlist .nav-bar,
@@ -1106,8 +1116,10 @@ body.transition > .viewContainer > .footer-toolbar
 #calendar_weeklist .list-content > div.no-data,
 #calendar_weeklist .list-content > .list-loading-indicator
 {
-    border-top: 1px solid #e6e6e6;
     margin-top: 5px;
+    background-color: #fff;
+    border-radius: 6px;
+    margin: 8px 6px 8px 6px;
 }
 
 #calendar_weeklist > .list-content > ul > li > .eventDate
@@ -1490,20 +1502,29 @@ td.entry-table-description {
     -ms-transform-origin: top left;
     transform-origin: top left;
 }
-.attachment-viewer-min 
+.attachment-viewer-area > table
 {
-    -moz-transform: scale(0.15, 0.15); 
-    -webkit-transform: scale(0.15, 0.15); 
-    -o-transform: scale(0.15, 0.15);
-    -ms-transform: scale(0.15, 0.15);
-    transform: scale(0.15, 0.15); 
+    border-color: #e6e6e6;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-width: 1px;
+    width: 100% !important; 
+    height:100% !important;
+    background-color: #e6e6e6;
 }
-.attachment-viewer-med 
+
+.attachment-viewer-area > table> tbody > tr > td
 {
-   	-moz-transform: scale(0.50, 0.50); 
-    -webkit-transform: scale(0.50, 0.50); 
-    -o-transform: scale(0.50, 0.50);
-    -ms-transform: scale(0.50, 0.50);
-    transform: scale(0.50, 0.50); 
+    padding: 4px;
+}
+
+.attachment-viewer-area > table> tbody > tr > td > img
+{
+    border: 0px solid #000000;
+}
+.attachment-viewer-not-supported
+{
+    margin: 10px !important;
+
 }
 

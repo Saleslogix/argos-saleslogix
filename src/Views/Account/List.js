@@ -3,6 +3,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Action',
+    'Sage/Platform/Mobile/Format',
+    'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin'
 ], function(
@@ -10,6 +12,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     array,
     string,
     action,
+    format,
+    utility,
     List,
     _MetricListMixin
 ) {
@@ -18,8 +22,27 @@ define('Mobile/SalesLogix/Views/Account/List', [
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
-            '<h4>{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %}</h4>'
+            '<h4>{%: $.Industry %}</h4>',
+            '<h4>',
+                '{%: $$.joinFields(" | ", [$.Type, $.SubType]) %}',
+            '</h4>',
+            '<h4>{%: $.AccountManager && $.AccountManager.UserInfo ? $.AccountManager.UserInfo.UserName : "" %} | {%: $.Owner.OwnerDescription %}</h4>',
+            '<h4>{%: $.WebAddress %}</h4>',
+            '{% if ($.MainPhone) { %}',
+                '<h4>',
+                    '{%: $$.phoneAbbreviationText + Sage.Platform.Mobile.Format.phone($.MainPhone) %}',
+                '</h4>',
+            '{% } %}',
+            '{% if ($.Fax) { %}',
+                '<h4>',
+                    '{%: $$.faxAbbreviationText + Sage.Platform.Mobile.Format.phone($.Fax) %}',
+                '</h4>',
+            '{% } %}'
         ]),
+
+        joinFields: function(sep, fields) {
+            return utility.joinFields(sep, fields);
+        },
 
         //Localization
         titleText: 'Accounts',
@@ -31,6 +54,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
         viewContactsActionText: 'Contacts',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        phoneAbbreviationText: 'Phone: ',
+        faxAbbreviationText: 'Fax: ',
 
         //View Properties        
         detailView: 'account_detail',
@@ -45,12 +70,22 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'AccountManager/UserInfo/UserName',
             'AccountManager/UserInfo/LastName',
             'AccountManager/UserInfo/FirstName',
-            'MainPhone'
+            'Owner/OwnerDescription',
+            'MainPhone',
+            'WebAddress',
+            'Industry',
+            'LeadSource/Description',
+            'MainPhone',
+            'Fax',
+            'Status',
+            'SubType',
+            'Type'
         ],
         resourceKind: 'accounts',
         entityName: 'Account',
         allowSelection: true,
         enableActions: true,
+        pageSize: 10,
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{

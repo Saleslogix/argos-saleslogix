@@ -20,11 +20,11 @@ define('Mobile/SalesLogix/Views/Login', [
         //Localization
         id: 'login',
         busy: false,
-        copyrightText: '&copy; 2013 Sage Software, Inc. All rights reserved.',
+        copyrightText: '&copy; 2013 Saleslogix, NA, LLC. All rights reserved.',
         logOnText: 'Log On',
         passText: 'password',
         rememberText: 'remember',
-        titleText: 'Sage SalesLogix',
+        titleText: 'Saleslogix',
         userText: 'user name',
         invalidUserText: 'The user name or password is invalid.',
         missingUserText: 'The user record was not found.',
