@@ -3,16 +3,18 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/string',
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_MetricListMixin'
 ], function(
     declare,
     string,
     array,
     action,
-    List
+    List,
+    _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _MetricListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',
@@ -71,6 +73,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             'Urgency/Description',
         ],
         resourceKind: 'tickets',
+        entityName: 'Ticket',
         allowSelection: true,
         enableActions: true,
 

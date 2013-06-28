@@ -4,17 +4,19 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_MetricListMixin'
 ], function(
     declare,
     string,
     array,
     action,
     format,
-    List
+    List,
+    _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _MetricListMixin], {
         //Template
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
@@ -69,7 +71,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             'Title'
         ],
         resourceKind: 'contacts',
-        allowSelection: true,
+        entityName: 'Contact',
         enableActions: true,
 
         createActionLayout: function() {

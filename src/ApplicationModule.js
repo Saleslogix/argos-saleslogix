@@ -21,6 +21,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Login',
     'Mobile/SalesLogix/Views/Settings',
     'Mobile/SalesLogix/Views/Configure',
+    'Mobile/SalesLogix/Views/MetricConfigure',
+    'Mobile/SalesLogix/Views/MetricFilterLookup',
     'Mobile/SalesLogix/Views/Help',
     'Mobile/SalesLogix/Views/NameEdit',
     'Mobile/SalesLogix/Views/PickList',
@@ -43,6 +45,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Calendar/DayView',
     'Mobile/SalesLogix/Views/Calendar/WeekView',
     'Mobile/SalesLogix/Views/Calendar/MonthView',
+
+    'Mobile/SalesLogix/Views/Charts/GenericBar',
+    'Mobile/SalesLogix/Views/Charts/GenericPie',
+
     'Mobile/SalesLogix/Views/Competitor/List',
     'Mobile/SalesLogix/Views/Contact/List',
     'Mobile/SalesLogix/Views/Contact/Detail',
@@ -121,6 +127,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     Login,
     Settings,
     Configure,
+    MetricConfigure,
+    MetricFilterLookup,
     Help,
     NameEdit,
     PickList,
@@ -142,6 +150,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     CalendarDayView,
     CalendarWeekView,
     CalendarMonthView,
+    GenericBar,
+    GenericPie,
     CompetitorList,
     ContactList,
     ContactDetail,
@@ -207,6 +217,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Help());
             this.registerView(new Settings());
             this.registerView(new Configure());
+            this.registerView(new MetricConfigure());
+            this.registerView(new MetricFilterLookup());
             this.registerView(new PickList());
             this.registerView(new SelectList());
             this.registerView(new SpeedSearchList());
@@ -234,6 +246,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new CalendarMonthView());
             this.registerView(new CalendarWeekView());
             this.registerView(new CalendarDayView());
+
+            // Charts
+            this.registerView(new GenericBar({ expose: false }));
+            this.registerView(new GenericPie({ expose: false }));
 
             this.registerView(new CompetitorList({
                 id: 'competitor_related',

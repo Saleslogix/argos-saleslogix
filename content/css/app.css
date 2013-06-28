@@ -399,6 +399,59 @@ h4
     font-size: 0.75em;
 }
 
+.list-content
+{
+    /* TODO: create a wrapper for the metric widget and place this there. */
+    border-top: solid 1px #DDD;
+}
+
+.metric-list
+{
+    list-style-type: none;
+    padding: 0px;
+}
+
+.metric-list,
+.metric-widget,
+.metric-detail
+{
+    display: inline;
+    padding: 0px;
+    margin: 0px;
+}
+
+.metric-widget > button
+{
+    padding: 5px 2px 5px 2px;
+    background-color: #fff;
+    border-color: #000;
+    border-width: 1px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+}
+
+.metric-title
+{
+    font-size: 8pt;
+}
+
+.metric-value
+{
+    font-size: 14pt;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+/*.metric-detail
+{
+    padding: 3px;
+}
+
+.metric-widget
+{
+    padding: 3px;
+}*/
+
 li[data-activity-type] .list-item-selector,
 li[data-opportunity-status] .list-item-selector,
 li[data-ticket-status] .list-item-selector,

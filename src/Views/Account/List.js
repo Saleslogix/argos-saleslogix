@@ -5,7 +5,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_MetricListMixin'
 ], function(
     declare,
     array,
@@ -13,10 +14,11 @@ define('Mobile/SalesLogix/Views/Account/List', [
     action,
     format,
     utility,
-    List
+    List,
+    _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List, _MetricListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -80,6 +82,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'Type'
         ],
         resourceKind: 'accounts',
+        entityName: 'Account',
         allowSelection: true,
         enableActions: true,
         pageSize: 10,

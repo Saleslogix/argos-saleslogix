@@ -4,17 +4,19 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_MetricListMixin'
 ], function(
     declare,
     string,
     action,
     format,
     utility,
-    List
+    List,
+    _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Lead.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Lead.List', [List, _MetricListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
@@ -75,6 +77,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
             'Title'
         ],
         resourceKind: 'leads',
+        entityName: 'Lead', 
         allowSelection: true,
         enableActions: true,
 

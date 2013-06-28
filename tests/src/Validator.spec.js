@@ -22,7 +22,7 @@ define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'],function(Validator
             });
 
             it('should validate if first and last name contain unicode', function() {
-                expect(Validator.name.fn({ FirstName: '???????', LastName: '???????'})).toEqual(false);
+                expect(Validator.name.fn({ FirstName: 'тестпнч', LastName: 'тестпнч'})).toEqual(false);
             });
         });
 
@@ -34,7 +34,7 @@ define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'],function(Validator
             });
 
             it('should not be empty unicode', function() {
-                expect('???????').toMatch(regex);
+                expect('тестпнч').toMatch(regex);
             });
 
             it('should be empty', function() {
@@ -50,7 +50,7 @@ define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'],function(Validator
             });
 
             it('should fail for all unicode (not supported)', function() {
-                expect('???????').not.toMatch(regex);
+                expect('тестпнч').not.toMatch(regex);
             });
 
             it('should not have text', function() {

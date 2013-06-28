@@ -1,19 +1,35 @@
 define('Mobile/SalesLogix/Views/Opportunity/List', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/Format',
+    'Sage/Platform/Mobile/List',
+    '../_MetricListMixin'
 ], function(
     declare,
     string,
+    array,
     action,
     format,
-    List
+    platformFormat,
+    List,
+    _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _MetricListMixin], {
         //Templates
+        widgetTemplate: new Simplate([
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+            '<div data-dojo-attach-point="searchNode"></div>',
+            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
+            '{%! $.emptySelectionTemplate %}',
+            '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
+            '{%! $.moreTemplate %}',
+            '{%! $.listActionTemplate %}',
+            '</div>'
+        ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
             '<button data-action="selectEntry" class="list-item-selector button">',
@@ -80,7 +96,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         insertView: 'opportunity_edit',
         hashTagQueries: {
             'open': 'Closed eq false',
-            'closed': 'Closed eq true',
+            
             'won': 'Status eq "Closed - Won"',
             'lost': 'Status eq "Closed - Lost"'
         },
@@ -102,6 +118,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'ExchangeRateCode',
         ],
         resourceKind: 'opportunities',
+        entityName: 'Opportunity',
         allowSelection: true,
         enableActions: true,
 

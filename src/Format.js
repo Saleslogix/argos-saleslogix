@@ -2,12 +2,14 @@ define('Mobile/SalesLogix/Format', [
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
+    'dojo/number',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Format'
 ], function(
     lang,
     array,
     string,
+    dojoNumber,
     template,
     format
 ) {
@@ -178,6 +180,21 @@ define('Mobile/SalesLogix/Format', [
                         (f.toString().length < 2) ? '0' + f.toString() : f.toString()
                     ]
             ).replace(/ /g, '\u00A0'); //keep numbers from breaking
+        },
+        bigNumber: function(val) {
+            try {
+                var numParse = dojoNumber.parse(val);
+
+                if (numParse && numParse >= 1000000) {
+                    numParse = numParse / 1000000;
+                    return dojoNumber.format(numParse, { places: 1 }) + 'M';
+                } else if (numParse && numParse >= 1000) {
+                    numParse = numParse / 1000;
+                    return dojoNumber.format(numParse, { places: 1 }) + 'K';
+                }
+            } catch(ex) {}
+
+            return val;
         },
         multiCurrency: function(val, code) {
             return string.substitute('${0} ${1}', [Mobile.SalesLogix.Format.currency(val), code]);

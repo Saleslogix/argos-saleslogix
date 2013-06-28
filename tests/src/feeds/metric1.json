@@ -1,0 +1,114 @@
+{
+  "$url": "http://10.40.201.25/sdata/slx/dynamic/-/accounts/$queries/executeMetric?_includeContent=false&_filterName=AccountManager&_metricName=TotalRevenue&_activeFilter=&startIndex=1&count=100&format=json&_t=1355868699529",
+  "$totalResults": 15,
+  "$startIndex": 1,
+  "$itemsPerPage": 100,
+  "$first": "http://10.40.201.25/sdata/slx/dynamic/-/accounts/$queries/executeMetric?_includeContent=false&_filterName=AccountManager&_metricName=TotalRevenue&_activeFilter=&startIndex=1&count=100&format=json&_t=1355868699529",
+  "$resources": [
+    {
+      "$httpStatus": 200,
+      "$etag": "D5GhoP////8=",
+      "$descriptor": "Hogan, Lee",
+      "name": "UDEMOA00000I",
+      "value": 601069883.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "3YSa0v////8=",
+      "$descriptor": "Barret, Dan",
+      "name": "UDEMOA00000G",
+      "value": 1113118.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "Y+JiSQAAAAA=",
+      "$descriptor": "Martinez, Ed",
+      "name": "UDEMOA00000H",
+      "value": 773456.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "04BdsP////8=",
+      "$descriptor": "Walsh, Linda",
+      "name": "UDEMOA00000J",
+      "value": 752648.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "m7ofXgAAAAA=",
+      "$descriptor": "Hughes, Cathy",
+      "name": "UDEMOA00000F",
+      "value": 274582.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "+/AXJwAAAAA=",
+      "$descriptor": "Lee, Kim",
+      "name": "UDEMOA00000K",
+      "value": 143623.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "sxARg/////8=",
+      "$descriptor": "Murray, Derek",
+      "name": "UDEMOA00000N",
+      "value": 91783.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "gw2/DwAAAAA=",
+      "$descriptor": "Fuentes, Manuel",
+      "name": "UDEMOA00000M",
+      "value": 79700.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "YxaOAAAAAAA=",
+      "$descriptor": "Ekels, Georgine",
+      "name": "UDEMOA000000",
+      "value": 79594.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "M76E6v////8=",
+      "$descriptor": "Stichler, Hans",
+      "name": "UDEMOA00000E",
+      "value": 68719.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "AxJVmv////8=",
+      "$descriptor": "Mitra, Rajeev",
+      "name": "UDEMOA00000L",
+      "value": 41814.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "Q9xCPwAAAAA=",
+      "$descriptor": "Grant, Jean",
+      "name": "UDEMOA00000T",
+      "value": 14153.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "JjWR6v////8=",
+      "$descriptor": "Administrator",
+      "name": "ADMIN       ",
+      "value": 10330.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "w7BdGQAAAAA=",
+      "$descriptor": "McNulty, Brian",
+      "name": "UDEMOA000009",
+      "value": 3812.0
+    },
+    {
+      "$httpStatus": 200,
+      "$etag": "w3jpEgAAAAA=",
+      "$descriptor": "Dryden, Ken",
+      "name": "UDEMOA000004",
+      "value": 0.0
+    }
+  ]
+}

@@ -3,18 +3,20 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     'dojo/dom-construct',
     'dojo/query',
     'dojo/string',
+    'Sage/Platform/Mobile/Detail',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail'
+    '../_MetricDetailMixin'
 ], function(
     declare,
     domConstruct,
     query,
     string,
+    Detail,
     format,
-    Detail
+    _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail, _MetricDetailMixin], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -118,6 +120,44 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         },
         formatAccountRelatedQuery: function(fmt) {
             return string.substitute(fmt, [this.entry['Account']['$key']]);
+        },
+        createMetricWidgetsLayout: function (entry) {
+            /*return [{
+                    chartType: 'bar',
+                    filterDisplayName: 'Account Manager',
+                    formatFunc: 'bigNumber',
+                    formatType: 'Mobile/SalesLogix/Format',
+                    metricDisplayName: 'Sum Sales Potential',
+                    metricTitleText: 'Sales potential for ' + entry.Account.AccountName,
+                    queryArgs: {
+                        _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
+                        _filterName: 'AccountManager',
+                        _metricName: 'SumSalesPotential'
+                    },
+                    queryName: 'executeMetric',
+                    reportViewId: '',
+                    resourceKind: 'opportunities',
+                    valueFunc: 'sum',
+                    valueType: 'Mobile/SalesLogix/Aggregate'
+                }, {
+                    chartType: 'bar',
+                    filterDisplayName: 'Stage',
+                    formatFunc: 'bigNumber',
+                    formatType: 'Mobile/SalesLogix/Format',
+                    metricDisplayName: 'Sum Sales Potential',
+                    metricTitleText: 'Total opportunties for ' + entry.Account.AccountName,
+                    queryArgs: {
+                        _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
+                        _filterName: 'Stage',
+                        _metricName: 'CountOpportunities'
+                    },
+                    queryName: 'executeMetric',
+                    reportViewId: '',
+                    resourceKind: 'opportunities',
+                    valueFunc: 'sum',
+                    valueType: 'Mobile/SalesLogix/Aggregate'
+                }
+            ];*/
         },
         createLayout: function() {
             var layout, quickActions, details, moreDetails, multiCurrency, relatedItems;
