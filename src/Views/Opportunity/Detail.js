@@ -16,7 +16,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail, _MetricDetailMixin], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail, /*_MetricDetailMixin*/], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',

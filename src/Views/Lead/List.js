@@ -16,7 +16,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Lead.List', [List, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.Lead.List', [List, /*_MetricListMixin*/], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',

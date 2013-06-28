@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, /*_MetricListMixin*/], {
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',

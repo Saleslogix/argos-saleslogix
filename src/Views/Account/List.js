@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List, /*_MetricListMixin*/], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
