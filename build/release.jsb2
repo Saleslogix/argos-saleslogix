@@ -756,6 +756,10 @@
           "path": "../../../argos-sdk/libraries/dojo/dojox/gfx"
         },
         {
+          "text": "SimpleTheme.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojox/charting"
+        },
+        {
           "text": "Palette.js",
           "path": "../../../argos-sdk/libraries/dojo/dojox/color"
         },
@@ -801,6 +805,10 @@
         },
         {
           "text": "Base.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
+        },
+        {
+          "text": "CartesianBase.js",
           "path": "../../../argos-sdk/libraries/dojo/dojox/charting/plot2d"
         },
         {
