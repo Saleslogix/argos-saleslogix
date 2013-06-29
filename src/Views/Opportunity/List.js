@@ -20,16 +20,6 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
 
     return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, /*_MetricListMixin*/], {
         //Templates
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-            '<div data-dojo-attach-point="searchNode"></div>',
-            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
-            '{%! $.emptySelectionTemplate %}',
-            '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
-            '{%! $.moreTemplate %}',
-            '{%! $.listActionTemplate %}',
-            '</div>'
-        ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
             '<button data-action="selectEntry" class="list-item-selector button">',
