@@ -75,7 +75,13 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'open': 'open',
             'closed': 'closed',
             'won': 'won',
-            'lost': 'lost'
+            'lost': 'lost',
+            'inactive': 'inactive',
+            'prospect': 'prospect',
+            'qualification': 'qualification',
+            'negotiation': 'negotiation',
+            'needs-analysis': 'needs-analysis',
+            'demonstration': 'demonstration'
         },
 
         //View Properties
@@ -86,9 +92,14 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         insertView: 'opportunity_edit',
         hashTagQueries: {
             'open': 'Closed eq false',
-            
             'won': 'Status eq "Closed - Won"',
-            'lost': 'Status eq "Closed - Lost"'
+            'lost': 'Status eq "Closed - Lost"',
+            'inactive': 'Status eq "Inactive"',
+            'prospect': 'Stage eq "1-Prospect"',
+            'qualification': 'Stage eq "2-Qualification"',
+            'needs-analysis': 'Stage eq "3-Needs Analysis"',
+            'demonstration': 'Stage eq "4-Demonstration"',
+            'negotiation': 'Stage eq "5-Negotiation"'
         },
         statusIcons: {
             'Open': 'content/images/icons/opportunity_24.png',
