@@ -50,3 +50,5 @@ index-dev-*.html
 
 # nodejs
 node_modules
+.grunt/
+_SpecRunner.html
