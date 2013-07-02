@@ -39,6 +39,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         listHeaderTemplate: new Simplate([
             '<div class="list-header list-header-hidden" data-dojo-attach-point="listHeader">',
                 '<div data-dojo-attach-point="searchNode"></div>',
+                '<div class="list-hash-tags" data-dojo-attach-point="hashTagsNode"></div>',
                 '<ul data-dojo-attach-point="metricNode" class="metric-list"></ul>',
             '</div>'
         ]),
