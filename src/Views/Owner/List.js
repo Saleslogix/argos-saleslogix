@@ -18,7 +18,6 @@ define('Mobile/SalesLogix/Views/Owner/List', [
         titleText: 'Owners',
 
         //View Properties
-        icon: 'content/images/Accounts_24x24.gif',
         id: 'owner_list',
         security: 'Entities/Owner/View',
         queryOrderBy: 'OwnerDescription',
