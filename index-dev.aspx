@@ -100,17 +100,6 @@
     <!-- JSON -->
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
 
-    <!-- ReUI -->
-    <script type="text/javascript">
-    reConfig = {
-        autoInit: false,
-        legacyMode: false,
-        showInitialPage: false,
-        updateBackButtonText: false
-    };
-    </script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/reui/reui.js"></script>
-
     <!-- SData Client Library -->
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>

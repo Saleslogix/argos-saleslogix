@@ -600,6 +600,18 @@
       "isDebug": true,
       "fileIncludes": [
         {
+          "text": "hash.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
+          "text": "RouterBase.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/router"
+        },
+        {
+          "text": "router.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
           "text": "i18n.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
