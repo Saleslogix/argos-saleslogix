@@ -26,8 +26,10 @@ define('Mobile/SalesLogix/Views/Owner/List', [
         querySelect: [
             'OwnerDescription',
             'User/Enabled',
-            'User/Type'
+            'User/Type',
+            'Type'
         ],
+        queryWhere: 'Type ne "Department"',
         resourceKind: 'owners',
 
         formatSearchQuery: function(searchQuery) {
