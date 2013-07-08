@@ -99,8 +99,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
 
         onRequestCodeDataSuccess: function(row, node, value, entry, data) {
             var codeText = this.processCodeDataFeed(data, entry[row.property]);
-            this.setNodeText(node, codeText);
-            this.entry[row.name] = codeText;
+            if (codeText) {
+                this.setNodeText(node, codeText);
+                this.entry[row.name] = codeText;
+            }
         },
 
         onRequestCodeDataFailure: function(response, o) {
