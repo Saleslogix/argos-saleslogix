@@ -1,11 +1,13 @@
 define('Mobile/SalesLogix/Views/Opportunity/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
+    lang,
     validator,
     template,
     utility,
@@ -240,7 +242,13 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         textProperty: 'AccountName',
                         type: 'lookup',
                         view: 'account_related',
-                        where: 'upper(SubType) eq "RESELLER"'
+                        where: 'upper(SubType) eq "RESELLER"',
+                        viewMixin: {
+                            onTransitionTo: function(self) {
+                                // Clear the initial where clause, allowing the user to search for others if they want
+                                self.options.where = '';
+                            }
+                        }
                     },
                     {
                         label: this.estCloseText,
