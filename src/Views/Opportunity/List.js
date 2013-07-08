@@ -91,7 +91,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
         hashTagQueries: {
-            'open': 'Closed eq false',
+            'open': 'Status eq "Open"',
             'won': 'Status eq "Closed - Won"',
             'lost': 'Status eq "Closed - Lost"',
             'inactive': 'Status eq "Inactive"',
