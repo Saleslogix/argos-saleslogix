@@ -71,6 +71,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         },
         onRequestCodeDataSuccess: function(code, field, feed) {
             var value = this.processCodeDataFeed(feed, code);
+            field.setValue(code);
             field.setText(value);
         },
         onRequestCodeDataFailure: function(response, o) {
@@ -113,7 +114,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     property: 'ActivityTypeCode',
                     requireSelection: true,
                     title: this.activityTypeTitleText,
-                    storageMode: 'code',
+                    storageMode: 'id',
                     picklist: 'Ticket Activity',
                     type: 'picklist'
                 }, {
@@ -121,7 +122,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     name: 'PublicAccessCode',
                     property: 'PublicAccessCode',
                     title: this.publicAccessTitleText,
-                    storageMode: 'code',
+                    storageMode: 'id',
                     picklist: 'Ticket Activity Public Access',
                     type: 'picklist'
                 }, {
