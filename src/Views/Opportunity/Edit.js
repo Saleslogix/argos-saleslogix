@@ -239,7 +239,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         property: 'Reseller',
                         textProperty: 'AccountName',
                         type: 'lookup',
-                        view: 'account_related'
+                        view: 'account_related',
+                        where: 'upper(SubType) eq "RESELLER"'
                     },
                     {
                         label: this.estCloseText,
