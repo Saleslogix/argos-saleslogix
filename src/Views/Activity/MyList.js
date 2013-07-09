@@ -9,7 +9,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     'Sage/Platform/Mobile/Format',
     'Mobile/SalesLogix/Views/Activity/List',
     'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/ErrorManager'
+    'Sage/Platform/Mobile/ErrorManager',
+    'Sage/Platform/Mobile/Groups/DateTimeSection'
 ], function(
     declare,
     string,
@@ -21,7 +22,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     platformFormat,
     ActivityList,
     convert,
-    ErrorManager
+    ErrorManager,
+    DateTimeSection
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
@@ -356,6 +358,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         onRequestFailure: function(response, o) {
             ErrorManager.addError(response, o, {}, 'failure');
         },
+        createGroupBySection: function() {
+            this.groupBySection = new DateTimeSection({groupByProperty:'Activity.StartDate', sortDirection:'desc'});
+        }
     });
 });
 
