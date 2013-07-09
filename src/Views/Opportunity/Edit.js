@@ -1,6 +1,7 @@
 define('Mobile/SalesLogix/Views/Opportunity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
+    'dojo/string',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
@@ -8,6 +9,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
 ], function(
     declare,
     lang,
+    string,
     validator,
     template,
     utility,
@@ -38,6 +40,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         multiCurrencyDateText: 'rate date',
         multiCurrencyLockedText: 'rate locked',
         exchangeRateDateFormatText: 'M/d/yyyy h:mm tt',
+        subTypePickListResellerText: 'RESELLER',
 
         //View Properties
         entityName: 'Opportunity',
@@ -242,7 +245,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         textProperty: 'AccountName',
                         type: 'lookup',
                         view: 'account_related',
-                        where: 'upper(SubType) eq "RESELLER"',
+                        where: string.substitute('upper(SubType) eq "${0}"', [this.subTypePickListResellerText]),
                         viewMixin: {
                             onTransitionTo: function(self) {
                                 // Clear the initial where clause, allowing the user to search for others if they want
