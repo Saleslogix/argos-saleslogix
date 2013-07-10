@@ -1,16 +1,20 @@
 define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/_base/declare',
     'dojo/string',
+    'Mobile/SalesLogix/Views/_RightDrawerListMixin',
     'Sage/Platform/Mobile/List',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert'
 ], function(
     declare,
     string,
-    List
+    _RightDrawerListMixin,
+    List,
+    Format,
+    Convert
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Activity.List', [List, _RightDrawerListMixin], {
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',

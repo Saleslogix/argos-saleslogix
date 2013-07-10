@@ -241,6 +241,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "RightDrawer.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "Home.js",
           "path": "../src/Views"
         },
@@ -280,42 +284,42 @@
           "text": "TextEdit.js",
           "path": "../src/Views"
         },
-        
         {
           "text": "MetricWidget.js",
           "path": "../src/Views"
         },
-        
         {
           "text": "_MetricListMixin.js",
           "path": "../src/Views"
         },
-
         {
           "text": "_MetricDetailMixin.js",
           "path": "../src/Views"
         },
-        
+        {
+          "text": "_RightDrawerBaseMixin.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "_RightDrawerListMixin.js",
+          "path": "../src/Views"
+        },
         {
           "text": "MetricConfigure.js",
           "path": "../src/Views"
         },
-        
         {
           "text": "MetricFilterLookup.js",
           "path": "../src/Views"
         },
-        
         {
           "text": "GenericBar.js",
           "path": "../src/Views/Charts"
         },
-        
         {
           "text": "GenericPie.js",
           "path": "../src/Views/Charts"
         },
-        
         {
           "text": "AddAttachment.js",
           "path": "../src/Views/Attachment"
