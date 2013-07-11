@@ -43,6 +43,11 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 domConstruct.place(this.searchWidget.domNode, this.domNode, 'first');
             }
         },
+        _onSearchExpression: function() {
+            // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
+            this.inherited(arguments);
+            this.toggleRightDrawer();
+        },
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
             var actions = {
@@ -50,7 +55,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     if (params.hashtag) {
                         this.setSearchTerm('#' + params.hashtag);
                         this.search();
-                        this.toggleRightDrawer();
                     }
                 }),
                 kpiClicked: lang.hitch(this, function(params) {
