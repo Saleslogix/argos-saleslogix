@@ -358,8 +358,14 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         onRequestFailure: function(response, o) {
             ErrorManager.addError(response, o, {}, 'failure');
         },
-        createGroupBySection: function() {
-            this.groupBySection = new DateTimeSection({groupByProperty:'Activity.StartDate', sortDirection:'desc'});
+        getGroupBySections: function() {
+            var groupBySections = [
+            {
+                id: 'section_StartDate',
+                description: null,
+                section: new DateTimeSection({ groupByProperty: 'Activity.StartDate', sortDirection: 'desc' })
+            }];
+            return groupBySections;
         }
     });
 });

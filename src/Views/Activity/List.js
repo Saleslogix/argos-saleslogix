@@ -92,8 +92,13 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        createGroupBySection: function() {
-            this.groupBySection = new DateTimeSection({groupByProperty:'StartDate', sortDirection:'desc'});
+        getGroupBySections: function() {
+            var groupBySections = [{
+                id: 'section_StartDate',
+                description: 'Start Date',
+                section: new DateTimeSection({ groupByProperty: 'StartDate', sortDirection: 'desc' })
+            }];
+            return groupBySections;
         }
     });
 });
