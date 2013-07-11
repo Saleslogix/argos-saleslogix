@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         setupRightDrawer: function() {
             var drawer = App.getView('right_drawer');
             if (drawer) {
-                lang.mixin(drawer, this.createActions());
+                lang.mixin(drawer, this._createActions());
                 drawer.setLayout(this.createRightDrawerLayout());
                 drawer.getGroupForEntry = lang.hitch(this, function(entry) {
                     return this.getGroupForRightDrawerEntry(entry);
@@ -43,21 +43,24 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 domConstruct.place(this.searchWidget.domNode, this.domNode, 'first');
             }
         },
-        createActions: function() {
+        _createActions: function() {
             // These actions will get mixed into the right drawer view.
             var actions = {
                 hashTagClicked: lang.hitch(this, function(params) {
-                    console.log(params.hashTag);
+                    if (params.hashtag) {
+                        this.setSearchTerm('#' + params.hashtag);
+                        this.search();
+                        this.toggleRightDrawer();
+                    }
                 }),
                 kpiClicked: lang.hitch(this, function(params) {
-                    console.dir(params);
                 })
             };
 
             return actions;
         },
         getGroupForRightDrawerEntry: function(entry) {
-            if (entry.hashTag) {
+            if (entry.dataProps && entry.dataProps.hashtag) {
                 return {
                     tag: 'view',
                     title: this.hashTagsSectionText
@@ -70,22 +73,28 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var hashTagsSection, kpiSection, layout;
+            var hashTagsSection, hashTag, kpiSection, layout;
             layout = [];
 
-            // TODO: Iterate the hash tags and push them into children
             hashTagsSection = {
                 id: 'actions',
-                children: [
-                    {
-                        'name': 'hashTag1',
-                        'action': 'hashTagClicked', 
-                        //'icon': 'content/images/icons/New_Contact_24x24.png',
-                        'title': 'foo',
-                        'hashTag': '#foo'
-                    }
-                ]
+                children: []
             };
+
+            if (this.hashTagQueries) {
+                for (hashTag in this.hashTagQueries) {
+                    if (this.hashTagQueries.hasOwnProperty(hashTag)) {
+                        hashTagsSection.children.push({
+                            'name': hashTag,
+                            'action': 'hashTagClicked', 
+                            'title': this.hashTagQueriesText[hashTag] || hashTag,
+                            dataProps: {
+                                'hashtag': this.hashTagQueriesText[hashTag] || hashTag,
+                            }
+                        });
+                    }
+                }
+            }
 
             layout.push(hashTagsSection);
 
@@ -95,7 +104,12 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     {
                         'name': 'KPISet1',
                         'action': 'kpiClicked', 
-                        'title': 'KPI 1'
+                        'title': 'Fake KPI 1'
+                    },
+                    {
+                        'name': 'KPISet2',
+                        'action': 'kpiClicked', 
+                        'title': 'Fake KPI 2'
                     }
                 ]
             };

@@ -15,7 +15,13 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
     return declare('Mobile.SalesLogix.Views.RightDrawer', [GroupedList], {
         //Templates
         rowTemplate: new Simplate([
-            '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
+            '<li data-action="{%= $.action %}"',
+            '{% if($.dataProps) { %}',
+                '{% for(var prop in $.dataProps) { %}',
+                    ' data-{%= prop %}="{%= $.dataProps[prop] %}"',
+                '{% } %}',
+            '{% } %}',
+            '>',
             '<div class="list-item-static-selector">',
                 '{% if ($.icon) { %}',
                 '<img src="{%: $.icon %}" alt="icon" class="icon" />',
@@ -33,6 +39,7 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
         expose: false,
         enableSearch: false,
         customizationSet: 'right_drawer',
+        dataProps: null,
 
         hasMoreData: function() {
             return false;
