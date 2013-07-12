@@ -4,17 +4,19 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/List',
-    '../_MetricListMixin'
+    '../_MetricListMixin',
+    '../_RightDrawerListMixin'
 ], function(
     declare,
     string,
     array,
     action,
     List,
-    _MetricListMixin
+    _MetricListMixin,
+    _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, /*_MetricListMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',
@@ -70,12 +72,27 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             'Subject',
             'TicketNumber',
             'UrgencyCode',
-            'Urgency/Description',
+            'Urgency/Description'
         ],
         resourceKind: 'tickets',
         entityName: 'Ticket',
         allowSelection: true,
         enableActions: true,
+
+        hashTagQueries: {
+            'has-alert': 'Alert eq true',
+            'assigned-to-me': function() {
+                return 'AssignedTo.OwnerDescription eq "' + App.context.user.$descriptor + '"';
+            },
+            'completed-by-me': function() {
+                return 'CompletedBy.OwnerDescription eq "' + App.context.user.$descriptor + '"';
+            }
+        },
+        hashTagQueriesText: {
+            'has-alert': 'has-alert',
+            'assigned-to-me': 'assigned-to-me',
+            'completed-by-me': 'completed-by-me'
+        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{

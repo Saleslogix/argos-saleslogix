@@ -111,6 +111,23 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         allowSelection: true,
         enableActions: true,
 
+        hashTagQueries: {
+            'alarm': 'Alarm eq true',
+            'status-unconfirmed': 'Status eq "asUnconfirmed"',
+            'status-accepted': 'Status eq "asAccepted"',
+            'status-declined': 'Status eq "asDeclned"',
+            'recurring': 'Activity.Recurring eq true',
+            'timeless': 'Activity.Timeless eq true'
+        },
+        hashTagQueriesText: {
+            'alarm': 'alarm',
+            'status-unconfirmed': 'status-unconfirmed',
+            'status-accepted': 'status-accepted',
+            'status-declined': 'status-declined',
+            'recurring': 'recurring',
+            'timeless': 'timeless'
+        },
+
         recordCallToHistory: function(complete, entry) {
             var entry = {
                 '$name': 'History',

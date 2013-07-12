@@ -91,6 +91,15 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         resourceKind: 'activities',
         contractName: 'system',
 
+        hashTagQueries: {
+            'recurring': 'Recurring eq true',
+            'timeless': 'Timeless eq true'
+        },
+        hashTagQueriesText: {
+            'recurring': 'recurring',
+            'timeless': 'timeless'
+        },
+
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
