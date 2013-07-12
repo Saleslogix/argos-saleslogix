@@ -6,7 +6,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/List',
-    '../_MetricListMixin'
+    '../_MetricListMixin',
+    '../_RightDrawerListMixin'
 ], function(
     declare,
     array,
@@ -15,10 +16,11 @@ define('Mobile/SalesLogix/Views/Account/List', [
     format,
     utility,
     List,
-    _MetricListMixin
+    _MetricListMixin,
+    _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List, /*_MetricListMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -86,6 +88,30 @@ define('Mobile/SalesLogix/Views/Account/List', [
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
+        hashTagQueries: {
+            'active': 'Status eq "Active"',
+            'inactive': 'Status eq "Inactive"',
+            'suspect': 'Type eq "Suspect"',
+            'lead': 'Type eq "Lead"',
+            'prospect': 'Type eq "Prospect"',
+            'customer': 'Type eq "Customer"',
+            'partner': 'Type eq "Partner"',
+            'vendor': 'Type eq "Vendor"',
+            'influencer': 'Type eq "Influencer"',
+            'competitor': 'Type eq "Competitor"'
+        },
+        hashTagQueriesText: {
+            'active': 'active',
+            'inactive': 'inactive',
+            'suspect': 'suspect',
+            'lead': 'lead',
+            'prospect': 'prospect',
+            'customer': 'customer',
+            'partner': 'partner',
+            'vendor': 'vendor',
+            'influencer': 'influencer',
+            'competitor': 'competitor'
+        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{

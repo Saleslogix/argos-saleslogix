@@ -6,7 +6,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/List',
-    '../_MetricListMixin'
+    '../_MetricListMixin',
+    '../_RightDrawerListMixin'
 ], function(
     declare,
     string,
@@ -15,10 +16,11 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     format,
     platformFormat,
     List,
-    _MetricListMixin
+    _MetricListMixin,
+    _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, /*_MetricListMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',

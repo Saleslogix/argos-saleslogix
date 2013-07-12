@@ -5,7 +5,8 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/List',
-    '../_MetricListMixin'
+    '../_MetricListMixin',
+    '../_RightDrawerListMixin'
 ], function(
     declare,
     string,
@@ -13,10 +14,11 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     format,
     utility,
     List,
-    _MetricListMixin
+    _MetricListMixin,
+    _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Lead.List', [List, /*_MetricListMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Lead.List', [List, _RightDrawerListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
@@ -80,6 +82,25 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         entityName: 'Lead', 
         allowSelection: true,
         enableActions: true,
+
+        hashTagQueries: {
+            'primary': 'IsPrimary eq true',
+            'not-primary': 'IsPrimary eq false',
+            'can-email': 'DoNotEmail eq false',
+            'can-phone': 'DoNotPhone eq false',
+            'can-fax': 'DoNotFAX eq false',
+            'can-mail': 'DoNotMail eq false',
+            'can-solicit': 'DoNotSolicit eq false'
+        },
+        hashTagQueriesText: {
+            'primary': 'primary',
+            'not-primary': 'not-primary',
+            'can-email': 'can-email',
+            'can-phone': 'can-phone',
+            'can-fax': 'can-fax',
+            'can-mail': 'can-mail',
+            'can-solicit': 'can-solicit'
+        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{

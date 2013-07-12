@@ -8,7 +8,8 @@ define('Mobile/SalesLogix/Views/History/List', [
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_RightDrawerListMixin'
 ], function(
     declare,
     array,
@@ -19,10 +20,11 @@ define('Mobile/SalesLogix/Views/History/List', [
     format,
     convert,
     action,
-    List
+    List,
+    _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List], {
+    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',

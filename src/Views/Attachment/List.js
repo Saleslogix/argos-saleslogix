@@ -3,16 +3,18 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     'dojo/string',
     'dojo/has',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_RightDrawerListMixin'
 ], function(
     declare,
     string,
     has,
     format,
-    List
+    List,
+    _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
@@ -71,6 +73,15 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         resourceKind: 'attachments',
         contractName: 'system',
         queryInclude: ['$descriptors'],
+
+        hashTagQueries: {
+            'url': 'dataType eq null',
+            'binary': 'dataType eq "R"',
+        },
+        hashTagQueriesText: {
+            'url': 'url',
+            'binary': 'binary'
+        },
 
         createToolLayout: function() {
             if (!has('html5-file-api')) {
