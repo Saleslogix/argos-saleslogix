@@ -3,12 +3,16 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/dom-construct',
+    'dojo/dom-attr',
+    'dojo/aspect',
     'Mobile/SalesLogix/Views/_RightDrawerBaseMixin'
 ], function(
     declare,
     array,
     lang,
     domConstruct,
+    domAttr,
+    aspect,
     _RightDrawerBaseMixin
 ) {
 
@@ -16,6 +20,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         //Localization
         hashTagsSectionText: 'Hash Tags',
         kpiSectionText: 'KPI',
+        _snapperCloseHandle: null,
 
         onShow: function() {
             var drawer = App.getView('right_drawer');
@@ -24,7 +29,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             }
         },
         setupRightDrawer: function() {
-            var drawer = App.getView('right_drawer');
+            var drawer = App.getView('right_drawer'), handle;
             if (drawer) {
                 lang.mixin(drawer, this._createActions());
                 drawer.setLayout(this.createRightDrawerLayout());
@@ -33,6 +38,12 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 });
 
                 domConstruct.place(this.searchWidget.domNode, drawer.domNode, 'first');
+
+                if (this.rebuildWidgets) {
+                    this._snapperCloseHandle = aspect.after(App.snapper, 'close', lang.hitch(this, function() {
+                        this.rebuildWidgets();
+                    }));
+                }
             }
         },
         unloadRightDrawer: function() {
@@ -41,6 +52,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 drawer.setLayout([]);
                 drawer.getGroupForEntry = function(entry) {};
                 domConstruct.place(this.searchWidget.domNode, this.domNode, 'first');
+                if (this._snapperCloseHandle) {
+                    this._snapperCloseHandle.remove();
+                }
             }
         },
         _onSearchExpression: function() {
@@ -58,6 +72,20 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }
                 }),
                 kpiClicked: lang.hitch(this, function(params) {
+                    var prefs, results, enabled;
+                    prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
+
+                    results = array.filter(prefs, function(pref) {
+                        return pref.metricTitleText === params.title;
+                    });
+
+                    if (results.length > 0) {
+                        enabled = !!results[0].enabled;
+                        results[0].enabled = !enabled;
+                        App.persistPreferences();
+
+                        domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
+                    }
                 })
             };
 
@@ -77,7 +105,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var hashTagsSection, hashTag, kpiSection, layout;
+            var hashTagsSection, hashTag, kpiSection, layout, prefs;
             layout = [];
 
             hashTagsSection = {
@@ -92,7 +120,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                             'name': hashTag,
                             'action': 'hashTagClicked', 
                             'title': this.hashTagQueriesText[hashTag] || hashTag,
-                            dataProps: {
+                            'dataProps': {
                                 'hashtag': this.hashTagQueriesText[hashTag] || hashTag,
                             }
                         });
@@ -101,24 +129,30 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             }
 
             layout.push(hashTagsSection);
+ 
+            prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
 
             kpiSection = {
                 id: 'kpi',
-                children: [
-                    {
-                        'name': 'KPISet1',
-                        'action': 'kpiClicked', 
-                        'title': 'Fake KPI 1'
-                    },
-                    {
-                        'name': 'KPISet2',
-                        'action': 'kpiClicked', 
-                        'title': 'Fake KPI 2'
-                    }
-                ]
+                children: []
             };
 
-            layout.push(kpiSection);
+            if (prefs) {
+                array.forEach(prefs, function(pref, i) {
+                    kpiSection.children.push({
+                        'name': 'KPI' + i,
+                        'action': 'kpiClicked',
+                        'title': pref.metricTitleText,
+                        'dataProps': {
+                            'title': pref.metricTitleText,
+                            'enabled': !!pref.enabled
+                        }
+                    });
+                });
+
+                layout.push(kpiSection);
+            }
+
 
             return layout;
         }

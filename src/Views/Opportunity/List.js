@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _RightDrawerListMixin], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
