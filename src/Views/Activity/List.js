@@ -2,19 +2,19 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Views/_RightDrawerListMixin',
-    'Sage/Platform/Mobile/List',
-    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/GroupedList',
+     'Sage/Platform/Mobile/Groups/DateTimeSection',
+     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert'
 ], function(
     declare,
     string,
     _RightDrawerListMixin,
-    List,
-    Format,
-    Convert
+    GroupedList,
+    DateTimeSection
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.List', [List, _RightDrawerListMixin], {
+    return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _RightDrawerListMixin], {
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
@@ -102,6 +102,14 @@ define('Mobile/SalesLogix/Views/Activity/List', [
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        getGroupBySections: function() {
+            var groupBySections = [{
+                id: 'section_StartDate',
+                description: 'Start Date',
+                section: new DateTimeSection({ groupByProperty: 'StartDate', sortDirection: 'desc' })
+            }];
+            return groupBySections;
         }
     });
 });
