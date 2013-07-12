@@ -17,6 +17,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         metricWidgets: null,
         configurationView: 'metric_configure',
         entityName: '',
+        configureButtonAdded: false,
 
         postMixInProperties: function() {
             this.widgetTemplate =  new Simplate([
@@ -32,15 +33,33 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             ]);
         },
         createMetricWidgetsLayout: function() {
-            return App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
+            var filtered = [],
+                prefs;
+            prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
+
+            if (prefs) {
+                filtered = array.filter(prefs, function(item) {
+                    return item.enabled;
+                });
+            }
+
+            return filtered;
         },
         createToolLayout: function() {
-            return this.tools || (this.tools = {
-                tbar: [{
+            var tools = this.inherited(arguments) || { 
+                tbar: []
+            };
+
+            if (!this.configureButtonAdded) {
+                tools.tbar.push({
                     id: 'configure',
                     action: 'navigateToConfigurationView'
-                }]
-            });
+                });
+
+                this.configureButtonAdded = true;
+            }
+
+            return tools;
         },
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
@@ -61,13 +80,13 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         // TODO: Be smart about a refresh required (when prefs change)
         onShow: function() {
             this.inherited(arguments);
-            this._rebuildWidgets();
+            this.rebuildWidgets();
         },
         onActivate: function() {
             this.inherited(arguments);
-            this._rebuildWidgets();
+            this.rebuildWidgets();
         },
-        _rebuildWidgets: function() {
+        rebuildWidgets: function() {
             this.destroyWidgets();
             this.metricWidgets = [];
 

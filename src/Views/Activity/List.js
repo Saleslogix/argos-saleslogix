@@ -1,6 +1,7 @@
 define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/_base/declare',
     'dojo/string',
+    'Mobile/SalesLogix/Views/_RightDrawerListMixin',
     'Sage/Platform/Mobile/GroupedList',
      'Sage/Platform/Mobile/Groups/DateTimeSection',
      'Mobile/SalesLogix/Format',
@@ -8,11 +9,12 @@ define('Mobile/SalesLogix/Views/Activity/List', [
 ], function(
     declare,
     string,
+    _RightDrawerListMixin,
     GroupedList,
     DateTimeSection
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList], {
+    return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _RightDrawerListMixin], {
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
@@ -88,6 +90,15 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         ],
         resourceKind: 'activities',
         contractName: 'system',
+
+        hashTagQueries: {
+            'recurring': 'Recurring eq true',
+            'timeless': 'Timeless eq true'
+        },
+        hashTagQueriesText: {
+            'recurring': 'recurring',
+            'timeless': 'timeless'
+        },
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

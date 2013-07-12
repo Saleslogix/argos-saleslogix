@@ -649,6 +649,12 @@ define('Mobile/SalesLogix/Application', [
                 view.show();
             }
         },
+        showRightDrawer: function() {
+            var view = this.getView('right_drawer');
+            if (view) {
+                view.show();
+            }
+        },
         navigateToHomeView: function() {
             this.loadSnapper();
             var view = this.getView('myactivity_list');

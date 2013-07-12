@@ -232,7 +232,8 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
                     reportViewId: this.fields[key + '-reportViewId'].getValue(),
                     chartType: this.fields[key + '-chartType'].getValue(), //'pie', 'bar'
                     metricDisplayName: metricItem && metricItem.$descriptor, 
-                    filterDisplayName: filterItem && filterItem.$descriptor 
+                    filterDisplayName: filterItem && filterItem.$descriptor,
+                    enabled: false
                 });
             }
 
