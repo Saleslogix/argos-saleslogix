@@ -73,7 +73,7 @@ define('Mobile/SalesLogix/Application', [
         },
         mobileVersion: {
             'major': 2,
-            'minor': 2,
+            'minor': 3,
             'revision': 0
         },
         init: function() {
