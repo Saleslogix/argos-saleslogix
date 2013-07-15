@@ -420,9 +420,9 @@ h4
 .metric-widget,
 .metric-detail
 {
-    display: inline;
+    display: inline-block;
     padding: 0px;
-    margin: 0px;
+    margin: 2px 0px 0px 2px;
 }
 
 .metric-widget > button
@@ -430,14 +430,13 @@ h4
     padding: 5px 2px 5px 2px;
     background-color: #fff;
     border-color: #000;
-    border-width: 1px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
+    border-width: 0px;
+    border-radius: 6px;
 }
 
 .metric-title
 {
-    font-size: 8pt;
+    font-size: 10pt;
 }
 
 .metric-value

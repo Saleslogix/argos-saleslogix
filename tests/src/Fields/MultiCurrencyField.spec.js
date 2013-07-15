@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('spec/Fields/MultiCurrencyField.spec', [
        'Mobile/SalesLogix/Fields/MultiCurrencyField'
 ], function(MultiCurrencyField) {

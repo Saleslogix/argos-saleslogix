@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('spec/Aggregate.spec', ['Mobile/SalesLogix/Aggregate'],function(Aggregate) {
     describe('Mobile/SalesLogix/Aggregate', function() {
         var data = [

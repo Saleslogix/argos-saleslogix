@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('spec/Utility.spec', ['Mobile/SalesLogix/Utility'],function(Utility) {
     describe('Mobile/SalesLogix/Utility', function() {
         it('should get the correct file extension', function() {

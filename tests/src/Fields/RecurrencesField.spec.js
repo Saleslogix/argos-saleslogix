@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('spec/Fields/RecurrencesField.spec', [
        'Mobile/SalesLogix/Fields/RecurrencesField'
 ], function(RecurrencesField) {

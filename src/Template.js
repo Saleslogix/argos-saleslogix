@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Template', [
     'dojo/_base/lang',
     'Sage/Platform/Mobile/Format'

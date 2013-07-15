@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('spec/Views/MetricWidget.spec', [
        'dojo/json',
        'dojo/store/Memory',
