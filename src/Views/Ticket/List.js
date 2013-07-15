@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin], {
+    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',

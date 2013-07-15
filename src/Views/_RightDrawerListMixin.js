@@ -23,6 +23,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         //Localization
         hashTagsSectionText: 'Hash Tags',
         kpiSectionText: 'KPI',
+        configureText: 'Configure',
+
         _snapperCloseHandle: null,
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
 
@@ -94,6 +96,15 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
                         domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
                     }
+                }),
+                navigateToConfigurationView: lang.hitch(this, function() {
+                    var view = App.getView(this.configurationView);
+                    if (view) {
+                        view.resourceKind = this.resourceKind;
+                        view.entityName = this.entityName;
+                        view.show({ returnTo: -1 });
+                        this.toggleRightDrawer();
+                    }
                 })
             };
 
@@ -147,20 +158,27 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             if (prefs) {
                 array.forEach(prefs, function(pref, i) {
-                    kpiSection.children.push({
-                        'name': 'KPI' + i,
-                        'action': 'kpiClicked',
-                        'title': pref.metricTitleText,
-                        'dataProps': {
+                    if (pref.metricTitleText) {
+                        kpiSection.children.push({
+                            'name': 'KPI' + i,
+                            'action': 'kpiClicked',
                             'title': pref.metricTitleText,
-                            'enabled': !!pref.enabled
-                        }
-                    });
+                            'dataProps': {
+                                'title': pref.metricTitleText,
+                                'enabled': !!pref.enabled
+                            }
+                        });
+                    }
+                });
+
+                kpiSection.children.unshift({
+                    'name': 'configureKPI',
+                    'action': 'navigateToConfigurationView',
+                    'title': this.configureText
                 });
 
                 layout.push(kpiSection);
             }
-
 
             return layout;
         }

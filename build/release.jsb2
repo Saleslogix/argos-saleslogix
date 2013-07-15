@@ -866,6 +866,11 @@
       "filters": ".*\\.js"
     },
     {
+      "src": "../src",
+      "dest": "content/javascript",
+      "filters": ".*\\.json"
+    },
+    {
       "src": "../help",
       "dest": "help",
       "filters": ".*\\.html"

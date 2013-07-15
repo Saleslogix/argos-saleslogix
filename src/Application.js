@@ -6,10 +6,11 @@ define('Mobile/SalesLogix/Application', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/connect',
-    'dojo/_base/json',
+    'dojo/json',
     'dojo/_base/lang',
     'dojo/has',
     'dojo/string',
+    'dojo/text!Mobile/SalesLogix/DefaultMetrics.json',
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
@@ -24,6 +25,7 @@ define('Mobile/SalesLogix/Application', [
     lang,
     has,
     string,
+    DefaultMetrics,
     ErrorManager,
     environment,
     Application,
@@ -120,7 +122,7 @@ define('Mobile/SalesLogix/Application', [
         _saveNavigationState: function() {
             try {
                 if (window.localStorage) {
-                    window.localStorage.setItem('navigationState', json.toJson(ReUI.context.history));
+                    window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
                 }
             } catch(e) {
             }
@@ -251,7 +253,7 @@ define('Mobile/SalesLogix/Application', [
             if (credentials.remember) {
                 try {
                     if (window.localStorage) {
-                        window.localStorage.setItem('credentials', Base64.encode(json.toJson({
+                        window.localStorage.setItem('credentials', Base64.encode(json.stringify({
                             username: credentials.username,
                             password: credentials.password || ''
                         })));
@@ -334,7 +336,7 @@ define('Mobile/SalesLogix/Application', [
                 if (window.localStorage) {
                     var stored = window.localStorage.getItem('credentials'),
                         encoded = stored && Base64.decode(stored),
-                        credentials = encoded && json.fromJson(encoded);
+                        credentials = encoded && json.parse(encoded);
                 }
             } catch(e) {
             }
@@ -378,7 +380,7 @@ define('Mobile/SalesLogix/Application', [
         _loadPreferences: function() {
             try {
                 if (window.localStorage) {
-                    this.preferences = json.fromJson(window.localStorage.getItem('preferences'));
+                    this.preferences = json.parse(window.localStorage.getItem('preferences'));
                 }
             } catch(e) {
             }
@@ -396,6 +398,14 @@ define('Mobile/SalesLogix/Application', [
                         order: views.slice(0)
                     }
                 };
+            }
+        },
+        setDefaultMetricPreferences: function() {
+            var defaults;
+            if (!this.preferences.metrics) {
+                defaults = json.parse(DefaultMetrics);
+                this.preferences.metrics = defaults;
+                this.persistPreferences();
             }
         },
         requestUserDetails: function() {
@@ -416,6 +426,7 @@ define('Mobile/SalesLogix/Application', [
 
             this.requestUserOptions();
             this.requestSystemOptions();
+            this.setDefaultMetricPreferences();
         },
         onRequestUserDetailsFailure: function(response, o) {
         },
@@ -552,7 +563,7 @@ define('Mobile/SalesLogix/Application', [
         persistPreferences: function() {
             try {
                 if (window.localStorage) {
-                    window.localStorage.setItem('preferences', json.toJson(App.preferences));
+                    window.localStorage.setItem('preferences', json.stringify(App.preferences));
                 }
             } catch(e) {
             }
@@ -612,7 +623,7 @@ define('Mobile/SalesLogix/Application', [
 
             try {
                 var restoredState = this.navigationState,
-                    restoredHistory = restoredState && json.fromJson(restoredState),
+                    restoredHistory = restoredState && json.parse(restoredState),
                     cleanedHistory = this.cleanRestoredHistory(restoredHistory);
 
                 this._clearNavigationState();

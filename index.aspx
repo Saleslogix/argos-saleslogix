@@ -38,7 +38,10 @@
             { name: 'dojox', location: 'content/dojo/dojox' },
             { name: 'configuration', location: 'configuration' },
             { name: 'localization', location: 'localization' }
-        ]
+        ],
+        paths: {
+            'Mobile/SalesLogix/DefaultMetrics.json': 'content/javascript/DefaultMetrics.json'
+        }
     });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>

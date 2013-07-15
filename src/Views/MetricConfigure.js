@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
         valueTypeText: 'value type',
         valueFuncText: 'value function',
         reportViewText: 'chart view id',
-        metricsSupported: 3,
+        metricsSupported: 10,
 
         // Default advanced options
         defaultFormatType: 'Mobile/SalesLogix/Format',
@@ -132,7 +132,7 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
                             }
                         },{
                             title: this.metricText + ' ' + (i + 1) + ' ' + this.advancedText,
-                            collapsed: true,
+                            collapsed: false,
                             children: [
                                 {
                                     name: key + '-query',
@@ -206,10 +206,11 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
             var values = this.getValues();
             App.preferences.metrics = App.preferences.metrics || {};
 
-            var i, key, items = [], filterItem, metricItem, filterHidden, metricHidden;
+            var i, key, items = [], filterItem, metricItem, filterHidden, metricHidden, titleText;
 
             for (i = 0; i < this.metricsSupported; i++) {
                 key = 'metric' + i;
+                titleText = this.fields[key + '-title'].getValue(),//'Open Sales Potential',
 
                 // Display name (object)
                 filterItem = this.fields[key + '-filter'].getValue();
@@ -219,25 +220,27 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
                 filterHidden = this.fields[key + '-filterName'].getValue();
                 metricHidden = this.fields[key + '-metricName'].getValue();
 
-                items.push({
-                    resourceKind: this.resourceKind,
-                    metricTitleText: this.fields[key + '-title'].getValue(),//'Open Sales Potential',
-                    queryName: 'executeMetric',
-                    queryArgs: {
-                        '_filterName': filterHidden,
-                        '_metricName': metricHidden, 
-                        '_activeFilter': this.fields[key + '-query'].getValue() //'Closed eq false'
-                    },
-                    formatType: this.fields[key + '-formatType'].getValue() || this.defaultFormatType,
-                    formatFunc: this.fields[key + '-formatFunc'].getValue() || this.defaultFormatFunc,
-                    valueType: this.fields[key + '-valueType'].getValue() || this.defaultValueType,
-                    valueFunc: this.fields[key + '-valueFunc'].getValue() || this.defaultValueFunc,
-                    reportViewId: this.fields[key + '-reportViewId'].getValue(),
-                    chartType: this.fields[key + '-chartType'].getValue(), //'pie', 'bar'
-                    metricDisplayName: metricItem && metricItem.$descriptor, 
-                    filterDisplayName: filterItem && filterItem.$descriptor,
-                    enabled: false
-                });
+                if (titleText) {
+                    items.push({
+                        resourceKind: this.resourceKind,
+                        metricTitleText: titleText,//'Open Sales Potential',
+                        queryName: 'executeMetric',
+                        queryArgs: {
+                            '_filterName': filterHidden,
+                            '_metricName': metricHidden, 
+                            '_activeFilter': this.fields[key + '-query'].getValue() //'Closed eq false'
+                        },
+                        formatType: this.fields[key + '-formatType'].getValue() || this.defaultFormatType,
+                        formatFunc: this.fields[key + '-formatFunc'].getValue() || this.defaultFormatFunc,
+                        valueType: this.fields[key + '-valueType'].getValue() || this.defaultValueType,
+                        valueFunc: this.fields[key + '-valueFunc'].getValue() || this.defaultValueFunc,
+                        reportViewId: this.fields[key + '-reportViewId'].getValue(),
+                        chartType: this.fields[key + '-chartType'].getValue(), //'pie', 'bar'
+                        metricDisplayName: metricItem && metricItem.$descriptor, 
+                        filterDisplayName: filterItem && filterItem.$descriptor,
+                        enabled: false
+                    });
+                }
             }
 
             App.preferences.metrics[this.resourceKind] = items;

@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin], {
+    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin], {
         //Template
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
