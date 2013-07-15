@@ -24,6 +24,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         hashTagsSectionText: 'Hash Tags',
         kpiSectionText: 'KPI',
         _snapperCloseHandle: null,
+        _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
 
         onShow: function() {
             var drawer = App.getView('right_drawer');
@@ -44,7 +45,10 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
                 if (this.rebuildWidgets) {
                     this._snapperCloseHandle = aspect.after(App.snapper, 'close', lang.hitch(this, function() {
-                        this.rebuildWidgets();
+                        if (this._hasChangedKPIPrefs) {
+                            this.rebuildWidgets();
+                            this._hasChangedKPIPrefs = false;
+                        }
                     }));
                 }
             }
@@ -86,6 +90,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         enabled = !!results[0].enabled;
                         results[0].enabled = !enabled;
                         App.persistPreferences();
+                        this._hasChangedKPIPrefs = true;
 
                         domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
                     }
