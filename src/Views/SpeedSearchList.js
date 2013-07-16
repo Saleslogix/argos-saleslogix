@@ -42,7 +42,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         icon: 'content/images/icons/SpeedSearch_24x24.png',
         enableSearch: true,
         searchWidgetClass: SpeedSearchWidget,
-        expose: true,
+        expose: false,
 
         indexes: [
             {indexName: 'Account', indexType: 1, isSecure: true},

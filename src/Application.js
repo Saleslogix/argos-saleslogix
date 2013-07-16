@@ -570,7 +570,6 @@ define('Mobile/SalesLogix/Application', [
         },
         getDefaultViews: function() {
             return [
-                'speedsearch_list',
                 'myactivity_list',
                 'calendar_daylist',
                 'history_list',
