@@ -868,7 +868,7 @@
     {
       "src": "../src",
       "dest": "content/javascript",
-      "filters": ".*\\.json"
+      "filters": ".*\\.txt"
     },
     {
       "src": "../help",

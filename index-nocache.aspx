@@ -40,7 +40,7 @@
             { name: 'localization', location: 'localization' }
         ],
         paths: {
-            'Mobile/SalesLogix/DefaultMetrics.json': 'content/javascript/DefaultMetrics.json'
+            'Mobile/SalesLogix/DefaultMetrics.txt': 'content/javascript/DefaultMetrics.txt'
         }
     });
     </script>

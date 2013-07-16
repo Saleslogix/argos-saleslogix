@@ -10,7 +10,7 @@ define('Mobile/SalesLogix/Application', [
     'dojo/_base/lang',
     'dojo/has',
     'dojo/string',
-    'dojo/text!Mobile/SalesLogix/DefaultMetrics.json',
+    'dojo/text!Mobile/SalesLogix/DefaultMetrics.txt',
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
