@@ -5,7 +5,9 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
-    'dojo/_base/Deferred',
+    'dojo/Deferred',
+    'dojo/when',
+    'dojo/promise/all',
     'dojo/dom-construct',
     'dojo/aspect',
     'dijit/_Widget',
@@ -16,6 +18,8 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
     lang,
     array,
     Deferred,
+    when,
+    all,
     domConstruct,
     aspect,
     _Widget,
@@ -31,6 +35,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             '<li class="metric-widget">',
                 '<button data-dojo-attach-event="onclick:navToReportView">',
                     '<div data-dojo-attach-point="metricDetailNode" class="metric-detail">',
+                        '{%! $.loadingTemplate %}',
                     '</div>',
                 '</button>',
             '</li>'
@@ -45,7 +50,19 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             '<div class="metric-value">{%: $$.formatter($.value) %}</div>'
         ]),
 
+        /**
+         * @property {Simplate}
+         * HTML markup for the loading text and icon 
+        */
+        loadingTemplate: new Simplate([
+            '<div class="metric-title list-loading">',
+                '<span class="list-loading-indicator"><div>{%= $.loadingText %}</div></span>',
+            '</div>'
+        ]),
+
+        // Localization
         metricTitleText: '',
+        loadingText: 'loading...',
 
         // Store Options
         querySelect: null, 
@@ -62,11 +79,11 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
         store: null,
 
-        // Chart Properties
         _data: null,
         requestDataDeferred: null,
-
         metricDetailNode: null,
+
+        // Chart Properties
         reportViewId: null,
         chartType: null,
         chartTypeMapping: {
@@ -99,7 +116,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             // Return the default fn if valueType and valueFunc were not assigned
             var d = new Deferred();
             d.resolve(this.formatter);
-            return d;
+            return d.promise;
         },
 
         /**
@@ -132,7 +149,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             // Return the default fn if valueType and valueFunc were not assigned
             var d = new Deferred();
             d.resolve(this.valueFn);
-            return d;
+            return d.promise;
         },
         _loadModuleFunction: function(module, fn) {
             // Attempt to load the function fn from the AMD module 
@@ -152,46 +169,47 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                 def.reject(err);
             }
 
-            return def.promise;
+            // the promise property prevents consumer from calling resolve/reject on the Deferred while still allowing access to the value
+            return def.promise; 
         },
         /**
          * Requests the widget's data, value fn, format fn, and renders it's itemTemplate 
         */
         requestData: function() {
+            var loadFormatter, loadValueFn;
+
             this.inherited(arguments);
+
             if (this._data && this._data.length > 0) {
                 return;
             }
 
             this._data = [];
-
             this.requestDataDeferred = new Deferred();
             this._getData();
 
-            var loadFormatter = this.getFormatterFnDeferred();// deferred for loading in our formatter
-            var loadValueFn = this.getValueFnDeferred();// deferred for loading in value function
+            loadFormatter = this.getFormatterFnDeferred();// deferred for loading in our formatter
+            loadValueFn = this.getValueFnDeferred();// deferred for loading in value function
 
-            // Chained deferreds
-            // Load the value function -> format function -> then load the data
-            loadValueFn.then(lang.hitch(this, function(fn) {
-                // value fn deferred.then
-                if (typeof fn === 'function') {
-                    this.valueFn = fn;
+            all([loadValueFn, loadFormatter, this.requestDataDeferred]).then(lang.hitch(this, function(results) {
+                var valueFn, formatterFn, data, value;
+                if (!results[0] || !results[1] || !results[2]) {
+                    throw new Error('An error occurred loading the KPI widget data.');
                 }
 
-                // Return the deferred for the next part of the chain
-                return loadFormatter;
-            })).then(lang.hitch(this, function(fn) {
-                // Formatter deferred.then
-                if (typeof fn === 'function') {
-                    this.formatter = fn;
+                valueFn = results[0];
+                formatterFn = results[1];
+                data = results[2];
+
+                if (typeof valueFn === 'function') {
+                    this.valueFn = valueFn;
                 }
 
-                // Return the deferred for the next part of the chain
-                return this.requestDataDeferred;
-            })).then(lang.hitch(this, function(data) {
-                // Data deferred.then
-                var value = this.valueFn.call(this, data);
+                if (typeof formatterFn === 'function') {
+                    this.formatter = formatterFn;
+                }
+
+                value = this.valueFn.call(this, data);
                 domConstruct.place(this.itemTemplate.apply({value: value}, this), this.metricDetailNode, 'replace');
             }));
         },
@@ -222,7 +240,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             store = this.get('store');
             queryResults = store.query(null, queryOptions);
 
-            Deferred.when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
+            when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
         },
         _onQuerySuccess: function(queryResults, items) {
             var total = queryResults.total;
@@ -239,7 +257,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                 this._getData();
             } else {
                 // Signal complete
-                this.requestDataDeferred.callback(this._data);
+                this.requestDataDeferred.resolve(this._data);
             }
         },
         _processItem: function(item) {
