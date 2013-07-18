@@ -1,5 +1,5 @@
-module.exports = (grunt) -> 
-    grunt.initConfig {
+module.exports = function(grunt) { 
+    grunt.initConfig({
         jshint: {
             options: {
                 "sub": true
@@ -23,12 +23,12 @@ module.exports = (grunt) ->
                 template: 'GruntRunner.tmpl'
             }
         }
-    }
+    });
     
-    grunt.loadNpmTasks 'grunt-contrib-jshint'
-    grunt.loadNpmTasks 'grunt-contrib-connect'
-    grunt.loadNpmTasks 'grunt-contrib-jasmine'
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-    grunt.registerTask 'test', ['connect', 'jasmine']
-    grunt.registerTask 'default', ['test']
-
+    grunt.registerTask('test', ['connect', 'jasmine']);
+    grunt.registerTask('default', ['test']);
+};
