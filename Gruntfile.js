@@ -50,5 +50,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-csslint');
 
     grunt.registerTask('test', ['connect', 'jasmine']);
-    grunt.registerTask('default', ['test']);
+    grunt.registerTask('default', ['test', 'cssmin']);
 };
