@@ -6,7 +6,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/List',
-    '../_MetricListMixin'
+    '../_MetricListMixin',
+    'Mobile/SalesLogix/_CardLayoutListMixin'
 ], function(
     declare,
     array,
@@ -15,10 +16,12 @@ define('Mobile/SalesLogix/Views/Account/List', [
     format,
     utility,
     List,
-    _MetricListMixin
+    _MetricListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List, /*_MetricListMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List, _CardLayoutListMixin /*_MetricListMixin*/], {
+        itemColorClass: 'color-account',
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',

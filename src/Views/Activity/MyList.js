@@ -28,6 +28,16 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
         //Templates
+        itemColorClassTemplate: new Simplate([
+           '{%: $$.activityColorClassByType[$.Activity.Type] || $$.itemColorClass  %}'
+        ]),
+        itemTabValueTemplate: new Simplate([
+         //'{%: $$.activityTextByType[$.Activity.Type] %}'
+           '{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) + " " + Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}'
+        ]),
+        itemIconSourceTemplate: new Simplate([
+          '{%: $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}'
+        ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
             '<div data-action="selectEntry" class="list-item-static-selector">',

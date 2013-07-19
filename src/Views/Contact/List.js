@@ -5,7 +5,8 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/List',
-    '../_MetricListMixin'
+    '../_MetricListMixin',
+     'Mobile/SalesLogix/_CardLayoutListMixin'
 ], function(
     declare,
     string,
@@ -13,10 +14,12 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     action,
     format,
     List,
-    _MetricListMixin
+    _MetricListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.List', [List, /*_MetricListMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _CardLayoutListMixin /*_MetricListMixin*/], {
+        itemColorClass: 'color-contact',
         //Template
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
@@ -56,7 +59,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
 
         //View Properties        
         detailView: 'contact_detail',
-        icon: 'content/images/icons/Contacts_24x24.png',
+        icon: 'content/images/icons/Contact_Profile_96x96.jpg',
         id: 'contact_list',
         security: 'Entities/Contact/View',
         insertView: 'contact_edit',
@@ -123,6 +126,30 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: '1',
+                icon: 'content/images/icons/edit_24.png',
+                label: '1',
+                onApply: function(entry, indicator) {
+                    if (entry["xyz"]) {
+                        indicator.isEnbaled = true;
+                    }
+                    indicator.isEnbaled = false;
+                }
+            }, {
+                id: '2',
+                icon: 'content/images/icons/edit_24.png',
+                label: '2',
+                onApply: function(entry, indicator) {
+                    if (entry["xyz"]) {
+                        indicator.isEnbaled = true;
+                    }
+                    indicator.isEnbaled = false;
+                }
+            }]
+            );
         }
     });
 });

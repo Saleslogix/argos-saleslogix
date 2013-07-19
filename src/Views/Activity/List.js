@@ -2,23 +2,37 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/_base/declare',
     'dojo/string',
     'Sage/Platform/Mobile/GroupedList',
-     'Sage/Platform/Mobile/Groups/DateTimeSection',
+    'Mobile/SalesLogix/_CardLayoutListMixin',
+    'Sage/Platform/Mobile/Groups/DateTimeSection',
      'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert'
 ], function(
     declare,
     string,
     GroupedList,
+    _CardLayoutListMixin,
     DateTimeSection
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList], {
+    return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _CardLayoutListMixin], {
+
+        itemColorClass: 'color-activity',
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
 
         //Templates
+        itemColorClassTemplate: new Simplate([
+           '{%: $$.activityColorClassByType[$.Type] || $$.itemColorClass  %}'
+        ]),
+        itemTabValueTemplate: new Simplate([
+       //'{%: $$.activityTextByType[$.Type] %}'
+          '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) + " " + Mobile.SalesLogix.Format.date($.StartDate, "tt") %}'
+        ]),
+        itemIconSourceTemplate: new Simplate([
+          '{%: $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}'
+        ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
                 '<div class="list-item-static-selector">',
@@ -64,9 +78,28 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'atNote': 'content/images/icons/note_24.png',
             'atEMail': 'content/images/icons/letters_24.png'
         },
-
+        activityTextByType: {
+            'atToDo': 'To-Do',
+            'atPhoneCall': 'Phone Call',
+            'atAppointment': 'Meeting',
+            'atLiterature': 'Lit Request',
+            'atPersonal': 'Personal',
+            'atQuestion': 'Question',
+            'atNote': 'Note',
+            'atEMail': 'Email'
+        },
+        activityColorClassByType: {
+            'atToDo': 'color-ToDo',
+            'atPhoneCall': 'color-PhoneCall',
+            'atAppointment': 'color-Meeting',
+            'atLiterature': 'color-LitRequest',
+            'atPersonal': 'color-Personal',
+            'atQuestion': 'color-Question',
+            'atNote': 'color-Note',
+            'atEMail': 'color-Email'
+        },
         //Localization
-        titleText: 'Activities',      
+        titleText: 'Activities',
 
         //View Properties
         id: 'activity_list',
@@ -92,6 +125,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
+        formatDateTime: function(dateTime) {
+            return 'StartTime';
+        },
         getGroupBySections: function() {
             var groupBySections = [{
                 id: 'section_StartDate',
@@ -99,6 +135,30 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 section: new DateTimeSection({ groupByProperty: 'StartDate', sortDirection: 'desc' })
             }];
             return groupBySections;
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: '1',
+                icon: 'content/images/icons/edit_24.png',
+                label: '1',
+                onApply: function(entry, indicator) {
+                    if(entry["xyz"]) {
+                        indicator.isEnbaled = true;
+                    }
+                    indicator.isEnbaled = false;
+                }
+             }, {
+                id: '2',
+                icon: 'content/images/icons/edit_24.png',
+                label: '2',
+                onApply: function(entry, indicator) {
+                    if (entry["xyz"]) {
+                        indicator.isEnbaled = true;
+                    }
+                    indicator.isEnbaled = false;
+                }
+             }]
+            );
         }
     });
 });

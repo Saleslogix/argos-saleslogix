@@ -1528,3 +1528,300 @@ td.entry-table-description {
 
 }
 
+card-layout .list-content
+{
+     margin: 0;
+    padding: 0;
+}
+
+card-layout  .list-content > li
+{
+    font-size: 1.25em;
+    font-weight: bold;
+    list-style: none;
+    margin: 8px 6px 8px 6px;
+    padding: 8px 0px 8px 10px;
+    position: relative;
+    border-radius: 6px;
+     cursor: pointer;
+}
+
+.card-layout .list-content > li
+{
+    padding: 8px 32px 8px 6px;
+}
+.card-layout .list-content > li
+{
+    background-color: #FFFFFF;
+    font-weight: normal;
+}
+.card-layout .list-show-selectors .list-item-content,
+.card-layout .list-item-static-selector + .list-item-content
+{
+    padding-left: 80px;
+}
+.card-layout .list-show-selectors 
+{
+    padding-left: 80px;
+}
+.card-layout .list-item-content
+{
+    padding-left: 80px;
+}
+
+.card-layout .actions-enabled + .list-item-content
+{
+    padding-left: 80px;
+}
+
+.card-layout .list-content > li > img.icon,
+.card-layout  .list-content > li > * > img.icon
+{
+    border: none 0 black;
+    margin: 0 .5em 0 0;
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+
+.card-layout .list-content > li > input.list-selector
+{
+    float: left;
+    margin: 2px 0 0 0px;
+}
+
+.card-layout .list-item-selector
+{
+    visibility: hidden;
+    width: 62px;
+    height: 48px;
+    color: #ff0;
+    position: absolute;
+    top: 8px;
+    left: 22px;
+    z-index: 10;
+    background: none;
+    border: 0 none #000;
+    padding: 0 2px 0 0px;
+}
+.card-layout .list-show-actions .list-item-selector
+{
+    visibility: visible !important;
+    width: 50px;
+    height: 50px;
+    left: 6px;
+
+    line-height: 30px;
+    padding: 0 2px 0 2px;
+
+    color: #000;
+    text-shadow: #fff 0px 1px 0px;
+    border: 1px solid #ececec;
+
+    background-color: #ffffff;
+    background-image: linear-gradient(to bottom, #fcfcfc, #dfdfdf);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #ffffff),
+        color-stop(1, #ececec)
+    );
+    background-image: -moz-linear-gradient(top, #ffffff, #ececec);
+}
+
+.card-layout  .list-show-actions  .list-item-selector > img
+{
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    border: none 0 black;
+    width: 50px;
+    height: 50px;
+}
+
+.card-layout .icon
+{
+    position: relative;
+    top: 6px;
+    left: 6px;
+    border: none 0 black;
+    width: 12px;
+    height: 12px;
+}
+
+.card-layout  .list-item-selected > .list-item-selector
+{
+    visibility: visible !important;
+}
+
+.card-layout  .list-item-static-selector
+{
+    visibility: visible;
+    width: 38px;
+    color: #ff0;
+    position: relative;
+    top: 8px;
+    left: 12px;
+    bottom: 0px;
+    z-index: 10;
+}
+
+.card-layout  .list-action-selected + .actions-row
+{
+    display: block !important;
+}
+
+.card-layout  .list-action-selected > .list-item-selector
+{
+    border-color: #DDD;
+    background-color: #eaf1df !important;
+    background-image: none !important;
+    border-bottom: 0px none #eaf1df !important;
+    -webkit-border-radius: 3px 3px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
+    bottom: -1px;
+    height: auto !important;
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+}
+.card-layout .list-item-tab
+{
+  font-size: .50em;
+  font-weight: normal;
+  overflow:hidden; 
+  height:100px; 
+  background:#e3e3e3;
+  height:100%;
+  width:100%;
+  position:relative;
+  float: left;
+  clear: both;
+}
+
+.card-layout .list-item-content-tab
+{
+    background-color: ghostwhite;
+    color: black;
+    border-radius: 6px 0 0 6px;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    vertical-align: middle;
+    width: 20px;
+    z-index: 10;
+}
+.card-layout .list-item-content-tab > table
+ { 
+   height: 100%;
+    left: -8px;
+    position: absolute;
+    top: 0;
+    transform: rotate(-90deg);
+    width: 100%;
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg); 
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg); 
+
+}
+.card-layout .list-item-content-tab > table > tbody > tr > td 
+ { 
+    text-align:center;
+}
+
+.card-layout .list-item-content-tab > table > tbody > tr > td > div
+ { 
+    clear: both;
+    float: left;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    width: 100px;
+}
+
+.card-layout .list-item-content-tab >table > tbody > tr > td > div > span
+ {
+    font-size: 0.6em;
+    font-weight: normal;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+.xcard-layout .list-item-content-tab > table tr:last-child td 
+{ 
+    overflow:hidden; 
+    height:100px; 
+    max-width:20px;
+
+}
+.xcard-layout .list-item-content-tab >table tr:last-child td div
+ {
+     display:block; 
+     text-align:right; 
+     width:100px; height:20px;
+     positon:relative; 
+      left:-40px;
+}
+.card-layout .list-item-indicator-content
+{ 
+    padding-left: 80px;
+    text-align: right;
+}
+
+.color-default
+{
+    background-color:black !important;
+    color: white !important;
+}
+.color-account
+{
+    background-color:#0066FF !important;
+    color: white !important;
+}
+.color-contact
+{
+    background-color:#3366FF!important;
+    color: white !important;
+}
+.color-activity
+{
+    background-color:#6600FF !important;
+    color: white !important;
+}
+.color-opportunity
+{
+    background-color:#FF6600 !important;
+    color: white !important;
+}
+.color-ToDo
+{
+    background-color:#CC0000 !important;
+    color: white !important;
+}
+.color-Meeting
+{
+    background-color:#FF6602 !important;
+    color: white !important;
+}
+.color-PhoneCall
+{
+    background-color:#CC6600 !important;
+    color: white !important;
+}
+.color-Personal
+{
+    background-color:#666699 !important;
+    color: white !important;
+}
