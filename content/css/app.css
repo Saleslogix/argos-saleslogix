@@ -1666,6 +1666,21 @@ card-layout  .list-content > li
     bottom: 0px;
     z-index: 10;
 }
+.card-layout .actions-row > button
+{
+    background: #FFFFFF;
+    border: 0 solid #000000;
+    float: left;
+    height: 48px;
+    margin: 5px !important;
+    padding: 0 !important;
+    position: relative;
+    text-align: center;
+    width: 64px;
+   -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+
+}
 
 .card-layout  .list-action-selected + .actions-row
 {
@@ -1759,25 +1774,20 @@ card-layout  .list-content > li
     text-align: center;
     width: 100%;
 }
-.xcard-layout .list-item-content-tab > table tr:last-child td 
-{ 
-    overflow:hidden; 
-    height:100px; 
-    max-width:20px;
 
-}
-.xcard-layout .list-item-content-tab >table tr:last-child td div
- {
-     display:block; 
-     text-align:right; 
-     width:100px; height:20px;
-     positon:relative; 
-      left:-40px;
-}
-.card-layout .list-item-indicator-content
+.card-layout .list-item-indicator-content 
 { 
     padding-left: 80px;
     text-align: right;
+}
+.card-layout .list-item-indicator-content > span > img
+{ 
+  width: 24px;
+  height:24px;
+  margin: 2px;
+  font-size: 0.6em;
+  font-weight: normal;
+
 }
 
 .color-default
@@ -1824,4 +1834,9 @@ card-layout  .list-content > li
 {
     background-color:#666699 !important;
     color: white !important;
+}
+.indicator_Important
+{
+    background-color:#FFFFFF !important;
+    color: red!important;
 }

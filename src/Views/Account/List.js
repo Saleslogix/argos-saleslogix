@@ -5,9 +5,10 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
+    'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
-    'Mobile/SalesLogix/_CardLayoutListMixin'
+    'Mobile/SalesLogix/Views/_CardLayoutListMixin'
 ], function(
     declare,
     array,
@@ -15,6 +16,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     action,
     format,
     utility,
+    Convert,
     List,
     _MetricListMixin,
     _CardLayoutListMixin
@@ -82,7 +84,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'Fax',
             'Status',
             'SubType',
-            'Type'
+            'Type',
+            'ModifyDate'
         ],
         resourceKind: 'accounts',
         entityName: 'Account',
@@ -123,7 +126,31 @@ define('Mobile/SalesLogix/Views/Account/List', [
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: '1',
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }]
+            );
+        },
+        hasBeenTouched:function(entry){
+        if (entry['ModifyDate']) {
+            var modifydDate = Convert.toDateFromString(entry['ModifyDate']);
+            var currentDate = new Date();
+            var seconds = Math.round((currentDate - modifydDate) / 1000);
+            var hours = seconds / 60;
+            var days = hours / 24;
+            if (days <= 7) {
+                return  true;
+            }
         }
+        return false;
+    }
     });
 });
 

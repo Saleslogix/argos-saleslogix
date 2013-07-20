@@ -4,15 +4,17 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
+    'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
-     'Mobile/SalesLogix/_CardLayoutListMixin'
+     'Mobile/SalesLogix/Views/_CardLayoutListMixin'
 ], function(
     declare,
     string,
     array,
     action,
     format,
+    Convert,
     List,
     _MetricListMixin,
     _CardLayoutListMixin
@@ -71,7 +73,9 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             'WorkPhone',
             'Mobile',
             'Email',
-            'Title'
+            'Title',
+            'LastHistoryDate',
+            'ModifyDate'
         ],
         resourceKind: 'contacts',
         entityName: 'Contact',
@@ -130,26 +134,26 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: '1',
-                icon: 'content/images/icons/edit_24.png',
-                label: '1',
-                onApply: function(entry, indicator) {
-                    if (entry["xyz"]) {
-                        indicator.isEnbaled = true;
-                    }
-                    indicator.isEnbaled = false;
-                }
-            }, {
-                id: '2',
-                icon: 'content/images/icons/edit_24.png',
-                label: '2',
-                onApply: function(entry, indicator) {
-                    if (entry["xyz"]) {
-                        indicator.isEnbaled = true;
-                    }
-                    indicator.isEnbaled = false;
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
                 }
             }]
             );
+        },
+        hasBeenTouched:function(entry){
+            if (entry['ModifyDate']) {
+                 var modifydDate = Convert.toDateFromString(entry['ModifyDate']);
+                 var currentDate = new Date();
+                 var seconds = Math.round((currentDate - modifydDate) / 1000);
+                 var hours = seconds / 60;
+                 var days = hours / 24;
+                 if (days <= 7) {
+                   return  true;
+                 }
+            }
+            return false;
         }
     });
 });

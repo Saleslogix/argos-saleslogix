@@ -14,10 +14,10 @@
  */
 
 /**
- * @class Mobile.SalesLogix._CardLayoutListMixin
+ * @class Mobile.SalesLogix.Views._CardLayoutListMixin
  
  */
-define('Mobile/SalesLogix/_CardLayoutListMixin', [
+define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     'dojo/_base/array',
     'dojo/_base/declare',
     'dojo/_base/event',
@@ -26,6 +26,7 @@ define('Mobile/SalesLogix/_CardLayoutListMixin', [
     'dojo/dom',
     'dojo/dom-construct',
     'dojo/query',
+    'dojo/dom-class'
 
 ], function(
     array,
@@ -35,16 +36,23 @@ define('Mobile/SalesLogix/_CardLayoutListMixin', [
     domAttr,
     dom,
     domConstruct,
-    query
+    query,
+    domClass
 ) {
 
-    return declare('Mobile.SalesLogix._CardLayoutListMixin', null, {
+    return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
         itemColorClass:'color-default',
         itemIndicators:null,
         itemExts: null,
+        itemIndicatorIconPath: 'content/images/icons/',
+        itemIndicatorShowDisabled: true,
         itemIndicatorTemplate: new Simplate([
-           '<span>',
-                '<img src="{%= $.icon %}" alt="{%= $.label %}" />',
+           '<span class="{%= $.cls %}" >',
+                '{% if ($.showIcon === false) { %}',
+                     '{%: $.valueText %}',
+                '{% } else { %}',
+                      '<img src="{%= $.indicatorIcon %}" alt="{%= $.label %}" />',
+                 '{% } %}',
            '</span>'
         ]),
         itemExtTemplate: new Simplate([
@@ -66,19 +74,29 @@ define('Mobile/SalesLogix/_CardLayoutListMixin', [
         itemIconSourceTemplate: new Simplate([
           '{%: $$.icon || $$.selectIcon %}'
         ]),
+        itemRowContainerTemplate: new Simplate([
+        '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}"  data-color-class="{%! $$.itemColorClassTemplate %}" >',
+            '{%! $$.itemRowContentTemplate %}',
+        '</li>'
+        ]),
+        itemRowContentTemplate: new Simplate([
+           '{%! $$.itemTabTemplate %}',
+            '<button data-action="selectEntry" class="list-item-selector button">',
+            '<img id="list_item_image_{%: $.$key %}"  src="{%! $$.itemIconSourceTemplate %}" class="icon" />',
+            '</button>',
+            '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
+            '<div id="item_Indicators" class="list-item-indicator-content"></div>',
+            // '<div class="card-list-item-ext-content" >{%! $$.itemExtTemplate %}</div>',
+        ]),
         postMixInProperties: function() {
             this.cls = ' card-layout';
             this.rowTemplate = new Simplate([
-               '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-                  '{%! $$.itemTabTemplate %}',
-                  '<button data-action="selectEntry" class="list-item-selector button">',
-                       '<img id="list_item_image_{%: $.$key %}"  src="{%! $$.itemIconSourceTemplate %}" class="icon" />',
-                   '</button>',
-                   '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
-                   '<div id="item_Indicators" class="list-item-indicator-content"></div>',
-                //     '<div class="card-list-item-ext-content" >{%! $$.itemExtTemplate %}</div>',
-               '</li>'
+             '{%! $$.itemRowContainerTemplate %}'
             ]);
+            this.listActionTemplate = new Simplate([
+                '<li data-dojo-attach-point="actionsNode" class="card-layout actions-row  {%: $$.itemColorClass %}"></li>'
+            ]),
+
             this.createIndicatorLayout();
         },
 
@@ -86,20 +104,36 @@ define('Mobile/SalesLogix/_CardLayoutListMixin', [
             return this.itemIndicators || {};
         },
         createIndicators: function(indicatorsNode, indicators, entry) {
-            var indicatorTemplate, indicator, options;
+            var indicatorTemplate, indicator, options, indicatorHTML;
             for (var i = 0; i < indicators.length; i++) {
                 indicator = indicators[i];
+
                 if (indicator.onApply) {
-                    indicator.onApply(entry, indicator);
+                    try{
+                        indicator.onApply(entry, this);
+                    }catch(err){
+                        indicator.isEnabled = false;
+                    }
                 }
                 options = {
                     indicatorIndex: i,
+                    indicatorIcon: this.itemIndicatorIconPath + indicator.icon,
                 };
                 indicatorTemplate = indicator.template || this.itemIndicatorTemplate;
 
                 lang.mixin(indicator, options);
 
-                domConstruct.place(indicatorTemplate.apply(indicator, indicator.id), indicatorsNode, 'last');
+                if (indicator.isEnabled === false) {
+                    indicator.indicatorIcon = this.itemIndicatorIconPath + 'disabled_' + indicator.icon
+                    indicator.label = '';
+                } else {
+                    indicator.indicatorIcon + indicator.icon;
+                }
+
+                if (this.itemIndicatorShowDisabled || indicator.isEnabled) {
+                    indicatorHTML = indicatorTemplate.apply(indicator, indicator.id);
+                    domConstruct.place(indicatorHTML, indicatorsNode, 'last');
+                }
             }
         },
 
@@ -125,6 +159,9 @@ define('Mobile/SalesLogix/_CardLayoutListMixin', [
 
             }
         },
+        onApplyRowActionPanel: function(actionsNode, rowNode) {
+           
+        }
     });
 
 });

@@ -1,21 +1,25 @@
 define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/query',
+    'dojo/dom-class',
     'Sage/Platform/Mobile/GroupedList',
-    'Mobile/SalesLogix/_CardLayoutListMixin',
+    'Mobile/SalesLogix/Views/_CardLayoutListMixin',
     'Sage/Platform/Mobile/Groups/DateTimeSection',
-     'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert'
 ], function(
     declare,
     string,
+    query,
+    domClass,
     GroupedList,
     _CardLayoutListMixin,
     DateTimeSection
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _CardLayoutListMixin], {
-
+        //Card View 
         itemColorClass: 'color-activity',
         // Localization
         startDateFormatText: 'ddd M/d/yy',
@@ -23,16 +27,26 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         allDayText: 'All-Day',
 
         //Templates
+        //Card View 
         itemColorClassTemplate: new Simplate([
            '{%: $$.activityColorClassByType[$.Type] || $$.itemColorClass  %}'
         ]),
+        //Card View 
         itemTabValueTemplate: new Simplate([
        //'{%: $$.activityTextByType[$.Type] %}'
           '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) + " " + Mobile.SalesLogix.Format.date($.StartDate, "tt") %}'
         ]),
+        //Card View 
         itemIconSourceTemplate: new Simplate([
           '{%: $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}'
         ]),
+        //Card View 
+        itemRowContainerTemplate: new Simplate([
+       '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}"  data-color-class="{%! $$.itemColorClassTemplate %}" >',
+           '{%! $$.itemRowContentTemplate %}',
+       '</li>'
+        ]),
+        //Used if Card View is not mixed in
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
                 '<div class="list-item-static-selector">',
@@ -117,7 +131,10 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'LeadId',
             'LeadName',
             'UserId',
-            'Timeless'
+            'Timeless',
+            'Alarm',
+            'Priority',
+            'ModifyDate'
         ],
         resourceKind: 'activities',
         contractName: 'system',
@@ -135,31 +152,71 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 section: new DateTimeSection({ groupByProperty: 'StartDate', sortDirection: 'desc' })
             }];
             return groupBySections;
-        },
+        }, //Card View
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: '1',
-                icon: 'content/images/icons/edit_24.png',
-                label: '1',
-                onApply: function(entry, indicator) {
-                    if(entry["xyz"]) {
-                        indicator.isEnbaled = true;
-                    }
-                    indicator.isEnbaled = false;
+                icon: 'AlarmClock_24x24.png',
+                label: 'Alarm',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasAlarm(entry);
                 }
-             }, {
+            }, {
                 id: '2',
-                icon: 'content/images/icons/edit_24.png',
-                label: '2',
-                onApply: function(entry, indicator) {
-                    if (entry["xyz"]) {
-                        indicator.isEnbaled = true;
-                    }
-                    indicator.isEnbaled = false;
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
                 }
-             }]
+            }, {
+                id: '3',
+                icon: 'Bang_24x24.png',
+                label: 'Bang',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.isImportant(entry);
+                }
+            }]
             );
-        }
+        },
+        onApplyRowActionPanel: function(actionsNode, rowNode) {
+            var colorRowCls, colorCls
+
+            colorRowCls = query(rowNode).closest('[data-color-class]')[0];
+            colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
+
+            domClass.remove(actionsNode, this.activityColorClassByType['atToDo']);
+            domClass.remove(actionsNode, this.activityColorClassByType['atPhoneCall']);
+            domClass.remove(actionsNode, this.activityColorClassByType['atAppointment']);
+            domClass.remove(actionsNode, this.activityColorClassByType['atLiterature']);
+            domClass.remove(actionsNode, this.activityColorClassByType['atPersonal']);
+            domClass.remove(actionsNode, this.activityColorClassByType['atQuestion']);
+            domClass.remove(actionsNode, this.activityColorClassByType['atNote']);
+            domClass.remove(actionsNode, this.activityColorClassByType['atEMail']);
+            if (colorCls) {
+                domClass.add(actionsNode, colorCls);
+            }
+        },
+        hasBeenTouched: function(entry) {
+            if (entry['ModifyDate']) {
+                var modifydDate = convert.toDateFromString(entry['ModifyDate']);
+                var currentDate = new Date();
+                var seconds = Math.round((currentDate - modifydDate) / 1000);
+                var hours = seconds / 60;
+                var days = hours / 24;
+                if (days <= 7) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        isImportant: function(entry) {
+            if (entry['Priority']) {
+                if (entry['Priority'] === 'High') {
+                    return true;
+                }
+            }
+            return false;
+        },
     });
 });
 

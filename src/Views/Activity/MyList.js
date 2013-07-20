@@ -28,16 +28,26 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
         //Templates
+        //Card View 
         itemColorClassTemplate: new Simplate([
            '{%: $$.activityColorClassByType[$.Activity.Type] || $$.itemColorClass  %}'
         ]),
+        //Card View 
         itemTabValueTemplate: new Simplate([
          //'{%: $$.activityTextByType[$.Activity.Type] %}'
            '{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) + " " + Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}'
         ]),
+        //Card View 
         itemIconSourceTemplate: new Simplate([
           '{%: $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}'
         ]),
+        //Card View 
+        itemRowContainerTemplate: new Simplate([
+           '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.$descriptor %}" data-activity-type="{%: $.Activity.Type %}"  data-color-class="{%! $$.itemColorClassTemplate %}" >',
+            '{%! $$.itemRowContentTemplate %}',
+          '</li>'
+        ]),
+        //Used if Card View is not mixed in
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
             '<div data-action="selectEntry" class="list-item-static-selector">',
@@ -117,7 +127,10 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/UserId',
             'Activity/Timeless',
             'Activity/PhoneNumber',
-            'Activity/Recurring'
+            'Activity/Recurring',
+            'Activity/Alarm',
+            'Activity/ModifyDate',
+            'Activity/Priority'
         ],
         resourceKind: 'userActivities',
         allowSelection: true,
@@ -376,7 +389,62 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 section: new DateTimeSection({ groupByProperty: 'Activity.StartDate', sortDirection: 'desc' })
             }];
             return groupBySections;
-        }
+        },
+        xcreateIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: '1',
+                icon: 'AlarmClock_24x24.png',
+                label: 'Alarm',
+                onApply: function(entry, parent ){
+                     this.isEnabled = parent.hasAlarm(entry);
+                }
+            }, {
+                id: '2',
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }, {
+                id: '3',
+                icon: 'Bang_24x24.png',
+                label: 'Bang',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.isImportant(entry);
+                }
+            }]
+            );
+        },
+        hasAlarm: function(entry) {
+            if (entry["Actvitiy"]['Alarm']) {
+                  return true;
+            }
+            if (entry['Alarm']) {
+                return true;
+            }
+            return false;
+        },
+        hasBeenTouched: function(entry) {
+            if (entry['Activity']['ModifyDate']) {
+                var modifydDate = convert.toDateFromString(entry['Activity']['ModifyDate']);
+                var currentDate = new Date();
+                var seconds = Math.round((currentDate - modifydDate) / 1000);
+                var hours = seconds / 60;
+                var days = hours / 24;
+                if (days <= 7) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        isImportant: function(entry) {
+            if (entry["Activity"]['Priority']) {
+                if (entry["Activity"]['Priority'] === 'High') {
+                    return true;
+                }
+            }           
+            return false;
+        },
     });
 });
 
