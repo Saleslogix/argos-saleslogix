@@ -1779,6 +1779,8 @@ card-layout  .list-content > li
 { 
     padding-left: 80px;
     text-align: right;
+     font-size: 0.6em;
+    font-weight: bold;
 }
 .card-layout .list-item-indicator-content > span > img
 { 

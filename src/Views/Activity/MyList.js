@@ -39,7 +39,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         ]),
         //Card View 
         itemIconSourceTemplate: new Simplate([
-          '{%: $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}'
+          '{%: $$.itemIcon || $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}'
         ]),
         //Card View 
         itemRowContainerTemplate: new Simplate([
@@ -390,31 +390,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             }];
             return groupBySections;
         },
-        xcreateIndicatorLayout: function() {
-            return this.itemIndicators || (this.itemIndicators = [{
-                id: '1',
-                icon: 'AlarmClock_24x24.png',
-                label: 'Alarm',
-                onApply: function(entry, parent ){
-                     this.isEnabled = parent.hasAlarm(entry);
-                }
-            }, {
-                id: '2',
-                icon: 'Touched_24x24.png',
-                label: 'Touched',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.hasBeenTouched(entry);
-                }
-            }, {
-                id: '3',
-                icon: 'Bang_24x24.png',
-                label: 'Bang',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.isImportant(entry);
-                }
-            }]
-            );
-        },
         hasAlarm: function(entry) {
             if (entry["Actvitiy"]['Alarm']) {
                   return true;
@@ -445,6 +420,27 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             }           
             return false;
         },
+        isOverdue: function(entry) {
+            if (entry['Activity']['StartDate']) {
+                var startDate = convert.toDateFromString(entry['Activity']['StartDate']);
+                var currentDate = new Date();
+                var seconds = Math.round((currentDate - startDate) / 1000);
+                var mins = seconds / 60;
+                if (mins >= 1) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        isRecurring: function(entry) {
+            if (entry['Activity']['Recurring']) {
+                   return true;
+            }
+            return false;
+        },
+        applyActivityIndicator: function(entry, indicator) {
+            this._applyActivityIndicator(entry['Activity']['Type'], indicator);
+        }
     });
 });
 

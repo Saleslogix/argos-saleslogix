@@ -15,7 +15,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     domClass,
     GroupedList,
     _CardLayoutListMixin,
-    DateTimeSection
+    DateTimeSection,
+    format,
+    convert
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _CardLayoutListMixin], {
@@ -25,7 +27,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
-
+        itemIcon: 'content/images/icons/ContactProfile_48x48.png',
         //Templates
         //Card View 
         itemColorClassTemplate: new Simplate([
@@ -38,7 +40,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         ]),
         //Card View 
         itemIconSourceTemplate: new Simplate([
-          '{%: $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}'
+          '{%: $$.itemIcon || $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}'
         ]),
         //Card View 
         itemRowContainerTemplate: new Simplate([
@@ -92,6 +94,16 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'atNote': 'content/images/icons/note_24.png',
             'atEMail': 'content/images/icons/letters_24.png'
         },
+        activityIndicatorIconByType: {
+            'atToDo': 'To_Do_24x24.png',
+            'atPhoneCall': 'Call_24x24.png',
+            'atAppointment': 'Meeting_24x24.png',
+            'atLiterature': 'Schedule_Literature_Request_24x24.gif',
+            'atPersonal': 'Personal_24x24.png',
+            'atQuestion': 'help_24.png',
+            'atNote': 'note_24.png',
+            'atEMail': 'letters_24.png'
+        },
         activityTextByType: {
             'atToDo': 'To-Do',
             'atPhoneCall': 'Phone Call',
@@ -134,7 +146,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'Timeless',
             'Alarm',
             'Priority',
-            'ModifyDate'
+            'ModifyDate',
+            'RecurrenceState',
+            'Recurring'
         ],
         resourceKind: 'activities',
         contractName: 'system',
@@ -175,6 +189,31 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 onApply: function(entry, parent) {
                     this.isEnabled = parent.isImportant(entry);
                 }
+            }, {
+                id: '4',
+                icon: '',
+                cls: 'indicator_Important',
+                label: 'overdue',
+                valueText: 'overdue',
+                showIcon: false,
+                location:'top',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.isOverdue(entry);
+                }
+            }, {
+                id: '5',
+                icon: 'Recurring_24x24.png',
+                label: 'Recurring',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.isRecurring(entry['Type'], this);
+                }
+            }, {
+                id: '6',
+                icon: '',
+                label: 'Activity',
+                onApply: function(entry, parent) {
+                    parent.applyActivityIndicator(entry, this);
+                }
             }]
             );
         },
@@ -201,7 +240,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 var modifydDate = convert.toDateFromString(entry['ModifyDate']);
                 var currentDate = new Date();
                 var seconds = Math.round((currentDate - modifydDate) / 1000);
-                var hours = seconds / 60;
+                var hours = seconds / 360;
                 var days = hours / 24;
                 if (days <= 7) {
                     return true;
@@ -217,6 +256,39 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             }
             return false;
         },
+        isOverdue: function(entry) {
+            if (entry['StartDate']) {
+                var startDate = convert.toDateFromString(entry['StartDate']);
+                var currentDate = new Date();
+                var seconds = Math.round((currentDate - startDate) / 1000);
+                var mins = seconds / 60;
+                if (mins >= 1) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        isRecurring: function(entry) {
+            if (entry['RecurrenceState']) {
+                if (entry['RecurrenceState'] === 'rstOccurrence') {
+                    return true;
+                }
+            }
+            return false;
+        },
+       applyActivityIndicator: function(entry, indicator) {
+           this._applyActivityIndicator(entry['Type'], indicator);
+       },
+       _applyActivityIndicator: function(type, indicator) {
+            indicator.isEnabled = false;
+            indicator.showIcon = false;
+            if (type) {
+                indicator.icon = this.activityIndicatorIconByType[type];
+                indicator.label = this.activityTextByType[type];
+                indicator.isEnabled = true;
+                indicator.showIcon = true;
+            }
+        }
     });
 });
 

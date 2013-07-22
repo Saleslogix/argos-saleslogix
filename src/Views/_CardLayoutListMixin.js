@@ -41,7 +41,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
 ) {
 
     return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
-        itemColorClass:'color-default',
+        itemColorClass: 'color-default',
+        itemIcon:null,
         itemIndicators:null,
         itemExts: null,
         itemIndicatorIconPath: 'content/images/icons/',
@@ -72,7 +73,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
            '{%: $.$descriptor %}'
         ]),
         itemIconSourceTemplate: new Simplate([
-          '{%: $$.icon || $$.selectIcon %}'
+          '{%: $$.itemIcon ||$$.icon || $$.selectIcon %}'
         ]),
         itemRowContainerTemplate: new Simplate([
         '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}"  data-color-class="{%! $$.itemColorClassTemplate %}" >',
@@ -81,11 +82,12 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         ]),
         itemRowContentTemplate: new Simplate([
            '{%! $$.itemTabTemplate %}',
+            '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
             '<button data-action="selectEntry" class="list-item-selector button">',
             '<img id="list_item_image_{%: $.$key %}"  src="{%! $$.itemIconSourceTemplate %}" class="icon" />',
             '</button>',
             '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
-            '<div id="item_Indicators" class="list-item-indicator-content"></div>',
+            '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
             // '<div class="card-list-item-ext-content" >{%! $$.itemExtTemplate %}</div>',
         ]),
         postMixInProperties: function() {
@@ -103,7 +105,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         createIndicatorLayout: function() {
             return this.itemIndicators || {};
         },
-        createIndicators: function(indicatorsNode, indicators, entry) {
+        createIndicators: function(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
             var indicatorTemplate, indicator, options, indicatorHTML;
             for (var i = 0; i < indicators.length; i++) {
                 indicator = indicators[i];
@@ -129,10 +131,24 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                 } else {
                     indicator.indicatorIcon + indicator.icon;
                 }
-
+                
+                if (indicator.isEnabled === false && indicator.showIcon === false) {
+                    continue;
+                }
+                
                 if (this.itemIndicatorShowDisabled || indicator.isEnabled) {
-                    indicatorHTML = indicatorTemplate.apply(indicator, indicator.id);
-                    domConstruct.place(indicatorHTML, indicatorsNode, 'last');
+
+                    if (indicator.isEnabled === false && indicator.showIcon === false) {
+                        continue;
+                    } else {
+
+                        indicatorHTML = indicatorTemplate.apply(indicator, indicator.id);
+                        if (indicator.location === 'top') {
+                            domConstruct.place(indicatorHTML, topIndicatorsNode, 'last');
+                        } else {
+                            domConstruct.place(indicatorHTML, bottomIndicatorsNode, 'last');
+                        }
+                    }
                 }
             }
         },
@@ -144,12 +160,13 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
 
         },
         applyRowIndicators:function(entry, rowNode){
-            var indicatorsNode;
-            if (this.itemIndicators) {
-                indicatorsNode = query('> #item_Indicators',rowNode);
-                if (indicatorsNode[0]) {
-                    if (indicatorsNode[0].childNodes.length === 0 && this.itemIndicators.length > 0) {
-                        this.createIndicators(indicatorsNode[0], this._createCustomizedLayout(this.itemIndicators, 'indicators'), entry);
+            var topIndicatorsNode, bottomIndicatorsNode;
+            if (this.itemIndicators && this.itemIndicators.length > 0) {
+                topIndicatorsNode = query('> #top_item_indicators', rowNode);
+                bottomIndicatorsNode = query('> #bottom_item_indicators', rowNode);
+                if (bottomIndicatorsNode[0] && topIndicatorsNode[0]) {
+                    if (bottomIndicatorsNode[0].childNodes.length === 0 && topIndicatorsNode[0].childNodes.length === 0 ) {
+                        this.createIndicators(topIndicatorsNode[0], bottomIndicatorsNode[0], this._createCustomizedLayout(this.itemIndicators, 'indicators'), entry);
                     }
                 }
             }

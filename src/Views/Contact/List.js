@@ -22,7 +22,9 @@ define('Mobile/SalesLogix/Views/Contact/List', [
 
     return declare('Mobile.SalesLogix.Views.Contact.List', [List, _CardLayoutListMixin /*_MetricListMixin*/], {
         itemColorClass: 'color-contact',
+        itemIcon: 'content/images/icons/ContactProfile_48x48.png',
         //Template
+        //Card Layout
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
             '<h4>{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</h4>',
@@ -61,7 +63,8 @@ define('Mobile/SalesLogix/Views/Contact/List', [
 
         //View Properties        
         detailView: 'contact_detail',
-        icon: 'content/images/icons/Contact_Profile_96x96.jpg',
+        icon: 'content/images/icons/Contacts_24x24.png',
+        cardLayoutIcon: 'content/images/icons/ContactProfile_48x48.png',
         id: 'contact_list',
         security: 'Entities/Contact/View',
         insertView: 'contact_edit',
