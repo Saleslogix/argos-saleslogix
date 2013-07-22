@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Account/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -8,7 +11,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
-    'Mobile/SalesLogix/Views/_CardLayoutListMixin'
+    '../_CardLayoutListMixin',
+    '../_RightDrawerListMixin'
 ], function(
     declare,
     array,
@@ -19,11 +23,13 @@ define('Mobile/SalesLogix/Views/Account/List', [
     Convert,
     List,
     _MetricListMixin,
-    _CardLayoutListMixin
+    _CardLayoutListMixin,
+    _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List, _CardLayoutListMixin /*_MetricListMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         itemColorClass: 'color-account',
+
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -92,6 +98,30 @@ define('Mobile/SalesLogix/Views/Account/List', [
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
+        hashTagQueries: {
+            'active': 'Status eq "Active"',
+            'inactive': 'Status eq "Inactive"',
+            'suspect': 'Type eq "Suspect"',
+            'lead': 'Type eq "Lead"',
+            'prospect': 'Type eq "Prospect"',
+            'customer': 'Type eq "Customer"',
+            'partner': 'Type eq "Partner"',
+            'vendor': 'Type eq "Vendor"',
+            'influencer': 'Type eq "Influencer"',
+            'competitor': 'Type eq "Competitor"'
+        },
+        hashTagQueriesText: {
+            'active': 'active',
+            'inactive': 'inactive',
+            'suspect': 'suspect',
+            'lead': 'lead',
+            'prospect': 'prospect',
+            'customer': 'customer',
+            'partner': 'partner',
+            'vendor': 'vendor',
+            'influencer': 'influencer',
+            'competitor': 'competitor'
+        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{

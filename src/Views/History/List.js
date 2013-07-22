@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/History/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -8,7 +11,9 @@ define('Mobile/SalesLogix/Views/History/List', [
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_RightDrawerListMixin',
+    '../_MetricListMixin'
 ], function(
     declare,
     array,
@@ -19,10 +24,12 @@ define('Mobile/SalesLogix/Views/History/List', [
     format,
     convert,
     action,
-    List
+    List,
+    _RightDrawerListMixin,
+    _MetricListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List], {
+    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
@@ -119,6 +126,7 @@ define('Mobile/SalesLogix/Views/History/List', [
         ],
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
+        entityName: 'History',
         hashTagQueries: {
             'note': 'Type eq "atNote"',
             'phonecall': 'Type eq "atPhoneCall"',

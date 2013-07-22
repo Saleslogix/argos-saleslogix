@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/MainToolbar', [
     'dojo/_base/declare',
     'dojo/dom-style',
@@ -64,12 +67,6 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
                         }]);
                 }
 
-                /*tools.unshift([{
-                    id: 'toggleRightDrawer',
-                    side: 'right',
-                    fn: this.toggleRightDrawer,
-                    scope: this
-                }]);*/
             }
 
             this.inherited(arguments);
@@ -80,11 +77,11 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
         navigateToHomeView: function() {
             App.navigateToHomeView();
         },
-        toggleLeftDrawer: function() {
-            this._toggleDrawer('left');
-        },
         toggleRightDrawer: function() {
             this._toggleDrawer('right');
+        },
+        toggleLeftDrawer: function() {
+            this._toggleDrawer('left');
         },
         onTitleClick: function() {
             var view, state;

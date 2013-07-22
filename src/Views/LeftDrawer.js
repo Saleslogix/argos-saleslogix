@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/LeftDrawer', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -43,13 +46,15 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         //View Properties
         id: 'left_drawer',
         expose: false,
-        enableSearch: false,
+        enableSearch: true,
+        searchWidgetClass: SpeedSearchWidget,
         customizationSet: 'left_drawer',
 
         settingsView: 'settings',
         helpView: 'help',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
+        searchView: 'speedsearch_list',
 
         logOut: function() {
             var sure = window.confirm(this.logOutConfirmText);
@@ -87,6 +92,13 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         navigateToHelpView: function() {
             var view = App.getView(this.helpView);
             this.navigateToView(view);
+        },
+        formatSearchQuery: function(searchQuery) {
+            var expression = new RegExp(searchQuery, 'i');
+
+            return function(entry) {
+                return expression.test(entry.title);
+            };
         },
         hasMoreData: function() {
             return false;
@@ -252,6 +264,31 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         },
         _onRegistered: function() {
             this.refreshRequired = true;
+        },
+        _onSearchExpression: function(expression, widget) {
+            var view, current;
+            view = App.getView(this.searchView);
+            current = App.getPrimaryActiveView();
+
+            if (view) {
+                // If the speedsearch list is not our current view, show it first
+                if (view.id !== current.id) {
+                    view.show({
+                        query: expression
+                    });
+                }
+
+                // Set the search term on the list and call search.
+                // This will keep the search terms on each widget in sync. 
+                setTimeout(function() {
+                    view.setSearchTerm(expression);
+                    if (current && current.id === view.id) {
+                        view.search();
+                    }
+                }, 10);
+            }
+
+            App.snapper.close();
         }
     });
 });

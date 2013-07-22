@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/_MetricListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -19,6 +22,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         entityName: '',
 
         postMixInProperties: function() {
+            this.inherited(arguments);
             this.widgetTemplate =  new Simplate([
                 '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
                 '<div data-dojo-attach-point="searchNode"></div>',
@@ -32,23 +36,17 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             ]);
         },
         createMetricWidgetsLayout: function() {
-            return App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
-        },
-        createToolLayout: function() {
-            return this.tools || (this.tools = {
-                tbar: [{
-                    id: 'configure',
-                    action: 'navigateToConfigurationView'
-                }]
-            });
-        },
-        navigateToConfigurationView: function() {
-            var view = App.getView(this.configurationView);
-            if (view) {
-                view.resourceKind = this.resourceKind;
-                view.entityName = this.entityName;
-                view.show({ returnTo: -1 });
+            var filtered = [],
+                prefs;
+            prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
+
+            if (prefs) {
+                filtered = array.filter(prefs, function(item) {
+                    return item.enabled;
+                });
             }
+
+            return filtered;
         },
         postCreate: function() {
             this.inherited(arguments);
@@ -61,13 +59,13 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         // TODO: Be smart about a refresh required (when prefs change)
         onShow: function() {
             this.inherited(arguments);
-            this._rebuildWidgets();
+            this.rebuildWidgets();
         },
         onActivate: function() {
             this.inherited(arguments);
-            this._rebuildWidgets();
+            this.rebuildWidgets();
         },
-        _rebuildWidgets: function() {
+        rebuildWidgets: function() {
             this.destroyWidgets();
             this.metricWidgets = [];
 

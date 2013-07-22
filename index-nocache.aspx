@@ -22,10 +22,8 @@
     <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <link type="text/css" rel="stylesheet" href="content/reui/themes/sage-green/theme.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/base.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/app.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/sdk.min.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
     <!-- Dojo -->
     <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
@@ -38,7 +36,10 @@
             { name: 'dojox', location: 'content/dojo/dojox' },
             { name: 'configuration', location: 'configuration' },
             { name: 'localization', location: 'localization' }
-        ]
+        ],
+        paths: {
+            'Mobile/SalesLogix/DefaultMetrics.txt': 'content/javascript/DefaultMetrics.txt'
+        }
     });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>

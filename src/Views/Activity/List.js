@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
+    'Mobile/SalesLogix/Views/_RightDrawerListMixin',
     'Sage/Platform/Mobile/GroupedList',
     'Mobile/SalesLogix/Views/_CardLayoutListMixin',
     'Sage/Platform/Mobile/Groups/DateTimeSection',
@@ -13,6 +17,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     string,
     query,
     domClass,
+    _RightDrawerListMixin,
     GroupedList,
     _CardLayoutListMixin,
     DateTimeSection,
@@ -20,7 +25,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     convert
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _RightDrawerListMixin, _CardLayoutListMixin], {
         //Card View 
         itemColorClass: 'color-activity',
         // Localization
@@ -152,6 +157,15 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         ],
         resourceKind: 'activities',
         contractName: 'system',
+
+        hashTagQueries: {
+            'recurring': 'Recurring eq true',
+            'timeless': 'Timeless eq true'
+        },
+        hashTagQueriesText: {
+            'recurring': 'recurring',
+            'timeless': 'timeless'
+        },
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

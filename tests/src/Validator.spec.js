@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'],function(Validator) {
     describe('Mobile/SalesLogix/Validator', function() {
         describe('exists', function() {

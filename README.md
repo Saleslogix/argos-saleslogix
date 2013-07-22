@@ -17,6 +17,8 @@ GruntJS is a task runner. We have defined tasks to run in Gruntfile.coffee. Here
 * Unit tests: `grunt test`
 * Missing a web server? Run `grunt connect:server:keepalive` and open your browsser to http://localhost:8000/
 * JSHint: `grunt jshint`
+* csslint: `grunt csslint`
+* cssmin: `grunt cssmin` - cssmin will output to the min/css folder. This folder is included in the build\release.cmd script
 * Plus many more: http://gruntjs.com/plugins
 
 ### Clone repository

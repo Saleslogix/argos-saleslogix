@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Calendar/DayView', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
+    'dojo/dom-construct',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List'
@@ -11,6 +15,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     string,
     query,
     domClass,
+    domConstruct,
     ErrorManager,
     convert,
     List
@@ -34,18 +39,18 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         // Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-            '<div data-dojo-attach-point="searchNode"></div>',
-            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
-            '{%! $.navigationTemplate %}',
-            '<div style="clear:both"></div>',
-            '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-            '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
-            '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
-            '{%! $.eventMoreTemplate %}',
-            '</div>',
-            '<h2>{%= $.activityHeaderText %}</h2>',
-            '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
-            '{%! $.moreTemplate %}',
+                '<div data-dojo-attach-point="searchNode"></div>',
+                '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
+                '{%! $.navigationTemplate %}',
+                '<div style="clear:both"></div>',
+                '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
+                '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
+                '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
+                '{%! $.eventMoreTemplate %}',
+                '</div>',
+                '<h2>{%= $.activityHeaderText %}</h2>',
+                '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
+                '{%! $.moreTemplate %}',
             '</div>'
         ]),
         rowTemplate: new Simplate([
@@ -139,6 +144,10 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             eventRemainingContent: {
                 node: 'eventRemainingContentNode',
                 type: 'innerHTML'
+            },
+            remainingContent: {
+                node: 'remainingContentNode',
+                type: 'innerHTML'
             }
         },
 
@@ -187,8 +196,9 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             'atEMail': 'content/images/icons/letters_24.png'
         },
         eventIcon: 'content/images/icons/Holiday_schemes_24.png',
-
         resourceKind: 'activities',
+
+        continuousScrolling: false,
 
         _onRefresh: function(o) {
             this.inherited(arguments);
@@ -317,7 +327,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         processFeed: function(feed) {
             var r = feed['$resources'],
                 feedLength = r.length,
-                o = [];
+                o = [], remaining;
 
             this.feed = feed;
             for (var i = 0; i < feedLength; i++) {
@@ -332,9 +342,23 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 return false;
             }
 
-            this.set('listContent', o.join(''));
-        },
+            if (o.length > 0) {
+                domConstruct.place(o.join(''), this.contentNode, 'last');
+            }
 
+            if (typeof this.feed['$totalResults'] !== 'undefined') {
+                remaining = this.feed['$totalResults'] - (this.feed['$startIndex'] + this.feed['$itemsPerPage'] - 1);
+                this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
+            }
+
+            domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
+
+            if (this.options.allowEmptySelection) {
+                domClass.add(this.domNode, 'list-has-empty-opt');
+            }
+
+            this._loadPreviousSelections();
+        },
         show: function(options) {
             if (options) {
                 this.processShowOptions(options);

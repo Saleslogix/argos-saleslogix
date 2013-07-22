@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     'dojo/_base/declare',
     'dojo/query',
@@ -36,17 +39,17 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         // Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-            '<div data-dojo-attach-point="searchNode"></div>',
-            '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
-            '{%! $.navigationTemplate %}',
-            '<div style="clear:both"></div>',
-            '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-            '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
-            '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
-            '{%! $.eventMoreTemplate %}',
-            '</div>',
-            '<div class="list-content" data-dojo-attach-point="contentNode">',
-            '{%! $.moreTemplate %}',
+                '<div data-dojo-attach-point="searchNode"></div>',
+                '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
+                '{%! $.navigationTemplate %}',
+                '<div style="clear:both"></div>',
+                '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
+                    '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
+                    '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
+                    '{%! $.eventMoreTemplate %}',
+                '</div>',
+                '<div class="list-content" data-dojo-attach-point="contentNode"></div>',
+                '{%! $.moreTemplate %}',
             '</div>'
         ]),
         navigationTemplate: new Simplate([
@@ -151,6 +154,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             eventRemainingContent: {
                 node: 'eventRemainingContentNode',
                 type: 'innerHTML'
+            },
+            remainingContent: {
+                node: 'remainingContentNode',
+                type: 'innerHTML'
             }
         },
 
@@ -179,6 +186,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             'atToDo': 'content/images/icons/To_Do_24x24.png',
             'atPersonal': 'content/images/icons/Personal_24x24.png'
         },
+        continuousScrolling: false,
 
         queryWhere: null,
         queryOrderBy: 'StartDate asc',
@@ -363,17 +371,13 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 }
             }
 
-            if (this.remainingContentNode) {
-                this.set('remainingContent', string.substitute(this.remainingText, [
-                    this.feed['$totalResults'] - (this.feed['$startIndex'] + this.feed['$itemsPerPage'] - 1)
-                ]));
+            if (typeof this.feed['$totalResults'] !== 'undefined') {
+                remaining = this.feed['$totalResults'] - (this.feed['$startIndex'] + this.feed['$itemsPerPage'] - 1);
+                this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
             }
 
-            if (this.hasMoreData()) {
-                domClass.add(this.domNode, 'list-has-more');
-            } else {
-                domClass.remove(this.domNode, 'list-has-more');
-            }
+            domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
+            this._loadPreviousSelections();
         },
         addTodayDom: function() {
             if (!this.isInCurrentWeek(this.todayDate)) {
@@ -527,6 +531,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.inherited(arguments);
             this.entryGroups = {};
             this.set('eventContent', '');
+            this.set('listContent', '');
         },
         selectEntry: function(params) {
             var row = query(params.$source).closest('[data-key]')[0],

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Activity/MyList', [
     'dojo/_base/declare',
     'dojo/string',
@@ -135,6 +138,23 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         resourceKind: 'userActivities',
         allowSelection: true,
         enableActions: true,
+
+        hashTagQueries: {
+            'alarm': 'Alarm eq true',
+            'status-unconfirmed': 'Status eq "asUnconfirmed"',
+            'status-accepted': 'Status eq "asAccepted"',
+            'status-declined': 'Status eq "asDeclned"',
+            'recurring': 'Activity.Recurring eq true',
+            'timeless': 'Activity.Timeless eq true'
+        },
+        hashTagQueriesText: {
+            'alarm': 'alarm',
+            'status-unconfirmed': 'status-unconfirmed',
+            'status-accepted': 'status-accepted',
+            'status-declined': 'status-declined',
+            'recurring': 'recurring',
+            'timeless': 'timeless'
+        },
 
         recordCallToHistory: function(complete, entry) {
             var entry = {

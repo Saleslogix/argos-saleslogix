@@ -1,4 +1,6 @@
-
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -18,6 +20,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/MainToolbar',
     'Mobile/SalesLogix/Views/UpdateToolbar',
     'Mobile/SalesLogix/Views/LeftDrawer',
+    'Mobile/SalesLogix/Views/RightDrawer',
     'Mobile/SalesLogix/Views/Login',
     'Mobile/SalesLogix/Views/Settings',
     'Mobile/SalesLogix/Views/Configure',
@@ -124,6 +127,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     MainToolbar,
     UpdateToolbar,
     LeftDrawer,
+    RightDrawer,
     Login,
     Settings,
     Configure,
@@ -213,6 +217,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Login());
 
             this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
+            this.registerView(new RightDrawer(), query('.right-drawer')[0]);
 
             this.registerView(new Help());
             this.registerView(new Settings());

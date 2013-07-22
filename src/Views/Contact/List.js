@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Contact/List', [
     'dojo/_base/declare',
     'dojo/string',
@@ -7,7 +10,8 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
-     'Mobile/SalesLogix/Views/_CardLayoutListMixin'
+     'Mobile/SalesLogix/Views/_CardLayoutListMixin',
+    '../_RightDrawerListMixin'
 ], function(
     declare,
     string,
@@ -17,12 +21,14 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     Convert,
     List,
     _MetricListMixin,
-    _CardLayoutListMixin
+    _CardLayoutListMixin,
+    _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _CardLayoutListMixin /*_MetricListMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         itemColorClass: 'color-contact',
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
+
         //Template
         //Card Layout
         itemTemplate: new Simplate([
@@ -83,6 +89,24 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         resourceKind: 'contacts',
         entityName: 'Contact',
         enableActions: true,
+        hashTagQueries: {
+            'primary': 'IsPrimary eq true',
+            'not-primary': 'IsPrimary eq false',
+            'can-email': 'DoNotEmail eq false',
+            'can-phone': 'DoNotPhone eq false',
+            'can-fax': 'DoNotFax eq false',
+            'can-mail': 'DoNotMail eq false',
+            'can-solicit': 'DoNotSolicit eq false'
+        },
+        hashTagQueriesText: {
+            'primary': 'primary',
+            'not-primary': 'not-primary',
+            'can-email': 'can-email',
+            'can-phone': 'can-phone',
+            'can-fax': 'can-fax',
+            'can-mail': 'can-mail',
+            'can-solicit': 'can-solicit'
+        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
