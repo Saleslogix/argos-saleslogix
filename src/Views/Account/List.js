@@ -8,8 +8,10 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
+    'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
+    '../_CardLayoutListMixin',
     '../_RightDrawerListMixin'
 ], function(
     declare,
@@ -18,12 +20,16 @@ define('Mobile/SalesLogix/Views/Account/List', [
     action,
     format,
     utility,
+    Convert,
     List,
     _MetricListMixin,
+    _CardLayoutListMixin,
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+        itemColorClass: 'color-account',
+
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -84,7 +90,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'Fax',
             'Status',
             'SubType',
-            'Type'
+            'Type',
+            'ModifyDate'
         ],
         resourceKind: 'accounts',
         entityName: 'Account',
@@ -149,7 +156,32 @@ define('Mobile/SalesLogix/Views/Account/List', [
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-        }
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: '1',
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }]
+            );
+        },
+        hasBeenTouched:function(entry){
+            var modifydDate, currentDate, seconds, hours, days;
+            if (entry['ModifyDate']) {
+                modifydDate = Convert.toDateFromString(entry['ModifyDate']);
+                currentDate = new Date();
+                seconds = Math.round((currentDate - modifydDate) / 1000);
+                hours = seconds / 360;
+                days = hours / 24;
+                if (days <= 7) {
+                    return true;
+                }
+            }
+        return false;
+    }
     });
 });
 

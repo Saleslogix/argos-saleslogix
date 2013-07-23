@@ -31,6 +31,26 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
         //Templates
+        //Card View 
+        itemColorClassTemplate: new Simplate([
+           '{%: $$.activityColorClassByType[$.Activity.Type] || $$.itemColorClass  %}'
+        ]),
+        //Card View 
+        itemTabValueTemplate: new Simplate([
+         //'{%: $$.activityTextByType[$.Activity.Type] %}'
+           '{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) + " " + Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}'
+        ]),
+        //Card View 
+        itemIconSourceTemplate: new Simplate([
+          '{%: $$.itemIcon || $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}'
+        ]),
+        //Card View 
+        itemRowContainerTemplate: new Simplate([
+           '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.$descriptor %}" data-activity-type="{%: $.Activity.Type %}"  data-color-class="{%! $$.itemColorClassTemplate %}" >',
+            '{%! $$.itemRowContentTemplate %}',
+          '</li>'
+        ]),
+        //Used if Card View is not mixed in
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
             '<div data-action="selectEntry" class="list-item-static-selector">',
@@ -110,7 +130,10 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/UserId',
             'Activity/Timeless',
             'Activity/PhoneNumber',
-            'Activity/Recurring'
+            'Activity/Recurring',
+            'Activity/Alarm',
+            'Activity/ModifyDate',
+            'Activity/Priority'
         ],
         resourceKind: 'userActivities',
         allowSelection: true,
@@ -386,6 +409,59 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 section: new DateTimeSection({ groupByProperty: 'Activity.StartDate', sortDirection: 'desc' })
             }];
             return groupBySections;
+        },
+        hasAlarm: function(entry) {
+            if (entry["Actvitiy"]['Alarm']) {
+                  return true;
+            }
+            if (entry['Alarm']) {
+                return true;
+            }
+            return false;
+        },
+        hasBeenTouched: function(entry) {
+            var modifydDate, currentDate, seconds, hours, days;
+            if (entry['Activity']['ModifyDate']) {
+                modifydDate = convert.toDateFromString(entry['Activity']['ModifyDate']);
+                currentDate = new Date();
+                seconds = Math.round((currentDate - modifydDate) / 1000);
+                hours = seconds / 360;
+                days = hours / 24;
+                if (days <= 7) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        isImportant: function(entry) {
+            if (entry["Activity"]['Priority']) {
+                if (entry["Activity"]['Priority'] === 'High') {
+                    return true;
+                }
+            }           
+            return false;
+        },
+        isOverdue: function(entry) {
+            var startDate, currentDate, seconds, mins, days;
+            if (entry['Activity']['StartDate']) {
+                startDate = convert.toDateFromString(entry['Activity']['StartDate']);
+                currentDate = new Date();
+                seconds = Math.round((currentDate - startDate) / 1000);
+                mins = seconds / 60;
+                if (mins >= 1) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        isRecurring: function(entry) {
+            if (entry['Activity']['Recurring']) {
+                   return true;
+            }
+            return false;
+        },
+        applyActivityIndicator: function(entry, indicator) {
+            this._applyActivityIndicator(entry['Activity']['Type'], indicator);
         }
     });
 });

@@ -7,8 +7,10 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
+    'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
+     'Mobile/SalesLogix/Views/_CardLayoutListMixin',
     '../_RightDrawerListMixin'
 ], function(
     declare,
@@ -16,13 +18,19 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     array,
     action,
     format,
+    Convert,
     List,
     _MetricListMixin,
+    _CardLayoutListMixin,
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+        itemColorClass: 'color-contact',
+        itemIcon: 'content/images/icons/ContactProfile_48x48.png',
+
         //Template
+        //Card Layout
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
             '<h4>{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</h4>',
@@ -62,6 +70,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         //View Properties        
         detailView: 'contact_detail',
         icon: 'content/images/icons/Contacts_24x24.png',
+        cardLayoutIcon: 'content/images/icons/ContactProfile_48x48.png',
         id: 'contact_list',
         security: 'Entities/Contact/View',
         insertView: 'contact_edit',
@@ -73,7 +82,9 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             'WorkPhone',
             'Mobile',
             'Email',
-            'Title'
+            'Title',
+            'LastHistoryDate',
+            'ModifyDate'
         ],
         resourceKind: 'contacts',
         entityName: 'Contact',
@@ -146,6 +157,31 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: '1',
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }]
+            );
+        },
+        hasBeenTouched:function(entry){
+            var modifydDate,currentDate,seconds, hours, days;
+            if (entry['ModifyDate']) {
+                 modifydDate = Convert.toDateFromString(entry['ModifyDate']);
+                 currentDate = new Date();
+                 seconds = Math.round((currentDate - modifydDate) / 1000);
+                 hours = seconds / 360;
+                 days = hours / 24;
+                 if (days <= 7) {
+                   return  true;
+                 }
+            }
+            return false;
         }
     });
 });
