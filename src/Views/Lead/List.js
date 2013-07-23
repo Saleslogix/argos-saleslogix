@@ -87,8 +87,6 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         enableActions: true,
 
         hashTagQueries: {
-            'primary': 'IsPrimary eq true',
-            'not-primary': 'IsPrimary eq false',
             'can-email': 'DoNotEmail eq false',
             'can-phone': 'DoNotPhone eq false',
             'can-fax': 'DoNotFAX eq false',
@@ -96,8 +94,6 @@ define('Mobile/SalesLogix/Views/Lead/List', [
             'can-solicit': 'DoNotSolicit eq false'
         },
         hashTagQueriesText: {
-            'primary': 'primary',
-            'not-primary': 'not-primary',
             'can-email': 'can-email',
             'can-phone': 'can-phone',
             'can-fax': 'can-fax',
