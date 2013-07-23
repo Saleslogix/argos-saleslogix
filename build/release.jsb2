@@ -313,6 +313,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "_CardLayoutListMixin.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "GenericBar.js",
           "path": "../src/Views/Charts"
         },
