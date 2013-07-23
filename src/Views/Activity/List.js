@@ -219,7 +219,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 icon: 'Recurring_24x24.png',
                 label: 'Recurring',
                 onApply: function(entry, parent) {
-                    this.isEnabled = parent.isRecurring(entry['Type'], this);
+                    this.isEnabled = parent.isRecurring(entry, this);
                 }
             }, {
                 id: '6',
