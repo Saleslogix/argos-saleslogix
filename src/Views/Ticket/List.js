@@ -83,7 +83,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         enableActions: true,
 
         hashTagQueries: {
-            'has-alert': 'Alert eq true',
             'assigned-to-me': function() {
                 return 'AssignedTo.OwnerDescription eq "' + App.context.user.$descriptor + '"';
             },
@@ -92,7 +91,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             }
         },
         hashTagQueriesText: {
-            'has-alert': 'has-alert',
             'assigned-to-me': 'assigned-to-me',
             'completed-by-me': 'completed-by-me'
         },
