@@ -86,7 +86,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'qualification': 'qualification',
             'negotiation': 'negotiation',
             'needs-analysis': 'needs-analysis',
-            'demonstration': 'demonstration'
+            'demonstration': 'demonstration',
+            'decision': 'decision'
         },
 
         //View Properties
@@ -104,7 +105,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'qualification': 'Stage eq "2-Qualification"',
             'needs-analysis': 'Stage eq "3-Needs Analysis"',
             'demonstration': 'Stage eq "4-Demonstration"',
-            'negotiation': 'Stage eq "5-Negotiation"'
+            'negotiation': 'Stage eq "5-Negotiation"',
+            'decision': 'Stage eq "6-Decision"'
         },
         statusIcons: {
             'Open': 'content/images/icons/opportunity_24.png',
