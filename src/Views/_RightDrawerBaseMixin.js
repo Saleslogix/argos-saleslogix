@@ -65,13 +65,15 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
             if (snapperState.state === state) {
                 App.snapper.close();
             } else {
-                this.loadRightDrawer();
                 App.snapper.open(state);
             }
         },
         unloadRightDrawer: function() {
         },
-        onBeforeTransitionAway: function() {
+        onTransitionTo: function() {
+            this.loadRightDrawer();
+        },
+        onTransitionAway: function() {
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 this.unloadRightDrawer();
