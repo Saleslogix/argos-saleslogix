@@ -169,16 +169,17 @@ define('Mobile/SalesLogix/Views/Account/List', [
             );
         },
         hasBeenTouched:function(entry){
-        if (entry['ModifyDate']) {
-            var modifydDate = Convert.toDateFromString(entry['ModifyDate']);
-            var currentDate = new Date();
-            var seconds = Math.round((currentDate - modifydDate) / 1000);
-            var hours = seconds / 60;
-            var days = hours / 24;
-            if (days <= 7) {
-                return  true;
+            var modifydDate, currentDate, seconds, hours, days;
+            if (entry['ModifyDate']) {
+                modifydDate = Convert.toDateFromString(entry['ModifyDate']);
+                currentDate = new Date();
+                seconds = Math.round((currentDate - modifydDate) / 1000);
+                hours = seconds / 360;
+                days = hours / 24;
+                if (days <= 7) {
+                    return true;
+                }
             }
-        }
         return false;
     }
     });

@@ -74,8 +74,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             '<img id="list_item_image_{%: $.$key %}"  src="{%! $$.itemIconSourceTemplate %}" class="icon" />',
             '</button>',
             '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
-            '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
-            // '<div class="card-list-item-ext-content" >{%! $$.itemExtTemplate %}</div>',
+            '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>'
         ]),
         postMixInProperties: function() {
             this.inherited(arguments);
@@ -94,8 +93,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return this.itemIndicators || {};
         },
         createIndicators: function(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
-            var indicatorTemplate, indicator, options, indicatorHTML;
-            for (var i = 0; i < indicators.length; i++) {
+            var indicatorTemplate, indicator, options, indicatorHTML, i;
+            for (i = 0; i < indicators.length; i++) {
                 indicator = indicators[i];
 
                 if (indicator.onApply) {
@@ -144,7 +143,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         onApplyRowTemplate: function(entry, rowNode) {
 
             this.applyRowIndicators(entry, rowNode);
-            //this.applyRowExt(entry);
 
         },
         applyRowIndicators:function(entry, rowNode){

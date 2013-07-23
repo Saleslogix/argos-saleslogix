@@ -40,7 +40,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         ]),
         //Card View 
         itemTabValueTemplate: new Simplate([
-       //'{%: $$.activityTextByType[$.Type] %}'
           '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) + " " + Mobile.SalesLogix.Format.date($.StartDate, "tt") %}'
         ]),
         //Card View 
