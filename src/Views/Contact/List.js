@@ -170,12 +170,13 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             );
         },
         hasBeenTouched:function(entry){
+            var modifydDate,currentDate,seconds, hours, days;
             if (entry['ModifyDate']) {
-                 var modifydDate = Convert.toDateFromString(entry['ModifyDate']);
-                 var currentDate = new Date();
-                 var seconds = Math.round((currentDate - modifydDate) / 1000);
-                 var hours = seconds / 60;
-                 var days = hours / 24;
+                 modifydDate = Convert.toDateFromString(entry['ModifyDate']);
+                 currentDate = new Date();
+                 seconds = Math.round((currentDate - modifydDate) / 1000);
+                 hours = seconds / 360;
+                 days = hours / 24;
                  if (days <= 7) {
                    return  true;
                  }

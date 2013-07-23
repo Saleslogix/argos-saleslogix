@@ -420,12 +420,13 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return false;
         },
         hasBeenTouched: function(entry) {
+            var modifydDate, currentDate, seconds, hours, days;
             if (entry['Activity']['ModifyDate']) {
-                var modifydDate = convert.toDateFromString(entry['Activity']['ModifyDate']);
-                var currentDate = new Date();
-                var seconds = Math.round((currentDate - modifydDate) / 1000);
-                var hours = seconds / 60;
-                var days = hours / 24;
+                modifydDate = convert.toDateFromString(entry['Activity']['ModifyDate']);
+                currentDate = new Date();
+                seconds = Math.round((currentDate - modifydDate) / 1000);
+                hours = seconds / 360;
+                days = hours / 24;
                 if (days <= 7) {
                     return true;
                 }
@@ -441,11 +442,12 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return false;
         },
         isOverdue: function(entry) {
+            var startDate, currentDate, seconds, mins, days;
             if (entry['Activity']['StartDate']) {
-                var startDate = convert.toDateFromString(entry['Activity']['StartDate']);
-                var currentDate = new Date();
-                var seconds = Math.round((currentDate - startDate) / 1000);
-                var mins = seconds / 60;
+                startDate = convert.toDateFromString(entry['Activity']['StartDate']);
+                currentDate = new Date();
+                seconds = Math.round((currentDate - startDate) / 1000);
+                mins = seconds / 60;
                 if (mins >= 1) {
                     return true;
                 }
