@@ -17,6 +17,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
 
     return declare('Mobile.SalesLogix.Views.LeftDrawer', [GroupedList], {
         //Templates
+        cls: ' contextualContent',
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
             '<div class="list-item-static-selector">',
