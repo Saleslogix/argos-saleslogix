@@ -28,8 +28,8 @@
         "_metricName":"AverageTimeAsCustomer",
         "_activeFilter":""
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
+      "formatType":"Sage/Platform/Mobile/Format",
+      "formatFunc":"fixed",
       "valueType":"Mobile/SalesLogix/Aggregate",
       "valueFunc":"avg",
       "reportViewId":"",
@@ -201,10 +201,10 @@
       "queryArgs":{
         "_filterName":"AssignedTo",
         "_metricName":"OpenTicketAgingAverage",
-        "_activeFilter":""
+        "_activeFilter":"StatusCode eq 'k6UJ9A000039'"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
+      "formatType":"Sage/Platform/Mobile/Format",
+      "formatFunc":"fixed",
       "valueType":"Mobile/SalesLogix/Aggregate",
       "valueFunc":"avg",
       "reportViewId":"",
