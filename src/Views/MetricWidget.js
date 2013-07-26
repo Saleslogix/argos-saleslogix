@@ -218,10 +218,10 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             view = App.getView(this.chartTypeMapping[this.chartType] || this.reportViewId);
 
             if (view) {
+                view.titleText = this.metricTitleText;
+                view.formatter = this.formatter;
                 signal = aspect.after(view, 'show', lang.hitch(this, function() {
                     setTimeout(lang.hitch(this, function() {
-                        view.titleText = this.metricTitleText;
-                        view.formatter = this.formatter;
                         view.createChart(this._data);
                         signal.remove();
                     }), 1);
