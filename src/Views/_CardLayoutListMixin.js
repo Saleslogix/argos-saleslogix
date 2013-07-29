@@ -69,7 +69,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         ]),
         itemFooterTemplate: new Simplate([
             '<div>',
-            '<button id="xfooter_action_button" data-action="selectEntry" class="footer-item-selector button ">',
+            '<button data-action="selectEntry" class="footer-item-selector button ">',
             '<img src="content/images/icons/Show_Details_active_24.png" alt="Actions" >',
             '</button>',
             '</div>'

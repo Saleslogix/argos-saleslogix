@@ -1840,6 +1840,7 @@ card-layout  .list-content > li
     position: relative !important;
     top: 0px !important;
     width: 24px;
+
 }
 
 
@@ -1852,23 +1853,6 @@ card-layout  .list-content > li
     top: 0px !important;
     width: 24px;
 }
-
-.card-layout .list-item-footer > .button-selected  > span,
-.card-layout .list-item-footer > .button-unSelected  > span
-{
-    display: inline-block;
-    background-repeat: no-repeat;
-    background-position: center center;
-    margin: 6px;
-    width: 24px;
-    height: 24px;
-}
-.card-layout .list-item-footer > .button-selected > span
-{
-    background-image: url(../images/icons/Browse_Previous_24.png);
-    margin: 6px 6px 6px 4px;
-}
-
 
 .card-layout .list-item-footer > .button-unSelected > span
 {
