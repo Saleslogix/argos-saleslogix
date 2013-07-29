@@ -25,6 +25,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     return declare('Mobile.SalesLogix.Views.Charts.GenericBar', [View], {
         id: 'chart_generic_bar',
         titleText: '',
+        otherText: 'Other',
         expose: false,
         chart: null,
         legend: null,
@@ -57,7 +58,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             this.chart.setTheme(JulieTheme);
             this.chart.addPlot('default', {
                 type: PlotType,
-                markers: true,
+                markers: false,
                 gap: 5,
                 majorLabels: true,
                 minorTickets: false,
@@ -85,14 +86,37 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             this.chart.resize(box.w, box.h);
         },
         _labels: function(feedData) {
-            var data = [];
+            var data = [], MAX_ITEMS = 5, otherY = 0, otherText;
             array.forEach(feedData, function(item, index) {
-                data.push({
-                    y: item.value,
-                    text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
-                    value: index
-                });
+                if (index < MAX_ITEMS) {
+                    data.push({
+                        y: item.value,
+                        text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
+                        value: index
+                    });
+                } else {
+                    otherY = otherY + item.value;
+                    otherText = this.otherText + ' (' + this.formatter(otherY) + ')';
+                    data[MAX_ITEMS] = {
+                        y: otherY,
+                        text: otherText,
+                        value: MAX_ITEMS
+                    };
+                }
             }, this);
+
+            // Reverse sort to show larger number up top
+            data.sort(function(a, b) {
+                if (a.y > b.y) {
+                    return 1;
+                }
+
+                if (b.y > a.y) {
+                    return -1;
+                }
+
+                return 0;
+            });
 
             return data;
         }
