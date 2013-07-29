@@ -28,8 +28,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
-        itemColorClass: 'color-account',
-
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
