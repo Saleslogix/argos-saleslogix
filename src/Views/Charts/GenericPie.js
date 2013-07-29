@@ -27,6 +27,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     return declare('Mobile.SalesLogix.Views.Charts.GenericPie', [View], {
         id: 'chart_generic_pie',
         titleText: '',
+        otherText: 'Other',
         expose: false,
         chart: null,
         legend: null,
@@ -75,12 +76,22 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             this.legend = new Legend({chart: this.chart}, this.legendNode);
         },
         _labels: function(feedData) {
-            var data = [];
+            var data = [], MAX_ITEMS = 5, otherY = 0, otherText;
             array.forEach(feedData, function(item, index) {
-                data.push({
-                    y: item.value,
-                    text: item.$descriptor + ' (' + this.formatter(item.value) + ')'
-                });
+                if (index < MAX_ITEMS) {
+                    data.push({
+                        y: item.value,
+                        text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
+                        value: index
+                    });
+                } else {
+                    otherY = otherY + item.value;
+                    otherText = this.otherText + ' (' + this.formatter(otherY) + ')';
+                    data[MAX_ITEMS] = {
+                        y: otherY,
+                        text: otherText
+                    };
+                }
             }, this);
 
             return data;
