@@ -30,7 +30,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         otherText: 'Other',
         expose: false,
         chart: null,
-        legend: null,
 
         formatter: function(val) {
             return val;
@@ -43,15 +42,14 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
                 '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
-                '<div class="chart-legend" data-dojo-attach-point="legendNode"></div>',
             '</div>'
         ]),
         createChart: function (feedData) {
+            var labels, box;
+
             if (this.chart) {
                 this.chart.destroy(true);
             }
-
-            var labels, box;
 
             labels = this._labels(feedData);
             box = domGeo.getMarginBox(this.domNode);
@@ -70,13 +68,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             this.chart.addSeries('default', labels);
             this.chart.render();
             this.chart.resize(box.w, box.h);
-        },
-        createLegend: function() {
-            if (this.legend) {
-                this.legend.destroy(true);
-            }
-
-            this.legend = new Legend({chart: this.chart}, this.legendNode);
         },
         _labels: function(feedData) {
             var data = [], MAX_ITEMS = 5, otherY = 0, otherText;
