@@ -61,7 +61,10 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             this.chart.addPlot('default', {
                 type: PlotType,
                 fontColor: 'black',
-                labelOffset: -60
+                labelOffset: 50,
+                radius: box.w >= box.h /* check lanscape or portrait mode */ ? 
+                    Math.floor(box.h / 2) - 10 :
+                    Math.floor(box.w / 2) - 10
             });
 
             this.chart.addSeries('default', labels);
