@@ -1886,22 +1886,22 @@ card-layout  .list-content > li
 }
 .color-ToDo
 {
-    background-color:#CC0000 !important;
+    background-color:#fe5000 !important;
     color: white !important;
 }
 .color-Meeting
 {
-    background-color:#FF6602 !important;
+    background-color:#0054a6 !important;
     color: white !important;
 }
 .color-PhoneCall
 {
-    background-color:#CC6600 !important;
+    background-color:#128b0c !important;
     color: white !important;
 }
 .color-Personal
 {
-    background-color:#666699 !important;
+    background-color:#5e00a6 !important;
     color: white !important;
 }
 .indicator_Important

@@ -164,19 +164,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                     }
                 }
             }
-        },
-        applyRowExt:function(entry){
-            if(this.rowExts){
-
-            }
-        },
-        onApplyRowActionPanel: function(actionsNode, rowNode) {
-            var footerButton;
-            this.inherited(arguments);
-            footerButton = query('#footer_action_button', query('#list-item-footer', rowNode)[0])[0];
-            if (footerButton) {
-                domClass.add(footerButton, this.itemColorClass);
-            }
         }
     });
 
