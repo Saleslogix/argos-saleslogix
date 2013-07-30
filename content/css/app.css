@@ -1555,11 +1555,13 @@ card-layout  .list-content > li
      cursor: pointer;
 }
 
-.card-layout .list-content > li
+.card-layout .list-content > li,
+.card-layout .group-content > li
 {
     padding: 8px 6px 8px 6px;
 }
-.card-layout .list-content > li
+.card-layout .list-content > li,
+.card-layout .group-content > li
 {
     background-color: #FFFFFF;
     font-weight: normal;
