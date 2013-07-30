@@ -1557,7 +1557,7 @@ card-layout  .list-content > li
 
 .card-layout .list-content > li
 {
-    padding: 8px 32px 8px 6px;
+    padding: 8px 6px 8px 6px;
 }
 .card-layout .list-content > li
 {
@@ -1679,7 +1679,7 @@ card-layout  .list-content > li
 {
     background: #FFFFFF;
     border: 0 solid #000000;
-    float: left;
+    float: right;
     height: 48px;
     margin: 5px !important;
     padding: 0 !important;
@@ -1698,14 +1698,14 @@ card-layout  .list-content > li
 
 .card-layout  .list-action-selected > .list-item-selector
 {
-    border-color: #DDD;
-    background-color: #eaf1df !important;
+    border-color: #AAAAAA;
+    background-color:  	#AAAAAA !important;
     background-image: none !important;
-    border-bottom: 0px none #eaf1df !important;
+    border-bottom: 0px none #AAAAAA !important;
     -webkit-border-radius: 3px 3px 0px 0px;
     border-radius: 3px 3px 0px 0px;
     bottom: -1px;
-    height: auto !important;
+    height: 62px !important;
     box-shadow: none !important;
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
@@ -1800,15 +1800,73 @@ card-layout  .list-content > li
   font-weight: normal;
 
 }
+.card-layout .list-item-footer
+{
+    height: 28px;
+    margin: 5px 0 0;
+}
+
+
+.card-layout .list-action-selected .footer-item-selector {
+    background-image: none !important;
+    border-color: transparent transparent #AAAAAA;
+    border-radius: 0 0 0 0 !important;
+    border-style: solid;
+    border-width: 0 13px 44px;
+    box-shadow: none !important;
+    height: 0 !important;
+    left: 0;
+    top: 18px;
+    width: 0;
+    
+}
+
+.card-layout .footer-item-selector
+{
+    border: 0px none #000000;
+    background: transparent;
+    color: #000000;
+    float: right;
+    height: 28px;
+    top: 0;
+    width: 28px;
+    z-index: 10;
+}
+.footer-item-selector > img
+{ 
+    border: 0 none black;
+    height: 24px;
+    left: -2px !important;
+    position: relative !important;
+    top: 0px !important;
+    width: 24px;
+
+}
+
+
+.card-layout .list-action-selected  .footer-item-selector > img
+{ 
+    border: 0 none black;
+    height: 24px;
+    left: -13px !important;
+    position: relative !important;
+    top: 0px !important;
+    width: 24px;
+}
+
+.card-layout .list-item-footer > .button-unSelected > span
+{
+    background-image: url(../images/icons/Browse_Next_24.png);
+}
 
 .color-default
 {
-    background-color:black !important;
+    background-color: 	#404040   !important;
     color: white !important;
 }
 .color-account
 {
-    background-color:#0066FF !important;
+    background-color:#0066FF!important;
     color: white !important;
 }
 .color-contact
@@ -1828,22 +1886,22 @@ card-layout  .list-content > li
 }
 .color-ToDo
 {
-    background-color:#CC0000 !important;
+    background-color:#fe5000 !important;
     color: white !important;
 }
 .color-Meeting
 {
-    background-color:#FF6602 !important;
+    background-color:#0054a6 !important;
     color: white !important;
 }
 .color-PhoneCall
 {
-    background-color:#CC6600 !important;
+    background-color:#128b0c !important;
     color: white !important;
 }
 .color-Personal
 {
-    background-color:#666699 !important;
+    background-color:#5e00a6 !important;
     color: white !important;
 }
 .indicator_Important

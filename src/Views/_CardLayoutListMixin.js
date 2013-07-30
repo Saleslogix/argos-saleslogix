@@ -67,6 +67,13 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             '{%! $$.itemRowContentTemplate %}',
         '</li>'
         ]),
+        itemFooterTemplate: new Simplate([
+            '<div>',
+            '<button data-action="selectEntry" class="footer-item-selector button ">',
+            '<img src="content/images/icons/Show_Details_active_24.png" alt="Actions" >',
+            '</button>',
+            '</div>'
+        ]),
         itemRowContentTemplate: new Simplate([
            '{%! $$.itemTabTemplate %}',
             '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
@@ -74,7 +81,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             '<img id="list_item_image_{%: $.$key %}"  src="{%! $$.itemIconSourceTemplate %}" class="icon" />',
             '</button>',
             '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
-            '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>'
+            '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
+            '<div id="list-item-footer" class="list-item-footer">{%! $$.itemFooterTemplate %}</div>'
         ]),
         postMixInProperties: function() {
             this.inherited(arguments);
@@ -156,14 +164,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                     }
                 }
             }
-        },
-        applyRowExt:function(entry){
-            if(this.rowExts){
-
-            }
-        },
-        onApplyRowActionPanel: function(actionsNode, rowNode) {
-           
         }
     });
 
