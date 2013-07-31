@@ -471,7 +471,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         },
         getItemIconSource: function(entry) {
             return this.itemIcon || this.activityIconByType[entry.Activity.Type] || this.icon || this.selectIcon
-        },
+        }
     });
 });
 
