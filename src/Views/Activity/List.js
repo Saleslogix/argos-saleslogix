@@ -176,8 +176,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         getItemDescriptor: function(entry) {
             return entry.$descriptor
         },
-        getItemTabValue: function(entry)
-        {
+        getItemTabValue: function(entry){
             var value = '';
             if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
                 value = format.date(entry.StartDate, this.startTimeFormatText) + " " + format.date(entry.StartDate, "tt");
@@ -248,14 +247,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             colorRowCls = query(rowNode).closest('[data-color-class]')[0];
             colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
 
-            domClass.remove(actionsNode, this.activityColorClassByType['atToDo']);
-            domClass.remove(actionsNode, this.activityColorClassByType['atPhoneCall']);
-            domClass.remove(actionsNode, this.activityColorClassByType['atAppointment']);
-            domClass.remove(actionsNode, this.activityColorClassByType['atLiterature']);
-            domClass.remove(actionsNode, this.activityColorClassByType['atPersonal']);
-            domClass.remove(actionsNode, this.activityColorClassByType['atQuestion']);
-            domClass.remove(actionsNode, this.activityColorClassByType['atNote']);
-            domClass.remove(actionsNode, this.activityColorClassByType['atEMail']);
+            for (var colorKey in this.activityColorClassByType) {
+                domClass.remove(actionsNode, this.activityColorClassByType[colorKey]);
+            }           
             if (colorCls) {
                 domClass.add(actionsNode, colorCls);
             }

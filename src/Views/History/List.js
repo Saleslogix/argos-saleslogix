@@ -66,7 +66,6 @@ define('Mobile/SalesLogix/Views/History/List', [
             '<div class="note-text-wrap">',
             '{%: $.Notes %}',
             '</div>',
-           // '<div class="note-text-more"></div>',
             '</div>'
         ]),
         nameTemplate: new Simplate([
@@ -262,20 +261,8 @@ define('Mobile/SalesLogix/Views/History/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        _onResize: function() {
-            query('.note-text-item', this.contentNode).forEach(function(node) {
-                var wrapNode = query('.note-text-wrap', node)[0],
-                    moreNode = query('.note-text-more', node)[0];
-                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {
-                   // domStyle.set(moreNode, 'visibility', 'visible');
-                } else {
-                   // domStyle.set(moreNode, 'visibility', 'hidden');
-                }
-            });
-        },
         processFeed: function() {
             this.inherited(arguments);
-            this._onResize();
         },
         postCreate: function() {
             this.inherited(arguments);
@@ -286,19 +273,14 @@ define('Mobile/SalesLogix/Views/History/List', [
 
             colorRowCls = query(rowNode).closest('[data-color-class]')[0];
             colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
-
-            domClass.remove(actionsNode, this.entityColorClassByType['atToDo']);
-            domClass.remove(actionsNode, this.entityColorClassByType['atPhoneCall']);
-            domClass.remove(actionsNode, this.entityColorClassByType['atAppointment']);
-            domClass.remove(actionsNode, this.entityColorClassByType['atLiterature']);
-            domClass.remove(actionsNode, this.entityColorClassByType['atPersonal']);
-            domClass.remove(actionsNode, this.entityColorClassByType['atQuestion']);
-            domClass.remove(actionsNode, this.entityColorClassByType['atNote']);
-            domClass.remove(actionsNode, this.entityColorClassByType['atEMail']);
+            for (var colorKey in this.entityColorClassByType) {
+                domClass.remove(actionsNode, this.entityColorClassByType[colorKey]);
+            }
+            
             if (colorCls) {
                 domClass.add(actionsNode, colorCls);
             }
-        },
+        }
     });
 });
 
