@@ -8,7 +8,8 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
-    '../_RightDrawerListMixin'
+    '../_RightDrawerListMixin',
+    '../_CardLayoutListMixin'
 ], function(
     declare,
     string,
@@ -16,10 +17,11 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     action,
     List,
     _MetricListMixin,
-    _RightDrawerListMixin
+    _RightDrawerListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',

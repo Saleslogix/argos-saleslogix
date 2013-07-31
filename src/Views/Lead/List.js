@@ -9,7 +9,8 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
-    '../_RightDrawerListMixin'
+    '../_RightDrawerListMixin',
+    '../_CardLayoutListMixin'
 ], function(
     declare,
     string,
@@ -18,10 +19,11 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     utility,
     List,
     _MetricListMixin,
-    _RightDrawerListMixin
+    _RightDrawerListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',

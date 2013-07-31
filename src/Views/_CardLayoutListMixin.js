@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
 
     return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
         itemColorClass: 'color-default',
-        itemIcon:null,
+        itemIcon: 'content/images/icons/ContactProfile_48x48.png',
         itemIndicators:null,
         itemExts: null,
         itemIndicatorIconPath: 'content/images/icons/',
