@@ -30,23 +30,11 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
+
         //Templates
         //Card View 
-        itemColorClassTemplate: new Simplate([
-           '{%: $$.activityColorClassByType[$.Activity.Type] || $$.itemColorClass  %}'
-        ]),
-        //Card View 
-        itemTabValueTemplate: new Simplate([
-         //'{%: $$.activityTextByType[$.Activity.Type] %}'
-           '{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) + " " + Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %}'
-        ]),
-        //Card View 
-        itemIconSourceTemplate: new Simplate([
-          '{%: $$.itemIcon || $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}'
-        ]),
-        //Card View 
-        itemRowContainerTemplate: new Simplate([
-           '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.$descriptor %}" data-activity-type="{%: $.Activity.Type %}"  data-color-class="{%! $$.itemColorClassTemplate %}" >',
+       itemRowContainerTemplate: new Simplate([
+           '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
             '{%! $$.itemRowContentTemplate %}',
           '</li>'
         ]),
@@ -406,7 +394,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             {
                 id: 'section_StartDate',
                 description: null,
-                section: new DateTimeSection({ groupByProperty: 'Activity.StartDate', sortDirection: 'desc' })
+                section: new DateTimeSection({ groupByProperty: 'Activity.StartDate', sortDirection: 'asc' })
             }];
             return groupBySections;
         },
@@ -462,6 +450,27 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         },
         applyActivityIndicator: function(entry, indicator) {
             this._applyActivityIndicator(entry['Activity']['Type'], indicator);
+        },
+        getItemActionKey: function(entry) {
+            return entry.Activity.$key;
+        },
+        getItemDescriptor: function(entry) {
+            return entry.Activity.$descriptor;
+        },
+        getItemTabValue: function(entry) {
+            var value = '';
+            if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
+                value = format.date(entry.Activity.StartDate, this.startTimeFormatText) + " " + format.date(entry.Activity.StartDate, "tt");
+            } else {
+                value = format.date(entry.Activity.StartDate, this.startDateFormatText);
+            }
+            return value;
+        },
+        getItemColorClass: function(entry) {
+            return this.activityColorClassByType[entry.Activity.Type] || this.itemColorClass;
+        },
+        getItemIconSource: function(entry) {
+            return this.itemIcon || this.activityIconByType[entry.Activity.Type] || this.icon || this.selectIcon
         }
     });
 });
