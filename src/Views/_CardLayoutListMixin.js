@@ -96,8 +96,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         getItemDescriptor: function(entry) {
             return entry.$descriptor
         },
-        getItemTabValue: function(entry)
-        {
+        getItemTabValue: function(entry) {
             var value = '';
 
             if (this.itemTabShowValue) {
