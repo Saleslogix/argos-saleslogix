@@ -1,5 +1,6 @@
 define('Mobile/SalesLogix/Environment', [
     'dojo/_base/lang',
+    'dojo/_base/array',
     'dojo/_base/window',
     'dojo/has',
     'dojo/string',
@@ -7,6 +8,7 @@ define('Mobile/SalesLogix/Environment', [
     'dojo/_base/sniff'
 ], function(
     lang,
+    array,
     win,
     has,
     string,
@@ -60,6 +62,58 @@ define('Mobile/SalesLogix/Environment', [
                 domConstruct.destroy(hiddenLink);
 
             }, 50);
+        },
+        attachmentViewsToRefresh: [
+            'myattachment_list',
+            'attachment_list',
+            'attachment_related',
+            'account_attachment_related',
+            'contact_attachment_related',
+            'lead_attachment_related',
+            'opportunity_attachment_related',
+            'ticket_attachment_related',
+            'activity_attachment_related',
+            'history_attachment_related'
+        ],
+        activityViewsToRefresh: [
+            'myactivity_list',
+            'activity_list',
+            'activity_detail',
+            'activity_related',
+            'ticketactivity_related',
+            'history_related',
+            'history_list'
+        ],
+        detailViewsToRefreshOnUpdate: [
+            'account_detail',
+            'contact_detail',
+            'opportunity_detail',
+            'lead_detail',
+            'ticket_detail'
+        ],
+        refreshStaleDetailViews: function() {
+            // List of detail views that will need refreshed when a note is added or an activity is completed (possibly others??).
+            // Otherwise the etag will change and the server will give a 412: Preconditioned failed when we attempt to edit/save.
+            var views = Mobile.SalesLogix.Environment.detailViewsToRefreshOnUpdate || [];
+            Mobile.SalesLogix.Environment.refreshViews(views);
+        },
+        refreshActivityLists: function() {
+            var views = Mobile.SalesLogix.Environment.activityViewsToRefresh || [];
+            Mobile.SalesLogix.Environment.refreshViews(views);
+        },
+        refreshAttachmentViews: function() {
+            var views = Mobile.SalesLogix.Environment.attachmentViewsToRefresh || [];
+            Mobile.SalesLogix.Environment.refreshViews(views);
+        },
+        refreshViews: function(views) {
+            if (views && views.length > 0) {
+                array.forEach(views, function(view_id) {
+                    var view = App.getView(view_id);
+                    if (view) {
+                        view.refreshRequired = true;
+                    }
+                });
+            }
         }
     });
 });

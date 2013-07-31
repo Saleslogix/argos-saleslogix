@@ -2,6 +2,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/string',
+    'Mobile/SalesLogix/Environment',
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit'
@@ -9,6 +10,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     declare,
     array,
     string,
+    environment,
     validator,
     utility,
     Edit
@@ -59,10 +61,6 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             'LeadName',
             'StartDate'
         ],
-        // List of detail views that will need refreshed when a note is added.
-        // Otherwise the etag will change and the server will give a 412: Preconditioned failed when we attempt to edit/save.
-        viewsToRefreshOnSave: ['account_detail', 'contact_detail', 'opportunity_detail', 'lead_detail', 'ticket_detail'],
-
         init: function() {
             this.inherited(arguments);
 
@@ -171,12 +169,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 }, this);
         },
         onInsertSuccess: function() {
-            array.forEach(this.viewsToRefreshOnSave, function(id) {
-                var view = App.getView(id);
-                if (view) {
-                    view.refreshRequired = true;
-                }
-            }, this);
+            environment.refreshStaleDetailViews();
             this.inherited(arguments);
         },
         applyContext: function() {
