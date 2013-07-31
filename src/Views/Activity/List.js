@@ -26,29 +26,19 @@ define('Mobile/SalesLogix/Views/Activity/List', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _RightDrawerListMixin, _CardLayoutListMixin], {
-        //Card View 
-        itemColorClass: 'color-activity',
+       
         // Localization
         startDateFormatText: 'ddd M/d/yy',
         startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
+
+        //Card View 
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
+        itemColorClass: 'color-activity',
         //Templates
         //Card View 
-        itemColorClassTemplate: new Simplate([
-           '{%: $$.activityColorClassByType[$.Type] || $$.itemColorClass  %}'
-        ]),
-        //Card View 
-        itemTabValueTemplate: new Simplate([
-          '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) + " " + Mobile.SalesLogix.Format.date($.StartDate, "tt") %}'
-        ]),
-        //Card View 
-        itemIconSourceTemplate: new Simplate([
-          '{%: $$.itemIcon || $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}'
-        ]),
-        //Card View 
         itemRowContainerTemplate: new Simplate([
-       '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}"  data-color-class="{%! $$.itemColorClassTemplate %}" >',
+       '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
            '{%! $$.itemRowContentTemplate %}',
        '</li>'
         ]),
@@ -175,11 +165,33 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         getGroupBySections: function() {
             var groupBySections = [{
                 id: 'section_StartDate',
-                description: 'Start Date',
-                section: new DateTimeSection({ groupByProperty: 'StartDate', sortDirection: 'desc' })
+                description: null,
+                section: new DateTimeSection({ groupByProperty: 'StartDate', sortDirection: 'asc' })
             }];
             return groupBySections;
         }, //Card View
+        getItemActionKey: function(entry) {
+            return entry.$key
+        },
+        getItemDescriptor: function(entry) {
+            return entry.$descriptor
+        },
+        getItemTabValue: function(entry)
+        {
+            var value = '';
+            if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
+                value = format.date(entry.StartDate, this.startTimeFormatText) + " " + format.date(entry.StartDate, "tt");
+            } else {
+                value = format.date(entry.StartDate, this.startDateFormatText);
+            }
+            return value;
+        },
+        getItemColorClass: function(entry) {
+            return  this.activityColorClassByType[entry.Type] || this.itemColorClass;
+        },
+        getItemIconSource: function(entry) {
+            return this.itemIcon || this.activityIconByType[entry.Type] || this.icon || this.selectIcon
+        },        
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: '1',
