@@ -13,7 +13,8 @@ define('Mobile/SalesLogix/Views/History/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/List',
     '../_RightDrawerListMixin',
-    '../_MetricListMixin'
+    '../_MetricListMixin',
+    '../_CardLayoutListMixin'
 ], function(
     declare,
     array,
@@ -26,11 +27,19 @@ define('Mobile/SalesLogix/Views/History/List', [
     action,
     List,
     _RightDrawerListMixin,
-    _MetricListMixin
+    _MetricListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
+        itemTabValueTemplate: new Simplate([
+           '{%: $.$descriptor %}'
+        ]),
+
+        itemColorClassTemplate: new Simplate([
+           '{%: $$.entityColorClassByType[$.Type] || $$.itemColorClass  %}'
+        ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
             '<button data-action="selectEntry" class="list-item-selector button">',
@@ -57,7 +66,6 @@ define('Mobile/SalesLogix/Views/History/List', [
             '<div class="note-text-wrap">',
             '{%: $.Notes %}',
             '</div>',
-            '<div class="note-text-more"></div>',
             '</div>'
         ]),
         nameTemplate: new Simplate([
@@ -144,7 +152,16 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atNote': 'content/images/icons/note_24.png',
             'atEMail': 'content/images/icons/letters_24.png'
         },
-
+        entityColorClassByType: {
+            'atToDo': 'color-ToDo',
+            'atPhoneCall': 'color-PhoneCall',
+            'atAppointment': 'color-Meeting',
+            //'atLiterature': 'color-LitRequest',
+            'atPersonal': 'color-Personal'
+            //'atQuestion': 'color-Question',
+            //'atNote': 'color-Note',
+            //'atEMail': 'color-Email'
+        },
         allowSelection: true,
         enableActions: true,
 
@@ -244,24 +261,25 @@ define('Mobile/SalesLogix/Views/History/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        _onResize: function() {
-            query('.note-text-item', this.contentNode).forEach(function(node) {
-                var wrapNode = query('.note-text-wrap', node)[0],
-                    moreNode = query('.note-text-more', node)[0];
-                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {
-                    domStyle.set(moreNode, 'visibility', 'visible');
-                } else {
-                    domStyle.set(moreNode, 'visibility', 'hidden');
-                }
-            });
-        },
         processFeed: function() {
             this.inherited(arguments);
-            this._onResize();
         },
         postCreate: function() {
             this.inherited(arguments);
             this.subscribe('/app/resize', this._onResize);
+        },
+        onApplyRowActionPanel: function(actionsNode, rowNode) {
+            var colorRowCls, colorCls
+
+            colorRowCls = query(rowNode).closest('[data-color-class]')[0];
+            colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
+            for (var colorKey in this.entityColorClassByType) {
+                domClass.remove(actionsNode, this.entityColorClassByType[colorKey]);
+            }
+            
+            if (colorCls) {
+                domClass.add(actionsNode, colorCls);
+            }
         }
     });
 });
