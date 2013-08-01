@@ -430,7 +430,7 @@ h4
 
 .metric-widget
 {
-    width: 32.9%;
+    width: 32.7%;
 }
 
 .metric-list
@@ -818,11 +818,14 @@ body.transition > .viewContainer > .footer-toolbar
     }
 }
 /* Tablets */
-@media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
+@media only screen and (min-width: 768px) {
     .metric-widget
     {
-        width: 24.8%;
+        width: 24.7%;
     }
+}
+
+@media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
     body.landscape > .viewContainer > #calendar_yearlist > .year-content > .year-table
     {
         float:left;
