@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             this.widgetTemplate =  new Simplate([
                 '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
                 '<div data-dojo-attach-point="searchNode"></div>',
-                '<ul data-dojo-attach-point="metricNode" class="metric-list"></ul>',
+                '<div data-dojo-attach-point="metricNode" class="metric-list"></div>',
                 '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
                 '{%! $.emptySelectionTemplate %}',
                 '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',

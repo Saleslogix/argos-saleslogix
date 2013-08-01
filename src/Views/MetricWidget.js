@@ -32,13 +32,13 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
          * Simple that defines the HTML Markup
         */
         widgetTemplate: new Simplate([
-            '<li class="metric-widget">',
+            '<div class="metric-widget">',
                 '<button data-dojo-attach-event="onclick:navToReportView">',
                     '<div data-dojo-attach-point="metricDetailNode" class="metric-detail">',
                         '{%! $.loadingTemplate %}',
                     '</div>',
                 '</button>',
-            '</li>'
+            '</div>'
         ]),
 
         /**
