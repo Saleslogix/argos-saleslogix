@@ -6,6 +6,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     'dojo/_base/array',
     'dojo/_base/connect',
     'dojo/string',
+    'Mobile/SalesLogix/Environment',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
@@ -15,6 +16,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     array,
     connect,
     string,
+    environment,
     validator,
     template,
     utility,
@@ -324,6 +326,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
 
             var success = (function(scope, callback, entry) {
                 return function() {
+                    environment.refreshStaleDetailViews();
                     connect.publish('/app/refresh', [{
                         resourceKind: 'history'
                     }]);
