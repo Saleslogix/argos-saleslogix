@@ -259,9 +259,6 @@ define('Mobile/SalesLogix/Views/History/List', [
         processFeed: function() {
             this.inherited(arguments);
         },
-        postCreate: function() {
-            this.inherited(arguments);
-        },
         onApplyRowActionPanel: function(actionsNode, rowNode) {
             var colorRowCls, colorCls
 
