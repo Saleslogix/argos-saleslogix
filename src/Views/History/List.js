@@ -8,6 +8,7 @@ define('Mobile/SalesLogix/Views/History/List', [
     'dojo/dom-style',
     'dojo/dom-geometry',
     'dojo/query',
+    'dojo/dom-class',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Action',
@@ -22,6 +23,7 @@ define('Mobile/SalesLogix/Views/History/List', [
     domStyle,
     domGeom,
     query,
+    domClass,
     format,
     convert,
     action,
@@ -33,13 +35,13 @@ define('Mobile/SalesLogix/Views/History/List', [
 
     return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
-        itemTabValueTemplate: new Simplate([
-           '{%: $.$descriptor %}'
-        ]),
+       // itemTabValueTemplate: new Simplate([
+       //    '{%: $.$descriptor %}'
+      //  ]),
 
-        itemColorClassTemplate: new Simplate([
-           '{%: $$.entityColorClassByType[$.Type] || $$.itemColorClass  %}'
-        ]),
+      //  itemColorClassTemplate: new Simplate([
+       //    '{%: $$.entityColorClassByType[$.Type] || $$.itemColorClass  %}'
+      //  ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
             '<button data-action="selectEntry" class="list-item-selector button">',
@@ -266,7 +268,6 @@ define('Mobile/SalesLogix/Views/History/List', [
         },
         postCreate: function() {
             this.inherited(arguments);
-            this.subscribe('/app/resize', this._onResize);
         },
         onApplyRowActionPanel: function(actionsNode, rowNode) {
             var colorRowCls, colorCls
@@ -280,6 +281,12 @@ define('Mobile/SalesLogix/Views/History/List', [
             if (colorCls) {
                 domClass.add(actionsNode, colorCls);
             }
+        },
+        getItemColorClass: function(entry) {
+            return this.entityColorClassByType[entry.Type] || this.itemColorClass;
+        },
+        getItemIconSource: function(entry) {
+            return this.itemIcon || this.entityIconByType[entry.Type] || this.icon || this.selectIcon
         }
     });
 });

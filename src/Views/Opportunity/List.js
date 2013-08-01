@@ -126,6 +126,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'SalesPotential',
             'ExchangeRate',
             'ExchangeRateCode',
+            'ModifyDate'
         ],
         resourceKind: 'opportunities',
         entityName: 'Opportunity',

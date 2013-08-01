@@ -81,7 +81,8 @@ define('Mobile/SalesLogix/Views/Lead/List', [
             'Email',
             'WorkPhone',
             'TollFree',
-            'Title'
+            'Title',
+            'ModifyDate'
         ],
         resourceKind: 'leads',
         entityName: 'Lead', 
