@@ -77,7 +77,8 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             'Subject',
             'TicketNumber',
             'UrgencyCode',
-            'Urgency/Description'
+            'Urgency/Description',
+            'ModifyDate'
         ],
         resourceKind: 'tickets',
         entityName: 'Ticket',

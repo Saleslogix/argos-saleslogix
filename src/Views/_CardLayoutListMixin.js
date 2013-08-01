@@ -13,7 +13,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     'dojo/dom',
     'dojo/dom-construct',
     'dojo/query',
-    'dojo/dom-class'
+    'dojo/dom-class',
+    'Sage/Platform/Mobile/Convert'
 
 ], function(
     array,
@@ -24,7 +25,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     dom,
     domConstruct,
     query,
-    domClass
+    domClass,
+    Convert
 ) {
 
     return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
@@ -62,10 +64,12 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         '</li>'
         ]),
         itemFooterTemplate: new Simplate([
-            '<div>',
+            '<div id="list-item-footer" class="list-item-footer">',
+            '<div">',
             '<button data-action="selectEntry" class="footer-item-selector button ">',
             '<img src="content/images/icons/Show_Details_active_24.png" alt="Actions" >',
             '</button>',
+            '</div>',
             '</div>'
         ]),
         itemRowContentTemplate: new Simplate([
@@ -76,7 +80,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             '</button>',
             '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
             '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
-            '<div id="list-item-footer" class="list-item-footer">{%! $$.itemFooterTemplate %}</div>'
+            '{%! $$.itemFooterTemplate %}'
         ]),
         postMixInProperties: function() {
             this.inherited(arguments);
@@ -89,6 +93,17 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             ]),
 
             this.createIndicatorLayout();
+        },
+        startup: function() {
+            this.inherited(arguments);
+            this._intFooter();
+
+        },
+        _intFooter: function(){
+            if (!this.actions.length) {
+
+                this.itemFooterTemplate = new Simplate(['']);
+            }
         },
         getItemActionKey: function(entry) {
             return entry.$key
@@ -182,6 +197,31 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                     }
                 }
             }
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'Touched',
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }]
+            );
+        },
+        hasBeenTouched: function(entry) {
+            var modifydDate, currentDate, seconds, hours, days;
+            if (entry['ModifyDate']) {
+                modifydDate = Convert.toDateFromString(entry['ModifyDate']);
+                currentDate = new Date();
+                seconds = Math.round((currentDate - modifydDate) / 1000);
+                hours = seconds / 360;
+                days = hours / 24;
+                if (days <= 7) {
+                    return true;
+                }
+            }
+            return false;
         }
     });
 

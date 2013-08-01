@@ -123,63 +123,37 @@ define('Mobile/SalesLogix/Views/Account/List', [
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                        id: 'edit',
-                        icon: 'content/images/icons/edit_24.png',
-                        label: this.editActionText,
-                        action: 'navigateToEditView'
-                    }, {
-                        id: 'callMain',
-                        icon: 'content/images/icons/Call_24x24.png',
-                        label: this.callMainActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
-                        fn: action.callPhone.bindDelegate(this, 'MainPhone')
-                    }, {
-                        id: 'viewContacts',
-                        icon: 'content/images/icons/Contacts_24x24.png',
-                        label: this.viewContactsActionText,
-                        fn: this.navigateToRelatedView.bindDelegate(this, 'contact_related', 'Account.id eq "${0}"')
-                    }, {
-                        id: 'addNote',
-                        icon: 'content/images/icons/New_Note_24x24.png',
-                        label: this.addNoteActionText,
-                        fn: action.addNote.bindDelegate(this)
-                    }, {
-                        id: 'addActivity',
-                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                        label: this.addActivityActionText,
-                        fn: action.addActivity.bindDelegate(this)
-                    }]
-            );
-        },
-
-        formatSearchQuery: function(searchQuery) {
-            return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-        },
-        createIndicatorLayout: function() {
-            return this.itemIndicators || (this.itemIndicators = [{
-                id: '1',
-                icon: 'Touched_24x24.png',
-                label: 'Touched',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.hasBeenTouched(entry);
-                }
+                id: 'edit',
+                icon: 'content/images/icons/edit_24.png',
+                label: this.editActionText,
+                action: 'navigateToEditView'
+            }, {
+                id: 'callMain',
+                icon: 'content/images/icons/Call_24x24.png',
+                label: this.callMainActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
+                fn: action.callPhone.bindDelegate(this, 'MainPhone')
+            }, {
+                id: 'viewContacts',
+                icon: 'content/images/icons/Contacts_24x24.png',
+                label: this.viewContactsActionText,
+                fn: this.navigateToRelatedView.bindDelegate(this, 'contact_related', 'Account.id eq "${0}"')
+            }, {
+                id: 'addNote',
+                icon: 'content/images/icons/New_Note_24x24.png',
+                label: this.addNoteActionText,
+                fn: action.addNote.bindDelegate(this)
+            }, {
+                id: 'addActivity',
+                icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                label: this.addActivityActionText,
+                fn: action.addActivity.bindDelegate(this)
             }]
             );
         },
-        hasBeenTouched:function(entry){
-            var modifydDate, currentDate, seconds, hours, days;
-            if (entry['ModifyDate']) {
-                modifydDate = Convert.toDateFromString(entry['ModifyDate']);
-                currentDate = new Date();
-                seconds = Math.round((currentDate - modifydDate) / 1000);
-                hours = seconds / 360;
-                days = hours / 24;
-                if (days <= 7) {
-                    return true;
-                }
-            }
-        return false;
-    }
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        }
     });
 });
 

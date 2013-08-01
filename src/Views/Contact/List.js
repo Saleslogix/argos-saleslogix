@@ -155,31 +155,6 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-        },
-        createIndicatorLayout: function() {
-            return this.itemIndicators || (this.itemIndicators = [{
-                id: '1',
-                icon: 'Touched_24x24.png',
-                label: 'Touched',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.hasBeenTouched(entry);
-                }
-            }]
-            );
-        },
-        hasBeenTouched:function(entry){
-            var modifydDate,currentDate,seconds, hours, days;
-            if (entry['ModifyDate']) {
-                 modifydDate = Convert.toDateFromString(entry['ModifyDate']);
-                 currentDate = new Date();
-                 seconds = Math.round((currentDate - modifydDate) / 1000);
-                 hours = seconds / 360;
-                 days = hours / 24;
-                 if (days <= 7) {
-                   return  true;
-                 }
-            }
-            return false;
         }
     });
 });
