@@ -35,13 +35,6 @@ define('Mobile/SalesLogix/Views/History/List', [
 
     return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
-       // itemTabValueTemplate: new Simplate([
-       //    '{%: $.$descriptor %}'
-      //  ]),
-
-      //  itemColorClassTemplate: new Simplate([
-       //    '{%: $$.entityColorClassByType[$.Type] || $$.itemColorClass  %}'
-      //  ]),
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
             '<button data-action="selectEntry" class="list-item-selector button">',
