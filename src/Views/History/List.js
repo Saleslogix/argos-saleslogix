@@ -264,10 +264,6 @@ define('Mobile/SalesLogix/Views/History/List', [
         processFeed: function() {
             this.inherited(arguments);
         },
-        postCreate: function() {
-            this.inherited(arguments);
-            this.subscribe('/app/resize', this._onResize);
-        },
         onApplyRowActionPanel: function(actionsNode, rowNode) {
             var colorRowCls, colorCls
 
