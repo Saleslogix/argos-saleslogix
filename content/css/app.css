@@ -410,13 +410,6 @@ h4
     border-top: solid 1px #DDD;
 }
 
-.metric-list
-{
-    list-style-type: none;
-    padding: 0px;
-}
-
-.metric-list,
 .metric-widget,
 .metric-detail
 {
@@ -432,11 +425,27 @@ h4
     border-color: #000;
     border-width: 0px;
     border-radius: 6px;
+    width: 100%;
+}
+
+.metric-widget
+{
+    width: 32.9%;
+}
+
+.metric-list
+{
+    padding: 0px 6px 0px 6px;
+    width:100%;
+    box-sizing: border-box;
 }
 
 .metric-title
 {
     font-size: 10pt;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .metric-title > .list-loading-indicator
@@ -450,16 +459,6 @@ h4
     font-weight: bold;
     padding-top: 5px;
 }
-
-/*.metric-detail
-{
-    padding: 3px;
-}
-
-.metric-widget
-{
-    padding: 3px;
-}*/
 
 li[data-activity-type] .list-item-selector,
 li[data-opportunity-status] .list-item-selector,
@@ -820,6 +819,10 @@ body.transition > .viewContainer > .footer-toolbar
 }
 /* Tablets */
 @media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
+    .metric-widget
+    {
+        width: 24.8%;
+    }
     body.landscape > .viewContainer > #calendar_yearlist > .year-content > .year-table
     {
         float:left;
