@@ -56,12 +56,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                 widget.destroy();
             }, this);
         },
-        // TODO: Be smart about a refresh required (when prefs change)
-        onShow: function() {
-            this.inherited(arguments);
-            this.rebuildWidgets();
-        },
-        onActivate: function() {
+        requestData: function() {
             this.inherited(arguments);
             this.rebuildWidgets();
         },
@@ -74,6 +69,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             widgetOptions = this.createMetricWidgetsLayout() || [];
             array.forEach(widgetOptions, function(options) {
                 if (this._hasValidOptions(options)) {
+                    options.queryArgs._activeFilter = this.query || '';
                     var widget = new MetricWidget(options);
                     widget.placeAt(this.metricNode, 'last');
                     widget.requestData();
