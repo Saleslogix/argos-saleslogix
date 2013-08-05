@@ -184,16 +184,24 @@ define('Mobile/SalesLogix/Format', [
                     ]
             ).replace(/ /g, '\u00A0'); //keep numbers from breaking
         },
+        bigNumberAbbrText: {
+            'billion': 'B',
+            'million': 'M',
+            'thousand': 'K'
+        },
         bigNumber: function(val) {
             try {
-                var numParse = dojoNumber.parse(val);
+                var numParse = dojoNumber.parse(val), text = Mobile.SalesLogix.Format.bigNumberAbbrText;
 
-                if (numParse && numParse >= 1000000) {
+                if (numParse && numParse >= 1000000000) {
+                    numParse = numParse / 1000000000;
+                    return dojoNumber.format(numParse, { places: 1 }) + text['billion'];
+                } else if (numParse && numParse >= 1000000) {
                     numParse = numParse / 1000000;
-                    return dojoNumber.format(numParse, { places: 1 }) + 'M';
+                    return dojoNumber.format(numParse, { places: 1 }) + text['million'];
                 } else if (numParse && numParse >= 1000) {
                     numParse = numParse / 1000;
-                    return dojoNumber.format(numParse, { places: 1 }) + 'K';
+                    return dojoNumber.format(numParse, { places: 1 }) + text['thousand'];
                 }
             } catch(ex) {}
 
