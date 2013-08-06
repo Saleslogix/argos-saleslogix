@@ -107,6 +107,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Status',
             'Activity/Description',
             'Activity/StartDate',
+            'Activity/EndDate',
             'Activity/Type',
             'Activity/AccountName',
             'Activity/AccountId',
@@ -126,14 +127,40 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         resourceKind: 'userActivities',
         allowSelection: true,
         enableActions: true,
-
         hashTagQueries: {
             'alarm': 'Alarm eq true',
             'status-unconfirmed': 'Status eq "asUnconfirmed"',
             'status-accepted': 'Status eq "asAccepted"',
             'status-declined': 'Status eq "asDeclned"',
             'recurring': 'Activity.Recurring eq true',
-            'timeless': 'Activity.Timeless eq true'
+            'timeless': 'Activity.Timeless eq true',
+            'today': function() {
+                var currentDate = new Date(), endOfDay, beginOfDay;
+                endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59);
+                beginOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0);
+                return string.substitute(
+                   '(Activity.StartDate between @${0}@ and @${1}@)',
+                   [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
+               );
+            },
+            'tomorrow': function() {
+                var currentDate = new Date(), endOfDay, beginOfDay;
+                endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 23, 59, 59);
+                beginOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 0, 0, 0);
+                return string.substitute(
+                   '(Activity.StartDate between @${0}@ and @${1}@)',
+                   [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
+               );
+            },
+            'yesterday': function() {
+                var currentDate = new Date(), endOfDay, beginOfDay;
+                endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()-1, 23, 59, 59);
+                beginOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()-1, 0, 0, 0);
+                return string.substitute(
+                   '(Activity.StartDate between @${0}@ and @${1}@)',
+                   [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
+               );
+            }
         },
         hashTagQueriesText: {
             'alarm': 'alarm',
@@ -141,9 +168,20 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'status-accepted': 'status-accepted',
             'status-declined': 'status-declined',
             'recurring': 'recurring',
-            'timeless': 'timeless'
+            'timeless': 'timeless',
+            'today': 'today',
+            'tomorrow': 'tomorrow',
+            'yesterday': 'yesterday'
         },
-
+        configureSearch: function() {
+            var searchQuery;
+            this.inherited(arguments);
+            this.setSearchTerm('#today');
+            searchQuery = this.getSearchQuery();
+            if (searchQuery) {
+                this.query = searchQuery;
+            }
+        },
         recordCallToHistory: function(complete, entry) {
             var entry = {
                 '$name': 'History',
@@ -399,15 +437,13 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return groupBySections;
         },
         hasAlarm: function(entry) {
-
-            if (entry["Activity"]) {
-                if (entry["Activity"]['Alarm']){  
+            if (entry['Alarm'] === true) {
+                return true;
+            }
+            if (entry['Alarm'] === null) {
+                if (entry['Activity']['Alarm'] === true) {
                     return true;
                 }
-                return false;
-            }
-            if (entry['Alarm']) {
-                return true;
             }
             return false;
         },
