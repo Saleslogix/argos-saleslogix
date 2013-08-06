@@ -82,6 +82,9 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
             '{%! $$.itemFooterTemplate %}'
         ]),
+        searchExpressionTemplate: new Simplate([
+            '<div id="{%= $.id %}_search-expression" class="card-layout-search-expression"></div'
+        ]),
         postMixInProperties: function() {
             this.inherited(arguments);
             this.cls = ' card-layout';
@@ -97,12 +100,19 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         startup: function() {
             this.inherited(arguments);
             this._intFooter();
-
+            this._intSerachExpressionNode();
         },
         _intFooter: function(){
             if (!this.actions.length) {
-
                 this.itemFooterTemplate = new Simplate(['']);
+            }
+        },
+        _intSerachExpressionNode: function() {
+            var html, listNode;
+            listNode = query('#' + this.id);
+            if (listNode[0]) {
+                html = this.searchExpressionTemplate.apply(this);
+                domConstruct.place(html, listNode[0], 'first');
             }
         },
         getItemActionKey: function(entry) {
@@ -180,7 +190,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                 }
             }
         },
-
         onApplyRowTemplate: function(entry, rowNode) {
 
             this.applyRowIndicators(entry, rowNode);
@@ -222,6 +231,26 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                 }
             }
             return false;
+        },
+        requestData: function(){
+            this.showSearchExpression();
+            this.inherited(arguments);
+        },
+        getSearchQuery:function(){
+            if (this.searchWidget) {
+                return this.searchWidget.getFormattedSearchQuery();
+            }
+            return null;
+        },
+        showSearchExpression: function() {
+            var html, searchNode;
+            if (this.searchWidget) {
+                searchNode = query('#'+ this.id +'_search-expression');
+               if (searchNode[0]) {
+                   html = '<div>' + this.searchWidget.get('queryValue') + '</div>';
+                   domAttr.set(searchNode[0], { innerHTML: html });
+                }
+            }
         }
     });
 

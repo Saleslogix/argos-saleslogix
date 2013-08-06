@@ -1867,6 +1867,19 @@ card-layout  .list-content > li
     background-image: url(../images/icons/Browse_Next_24.png);
 }
 
+.card-layout-search-expression
+{
+    display: block;
+    font-size: 0.75em;
+    min-height: 1em;
+    line-height: inherit;
+    padding: 4px 6px 4px 4px;
+    color: #777;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .color-default
 {
     background-color: 	#404040   !important;
