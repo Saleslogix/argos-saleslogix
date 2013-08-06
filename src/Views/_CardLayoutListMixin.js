@@ -100,14 +100,14 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         startup: function() {
             this.inherited(arguments);
             this._intFooter();
-            this._intSerachExpressionNode();
+            this._intSearchExpressionNode();
         },
         _intFooter: function(){
             if (!this.actions.length) {
                 this.itemFooterTemplate = new Simplate(['']);
             }
         },
-        _intSerachExpressionNode: function() {
+        _intSearchExpressionNode: function() {
             var html, listNode;
             listNode = query('#' + this.id);
             if (listNode[0]) {
@@ -247,7 +247,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             if (this.searchWidget) {
                 searchNode = query('#'+ this.id +'_search-expression');
                if (searchNode[0]) {
-                   html = '<div>' + this.searchWidget.get('queryValue') + '</div>';
+                   html = '<div>' + this.searchWidget.getSearchExpression() + '</div>';
                    domAttr.set(searchNode[0], { innerHTML: html });
                 }
             }
