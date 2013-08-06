@@ -127,7 +127,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         resourceKind: 'userActivities',
         allowSelection: true,
         enableActions: true,
-       
         hashTagQueries: {
             'alarm': 'Alarm eq true',
             'status-unconfirmed': 'Status eq "asUnconfirmed"',
