@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', [
     'dojo/_base/declare',
     'dojo/string',
@@ -34,3 +37,4 @@ define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', [
         }
     });
 });
+

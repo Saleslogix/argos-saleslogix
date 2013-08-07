@@ -18,7 +18,7 @@ define('localization/it', ['dojo/_base/lang'], function(lang) {
           3
         ],
         "currencyGroupSeparator": ".",
-        "currencySymbol": "�",
+        "currencySymbol": "€",
         "naNSymbol": "Non un numero reale",
         "currencyNegativePattern": 9,
         "numberNegativePattern": 1,

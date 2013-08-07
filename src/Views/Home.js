@@ -1,12 +1,17 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Home', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
+    'Mobile/SalesLogix/SpeedSearchWidget',
     'Sage/Platform/Mobile/GroupedList'
 ], function(
     declare,
     array,
     lang,
+    SpeedSearchWidget,
     GroupedList
 ) {
 
@@ -14,17 +19,16 @@ define('Mobile/SalesLogix/Views/Home', [
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
-            '<div class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
+            '<div class="list-item-static-selector">',
+                '{% if ($.icon) { %}',
+                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                '{% } %}',
+            '</div>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         itemTemplate: new Simplate([
-            '<h3>',
-            '{% if ($.icon) { %}',
-            '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-            '{% } %}',
-            '<span>{%: $.title %}</span>',
-            '</h3>'
+            '<h3>{%: $.title %}</h3>'
         ]),
 
         //Localization
@@ -37,22 +41,26 @@ define('Mobile/SalesLogix/Views/Home', [
         //View Properties
         id: 'home',
         expose: false,
-        enableSearch: false,
+        enableSearch: true,
+        searchWidgetClass: SpeedSearchWidget,
         customizationSet: 'home',
         configurationView: 'configure',
         addAccountContactView: 'add_account_contact',
+        searchView: 'speedsearch_list',
 
         navigateToView: function(params) {
             var view = App.getView(params && params.view);
-            if (view)
+            if (view) {
                 view.show();
+            }
         },
         addAccountContact: function(params) {
             var view = App.getView(this.addAccountContactView);
-            if (view)
+            if (view) {
                 view.show({
                     insert: true
                 });
+            }
         },
         formatSearchQuery: function(searchQuery) {
             var expression = new RegExp(searchQuery, 'i');
@@ -65,11 +73,12 @@ define('Mobile/SalesLogix/Views/Home', [
             return false;
         },
         getGroupForEntry: function(entry) {
-            if (entry.view)
+            if (entry.view) {
                 return {
                     tag: 'view',
                     title: this.viewsText
                 };
+            }
 
             return {
                 tag: 'action',
@@ -107,11 +116,9 @@ define('Mobile/SalesLogix/Views/Home', [
                 children: []
             };
 
-            for (var i = 0; i < configured.length; i++)
-            {
+            for (var i = 0; i < configured.length; i++) {
                 var view = App.getView(configured[i]);
-                if (view)
-                {
+                if (view) {
                     visible.children.push({
                         'action': 'navigateToView',
                         'view': view.id,
@@ -130,27 +137,39 @@ define('Mobile/SalesLogix/Views/Home', [
             var layout = this._createCustomizedLayout(this.createLayout()),
                 list = [];
 
-            for (var i = 0; i < layout.length; i++)
-            {
+            for (var i = 0; i < layout.length; i++) {
                 var section = layout[i].children;
 
-                for (var j = 0; j < section.length; j++)
-                {
+                for (var j = 0; j < section.length; j++) {
                     var row = section[j];
 
-                    if (row['security'] && !App.hasAccessTo(row['security']))
-                        return;
-                    if (typeof this.query !== 'function' || this.query(row))
+                    if (row['security'] && !App.hasAccessTo(row['security'])) {
+                        continue;
+                    }
+                    if (typeof this.query !== 'function' || this.query(row)) {
                         list.push(row);
+                    }
                 }
             }
 
             this.processFeed({'$resources': list});
         },
+
+        _onSearchExpression: function(expression, widget) {
+            var view = App.getView(this.searchView);
+
+            if (view) {
+                view.show({
+                    query: expression
+                });
+            }
+        },
+
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
-            if (view)
+            if (view) {
                 view.show();
+            }
         },
         _onRegistered: function() {
             this.refreshRequired = true;
@@ -159,13 +178,18 @@ define('Mobile/SalesLogix/Views/Home', [
             var visible = lang.getObject('preferences.home.visible', false, App) || [],
                 shown = this.feed && this.feed['$resources'];
 
-            if (!visible || !shown || (visible.length != shown.length))
+            if (!visible || !shown || (visible.length != shown.length)) {
                 return true;
+            }
 
-            for (var i = 0; i < visible.length; i++)
-                if (visible[i] != shown[i]['$key']) return true;
+            for (var i = 0; i < visible.length; i++) {
+                if (visible[i] != shown[i]['$key']) {
+                    return true;
+                }
+            }
 
             return this.inherited(arguments);
         }
     });
 });
+

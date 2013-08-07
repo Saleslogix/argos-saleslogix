@@ -1,0 +1,212 @@
+{
+  "accounts":[
+    {
+      "resourceKind":"accounts",
+      "metricTitleText":"Total Revenue",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"TotalRevenue"
+      },
+      "formatType":"Mobile/SalesLogix/Format",
+      "formatFunc":"bigNumber",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"sum",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Total Revenue",
+      "filterDisplayName":"Account Manager",
+      "enabled":false
+    },
+    {
+      "resourceKind":"accounts",
+      "metricTitleText":"Avg Time as Customer",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Type",
+        "_metricName":"AverageTimeAsCustomer"
+      },
+      "formatType":"Sage/Platform/Mobile/Format",
+      "formatFunc":"fixed",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"avg",
+      "reportViewId":"",
+      "chartType":"pie",
+      "metricDisplayName":"Average Time as Customer",
+      "filterDisplayName":"Type",
+      "enabled":false
+    },
+    {
+      "resourceKind":"accounts",
+      "metricTitleText":"Total Accounts",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"CountAccounts"
+      },
+      "formatType":"Mobile/SalesLogix/Format",
+      "formatFunc":"bigNumber",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"sum",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Count Accounts",
+      "filterDisplayName":"Account Manager",
+      "enabled":false
+    }
+  ],
+  "opportunities":[
+    {
+      "resourceKind":"opportunities",
+      "metricTitleText":"Total Opportunities",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"CountOpportunities"
+      },
+      "formatType":"Mobile/SalesLogix/Format",
+      "formatFunc":"bigNumber",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"sum",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Count Opportunities",
+      "filterDisplayName":"Account Manager",
+      "enabled":false
+    },
+    {
+      "resourceKind":"opportunities",
+      "metricTitleText":"Sales Potential",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"SumSalesPotential"
+      },
+      "formatType":"Mobile/SalesLogix/Format",
+      "formatFunc":"bigNumber",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"sum",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Sum Sales Potential",
+      "filterDisplayName":"Account Manager",
+      "enabled":false
+    }
+  ],
+  "tickets":[
+    {
+      "resourceKind":"tickets",
+      "metricTitleText":"Total Tickets",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Category",
+        "_metricName":"TicketCount"
+      },
+      "formatType":"Mobile/SalesLogix/Format",
+      "formatFunc":"bigNumber",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"sum",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Ticket Count",
+      "filterDisplayName":"Category",
+      "enabled":false
+    },
+    {
+      "resourceKind":"tickets",
+      "metricTitleText":"Open Age Average",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AssignedTo",
+        "_metricName":"OpenTicketAgingAverage"
+      },
+      "formatType":"Sage/Platform/Mobile/Format",
+      "formatFunc":"fixed",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"avg",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Open Ticket Aging Average",
+      "filterDisplayName":"Assigned To",
+      "enabled":false
+    }
+  ],
+  "contacts":[
+    {
+      "resourceKind":"contacts",
+      "metricTitleText":"Total Contacts",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"CountContacts"
+      },
+      "formatType":"Mobile/SalesLogix/Format",
+      "formatFunc":"bigNumber",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"sum",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Count Contacts",
+      "filterDisplayName":"Account Manager",
+      "enabled":true
+    }
+  ],
+  "leads":[
+    {
+      "resourceKind":"leads",
+      "metricTitleText":"Total Leads",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Owner",
+        "_metricName":"CountLeads"
+      },
+      "formatType":"Mobile/SalesLogix/Format",
+      "formatFunc":"bigNumber",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"sum",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Count Leads",
+      "filterDisplayName":"Owner",
+      "enabled":false
+    }
+  ],
+  "history":[
+    {
+      "resourceKind":"history",
+      "metricTitleText":"Total History",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Type",
+        "_metricName":"CountHistory"
+      },
+      "formatType":"Mobile/SalesLogix/Format",
+      "formatFunc":"bigNumber",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"sum",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Count History",
+      "filterDisplayName":"Type",
+      "enabled":true
+    },
+    {
+      "resourceKind":"history",
+      "metricTitleText":"Total Duration",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Type",
+        "_metricName":"TotalDuration"
+      },
+      "formatType":"Mobile/SalesLogix/Format",
+      "formatFunc":"bigNumber",
+      "valueType":"Mobile/SalesLogix/Aggregate",
+      "valueFunc":"sum",
+      "reportViewId":"",
+      "chartType":"bar",
+      "metricDisplayName":"Total Duration",
+      "filterDisplayName":"Type",
+      "enabled":true
+    }
+  ]
+}

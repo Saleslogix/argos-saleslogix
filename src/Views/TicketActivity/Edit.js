@@ -1,19 +1,23 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'Mobile/SalesLogix/Template',
+    'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
     lang,
     template,
+	validator,
     ErrorManager,
     Edit
 ) {
 
     return declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Edit], {
-
         //Localization
         titleText: 'Edit Ticket Activity',
         activityTypeText: 'type',
@@ -24,6 +28,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         startDateText: 'start date',
         endDateText: 'end date',
         commentsText: 'comments',
+        startingFormatText: 'M/d/yyyy h:mm tt',
 
         //View Properties
         entityName: 'TicketActivity',
@@ -43,8 +48,9 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         processTemplateEntry: function(entry) {
             this.inherited(arguments);
 
-            if (entry['PublicAccessCode'])
+            if (entry['PublicAccessCode']) {
                 this.requestCodeData('name eq "Ticket Activity Public Access"', entry['PublicAccessCode'], this.fields['PublicAccessCode']);
+            }
         },
         createPicklistRequest: function(name) {
             var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
@@ -68,6 +74,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         },
         onRequestCodeDataSuccess: function(code, field, feed) {
             var value = this.processCodeDataFeed(feed, code);
+            field.setValue(code);
             field.setText(value);
         },
         onRequestCodeDataFailure: function(response, o) {
@@ -77,10 +84,10 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
             var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
             var textProperty = options && options.textProperty ? options.textProperty : 'text';
 
-            for (var i = 0; i < feed.$resources.length; i++)
-            {
-                if (feed.$resources[i][keyProperty] === currentValue)
+            for (var i = 0; i < feed.$resources.length; i++) {
+                if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
+                }
             }
 
             return currentValue;
@@ -88,12 +95,13 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
 
         applyContext: function() {
             this.inherited(arguments);
-            
-            var ticketContext = App.isNavigationFromResourceKind( ['tickets'] ),
+
+            var ticketContext = App.isNavigationFromResourceKind(['tickets']),
                 ticketKey = ticketContext && ticketContext.key;
 
-            if (ticketKey)
+            if (ticketKey) {
                 this.fields['TicketId'].setValue(ticketKey);
+            }
         },
 
         createLayout: function() {
@@ -109,18 +117,18 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     property: 'ActivityTypeCode',
                     requireSelection: true,
                     title: this.activityTypeTitleText,
-                    storageMode: 'code',
+                    storageMode: 'id',
                     picklist: 'Ticket Activity',
                     type: 'picklist'
-                },{
+                }, {
                     label: this.publicAccessText,
                     name: 'PublicAccessCode',
                     property: 'PublicAccessCode',
                     title: this.publicAccessTitleText,
-                    storageMode: 'code',
+                    storageMode: 'id',
                     picklist: 'Ticket Activity Public Access',
                     type: 'picklist'
-                },{
+                }, {
                     label: this.userText,
                     name: 'User',
                     property: 'User',
@@ -128,17 +136,31 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     textTemplate: template.nameLF,
                     type: 'lookup',
                     view: 'user_list'
-                },{
+                }, {
                     label: this.startDateText,
                     name: 'AssignedDate',
                     property: 'AssignedDate',
-                    type: 'date'
-                },{
+                    type: 'date',
+                    showTimePicker: true,
+                    dateFormatText: this.startingFormatText,
+                    minValue: (new Date(1900, 0, 1)),
+                    validator: [
+                        validator.exists,
+                        validator.isDateInRange
+                    ]
+                }, {
                     label: this.endDateText,
                     name: 'CompletedDate',
                     property: 'CompletedDate',
-                    type: 'date'
-                },{
+                    type: 'date',
+                    showTimePicker: true,
+                    dateFormatText: this.startingFormatText,
+                    minValue: (new Date(1900, 0, 1)),
+                    validator: [
+                        validator.exists,
+                        validator.isDateInRange
+                    ]
+                }, {
                     label: this.commentsText,
                     name: 'ActivityDescription',
                     property: 'ActivityDescription',
@@ -149,3 +171,4 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         }
     });
 });
+

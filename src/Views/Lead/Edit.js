@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Lead/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
@@ -20,7 +23,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
         contactTitleText: 'title',
         emailText: 'email',
         faxText: 'fax',
-        importSourceText : 'lead source',
+        importSourceText: 'lead source',
         industryText: 'industry',
         industryTitleText: 'Industry',
         interestsText: 'interests',
@@ -51,7 +54,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
             'Interests',
             'LastName',
             'LeadNameLastFirst',
-            'LeadSource',
+            'LeadSource/Description',
             'MiddleName',
             'Notes',
             'Prefix',
@@ -201,3 +204,4 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
         }
     });
 });
+

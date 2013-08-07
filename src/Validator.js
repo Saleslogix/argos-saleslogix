@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Validator', [
     'dojo/_base/lang',
     'dojo/string'
@@ -14,8 +17,9 @@ define('Mobile/SalesLogix/Validator', [
         },
         name: {
             fn: function(value) {
-                if (value)
-                    return !/\w+/.test(value.FirstName || '') || !/\w+/.test(value.LastName || '');
+                if (value) {
+                    return !/.+/.test(value.FirstName || '') || !/.+/.test(value.LastName || '');
+                }
                 return true;
             },
             message: "The field '${2}' must have a first and last name specified."
@@ -24,6 +28,10 @@ define('Mobile/SalesLogix/Validator', [
             test: /.+/,
             message: "The field '${2}' cannot be empty."
         },
+        /*
+         * deprecated
+         * WARN: hasText will not work with unicode
+         */
         hasText: {
             test: /\w+/,
             message: "The field '${2}' must contain some text."
@@ -37,24 +45,26 @@ define('Mobile/SalesLogix/Validator', [
             message: "The value '${0}' is not a valid number."
         },
         isCurrency: {
-            fn: function(value, field){
-                return !(new RegExp(string.substitute('^[\\d]+(\\.\\d{1,${0}})?$',[
+            fn: function(value, field) {
+                return !(new RegExp(string.substitute('^[\\d]+(\\.\\d{1,${0}})?$', [
                     Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'])).test(value));
             },
             message: "The value '${0}' is not a valid currency number."
         },
         isInt32: {
             fn: function(value, field) {
-                if (value && (!/^\d{1,10}$/.test(value) || parseInt(value, 10) > 2147483647))
+                if (value && (!/^\d{1,10}$/.test(value) || parseInt(value, 10) > 2147483647)) {
                     return true;
+                }
                 return false;
             },
             message: "The field '${2}' value exceeds the allowed numeric range."
         },
         exceedsMaxTextLength: {
             fn: function(value, field) {
-                if (value && field && field.maxTextLength && value.length > field.maxTextLength)
+                if (value && field && field.maxTextLength && value.length > field.maxTextLength) {
                     return true;
+                }
                 return false;
             },
             message: "The field '${2}' value exceeds the allowed limit in length."
@@ -63,15 +73,27 @@ define('Mobile/SalesLogix/Validator', [
             fn: function(value, field) {
                 var minValue = field.minValue,
                     maxValue = field.maxValue;
-                //If value is empty, ignore comparison
-                if (!value) return false;
 
-                if (minValue && value instanceof Date && value.valueOf() > minValue.valueOf()) return false;
-                if (maxValue && value instanceof Date && value.valueOf() < maxValue.valueOf()) return false;
+                // if value is empty or not a date, ignore comparison
+                if (!value || !(value instanceof Date)) {
+                    return false;
+                }
+
+                if (minValue && maxValue) {
+                    if (value.valueOf() < minValue.valueOf() || value.valueOf() > maxValue.valueOf()) {
+                        return false;
+                    }
+                } else if (minValue && value.valueOf() < minValue.valueOf()) {
+                    return false;
+                } else if (maxValue && value.valueOf() > maxValue.valueOf()) {
+                    return false;
+                }
+
                 return true;
             },
             message: "The field '${2}' value is out of allowed date range."
         },
-        isPhoneNumber: { /* todo: remove, depreciated */ }
+        isPhoneNumber: { /* todo: remove, depreciated */}
     });
 });
+

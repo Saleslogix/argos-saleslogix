@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Fields/NameField', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/Fields/EditorField',
@@ -9,7 +12,7 @@ define('Mobile/SalesLogix/Fields/NameField', [
 ) {
     var control = declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
         // Localization
-        emptyText: 'no name',
+        emptyText: '',
 
         widgetTemplate: new Simplate([
             '<label for="{%= $.name %}">{%: $.label %}</label>',

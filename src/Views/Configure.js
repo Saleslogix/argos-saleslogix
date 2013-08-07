@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Configure', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -24,9 +27,6 @@ define('Mobile/SalesLogix/Views/Configure', [
         emptyTemplate: new Simplate(['']),
         itemTemplate: new Simplate([
             '<h3>',
-            '{% if ($.icon) { %}',
-            '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-            '{% } %}',
             '<span>{%: $.$descriptor %}</span>',
             '<span data-action="moveUp"></span>',
             '<span data-action="moveDown"></span>',
@@ -50,34 +50,34 @@ define('Mobile/SalesLogix/Views/Configure', [
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 tbar: [{
-                    id: 'save',
-                    fn: this.savePreferences,
-                    scope: this
-                },{
-                    id: 'cancel',
-                    side: 'left',
-                    fn: ReUI.back,
-                    scope: ReUI
-                }]
+                        id: 'save',
+                        fn: this.savePreferences,
+                        scope: this
+                    }, {
+                        id: 'cancel',
+                        side: 'left',
+                        fn: ReUI.back,
+                        scope: ReUI
+                    }]
             });
         },
         savePreferences: function() {
+            var visible, order, view;
+
             App.preferences.home = App.preferences.home || {};
             App.preferences.configure = App.preferences.configure || {};
 
             // clear existing
-            var visible = App.preferences.home.visible = [];
-            var order = App.preferences.configure.order = [];
+            visible = App.preferences.home.visible = [];
+            order = App.preferences.configure.order = [];
 
             // since the selection model does not have ordering, use the DOM
             query('li', this.domNode).forEach(function(node) {
                 var key = domAttr.get(node, 'data-key');
-                if (key)
-                {
+                if (key) {
                     order.push(key);
 
-                    if (domClass.contains(node, 'list-item-selected'))
-                    {
+                    if (domClass.contains(node, 'list-item-selected')) {
                         visible.push(key);
                     }
                 }
@@ -86,20 +86,26 @@ define('Mobile/SalesLogix/Views/Configure', [
             App.persistPreferences();
 
             ReUI.back();
+            view = App.getView('left_drawer');
+            if (view) {
+                view.refresh();
+            }
         },
         moveUp: function(params) {
             var node = query(params.$source),
                 row = node.parents('li');
 
-            if (row)
-                row.insertBefore(row.prev('li'))
+            if (row) {
+                row.insertBefore(row.prev('li'));
+            }
         },
         moveDown: function(params) {
             var node = query(params.$source),
                 row = node.parents('li');
 
-            if (row)
-                row.insertAfter(row.next('li'))
+            if (row) {
+                row.insertAfter(row.next('li'));
+            }
         },
         hasMoreData: function() {
             return false;
@@ -110,29 +116,29 @@ define('Mobile/SalesLogix/Views/Configure', [
                 exposed = App.getExposedViews(),
                 order = lang.getObject('preferences.configure.order', false, App) || [];
 
-            for (var i = 0; i < exposed.length; i++)
+            for (var i = 0; i < exposed.length; i++) {
                 lookup[exposed[i]] = true;
+            }
 
-            for (var i = 0; i < order.length; i++)
-                if (lookup[order[i]])
+            for (var i = 0; i < order.length; i++) {
+                if (lookup[order[i]]) {
                     delete lookup[order[i]];
+                }
+            }
 
-            for (var n in lookup)
+            for (var n in lookup) {
                 order.push(n);
+            }
 
-            for (i = 0; i < order.length; i++)
-            {
+            for (i = 0; i < order.length; i++) {
                 var view = App.getView(order[i]);
-                if (view && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(order[i]) >= 0)
-                {
+                if (view && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(order[i]) >= 0) {
                     list.push({
                         '$key': view.id,
                         '$descriptor': view.titleText,
                         'icon': view.icon
                     });
-                }
-                else
-                {
+                } else {
                     order.splice(i, 1);
                     i -= 1;
                 }
@@ -145,13 +151,14 @@ define('Mobile/SalesLogix/Views/Configure', [
 
             var visible = (App.preferences.home && App.preferences.home.visible) || [];
 
-            for (var i = 0; i < visible.length; i++)
-            {
+            for (var i = 0; i < visible.length; i++) {
                 var row = query((string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
 
-                if (row)
+                if (row) {
                     this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
+                }
             }
         }
     });
 });
+

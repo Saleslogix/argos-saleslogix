@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Fields/PicklistField', [
     'dojo/_base/declare',
     'dojo/string',
@@ -15,8 +18,9 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         viewsByNameCount = 0;
 
     var getOrCreateViewFor = function(name) {
-        if (viewsByName[name])
+        if (viewsByName[name]) {
             return viewsByName[name];
+        }
 
         var view = new PickList({
             id: 'pick_list_' + (viewsByNameCount++),
@@ -37,8 +41,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         valueTextProperty: false,
 
         constructor: function(options) {
-            switch (this.storageMode)
-            {
+            switch (this.storageMode) {
                 case 'text':
                     this.keyProperty = 'text';
                     this.textProperty = 'text';
@@ -77,8 +80,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         createNavigationOptions: function() {
             var options = this.inherited(arguments);
 
-            if (this.picklist)
-            {
+            if (this.picklist) {
                 options.resourcePredicate = this.formatResourcePredicate(
                     this.dependsOn // only pass dependentValue if there is a dependency
                         ? this.expandExpression(this.picklist, options.dependentValue)
@@ -88,19 +90,18 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                 options.previousSelections = !this.singleSelect ? this.createSelections() : null;
             }
 
-            if (!this.singleSelect)
-            {
+            if (!this.singleSelect) {
                 options.tools = {
                     tbar: [{
-                        id: 'complete',
-                        fn: this.complete,
-                        scope: this
-                    },{
-                        id: 'cancel',
-                        side: 'left',
-                        fn: ReUI.back,
-                        scope: ReUI
-                    }]
+                            id: 'complete',
+                            fn: this.complete,
+                            scope: this
+                        }, {
+                            id: 'cancel',
+                            side: 'left',
+                            fn: ReUI.back,
+                            scope: ReUI
+                        }]
                 };
             }
 
@@ -110,8 +111,9 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
             var options = this.createNavigationOptions(),
                 view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
 
-            if (view && options)
+            if (view && options) {
                 view.show(options);
+            }
         }
     });
 

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/TicketActivity/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -5,6 +8,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     'dojo/dom-style',
     'dojo/dom-geometry',
     'dojo/query',
+    'dojo/topic',
+    'dojo/_base/lang',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/List'
 ], function(
@@ -14,25 +19,22 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     domStyle,
     domGeom,
     query,
+    topic,
+    lang,
     format,
     List
 ) {
 
     return declare('Mobile.SalesLogix.Views.TicketActivity.List', [List], {
         //Templates
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}">',
-            '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
-            '</li>'
-        ]),
         itemTemplate: new Simplate([
-            '<h3>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h3>',
+            '<h3>{%: $.Ticket.TicketNumber %}</h3>',
+            '<h4>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h4>',
             '<div class="note-text-item">',
-                '<div class="note-text-wrap">',
-                    '{%: $.ActivityDescription %}',
-                '</div>',
-                '<div class="note-text-more"></div>',
+            '<div class="note-text-wrap">',
+            '{%: $.ActivityDescription %}',
+            '</div>',
+            '<div class="note-text-more"></div>',
             '</div>'
         ]),
 
@@ -49,7 +51,25 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         queryOrderBy: 'AssignedDate asc',
         querySelect: [
             'ActivityDescription',
-            'AssignedDate'
+            'ActivityTypeCode',
+            'AssignedDate',
+            'CompletedDate',
+            'ElapsedUnits',
+            'FollowUp',
+            'PublicAccessCode',
+            'Rate',
+            'RateTypeDescription/Amount',
+            'RateTypeDescription/RateTypeCode',
+            'RateTypeDescription/TypeDescription',
+            'TotalFee',
+            'TotalLabor',
+            'TotalParts',
+            'Units',
+            'Ticket/Account/AccountName',
+            'Ticket/TicketNumber',
+            'Ticket/Contact/Name',
+            'User/UserInfo/LastName',
+            'User/UserInfo/FirstName'
         ],
         resourceKind: 'ticketActivities',
 
@@ -57,10 +77,11 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
             query('.note-text-item', this.contentNode).forEach(function(node) {
                 var wrapNode = query('.note-text-wrap', node)[0],
                     moreNode = query('.note-text-more', node)[0];
-                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h)
+                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {
                     domStyle.set(moreNode, 'visibility', 'visible');
-                else
+                } else {
                     domStyle.set(moreNode, 'visibility', 'hidden');
+                }
             });
         },
         processFeed: function() {
@@ -69,7 +90,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         },
         postCreate: function() {
             this.inherited(arguments);
-            this.subscribe('/app/resize', this._onResize);
+            this.own(topic.subscribe('/app/resize', lang.hitch(this, this._onResize)));
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute(
@@ -79,3 +100,4 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         }
     });
 });
+

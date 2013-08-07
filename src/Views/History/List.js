@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/History/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -5,9 +8,14 @@ define('Mobile/SalesLogix/Views/History/List', [
     'dojo/dom-style',
     'dojo/dom-geometry',
     'dojo/query',
+    'dojo/dom-class',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List'
+    'Mobile/SalesLogix/Action',
+    'Sage/Platform/Mobile/List',
+    '../_RightDrawerListMixin',
+    '../_MetricListMixin',
+    '../_CardLayoutListMixin'
 ], function(
     declare,
     array,
@@ -15,45 +23,53 @@ define('Mobile/SalesLogix/Views/History/List', [
     domStyle,
     domGeom,
     query,
+    domClass,
     format,
     convert,
-    List
+    action,
+    List,
+    _RightDrawerListMixin,
+    _MetricListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List], {
+    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}" data-entity-name="{%: $$.resolveEntityName($) %}">',
-            '<div data-action="selectEntry" class="list-item-selector"></div>',
-            '{%! $$.itemTemplate %}',
+            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
+            '<button data-action="selectEntry" class="list-item-selector button">',
+            '<img src="{%= $$.entityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
+            '</button>',
+            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
             '{% if ($.Type === "atNote") { %}',
-            '<span class="p-time">{%: $$.formatDate($.ModifyDate) %}</span>',
-            '<span class="p-meridiem">&nbsp;{%: $$.formatMeridiem($.ModifyDate) %}</span>',
+                '{%: $$.formatDate($.ModifyDate) %}',
+                '&nbsp;{%: $$.formatMeridiem($.ModifyDate) %}',
             '{% } else { %}',
-            '<span class="p-time">{%: $$.formatDate($.CompletedDate) %}</span>',
-            '<span class="p-meridiem">&nbsp;{%: $$.formatMeridiem($.CompletedDate) %}</span>',
+                '{%: $$.formatDate($.CompletedDate) %}',
+                '&nbsp;{%: $$.formatMeridiem($.CompletedDate) %}',
             '{% } %}',
-            '<span class="p-description">&nbsp;{%= $$.nameTemplate.apply($) %}</span>',
             '</h3>',
-            '<h4>{%: $.Description %}</h4>',
+            '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
+            '{% if($.Description) { %}',
+                '<h4>{%: $$.regardingText + $.Description %}</h4>',
+            '{% } %}',
             '<div class="note-text-item">',
-                '<div class="note-text-wrap">',
-                    '{%: $.Notes %}',
-                '</div>',
-                '<div class="note-text-more"></div>',
+            '<div class="note-text-wrap">',
+            '{%: $.Notes %}',
+            '</div>',
             '</div>'
         ]),
         nameTemplate: new Simplate([
             '{% if ($.LeadName && $.AccountName) { %}',
-            '{%: $.LeadName %} / {%: $.AccountName %}',
+            '{%: $.LeadName %} | {%: $.AccountName %}',
             '{% } else if ($.LeadName) { %}',
             '{%: $.LeadName %}',
             '{% } else if ($.ContactName && $.AccountName) { %}',
-            '{%: $.ContactName %} / {%: $.AccountName %}',
+            '{%: $.ContactName %} | {%: $.AccountName %}',
             '{% } else if ($.ContactName) { %}',
             '{%: $.ContactName %}',
             '{% } else { %}',
@@ -71,17 +87,21 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atQuestion': 'Question',
             'atEMail': 'E-mail'
         },
-		hourMinuteFormatText: "h:mm",
-		dateFormatText: "M/D/YY",
+        hourMinuteFormatText: "h:mm",
+        dateFormatText: "M/D/YY",
         hashTagQueriesText: {
-          'note': 'note',
-          'phonecall': 'phonecall',
-          'meeting': 'meeting',
-          'personal': 'personal',
-          'email': 'email'
+            'note': 'note',
+            'phonecall': 'phonecall',
+            'meeting': 'meeting',
+            'personal': 'personal',
+            'email': 'email'
         },
         titleText: 'Notes/History',
-        
+        viewAccountActionText: 'Account',
+        viewOpportunityActionText: 'Opp.',
+        viewContactActionText: 'Contact',
+        regardingText: 'Regarding: ',
+
         //View Properties
         detailView: 'history_detail',
         icon: 'content/images/icons/journal_24.png',
@@ -101,6 +121,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             'Type',
             'LeadId',
             'OpportunityId',
+            'OpportunityName',
             'AccountId',
             'ContactId',
             'ModifyDate',
@@ -108,6 +129,7 @@ define('Mobile/SalesLogix/Views/History/List', [
         ],
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
+        entityName: 'History',
         hashTagQueries: {
             'note': 'Type eq "atNote"',
             'phonecall': 'Type eq "atPhoneCall"',
@@ -115,16 +137,106 @@ define('Mobile/SalesLogix/Views/History/List', [
             'personal': 'Type eq "atPersonal"',
             'email': 'Type eq "atEMail"'
         },
+        entityIconByType: {
+            'atToDo': 'content/images/icons/To_Do_24x24.png',
+            'atPhoneCall': 'content/images/icons/Call_24x24.png',
+            'atAppointment': 'content/images/icons/Meeting_24x24.png',
+            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
+            'atPersonal': 'content/images/icons/Personal_24x24.png',
+            'atQuestion': 'content/images/icons/help_24.png',
+            'atNote': 'content/images/icons/note_24.png',
+            'atEMail': 'content/images/icons/letters_24.png'
+        },
+        entityColorClassByType: {
+            'atToDo': 'color-ToDo',
+            'atPhoneCall': 'color-PhoneCall',
+            'atAppointment': 'color-Meeting',
+            //'atLiterature': 'color-LitRequest',
+            'atPersonal': 'color-Personal'
+            //'atQuestion': 'color-Question',
+            //'atNote': 'color-Note',
+            //'atEMail': 'color-Email'
+        },
+        allowSelection: true,
+        enableActions: true,
 
+        createActionLayout: function() {
+            return this.actions || (this.actions = [{
+                        id: 'viewAccount',
+                        icon: 'content/images/icons/Company_24.png',
+                        label: this.viewAccountActionText,
+                        enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
+                        fn: action.navigateToEntity.bindDelegate(this, {
+                            view: 'account_detail',
+                            keyProperty: 'AccountId',
+                            textProperty: 'AccountName'
+                        })
+                    }, {
+                        id: 'viewOpportunity',
+                        icon: 'content/images/icons/opportunity_24.png',
+                        label: this.viewOpportunityActionText,
+                        enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
+                        fn: action.navigateToEntity.bindDelegate(this, {
+                            view: 'opportunity_detail',
+                            keyProperty: 'OpportunityId',
+                            textProperty: 'OpportunityName'
+                        })
+                    }, {
+                        id: 'viewContact',
+                        icon: 'content/images/icons/Contacts_24x24.png',
+                        label: this.viewContactActionText,
+                        action: 'navigateToContactOrLead',
+                        enabled: this.hasContactOrLead
+                    }]
+            );
+        },
+        hasContactOrLead: function(action, selection) {
+            return (selection.data['ContactId']) || (selection.data['LeadId']);
+        },
+        navigateToContactOrLead: function(action, selection) {
+            var entity = this.resolveEntityName(selection.data),
+                viewId,
+                options;
+
+            switch (entity) {
+                case 'Contact':
+                    viewId = 'contact_detail';
+                    options = {
+                        key: selection.data['ContactId'],
+                        descriptor: selection.data['ContactName']
+                    };
+                    break;
+                case 'Lead':
+                    viewId = 'lead_detail';
+                    options = {
+                        key: selection.data['LeadId'],
+                        descriptor: selection.data['LeadName']
+                    };
+                    break;
+            }
+
+            var view = App.getView(viewId);
+
+            if (view && options) {
+                view.show(options);
+            }
+        },
         resolveEntityName: function(entry) {
             var exists = this.existsRE;
 
-            if (entry)
-            {
-                if (exists.test(entry['LeadId'])) return 'Lead';
-                if (exists.test(entry['OpportunityId'])) return 'Opportunity';
-                if (exists.test(entry['ContactId'])) return 'Contact';
-                if (exists.test(entry['AccountId'])) return 'Account';
+            if (entry) {
+                if (exists.test(entry['LeadId'])) {
+                    return 'Lead';
+                }
+                if (exists.test(entry['OpportunityId'])) {
+                    return 'Opportunity';
+                }
+                if (exists.test(entry['ContactId'])) {
+                    return 'Contact';
+                }
+                if (exists.test(entry['AccountId'])) {
+                    return 'Account';
+                }
             }
         },
         formatDate: function(date) {
@@ -149,23 +261,28 @@ define('Mobile/SalesLogix/Views/History/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        _onResize: function() {
-            query('.note-text-item', this.contentNode).forEach(function(node){
-                var wrapNode = query('.note-text-wrap', node)[0],
-                    moreNode = query('.note-text-more', node)[0];
-                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h)
-                    domStyle.set(moreNode, 'visibility', 'visible');
-                else
-                    domStyle.set(moreNode, 'visibility', 'hidden');
-            });
-        },
         processFeed: function() {
             this.inherited(arguments);
-            this._onResize();
         },
-        postCreate: function() {
-            this.inherited(arguments);
-            this.subscribe('/app/resize', this._onResize);
+        onApplyRowActionPanel: function(actionsNode, rowNode) {
+            var colorRowCls, colorCls
+
+            colorRowCls = query(rowNode).closest('[data-color-class]')[0];
+            colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
+            for (var colorKey in this.entityColorClassByType) {
+                domClass.remove(actionsNode, this.entityColorClassByType[colorKey]);
+            }
+            
+            if (colorCls) {
+                domClass.add(actionsNode, colorCls);
+            }
+        },
+        getItemColorClass: function(entry) {
+            return this.entityColorClassByType[entry.Type] || this.itemColorClass;
+        },
+        getItemIconSource: function(entry) {
+            return this.itemIcon || this.entityIconByType[entry.Type] || this.icon || this.selectIcon
         }
     });
 });
+

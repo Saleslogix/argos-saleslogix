@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], function(ApplicationModule) {
 
     return {
@@ -8,11 +11,13 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
             'crm': {
                 isDefault: true,
                 offline: true,
-                url: 'http://50.16.242.109/sdata/slx/dynamic/-/',
+                url: 'http://localhost/sdata/slx/dynamic/-/',
                 json: true
             }
         },
-        enableUpdateNotification: true
+        enableUpdateNotification: true,
+        multiCurrency: false,
+        maxUploadFileSize: 40000000
     };
 
 });

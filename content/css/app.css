@@ -1,13 +1,42 @@
+.list-content > [data-enabled="false"]
+{
+    opacity: 0.5;
+}
+
+.viewContainer > .list
+{
+    background-color: #e6e6e6;
+}
+
+.viewContainer > .panel
+{
+    background-color: #fff;
+}
+
+h4
+{
+    color: #000;
+}
+
+.row > div > label,
+.row > label
+{
+    float: none;
+}
+
+.row > div > label,
+.row > label,
+.row > div > span,
+.row > div > a,
+.row > span,
+.row > a
+{
+    display: inline-block;
+}
+
 .list-item-selected
 {
     background-color: #D5EFFA;
-}
-
-.list-item-selected .list-item-selector
-{
-    background-image: url(../images/icons/OK_24.png) !important;
-    background-repeat: no-repeat;
-    background-position: center center;
 }
 
 /* defect view */
@@ -152,6 +181,7 @@
     font-weight: normal;
     line-height: 1.25em;
     margin-top: 0;
+    font-style: italic;
 }
 
 .note-text-more
@@ -208,15 +238,19 @@
     padding: 0 3px;
 }
 
-#configure > .list-content > li > .resource
+#configure > .list-content > li .resource
 {
     display: block;
     margin: -8px 0 -8px -10px;
     padding: 8px 32px 8px 36px;
 }
 
-#configure > .list-content > li > h3 > [data-action="moveUp"],
-#configure > .list-content > li > h3 > [data-action="moveDown"]
+#configure > .list-content > li h3 > span:first-child
+{
+    float:left;
+}
+#configure > .list-content > li h3 > [data-action="moveUp"],
+#configure > .list-content > li h3 > [data-action="moveDown"]
 {
     float: right;
     display: block;
@@ -227,17 +261,17 @@
     cursor: pointer;
 }
 
-#configure > .list-content > li:first-child > h3 > [data-action="moveUp"],
-#configure > .list-content > li:last-child > h3 > [data-action="moveDown"] {
+#configure > .list-content > li:first-child h3 > [data-action="moveUp"],
+#configure > .list-content > li:last-child h3 > [data-action="moveDown"] {
     visibility: hidden;
 }
 
-#configure > .list-content > li > h3 > [data-action="moveUp"]
+#configure > .list-content > li h3 > [data-action="moveUp"]
 {
     background-image: url(../images/icons/Sort_Down_24.png);
 }
 
-#configure > .list-content > li > h3 > [data-action="moveDown"]
+#configure > .list-content > li h3 > [data-action="moveDown"]
 {
     background-image: url(../images/icons/Sort_Up_24.png);
 }
@@ -245,29 +279,23 @@
 #configure > .list-content > li
 {
     color: #aaa;
+    padding-right: 6px;
 }
 
-#configure > .list-content > li > h3 > .icon
+#configure > .list-content > li h3 > .icon
 {
     opacity: 0.5;
+    margin-right: .2em;
 }
 
 #configure > .list-content > li.list-item-selected
 {
     color: #000;
-    background: none;
 }
 
-#configure > .list-content > li.list-item-selected > h3 > .icon
+#configure > .list-content > li.list-item-selected h3 > .icon
 {
     opacity: 1.0;
-}
-
-#configure > .list-content > li.list-item-selected .list-item-selector
-{
-    background: url(../images/icons/OK_24.png) !important;
-    background-repeat: no-repeat;
-    background-position: center center;
 }
 
 #note_edit .row label,
@@ -376,6 +404,62 @@
     font-size: 0.75em;
 }
 
+.list-content
+{
+    /* TODO: create a wrapper for the metric widget and place this there. */
+    border-top: solid 1px #DDD;
+}
+
+.metric-widget,
+.metric-detail
+{
+    display: inline-block;
+    padding: 0px;
+    margin: 2px 0px 0px 2px;
+}
+
+.metric-widget > button
+{
+    padding: 5px 2px 5px 2px;
+    background-color: #fff;
+    border-color: #000;
+    border-width: 0px;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.metric-widget
+{
+    width: 32.7%;
+}
+
+.metric-list
+{
+    padding: 0px 6px 0px 6px;
+    width:100%;
+    box-sizing: border-box;
+}
+
+.metric-title
+{
+    font-size: 10pt;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.metric-title > .list-loading-indicator
+{
+    padding: 0;
+}
+
+.metric-value
+{
+    font-size: 14pt;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
 li[data-activity-type] .list-item-selector,
 li[data-opportunity-status] .list-item-selector,
 li[data-ticket-status] .list-item-selector,
@@ -385,94 +469,16 @@ li[data-ticket-status] .list-item-selector,
     visibility: visible;
 }
 
-li[data-activity-type="atNote"] .list-item-selector
+.row-edit[data-field-type="multiCurrency"] div > span
 {
-    background: url(../images/icons/note_24.png);
-}
-
-li[data-activity-type="atNote"][data-entity-name="Account"] .list-item-selector
-{
-    background: url(../images/icons/note_account_24x24.png);
-}
-
-li[data-activity-type="atNote"][data-entity-name="Contact"] .list-item-selector
-{
-    background: url(../images/icons/note_contact_24x24.png);
-}
-
-li[data-activity-type="atNote"][data-entity-name="Opportunity"] .list-item-selector
-{
-    background: url(../images/icons/note_opp_24x24.png);
-}
-
-li[data-activity-type="atNote"][data-entity-name="Lead"] .list-item-selector
-{
-    background: url(../images/icons/note_lead_24x24.png);
-}
-
-li[data-activity-type="atToDo"] .list-item-selector
-{
-    background: url(../images/icons/To_Do_24x24.png);
-}
-
-li[data-activity-type="atPhoneCall"] .list-item-selector
-{
-    background: url(../images/icons/Call_24x24.png);
-}
-
-li[data-activity-type="atAppointment"] .list-item-selector
-{
-    background: url(../images/icons/Meeting_24x24.png);
-}
-
-li[data-activity-type="atLiterature"] .list-item-selector
-{
-    background: url(../images/icons/Schedule_Literature_Request_24x24.gif);
-}
-
-li[data-activity-type="atPersonal"] .list-item-selector
-{
-    background: url(../images/icons/Personal_24x24.png);
-}
-
-li[data-activity-type="atEMail"] .list-item-selector
-{
-    background: url(../images/icons/letters_24.png);
-}
-
-li[data-activity-type="atQuestion"] .list-item-selector
-{
-    background: url(../images/icons/help_24.png);
-}
-
-li[data-activity-type="Event"] .list-item-selector
-{
-    background: url(../images/icons/Holiday_schemes_24.png);
-}
-
-li[data-opportunity-status] .list-item-selector
-{
-    background: url(../images/icons/opportunity_24.png);
-}
-
-li[data-opportunity-status="Closed - Won"] .list-item-selector
-{
-    background: url(../images/icons/Opportunity_Won_24.png);
-}
-
-li[data-opportunity-status="Closed - Lost"] .list-item-selector
-{
-    background: url(../images/icons/Opportunity_Lost_24.png);
-}
-#address_list .list-item-selector,
-#address_related .list-item-selector {
-    background: url(../images/icons/Map_24.png);
+    position: absolute;
+    right: 4px;
 }
 
 .row-edit[data-field-type="lookup"] > div > .button
 {
     background-image: url(../images/icons/srch_24.png);
-    background-image: url(../images/icons/srch_24.png), linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/srch_24.png), linear-gradient(to bottom, #e6e6e6, #cccccc);
     background-image: url(../images/icons/srch_24.png), -webkit-gradient(
 		linear,
 		left top,
@@ -510,7 +516,7 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 .row-edit[data-field-type="date"] > div > .button
 {
     background-image: url(../images/icons/Calendar_24x24.png);
-    background-image: url(../images/icons/Calendar_24x24.png), linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/Calendar_24x24.png), linear-gradient(to bottom, #e6e6e6, #cccccc);
     background-image: url(../images/icons/Calendar_24x24.png), -webkit-gradient(
 		linear,
 		left top,
@@ -550,7 +556,7 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 .row-edit[data-field-type="note"] > div > .button
 {
     background-image: url(../images/icons/edit_24.png);
-    background-image: url(../images/icons/edit_24.png), linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: url(../images/icons/edit_24.png), linear-gradient(to bottom, #e6e6e6, #cccccc);
     background-image: url(../images/icons/edit_24.png), -webkit-gradient(
 		linear,
 		left top,
@@ -588,9 +594,21 @@ li[data-opportunity-status="Closed - Lost"] .list-item-selector
 {
     visibility: hidden;
 }
+.row-edit[data-field-type="recurrences"] > div > .button
+{
+    margin: 0;
+    padding: 0 8px;
+    position: absolute;
+    right: 4px;
+}
+.row-edit[data-field-type="recurrences"] > div > input
+{
+    padding: 8px 34px 8px 110px !important;
+}
 
 
-#activity_edit div.row-edit[data-field="Reminder"]
+#activity_edit div.row-edit[data-field="Reminder"],
+#recurrence_edit div.row-edit[data-field="Scale"]
 {
     border-top: none;
 }
@@ -706,13 +724,15 @@ td.calendar-day {
 .toolButton[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
 .toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
 .toolButton[data-tool="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }
+.toolButton[data-tool="toggleLeftDrawer"] > span { background-image: url(../images/icons/drawer_24.png); }
+.toolButton[data-tool="toggleRightDrawer"] > span { background-image: url(../images/icons/headerMenu_24.png); }
 .toolbar button.disabled {}
 .toolbar button.disabled > span {
     opacity: .1;
     cursor: help;
 }
 
-body.transition > .footer-toolbar
+body.transition > .viewContainer > .footer-toolbar
 {
     display: none !important;
 }
@@ -743,8 +763,13 @@ body.transition > .footer-toolbar
     height: auto;
     border: none;
     font-weight: normal;
+}
+
+.ie9 .footer-toolbar > div > .toolButton
+{
     -ms-filter: "";
 }
+
 
 .footer-toolbar > div > .toolButton-left
 {
@@ -776,43 +801,50 @@ body.transition > .footer-toolbar
 }
 
 /* Excludes iphone <= 3 */
-@media all and (min-width: 500px) {
-    body.landscape > #calendar_monthlist > .month-content,
-    body.landscape > #calendar_monthlist > .day-content
+@media only screen and (min-width: 500px), only screen and (-webkit-min-device-pixel-ratio: 2) {
+    body.landscape > .viewContainer > #calendar_monthlist > .month-content,
+    body.landscape > .viewContainer > #calendar_monthlist > .day-content
     {
         width:50%;
         float:left;
     }
-    body.landscape > #calendar_monthlist > .day-content > h2 {
+    body.landscape > .viewContainer > #calendar_monthlist > .day-content > h2 {
         margin-top:0;
         border-top: none;
         border-left: 1px solid #000000;
     }
-    body.landscape > #calendar_monthlist > .day-content > div > h2 {
+    body.landscape > .viewContainer > #calendar_monthlist > .day-content > div > h2 {
         border-left: 1px solid #000000;
     }
 }
 /* Tablets */
-@media all and (min-width: 768px) {
-    body.landscape > #calendar_yearlist > .year-content > .year-table
+@media only screen and (min-width: 768px) {
+    .metric-widget
+    {
+        width: 24.7%;
+    }
+}
+
+@media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
+    body.landscape > .viewContainer > #calendar_yearlist > .year-content > .year-table
     {
         float:left;
         width: 240px;
         height:210px;
         margin: 6px;
     }
-    body.landscape > #calendar_yearlist td.calendar-day
+    body.landscape > .viewContainer > #calendar_yearlist td.calendar-day
     {
         padding: 6px 0px 6px 0px !important;
         width: 34px;
         font-size:.7em;
     }
-    body.landscape > #calendar_yearlist tr.calendar-week-header
+    body.landscape > .viewContainer > #calendar_yearlist tr.calendar-week-header
     {
         padding: 3px 0 0 0 !important;
         font-size: 0.7em;
     }
-    body.landscape > #calendar_yearlist .activity-count
+    body.landscape > .viewContainer > #calendar_yearlist .activity-count
     {
         top: 8px;
         right: 0px !important;
@@ -824,6 +856,12 @@ body.transition > .footer-toolbar
         font-size: 70%;
     }
 
+}
+
+.month-content,
+.day-content
+{
+    background-color: #e6e6e6;
 }
 
 #calendar_daylist .event-hidden,
@@ -892,7 +930,7 @@ body.transition > .footer-toolbar
     border-radius: 5px 5px 0px 0px;
 
     background-color: #D6E3BF;
-    background-image: linear-gradient(top, #EAF1DF 1%, #D6E3BF 100%);
+    background-image: linear-gradient(to bottom, #EAF1DF 1%, #D6E3BF 100%);
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -901,13 +939,18 @@ body.transition > .footer-toolbar
         color-stop(1, #D6E3BF)
     );
     background-image: -moz-linear-gradient(top, #EAF1DF 1%, #D6E3BF 100%);
+}
+
+.ie9 #calendar_yearlist > .year-content > .year-table tr.calendar-week-title
+{
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#EAF1DF, endColorstr=#D6E3BF)";
 }
+
 #calendar_yearlist > .year-content > .year-table tr.calendar-week-header
 {
     border-spacing: 0;
     background-color: #D6E3BF;
-    background-image: linear-gradient(top, #D6E3BF, #CBE29E);
+    background-image: linear-gradient(to bottom, #D6E3BF, #CBE29E);
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -916,6 +959,10 @@ body.transition > .footer-toolbar
         color-stop(1, #CBE29E)
     );
     background-image: -moz-linear-gradient(top, #D6E3BF, #CBE29E);
+}
+
+.ie9 #calendar_yearlist > .year-content > .year-table tr.calendar-week-header
+{
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D6E3BF, endColorstr=#CBE29E)";
 }
 
@@ -929,7 +976,7 @@ body.transition > .footer-toolbar
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
     background-color: #e6e6e6;
-    background-image: linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: linear-gradient(to bottom, #e6e6e6, #cccccc);
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -944,7 +991,6 @@ body.transition > .footer-toolbar
     color: #000;
     text-shadow: #fff 0px 1px 0px;
     font-weight: bold;
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -958,6 +1004,16 @@ body.transition > .footer-toolbar
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
+}
+
+.ie9 #calendar_daylist .event-content > h2,
+.ie9 #calendar_monthlist .event-content > h2,
+.ie9 #calendar_monthlist .activity-content > h2,
+.ie9 #calendar_monthlist .day-content > h2,
+.ie9 #calendar_daylist > h2,
+.ie9 #calendar_weeklist > div > h2
+{
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
 }
 
 
@@ -1018,7 +1074,7 @@ body.transition > .footer-toolbar
 #calendar_weeklist,
 #calendar_yearlist,
 #calendar_daylist {
-    background-color: #fff;
+    background-color: #e6e6e6;
 }
 
 #calendar_monthlist .nav-bar,
@@ -1037,7 +1093,7 @@ body.transition > .footer-toolbar
     text-align: center;
     
     background-color: #e6e6e6;
-    background-image: linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: linear-gradient(to bottom, #e6e6e6, #cccccc);
     background-image: -webkit-gradient(
         linear,
         left top,
@@ -1075,8 +1131,10 @@ body.transition > .footer-toolbar
 #calendar_weeklist .list-content > div.no-data,
 #calendar_weeklist .list-content > .list-loading-indicator
 {
-    border-top: 1px solid #e6e6e6;
     margin-top: 5px;
+    background-color: #fff;
+    border-radius: 6px;
+    margin: 8px 6px 8px 6px;
 }
 
 #calendar_weeklist > .list-content > ul > li > .eventDate
@@ -1256,7 +1314,7 @@ td.entry-table-description {
 
     background-color: #eaf1df;
     background-image: linear-gradient(
-        center top,
+        to bottom,
         #eaf1df 0%,
         #d6e3bf 50%,
         #c1d59f 50%,
@@ -1281,7 +1339,13 @@ td.entry-table-description {
 
     -moz-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
     -webkit-box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
+}
 
+.ie9 .activities-for-day > .split-buttons > .button[data-tool="day"],
+.ie9 .activities-for-month > .split-buttons > .button[data-tool="month"],
+.ie9 .activities-for-year > .split-buttons > .button[data-tool="year"],
+.ie9 .activities-for-week > .split-buttons > .button[data-tool="week"]
+{
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#eaf1df, endColorstr=#d6e3bf)";
 }
 
@@ -1327,10 +1391,8 @@ td.entry-table-description {
 
     background-color: #f8d6aa;
     background-image: linear-gradient(
-        center top,
+        to bottom,
         #f8d6aa 0%,
-        /* #f4c180 50%, */
-        /* #f0ac55 50%, */
         #f4c180 100%
     );
     background-image: -webkit-gradient(
@@ -1338,15 +1400,11 @@ td.entry-table-description {
         left top,
         left bottom,
         color-stop(0, #f8d6aa),
-        /* color-stop(0.50, #f4c180), */
-        /* color-stop(0.50, #f0ac55), */
         color-stop(1, #f4c180)
     );
     background-image: -moz-linear-gradient(
         center top,
         #f8d6aa 0%,
-        /* #f4c180 50%, */
-        /* #f0ac55 50%, */
         #f4c180 100%
     );
     box-shadow: rgba(255,255,255,1.0) 0px 0px 1px inset;
@@ -1356,7 +1414,10 @@ td.entry-table-description {
     background-clip: padding-box;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
+}
 
+.ie9 .update-toolbar
+{
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#f8d6aa, endColorstr=#f4c180)";
 }
 
@@ -1413,4 +1474,459 @@ td.entry-table-description {
     box-sizing: content-box !important;
     -webkit-box-sizing: content-box !important;
     -moz-box-sizing: content-box !important;
+}
+.inline
+{
+    display: inline;
+}
+.attachment-viewer-content
+{
+    margin: 12px 0 !important;
+    width: 100% !important; 
+    height: 95% !important;
+}
+.attachment-viewer-label > label {
+    color: #0079A7 !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    margin-left: 10px !important;
+}
+.attachment-viewer-label > button {
+    margin-left: 10px !important;
+    float:left !important;
+}
+.attachment-viewer-area 
+{
+    moz-box-sizing: border-box !important;
+    border: 0px solid #000000 !important;
+    border-radius: 3px 3px 3px 3px !important;
+    margin: 10px !important;
+    padding:5px !important;
+    width: auto !important; 
+    height:95% !important;
+}
+
+.attachment-viewer-area > iframe
+{
+    border: 1px solid #000000 !important;
+    width: 100% !important; 
+    height:100% !important;
+	-moz-transform-origin: top left;
+    -webkit-transform-origin: top left;
+    -o-transform-origin: top left;
+    -ms-transform-origin: top left;
+    transform-origin: top left;
+}
+.attachment-viewer-area > table
+{
+    border-color: #e6e6e6;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-width: 1px;
+    width: 100% !important; 
+    height:100% !important;
+    background-color: #e6e6e6;
+}
+
+.attachment-viewer-area > table> tbody > tr > td
+{
+    padding: 4px;
+}
+
+.attachment-viewer-area > table> tbody > tr > td > img
+{
+    border: 0px solid #000000;
+}
+.attachment-viewer-not-supported
+{
+    margin: 10px !important;
+
+}
+
+card-layout .list-content
+{
+     margin: 0;
+    padding: 0;
+}
+
+card-layout  .list-content > li
+{
+    font-size: 1.25em;
+    font-weight: bold;
+    list-style: none;
+    margin: 8px 6px 8px 6px;
+    padding: 8px 0px 8px 10px;
+    position: relative;
+    border-radius: 6px;
+     cursor: pointer;
+}
+
+.card-layout .list-content > li,
+.card-layout .group-content > li
+{
+    padding: 8px 6px 8px 6px;
+}
+.card-layout .list-content > li,
+.card-layout .group-content > li
+{
+    background-color: #FFFFFF;
+    font-weight: normal;
+}
+.card-layout .list-show-selectors .list-item-content,
+.card-layout .list-item-static-selector + .list-item-content
+{
+    padding-left: 80px;
+}
+.card-layout .list-show-selectors 
+{
+    padding-left: 80px;
+}
+.card-layout .list-item-content
+{
+    padding-left: 80px;
+}
+
+.card-layout .actions-enabled + .list-item-content
+{
+    padding-left: 80px;
+}
+
+.card-layout .list-content > li > img.icon,
+.card-layout  .list-content > li > * > img.icon
+{
+    border: none 0 black;
+    margin: 0 .5em 0 0;
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+
+.card-layout .list-content > li > input.list-selector
+{
+    float: left;
+    margin: 2px 0 0 0px;
+}
+
+.card-layout .list-item-selector
+{
+    visibility: hidden;
+    width: 62px;
+    height: 48px;
+    color: #ff0;
+    position: absolute;
+    top: 8px;
+    left: 22px;
+    z-index: 10;
+    background: none;
+    border: 0 none #000;
+    padding: 0 2px 0 0px;
+}
+.card-layout .list-show-actions .list-item-selector
+{
+    visibility: visible !important;
+    width: 50px;
+    height: 50px;
+    left: 6px;
+
+    line-height: 30px;
+    padding: 0 2px 0 2px;
+
+    color: #000;
+    text-shadow: #fff 0px 1px 0px;
+    border: 1px solid #ececec;
+
+    background-color: #ffffff;
+    background-image: linear-gradient(to bottom, #fcfcfc, #dfdfdf);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #ffffff),
+        color-stop(1, #ececec)
+    );
+    background-image: -moz-linear-gradient(top, #ffffff, #ececec);
+}
+
+.card-layout  .list-show-actions  .list-item-selector > img
+{
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    border: none 0 black;
+    width: 50px;
+    height: 50px;
+}
+
+.card-layout .icon
+{
+    position: relative;
+    top: 6px;
+    left: 6px;
+    border: none 0 black;
+    width: 12px;
+    height: 12px;
+}
+
+.card-layout  .list-item-selected > .list-item-selector
+{
+    visibility: visible !important;
+}
+
+.card-layout  .list-item-static-selector
+{
+    visibility: visible;
+    width: 38px;
+    color: #ff0;
+    position: relative;
+    top: 8px;
+    left: 12px;
+    bottom: 0px;
+    z-index: 10;
+}
+.card-layout .actions-row > button
+{
+    background: #FFFFFF;
+    border: 0 solid #000000;
+    float: right;
+    height: 48px;
+    margin: 5px !important;
+    padding: 0 !important;
+    position: relative;
+    text-align: center;
+    width: 64px;
+   -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+
+}
+
+.card-layout  .list-action-selected + .actions-row
+{
+    display: block !important;
+}
+
+.card-layout  .list-action-selected > .list-item-selector
+{
+    border-color: #AAAAAA;
+    background-color:  	#AAAAAA !important;
+    background-image: none !important;
+    border-bottom: 0px none #AAAAAA !important;
+    -webkit-border-radius: 3px 3px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
+    bottom: -1px;
+    height: 62px !important;
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+}
+.card-layout .list-item-tab
+{
+  font-size: .50em;
+  font-weight: normal;
+  overflow:hidden; 
+  height:100px; 
+  background:#e3e3e3;
+  height:100%;
+  width:100%;
+  position:relative;
+  float: left;
+  clear: both;
+}
+
+.card-layout .list-item-content-tab
+{
+    background-color: ghostwhite;
+    color: black;
+    border-radius: 6px 0 0 6px;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    vertical-align: middle;
+    width: 20px;
+    z-index: 10;
+}
+.card-layout .list-item-content-tab > table
+ { 
+   height: 100%;
+    left: -8px;
+    position: absolute;
+    top: 0;
+    transform: rotate(-90deg);
+    width: 100%;
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg); 
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg); 
+
+}
+.card-layout .list-item-content-tab > table > tbody > tr > td 
+ { 
+    text-align:center;
+}
+
+.card-layout .list-item-content-tab > table > tbody > tr > td > div
+ { 
+    clear: both;
+    float: left;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    width: 100px;
+}
+
+.card-layout .list-item-content-tab >table > tbody > tr > td > div > span
+ {
+    font-size: 0.6em;
+    font-weight: normal;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.card-layout .list-item-indicator-content 
+{ 
+    padding-left: 80px;
+    text-align: right;
+     font-size: 0.6em;
+    font-weight: bold;
+}
+.card-layout .list-item-indicator-content > span > img
+{ 
+  width: 24px;
+  height:24px;
+  margin: 2px;
+  font-size: 0.6em;
+  font-weight: normal;
+
+}
+.card-layout .list-item-footer
+{
+    height: 28px;
+    margin: 5px 0 0;
+}
+
+
+.card-layout .list-action-selected .footer-item-selector {
+    background-image: none !important;
+    border-color: transparent transparent #AAAAAA;
+    border-radius: 0 0 0 0 !important;
+    border-style: solid;
+    border-width: 0 13px 44px;
+    box-shadow: none !important;
+    height: 0 !important;
+    left: 0;
+    top: 18px;
+    width: 0;
+    
+}
+
+.card-layout .footer-item-selector
+{
+    border: 0px none #000000;
+    background: transparent;
+    color: #000000;
+    float: right;
+    height: 28px;
+    top: 0;
+    width: 28px;
+    z-index: 10;
+}
+.footer-item-selector > img
+{ 
+    border: 0 none black;
+    height: 24px;
+    left: -2px !important;
+    position: relative !important;
+    top: 0px !important;
+    width: 24px;
+
+}
+
+
+.card-layout .list-action-selected  .footer-item-selector > img
+{ 
+    border: 0 none black;
+    height: 24px;
+    left: -13px !important;
+    position: relative !important;
+    top: 0px !important;
+    width: 24px;
+}
+
+.card-layout .list-item-footer > .button-unSelected > span
+{
+    background-image: url(../images/icons/Browse_Next_24.png);
+}
+
+.card-layout-search-expression
+{
+    display: block;
+    font-size: 0.75em;
+    min-height: 1em;
+    line-height: inherit;
+    padding: 4px 6px 4px 4px;
+    color: #777;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.color-default
+{
+    background-color: 	#404040   !important;
+    color: white !important;
+}
+.color-account
+{
+    background-color:#0066FF!important;
+    color: white !important;
+}
+.color-contact
+{
+    background-color:#3366FF!important;
+    color: white !important;
+}
+.color-activity
+{
+    background-color:#6600FF !important;
+    color: white !important;
+}
+.color-opportunity
+{
+    background-color:#FF6600 !important;
+    color: white !important;
+}
+.color-ToDo
+{
+    background-color:#fe5000 !important;
+    color: white !important;
+}
+.color-Meeting
+{
+    background-color:#0054a6 !important;
+    color: white !important;
+}
+.color-PhoneCall
+{
+    background-color:#128b0c !important;
+    color: white !important;
+}
+.color-Personal
+{
+    background-color:#5e00a6 !important;
+    color: white !important;
+}
+.indicator_Important
+{
+    background-color:#FFFFFF !important;
+    color: red!important;
 }

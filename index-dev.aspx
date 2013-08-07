@@ -6,7 +6,10 @@
 <%@ Import Namespace="System.Web.Script.Serialization" %>
 
 <!DOCTYPE html>
-<html>
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="gtie9 modern">
+<!--<![endif]-->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
@@ -53,18 +56,32 @@
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
+    <!-- Overthrow -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/overthrow/overthrow.js"></script>
+
+    <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
     require({
         baseUrl: "./",
         packages: [
-        { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
-        { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
-        { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
-        { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
-        { name: 'Mobile/SalesLogix', location: 'src' }
-    ]});
+            { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
+            { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
+            { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
+            { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
+            { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
+            { name: 'Mobile/SalesLogix', location: 'src' },
+            { name: 'configuration', location: 'configuration' },
+            { name: 'localization', location: 'localization' }
+        ],
+        paths: {
+            'Mobile/SalesLogix': './src',
+            'Sage/Platform/Mobile': '../../argos-sdk/src'
+        }
+    });
     </script>
 
     <script type="text/javascript">

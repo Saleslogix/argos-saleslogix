@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Help', [
     'dojo/_base/declare',
     'dojo/string',
@@ -94,3 +97,4 @@ define('Mobile/SalesLogix/Views/Help', [
         }
     });
 });
+
