@@ -91,7 +91,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'atPhoneCall': 'Phone Call',
             'atEMail': 'E-mail'
         },
-
         //View Properties
         id: 'myactivity_list',
 
@@ -143,15 +142,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                    [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
                );
             },
-            'tomorrow': function() {
-                var currentDate = new Date(), endOfDay, beginOfDay;
-                endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 23, 59, 59);
-                beginOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 0, 0, 0);
-                return string.substitute(
-                   '(Activity.StartDate between @${0}@ and @${1}@)',
-                   [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
-               );
-            },
             'yesterday': function() {
                 var currentDate = new Date(), endOfDay, beginOfDay;
                 endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()-1, 23, 59, 59);
@@ -160,7 +150,38 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                    '(Activity.StartDate between @${0}@ and @${1}@)',
                    [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
                );
-            }
+            },
+            'this-week': function() {
+                var setDate, weekStartDate, weekEndDate, userWeekStartDay, userWeekEndDay, query;
+
+                setDate = Date.today().clearTime();
+                userWeekStartDay = 0;
+                userWeekEndDay = 6;
+                userWeekStartDay = (App.context.userOptions) ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek']) : 0;// 0-6, Sun-Sat
+
+                if (setDate.getDay() === userWeekStartDay) {
+                    weekStartDate = setDate.clone().clearTime();
+                }else {
+                    weekStartDate = setDate.clone().moveToDayOfWeek(userWeekStartDay, -1).clearTime();
+                }
+
+                userWeekEndDay = weekStartDate.clone().addDays(6).getDay();
+
+                if (setDate.getDay() === userWeekEndDay) {
+                    weekEndDate = setDate.clone().set({ hour: 23, minute: 59, second: 59 });
+                } else {
+                    weekEndDate = setDate.clone().moveToDayOfWeek(userWeekEndDay, 1).set({ hour: 23, minute: 59, second: 59 });
+                }
+                query = string.substitute(
+                        '((Activity.StartDate between @${0}@ and @${1}@) or (Activity.StartDate between @${2}@ and @${3}@))',
+                        [
+                        convert.toIsoStringFromDate(weekStartDate),
+                        convert.toIsoStringFromDate(weekEndDate),
+                        weekStartDate.toString('yyyy-MM-ddT00:00:00Z'),
+                        weekEndDate.toString('yyyy-MM-ddT23:59:59Z')]
+                );
+                return query;
+            },
         },
         hashTagQueriesText: {
             'alarm': 'alarm',
@@ -170,13 +191,13 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'recurring': 'recurring',
             'timeless': 'timeless',
             'today': 'today',
-            'tomorrow': 'tomorrow',
+            'this-week': 'this-week',
             'yesterday': 'yesterday'
         },
         configureSearch: function() {
             var searchQuery;
             this.inherited(arguments);
-            this.setSearchTerm('#today');
+            this.setSearchTerm('#this-week');
             searchQuery = this.getSearchQuery();
             if (searchQuery) {
                 this.query = searchQuery;

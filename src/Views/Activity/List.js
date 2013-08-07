@@ -148,14 +148,81 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         contractName: 'system',
 
         hashTagQueries: {
+            'alarm':'Alarm eq true',
             'recurring': 'Recurring eq true',
             'timeless': 'Timeless eq true'
         },
-        hashTagQueriesText: {
-            'recurring': 'recurring',
-            'timeless': 'timeless'
-        },
+        hashTagQueries: {
+            'alarm': 'Alarm eq true',
+            'recurring': 'Recurring eq true',
+            'timeless': 'Timeless eq true',
+            'today': function() {
+                var currentDate = new Date(), endOfDay, beginOfDay;
+                endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59);
+                beginOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0);
+                return string.substitute(
+                   '(StartDate between @${0}@ and @${1}@)',
+                   [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
+               );
+            },
+            'yesterday': function() {
+                var currentDate = new Date(), endOfDay, beginOfDay;
+                endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 1, 23, 59, 59);
+                beginOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 1, 0, 0, 0);
+                return string.substitute(
+                   '(StartDate between @${0}@ and @${1}@)',
+                   [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
+               );
+            },
+            'this-week': function() {
+                var setDate, weekStartDate, weekEndDate, userWeekStartDay, userWeekEndDay, query;
 
+                setDate = Date.today().clearTime();
+                userWeekStartDay = 0;
+                userWeekEndDay = 6;
+                userWeekStartDay = (App.context.userOptions) ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek']) : 0;// 0-6, Sun-Sat
+
+                if (setDate.getDay() === userWeekStartDay) {
+                    weekStartDate = setDate.clone().clearTime();
+                } else {
+                    weekStartDate = setDate.clone().moveToDayOfWeek(userWeekStartDay, -1).clearTime();
+                }
+
+                userWeekEndDay = weekStartDate.clone().addDays(6).getDay();
+
+                if (setDate.getDay() === userWeekEndDay) {
+                    weekEndDate = setDate.clone().set({ hour: 23, minute: 59, second: 59 });
+                } else {
+                    weekEndDate = setDate.clone().moveToDayOfWeek(userWeekEndDay, 1).set({ hour: 23, minute: 59, second: 59 });
+                }
+                query = string.substitute(
+                        '((StartDate between @${0}@ and @${1}@) or (StartDate between @${2}@ and @${3}@))',
+                        [
+                        convert.toIsoStringFromDate(weekStartDate),
+                        convert.toIsoStringFromDate(weekEndDate),
+                        weekStartDate.toString('yyyy-MM-ddT00:00:00Z'),
+                        weekEndDate.toString('yyyy-MM-ddT23:59:59Z')]
+                );
+                return query;
+            },
+        },
+        hashTagQueriesText: {
+            'alarm': 'alarm',
+            'recurring': 'recurring',
+            'timeless': 'timeless',
+            'today': 'today',
+            'this-week': 'this-week',
+            'yesterday': 'yesterday'
+        },
+        configureSearch: function() {
+            var searchQuery;
+            this.inherited(arguments);
+            this.setSearchTerm('#this-week');
+            searchQuery = this.getSearchQuery();
+            if (searchQuery) {
+                this.query = searchQuery;
+            }
+        },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
@@ -295,6 +362,12 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                     return true;
                 }
             }
+            return false;
+        },
+        hasAlarm: function(entry) {
+            if (entry['Alarm'] === true) {
+                return true;
+            }            
             return false;
         },
        applyActivityIndicator: function(entry, indicator) {
