@@ -80,12 +80,12 @@ define('Mobile/SalesLogix/Validator', [
                 }
 
                 if (minValue && maxValue) {
-                    if (value.valueOf() < minValue.valueOf() || value.valueOf() > maxValue.valueOf()) {
+                    if (value.valueOf() > minValue.valueOf() && value.valueOf() < maxValue.valueOf()) {
                         return false;
                     }
-                } else if (minValue && value.valueOf() < minValue.valueOf()) {
+                } else if (minValue && value.valueOf() > minValue.valueOf()) {
                     return false;
-                } else if (maxValue && value.valueOf() > maxValue.valueOf()) {
+                } else if (maxValue && value.valueOf() < maxValue.valueOf()) {
                     return false;
                 }
 

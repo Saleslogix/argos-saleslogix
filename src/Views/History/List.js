@@ -244,7 +244,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                 nextDate = startDate.clone().add({hours: 24}),
                 fmt = this.dateFormatText;
 
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().sod().valueOf())
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
                 fmt = this.hourMinuteFormatText;
 
             return format.date(startDate.toDate(), fmt);
@@ -253,7 +253,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             var startDate = moment(convert.toDateFromString(date)),
                 nextDate = startDate.clone().add({hours: 24});
 
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().sod().valueOf())
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
                 return format.date(startDate.toDate(), 'A');
 
             return '';

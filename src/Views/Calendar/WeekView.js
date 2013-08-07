@@ -10,7 +10,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
-    'Mobile/SalesLogix/Format'
+    'Mobile/SalesLogix/Format',
+    'moment'
 ], function(
     declare,
     query,
@@ -19,7 +20,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
     domClass,
     ErrorManager,
     convert,
-    List
+    List,
+    format,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Calendar.WeekView', [List], {
@@ -28,6 +31,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         weekTitleFormatText: 'MMM D, YYYY',
         dayHeaderLeftFormatText: 'dddd',
         dayHeaderRightFormatText: 'MMM D, YYYY',
+        eventDateFormatText: 'M/D/YYYY',
         startTimeFormatText: 'h:mm',
         todayText: 'Today',
         dayText: 'Day',
@@ -69,9 +73,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             '</div>'
         ]),
         groupTemplate: new Simplate([
-            '<h2 data-action="activateDayHeader" class="dayHeader {%= $.headerClass %}" data-date="{%: $.StartDate.toString(\'YYYY-MM-DD\') %}">',
-            '<span class="dayHeaderLeft">{%: $.StartDate.toString($$.dayHeaderLeftFormatText) %}</span>',
-            '<span class="dayHeaderRight">{%: $.StartDate.toString($$.dayHeaderRightFormatText) %}</span>',
+            '<h2 data-action="activateDayHeader" class="dayHeader {%= $.headerClass %}" data-date="{%: moment($.StartDate).format(\'YYYY-MM-DD\') %}">',
+            '<span class="dayHeaderLeft">{%: moment($.StartDate).format($$.dayHeaderLeftFormatText) %}</span>',
+            '<span class="dayHeaderRight">{%: moment($.StartDate).format($$.dayHeaderRightFormatText) %}</span>',
             '<div style="clear:both"></div>',
             '</h2>',
             '<ul class="list-content">'
@@ -126,9 +130,9 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             '{% } %}'
         ]),
         eventNameTemplate: new Simplate([
-            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+            '{%: moment($.StartDate).format($$.eventDateFormatText) %}',
             '&nbsp;-&nbsp;',
-            '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
+            '{%: moment($.EndDate).format($$.eventDateFormatText) %}'
         ]),
         eventMoreTemplate: new Simplate([
             '<div class="list-more" data-dojo-attach-point="eventMoreNode">',
@@ -236,7 +240,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         },
         init: function() {
             this.inherited(arguments);
-            this.todayDate = moment().sod();
+            this.todayDate = moment().startOf('day');
             this.currentDate = this.todayDate.clone();
         },
         toggleGroup: function(params) {
@@ -258,13 +262,13 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         },
         getStartDay: function(date) {
             return (date.day() === this.userWeekStartDay)
-                    ? date.clone().sod()
-                    : date.clone().day(this.userWeekStartDay, -1).sod();
+                    ? date.clone().startOf('day')
+                    : date.clone().day(this.userWeekStartDay, -1).startOf('day');
         },
         getEndDay: function(date) {
             return (date.day() === this.userWeekEndDay)
-                    ? date.clone().eod()
-                    : date.clone().day(this.userWeekEndDay, 1).eod();
+                    ? date.clone().endOf('day')
+                    : date.clone().day(this.userWeekEndDay, 1).endOf('day');
         },
         getNextWeekActivities: function() {
             this.currentDate = this.getStartDay(this.weekEndDate.clone().add({days:1}));
@@ -288,10 +292,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
                 ].join(''), [
                     App.context['user'] && App.context['user']['$key'],
-                    convert.toIsoStringFromDate(this.weekStartDate),
-                    convert.toIsoStringFromDate(this.weekEndDate),
-                    this.weekStartDate.toString('yyyy-MM-ddT00:00:00Z'),
-                    this.weekEndDate.toString('yyyy-MM-ddT23:59:59Z')]
+                    convert.toIsoStringFromDate(this.weekStartDate.toDate()),
+                    convert.toIsoStringFromDate(this.weekEndDate.toDate()),
+                    this.weekStartDate.format('YYYY-MM-DDT00:00:00Z'),
+                    this.weekEndDate.format('YYYY-MM-DDT23:59:59Z')]
             );
         },
         setWeekTitle: function() {
@@ -480,7 +484,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 domConstruct.empty(this.eventRemainingContentNode);
             }
 
-            domConstruct(o.join(''), this.eventContentNode);
+             this.set('eventListContent', o.join(''));
         },
         refresh: function() {
             var startDate = this.currentDate.clone();
@@ -505,7 +509,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         },
         processShowOptions: function(options) {
             if (options.currentDate) {
-                this.currentDate = moment(options.currentDate).sod() || moment().sod();
+                this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
                 this.refreshRequired = true;
             }
         },
@@ -564,24 +568,24 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         },
         selectDateSuccess: function() {
             var view = App.getPrimaryActiveView();
-            this.currentDate = moment(view.getDateTime()).sod();
+            this.currentDate = moment(view.getDateTime()).startOf('day');
             this.refresh();
             ReUI.back();
         },
         navigateToDayView: function() {
             var view = App.getView(this.activityListView),
-                options = {currentDate: this.currentDate.valueOf() || moment().sod().valueOf()};
+                options = {currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf()};
             view.show(options);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView),
-                options = {currentDate: this.currentDate.valueOf() || moment().sod().valueOf()};
+                options = {currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf()};
             view.show(options);
         },
         navigateToInsertView: function(el) {
             var view = App.getView(this.insertView || this.editView);
 
-            this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || Date.today();
+            this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();
             if (view) {
                 view.show({
                     negateHistory: true,

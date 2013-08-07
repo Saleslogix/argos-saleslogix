@@ -71,13 +71,13 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
         applyUserActivityContext: function(context) {
             var view = App.getView(context.id);
             if (view && view.currentDate) {
-                var currentDate = moment(view.currentDate).clone().sod(),
+                var currentDate = moment(view.currentDate).clone().startOf('day'),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
                     startTime = startTimeOption && moment(startTimeOption),
                     startDate = currentDate.clone();
 
-                if (startTime && (currentDate.compareTo(Date.today()) !== 0))
+                if (startTime && (!moment(currentDate).isSame(moment())))
                 {
                     startDate.hours(startTime.hours());
                     startDate.minutes(startTime.minutes());

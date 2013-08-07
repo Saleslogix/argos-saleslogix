@@ -24,7 +24,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     return declare('Mobile.SalesLogix.Views.Calendar.DayView', [List], {
         // Localization
         titleText: 'Calendar',
-        dateHeaderFormatText: 'dddd, MM/DD/YYYY',
+        eventDateFormatText: 'M/D/YYYY',
+        dateHeaderFormatText: 'dddd, M/D/YYYY',
         startTimeFormatText: 'h:mm',
         todayText: 'Today',
         dayText: 'Day',
@@ -208,7 +209,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         },
         init: function() {
             this.inherited(arguments);
-            this.currentDate = moment().sod();
+            this.currentDate = moment().startOf('day');
         },
         toggleGroup: function(params) {
             var node = params.$source;
@@ -270,8 +271,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 ].join(''),
                 [
                     App.context['user'] && App.context['user']['$key'],
-                    convert.toIsoStringFromDate(this.currentDate.sod().toDate()),
-                    convert.toIsoStringFromDate(this.currentDate.eod().toDate())
+                    convert.toIsoStringFromDate(this.currentDate.startOf('day').toDate()),
+                    convert.toIsoStringFromDate(this.currentDate.endOf('day').toDate())
                 ]
             );
         },
@@ -367,7 +368,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         processShowOptions: function(options) {
             if (options.currentDate)
             {
-                this.currentDate = moment(options.currentDate).sod() || moment().sod();
+                this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
                 this.refreshRequired = true;
             }
         },
@@ -382,9 +383,9 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         },
         getToday: function() {
             if (this.isLoading()) return;
-            if (this.currentDate == moment().sod()) return;
+            if (this.currentDate == moment().startOf('day')) return;
 
-            this.currentDate = moment().sod();
+            this.currentDate = moment().startOf('day');
             this.refresh();
         },
         getPrevDay: function() {
@@ -445,19 +446,19 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         },
         selectDateSuccess: function() {
             var view = App.getPrimaryActiveView();
-            this.currentDate = moment(view.getDateTime()).sod();
+            this.currentDate = moment(view.getDateTime()).startOf('day');
             this.refresh();
             ReUI.back();
         },
         navigateToWeekView: function() {
             var view = App.getView(this.weekView),
-                navDate = this.currentDate ? this.currentDate : moment().sod(),
+                navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
                 options = {currentDate: navDate.valueOf()};
             view.show(options);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView),
-                navDate = this.currentDate ? this.currentDate : moment().sod(),
+                navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
                 options = {currentDate: navDate.valueOf()};
             view.show(options);
         },

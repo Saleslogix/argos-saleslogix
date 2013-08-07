@@ -36,6 +36,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         monthText: 'Month',
         monthTitleFormatText: 'MMMM YYYY',
         dayTitleFormatText: 'ddd MMM d, YYYY',
+        eventDateFormatText: 'M/D/YYYY',
         startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
         eventText: 'Event',
@@ -279,7 +280,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         },
         startup: function() {
             this.inherited(arguments);
-            this.currentDate = moment().sod();
+            this.currentDate = moment().startOf('day');
         },
         render: function() {
             this.inherited(arguments);
@@ -306,6 +307,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         selectDay: function(params, evt, el) {
             if (this.selectedDateNode) {
                 domClass.remove(this.selectedDateNode, 'selected');
+            }
 
             this.selectedDateNode = el;
             domClass.add(el, 'selected');
@@ -314,13 +316,13 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.getSelectedDate();
         },
         getFirstDayOfCurrentMonth: function() {
-            return this.currentDate.clone().date(1).sod();
+            return this.currentDate.clone().date(1).startOf('day');
         },
         getLastDayOfCurrentMonth: function() {
-            return this.currentDate.clone().date(this.currentDate.daysInMonth()).eod();
+            return this.currentDate.clone().date(this.currentDate.daysInMonth()).endOf('day');
         },
         getTodayMonthActivities: function() {
-            var today = moment().sod();
+            var today = moment().startOf('day');
             if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM'))
             {
                 this.currentDate = today;
@@ -451,11 +453,11 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
                 this.entries[row.$key] = row;
 
-                var startDay = moment(convert.toDateFromString(row.StartDate));
+                startDay = moment(convert.toDateFromString(row.StartDate));
                 if (r[i].Timeless)
                     startDay.add({minutes: startDay.zone()});
 
-                var dateIndex = startDay.format('YYYY-MM-DD');
+                dateIndex = startDay.format('YYYY-MM-DD');
                 this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
                     ? this.dateCounts[dateIndex] + 1
                     : 1;
@@ -484,8 +486,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 row.isEvent = isEvent = this.entries[row.$key] && this.entries[row.$key].isEvent;
                 this.entries[row.$key] = row;
 
-                var startDay = moment(convert.toDateFromString(row.StartDate));
-                var endDay = convert.toDateFromString(row.EndDate);
+                startDay = moment(convert.toDateFromString(row.StartDate));
+                endDay = convert.toDateFromString(row.EndDate);
 
                 while(startDay.valueOf() <= endDay.valueOf())
                 {
@@ -609,7 +611,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 activityQuery,
                 [App.context['user'] && App.context['user']['$key'],
                 convert.toIsoStringFromDate(this.currentDate.toDate()),
-                convert.toIsoStringFromDate(this.currentDate.clone().eod().toDate()),
+                convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
                 this.currentDate.format('YYYY-MM-DDT00:00:00Z'),
                 this.currentDate.format('YYYY-MM-DDT23:59:59Z')
                 ]
@@ -626,7 +628,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                     [
                         App.context['user'] && App.context['user']['$key'],
                         convert.toIsoStringFromDate(this.currentDate.toDate()),
-                        convert.toIsoStringFromDate(this.currentDate.clone().eod().toDate())
+                        convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate())
                     ]
                 );
         },
@@ -704,22 +706,22 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 dayClass = '',
                 weekendClass = '',
                 day = 1,
-                dayDate = moment().sod().date(1),
-                today = moment().sod(),
+                dayDate = moment().startOf('day').date(1),
+                today = moment().startOf('day'),
                 monthLength = this.currentDate.daysInMonth(),
-                weekEnds = [0,6];
+                weekEnds = [0,6],
+                i;
 
             calHTML.push(this.calendarStartTemplate);
 
             calHTML.push(this.calendarWeekHeaderStartTemplate);
-            for (var i = 0; i <= 6; i++ )
-            {
-                calHTML.push(string.substitute(this.calendarWeekHeaderTemplate, [moment.weekdaysShort[i]]));
+            for (i = 0; i <= 6; i++ ) {
+                calHTML.push(string.substitute(this.calendarWeekHeaderTemplate, [moment.langData().weekdaysShort(moment().day(i))]));
             }
             calHTML.push(this.calendarWeekHeaderEndTemplate);
 
             //Weeks
-            for (var i = 0; i <= 6; i++) {
+            for (i = 0; i <= 6; i++) {
                 calHTML.push(this.calendarWeekStartTemplate);
                 //Days
                 for (var j = 0; j <= 6; j++)
@@ -770,7 +772,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         processShowOptions: function(options) {
             if (options.currentDate)
             {
-                this.currentDate = moment(options.currentDate).sod() || moment().sod();
+                this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
                 this.refreshRequired = true;
             }
         },
@@ -816,18 +818,18 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         },
         selectDateSuccess: function() {
             var view = App.getPrimaryActiveView();
-            this.currentDate = moment(view.getDateTime()).sod();
+            this.currentDate = moment(view.getDateTime()).startOf('day');
             this.refresh();
             ReUI.back();
         },
         navigateToWeekView: function() {
             var view = App.getView(this.weekView),
-                options = {currentDate: this.currentDate.valueOf() || moment().sod()};
+                options = {currentDate: this.currentDate.valueOf() || moment().startOf('day')};
             view.show(options);
         },
         navigateToDayView: function() {
             var view = App.getView(this.dayView),
-                options = {currentDate: this.currentDate.valueOf() || moment().sod()};
+                options = {currentDate: this.currentDate.valueOf() || moment().startOf('day')};
             view.show(options);
         },
         navigateToInsertView: function(el) {

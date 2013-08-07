@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _RightDrawerListMixin, _CardLayoutListMixin], {
        
         // Localization
-        startDateFormatText: 'ddd M/d/yy',
+        startDateFormatText: 'ddd M/d/YY',
         startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
 

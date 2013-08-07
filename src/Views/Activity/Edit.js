@@ -446,13 +446,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var view = App.getView(context.id);
             if (view && view.currentDate)
             {
-                var currentDate = view.currentDate.sod(),
+                var currentDate = view.currentDate.startOf('day'),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
                     startTime = startTimeOption && moment(startTimeOption),
                     startDate;
 
-                if (startTime && (currentDate.valueOf() == moment().sod().valueOf()))
+                if (startTime && (currentDate.valueOf() == moment().startOf('day').valueOf()))
                 {
                     startDate = currentDate.clone()
                         .hours(startTime.hours())
@@ -461,7 +461,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 else
                 {
                     startTime = moment();
-                    startDate = currentDate.sod().hours(startTime.hours())
+                    startDate = currentDate.startOf('day').hours(startTime.hours())
                         .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
                 }
 
@@ -472,7 +472,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.inherited(arguments);
 
             var startTime = moment(),
-                startDate = moment().sod().hours(startTime.hours()).add({
+                startDate = moment().startOf('day').hours(startTime.hours()).add({
                     'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
                 }),
                 activityType = this.options && this.options.activityType,

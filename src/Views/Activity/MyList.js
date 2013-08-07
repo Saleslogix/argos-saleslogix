@@ -52,7 +52,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             '{%: $$.allDayText %},',
             '{% } else { %}',
             '{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}',
-            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %},',
+            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "A") %},',
             '{% } %}',
             '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
         ]),
@@ -500,7 +500,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         getItemTabValue: function(entry) {
             var value = '';
             if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
-                value = format.date(entry.Activity.StartDate, this.startTimeFormatText) + " " + format.date(entry.Activity.StartDate, "tt");
+                value = format.date(entry.Activity.StartDate, this.startTimeFormatText) + " " + format.date(entry.Activity.StartDate, "A");
             } else {
                 value = format.date(entry.Activity.StartDate, this.startDateFormatText);
             }

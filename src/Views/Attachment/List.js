@@ -64,7 +64,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
 
         //Localization
         titleText: 'Attachments',
-        attachmentDateFormatText: 'ddd M/d/yy h:mm:tt',
+        attachmentDateFormatText: 'ddd M/D/YYYY hh:mm:ss',
 
         //View Properties       
         id: 'attachment_list',
