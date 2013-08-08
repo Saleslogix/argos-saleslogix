@@ -24,7 +24,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     return declare('Mobile.SalesLogix.Views.Calendar.DayView', [List], {
         // Localization
         titleText: 'Calendar',
-        dateHeaderFormatText: 'dddd, MM/dd/yyyy',
+        eventDateFormatText: 'M/D/YYYY',
+        dateHeaderFormatText: 'dddd, M/D/YYYY',
         startTimeFormatText: 'h:mm',
         todayText: 'Today',
         dayText: 'Day',
@@ -82,7 +83,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
-            '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %}</span>',
+            '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "A") %}</span>',
             '{% } %}'
         ]),
         itemTemplate: new Simplate([
@@ -208,7 +209,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         },
         init: function() {
             this.inherited(arguments);
-            this.currentDate = Date.today().clearTime();
+            this.currentDate = moment().startOf('day');
         },
         toggleGroup: function(params) {
             var node = params.$source;
@@ -224,7 +225,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             this.options['where'] = this.formatQueryForActivities();
             this.feed = null;
             this.eventFeed = null;
-            this.set('dateContent', this.currentDate.toString(this.dateHeaderFormatText));
+            this.set('dateContent', this.currentDate.format(this.dateHeaderFormatText));
 
             this.requestData();
             this.requestEventData();
@@ -260,12 +261,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                     .setQueryArg(Sage.SData.Client.SDataUri.QueryArgNames.Where, eventWhere);
             return request;
         },
-        getEndOfDay: function() {
-            return new Date(this.currentDate.getFullYear(),
-                this.currentDate.getMonth(),
-                this.currentDate.getDate(),
-                23, 59, 59);
-        },
         getEventQuery: function() {
             return string.substitute(
                 [
@@ -276,8 +271,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 ].join(''),
                 [
                     App.context['user'] && App.context['user']['$key'],
-                    convert.toIsoStringFromDate(this.currentDate),
-                    convert.toIsoStringFromDate(this.getEndOfDay())
+                    convert.toIsoStringFromDate(this.currentDate.startOf('day').toDate()),
+                    convert.toIsoStringFromDate(this.currentDate.endOf('day').toDate())
                 ]
             );
         },
@@ -367,12 +362,13 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             options = options || {};
             options['where'] = this.formatQueryForActivities();
 
-            this.set('dateContent', this.currentDate.toString(this.dateHeaderFormatText));
+            this.set('dateContent', this.currentDate.format(this.dateHeaderFormatText));
             this.inherited(arguments, [options]);
         },
         processShowOptions: function(options) {
-            if (options.currentDate) {
-                this.currentDate = Date.parseExact(options.currentDate, 'yyyy-MM-dd').clearTime() || Date.today().clearTime();
+            if (options.currentDate)
+            {
+                this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
                 this.refreshRequired = true;
             }
         },
@@ -380,22 +376,16 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             return domClass.contains(this.domNode, 'list-loading');
         },
         getNextDay: function() {
-            if (this.isLoading()) {
-                return;
-            }
-
-            this.currentDate.add({day: 1});
+            if (this.isLoading()) return;
+            
+            this.currentDate.add({days: 1});
             this.refresh();
         },
         getToday: function() {
-            if (this.isLoading()) {
-                return;
-            }
-            if (this.currentDate.equals(Date.today())) {
-                return;
-            }
+            if (this.isLoading()) return;
+            if (this.currentDate == moment().startOf('day')) return;
 
-            this.currentDate = Date.today().clearTime();
+            this.currentDate = moment().startOf('day');
             this.refresh();
         },
         getPrevDay: function() {
@@ -403,7 +393,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 return;
             }
 
-            this.currentDate.add({day: -1});
+            this.currentDate.add({days: -1});
             this.refresh();
         },
         formatQueryForActivities: function() {
@@ -413,13 +403,16 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
 
+            var startDate = this.currentDate.toDate(),
+                endDate = this.currentDate.clone().add({days: 1, seconds: -1}).toDate();
+
             return string.substitute(
                 queryWhere,
                 [App.context['user'] && App.context['user']['$key'],
-                    convert.toIsoStringFromDate(this.currentDate),
-                    convert.toIsoStringFromDate(this.currentDate.clone().add({day: 1, second: -1})),
-                    this.currentDate.toString('yyyy-MM-ddT00:00:00Z'),
-                    this.currentDate.toString('yyyy-MM-ddT23:59:59Z')]
+                convert.toIsoStringFromDate(startDate),
+                convert.toIsoStringFromDate(endDate),
+                this.currentDate.format('YYYY-MM-DDT00:00:00Z'),
+                this.currentDate.format('YYYY-MM-DDT23:59:59Z')]
             );
         },
         selectEntry: function(params) {
@@ -453,18 +446,20 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         },
         selectDateSuccess: function() {
             var view = App.getPrimaryActiveView();
-            this.currentDate = view.getDateTime().clearTime();
+            this.currentDate = moment(view.getDateTime()).startOf('day');
             this.refresh();
             ReUI.back();
         },
         navigateToWeekView: function() {
             var view = App.getView(this.weekView),
-                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+                navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
+                options = {currentDate: navDate.valueOf()};
             view.show(options);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView),
-                options = {currentDate: this.currentDate.toString('yyyy-MM-dd') || Date.today()};
+                navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
+                options = {currentDate: navDate.valueOf()};
             view.show(options);
         },
         navigateToInsertView: function(el) {

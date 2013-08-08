@@ -88,7 +88,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atEMail': 'E-mail'
         },
         hourMinuteFormatText: "h:mm",
-        dateFormatText: "M/d/yy",
+        dateFormatText: "M/D/YY",
         hashTagQueriesText: {
             'note': 'note',
             'phonecall': 'phonecall',
@@ -240,18 +240,23 @@ define('Mobile/SalesLogix/Views/History/List', [
             }
         },
         formatDate: function(date) {
-            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours: 24}))) {
-                return format.date(date, this.hourMinuteFormatText);
-            }
+            var startDate = moment(convert.toDateFromString(date)),
+                nextDate = startDate.clone().add({hours: 24}),
+                fmt = this.dateFormatText;
 
-            return format.date(date, this.dateFormatText);
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
+                fmt = this.hourMinuteFormatText;
+
+            return format.date(startDate.toDate(), fmt);
         },
         formatMeridiem: function(date) {
-            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours: 24}))) {
-                return format.date(date, "tt");
-            }
+            var startDate = moment(convert.toDateFromString(date)),
+                nextDate = startDate.clone().add({hours: 24});
 
-            return "";
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
+                return format.date(startDate.toDate(), 'A');
+
+            return '';
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

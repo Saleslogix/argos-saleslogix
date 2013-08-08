@@ -27,8 +27,8 @@ define('Mobile/SalesLogix/Views/Event/Detail', [
         descriptionText: 'description',
         typeText: 'type',
         whenText: 'When',
-        startDateFormatText: 'M/d/yyyy h:mm:ss tt',
-        endDateFormatText: 'M/d/yyyy h:mm:ss tt',
+        startDateFormatText: 'M/D/YYYY h:mm:ss A',
+        endDateFormatText: 'M/D/YYYY h:mm:ss A',
 
         //View Properties
         id: 'event_detail',

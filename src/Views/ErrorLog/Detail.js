@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
 
         detailsText: 'Details',
         errorDateText: 'date',
-        errorDateFormatText: 'MM/dd/yyyy hh:mm tt',
+        errorDateFormatText: 'MM/DD/YYYY hh:mm A',
         statusTextText: 'error',
         urlText: 'url',
 

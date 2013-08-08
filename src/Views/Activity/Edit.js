@@ -47,11 +47,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         regardingText: 'regarding',
         rolloverText: 'auto rollover',
         startingText: 'start time',
+        startingFormatText: 'M/D/YYYY h:mm A',
+        startingFormatTimelessText: 'M/D/YYYY',
         repeatsText: 'repeats',
         recurringText: 'recurring',
         recurringTitleText: 'Recurring',
-        startingFormatText: 'M/d/yyyy h:mm tt',
-        startingFormatTimelessText: 'M/d/yyyy',
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
@@ -444,39 +444,36 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         applyUserActivityContext: function(context) {
             var view = App.getView(context.id);
-            if (view && view.currentDate) {
-                var currentDate = view.currentDate.clone().clearTime(),
+            if (view && view.currentDate)
+            {
+                var currentDate = view.currentDate.startOf('day'),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && Date.parse(startTimeOption),
+                    startTime = startTimeOption && moment(startTimeOption),
                     startDate;
 
-                if (startTime && (currentDate.compareTo(Date.today()) !== 0)) {
-                    startDate = currentDate.clone().set({
-                        'hour': startTime.getHours(),
-                        'minute': startTime.getMinutes()
-                    });
-                } else {
-                    startTime = Date.now();
-                    startDate = currentDate.clone().clearTime().set({
-                        'hour': startTime.getHours()
-                    }).add({
-                        'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
-                    });
+                if (startTime && (currentDate.valueOf() == moment().startOf('day').valueOf()))
+                {
+                    startDate = currentDate.clone()
+                        .hours(startTime.hours())
+                        .minutes(startTime.minutes());
+                }
+                else
+                {
+                    startTime = moment();
+                    startDate = currentDate.startOf('day').hours(startTime.hours())
+                        .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
                 }
 
-                this.fields['StartDate'].setValue(startDate);
-                this.recurrence.StartDate = startDate;
+                this.fields['StartDate'].setValue(startDate.toDate());
             }
         },
         applyContext: function() {
             this.inherited(arguments);
 
-            var startTime = Date.now(),
-                startDate = Date.now().clearTime().set({
-                    'hour': startTime.getHours()
-                }).add({
-                    'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
+            var startTime = moment(),
+                startDate = moment().startOf('day').hours(startTime.hours()).add({
+                    'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
                 }),
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
@@ -484,7 +481,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true,
                 alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
 
-            this.fields['StartDate'].setValue(startDate);
+            this.fields['StartDate'].setValue(startDate.toDate());
             this.fields['Type'].setValue(activityType);
             this.fields['Duration'].setValue(activityDuration);
             this.fields['Alarm'].setValue(alarmEnabled);
@@ -727,12 +724,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             // if StartDate is dirty, always update AlarmTime
             if (startDate && (isStartDateDirty || isReminderDirty)) {
                 values = values || {};
-                values['AlarmTime'] = startDate.clone().add({'minutes': -1 * reminderIn});
+                values['AlarmTime'] = moment(startDate).clone().add({'minutes': -1 * reminderIn}).toDate();
 
                 // if timeless, convert back to local time
-                if (timeless) {
-                    values['AlarmTime'].add({'minutes': startDate.getTimezoneOffset()});
-                }
+                if (timeless)
+                    values['AlarmTime'] = moment(values['AlarmTime']).add({'minutes': startDate.getTimezoneOffset()}).toDate();
             }
 
             return values;
