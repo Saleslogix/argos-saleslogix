@@ -154,26 +154,14 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                );
             },
             'this-week': function() {
-                var setDate, weekStartDate, weekEndDate, userWeekStartDay, userWeekEndDay, query;
+                var now, weekStartDate, weekEndDate, query;
 
-                setDate = moment().startOf('day');
-                userWeekStartDay = 0;
-                userWeekEndDay = 6;
-                userWeekStartDay = (App.context.userOptions) ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek']) : 0;// 0-6, Sun-Sat
+                now = moment();
+                now.lang(App.customMomentKey);
 
-                if (setDate.day() === userWeekStartDay) {
-                    weekStartDate = setDate.clone();
-                }else {
-                    weekStartDate = setDate.clone().day(userWeekStartDay);
-                }
+                weekStartDate = now.clone().startOf('week');
+                weekEndDate = weekStartDate.clone().endOf('week');
 
-                userWeekEndDay = weekStartDate.clone().add('days', 6).day();
-
-                if (setDate.day() === userWeekEndDay) {
-                    weekEndDate = setDate.clone().hour(23).minute(59).second(59);
-                } else {
-                    weekEndDate = setDate.clone().day(userWeekEndDay).hour(23).minute(59).second(59);
-                }
                 query = string.substitute(
                         '((Activity.StartDate between @${0}@ and @${1}@) or (Activity.StartDate between @${2}@ and @${3}@))',
                         [
@@ -455,7 +443,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             {
                 id: 'section_StartDate',
                 description: null,
-                section: new DateTimeSection({ groupByProperty: 'Activity.StartDate', sortDirection: 'asc' })
+                section: new DateTimeSection({ groupByProperty: 'Activity.StartDate', sortDirection: 'asc', momentLang: App.customMomentKey })
             }];
             return groupBySections;
         },
