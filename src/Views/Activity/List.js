@@ -175,33 +175,21 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                );
             },
             'this-week': function() {
-                var setDate, weekStartDate, weekEndDate, userWeekStartDay, userWeekEndDay, query;
+                var now, weekStartDate, weekEndDate, query;
 
-                setDate = Date.today().clearTime();
-                userWeekStartDay = 0;
-                userWeekEndDay = 6;
-                userWeekStartDay = (App.context.userOptions) ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek']) : 0;// 0-6, Sun-Sat
+                now = moment();
+                now.lang(App.customMomentKey);
 
-                if (setDate.getDay() === userWeekStartDay) {
-                    weekStartDate = setDate.clone().clearTime();
-                } else {
-                    weekStartDate = setDate.clone().moveToDayOfWeek(userWeekStartDay, -1).clearTime();
-                }
+                weekStartDate = now.clone().startOf('week');
+                weekEndDate = weekStartDate.clone().endOf('week');
 
-                userWeekEndDay = weekStartDate.clone().addDays(6).getDay();
-
-                if (setDate.getDay() === userWeekEndDay) {
-                    weekEndDate = setDate.clone().set({ hour: 23, minute: 59, second: 59 });
-                } else {
-                    weekEndDate = setDate.clone().moveToDayOfWeek(userWeekEndDay, 1).set({ hour: 23, minute: 59, second: 59 });
-                }
                 query = string.substitute(
                         '((StartDate between @${0}@ and @${1}@) or (StartDate between @${2}@ and @${3}@))',
                         [
-                        convert.toIsoStringFromDate(weekStartDate),
-                        convert.toIsoStringFromDate(weekEndDate),
-                        weekStartDate.toString('yyyy-MM-ddT00:00:00Z'),
-                        weekEndDate.toString('yyyy-MM-ddT23:59:59Z')]
+                        convert.toIsoStringFromDate(weekStartDate.toDate()),
+                        convert.toIsoStringFromDate(weekEndDate.toDate()),
+                        weekStartDate.format('YYYY-MM-DDT00:00:00Z'),
+                        weekEndDate.format('YYYY-MM-DDT23:59:59Z')]
                 );
                 return query;
             },
