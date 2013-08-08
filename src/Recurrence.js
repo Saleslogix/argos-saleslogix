@@ -145,14 +145,15 @@ define('Mobile/SalesLogix/Recurrence', [
 
             var list = [],
                 currentDate = startDate || new Date(),
+                wrapped = moment(currentDate),
                 day = currentDate.getDate(),
                 ord = this.ordText[parseInt((day - 1) / 7) + 1],
                 textOptions = [
                     null, // scale, replaced in loop
                     day,
-                    currentDate.toString(Date.CultureInfo.formatPatterns.monthDay),
-                    Date.CultureInfo.dayNames[currentDate.getDay()],
-                    Date.CultureInfo.abbreviatedMonthNames[currentDate.getMonth()],
+                    wrapped.format('DD'),
+                    wrapped.lang().weekdays(wrapped),
+                    wrapped.lang().monthsShort(wrapped),
                     ord
                 ];
 

@@ -13,7 +13,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     'Mobile/SalesLogix/Views/Activity/List',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Groups/DateTimeSection'
+    'Sage/Platform/Mobile/Groups/DateTimeSection',
+    'moment'
 ], function(
     declare,
     string,
@@ -26,7 +27,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     ActivityList,
     convert,
     ErrorManager,
-    DateTimeSection
+    DateTimeSection,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
@@ -52,7 +54,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             '{%: $$.allDayText %},',
             '{% } else { %}',
             '{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}',
-            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "tt") %},',
+            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "A") %},',
             '{% } %}',
             '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
         ]),
@@ -154,31 +156,31 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'this-week': function() {
                 var setDate, weekStartDate, weekEndDate, userWeekStartDay, userWeekEndDay, query;
 
-                setDate = Date.today().clearTime();
+                setDate = moment().startOf('day');
                 userWeekStartDay = 0;
                 userWeekEndDay = 6;
                 userWeekStartDay = (App.context.userOptions) ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek']) : 0;// 0-6, Sun-Sat
 
-                if (setDate.getDay() === userWeekStartDay) {
-                    weekStartDate = setDate.clone().clearTime();
+                if (setDate.day() === userWeekStartDay) {
+                    weekStartDate = setDate.clone();
                 }else {
-                    weekStartDate = setDate.clone().moveToDayOfWeek(userWeekStartDay, -1).clearTime();
+                    weekStartDate = setDate.clone().day(userWeekStartDay);
                 }
 
-                userWeekEndDay = weekStartDate.clone().addDays(6).getDay();
+                userWeekEndDay = weekStartDate.clone().add('days', 6).day();
 
-                if (setDate.getDay() === userWeekEndDay) {
-                    weekEndDate = setDate.clone().set({ hour: 23, minute: 59, second: 59 });
+                if (setDate.day() === userWeekEndDay) {
+                    weekEndDate = setDate.clone().hour(23).minute(59).second(59);
                 } else {
-                    weekEndDate = setDate.clone().moveToDayOfWeek(userWeekEndDay, 1).set({ hour: 23, minute: 59, second: 59 });
+                    weekEndDate = setDate.clone().day(userWeekEndDay).hour(23).minute(59).second(59);
                 }
                 query = string.substitute(
                         '((Activity.StartDate between @${0}@ and @${1}@) or (Activity.StartDate between @${2}@ and @${3}@))',
                         [
-                        convert.toIsoStringFromDate(weekStartDate),
-                        convert.toIsoStringFromDate(weekEndDate),
-                        weekStartDate.toString('yyyy-MM-ddT00:00:00Z'),
-                        weekEndDate.toString('yyyy-MM-ddT23:59:59Z')]
+                        convert.toIsoStringFromDate(weekStartDate.toDate()),
+                        convert.toIsoStringFromDate(weekEndDate.toDate()),
+                        weekStartDate.format('YYYY-MM-DDT00:00:00Z'),
+                        weekEndDate.format('YYYY-MM-DDT23:59:59Z')]
                 );
                 return query;
             },
@@ -521,7 +523,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         getItemTabValue: function(entry) {
             var value = '';
             if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
-                value = format.date(entry.Activity.StartDate, this.startTimeFormatText) + " " + format.date(entry.Activity.StartDate, "tt");
+                value = format.date(entry.Activity.StartDate, this.startTimeFormatText) + " " + format.date(entry.Activity.StartDate, "A");
             } else {
                 value = format.date(entry.Activity.StartDate, this.startDateFormatText);
             }

@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _RightDrawerListMixin, _CardLayoutListMixin], {
        
         // Localization
-        startDateFormatText: 'ddd M/d/yy',
+        startDateFormatText: 'ddd M/d/YY',
         startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
 
@@ -56,7 +56,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '{%: $$.allDayText %},',
             '{% } else { %}',
             '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}',
-            '&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "tt") %},',
+            '&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "A") %},',
             '{% } %}',
             '&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}'
         ]),

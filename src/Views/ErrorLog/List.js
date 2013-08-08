@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
     return declare('Mobile.SalesLogix.Views.ErrorLog.List', [List], {
         //Localization
         titleText: 'Error Logs',
-        errorDateFormatText: 'MM/dd/yyyy hh:mm tt',
+        errorDateFormatText: 'MM/DD/YYYY hh:mm A',
 
         //Templates
         itemTemplate: new Simplate([
