@@ -56,7 +56,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         multiCurrencyCodeText: 'code',
         multiCurrencyDateText: 'rate date',
         multiCurrencyLockedText: 'rate locked',
-        exchangeRateDateFormatText: 'M/d/yyyy h:mm tt',
+        exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
 
         //View Properties
         id: 'opportunity_detail',
