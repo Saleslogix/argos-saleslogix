@@ -234,7 +234,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         getItemTabValue: function(entry){
             var value = '';
             if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
-                value = format.date(entry.StartDate, this.startTimeFormatText) + " " + format.date(entry.StartDate, "tt");
+                value = format.date(entry.StartDate, this.startTimeFormatText) + " " + format.date(entry.StartDate, "A");
             } else {
                 value = format.date(entry.StartDate, this.startDateFormatText);
             }
