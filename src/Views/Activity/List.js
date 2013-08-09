@@ -146,6 +146,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         ],
         resourceKind: 'activities',
         contractName: 'system',
+        pageSize: 105,
 
         hashTagQueries: {
             'alarm':'Alarm eq true',
@@ -184,7 +185,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 weekEndDate = weekStartDate.clone().endOf('week');
 
                 query = string.substitute(
-                        '((StartDate between @${0}@ and @${1}@) or (StartDate between @${2}@ and @${3}@))',
+                        '((Timeless eq false and StartDate between @${0}@ and @${1}@) or (Timeless eq true and StartDate between @${2}@ and @${3}@))',
                         [
                         convert.toIsoStringFromDate(weekStartDate.toDate()),
                         convert.toIsoStringFromDate(weekEndDate.toDate()),

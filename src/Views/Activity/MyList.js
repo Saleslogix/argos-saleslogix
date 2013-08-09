@@ -163,7 +163,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 weekEndDate = weekStartDate.clone().endOf('week');
 
                 query = string.substitute(
-                        '((Activity.StartDate between @${0}@ and @${1}@) or (Activity.StartDate between @${2}@ and @${3}@))',
+                        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))',
                         [
                         convert.toIsoStringFromDate(weekStartDate.toDate()),
                         convert.toIsoStringFromDate(weekEndDate.toDate()),
