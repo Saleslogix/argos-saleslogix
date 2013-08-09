@@ -14,7 +14,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Groups/DateTimeSection',
-    'moment'
+    'moment',
+    'Mobile/SalesLogix/Action'
 ], function(
     declare,
     string,
@@ -28,7 +29,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     convert,
     ErrorManager,
     DateTimeSection,
-    moment
+    moment,
+    action
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
@@ -89,15 +91,16 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         declineActivityText: 'Decline',
         callText: 'Call',
         calledText: 'Called',
-        activityTypeText: {
-            'atPhoneCall': 'Phone Call',
-            'atEMail': 'E-mail'
-        },
+        addAttachmentActionText: 'Add Attachment',
+        viewContactActionText: 'Contact',
+        viewAccountActionText: 'Account',
+        viewOpportunityActionText: 'Opportunity',
+        
         //View Properties
         id: 'myactivity_list',
 
         historyEditView: 'history_edit',
-
+        existsRE: /^[\w]{12}$/,
         queryWhere: function() {
             return string.substitute('User.Id eq "${0}" and Status ne "asDeclned" and Activity.Type ne "atLiterature"', [App.context['user'].$key]);
         },
@@ -117,6 +120,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/Leader/$key',
             'Activity/Leader/$descriptor',
             'Activity/LeadName',
+            'Activity/LeadId',
+            'Activity/OpportunityId',
+            'Activity/TicketId',
             'Activity/UserId',
             'Activity/Timeless',
             'Activity/PhoneNumber',
@@ -193,125 +199,153 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 this.query = searchQuery;
             }
         },
-        recordCallToHistory: function(complete, entry) {
-            var entry = {
-                '$name': 'History',
-                'Type': 'atPhoneCall',
-                'ContactName': entry['Activity']['ContactName'],
-                'ContactId': entry['Activity']['ContactId'],
-                'AccountName': entry['Activity']['AccountName'],
-                'AccountId': entry['Activity']['AccountId'],
-                'Description': string.substitute("${0} ${1}", [this.calledText, (entry['Activity']['ContactName'] || '')]),
-                'UserId': App.context && App.context.user['$key'],
-                'UserName': App.context && App.context.user['UserName'],
-                'Duration': 15,
-                'CompletedDate': (new Date())
-            };
-
-            this.navigateToHistoryInsert('atPhoneCall', entry, complete);
-        },
-
-        navigateToHistoryInsert: function(type, entry, complete) {
-            var view = App.getView(this.historyEditView);
-            if (view) {
-                environment.refreshActivityLists();
-                view.show({
-                        title: this.activityTypeText[type],
-                        template: {},
-                        entry: entry,
-                        insert: true
-                    }, {
-                        complete: complete
-                    });
-            }
-        },
-
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                        id: 'complete',
-                        icon: 'content/images/icons/Clear_Activity_24x24.png',
-                        label: this.completeActivityText,
-                        enabled: function(action, selection) {
-                            var recur, entry = selection && selection.data;
-                            if (!entry) {
-                                return false;
-                            }
+                id: 'viewAccount',
+                icon: 'content/images/icons/Company_24.png',
+                label: this.viewAccountActionText,
+                enabled: function(action, selection) {
+                    var entry = selection && selection.data;
+                    if (!entry) {
+                        return false;
+                    }
+                    if (entry.Activity['AccountId']) {
+                        return true;
+                    }
+                    return false;
+                }, 
+                fn: function(action, selection) {
+                    var viewId = 'account_detail';
+                    options = {
+                        key: selection.data['Activity']['AccountId'],
+                        descriptor: selection.data['Activity']['AccountName']
+                    };
+                    var view = App.getView(viewId);
+                    if (view && options) {
+                        view.show(options);
+                    }
+                }
+            }, {
+                id: 'viewOpportunity',
+                icon: 'content/images/icons/opportunity_24.png',
+                label: this.viewOpportunityActionText,
+                enabled: function(action, selection) {
+                    var entry = selection && selection.data;
+                    if (!entry) {
+                        return false;
+                    }
+                    if (entry.Activity['OpportunityId']) {
+                        return true;
+                    }
+                    return false;
+                }, 
+                fn: function(action, selection) {
+                    var viewId = 'opportunity_detail';
+                    options = {
+                        key: selection.data['Activity']['OpportunityId'],
+                        descriptor: selection.data['Activity']['OpportunityName']
+                    };
+                    var view = App.getView(viewId);
+                    if (view && options) {
+                        view.show(options);
+                    }
+                }
+            }, {
+                id: 'viewContact',
+                icon: 'content/images/icons/Contacts_24x24.png',
+                label: this.viewContactActionText,
+                action: 'navigateToContactOrLead',
+                enabled: this.hasContactOrLead
+            }, {
+                id: 'complete',
+                icon: 'content/images/icons/Clear_Activity_24x24.png',
+                label: this.completeActivityText,
+                enabled: function(action, selection) {
+                    var recur, entry = selection && selection.data;
+                    if (!entry) {
+                        return false;
+                    }
 
-                            recur = entry.Activity.Recurring;
+                    recur = entry.Activity.Recurring;
 
-                            return entry.Activity['Leader']['$key'] === App.context['user']['$key'] && !recur;
-                        },
-                        fn: (function(action, selection) {
-                            var entry;
+                    return entry.Activity['Leader']['$key'] === App.context['user']['$key'] && !recur;
+                },
+                fn: (function(action, selection) {
+                    var entry;
 
-                            entry = selection && selection.data && selection.data.Activity;
+                    entry = selection && selection.data && selection.data.Activity;
 
-                            entry['CompletedDate'] = new Date();
-                            entry['Result'] = 'Complete';
+                    entry['CompletedDate'] = new Date();
+                    entry['Result'] = 'Complete';
 
-                            environment.refreshActivityLists();
-                            this.completeActivity(entry);
+                    environment.refreshActivityLists();
+                    this.completeActivity(entry);
 
-                        }).bindDelegate(this)
-                    }, {
-                        id: 'accept',
-                        icon: 'content/images/icons/OK_24.png',
-                        label: this.acceptActivityText,
-                        enabled: function(action, selection) {
-                            var entry = selection && selection.data;
-                            if (!entry) {
-                                return false;
-                            }
+                }).bindDelegate(this)
+            }, {
+                id: 'accept',
+                icon: 'content/images/icons/OK_24.png',
+                label: this.acceptActivityText,
+                enabled: function(action, selection) {
+                    var entry = selection && selection.data;
+                    if (!entry) {
+                        return false;
+                    }
 
-                            return entry.Status === 'asUnconfirmed';
-                        },
-                        fn: (function(action, selection) {
-                            var entry;
+                    return entry.Status === 'asUnconfirmed';
+                },
+                fn: (function(action, selection) {
+                    var entry;
 
-                            entry = selection && selection.data;
-                            environment.refreshActivityLists();
-                            this.confirmActivityFor(entry.Activity.$key, App.context['user']['$key']);
+                    entry = selection && selection.data;
+                    environment.refreshActivityLists();
+                    this.confirmActivityFor(entry.Activity.$key, App.context['user']['$key']);
 
-                        }).bindDelegate(this)
-                    }, {
-                        id: 'decline',
-                        icon: 'content/images/icons/cancl_24.png',
-                        label: this.declineActivityText,
-                        enabled: function(action, selection) {
-                            var entry = selection && selection.data;
-                            if (!entry) {
-                                return false;
-                            }
+                }).bindDelegate(this)
+            }, {
+                id: 'decline',
+                icon: 'content/images/icons/cancl_24.png',
+                label: this.declineActivityText,
+                enabled: function(action, selection) {
+                    var entry = selection && selection.data;
+                    if (!entry) {
+                        return false;
+                    }
 
-                            return entry.Status === 'asUnconfirmed';
-                        },
-                        fn: (function(action, selection) {
-                            var entry;
-                            entry = selection && selection.data;
+                    return entry.Status === 'asUnconfirmed';
+                },
+                fn: (function(action, selection) {
+                    var entry;
+                    entry = selection && selection.data;
 
-                            environment.refreshActivityLists();
-                            this.declineActivityFor(entry.Activity.$key, App.context['user']['$key']);
-                        }).bindDelegate(this)
-                    }, {
-                        id: 'call',
-                        icon: 'content/images/icons/Dial_24x24.png',
-                        label: this.callText,
-                        enabled: function(action, selection) {
-                            var entry;
-                            entry = selection && selection.data;
-                            return entry && entry.Activity && entry.Activity.PhoneNumber;
-                        },
-                        fn: function(action, selection) {
-                            var entry, phone;
-                            entry = selection && selection.data;
-                            phone = entry && entry.Activity && entry.Activity.PhoneNumber;
-                            if (phone) {
-                                this.recordCallToHistory(function() {
-                                    App.initiateCall(phone);
-                                }.bindDelegate(this), entry);
-                            }
-                        }.bindDelegate(this)
-                    }]
+                    environment.refreshActivityLists();
+                    this.declineActivityFor(entry.Activity.$key, App.context['user']['$key']);
+                }).bindDelegate(this)
+            }, {
+                id: 'call',
+                icon: 'content/images/icons/Dial_24x24.png',
+                label: this.callText,
+                enabled: function(action, selection) {
+                    var entry;
+                    entry = selection && selection.data;
+                    return entry && entry.Activity && entry.Activity.PhoneNumber;
+                },
+                fn: function(action, selection) {
+                    var entry, phone;
+                    entry = selection && selection.data;
+                    phone = entry && entry.Activity && entry.Activity.PhoneNumber;
+                    if (phone) {
+                        this.recordCallToHistory(function() {
+                            App.initiateCall(phone);
+                        }.bindDelegate(this), entry);
+                    }
+                }.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                icon: 'content/images/icons/Attachment_24.png',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]
             );
         },
         selectEntry: function(params, evt, node) {
@@ -522,6 +556,88 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         },
         getItemIconSource: function(entry) {
             return this.itemIcon || this.activityIconByType[entry.Activity.Type] || this.icon || this.selectIcon
+        },
+        hasContactOrLead: function(action, selection) {
+            return (selection.data['Activity']['ContactId']) || (selection.data['Activity']['LeadId']);
+        },
+        navigateToContactOrLead: function(action, selection) {
+            var entry = selection.data["Activity"];
+            var entity = this.resolveEntityName(entry),
+                viewId,
+                options;
+
+            switch (entity) {
+                case 'Contact':
+                    viewId = 'contact_detail';
+                    options = {
+                        key: entry['ContactId'],
+                        descriptor: entry['ContactName']
+                    };
+                    break;
+                case 'Lead':
+                    viewId = 'lead_detail';
+                    options = {
+                        key: entry['LeadId'],
+                        descriptor: entry['LeadName']
+                    };
+                    break;
+            }
+
+            var view = App.getView(viewId);
+
+            if (view && options) {
+                view.show(options);
+            }
+        },
+        resolveEntityName: function(entry) {
+            var exists = this.existsRE;
+
+            if (entry) {
+                if (exists.test(entry['LeadId'])) {
+                    return 'Lead';
+                }
+                if (exists.test(entry['OpportunityId'])) {
+                    return 'Opportunity';
+                }
+                if (exists.test(entry['ContactId'])) {
+                    return 'Contact';
+                }
+                if (exists.test(entry['AccountId'])) {
+                    return 'Account';
+                }
+            }
+        },
+        recordCallToHistory: function(complete, entry) {
+            var entry = {
+                '$name': 'History',
+                'Type': 'atPhoneCall',
+                'ContactName': entry['Activity']['ContactName'],
+                'ContactId': entry['Activity']['ContactId'],
+                'AccountName': entry['Activity']['AccountName'],
+                'AccountId': entry['Activity']['AccountId'],
+                'Description': string.substitute("${0} ${1}", [this.calledText, (entry['Activity']['ContactName'] || '')]),
+                'UserId': App.context && App.context.user['$key'],
+                'UserName': App.context && App.context.user['UserName'],
+                'Duration': 15,
+                'CompletedDate': (new Date())
+            };
+
+            this.navigateToHistoryInsert('atPhoneCall', entry, complete);
+        },
+
+        navigateToHistoryInsert: function(type, entry, complete) {
+            var view = App.getView(this.historyEditView);
+            if (view) {
+                environment.refreshActivityLists();
+                view.show({
+                    title: this.activityTypeText[type],
+                    template: {},
+                    entry: entry,
+                    insert: true
+                }, {
+                    complete: complete
+                });
+            }
         }
     });
 });
