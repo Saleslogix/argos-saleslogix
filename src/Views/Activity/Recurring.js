@@ -332,7 +332,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             for (var key in selections) {
                 if (selections[key]) {
-                    values.push(moment.weekdaysShort[key]);
+                    values.push(moment().lang()._weekdaysShort[key]);
                     weekdays[key] = 1;
                 }
             }
@@ -351,14 +351,14 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 return selection['$descriptor'];
             }
 
-            return moment.weekdays[parseInt(selection)];
+            return moment().lang()._weekdays[parseInt(selection)];
         },
         formatMonth: function(selection) {
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
 
-            return moment.months[parseInt(selection) - 1];
+            return moment().lang()._months[parseInt(selection) - 1];
         },
         formatOrd: function(selection) {
             if (selection['$descriptor']) {
