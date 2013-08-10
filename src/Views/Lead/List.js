@@ -60,10 +60,12 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         emailedText: 'E-mailed ${0}',
         calledText: 'Called ${0}',
         editActionText: 'Edit',
-        callMainActionText: 'Call Main',
+        callMobileActionText: 'Call Mobile',
+        callWorkActionText: 'Call Work',
         sendEmailActionText: 'Email',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        addAttachmentActionText: 'Add Attachment',
         phoneAbbreviationText: 'Work: ',
         tollFreeAbbreviationText: 'Toll Free: ',
 
@@ -80,6 +82,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
             'WebAddress',
             'Email',
             'WorkPhone',
+            'Mobile',
             'TollFree',
             'Title',
             'ModifyDate'
@@ -111,11 +114,17 @@ define('Mobile/SalesLogix/Views/Lead/List', [
                         label: this.editActionText,
                         action: 'navigateToEditView'
                     }, {
-                        id: 'callMain',
+                        id: 'callWork',
                         icon: 'content/images/icons/Call_24x24.png',
-                        label: this.callMainActionText,
+                        label: this.callWorkActionText,
                         enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
                         fn: action.callPhone.bindDelegate(this, 'WorkPhone')
+                    }, {
+                        id: 'callMobile',
+                        icon: 'content/images/icons/Call_24x24.png',
+                        label: this.callMobileActionText,
+                        enabled: action.hasProperty.bindDelegate(this, 'Mobile'),
+                        fn: action.callPhone.bindDelegate(this, 'Mobile')
                     }, {
                         id: 'sendEmail',
                         icon: 'content/images/icons/Send_Write_email_24x24.png',
@@ -132,6 +141,11 @@ define('Mobile/SalesLogix/Views/Lead/List', [
                         icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                         label: this.addActivityActionText,
                         fn: action.addActivity.bindDelegate(this)
+                    }, {
+                        id: 'addAttachment',
+                        icon: 'content/images/icons/Attachment_24.png',
+                        label: this.addAttachmentActionText,
+                        fn: action.addAttachment.bindDelegate(this)
                     }]
             );
         },

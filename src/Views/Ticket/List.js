@@ -55,6 +55,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         viewContactActionText: 'Contact',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        addAttachmentActionText:'Add Attachment',
         assignedToText: 'Assigned To: ',
         urgencyText: 'Urgency: ',
 
@@ -100,41 +101,46 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                        id: 'edit',
-                        icon: 'content/images/icons/edit_24.png',
-                        label: this.editActionText,
-                        action: 'navigateToEditView'
-                    }, {
-                        id: 'viewAccount',
-                        icon: 'content/images/icons/Company_24.png',
-                        label: this.viewAccountActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
-                        fn: action.navigateToEntity.bindDelegate(this, {
-                            view: 'account_detail',
-                            keyProperty: 'Account.$key',
-                            textProperty: 'Account.AccountName'
-                        })
-                    }, {
-                        id: 'viewContact',
-                        icon: 'content/images/icons/Contacts_24x24.png',
-                        label: this.viewContactActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'Contact.$key'),
-                        fn: action.navigateToEntity.bindDelegate(this, {
-                            view: 'contact_detail',
-                            keyProperty: 'Contact.$key',
-                            textProperty: 'Contact.NameLF'
-                        })
-                    }, {
-                        id: 'addNote',
-                        icon: 'content/images/icons/New_Note_24x24.png',
-                        label: this.addNoteActionText,
-                        fn: action.addNote.bindDelegate(this)
-                    }, {
-                        id: 'addActivity',
-                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                        label: this.addActivityActionText,
-                        fn: action.addActivity.bindDelegate(this)
-                    }]
+                id: 'edit',
+                icon: 'content/images/icons/edit_24.png',
+                label: this.editActionText,
+                action: 'navigateToEditView'
+            }, {
+                id: 'viewAccount',
+                icon: 'content/images/icons/Company_24.png',
+                label: this.viewAccountActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'account_detail',
+                    keyProperty: 'Account.$key',
+                    textProperty: 'Account.AccountName'
+                })
+            }, {
+                id: 'viewContact',
+                icon: 'content/images/icons/Contacts_24x24.png',
+                label: this.viewContactActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'Contact.$key'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'contact_detail',
+                    keyProperty: 'Contact.$key',
+                    textProperty: 'Contact.NameLF'
+                })
+            }, {
+                id: 'addNote',
+                icon: 'content/images/icons/New_Note_24x24.png',
+                label: this.addNoteActionText,
+                fn: action.addNote.bindDelegate(this)
+            }, {
+                id: 'addActivity',
+                icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                label: this.addActivityActionText,
+                fn: action.addActivity.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                icon: 'content/images/icons/Attachment_24.png',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]
             );
         },
 
