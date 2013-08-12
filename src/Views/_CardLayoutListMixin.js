@@ -14,8 +14,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     'dojo/dom-construct',
     'dojo/query',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/Convert'
-
+    'Sage/Platform/Mobile/Convert',
+    'moment'
 ], function(
     array,
     declare,
@@ -26,7 +26,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     domConstruct,
     query,
     domClass,
-    Convert
+    Convert,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
@@ -220,16 +221,14 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             );
         },
         hasBeenTouched: function(entry) {
-            var modifydDate, currentDate, seconds, hours, days;
+            var modifiedDate, currentDate, seconds, hours, days, weekAgo;
             if (entry['ModifyDate']) {
-                modifydDate = Convert.toDateFromString(entry['ModifyDate']);
-                currentDate = new Date();
-                seconds = Math.round((currentDate - modifydDate) / 1000);
-                hours = seconds / 360;
-                days = hours / 24;
-                if (days <= 7) {
-                    return true;
-                }
+                modifiedDate = moment(Convert.toDateFromString(entry['ModifyDate']));
+                currentDate = moment().endOf('day');
+                weekAgo = moment().subtract(1, 'weeks');
+
+                return modifiedDate.isAfter(weekAgo) &&
+                    modifiedDate.isBefore(currentDate);
             }
             return false;
         },
