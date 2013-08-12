@@ -299,7 +299,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.toggleSelectField(this.fields['Duration'], value);
 
             var startDateField = this.fields['StartDate'],
-                startDate = startDateField.getValue();
+                wrapped = moment(startDateField.getValue()),
+                startDate = wrapped && wrapped.toDate();
 
             if (value) {
                 this.fields['Rollover'].enable();
@@ -307,7 +308,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 if (!this.isDateTimeless(startDate)) {
-                    startDate = startDate.clone().clearTime().add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
+                    wrapped.startOf('day');
+                    wrapped.add((-1 * wrapped.zone()), 'minutes');
+                    wrapped.add(5, 'seconds');
+                    startDate = wrapped.toDate();
                 }
                 startDateField.setValue(startDate);
             } else {
@@ -317,7 +321,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
                 if (this.isDateTimeless(startDate)) {
-                    startDate = startDate.clone().add({minutes: startDate.getTimezoneOffset() + 1, seconds: -5});
+                    wrapped.startOf('day');
+                    wrapped.add((wrapped.zone() + 1), 'minutes');
+                    wrapped.add(-5, 'seconds');
+                    startDate = wrapped.toDate();
                 }
                 startDateField.setValue(startDate);
             }

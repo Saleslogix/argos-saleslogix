@@ -11,6 +11,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Format',
     'Mobile/SalesLogix/Views/Activity/List',
+    'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Groups/DateTimeSection',
@@ -26,6 +27,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     environment,
     platformFormat,
     ActivityList,
+    Utility,
     convert,
     ErrorManager,
     DateTimeSection,
@@ -473,11 +475,39 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             ErrorManager.addError(response, o, {}, 'failure');
         },
         getGroupBySections: function() {
+            var groupBySections, dateTimeSection;
+
+            dateTimeSection = new DateTimeSection({
+                groupByProperty: 'Activity.StartDate',
+                sortDirection: 'asc',
+                momentLang: App.customMomentKey,
+                getSection: function(entry) {
+                    var value;
+                    if ((this.groupByProperty) && (entry)) {
+                        value = Utility.getValue(entry, this.groupByProperty);
+                        if (value) {
+                            if (entry.Activity && entry.Activity.Timeless) {
+                                console.log(entry.Activity.Description + ' local: ' + moment(value).format('M/D/YYYY h:mm:ss'));
+                                console.log(entry.Activity.Description + ' utc: ' + moment(value).utc().format('M/D/YYYY h:mm:ss'));
+                                value = moment(value).utc();
+                                value = new Date(value.year(), value.month(), value.date(), 0, 0, 5);
+                            }
+
+                            return this.getSectionByDateTime(value);
+                        }
+                        else {
+                            return this.getDefaultSection();
+                        }
+                    }
+                    return null;
+                }
+            });
+
             var groupBySections = [
             {
                 id: 'section_StartDate',
                 description: null,
-                section: new DateTimeSection({ groupByProperty: 'Activity.StartDate', sortDirection: 'asc', momentLang: App.customMomentKey })
+                section: dateTimeSection
             }];
             return groupBySections;
         },
