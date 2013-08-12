@@ -11,6 +11,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     'Mobile/SalesLogix/Views/_CardLayoutListMixin',
     'Sage/Platform/Mobile/Groups/DateTimeSection',
     'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Environment'
@@ -24,6 +25,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     _CardLayoutListMixin,
     DateTimeSection,
     format,
+    Utility,
     convert,
     action,
     environment
@@ -236,11 +238,37 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             return 'StartTime';
         },
         getGroupBySections: function() {
+            var groupBySections, dateTimeSection;
+
+            dateTimeSection = new DateTimeSection({
+                groupByProperty: 'StartDate',
+                sortDirection: 'asc',
+                momentLang: App.customMomentKey,
+                getSection: function(entry) {
+                    var value;
+                    if ((this.groupByProperty) && (entry)) {
+                        value = Utility.getValue(entry, this.groupByProperty);
+                        if (value) {
+                            if (entry.Timeless) {
+                                value = moment(value).add(moment(value).zone(), 'minutes').toDate();
+                            }
+
+                            return this.getSectionByDateTime(value);
+                        }
+                        else {
+                            return this.getDefaultSection();
+                        }
+                    }
+                    return null;
+                }
+            });
+
             var groupBySections = [{
                 id: 'section_StartDate',
                 description: null,
-                section: new DateTimeSection({ groupByProperty: 'StartDate', sortDirection: 'asc' })
+                section: dateTimeSection
             }];
+
             return groupBySections;
         }, //Card View
         getItemActionKey: function(entry) {
@@ -253,19 +281,19 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             var value = '';
             if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
                 value = format.date(entry.StartDate, this.startTimeFormatText) + " " + format.date(entry.StartDate, "A");
-            } else {
-                value = format.date(entry.StartDate, this.startDateFormatText);
-            }
-            return value;
-        },
-        getItemColorClass: function(entry) {
-            return  this.activityColorClassByType[entry.Type] || this.itemColorClass;
-        },
-        getItemIconSource: function(entry) {
-            return this.itemIcon || this.activityIconByType[entry.Type] || this.icon || this.selectIcon
-        },        
-        createIndicatorLayout: function() {
-            return this.itemIndicators || (this.itemIndicators = [{
+                } else {
+                    value = format.date(entry.StartDate, this.startDateFormatText);
+                }
+                return value;
+            },
+            getItemColorClass: function(entry) {
+                return  this.activityColorClassByType[entry.Type] || this.itemColorClass;
+            },
+            getItemIconSource: function(entry) {
+                return this.itemIcon || this.activityIconByType[entry.Type] || this.icon || this.selectIcon
+            },        
+            createIndicatorLayout: function() {
+                return this.itemIndicators || (this.itemIndicators = [{
                 id: '1',
                 icon: 'AlarmClock_24x24.png',
                 label: 'Alarm',
