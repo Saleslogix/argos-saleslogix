@@ -487,8 +487,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         value = Utility.getValue(entry, this.groupByProperty);
                         if (value) {
                             if (entry.Activity && entry.Activity.Timeless) {
-                                console.log(entry.Activity.Description + ' local: ' + moment(value).format('M/D/YYYY h:mm:ss'));
-                                console.log(entry.Activity.Description + ' utc: ' + moment(value).utc().format('M/D/YYYY h:mm:ss'));
                                 value = moment(value).utc();
                                 value = new Date(value.year(), value.month(), value.date(), 0, 0, 5);
                             }
