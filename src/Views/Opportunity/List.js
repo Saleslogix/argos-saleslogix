@@ -78,6 +78,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         viewProductsActionText: 'Products',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        addAttachmentActionText: 'Add Attachment',
         hashTagQueriesText: {
             'open': 'open',
             'closed': 'closed',
@@ -135,41 +136,46 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                        id: 'edit',
-                        icon: 'content/images/icons/edit_24.png',
-                        label: this.editActionText,
-                        action: 'navigateToEditView'
-                    }, {
-                        id: 'viewAccount',
-                        icon: 'content/images/icons/Company_24.png',
-                        label: this.viewAccountActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
-                        fn: action.navigateToEntity.bindDelegate(this, {
-                            view: 'account_detail',
-                            keyProperty: 'Account.$key',
-                            textProperty: 'Account.AccountName'
-                        })
-                    }, {
-                        id: 'viewContacts',
-                        icon: 'content/images/icons/Contacts_24x24.png',
-                        label: 'Contacts',
-                        fn: this.navigateToRelatedView.bindDelegate(this, 'opportunitycontact_related', 'Opportunity.Id eq "${0}"')
-                    }, {
-                        id: 'viewProducts',
-                        icon: 'content/images/icons/product_24.png',
-                        label: this.viewProductsActionText,
-                        fn: this.navigateToRelatedView.bindDelegate(this, 'opportunityproduct_related', 'Opportunity.Id eq "${0}"')
-                    }, {
-                        id: 'addNote',
-                        icon: 'content/images/icons/New_Note_24x24.png',
-                        label: this.addNoteActionText,
-                        fn: action.addNote.bindDelegate(this)
-                    }, {
-                        id: 'addActivity',
-                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                        label: this.addActivityActionText,
-                        fn: action.addActivity.bindDelegate(this)
-                    }]
+                id: 'edit',
+                icon: 'content/images/icons/edit_24.png',
+                label: this.editActionText,
+                action: 'navigateToEditView'
+            }, {
+                id: 'viewAccount',
+                icon: 'content/images/icons/Company_24.png',
+                label: this.viewAccountActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'account_detail',
+                    keyProperty: 'Account.$key',
+                    textProperty: 'Account.AccountName'
+                })
+            }, {
+                id: 'viewContacts',
+                icon: 'content/images/icons/Contacts_24x24.png',
+                label: 'Contacts',
+                fn: this.navigateToRelatedView.bindDelegate(this, 'opportunitycontact_related', 'Opportunity.Id eq "${0}"')
+            }, {
+                id: 'viewProducts',
+                icon: 'content/images/icons/product_24.png',
+                label: this.viewProductsActionText,
+                fn: this.navigateToRelatedView.bindDelegate(this, 'opportunityproduct_related', 'Opportunity.Id eq "${0}"')
+            }, {
+                id: 'addNote',
+                icon: 'content/images/icons/New_Note_24x24.png',
+                label: this.addNoteActionText,
+                fn: action.addNote.bindDelegate(this)
+            }, {
+                id: 'addActivity',
+                icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                label: this.addActivityActionText,
+                fn: action.addActivity.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                icon: 'content/images/icons/Attachment_24.png',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]
             );
         },
 
