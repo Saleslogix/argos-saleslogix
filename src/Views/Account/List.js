@@ -63,6 +63,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
         viewContactsActionText: 'Contacts',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        addAttachmentActionText: 'Add Attachment',
         phoneAbbreviationText: 'Phone: ',
         faxAbbreviationText: 'Fax: ',
 
@@ -148,7 +149,13 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                 label: this.addActivityActionText,
                 fn: action.addActivity.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                icon: 'content/images/icons/Attachment_24.png',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
             }]
+
             );
         },
         formatSearchQuery: function(searchQuery) {

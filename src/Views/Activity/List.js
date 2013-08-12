@@ -11,7 +11,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     'Mobile/SalesLogix/Views/_CardLayoutListMixin',
     'Sage/Platform/Mobile/Groups/DateTimeSection',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Convert'
+    'Sage/Platform/Mobile/Convert',
+    'Mobile/SalesLogix/Action',
+    'Mobile/SalesLogix/Environment'
 ], function(
     declare,
     string,
@@ -22,7 +24,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     _CardLayoutListMixin,
     DateTimeSection,
     format,
-    convert
+    convert,
+    action,
+    environment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _RightDrawerListMixin, _CardLayoutListMixin], {
@@ -31,6 +35,10 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         startDateFormatText: 'ddd M/D/YYYY',
         startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
+        completeActivityText: 'Complete',
+        callText: 'Call',
+        calledText: 'Called',
+        addAttachmentActionText: 'Add Attachment',
 
         //Card View 
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
@@ -98,7 +106,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'atNote': 'note_24.png',
             'atEMail': 'letters_24.png'
         },
-        activityTextByType: {
+        activityTypeText: {
             'atToDo': 'To-Do',
             'atPhoneCall': 'Phone Call',
             'atAppointment': 'Meeting',
@@ -127,15 +135,24 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         icon: 'content/images/icons/To_Do_24x24.png',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
+        historyEditView: 'history_edit',
+        enableActions: true,
         queryOrderBy: 'Timeless desc, StartDate desc',
         querySelect: [
             'Description',
             'StartDate',
             'Type',
+            'AccountId',
             'AccountName',
+            'ConatactId',
             'ContactName',
+            'PhoneNumber',
             'LeadId',
             'LeadName',
+            'TicketId',
+            'OpportunityId',
+            'Leader/$key',
+            'Leader/$descriptor',
             'UserId',
             'Timeless',
             'Alarm',
@@ -367,11 +384,133 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             indicator.showIcon = false;
             if (type) {
                 indicator.icon = this.activityIndicatorIconByType[type];
-                indicator.label = this.activityTextByType[type];
+                indicator.label = this.activityTypeText[type];
                 indicator.isEnabled = true;
                 indicator.showIcon = true;
             }
-        }
+       },
+       createActionLayout: function() {
+           return this.actions || (this.actions = [{
+               id: 'complete',
+               icon: 'content/images/icons/Clear_Activity_24x24.png',
+               label: this.completeActivityText,
+               enabled: function(action, selection) {
+                   var recur, entry = selection && selection.data;
+                   if (!entry) {
+                       return false;
+                   }
+                   recur = false;
+                   if (entry['RecurrenceState'] === 'rstOccurrence') {
+                       recur = true;
+                   }
+
+                   return entry['Leader']['$key'] === App.context['user']['$key'] && !recur;
+               },
+               fn: (function(action, selection) {
+                   var entry;
+
+                   entry = selection && selection.data && selection.data;
+
+                   entry['CompletedDate'] = new Date();
+                   entry['Result'] = 'Complete';
+
+                   environment.refreshActivityLists();
+                   this.completeActivity(entry);
+
+               }).bindDelegate(this)
+           }, {
+               id: 'call',
+               icon: 'content/images/icons/Dial_24x24.png',
+               label: this.callText,
+               enabled: function(action, selection) {
+                   var entry;
+                   entry = selection && selection.data;
+                   return entry && entry.PhoneNumber;
+               },
+               fn: function(action, selection) {
+                   var entry, phone;
+                   entry = selection && selection.data;
+                   phone = entry && entry.PhoneNumber;
+                   if (phone) {
+                       this.recordCallToHistory(function() {
+                           App.initiateCall(phone);
+                       }.bindDelegate(this), entry);
+                   }
+               }.bindDelegate(this)
+           }, {
+               id: 'addAttachment',
+               icon: 'content/images/icons/Attachment_24.png',
+               label: this.addAttachmentActionText,
+               fn: action.addAttachment.bindDelegate(this)
+           }]
+           );
+       },
+       recordCallToHistory: function(complete, entry) {
+           var entry = {
+               '$name': 'History',
+               'Type': 'atPhoneCall',
+               'ContactName': entry['ContactName'],
+               'ContactId': entry['ContactId'],
+               'AccountName': entry['AccountName'],
+               'AccountId': entry['AccountId'],
+               'Description': string.substitute("${0} ${1}", [this.calledText, (entry['ContactName'] || '')]),
+               'UserId': App.context && App.context.user['$key'],
+               'UserName': App.context && App.context.user['UserName'],
+               'Duration': 15,
+               'CompletedDate': (new Date())
+           };
+
+           this.navigateToHistoryInsert('atPhoneCall', entry, complete);
+       },
+       navigateToHistoryInsert: function(type, entry, complete) {
+           var view = App.getView(this.historyEditView);
+           if (view) {
+               environment.refreshActivityLists();
+               view.show({
+                   title: this.activityTypeText[type],
+                   template: {},
+                   entry: entry,
+                   insert: true
+               }, {
+                   complete: complete
+               });
+           }
+       },
+       completeActivity: function(entry) {
+           var completeActivity, request;
+
+           completeActivityEntry = {
+               "$name": "ActivityComplete",
+               "request": {
+                   "entity": { '$key': entry['$key'] },
+                   "ActivityId": entry['$key'],
+                   "userId": entry['Leader']['$key'],
+                   "result": entry['Result'],
+                   "completeDate": entry['CompletedDate']
+               }
+           };
+
+           request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
+               .setResourceKind('activities')
+               .setContractName('system')
+               .setOperationName('Complete');
+
+           request.execute(completeActivityEntry, {
+               success: function() {
+                   connect.publish('/app/refresh', [{
+                       resourceKind: 'history'
+                   }]);
+
+                   this.clear();
+                   this.refresh();
+               },
+               failure: this.onRequestFailure,
+               scope: this
+           });
+       },
+       onRequestFailure: function(response, o) {
+           ErrorManager.addError(response, o, {}, 'failure');
+       }
     });
 });
 
