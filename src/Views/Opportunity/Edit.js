@@ -42,7 +42,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         multiCurrencyCodeText: 'code',
         multiCurrencyDateText: 'rate date',
         multiCurrencyLockedText: 'rate locked',
-        exchangeRateDateFormatText: 'M/d/yyyy h:mm tt',
+        exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
         subTypePickListResellerText: 'RESELLER',
 
         //View Properties
