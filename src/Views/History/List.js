@@ -149,6 +149,16 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atNote': 'content/images/icons/note_24.png',
             'atEMail': 'content/images/icons/letters_24.png'
         },
+        activityIndicatorIconByType: {
+            'atToDo': 'To_Do_24x24.png',
+            'atPhoneCall': 'Call_24x24.png',
+            'atAppointment': 'Meeting_24x24.png',
+            'atLiterature': 'Schedule_Literature_Request_24x24.gif',
+            'atPersonal': 'Personal_24x24.png',
+            'atQuestion': 'help_24.png',
+            'atNote': 'note_24.png',
+            'atEMail': 'letters_24.png'
+        },
         entityColorClassByType: {
             'atToDo': 'color-ToDo',
             'atPhoneCall': 'color-PhoneCall',
@@ -289,7 +299,38 @@ define('Mobile/SalesLogix/Views/History/List', [
         },
         getItemIconSource: function(entry) {
             return this.itemIcon || this.entityIconByType[entry.Type] || this.icon || this.selectIcon
-        }
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'touched',
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }, {
+                id: 'activityIcon',
+                icon: '',
+                label: 'Activity',
+                onApply: function(entry, parent) {
+                    parent.applyActivityIndicator(entry, this);
+                }
+            }]
+            );
+        },
+        applyActivityIndicator: function(entry, indicator) {
+            this._applyActivityIndicator(entry['Type'], indicator);
+        },
+        _applyActivityIndicator: function(type, indicator) {
+            indicator.isEnabled = false;
+            indicator.showIcon = false;
+            if (type) {
+                indicator.icon = this.activityIndicatorIconByType[type];
+                indicator.label = this.activityTypeText[type];
+                indicator.isEnabled = true;
+                indicator.showIcon = true;
+            }
+        },
     });
 });
 
