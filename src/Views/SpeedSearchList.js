@@ -327,11 +327,9 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         _isIndexActive:function(indexName)
         {
             var indexFound = false;
-            array.forEach(this.activeIndexes, function(aIndexName) {
-                if (aIndexName === indexName) {
-                    indexFound = true;
-                }
-            });
+            if (this.activeIndexes.indexOf(indexName) > -1) {
+                indexFound = true;
+            }
             return indexFound;
         },
         selectIndex: function(e) {
@@ -350,11 +348,9 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             var activated = false,
             tempActiveIndex = [],
             indexFound = false;
-            array.forEach(this.activeIndexes, function(aIndexName) {
-                if (aIndexName === indexName) {
-                    indexFound = true;
-                }
-            });
+            if (this.activeIndexes.indexOf(indexName) > -1) {
+                indexFound = true;
+            }
             if (indexFound) {
                 array.forEach(this.activeIndexes, function(aIndexName) {
                     if (aIndexName !== indexName) {
@@ -364,8 +360,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                 this.activeIndexes = tempActiveIndex;
                 activated = false;
 
-            } else
-            {
+            } else {
                 this.activeIndexes.push(indexName)
                 activated = true;
             }
