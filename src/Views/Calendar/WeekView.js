@@ -294,8 +294,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     App.context['user'] && App.context['user']['$key'],
                     convert.toIsoStringFromDate(this.weekStartDate.toDate()),
                     convert.toIsoStringFromDate(this.weekEndDate.toDate()),
-                    this.weekStartDate.format('YYYY-MM-DDT00:00:00Z'),
-                    this.weekEndDate.format('YYYY-MM-DDT23:59:59Z')]
+                    this.weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
+                    this.weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]
             );
         },
         setWeekTitle: function() {
@@ -446,8 +446,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                         ')'
                     ].join(''),
                     [App.context['user'] && App.context['user']['$key'],
-                    startDate.format('YYYY-MM-DDT00:00:00Z'),
-                    endDate.format('YYYY-MM-DDT23:59:59Z')]
+                    startDate.format('YYYY-MM-DDT00:00:00[Z]'),
+                    endDate.format('YYYY-MM-DDT23:59:59[Z]')]
                 );
         },
         hideEventList: function() {

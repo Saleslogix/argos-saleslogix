@@ -143,23 +143,45 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'status-declined': 'Status eq "asDeclned"',
             'recurring': 'Activity.Recurring eq true',
             'timeless': 'Activity.Timeless eq true',
-            'today': function() {
-                var currentDate = new Date(), endOfDay, beginOfDay;
-                endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59);
-                beginOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0);
-                return string.substitute(
-                   '(Activity.StartDate between @${0}@ and @${1}@)',
-                   [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
-               );
-            },
             'yesterday': function() {
-                var currentDate = new Date(), endOfDay, beginOfDay;
-                endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()-1, 23, 59, 59);
-                beginOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()-1, 0, 0, 0);
-                return string.substitute(
-                   '(Activity.StartDate between @${0}@ and @${1}@)',
-                   [convert.toIsoStringFromDate(beginOfDay), convert.toIsoStringFromDate(endOfDay)]
-               );
+                var now, yesterdayStart, yesterdayEnd, query;
+
+                now = moment();
+                now.lang(App.customMomentKey);
+
+                yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
+                yesterdayEnd = yesterdayStart.clone().endOf('day');
+
+                query = string.substitute(
+                        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))',
+                        [
+                        convert.toIsoStringFromDate(yesterdayStart.toDate()),
+                        convert.toIsoStringFromDate(yesterdayEnd.toDate()),
+                        yesterdayStart.format('YYYY-MM-DDT00:00:00[Z]'),
+                        yesterdayEnd.format('YYYY-MM-DDT23:59:59[Z]')
+                        ]
+                );
+                return query;
+            },
+            'today': function() {
+                var now, todayStart, todayEnd, query;
+
+                now = moment();
+                now.lang(App.customMomentKey);
+
+                todayStart = now.clone().startOf('day');
+                todayEnd = todayStart.clone().endOf('day');
+
+                query = string.substitute(
+                        '((Activity.Timeless eq false and Activity.StartDate between @${0}@ and @${1}@) or (Activity.Timeless eq true and Activity.StartDate between @${2}@ and @${3}@))',
+                        [
+                        convert.toIsoStringFromDate(todayStart.toDate()),
+                        convert.toIsoStringFromDate(todayEnd.toDate()),
+                        todayStart.format('YYYY-MM-DDT00:00:00[Z]'),
+                        todayEnd.format('YYYY-MM-DDT23:59:59[Z]')
+                        ]
+                );
+                return query;
             },
             'this-week': function() {
                 var now, weekStartDate, weekEndDate, query;
@@ -175,11 +197,11 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         [
                         convert.toIsoStringFromDate(weekStartDate.toDate()),
                         convert.toIsoStringFromDate(weekEndDate.toDate()),
-                        weekStartDate.format('YYYY-MM-DDT00:00:00Z'),
-                        weekEndDate.format('YYYY-MM-DDT23:59:59Z')]
+                        weekStartDate.format('YYYY-MM-DDT00:00:00[Z]'),
+                        weekEndDate.format('YYYY-MM-DDT23:59:59[Z]')]
                 );
                 return query;
-            },
+            }
         },
         hashTagQueriesText: {
             'alarm': 'alarm',

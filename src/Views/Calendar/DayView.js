@@ -411,8 +411,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 [App.context['user'] && App.context['user']['$key'],
                 convert.toIsoStringFromDate(startDate),
                 convert.toIsoStringFromDate(endDate),
-                this.currentDate.format('YYYY-MM-DDT00:00:00Z'),
-                this.currentDate.format('YYYY-MM-DDT23:59:59Z')]
+                this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'),
+                this.currentDate.format('YYYY-MM-DDT23:59:59[Z]')]
             );
         },
         selectEntry: function(params) {
@@ -465,7 +465,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         navigateToInsertView: function(el) {
             var view = App.getView(this.insertView || this.editView);
 
-            this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || Date.today();
+            this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();
             if (view) {
                 view.show({
                     negateHistory: true,
