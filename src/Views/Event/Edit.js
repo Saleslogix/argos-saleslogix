@@ -20,6 +20,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
         descriptionText: 'description',
         startDateText: 'start date',
         endDateText: 'end date',
+        startingFormatText: 'M/D/YYYY h:mm A',
 
         //View Properties
         entityName: 'Event',
@@ -74,7 +75,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
                 var currentDate = moment(view.currentDate).clone().startOf('day'),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && moment(startTimeOption),
+                    startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
                     startDate = currentDate.clone();
 
                 if (startTime && (!moment(currentDate).isSame(moment())))

@@ -456,7 +456,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 var currentDate = view.currentDate.startOf('day'),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && moment(startTimeOption),
+                    startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
                     startDate;
 
                 if (startTime && (currentDate.valueOf() == moment().startOf('day').valueOf()))
