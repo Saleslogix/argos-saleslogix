@@ -48,7 +48,8 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         ]),
 
         itemTemplate: new Simplate([
-            '<h3>{%: $.$descriptor %}</h3>'
+            '<h3>{%: $.$descriptor %}</h3>',
+            '<h4>{%: $.$otherdata %}</h4>'
         ]),
 
         //Localization
@@ -131,7 +132,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                     descriptor = item.uiDisplayName;
                     break;
             }
-            descriptor = item.uiDisplayName;
             return descriptor;
         },
         extractKeyFromItem: function(item) {
@@ -201,8 +201,9 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                     var entry = feed.items[i];
                     var rowNode;
                     entry.type = this.extractTypeFromItem(entry);
-                    entry.$descriptor = entry.$descriptor || this.extractDescriptorFromItem(entry, entry.type);
+                    entry.$descriptor = entry.$descriptor || entry.uiDisplayName; //this.extractDescriptorFromItem(entry, entry.type);
                     entry.$key = this.extractKeyFromItem(entry);
+                    entry.$otherdata = this.extractDescriptorFromItem(entry, entry.type);
 
                     this.entries[entry.$key] = entry;
                     rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
@@ -289,7 +290,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             });
         },
         getItemIconSource: function(entry) {
-            return  this.iconPathsByType[entry.type] || this.itemIcon ;
+            return   this.itemIcon || this.iconPathsByType[entry.type] ;
         },
         getItemIconAlt: function(entry) {
             return entry.type;
