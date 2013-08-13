@@ -532,14 +532,10 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return groupBySections;
         },
         hasAlarm: function(entry) {
-            if (entry['Alarm'] === true) {
+            if (entry.Activity && entry.Activity.Alarm === true) {
                 return true;
             }
-            if (entry['Alarm'] === null) {
-                if (entry['Activity']['Alarm'] === true) {
-                    return true;
-                }
-            }
+
             return false;
         },
         hasBeenTouched: function(entry) {

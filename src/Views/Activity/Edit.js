@@ -647,7 +647,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         setValues: function(values) {
             if (values['StartDate'] && values['AlarmTime']) {
                 var startTime = (this.isDateTimeless(values['StartDate']))
-                    ? values['StartDate'].clone().add({minutes: values['StartDate'].getTimezoneOffset()}).getTime()
+                    ? moment(values['StartDate']).add({minutes: values['StartDate'].getTimezoneOffset()}).toDate().getTime()
                     : values['StartDate'].getTime();
 
                 var span = startTime - values['AlarmTime'].getTime(), // ms
