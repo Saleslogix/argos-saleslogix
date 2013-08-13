@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     domConstruct,
     query,
     domClass,
-    Convert,
+    convert,
     moment
 ) {
 
@@ -220,9 +220,9 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             );
         },
         hasBeenTouched: function(entry) {
-            var modifiedDate, currentDate, seconds, hours, days, weekAgo;
+            var modifiedDate, currentDate, weekAgo;
             if (entry['ModifyDate']) {
-                modifiedDate = moment(Convert.toDateFromString(entry['ModifyDate']));
+                modifiedDate = moment(convert.toDateFromString(entry['ModifyDate']));
                 currentDate = moment().endOf('day');
                 weekAgo = moment().subtract(1, 'weeks');
 

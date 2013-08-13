@@ -379,16 +379,14 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             }
         },
         hasBeenTouched: function(entry) {
-            var modifydDate, currentDate, seconds, hours, days;
+            var modifiedDate, currentDate, weekAgo;
             if (entry['ModifyDate']) {
-                modifydDate = convert.toDateFromString(entry['ModifyDate']);
-                currentDate = new Date();
-                seconds = Math.round((currentDate - modifydDate) / 1000);
-                hours = seconds / 360;
-                days = hours / 24;
-                if (days <= 7) {
-                    return true;
-                }
+                modifiedDate = moment(convert.toDateFromString(entry['ModifyDate']));
+                currentDate = moment().endOf('day');
+                weekAgo = moment().subtract(1, 'weeks');
+
+                return modifiedDate.isAfter(weekAgo) &&
+                    modifiedDate.isBefore(currentDate);
             }
             return false;
         },
