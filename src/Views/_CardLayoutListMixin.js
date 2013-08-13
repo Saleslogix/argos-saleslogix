@@ -32,6 +32,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
         itemColorClass: 'color-default',
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
+        itemIconAltText:'Contact',
         itemIndicators:null,
         itemExts: null,
         itemTabValueProperty: '$descriptor',
@@ -77,14 +78,14 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
            '{%! $$.itemTabTemplate %}',
             '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
             '<button data-action="selectEntry" class="list-item-selector button">',
-            '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" class="icon" />',
+            '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
             '</button>',
             '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
             '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
             '{%! $$.itemFooterTemplate %}'
         ]),
         searchExpressionTemplate: new Simplate([
-            '<div id="{%= $.id %}_search-expression" class="card-layout-search-expression"></div'
+            '<div id="{%= $.id %}_search-expression" class="card-layout-search-expression"></div>'
         ]),
         postMixInProperties: function() {
             this.inherited(arguments);
@@ -140,6 +141,9 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         },
         getItemIconSource: function(entry) {
             return this.itemIcon || this.icon || this.selectIcon
+        },
+        getItemIconAlt: function(entry) {
+            return this.itemIconAltText;
         },
         createIndicatorLayout: function() {
             return this.itemIndicators || {};
