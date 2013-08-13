@@ -335,9 +335,9 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             return indexFound;
         },
         selectIndex: function(e) {
-            var button = e.$source;
-            var indexName = domAttr.get(button, 'data-index'); 
-            var activated = this.activateIndex(indexName);
+            var button = e.$source,
+            indexName = domAttr.get(button, 'data-index'), 
+            activated = this.activateIndex(indexName);
             if (activated) {
                 domClass.add(button, 'card-layout-speed-search-index-selected');
             } else {
@@ -347,9 +347,9 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         },
         
         activateIndex: function(indexName) {
-            var activated = false;
-            var tempActiveIndex = [];
-            var indexFound = false;
+            var activated = false,
+            tempActiveIndex = [],
+            indexFound = false;
             array.forEach(this.activeIndexes, function(aIndexName) {
                 if (aIndexName === indexName) {
                     indexFound = true;
