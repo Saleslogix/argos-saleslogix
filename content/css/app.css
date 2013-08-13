@@ -1879,7 +1879,31 @@ card-layout  .list-content > li
     overflow: hidden;
     white-space: nowrap;
 }
+.card-layout-speed-search-index
+{
+    display: block;
+    font-size: 1.5em;
+    min-height: 1em;
+    line-height: inherit;
+    padding: 4px 6px 4px 4px;
+    color: #777;
 
+}
+.card-layout-speed-search-index> button
+{
+    margin: 5px;
+    padding: 5px;
+    background-color: #fff;
+    border-color: #000;
+    border-width: 0px;
+    border-radius: 6px;
+    width: auto;
+}
+.card-layout-speed-search-index-selected
+{
+     background-color: #404040 !important;
+     color:#fff!important;
+}
 .color-default
 {
     background-color: 	#404040   !important;
