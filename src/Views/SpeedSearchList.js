@@ -295,6 +295,9 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         getItemIconAlt: function(entry) {
             return entry.type;
         },
+        getItemDescriptor: function(entry) {
+            return entry.type;
+        },
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'speadSearchIcon',
