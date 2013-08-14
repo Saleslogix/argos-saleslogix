@@ -520,7 +520,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
 
             if (typeof this.options['startDay'] === 'undefined') {
                 this.options['startDay'] = (App.context.userOptions)
-                    ? parseInt(App.context.userOptions['Calendar:FirstDayofWeek'], 10)
+                    ? parseInt(App.context.userOptions['Calendar:WeekStart'], 10)
                     : this.userWeekStartDay;
             }
         },

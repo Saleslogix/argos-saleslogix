@@ -54,7 +54,7 @@ define('Mobile/SalesLogix/Application', [
             'General;InsertSecCodeID',
             'General;Currency',
             'Calendar;DayStartTime',
-            'Calendar;FirstDayofWeek',
+            'Calendar;WeekStart',
             'ActivityMeetingOptions;AlarmEnabled',
             'ActivityMeetingOptions;AlarmLead',
             'ActivityMeetingOptions;Duration',
@@ -500,7 +500,7 @@ define('Mobile/SalesLogix/Application', [
                 return;
             }
 
-            var userWeekStartDay = parseInt(App.context.userOptions['Calendar:FirstDayofWeek'], 10),
+            var userWeekStartDay = parseInt(App.context.userOptions['Calendar:WeekStart'], 10),
                 results = {};// 0-6, Sun-Sat
 
             if (!isNaN(userWeekStartDay)) {
