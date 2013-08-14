@@ -20,6 +20,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
         descriptionText: 'description',
         startDateText: 'start date',
         endDateText: 'end date',
+        startingFormatText: 'M/D/YYYY h:mm A',
 
         //View Properties
         entityName: 'Event',
@@ -71,29 +72,30 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
         applyUserActivityContext: function(context) {
             var view = App.getView(context.id);
             if (view && view.currentDate) {
-                var currentDate = view.currentDate.clone().clearTime(),
+                var currentDate = moment(view.currentDate).clone().startOf('day'),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && Date.parse(startTimeOption),
-                    startDate = currentDate.clone().clearTime();
+                    startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
+                    startDate = currentDate.clone();
 
-                if (startTime && (currentDate.compareTo(Date.today()) !== 0)) {
-                    startDate.set({
-                        'hour': startTime.getHours(),
-                        'minute': startTime.getMinutes()
-                    });
-                } else {
-                    startTime = Date.now();
-                    startDate.set({'hour': startTime.getHours()})
-                        .add({
-                            'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
+                if (startTime && (!moment(currentDate).isSame(moment())))
+                {
+                    startDate.hours(startTime.hours());
+                    startDate.minutes(startTime.minutes());
+                }
+                else
+                {
+                    startTime = moment();
+                    startDate.hours(startTime.hours());
+                    startDate.add({
+                            'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
                         });
                 }
 
-                var endDate = startDate.clone().add({minute: 15});
+                var endDate = startDate.clone().add({minutes:15});
 
-                this.fields['StartDate'].setValue(startDate);
-                this.fields['EndDate'].setValue(endDate);
+                this.fields['StartDate'].setValue(startDate.toDate());
+                this.fields['EndDate'].setValue(endDate.toDate());
             }
         },
         applyContext: function() {

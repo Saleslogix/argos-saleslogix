@@ -5,6 +5,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/string',
+    'Mobile/SalesLogix/Environment',
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit'
@@ -12,6 +13,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     declare,
     array,
     string,
+    environment,
     validator,
     utility,
     Edit
@@ -29,7 +31,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         regardingText: 'regarding',
         isLeadText: 'for lead',
         startingText: 'time',
-        startingFormatText: 'M/d/yyyy h:mm tt',
+        startingFormatText : 'M/D/YYYY h:mm A',
         titleText: 'Note',
         companyText: 'company',
         leadText: 'lead',
@@ -62,7 +64,6 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             'LeadName',
             'StartDate'
         ],
-
         init: function() {
             this.inherited(arguments);
 
@@ -175,6 +176,10 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                     this.fields[item].show();
                 }
             }, this);
+        },
+        onInsertSuccess: function() {
+            environment.refreshStaleDetailViews();
+            this.inherited(arguments);
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {

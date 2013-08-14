@@ -47,11 +47,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         regardingText: 'regarding',
         rolloverText: 'auto rollover',
         startingText: 'start time',
+        startingFormatText: 'M/D/YYYY h:mm A',
+        startingFormatTimelessText: 'M/D/YYYY',
         repeatsText: 'repeats',
         recurringText: 'recurring',
         recurringTitleText: 'Recurring',
-        startingFormatText: 'M/d/yyyy h:mm tt',
-        startingFormatTimelessText: 'M/d/yyyy',
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
@@ -299,7 +299,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.toggleSelectField(this.fields['Duration'], value);
 
             var startDateField = this.fields['StartDate'],
-                startDate = startDateField.getValue();
+                wrapped = moment(startDateField.getValue()),
+                startDate = wrapped && wrapped.toDate();
 
             if (value) {
                 this.fields['Rollover'].enable();
@@ -307,7 +308,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 if (!this.isDateTimeless(startDate)) {
-                    startDate = startDate.clone().clearTime().add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
+                    wrapped.startOf('day');
+                    wrapped.add((-1 * wrapped.zone()), 'minutes');
+                    wrapped.add(5, 'seconds');
+                    startDate = wrapped.toDate();
                 }
                 startDateField.setValue(startDate);
             } else {
@@ -317,7 +321,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
                 if (this.isDateTimeless(startDate)) {
-                    startDate = startDate.clone().add({minutes: startDate.getTimezoneOffset() + 1, seconds: -5});
+                    wrapped.startOf('day');
+                    wrapped.add((wrapped.zone() + 1), 'minutes');
+                    wrapped.add(-5, 'seconds');
+                    startDate = wrapped.toDate();
                 }
                 startDateField.setValue(startDate);
             }
@@ -444,39 +451,36 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         applyUserActivityContext: function(context) {
             var view = App.getView(context.id);
-            if (view && view.currentDate) {
-                var currentDate = view.currentDate.clone().clearTime(),
+            if (view && view.currentDate)
+            {
+                var currentDate = view.currentDate.startOf('day'),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && Date.parse(startTimeOption),
+                    startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
                     startDate;
 
-                if (startTime && (currentDate.compareTo(Date.today()) !== 0)) {
-                    startDate = currentDate.clone().set({
-                        'hour': startTime.getHours(),
-                        'minute': startTime.getMinutes()
-                    });
-                } else {
-                    startTime = Date.now();
-                    startDate = currentDate.clone().clearTime().set({
-                        'hour': startTime.getHours()
-                    }).add({
-                        'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
-                    });
+                if (startTime && (currentDate.valueOf() == moment().startOf('day').valueOf()))
+                {
+                    startDate = currentDate.clone()
+                        .hours(startTime.hours())
+                        .minutes(startTime.minutes());
+                }
+                else
+                {
+                    startTime = moment();
+                    startDate = currentDate.startOf('day').hours(startTime.hours())
+                        .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
                 }
 
-                this.fields['StartDate'].setValue(startDate);
-                this.recurrence.StartDate = startDate;
+                this.fields['StartDate'].setValue(startDate.toDate());
             }
         },
         applyContext: function() {
             this.inherited(arguments);
 
-            var startTime = Date.now(),
-                startDate = Date.now().clearTime().set({
-                    'hour': startTime.getHours()
-                }).add({
-                    'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
+            var startTime = moment(),
+                startDate = moment().startOf('day').hours(startTime.hours()).add({
+                    'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
                 }),
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
@@ -484,7 +488,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true,
                 alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
 
-            this.fields['StartDate'].setValue(startDate);
+            this.fields['StartDate'].setValue(startDate.toDate());
             this.fields['Type'].setValue(activityType);
             this.fields['Duration'].setValue(activityDuration);
             this.fields['Alarm'].setValue(alarmEnabled);
@@ -643,7 +647,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         setValues: function(values) {
             if (values['StartDate'] && values['AlarmTime']) {
                 var startTime = (this.isDateTimeless(values['StartDate']))
-                    ? values['StartDate'].clone().add({minutes: values['StartDate'].getTimezoneOffset()}).getTime()
+                    ? moment(values['StartDate']).add({minutes: values['StartDate'].getTimezoneOffset()}).toDate().getTime()
                     : values['StartDate'].getTime();
 
                 var span = startTime - values['AlarmTime'].getTime(), // ms
@@ -727,12 +731,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             // if StartDate is dirty, always update AlarmTime
             if (startDate && (isStartDateDirty || isReminderDirty)) {
                 values = values || {};
-                values['AlarmTime'] = startDate.clone().add({'minutes': -1 * reminderIn});
+                values['AlarmTime'] = moment(startDate).clone().add({'minutes': -1 * reminderIn}).toDate();
 
                 // if timeless, convert back to local time
-                if (timeless) {
-                    values['AlarmTime'].add({'minutes': startDate.getTimezoneOffset()});
-                }
+                if (timeless)
+                    values['AlarmTime'] = moment(values['AlarmTime']).add({'minutes': startDate.getTimezoneOffset()}).toDate();
             }
 
             return values;

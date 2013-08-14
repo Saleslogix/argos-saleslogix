@@ -24,7 +24,6 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
         metricFilterText: 'filter',
         metricText: 'metric',
         chartTypeText: 'chart type',
-        metricQueryText: 'sdata query filter',
         advancedText: 'advanced options',
         formatTypeText: 'format type',
         formatFuncText: 'format function',
@@ -135,10 +134,6 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
                             collapsed: false,
                             children: [
                                 {
-                                    name: key + '-query',
-                                    label: this.metricQueryText,
-                                    type: 'text'
-                                },{
                                     name: key + '-formatType',
                                     label: this.formatTypeText,
                                     type: 'text'
@@ -192,7 +187,6 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
                     $descriptor: item.metricDisplayName
                 };
 
-                o[key + '-query'] = item.queryArgs._activeFilter;
                 o[key + '-chartType'] = item.chartType;
                 o[key + '-reportViewId'] = item.reportViewId;
                 o[key + '-formatType'] = item.formatType || this.defaultFormatType;
@@ -227,8 +221,7 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
                         queryName: 'executeMetric',
                         queryArgs: {
                             '_filterName': filterHidden,
-                            '_metricName': metricHidden, 
-                            '_activeFilter': this.fields[key + '-query'].getValue() //'Closed eq false'
+                            '_metricName': metricHidden
                         },
                         formatType: this.fields[key + '-formatType'].getValue() || this.defaultFormatType,
                         formatFunc: this.fields[key + '-formatFunc'].getValue() || this.defaultFormatFunc,

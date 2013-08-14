@@ -3,6 +3,7 @@
  */
 define('Mobile/SalesLogix/Views/Activity/Recurring', [
     'dojo/_base/declare',
+    'dojo/_base/array',
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
@@ -11,6 +12,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     'Mobile/SalesLogix/Recurrence'
 ], function(
     declare,
+    array,
     string,
     format,
     validator,
@@ -44,9 +46,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         titleText: 'Recurrence',
 
         //View Properties
-        weekdayNames: Date.CultureInfo.dayNames,
-        weekdayNamesAbbreviated: Date.CultureInfo.abbreviatedDayNames,
-        monthNames: Date.CultureInfo.monthNames,
+        monthNames: moment.monthsShort,
 
         id: 'recurrence_edit',
 
@@ -332,7 +332,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             for (var key in selections) {
                 if (selections[key]) {
-                    values.push(Date.CultureInfo.abbreviatedDayNames[key]);
+                    values.push(moment().lang()._weekdaysShort[key]);
                     weekdays[key] = 1;
                 }
             }
@@ -351,14 +351,14 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 return selection['$descriptor'];
             }
 
-            return Date.CultureInfo.dayNames[parseInt(selection)];
+            return moment().lang()._weekdays[parseInt(selection)];
         },
         formatMonth: function(selection) {
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
 
-            return Date.CultureInfo.monthNames[parseInt(selection) - 1];
+            return moment().lang()._months[parseInt(selection) - 1];
         },
         formatOrd: function(selection) {
             if (selection['$descriptor']) {
@@ -390,22 +390,22 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createWeekdaysData: function() {
             var list = [];
-            for (var weekday in  Date.CultureInfo.dayNames) {
+            array.forEach(moment.weekdays, function(name, idx) {
                 list.push({
-                    '$key': weekday,
-                    '$descriptor': Date.CultureInfo.dayNames[weekday]
+                    '$key': idx,
+                    '$descriptor': name
                 });
-            }
+            });
             return {'$resources': list};
         },
         createMonthsData: function() {
             var list = [];
-            for (var month in Date.CultureInfo.monthNames) {
+            array.forEach(moment.months, function(name, idx) {
                 list.push({
-                    '$key': month,
-                    '$descriptor': Date.CultureInfo.monthNames[month]
+                    '$key': idx,
+                    '$descriptor': name 
                 });
-            }
+            });
             return {'$resources': list};
         },
         createOrdData: function() {

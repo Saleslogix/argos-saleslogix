@@ -16,7 +16,7 @@ define('Mobile/SalesLogix/Views/Event/List', [
     return declare('Mobile.SalesLogix.Views.Event.List', [List], {
         // Localization
         titleText: 'Events',
-        eventDateFormatText: 'M/d/yyyy',
+        eventDateFormatText: 'M/D/YYYY',
         eventText: 'Event',
 
         //Templates

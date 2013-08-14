@@ -8,7 +8,8 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
-    '../_RightDrawerListMixin'
+    '../_RightDrawerListMixin',
+    '../_CardLayoutListMixin'
 ], function(
     declare,
     string,
@@ -16,10 +17,11 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     action,
     List,
     _MetricListMixin,
-    _RightDrawerListMixin
+    _RightDrawerListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',
@@ -53,6 +55,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         viewContactActionText: 'Contact',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        addAttachmentActionText:'Add Attachment',
         assignedToText: 'Assigned To: ',
         urgencyText: 'Urgency: ',
 
@@ -75,7 +78,8 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             'Subject',
             'TicketNumber',
             'UrgencyCode',
-            'Urgency/Description'
+            'Urgency/Description',
+            'ModifyDate'
         ],
         resourceKind: 'tickets',
         entityName: 'Ticket',
@@ -83,7 +87,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         enableActions: true,
 
         hashTagQueries: {
-            'has-alert': 'Alert eq true',
             'assigned-to-me': function() {
                 return 'AssignedTo.OwnerDescription eq "' + App.context.user.$descriptor + '"';
             },
@@ -92,48 +95,52 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             }
         },
         hashTagQueriesText: {
-            'has-alert': 'has-alert',
             'assigned-to-me': 'assigned-to-me',
             'completed-by-me': 'completed-by-me'
         },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                        id: 'edit',
-                        icon: 'content/images/icons/edit_24.png',
-                        label: this.editActionText,
-                        action: 'navigateToEditView'
-                    }, {
-                        id: 'viewAccount',
-                        icon: 'content/images/icons/Company_24.png',
-                        label: this.viewAccountActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
-                        fn: action.navigateToEntity.bindDelegate(this, {
-                            view: 'account_detail',
-                            keyProperty: 'Account.$key',
-                            textProperty: 'Account.AccountName'
-                        })
-                    }, {
-                        id: 'viewContact',
-                        icon: 'content/images/icons/Contacts_24x24.png',
-                        label: this.viewContactActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'Contact.$key'),
-                        fn: action.navigateToEntity.bindDelegate(this, {
-                            view: 'contact_detail',
-                            keyProperty: 'Contact.$key',
-                            textProperty: 'Contact.NameLF'
-                        })
-                    }, {
-                        id: 'addNote',
-                        icon: 'content/images/icons/New_Note_24x24.png',
-                        label: this.addNoteActionText,
-                        fn: action.addNote.bindDelegate(this)
-                    }, {
-                        id: 'addActivity',
-                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                        label: this.addActivityActionText,
-                        fn: action.addActivity.bindDelegate(this)
-                    }]
+                id: 'edit',
+                icon: 'content/images/icons/edit_24.png',
+                label: this.editActionText,
+                action: 'navigateToEditView'
+            }, {
+                id: 'viewAccount',
+                icon: 'content/images/icons/Company_24.png',
+                label: this.viewAccountActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'account_detail',
+                    keyProperty: 'Account.$key',
+                    textProperty: 'Account.AccountName'
+                })
+            }, {
+                id: 'viewContact',
+                icon: 'content/images/icons/Contacts_24x24.png',
+                label: this.viewContactActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'Contact.$key'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'contact_detail',
+                    keyProperty: 'Contact.$key',
+                    textProperty: 'Contact.NameLF'
+                })
+            }, {
+                id: 'addNote',
+                icon: 'content/images/icons/New_Note_24x24.png',
+                label: this.addNoteActionText,
+                fn: action.addNote.bindDelegate(this)
+            }, {
+                id: 'addActivity',
+                icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                label: this.addActivityActionText,
+                fn: action.addActivity.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                icon: 'content/images/icons/Attachment_24.png',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]
             );
         },
 

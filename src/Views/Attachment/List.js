@@ -7,18 +7,24 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     'dojo/has',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/List',
-    '../_RightDrawerListMixin'
+    'Sage/Platform/Mobile/Convert',
+    '../_RightDrawerListMixin',
+    '../_CardLayoutListMixin'
 ], function(
     declare,
     string,
     has,
     format,
     List,
-    _RightDrawerListMixin
+    convert,
+    _RightDrawerListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin], {
+    return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
         //Templates
+
+        //used when card layout is no used used.
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
                 '<button data-action="selectEntry" class="list-item-selector button">',
@@ -29,15 +35,9 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         ]),
         itemTemplate: new Simplate([
            '{% if ($.dataType === "R") { %}',
-            '<div class="list-item-static-selector">',
-                    '<img src="{%=  $$.icon  %}" class="icon" />',
-             '</div>',
-           '<div class="list-item-content">{%! $$.fileTemplate %}</div>',
+               '{%! $$.fileTemplate %}',
            '{% } else { %}',
-            '<div class="list-item-static-selector">',
-                    '<img src="{%=  $$.iconurl  %}" class="icon" />',
-             '</div>',
-           '<div class="list-item-content">{%! $$.urlTemplate %}</div>',
+              '{%! $$.urlTemplate %}',
            '{% } %}',
         ]),
         fileTemplate: new Simplate([
@@ -62,17 +62,29 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
 
         //Localization
         titleText: 'Attachments',
-        attachmentDateFormatText: 'ddd M/d/yy h:mm:tt',
+        attachmentDateFormatText: 'ddd M/D/YYYY hh:mm:ss',
 
         //View Properties       
         id: 'attachment_list',
         security: null,
+        enableActions: true,
         detailView: 'view_attachment',
         insertView: 'attachment_Add',
         icon: 'content/images/icons/Attachment_24.png',
         iconurl: 'content/images/icons/Attachment_URL_24.png',
         queryOrderBy: 'attachDate desc',
-        querySelect:  ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
+        querySelect:  [
+            'description',
+            'user',
+            'attachDate',
+            'fileSize',
+            'fileName',
+            'url',
+            'fileExists',
+            'remoteStatus',
+            'dataType',
+            'ModifyDate'
+        ],
         resourceKind: 'attachments',
         contractName: 'system',
         queryInclude: ['$descriptors'],
@@ -114,6 +126,52 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
                     return attachment['$descriptor'];
                 }
             }
+        },
+        getItemIconSource: function(entry) {
+              return "content/images/icons/Attachment_48x48.png";
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'touched',
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }, {
+                id: 'attachmentIcon',
+                icon: '',
+                label: 'Activity',
+                onApply: function(entry, parent) {
+                    parent.applyActivityIndicator(entry, this);
+                }
+            }]
+            );
+        },
+        applyActivityIndicator: function(entry, indicator) {
+            var dataType = entry['dataType']
+            indicator.isEnabled = true;
+            indicator.showIcon = true;
+            if (dataType === 'R') {
+                indicator.icon = "Attachment_24.png";
+                indicator.label = "file";
+                
+            } else {
+                indicator.icon = "Attachment_URL_24.png";
+                indicator.label = "url";
+            }
+        },
+        hasBeenTouched: function(entry) {
+            var modifiedDate, currentDate, weekAgo;
+            if (entry['modifyDate']) {
+                modifiedDate = moment(convert.toDateFromString(entry['modifyDate']));
+                currentDate = moment().endOf('day');
+                weekAgo = moment().subtract(1, 'weeks');
+
+                return modifiedDate.isAfter(weekAgo) &&
+                    modifiedDate.isBefore(currentDate);
+            }
+            return false;
         }
     });
 });

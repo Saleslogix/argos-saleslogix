@@ -7,7 +7,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/_base/lang',
     'dojo/dom-construct',
     'dojo/dom-attr',
-    'dojo/aspect',
     'Mobile/SalesLogix/Views/_RightDrawerBaseMixin'
 ], function(
     declare,
@@ -15,7 +14,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     lang,
     domConstruct,
     domAttr,
-    aspect,
     _RightDrawerBaseMixin
 ) {
 
@@ -25,7 +23,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         kpiSectionText: 'KPI',
         configureText: 'Configure',
 
-        _snapperCloseHandle: null,
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
 
         onShow: function() {
@@ -46,7 +43,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 domConstruct.place(this.searchWidget.domNode, drawer.domNode, 'first');
 
                 if (this.rebuildWidgets) {
-                    this._snapperCloseHandle = aspect.after(App.snapper, 'close', lang.hitch(this, function() {
+                    App.snapper.on('close', lang.hitch(this, function() {
                         if (this._hasChangedKPIPrefs) {
                             this.rebuildWidgets();
                             this._hasChangedKPIPrefs = false;
@@ -61,9 +58,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 drawer.setLayout([]);
                 drawer.getGroupForEntry = function(entry) {};
                 domConstruct.place(this.searchWidget.domNode, this.domNode, 'first');
-                if (this._snapperCloseHandle) {
-                    this._snapperCloseHandle.remove();
-                }
+                App.snapper.off('close');
             }
         },
         _onSearchExpression: function() {

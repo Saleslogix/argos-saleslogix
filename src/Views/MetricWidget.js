@@ -32,13 +32,13 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
          * Simple that defines the HTML Markup
         */
         widgetTemplate: new Simplate([
-            '<li class="metric-widget">',
+            '<div class="metric-widget">',
                 '<button data-dojo-attach-event="onclick:navToReportView">',
                     '<div data-dojo-attach-point="metricDetailNode" class="metric-detail">',
                         '{%! $.loadingTemplate %}',
                     '</div>',
                 '</button>',
-            '</li>'
+            '</div>'
         ]),
 
         /**
@@ -218,10 +218,10 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             view = App.getView(this.chartTypeMapping[this.chartType] || this.reportViewId);
 
             if (view) {
+                view.titleText = this.metricTitleText;
+                view.formatter = this.formatter;
                 signal = aspect.after(view, 'show', lang.hitch(this, function() {
                     setTimeout(lang.hitch(this, function() {
-                        view.titleText = this.metricTitleText;
-                        view.formatter = this.formatter;
                         view.createChart(this._data);
                         signal.remove();
                     }), 1);

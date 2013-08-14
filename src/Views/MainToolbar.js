@@ -16,7 +16,7 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.MainToolbar', [MainToolbar], {
-        titleText: 'Sage Saleslogix',
+        titleText: 'Saleslogix',
         showTools: function(tools) {
             var hasLeftDrawer, isOnFirstView, isOnEdit, history;
 

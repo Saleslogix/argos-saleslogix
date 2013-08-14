@@ -7,8 +7,10 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
+    'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
+     'Mobile/SalesLogix/Views/_CardLayoutListMixin',
     '../_RightDrawerListMixin'
 ], function(
     declare,
@@ -16,13 +18,17 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     array,
     action,
     format,
+    Convert,
     List,
     _MetricListMixin,
+    _CardLayoutListMixin,
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin], {
+    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Template
+        //Card Layout
+        itemIcon: 'content/images/icons/ContactProfile_48x48.png',
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
             '<h4>{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</h4>',
@@ -51,17 +57,20 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         scheduleText: 'Schedule',
         editActionText: 'Edit',
         callMainActionText: 'Call Main',
+        callWorkActionText: 'Call Work',
         callMobileActionText: 'Call Mobile',
         sendEmailActionText: 'Email',
         viewAccountActionText: 'Account',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        addAttachmentActionText: 'Add Attachment',
         phoneAbbreviationText: 'Work: ',
         mobileAbbreviationText: 'Mobile: ',
 
         //View Properties        
         detailView: 'contact_detail',
         icon: 'content/images/icons/Contacts_24x24.png',
+        cardLayoutIcon: 'content/images/icons/ContactProfile_48x48.png',
         id: 'contact_list',
         security: 'Entities/Contact/View',
         insertView: 'contact_edit',
@@ -73,7 +82,9 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             'WorkPhone',
             'Mobile',
             'Email',
-            'Title'
+            'Title',
+            'LastHistoryDate',
+            'ModifyDate'
         ],
         resourceKind: 'contacts',
         entityName: 'Contact',
@@ -104,9 +115,9 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                         label: this.editActionText,
                         action: 'navigateToEditView'
                     }, {
-                        id: 'callMain',
+                        id: 'callWork',
                         icon: 'content/images/icons/Call_24x24.png',
-                        label: this.callMainActionText,
+                        label: this.callWorkActionText,
                         enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
                         fn: action.callPhone.bindDelegate(this, 'WorkPhone')
                     }, {
@@ -141,6 +152,11 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                         icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                         label: this.addActivityActionText,
                         fn: action.addActivity.bindDelegate(this)
+                    }, {
+                        id: 'addAttachment',
+                        icon: 'content/images/icons/Attachment_24.png',
+                        label: this.addAttachmentActionText,
+                        fn: action.addAttachment.bindDelegate(this)
                     }]
             );
         },

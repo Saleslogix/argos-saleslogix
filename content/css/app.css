@@ -410,13 +410,6 @@ h4
     /*border-top: solid 1px #DDD;*/
 }
 
-.metric-list
-{
-    list-style-type: none;
-    padding: 0px;
-}
-
-.metric-list,
 .metric-widget,
 .metric-detail
 {
@@ -432,13 +425,29 @@ h4
     background-color: #212721;
     border-color: #000;
     border-width: 0px;
-    background-color: #212721;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.metric-widget
+{
+    width: 32.7%;
+}
+
+.metric-list
+{
+    padding: 0px 6px 0px 6px;
+    width:100%;
+    box-sizing: border-box;
 }
 
 .metric-title
 {
     font-size: 10pt;
     color: #ffffff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .metric-title > .list-loading-indicator
@@ -453,16 +462,6 @@ h4
     padding-top: 5px;
     color: #ffffff;
 }
-
-/*.metric-detail
-{
-    padding: 3px;
-}
-
-.metric-widget
-{
-    padding: 3px;
-}*/
 
 li[data-activity-type] .list-item-selector,
 li[data-opportunity-status] .list-item-selector,
@@ -829,6 +828,13 @@ body.transition > .viewContainer > .footer-toolbar
     }
 }
 /* Tablets */
+@media only screen and (min-width: 768px) {
+    .metric-widget
+    {
+        width: 24.7%;
+    }
+}
+
 @media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
     body.landscape > .viewContainer > #calendar_yearlist > .year-content > .year-table
     {
@@ -1549,3 +1555,414 @@ td.entry-table-description {
 
 }
 
+card-layout .list-content
+{
+     margin: 0;
+    padding: 0;
+}
+
+card-layout  .list-content > li
+{
+    font-size: 1.25em;
+    font-weight: bold;
+    list-style: none;
+    margin: 8px 6px 8px 6px;
+    padding: 8px 0px 8px 10px;
+    position: relative;
+    border-radius: 6px;
+     cursor: pointer;
+}
+
+.card-layout .list-content > li,
+.card-layout .group-content > li
+{
+    padding: 8px 6px 8px 6px;
+}
+.card-layout .list-content > li,
+.card-layout .group-content > li
+{
+    background-color: #FFFFFF;
+    font-weight: normal;
+}
+.card-layout .list-show-selectors .list-item-content,
+.card-layout .list-item-static-selector + .list-item-content
+{
+    padding-left: 80px;
+}
+.card-layout .list-show-selectors 
+{
+    padding-left: 80px;
+}
+.card-layout .list-item-content
+{
+    padding-left: 80px;
+}
+
+.card-layout .actions-enabled + .list-item-content
+{
+    padding-left: 80px;
+}
+
+.card-layout .list-content > li > img.icon,
+.card-layout  .list-content > li > * > img.icon
+{
+    border: none 0 black;
+    margin: 0 .5em 0 0;
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+
+.card-layout .list-content > li > input.list-selector
+{
+    float: left;
+    margin: 2px 0 0 0px;
+}
+
+.card-layout .list-item-selector
+{
+    visibility: hidden;
+    width: 62px;
+    height: 48px;
+    color: #ff0;
+    position: absolute;
+    top: 8px;
+    left: 22px;
+    z-index: 10;
+    background: none;
+    border: 0 none #000;
+    padding: 0 2px 0 0px;
+}
+.card-layout .list-show-actions .list-item-selector
+{
+    visibility: visible !important;
+    width: 50px;
+    height: 50px;
+    left: 6px;
+
+    line-height: 30px;
+    padding: 0 2px 0 2px;
+
+    color: #000;
+    text-shadow: #fff 0px 1px 0px;
+    border: 1px solid #ececec;
+
+    background-color: #ffffff;
+    background-image: linear-gradient(to bottom, #fcfcfc, #dfdfdf);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #ffffff),
+        color-stop(1, #ececec)
+    );
+    background-image: -moz-linear-gradient(top, #ffffff, #ececec);
+}
+
+.card-layout  .list-show-actions  .list-item-selector > img
+{
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    border: none 0 black;
+    width: 50px;
+    height: 50px;
+}
+
+.card-layout .icon
+{
+    position: relative;
+    top: 6px;
+    left: 6px;
+    border: none 0 black;
+    width: 12px;
+    height: 12px;
+}
+
+.card-layout  .list-item-selected > .list-item-selector
+{
+    visibility: visible !important;
+}
+
+.card-layout  .list-item-static-selector
+{
+    visibility: visible;
+    width: 38px;
+    color: #ff0;
+    position: relative;
+    top: 8px;
+    left: 12px;
+    bottom: 0px;
+    z-index: 10;
+}
+.card-layout .actions-row > button
+{
+    background: #FFFFFF;
+    border: 0 solid #000000;
+    float: right;
+    height: 48px;
+    margin: 5px !important;
+    padding: 0 !important;
+    position: relative;
+    text-align: center;
+    width: 64px;
+   -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+
+}
+
+.card-layout  .list-action-selected + .actions-row
+{
+    display: block !important;
+}
+
+.card-layout  .list-action-selected > .list-item-selector
+{
+    border-color: #AAAAAA;
+    background-color:  	#AAAAAA !important;
+    background-image: none !important;
+    border-bottom: 0px none #AAAAAA !important;
+    -webkit-border-radius: 3px 3px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
+    bottom: -1px;
+    height: 62px !important;
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+}
+.card-layout .list-item-tab
+{
+  font-size: .50em;
+  font-weight: normal;
+  overflow:hidden; 
+  height:100px; 
+  background:#e3e3e3;
+  height:100%;
+  width:100%;
+  position:relative;
+  float: left;
+  clear: both;
+}
+
+.card-layout .list-item-content-tab
+{
+    background-color: ghostwhite;
+    color: black;
+    border-radius: 6px 0 0 6px;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    vertical-align: middle;
+    width: 20px;
+    z-index: 10;
+}
+.card-layout .list-item-content-tab > table
+ { 
+   height: 100%;
+    left: -8px;
+    position: absolute;
+    top: 0;
+    transform: rotate(-90deg);
+    width: 100%;
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg); 
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg); 
+
+}
+.card-layout .list-item-content-tab > table > tbody > tr > td 
+ { 
+    text-align:center;
+}
+
+.card-layout .list-item-content-tab > table > tbody > tr > td > div
+ { 
+    clear: both;
+    float: left;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    width: 100px;
+}
+
+.card-layout .list-item-content-tab >table > tbody > tr > td > div > span
+ {
+    font-size: 0.6em;
+    font-weight: normal;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.card-layout .list-item-indicator-content 
+{ 
+    padding-left: 80px;
+    text-align: right;
+     font-size: 0.6em;
+    font-weight: bold;
+}
+.card-layout .list-item-indicator-content > span > img
+{ 
+  width: 24px;
+  height:24px;
+  margin: 2px;
+  font-size: 0.6em;
+  font-weight: normal;
+
+}
+.card-layout .list-item-footer
+{
+    height: 28px;
+    margin: 5px 0 0;
+}
+
+
+.card-layout .list-action-selected .footer-item-selector {
+    background-image: none !important;
+    border-color: transparent transparent #AAAAAA;
+    border-radius: 0 0 0 0 !important;
+    border-style: solid;
+    border-width: 0 13px 44px;
+    box-shadow: none !important;
+    height: 0 !important;
+    left: 0;
+    top: 18px;
+    width: 0;
+    
+}
+
+.card-layout .footer-item-selector
+{
+    border: 0px none #000000;
+    background: transparent;
+    color: #000000;
+    float: right;
+    height: 28px;
+    top: 0;
+    width: 28px;
+    z-index: 10;
+}
+.footer-item-selector > img
+{ 
+    border: 0 none black;
+    height: 24px;
+    left: -2px !important;
+    position: relative !important;
+    top: 0px !important;
+    width: 24px;
+
+}
+
+
+.card-layout .list-action-selected  .footer-item-selector > img
+{ 
+    border: 0 none black;
+    height: 24px;
+    left: -13px !important;
+    position: relative !important;
+    top: 0px !important;
+    width: 24px;
+}
+
+.card-layout .list-item-footer > .button-unSelected > span
+{
+    background-image: url(../images/icons/Browse_Next_24.png);
+}
+
+.card-layout-search-expression
+{
+    display: block;
+    font-size: 0.75em;
+    min-height: 1em;
+    line-height: inherit;
+    padding: 4px 6px 4px 4px;
+    color: #777;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.card-layout-speed-search-index
+{
+    display: block;
+    font-size: 1.5em;
+    min-height: 1em;
+    line-height: inherit;
+    padding: 4px 6px 4px 4px;
+    color: #777;
+
+}
+.card-layout-speed-search-index> button
+{
+    margin: 5px;
+    padding: 5px;
+    background-color: #fff;
+    border-color: #000;
+    border-width: 0px;
+    border-radius: 6px;
+    width: auto;
+}
+.card-layout-speed-search-index-selected
+{
+     background-color: #404040 !important;
+     color:#fff!important;
+}
+.color-default
+{
+    background-color: 	#404040   !important;
+    color: white !important;
+}
+.color-account
+{
+    background-color:#0066FF!important;
+    color: white !important;
+}
+.color-contact
+{
+    background-color:#3366FF!important;
+    color: white !important;
+}
+.color-activity
+{
+    background-color:#6600FF !important;
+    color: white !important;
+}
+.color-opportunity
+{
+    background-color:#FF6600 !important;
+    color: white !important;
+}
+.color-ToDo
+{
+    background-color:#fe5000 !important;
+    color: white !important;
+}
+.color-Meeting
+{
+    background-color:#0054a6 !important;
+    color: white !important;
+}
+.color-PhoneCall
+{
+    background-color:#128b0c !important;
+    color: white !important;
+}
+.color-Personal
+{
+    background-color:#5e00a6 !important;
+    color: white !important;
+}
+.indicator_Important
+{
+    background-color:#FFFFFF !important;
+    color: red!important;
+}

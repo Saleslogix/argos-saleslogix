@@ -22,10 +22,11 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         entityName: '',
 
         postMixInProperties: function() {
+            this.inherited(arguments);
             this.widgetTemplate =  new Simplate([
                 '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
                 '<div data-dojo-attach-point="searchNode"></div>',
-                '<ul data-dojo-attach-point="metricNode" class="metric-list"></ul>',
+                '<div data-dojo-attach-point="metricNode" class="metric-list"></div>',
                 '<a href="#" class="android-6059-fix">fix for android issue #6059</a>',
                 '{%! $.emptySelectionTemplate %}',
                 '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
@@ -55,12 +56,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                 widget.destroy();
             }, this);
         },
-        // TODO: Be smart about a refresh required (when prefs change)
-        onShow: function() {
-            this.inherited(arguments);
-            this.rebuildWidgets();
-        },
-        onActivate: function() {
+        requestData: function() {
             this.inherited(arguments);
             this.rebuildWidgets();
         },
@@ -73,6 +69,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             widgetOptions = this.createMetricWidgetsLayout() || [];
             array.forEach(widgetOptions, function(options) {
                 if (this._hasValidOptions(options)) {
+                    options.queryArgs._activeFilter = this.query || '';
                     var widget = new MetricWidget(options);
                     widget.placeAt(this.metricNode, 'last');
                     widget.requestData();

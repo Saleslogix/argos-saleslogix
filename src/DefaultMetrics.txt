@@ -6,8 +6,7 @@
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
-        "_metricName":"TotalRevenue",
-        "_activeFilter":""
+        "_metricName":"TotalRevenue"
       },
       "formatType":"Mobile/SalesLogix/Format",
       "formatFunc":"bigNumber",
@@ -25,11 +24,10 @@
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Type",
-        "_metricName":"AverageTimeAsCustomer",
-        "_activeFilter":""
+        "_metricName":"AverageTimeAsCustomer"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
+      "formatType":"Sage/Platform/Mobile/Format",
+      "formatFunc":"fixed",
       "valueType":"Mobile/SalesLogix/Aggregate",
       "valueFunc":"avg",
       "reportViewId":"",
@@ -44,8 +42,7 @@
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
-        "_metricName":"CountAccounts",
-        "_activeFilter":""
+        "_metricName":"CountAccounts"
       },
       "formatType":"Mobile/SalesLogix/Format",
       "formatFunc":"bigNumber",
@@ -61,12 +58,11 @@
   "opportunities":[
     {
       "resourceKind":"opportunities",
-      "metricTitleText":"Total Won",
+      "metricTitleText":"Total Opportunities",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
-        "_metricName":"CountOpportunities",
-        "_activeFilter":"Status eq 'Closed - Won'"
+        "_metricName":"CountOpportunities"
       },
       "formatType":"Mobile/SalesLogix/Format",
       "formatFunc":"bigNumber",
@@ -80,31 +76,11 @@
     },
     {
       "resourceKind":"opportunities",
-      "metricTitleText":"Won Sales",
+      "metricTitleText":"Sales Potential",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
-        "_metricName":"SumActualAmount",
-        "_activeFilter":"Status eq 'Closed - Won'"
-      },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
-      "metricDisplayName":"Total Actual Amount",
-      "filterDisplayName":"Account Manager",
-      "enabled":false
-    },
-    {
-      "resourceKind":"opportunities",
-      "metricTitleText":"Lost Potential",
-      "queryName":"executeMetric",
-      "queryArgs":{
-        "_filterName":"AccountManager",
-        "_metricName":"SumSalesPotential",
-        "_activeFilter":"Status eq 'Closed - Lost'"
+        "_metricName":"SumSalesPotential"
       },
       "formatType":"Mobile/SalesLogix/Format",
       "formatFunc":"bigNumber",
@@ -113,63 +89,6 @@
       "reportViewId":"",
       "chartType":"bar",
       "metricDisplayName":"Sum Sales Potential",
-      "filterDisplayName":"Account Manager",
-      "enabled":false
-    },
-    {
-      "resourceKind":"opportunities",
-      "metricTitleText":"Total Lost",
-      "queryName":"executeMetric",
-      "queryArgs":{
-        "_filterName":"AccountManager",
-        "_metricName":"CountOpportunities",
-        "_activeFilter":"Status eq 'Closed - Lost'"
-      },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
-      "metricDisplayName":"Count Opportunities",
-      "filterDisplayName":"Account Manager",
-      "enabled":false
-    },
-    {
-      "resourceKind":"opportunities",
-      "metricTitleText":"Open Potential",
-      "queryName":"executeMetric",
-      "queryArgs":{
-        "_filterName":"AccountManager",
-        "_metricName":"SumSalesPotential",
-        "_activeFilter":"Status eq 'Open'"
-      },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
-      "metricDisplayName":"Sum Sales Potential",
-      "filterDisplayName":"Account Manager",
-      "enabled":false
-    },
-    {
-      "resourceKind":"opportunities",
-      "metricTitleText":"Total Open",
-      "queryName":"executeMetric",
-      "queryArgs":{
-        "_filterName":"AccountManager",
-        "_metricName":"CountOpportunities",
-        "_activeFilter":"Status eq 'Open'"
-      },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
-      "metricDisplayName":"Count Opportunities",
       "filterDisplayName":"Account Manager",
       "enabled":false
     }
@@ -181,8 +100,7 @@
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Category",
-        "_metricName":"TicketCount",
-        "_activeFilter":""
+        "_metricName":"TicketCount"
       },
       "formatType":"Mobile/SalesLogix/Format",
       "formatFunc":"bigNumber",
@@ -200,11 +118,10 @@
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AssignedTo",
-        "_metricName":"OpenTicketAgingAverage",
-        "_activeFilter":""
+        "_metricName":"OpenTicketAgingAverage"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
+      "formatType":"Sage/Platform/Mobile/Format",
+      "formatFunc":"fixed",
       "valueType":"Mobile/SalesLogix/Aggregate",
       "valueFunc":"avg",
       "reportViewId":"",
@@ -221,8 +138,7 @@
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
-        "_metricName":"CountContacts",
-        "_activeFilter":""
+        "_metricName":"CountContacts"
       },
       "formatType":"Mobile/SalesLogix/Format",
       "formatFunc":"bigNumber",
@@ -242,8 +158,7 @@
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Owner",
-        "_metricName":"CountLeads",
-        "_activeFilter":""
+        "_metricName":"CountLeads"
       },
       "formatType":"Mobile/SalesLogix/Format",
       "formatFunc":"bigNumber",
@@ -263,8 +178,7 @@
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Type",
-        "_metricName":"CountHistory",
-        "_activeFilter":""
+        "_metricName":"CountHistory"
       },
       "formatType":"Mobile/SalesLogix/Format",
       "formatFunc":"bigNumber",
@@ -282,8 +196,7 @@
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Type",
-        "_metricName":"TotalDuration",
-        "_activeFilter":""
+        "_metricName":"TotalDuration"
       },
       "formatType":"Mobile/SalesLogix/Format",
       "formatFunc":"bigNumber",

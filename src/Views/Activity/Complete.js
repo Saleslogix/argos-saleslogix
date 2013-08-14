@@ -6,6 +6,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     'dojo/_base/array',
     'dojo/_base/connect',
     'dojo/string',
+    'Mobile/SalesLogix/Environment',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
@@ -15,6 +16,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     array,
     connect,
     string,
+    environment,
     validator,
     template,
     utility,
@@ -34,7 +36,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         categoryText: 'category',
         categoryTitleText: 'Activity Category',
         completedText: 'completed date',
-        completedFormatText: 'M/d/yyyy h:mm tt',
+        completedFormatText: 'M/D/YYYY h:mm A',
         completionText: 'Completion',
         durationText: 'duration',
         durationInvalidText: "The field '${2}' must have a value.",
@@ -52,8 +54,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         resultText: 'result',
         resultTitleText: 'Result',
         startingText: 'start date',
-        startingFormatText: 'M/d/yyyy h:mm tt',
-        startingFormatTimelessText: 'M/d/yyyy',
+        startingFormatText: 'M/D/YYYY h:mm A',
+        startingFormatTimelessText: 'M/D/YYYY',
         timelessText: 'timeless',
         durationValueText: {
             0: 'none',
@@ -324,6 +326,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
 
             var success = (function(scope, callback, entry) {
                 return function() {
+                    environment.refreshStaleDetailViews();
                     connect.publish('/app/refresh', [{
                         resourceKind: 'history'
                     }]);
