@@ -22,11 +22,29 @@
     <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <!-- CSS -->
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/reui/themes/sage-green/theme.css" />
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/base.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/app.css" />
+    <!-- less files -->
+    <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/reui/themes/sage-green/theme.less" />
+    <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/base.less" />
+    <link rel="stylesheet/less" type="text/css" href="content/css/app.less" />
+
+    <!-- less -->
+    <script type="text/javascript">
+        less = {
+            env: "development", // or "production"
+            async: false,       // load imports async
+            fileAsync: false,   // load imports async when in a page under
+                                // a file protocol
+            poll: 1000,         // when in watch mode, time in ms between polls
+            functions: {},      // user functions, keyed by name
+            dumpLineNumbers: "all", // or "mediaQuery" or "all"
+            relativeUrls: true,// whether to adjust url's to be relative
+                                // if false, url's are already relative to the
+                                // entry less file
+            rootpath: ""// a path to add on to the start of every url
+                                //resource
+        };
+    </script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.4.1.min.js"></script>
 
     <!-- JSON -->
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
