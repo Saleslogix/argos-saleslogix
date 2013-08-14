@@ -7,6 +7,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     'dojo/has',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/Convert',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin'
 ], function(
@@ -15,6 +16,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     has,
     format,
     List,
+    convert,
     _RightDrawerListMixin,
     _CardLayoutListMixin
 ) {
@@ -71,7 +73,18 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         icon: 'content/images/icons/Attachment_24.png',
         iconurl: 'content/images/icons/Attachment_URL_24.png',
         queryOrderBy: 'attachDate desc',
-        querySelect:  ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
+        querySelect:  [
+            'description',
+            'user',
+            'attachDate',
+            'fileSize',
+            'fileName',
+            'url',
+            'fileExists',
+            'remoteStatus',
+            'dataType',
+            'ModifyDate'
+        ],
         resourceKind: 'attachments',
         contractName: 'system',
         queryInclude: ['$descriptors'],
@@ -147,8 +160,19 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
                 indicator.icon = "Attachment_URL_24.png";
                 indicator.label = "url";
             }
-        }
+        },
+        hasBeenTouched: function(entry) {
+            var modifiedDate, currentDate, weekAgo;
+            if (entry['modifyDate']) {
+                modifiedDate = moment(convert.toDateFromString(entry['modifyDate']));
+                currentDate = moment().endOf('day');
+                weekAgo = moment().subtract(1, 'weeks');
 
+                return modifiedDate.isAfter(weekAgo) &&
+                    modifiedDate.isBefore(currentDate);
+            }
+            return false;
+        }
     });
 });
 
