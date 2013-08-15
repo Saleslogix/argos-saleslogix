@@ -1,4 +1,4 @@
-@import "toggle.less";
+@import "../../../../argos-sdk/content/css/themes/swiftpage-orange/variables.less";
 
 .list-content > [data-enabled="false"]
 {
@@ -417,18 +417,18 @@ h4
 {
     display: inline-block;
     padding: 0px;
-    margin: 0px;
-    background-color: #5a5d59;
+    margin: 2px 0 0 2px;
 }
 
 .metric-widget > button
 {
-    /*padding: 5px 2px 5px 2px;*/
-    background-color: #212721;
+    padding: 5px 2px 5px 2px;
     border-color: #000;
     border-width: 0px;
     border-radius: 6px;
     width: 100%;
+    background-color: @blue3-darker;
+    color: #fff;
 }
 
 .metric-widget
@@ -446,7 +446,6 @@ h4
 .metric-title
 {
     font-size: 10pt;
-    color: #ffffff;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -462,7 +461,6 @@ h4
     font-size: 14pt;
     font-weight: bold;
     padding-top: 5px;
-    color: #ffffff;
 }
 
 li[data-activity-type] .list-item-selector,
@@ -985,30 +983,17 @@ body.transition > .viewContainer > .footer-toolbar
 #calendar_daylist > h2,
 #calendar_weeklist > div > h2
 {
-    /*border-bottom: 1px solid #000;
-    border-top: 1px solid #000;
-    background-color: #e6e6e6;
-    background-image: linear-gradient(to bottom, #e6e6e6, #cccccc);
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #e6e6e6),
-        color-stop(1, #cccccc)
-    );
-    background-image: -moz-linear-gradient(top, #e6e6e6, #cccccc); */
     box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
     -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
     -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
     color: #ffffff;
-    /*text-shadow: #fff 0px 1px 0px; */
+    background-color: @gray2-darker;
     font-weight: bold;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     height: 32px;
     line-height: 32px;
-    /*margin: 6px 0 0 0; */
     padding: 0 0 0 6px;
     font-size: 1em;
     z-index: 5;
@@ -1018,17 +1003,6 @@ body.transition > .viewContainer > .footer-toolbar
     user-select: none;
     border-bottom: 1px solid #212721;
 }
-
-.ie9 #calendar_daylist .event-content > h2,
-.ie9 #calendar_monthlist .event-content > h2,
-.ie9 #calendar_monthlist .activity-content > h2,
-.ie9 #calendar_monthlist .day-content > h2,
-.ie9 #calendar_daylist > h2,
-.ie9 #calendar_weeklist > div > h2
-{
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6e6e6, endColorstr=#cccccc)";
-}
-
 
 #calendar_daylist .nav-bar > h3,
 #calendar_weeklist .nav-bar > h3,
@@ -1081,7 +1055,6 @@ body.transition > .viewContainer > .footer-toolbar
 }
 
 #calendar_weeklist > div > h2.currentDate {
-    color:#FE5000;
     background-color: #444444;
     border-left: 8px solid #00678a;
 }
@@ -1106,23 +1079,6 @@ body.transition > .viewContainer > .footer-toolbar
 #calendar_daylist > .split-buttons
 {
     text-align: center;
-    
-    background-color: #212721;
-    background-image: linear-gradient(to bottom, #212721, #212721);
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #212721),
-        color-stop(1, #212721)
-    );
-    background-image: -moz-linear-gradient(top, #212721, #212721);
-    /*border-bottom: 1px solid black;
-    border-top: 1px solid transparent; */
-
-    /*box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
-    -moz-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px;
-    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 2px 3px; */
 }
 #calendar_weeklist > .list-content > ul > li.event
 {
@@ -1252,7 +1208,6 @@ td.entry-table-description {
 .split-buttons
 {
     line-height: 34px;
-    background-color: #fff;
     padding: 3px 0 3px 3px;
 }
 
@@ -1269,20 +1224,6 @@ td.entry-table-description {
 .split-buttons > .button[data-tool="today"]
 {
     margin: 0 0 0 16px;
-
-    /*
-    -webkit-border-top-left-radius: 3px;
-    -webkit-border-bottom-left-radius: 3px;
-    -moz-border-radius-topleft: 3px;
-    -moz-border-radius-bottomleft: 3px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    -webkit-border-top-right-radius: 0;
-    -webkit-border-bottom-right-radius: 0;
-    -moz-border-radius-topright: 0;
-    -moz-border-radius-bottomright: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0; */
 }
 
 .split-buttons > .button[data-tool="week"]
@@ -1753,8 +1694,6 @@ card-layout  .list-content > li
 
 .card-layout .list-item-content-tab
 {
-    background-color: ghostwhite;
-    color: black;
     border-radius: 6px 0 0 6px;
     height: 100%;
     left: 0;
@@ -1920,51 +1859,60 @@ card-layout  .list-content > li
 }
 .color-default
 {
-    background-color: 	#404040   !important;
-    color: white !important;
+    background-color: @orange-darker;
+    color: white;
 }
 .color-account
 {
-    background-color:#0066FF!important;
-    color: white !important;
+    background-color: #0066FF;
+    color: white;
 }
 .color-contact
 {
-    background-color:#3366FF!important;
-    color: white !important;
+    background-color: #3366FF;
+    color: white;
 }
 .color-activity
 {
-    background-color:#6600FF !important;
-    color: white !important;
+    background-color: #6600FF;
+    color: white;
 }
 .color-opportunity
 {
-    background-color:#FF6600 !important;
-    color: white !important;
+    background-color: #FF6600;
+    color: white;
 }
 .color-ToDo
 {
-    background-color:#fe5000 !important;
-    color: white !important;
+    background-color: #fe5000;
+    color: white;
 }
 .color-Meeting
 {
-    background-color:#0054a6 !important;
-    color: white !important;
+    background-color: #0054a6;
+    color: white;
 }
 .color-PhoneCall
 {
-    background-color:#128b0c !important;
-    color: white !important;
+    background-color: #128b0c;
+    color: white;
 }
 .color-Personal
 {
-    background-color:#5e00a6 !important;
-    color: white !important;
+    background-color: #5e00a6;
+    color: white;
 }
 .indicator_Important
 {
     background-color:#FFFFFF !important;
     color: red!important;
+}
+
+.row > .toggle,
+.row > div > .toggle {
+    width: 100px;
+    height: 28px;
+    margin: 3px 0px 3px 110px;
+    position: relative;
+    right: auto;
 }
