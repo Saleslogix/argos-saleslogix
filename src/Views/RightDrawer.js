@@ -15,8 +15,9 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
     GroupedList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.RightDrawer', [GroupedList], {
+    return declare('Mobile.SalesLogix.Views.RightDrawer', [GroupedList],  {
         //Templates
+        cls: ' contextualContent',
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}"',
             '{% if($.dataProps) { %}',
