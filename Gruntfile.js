@@ -23,6 +23,25 @@ module.exports = function(grunt) {
                 template: 'GruntRunner.tmpl'
             }
         },
+        less: {
+            development: {
+                options: {
+                    paths: ['content/css']
+                },
+                files: {
+                    'min/css/app.min.debug.css': 'content/css/app.less'
+                }
+            },
+            production: {
+                options: {
+                    paths: ['content/css'],
+                    yuicompress: true
+                },
+                files: {
+                    'min/css/app.min.css': 'content/css/app.less'
+                }
+            }
+        },
         cssmin: {
             combine: {
                 files: {
@@ -48,6 +67,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
     grunt.registerTask('test', ['connect', 'jasmine']);
     grunt.registerTask('default', ['test', 'cssmin']);
