@@ -269,6 +269,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "_CardLayoutListMixin.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "PickList.js",
           "path": "../src/Views"
         },
@@ -310,10 +314,6 @@
         },
         {
           "text": "MetricFilterLookup.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "_CardLayoutListMixin.js",
           "path": "../src/Views"
         },
         {
