@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <link type="text/css" rel="stylesheet" href="content/css/sdk.min.swiftpage-orange.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/sdk.min.swiftpage.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
     <!-- Dojo -->

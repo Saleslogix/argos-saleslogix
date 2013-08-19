@@ -1,4 +1,4 @@
-@import "../../../../argos-sdk/content/css/themes/swiftpage-orange/variables.less";
+@import "../../../../argos-sdk/content/css/themes/swiftpage/variables.less";
 
 .list-content > [data-enabled="false"]
 {
@@ -638,6 +638,11 @@ li[data-ticket-status] .list-item-selector,
     box-shadow: 0 0 5px red !important;
 }
 
+.calendar-table
+{
+    width: 100%;
+}
+
 .calendar-prev-month > button
 {
     height: 36px;
@@ -671,6 +676,65 @@ li[data-ticket-status] .list-item-selector,
     margin: 6px;
     width: 24px;
     height: 24px;
+}
+
+.calendar-day
+{
+    color: #000;
+    background-color: #e9eed7;
+    background-image: linear-gradient(to bottom, #e9eed7, #dae2bb);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #e9eed7),
+        color-stop(1, #dae2bb)
+    );
+    background-image: -moz-linear-gradient(top, #e9eed7, #dae2bb);
+}
+
+.calendar-day.today
+{
+    color: #fff;
+    background-color: #4e5b2f;
+    background-image: linear-gradient(to bottom, #4e5b2f, #8a9e57);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #4e5b2f),
+        color-stop(1, #8a9e57)
+    );
+    background-image: -moz-linear-gradient(top, #4e5b2f, #8a9e57);
+}
+
+.calendar-day.weekend
+{
+    background-color: #c4cfa5;
+    background-image: linear-gradient(to bottom, #c4cfa5, #a6b979);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #c4cfa5),
+        color-stop(1, #a6b979)
+    );
+    background-image: -moz-linear-gradient(top, #c4cfa5, #a6b979);
+}
+
+.calendar-day.selected
+{
+    color: #000;
+    background-color: #CAE2EB;
+    background-image: linear-gradient(to bottom, #CAE2EB, #7EB7CC);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #CAE2EB),
+        color-stop(1, #7EB7CC)
+    );
+    background-image: -moz-linear-gradient(top, #CAE2EB, #7EB7CC);
 }
 
 /* in Month view .activeDay indicates individual events */
