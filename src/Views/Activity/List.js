@@ -7,7 +7,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/query',
     'dojo/dom-class',
     'Mobile/SalesLogix/Views/_RightDrawerListMixin',
-    'Sage/Platform/Mobile/GroupedList',
+    'Sage/Platform/Mobile/List',
     'Mobile/SalesLogix/Views/_CardLayoutListMixin',
     'Sage/Platform/Mobile/Groups/DateTimeSection',
     'Mobile/SalesLogix/Format',
@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     query,
     domClass,
     _RightDrawerListMixin,
-    GroupedList,
+    List,
     _CardLayoutListMixin,
     DateTimeSection,
     format,
@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     environment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.List', [GroupedList, _RightDrawerListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
        
         // Localization
         startDateFormatText: 'ddd M/D/YYYY',
