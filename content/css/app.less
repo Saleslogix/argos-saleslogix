@@ -89,7 +89,7 @@ h4
 /* login view */
 #login
 {
-    padding: 24px 12px;
+    padding: 0px 2px;
 }
 
 #login .panel-content
@@ -406,18 +406,12 @@ h4
     font-size: 0.75em;
 }
 
-.list-content
-{
-    /* TODO: create a wrapper for the metric widget and place this there. */
-    /*border-top: solid 1px #DDD;*/
-}
-
 .metric-widget,
 .metric-detail
 {
     display: inline-block;
     padding: 0px;
-    margin: 2px 0 0 2px;
+    margin: 0 0 0 2px;
 }
 
 .metric-widget > button
@@ -425,7 +419,6 @@ h4
     padding: 5px 2px 5px 2px;
     border-color: #000;
     border-width: 0px;
-    border-radius: 6px;
     width: 100%;
     background-color: @blue3-darker;
     color: #fff;
@@ -438,7 +431,6 @@ h4
 
 .metric-list
 {
-    padding: 0px 6px 0px 6px;
     width:100%;
     box-sizing: border-box;
 }
@@ -1576,8 +1568,7 @@ card-layout  .list-content > li
     margin: 8px 6px 8px 6px;
     padding: 8px 0px 8px 10px;
     position: relative;
-    border-radius: 6px;
-     cursor: pointer;
+    cursor: pointer;
 }
 
 .card-layout .list-content > li,
@@ -1713,8 +1704,7 @@ card-layout  .list-content > li
     position: relative;
     text-align: center;
     width: 64px;
-   -webkit-border-radius: 3px 3px 3px 3px;
-    border-radius: 3px 3px 3px 3px;
+    .border-radius(3px);
 
 }
 
@@ -1729,8 +1719,7 @@ card-layout  .list-content > li
     background-color:  	#AAAAAA !important;
     background-image: none !important;
     border-bottom: 0px none #AAAAAA !important;
-    -webkit-border-radius: 3px 3px 0px 0px;
-    border-radius: 3px 3px 0px 0px;
+    .border-radius(3px);
     bottom: -1px;
     height: 62px !important;
     box-shadow: none !important;
@@ -1758,7 +1747,6 @@ card-layout  .list-content > li
 
 .card-layout .list-item-content-tab
 {
-    border-radius: 6px 0 0 6px;
     height: 100%;
     left: 0;
     margin: 0;
@@ -1888,10 +1876,8 @@ card-layout  .list-content > li
 {
     display: block;
     font-size: 0.75em;
-    min-height: 1em;
     line-height: inherit;
-    padding: 4px 6px 4px 4px;
-    color: #777;
+    padding: 2px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -1903,7 +1889,6 @@ card-layout  .list-content > li
     min-height: 1em;
     line-height: inherit;
     padding: 4px 6px 4px 4px;
-    color: #777;
 
 }
 .card-layout-speed-search-index> button
@@ -1923,48 +1908,48 @@ card-layout  .list-content > li
 }
 .color-default
 {
-    background-color: @orange-darker;
-    color: white;
+    background-color: @orange-darker !important;
+    color: white !important;
 }
 .color-account
 {
-    background-color: #0066FF;
-    color: white;
+    background-color: #0066FF !important;
+    color: white !important;
 }
 .color-contact
 {
-    background-color: #3366FF;
-    color: white;
+    background-color: #3366FF !important;
+    color: white !important;
 }
 .color-activity
 {
-    background-color: #6600FF;
-    color: white;
+    background-color: #6600FF !important;
+    color: white !important;
 }
 .color-opportunity
 {
-    background-color: #FF6600;
-    color: white;
+    background-color: @orange-darker !important;
+    color: white !important;
 }
 .color-ToDo
 {
-    background-color: #fe5000;
-    color: white;
+    background-color: @orange-darker !important;
+    color: white !important;
 }
 .color-Meeting
 {
-    background-color: #0054a6;
-    color: white;
+    background-color: #0054a6 !important;
+    color: white !important;
 }
 .color-PhoneCall
 {
-    background-color: #128b0c;
-    color: white;
+    background-color: #128b0c !important;
+    color: white !important;
 }
 .color-Personal
 {
-    background-color: #5e00a6;
-    color: white;
+    background-color: #5e00a6 !important;
+    color: white !important;
 }
 .indicator_Important
 {

@@ -65,7 +65,7 @@ h4 {
 }
 /* login view */
 #login {
-  padding: 24px 12px;
+  padding: 0px 2px;
 }
 #login .panel-content {
   background-color: transparent;
@@ -288,23 +288,16 @@ h4 {
 .p-meridiem {
   font-size: 0.75em;
 }
-.list-content {
-  /* TODO: create a wrapper for the metric widget and place this there. */
-
-  /*border-top: solid 1px #DDD;*/
-
-}
 .metric-widget,
 .metric-detail {
   display: inline-block;
   padding: 0px;
-  margin: 2px 0 0 2px;
+  margin: 0 0 0 2px;
 }
 .metric-widget > button {
   padding: 5px 2px 5px 2px;
   border-color: #000;
   border-width: 0px;
-  border-radius: 6px;
   width: 100%;
   background-color: #00678a;
   color: #fff;
@@ -313,7 +306,6 @@ h4 {
   width: 32.7%;
 }
 .metric-list {
-  padding: 0px 6px 0px 6px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -435,6 +427,9 @@ li[data-ticket-status] .list-item-selector,
 .panel-content > fieldset > .row-error > div > textarea:focus {
   box-shadow: 0 0 5px red !important;
 }
+.calendar-table {
+  width: 100%;
+}
 .calendar-prev-month > button {
   height: 36px;
   width: 40px;
@@ -461,6 +456,33 @@ li[data-ticket-status] .list-item-selector,
   margin: 6px;
   width: 24px;
   height: 24px;
+}
+.calendar-day {
+  color: #000;
+  background-color: #e9eed7;
+  background-image: linear-gradient(to bottom, #e9eed7, #dae2bb);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e9eed7), color-stop(1, #dae2bb));
+  background-image: -moz-linear-gradient(top, #e9eed7, #dae2bb);
+}
+.calendar-day.today {
+  color: #fff;
+  background-color: #4e5b2f;
+  background-image: linear-gradient(to bottom, #4e5b2f, #8a9e57);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4e5b2f), color-stop(1, #8a9e57));
+  background-image: -moz-linear-gradient(top, #4e5b2f, #8a9e57);
+}
+.calendar-day.weekend {
+  background-color: #c4cfa5;
+  background-image: linear-gradient(to bottom, #c4cfa5, #a6b979);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #c4cfa5), color-stop(1, #a6b979));
+  background-image: -moz-linear-gradient(top, #c4cfa5, #a6b979);
+}
+.calendar-day.selected {
+  color: #000;
+  background-color: #CAE2EB;
+  background-image: linear-gradient(to bottom, #cae2eb, #7eb7cc);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #cae2eb), color-stop(1, #7eb7cc));
+  background-image: -moz-linear-gradient(top, #cae2eb, #7eb7cc);
 }
 /* in Month view .activeDay indicates individual events */
 td.calendar-day {
@@ -1138,7 +1160,6 @@ card-layout .list-content > li {
   margin: 8px 6px 8px 6px;
   padding: 8px 0px 8px 10px;
   position: relative;
-  border-radius: 6px;
   cursor: pointer;
 }
 .card-layout .list-content > li,
@@ -1242,8 +1263,9 @@ card-layout .list-content > li {
   position: relative;
   text-align: center;
   width: 64px;
-  -webkit-border-radius: 3px 3px 3px 3px;
-  border-radius: 3px 3px 3px 3px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
 }
 .card-layout .list-action-selected + .actions-row {
   display: block !important;
@@ -1253,8 +1275,9 @@ card-layout .list-content > li {
   background-color: #AAAAAA !important;
   background-image: none !important;
   border-bottom: 0px none #AAAAAA !important;
-  -webkit-border-radius: 3px 3px 0px 0px;
-  border-radius: 3px 3px 0px 0px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   bottom: -1px;
   height: 62px !important;
   box-shadow: none !important;
@@ -1278,7 +1301,6 @@ card-layout .list-content > li {
   clear: both;
 }
 .card-layout .list-item-content-tab {
-  border-radius: 6px 0 0 6px;
   height: 100%;
   left: 0;
   margin: 0;
@@ -1382,10 +1404,8 @@ card-layout .list-content > li {
 .card-layout-search-expression {
   display: block;
   font-size: 0.75em;
-  min-height: 1em;
   line-height: inherit;
-  padding: 4px 6px 4px 4px;
-  color: #777;
+  padding: 2px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -1396,7 +1416,6 @@ card-layout .list-content > li {
   min-height: 1em;
   line-height: inherit;
   padding: 4px 6px 4px 4px;
-  color: #777;
 }
 .card-layout-speed-search-index > button {
   margin: 5px;
@@ -1412,40 +1431,40 @@ card-layout .list-content > li {
   color: #fff!important;
 }
 .color-default {
-  background-color: #fe5000;
-  color: white;
+  background-color: #fe5000 !important;
+  color: white !important;
 }
 .color-account {
-  background-color: #0066FF;
-  color: white;
+  background-color: #0066FF !important;
+  color: white !important;
 }
 .color-contact {
-  background-color: #3366FF;
-  color: white;
+  background-color: #3366FF !important;
+  color: white !important;
 }
 .color-activity {
-  background-color: #6600FF;
-  color: white;
+  background-color: #6600FF !important;
+  color: white !important;
 }
 .color-opportunity {
-  background-color: #FF6600;
-  color: white;
+  background-color: #fe5000 !important;
+  color: white !important;
 }
 .color-ToDo {
-  background-color: #fe5000;
-  color: white;
+  background-color: #fe5000 !important;
+  color: white !important;
 }
 .color-Meeting {
-  background-color: #0054a6;
-  color: white;
+  background-color: #0054a6 !important;
+  color: white !important;
 }
 .color-PhoneCall {
-  background-color: #128b0c;
-  color: white;
+  background-color: #128b0c !important;
+  color: white !important;
 }
 .color-Personal {
-  background-color: #5e00a6;
-  color: white;
+  background-color: #5e00a6 !important;
+  color: white !important;
 }
 .indicator_Important {
   background-color: #FFFFFF !important;
