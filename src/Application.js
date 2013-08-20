@@ -40,7 +40,6 @@ define('Mobile/SalesLogix/Application', [
         rememberNavigationState: true,
         enableUpdateNotification: false,
         multiCurrency: false,
-        customMomentKey: 'userOptions',
         speedSearch: {
             includeStemming: true,
             includePhonic: true,
@@ -479,18 +478,14 @@ define('Mobile/SalesLogix/Application', [
             this.loadCustomizedMoment();
         },
         /*
-         * Loads a custom language into moment based on this.customMomentKey. The object for the language gets built in buildCustomizedMoment.
-         * It can be set globally or per intance. Example:
-         * var now = moment();
-         * now.lang(App.customMomentKey);
+         * Loads a custom object to pass into the current moment language. The object for the language gets built in buildCustomizedMoment.
          */
         loadCustomizedMoment: function() {
             var custom = this.buildCustomizedMoment(),
-                instance = moment(),
-                defaults;
+                currentLang;
 
-            defaults = instance.lang();
-            moment.lang(this.customMomentKey, lang.mixin(defaults, custom));
+            currentLang = moment.lang();
+            moment.lang(currentLang, custom);
         },
         /*
          * Builds an object that will get passed into moment.lang()

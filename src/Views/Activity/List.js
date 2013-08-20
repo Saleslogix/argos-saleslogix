@@ -14,7 +14,8 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Action',
-    'Mobile/SalesLogix/Environment'
+    'Mobile/SalesLogix/Environment',
+    'moment'
 ], function(
     declare,
     string,
@@ -28,7 +29,8 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     Utility,
     convert,
     action,
-    environment
+    environment,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
@@ -62,13 +64,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
-            '{% if ($.Timeless) { %}',
-            '{%: $$.allDayText %},',
-            '{% } else { %}',
-            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}',
-            '&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, "A") %},',
-            '{% } %}',
-            '&nbsp;{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}'
+            '{%: Mobile.SalesLogix.Format.relativeDate($.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
@@ -180,7 +176,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 var now, yesterdayStart, yesterdayEnd, query;
 
                 now = moment();
-                now.lang(App.customMomentKey);
 
                 yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
                 yesterdayEnd = yesterdayStart.clone().endOf('day');
@@ -200,7 +195,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 var now, todayStart, todayEnd, query;
 
                 now = moment();
-                now.lang(App.customMomentKey);
 
                 todayStart = now.clone().startOf('day');
                 todayEnd = todayStart.clone().endOf('day');
@@ -220,7 +214,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 var now, weekStartDate, weekEndDate, query;
 
                 now = moment();
-                now.lang(App.customMomentKey);
 
                 weekStartDate = now.clone().startOf('week');
                 weekEndDate = weekStartDate.clone().endOf('week');
@@ -260,40 +253,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         formatDateTime: function(dateTime) {
             return 'StartTime';
         },
-        getGroupBySections: function() {
-            var groupBySections, dateTimeSection;
-
-            dateTimeSection = new DateTimeSection({
-                groupByProperty: 'StartDate',
-                sortDirection: 'asc',
-                momentLang: App.customMomentKey,
-                getSection: function(entry) {
-                    var value;
-                    if ((this.groupByProperty) && (entry)) {
-                        value = Utility.getValue(entry, this.groupByProperty);
-                        if (value) {
-                            if (entry.Timeless) {
-                                value = moment(value).add(moment(value).zone(), 'minutes').toDate();
-                            }
-
-                            return this.getSectionByDateTime(value);
-                        }
-                        else {
-                            return this.getDefaultSection();
-                        }
-                    }
-                    return null;
-                }
-            });
-
-            var groupBySections = [{
-                id: 'section_StartDate',
-                description: null,
-                section: dateTimeSection
-            }];
-
-            return groupBySections;
-        }, //Card View
         getItemActionKey: function(entry) {
             return entry.$key
         },

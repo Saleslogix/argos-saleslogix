@@ -11,10 +11,6 @@
         {
           "text": "en.js",
           "path": "../localization/"
-        },
-        {
-          "text": "en-US.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
         }
       ]
     },
@@ -39,8 +35,8 @@
           "path": "../localization/"
         },
         {
-          "text": "de-DE.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+          "text": "de.js",
+          "path": "../../../argos-sdk/libraries/moment/min/lang"
         }
       ]
     },
@@ -65,8 +61,8 @@
           "path": "../localization/"
         },
         {
-          "text": "fr-FR.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+          "text": "fr.js",
+          "path": "../../../argos-sdk/libraries/moment/min/lang"
         }
       ]
     },
@@ -91,8 +87,8 @@
           "path": "../localization/"
         },
         {
-          "text": "ru-RU.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+          "text": "ru.js",
+          "path": "../../../argos-sdk/libraries/moment/min/lang"
         }
       ]
     },
@@ -117,8 +113,8 @@
           "path": "../localization/"
         },
         {
-          "text": "it-IT.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+          "text": "it.js",
+          "path": "../../../argos-sdk/libraries/moment/min/lang"
         }
       ]
     },
@@ -143,8 +139,8 @@
           "path": "../localization/"
         },
         {
-          "text": "en-GB.js",
-          "path": "../../../argos-sdk/libraries/datejs/src/globalization/"
+          "text": "en-gb.js",
+          "path": "../../../argos-sdk/libraries/moment/min/lang"
         }
       ]
     },

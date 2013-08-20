@@ -7,14 +7,16 @@ define('Mobile/SalesLogix/Format', [
     'dojo/string',
     'dojo/number',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Format'
+    'Sage/Platform/Mobile/Format',
+    'moment'
 ], function(
     lang,
     array,
     string,
     dojoNumber,
     template,
-    format
+    format,
+    moment
 ) {
     return lang.setObject('Mobile.SalesLogix.Format', lang.mixin({}, format, {
         /**
@@ -206,6 +208,20 @@ define('Mobile/SalesLogix/Format', [
             } catch(ex) {}
 
             return val;
+        },
+        relativeDate: function(date, timeless) {
+            var now
+            date = moment(date);
+            if (!date || !date.isValid()) {
+                throw new Error('Invalid date passed into Mobile.SalesLogix.Format.relativeDate');
+            }
+
+            if (timeless) {
+                // utc
+                date = date.add({minutes: date.zone()});
+            }
+
+            return date.fromNow();
         },
         multiCurrency: function(val, code) {
             return string.substitute('${0} ${1}', [Mobile.SalesLogix.Format.currency(val), code]);
