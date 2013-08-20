@@ -56,9 +56,6 @@
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
 
-    <!-- Moment.js -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/moment/min/moment.min.js"></script>
-
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
@@ -79,6 +76,7 @@
             { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment' },
+            { name: 'moment_langs', location: '../../argos-sdk/libraries/moment/min', main: 'langs' },
             { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
             { name: 'Mobile/SalesLogix', location: 'src' },
             { name: 'configuration', location: 'configuration' },
@@ -97,12 +95,13 @@
             configuration = [
                 'configuration/development'
             ];
-        require([application].concat(configuration), function(application, configuration) {
+        require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization = [
                 'localization/en',
                 'localization/saleslogix/en'
             ];
-            require(localization.concat('dojo/domReady!'), function() {
+            require(localization.concat(['moment_langs', 'dojo/domReady!']), function() {
+                moment.lang('en');
                 var instance = new application(configuration);
 
                 instance.activate();

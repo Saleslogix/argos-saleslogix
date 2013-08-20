@@ -61,12 +61,13 @@
             configuration = [
                 'configuration/production'
             ];
-        require([application].concat(configuration), function(application, configuration) {
+        require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization = [
                 'localization/en',
                 'localization/saleslogix/en'
             ];
             require(localization.concat('dojo/domReady!'), function() {
+                moment.lang('en');
                 var instance = new application(configuration);
 
                 instance.activate();

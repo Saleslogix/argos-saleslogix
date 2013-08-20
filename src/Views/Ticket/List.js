@@ -6,6 +6,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/string',
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
+    'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
@@ -15,6 +16,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     string,
     array,
     action,
+    format,
     List,
     _MetricListMixin,
     _RightDrawerListMixin,
@@ -36,6 +38,9 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             '{% if($.Area) { %}',
                 '<h4>{%: $$._areaCategoryIssueText($) %}</h4>',
             '{% } %}',
+            '<h4>{%: $$.createdOnText %}  {%: Mobile.SalesLogix.Format.relativeDate($.CreateDate) %}</h4>',
+            '<h4>{%: $$.modifiedText %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate) %}</h4>',
+            '<h4>{%: $$.neededByText %}  {%: Mobile.SalesLogix.Format.relativeDate($.NeededByDate) %}</h4>'
         ]),
 
         _areaCategoryIssueText: function(feedItem) {
@@ -58,6 +63,9 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         addAttachmentActionText:'Add Attachment',
         assignedToText: 'Assigned To: ',
         urgencyText: 'Urgency: ',
+        createdOnText: 'Created  ',
+        modifiedText: 'Modified ',
+        neededByText: 'Needed  ',
 
         //View Properties       
         detailView: 'ticket_detail',
@@ -79,7 +87,9 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             'TicketNumber',
             'UrgencyCode',
             'Urgency/Description',
-            'ModifyDate'
+            'ModifyDate',
+            'CreateDate',
+            'NeededByDate'
         ],
         resourceKind: 'tickets',
         entityName: 'Ticket',
