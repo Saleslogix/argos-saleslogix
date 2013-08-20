@@ -135,7 +135,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         insertView: 'activity_types_list',
         historyEditView: 'history_edit',
         enableActions: true,
-        queryOrderBy: 'Timeless desc, StartDate desc',
+        queryOrderBy: 'StartDate desc',
         querySelect: [
             'Description',
             'StartDate',
