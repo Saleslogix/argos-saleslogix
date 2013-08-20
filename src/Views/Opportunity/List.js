@@ -64,7 +64,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                     '{%: Mobile.SalesLogix.Format.multiCurrency($.SalesPotential, App.getBaseExchangeRate().code) %}',
                 '{% } %}',
                 '</strong></h4>',
-            '{% } %}'
+            '{% } %}',
+            '<h4>{%: $$.formatDate($) %}</h4>'
         ]),
 
         //Localization
@@ -79,6 +80,9 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
         addAttachmentActionText: 'Add Attachment',
+        actualCloseText: 'Closed ',
+        estimatedCloseText: 'Estimated close ',
+
         hashTagQueriesText: {
             'open': 'open',
             'closed': 'closed',
@@ -127,13 +131,24 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'SalesPotential',
             'ExchangeRate',
             'ExchangeRateCode',
-            'ModifyDate'
+            'ModifyDate',
+            'ActualClose',
+            'EstimatedClose'
         ],
         resourceKind: 'opportunities',
         entityName: 'Opportunity',
         allowSelection: true,
         enableActions: true,
 
+        formatDate: function(entry) {
+            if (entry.Status === 'Open' && entry.EstimatedClose) {
+                return this.estimatedCloseText + format.relativeDate(entry.EstimatedClose);
+            } else if (entry.ActualClose) {
+                return this.actualCloseText + format.relativeDate(entry.ActualClose);
+            }
+
+            return '';
+        },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'edit',

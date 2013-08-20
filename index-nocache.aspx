@@ -69,12 +69,13 @@
                 Enumerate("configuration", (file) => file.Name == "production.js")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
-        require([application].concat(configuration), function(application, configuration) {
+        require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization = <%= Serialize(
                 EnumerateLocalizations("localization")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
             require(localization.concat('dojo/domReady!'), function() {
+                moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
                 var instance = new application(configuration);
 
                 instance.activate();
