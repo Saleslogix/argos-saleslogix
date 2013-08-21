@@ -19,10 +19,12 @@
 
     <title>Saleslogix</title>
 
-    <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
+    <link rel="apple-touch-icon" href="content/images/touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="content/images/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="content/images/touch-icon-iphone-retina.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <link type="text/css" rel="stylesheet" href="content/css/sdk.min.swiftpage-orange.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/sdk.min.swiftpage.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
     <!-- Dojo -->
@@ -69,12 +71,13 @@
                 Enumerate("configuration", (file) => file.Name == "production.js")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
-        require([application].concat(configuration), function(application, configuration) {
+        require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization = <%= Serialize(
                 EnumerateLocalizations("localization")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
             require(localization.concat('dojo/domReady!'), function() {
+                moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
                 var instance = new application(configuration);
 
                 instance.activate();

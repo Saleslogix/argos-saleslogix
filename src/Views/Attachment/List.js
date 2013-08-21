@@ -43,7 +43,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         fileTemplate: new Simplate([
             //'<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" title="{%: $.$descriptor %}">{%: $.$descriptor %}</a>',
              '<h3><span>{%: $.description %}&nbsp;</span></h3>',
-             '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
+             '<h4><span>({%: $$.uploadedOnText %} {%: Mobile.SalesLogix.Format.relativeDate($.attachDate) %})&nbsp;</span>',
             '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
             '<h4><span>{%: Mobile.SalesLogix.Utility.getFileExtension($.fileName) %} </span></h4>',
             '{% if($.user) { %}',
@@ -63,6 +63,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         //Localization
         titleText: 'Attachments',
         attachmentDateFormatText: 'ddd M/D/YYYY hh:mm:ss',
+        uploadedOnText: 'Uploaded ',// Uploaded 10 days ago
 
         //View Properties       
         id: 'attachment_list',

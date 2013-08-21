@@ -19,11 +19,13 @@
 
     <title>Saleslogix</title>
 
-    <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
+    <link rel="apple-touch-icon" href="content/images/touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="content/images/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="content/images/touch-icon-iphone-retina.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
     <!-- less files -->
-    <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/swiftpage-orange.less" />
+    <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/swiftpage.less" />
     <link rel="stylesheet/less" type="text/css" href="content/css/app.less" />
 
     <!-- less -->
@@ -63,13 +65,6 @@
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
 
-    <!-- DateJS -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/datejs/build/date.js"></script>
-    <!-- DateJS Localization -->
-    <% foreach (var include in EnumerateLocalizations("../../argos-sdk", "libraries/datejs/src/globalization")) { %>
-    <script type="text/javascript" src="../../argos-sdk/<%= include.Path %>"></script>
-    <% } %>
-
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
@@ -90,6 +85,7 @@
             { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment' },
+            { name: 'moment_langs', location: '../../argos-sdk/libraries/moment/min', main: 'langs' },
             { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
             { name: 'Mobile/SalesLogix', location: 'src' },
             { name: 'configuration', location: 'configuration' },
@@ -113,7 +109,8 @@
                 EnumerateLocalizations("localization")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
-            require(localization.concat('dojo/domReady!'), function() {
+            require(localization.concat(['moment_langs', 'dojo/domReady!']), function() {
+                moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
                 var instance = new application(configuration);
 
                 instance.activate();
@@ -151,7 +148,7 @@
             var relativePath = filePath.Substring(rootPath.Length + 1);
             return relativePath.Replace('\\', '/');
         }
-                
+
         throw new ApplicationException("Invalid root path specified.");
     }              
                 

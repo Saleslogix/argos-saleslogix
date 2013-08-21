@@ -54,13 +54,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
-            '{% if ($.Activity.Timeless) { %}',
-            '{%: $$.allDayText %},',
-            '{% } else { %}',
-            '{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startTimeFormatText) %}',
-            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, "A") %},',
-            '{% } %}',
-            '&nbsp;{%: Mobile.SalesLogix.Format.date($.Activity.StartDate, $$.startDateFormatText, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
+            '{%: Mobile.SalesLogix.Format.relativeDate($.Activity.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
@@ -147,7 +141,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 var now, yesterdayStart, yesterdayEnd, query;
 
                 now = moment();
-                now.lang(App.customMomentKey);
 
                 yesterdayStart = now.clone().subtract(1, 'days').startOf('day');
                 yesterdayEnd = yesterdayStart.clone().endOf('day');
@@ -167,7 +160,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 var now, todayStart, todayEnd, query;
 
                 now = moment();
-                now.lang(App.customMomentKey);
 
                 todayStart = now.clone().startOf('day');
                 todayEnd = todayStart.clone().endOf('day');
@@ -187,7 +179,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 var now, weekStartDate, weekEndDate, query;
 
                 now = moment();
-                now.lang(App.customMomentKey);
 
                 weekStartDate = now.clone().startOf('week');
                 weekEndDate = weekStartDate.clone().endOf('week');
@@ -495,41 +486,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         },
         onRequestFailure: function(response, o) {
             ErrorManager.addError(response, o, {}, 'failure');
-        },
-        getGroupBySections: function() {
-            var groupBySections, dateTimeSection;
-
-            dateTimeSection = new DateTimeSection({
-                groupByProperty: 'Activity.StartDate',
-                sortDirection: 'asc',
-                momentLang: App.customMomentKey,
-                getSection: function(entry) {
-                    var value;
-                    if ((this.groupByProperty) && (entry)) {
-                        value = Utility.getValue(entry, this.groupByProperty);
-                        if (value) {
-                            if (entry.Activity && entry.Activity.Timeless) {
-                                value = moment(value).utc();
-                                value = new Date(value.year(), value.month(), value.date(), 0, 0, 5);
-                            }
-
-                            return this.getSectionByDateTime(value);
-                        }
-                        else {
-                            return this.getDefaultSection();
-                        }
-                    }
-                    return null;
-                }
-            });
-
-            var groupBySections = [
-            {
-                id: 'section_StartDate',
-                description: null,
-                section: dateTimeSection
-            }];
-            return groupBySections;
         },
         hasAlarm: function(entry) {
             if (entry.Activity && entry.Activity.Alarm === true) {

@@ -12,10 +12,12 @@
 
     <title>Saleslogix</title>
 
-    <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
+    <link rel="apple-touch-icon" href="content/images/touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="content/images/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="content/images/touch-icon-iphone-retina.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <link type="text/css" rel="stylesheet" href="content/css/sdk.min.swiftpage-orange.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/sdk.min.swiftpage.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
     <!-- Dojo -->
@@ -61,12 +63,13 @@
             configuration = [
                 'configuration/production'
             ];
-        require([application].concat(configuration), function(application, configuration) {
+        require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization = [
                 'localization/en',
                 'localization/saleslogix/en'
             ];
             require(localization.concat('dojo/domReady!'), function() {
+                moment.lang('en');
                 var instance = new application(configuration);
 
                 instance.activate();
