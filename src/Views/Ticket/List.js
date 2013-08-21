@@ -38,9 +38,15 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             '{% if($.Area) { %}',
                 '<h4>{%: $$._areaCategoryIssueText($) %}</h4>',
             '{% } %}',
-            '<h4>{%: $$.createdOnText %}  {%: Mobile.SalesLogix.Format.relativeDate($.CreateDate) %}</h4>',
-            '<h4>{%: $$.modifiedText %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate) %}</h4>',
-            '<h4>{%: $$.neededByText %}  {%: Mobile.SalesLogix.Format.relativeDate($.NeededByDate) %}</h4>'
+            '{% if($.CreateDate) { %}',
+                '<h4>{%: $$.createdOnText %}  {%: Mobile.SalesLogix.Format.relativeDate($.CreateDate) %}</h4>',
+            '{% } %}',
+            '{% if($.ModifyDate) { %}',
+                '<h4>{%: $$.modifiedText %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate) %}</h4>',
+            '{% } %}',
+            '{% if($.NeededByDate) { %}',
+                '<h4>{%: $$.neededByText %}  {%: Mobile.SalesLogix.Format.relativeDate($.NeededByDate) %}</h4>',
+            '{% } %}'
         ]),
 
         _areaCategoryIssueText: function(feedItem) {
