@@ -12,6 +12,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     'dojo/dom-attr',
     'Mobile/SalesLogix/SpeedSearchWidget',
     'Sage/Platform/Mobile/List',
+    'Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin',
     'Mobile/SalesLogix/Views/_CardLayoutListMixin'
 ], function(
     declare,
@@ -24,22 +25,13 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     domAttr,
     SpeedSearchWidget,
     List,
+    _SpeedSearchRightDrawerListMixin,
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.SpeedSearchList', [List, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.SpeedSearchList', [List, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
         //Templates
-        searchExpressionTemplate: new Simplate([
-            '<li id="{%= $.id %}_search-index"  class="card-layout-speed-search-index">',
-            '<button data-action="selectIndex" data-index="Account" class="card-layout-speed-search-index-selected">Account</button>',
-            '<button data-action="selectIndex" data-index="Contact" class="card-layout-speed-search-index-selected">Contact</button>',
-            '<button data-action="selectIndex" data-index="Lead"class="card-layout-speed-search-index-selected">Lead</button>',
-            '<button data-action="selectIndex" data-index="Opportunity"class="card-layout-speed-search-index-selected">Opp</button>',
-            '<button data-action="selectIndex" data-index="Ticket"class="card-layout-speed-search-index-selected">Ticket</button>',
-            '<button data-action="selectIndex" data-index="Activity"class="card-layout-speed-search-index-selected">Activity</button>',
-             '<button data-action="selectIndex" data-index="History" class="card-layout-speed-search-index-selected">History</button>',
-            '</li>'
-        ]),
+        //Used when card layout is not mixed in
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.type %}">',
             '<div class="item-static-icon"><img src="{%: $$.iconPathsByType[$.type] %}" alt="{%: $.type %}" /></div>',
@@ -48,8 +40,11 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         ]),
 
         itemTemplate: new Simplate([
+            '<h4>score:{%: $.scorePercent %}| hits: {%: $.hitCount %} </h4>',
             '<h3>{%: $.$descriptor %}</h3>',
-            '<h4>{%: $.$otherdata %}</h4>'
+            '<div class="card-layout-speed-search-synopsis">',
+            '{%= $.synopsis %}',
+             '</div>'
         ]),
 
         //Localization
@@ -90,6 +85,15 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             'Lead': 'Leads_24x24.png',
             'Opportunity': 'opportunity_24.png',
             'Ticket': 'Ticket_24x24.png'
+        },
+        indexesText: {
+            'Account': 'Account',
+            'Activity': 'Activity',
+            'Contact': 'Contact',
+            'History': 'History',
+            'Lead': 'Lead',
+            'Opportunity': 'Opportunity',
+            'Ticket': 'Ticket'
         },
         currentPage: null,
 
@@ -200,21 +204,22 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                 for (var i = 0; i < feed.items.length; i++) {
                     var entry = feed.items[i];
                     var rowNode;
+                    var synopNode;
                     entry.type = this.extractTypeFromItem(entry);
                     entry.$descriptor = entry.$descriptor || entry.uiDisplayName; //this.extractDescriptorFromItem(entry, entry.type);
                     entry.$key = this.extractKeyFromItem(entry);
                     entry.$otherdata = this.extractDescriptorFromItem(entry, entry.type);
-
+                    entry.synopsis = unescape(entry.synopsis);
                     this.entries[entry.$key] = entry;
                     rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
                     docfrag.appendChild(rowNode);
                     this.onApplyRowTemplate(entry, rowNode);
-
                 }
 
                 if (docfrag.childNodes.length > 0) {
                     domConstruct.place(docfrag, this.contentNode, 'last');
                 }
+               
             }
 
             if (typeof feed.totalCount !== 'undefined') {
@@ -253,7 +258,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         },
         getActiveIndexes: function() {
             var results = [], self = this;
-
             array.forEach(this.activeIndexes, function(indexName) {
                 array.forEach(self.indexes, function(index) {
                     if (index.indexName === indexName) {
@@ -270,6 +274,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             var request = this.createRequest(),
                 entry = this.createSearchEntry();
 
+            this.showSearchExpression(entry);
             request.execute(entry, {
                 success: lang.hitch(this, this.onRequestDataSuccess),
                 failture: lang.hitch(this, this.onRequestDataFailure)
@@ -365,6 +370,17 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                 activated = true;
             }
             return activated
+        },
+        showSearchExpression: function(entry) {
+            var html, searchNode, searchText;
+            searchText =  entry.request.searchText ||'';
+            if (this.searchWidget) {
+                searchNode = query('#' + this.id + '_search-expression');
+                if (searchNode[0]) {
+                    html = '<div>' + searchText + '</div>';
+                    domAttr.set(searchNode[0], { innerHTML: html });
+                }
+            }
         }
     });
 });
