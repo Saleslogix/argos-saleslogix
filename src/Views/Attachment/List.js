@@ -41,7 +41,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
            '{% } %}',
         ]),
         fileTemplate: new Simplate([
-            //'<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" title="{%: $.$descriptor %}">{%: $.$descriptor %}</a>',
              '<h3><span>{%: $.description %}&nbsp;</span></h3>',
              '<h4><span>({%: $$.uploadedOnText %} {%: Mobile.SalesLogix.Format.relativeDate($.attachDate) %})&nbsp;</span>',
             '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
@@ -51,9 +50,10 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             '{% } %}'
         ]),
         urlTemplate: new Simplate([
-            //'<a href="{%: Mobile.SalesLogix.Utility.getAttachmentRef($) %}" target="_blank" title="{%: $.url %}">{%: $.$descriptor %}</a>',
             '<h3><span>{%: $.description %} &nbsp;</span></h3>',
-            '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span></h4>',
+            '{% if ($.attachDate) { %}',
+                '<h4><span>({%: $$.uploadedOnText %} {%: Mobile.SalesLogix.Format.relativeDate($.attachDate) %})&nbsp;</span></h4>',
+            '{% } %}',
             '<h4><span>{%: $.url %}&nbsp;</span></h4>',
             '{% if($.user) { %}',
             '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
