@@ -40,11 +40,10 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
                 this.drawerLoaded = true;
             }
         },
-        createToolLayout: function() {
-            var tools = this.inherited(arguments) || { 
+        onToolLayoutCreated: function(tools) {
+            tools = tools || {
                 tbar: []
             };
-
             if (!this.toolsAdded) {
                 tools.tbar.unshift({
                     id: 'toggleRightDrawer',
@@ -55,7 +54,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
 
                 this.toolsAdded = true;
             }
-            return tools;
         },
         toggleRightDrawer: function() {
             this._toggleDrawer('right');

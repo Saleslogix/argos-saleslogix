@@ -277,10 +277,6 @@
           "path": "../src/Views"
         },
         {
-          "text": "SpeedSearchList.js",
-          "path": "../src/Views"
-        },
-        {
           "text": "TextEdit.js",
           "path": "../src/Views"
         },
@@ -305,6 +301,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "_SpeedSearchRightDrawerListMixin.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "MetricConfigure.js",
           "path": "../src/Views"
         },
@@ -314,6 +314,10 @@
         },
         {
           "text": "_CardLayoutListMixin.js",
+          "path": "../src/Views"
+        },
+		{
+          "text": "SpeedSearchList.js",
           "path": "../src/Views"
         },
         {

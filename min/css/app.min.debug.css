@@ -1411,6 +1411,10 @@ card-layout .list-content > li {
   background-color: #404040 !important;
   color: #fff!important;
 }
+.card-layout-speed-search-synopsis {
+  background-color: #fe5000;
+  color: white;
+}
 .color-default {
   background-color: #fe5000;
   color: white;
