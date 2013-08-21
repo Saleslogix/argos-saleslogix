@@ -545,9 +545,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         getItemTabValue: function(entry) {
             var value = '';
             if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
-                value = format.date(entry.Activity.StartDate, this.startTimeFormatText) + " " + format.date(entry.Activity.StartDate, "A");
+                value = format.date(entry.Activity.StartDate, this.startTimeFormatText, entry.Activity.Timeless) + " " + format.date(entry.Activity.StartDate, "A", entry.Activity.Timeless);
             } else {
-                value = format.date(entry.Activity.StartDate, this.startDateFormatText);
+                value = format.date(entry.Activity.StartDate, this.startDateFormatText, entry.Activity.Timeless);
             }
             return value;
         },

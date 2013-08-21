@@ -264,7 +264,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
                 value = format.date(entry.StartDate, this.startTimeFormatText) + " " + format.date(entry.StartDate, "A");
                 } else {
-                    value = format.date(entry.StartDate, this.startDateFormatText);
+                    value = format.date(entry.StartDate, this.startDateFormatText, entry.Timeless);
                 }
                 return value;
             },
