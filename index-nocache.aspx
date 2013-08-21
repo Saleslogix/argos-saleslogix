@@ -24,7 +24,7 @@
     <link rel="apple-touch-icon" sizes="114x114" href="content/images/touch-icon-iphone-retina.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <link type="text/css" rel="stylesheet" href="content/css/sdk.min.swiftpage.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/themes/swiftpage/sdk.min.swiftpage.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
     <!-- Dojo -->
