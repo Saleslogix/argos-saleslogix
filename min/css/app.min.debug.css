@@ -1,3 +1,4 @@
+/*1px @gray1-light;*/
 .list-content > [data-enabled="false"] {
   opacity: 0.5;
 }
@@ -1429,6 +1430,10 @@ card-layout .list-content > li {
 .card-layout-speed-search-index-selected {
   background-color: #404040 !important;
   color: #fff!important;
+}
+.card-layout-speed-search-synopsis > span[style="font-weight: bold; background-color : yellow;"] {
+  background-color: #fe5000 !important;
+  color: white;
 }
 .color-default {
   background-color: #fe5000 !important;
