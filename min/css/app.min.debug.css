@@ -1244,14 +1244,16 @@ card-layout .list-content > li {
 .card-layout .list-item-selected > .list-item-selector {
   visibility: visible !important;
 }
-.card-layout .list-item-static-selector {
-  visibility: visible;
-  width: 38px;
-  color: #ff0;
+.card-layout .list-item-static-selector > img.icon,
+.card-layout .list-item-static-selector > * > img.icon {
+  bottom: 0;
+  color: #FFFF00;
+  height: 24px !important;
+  left: 30px;
   position: relative;
-  top: 8px;
-  left: 12px;
-  bottom: 0px;
+  top: 0;
+  visibility: visible;
+  width: 24px !important;
   z-index: 10;
 }
 .card-layout .actions-row > button {
