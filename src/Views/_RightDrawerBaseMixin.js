@@ -40,19 +40,33 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
                 this.drawerLoaded = true;
             }
         },
+        show: function(options) {
+            this.ensureToolsCreated(options);
+            this.inherited(arguments);
+        },
+        ensureToolsCreated: function(options) {
+            // Inject tools into options if it exists
+            if (options && options.tools) {
+                this._addTools(options.tools);
+            }
+        },
         onToolLayoutCreated: function(tools) {
             tools = tools || {
                 tbar: []
             };
             if (!this.toolsAdded) {
+                this._addTools(tools);
+                this.toolsAdded = true;
+            }
+        },
+        _addTools: function(tools) {
+            if (tools) {
                 tools.tbar.unshift({
                     id: 'toggleRightDrawer',
                     side: 'right',
                     fn: this.toggleRightDrawer,
                     scope: this
                 });
-
-                this.toolsAdded = true;
             }
         },
         toggleRightDrawer: function() {
