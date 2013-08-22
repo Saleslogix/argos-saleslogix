@@ -74,12 +74,15 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                 '</div>',
             '</div>'
         ]),
+        itemIconTemplate: new Simplate([
+            '<button data-action="selectEntry" class="list-item-selector button">',
+            '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
+            '</button>'
+        ]),
         itemRowContentTemplate: new Simplate([
            '{%! $$.itemTabTemplate %}',
             '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
-            '<button data-action="selectEntry" class="list-item-selector button">',
-            '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
-            '</button>',
+            '{%! $$.itemIconTemplate %}',
             '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
             '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
             '{%! $$.itemFooterTemplate %}'
@@ -144,9 +147,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         },
         getItemIconAlt: function(entry) {
             return this.itemIconAltText;
-        },
-        createIndicatorLayout: function() {
-            return this.itemIndicators || {};
         },
         createIndicators: function(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
             var indicatorTemplate, indicator, options, indicatorHTML, i;
