@@ -97,7 +97,19 @@ define('Mobile/SalesLogix/Views/Account/List', [
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
+        configureSearch: function() {
+            var searchQuery;
+            this.inherited(arguments);
+            this.setSearchTerm('#my-accounts');
+            searchQuery = this.getSearchQuery();
+            if (searchQuery) {
+                this.query = searchQuery;
+            }
+        },
         hashTagQueries: {
+            'my-accounts': function() {
+                return 'AccountManager.Id eq "' + App.context.user.$key + '"';
+            },
             'active': 'Status eq "Active"',
             'inactive': 'Status eq "Inactive"',
             'suspect': 'Type eq "Suspect"',

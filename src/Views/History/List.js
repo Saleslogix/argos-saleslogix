@@ -90,6 +90,7 @@ define('Mobile/SalesLogix/Views/History/List', [
         hourMinuteFormatText: "h:mm",
         dateFormatText: "M/D/YY",
         hashTagQueriesText: {
+            'my-history': 'my-history',
             'note': 'note',
             'phonecall': 'phonecall',
             'meeting': 'meeting',
@@ -132,7 +133,19 @@ define('Mobile/SalesLogix/Views/History/List', [
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
         entityName: 'History',
+        configureSearch: function() {
+            var searchQuery;
+            this.inherited(arguments);
+            this.setSearchTerm('#my-history');
+            searchQuery = this.getSearchQuery();
+            if (searchQuery) {
+                this.query = searchQuery;
+            }
+        },
         hashTagQueries: {
+            'my-history': function() {
+                return 'LeadId eq "' + App.context.user.$key + '"';
+            },
             'note': 'Type eq "atNote"',
             'phonecall': 'Type eq "atPhoneCall"',
             'meeting': 'Type eq "atAppointment"',

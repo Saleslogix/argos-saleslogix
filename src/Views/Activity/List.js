@@ -276,52 +276,51 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             },        
             createIndicatorLayout: function() {
                 return this.itemIndicators || (this.itemIndicators = [{
-                id: '1',
-                icon: 'AlarmClock_24x24.png',
-                label: 'Alarm',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.hasAlarm(entry);
-                }
-            }, {
-                id: '2',
-                icon: 'Touched_24x24.png',
-                label: 'Touched',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.hasBeenTouched(entry);
-                }
-            }, {
-                id: '3',
-                icon: 'Bang_24x24.png',
-                label: 'Bang',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.isImportant(entry);
-                }
-            }, {
-                id: '4',
-                icon: '',
-                cls: 'indicator_Important',
-                label: 'overdue',
-                valueText: 'overdue',
-                showIcon: false,
-                location:'top',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.isOverdue(entry);
-                }
-            }, {
-                id: '5',
-                icon: 'Recurring_24x24.png',
-                label: 'Recurring',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.isRecurring(entry, this);
-                }
-            }, {
-                id: '6',
-                icon: '',
-                label: 'Activity',
-                onApply: function(entry, parent) {
-                    parent.applyActivityIndicator(entry, this);
-                }
-            }]
+                    id: 'alarm',
+                    icon: 'AlarmClock_24x24.png',
+                    label: 'Alarm',
+                    onApply: function(entry, parent) {
+                        this.isEnabled = parent.hasAlarm(entry);
+                    }
+                }, {
+                    id: 'touched',
+                    icon: 'Touched_24x24.png',
+                    label: 'Touched',
+                    onApply: function(entry, parent) {
+                        this.isEnabled = parent.hasBeenTouched(entry);
+                    }
+                }, {
+                    id: 'important',
+                    icon: 'Bang_24x24.png',
+                    label: 'Important',
+                    onApply: function(entry, parent) {
+                        this.isEnabled = parent.isImportant(entry);
+                    }
+                }, {
+                    id: 'overdue',
+                    cls: 'indicator_Important',
+                    label: 'overdue',
+                    valueText: 'overdue',
+                    showIcon: false,
+                    location: 'top',
+                    onApply: function(entry, parent) {
+                        this.isEnabled = parent.isOverdue(entry);
+                    }
+                }, {
+                    id: 'recurring',
+                    icon: 'Recurring_24x24.png',
+                    label: 'Recurring',
+                    onApply: function(entry, parent) {
+                        this.isEnabled = parent.isRecurring(entry, this);
+                    }
+                }, {
+                    id: 'activityType',
+                    icon: '',
+                    label: 'Activity',
+                    onApply: function(entry, parent) {
+                        parent.applyActivityIndicator(entry, this);
+                    }
+                }]
             );
         },
         onApplyRowActionPanel: function(actionsNode, rowNode) {

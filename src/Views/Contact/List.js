@@ -89,7 +89,19 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         resourceKind: 'contacts',
         entityName: 'Contact',
         enableActions: true,
+        configureSearch: function() {
+            var searchQuery;
+            this.inherited(arguments);
+            this.setSearchTerm('#my-contacts');
+            searchQuery = this.getSearchQuery();
+            if (searchQuery) {
+                this.query = searchQuery;
+            }
+        },
         hashTagQueries: {
+            'my-contacts': function() {
+                return 'AccountManager.Id eq "' + App.context.user.$key + '"';
+            },
             'primary': 'IsPrimary eq true',
             'not-primary': 'IsPrimary eq false',
             'can-email': 'DoNotEmail eq false',
@@ -99,6 +111,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             'can-solicit': 'DoNotSolicit eq false'
         },
         hashTagQueriesText: {
+            'my-contacts': 'my-contacts',
             'primary': 'primary',
             'not-primary': 'not-primary',
             'can-email': 'can-email',

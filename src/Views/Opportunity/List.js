@@ -84,6 +84,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         estimatedCloseText: 'Estimated close ',
 
         hashTagQueriesText: {
+            'my-opportunities': 'my-opportunities',
             'open': 'open',
             'closed': 'closed',
             'won': 'won',
@@ -103,7 +104,19 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         icon: 'content/images/icons/opportunity_24.png',
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
+        configureSearch: function() {
+            var searchQuery;
+            this.inherited(arguments);
+            this.setSearchTerm('#my-opportunities');
+            searchQuery = this.getSearchQuery();
+            if (searchQuery) {
+                this.query = searchQuery;
+            }
+        },
         hashTagQueries: {
+            'my-opportunities': function() {
+                return 'AccountManager.Id eq "' + App.context.user.$key + '"';
+            },
             'open': 'Status eq "Open"',
             'won': 'Status eq "Closed - Won"',
             'lost': 'Status eq "Closed - Lost"',
