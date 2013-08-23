@@ -149,9 +149,11 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return this.itemIconAltText;
         },
         createIndicators: function(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
-            var indicatorTemplate, indicator, options, indicatorHTML, i;
+            var indicatorTemplate, indicator, options, indicatorHTML, i, iconPath;
             for (i = 0; i < indicators.length; i++) {
                 indicator = indicators[i];
+
+                iconPath = indicators[i].iconPath || this.itemIndicatorIconPath;
 
                 if (indicator.onApply) {
                     try{
@@ -162,14 +164,14 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                 }
                 options = {
                     indicatorIndex: i,
-                    indicatorIcon: this.itemIndicatorIconPath + indicator.icon,
+                    indicatorIcon: iconPath + indicator.icon,
                 };
                 indicatorTemplate = indicator.template || this.itemIndicatorTemplate;
 
                 lang.mixin(indicator, options);
 
                 if (indicator.isEnabled === false) {
-                    indicator.indicatorIcon = this.itemIndicatorIconPath + 'disabled_' + indicator.icon
+                    indicator.indicatorIcon = iconPath + 'disabled_' + indicator.icon
                     indicator.label = '';
                 } else {
                     indicator.indicatorIcon + indicator.icon;
@@ -214,7 +216,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         },
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
-                id: 'Touched',
+                id: 'touched',
                 icon: 'Touched_24x24.png',
                 label: 'Touched',
                 onApply: function(entry, parent) {

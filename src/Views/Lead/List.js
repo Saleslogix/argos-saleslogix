@@ -91,8 +91,19 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         entityName: 'Lead', 
         allowSelection: true,
         enableActions: true,
-
+        configureSearch: function() {
+            var searchQuery;
+            this.inherited(arguments);
+            this.setSearchTerm('#my-leads');
+            searchQuery = this.getSearchQuery();
+            if (searchQuery) {
+                this.query = searchQuery;
+            }
+        },
         hashTagQueries: {
+            'my-leads': function() {
+                return 'AccountManager.Id eq "' + App.context.user.$key + '"';
+            },
             'can-email': 'DoNotEmail eq false',
             'can-phone': 'DoNotPhone eq false',
             'can-fax': 'DoNotFAX eq false',
@@ -100,6 +111,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
             'can-solicit': 'DoNotSolicit eq false'
         },
         hashTagQueriesText: {
+            'my-leads': 'my-leads',
             'can-email': 'can-email',
             'can-phone': 'can-phone',
             'can-fax': 'can-fax',
