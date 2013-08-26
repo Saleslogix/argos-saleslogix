@@ -68,13 +68,21 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             widgetOptions = this.createMetricWidgetsLayout() || [];
             array.forEach(widgetOptions, function(options) {
                 if (this._hasValidOptions(options)) {
-                    options.queryArgs._activeFilter = this.query || '';
+                    options.queryArgs._activeFilter = this._getCurrentQuery();
                     var widget = new MetricWidget(options);
                     widget.placeAt(this.metricNode, 'last');
                     widget.requestData();
                     this.metricWidgets.push(widget);
                 }
             }, this);
+        },
+        _getCurrentQuery: function() {
+            // Get the current query from the search box, and any context query located in options.where
+            var query = this.query,
+                where = this.options && this.options.where;
+            return array.filter([query, where], function(item) {
+                return !!item
+            }).join(' and ');
         },
         _hasValidOptions: function(options) {
             return options 
