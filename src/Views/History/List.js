@@ -133,15 +133,7 @@ define('Mobile/SalesLogix/Views/History/List', [
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
         entityName: 'History',
-        configureSearch: function() {
-            var searchQuery;
-            this.inherited(arguments);
-            this.setSearchTerm('#my-history');
-            searchQuery = this.getSearchQuery();
-            if (searchQuery) {
-                this.query = searchQuery;
-            }
-        },
+        defaultSearchTerm: '#my-history',
         hashTagQueries: {
             'my-history': function() {
                 return 'LeadId eq "' + App.context.user.$key + '"';
