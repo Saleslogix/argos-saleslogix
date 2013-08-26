@@ -89,15 +89,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         resourceKind: 'contacts',
         entityName: 'Contact',
         enableActions: true,
-        configureSearch: function() {
-            var searchQuery;
-            this.inherited(arguments);
-            this.setSearchTerm('#my-contacts');
-            searchQuery = this.getSearchQuery();
-            if (searchQuery) {
-                this.query = searchQuery;
-            }
-        },
+        defaultSearchTerm: '#my-contacts',
         hashTagQueries: {
             'my-contacts': function() {
                 return 'AccountManager.Id eq "' + App.context.user.$key + '"';

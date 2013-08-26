@@ -91,15 +91,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         entityName: 'Lead', 
         allowSelection: true,
         enableActions: true,
-        configureSearch: function() {
-            var searchQuery;
-            this.inherited(arguments);
-            this.setSearchTerm('#my-leads');
-            searchQuery = this.getSearchQuery();
-            if (searchQuery) {
-                this.query = searchQuery;
-            }
-        },
+        defaultSearchTerm: '#my-leads',
         hashTagQueries: {
             'my-leads': function() {
                 return 'AccountManager.Id eq "' + App.context.user.$key + '"';

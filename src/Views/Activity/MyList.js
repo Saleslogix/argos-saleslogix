@@ -205,15 +205,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'this-week': 'this-week',
             'yesterday': 'yesterday'
         },
-        configureSearch: function() {
-            var searchQuery;
-            this.inherited(arguments);
-            this.setSearchTerm('#this-week');
-            searchQuery = this.getSearchQuery();
-            if (searchQuery) {
-                this.query = searchQuery;
-            }
-        },
+        defaultSearchTerm: '#this-week',
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'viewAccount',
