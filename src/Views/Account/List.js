@@ -97,15 +97,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
-        configureSearch: function() {
-            var searchQuery;
-            this.inherited(arguments);
-            this.setSearchTerm('#my-accounts');
-            searchQuery = this.getSearchQuery();
-            if (searchQuery) {
-                this.query = searchQuery;
-            }
-        },
+        defaultSearchTerm: '#my-accounts',
         hashTagQueries: {
             'my-accounts': function() {
                 return 'AccountManager.Id eq "' + App.context.user.$key + '"';
