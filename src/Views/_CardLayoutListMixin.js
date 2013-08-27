@@ -34,6 +34,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         itemColorClass: 'color-default',
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
         itemIconAltText:'Contact',
+        allRecordsText: 'no search applied',
         itemIndicators:null,
         itemExts: null,
         itemTabValueProperty: '$descriptor',
@@ -252,7 +253,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             if (this.searchWidget) {
                 searchNode = query('#'+ this.id +'_search-expression');
                if (searchNode[0]) {
-                   html = '<div>' + this.searchWidget.getSearchExpression() + '</div>';
+                   html = '<div>' + (this.searchWidget.getSearchExpression() || this.allRecordsText) + '</div>';
                    domAttr.set(searchNode[0], { innerHTML: html });
                 }
             }
