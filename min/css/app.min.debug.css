@@ -8,10 +8,6 @@
 .viewContainer > .panel {
   background-color: #ffffff;
 }
-h4 {
-  /*color: #000;*/
-
-}
 .row > div > label,
 .row > label {
   float: none;
@@ -26,43 +22,6 @@ h4 {
 }
 .list-item-selected {
   background-color: #D5EFFA;
-}
-/* defect view */
-.defect-text-row {
-  position: relative;
-  min-height: inherit;
-  padding: 1em;
-}
-.defect-text-more {
-  visibility: hidden;
-  border-style: none solid solid solid;
-  border-color: #024731;
-  border-width: 2px 0 0 2px;
-  background: #024731;
-  z-index: 1;
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  line-height: 1.5em;
-  height: 1.5em;
-  color: white;
-  display: inline-block;
-  padding: 0 8px 0 8px;
-  text-align: center;
-  -moz-border-radius-topleft: 8px;
-  -moz-border-radius-bottomright: 8px;
-  -webkit-border-top-left-radius: 8px;
-  -webkit-border-bottom-right-radius: 8px;
-}
-.defect-text-wrap {
-  overflow: hidden;
-  max-height: 3.5em;
-}
-.defect-text-more a[target="_related"] {
-  color: white;
-  display: block;
-  text-decoration: none;
-  background: url('') !important;
 }
 /* login view */
 #login {
@@ -152,10 +111,8 @@ h4 {
 }
 /* context dialog */
 #context_dialog .list-content {
-  background-color: transparent;
-}
-#context_dialog .list-content {
   padding-left: 0;
+  background-color: transparent;
 }
 #context_dialog .list-content > li {
   font-size: 20px;
@@ -175,6 +132,10 @@ h4 {
   height: auto;
   padding: 0 3px;
 }
+#configure > .list-content > li {
+  color: #aaa;
+  padding-right: 6px;
+}
 #configure > .list-content > li .resource {
   display: block;
   margin: -8px 0 -8px -10px;
@@ -193,23 +154,19 @@ h4 {
   background-position: center center;
   cursor: pointer;
 }
-#configure > .list-content > li:first-child h3 > [data-action="moveUp"],
-#configure > .list-content > li:last-child h3 > [data-action="moveDown"] {
-  visibility: hidden;
-}
 #configure > .list-content > li h3 > [data-action="moveUp"] {
   background-image: url(../images/icons/Sort_Down_24.png);
 }
 #configure > .list-content > li h3 > [data-action="moveDown"] {
   background-image: url(../images/icons/Sort_Up_24.png);
 }
-#configure > .list-content > li {
-  color: #aaa;
-  padding-right: 6px;
-}
 #configure > .list-content > li h3 > .icon {
   opacity: 0.5;
   margin-right: .2em;
+}
+#configure > .list-content > li:first-child h3 > [data-action="moveUp"],
+#configure > .list-content > li:last-child h3 > [data-action="moveDown"] {
+  visibility: hidden;
 }
 #configure > .list-content > li.list-item-selected {
   color: #000;
@@ -309,6 +266,8 @@ h4 {
 .metric-list {
   width: 100%;
   box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .metric-title {
   font-size: 10pt;
@@ -357,18 +316,11 @@ li[data-ticket-status] .list-item-selector,
 }
 .row-edit[data-field-type="date"] > div > .button {
   background-image: url(../images/icons/Calendar_24x24.png);
-  background-image: url(../images/icons/Calendar_24x24.png), linear-gradient(to bottom, #e6e6e6, #cccccc);
-  background-image: url(../images/icons/Calendar_24x24.png), -webkit-gradient(linear, left top, left bottom, color-stop(0, #e6e6e6), color-stop(1, #cccccc));
-  background-image: url(../images/icons/Calendar_24x24.png), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
-  background-image: url(../images/icons/Calendar_24x24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
-  background-image: url(../images/icons/Calendar_24x24.png), -ms-linear-gradient(top, #e6e6e6, #cccccc);
-  background-image: url(../images/icons/Calendar_24x24.png), -o-linear-gradient(top, #e6e6e6, #cccccc);
   background-repeat: no-repeat, repeat;
   background-position: center;
 }
 .row-edit[data-field-type="date"] > div > .button:active {
-  background-image: url(../images/icons/Calendar_24x24.png), -webkit-gradient(linear, left bottom, left top, color-stop(0, #e6e6e6), color-stop(1, #cccccc));
-  background-image: url(../images/icons/Calendar_24x24.png), -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
+  background-image: url(../images/icons/Calendar_24x24.png);
   background-repeat: no-repeat, repeat;
   background-position: center;
 }
@@ -379,20 +331,6 @@ li[data-ticket-status] .list-item-selector,
 .row-edit[data-field-type="address"] > div > .button,
 .row-edit[data-field-type="note"] > div > .button {
   background-image: url(../images/icons/edit_24.png);
-  background-image: url(../images/icons/edit_24.png), linear-gradient(to bottom, #e6e6e6, #cccccc);
-  background-image: url(../images/icons/edit_24.png), -webkit-gradient(linear, left top, left bottom, color-stop(0, #e6e6e6), color-stop(1, #cccccc));
-  background-image: url(../images/icons/edit_24.png), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
-  background-image: url(../images/icons/edit_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
-  background-image: url(../images/icons/edit_24.png), -ms-linear-gradient(top, #e6e6e6, #cccccc);
-  background-image: url(../images/icons/edit_24.png), -o-linear-gradient(top, #e6e6e6, #cccccc);
-  background-repeat: no-repeat, repeat;
-  background-position: center;
-}
-.row-edit[data-field-type="name"] > div > .button:active,
-.row-edit[data-field-type="address"] > div > .button:active,
-.row-edit[data-field-type="note"] > div > .button:active {
-  background-image: url(../images/icons/edit_24.png), -webkit-gradient(linear, left bottom, left top, color-stop(0, #e6e6e6), color-stop(1, #cccccc));
-  background-image: url(../images/icons/edit_24.png), -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
   background-repeat: no-repeat, repeat;
   background-position: center;
 }
@@ -426,7 +364,9 @@ li[data-ticket-status] .list-item-selector,
 }
 .panel-content > fieldset > .row-error > div > input:focus,
 .panel-content > fieldset > .row-error > div > textarea:focus {
-  box-shadow: 0 0 5px red !important;
+  box-shadow: 0 0 5px #ff0000 !important;
+  -webkit-box-shadow: 0 0 5px #ff0000 !important;
+  -moz-box-shadow: 0 0 5px #ff0000 !important;
 }
 .calendar-table {
   width: 100%;
@@ -583,8 +523,8 @@ body.transition > .viewContainer > .footer-toolbar {
   margin: 0 0 4px 0;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
 }
 .footer-toolbar > div > .toolButton {
   background: transparent;
@@ -592,9 +532,6 @@ body.transition > .viewContainer > .footer-toolbar {
   height: auto;
   border: none;
   font-weight: normal;
-}
-.ie9 .footer-toolbar > div > .toolButton {
-  -ms-filter: "";
 }
 .footer-toolbar > div > .toolButton-left {
   margin: 0 0 0 10px;
@@ -715,31 +652,6 @@ body.transition > .viewContainer > .footer-toolbar {
   text-shadow: #fff 0px 1px 0px;
   font-weight: bold;
 }
-#calendar_yearlist > .year-content > .year-table tr.calendar-week-title {
-  -moz-border-radius-topleft: 5px;
-  -moz-border-radius-topright: 5px;
-  -moz-border-radius-bottomright: 0px;
-  -moz-border-radius-bottomleft: 0px;
-  -webkit-border-radius: 5px 5px 0px 0px;
-  border-radius: 5px 5px 0px 0px;
-  background-color: #D6E3BF;
-  background-image: linear-gradient(to bottom, #eaf1df 1%, #d6e3bf 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.01, #eaf1df), color-stop(1, #d6e3bf));
-  background-image: -moz-linear-gradient(top, #eaf1df 1%, #d6e3bf 100%);
-}
-.ie9 #calendar_yearlist > .year-content > .year-table tr.calendar-week-title {
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#EAF1DF, endColorstr=#D6E3BF)";
-}
-#calendar_yearlist > .year-content > .year-table tr.calendar-week-header {
-  border-spacing: 0;
-  background-color: #D6E3BF;
-  background-image: linear-gradient(to bottom, #d6e3bf, #cbe29e);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #d6e3bf), color-stop(1, #cbe29e));
-  background-image: -moz-linear-gradient(top, #d6e3bf, #cbe29e);
-}
-.ie9 #calendar_yearlist > .year-content > .year-table tr.calendar-week-header {
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D6E3BF, endColorstr=#CBE29E)";
-}
 #calendar_daylist .event-content > h2,
 #calendar_monthlist .event-content > h2,
 #calendar_monthlist .activity-content > h2,
@@ -747,8 +659,8 @@ body.transition > .viewContainer > .footer-toolbar {
 #calendar_daylist > h2,
 #calendar_weeklist > div > h2 {
   box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
   color: #ffffff;
   background-color: #666666;
   font-weight: bold;
@@ -853,8 +765,6 @@ body.transition > .viewContainer > .footer-toolbar {
 #calendar_weeklist .list-content > .list-loading-indicator {
   margin-top: 5px;
   background-color: #fff;
-  border-radius: 6px;
-  margin: 8px 6px 8px 6px;
 }
 #calendar_weeklist > .list-content > ul > li > .eventDate {
   float: left;
@@ -983,21 +893,11 @@ td.entry-table-description {
 .activities-for-year > .split-buttons > .button[data-tool="year"],
 .activities-for-week > .split-buttons > .button[data-tool="week"] {
   color: #ffffff;
-  /*text-shadow: #fff 0px 1px 0px; */
-
   border-color: #5a5d59;
   background-color: #FE5000;
   background-image: linear-gradient(to bottom, #fe5000 0%, #fe5000 100%);
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fe5000), color-stop(1, #fe5000));
   background-image: -moz-linear-gradient(center top, #fe5000 0%, #fe5000 100%);
-  -moz-box-shadow: #ffffff 0px 0px 1px inset;
-  -webkit-box-shadow: #ffffff 0px 0px 1px inset;
-}
-.ie9 .activities-for-day > .split-buttons > .button[data-tool="day"],
-.ie9 .activities-for-month > .split-buttons > .button[data-tool="month"],
-.ie9 .activities-for-year > .split-buttons > .button[data-tool="year"],
-.ie9 .activities-for-week > .split-buttons > .button[data-tool="week"] {
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FE5000, endColorstr=#FE5000)";
 }
 .split-buttons > .button[data-tool="selectdate"] {
   vertical-align: bottom;
@@ -1027,20 +927,11 @@ td.entry-table-description {
   z-index: 10;
   border-width: 0 0 1px 0;
   border-style: solid;
-  border-color: #e98300;
-  background-color: #f8d6aa;
-  background-image: linear-gradient(to bottom, #f8d6aa 0%, #f4c180 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f8d6aa), color-stop(1, #f4c180));
-  background-image: -moz-linear-gradient(center top, #f8d6aa 0%, #f4c180 100%);
-  box-shadow: #ffffff 0px 0px 1px inset;
-  -moz-box-shadow: #ffffff 0px 0px 1px inset;
-  -webkit-box-shadow: #ffffff 0px 0px 1px inset;
+  border-color: #212721;
+  background-color: #fe5000;
   background-clip: padding-box;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
-}
-.ie9 .update-toolbar {
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#f8d6aa, endColorstr=#f4c180)";
 }
 .update-toolbar > h1 {
   overflow: hidden;
@@ -1062,8 +953,8 @@ td.entry-table-description {
   background: transparent;
   border: none 0 black;
   box-shadow: none;
-  -moz-box-shadow: none;
   -webkit-box-shadow: none;
+  -moz-box-shadow: none;
 }
 .update-available {
   padding: 90px 0 0 0;
@@ -1137,43 +1028,20 @@ td.entry-table-description {
 .attachment-viewer-not-supported {
   margin: 10px !important;
 }
-card-layout .list-content {
+.card-layout .list-content {
   margin: 0;
   padding: 0;
 }
-card-layout .list-content > li {
+.card-layout .list-content > li {
   font-size: 1.25em;
   font-weight: bold;
   list-style: none;
-  margin: 8px 6px 8px 6px;
   padding: 8px 0px 8px 10px;
   position: relative;
   cursor: pointer;
 }
-.card-layout .list-content > li,
-.card-layout .group-content > li {
-  padding: 8px 6px 8px 6px;
-}
-.card-layout .list-content > li,
-.card-layout .group-content > li {
-  background-color: #FFFFFF;
-  font-weight: normal;
-}
-.card-layout .list-show-selectors .list-item-content,
-.card-layout .list-item-static-selector + .list-item-content {
-  padding-left: 80px;
-}
-.card-layout .list-show-selectors {
-  padding-left: 80px;
-}
-.card-layout .list-item-content {
-  padding-left: 80px;
-}
-.card-layout .actions-enabled + .list-item-content {
-  padding-left: 80px;
-}
 .card-layout .list-content > li > img.icon,
-.card-layout .list-content > li > * > img.icon {
+.card-layout .list-content > li * > img.icon {
   border: none 0 black;
   margin: 0 .5em 0 0;
   width: 48px;
@@ -1183,6 +1051,21 @@ card-layout .list-content > li {
 .card-layout .list-content > li > input.list-selector {
   float: left;
   margin: 2px 0 0 0px;
+}
+.card-layout .list-content > li,
+.card-layout .group-content > li {
+  padding: 8px 6px 8px 6px;
+  background-color: #FFFFFF;
+  font-weight: normal;
+}
+.card-layout .list-show-selectors {
+  padding-left: 80px;
+}
+.card-layout .list-show-selectors .list-item-content,
+.card-layout .list-item-static-selector + .list-item-content,
+.card-layout .list-item-content,
+.card-layout .actions-enabled + .list-item-content {
+  padding-left: 80px;
 }
 .card-layout .list-item-selector {
   visibility: hidden;
@@ -1271,11 +1154,11 @@ card-layout .list-content > li {
   bottom: -1px;
   height: 62px !important;
   box-shadow: none !important;
-  -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+  -moz-box-shadow: none !important;
   box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   margin: 0;
 }
 .card-layout .list-item-tab {
@@ -1357,6 +1240,8 @@ card-layout .list-content > li {
   border-style: solid;
   border-width: 0 13px 44px;
   box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
   height: 0 !important;
   left: 0;
   top: 18px;
@@ -1372,14 +1257,6 @@ card-layout .list-content > li {
   width: 28px;
   z-index: 10;
 }
-.footer-item-selector > img {
-  border: 0 none black;
-  height: 24px;
-  left: -2px !important;
-  position: relative !important;
-  top: 0px !important;
-  width: 24px;
-}
 .card-layout .list-action-selected .footer-item-selector > img {
   border: 0 none black;
   height: 24px;
@@ -1390,6 +1267,14 @@ card-layout .list-content > li {
 }
 .card-layout .list-item-footer > .button-unSelected > span {
   background-image: url(../images/icons/Browse_Next_24.png);
+}
+.footer-item-selector > img {
+  border: 0 none black;
+  height: 24px;
+  left: -2px !important;
+  position: relative !important;
+  top: 0px !important;
+  width: 24px;
 }
 .card-layout-search-expression {
   display: block;
