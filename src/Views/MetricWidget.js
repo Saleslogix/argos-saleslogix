@@ -103,13 +103,6 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         formatModule: 'Mobile/SalesLogix/Format',// AMD Module
         formatter: 'bigNumber',// Function of formatModule module 
 
-        // map the data types to format functions
-        dataTypeFormatterTable: {
-            'currency': 'bigNumber',
-            'decimal': 'fixed',
-
-        },
-
         /**
          * Loads a module/function via AMD and wraps it in a deferred 
          * @return {object} Returns a deferred with the function loaded via AMD require
