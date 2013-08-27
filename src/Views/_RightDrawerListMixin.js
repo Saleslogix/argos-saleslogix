@@ -80,7 +80,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
 
                     results = array.filter(prefs, function(pref) {
-                        return pref.metricTitleText === params.title;
+                        return pref.title === params.title;
                     });
 
                     if (results.length > 0) {
@@ -153,13 +153,13 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             if (prefs) {
                 array.forEach(prefs, function(pref, i) {
-                    if (pref.metricTitleText) {
+                    if (pref.title) {
                         kpiSection.children.push({
                             'name': 'KPI' + i,
                             'action': 'kpiClicked',
-                            'title': pref.metricTitleText,
+                            'title': pref.title,
                             'dataProps': {
-                                'title': pref.metricTitleText,
+                                'title': pref.title,
                                 'enabled': !!pref.enabled
                             }
                         });
