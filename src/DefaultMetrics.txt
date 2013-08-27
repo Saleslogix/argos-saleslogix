@@ -1,211 +1,167 @@
 {
   "accounts":[
     {
-      "resourceKind":"accounts",
-      "metricTitleText":"Total Revenue",
+      "title":"Total Revenue",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
         "_metricName":"TotalRevenue"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Total Revenue",
       "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
       "enabled":false
     },
     {
-      "resourceKind":"accounts",
-      "metricTitleText":"Avg Time as Customer",
+      "title":"Avg Time as Customer",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Type",
         "_metricName":"AverageTimeAsCustomer"
       },
-      "formatType":"Sage/Platform/Mobile/Format",
-      "formatFunc":"fixed",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"avg",
-      "reportViewId":"",
-      "chartType":"pie",
       "metricDisplayName":"Average Time as Customer",
       "filterDisplayName":"Type",
+      "chartType":"pie",
+      "aggregate":"avg",
+      "formatter":"fixed",
       "enabled":false
     },
     {
-      "resourceKind":"accounts",
-      "metricTitleText":"Total Accounts",
+      "title":"Total Accounts",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
         "_metricName":"CountAccounts"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Count Accounts",
       "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
       "enabled":false
     }
   ],
   "opportunities":[
     {
-      "resourceKind":"opportunities",
-      "metricTitleText":"Total Opportunities",
+      "title":"Total Opportunities",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
         "_metricName":"CountOpportunities"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Count Opportunities",
       "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
       "enabled":false
     },
     {
-      "resourceKind":"opportunities",
-      "metricTitleText":"Sales Potential",
+      "title":"Sales Potential",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
         "_metricName":"SumSalesPotential"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Sum Sales Potential",
       "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
       "enabled":false
     }
   ],
   "tickets":[
     {
-      "resourceKind":"tickets",
-      "metricTitleText":"Total Tickets",
+      "title":"Total Tickets",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Category",
         "_metricName":"TicketCount"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Ticket Count",
       "filterDisplayName":"Category",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
       "enabled":false
     },
     {
-      "resourceKind":"tickets",
-      "metricTitleText":"Open Age Average",
+      "title":"Open Age Average",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AssignedTo",
         "_metricName":"OpenTicketAgingAverage"
       },
-      "formatType":"Sage/Platform/Mobile/Format",
-      "formatFunc":"fixed",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"avg",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Open Ticket Aging Average",
       "filterDisplayName":"Assigned To",
+      "chartType":"bar",
+      "aggregate":"avg",
+      "formatter":"fixed",
       "enabled":false
     }
   ],
   "contacts":[
     {
-      "resourceKind":"contacts",
-      "metricTitleText":"Total Contacts",
+      "title":"Total Contacts",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"AccountManager",
         "_metricName":"CountContacts"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Count Contacts",
       "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
       "enabled":true
     }
   ],
   "leads":[
     {
-      "resourceKind":"leads",
-      "metricTitleText":"Total Leads",
+      "title":"Total Leads",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Owner",
         "_metricName":"CountLeads"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Count Leads",
       "filterDisplayName":"Owner",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
       "enabled":false
     }
   ],
   "history":[
     {
-      "resourceKind":"history",
-      "metricTitleText":"Total History",
+      "title":"Total History",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Type",
         "_metricName":"CountHistory"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Count History",
       "filterDisplayName":"Type",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
       "enabled":true
     },
     {
-      "resourceKind":"history",
-      "metricTitleText":"Total Duration",
+      "title":"Total Duration",
       "queryName":"executeMetric",
       "queryArgs":{
         "_filterName":"Type",
         "_metricName":"TotalDuration"
       },
-      "formatType":"Mobile/SalesLogix/Format",
-      "formatFunc":"bigNumber",
-      "valueType":"Mobile/SalesLogix/Aggregate",
-      "valueFunc":"sum",
-      "reportViewId":"",
-      "chartType":"bar",
       "metricDisplayName":"Total Duration",
       "filterDisplayName":"Type",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
       "enabled":true
     }
   ]

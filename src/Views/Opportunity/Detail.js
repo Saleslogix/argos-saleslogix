@@ -128,36 +128,32 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
             /*return [{
                     chartType: 'bar',
                     filterDisplayName: 'Account Manager',
-                    formatFunc: 'bigNumber',
-                    formatType: 'Mobile/SalesLogix/Format',
+                    formatter: 'bigNumber',
                     metricDisplayName: 'Sum Sales Potential',
-                    metricTitleText: 'Sales potential for ' + entry.Account.AccountName,
+                    title: 'Sales potential for ' + entry.Account.AccountName,
                     queryArgs: {
                         _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
                         _filterName: 'AccountManager',
                         _metricName: 'SumSalesPotential'
                     },
                     queryName: 'executeMetric',
-                    reportViewId: '',
                     resourceKind: 'opportunities',
-                    valueFunc: 'sum',
+                    aggregate: 'sum',
                     valueType: 'Mobile/SalesLogix/Aggregate'
                 }, {
                     chartType: 'bar',
                     filterDisplayName: 'Stage',
-                    formatFunc: 'bigNumber',
-                    formatType: 'Mobile/SalesLogix/Format',
+                    formatter: 'bigNumber',
                     metricDisplayName: 'Sum Sales Potential',
-                    metricTitleText: 'Total opportunties for ' + entry.Account.AccountName,
+                    title: 'Total opportunties for ' + entry.Account.AccountName,
                     queryArgs: {
                         _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
                         _filterName: 'Stage',
                         _metricName: 'CountOpportunities'
                     },
                     queryName: 'executeMetric',
-                    reportViewId: '',
                     resourceKind: 'opportunities',
-                    valueFunc: 'sum',
+                    aggregate: 'sum',
                     valueType: 'Mobile/SalesLogix/Aggregate'
                 }
             ];*/

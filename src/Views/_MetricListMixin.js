@@ -68,6 +68,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             widgetOptions = this.createMetricWidgetsLayout() || [];
             array.forEach(widgetOptions, function(options) {
                 if (this._hasValidOptions(options)) {
+                    options.resourceKind = this.resourceKind;
                     options.queryArgs._activeFilter = this._getCurrentQuery();
                     var widget = new MetricWidget(options);
                     widget.placeAt(this.metricNode, 'last');

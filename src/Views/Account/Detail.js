@@ -146,48 +146,42 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         createMetricWidgetsLayout: function (entry) {
             return [{
                     chartType: 'bar',
-                    formatFunc: 'bigNumber',
-                    formatType: 'Mobile/SalesLogix/Format',
-                    metricTitleText: 'Sales Potential',
+                    formatter: 'bigNumber',
+                    title: 'Sales Potential',
                     queryArgs: {
                         _activeFilter: 'Account.Id eq "' + entry.$key + '" and Status eq "Open"',
                         _filterName: 'Stage',
                         _metricName: 'SumSalesPotential'
                     },
                     queryName: 'executeMetric',
-                    reportViewId: '',
                     resourceKind: 'opportunities',
-                    valueFunc: 'sum',
+                    aggregate: 'sum',
                     valueType: 'Mobile/SalesLogix/Aggregate'
                 }, {
                     chartType: 'bar',
-                    formatFunc: 'bigNumber',
-                    formatType: 'Mobile/SalesLogix/Format',
-                    metricTitleText: 'Total Opportunties',
+                    formatter: 'bigNumber',
+                    title: 'Total Opportunties',
                     queryArgs: {
                         _activeFilter: 'Account.Id eq "' + entry.$key + '"',
                         _filterName: 'Stage',
                         _metricName: 'CountOpportunities'
                     },
                     queryName: 'executeMetric',
-                    reportViewId: '',
                     resourceKind: 'opportunities',
-                    valueFunc: 'sum',
+                    aggregate: 'sum',
                     valueType: 'Mobile/SalesLogix/Aggregate'
                 }, {
                     chartType: 'bar',
-                    formatFunc: 'bigNumber',
-                    formatType: 'Mobile/SalesLogix/Format',
-                    metricTitleText: 'Total Tickets',
+                    formatter: 'bigNumber',
+                    title: 'Total Tickets',
                     queryArgs: {
                         _activeFilter: 'Account.Id eq "' + entry.$key + '"',
                         _filterName: 'AssignedTo',
                         _metricName: 'TicketCount'
                     },
                     queryName: 'executeMetric',
-                    reportViewId: '',
                     resourceKind: 'tickets',
-                    valueFunc: 'sum',
+                    aggregate: 'sum',
                     valueType: 'Mobile/SalesLogix/Aggregate'
                 }
             ];
