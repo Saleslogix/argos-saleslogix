@@ -46,7 +46,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
          * HTML markup for the metric detail (name/value) 
         */
         itemTemplate: new Simplate([
-            '<div class="metric-title">{%: $$.metricTitleText %}</div>',
+            '<div class="metric-title">{%: $$.title %}</div>',
             '<div class="metric-value">{%: $$.formatter($.value) %}</div>'
         ]),
 
@@ -61,7 +61,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         ]),
 
         // Localization
-        metricTitleText: '',
+        title: '',
         loadingText: 'loading...',
 
         // Store Options
@@ -84,7 +84,6 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         metricDetailNode: null,
 
         // Chart Properties
-        reportViewId: null,
         chartType: null,
         chartTypeMapping: {
             'pie': 'chart_generic_pie',
@@ -101,19 +100,26 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         },
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
-        formatType: 'Mobile/SalesLogix/Format',// AMD Module
-        formatFunc: 'bigNumber',// Function of formatType module 
+        formatModule: 'Mobile/SalesLogix/Format',// AMD Module
+        formatter: 'bigNumber',// Function of formatModule module 
+
+        // map the data types to format functions
+        dataTypeFormatterTable: {
+            'currency': 'bigNumber',
+            'decimal': 'fixed',
+
+        },
 
         /**
          * Loads a module/function via AMD and wraps it in a deferred 
          * @return {object} Returns a deferred with the function loaded via AMD require
         */
         getFormatterFnDeferred: function() {
-            if (this.formatType && this.formatFunc) {
-                return this._loadModuleFunction(this.formatType, this.formatFunc);
+            if (this.formatModule && this.formatter) {
+                return this._loadModuleFunction(this.formatModule, this.formatter);
             }
 
-            // Return the default fn if valueType and valueFunc were not assigned
+            // Return the default fn if aggregateModule and aggregate were not assigned
             var d = new Deferred();
             d.resolve(this.formatter);
             return d.promise;
@@ -134,19 +140,19 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         },
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
-        valueType: null,//'Mobile/SalesLogix/Views/MetricWidget',
-        valueFunc: null,//'valueFn',
+        aggregateModule: 'Mobile/SalesLogix/Aggregate',
+        aggregate: null,//'valueFn',
 
         /**
          * Loads a module/function via AMD and wraps it in a deferred 
          * @return {object} Returns a deferred with the function loaded via AMD require
         */
         getValueFnDeferred: function() {
-            if (this.valueType && this.valueFunc) {
-                return this._loadModuleFunction(this.valueType, this.valueFunc);
+            if (this.aggregateModule && this.aggregate) {
+                return this._loadModuleFunction(this.aggregateModule, this.aggregate);
             }
 
-            // Return the default fn if valueType and valueFunc were not assigned
+            // Return the default fn if aggregateModule and aggregate were not assigned
             var d = new Deferred();
             d.resolve(this.valueFn);
             return d.promise;
@@ -215,10 +221,10 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         },
         navToReportView: function() {
             var view, signal;
-            view = App.getView(this.chartTypeMapping[this.chartType] || this.reportViewId);
+            view = App.getView(this.chartTypeMapping[this.chartType]);
 
             if (view) {
-                view.titleText = this.metricTitleText;
+                view.titleText = this.title;
                 view.formatter = this.formatter;
                 signal = aspect.after(view, 'show', lang.hitch(this, function() {
                     setTimeout(lang.hitch(this, function() {
