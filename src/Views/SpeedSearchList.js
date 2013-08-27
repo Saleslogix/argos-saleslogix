@@ -40,21 +40,34 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         ]),
 
         itemTemplate: new Simplate([
-            '<h4>score:{%: $.scorePercent %}| hits: {%: $.hitCount %} </h4>',
-            '<h3>{%: $.$descriptor %}</h3>',
-            '<div class="card-layout-speed-search-synopsis">',
-            '{%= $.synopsis %}',
+            '<div>',
+            '<h3>{%: $.type %}</h3>',
+            '<h4>{%: $.$contextDescription %}</h3>',
+            '<div class="card-layout-speed-search-linking">',
+               '{%= $$.getRelatedLinksHTML( $) %}',
+             '</div>',
+             '{% if ($$.showSynopsis) { %}',
+                '{%! $$.synposisTemplate %}',
+             '{% }  %}',
              '</div>'
         ]),
-
+        synposisTemplate: new Simplate([
+           '<div class="card-layout-speed-search-synopsis">',
+            '<h4>{%: $$.scoreText %}: {%: $.scorePercent %} | {%: $$.hitsText %}: {%: $.hitCount %} </h4>',
+              '{%= $.synopsis %}',
+            '</div>'
+        ]),
         //Localization
         titleText: 'SpeedSearch',
+        scoreText: 'Score',
+        hitsText: 'hits',
 
         //View Properties
         id: 'speedsearch_list',
         icon: 'content/images/icons/SpeedSearch_24x24.png',
         enableSearch: true,
-        enableActions:true,
+        enableActions: true,
+        showSynopsis: false,
         searchWidgetClass: SpeedSearchWidget,
         expose: false,
         activeIndexes: ['Account', 'Contact', 'Lead', 'Activity', 'History', 'Opportunity', 'Ticket'],
@@ -138,6 +151,104 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             }
             return descriptor;
         },
+        getRelatedLinksHTML: function(entry) {
+            var type, linksNode, linkNode, linksHTML, linkHTML;
+            type = entry.type;
+            linksHTML = "<div>";
+            if ((entry.relationLink1) && (entry.relationName1))
+            {
+                linkHTML = this.getRelatedLinkHTML(entry.type, entry.relationLink1, entry.relationName1);
+                linksHTML = linksHTML + "" +  linkHTML;
+            }
+            if ((entry.relationLink2) && (entry.relationName2)) {
+                linkHTML = this.getRelatedLinkHTML(entry.type, entry.relationLink2, entry.relationName2);
+                linksHTML = linksHTML + "" + linkHTML;
+            }
+            if ((entry.relationLink3) && (entry.relationName3)) {
+                linkHTML = this.getRelatedLinkHTML(entry.type, entry.relationLink3, entry.relationName3);
+                linksHTML = linksHTML + "" + linkHTML;
+            }
+            if ((entry.relationLink4) && (entry.relationName4)) {
+                linkHTML = this.getRelatedLinkHTML(entry.type, entry.relationLink4, entry.relationName4);
+                linksHTML = linksHTML + "" + linkHTML;
+            }
+            linksHTML = linksHTML + "</div>";
+            return linksHTML;
+
+        },
+        getRelatedLinkHTML:function(parentType, linkValue, linkDescription){
+        
+            var linkInfo, link;
+            //linkInfo = this.getLinkInfo(linkValue);
+            //linkInfo.linkDescription = linkDescription;
+            //link = string.substitute('<div><span><button data-view="${0}" data-linkId="${1}" data-action="goToLink" >${2}: ${3}</button></span></div> ', [ linkInfo.viewId, linkInfo.linkId, linkInfo.linkName, linkInfo.linkDescription]);
+            link = string.substitute('<div><span><button  data-action="goToLink"  data-linkvalue="${0}" >${1}</button></span></div> ', [linkValue, linkDescription]);
+            return link;
+        },
+        extractLinkType: function(linkValue)
+        {
+             var linkType, startpos, endPos;
+            //Sample "../../ACCOUNT.aspx?entityId=AGHEA0002669"
+            startPos = linkValue.indexOf("../../");
+            endPos = linkValue.indexOf(".aspx");
+            linkType = linkValue.substring(startPos + 6, endPos);
+            return linkType;
+        },
+        extractLinkId: function(linkValue) {
+            var linkId, length;
+            //Sample "../../ACCOUNT.aspx?entityId=AGHEA0002669"
+            length = linkValue.length;
+            linkId = linkValue.substring(length - 12, length);
+            return linkId;
+        },
+        getLinkInfo: function(linkValue) {
+            var type, linkInfo;
+
+            linkInfo = {
+                linkType: null,
+                linkDescription:null,
+                linkId:null,            };
+            type = this.extractLinkType(linkValue);
+            linkInfo.linkId = this.extractLinkId(linkValue);
+            switch (type.toUpperCase()) {
+                case 'ACCOUNT':
+                    linkInfo.linkName = "Account";
+                    linkInfo.linkType = "Account";
+                    break;
+                case 'ACTIVITY':
+                    linkInfo.linkName = "Activity";
+                    linkInfo.linkType = "Activity";
+                    break;
+                case 'CONTACT':
+                    linkInfo.linkName = "Contact";
+                    linkInfo.linkType = "Contact";
+                    break;
+                case 'LEAD':
+                    linkInfo.linkName = "Lead";
+                    linkInfo.linkType = "Lead";
+                    break;
+                case 'OPPORTUNITY':
+                    linkInfo.linkName = "Opp";
+                    linkInfo.linkType = "Opportunity";
+                    break;
+                case 'HISTORY':
+                    linkInfo.linkName = "History";
+                    linkInfo.linkType = "History";
+                    break;
+                case 'TICKET':
+                    linkInfo.linkName = "Ticket";
+                    linkInfo.linkType = "Ticket";
+                    break;
+            }
+            return linkInfo;
+        },
+        goToLink:function(arg){
+            var linkInfo;
+            if (arg) {
+                linkInfo = this.getLinkInfo(arg.linkvalue);
+                this.navigateToDetailView(linkInfo.linkId, linkInfo.linkType);
+            }
+        },
         extractKeyFromItem: function(item) {
             // Extract the entityId from the display name, which is the last 12 characters
             var displayName, len;
@@ -203,13 +314,12 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
                 for (var i = 0; i < feed.items.length; i++) {
                     var entry = feed.items[i];
-                    var rowNode;
-                    var synopNode;
+                    var rowNode,
+                        synopNode;
                     entry.type = this.extractTypeFromItem(entry);
-                    entry.$descriptor = entry.$descriptor || entry.uiDisplayName; //this.extractDescriptorFromItem(entry, entry.type);
+                    entry.$descriptor = entry.$descriptor || entry.uiDisplayName; // this.extractDescriptorFromItem(entry, entry.type); 
                     entry.$key = this.extractKeyFromItem(entry);
-                    entry.$otherdata = this.extractDescriptorFromItem(entry, entry.type);
-                    entry.synopsis = unescape(entry.synopsis);
+                    entry.$contextDescription = this.extractDescriptorFromItem(entry, entry.type);
                     this.entries[entry.$key] = entry;
                     rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
                     docfrag.appendChild(rowNode);
@@ -228,6 +338,12 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             }
 
             domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
+        },
+        _htmlEncode:function(s){
+                var el = document.createElement("div");
+                el.innerText = el.textContent = s;
+                s = el.innerHTML;
+                return s;
         },
         createRequest: function() {
             var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
