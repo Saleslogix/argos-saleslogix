@@ -1472,3 +1472,12 @@ card-layout .list-content > li {
   position: relative;
   right: auto;
 }
+.card-layout-search-expression {
+  padding: 10px 0 10px 5px;
+  border-left: 5px solid #00678a;
+  margin: 2px 0 0 2px;
+}
+.card-layout-search-expression > div {
+  font-size: 16px;
+  font-weight: bold;
+}
