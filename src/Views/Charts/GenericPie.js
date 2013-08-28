@@ -11,7 +11,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     'dojox/charting/axis2d/Default',
     'dojox/charting/widget/Legend',
     'dojox/charting/themes/Julie',
-    'Sage/Platform/Mobile/View'
+    'Sage/Platform/Mobile/View',
+    './_ChartMixin'
 ], function(
     declare,
     lang,
@@ -22,9 +23,10 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     Default,
     Legend,
     JulieTheme,
-    View
+    View,
+    _ChartMixin
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericPie', [View], {
+    return declare('Mobile.SalesLogix.Views.Charts.GenericPie', [View, _ChartMixin], {
         id: 'chart_generic_pie',
         titleText: '',
         otherText: 'Other',
@@ -39,24 +41,25 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
 
-        getTag: function() {
-            return this.options && this.options.returnTo;
-        },
-
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
+                '<div class="chart-hash" data-dojo-attach-point="searchExpressionNode"></div>',
                 '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
             '</div>'
         ]),
         createChart: function (feedData) {
-            var labels, box;
+            var labels, box, searchExpressionHeight;
 
             if (this.chart) {
                 this.chart.destroy(true);
             }
 
+            this.showSearchExpression();
+            searchExpressionHeight = this.getSearchExpressionHeight();
+
             labels = this._labels(feedData);
             box = domGeo.getMarginBox(this.domNode);
+            box.h = box.h - searchExpressionHeight;
 
             this.chart = new Chart(this.contentNode);
             this.chart.setTheme(JulieTheme);

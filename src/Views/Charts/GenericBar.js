@@ -6,23 +6,27 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/dom-geometry',
+    'dojo/dom-attr',
     'dojox/charting/Chart',
     'dojox/charting/plot2d/Bars',
     'dojox/charting/axis2d/Default',
     'dojox/charting/themes/Julie',
-    'Sage/Platform/Mobile/View'
+    'Sage/Platform/Mobile/View',
+    './_ChartMixin'
 ], function(
     declare,
     lang,
     array,
     domGeo,
+    domAttr,
     Chart,
     PlotType,
     Default,
     JulieTheme,
-    View
+    View,
+    _ChartMixin
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericBar', [View], {
+    return declare('Mobile.SalesLogix.Views.Charts.GenericBar', [View, _ChartMixin], {
         id: 'chart_generic_bar',
         titleText: '',
         otherText: 'Other',
@@ -38,12 +42,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
 
-        getTag: function() {
-            return this.options && this.options.returnTo;
-        },
-
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
+                '<div class="chart-hash" data-dojo-attach-point="searchExpressionNode"></div>',
                 '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
                 '<div class="chart-legend" data-dojo-attach-point="legendNode"></div>',
             '</div>'
@@ -53,9 +54,13 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
                 this.chart.destroy(true);
             }
 
-            var labels, box;
+            var labels, box, searchExpressionHeight;
+
+            this.showSearchExpression();
+            searchExpressionHeight = this.getSearchExpressionHeight();
 
             box = domGeo.getMarginBox(this.domNode);
+            box.h = box.h - searchExpressionHeight;
             labels = this._labels(feedData);
 
             this.chart = new Chart(this.contentNode);
