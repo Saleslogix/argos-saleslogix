@@ -129,6 +129,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             'TicketId',
             'ModifyDate',
             'Notes'
+
         ],
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
@@ -136,7 +137,7 @@ define('Mobile/SalesLogix/Views/History/List', [
         defaultSearchTerm: '#my-history',
         hashTagQueries: {
             'my-history': function() {
-                return 'LeadId eq "' + App.context.user.$key + '"';
+                return 'UserId eq "' + App.context.user.$key + '"';
             },
             'note': 'Type eq "atNote"',
             'phonecall': 'Type eq "atPhoneCall"',
