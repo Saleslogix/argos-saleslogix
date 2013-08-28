@@ -226,7 +226,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                     }), 1);
                 }));
 
-                view.show({ returnTo: -1 });
+                view.show({ returnTo: this.returnToId });
             }
         },
         _getData: function() {
