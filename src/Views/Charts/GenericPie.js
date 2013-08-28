@@ -39,6 +39,10 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
 
+        getTag: function() {
+            return this.options && this.options.returnTo;
+        },
+
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
                 '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
