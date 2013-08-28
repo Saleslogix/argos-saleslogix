@@ -312,9 +312,13 @@
           "text": "MetricFilterLookup.js",
           "path": "../src/Views"
         },
-		{
+        {
           "text": "SpeedSearchList.js",
           "path": "../src/Views"
+        },
+        {
+          "text": "_ChartMixin.js",
+          "path": "../src/Views/Charts"
         },
         {
           "text": "GenericBar.js",

@@ -82,21 +82,13 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         _data: null,
         requestDataDeferred: null,
         metricDetailNode: null,
+        currentSearchExpression: '',
 
         // Chart Properties
         chartType: null,
         chartTypeMapping: {
             'pie': 'chart_generic_pie',
             'bar': 'chart_generic_bar'
-        },
-
-        /**
-         * Formats the value shown in the metric widget button.
-         * @param {int} val Value to format
-         * @return {String} Return formatted value
-        */
-        formatter: function(val) {
-            return val;
         },
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
@@ -226,7 +218,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                     }), 1);
                 }));
 
-                view.show({ returnTo: this.returnToId });
+                view.show({ returnTo: this.returnToId, currentSearchExpression: this.currentSearchExpression });
             }
         },
         _getData: function() {
@@ -266,7 +258,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         },
         createStore: function() {
             var store = new SDataStore({
-                service: App.services['crm'],
+                service: App.services.crm,
                 resourceKind: this.resourceKind,
                 resourcePredicate: this.resourcePredicate,
                 contractName: this.contractName,

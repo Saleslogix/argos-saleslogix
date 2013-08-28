@@ -70,6 +70,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                 if (this._hasValidOptions(options)) {
                     options.returnToId = this.id;
                     options.resourceKind = this.resourceKind;
+                    options.currentSearchExpression = this.currentSearchExpression;
                     options.queryArgs._activeFilter = this._getCurrentQuery();
                     var widget = new MetricWidget(options);
                     widget.placeAt(this.metricNode, 'last');
