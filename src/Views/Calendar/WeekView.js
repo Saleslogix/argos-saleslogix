@@ -274,7 +274,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             this.refresh();
         },
         getPrevWeekActivities: function() {
-            this.currentDate = this.getStartDay(this.weekStartDate.clone().add({days:1}));
+            this.currentDate = this.getStartDay(this.weekStartDate.clone().subtract({days:1}));
             this.refresh();
         },
         getTypeIcon: function(type) {
