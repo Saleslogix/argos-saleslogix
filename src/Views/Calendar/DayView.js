@@ -270,8 +270,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 ].join(''),
                 [
                     App.context['user'] && App.context['user']['$key'],
-                    convert.toIsoStringFromDate(this.currentDate.startOf('day').toDate()),
-                    convert.toIsoStringFromDate(this.currentDate.endOf('day').toDate())
+                    convert.toIsoStringFromDate(this.currentDate.clone().startOf('day').toDate()),
+                    convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate())
                 ]
             );
         },
@@ -392,7 +392,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 return;
             }
 
-            this.currentDate.add({days: -1});
+            this.currentDate.subtract({days: 1});
             this.refresh();
         },
         formatQueryForActivities: function() {
@@ -402,8 +402,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
 
-            var startDate = this.currentDate.toDate(),
-                endDate = this.currentDate.clone().add({days: 1, seconds: -1}).toDate();
+            var startDate = this.currentDate.clone().startOf('day').toDate(),
+                endDate = this.currentDate.clone().endOf('day').toDate();
 
             return string.substitute(
                 queryWhere,
