@@ -207,7 +207,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         eventDetailView: 'event_detail',
         enableSearch: false,
         expose: false,
-        dateCounts: {},
+        dateCounts: null,
         currentDate: null,
 
         pageSize: 500,
@@ -267,6 +267,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.feed = {};
             this.eventFeed = {};
             this.entries = {};
+            this.dateCounts = [];
         },
         _onRefresh: function(o) {
             this.inherited(arguments);
@@ -315,10 +316,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.getSelectedDate();
         },
         getFirstDayOfCurrentMonth: function() {
-            return this.currentDate.clone().date(1).startOf('day');
+            return this.currentDate.clone().startOf('month');
         },
         getLastDayOfCurrentMonth: function() {
-            return this.currentDate.clone().date(this.currentDate.daysInMonth()).endOf('day');
+            return this.currentDate.clone().endOf('month');
         },
         getTodayMonthActivities: function() {
             var today = moment().startOf('day');
@@ -337,7 +338,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
              this.refresh();
         },
         goToPreviousMonth: function() {
-            this.currentDate.add({months: -1});
+            this.currentDate.subtract({months: 1});
             this.refresh();
         },
         refresh: function() {
@@ -461,6 +462,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                     ? this.dateCounts[dateIndex] + 1
                     : 1;
             }
+
             this.highlightActivities();
         },
         processEventFeed: function(feed) {
@@ -497,6 +499,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                     startDay.add({days:1});
                 }
             }
+
             this.highlightActivities();
         },
 
@@ -705,7 +708,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 dayClass = '',
                 weekendClass = '',
                 day = 1,
-                dayDate = moment().startOf('day').date(1),
+                dayDate = this.currentDate.clone().startOf('month'),
                 today = moment().startOf('day'),
                 monthLength = this.currentDate.daysInMonth(),
                 weekEnds = [0,6],
@@ -783,7 +786,10 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             }
 
             this.selectedDateNode = query(selectedDate, this.contentNode)[0];
-            domClass.add(this.selectedDateNode, 'selected');
+            if (this.selectedDateNode) {
+                domClass.add(this.selectedDateNode, 'selected');
+            }
+
             this.getSelectedDate();
         },
         selectEntry: function(params) {
