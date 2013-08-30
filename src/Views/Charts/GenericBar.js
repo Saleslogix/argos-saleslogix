@@ -70,7 +70,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
                 markers: false,
                 gap: 5,
                 majorLabels: true,
-                minorTickets: false,
+                minorTicks: false,
                 minorLabels: false,
                 microTicks: false
             });
@@ -78,6 +78,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             this.chart.addAxis('x', {
                 vertical: true,
                 title: '',
+                minorTicks: false,
+                minorLabels: false,
+                microTicks: false,
                 labels: labels,
                 labelFunc: function(formattedValue, rawValue) {
                     var item = labels[rawValue - 1];
@@ -95,7 +98,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             this.chart.resize(box.w, box.h);
         },
         _labels: function(feedData) {
-            var data = [], MAX_ITEMS = 5, otherY = 0, otherText;
+            var data = [], MAX_ITEMS = 5, MIN_ITEMS= 1, otherY = 0, otherText;
+
             array.forEach(feedData, function(item, index) {
                 if (index < MAX_ITEMS) {
                     data.push({
@@ -105,14 +109,15 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
                     });
                 } else {
                     otherY = otherY + item.value;
-                    otherText = this.otherText + ' (' + this.formatter(otherY) + ')';
-                    data[MAX_ITEMS] = {
-                        y: otherY,
-                        text: otherText,
-                        value: MAX_ITEMS
-                    };
+                    this._insertOther(data, MAX_ITEMS, otherY);
+
                 }
             }, this);
+
+            // Dojo won't draw a single bar, insert a Other group with a 0 value
+            if (feedData.length === MIN_ITEMS) {
+                this._insertOther(data, MIN_ITEMS, 0);
+            }
 
             // Reverse sort to show larger number up top
             data.sort(function(a, b) {
@@ -128,6 +133,14 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             });
 
             return data;
+        },
+        _insertOther: function(data, index, value) {
+            otherText = this.otherText + ' (' + this.formatter(value) + ')';
+            data[index] = {
+                y: value,
+                text: otherText,
+                value: index
+            };
         }
     });
 });
