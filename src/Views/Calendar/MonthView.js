@@ -35,7 +35,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         weekText: 'Week',
         monthText: 'Month',
         monthTitleFormatText: 'MMMM YYYY',
-        dayTitleFormatText: 'ddd MMM d, YYYY',
+        dayTitleFormatText: 'ddd MMM D, YYYY',
         eventDateFormatText: 'M/D/YYYY',
         startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
