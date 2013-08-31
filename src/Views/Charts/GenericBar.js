@@ -135,7 +135,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             return data;
         },
         _insertOther: function(data, index, value) {
-            otherText = this.otherText + ' (' + this.formatter(value) + ')';
+            var otherText = this.otherText + ' (' + this.formatter(value) + ')';
             data[index] = {
                 y: value,
                 text: otherText,
