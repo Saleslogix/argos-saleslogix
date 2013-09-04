@@ -45,7 +45,7 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
                 defaults.push({
                     indexName: index.indexName,
                     enabled: self._isIndexActive(index.indexName)
-                })
+                });
             });
             return defaults;
         },
@@ -116,7 +116,7 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
             }
         },
         createRightDrawerLayout: function() {
-            var indexSection, index, indexName, layout, prefs, indexPref;
+            var indexSection, index, indexName, layout, prefs, indexPref, i;
             layout = [];
 
             indexSection = {
@@ -125,7 +125,6 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
             };
             prefs = App.preferences && App.preferences.speedSearchIndexes;
             if (this.indexes) {
-
                 for (i in this.indexes) {
                     index = this.indexes[i];
                     indexPref = array.filter(prefs, function(pref) {

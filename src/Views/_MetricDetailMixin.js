@@ -63,7 +63,7 @@ define('Mobile/SalesLogix/Views/_MetricDetailMixin', [
             return options 
                 && options.queryArgs 
                 && options.queryArgs._filterName 
-                && options.queryArgs._metricName
+                && options.queryArgs._metricName;
         }
     });
 });

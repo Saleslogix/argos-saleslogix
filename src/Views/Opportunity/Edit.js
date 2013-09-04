@@ -83,7 +83,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         },
         applyContext: function(templateEntry) {
             var found = App.queryNavigationContext(function(o) {
-                return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
+                return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
             });
 
             var lookup = {

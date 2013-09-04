@@ -45,7 +45,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
                 '<h4>',
                     '{%: $.Email %}',
                 '</h4>',
-            '{% } %}',
+            '{% } %}'
         ]),
 
         joinFields: function(sep, fields) {

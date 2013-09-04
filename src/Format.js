@@ -56,25 +56,25 @@ define('Mobile/SalesLogix/Format', [
         Converts the given value using the provided format, joining with the separator character
         If no format given, will use predefined format for the addresses Country (or en-US as final fallback)
         <pre>
-        Format	Description									Example
-        ------	-----------------------------------------	-----------------------
-         s 		Salutation (Attention, Name)    			ATTN: Mr. Bob
-         S 		Salutation Uppercase						ATTN: MR. BOB
-         a1		Address Line 1                  			555 Oak Ave
-         a2		Address Line 2			                    #2038
-         a3		Address Line 3
-         m		Municipality (City, town, hamlet)			Phoenix
-         M		Municipality Uppercase						PHOENIX
-         z		County (parish, providence)					Maricopa
-         Z 		County Uppercase							MARICOPA
-         r		Region (State, area)                		AZ
-         R		Region Uppercase							AZ
-         p     	Postal Code (ZIP code)						85021
-         P     	Postal Code Uppercase						85021
-         c 		Country 									France
-         C 		Country Uppercase							FRANCE
+        Format    Description                                    Example
+        ------    -----------------------------------------    -----------------------
+         s         Salutation (Attention, Name)                ATTN: Mr. Bob
+         S         Salutation Uppercase                        ATTN: MR. BOB
+         a1        Address Line 1                              555 Oak Ave
+         a2        Address Line 2                                #2038
+         a3        Address Line 3
+         m        Municipality (City, town, hamlet)            Phoenix
+         M        Municipality Uppercase                        PHOENIX
+         z        County (parish, providence)                    Maricopa
+         Z         County Uppercase                            MARICOPA
+         r        Region (State, area)                        AZ
+         R        Region Uppercase                            AZ
+         p         Postal Code (ZIP code)                        85021
+         P         Postal Code Uppercase                        85021
+         c         Country                                     France
+         C         Country Uppercase                            FRANCE
 
-         |		separator			    					as defined by separator variable
+         |        separator                                    as defined by separator variable
          </pre>
          @param {object} o Address Entity containing all the SData properties
          @param {boolean} asText If set to true returns text only, if false returns anchor link to google maps
@@ -210,7 +210,7 @@ define('Mobile/SalesLogix/Format', [
             return val;
         },
         relativeDate: function(date, timeless) {
-            var now
+            var now;
             date = moment(date);
             if (!date || !date.isValid()) {
                 throw new Error('Invalid date passed into Mobile.SalesLogix.Format.relativeDate');

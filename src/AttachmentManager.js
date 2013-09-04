@@ -8,7 +8,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
     'dojo/string',
     'dojo/number',
     'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Utility',
+    'Mobile/SalesLogix/Utility'
 
 ], function(
     FileManager,
@@ -205,14 +205,11 @@ define('Mobile/SalesLogix/AttachmentManager', [
                     scope: this
                 });
         },
-        onRequestTemplateFailure: function(response, o) {
-
-        },
         onRequestDataFailure: function(response, o) {
 
         },
         uploadFiles: function() {
-            var file
+            var file;
             this._isUploading = true;
             this._fileCount = this._files.length;
             while (this._files.length > 0) {
@@ -280,7 +277,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
 
             if (curFileProgress && curFileProgress.lengthComputable) {
                 filePercent = (curFileProgress.loaded / curFileProgress.total) * 100;
-                pct =  filePercent; ;//+= Math.round(filePercent);
+                pct =  filePercent; //+= Math.round(filePercent);
             } else if (curFileProgress) {
                 pct = curFileProgress;
             }

@@ -84,14 +84,14 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             var query = this.query,
                 where = this.options && this.options.where;
             return array.filter([query, where], function(item) {
-                return !!item
+                return !!item;
             }).join(' and ');
         },
         _hasValidOptions: function(options) {
             return options 
                 && options.queryArgs 
                 && options.queryArgs._filterName 
-                && options.queryArgs._metricName
+                && options.queryArgs._metricName;
         }
     });
 });

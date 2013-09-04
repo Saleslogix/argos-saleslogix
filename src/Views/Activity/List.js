@@ -164,11 +164,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         pageSize: 105,
 
         hashTagQueries: {
-            'alarm':'Alarm eq true',
-            'recurring': 'Recurring eq true',
-            'timeless': 'Timeless eq true'
-        },
-        hashTagQueries: {
             'alarm': 'Alarm eq true',
             'recurring': 'Recurring eq true',
             'timeless': 'Timeless eq true',
@@ -228,7 +223,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                         ]
                 );
                 return query;
-            },
+            }
         },
         hashTagQueriesText: {
             'alarm': 'alarm',
@@ -246,10 +241,10 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             return 'StartTime';
         },
         getItemActionKey: function(entry) {
-            return entry.$key
+            return entry.$key;
         },
         getItemDescriptor: function(entry) {
-            return entry.$descriptor
+            return entry.$descriptor;
         },
         getItemTabValue: function(entry){
             var value = '';
@@ -264,7 +259,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 return  this.activityColorClassByType[entry.Type] || this.itemColorClass;
             },
             getItemIconSource: function(entry) {
-                return this.itemIcon || this.activityIconByType[entry.Type] || this.icon || this.selectIcon
+                return this.itemIcon || this.activityIconByType[entry.Type] || this.icon || this.selectIcon;
             },        
             createIndicatorLayout: function() {
                 return this.itemIndicators || (this.itemIndicators = [{
@@ -316,7 +311,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             );
         },
         onApplyRowActionPanel: function(actionsNode, rowNode) {
-            var colorRowCls, colorCls
+            var colorRowCls, colorCls;
 
             colorRowCls = query(rowNode).closest('[data-color-class]')[0];
             colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
@@ -445,7 +440,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
            );
        },
        recordCallToHistory: function(complete, entry) {
-           var entry = {
+           var tempEntry = {
                '$name': 'History',
                'Type': 'atPhoneCall',
                'ContactName': entry['ContactName'],
@@ -459,7 +454,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                'CompletedDate': (new Date())
            };
 
-           this.navigateToHistoryInsert('atPhoneCall', entry, complete);
+           this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
        },
        navigateToHistoryInsert: function(type, entry, complete) {
            var view = App.getView(this.historyEditView);

@@ -325,13 +325,14 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                     entryGroups = this.entryGroups,
                     entryOrder = [],
                     dateCompareString = 'YYYY-MM-DD',
-                    o = [];
+                    o = [],
+                    i;
 
                 if (todayNode && !entryGroups[this.todayDate.format(dateCompareString)]) {
                     entryGroups[this.todayDate.format(dateCompareString)] = [todayNode];
                 }
 
-                for (var i = 0; i < feed['$resources'].length; i++) {
+                for (i = 0; i < feed['$resources'].length; i++) {
                     currentEntry = feed['$resources'][i];
                     startDate = convert.toDateFromString(currentEntry.StartDate);
                     if (currentEntry.Timeless) {
@@ -365,7 +366,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 });
 
                 entryOrderLength = entryOrder.length;
-                for (var i = 0; i < entryOrderLength; i++) {
+                for (i = 0; i < entryOrderLength; i++) {
                     o.push(entryGroups[entryOrder[i].format(dateCompareString)].join('') + this.groupEndTemplate.apply(this));
                 }
 

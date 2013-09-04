@@ -201,7 +201,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
-                return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
+                return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
             });
 
             var lookup = {

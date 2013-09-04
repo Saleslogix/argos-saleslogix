@@ -315,7 +315,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             );
         },
         applyActivityIndicator: function(entry, indicator) {
-            var dataType = entry['type']
+            var dataType = entry['type'];
             indicator.isEnabled = true;
             indicator.showIcon = true;
             indicator.icon = this.iconPathsByType2[entry.type];
@@ -366,10 +366,11 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                 activated = false;
 
             } else {
-                this.activeIndexes.push(indexName)
+                this.activeIndexes.push(indexName);
                 activated = true;
             }
-            return activated
+
+            return activated;
         },
         showSearchExpression: function(entry) {
             var html, searchNode, searchText;

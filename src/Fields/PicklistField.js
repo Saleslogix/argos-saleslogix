@@ -28,8 +28,9 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         });
 
         App.registerView(view);
+        viewsByName[name] = view;
 
-        return (viewsByName[name] = view);
+        return view;
     };
 
     var control = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {

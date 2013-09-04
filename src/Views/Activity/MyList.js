@@ -423,7 +423,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
              * To get the payload template:
              * http://localhost:6666/SlxClient/slxdata.ashx/slx/dynamic/-/userNotifications/$service/accept/$template?format=json
             */
-            var payload = {
+            payload = {
                 "$name": operation,
                 "request": {
                     "entity": notification,
@@ -431,7 +431,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }
             };
 
-            var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
+            request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
                 .setContractName('dynamic')
                 .setResourceKind('usernotifications')
                 .setOperationName(operation.toLowerCase());
@@ -547,7 +547,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return this.activityColorClassByType[entry.Activity.Type] || this.itemColorClass;
         },
         getItemIconSource: function(entry) {
-            return this.itemIcon || this.activityIconByType[entry.Activity.Type] || this.icon || this.selectIcon
+            return this.itemIcon || this.activityIconByType[entry.Activity.Type] || this.icon || this.selectIcon;
         },
         hasContactOrLead: function(action, selection) {
             return (selection.data['Activity']['ContactId']) || (selection.data['Activity']['LeadId']);
@@ -600,7 +600,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             }
         },
         recordCallToHistory: function(complete, entry) {
-            var entry = {
+            var tempEntry = {
                 '$name': 'History',
                 'Type': 'atPhoneCall',
                 'ContactName': entry['Activity']['ContactName'],
@@ -614,7 +614,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 'CompletedDate': (new Date())
             };
 
-            this.navigateToHistoryInsert('atPhoneCall', entry, complete);
+            this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
         },
 
         navigateToHistoryInsert: function(type, entry, complete) {

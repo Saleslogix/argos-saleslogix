@@ -13,8 +13,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'Sage/Platform/Mobile/Detail',
     'Mobile/SalesLogix/Recurrence',
     'Mobile/SalesLogix/Utility',
-     'Sage/Platform/Mobile/Utility',
-
+    'Sage/Platform/Mobile/Utility'
 ], function(
     declare,
     string,

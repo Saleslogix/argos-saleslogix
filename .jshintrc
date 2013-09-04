@@ -1,0 +1,7 @@
+{
+    "sub": true,
+    "browser": true,
+    "dojo": true,
+    "laxbreak": true,
+    "loopfunc": true
+}

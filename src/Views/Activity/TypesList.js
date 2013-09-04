@@ -4,7 +4,7 @@
 define('Mobile/SalesLogix/Views/Activity/TypesList', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/List',
-    'Mobile/SalesLogix/Views/_CardLayoutListMixin',
+    'Mobile/SalesLogix/Views/_CardLayoutListMixin'
 ], function(
     declare,
     List,
@@ -64,16 +64,6 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
             'atToDo',
             'event'
         ],
-        activityColorClassByType: {
-            'atToDo': 'color-ToDo',
-            'atPhoneCall': 'color-PhoneCall',
-            'atAppointment': 'color-Meeting',
-            'atLiterature': 'color-LitRequest',
-            'atPersonal': 'color-Personal',
-            'atQuestion': 'color-Question',
-            'atNote': 'color-Note',
-            'atEMail': 'color-Email'
-        },
         activityColorClassByType: {
             'atToDo': 'color-ToDo',
             'atPhoneCall': 'color-PhoneCall',
@@ -153,7 +143,7 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
             });
         },
         getItemIconSource: function(entry) {
-            return this.itemIcon || this.activityTypeIcons[entry.type] || this.icon || this.selectIcon
+            return this.itemIcon || this.activityTypeIcons[entry.type] || this.icon || this.selectIcon;
         },
         getItemColorClass: function(entry) {
             return this.activityColorClassByType[entry.type] || this.itemColorClass;

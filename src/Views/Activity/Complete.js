@@ -178,7 +178,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             }
         },
         toggleSelectField: function(field, disable) {
-            disable === true ? field.disable() : field.enable();
+            if (disable) {
+                field.disable();
+            } else {
+                field.enable();
+            }
         },
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
@@ -208,13 +212,13 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             if (!date) {
                 return false;
             }
-            if (date.getUTCHours() != 0) {
+            if (date.getUTCHours() !== 0) {
                 return false;
             }
-            if (date.getUTCMinutes() != 0) {
+            if (date.getUTCMinutes() !== 0) {
                 return false;
             }
-            if (date.getUTCSeconds() != 5) {
+            if (date.getUTCSeconds() !== 5) {
                 return false;
             }
 

@@ -9,7 +9,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
     lang,

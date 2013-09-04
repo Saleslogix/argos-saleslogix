@@ -138,7 +138,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
         applyContext: function(templateEntry) {
             var context, view, entry;
             context = App.queryNavigationContext(function(o) {
-                return /^(opportunities)$/.test(o.resourceKind) && o.key;
+                return (/^(opportunities)$/).test(o.resourceKind) && o.key;
             });
 
             view = App.getView(context && context.id);

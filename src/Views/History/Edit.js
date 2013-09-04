@@ -93,7 +93,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             // the value for the 'IsLead' field will be set later, based on the value derived here.
 
             // todo: there is an issue when refreshing the edit view as options.isLead is persisted in the navigation state.
-            if (this.options.isForLead != undefined) {
+            if (this.options.isForLead !== undefined) {
                 return;
             }
 
@@ -184,7 +184,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
-                return /^(accounts|contacts|opportunities|leads|tickets)$/.test(context.resourceKind) && context.key;
+                return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
             });
 
             found = (found && found.options && found.options.source) || found;

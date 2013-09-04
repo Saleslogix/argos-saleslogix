@@ -38,7 +38,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
                '{%! $$.fileTemplate %}',
            '{% } else { %}',
               '{%! $$.urlTemplate %}',
-           '{% } %}',
+           '{% } %}'
         ]),
         fileTemplate: new Simplate([
              '<h3><span>{%: $.description %}&nbsp;</span></h3>',
@@ -92,7 +92,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
 
         hashTagQueries: {
             'url': 'dataType eq null',
-            'binary': 'dataType eq "R"',
+            'binary': 'dataType eq "R"'
         },
         hashTagQueriesText: {
             'url': 'url',
@@ -150,7 +150,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             );
         },
         applyActivityIndicator: function(entry, indicator) {
-            var dataType = entry['dataType']
+            var dataType = entry['dataType'];
             indicator.isEnabled = true;
             indicator.showIcon = true;
             if (dataType === 'R') {

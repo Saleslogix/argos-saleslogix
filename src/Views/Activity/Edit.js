@@ -215,7 +215,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
         isActivityRecurring: function(entry) {
-            return /rstMaster/.test(this.fields['RecurrenceState'].getValue());
+            return (/rstMaster/).test(this.fields['RecurrenceState'].getValue());
         },
         isInLeadContext: function() {
             var insert = this.options && this.options.insert,
@@ -231,7 +231,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
-            if (this.options.isForLead != undefined) {
+            if (this.options.isForLead !== undefined) {
                 return;
             }
 
@@ -293,7 +293,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }, this);
         },
         toggleSelectField: function(field, disable) {
-            disable === true ? field.disable() : field.enable();
+            if (disable) {
+                field.disable();
+            } else {
+                field.enable();
+            }
         },
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
@@ -692,7 +696,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (allowSetAlarm) {
                 this.enableFields(function(f) {
-                    return /^Alarm|Reminder$/.test(f.name);
+                    return (/^Alarm|Reminder$/).test(f.name);
                 });
             }
 
@@ -708,13 +712,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (!date) {
                 return false;
             }
-            if (date.getUTCHours() != 0) {
+            if (date.getUTCHours() !== 0) {
                 return false;
             }
-            if (date.getUTCMinutes() != 0) {
+            if (date.getUTCMinutes() !== 0) {
                 return false;
             }
-            if (date.getUTCSeconds() != 5) {
+            if (date.getUTCSeconds() !== 5) {
                 return false;
             }
 

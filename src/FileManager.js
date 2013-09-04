@@ -154,7 +154,7 @@ define('Mobile/SalesLogix/FileManager', [
                 // https://code.google.com/p/android/issues/detail?id=39882
                 blobReader.onload = function(e) {
                     request.send(e.target.result);
-                }
+                };
 
                 blobReader.readAsArrayBuffer(blobData);
             });
@@ -170,10 +170,10 @@ define('Mobile/SalesLogix/FileManager', [
         },
         _onUnableToUploadError: function(msg, onError) {
             if (!msg) {
-                msg = this.unableToUploadText
+                msg = this.unableToUploadText;
             }
             if (onError) {
-                onError([msg])
+                onError([msg]);
             } else {
                 console.warn([msg]);
             }

@@ -17,7 +17,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail, /*_MetricDetailMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail /*, _MetricDetailMixin*/], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',

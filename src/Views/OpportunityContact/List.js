@@ -56,7 +56,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
                 return;
             }
 
-            if (selectionModel.getSelectionCount() == 0 && view.options.allowEmptySelection) {
+            if (selectionModel.getSelectionCount() === 0 && view.options.allowEmptySelection) {
                 ReUI.back();
             }
 

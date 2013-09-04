@@ -199,7 +199,7 @@ define('Mobile/SalesLogix/Application', [
             var rate, found, results = {code: '', rate: 1};
 
             found = this.queryNavigationContext(function(o) {
-                return /^(opportunities)$/.test(o.resourceKind) && o.key;
+                return (/^(opportunities)$/).test(o.resourceKind) && o.key;
             });
 
             found = found && found.options;
@@ -334,11 +334,13 @@ define('Mobile/SalesLogix/Application', [
             this.reload();
         },
         handleAuthentication: function() {
+            var stored, encoded, credentials;
+
             try {
                 if (window.localStorage) {
-                    var stored = window.localStorage.getItem('credentials'),
-                        encoded = stored && Base64.decode(stored),
-                        credentials = encoded && json.parse(encoded);
+                    stored = window.localStorage.getItem('credentials');
+                    encoded = stored && Base64.decode(stored);
+                    credentials = encoded && json.parse(encoded);
                 }
             } catch(e) {
             }

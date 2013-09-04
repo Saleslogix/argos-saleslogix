@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         jshint: {
             options: {
-                "sub": true
+                jshintrc: '.jshintrc'
             },
             all: ['src/**/*.js']
         },

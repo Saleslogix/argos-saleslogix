@@ -288,7 +288,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             this.inherited(arguments);
         },
         onApplyRowActionPanel: function(actionsNode, rowNode) {
-            var colorRowCls, colorCls
+            var colorRowCls, colorCls;
 
             colorRowCls = query(rowNode).closest('[data-color-class]')[0];
             colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
@@ -304,7 +304,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             return this.entityColorClassByType[entry.Type] || this.itemColorClass;
         },
         getItemIconSource: function(entry) {
-            return this.itemIcon || this.entityIconByType[entry.Type] || this.icon || this.selectIcon
+            return this.itemIcon || this.entityIconByType[entry.Type] || this.icon || this.selectIcon;
         },
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
@@ -336,7 +336,7 @@ define('Mobile/SalesLogix/Views/History/List', [
                 indicator.isEnabled = true;
                 indicator.showIcon = true;
             }
-        },
+        }
     });
 });
 

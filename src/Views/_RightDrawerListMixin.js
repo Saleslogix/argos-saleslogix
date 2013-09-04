@@ -133,7 +133,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                             'action': 'hashTagClicked', 
                             'title': this.hashTagQueriesText[hashTag] || hashTag,
                             'dataProps': {
-                                'hashtag': this.hashTagQueriesText[hashTag] || hashTag,
+                                'hashtag': this.hashTagQueriesText[hashTag] || hashTag
                             }
                         });
                     }

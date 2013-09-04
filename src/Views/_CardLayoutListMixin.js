@@ -123,10 +123,10 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
         },
         getItemActionKey: function(entry) {
-            return entry.$key
+            return entry.$key;
         },
         getItemDescriptor: function(entry) {
-            return entry.$descriptor
+            return entry.$descriptor;
         },
         getItemTabValue: function(entry) {
             var value = '';
@@ -145,7 +145,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return this.itemColorClass;
         },
         getItemIconSource: function(entry) {
-            return this.itemIcon || this.icon || this.selectIcon
+            return this.itemIcon || this.icon || this.selectIcon;
         },
         getItemIconAlt: function(entry) {
             return this.itemIconAltText;
@@ -166,17 +166,17 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                 }
                 options = {
                     indicatorIndex: i,
-                    indicatorIcon: iconPath + indicator.icon,
+                    indicatorIcon: iconPath + indicator.icon
                 };
                 indicatorTemplate = indicator.template || this.itemIndicatorTemplate;
 
                 lang.mixin(indicator, options);
 
                 if (indicator.isEnabled === false) {
-                    indicator.indicatorIcon = iconPath + 'disabled_' + indicator.icon
+                    indicator.indicatorIcon = iconPath + 'disabled_' + indicator.icon;
                     indicator.label = '';
                 } else {
-                    indicator.indicatorIcon + indicator.icon;
+                    indicator.indicatorIcon = iconPath + indicator.icon;
                 }
                 
                 if (indicator.isEnabled === false && indicator.showIcon === false) {

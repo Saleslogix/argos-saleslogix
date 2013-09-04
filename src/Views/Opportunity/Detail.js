@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail, /*_MetricDetailMixin*/], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail /*, _MetricDetailMixin*/], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -248,7 +248,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         label: this.multiCurrencyDateText,
                         name: 'ExchangeRateDate',
                         property: 'ExchangeRateDate',
-                        renderer: format.date.bindDelegate(this, this.exchangeRateDateFormatText, false),
+                        renderer: format.date.bindDelegate(this, this.exchangeRateDateFormatText, false)
                     }, {
                         label: this.multiCurrencyLockedText,
                         name: 'ExchangeRateLocked',
