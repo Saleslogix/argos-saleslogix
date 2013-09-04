@@ -380,7 +380,9 @@ define('Mobile/SalesLogix/Recurrence', [
         },
         calcEndDate: function(date, entry) {
             var interval = entry['RecurPeriodSpec'] % 65536,
-                tempDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+                tempDate = moment.isMoment(date) ? 
+                    date.clone() :
+                    new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
 
             tempDate = moment(tempDate);
             switch (parseInt(entry['RecurPeriod'])) {

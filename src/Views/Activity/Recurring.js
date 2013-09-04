@@ -158,10 +158,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             value = parseInt(value);
             if (value && 0 < value) {
                 this.fields['RecurPeriodSpec'].setValue(currentSpec - interval + parseInt(value));
-                this.fields['EndDate'].setValue(recur.calcEndDate(
-                    this.fields['StartDate'].getValue(),
-                    this.getRecurrence()
-                ));
+                this.fields['EndDate'].setValue(recur.calcEndDate(this.fields['StartDate'].getValue(), this.getRecurrence()).toDate());
             } else {
                 // Invalid input, reset to current Interval
                 field.setValue(interval);
@@ -173,10 +170,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             value = parseInt(value);
             if (value && 0 < value) {
                 this.entry.RecurIterations = value;
-                var newEndDate = recur.calcEndDate(
-                    this.fields['StartDate'].getValue(),
-                    this.getRecurrence()
-                );
+                var newEndDate = recur.calcEndDate(this.fields['StartDate'].getValue(), this.getRecurrence()).toDate();
 
                 if (newEndDate != this.fields['EndDate'].getValue()) {
                     this.fields['EndDate'].setValue(newEndDate);
@@ -269,9 +263,9 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 default:
             }
 
-            startDate = recur.calcDateOfNthWeekday(startDate, weekday, ordWeek);
+            startDate = recur.calcDateOfNthWeekday(startDate, weekday, ordWeek).toDate();
             this.fields['StartDate'].setValue(startDate);
-            this.fields['EndDate'].setValue(recur.calcEndDate(startDate, this.getRecurrence()));
+            this.fields['EndDate'].setValue(recur.calcEndDate(startDate, this.getRecurrence()).toDate());
             this.fields['Day'].setValue(startDate.getDate());
             this.fields['OrdWeekday'].setValue(startDate.getDay());
 
@@ -321,7 +315,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             this.fields['Day'].setValue(startDate.getDate());
             this.fields['OrdMonth'].setValue(startDate.getMonth() + 1);
             this.fields['OrdWeek'].setValue(0);
-            this.fields['EndDate'].setValue(recur.calcEndDate(startDate, this.getRecurrence()));
+            this.fields['EndDate'].setValue(recur.calcEndDate(startDate, this.getRecurrence()).toDate());
 
             this.resetUI();
         },
@@ -390,7 +384,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createWeekdaysData: function() {
             var list = [];
-            array.forEach(moment.weekdays, function(name, idx) {
+            array.forEach(moment().lang()._weekdays, function(name, idx) {
                 list.push({
                     '$key': idx,
                     '$descriptor': name
@@ -425,7 +419,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             // calculate some values from the ones provided
             this.entry = values;
             this.entry.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values['StartDate']);
-            this.entry.EndDate = recur.calcEndDate(values.StartDate, values);
+            this.entry.EndDate = recur.calcEndDate(values.StartDate, values).toDate();
             this.entry.Recurring = (typeof values.Recurring === 'string') ? /^true$/i.test(values.Recurring) : values.Recurring;
             ord = recur.getOrd(this.entry);
             this.entry.Interval = values.RecurPeriodSpec % 65536;
@@ -451,7 +445,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             var o = this.getRecurrence();
 
             o['Recurring'] = (0 <= o['RecurPeriod']);
-            o['EndDate'] = recur.calcEndDate(o.StartDate, o);
+            o['EndDate'] = recur.calcEndDate(o.StartDate, o).toDate();
 
             return o;
         },
