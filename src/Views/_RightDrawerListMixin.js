@@ -43,6 +43,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 if (this.rebuildWidgets) {
                     App.snapper.on('close', lang.hitch(this, function() {
                         if (this._hasChangedKPIPrefs) {
+                            this.destroyWidgets();
                             this.rebuildWidgets();
                             this._hasChangedKPIPrefs = false;
                         }

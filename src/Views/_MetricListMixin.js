@@ -21,6 +21,8 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         configurationView: 'metric_configure',
         entityName: '',
 
+        metricWidgetsBuilt: false,
+
         postMixInProperties: function() {
             this.inherited(arguments);
             this.widgetTemplate =  new Simplate([
@@ -54,12 +56,22 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             array.forEach(this.metricWidgets, function(widget) {
                 widget.destroy();
             }, this);
+
+            this.metricWidgetsBuilt = false;
         },
         requestData: function() {
             this.inherited(arguments);
             this.rebuildWidgets();
         },
+        clear: function() {
+            this.inherited(arguments);
+            this.destroyWidgets();
+        },
         rebuildWidgets: function() {
+            if (this.metricWidgetsBuilt) {
+                return;
+            }
+
             this.destroyWidgets();
             this.metricWidgets = [];
 
@@ -78,6 +90,8 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                     this.metricWidgets.push(widget);
                 }
             }, this);
+
+            this.metricWidgetsBuilt = true;
         },
         _getCurrentQuery: function() {
             // Get the current query from the search box, and any context query located in options.where
