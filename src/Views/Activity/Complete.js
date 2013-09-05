@@ -149,6 +149,14 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             this.connect(this.fields['AsScheduled'], 'onChange', this.onAsScheduledChange);
             this.connect(this.fields['Followup'], 'onChange', this.onFollowupChange);
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
+            this.connect(this.fields['Result'], 'onChange', this.onResultChange);
+        },
+        onResultChange: function(value, field) {
+            // Set the Result field back to the text value, and take the picklist code and set that to the ResultsCode
+            field.setValue(value.text);
+
+            // Max length for RESULTCODE is 8 chars, the sdata endpoint doesn't handle this, so we will truncate like the LAN if necessary
+            this.fields['ResultCode'].setValue((/.{0,8}/ig).exec(value.key));
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -253,6 +261,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             this.fields['CompletedDate'].setValue(new Date());
             this.fields['Followup'].setValue('none');
             this.fields['Result'].setValue('Complete');
+            this.fields['ResultCode'].setValue('COM');
 
             this.toggleSelectField(this.fields['CarryOverNotes'], true);
             this.toggleSelectField(this.fields['CompletedDate'], false);
@@ -324,7 +333,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     "ActivityId": entry['$key'],
                     "userId": entry['Leader']['$key'],
                     "result": this.fields['Result'].getValue(),
-                    "resultCode": '',
+                    "resultCode": this.fields['ResultCode'].getValue(),
                     "completeDate": this.fields['CompletedDate'].getValue()
                 }
             };
@@ -447,12 +456,17 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                             label: this.resultText,
                             name: 'Result',
                             property: 'Result',
+                            storageMode: 'code',// The onResultChange changes the value back to text
                             picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
                             title: this.resultTitleText,
                             orderBy: 'text asc',
                             type: 'picklist',
                             maxTextLength: 64,
                             validator: validator.exceedsMaxTextLength
+                        }, {
+                            name: 'ResultCode',
+                            property: 'ResultCode',
+                            type: 'hidden'
                         }, {
                             label: this.followUpText,
                             title: this.followUpTitleText,
