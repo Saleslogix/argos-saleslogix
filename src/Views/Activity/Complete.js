@@ -324,6 +324,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     "ActivityId": entry['$key'],
                     "userId": entry['Leader']['$key'],
                     "result": this.fields['Result'].getValue(),
+                    "resultCode": '',
                     "completeDate": this.fields['CompletedDate'].getValue()
                 }
             };
