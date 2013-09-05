@@ -184,7 +184,15 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                     textProperty: 'Description',
                     type: 'lookup',
                     view: 'leadsource_list'
-                }]);
+                }, {
+                    label: 'signature',
+                    name: 'Notes',
+                    property: 'Notes',
+                    textProperty: 'Notes',
+                    type: 'signature',
+                    view: 'signature_edit'
+                }
+            ]);
         }
     });
 });

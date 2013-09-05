@@ -250,8 +250,19 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             name: 'Status',
                             property: 'Status',
                             label: this.statusText
+                        }, {
+                            name: 'Notes',
+                            property: 'Notes',
+                            label: 'signature',
+                            renderer: function(val) {
+                                return Sage.Platform.Mobile.Format.imageFromVector(val, {
+                                    width: 150,
+                                    height: 50,
+                                    title: 'signature'
+                                }, true);
+                            }
                         }]
-                }, {
+                    }, {
                     title: this.moreDetailsText,
                     collapsed: true,
                     name: 'MoreDetailsSection',
