@@ -87,6 +87,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             '{%! $$.itemIconTemplate %}',
             '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
             '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
+             '<div id="list-item-content-related"></div>',
             '{%! $$.itemFooterTemplate %}'
         ]),
         searchExpressionTemplate: new Simplate([

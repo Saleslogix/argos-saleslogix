@@ -9,6 +9,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
+    'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
@@ -21,6 +22,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     format,
     utility,
     Convert,
+    HistoryRelatedView,
     List,
     _MetricListMixin,
     _CardLayoutListMixin,
@@ -164,6 +166,16 @@ define('Mobile/SalesLogix/Views/Account/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createRelatedViewLayout: function() {
+            return this.relatedViews || (this.relatedViews = [{
+                widgetType: HistoryRelatedView,
+                id: 'account_relatedNotes',
+                autoLoad:true,
+                enabled: true,
+                listViewWhere: function(entry) { return "AccountId eq '" + entry.$key + "'"; },
+                where: function(entry) { return "AccountId eq '" + entry.$key + "'"; },
+            }]);
         }
     });
 });
