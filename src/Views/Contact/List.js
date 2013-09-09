@@ -8,6 +8,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Convert',
+    'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
      'Mobile/SalesLogix/Views/_CardLayoutListMixin',
@@ -19,6 +20,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     action,
     format,
     Convert,
+    HistoryRelatedView,
     List,
     _MetricListMixin,
     _CardLayoutListMixin,
@@ -167,6 +169,16 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createRelatedViewLayout: function() {
+            return this.relatedViews || (this.relatedViews = [{
+                widgetType: HistoryRelatedView,
+                id: 'contact_relatedNotes',
+                autoLoad:true,
+                enabled: true,
+                listViewWhere: function(entry) { return "ContactId eq '" + entry.$key + "'"; },
+                where: function(entry) { return "ContactId eq '" + entry.$key + "'"; },
+            }]);
         }
     });
 });
