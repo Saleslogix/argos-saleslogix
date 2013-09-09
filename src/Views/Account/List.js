@@ -174,7 +174,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 autoLoad:true,
                 enabled: true,
                 listViewWhere: function(entry) { return "AccountId eq '" + entry.$key + "'"; },
-                where: function(entry) { return "AccountId eq '" + entry.$key + "'"; },
+                where: function(entry) { return "AccountId eq '" + entry.$key + "'"; }
             }]);
         }
     });
