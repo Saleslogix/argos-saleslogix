@@ -345,6 +345,10 @@
           "path": "../src/Views/Attachment"
         },
         {
+          "text": "RelatedView.js",
+          "path": "../src/Views/History"
+        },
+        {
           "text": "List.js",
           "path": "../src/Views/Account"
         },
