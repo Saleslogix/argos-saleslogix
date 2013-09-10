@@ -41,7 +41,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         allDayText: 'All-Day',
         eventText: 'Event',
         eventHeaderText: 'Events',
-        countMoreText: 'View ${0} More',
+        countMoreText: 'View More',
         activityHeaderText: 'Activities',
         toggleCollapseText: 'toggle collapse',
 
@@ -659,7 +659,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
             if (feed['$totalResults'] > feedLength) {
                 domClass.add(this.activityContainerNode, 'list-has-more');
-                this.set('activityRemainingContent', string.substitute(this.countMoreText, [feed['$totalResults'] - feedLength]));
+                this.set('activityRemainingContent', this.countMoreText);
             } else {
                 domClass.remove(this.activityContainerNode, 'list-has-more');
                 this.set('activityRemainingContent', '');
@@ -693,7 +693,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
             if (feed['$totalResults'] > feedLength) {
                 domClass.add(this.eventContainerNode, 'list-has-more');
-                this.set('eventRemainingContent', string.substitute(this.countMoreText, [feed['$totalResults'] - feedLength]));
+                this.set('eventRemainingContent', this.countMoreText);
             } else {
                 domClass.remove(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', '');
