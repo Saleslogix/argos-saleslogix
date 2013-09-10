@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         startDateText: 'start date',
         endDateText: 'end date',
         commentsText: 'comments',
-        startingFormatText: 'M/d/yyyy h:mm tt',
+        startingFormatText: 'M/D/YYYY h:mm A',
 
         //View Properties
         entityName: 'TicketActivity',
