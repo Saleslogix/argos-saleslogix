@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
     RelatedViewWidget
 ) {
     return declare('Mobile.SalesLogix.Views.History.RelatedView', [RelatedViewWidget], {
-        
+        regardingText:'Regarding',
         id: 'relatedNotes',
         icon: 'content/images/icons/ContactProfile_48x48.png',
         title: 'Notes',
@@ -35,20 +35,19 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         listViewWhere: null,
         enabled: true,
         resourceKind: 'history',
-        select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes'],
+        select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],
         where:null ,
         sort: 'ModifyDate desc',
-        numberOfItems: 3,
+        pageSize: 3,
         relatedItemTemplate: new Simplate([
-                 '<h4>By: {%: $.UserName %}</h4>',
-                 '<h4>',
+                 '<h4><div><strong>{%: $.UserName %}</strong></div>',
                  '{% if ($.Type === "atNote") { %}',
                       '<strong>{%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %} </strong>',
                  '{% } else { %}',
                       '<strong>{%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</strong>',
                   '{% } %}',
                   '</h4>',
-                 '<h4>Regarding: {%: $.Description %}</h4>',
+                 '<h4>{%: $$.regardingText %} : {%: $.Description %}</h4>',
                  '<div class="note-text-item">',
                     '<div class="note-text-wrap">',
                        '{%: $.Notes %}',
