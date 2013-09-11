@@ -362,7 +362,13 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 }
 
                 entryOrder.sort(function(a, b) {
-                    return a.valueOf() < b.valueOf();
+                    if (a.valueOf() < b.valueOf()) {
+                        return 1;
+                    } else if (a.valueOf() > b.valueOf()) {
+                        return -1;
+                    }
+
+                    return 0;
                 });
 
                 entryOrderLength = entryOrder.length;
