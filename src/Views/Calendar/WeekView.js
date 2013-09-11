@@ -177,8 +177,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         datePickerView: 'generic_calendar',
         activityListView: 'calendar_daylist',
         insertView: 'activity_types_list',
-        userWeekStartDay: 0, // 0-6, Sun-Sat
-        userWeekEndDay: 6,
         currentDate: null,
         enableSearch: false,
         expose: false,
@@ -260,14 +258,10 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             }
         },
         getStartDay: function(date) {
-            return (date.day() === this.userWeekStartDay)
-                    ? date.clone().startOf('day')
-                    : date.clone().day(this.userWeekStartDay, -1).startOf('day');
+            return date.clone().startOf('week');
         },
         getEndDay: function(date) {
-            return (date.day() === this.userWeekEndDay)
-                    ? date.clone().endOf('day')
-                    : date.clone().day(this.userWeekEndDay, 1).endOf('day');
+            return date.clone().endOf('week');
         },
         getNextWeekActivities: function() {
             this.currentDate = this.getStartDay(this.weekEndDate.clone().add({days:1}));
@@ -305,12 +299,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 start.format(this.weekTitleFormatText),
                 end.format(this.weekTitleFormatText)
                 ]));
-        },
-        setWeekStartDay: function() {
-            this.userWeekStartDay = (this.options && this.options['startDay'])
-                            ? this.options['startDay']
-                            : this.userWeekStartDay;
-            this.userWeekEndDay = this.getStartDay(moment()).add({days:6}).day();
         },
         isInCurrentWeek: function(date) {
             return (date.valueOf() > this.weekStartDate.valueOf() && date.valueOf() < this.weekEndDate.valueOf());
@@ -494,7 +482,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         },
         refresh: function() {
             var startDate = this.currentDate.clone();
-            this.setWeekStartDay();
             this.currentDate = startDate.clone();
             this.weekStartDate = this.getStartDay(startDate);
             this.weekEndDate = this.getEndDay(startDate);
@@ -510,24 +497,12 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 this.processShowOptions(options);
             }
 
-            this.setDefaultOptions();
             this.inherited(arguments);
         },
         processShowOptions: function(options) {
             if (options.currentDate) {
                 this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
                 this.refreshRequired = true;
-            }
-        },
-        setDefaultOptions: function() {
-            if (typeof this.options === 'undefined') {
-                this.options = {};
-            }
-
-            if (typeof this.options['startDay'] === 'undefined') {
-                this.options['startDay'] = (App.context.userOptions)
-                    ? parseInt(App.context.userOptions['Calendar:WeekStart'], 10)
-                    : this.userWeekStartDay;
             }
         },
         activateEventMore: function() {
