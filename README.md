@@ -39,6 +39,14 @@ GruntJS is a task runner. We have defined tasks to run in Gruntfile.coffee. Here
 1.	On your web server, create a Virtual Directory (IIS6), an Application (IIS7), or an Alias (Apache), or functional equivalent, called `mobile`, pointing to the base directory where you cloned [Argos SDK][argos-sdk], eg:
 
 		cd \projects\sage\mobile
+3. 	Ensure you have a MIME type setup for .less files. Example using web.config in IIS7:
+	```    
+	<system.webServer>
+        	<staticContent>
+            		<mimeMap fileExtension=".less" mimeType="text/css" />
+        	</staticContent>
+    	</system.webServer>
+	```
 2.	In your browser, navigate to the path `/mobile/products/argos-saleslogix/index-dev.html` on your web server, eg:
 
 		http://localhost/mobile/products/argos-saleslogix/index-dev.html
