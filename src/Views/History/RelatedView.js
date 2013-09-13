@@ -39,20 +39,17 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         where:null ,
         sort: 'ModifyDate desc',
         pageSize: 3,
+        relatedItemIconTemplate: new Simplate([
+            '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.UserName) %}</div>',
+        ]),
         relatedItemTemplate: new Simplate([
-                 '<h4><div><strong>{%: $.UserName %}</strong></div>',
-                 '{% if ($.Type === "atNote") { %}',
-                      '<strong>{%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %} </strong>',
-                 '{% } else { %}',
-                      '<strong>{%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</strong>',
-                  '{% } %}',
-                  '</h4>',
-                 '<h4>{%: $$.regardingText %} : {%: $.Description %}</h4>',
-                 '<div class="note-text-item">',
-                    '<div class="note-text-wrap">',
-                       '{%: $.Notes %}',
-                     '</div>',
-                  '</div>'
+            '<div class="header"> {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %} by {%: Mobile.SalesLogix.Format.formatByUser($.UserName) %}</div>',
+            '<h4>{%: $$.regardingText %} : {%: $.Description %}</h4>',
+            '<div class="note-text-item">',
+                '<div class="note-text-wrap">',
+                    '{%: $.Notes %}',
+                '</div>',
+            '</div>',
         ]),
         formatDate: function(date) {
             var startDate = moment(convert.toDateFromString(date)),
@@ -73,6 +70,5 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
 
             return '';
         }
-
     });
 });
