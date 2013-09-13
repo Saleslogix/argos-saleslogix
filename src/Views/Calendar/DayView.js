@@ -9,7 +9,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     'dojo/dom-construct',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'moment'
 ], function(
     declare,
     string,
@@ -18,7 +19,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
     domConstruct,
     ErrorManager,
     convert,
-    List
+    List,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Calendar.DayView', [List], {

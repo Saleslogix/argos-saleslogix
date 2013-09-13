@@ -9,7 +9,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit',
-    'Mobile/SalesLogix/Recurrence'
+    'Mobile/SalesLogix/Recurrence',
+    'moment'
 ], function(
     declare,
     array,
@@ -18,7 +19,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     validator,
     utility,
     Edit,
-    recur
+    recur,
+    moment
 ) {
     return declare('Mobile.SalesLogix.Views.Activity.Recurring', [Edit], {
         //Localization
@@ -274,8 +276,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         onScaleChange: function(value, field) {
             var startDate = this.fields['StartDate'].getValue(),
                 afterCompletion = this.fields['AfterCompletion'].getValue() ? 1 : 0,
-                interval = parseInt(this.fields['Interval'].getValue(), 10);
-            recurPeriod = parseInt(this.fields['RecurPeriod'].getValue(), 10);
+                interval = parseInt(this.fields['Interval'].getValue(), 10),
+                recurPeriod = parseInt(this.fields['RecurPeriod'].getValue(), 10);
 
             switch (parseInt(value.key, 10)) {
                 case 0:
@@ -321,8 +323,8 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
 
         formatWeekdays: function(selections) {
-            var values = [];
-            weekdays = [0, 0, 0, 0, 0, 0, 0];
+            var values = [],
+                weekdays = [0, 0, 0, 0, 0, 0, 0];
 
             for (var key in selections) {
                 if (selections[key]) {

@@ -222,12 +222,15 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     return false;
                 }, 
                 fn: function(action, selection) {
-                    var viewId = 'account_detail';
+                    var viewId, options, view;
+
+                    viewId = 'account_detail';
                     options = {
                         key: selection.data['Activity']['AccountId'],
                         descriptor: selection.data['Activity']['AccountName']
                     };
-                    var view = App.getView(viewId);
+
+                    view = App.getView(viewId);
                     if (view && options) {
                         view.show(options);
                     }
@@ -247,12 +250,14 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     return false;
                 }, 
                 fn: function(action, selection) {
-                    var viewId = 'opportunity_detail';
+                    var viewId, options, view;
+
+                    viewId = 'opportunity_detail';
                     options = {
                         key: selection.data['Activity']['OpportunityId'],
                         descriptor: selection.data['Activity']['OpportunityName']
                     };
-                    var view = App.getView(viewId);
+                    view = App.getView(viewId);
                     if (view && options) {
                         view.show(options);
                     }
@@ -445,7 +450,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             });
         },
         completeActivity: function(entry) {
-            var completeActivity, request;
+            var completeActivity, request, completeActivityEntry;
 
             completeActivityEntry = {
                 "$name": "ActivityComplete",

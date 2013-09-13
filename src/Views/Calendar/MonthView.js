@@ -12,7 +12,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'moment'
 ], function(
     declare,
     array,
@@ -24,7 +25,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     format,
     ErrorManager,
     convert,
-    List
+    List,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List], {
@@ -41,7 +43,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         allDayText: 'All-Day',
         eventText: 'Event',
         eventHeaderText: 'Events',
-        countMoreText: 'View ${0} More',
+        countMoreText: 'View More',
         activityHeaderText: 'Activities',
         toggleCollapseText: 'toggle collapse',
 
@@ -439,7 +441,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 return;
             }
 
-            var r, row, i, dateIndex, startDay;
+            var r, row, i, dateIndex, startDay, isEvent;
 
             r = feed['$resources'];
             this.feed = feed;
@@ -476,7 +478,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 i,
                 row,
                 startDay,
-                endDay;
+                endDay,
+                isEvent;
 
             this.eventFeed = feed;
 
@@ -659,7 +662,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
             if (feed['$totalResults'] > feedLength) {
                 domClass.add(this.activityContainerNode, 'list-has-more');
-                this.set('activityRemainingContent', string.substitute(this.countMoreText, [feed['$totalResults'] - feedLength]));
+                this.set('activityRemainingContent', this.countMoreText);
             } else {
                 domClass.remove(this.activityContainerNode, 'list-has-more');
                 this.set('activityRemainingContent', '');
@@ -693,7 +696,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
             if (feed['$totalResults'] > feedLength) {
                 domClass.add(this.eventContainerNode, 'list-has-more');
-                this.set('eventRemainingContent', string.substitute(this.countMoreText, [feed['$totalResults'] - feedLength]));
+                this.set('eventRemainingContent', this.countMoreText);
             } else {
                 domClass.remove(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', '');

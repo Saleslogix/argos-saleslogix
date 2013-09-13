@@ -35,9 +35,14 @@ define('Mobile/SalesLogix/Views/Lead/List', [
                     '{%: $$.phoneAbbreviationText + Sage.Platform.Mobile.Format.phone($.WorkPhone) %}',
                 '</h4>',
             '{% } %}',
+            '{% if ($.Mobile) { %}',
+                '<h4>',
+                    '{%: $$.mobileAbbreviationText + Sage.Platform.Mobile.Format.phone($.Mobile) %}',
+                '</h4>',
+            '{% } %}',
             '{% if ($.TollFree) { %}',
                 '<h4>',
-                    '{%: $$.tollFreeAbbreviationText + Sage.Platform.Mobile.Format.phone($.tollFreeAbbreviationText) %}',
+                    '{%: $$.tollFreeAbbreviationText + Sage.Platform.Mobile.Format.phone($.TollFree) %}',
                 '</h4>',
             '{% } %}',
             '<h4>{%: $.WebAddress %}</h4>',
@@ -67,6 +72,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         addActivityActionText: 'Add Activity',
         addAttachmentActionText: 'Add Attachment',
         phoneAbbreviationText: 'Work: ',
+        mobileAbbreviationText: 'Mobile: ',
         tollFreeAbbreviationText: 'Toll Free: ',
 
         //View Properties      

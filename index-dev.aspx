@@ -122,6 +122,8 @@
     </script>
 </head>
 <body>
+    <!-- Run "grunt watch" to enable this script -->
+    <script src="http://localhost:35729/livereload.js"></script>
 </body>
 </html>
 

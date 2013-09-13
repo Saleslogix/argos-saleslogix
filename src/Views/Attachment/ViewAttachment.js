@@ -134,12 +134,12 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
              return this.tools || (this.tools = []);
         },
         _loadAttachmentView: function(entry) {
-            var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self;
+            var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self, iframe;
 
             am = new AttachmentManager();
 
-            if (entry.dataType === "R") {
-                description = entry.description; // + ' (' + entry.fileName + ')';
+            if (!entry.url) {
+                description = entry.description;
                 fileType = Utility.getFileExtension(entry.fileName);
                 isFile = true;
             } else {

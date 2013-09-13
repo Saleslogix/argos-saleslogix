@@ -50,6 +50,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             '</div>'
         ]),
         createChart: function (feedData) {
+            this.inherited(arguments);
+
             if (this.chart) {
                 this.chart.destroy(true);
             }

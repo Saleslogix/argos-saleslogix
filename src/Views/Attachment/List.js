@@ -9,7 +9,8 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/Convert',
     '../_RightDrawerListMixin',
-    '../_CardLayoutListMixin'
+    '../_CardLayoutListMixin',
+    'moment'
 ], function(
     declare,
     string,
@@ -18,7 +19,8 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     List,
     convert,
     _RightDrawerListMixin,
-    _CardLayoutListMixin
+    _CardLayoutListMixin,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
@@ -77,6 +79,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         querySelect:  [
             'description',
             'user',
+            'createUser',
             'attachDate',
             'fileSize',
             'fileName',
@@ -91,8 +94,8 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         queryInclude: ['$descriptors'],
 
         hashTagQueries: {
-            'url': 'dataType eq null',
-            'binary': 'dataType eq "R"'
+            'url': 'url ne null',
+            'binary': 'url eq null'
         },
         hashTagQueriesText: {
             'url': 'url',
