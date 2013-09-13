@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
     moment
 ) {
     return declare('Mobile.SalesLogix.Views.History.RelatedView', [RelatedViewWidget], {
-        
+        regardingText:'Regarding',
         id: 'relatedNotes',
         icon: 'content/images/icons/ContactProfile_48x48.png',
         title: 'Notes',
@@ -37,25 +37,21 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         listViewWhere: null,
         enabled: true,
         resourceKind: 'history',
-        select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes'],
+        select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],
         where:null ,
         sort: 'ModifyDate desc',
-        numberOfItems: 3,
+        pageSize: 3,
+        relatedItemIconTemplate: new Simplate([
+            '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.UserName) %}</div>'
+        ]),
         relatedItemTemplate: new Simplate([
-                 '<h4>By: {%: $.UserName %}</h4>',
-                 '<h4>',
-                 '{% if ($.Type === "atNote") { %}',
-                      '<strong>{%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %} </strong>',
-                 '{% } else { %}',
-                      '<strong>{%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</strong>',
-                  '{% } %}',
-                  '</h4>',
-                 '<h4>Regarding: {%: $.Description %}</h4>',
-                 '<div class="note-text-item">',
-                    '<div class="note-text-wrap">',
-                       '{%: $.Notes %}',
-                     '</div>',
-                  '</div>'
+            '<div class="header"> {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %} by {%: Mobile.SalesLogix.Format.formatByUser($.UserName) %}</div>',
+            '<h4>{%: $$.regardingText %} : {%: $.Description %}</h4>',
+            '<div class="note-text-item">',
+                '<div class="note-text-wrap">',
+                    '{%: $.Notes %}',
+                '</div>',
+            '</div>'
         ]),
         formatDate: function(date) {
             var startDate = moment(convert.toDateFromString(date)),
@@ -76,6 +72,5 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
 
             return '';
         }
-
     });
 });

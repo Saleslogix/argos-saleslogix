@@ -252,6 +252,54 @@ define('Mobile/SalesLogix/Format', [
         },
         userActivityStatus: function(val) {
             return Mobile.SalesLogix.Format.userActivityFormats[val];
+        },
+        /**
+         * Takes a string input and converts name to First amd Last initials 
+         * `Lee Hogan` -> `LH`
+         * @param val
+         * @returns {String}
+         */
+        formatUserInitial: function(user) {
+            var firstLast = this.resolveFirstLast(user),
+                initials = [firstLast[0].substr(0, 1)];
+
+            if (firstLast[1]) {
+                initials.push(firstLast[1].substr(0, 1));
+            }
+
+            return initials.join('').toUpperCase();
+        },
+        /**
+        * Takes a string input and the user name to First amd Last name 
+        * `Hogan, Lee` -> `Lee Hogan`
+        * @param val
+        * @returns {String}
+        */
+        formatByUser: function(user) {
+            var name = this.resolveFirstLast(user);
+            return name.join(' ');
+        },
+        /**
+       * Takes a string input and the user name to First amd Last name 
+       * `Hogan, Lee` -> `Lee Hogan`
+       * @param val
+       * @returns {String}
+       */
+        resolveFirstLast: function(name) {
+            var firstLast = [];
+            if (name.indexOf(' ') !== -1) {
+                var names = name.split(' ');
+                if (names[0].indexOf(',') !== -1) {
+                    firstLast = [names[1], names[0].slice(0, -1)];
+                }
+                else {
+                    firstLast = [names[0], names[1]];
+                }
+            }
+            else {
+                firstLast = [name];
+            }
+            return firstLast;
         }
     }));
 });
