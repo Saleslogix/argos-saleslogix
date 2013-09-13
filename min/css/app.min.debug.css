@@ -1365,3 +1365,16 @@ td.entry-table-description {
   font-size: 16px;
   font-weight: bold;
 }
+.user-icon {
+  position: relative;
+  border: 1px solid #A7A7A7;
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  text-align: center;
+  background: #F7F7F7;
+  background: -webkit-linear-gradient(top, #ffffff 0%, #f7f7f7 37%, #ededed 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #f7f7f7 37%, #ededed 100%);
+  border-radius: 3px;
+  text-shadow: 0px 1px 0px #fff;
+}

@@ -9,7 +9,9 @@ define('Mobile/SalesLogix/ApplicationModule', [
     
     'Sage/Platform/Mobile/ApplicationModule',
     'Sage/Platform/Mobile/Calendar',
+    'Sage/Platform/Mobile/RelatedViewManager',
     'Sage/Platform/Mobile/RelatedViewWidget',
+
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/Views/Signature',
     'Sage/Platform/Mobile/SearchWidget',
@@ -118,6 +120,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     win,
     ApplicationModule,
     Calendar,
+    RelatedViewManager,
     RelatedViewWidget,
     List,
     Signature,

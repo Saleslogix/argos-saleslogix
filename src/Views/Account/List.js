@@ -173,8 +173,9 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 id: 'account_relatedNotes',
                 autoLoad:true,
                 enabled: true,
-                listViewWhere: function(entry) { return "AccountId eq '" + entry.$key + "'"; },
-                where: function(entry) { return "AccountId eq '" + entry.$key + "'"; }
+                relatedProperty:'AccountId',
+                listViewWhere: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; },
+                where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
             }]);
         }
     });
