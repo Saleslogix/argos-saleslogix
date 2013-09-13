@@ -15,7 +15,8 @@ define('Mobile/SalesLogix/Views/History/List', [
     'Sage/Platform/Mobile/List',
     '../_RightDrawerListMixin',
     '../_MetricListMixin',
-    '../_CardLayoutListMixin'
+    '../_CardLayoutListMixin',
+    'moment'
 ], function(
     declare,
     array,
@@ -30,7 +31,8 @@ define('Mobile/SalesLogix/Views/History/List', [
     List,
     _RightDrawerListMixin,
     _MetricListMixin,
-    _CardLayoutListMixin
+    _CardLayoutListMixin,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {

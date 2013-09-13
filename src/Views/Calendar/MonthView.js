@@ -12,7 +12,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'moment'
 ], function(
     declare,
     array,
@@ -24,7 +25,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     format,
     ErrorManager,
     convert,
-    List
+    List,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List], {
@@ -439,7 +441,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 return;
             }
 
-            var r, row, i, dateIndex, startDay;
+            var r, row, i, dateIndex, startDay, isEvent;
 
             r = feed['$resources'];
             this.feed = feed;
@@ -476,7 +478,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 i,
                 row,
                 startDay,
-                endDay;
+                endDay,
+                isEvent;
 
             this.eventFeed = feed;
 

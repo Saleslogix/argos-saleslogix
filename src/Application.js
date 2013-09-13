@@ -201,7 +201,7 @@ define('Mobile/SalesLogix/Application', [
             return results;
         },
         getCurrentOpportunityExchangeRate: function() {
-            var rate, found, results = {code: '', rate: 1};
+            var rate, found, results = {code: '', rate: 1}, code;
 
             found = this.queryNavigationContext(function(o) {
                 return (/^(opportunities)$/).test(o.resourceKind) && o.key;

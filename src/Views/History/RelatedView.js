@@ -18,12 +18,14 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/RelatedViewWidget'
+    'Sage/Platform/Mobile/RelatedViewWidget',
+    'moment'
 ], function(
     declare,
     format,
     convert,
-    RelatedViewWidget
+    RelatedViewWidget,
+    moment
 ) {
     return declare('Mobile.SalesLogix.Views.History.RelatedView', [RelatedViewWidget], {
         

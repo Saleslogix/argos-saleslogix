@@ -306,15 +306,20 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         processFeed: function(feed) {
             this.feed = feed;
 
+            var todayNode = this.addTodayDom(),
+                entryGroups = this.entryGroups,
+                entryOrder = [],
+                dateCompareString = 'YYYY-MM-DD',
+                o = [],
+                i, 
+                currentEntry,
+                entryOrderLength,
+                remaining,
+                startDate;
+
             if (this.feed['$totalResults'] === 0) {
                 query(this.contentNode).append(this.noDataTemplate.apply(this));
             } else if (feed['$resources']) {
-                var todayNode = this.addTodayDom(),
-                    entryGroups = this.entryGroups,
-                    entryOrder = [],
-                    dateCompareString = 'YYYY-MM-DD',
-                    o = [],
-                    i;
 
                 if (todayNode && !entryGroups[this.todayDate.format(dateCompareString)]) {
                     entryGroups[this.todayDate.format(dateCompareString)] = [todayNode];

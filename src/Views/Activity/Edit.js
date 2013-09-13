@@ -11,7 +11,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit',
-    'Mobile/SalesLogix/Recurrence'
+    'Mobile/SalesLogix/Recurrence',
+    'moment'
 ], function(
     declare,
     connect,
@@ -22,7 +23,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     validator,
     utility,
     Edit,
-    recur
+    recur,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit], {
@@ -428,8 +430,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onRecurrenceChange: function(value, field) {
             // did the StartDate change on the recurrence_edit screen?
-            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate']);
-            currentDate = this.fields['StartDate'].getValue();
+            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate']),
+                currentDate = this.fields['StartDate'].getValue();
+
             if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth()) {
                 this.fields['StartDate'].setValue(startDate);
             }
