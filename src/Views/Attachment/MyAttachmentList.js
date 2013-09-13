@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Attachment/MyAttachmentList', [
         titleText: 'My Attachments',
        // queryInclude: [],
         queryWhere: function() {
-            return string.substitute('user eq "${0}"', [App.context['user'].$key]);
+            return string.substitute('createUser eq "${0}"', [App.context['user'].$key]);
        }
     });
 });

@@ -79,6 +79,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         querySelect:  [
             'description',
             'user',
+            'createUser',
             'attachDate',
             'fileSize',
             'fileName',
@@ -93,8 +94,8 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         queryInclude: ['$descriptors'],
 
         hashTagQueries: {
-            'url': 'dataType eq null',
-            'binary': 'dataType eq "R"'
+            'url': 'url ne null',
+            'binary': 'url eq null'
         },
         hashTagQueriesText: {
             'url': 'url',
