@@ -21,7 +21,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         //Localization
         hashTagsSectionText: 'Hash Tags',
         kpiSectionText: 'KPI',
-        configureText: 'Configure',
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
 
@@ -163,12 +162,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                             }
                         });
                     }
-                });
-
-                kpiSection.children.unshift({
-                    'name': 'configureKPI',
-                    'action': 'navigateToConfigurationView',
-                    'title': this.configureText
                 });
 
                 layout.push(kpiSection);

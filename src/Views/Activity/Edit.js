@@ -11,7 +11,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit',
-    'Mobile/SalesLogix/Recurrence'
+    'Mobile/SalesLogix/Recurrence',
+    'moment'
 ], function(
     declare,
     connect,
@@ -22,7 +23,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     validator,
     utility,
     Edit,
-    recur
+    recur,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit], {
@@ -64,6 +66,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         isLeadText: 'for lead',
         yesText: 'YES',
         noText: 'NO',
+        phoneText: 'phone',
+
         updateUserActErrorText: 'An error occured updating user activities.',
         reminderValueText: {
             0: 'none',
@@ -170,6 +174,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
             this.connect(this.fields['Contact'], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Contact'], 'onChange', this.onContactChange);
             this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
             this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);
@@ -352,7 +357,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.fields['UserId'].setValue(userId && userId['$key']);
         },
         onAccountChange: function(value, field) {
-            var fields = this.fields;
+            var fields, entry, phoneField;
+
+            fields = this.fields;
             array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
                 if (value) {
                     fields[f].dependsOn = 'Account';
@@ -369,6 +376,22 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     fields[f].where = 'Account.AccountName ne null';
                 }
             });
+
+            entry = field.currentSelection;
+            if (entry && entry.MainPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.MainPhone);
+            }
+        },
+        onContactChange: function(value, field) {
+            var entry, phoneField;
+
+            entry = field.currentSelection;
+
+            if (entry && entry.WorkPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.WorkPhone);
+            }
         },
         onAccountDependentChange: function(value, field) {
             if (value && !field.dependsOn && field.currentSelection && field.currentSelection['Account']) {
@@ -407,8 +430,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onRecurrenceChange: function(value, field) {
             // did the StartDate change on the recurrence_edit screen?
-            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate']);
-            currentDate = this.fields['StartDate'].getValue();
+            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate']),
+                currentDate = this.fields['StartDate'].getValue();
+
             if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth()) {
                 this.fields['StartDate'].setValue(startDate);
             }
@@ -551,6 +575,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
 
             var accountField = this.fields['Account'];
+            accountField.setSelection(entry);
             accountField.setValue({
                 'AccountId': entry['$key'],
                 'AccountName': entry['$descriptor']
@@ -558,25 +583,35 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.onAccountChange(accountField.getValue(), accountField);
         },
         applyContactContext: function(context) {
-            var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry) || context;
+            var view, entry, contactField, accountField, phoneField;
+
+            view = App.getView(context.id);
+            entry = context.entry || (view && view.entry) || context;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var contactField = this.fields['Contact'];
+            contactField = this.fields['Contact'];
+
+            contactField.setSelection(entry);
             contactField.setValue({
                 'ContactId': entry['$key'],
                 'ContactName': entry['$descriptor']
             });
+
             this.onAccountDependentChange(contactField.getValue(), contactField);
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             accountField.setValue({
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
+
+            if (entry.WorkPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.WorkPhone);
+            }
         },
         applyTicketContext: function(context) {
             var view = App.getView(context.id),
@@ -587,6 +622,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
 
             var ticketField = this.fields['Ticket'];
+            ticketField.setSelection(entry);
             ticketField.setValue({
                 'TicketId': entry['$key'],
                 'TicketNumber': entry['$descriptor']
@@ -615,6 +651,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
 
             var opportunityField = this.fields['Opportunity'];
+            opportunityField.setSelection(entry);
             opportunityField.setValue({
                 'OpportunityId': entry['$key'],
                 'OpportunityName': entry['$descriptor']
@@ -636,6 +673,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
 
             var leadField = this.fields['Lead'];
+            leadField.setSelection(entry);
             leadField.setValue({
                 'LeadId': entry['$key'],
                 'LeadName': entry['$descriptor']
@@ -1008,7 +1046,15 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     name: 'AccountName',
                     property: 'AccountName',
                     type: 'text'
-                }]);
+                }, {
+                    name: 'PhoneNumber',
+                    property: 'PhoneNumber',
+                    label: this.phoneText,
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: validator.exceedsMaxTextLength
+                }
+            ]);
         }
     });
 });

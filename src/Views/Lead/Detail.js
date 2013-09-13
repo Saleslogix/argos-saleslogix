@@ -41,8 +41,9 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
         sicCodeText: 'sic code',
         titleText: 'Lead',
         tollFreeText: 'toll free',
+        mobileText: 'mobile phone',
         webText: 'web',
-        workText: 'phone',
+        workText: 'work phone',
         actionsText: 'Quick Actions',
         callWorkNumberText: 'Call main number',
         scheduleActivityText: 'Schedule activity',
@@ -74,6 +75,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
             'LeadNameLastFirst',
             'LeadSource/Description',
             'MiddleName',
+            'Mobile',
             'Notes',
             'Owner/OwnerDescription',
             'Prefix',
@@ -231,6 +233,16 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                             label: this.leadTitleText,
                             name: 'Title',
                             property: 'Title'
+                        }, {
+                            label: this.workText,
+                            name: 'WorkPhone',
+                            property: 'WorkPhone',
+                            renderer: format.phone
+                        }, {
+                            label: this.mobileText,
+                            name: 'Mobile',
+                            property: 'Mobile',
+                            renderer: format.phone
                         }, {
                             label: this.tollFreeText,
                             name: 'TollFree',

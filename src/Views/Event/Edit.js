@@ -5,12 +5,14 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'moment'
 ], function(
     declare,
     format,
     validator,
-    Edit
+    Edit,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Event.Edit', [Edit], {

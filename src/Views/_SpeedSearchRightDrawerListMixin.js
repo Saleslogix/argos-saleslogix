@@ -82,7 +82,7 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
         _onSearchExpression: function() {
             // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
             this.inherited(arguments);
-            this.toggleRightDrawer();
+            App.snapper.close();
         },
         _createActions: function() {
             // These actions will get mixed into the right drawer view.

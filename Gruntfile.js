@@ -42,22 +42,23 @@ module.exports = function(grunt) {
                 }
             }
         },
-        cssmin: {
-            combine: {
-                files: {
-                    'min/css/app.min.css': ['content/css/toggle.css', 'content/css/app.css']
-                }
-            }
-        },
-        csslint: {
+        watch: {
             options: {
-                csslintrc: '.csslintrc',
-                formatters: [
-                    { id: 'junit-xml', dest: 'report/junit.xml' }
-                ]
+                livereload: true
             },
-            lax: {
-                src: ['content/**/*.css']
+            scripts: {
+                files: ['src/**/*.js', 'configuration/**/*.js', '../../argos-sdk/src/**/*.js'],
+                tasks: ['jshint'],
+                options: {
+                    spawn: false
+                }
+            },
+            less: {
+                files: ['content/**/*.less'],
+                tasks: ['less'],
+                options: {
+                    spawn: false
+                }
             }
         }
     });
@@ -66,8 +67,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('test', ['connect', 'jasmine']);
     grunt.registerTask('default', ['test', 'cssmin']);

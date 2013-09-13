@@ -120,7 +120,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
             });
         },
         createLayout: function() {
-            var layout, details, multiCurrency;
+            var layout, details, multiCurrency, extendedPrice, adjustedPrice;
             layout = this.layout || (this.layout = []);
 
             if (layout.length > 0) {
@@ -206,9 +206,9 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
                         renderer: (function(val) {
                             var exchangeRate, convertedValue;
                             if (App.hasMultiCurrency()) {
-                                exhangeRate = App.getBaseExchangeRate();
-                                convertedValue = val * exhangeRate.rate;
-                                return format.multiCurrency.call(null, convertedValue, exhangeRate.code);
+                                exchangeRate = App.getBaseExchangeRate();
+                                convertedValue = val * exchangeRate.rate;
+                                return format.multiCurrency.call(null, convertedValue, exchangeRate.code);
                             }
 
                             return format.currency.call(null, val);

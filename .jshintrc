@@ -2,6 +2,17 @@
     "sub": true,
     "browser": true,
     "dojo": true,
+    "devel": true,
+    "nonstandard": true,
     "laxbreak": true,
-    "loopfunc": true
+    "loopfunc": true,
+    "undef": true,
+    "globals": {
+        "App": false,
+        "Simplate": false,
+        "Sage": false,
+        "ReUI": false,
+        "Mobile": false,
+        "Base64": false
+    }
 }

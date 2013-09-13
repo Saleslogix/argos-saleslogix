@@ -48,6 +48,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             '</div>'
         ]),
         createChart: function (feedData) {
+            this.inherited(arguments);
+
             var labels, box, searchExpressionHeight;
 
             if (this.chart) {

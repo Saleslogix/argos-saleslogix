@@ -99,6 +99,11 @@ define('Mobile/SalesLogix/Application', [
                 this._connects.push(connect.connect(window.applicationCache, 'updateready', this, this._checkForUpdate));
             }
         },
+        onSetOrientation: function(value) {
+            if (App.snapper) {
+                App.snapper.close();
+            }
+        },
         _viewTransitionTo: function(view) {
             this.inherited(arguments);
             this._checkSaveNavigationState();
@@ -196,7 +201,7 @@ define('Mobile/SalesLogix/Application', [
             return results;
         },
         getCurrentOpportunityExchangeRate: function() {
-            var rate, found, results = {code: '', rate: 1};
+            var rate, found, results = {code: '', rate: 1}, code;
 
             found = this.queryNavigationContext(function(o) {
                 return (/^(opportunities)$/).test(o.resourceKind) && o.key;
