@@ -47,7 +47,7 @@ module.exports = function(grunt) {
                 livereload: true
             },
             scripts: {
-                files: ['src/**/*.js', '../../argos-sdk/src/**/*.js'],
+                files: ['src/**/*.js', 'configuration/**/*.js', '../../argos-sdk/src/**/*.js'],
                 tasks: ['jshint'],
                 options: {
                     spawn: false
