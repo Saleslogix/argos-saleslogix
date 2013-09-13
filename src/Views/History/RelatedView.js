@@ -40,7 +40,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         sort: 'ModifyDate desc',
         pageSize: 3,
         relatedItemIconTemplate: new Simplate([
-            '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.UserName) %}</div>',
+            '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.UserName) %}</div>'
         ]),
         relatedItemTemplate: new Simplate([
             '<div class="header"> {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %} by {%: Mobile.SalesLogix.Format.formatByUser($.UserName) %}</div>',
@@ -49,7 +49,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
                 '<div class="note-text-wrap">',
                     '{%: $.Notes %}',
                 '</div>',
-            '</div>',
+            '</div>'
         ]),
         formatDate: function(date) {
             var startDate = moment(convert.toDateFromString(date)),
