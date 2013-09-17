@@ -176,7 +176,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                 id: 'contact_relatedNotes',
                 autoLoad:true,
                 enabled: true,
-                listViewWhere: function(entry) { return "ContactId eq '" + entry.$key + "'"; },
+                relatedProperty: 'ContactId',
                 where: function(entry) { return "ContactId eq '" + entry.$key + "'"; }
             }]);
         }

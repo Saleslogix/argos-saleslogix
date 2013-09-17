@@ -7,6 +7,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
+    'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
@@ -17,6 +18,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     action,
     format,
     utility,
+    HistoryRelatedView,
     List,
     _MetricListMixin,
     _RightDrawerListMixin,
@@ -162,6 +164,16 @@ define('Mobile/SalesLogix/Views/Lead/List', [
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createRelatedViewLayout: function() {
+            return this.relatedViews || (this.relatedViews = [{
+                widgetType: HistoryRelatedView,
+                id: 'lead_relatedNotes',
+                autoLoad: true,
+                enabled: true,
+                relatedProperty: 'LeadId',
+                where: function(entry) { return "LeadId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
+            }]);
         }
     });
 });
