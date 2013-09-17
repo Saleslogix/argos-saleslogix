@@ -58,11 +58,13 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         security: 'Entities/Ticket/View',
         querySelect: [
             'Account/AccountName',
+            'Account/MainPhone',
             'Area',
             'AssignedDate',
             'AssignedTo/OwnerDescription',
             'Category',
             'Contact/NameLF',
+            'Contact/WorkPhone',
             'Contract/ReferenceNumber',
             'Issue',
             'NeededByDate',
