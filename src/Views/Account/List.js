@@ -10,6 +10,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Views/History/RelatedView',
+    'Sage/Platform/Mobile/RelatedViewWidget',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
@@ -23,6 +24,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     utility,
     Convert,
     HistoryRelatedView,
+    RelatedViewWidget,
     List,
     _MetricListMixin,
     _CardLayoutListMixin,
@@ -174,7 +176,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 autoLoad:true,
                 enabled: true,
                 relatedProperty:'AccountId',
-                listViewWhere: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; },
                 where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
             }]);
         }

@@ -8,6 +8,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Format',
+    'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
@@ -19,6 +20,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     action,
     format,
     platformFormat,
+    HistoryRelatedView,
     List,
     _MetricListMixin,
     _RightDrawerListMixin,
@@ -201,6 +203,16 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createRelatedViewLayout: function() {
+            return this.relatedViews || (this.relatedViews = [{
+                widgetType: HistoryRelatedView,
+                id: 'opp_relatedNotes',
+                autoLoad: true,
+                enabled: true,
+                relatedProperty: 'OpportunityId',
+                where: function(entry) { return "OpportunityId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
+            }]);
         }
     });
 });
