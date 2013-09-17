@@ -392,6 +392,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onContactChange: function(value, field) {
+            this.onAccountDependentChange(value, field);
+
             var entry, phoneField;
 
             entry = field.currentSelection;
@@ -400,10 +402,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 phoneField = this.fields['PhoneNumber'];
                 phoneField.setValue(entry.WorkPhone);
             }
-
-            this.onAccountDependentChange(value, field);
         },
         onOpportunityChange: function(value, field) {
+            this.onAccountDependentChange(value, field);
+
             var entry, phoneField;
 
             entry = field.currentSelection;
@@ -412,10 +414,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 phoneField = this.fields['PhoneNumber'];
                 phoneField.setValue(entry.Account.MainPhone);
             }
-
-            this.onAccountDependentChange(value, field);
         },
         onTicketChange: function(value, field) {
+            this.onAccountDependentChange(value, field);
+
             var entry, phoneField, phone;
 
             entry = field.currentSelection;
@@ -424,8 +426,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 phoneField = this.fields['PhoneNumber'];
                 phoneField.setValue(phone);
             }
-
-            this.onAccountDependentChange(value, field);
         },
         onAccountDependentChange: function(value, field) {
             if (value && !field.dependsOn && field.currentSelection && field.currentSelection['Account']) {
@@ -582,6 +582,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
                 return false;
             });
+
+            var accountField = this.fields['Account'];
+            this.onAccountChange(accountField.getValue(), accountField);
+
             var context = (found && found.options && found.options.source) || found,
                 lookup = {
                     'accounts': this.applyAccountContext,
@@ -596,9 +600,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (context && lookup[context.resourceKind]) {
                 lookup[context.resourceKind].call(this, context);
             }
-
-            var accountField = this.fields['Account'];
-            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
