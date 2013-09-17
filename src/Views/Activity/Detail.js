@@ -76,6 +76,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         relatedAttachmentText: 'Attachments',
         relatedAttachmentTitleText: 'Activity Attachments',
         relatedItemsText:'Related Items',
+        phoneText: 'phone',
 
         //View Properties
         id: 'activity_detail',
@@ -101,6 +102,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             'LongNotes',
             'OpportunityId',
             'OpportunityName',
+            'PhoneNumber',
             'Priority',
             'Rollover',
             'StartDate',
@@ -357,6 +359,11 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'LongNotes',
                             property: 'LongNotes',
                             label: this.longNotesText
+                        }, {
+                            name: 'PhoneNumber',
+                            property: 'PhoneNumber',
+                            label: this.phoneText,
+                            renderer: format.phone.bindDelegate(this, false)
                         }]
                 }, {
                     title: this.whenText,
