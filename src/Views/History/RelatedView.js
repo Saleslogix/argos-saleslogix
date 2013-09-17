@@ -28,7 +28,8 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
     moment
 ) {
     return declare('Mobile.SalesLogix.Views.History.RelatedView', [RelatedViewWidget], {
-        regardingText:'Regarding',
+        regardingText: 'Regarding',
+        byText: 'by',
         id: 'relatedNotes',
         icon: 'content/images/icons/ContactProfile_48x48.png',
         title: 'Notes',
@@ -45,32 +46,14 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
             '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.UserName) %}</div>'
         ]),
         relatedItemTemplate: new Simplate([
-            '<div class="header"> {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %} by {%: Mobile.SalesLogix.Format.formatByUser($.UserName) %}</div>',
+            '<div class="item-header"> {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %} {%: $$.byText %} {%: Mobile.SalesLogix.Format.formatByUser($.UserName) %}</div>',
             '<h4>{%: $$.regardingText %} : {%: $.Description %}</h4>',
             '<div class="note-text-item">',
                 '<div class="note-text-wrap">',
                     '{%: $.Notes %}',
                 '</div>',
             '</div>'
-        ]),
-        formatDate: function(date) {
-            var startDate = moment(convert.toDateFromString(date)),
-                nextDate = startDate.clone().add({ hours: 24 }),
-                fmt = this.dateFormatText;
-
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
-                fmt = this.hourMinuteFormatText;
-
-            return format.date(startDate.toDate(), fmt);
-        },
-        formatMeridiem: function(date) {
-            var startDate = moment(convert.toDateFromString(date)),
-                nextDate = startDate.clone().add({ hours: 24 });
-
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
-                return format.date(startDate.toDate(), 'A');
-
-            return '';
-        }
+        ])
+        
     });
 });

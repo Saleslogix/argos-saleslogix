@@ -1367,14 +1367,12 @@ td.entry-table-description {
 }
 .user-icon {
   position: relative;
-  border: 1px solid #A7A7A7;
-  height: 32px;
-  width: 32px;
-  line-height: 32px;
+  border: 1px solid #585d58;
+  height: 28px;
+  width: 28px;
+  line-height: 28px;
   text-align: center;
-  background: #F7F7F7;
-  background: -webkit-linear-gradient(top, #ffffff 0%, #f7f7f7 37%, #ededed 100%);
-  background: linear-gradient(to bottom, #ffffff 0%, #f7f7f7 37%, #ededed 100%);
-  border-radius: 3px;
+  background: #fafafa;
   text-shadow: 0px 1px 0px #fff;
+  font-size: 0.8em;
 }
