@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
 ) {
     return declare('Mobile.SalesLogix.Views.History.RelatedView', [RelatedViewWidget], {
         regardingText: 'Regarding',
-        byText: 'by',
+        byText: 'wrote ',
         id: 'relatedNotes',
         icon: 'content/images/icons/ContactProfile_48x48.png',
         title: 'Notes',
@@ -45,15 +45,22 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         relatedItemIconTemplate: new Simplate([
             '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.UserName) %}</div>'
         ]),
-        relatedItemTemplate: new Simplate([
-            '<div class="item-header"> {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %} {%: $$.byText %} {%: Mobile.SalesLogix.Format.formatByUser($.UserName) %}</div>',
-            '<h4>{%: $$.regardingText %} : {%: $.Description %}</h4>',
+        relatedItemHeaderTemplate: new Simplate([
+           '<h4 ><strong>{%: $$.getDescription($) %} - </strong>',
+           '{%: Mobile.SalesLogix.Format.formatByUser($.UserName) %} {%: $$.byText %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</h4>'
+        ]),
+        relatedItemDetailTemplate: new Simplate([
             '<div class="note-text-item">',
-                '<div class="note-text-wrap">',
+               '<div class="note-text-wrap">',
                     '{%: $.Notes %}',
-                '</div>',
+               '</div>',
             '</div>'
-        ])
-        
+        ]),
+        xrelatedItemFooterTemplate: new Simplate([
+            'footer'
+        ]),
+        getDescription: function(entry) {
+            return (entry.Description)? entry.Description : entry.$descriptor;
+        }
     });
 });
