@@ -8,7 +8,7 @@ define('Mobile/SalesLogix/Aggregate', [
     lang,
     array
 ) {
-    return lang.setObject('Mobile.SalesLogix.Aggregate', lang.mixin({}, {
+    var results = lang.setObject('Mobile.SalesLogix.Aggregate', {
         avg: function(data) {
             var aggr = Mobile.SalesLogix.Aggregate, results;
             results = aggr.sum(data) / aggr.count(data);
@@ -47,5 +47,8 @@ define('Mobile/SalesLogix/Aggregate', [
 
             return total;
         }
-    }));
+    });
+
+    return results;
 });
+

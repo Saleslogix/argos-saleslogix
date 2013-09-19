@@ -945,7 +945,6 @@ td.entry-table-description {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: #000;
-  text-shadow: #fff 0px 1px 0px;
   position: absolute;
   z-index: 0;
 }

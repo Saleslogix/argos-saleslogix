@@ -82,11 +82,13 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         queryOrderBy: 'TicketNumber',
         querySelect: [
             'Account/AccountName',
+            'Account/MainPhone',
             'Area',
             'Category',
             'Issue',
             'AssignedTo/OwnerDescription',
             'Contact/NameLF',
+            'Contact/WorkPhone',
             'ReceivedDate',
             'StatusCode',
             'Subject',
