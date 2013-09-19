@@ -37,6 +37,12 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         listViewId: 'history_list',
         listViewWhere: null,
         enabled: true,
+        showTab: false,
+        showTitle: false,
+        showRefresh: false,
+        showNavToList: false,
+        showTotalInTab: false,
+        hideWhenNoData: true,
         resourceKind: 'history',
         select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],
         where:null ,
@@ -46,18 +52,15 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
             '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.UserName) %}</div>'
         ]),
         relatedItemHeaderTemplate: new Simplate([
-           '<h4 ><strong>{%: $$.getDescription($) %} - </strong>',
-           '{%: Mobile.SalesLogix.Format.formatByUser($.UserName) %} {%: $$.byText %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</h4>'
+           '<h4 ><strong>{%: $$.getDescription($) %} </strong></h4>',
+           '<h4>{%: Mobile.SalesLogix.Format.formatByUser($.UserName) %} {%: $$.byText %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</h4>'
         ]),
         relatedItemDetailTemplate: new Simplate([
-            '<div class="note-text-item">',
+           // '<div class="note-text-item">',
                '<div class="note-text-wrap">',
-                    '{%: $.Notes %}',
-               '</div>',
-            '</div>'
-        ]),
-        xrelatedItemFooterTemplate: new Simplate([
-            'footer'
+                '<h4>{%: $.Notes %}</h4>',
+              '</div>'
+           // '</div>'
         ]),
         getDescription: function(entry) {
             return (entry.Description)? entry.Description : entry.$descriptor;
