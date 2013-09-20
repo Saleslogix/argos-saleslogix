@@ -31,16 +31,14 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         regardingText: 'Regarding',
         byText: 'wrote ',
         id: 'relatedNotes',
-        icon: 'content/images/icons/ContactProfile_48x48.png',
+        icon: 'content/images/icons/journal_24.png',
         title: 'Notes',
         detailViewId: 'history_detail',
         listViewId: 'history_list',
         listViewWhere: null,
         enabled: true,
         showTab: false,
-        showTitle: false,
-        showRefresh: false,
-        showNavToList: false,
+        enableActions: false,
         showTotalInTab: false,
         hideWhenNoData: true,
         resourceKind: 'history',
@@ -56,11 +54,9 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
            '<h4>{%: Mobile.SalesLogix.Format.formatByUser($.UserName) %} {%: $$.byText %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</h4>'
         ]),
         relatedItemDetailTemplate: new Simplate([
-           // '<div class="note-text-item">',
                '<div class="note-text-wrap">',
                 '<h4>{%: $.Notes %}</h4>',
               '</div>'
-           // '</div>'
         ]),
         getDescription: function(entry) {
             return (entry.Description)? entry.Description : entry.$descriptor;
