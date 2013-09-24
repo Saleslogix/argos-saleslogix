@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Fields/AddressField', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/Fields/EditorField',

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Lead/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',
@@ -34,7 +37,8 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
         titleTitleText: 'Title',
         tollFreeText: 'toll free',
         webText: 'web',
-        workText: 'phone',
+        workText: 'work phone',
+        mobileText: 'mobile phone',
 
         //View Properties
         entityName: 'Lead',
@@ -53,6 +57,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
             'LeadNameLastFirst',
             'LeadSource/Description',
             'MiddleName',
+            'Mobile',
             'Notes',
             'Prefix',
             'SICCode',
@@ -102,6 +107,22 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
                     validator: validator.exceedsMaxTextLength
                 },
                 {
+                    label: this.mobileText,
+                    name: 'Mobile',
+                    property: 'Mobile',
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: validator.exceedsMaxTextLength
+                },
+                {
+                    label: this.tollFreeText,
+                    name: 'TollFree',
+                    property: 'TollFree',
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: validator.exceedsMaxTextLength
+                },
+                {
                     label: this.emailText,
                     name: 'Email',
                     property: 'Email',
@@ -127,14 +148,6 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
                     property: 'Address',
                     type: 'address',
                     view: 'address_edit'
-                },
-                {
-                    label: this.tollFreeText,
-                    name: 'TollFree',
-                    property: 'TollFree',
-                    type: 'phone',
-                    maxTextLength: 32,
-                    validator: validator.exceedsMaxTextLength
                 },
                 {
                     label: this.importSourceText,

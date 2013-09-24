@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
     'dojo/_base/declare',
     'dojo/string',
@@ -32,19 +35,23 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
                 this.inherited(arguments);
                 fileItems = this.getFileItems();
                 var am = new AttachmentManager();
+
                 am.onSuccessUpdate = function() {
                     Environment.refreshAttachmentViews();
                     ReUI.back();
-                }
+                };
+
                 am.onFailedUpload = function(errorMessage) {
                     self.onUpdateFailed(errorMessage);
                     alert(errorMessage);
                     ReUI.back();
-                }
+                };
+
                 am.onUpdateProgress = function(percent) {
                     var msg = sdkFormat.percent(percent / 100);
                     self.onUpdateProgress(msg);
-                }
+                };
+
                 am.createAttachment(fileItems[0].file, {description: fileItems[0].description});
             }
         },

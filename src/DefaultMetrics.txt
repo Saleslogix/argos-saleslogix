@@ -1,0 +1,168 @@
+{
+  "accounts":[
+    {
+      "title":"Total Revenue",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"TotalRevenue"
+      },
+      "metricDisplayName":"Total Revenue",
+      "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
+      "enabled":false
+    },
+    {
+      "title":"Avg Time as Customer",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Type",
+        "_metricName":"AverageTimeAsCustomer"
+      },
+      "metricDisplayName":"Average Time as Customer",
+      "filterDisplayName":"Type",
+      "chartType":"pie",
+      "aggregate":"avg",
+      "formatter":"fixed",
+      "enabled":false
+    },
+    {
+      "title":"Total Accounts",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"CountAccounts"
+      },
+      "metricDisplayName":"Count Accounts",
+      "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
+      "enabled":false
+    }
+  ],
+  "opportunities":[
+    {
+      "title":"Total Opportunities",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"CountOpportunities"
+      },
+      "metricDisplayName":"Count Opportunities",
+      "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
+      "enabled":false
+    },
+    {
+      "title":"Sales Potential",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"SumSalesPotential"
+      },
+      "metricDisplayName":"Sum Sales Potential",
+      "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
+      "enabled":false
+    }
+  ],
+  "tickets":[
+    {
+      "title":"Total Tickets",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Category",
+        "_metricName":"TicketCount"
+      },
+      "metricDisplayName":"Ticket Count",
+      "filterDisplayName":"Category",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
+      "enabled":false
+    },
+    {
+      "title":"Open Age Average",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AssignedTo",
+        "_metricName":"OpenTicketAgingAverage"
+      },
+      "metricDisplayName":"Open Ticket Aging Average",
+      "filterDisplayName":"Assigned To",
+      "chartType":"bar",
+      "aggregate":"avg",
+      "formatter":"fixed",
+      "enabled":false
+    }
+  ],
+  "contacts":[
+    {
+      "title":"Total Contacts",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"AccountManager",
+        "_metricName":"CountContacts"
+      },
+      "metricDisplayName":"Count Contacts",
+      "filterDisplayName":"Account Manager",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
+      "enabled":true
+    }
+  ],
+  "leads":[
+    {
+      "title":"Total Leads",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Owner",
+        "_metricName":"CountLeads"
+      },
+      "metricDisplayName":"Count Leads",
+      "filterDisplayName":"Owner",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
+      "enabled":false
+    }
+  ],
+  "history":[
+    {
+      "title":"Total History",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Type",
+        "_metricName":"CountHistory"
+      },
+      "metricDisplayName":"Count History",
+      "filterDisplayName":"Type",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
+      "enabled":true
+    },
+    {
+      "title":"Total Duration",
+      "queryName":"executeMetric",
+      "queryArgs":{
+        "_filterName":"Type",
+        "_metricName":"TotalDuration"
+      },
+      "metricDisplayName":"Total Duration",
+      "filterDisplayName":"Type",
+      "chartType":"bar",
+      "aggregate":"sum",
+      "formatter":"bigNumber",
+      "enabled":true
+    }
+  ]
+}

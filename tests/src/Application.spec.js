@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('spec/Application.spec', [
        'Mobile/SalesLogix/Application',
        'configuration/development' // TODO: Should we add a test configuration?

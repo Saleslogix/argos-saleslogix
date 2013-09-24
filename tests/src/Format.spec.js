@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
     // Verify the the argos-saleslogix version of these work OK - SDK really contains the phone formatter.
     describe('Mobile/SalesLogix/Format', function() {
@@ -21,6 +24,21 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
 
             it('should format as html', function () {
                 expect(Format.address(addressFeed, false, ';', '')).toEqual('<a target="_blank" href="http://maps.google.com/maps?q=5555%20N%20Gainey%20Center%20Dr%20Suite%20200%20Scottsdale%2C%20AZ%2085032%20USA">5555 N Gainey Center Dr<br />Suite 200<br />Scottsdale, AZ 85032<br />USA</a>');
+            });
+        });
+
+        describe('bigNumber', function() {
+            it('should contain an B', function() {
+                expect(Format.bigNumber(9999999999)).toEqual('10.0B');
+            });
+
+            it('should contain an M', function() {
+                expect(Format.bigNumber(1000000)).toEqual('1.0M');
+            });
+
+            it('should contain a K', function() {
+                expect(Format.bigNumber(100000)).toEqual('100.0K');
+                expect(Format.bigNumber(999999)).toEqual('1,000.0K');
             });
         });
 

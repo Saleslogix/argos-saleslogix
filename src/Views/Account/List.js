@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Account/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -5,7 +8,13 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/Convert',
+    'Mobile/SalesLogix/Views/History/RelatedView',
+    'Sage/Platform/Mobile/RelatedViewWidget',
+    'Sage/Platform/Mobile/List',
+    '../_MetricListMixin',
+    '../_CardLayoutListMixin',
+    '../_RightDrawerListMixin'
 ], function(
     declare,
     array,
@@ -13,10 +22,16 @@ define('Mobile/SalesLogix/Views/Account/List', [
     action,
     format,
     utility,
-    List
+    Convert,
+    HistoryRelatedView,
+    RelatedViewWidget,
+    List,
+    _MetricListMixin,
+    _CardLayoutListMixin,
+    _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -52,6 +67,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
         viewContactsActionText: 'Contacts',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        addAttachmentActionText: 'Add Attachment',
         phoneAbbreviationText: 'Phone: ',
         faxAbbreviationText: 'Fax: ',
 
@@ -77,46 +93,91 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'Fax',
             'Status',
             'SubType',
-            'Type'
+            'Type',
+            'ModifyDate'
         ],
         resourceKind: 'accounts',
+        entityName: 'Account',
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
+        defaultSearchTerm: '#my-accounts',
+        hashTagQueries: {
+            'my-accounts': function() {
+                return 'AccountManager.Id eq "' + App.context.user.$key + '"';
+            },
+            'active': 'Status eq "Active"',
+            'inactive': 'Status eq "Inactive"',
+            'suspect': 'Type eq "Suspect"',
+            'lead': 'Type eq "Lead"',
+            'prospect': 'Type eq "Prospect"',
+            'customer': 'Type eq "Customer"',
+            'partner': 'Type eq "Partner"',
+            'vendor': 'Type eq "Vendor"',
+            'influencer': 'Type eq "Influencer"',
+            'competitor': 'Type eq "Competitor"'
+        },
+        hashTagQueriesText: {
+            'active': 'active',
+            'inactive': 'inactive',
+            'suspect': 'suspect',
+            'lead': 'lead',
+            'prospect': 'prospect',
+            'customer': 'customer',
+            'partner': 'partner',
+            'vendor': 'vendor',
+            'influencer': 'influencer',
+            'competitor': 'competitor'
+        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                        id: 'edit',
-                        icon: 'content/images/icons/edit_24.png',
-                        label: this.editActionText,
-                        action: 'navigateToEditView'
-                    }, {
-                        id: 'callMain',
-                        icon: 'content/images/icons/Call_24x24.png',
-                        label: this.callMainActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
-                        fn: action.callPhone.bindDelegate(this, 'MainPhone')
-                    }, {
-                        id: 'viewContacts',
-                        icon: 'content/images/icons/Contacts_24x24.png',
-                        label: this.viewContactsActionText,
-                        fn: this.navigateToRelatedView.bindDelegate(this, 'contact_related', 'Account.id eq "${0}"')
-                    }, {
-                        id: 'addNote',
-                        icon: 'content/images/icons/New_Note_24x24.png',
-                        label: this.addNoteActionText,
-                        fn: action.addNote.bindDelegate(this)
-                    }, {
-                        id: 'addActivity',
-                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                        label: this.addActivityActionText,
-                        fn: action.addActivity.bindDelegate(this)
-                    }]
+                id: 'edit',
+                icon: 'content/images/icons/edit_24.png',
+                label: this.editActionText,
+                action: 'navigateToEditView'
+            }, {
+                id: 'callMain',
+                icon: 'content/images/icons/Call_24x24.png',
+                label: this.callMainActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'MainPhone'),
+                fn: action.callPhone.bindDelegate(this, 'MainPhone')
+            }, {
+                id: 'viewContacts',
+                icon: 'content/images/icons/Contacts_24x24.png',
+                label: this.viewContactsActionText,
+                fn: this.navigateToRelatedView.bindDelegate(this, 'contact_related', 'Account.id eq "${0}"')
+            }, {
+                id: 'addNote',
+                icon: 'content/images/icons/New_Note_24x24.png',
+                label: this.addNoteActionText,
+                fn: action.addNote.bindDelegate(this)
+            }, {
+                id: 'addActivity',
+                icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                label: this.addActivityActionText,
+                fn: action.addActivity.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                icon: 'content/images/icons/Attachment_24.png',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]
+
             );
         },
-
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createRelatedViewLayout: function() {
+            return this.relatedViews || (this.relatedViews = [{
+                widgetType: HistoryRelatedView,
+                id: 'account_relatedNotes',
+                autoLoad:true,
+                enabled: true,
+                relatedProperty:'AccountId',
+                where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
+            }]);
         }
     });
 });

@@ -1,18 +1,23 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Account/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    '../_MetricDetailMixin'
 ], function(
     declare,
     string,
     format,
     template,
-    Detail
+    Detail,
+    _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail /*, _MetricDetailMixin*/], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
@@ -137,6 +142,49 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     insert: true
                 });
             }
+        },
+        createMetricWidgetsLayout: function (entry) {
+            return [{
+                    chartType: 'bar',
+                    formatter: 'bigNumber',
+                    title: 'Sales Potential',
+                    queryArgs: {
+                        _activeFilter: 'Account.Id eq "' + entry.$key + '" and Status eq "Open"',
+                        _filterName: 'Stage',
+                        _metricName: 'SumSalesPotential'
+                    },
+                    queryName: 'executeMetric',
+                    resourceKind: 'opportunities',
+                    aggregate: 'sum',
+                    valueType: 'Mobile/SalesLogix/Aggregate'
+                }, {
+                    chartType: 'bar',
+                    formatter: 'bigNumber',
+                    title: 'Total Opportunties',
+                    queryArgs: {
+                        _activeFilter: 'Account.Id eq "' + entry.$key + '"',
+                        _filterName: 'Stage',
+                        _metricName: 'CountOpportunities'
+                    },
+                    queryName: 'executeMetric',
+                    resourceKind: 'opportunities',
+                    aggregate: 'sum',
+                    valueType: 'Mobile/SalesLogix/Aggregate'
+                }, {
+                    chartType: 'bar',
+                    formatter: 'bigNumber',
+                    title: 'Total Tickets',
+                    queryArgs: {
+                        _activeFilter: 'Account.Id eq "' + entry.$key + '"',
+                        _filterName: 'AssignedTo',
+                        _metricName: 'TicketCount'
+                    },
+                    queryName: 'executeMetric',
+                    resourceKind: 'tickets',
+                    aggregate: 'sum',
+                    valueType: 'Mobile/SalesLogix/Aggregate'
+                }
+            ];
         },
         createLayout: function() {
             return this.layout || (this.layout = [{

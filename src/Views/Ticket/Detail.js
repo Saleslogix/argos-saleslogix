@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Ticket/Detail', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -23,6 +26,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         areaText: 'area',
         assignedDateText: 'assigned date',
         assignedToText: 'assigned to',
+        completedByText: 'completed by',
         categoryText: 'category',
         contactText: 'contact',
         contractText: 'contract',
@@ -54,11 +58,13 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
         security: 'Entities/Ticket/View',
         querySelect: [
             'Account/AccountName',
+            'Account/MainPhone',
             'Area',
             'AssignedDate',
             'AssignedTo/OwnerDescription',
             'Category',
             'Contact/NameLF',
+            'Contact/WorkPhone',
             'Contract/ReferenceNumber',
             'Issue',
             'NeededByDate',
@@ -71,7 +77,8 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
             'TicketProblem/Notes',
             'TicketSolution/Notes',
             'Urgency/Description',
-            'Urgency/UrgencyCode'
+            'Urgency/UrgencyCode',
+            'CompletedBy/OwnerDescription'
         ],
         resourceKind: 'tickets',
 
@@ -200,6 +207,10 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                             label: this.assignedToText,
                             name: 'AssignedTo.OwnerDescription',
                             property: 'AssignedTo.OwnerDescription'
+                        }, {
+                            label: this.completedByText,
+                            name: 'CompletedBy.OwnerDescription',
+                            property: 'CompletedBy.OwnerDescription'
                         }]
                 }, {
                     title: this.moreDetailsText,

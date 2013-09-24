@@ -17,15 +17,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
 
-    <title>SalesLogix</title>
+    <title>Saleslogix</title>
 
-    <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
+    <link rel="apple-touch-icon" href="content/images/touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="content/images/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="content/images/touch-icon-iphone-retina.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <link type="text/css" rel="stylesheet" href="content/reui/themes/sage-green/theme.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/base.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/app.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/themes/swiftpage/sdk.min.swiftpage.css" />
+    <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
     <!-- Dojo -->
     <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
@@ -35,8 +35,13 @@
         packages: [
             { name: 'dojo', location: 'content/dojo/dojo' },
             { name: 'dijit', location: 'content/dojo/dijit' },
-            { name: 'dojox', location: 'content/dojo/dojox' }
-        ]
+            { name: 'dojox', location: 'content/dojo/dojox' },
+            { name: 'configuration', location: 'configuration' },
+            { name: 'localization', location: 'localization' }
+        ],
+        paths: {
+            'Mobile/SalesLogix/DefaultMetrics.txt': 'content/javascript/DefaultMetrics.txt'
+        }
     });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
@@ -66,12 +71,13 @@
                 Enumerate("configuration", (file) => file.Name == "production.js")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
-        require([application].concat(configuration), function(application, configuration) {
+        require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization = <%= Serialize(
                 EnumerateLocalizations("localization")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
             require(localization.concat('dojo/domReady!'), function() {
+                moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
                 var instance = new application(configuration);
 
                 instance.activate();

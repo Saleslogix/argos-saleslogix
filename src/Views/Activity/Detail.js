@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Activity/Detail', [
     'dojo/_base/declare',
     'dojo/string',
@@ -10,8 +13,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'Sage/Platform/Mobile/Detail',
     'Mobile/SalesLogix/Recurrence',
     'Mobile/SalesLogix/Utility',
-     'Sage/Platform/Mobile/Utility',
-
+    'Sage/Platform/Mobile/Utility'
 ], function(
     declare,
     string,
@@ -66,14 +68,15 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         ticketNumberText: 'ticket',
         whenText: 'When',
         whoText: 'Who',
-        startDateFormatText: 'M/d/yyyy h:mm:ss tt',
-        timelessDateFormatText: 'M/d/yyyy',
-        alarmDateFormatText: 'M/d/yyyy h:mm:ss tt',
+        startDateFormatText: 'M/D/YYYY h:mm:ss A',
+        timelessDateFormatText: 'M/D/YYYY',
+        alarmDateFormatText: 'M/D/YYYY h:mm:ss A',
         recurrenceText: 'recurrence',
         confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',
         relatedAttachmentText: 'Attachments',
         relatedAttachmentTitleText: 'Activity Attachments',
         relatedItemsText:'Related Items',
+        phoneText: 'phone',
 
         //View Properties
         id: 'activity_detail',
@@ -99,6 +102,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             'LongNotes',
             'OpportunityId',
             'OpportunityName',
+            'PhoneNumber',
             'Priority',
             'Rollover',
             'StartDate',
@@ -355,6 +359,11 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'LongNotes',
                             property: 'LongNotes',
                             label: this.longNotesText
+                        }, {
+                            name: 'PhoneNumber',
+                            property: 'PhoneNumber',
+                            label: this.phoneText,
+                            renderer: format.phone.bindDelegate(this, false)
                         }]
                 }, {
                     title: this.whenText,

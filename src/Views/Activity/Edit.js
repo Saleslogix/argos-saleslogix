@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Activity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/connect',
@@ -8,7 +11,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit',
-    'Mobile/SalesLogix/Recurrence'
+    'Mobile/SalesLogix/Recurrence',
+    'moment'
 ], function(
     declare,
     connect,
@@ -19,7 +23,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     validator,
     utility,
     Edit,
-    recur
+    recur,
+    moment
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit], {
@@ -44,11 +49,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         regardingText: 'regarding',
         rolloverText: 'auto rollover',
         startingText: 'start time',
+        startingFormatText: 'M/D/YYYY h:mm A',
+        startingFormatTimelessText: 'M/D/YYYY',
         repeatsText: 'repeats',
         recurringText: 'recurring',
         recurringTitleText: 'Recurring',
-        startingFormatText: 'M/d/yyyy h:mm tt',
-        startingFormatTimelessText: 'M/d/yyyy',
         timelessText: 'timeless',
         titleText: 'Activity',
         typeText: 'type',
@@ -61,6 +66,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         isLeadText: 'for lead',
         yesText: 'YES',
         noText: 'NO',
+        phoneText: 'phone',
+
         updateUserActErrorText: 'An error occured updating user activities.',
         reminderValueText: {
             0: 'none',
@@ -137,6 +144,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             'LongNotes',
             'OpportunityId',
             'OpportunityName',
+            'PhoneNumber',
             'Priority',
             'Regarding',
             'Rollover',
@@ -166,9 +174,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.connect(this.fields['Alarm'], 'onChange', this.onAlarmChange);
 
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
-            this.connect(this.fields['Contact'], 'onChange', this.onAccountDependentChange);
-            this.connect(this.fields['Opportunity'], 'onChange', this.onAccountDependentChange);
-            this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
+            this.connect(this.fields['Contact'], 'onChange', this.onContactChange);
+            this.connect(this.fields['Opportunity'], 'onChange', this.onOpportunityChange);
+            this.connect(this.fields['Ticket'], 'onChange', this.onTicketChange);
             this.connect(this.fields['StartDate'], 'onChange', this.onStartDateChange);
             this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceUIChange);
             this.connect(this.fields['Recurrence'], 'onChange', this.onRecurrenceChange);
@@ -212,7 +220,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
         isActivityRecurring: function(entry) {
-            return /rstMaster/.test(this.fields['RecurrenceState'].getValue());
+            return (/rstMaster/).test(this.fields['RecurrenceState'].getValue());
         },
         isInLeadContext: function() {
             var insert = this.options && this.options.insert,
@@ -228,7 +236,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             // we hide the lead or standard fields here, as the view is currently hidden, in order to prevent flashing.
             // the value for the 'IsLead' field will be set later, based on the value derived here.
-            if (this.options.isForLead != undefined) {
+            if (this.options.isForLead !== undefined) {
                 return;
             }
 
@@ -290,13 +298,18 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }, this);
         },
         toggleSelectField: function(field, disable) {
-            disable === true ? field.disable() : field.enable();
+            if (disable) {
+                field.disable();
+            } else {
+                field.enable();
+            }
         },
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
 
             var startDateField = this.fields['StartDate'],
-                startDate = startDateField.getValue();
+                wrapped = moment(startDateField.getValue()),
+                startDate = wrapped && wrapped.toDate();
 
             if (value) {
                 this.fields['Rollover'].enable();
@@ -304,7 +317,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 if (!this.isDateTimeless(startDate)) {
-                    startDate = startDate.clone().clearTime().add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
+                    wrapped.startOf('day');
+                    wrapped.add((-1 * wrapped.zone()), 'minutes');
+                    wrapped.add(5, 'seconds');
+                    startDate = wrapped.toDate();
                 }
                 startDateField.setValue(startDate);
             } else {
@@ -314,7 +330,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
                 if (this.isDateTimeless(startDate)) {
-                    startDate = startDate.clone().add({minutes: startDate.getTimezoneOffset() + 1, seconds: -5});
+                    wrapped.startOf('day');
+                    wrapped.add((wrapped.zone() + 1), 'minutes');
+                    wrapped.add(-5, 'seconds');
+                    startDate = wrapped.toDate();
                 }
                 startDateField.setValue(startDate);
             }
@@ -327,10 +346,18 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onLeadChange: function(value, field) {
-            var selection = field.getSelection();
+            var selection = field.getSelection(),
+                phoneField,
+                entry;
 
             if (selection && this.insert) {
                 this.fields['AccountName'].setValue(utility.getValue(selection, 'Company'));
+            }
+
+            entry = field.currentSelection;
+            if (entry.WorkPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.WorkPhone);
             }
         },
         onLeaderChange: function(value, field) {
@@ -338,7 +365,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.fields['UserId'].setValue(userId && userId['$key']);
         },
         onAccountChange: function(value, field) {
-            var fields = this.fields;
+            var fields, entry, phoneField;
+
+            fields = this.fields;
             array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
                 if (value) {
                     fields[f].dependsOn = 'Account';
@@ -355,6 +384,48 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     fields[f].where = 'Account.AccountName ne null';
                 }
             });
+
+            entry = field.currentSelection;
+            if (entry && entry.MainPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.MainPhone);
+            }
+        },
+        onContactChange: function(value, field) {
+            this.onAccountDependentChange(value, field);
+
+            var entry, phoneField;
+
+            entry = field.currentSelection;
+
+            if (entry && entry.WorkPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.WorkPhone);
+            }
+        },
+        onOpportunityChange: function(value, field) {
+            this.onAccountDependentChange(value, field);
+
+            var entry, phoneField;
+
+            entry = field.currentSelection;
+
+            if (entry && entry.Account && entry.Account.MainPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.Account.MainPhone);
+            }
+        },
+        onTicketChange: function(value, field) {
+            this.onAccountDependentChange(value, field);
+
+            var entry, phoneField, phone;
+
+            entry = field.currentSelection;
+            phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+            if (phone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(phone);
+            }
         },
         onAccountDependentChange: function(value, field) {
             if (value && !field.dependsOn && field.currentSelection && field.currentSelection['Account']) {
@@ -393,8 +464,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onRecurrenceChange: function(value, field) {
             // did the StartDate change on the recurrence_edit screen?
-            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate']);
-            currentDate = this.fields['StartDate'].getValue();
+            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate']),
+                currentDate = this.fields['StartDate'].getValue();
+
             if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth()) {
                 this.fields['StartDate'].setValue(startDate);
             }
@@ -441,39 +513,36 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         applyUserActivityContext: function(context) {
             var view = App.getView(context.id);
-            if (view && view.currentDate) {
-                var currentDate = view.currentDate.clone().clearTime(),
+            if (view && view.currentDate)
+            {
+                var currentDate = view.currentDate.startOf('day'),
                     userOptions = App.context['userOptions'],
                     startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && Date.parse(startTimeOption),
+                    startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
                     startDate;
 
-                if (startTime && (currentDate.compareTo(Date.today()) !== 0)) {
-                    startDate = currentDate.clone().set({
-                        'hour': startTime.getHours(),
-                        'minute': startTime.getMinutes()
-                    });
-                } else {
-                    startTime = Date.now();
-                    startDate = currentDate.clone().clearTime().set({
-                        'hour': startTime.getHours()
-                    }).add({
-                        'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
-                    });
+                if (startTime && (currentDate.valueOf() == moment().startOf('day').valueOf()))
+                {
+                    startDate = currentDate.clone()
+                        .hours(startTime.hours())
+                        .minutes(startTime.minutes());
+                }
+                else
+                {
+                    startTime = moment();
+                    startDate = currentDate.startOf('day').hours(startTime.hours())
+                        .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
                 }
 
-                this.fields['StartDate'].setValue(startDate);
-                this.recurrence.StartDate = startDate;
+                this.fields['StartDate'].setValue(startDate.toDate());
             }
         },
         applyContext: function() {
             this.inherited(arguments);
 
-            var startTime = Date.now(),
-                startDate = Date.now().clearTime().set({
-                    'hour': startTime.getHours()
-                }).add({
-                    'minute': (Math.floor(startTime.getMinutes() / 15) * 15) + 15
+            var startTime = moment(),
+                startDate = moment().startOf('day').hours(startTime.hours()).add({
+                    'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
                 }),
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
@@ -481,7 +550,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true,
                 alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
 
-            this.fields['StartDate'].setValue(startDate);
+            this.fields['StartDate'].setValue(startDate.toDate());
             this.fields['Type'].setValue(activityType);
             this.fields['Duration'].setValue(activityDuration);
             this.fields['Alarm'].setValue(alarmEnabled);
@@ -513,6 +582,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
                 return false;
             });
+
+            var accountField = this.fields['Account'];
+            this.onAccountChange(accountField.getValue(), accountField);
+
             var context = (found && found.options && found.options.source) || found,
                 lookup = {
                     'accounts': this.applyAccountContext,
@@ -527,9 +600,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (context && lookup[context.resourceKind]) {
                 lookup[context.resourceKind].call(this, context);
             }
-
-            var accountField = this.fields['Account'];
-            this.onAccountChange(accountField.getValue(), accountField);
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
@@ -540,6 +610,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
 
             var accountField = this.fields['Account'];
+            accountField.setSelection(entry);
             accountField.setValue({
                 'AccountId': entry['$key'],
                 'AccountName': entry['$descriptor']
@@ -547,63 +618,87 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.onAccountChange(accountField.getValue(), accountField);
         },
         applyContactContext: function(context) {
-            var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry) || context;
+            var view, entry, contactField, accountField, phoneField;
+
+            view = App.getView(context.id);
+            entry = context.entry || (view && view.entry) || context;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var contactField = this.fields['Contact'];
+            contactField = this.fields['Contact'];
+
+            contactField.setSelection(entry);
             contactField.setValue({
                 'ContactId': entry['$key'],
                 'ContactName': entry['$descriptor']
             });
+
             this.onAccountDependentChange(contactField.getValue(), contactField);
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             accountField.setValue({
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
+
+            if (entry.WorkPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.WorkPhone);
+            }
         },
         applyTicketContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+                entry = context.entry || (view && view.entry),
+                phoneField,
+                phone,
+                accountField,
+                contactField,
+                ticketField;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var ticketField = this.fields['Ticket'];
+            ticketField = this.fields['Ticket'];
+            ticketField.setSelection(entry);
             ticketField.setValue({
                 'TicketId': entry['$key'],
                 'TicketNumber': entry['$descriptor']
             });
             this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
-            var contactField = this.fields['Contact'];
+            contactField = this.fields['Contact'];
             contactField.setValue({
                 'ContactId': utility.getValue(entry, 'Contact.$key'),
                 'ContactName': utility.getValue(entry, 'Contact.NameLF')
             });
             this.onAccountDependentChange(contactField.getValue(), contactField);
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             accountField.setValue({
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
+
+            phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
+            if (phone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(phone);
+            }
         },
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+                entry = context.entry || (view && view.entry),
+                phoneField;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
             var opportunityField = this.fields['Opportunity'];
+            opportunityField.setSelection(entry);
             opportunityField.setValue({
                 'OpportunityId': entry['$key'],
                 'OpportunityName': entry['$descriptor']
@@ -615,16 +710,23 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
+
+            if (entry.Account && entry.Account.MainPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.Account.MainPhone);
+            }
         },
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
-                entry = context.entry || (view && view.entry);
+                entry = context.entry || (view && view.entry),
+                phoneField;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
             var leadField = this.fields['Lead'];
+            leadField.setSelection(entry);
             leadField.setValue({
                 'LeadId': entry['$key'],
                 'LeadName': entry['$descriptor']
@@ -636,11 +738,16 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var isLeadField = this.fields['IsLead'];
             isLeadField.setValue(context.resourceKind == 'leads');
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
+
+            if (entry.WorkPhone) {
+                phoneField = this.fields['PhoneNumber'];
+                phoneField.setValue(entry.WorkPhone);
+            }
         },
         setValues: function(values) {
             if (values['StartDate'] && values['AlarmTime']) {
                 var startTime = (this.isDateTimeless(values['StartDate']))
-                    ? values['StartDate'].clone().add({minutes: values['StartDate'].getTimezoneOffset()}).getTime()
+                    ? moment(values['StartDate']).add({minutes: values['StartDate'].getTimezoneOffset()}).toDate().getTime()
                     : values['StartDate'].getTime();
 
                 var span = startTime - values['AlarmTime'].getTime(), // ms
@@ -685,7 +792,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (allowSetAlarm) {
                 this.enableFields(function(f) {
-                    return /^Alarm|Reminder$/.test(f.name);
+                    return (/^Alarm|Reminder$/).test(f.name);
                 });
             }
 
@@ -701,13 +808,13 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (!date) {
                 return false;
             }
-            if (date.getUTCHours() != 0) {
+            if (date.getUTCHours() !== 0) {
                 return false;
             }
-            if (date.getUTCMinutes() != 0) {
+            if (date.getUTCMinutes() !== 0) {
                 return false;
             }
-            if (date.getUTCSeconds() != 5) {
+            if (date.getUTCSeconds() !== 5) {
                 return false;
             }
 
@@ -724,12 +831,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             // if StartDate is dirty, always update AlarmTime
             if (startDate && (isStartDateDirty || isReminderDirty)) {
                 values = values || {};
-                values['AlarmTime'] = startDate.clone().add({'minutes': -1 * reminderIn});
+                values['AlarmTime'] = moment(startDate).clone().add({'minutes': -1 * reminderIn}).toDate();
 
                 // if timeless, convert back to local time
-                if (timeless) {
-                    values['AlarmTime'].add({'minutes': startDate.getTimezoneOffset()});
-                }
+                if (timeless)
+                    values['AlarmTime'] = moment(values['AlarmTime']).add({'minutes': startDate.getTimezoneOffset()}).toDate();
             }
 
             return values;
@@ -998,7 +1104,15 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     name: 'AccountName',
                     property: 'AccountName',
                     type: 'text'
-                }]);
+                }, {
+                    name: 'PhoneNumber',
+                    property: 'PhoneNumber',
+                    label: this.phoneText,
+                    type: 'phone',
+                    maxTextLength: 32,
+                    validator: validator.exceedsMaxTextLength
+                }
+            ]);
         }
     });
 });

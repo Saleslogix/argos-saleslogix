@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Action', [
     'dojo/_base/lang',
     'dojo/string',
@@ -97,6 +100,19 @@ define('Mobile/SalesLogix/Action', [
 
         hasProperty: function(action, selection, property) {
             return utility.getValue(selection.data, property);
+        },
+        addAttachment: function(action, selection) {
+            var view;
+            this.setSource({
+                entry: selection.data,
+                descriptor: selection.data['$descriptor'],
+                key: selection.data['$key']
+            });
+            view = App.getView('attachment_Add');
+
+            if (view) {
+                view.show({ insert: true });
+            }
         }
     });
 });

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/UpdateToolbar', [
     'dojo/_base/declare',
     'dojo/_base/window',

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Fields/PicklistField', [
     'dojo/_base/declare',
     'dojo/string',
@@ -25,8 +28,9 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         });
 
         App.registerView(view);
+        viewsByName[name] = view;
 
-        return (viewsByName[name] = view);
+        return view;
     };
 
     var control = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {

@@ -1,4 +1,6 @@
-
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -7,6 +9,9 @@ define('Mobile/SalesLogix/ApplicationModule', [
     
     'Sage/Platform/Mobile/ApplicationModule',
     'Sage/Platform/Mobile/Calendar',
+    'Sage/Platform/Mobile/RelatedViewManager',
+    'Sage/Platform/Mobile/RelatedViewWidget',
+
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/Views/Signature',
     'Sage/Platform/Mobile/SearchWidget',
@@ -18,16 +23,18 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/MainToolbar',
     'Mobile/SalesLogix/Views/UpdateToolbar',
     'Mobile/SalesLogix/Views/LeftDrawer',
+    'Mobile/SalesLogix/Views/RightDrawer',
     'Mobile/SalesLogix/Views/Login',
     'Mobile/SalesLogix/Views/Settings',
     'Mobile/SalesLogix/Views/Configure',
+    'Mobile/SalesLogix/Views/MetricConfigure',
+    'Mobile/SalesLogix/Views/MetricFilterLookup',
     'Mobile/SalesLogix/Views/Help',
     'Mobile/SalesLogix/Views/NameEdit',
     'Mobile/SalesLogix/Views/PickList',
     'Mobile/SalesLogix/Views/SelectList',
     'Mobile/SalesLogix/Views/SpeedSearchList',
     'Mobile/SalesLogix/Views/TextEdit',
-
     'Mobile/SalesLogix/Views/Account/List',
     'Mobile/SalesLogix/Views/Account/Detail',
     'Mobile/SalesLogix/Views/Account/Edit',
@@ -43,6 +50,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Calendar/DayView',
     'Mobile/SalesLogix/Views/Calendar/WeekView',
     'Mobile/SalesLogix/Views/Calendar/MonthView',
+
+    'Mobile/SalesLogix/Views/Charts/GenericBar',
+    'Mobile/SalesLogix/Views/Charts/GenericPie',
+
     'Mobile/SalesLogix/Views/Competitor/List',
     'Mobile/SalesLogix/Views/Contact/List',
     'Mobile/SalesLogix/Views/Contact/Detail',
@@ -82,6 +93,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/History/List',
     'Mobile/SalesLogix/Views/History/Detail',
     'Mobile/SalesLogix/Views/History/Edit',
+    'Mobile/SalesLogix/Views/History/RelatedView',
     'Mobile/SalesLogix/Views/User/List',
     'Mobile/SalesLogix/Views/Attachment/ViewAttachment',
     'Mobile/SalesLogix/Views/Attachment/List',
@@ -108,6 +120,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     win,
     ApplicationModule,
     Calendar,
+    RelatedViewManager,
+    RelatedViewWidget,
     List,
     Signature,
     SearchWidget,
@@ -118,9 +132,12 @@ define('Mobile/SalesLogix/ApplicationModule', [
     MainToolbar,
     UpdateToolbar,
     LeftDrawer,
+    RightDrawer,
     Login,
     Settings,
     Configure,
+    MetricConfigure,
+    MetricFilterLookup,
     Help,
     NameEdit,
     PickList,
@@ -142,6 +159,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     CalendarDayView,
     CalendarWeekView,
     CalendarMonthView,
+    GenericBar,
+    GenericPie,
     CompetitorList,
     ContactList,
     ContactDetail,
@@ -181,6 +200,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     HistoryList,
     HistoryDetail,
     HistoryEdit,
+    HistoryRelatedView,
     UserList,
     ViewAttachment,
     AttachmentList,
@@ -203,10 +223,13 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new Login());
 
             this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
+            this.registerView(new RightDrawer(), query('.right-drawer')[0]);
 
             this.registerView(new Help());
             this.registerView(new Settings());
             this.registerView(new Configure());
+            this.registerView(new MetricConfigure());
+            this.registerView(new MetricFilterLookup());
             this.registerView(new PickList());
             this.registerView(new SelectList());
             this.registerView(new SpeedSearchList());
@@ -234,6 +257,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new CalendarMonthView());
             this.registerView(new CalendarWeekView());
             this.registerView(new CalendarDayView());
+
+            // Charts
+            this.registerView(new GenericBar({ expose: false }));
+            this.registerView(new GenericPie({ expose: false }));
 
             this.registerView(new CompetitorList({
                 id: 'competitor_related',

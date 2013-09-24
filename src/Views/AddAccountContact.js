@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/AddAccountContact', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Validator',
+    'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit'
 ], function(
@@ -12,6 +16,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     string,
     format,
     validator,
+    template,
     utility,
     Edit
 ) {
@@ -23,6 +28,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
         accountSubTypeTitleText: 'Account SubType',
         accountText: 'Account',
         accountTypeTitleText: 'Account Type',
+        acctMgrText: 'acct mgr',
         addressText: 'address',
         contactTitleText: 'Title',
         descriptionText: 'description',
@@ -33,6 +39,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
         faxText: 'fax',
         homePhoneText: 'home phone',
         industryText: 'industry',
+        ownerText: 'owner',
         lastNameText: 'last',
         mobileText: 'mobile',
         nameText: 'name',
@@ -49,6 +56,8 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
         resourceKind: 'accounts',
         entityName: 'Account',
         querySelect: [
+            'AccountManager/UserInfo/FirstName',
+            'AccountManager/UserInfo/LastName',
             'AccountName',
             'Address',
             'BusinessDescription',
@@ -65,6 +74,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             'Contact/WorkPhone',
             'Fax',
             'Industry',
+            'Owner/OwnerDescription',
             'Status',
             'SubType',
             'Type'
@@ -108,6 +118,10 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
         },
         applyContext: function(templateEntry) {
             this.inherited(arguments);
+
+            this.fields['AccountManager'].setValue(App.context.user);
+            this.fields['Owner'].setValue(App.context['defaultOwner']);
+
             this.fields['Type'].setValue(templateEntry.Type);
             this.fields['Status'].setValue(templateEntry.Status);
         },
@@ -253,6 +267,23 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                             property: 'BusinessDescription',
                             label: this.descriptionText,
                             type: 'text'
+                        },
+                        {
+                            label: this.acctMgrText,
+                            name: 'AccountManager',
+                            property: 'AccountManager',
+                            textProperty: 'UserInfo',
+                            textTemplate: template.nameLF,
+                            type: 'lookup',
+                            view: 'user_list'
+                        },
+                        {
+                            label: this.ownerText,
+                            name: 'Owner',
+                            property: 'Owner',
+                            textProperty: 'OwnerDescription',
+                            type: 'lookup',
+                            view: 'owner_list'
                         },
                         {
                             emptyText: '',

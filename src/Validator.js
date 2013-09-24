@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Validator', [
     'dojo/_base/lang',
     'dojo/string'
@@ -76,14 +79,13 @@ define('Mobile/SalesLogix/Validator', [
                     return false;
                 }
 
-                // compareTo is added to the Date prototype by the datejs library
                 if (minValue && maxValue) {
-                    if (value.compareTo(minValue) === 1 && value.compareTo(maxValue) === -1) {
+                    if (value.valueOf() > minValue.valueOf() && value.valueOf() < maxValue.valueOf()) {
                         return false;
                     }
-                } else if (minValue && value.compareTo(minValue) === 1) {
+                } else if (minValue && value.valueOf() > minValue.valueOf()) {
                     return false;
-                } else if (maxValue && value.compareTo(maxValue) === -1) {
+                } else if (maxValue && value.valueOf() < maxValue.valueOf()) {
                     return false;
                 }
 

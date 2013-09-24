@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
     'dojo/_base/declare',
     'dojo/_base/json',
@@ -20,7 +23,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
 
         detailsText: 'Details',
         errorDateText: 'date',
-        errorDateFormatText: 'MM/dd/yyyy hh:mm tt',
+        errorDateFormatText: 'MM/DD/YYYY hh:mm A',
         statusTextText: 'error',
         urlText: 'url',
 

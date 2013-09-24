@@ -1,15 +1,22 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Format', [
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
+    'dojo/number',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Format'
+    'Sage/Platform/Mobile/Format',
+    'moment'
 ], function(
     lang,
     array,
     string,
+    dojoNumber,
     template,
-    format
+    format,
+    moment
 ) {
     return lang.setObject('Mobile.SalesLogix.Format', lang.mixin({}, format, {
         /**
@@ -49,25 +56,25 @@ define('Mobile/SalesLogix/Format', [
         Converts the given value using the provided format, joining with the separator character
         If no format given, will use predefined format for the addresses Country (or en-US as final fallback)
         <pre>
-        Format	Description									Example
-        ------	-----------------------------------------	-----------------------
-         s 		Salutation (Attention, Name)    			ATTN: Mr. Bob
-         S 		Salutation Uppercase						ATTN: MR. BOB
-         a1		Address Line 1                  			555 Oak Ave
-         a2		Address Line 2			                    #2038
-         a3		Address Line 3
-         m		Municipality (City, town, hamlet)			Phoenix
-         M		Municipality Uppercase						PHOENIX
-         z		County (parish, providence)					Maricopa
-         Z 		County Uppercase							MARICOPA
-         r		Region (State, area)                		AZ
-         R		Region Uppercase							AZ
-         p     	Postal Code (ZIP code)						85021
-         P     	Postal Code Uppercase						85021
-         c 		Country 									France
-         C 		Country Uppercase							FRANCE
+        Format    Description                                    Example
+        ------    -----------------------------------------    -----------------------
+         s         Salutation (Attention, Name)                ATTN: Mr. Bob
+         S         Salutation Uppercase                        ATTN: MR. BOB
+         a1        Address Line 1                              555 Oak Ave
+         a2        Address Line 2                                #2038
+         a3        Address Line 3
+         m        Municipality (City, town, hamlet)            Phoenix
+         M        Municipality Uppercase                        PHOENIX
+         z        County (parish, providence)                    Maricopa
+         Z         County Uppercase                            MARICOPA
+         r        Region (State, area)                        AZ
+         R        Region Uppercase                            AZ
+         p         Postal Code (ZIP code)                        85021
+         P         Postal Code Uppercase                        85021
+         c         Country                                     France
+         C         Country Uppercase                            FRANCE
 
-         |		separator			    					as defined by separator variable
+         |        separator                                    as defined by separator variable
          </pre>
          @param {object} o Address Entity containing all the SData properties
          @param {boolean} asText If set to true returns text only, if false returns anchor link to google maps
@@ -179,6 +186,43 @@ define('Mobile/SalesLogix/Format', [
                     ]
             ).replace(/ /g, '\u00A0'); //keep numbers from breaking
         },
+        bigNumberAbbrText: {
+            'billion': 'B',
+            'million': 'M',
+            'thousand': 'K'
+        },
+        bigNumber: function(val) {
+            try {
+                var numParse = dojoNumber.parse(val), text = Mobile.SalesLogix.Format.bigNumberAbbrText;
+
+                if (numParse && numParse >= 1000000000) {
+                    numParse = numParse / 1000000000;
+                    return dojoNumber.format(numParse, { places: 1 }) + text['billion'];
+                } else if (numParse && numParse >= 1000000) {
+                    numParse = numParse / 1000000;
+                    return dojoNumber.format(numParse, { places: 1 }) + text['million'];
+                } else if (numParse && numParse >= 1000) {
+                    numParse = numParse / 1000;
+                    return dojoNumber.format(numParse, { places: 1 }) + text['thousand'];
+                }
+            } catch(ex) {}
+
+            return val;
+        },
+        relativeDate: function(date, timeless) {
+            var now;
+            date = moment(date);
+            if (!date || !date.isValid()) {
+                throw new Error('Invalid date passed into Mobile.SalesLogix.Format.relativeDate');
+            }
+
+            if (timeless) {
+                // utc
+                date = date.add({minutes: date.zone()});
+            }
+
+            return date.fromNow();
+        },
         multiCurrency: function(val, code) {
             return string.substitute('${0} ${1}', [Mobile.SalesLogix.Format.currency(val), code]);
         },
@@ -208,6 +252,54 @@ define('Mobile/SalesLogix/Format', [
         },
         userActivityStatus: function(val) {
             return Mobile.SalesLogix.Format.userActivityFormats[val];
+        },
+        /**
+         * Takes a string input and converts name to First amd Last initials 
+         * `Lee Hogan` -> `LH`
+         * @param val
+         * @returns {String}
+         */
+        formatUserInitial: function(user) {
+            var firstLast = this.resolveFirstLast(user),
+                initials = [firstLast[0].substr(0, 1)];
+
+            if (firstLast[1]) {
+                initials.push(firstLast[1].substr(0, 1));
+            }
+
+            return initials.join('').toUpperCase();
+        },
+        /**
+        * Takes a string input and the user name to First amd Last name 
+        * `Hogan, Lee` -> `Lee Hogan`
+        * @param val
+        * @returns {String}
+        */
+        formatByUser: function(user) {
+            var name = this.resolveFirstLast(user);
+            return name.join(' ');
+        },
+        /**
+       * Takes a string input and the user name to First amd Last name 
+       * `Hogan, Lee` -> `Lee Hogan`
+       * @param val
+       * @returns {String}
+       */
+        resolveFirstLast: function(name) {
+            var firstLast = [];
+            if (name.indexOf(' ') !== -1) {
+                var names = name.split(' ');
+                if (names[0].indexOf(',') !== -1) {
+                    firstLast = [names[1], names[0].slice(0, -1)];
+                }
+                else {
+                    firstLast = [names[0], names[1]];
+                }
+            }
+            else {
+                firstLast = [name];
+            }
+            return firstLast;
         }
     }));
 });

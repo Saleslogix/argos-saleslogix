@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/TicketActivity/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -5,6 +8,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     'dojo/dom-style',
     'dojo/dom-geometry',
     'dojo/query',
+    'dojo/topic',
+    'dojo/_base/lang',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/List'
 ], function(
@@ -14,6 +19,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     domStyle,
     domGeom,
     query,
+    topic,
+    lang,
     format,
     List
 ) {
@@ -33,7 +40,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
 
         //Localization
         titleText: 'Ticket Activities',
-        startDateFormatText: 'MM/dd/yyyy h:mmtt',
+        startDateFormatText: 'MM/DD/YYYY h:mmA',
 
         //View Properties       
         id: 'ticketactivity_list',
@@ -83,7 +90,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         },
         postCreate: function() {
             this.inherited(arguments);
-            this.subscribe('/app/resize', this._onResize);
+            this.own(topic.subscribe('/app/resize', lang.hitch(this, this._onResize)));
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute(

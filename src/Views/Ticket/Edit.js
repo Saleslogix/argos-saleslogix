@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Ticket/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -198,7 +201,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
-                return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
+                return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
             });
 
             var lookup = {

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Attachment/MyAttachmentList', [
     'dojo/_base/declare',
     'dojo/string',
@@ -15,7 +18,7 @@ define('Mobile/SalesLogix/Views/Attachment/MyAttachmentList', [
         titleText: 'My Attachments',
        // queryInclude: [],
         queryWhere: function() {
-            return string.substitute('user eq "${0}"', [App.context['user'].$key]);
+            return string.substitute('createUser eq "${0}"', [App.context['user'].$key]);
        }
     });
 });

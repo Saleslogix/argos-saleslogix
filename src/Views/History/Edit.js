@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/History/Edit', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/string',
+    'Mobile/SalesLogix/Environment',
     'Mobile/SalesLogix/Validator',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit'
@@ -9,6 +13,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     declare,
     array,
     string,
+    environment,
     validator,
     utility,
     Edit
@@ -26,7 +31,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         regardingText: 'regarding',
         isLeadText: 'for lead',
         startingText: 'time',
-        startingFormatText: 'M/d/yyyy h:mm tt',
+        startingFormatText : 'M/D/YYYY h:mm A',
         titleText: 'Note',
         companyText: 'company',
         leadText: 'lead',
@@ -59,7 +64,6 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             'LeadName',
             'StartDate'
         ],
-
         init: function() {
             this.inherited(arguments);
 
@@ -89,7 +93,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             // the value for the 'IsLead' field will be set later, based on the value derived here.
 
             // todo: there is an issue when refreshing the edit view as options.isLead is persisted in the navigation state.
-            if (this.options.isForLead != undefined) {
+            if (this.options.isForLead !== undefined) {
                 return;
             }
 
@@ -173,10 +177,14 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 }
             }, this);
         },
+        onInsertSuccess: function() {
+            environment.refreshStaleDetailViews();
+            this.inherited(arguments);
+        },
         applyContext: function() {
             var found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
-                return /^(accounts|contacts|opportunities|leads|tickets)$/.test(context.resourceKind) && context.key;
+                return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
             });
 
             found = (found && found.options && found.options.source) || found;
