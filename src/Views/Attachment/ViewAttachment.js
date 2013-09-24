@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     'dojo/_base/declare',
     'dojo/string',
@@ -95,7 +98,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         ]),
 
         downloadingTemplate: new Simplate([
-            '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>',
+            '<li class="list-loading-indicator"><div>{%= $.downloadingText %}</div></li>'
         ]),
         show: function(options) {
             this.inherited(arguments);
@@ -131,15 +134,12 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
              return this.tools || (this.tools = []);
         },
         _loadAttachmentView: function(entry) {
-                this._loadAttachmentView(entry);
-        },
-        _loadAttachmentView: function(entry) {
-            var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self;
+            var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self, iframe;
 
             am = new AttachmentManager();
 
-            if (entry.dataType === "R") {
-                description = entry.description; // + ' (' + entry.fileName + ')';
+            if (!entry.url) {
+                description = entry.description;
                 fileType = Utility.getFileExtension(entry.fileName);
                 isFile = true;
             } else {
@@ -157,7 +157,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             };
 
             if (isFile) {
-                fileType = Utility.getFileExtension(entry.fileName)
+                fileType = Utility.getFileExtension(entry.fileName);
                 if (this._isfileTypeAllowed(fileType)) {
                     if (this._isfileTypeImage(fileType)) {
                         viewNode = domConstruct.place(this.attachmentViewImageTemplate.apply(data, this), this.attachmentViewerNode, 'last');
@@ -176,7 +176,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                             image.onload = function() {
                                 self._orginalImageSize = { width: image.width, height: image.height };
                                 self._sizeImage(self.domNode, image);
-                            }
+                            };
                             domAttr.set(image, 'src', dataUrl);
                             domClass.add(dl, 'display-none');
                         });
@@ -254,7 +254,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
             return false;
         },
         _sizeImage: function (containerNode,image) {
-            var wH, wW, iH, iW, contentBox, scale
+            var wH, wW, iH, iW, contentBox, scale;
 
            contentBox = domGeom.getContentBox(containerNode);
             wH = contentBox.h;

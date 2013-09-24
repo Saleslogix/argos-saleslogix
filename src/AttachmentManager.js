@@ -1,20 +1,5 @@
-/* Copyright (c) 2010, Sage Software, Inc. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * Attatchment Manager 
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
 define('Mobile/SalesLogix/AttachmentManager', [
     'Mobile/SalesLogix/FileManager',
@@ -23,7 +8,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
     'dojo/string',
     'dojo/number',
     'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Utility',
+    'Mobile/SalesLogix/Utility'
 
 ], function(
     FileManager,
@@ -128,7 +113,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
             contextData = {};
             found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
-                if (/^(accounts|contacts|opportunities|tickets|leads|activities|history)$/.test(context.resourceKind) && context.key) {
+                if (/^(accounts|contacts|opportunities|tickets|leads|activities|history|userActivities)$/.test(context.resourceKind) && context.key) {
                     return true;
                 }
                 return false;
@@ -160,6 +145,9 @@ define('Mobile/SalesLogix/AttachmentManager', [
                         break;
                     case 'activities':
                         contextData = { activityId: utility.getRealActivityId(entry['$key']), contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], leadId: entry['LeadId'] };
+                        break;
+                    case 'userActivities':
+                        contextData = { activityId: utility.getRealActivityId(entry['Activity']['$key']), contactId: entry['Activity']['ContactId'], contactName: entry['Activity']['ContactName'], accountId: entry['Activity']['AccountId'], accountName: entry['Activity']['AccountName'], opportunityId: entry['Activity']['OpportunityId'], ticketId: entry['Activity']['TicketId'], leadId: entry['Activity']['LeadId'] };
                         break;
                     case 'history':
                         contextData = { historyId: entry['$key'], contactId: entry['ContactId'], contactName: entry['ContactName'], accountId: entry['AccountId'], accountName: entry['AccountName'], opportunityId: entry['OpportunityId'], ticketId: entry['TicketId'], leadId: entry['LeadId'] };
@@ -217,14 +205,11 @@ define('Mobile/SalesLogix/AttachmentManager', [
                     scope: this
                 });
         },
-        onRequestTemplateFailure: function(response, o) {
-
-        },
         onRequestDataFailure: function(response, o) {
 
         },
         uploadFiles: function() {
-            var file
+            var file;
             this._isUploading = true;
             this._fileCount = this._files.length;
             while (this._files.length > 0) {
@@ -292,7 +277,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
 
             if (curFileProgress && curFileProgress.lengthComputable) {
                 filePercent = (curFileProgress.loaded / curFileProgress.total) * 100;
-                pct =  filePercent; ;//+= Math.round(filePercent);
+                pct =  filePercent; //+= Math.round(filePercent);
             } else if (curFileProgress) {
                 pct = curFileProgress;
             }

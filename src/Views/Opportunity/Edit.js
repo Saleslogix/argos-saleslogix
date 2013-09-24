@@ -1,11 +1,18 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Opportunity/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
+    'dojo/string',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
+    lang,
+    string,
     validator,
     template,
     utility,
@@ -35,7 +42,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         multiCurrencyCodeText: 'code',
         multiCurrencyDateText: 'rate date',
         multiCurrencyLockedText: 'rate locked',
-        exchangeRateDateFormatText: 'M/d/yyyy h:mm tt',
+        exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
+        subTypePickListResellerText: 'RESELLER',
 
         //View Properties
         entityName: 'Opportunity',
@@ -75,7 +83,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
         },
         applyContext: function(templateEntry) {
             var found = App.queryNavigationContext(function(o) {
-                return /^(accounts|contacts)$/.test(o.resourceKind) && o.key;
+                return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
             });
 
             var lookup = {
@@ -239,7 +247,14 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         property: 'Reseller',
                         textProperty: 'AccountName',
                         type: 'lookup',
-                        view: 'account_related'
+                        view: 'account_related',
+                        where: string.substitute('upper(SubType) eq "${0}"', [this.subTypePickListResellerText]),
+                        viewMixin: {
+                            onTransitionTo: function(self) {
+                                // Clear the initial where clause, allowing the user to search for others if they want
+                                self.options.where = '';
+                            }
+                        }
                     },
                     {
                         label: this.estCloseText,

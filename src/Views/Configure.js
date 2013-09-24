@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Configure', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -111,24 +114,27 @@ define('Mobile/SalesLogix/Views/Configure', [
             var list = [],
                 lookup = {},
                 exposed = App.getExposedViews(),
-                order = lang.getObject('preferences.configure.order', false, App) || [];
+                order = lang.getObject('preferences.configure.order', false, App) || [],
+                i,
+                n,
+                view;
 
-            for (var i = 0; i < exposed.length; i++) {
+            for (i = 0; i < exposed.length; i++) {
                 lookup[exposed[i]] = true;
             }
 
-            for (var i = 0; i < order.length; i++) {
+            for (i = 0; i < order.length; i++) {
                 if (lookup[order[i]]) {
                     delete lookup[order[i]];
                 }
             }
 
-            for (var n in lookup) {
+            for (n in lookup) {
                 order.push(n);
             }
 
             for (i = 0; i < order.length; i++) {
-                var view = App.getView(order[i]);
+                view = App.getView(order[i]);
                 if (view && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(order[i]) >= 0) {
                     list.push({
                         '$key': view.id,

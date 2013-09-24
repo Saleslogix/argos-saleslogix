@@ -1,18 +1,29 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List'
+    'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/List',
+    '../_MetricListMixin',
+    '../_RightDrawerListMixin',
+    '../_CardLayoutListMixin'
 ], function(
     declare,
     string,
     array,
     action,
-    List
+    format,
+    List,
+    _MetricListMixin,
+    _RightDrawerListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.List', [List], {
+    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',
@@ -27,6 +38,15 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
             '{% if($.Area) { %}',
                 '<h4>{%: $$._areaCategoryIssueText($) %}</h4>',
             '{% } %}',
+            '{% if($.CreateDate) { %}',
+                '<h4>{%: $$.createdOnText %}  {%: Mobile.SalesLogix.Format.relativeDate($.CreateDate) %}</h4>',
+            '{% } %}',
+            '{% if($.ModifyDate) { %}',
+                '<h4>{%: $$.modifiedText %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate) %}</h4>',
+            '{% } %}',
+            '{% if($.NeededByDate) { %}',
+                '<h4>{%: $$.neededByText %}  {%: Mobile.SalesLogix.Format.relativeDate($.NeededByDate) %}</h4>',
+            '{% } %}'
         ]),
 
         _areaCategoryIssueText: function(feedItem) {
@@ -46,8 +66,12 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         viewContactActionText: 'Contact',
         addNoteActionText: 'Add Note',
         addActivityActionText: 'Add Activity',
+        addAttachmentActionText:'Add Attachment',
         assignedToText: 'Assigned To: ',
         urgencyText: 'Urgency: ',
+        createdOnText: 'Created  ',
+        modifiedText: 'Modified ',
+        neededByText: 'Needed  ',
 
         //View Properties       
         detailView: 'ticket_detail',
@@ -58,59 +82,83 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         queryOrderBy: 'TicketNumber',
         querySelect: [
             'Account/AccountName',
+            'Account/MainPhone',
             'Area',
             'Category',
             'Issue',
             'AssignedTo/OwnerDescription',
             'Contact/NameLF',
+            'Contact/WorkPhone',
             'ReceivedDate',
             'StatusCode',
             'Subject',
             'TicketNumber',
             'UrgencyCode',
             'Urgency/Description',
+            'ModifyDate',
+            'CreateDate',
+            'NeededByDate'
         ],
         resourceKind: 'tickets',
+        entityName: 'Ticket',
         allowSelection: true,
         enableActions: true,
+        defaultSearchTerm: '#assigned-to-me',
+        hashTagQueries: {
+            'assigned-to-me': function() {
+                return 'AssignedTo.OwnerDescription eq "' + App.context.user.$descriptor + '"';
+            },
+            'completed-by-me': function() {
+                return 'CompletedBy.OwnerDescription eq "' + App.context.user.$descriptor + '"';
+            }
+        },
+        hashTagQueriesText: {
+            'assigned-to-me': 'assigned-to-me',
+            'completed-by-me': 'completed-by-me'
+        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                        id: 'edit',
-                        icon: 'content/images/icons/edit_24.png',
-                        label: this.editActionText,
-                        action: 'navigateToEditView'
-                    }, {
-                        id: 'viewAccount',
-                        icon: 'content/images/icons/Company_24.png',
-                        label: this.viewAccountActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
-                        fn: action.navigateToEntity.bindDelegate(this, {
-                            view: 'account_detail',
-                            keyProperty: 'Account.$key',
-                            textProperty: 'Account.AccountName'
-                        })
-                    }, {
-                        id: 'viewContact',
-                        icon: 'content/images/icons/Contacts_24x24.png',
-                        label: this.viewContactActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'Contact.$key'),
-                        fn: action.navigateToEntity.bindDelegate(this, {
-                            view: 'contact_detail',
-                            keyProperty: 'Contact.$key',
-                            textProperty: 'Contact.NameLF'
-                        })
-                    }, {
-                        id: 'addNote',
-                        icon: 'content/images/icons/New_Note_24x24.png',
-                        label: this.addNoteActionText,
-                        fn: action.addNote.bindDelegate(this)
-                    }, {
-                        id: 'addActivity',
-                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                        label: this.addActivityActionText,
-                        fn: action.addActivity.bindDelegate(this)
-                    }]
+                id: 'edit',
+                icon: 'content/images/icons/edit_24.png',
+                label: this.editActionText,
+                action: 'navigateToEditView'
+            }, {
+                id: 'viewAccount',
+                icon: 'content/images/icons/Company_24.png',
+                label: this.viewAccountActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'account_detail',
+                    keyProperty: 'Account.$key',
+                    textProperty: 'Account.AccountName'
+                })
+            }, {
+                id: 'viewContact',
+                icon: 'content/images/icons/Contacts_24x24.png',
+                label: this.viewContactActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'Contact.$key'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'contact_detail',
+                    keyProperty: 'Contact.$key',
+                    textProperty: 'Contact.NameLF'
+                })
+            }, {
+                id: 'addNote',
+                icon: 'content/images/icons/New_Note_24x24.png',
+                label: this.addNoteActionText,
+                fn: action.addNote.bindDelegate(this)
+            }, {
+                id: 'addActivity',
+                icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                label: this.addActivityActionText,
+                fn: action.addActivity.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                icon: 'content/images/icons/Attachment_24.png',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]
             );
         },
 

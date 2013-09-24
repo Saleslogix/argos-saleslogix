@@ -17,16 +17,35 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
 
-    <title>SalesLogix</title>
+    <title>Saleslogix</title>
 
-    <link rel="apple-touch-icon-precomposed" href="content/images/icon.png" />
+    <link rel="apple-touch-icon" href="content/images/touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="content/images/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="content/images/touch-icon-iphone-retina.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
-    <!-- CSS -->
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/reui/themes/sage-green/theme.css" />
-    <link type="text/css" rel="stylesheet" href="../../argos-sdk/content/css/base.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/toggle.css" />
-    <link type="text/css" rel="stylesheet" href="content/css/app.css" />
+    <!-- less files -->
+    <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/swiftpage.less" />
+    <link rel="stylesheet/less" type="text/css" href="content/css/app.less" />
+
+    <!-- less -->
+    <script type="text/javascript">
+        less = {
+            env: "development", // or "production"
+            async: false,       // load imports async
+            fileAsync: false,   // load imports async when in a page under
+                                // a file protocol
+            poll: 1000,         // when in watch mode, time in ms between polls
+            functions: {},      // user functions, keyed by name
+            dumpLineNumbers: "all", // or "mediaQuery" or "all"
+            relativeUrls: true,// whether to adjust url's to be relative
+                                // if false, url's are already relative to the
+                                // entry less file
+            rootpath: ""// a path to add on to the start of every url
+                                //resource
+        };
+    </script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.4.1.min.js"></script>
 
     <!-- JSON -->
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
@@ -46,13 +65,6 @@
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-dependencies-debug.js"></script>
     <script type="text/javascript" src="../../argos-sdk/libraries/sdata/sdata-client-debug.js"></script>
 
-    <!-- DateJS -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/datejs/build/date.js"></script>
-    <!-- DateJS Localization -->
-    <% foreach (var include in EnumerateLocalizations("../../argos-sdk", "libraries/datejs/src/globalization")) { %>
-    <script type="text/javascript" src="../../argos-sdk/<%= include.Path %>"></script>
-    <% } %>
-
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
@@ -68,13 +80,22 @@
     require({
         baseUrl: "./",
         packages: [
-        { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
-        { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
-        { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
-        { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
-        { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
-        { name: 'Mobile/SalesLogix', location: 'src' }
-    ]});
+            { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
+            { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
+            { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
+            { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
+            { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment' },
+            { name: 'moment_langs', location: '../../argos-sdk/libraries/moment/min', main: 'langs' },
+            { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
+            { name: 'Mobile/SalesLogix', location: 'src' },
+            { name: 'configuration', location: 'configuration' },
+            { name: 'localization', location: 'localization' }
+        ],
+        paths: {
+            'Mobile/SalesLogix': './src',
+            'Sage/Platform/Mobile': '../../argos-sdk/src'
+        }
+    });
     </script>
 
     <script type="text/javascript">
@@ -88,7 +109,8 @@
                 EnumerateLocalizations("localization")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
-            require(localization.concat('dojo/domReady!'), function() {
+            require(localization.concat(['moment_langs', 'dojo/domReady!']), function() {
+                moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
                 var instance = new application(configuration);
 
                 instance.activate();
@@ -100,6 +122,8 @@
     </script>
 </head>
 <body>
+    <!-- Run "grunt watch" to enable this script -->
+    <script src="http://localhost:35729/livereload.js"></script>
 </body>
 </html>
 
@@ -126,7 +150,7 @@
             var relativePath = filePath.Substring(rootPath.Length + 1);
             return relativePath.Replace('\\', '/');
         }
-                
+
         throw new ApplicationException("Invalid root path specified.");
     }              
                 

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/History/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -5,10 +8,15 @@ define('Mobile/SalesLogix/Views/History/List', [
     'dojo/dom-style',
     'dojo/dom-geometry',
     'dojo/query',
+    'dojo/dom-class',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    '../_RightDrawerListMixin',
+    '../_MetricListMixin',
+    '../_CardLayoutListMixin',
+    'moment'
 ], function(
     declare,
     array,
@@ -16,13 +24,18 @@ define('Mobile/SalesLogix/Views/History/List', [
     domStyle,
     domGeom,
     query,
+    domClass,
     format,
     convert,
     action,
-    List
+    List,
+    _RightDrawerListMixin,
+    _MetricListMixin,
+    _CardLayoutListMixin,
+    moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List], {
+    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
@@ -43,12 +56,13 @@ define('Mobile/SalesLogix/Views/History/List', [
             '{% } %}',
             '</h3>',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
-            '<h4>{%: $$.regardingText + $.Description %}</h4>',
+            '{% if($.Description) { %}',
+                '<h4>{%: $$.regardingText + $.Description %}</h4>',
+            '{% } %}',
             '<div class="note-text-item">',
             '<div class="note-text-wrap">',
             '{%: $.Notes %}',
             '</div>',
-            '<div class="note-text-more"></div>',
             '</div>'
         ]),
         nameTemplate: new Simplate([
@@ -76,8 +90,9 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atEMail': 'E-mail'
         },
         hourMinuteFormatText: "h:mm",
-        dateFormatText: "M/d/yy",
+        dateFormatText: "M/D/YY",
         hashTagQueriesText: {
+            'my-history': 'my-history',
             'note': 'note',
             'phonecall': 'phonecall',
             'meeting': 'meeting',
@@ -88,6 +103,7 @@ define('Mobile/SalesLogix/Views/History/List', [
         viewAccountActionText: 'Account',
         viewOpportunityActionText: 'Opp.',
         viewContactActionText: 'Contact',
+        addAttachmentActionText: 'Add Attachment',
         regardingText: 'Regarding: ',
 
         //View Properties
@@ -112,12 +128,19 @@ define('Mobile/SalesLogix/Views/History/List', [
             'OpportunityName',
             'AccountId',
             'ContactId',
+            'TicketId',
             'ModifyDate',
             'Notes'
+
         ],
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
+        entityName: 'History',
+        defaultSearchTerm: '#my-history',
         hashTagQueries: {
+            'my-history': function() {
+                return 'UserId eq "' + App.context.user.$key + '"';
+            },
             'note': 'Type eq "atNote"',
             'phonecall': 'Type eq "atPhoneCall"',
             'meeting': 'Type eq "atAppointment"',
@@ -134,38 +157,62 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atNote': 'content/images/icons/note_24.png',
             'atEMail': 'content/images/icons/letters_24.png'
         },
-
+        activityIndicatorIconByType: {
+            'atToDo': 'To_Do_24x24.png',
+            'atPhoneCall': 'Call_24x24.png',
+            'atAppointment': 'Meeting_24x24.png',
+            'atLiterature': 'Schedule_Literature_Request_24x24.gif',
+            'atPersonal': 'Personal_24x24.png',
+            'atQuestion': 'help_24.png',
+            'atNote': 'note_24.png',
+            'atEMail': 'letters_24.png'
+        },
+        entityColorClassByType: {
+            'atToDo': 'color-ToDo',
+            'atPhoneCall': 'color-PhoneCall',
+            'atAppointment': 'color-Meeting',
+            //'atLiterature': 'color-LitRequest',
+            'atPersonal': 'color-Personal'
+            //'atQuestion': 'color-Question',
+            //'atNote': 'color-Note',
+            //'atEMail': 'color-Email'
+        },
         allowSelection: true,
         enableActions: true,
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
-                        id: 'viewAccount',
-                        icon: 'content/images/icons/Company_24.png',
-                        label: this.viewAccountActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
-                        fn: action.navigateToEntity.bindDelegate(this, {
-                            view: 'account_detail',
-                            keyProperty: 'AccountId',
-                            textProperty: 'AccountName'
-                        })
-                    }, {
-                        id: 'viewOpportunity',
-                        icon: 'content/images/icons/opportunity_24.png',
-                        label: this.viewOpportunityActionText,
-                        enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
-                        fn: action.navigateToEntity.bindDelegate(this, {
-                            view: 'opportunity_detail',
-                            keyProperty: 'OpportunityId',
-                            textProperty: 'OpportunityName'
-                        })
-                    }, {
-                        id: 'viewContact',
-                        icon: 'content/images/icons/Contacts_24x24.png',
-                        label: this.viewContactActionText,
-                        action: 'navigateToContactOrLead',
-                        enabled: this.hasContactOrLead
-                    }]
+                id: 'viewAccount',
+                icon: 'content/images/icons/Company_24.png',
+                label: this.viewAccountActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'account_detail',
+                    keyProperty: 'AccountId',
+                    textProperty: 'AccountName'
+                })
+            }, {
+                id: 'viewOpportunity',
+                icon: 'content/images/icons/opportunity_24.png',
+                label: this.viewOpportunityActionText,
+                enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
+                fn: action.navigateToEntity.bindDelegate(this, {
+                    view: 'opportunity_detail',
+                    keyProperty: 'OpportunityId',
+                    textProperty: 'OpportunityName'
+                })
+            }, {
+                id: 'viewContact',
+                icon: 'content/images/icons/Contacts_24x24.png',
+                label: this.viewContactActionText,
+                action: 'navigateToContactOrLead',
+                enabled: this.hasContactOrLead
+            }, {
+                id: 'addAttachment',
+                icon: 'content/images/icons/Attachment_24.png',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]
             );
         },
         hasContactOrLead: function(action, selection) {
@@ -218,40 +265,79 @@ define('Mobile/SalesLogix/Views/History/List', [
             }
         },
         formatDate: function(date) {
-            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours: 24}))) {
-                return format.date(date, this.hourMinuteFormatText);
-            }
+            var startDate = moment(convert.toDateFromString(date)),
+                nextDate = startDate.clone().add({hours: 24}),
+                fmt = this.dateFormatText;
 
-            return format.date(date, this.dateFormatText);
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
+                fmt = this.hourMinuteFormatText;
+
+            return format.date(startDate.toDate(), fmt);
         },
         formatMeridiem: function(date) {
-            if (convert.toDateFromString(date).between(Date.today(), Date.today().add({hours: 24}))) {
-                return format.date(date, "tt");
-            }
+            var startDate = moment(convert.toDateFromString(date)),
+                nextDate = startDate.clone().add({hours: 24});
 
-            return "";
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
+                return format.date(startDate.toDate(), 'A');
+
+            return '';
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        _onResize: function() {
-            query('.note-text-item', this.contentNode).forEach(function(node) {
-                var wrapNode = query('.note-text-wrap', node)[0],
-                    moreNode = query('.note-text-more', node)[0];
-                if (domGeom.getMarginBox(node).h < domGeom.getMarginBox(wrapNode).h) {
-                    domStyle.set(moreNode, 'visibility', 'visible');
-                } else {
-                    domStyle.set(moreNode, 'visibility', 'hidden');
-                }
-            });
-        },
         processFeed: function() {
             this.inherited(arguments);
-            this._onResize();
         },
-        postCreate: function() {
-            this.inherited(arguments);
-            this.subscribe('/app/resize', this._onResize);
+        onApplyRowActionPanel: function(actionsNode, rowNode) {
+            var colorRowCls, colorCls;
+
+            colorRowCls = query(rowNode).closest('[data-color-class]')[0];
+            colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
+            for (var colorKey in this.entityColorClassByType) {
+                domClass.remove(actionsNode, this.entityColorClassByType[colorKey]);
+            }
+            
+            if (colorCls) {
+                domClass.add(actionsNode, colorCls);
+            }
+        },
+        getItemColorClass: function(entry) {
+            return this.entityColorClassByType[entry.Type] || this.itemColorClass;
+        },
+        getItemIconSource: function(entry) {
+            return this.itemIcon || this.entityIconByType[entry.Type] || this.icon || this.selectIcon;
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'touched',
+                icon: 'Touched_24x24.png',
+                label: 'Touched',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }, {
+                id: 'activityIcon',
+                icon: '',
+                label: 'Activity',
+                onApply: function(entry, parent) {
+                    parent.applyActivityIndicator(entry, this);
+                }
+            }]
+            );
+        },
+        applyActivityIndicator: function(entry, indicator) {
+            this._applyActivityIndicator(entry['Type'], indicator);
+        },
+        _applyActivityIndicator: function(type, indicator) {
+            indicator.isEnabled = false;
+            indicator.showIcon = false;
+            if (type) {
+                indicator.icon = this.activityIndicatorIconByType[type];
+                indicator.label = this.activityTypeText[type];
+                indicator.isEnabled = true;
+                indicator.showIcon = true;
+            }
         }
     });
 });

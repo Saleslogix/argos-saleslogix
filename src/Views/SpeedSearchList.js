@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/SpeedSearchList', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -5,8 +8,12 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     'dojo/dom-class',
     'dojo/dom-construct',
     'dojo/string',
+    'dojo/query',
+    'dojo/dom-attr',
     'Mobile/SalesLogix/SpeedSearchWidget',
-    'Sage/Platform/Mobile/List'
+    'Sage/Platform/Mobile/List',
+    'Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin',
+    'Mobile/SalesLogix/Views/_CardLayoutListMixin'
 ], function(
     declare,
     lang,
@@ -14,12 +21,17 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     domClass,
     domConstruct,
     string,
+    query,
+    domAttr,
     SpeedSearchWidget,
-    List
+    List,
+    _SpeedSearchRightDrawerListMixin,
+    _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.SpeedSearchList', [List], {
+    return declare('Mobile.SalesLogix.Views.SpeedSearchList', [List, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
         //Templates
+        //Used when card layout is not mixed in
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.type %}">',
             '<div class="item-static-icon"><img src="{%: $$.iconPathsByType[$.type] %}" alt="{%: $.type %}" /></div>',
@@ -28,7 +40,11 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         ]),
 
         itemTemplate: new Simplate([
-            '<h3>{%: $.$descriptor %}</h3>'
+            '<h4>score:{%: $.scorePercent %}| hits: {%: $.hitCount %} </h4>',
+            '<h3>{%: $.$descriptor %}</h3>',
+            '<div class="card-layout-speed-search-synopsis">',
+            '{%= $.synopsis %}',
+             '</div>'
         ]),
 
         //Localization
@@ -38,9 +54,10 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         id: 'speedsearch_list',
         icon: 'content/images/icons/SpeedSearch_24x24.png',
         enableSearch: true,
+        enableActions:true,
         searchWidgetClass: SpeedSearchWidget,
-        expose: true,
-
+        expose: false,
+        activeIndexes: ['Account', 'Contact', 'Lead', 'Activity', 'History', 'Opportunity', 'Ticket'],
         indexes: [
             {indexName: 'Account', indexType: 1, isSecure: true},
             {indexName: 'Activity', indexType: 1, isSecure: false},
@@ -50,7 +67,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             {indexName: 'Opportunity', indexType: 1, isSecure: true},
             {indexName: 'Ticket', indexType: 1, isSecure: false}
         ],
-        types: ['Account', 'Activity', 'Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
+        types: ['Account', 'Activity','Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
         iconPathsByType: {
             'Account': 'content/images/icons/Company_24.png',
             'Activity': 'content/images/icons/To_Do_24x24.png',
@@ -59,6 +76,24 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             'Lead': 'content/images/icons/Leads_24x24.png',
             'Opportunity': 'content/images/icons/opportunity_24.png',
             'Ticket': 'content/images/icons/Ticket_24x24.png'
+        },
+        iconPathsByType2: {
+            'Account': 'Company_24.png',
+            'Activity': 'To_Do_24x24.png',
+            'Contact': 'Contacts_24x24.png',
+            'History': 'journal_24.png',
+            'Lead': 'Leads_24x24.png',
+            'Opportunity': 'opportunity_24.png',
+            'Ticket': 'Ticket_24x24.png'
+        },
+        indexesText: {
+            'Account': 'Account',
+            'Activity': 'Activity',
+            'Contact': 'Contact',
+            'History': 'History',
+            'Lead': 'Lead',
+            'Opportunity': 'Opportunity',
+            'Ticket': 'Ticket'
         },
         currentPage: null,
 
@@ -163,23 +198,28 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             if (feed.totalCount === 0) {
                 this.set('listContent', this.noDataTemplate.apply(this));
             } else if (feed.items) {
-                var o = [];
+
+                var docfrag = document.createDocumentFragment();
 
                 for (var i = 0; i < feed.items.length; i++) {
                     var entry = feed.items[i];
-
+                    var rowNode;
+                    var synopNode;
                     entry.type = this.extractTypeFromItem(entry);
-                    entry.$descriptor = entry.$descriptor || this.extractDescriptorFromItem(entry, entry.type);
+                    entry.$descriptor = entry.$descriptor || entry.uiDisplayName; //this.extractDescriptorFromItem(entry, entry.type);
                     entry.$key = this.extractKeyFromItem(entry);
-
+                    entry.$otherdata = this.extractDescriptorFromItem(entry, entry.type);
+                    entry.synopsis = unescape(entry.synopsis);
                     this.entries[entry.$key] = entry;
-
-                    o.push(this.rowTemplate.apply(entry, this));
+                    rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
+                    docfrag.appendChild(rowNode);
+                    this.onApplyRowTemplate(entry, rowNode);
                 }
 
-                if (o.length > 0) {
-                    domConstruct.place(o.join(''), this.contentNode, 'last');
+                if (docfrag.childNodes.length > 0) {
+                    domConstruct.place(docfrag, this.contentNode, 'last');
                 }
+               
             }
 
             if (typeof feed.totalCount !== 'undefined') {
@@ -206,7 +246,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                     includeThesaurus: App.speedSearch.includeThesaurus,
                     includePhonic: App.speedSearch.includePhonic,
                     useFrequentFilter: App.speedSearch.useFrequentFilter,
-                    indexes: this.indexes,
+                    indexes: this.getActiveIndexes(),
                     whichPage: this.currentPage,
                     itemsPerPage: this.pageSize,
                     filters: null
@@ -216,12 +256,25 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
             return entry;
         },
+        getActiveIndexes: function() {
+            var results = [], self = this;
+            array.forEach(this.activeIndexes, function(indexName) {
+                array.forEach(self.indexes, function(index) {
+                    if (index.indexName === indexName) {
+                        results.push(index);
+                    }
+                });
+            });
+
+            return results;
+        },
         requestData: function() {
             domClass.add(this.domNode, 'list-loading');
 
             var request = this.createRequest(),
                 entry = this.createSearchEntry();
 
+            this.showSearchExpression(entry);
             request.execute(entry, {
                 success: lang.hitch(this, this.onRequestDataSuccess),
                 failture: lang.hitch(this, this.onRequestDataFailure)
@@ -240,6 +293,95 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             return this.tools || (this.tools = {
                 'tbar': []
             });
+        },
+        getItemIconSource: function(entry) {
+            return   this.itemIcon || this.iconPathsByType[entry.type] ;
+        },
+        getItemIconAlt: function(entry) {
+            return entry.type;
+        },
+        getItemDescriptor: function(entry) {
+            return entry.type;
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'speadSearchIcon',
+                icon: '',
+                label: 'speadSearch',
+                onApply: function(entry, parent) {
+                    parent.applyActivityIndicator(entry, this);
+                }
+            }]
+            );
+        },
+        applyActivityIndicator: function(entry, indicator) {
+            var dataType = entry['type'];
+            indicator.isEnabled = true;
+            indicator.showIcon = true;
+            indicator.icon = this.iconPathsByType2[entry.type];
+
+        },
+        _intSearchExpressionNode: function() {
+            var html, listNode;
+            listNode = query('#' + this.id);
+            if (listNode[0]) {
+                html = this.searchExpressionTemplate.apply(this);
+                domConstruct.place(html, listNode[0], 'first');
+            }
+        },
+        _isIndexActive:function(indexName)
+        {
+            var indexFound = false;
+            if (this.activeIndexes.indexOf(indexName) > -1) {
+                indexFound = true;
+            }
+            return indexFound;
+        },
+        selectIndex: function(e) {
+            var button = e.$source,
+            indexName = domAttr.get(button, 'data-index'), 
+            activated = this.activateIndex(indexName);
+            if (activated) {
+                domClass.add(button, 'card-layout-speed-search-index-selected');
+            } else {
+                domClass.remove(button, 'card-layout-speed-search-index-selected');
+            }
+            
+        },
+        
+        activateIndex: function(indexName) {
+            var activated = false,
+            tempActiveIndex = [],
+            indexFound = false;
+            if (this.activeIndexes.indexOf(indexName) > -1) {
+                indexFound = true;
+            }
+            if (indexFound) {
+                array.forEach(this.activeIndexes, function(aIndexName) {
+                    if (aIndexName !== indexName) {
+                        tempActiveIndex.push(aIndexName);
+                    }
+                });
+                this.activeIndexes = tempActiveIndex;
+                activated = false;
+
+            } else {
+                this.activeIndexes.push(indexName);
+                activated = true;
+            }
+
+            return activated;
+        },
+        showSearchExpression: function(entry) {
+            var html, searchNode, searchText;
+            searchText =  entry.request.searchText ||'';
+            if (this.searchWidget) {
+                searchNode = query('#' + this.id + '_search-expression');
+                if (searchNode[0]) {
+                    html = '<div>' + searchText + '</div>';
+                    domAttr.set(searchNode[0], { innerHTML: html });
+                }
+            }
         }
     });
 });

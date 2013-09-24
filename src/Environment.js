@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Environment', [
     'dojo/_base/lang',
     'dojo/_base/window',
@@ -82,6 +85,19 @@ define('Mobile/SalesLogix/Environment', [
             'history_related',
             'history_list'
         ],
+        detailViewsToRefreshOnUpdate: [
+            'account_detail',
+            'contact_detail',
+            'opportunity_detail',
+            'lead_detail',
+            'ticket_detail'
+        ],
+        refreshStaleDetailViews: function() {
+            // List of detail views that will need refreshed when a note is added or an activity is completed (possibly others??).
+            // Otherwise the etag will change and the server will give a 412: Preconditioned failed when we attempt to edit/save.
+            var views = Mobile.SalesLogix.Environment.detailViewsToRefreshOnUpdate || [];
+            Mobile.SalesLogix.Environment.refreshViews(views);
+        },
         refreshActivityLists: function() {
             var views = Mobile.SalesLogix.Environment.activityViewsToRefresh || [];
             Mobile.SalesLogix.Environment.refreshViews(views);

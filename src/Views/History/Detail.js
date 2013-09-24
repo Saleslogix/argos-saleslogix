@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/History/Detail', [
     'dojo/_base/declare',
     'dojo/string',
@@ -63,7 +66,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         id: 'history_detail',
         existsRE: /^[\w]{12}$/,
         editView: 'history_edit',
-        dateFormatText: 'M/d/yyyy h:mm:ss tt',
+        dateFormatText: 'M/D/YYYY h:mm:ss A',
         resourceKind: 'history',
         security: null, //'Entities/History/View',
         querySelect: [

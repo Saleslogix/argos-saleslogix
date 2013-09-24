@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/OpportunityContact/Edit', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',

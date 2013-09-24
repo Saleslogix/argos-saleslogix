@@ -1,20 +1,25 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     'dojo/_base/declare',
     'dojo/dom-construct',
     'dojo/query',
     'dojo/string',
+    'Sage/Platform/Mobile/Detail',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail'
+    '../_MetricDetailMixin'
 ], function(
     declare,
     domConstruct,
     query,
     string,
+    Detail,
     format,
-    Detail
+    _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail /*, _MetricDetailMixin*/], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -51,7 +56,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         multiCurrencyCodeText: 'code',
         multiCurrencyDateText: 'rate date',
         multiCurrencyLockedText: 'rate locked',
-        exchangeRateDateFormatText: 'M/d/yyyy h:mm tt',
+        exchangeRateDateFormatText: 'M/D/YYYY h:mm A',
 
         //View Properties
         id: 'opportunity_detail',
@@ -118,6 +123,40 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         },
         formatAccountRelatedQuery: function(fmt) {
             return string.substitute(fmt, [this.entry['Account']['$key']]);
+        },
+        createMetricWidgetsLayout: function (entry) {
+            /*return [{
+                    chartType: 'bar',
+                    filterDisplayName: 'Account Manager',
+                    formatter: 'bigNumber',
+                    metricDisplayName: 'Sum Sales Potential',
+                    title: 'Sales potential for ' + entry.Account.AccountName,
+                    queryArgs: {
+                        _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
+                        _filterName: 'AccountManager',
+                        _metricName: 'SumSalesPotential'
+                    },
+                    queryName: 'executeMetric',
+                    resourceKind: 'opportunities',
+                    aggregate: 'sum',
+                    valueType: 'Mobile/SalesLogix/Aggregate'
+                }, {
+                    chartType: 'bar',
+                    filterDisplayName: 'Stage',
+                    formatter: 'bigNumber',
+                    metricDisplayName: 'Sum Sales Potential',
+                    title: 'Total opportunties for ' + entry.Account.AccountName,
+                    queryArgs: {
+                        _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
+                        _filterName: 'Stage',
+                        _metricName: 'CountOpportunities'
+                    },
+                    queryName: 'executeMetric',
+                    resourceKind: 'opportunities',
+                    aggregate: 'sum',
+                    valueType: 'Mobile/SalesLogix/Aggregate'
+                }
+            ];*/
         },
         createLayout: function() {
             var layout, quickActions, details, moreDetails, multiCurrency, relatedItems;
@@ -209,7 +248,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         label: this.multiCurrencyDateText,
                         name: 'ExchangeRateDate',
                         property: 'ExchangeRateDate',
-                        renderer: format.date.bindDelegate(this, this.exchangeRateDateFormatText, false),
+                        renderer: format.date.bindDelegate(this, this.exchangeRateDateFormatText, false)
                     }, {
                         label: this.multiCurrencyLockedText,
                         name: 'ExchangeRateLocked',

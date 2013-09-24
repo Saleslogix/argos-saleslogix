@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Activity/Complete', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/connect',
     'dojo/string',
+    'Mobile/SalesLogix/Environment',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
@@ -12,6 +16,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     array,
     connect,
     string,
+    environment,
     validator,
     template,
     utility,
@@ -31,7 +36,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         categoryText: 'category',
         categoryTitleText: 'Activity Category',
         completedText: 'completed date',
-        completedFormatText: 'M/d/yyyy h:mm tt',
+        completedFormatText: 'M/D/YYYY h:mm A',
         completionText: 'Completion',
         durationText: 'duration',
         durationInvalidText: "The field '${2}' must have a value.",
@@ -49,8 +54,8 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         resultText: 'result',
         resultTitleText: 'Result',
         startingText: 'start date',
-        startingFormatText: 'M/d/yyyy h:mm tt',
-        startingFormatTimelessText: 'M/d/yyyy',
+        startingFormatText: 'M/D/YYYY h:mm A',
+        startingFormatTimelessText: 'M/D/YYYY',
         timelessText: 'timeless',
         durationValueText: {
             0: 'none',
@@ -144,6 +149,14 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             this.connect(this.fields['AsScheduled'], 'onChange', this.onAsScheduledChange);
             this.connect(this.fields['Followup'], 'onChange', this.onFollowupChange);
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
+            this.connect(this.fields['Result'], 'onChange', this.onResultChange);
+        },
+        onResultChange: function(value, field) {
+            // Set the Result field back to the text value, and take the picklist code and set that to the ResultsCode
+            field.setValue(value.text);
+
+            // Max length for RESULTCODE is 8 chars, the sdata endpoint doesn't handle this, so we will truncate like the LAN if necessary
+            this.fields['ResultCode'].setValue((/.{0,8}/ig).exec(value.key));
         },
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
@@ -173,7 +186,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             }
         },
         toggleSelectField: function(field, disable) {
-            disable === true ? field.disable() : field.enable();
+            if (disable) {
+                field.disable();
+            } else {
+                field.enable();
+            }
         },
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
@@ -203,13 +220,13 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             if (!date) {
                 return false;
             }
-            if (date.getUTCHours() != 0) {
+            if (date.getUTCHours() !== 0) {
                 return false;
             }
-            if (date.getUTCMinutes() != 0) {
+            if (date.getUTCMinutes() !== 0) {
                 return false;
             }
-            if (date.getUTCSeconds() != 5) {
+            if (date.getUTCSeconds() !== 5) {
                 return false;
             }
 
@@ -244,6 +261,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             this.fields['CompletedDate'].setValue(new Date());
             this.fields['Followup'].setValue('none');
             this.fields['Result'].setValue('Complete');
+            this.fields['ResultCode'].setValue('COM');
 
             this.toggleSelectField(this.fields['CarryOverNotes'], true);
             this.toggleSelectField(this.fields['CompletedDate'], false);
@@ -315,12 +333,14 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     "ActivityId": entry['$key'],
                     "userId": entry['Leader']['$key'],
                     "result": this.fields['Result'].getValue(),
+                    "resultCode": this.fields['ResultCode'].getValue(),
                     "completeDate": this.fields['CompletedDate'].getValue()
                 }
             };
 
             var success = (function(scope, callback, entry) {
                 return function() {
+                    environment.refreshStaleDetailViews();
                     connect.publish('/app/refresh', [{
                         resourceKind: 'history'
                     }]);
@@ -436,12 +456,17 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                             label: this.resultText,
                             name: 'Result',
                             property: 'Result',
+                            storageMode: 'code',// The onResultChange changes the value back to text
                             picklist: this.formatPicklistForType.bindDelegate(this, 'Result'),
                             title: this.resultTitleText,
                             orderBy: 'text asc',
                             type: 'picklist',
                             maxTextLength: 64,
                             validator: validator.exceedsMaxTextLength
+                        }, {
+                            name: 'ResultCode',
+                            property: 'ResultCode',
+                            type: 'hidden'
                         }, {
                             label: this.followUpText,
                             title: this.followUpTitleText,

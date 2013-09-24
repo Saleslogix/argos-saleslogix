@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -25,7 +28,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         startDateText: 'start date',
         endDateText: 'end date',
         commentsText: 'comments',
-        startingFormatText: 'M/d/yyyy h:mm tt',
+        startingFormatText: 'M/D/YYYY h:mm A',
 
         //View Properties
         entityName: 'TicketActivity',
@@ -71,6 +74,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
         },
         onRequestCodeDataSuccess: function(code, field, feed) {
             var value = this.processCodeDataFeed(feed, code);
+            field.setValue(code);
             field.setText(value);
         },
         onRequestCodeDataFailure: function(response, o) {
@@ -113,7 +117,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     property: 'ActivityTypeCode',
                     requireSelection: true,
                     title: this.activityTypeTitleText,
-                    storageMode: 'code',
+                    storageMode: 'id',
                     picklist: 'Ticket Activity',
                     type: 'picklist'
                 }, {
@@ -121,7 +125,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
                     name: 'PublicAccessCode',
                     property: 'PublicAccessCode',
                     title: this.publicAccessTitleText,
-                    storageMode: 'code',
+                    storageMode: 'id',
                     picklist: 'Ticket Activity Public Access',
                     type: 'picklist'
                 }, {

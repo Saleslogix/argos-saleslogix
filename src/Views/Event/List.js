@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Event/List', [
     'dojo/_base/declare',
     'dojo/string',
@@ -13,7 +16,7 @@ define('Mobile/SalesLogix/Views/Event/List', [
     return declare('Mobile.SalesLogix.Views.Event.List', [List], {
         // Localization
         titleText: 'Events',
-        eventDateFormatText: 'M/d/yyyy',
+        eventDateFormatText: 'M/D/YYYY',
         eventText: 'Event',
 
         //Templates

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ */
 define('Mobile/SalesLogix/Views/Login', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/Edit'
@@ -10,6 +13,7 @@ define('Mobile/SalesLogix/Views/Login', [
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
+            '<p class="logo"><img src="content/images/logo.png"></img></p>',
             '<div class="panel-content" data-dojo-attach-point="contentNode"></div>',
             '<button class="button actionButton" data-action="authenticate"><span>{%: $.logOnText %}</span></button>',
             '<span class="copyright">{%= $.copyrightText %}</span>',
@@ -20,11 +24,11 @@ define('Mobile/SalesLogix/Views/Login', [
         //Localization
         id: 'login',
         busy: false,
-        copyrightText: '&copy; 2013 Saleslogix, NA, LLC. All rights reserved.',
-        logOnText: 'Log On',
+        copyrightText: '&copy; 2013 SalesLogix, NA, LLC. All rights reserved.',
+        logOnText: 'Log on to Saleslogix',
         passText: 'password',
         rememberText: 'remember',
-        titleText: 'Saleslogix',
+        titleText: 'Log On',
         userText: 'user name',
         invalidUserText: 'The user name or password is invalid.',
         missingUserText: 'The user record was not found.',
