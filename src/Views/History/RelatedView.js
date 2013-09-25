@@ -32,6 +32,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         byText: 'wrote ',
         id: 'relatedNotes',
         icon: 'content/images/icons/journal_24.png',
+        itemIcon: 'content/images/icons/journal_24.png',
         title: 'Notes',
         detailViewId: 'history_detail',
         listViewId: 'history_list',
@@ -55,8 +56,11 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         ]),
         relatedItemDetailTemplate: new Simplate([
                '<div class="note-text-wrap">',
-                '<h4>{%: $.Notes %}</h4>',
+                '<h4>{%: $.Notes %} ... </h4>',
               '</div>'
+        ]),
+        relatedViewHeaderTemplate: new Simplate([
+             '<div class="line-bar"></div>'
         ]),
         getDescription: function(entry) {
             return (entry.Description)? entry.Description : entry.$descriptor;
