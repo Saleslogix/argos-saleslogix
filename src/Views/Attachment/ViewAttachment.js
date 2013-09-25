@@ -42,7 +42,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         fileSizeText: 'file size',
         userText: 'user',
         attachmentNotSupportedText: 'The attachment type is not supported for viewing.',
-        attachmentDateFormatText: 'ddd M/d/yy h:mm:tt',
+        attachmentDateFormatText: 'ddd M/D/YYYY h:mm a',
         //View Properties
         id: 'view_attachment',
         editView: '',
