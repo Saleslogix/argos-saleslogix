@@ -32,7 +32,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
         statusCodeText: 'status code',
         errorText: 'error',
 
-        emailSubjectText: 'Error received in Sage SalesLogix Mobile Client',
+        emailSubjectText: 'Error received in Saleslogix Mobile Client',
         copiedSuccessText: 'Copied to clipboard',
 
         //Templates
