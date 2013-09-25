@@ -219,7 +219,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             return (selection.data['ContactId']) || (selection.data['LeadId']);
         },
         navigateToContactOrLead: function(action, selection) {
-            var entity = this.resolveEntityName(selection.data),
+            var entity = this.resolveContactOrLeadEntity(selection.data),
                 viewId,
                 options;
 
@@ -246,21 +246,15 @@ define('Mobile/SalesLogix/Views/History/List', [
                 view.show(options);
             }
         },
-        resolveEntityName: function(entry) {
+        resolveContactOrLeadEntity: function(entry) {
             var exists = this.existsRE;
 
             if (entry) {
                 if (exists.test(entry['LeadId'])) {
                     return 'Lead';
                 }
-                if (exists.test(entry['OpportunityId'])) {
-                    return 'Opportunity';
-                }
                 if (exists.test(entry['ContactId'])) {
                     return 'Contact';
-                }
-                if (exists.test(entry['AccountId'])) {
-                    return 'Account';
                 }
             }
         },
