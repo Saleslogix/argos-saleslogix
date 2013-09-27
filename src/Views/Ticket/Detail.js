@@ -261,7 +261,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                             name: 'AttachmentRelated',
                             icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'TicketId eq "${0}"'),
+                            where: this.formatRelatedQuery.bindDelegate(this, 'ticketId eq "${0}"'),// must be lower case because of feed
                             view: 'ticket_attachment_related',
                             title:  this.relatedAttachmentTitleText
                         }]
