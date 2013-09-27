@@ -136,6 +136,8 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                     failure: this.onRequestCodeDataFailure,
                     scope: this
                 });
+            } else {
+               this.onCodeDataNull();
             }
         },
         onRequestCodeDataSuccess: function(row, node, value, entry, data) {
@@ -150,6 +152,12 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             }
 
             ErrorManager.addError(response, o, this.options, 'failure');
+        },
+        onCodeDataNull: function() {
+            var rowNode = query('[data-property="CompletedUser"]');
+            if (rowNode) {
+                this.setNodeText(rowNode[0], '');
+            }
         },
         setNodeText: function(node, value) {
             domClass.remove(node, 'content-loading');
