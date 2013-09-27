@@ -7,6 +7,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     'dojo/query',
     'dojo/dom-class',
     'Mobile/SalesLogix/Format',
+    'Sage/Platform/Mobile/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Detail',
@@ -17,6 +18,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     query,
     domClass,
     format,
+    pltFormat,
     template,
     ErrorManager,
     Detail
@@ -200,7 +202,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
                         }, {
                             label: this.elapsedUnitsText,
                             name: 'ElapsedUnits',
-                            property: 'ElapsedUnits'
+                            property: 'ElapsedUnits',
+                            renderer: pltFormat.fixed
                         }, {
                             label: this.rateTypeDescriptionText,
                             name: 'RateTypeDescription.RateTypeCode',

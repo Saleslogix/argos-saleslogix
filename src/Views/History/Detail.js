@@ -136,6 +136,8 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                     failure: this.onRequestCodeDataFailure,
                     scope: this
                 });
+            } else {
+               this.onCodeDataNull();
             }
         },
         onRequestCodeDataSuccess: function(row, node, value, entry, data) {
@@ -150,6 +152,12 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             }
 
             ErrorManager.addError(response, o, this.options, 'failure');
+        },
+        onCodeDataNull: function() {
+            var rowNode = query('[data-property="CompletedUser"]');
+            if (rowNode) {
+                this.setNodeText(rowNode[0], '');
+            }
         },
         setNodeText: function(node, value) {
             domClass.remove(node, 'content-loading');
@@ -258,7 +266,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                         name: 'AttachmentRelated',
                         icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
-                        where: this.formatRelatedQuery.bindDelegate(this, 'HistoryId eq "${0}"'),
+                        where: this.formatRelatedQuery.bindDelegate(this, 'historyId eq "${0}"'),// must be lower case because of feed
                         view: 'history_attachment_related',
                         title:  this.relatedAttachmentTitleText
                     }]
