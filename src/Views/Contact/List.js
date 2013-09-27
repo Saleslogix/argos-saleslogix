@@ -177,7 +177,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                 autoLoad:true,
                 enabled: true,
                 relatedProperty: 'ContactId',
-                where: function(entry) { return "ContactId eq '" + entry.$key + "'"; }
+                where: function(entry) { return "ContactId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
             }]);
         }
     });
