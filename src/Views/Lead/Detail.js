@@ -303,7 +303,7 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                             name: 'AttachmentRelated',
                             icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}"'),
+                            where: this.formatRelatedQuery.bindDelegate(this, 'leadId eq "${0}"'),// must be lower case because of feed
                             view: 'lead_attachment_related',
                             title:  this.relatedAttachmentTitleText
                         }]
