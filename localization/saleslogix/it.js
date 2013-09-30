@@ -8,13 +8,13 @@ localize("Sage.Platform.Mobile.Calendar", {
 });
 
 localize("Sage.Platform.Mobile.Fields.DateField", {
-  "dateFormatText": "MM/GG/AAAA",
+  "dateFormatText": "MM/DD/YYYY",
   "emptyText": "",
   "invalidDateFormatErrorText": "Formato data del campo '${0}' non valido."
 });
 
 localize("Sage.Platform.Mobile.Format", {
-  "shortDateFormatText": "M/G/AAAA",
+  "shortDateFormatText": "M/D/YYYY",
   "percentFormatText": "${0}${1}",
   "yesText": "Sì",
   "noText": "No",
@@ -28,8 +28,8 @@ localize("Sage.Platform.Mobile.Format", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
-  "completedFormatText": "M/G/AAAA h:mm A",
-  "startingFormatText": "M/G/AAAA h:mm A",
+  "completedFormatText": "M/D/YYYY h:mm A",
+  "startingFormatText": "M/D/YYYY h:mm A",
   "activityInfoText": "Info attività",
   "accountText": "Azienda",
   "contactText": "Contatto",
@@ -78,9 +78,9 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
-  "startDateFormatText": "M/G/AAAA h:mm:ss A",
-  "timelessDateFormatText": "M/G/AAAA",
-  "alarmDateFormatText": "M/G/AAAA h:mm:ss A",
+  "startDateFormatText": "M/D/YYYY h:mm:ss A",
+  "timelessDateFormatText": "M/D/YYYY",
+  "alarmDateFormatText": "M/D/YYYY h:mm:ss A",
   "activityTypeText": {
     "atToDo": "Impegno",
     "atPhoneCall": "Telefonata",
@@ -124,7 +124,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
-  "startingFormatText": "M/G/AAAA h:mm A",
+  "startingFormatText": "M/D/YYYY h:mm A",
   "activityCategoryTitleText": "Categoria attività",
   "activityDescriptionTitleText": "Descrizione Attività",
   "locationText": "Posizione",
@@ -182,7 +182,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.List", {
-  "startDateFormatText": "ggg M/G/AAAA",
+  "startDateFormatText": "ddd M/D/YYYY",
   "startTimeFormatText": "h:mm",
   "allDayText": "Tutto il giorno",
   "completeActivityText": "Completa",
@@ -211,7 +211,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
 });
 
 localize("Mobile.SalesLogix.Views.Attachment.List", {
-  "attachmentDateFormatText": "ggg M/G/AAAA hh:mm:ss",
+  "attachmentDateFormatText": "ddd M/D/YYYY hh:mm:ss",
   "titleText": "Allegati",
   "uploadedOnText": "Caricato ",
   "hashTagQueriesText": {
@@ -233,8 +233,8 @@ localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.DayView", {
-  "eventDateFormatText": "M/G/AAAA",
-  "dateHeaderFormatText": "gggg, M/G/AAAA",
+  "eventDateFormatText": "M/D/YYYY",
+  "dateHeaderFormatText": "dddd, M/D/YYYY",
   "startTimeFormatText": "h:mm",
   "titleText": "Calendario",
   "todayText": "Oggi",
@@ -249,9 +249,9 @@ localize("Mobile.SalesLogix.Views.Calendar.DayView", {
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
-  "monthTitleFormatText": "MMMM AAAA",
-  "dayTitleFormatText": "ggg MMM G, AAAA",
-  "eventDateFormatText": "M/G/AAAA",
+  "monthTitleFormatText": "MMMM YYYY",
+  "dayTitleFormatText": "ddd MMM D, YYYY",
+  "eventDateFormatText": "M/D/YYYY",
   "startTimeFormatText": "h:mm",
   "titleText": "Calendario",
   "todayText": "Oggi",
@@ -267,10 +267,10 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
-  "weekTitleFormatText": "MMM G, AAAA",
-  "dayHeaderLeftFormatText": "gggg",
-  "dayHeaderRightFormatText": "MMM G, AAAA",
-  "eventDateFormatText": "M/G/AAAA",
+  "weekTitleFormatText": "MMM D, YYYY",
+  "dayHeaderLeftFormatText": "dddd",
+  "dayHeaderRightFormatText": "MMM D, YYYY",
+  "eventDateFormatText": "M/D/YYYY",
   "startTimeFormatText": "h:mm",
   "titleText": "Calendario",
   "todayText": "Oggi",
@@ -284,7 +284,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
-  "errorDateFormatText": "MM/GG/AAAA hh:mm A",
+  "errorDateFormatText": "MM/DD/YYYY hh:mm A",
   "titleText": "Log errori",
   "detailsText": "Dettagli",
   "errorDateText": "Data",
@@ -299,13 +299,13 @@ localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.List", {
-  "errorDateFormatText": "MM/GG/AAAA hh:mm A",
+  "errorDateFormatText": "MM/DD/YYYY hh:mm A",
   "titleText": "Log errori"
 });
 
 localize("Mobile.SalesLogix.Views.Event.Detail", {
-  "startDateFormatText": "M/G/AAAA h:mm:ss A",
-  "endDateFormatText": "M/G/AAAA h:mm:ss A",
+  "startDateFormatText": "M/D/YYYY h:mm:ss A",
+  "endDateFormatText": "M/D/YYYY h:mm:ss A",
   "eventTypeText": {
     "atToDo": "Impegno",
     "atPhoneCall": "Telefonata",
@@ -323,7 +323,7 @@ localize("Mobile.SalesLogix.Views.Event.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Event.Edit", {
-  "startingFormatText": "M/G/AAAA h:mm A",
+  "startingFormatText": "M/D/YYYY h:mm A",
   "titleText": "Evento",
   "typeText": "Tipo",
   "descriptionText": "Descrizione",
@@ -332,13 +332,13 @@ localize("Mobile.SalesLogix.Views.Event.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.Event.List", {
-  "eventDateFormatText": "M/G/AAAA",
+  "eventDateFormatText": "M/D/YYYY",
   "titleText": "Eventi",
   "eventText": "Evento"
 });
 
 localize("Mobile.SalesLogix.Views.History.Detail", {
-  "dateFormatText": "M/G/AAAA h:mm:ss A",
+  "dateFormatText": "M/D/YYYY h:mm:ss A",
   "categoryText": "Categoria",
   "completedText": "Completato",
   "durationText": "Durata",
@@ -375,7 +375,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.History.Edit", {
-  "startingFormatText": "M/G/AAAA h:mm A",
+  "startingFormatText": "M/D/YYYY h:mm A",
   "accountText": "Azienda",
   "noteDescriptionTitleText": "Descrizione nota",
   "contactText": "Contatto",
@@ -396,7 +396,7 @@ localize("Mobile.SalesLogix.Views.History.Edit", {
 
 localize("Mobile.SalesLogix.Views.History.List", {
   "hourMinuteFormatText": "h:mm",
-  "dateFormatText": "M/G/AA",
+  "dateFormatText": "M/D/YY",
   "activityTypeText": {
     "atToDo": "Impegno",
     "atPhoneCall": "Telefonata",
@@ -423,7 +423,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
 });
 
 localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
-  "exchangeRateDateFormatText": "M/G/AAAA h:mm A",
+  "exchangeRateDateFormatText": "M/D/YYYY h:mm A",
   "accountText": "acct",
   "acctMgrText": "gest acct",
   "estCloseText": "chiusura est",
@@ -462,7 +462,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
-  "exchangeRateDateFormatText": "M/G/AAAA h:mm A",
+  "exchangeRateDateFormatText": "M/D/YYYY h:mm A",
   "accountText": "acct",
   "acctMgrText": "gest acct",
   "estCloseText": "chiusura est",
@@ -488,7 +488,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
-  "startingFormatText": "M/G/AAAA h:mm A",
+  "startingFormatText": "M/D/YYYY h:mm A",
   "titleText": "Modifica Attività Ticket",
   "activityTypeText": "Tipo",
   "activityTypeTitleText": "Tipo",
@@ -501,7 +501,7 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
-  "startDateFormatText": "MM/GG/AAAA h:mmA",
+  "startDateFormatText": "MM/DD/YYYY h:mmA",
   "titleText": "Attività Ticket"
 });
 
