@@ -268,7 +268,7 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "weekTitleFormatText": "D. MMM YYYY",
-  "dayHeaderLeftFormatText": "tttt",
+  "dayHeaderLeftFormatText": "dddd",
   "dayHeaderRightFormatText": "D. MMM YYYY",
   "eventDateFormatText": "D.M.YYYY",
   "startTimeFormatText": "h:mm",
