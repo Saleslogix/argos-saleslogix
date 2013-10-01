@@ -40,11 +40,12 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         ]),
 
         itemTemplate: new Simplate([
-            '<h4>score:{%: $.scorePercent %}| hits: {%: $.hitCount %} </h4>',
-            '<h3>{%: $.$descriptor %}</h3>',
-            '<div class="card-layout-speed-search-synopsis">',
-            '{%= $.synopsis %}',
-             '</div>'
+          '<h4><strong>{%: $.$heading %}</strong></h4>',
+          '{% if ($$.showSynopsis) { %}',
+               '<div class="card-layout-speed-search-synopsis note-text-wrap">',
+                '{%= $.synopsis %}',
+               '</div>',
+           '{% } %}'
         ]),
 
         //Localization
@@ -57,6 +58,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         enableActions:true,
         searchWidgetClass: SpeedSearchWidget,
         expose: false,
+        showSynopsis: false,
         activeIndexes: ['Account', 'Contact', 'Lead', 'Activity', 'History', 'Opportunity', 'Ticket'],
         indexes: [
             {indexName: 'Account', indexType: 1, isSecure: true},
@@ -133,7 +135,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                     descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
                     break;
                 case 'Ticket':
-                    descriptor = item.uiDisplayName;
+                    descriptor ='';// 'item.uiDisplayName;
                     break;
             }
             return descriptor;
@@ -206,9 +208,9 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                     var rowNode;
                     var synopNode;
                     entry.type = this.extractTypeFromItem(entry);
-                    entry.$descriptor = entry.$descriptor || entry.uiDisplayName; //this.extractDescriptorFromItem(entry, entry.type);
+                    entry.$descriptor = entry.$descriptor || entry.uiDisplayName; 
                     entry.$key = this.extractKeyFromItem(entry);
-                    entry.$otherdata = this.extractDescriptorFromItem(entry, entry.type);
+                    entry.$heading = this.extractDescriptorFromItem(entry, entry.type);
                     entry.synopsis = unescape(entry.synopsis);
                     this.entries[entry.$key] = entry;
                     rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
