@@ -203,9 +203,9 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "Alarme",
     "recurring": "Périodicité",
-    "timeless": "Heure indéfinie",
+    "timeless": "Heure-indéfinie",
     "today": "Aujourd'hui",
-    "this-week": "cette semaine",
+    "this-week": "cette-semaine",
     "yesterday": "Hier"
   }
 });
@@ -409,7 +409,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
   "hashTagQueriesText": {
     "my-history": "mon-historique",
     "note": "Note",
-    "phonecall": "appel téléphonique",
+    "phonecall": "appel-téléphonique",
     "meeting": "Rendez-vous",
     "personal": "Personnel",
     "email": "E-mail"
@@ -867,7 +867,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
     "status-accepted": "statut-accepté",
     "status-declined": "statut-refusé",
     "recurring": "Périodicité",
-    "timeless": "Heure indéfinie",
+    "timeless": "Heure-indéfinie",
     "today": "Aujourd'hui",
     "this-week": "cette-semaine",
     "yesterday": "Hier"

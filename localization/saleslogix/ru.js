@@ -203,7 +203,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "Оповещение",
     "recurring": "Повторяющийся",
-    "timeless": "В течение дня",
+    "timeless": "В-течение-дня",
     "today": "Сегодня",
     "this-week": "на-этой-неделе",
     "yesterday": "Вчера"
@@ -845,7 +845,7 @@ localize("Mobile.SalesLogix.Views.Account.List", {
     "customer": "Клиент",
     "partner": "Партнер",
     "vendor": "Поставщик",
-    "influencer": "источник влияния",
+    "influencer": "источник-влияния",
     "competitor": "Конкурент"
   }
 });
@@ -863,11 +863,11 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
   "viewOpportunityActionText": "Сделка",
   "hashTagQueriesText": {
     "alarm": "Оповещение",
-    "status-unconfirmed": "статус-нет подтверждения",
-    "status-accepted": "статус утверждено",
+    "status-unconfirmed": "статус-нет-подтверждения",
+    "status-accepted": "статус-утверждено",
     "status-declined": "статус-отмена",
     "recurring": "Повторяющийся",
-    "timeless": "В течение дня",
+    "timeless": "В-течение-дня",
     "today": "Сегодня",
     "this-week": "на-этой-неделе",
     "yesterday": "Вчера"

@@ -91,7 +91,9 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         resourceKind: 'contacts',
         entityName: 'Contact',
         enableActions: true,
-        defaultSearchTerm: '#my-contacts',
+        defaultSearchTerm: function() {
+            return '#' + this.hashTagQueriesText['my-contacts'];
+        },
         hashTagQueries: {
             'my-contacts': function() {
                 return 'AccountManager.Id eq "' + App.context.user.$key + '"';

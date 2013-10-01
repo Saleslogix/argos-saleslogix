@@ -202,10 +202,10 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "titleText": "Aktivitäten",
   "hashTagQueriesText": {
     "alarm": "Alarm",
-    "recurring": "Sich wiederholende Aktivität",
-    "timeless": "Ohne Zeitangabe",
+    "recurring": "Sich-wiederholende-Aktivität",
+    "timeless": "Ohne-Zeitangabe",
     "today": "Heute",
-    "this-week": "diese Woche",
+    "this-week": "diese-Woche",
     "yesterday": "Gestern"
   }
 });
@@ -407,7 +407,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
     "atEMail": "E-Mail"
   },
   "hashTagQueriesText": {
-    "my-history": "meine Historie",
+    "my-history": "meine-Historie",
     "note": "Notiz",
     "phonecall": "Telefonanruf",
     "meeting": "Meeting",
@@ -863,13 +863,13 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
   "viewOpportunityActionText": "Verkaufschance",
   "hashTagQueriesText": {
     "alarm": "Alarm",
-    "status-unconfirmed": "Status unbestätigt",
-    "status-accepted": "Status akzeptiert",
-    "status-declined": "Status abgelehnt",
-    "recurring": "Sich wiederholende Aktivität",
-    "timeless": "Ohne Zeitangabe",
+    "status-unconfirmed": "Status-unbestätigt",
+    "status-accepted": "Status-akzeptiert",
+    "status-declined": "Status-abgelehnt",
+    "recurring": "Sich-wiederholende-Aktivität",
+    "timeless": "Ohne-Zeitangabe",
     "today": "Heute",
-    "this-week": "diese Woche",
+    "this-week": "diese-Woche",
     "yesterday": "Gestern"
   }
 });
@@ -1072,14 +1072,14 @@ localize("Mobile.SalesLogix.Views.Contact.List", {
   "phoneAbbreviationText": "Geschäftlich: ",
   "mobileAbbreviationText": "Mobil: ",
   "hashTagQueriesText": {
-    "my-contacts": "Meine Kontakte",
+    "my-contacts": "Meine-Kontakte",
     "primary": "Haupt",
-    "not-primary": "nicht primär",
-    "can-email": "E-Mail vorhanden",
-    "can-phone": "Telefon vorhanden",
-    "can-fax": "Fax vorhanden",
-    "can-mail": "Postanschrift vorhanden",
-    "can-solicit": "Werbung zulässig"
+    "not-primary": "nicht-primär",
+    "can-email": "E-Mail-vorhanden",
+    "can-phone": "Telefon-vorhanden",
+    "can-fax": "Fax-vorhanden",
+    "can-mail": "Postanschrift-vorhanden",
+    "can-solicit": "Werbung-zulässig"
   }
 });
 
@@ -1200,12 +1200,12 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "mobileAbbreviationText": "Mobil: ",
   "tollFreeAbbreviationText": "Gebührenfrei: ",
   "hashTagQueriesText": {
-    "my-leads": "meine Interessenten",
-    "can-email": "E-Mail vorhanden",
-    "can-phone": "Telefon vorhanden",
-    "can-fax": "Fax vorhanden",
-    "can-mail": "Postanschrift vorhanden",
-    "can-solicit": "Werbung zulässig"
+    "my-leads": "meine-Interessenten",
+    "can-email": "E-Mail-vorhanden",
+    "can-phone": "Telefon-vorhanden",
+    "can-fax": "Fax-vorhanden",
+    "can-mail": "Postanschrift-vorhanden",
+    "can-solicit": "Werbung-zulässig"
   }
 });
 
@@ -1289,7 +1289,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
   "actualCloseText": "Abgeschlossen ",
   "estimatedCloseText": "Voraussichtlicher Abschluss ",
   "hashTagQueriesText": {
-    "my-opportunities": "meine Verkaufschancen",
+    "my-opportunities": "meine-Verkaufschancen",
     "open": "Offen",
     "closed": "Abgeschlossen",
     "won": "gewonnen",
@@ -1298,7 +1298,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "prospect": "Interessent",
     "qualification": "Qualifizierungsmerkmal",
     "negotiation": "Verhandlung",
-    "needs-analysis": "Analyse erforderlich",
+    "needs-analysis": "Analyse-erforderlich",
     "demonstration": "Vorführung",
     "decision": "Entscheidung"
   }
@@ -1510,8 +1510,8 @@ localize("Mobile.SalesLogix.Views.Ticket.List", {
   "modifiedText": "Geändert ",
   "neededByText": "Erforderlich  ",
   "hashTagQueriesText": {
-    "assigned-to-me": "mir zugewiesen",
-    "completed-by-me": "von mir ausgefüllt"
+    "assigned-to-me": "mir-zugewiesen",
+    "completed-by-me": "von-mir-ausgefüllt"
   }
 });
 

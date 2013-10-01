@@ -203,9 +203,9 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "Allarme",
     "recurring": "Ricorrente",
-    "timeless": "Senza orario",
+    "timeless": "Senza-orario",
     "today": "Oggi",
-    "this-week": "questa settimana",
+    "this-week": "questa-settimana",
     "yesterday": "Ieri"
   }
 });
@@ -407,9 +407,9 @@ localize("Mobile.SalesLogix.Views.History.List", {
     "atEMail": "E-mail"
   },
   "hashTagQueriesText": {
-    "my-history": "mia cronologia",
+    "my-history": "mia-cronologia",
     "note": "Nota",
-    "phonecall": "chiamata telefonica",
+    "phonecall": "chiamata-telefonica",
     "meeting": "Riunione",
     "personal": "Personale",
     "email": "E-Mail"
@@ -863,13 +863,13 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
   "viewOpportunityActionText": "Opportunità",
   "hashTagQueriesText": {
     "alarm": "Allarme",
-    "status-unconfirmed": "stato: non confermato",
-    "status-accepted": "stato: accettato",
-    "status-declined": "stato: rifiutato",
+    "status-unconfirmed": "stato-non-confermato",
+    "status-accepted": "stato-accettato",
+    "status-declined": "stato-rifiutato",
     "recurring": "Ricorrente",
-    "timeless": "Senza orario",
+    "timeless": "Senza-orario",
     "today": "Oggi",
-    "this-week": "questa settimana",
+    "this-week": "questa-settimana",
     "yesterday": "Ieri"
   }
 });
@@ -1072,14 +1072,14 @@ localize("Mobile.SalesLogix.Views.Contact.List", {
   "phoneAbbreviationText": "Lavoro: ",
   "mobileAbbreviationText": "Cellulare: ",
   "hashTagQueriesText": {
-    "my-contacts": "miei contatti",
+    "my-contacts": "miei-contatti",
     "primary": "Primario",
-    "not-primary": "non principale",
-    "can-email": "può inviare e-mail",
-    "can-phone": "può telefonare",
-    "can-fax": "può inviare fax",
-    "can-mail": "può inviare posta",
-    "can-solicit": "può sollecitare"
+    "not-primary": "non-principale",
+    "can-email": "può-inviare-e-mail",
+    "can-phone": "può-telefonare",
+    "can-fax": "può-inviare-fax",
+    "can-mail": "può-inviare-posta",
+    "can-solicit": "può-sollecitare"
   }
 });
 
@@ -1200,12 +1200,12 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "mobileAbbreviationText": "Cellulare: ",
   "tollFreeAbbreviationText": "Num. verde: ",
   "hashTagQueriesText": {
-    "my-leads": "miei potenziali clienti",
-    "can-email": "può inviare e-mail",
-    "can-phone": "può telefonare",
-    "can-fax": "può inviare fax",
-    "can-mail": "può inviare posta",
-    "can-solicit": "può sollecitare"
+    "my-leads": "miei-potenziali-clienti",
+    "can-email": "può-inviare-e-mail",
+    "can-phone": "può-telefonare",
+    "can-fax": "può-inviare-fax",
+    "can-mail": "può-inviare-posta",
+    "can-solicit": "può-sollecitare"
   }
 });
 
@@ -1289,7 +1289,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
   "actualCloseText": "Chiuso ",
   "estimatedCloseText": "Chiusura stimata ",
   "hashTagQueriesText": {
-    "my-opportunities": "mie opportunità",
+    "my-opportunities": "mie-opportunità",
     "open": "Apri",
     "closed": "Chiuso",
     "won": "vinte",
@@ -1298,7 +1298,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "prospect": "Prospetto",
     "qualification": "Qualifica",
     "negotiation": "negoziazione",
-    "needs-analysis": "analisi fabbisogni",
+    "needs-analysis": "analisi-fabbisogni",
     "demonstration": "dimonstrazione",
     "decision": "decisione"
   }
@@ -1510,8 +1510,8 @@ localize("Mobile.SalesLogix.Views.Ticket.List", {
   "modifiedText": "Modificato ",
   "neededByText": "Necessario  ",
   "hashTagQueriesText": {
-    "assigned-to-me": "assegnato a me",
-    "completed-by-me": "completato da me"
+    "assigned-to-me": "assegnato-a-me",
+    "completed-by-me": "completato-da-me"
   }
 });
 
