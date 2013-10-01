@@ -105,7 +105,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
 
             this.createIndicatorLayout();
         },
-        startup: function() {
+        placeAt: function() {
             this.inherited(arguments);
             this._intFooter();
             this._intSearchExpressionNode();
