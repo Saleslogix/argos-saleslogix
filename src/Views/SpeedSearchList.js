@@ -135,7 +135,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                     descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
                     break;
                 case 'Ticket':
-                    descriptor ='';// 'item.uiDisplayName;
+                    descriptor = item.uiDisplayName;
                     break;
             }
             return descriptor;
