@@ -28,8 +28,8 @@ localize("Sage.Platform.Mobile.Format", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
-  "completedFormatText": "D/M/YYYY h:mm A",
-  "startingFormatText": "D/M/YYYY h:mm A",
+  "completedFormatText": "D/M/YYYY h:mm",
+  "startingFormatText": "D/M/YYYY h:mm",
   "activityInfoText": "Infos sur l'activité",
   "accountText": "Compte",
   "contactText": "Contact",
@@ -78,9 +78,9 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
-  "startDateFormatText": "D/M/YYYY h:mm:ss A",
+  "startDateFormatText": "D/M/YYYY h:mm:ss",
   "timelessDateFormatText": "D/M/YYYY",
-  "alarmDateFormatText": "D/M/YYYY h:mm:ss A",
+  "alarmDateFormatText": "D/M/YYYY h:mm:ss",
   "activityTypeText": {
     "atToDo": "Tâche à faire",
     "atPhoneCall": "Appel",
@@ -124,7 +124,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
-  "startingFormatText": "D/M/YYYY h:mm A",
+  "startingFormatText": "D/M/YYYY h:mm",
   "activityCategoryTitleText": "Catégorie de l'activité",
   "activityDescriptionTitleText": "Description de l'activité",
   "locationText": "Emplacement",
@@ -203,9 +203,9 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "Alarme",
     "recurring": "Périodicité",
-    "timeless": "Heure indéfinie",
+    "timeless": "Heure-indéfinie",
     "today": "Aujourd'hui",
-    "this-week": "cette semaine",
+    "this-week": "cette-semaine",
     "yesterday": "Hier"
   }
 });
@@ -284,7 +284,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
-  "errorDateFormatText": "DD/MM/YYYY hh:mm A",
+  "errorDateFormatText": "DD/MM/YYYY hh:mm",
   "titleText": "Journal d'erreur",
   "detailsText": "Détails",
   "errorDateText": "Date",
@@ -294,18 +294,18 @@ localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
   "severityText": "Gravité",
   "statusCodeText": "Code d'état",
   "errorText": "Erreur",
-  "emailSubjectText": "Erreur reçue dans le client mobile Sage SalesLogix",
+  "emailSubjectText": "Erreur dans le client mobile Saleslogix",
   "copiedSuccessText": "Copié dans le presse-papier"
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.List", {
-  "errorDateFormatText": "DD/MM/YYYY hh:mm A",
+  "errorDateFormatText": "DD/MM/YYYY hh:mm",
   "titleText": "Journaux d'erreur"
 });
 
 localize("Mobile.SalesLogix.Views.Event.Detail", {
-  "startDateFormatText": "D/M/YYYY h:mm:ss A",
-  "endDateFormatText": "D/M/YYYY h:mm:ss A",
+  "startDateFormatText": "D/M/YYYY h:mm:ss",
+  "endDateFormatText": "D/M/YYYY h:mm:ss",
   "eventTypeText": {
     "atToDo": "Tâche à faire",
     "atPhoneCall": "Appel",
@@ -323,7 +323,7 @@ localize("Mobile.SalesLogix.Views.Event.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Event.Edit", {
-  "startingFormatText": "D/M/YYYY h:mm A",
+  "startingFormatText": "D/M/YYYY h:mm",
   "titleText": "Evénement",
   "typeText": "Type",
   "descriptionText": "Description",
@@ -338,7 +338,7 @@ localize("Mobile.SalesLogix.Views.Event.List", {
 });
 
 localize("Mobile.SalesLogix.Views.History.Detail", {
-  "dateFormatText": "D/M/YYYY h:mm:ss A",
+  "dateFormatText": "D/M/YYYY h:mm:ss",
   "categoryText": "Catégorie",
   "completedText": "Terminé",
   "durationText": "Durée",
@@ -375,7 +375,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.History.Edit", {
-  "startingFormatText": "D/M/YYYY h:mm A",
+  "startingFormatText": "D/M/YYYY h:mm",
   "accountText": "Compte",
   "noteDescriptionTitleText": "Description de la note",
   "contactText": "Contact",
@@ -409,7 +409,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
   "hashTagQueriesText": {
     "my-history": "mon-historique",
     "note": "Note",
-    "phonecall": "appel téléphonique",
+    "phonecall": "appel-téléphonique",
     "meeting": "Rendez-vous",
     "personal": "Personnel",
     "email": "E-mail"
@@ -423,7 +423,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
 });
 
 localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
-  "exchangeRateDateFormatText": "D/M/YYYY h:mm A",
+  "exchangeRateDateFormatText": "D/M/YYYY h:mm",
   "accountText": "cpte",
   "acctMgrText": "resp cpte",
   "estCloseText": "clôture est.",
@@ -462,7 +462,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
-  "exchangeRateDateFormatText": "D/M/YYYY h:mm A",
+  "exchangeRateDateFormatText": "D/M/YYYY h:mm",
   "accountText": "cpte",
   "acctMgrText": "resp cpte",
   "estCloseText": "clôture est.",
@@ -488,7 +488,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
-  "startingFormatText": "D/M/YYYY h:mm A",
+  "startingFormatText": "D/M/YYYY h:mm",
   "titleText": "Modifier l'activité du ticket",
   "activityTypeText": "Type",
   "activityTypeTitleText": "Type",
@@ -501,7 +501,7 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
-  "startDateFormatText": "DD/MM/YYYY h:mmA",
+  "startDateFormatText": "DD/MM/YYYY h:mm",
   "titleText": "Activités du ticket"
 });
 
@@ -623,9 +623,9 @@ localize("Sage.Platform.Mobile.MainToolbar", {
 localize("Sage.Platform.Mobile.RelatedViewWidget", {
   "nodataText": "aucune fiche trouvée...",
   "selectMoreDataText": "voir ${0} plus de ${1} ... ",
-  "navToListText": "see list",
+  "navToListText": "voir liste",
   "loadingText": "chargement ... ",
-  "refreshViewText": "xrefresh",
+  "refreshViewText": "Actualiser",
   "itemOfCountText": " ${0} sur ${1}",
   "totalCountText": " (${0})"
 });
@@ -867,7 +867,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
     "status-accepted": "statut-accepté",
     "status-declined": "statut-refusé",
     "recurring": "Périodicité",
-    "timeless": "Heure indéfinie",
+    "timeless": "Heure-indéfinie",
     "today": "Aujourd'hui",
     "this-week": "cette-semaine",
     "yesterday": "Hier"
@@ -1092,7 +1092,7 @@ localize("Mobile.SalesLogix.Views.ExchangeRateLookup", {
 });
 
 localize("Mobile.SalesLogix.Views.FooterToolbar", {
-  "copyrightText": "&copy; 2013 Sage Software, Inc. Tous droits réservés."
+  "copyrightText": "&copy; 2013 SalesLogix, NA, LLC. Tous droits réservés."
 });
 
 localize("Mobile.SalesLogix.Views.Help", {
@@ -1103,7 +1103,7 @@ localize("Mobile.SalesLogix.Views.Help", {
 
 localize("Mobile.SalesLogix.Views.History.RelatedView", {
   "regardingText": "Objet",
-  "byText": "wrote "
+  "byText": "écrit "
 });
 
 localize("Mobile.SalesLogix.Views.Home", {

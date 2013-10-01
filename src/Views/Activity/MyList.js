@@ -205,7 +205,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'this-week': 'this-week',
             'yesterday': 'yesterday'
         },
-        defaultSearchTerm: '#this-week',
+        defaultSearchTerm: function() {
+            return '#' + this.hashTagQueriesText['this-week'];
+        },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'viewAccount',

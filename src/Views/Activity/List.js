@@ -237,7 +237,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'this-week': 'this-week',
             'yesterday': 'yesterday'
         },
-        defaultSearchTerm: '#this-week',
+        defaultSearchTerm: function() {
+            return '#' + this.hashTagQueriesText['this-week'];
+        },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },

@@ -1,78 +1,114 @@
 define('localization/saleslogix/en-GB', ['localization/en-GB', 'Mobile/SalesLogix/ApplicationModule'], function() {
 
+localize("Sage.Platform.Mobile.Calendar", {
+  "timeFormatText": "h:mm A"
+});
+
 localize("Sage.Platform.Mobile.Fields.DateField", {
-  "dateFormatText": "dd/MM/yyyy"
+  "dateFormatText": "DD/MM/YYYY"
+});
+
+localize("Sage.Platform.Mobile.Format", {
+  "shortDateFormatText": "D/M/YYYY",
+  "percentFormatText": "${0}${1}"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
-  "completedFormatText": "d/M/yyyy h:mm tt",
-  "startingFormatText": "d/M/yyyy h:mm tt"
+  "completedFormatText": "D/M/YYYY h:mm A",
+  "startingFormatText": "D/M/YYYY h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
-  "startDateFormatText": "d/M/yyyy h:mm:ss tt",
-  "timelessDateFormatText": "d/M/yyyy",
-  "alarmDateFormatText": "d/M/yyyy h:mm:ss tt"
+  "startDateFormatText": "D/M/YYYY h:mm:ss A",
+  "timelessDateFormatText": "D/M/YYYY",
+  "alarmDateFormatText": "D/M/YYYY h:mm:ss A"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
-  "startingFormatText": "d/M/yyyy h:mm tt"
+  "startingFormatText": "D/M/YYYY h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.List", {
-  "startDateFormatText": "ddd d/M/yy",
+  "startDateFormatText": "ddd D/M/YYYY",
   "startTimeFormatText": "h:mm"
 });
 
+localize("Mobile.SalesLogix.Views.Attachment.List", {
+  "attachmentDateFormatText": "ddd D/M/YYYY hh:mm:ss"
+});
+
+localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
+  "attachmentDateFormatText": "ddd D/M/YYYY h:mm a"
+});
+
 localize("Mobile.SalesLogix.Views.Calendar.DayView", {
-  "dateHeaderFormatText": "dddd, dd/MM/yyyy",
+  "eventDateFormatText": "D/M/YYYY",
+  "dateHeaderFormatText": "dddd, D/M/YYYY",
   "startTimeFormatText": "h:mm"
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
-  "monthTitleFormatText": "MMMM yyyy",
-  "dayTitleFormatText": "ddd d MMM, yyyy",
+  "monthTitleFormatText": "MMMM YYYY",
+  "dayTitleFormatText": "ddd MMM D, YYYY",
+  "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm"
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
-  "weekTitleFormatText": "d MMM, yyyy",
+  "weekTitleFormatText": "MMM D, YYYY",
   "dayHeaderLeftFormatText": "dddd",
-  "dayHeaderRightFormatText": "d MMM, yyyy",
+  "dayHeaderRightFormatText": "MMM D, YYYY",
+  "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm"
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
-  "errorDateFormatText": "dd/MM/yyyy hh:mm tt"
+  "errorDateFormatText": "DD/MM/YYYY hh:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.List", {
-  "errorDateFormatText": "dd/MM/yyyy hh:mm tt"
+  "errorDateFormatText": "DD/MM/YYYY hh:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.Event.Detail", {
-  "startDateFormatText": "d/M/yyyy h:mm:ss tt",
-  "endDateFormatText": "d/M/yyyy h:mm:ss tt"
+  "startDateFormatText": "D/M/YYYY h:mm:ss A",
+  "endDateFormatText": "D/M/YYYY h:mm:ss A"
+});
+
+localize("Mobile.SalesLogix.Views.Event.Edit", {
+  "startingFormatText": "D/M/YYYY h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.Event.List", {
-  "eventDateFormatText": "d/M/yyyy"
+  "eventDateFormatText": "D/M/YYYY"
 });
 
 localize("Mobile.SalesLogix.Views.History.Detail", {
-  "dateFormatText": "d/M/yyyy h:mm:ss tt"
+  "dateFormatText": "D/M/YYYY h:mm:ss A"
 });
 
 localize("Mobile.SalesLogix.Views.History.Edit", {
-  "startingFormatText": "d/M/yyyy h:mm tt"
+  "startingFormatText": "D/M/YYYY h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.History.List", {
   "hourMinuteFormatText": "h:mm",
-  "dateFormatText": "d/M/yy"
+  "dateFormatText": "D/M/YY"
+});
+
+localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
+  "exchangeRateDateFormatText": "D/M/YYYY h:mm A"
+});
+
+localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
+  "exchangeRateDateFormatText": "D/M/YYYY h:mm A"
+});
+
+localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
+  "startingFormatText": "D/M/YYYY h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
-  "startDateFormatText": "dd/MM/yyyy h:mmtt"
+  "startDateFormatText": "DD/MM/YYYY h:mmA"
 });
 });

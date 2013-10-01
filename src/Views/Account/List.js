@@ -101,7 +101,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
-        defaultSearchTerm: '#my-accounts',
         hashTagQueries: {
             'my-accounts': function() {
                 return 'AccountManager.Id eq "' + App.context.user.$key + '"';
@@ -118,6 +117,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'competitor': 'Type eq "Competitor"'
         },
         hashTagQueriesText: {
+            'my-accounts': 'my-accounts',
             'active': 'active',
             'inactive': 'inactive',
             'suspect': 'suspect',
@@ -129,7 +129,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'influencer': 'influencer',
             'competitor': 'competitor'
         },
-
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'edit',
