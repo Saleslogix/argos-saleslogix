@@ -49,15 +49,15 @@ localize("Mobile.SalesLogix.Views.Calendar.DayView", {
 
 localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "monthTitleFormatText": "MMMM YYYY",
-  "dayTitleFormatText": "ddd MMM D, YYYY",
+  "dayTitleFormatText": "ddd D MMM, YYYY",
   "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm"
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
-  "weekTitleFormatText": "MMM D, YYYY",
+  "weekTitleFormatText": "D MMM, YYYY",
   "dayHeaderLeftFormatText": "dddd",
-  "dayHeaderRightFormatText": "MMM D, YYYY",
+  "dayHeaderRightFormatText": "D MMM, YYYY",
   "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm"
 });
