@@ -182,7 +182,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.List", {
-  "startDateFormatText": "ddd M/D/YYYY",
+  "startDateFormatText": "ddd D/M/YYYY",
   "startTimeFormatText": "h:mm",
   "allDayText": "Tutto il giorno",
   "completeActivityText": "Completa",
@@ -233,8 +233,8 @@ localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.DayView", {
-  "eventDateFormatText": "M/D/YYYY",
-  "dateHeaderFormatText": "dddd, M/D/YYYY",
+  "eventDateFormatText": "D/M/YYYY",
+  "dateHeaderFormatText": "dddd, D/M/YYYY",
   "startTimeFormatText": "h:mm",
   "titleText": "Calendario",
   "todayText": "Oggi",
@@ -250,8 +250,8 @@ localize("Mobile.SalesLogix.Views.Calendar.DayView", {
 
 localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "monthTitleFormatText": "MMMM YYYY",
-  "dayTitleFormatText": "ddd MMM D, YYYY",
-  "eventDateFormatText": "M/D/YYYY",
+  "dayTitleFormatText": "ddd D MMM, YYYY",
+  "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm",
   "titleText": "Calendario",
   "todayText": "Oggi",
@@ -267,10 +267,10 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
-  "weekTitleFormatText": "MMM D, YYYY",
+  "weekTitleFormatText": "D MMM, YYYY",
   "dayHeaderLeftFormatText": "dddd",
-  "dayHeaderRightFormatText": "MMM D, YYYY",
-  "eventDateFormatText": "M/D/YYYY",
+  "dayHeaderRightFormatText": "D MMM, YYYY",
+  "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm",
   "titleText": "Calendario",
   "todayText": "Oggi",
