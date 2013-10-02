@@ -75,6 +75,10 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             this.destroyWidgets();
             this.metricWidgets = [];
 
+            if (this.options && this.options.simpleMode && (this.options.simpleMode === true)) {
+                return;
+            }
+
             var widgetOptions;
             // Create metrics widgets and place them in the metricNode
             widgetOptions = this.createMetricWidgetsLayout() || [];

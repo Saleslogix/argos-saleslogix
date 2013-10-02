@@ -83,12 +83,12 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         ]),
         itemRowContentTemplate: new Simplate([
            '{%! $$.itemTabTemplate %}',
-            '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
-            '{%! $$.itemIconTemplate %}',
-            '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
-            '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
-             '<div id="list-item-content-related"></div>',
-            '{%! $$.itemFooterTemplate %}'
+           '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
+           '{%! $$.itemIconTemplate %}',
+           '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
+           '<div id="bottom_item_indicators" class="list-item-indicator-content"></div>',
+           '<div id="list-item-content-related"></div>',
+           '{%! $$.itemFooterTemplate %}'
         ]),
         searchExpressionTemplate: new Simplate([
             '<div id="{%= $.id %}_search-expression" class="card-layout-search-expression"></div>'
@@ -101,14 +101,19 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             ]);
             this.listActionTemplate = new Simplate([
                 '<li data-dojo-attach-point="actionsNode" class="card-layout actions-row  {%: $$.itemColorClass %}"></li>'
-            ]),
-
+            ]);
             this.createIndicatorLayout();
         },
         startup: function() {
             this.inherited(arguments);
             this._intFooter();
             this._intSearchExpressionNode();
+        },
+        show: function(options) {
+            if (options && options.simpleMode && (options.simpleMode === true)) {
+                this.itemFooterTemplate = new Simplate([]);
+            }
+            this.inherited(arguments);
         },
         _intFooter: function(){
             if (!this.actions.length) {
@@ -201,9 +206,10 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
         },
         onApplyRowTemplate: function(entry, rowNode) {
-
+            if (this.options && this.options.simpleMode && ( this.options.simpleMode === true)) {
+               return;
+            }
             this.applyRowIndicators(entry, rowNode);
-
         },
         applyRowIndicators:function(entry, rowNode){
             var topIndicatorsNode, bottomIndicatorsNode;
