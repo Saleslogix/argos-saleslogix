@@ -1093,7 +1093,7 @@ localize("Mobile.SalesLogix.Views.ExchangeRateLookup", {
 });
 
 localize("Mobile.SalesLogix.Views.FooterToolbar", {
-  "copyrightText": "&Kopie; 2013 SalesLogix, NA, LLC. Alle Rechte vorbehalten."
+  "copyrightText": "&copy; 2013 SalesLogix, NA, LLC. Alle Rechte vorbehalten."
 });
 
 localize("Mobile.SalesLogix.Views.Help", {
