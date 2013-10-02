@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localization>
+  <data class="Sage.Platform.Mobile.Calendar" property="timeFormatText" type="format">
+    <description/>
+    <value>h:mm A</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DateField" property="dateFormatText" type="format">
+    <description/>
+    <value>MM/DD/YYYY</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="shortDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="percentFormatText" type="format">
+    <description/>
+    <value>${0}${1}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="completedFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="startingFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="startDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm:ss A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="timelessDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="alarmDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm:ss A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="startDateFormatText" type="format">
+    <description/>
+    <value>ddd M/D/YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="startTimeFormatText" type="format">
+    <description/>
+    <value>h:mm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.List" property="attachmentDateFormatText" type="format">
+    <description/>
+    <value>ddd M/D/YYYY hh:mm:ss</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="attachmentDateFormatText" type="format">
+    <description/>
+    <value>ddd M/D/YYYY h:mm a</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="eventDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="dateHeaderFormatText" type="format">
+    <description/>
+    <value>dddd, M/D/YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="startTimeFormatText" type="format">
+    <description/>
+    <value>h:mm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="monthTitleFormatText" type="format">
+    <description/>
+    <value>MMMM YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="dayTitleFormatText" type="format">
+    <description/>
+    <value>ddd MMM D, YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="eventDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="startTimeFormatText" type="format">
+    <description/>
+    <value>h:mm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="weekTitleFormatText" type="format">
+    <description/>
+    <value>MMM D, YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="dayHeaderLeftFormatText" type="format">
+    <description/>
+    <value>dddd</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="dayHeaderRightFormatText" type="format">
+    <description/>
+    <value>MMM D, YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="eventDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="startTimeFormatText" type="format">
+    <description/>
+    <value>h:mm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="errorDateFormatText" type="format">
+    <description/>
+    <value>MM/DD/YYYY hh:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.List" property="errorDateFormatText" type="format">
+    <description/>
+    <value>MM/DD/YYYY hh:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="startDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm:ss A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="endDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm:ss A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="startingFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.List" property="eventDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="dateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm:ss A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="startingFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hourMinuteFormatText" type="format">
+    <description/>
+    <value>h:mm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="dateFormatText" type="format">
+    <description/>
+    <value>M/D/YY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="exchangeRateDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="exchangeRateDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="startingFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.List" property="startDateFormatText" type="format">
+    <description/>
+    <value>MM/DD/YYYY h:mmA</value>
+  </data>
+</localization>

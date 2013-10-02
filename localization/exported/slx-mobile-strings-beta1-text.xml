@@ -1,0 +1,4507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localization>
+  <data class="Sage.Platform.Mobile.Calendar" property="titleText" type="text">
+    <description/>
+    <value>Calendar</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="amText" type="text">
+    <description/>
+    <value>AM</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="pmText" type="text">
+    <description/>
+    <value>PM</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Detail" property="editText" type="text">
+    <description/>
+    <value>Edit</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Detail" property="titleText" type="text">
+    <description/>
+    <value>Detail</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Detail" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Detail" property="toggleCollapseText" type="text">
+    <description/>
+    <value>toggle collapse</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Detail" property="loadingText" type="text">
+    <description/>
+    <value>loading...</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Detail" property="requestErrorText" type="text">
+    <description/>
+    <value>A server error occurred while requesting data.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Detail" property="notAvailableText" type="text">
+    <description/>
+    <value>The requested entry is not available.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Edit" property="saveText" type="text">
+    <description/>
+    <value>Save</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Edit" property="titleText" type="text">
+    <description/>
+    <value>Edit</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Edit" property="toggleCollapseText" type="text">
+    <description/>
+    <value>toggle collapse</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Edit" property="validationSummaryText" type="text">
+    <description/>
+    <value>Validation Summary</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Edit" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Edit" property="loadingText" type="text">
+    <description/>
+    <value>loading...</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Edit" property="requestErrorText" type="text">
+    <description/>
+    <value>A server error occured while requesting data.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.ErrorManager" property="abortedText" type="text">
+    <description/>
+    <value>Aborted</value>
+  </data>
+  <data class="Sage.Platform.Mobile.ErrorManager" property="scopeSaveText" type="text">
+    <description/>
+    <value>Scope is not saved in error report</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="onText" type="text">
+    <description/>
+    <value>ON</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="offText" type="text">
+    <description/>
+    <value>OFF</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DateField" property="emptyText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DateField" property="invalidDateFormatErrorText" type="text">
+    <description/>
+    <value>Field '${0}' has Invalid date format.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DurationField" property="emptyText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DurationField" property="invalidDurationErrorText" type="text">
+    <description/>
+    <value>Field '${0}' is not a valid duration.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DurationField" property="autoCompleteText[1]" type="text">
+    <description/>
+    <value>minute(s)</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DurationField" property="autoCompleteText[60]" type="text">
+    <description/>
+    <value>hour(s)</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DurationField" property="autoCompleteText[1440]" type="text">
+    <description/>
+    <value>day(s)</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DurationField" property="autoCompleteText[10080]" type="text">
+    <description/>
+    <value>week(s)</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.DurationField" property="autoCompleteText[525960]" type="text">
+    <description/>
+    <value>year(s)</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.EditorField" property="lookupLabelText" type="text">
+    <description/>
+    <value>edit</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.EditorField" property="lookupText" type="text">
+    <description/>
+    <value>...</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.EditorField" property="emptyText" type="text">
+    <description/>
+    <value>empty</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.EditorField" property="completeText" type="text">
+    <description/>
+    <value>Ok</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.LookupField" property="dependentErrorText" type="text">
+    <description/>
+    <value>A value for '${0}' must be selected.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.LookupField" property="emptyText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.LookupField" property="completeText" type="text">
+    <description/>
+    <value>Select</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.LookupField" property="lookupLabelText" type="text">
+    <description/>
+    <value>lookup</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.LookupField" property="lookupText" type="text">
+    <description/>
+    <value>...</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.NoteField" property="emptyText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.SignatureField" property="signatureLabelText" type="text">
+    <description/>
+    <value>signature</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Fields.SignatureField" property="signatureText" type="text">
+    <description/>
+    <value>...</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="yesText" type="text">
+    <description/>
+    <value>Yes</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="noText" type="text">
+    <description/>
+    <value>No</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="trueText" type="text">
+    <description/>
+    <value>T</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="falseText" type="text">
+    <description/>
+    <value>F</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="hoursText" type="text">
+    <description/>
+    <value>hours</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="hourText" type="text">
+    <description/>
+    <value>hour</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="minutesText" type="text">
+    <description/>
+    <value>minutes</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="minuteText" type="text">
+    <description/>
+    <value>minute</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Format" property="bytesText" type="text">
+    <description/>
+    <value>bytes</value>
+  </data>
+  <data class="Sage.Platform.Mobile.GroupedList" property="toggleCollapseText" type="text">
+    <description/>
+    <value>toggle collapse</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="displayNameText" type="text">
+    <description/>
+    <value>Date Time Section</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="todayText" type="text">
+    <description/>
+    <value>Today</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="tomorrowText" type="text">
+    <description/>
+    <value>Tomorrow</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="laterThisWeekText" type="text">
+    <description/>
+    <value>Later this week</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="earlierThisWeekText" type="text">
+    <description/>
+    <value>Earlier this week</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="thisLaterMonthText" type="text">
+    <description/>
+    <value>Later this month</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="thisEarlierMonthText" type="text">
+    <description/>
+    <value>Earlier this month</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="thisYearEarlierText" type="text">
+    <description/>
+    <value>Earlier this year</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="thisYearLaterText" type="text">
+    <description/>
+    <value>Later this year</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="yesterdayText" type="text">
+    <description/>
+    <value>Yesterday</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="lastWeekText" type="text">
+    <description/>
+    <value>Last week</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="lastMonthText" type="text">
+    <description/>
+    <value>Last month</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="pastYearText" type="text">
+    <description/>
+    <value>Past year(s)</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="nextYearText" type="text">
+    <description/>
+    <value>Next year</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="nextMonthText" type="text">
+    <description/>
+    <value>Next month</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="nextWeekText" type="text">
+    <description/>
+    <value>Next week</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="futureText" type="text">
+    <description/>
+    <value>Future</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="twoWeeksAgoText" type="text">
+    <description/>
+    <value>Two weeks ago</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="threeWeeksAgoText" type="text">
+    <description/>
+    <value>Three weeks ago</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="twoMonthsAgoText" type="text">
+    <description/>
+    <value>Two months ago</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="threeMonthsAgoText" type="text">
+    <description/>
+    <value>Three months ago</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="unknownText" type="text">
+    <description/>
+    <value>Unknown</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Groups.GroupByValueSection" property="displayNameText" type="text">
+    <description/>
+    <value>Group By Value Section</value>
+  </data>
+  <data class="Sage.Platform.Mobile.List" property="moreText" type="text">
+    <description/>
+    <value>Retrieve More Records</value>
+  </data>
+  <data class="Sage.Platform.Mobile.List" property="emptySelectionText" type="text">
+    <description/>
+    <value>None</value>
+  </data>
+  <data class="Sage.Platform.Mobile.List" property="titleText" type="text">
+    <description/>
+    <value>List</value>
+  </data>
+  <data class="Sage.Platform.Mobile.List" property="remainingText" type="text">
+    <description/>
+    <value>${0} records remaining</value>
+  </data>
+  <data class="Sage.Platform.Mobile.List" property="cancelText" type="text">
+    <description/>
+    <value>Cancel</value>
+  </data>
+  <data class="Sage.Platform.Mobile.List" property="insertText" type="text">
+    <description/>
+    <value>New</value>
+  </data>
+  <data class="Sage.Platform.Mobile.List" property="noDataText" type="text">
+    <description/>
+    <value>no records</value>
+  </data>
+  <data class="Sage.Platform.Mobile.List" property="loadingText" type="text">
+    <description/>
+    <value>loading...</value>
+  </data>
+  <data class="Sage.Platform.Mobile.List" property="requestErrorText" type="text">
+    <description/>
+    <value>A server error occurred while requesting data.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.MainToolbar" property="titleText" type="text">
+    <description/>
+    <value>Mobile</value>
+  </data>
+  <data class="Sage.Platform.Mobile.RelatedViewWidget" property="nodataText" type="text">
+    <description/>
+    <value>no records found ...</value>
+  </data>
+  <data class="Sage.Platform.Mobile.RelatedViewWidget" property="selectMoreDataText" type="text">
+    <description/>
+    <value>see ${0} more of ${1} ... </value>
+  </data>
+  <data class="Sage.Platform.Mobile.RelatedViewWidget" property="navToListText" type="text">
+    <description/>
+    <value>see list</value>
+  </data>
+  <data class="Sage.Platform.Mobile.RelatedViewWidget" property="loadingText" type="text">
+    <description/>
+    <value>loading ... </value>
+  </data>
+  <data class="Sage.Platform.Mobile.RelatedViewWidget" property="refreshViewText" type="text">
+    <description/>
+    <value>refresh</value>
+  </data>
+  <data class="Sage.Platform.Mobile.RelatedViewWidget" property="itemOfCountText" type="text">
+    <description/>
+    <value> ${0} of ${1}</value>
+  </data>
+  <data class="Sage.Platform.Mobile.RelatedViewWidget" property="totalCountText" type="text">
+    <description/>
+    <value> (${0})</value>
+  </data>
+  <data class="Sage.Platform.Mobile.SearchWidget" property="searchText" type="text">
+    <description/>
+    <value>Search</value>
+  </data>
+  <data class="Sage.Platform.Mobile.View" property="titleText" type="text">
+    <description/>
+    <value>Generic View</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="titleText" type="text">
+    <description/>
+    <value>File Select</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="addFileText" type="text">
+    <description/>
+    <value>Click or Tap here to add a file.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="uploadText" type="text">
+    <description/>
+    <value>Upload</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="cancelText" type="text">
+    <description/>
+    <value>Cancel</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="selectFileText" type="text">
+    <description/>
+    <value>Select file</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="loadingText" type="text">
+    <description/>
+    <value>Uploading...</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="descriptionText" type="text">
+    <description/>
+    <value>description</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="bytesText" type="text">
+    <description/>
+    <value>bytes</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.Signature" property="titleText" type="text">
+    <description/>
+    <value>Signature</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.Signature" property="clearCanvasText" type="text">
+    <description/>
+    <value>Erase</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Views.Signature" property="undoText" type="text">
+    <description/>
+    <value>Undo</value>
+  </data>
+  <data class="Mobile.SalesLogix.Action" property="calledText" type="text">
+    <description/>
+    <value>Called ${0}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Action" property="emailedText" type="text">
+    <description/>
+    <value>E-mailed ${0}</value>
+  </data>
+  <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="text">
+    <description/>
+    <value>Lookup</value>
+  </data>
+  <data class="Mobile.SalesLogix.Fields.AddressField" property="lookupLabelText" type="text">
+    <description/>
+    <value>edit</value>
+  </data>
+  <data class="Mobile.SalesLogix.Fields.AddressField" property="emptyText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Mobile.SalesLogix.Fields.NameField" property="emptyText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Mobile.SalesLogix.Fields.RecurrencesField" property="titleText" type="text">
+    <description/>
+    <value>Recurring</value>
+  </data>
+  <data class="Mobile.SalesLogix.Fields.RecurrencesField" property="emptyText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Mobile.SalesLogix.FileManager" property="unableToUploadText" type="text">
+    <description/>
+    <value>This browser does not support HTML5 File API.</value>
+  </data>
+  <data class="Mobile.SalesLogix.FileManager" property="unknownSizeText" type="text">
+    <description/>
+    <value>unknown</value>
+  </data>
+  <data class="Mobile.SalesLogix.FileManager" property="unknownErrorText" type="text">
+    <description/>
+    <value>Warning: An error occured and the file failed to upload.</value>
+  </data>
+  <data class="Mobile.SalesLogix.FileManager" property="largeFileWarningText" type="text">
+    <description/>
+    <value>Warning: This request exceeds the size limit set by your administrator and failed to upload.</value>
+  </data>
+  <data class="Mobile.SalesLogix.FileManager" property="percentCompleteText" type="text">
+    <description/>
+    <value>Uploading, please wait...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="bigNumberAbbrText[billion]" type="text">
+    <description/>
+    <value>B</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="bigNumberAbbrText[million]" type="text">
+    <description/>
+    <value>M</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="bigNumberAbbrText[thousand]" type="text">
+    <description/>
+    <value>K</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="neverText" type="text">
+    <description/>
+    <value>Never</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="daysText" type="text">
+    <description/>
+    <value>days</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="dailyText" type="text">
+    <description/>
+    <value>Daily</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weeksText" type="text">
+    <description/>
+    <value>weeks</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weeklyText" type="text">
+    <description/>
+    <value>Weekly</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weeklyOnText" type="text">
+    <description/>
+    <value>Weekly on ${3}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="monthsText" type="text">
+    <description/>
+    <value>months</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="monthlyText" type="text">
+    <description/>
+    <value>Monthly</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="monthlyOnDayText" type="text">
+    <description/>
+    <value>Monthly on day ${1}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="monthlyOnText" type="text">
+    <description/>
+    <value>Monthly on ${5} ${3}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="yearsText" type="text">
+    <description/>
+    <value>years</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="yearlyText" type="text">
+    <description/>
+    <value>Yearly</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="yearlyOnText" type="text">
+    <description/>
+    <value>Yearly on ${2}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="yearlyOnWeekdayText" type="text">
+    <description/>
+    <value>Yearly on ${5} ${3} in ${4}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="everyText" type="text">
+    <description/>
+    <value>every ${0} ${1}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="afterCompletionText" type="text">
+    <description/>
+    <value>after completion</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="untilEndDateText" type="text">
+    <description/>
+    <value>${0} until ${1}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="ordText[0]" type="text">
+    <description/>
+    <value>day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="ordText[1]" type="text">
+    <description/>
+    <value>first</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="ordText[2]" type="text">
+    <description/>
+    <value>second</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="ordText[3]" type="text">
+    <description/>
+    <value>third</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="ordText[4]" type="text">
+    <description/>
+    <value>fourth</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="ordText[5]" type="text">
+    <description/>
+    <value>last</value>
+  </data>
+  <data class="Mobile.SalesLogix.SpeedSearchWidget" property="searchText" type="text">
+    <description/>
+    <value>SpeedSearch</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="exists[message]" type="text">
+    <description/>
+    <value>The field '${2}' must have a value.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="name[message]" type="text">
+    <description/>
+    <value>The field '${2}' must have a first and last name specified.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="notEmpty[message]" type="text">
+    <description/>
+    <value>The field '${2}' cannot be empty.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="hasText[test]" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="hasText[message]" type="text">
+    <description/>
+    <value>The field '${2}' must contain some text.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="isInteger[message]" type="text">
+    <description/>
+    <value>The value '${0}' is not a valid number.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="isDecimal[message]" type="text">
+    <description/>
+    <value>The value '${0}' is not a valid number.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="isCurrency[message]" type="text">
+    <description/>
+    <value>The value '${0}' is not a valid currency number.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="isInt32[message]" type="text">
+    <description/>
+    <value>The field '${2}' value exceeds the allowed numeric range.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="exceedsMaxTextLength[message]" type="text">
+    <description/>
+    <value>The field '${2}' value exceeds the allowed limit in length.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Validator" property="isDateInRange[message]" type="text">
+    <description/>
+    <value>The field '${2}' value is out of allowed date range.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="acctMgrText" type="text">
+    <description/>
+    <value>acct mgr</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="addressText" type="text">
+    <description/>
+    <value>address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="businessDescriptionText" type="text">
+    <description/>
+    <value>bus desc</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="createDateText" type="text">
+    <description/>
+    <value>create date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="createUserText" type="text">
+    <description/>
+    <value>create user</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="faxText" type="text">
+    <description/>
+    <value>fax</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="importSourceText" type="text">
+    <description/>
+    <value>lead source</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="industryText" type="text">
+    <description/>
+    <value>industry</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="notesText" type="text">
+    <description/>
+    <value>notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="ownerText" type="text">
+    <description/>
+    <value>owner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="phoneText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="activityTypeText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="actionsText" type="text">
+    <description/>
+    <value>Quick Actions</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedActivitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedContactsText" type="text">
+    <description/>
+    <value>Contacts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedHistoriesText" type="text">
+    <description/>
+    <value>Notes/History</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedNotesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedOpportunitiesText" type="text">
+    <description/>
+    <value>Opportunities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedTicketsText" type="text">
+    <description/>
+    <value>Tickets</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedAddressesText" type="text">
+    <description/>
+    <value>Addresses</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedAttachmentText" type="text">
+    <description/>
+    <value>Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedAttachmentTitleText" type="text">
+    <description/>
+    <value>Account Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="statusText" type="text">
+    <description/>
+    <value>status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="subTypeText" type="text">
+    <description/>
+    <value>subtype</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="titleText" type="text">
+    <description/>
+    <value>Account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="webText" type="text">
+    <description/>
+    <value>web</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="callMainNumberText" type="text">
+    <description/>
+    <value>Call main number</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="scheduleActivityText" type="text">
+    <description/>
+    <value>Schedule activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="addNoteText" type="text">
+    <description/>
+    <value>Add note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="viewAddressText" type="text">
+    <description/>
+    <value>View address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Detail" property="calledText" type="text">
+    <description/>
+    <value>Called ${0}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="accountStatusTitleText" type="text">
+    <description/>
+    <value>Account Status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="accountSubTypeTitleText" type="text">
+    <description/>
+    <value>Account Subtype</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="accountTypeTitleText" type="text">
+    <description/>
+    <value>Account Type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="acctMgrText" type="text">
+    <description/>
+    <value>acct mgr</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="businessDescriptionText" type="text">
+    <description/>
+    <value>bus desc</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="businessDescriptionTitleText" type="text">
+    <description/>
+    <value>Business Description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="descriptionText" type="text">
+    <description/>
+    <value>desc</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="faxText" type="text">
+    <description/>
+    <value>fax</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="fullAddressText" type="text">
+    <description/>
+    <value>address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="importSourceText" type="text">
+    <description/>
+    <value>lead source</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="industryText" type="text">
+    <description/>
+    <value>industry</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="industryTitleText" type="text">
+    <description/>
+    <value>Industry</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="ownerText" type="text">
+    <description/>
+    <value>owner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="phoneText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="statusText" type="text">
+    <description/>
+    <value>status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="subTypeText" type="text">
+    <description/>
+    <value>subtype</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="titleText" type="text">
+    <description/>
+    <value>Account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.Edit" property="webText" type="text">
+    <description/>
+    <value>web</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="titleText" type="text">
+    <description/>
+    <value>Accounts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="activitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="notesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="scheduleText" type="text">
+    <description/>
+    <value>Schedule</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="editActionText" type="text">
+    <description/>
+    <value>Edit</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="callMainActionText" type="text">
+    <description/>
+    <value>Call Main</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="viewContactsActionText" type="text">
+    <description/>
+    <value>Contacts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="addNoteActionText" type="text">
+    <description/>
+    <value>Add Note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="addActivityActionText" type="text">
+    <description/>
+    <value>Add Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="addAttachmentActionText" type="text">
+    <description/>
+    <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="phoneAbbreviationText" type="text">
+    <description/>
+    <value>Phone: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="faxAbbreviationText" type="text">
+    <description/>
+    <value>Fax: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[my-accounts]" type="text">
+    <description/>
+    <value>my-accounts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[active]" type="text">
+    <description/>
+    <value>active</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[inactive]" type="text">
+    <description/>
+    <value>inactive</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[suspect]" type="text">
+    <description/>
+    <value>suspect</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[lead]" type="text">
+    <description/>
+    <value>lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[prospect]" type="text">
+    <description/>
+    <value>prospect</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[customer]" type="text">
+    <description/>
+    <value>customer</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[partner]" type="text">
+    <description/>
+    <value>partner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[vendor]" type="text">
+    <description/>
+    <value>vendor</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[influencer]" type="text">
+    <description/>
+    <value>influencer</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[competitor]" type="text">
+    <description/>
+    <value>competitor</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="activityInfoText" type="text">
+    <description/>
+    <value>Activity Info</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="contactText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="ticketNumberText" type="text">
+    <description/>
+    <value>ticket</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="companyText" type="text">
+    <description/>
+    <value>company</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="leadText" type="text">
+    <description/>
+    <value>lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="asScheduledText" type="text">
+    <description/>
+    <value>as scheduled</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="categoryText" type="text">
+    <description/>
+    <value>category</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="categoryTitleText" type="text">
+    <description/>
+    <value>Activity Category</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="completedText" type="text">
+    <description/>
+    <value>completed date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="completionText" type="text">
+    <description/>
+    <value>Completion</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationText" type="text">
+    <description/>
+    <value>duration</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationInvalidText" type="text">
+    <description/>
+    <value>The field '${2}' must have a value.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="carryOverNotesText" type="text">
+    <description/>
+    <value>carry over notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followUpText" type="text">
+    <description/>
+    <value>follow-up</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followUpTitleText" type="text">
+    <description/>
+    <value>Follow-up type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="leaderText" type="text">
+    <description/>
+    <value>leader</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="longNotesText" type="text">
+    <description/>
+    <value>notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="longNotesTitleText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="otherInfoText" type="text">
+    <description/>
+    <value>Other Info</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="priorityText" type="text">
+    <description/>
+    <value>priority</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="priorityTitleText" type="text">
+    <description/>
+    <value>Priority</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="regardingText" type="text">
+    <description/>
+    <value>regarding</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="regardingTitleText" type="text">
+    <description/>
+    <value>Activity Regarding</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="resultText" type="text">
+    <description/>
+    <value>result</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="resultTitleText" type="text">
+    <description/>
+    <value>Result</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="startingText" type="text">
+    <description/>
+    <value>start date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="startingFormatTimelessText" type="text">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="timelessText" type="text">
+    <description/>
+    <value>timeless</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[0]" type="text">
+    <description/>
+    <value>none</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[15]" type="text">
+    <description/>
+    <value>15 minutes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[30]" type="text">
+    <description/>
+    <value>30 minutes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[60]" type="text">
+    <description/>
+    <value>1 hour</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[90]" type="text">
+    <description/>
+    <value>1.5 hours</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[120]" type="text">
+    <description/>
+    <value>2 hours</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followupValueText[none]" type="text">
+    <description/>
+    <value>None</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followupValueText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followupValueText[atAppointment]" type="text">
+    <description/>
+    <value>Meeting</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followupValueText[atToDo]" type="text">
+    <description/>
+    <value>To-Do</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followupValueText[atPersonal]" type="text">
+    <description/>
+    <value>Personal Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="activityTypeText[atToDo]" type="text">
+    <description/>
+    <value>To-Do</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="activityTypeText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="activityTypeText[atAppointment]" type="text">
+    <description/>
+    <value>Meeting</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="activityTypeText[atLiterature]" type="text">
+    <description/>
+    <value>Literature Request</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="activityTypeText[atPersonal]" type="text">
+    <description/>
+    <value>Personal Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="actionsText" type="text">
+    <description/>
+    <value>Quick Actions</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="completeActivityText" type="text">
+    <description/>
+    <value>Complete Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="completeOccurrenceText" type="text">
+    <description/>
+    <value>Complete Occurrence</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="completeSeriesText" type="text">
+    <description/>
+    <value>Complete Series</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="locationText" type="text">
+    <description/>
+    <value>location</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="alarmText" type="text">
+    <description/>
+    <value>alarm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="alarmTimeText" type="text">
+    <description/>
+    <value>alarm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="categoryText" type="text">
+    <description/>
+    <value>category</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="durationText" type="text">
+    <description/>
+    <value>duration</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="leaderText" type="text">
+    <description/>
+    <value>leader</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="longNotesText" type="text">
+    <description/>
+    <value>notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="priorityText" type="text">
+    <description/>
+    <value>priority</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="regardingText" type="text">
+    <description/>
+    <value>regarding</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="rolloverText" type="text">
+    <description/>
+    <value>auto rollover</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="startTimeText" type="text">
+    <description/>
+    <value>start time</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="allDayText" type="text">
+    <description/>
+    <value>all day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="timelessText" type="text">
+    <description/>
+    <value>timeless</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="titleText" type="text">
+    <description/>
+    <value>Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="companyText" type="text">
+    <description/>
+    <value>company</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="leadText" type="text">
+    <description/>
+    <value>lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="contactText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="ticketNumberText" type="text">
+    <description/>
+    <value>ticket</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="whenText" type="text">
+    <description/>
+    <value>When</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="whoText" type="text">
+    <description/>
+    <value>Who</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="recurrenceText" type="text">
+    <description/>
+    <value>recurrence</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
+    <description/>
+    <value>Edit all Occurrences?\nCancel to edit single Occurrence.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
+    <description/>
+    <value>Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentTitleText" type="text">
+    <description/>
+    <value>Activity Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="phoneText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="activityCategoryTitleText" type="text">
+    <description/>
+    <value>Activity Category</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="activityDescriptionTitleText" type="text">
+    <description/>
+    <value>Activity Description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="locationText" type="text">
+    <description/>
+    <value>location</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="activityTypeTitleText" type="text">
+    <description/>
+    <value>Activity Type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="alarmText" type="text">
+    <description/>
+    <value>alarm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="categoryText" type="text">
+    <description/>
+    <value>category</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationText" type="text">
+    <description/>
+    <value>duration</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationTitleText" type="text">
+    <description/>
+    <value>Duration</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationInvalidText" type="text">
+    <description/>
+    <value>The field '${2}' must have a value.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderInvalidText" type="text">
+    <description/>
+    <value>The field 'reminder' must have a value.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderTitleText" type="text">
+    <description/>
+    <value>Reminder</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="leaderText" type="text">
+    <description/>
+    <value>leader</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="longNotesText" type="text">
+    <description/>
+    <value>notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="longNotesTitleText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="priorityText" type="text">
+    <description/>
+    <value>priority</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="priorityTitleText" type="text">
+    <description/>
+    <value>Priority</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="regardingText" type="text">
+    <description/>
+    <value>regarding</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="rolloverText" type="text">
+    <description/>
+    <value>auto rollover</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingText" type="text">
+    <description/>
+    <value>start time</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingFormatTimelessText" type="text">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="repeatsText" type="text">
+    <description/>
+    <value>repeats</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="recurringText" type="text">
+    <description/>
+    <value>recurring</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="recurringTitleText" type="text">
+    <description/>
+    <value>Recurring</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="timelessText" type="text">
+    <description/>
+    <value>timeless</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="titleText" type="text">
+    <description/>
+    <value>Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="contactText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="ticketNumberText" type="text">
+    <description/>
+    <value>ticket</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="companyText" type="text">
+    <description/>
+    <value>company</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="leadText" type="text">
+    <description/>
+    <value>lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="isLeadText" type="text">
+    <description/>
+    <value>for lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="yesText" type="text">
+    <description/>
+    <value>YES</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="noText" type="text">
+    <description/>
+    <value>NO</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="phoneText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="updateUserActErrorText" type="text">
+    <description/>
+    <value>An error occured updating user activities.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderValueText[0]" type="text">
+    <description/>
+    <value>none</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderValueText[5]" type="text">
+    <description/>
+    <value>5 minutes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderValueText[15]" type="text">
+    <description/>
+    <value>15 minutes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderValueText[30]" type="text">
+    <description/>
+    <value>30 minutes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderValueText[60]" type="text">
+    <description/>
+    <value>1 hour</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderValueText[1440]" type="text">
+    <description/>
+    <value>1 day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[0]" type="text">
+    <description/>
+    <value>none</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[15]" type="text">
+    <description/>
+    <value>15 minutes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[30]" type="text">
+    <description/>
+    <value>30 minutes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[60]" type="text">
+    <description/>
+    <value>1 hour</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[90]" type="text">
+    <description/>
+    <value>1.5 hours</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[120]" type="text">
+    <description/>
+    <value>2 hours</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="allDayText" type="text">
+    <description/>
+    <value>All-Day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="completeActivityText" type="text">
+    <description/>
+    <value>Complete</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="callText" type="text">
+    <description/>
+    <value>Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="calledText" type="text">
+    <description/>
+    <value>Called</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="addAttachmentActionText" type="text">
+    <description/>
+    <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
+    <description/>
+    <value>To-Do</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atAppointment]" type="text">
+    <description/>
+    <value>Meeting</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atLiterature]" type="text">
+    <description/>
+    <value>Lit Request</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atPersonal]" type="text">
+    <description/>
+    <value>Personal</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atQuestion]" type="text">
+    <description/>
+    <value>Question</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atNote]" type="text">
+    <description/>
+    <value>Note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atEMail]" type="text">
+    <description/>
+    <value>Email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="titleText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[alarm]" type="text">
+    <description/>
+    <value>alarm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[recurring]" type="text">
+    <description/>
+    <value>recurring</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[timeless]" type="text">
+    <description/>
+    <value>timeless</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[today]" type="text">
+    <description/>
+    <value>today</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[this-week]" type="text">
+    <description/>
+    <value>this-week</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[yesterday]" type="text">
+    <description/>
+    <value>yesterday</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="titleText" type="text">
+    <description/>
+    <value>My Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="completeActivityText" type="text">
+    <description/>
+    <value>Complete</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="acceptActivityText" type="text">
+    <description/>
+    <value>Accept</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="declineActivityText" type="text">
+    <description/>
+    <value>Decline</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="callText" type="text">
+    <description/>
+    <value>Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="calledText" type="text">
+    <description/>
+    <value>Called</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="addAttachmentActionText" type="text">
+    <description/>
+    <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="viewContactActionText" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="viewAccountActionText" type="text">
+    <description/>
+    <value>Account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="viewOpportunityActionText" type="text">
+    <description/>
+    <value>Opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[alarm]" type="text">
+    <description/>
+    <value>alarm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[status-unconfirmed]" type="text">
+    <description/>
+    <value>status-unconfirmed</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[status-accepted]" type="text">
+    <description/>
+    <value>status-accepted</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[status-declined]" type="text">
+    <description/>
+    <value>status-declined</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[recurring]" type="text">
+    <description/>
+    <value>recurring</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[timeless]" type="text">
+    <description/>
+    <value>timeless</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[today]" type="text">
+    <description/>
+    <value>today</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[this-week]" type="text">
+    <description/>
+    <value>this-week</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[yesterday]" type="text">
+    <description/>
+    <value>yesterday</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="startingText" type="text">
+    <description/>
+    <value>start date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="endingText" type="text">
+    <description/>
+    <value>end date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="repeatsText" type="text">
+    <description/>
+    <value>repeats</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="everyText" type="text">
+    <description/>
+    <value>every</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="afterCompletionText" type="text">
+    <description/>
+    <value>after completed</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="singleWeekdayText" type="text">
+    <description/>
+    <value>weekday</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekdaysText" type="text">
+    <description/>
+    <value>weekday(s)</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="dayText" type="text">
+    <description/>
+    <value>day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthText" type="text">
+    <description/>
+    <value>month</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="onText" type="text">
+    <description/>
+    <value>on</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="occurrencesText" type="text">
+    <description/>
+    <value>occurrences</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="summaryText" type="text">
+    <description/>
+    <value>summary</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="frequencyOptionsText[0]" type="text">
+    <description/>
+    <value>days</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="frequencyOptionsText[1]" type="text">
+    <description/>
+    <value>weeks</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="frequencyOptionsText[2]" type="text">
+    <description/>
+    <value>months</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="frequencyOptionsText[3]" type="text">
+    <description/>
+    <value>years</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="recurringFrequencyText" type="text">
+    <description/>
+    <value>Recurring Frequency</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="yesText" type="text">
+    <description/>
+    <value>Yes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="noText" type="text">
+    <description/>
+    <value>No</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="titleText" type="text">
+    <description/>
+    <value>Recurrence</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="titleText" type="text">
+    <description/>
+    <value>Schedule...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="activityTypeText[atToDo]" type="text">
+    <description/>
+    <value>To-Do</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="activityTypeText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="activityTypeText[atAppointment]" type="text">
+    <description/>
+    <value>Meeting</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="activityTypeText[atLiterature]" type="text">
+    <description/>
+    <value>Literature Request</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="activityTypeText[atPersonal]" type="text">
+    <description/>
+    <value>Personal Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="activityTypeText[event]" type="text">
+    <description/>
+    <value>Event</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="accountNameText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="accountStatusTitleText" type="text">
+    <description/>
+    <value>Account Status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="accountSubTypeTitleText" type="text">
+    <description/>
+    <value>Account SubType</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="accountText" type="text">
+    <description/>
+    <value>Account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="accountTypeTitleText" type="text">
+    <description/>
+    <value>Account Type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="acctMgrText" type="text">
+    <description/>
+    <value>acct mgr</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="addressText" type="text">
+    <description/>
+    <value>address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="contactTitleText" type="text">
+    <description/>
+    <value>Title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="descriptionText" type="text">
+    <description/>
+    <value>description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="detailsAccountText" type="text">
+    <description/>
+    <value>Account Info</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="detailsContactText" type="text">
+    <description/>
+    <value>Contact Info</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="detailsText" type="text">
+    <description/>
+    <value>Contact / Account Info</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="emailText" type="text">
+    <description/>
+    <value>email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="faxText" type="text">
+    <description/>
+    <value>fax</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="homePhoneText" type="text">
+    <description/>
+    <value>home phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="industryText" type="text">
+    <description/>
+    <value>industry</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="ownerText" type="text">
+    <description/>
+    <value>owner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="lastNameText" type="text">
+    <description/>
+    <value>last</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="mobileText" type="text">
+    <description/>
+    <value>mobile</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="nameText" type="text">
+    <description/>
+    <value>name</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="statusText" type="text">
+    <description/>
+    <value>status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="subTypeText" type="text">
+    <description/>
+    <value>sub-type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="titleText" type="text">
+    <description/>
+    <value>Add Account / Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="webText" type="text">
+    <description/>
+    <value>web</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="workText" type="text">
+    <description/>
+    <value>work phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="industryTitleText" type="text">
+    <description/>
+    <value>Industry</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="address1Text" type="text">
+    <description/>
+    <value>address 1</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="address2Text" type="text">
+    <description/>
+    <value>address 2</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="address3Text" type="text">
+    <description/>
+    <value>address 3</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="cityText" type="text">
+    <description/>
+    <value>city</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="cityTitleText" type="text">
+    <description/>
+    <value>City</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="countryText" type="text">
+    <description/>
+    <value>country</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="countryTitleText" type="text">
+    <description/>
+    <value>Country</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="descriptionText" type="text">
+    <description/>
+    <value>description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="descriptionTitleText" type="text">
+    <description/>
+    <value>Description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="isMailingText" type="text">
+    <description/>
+    <value>shipping</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="isPrimaryText" type="text">
+    <description/>
+    <value>primary</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="postalCodeText" type="text">
+    <description/>
+    <value>postal</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="salutationText" type="text">
+    <description/>
+    <value>attention</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="stateText" type="text">
+    <description/>
+    <value>state</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="stateTitleText" type="text">
+    <description/>
+    <value>State</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.Edit" property="titleText" type="text">
+    <description/>
+    <value>Address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Address.List" property="titleText" type="text">
+    <description/>
+    <value>Addresses</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AreaCategoryIssueLookup" property="titleText" type="text">
+    <description/>
+    <value>Accounts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.AddAttachment" property="titleText" type="text">
+    <description/>
+    <value>Add Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.List" property="titleText" type="text">
+    <description/>
+    <value>Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.List" property="uploadedOnText" type="text">
+    <description/>
+    <value>Uploaded </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.List" property="hashTagQueriesText[url]" type="text">
+    <description/>
+    <value>url</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.List" property="hashTagQueriesText[binary]" type="text">
+    <description/>
+    <value>binary</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.MyAttachmentList" property="titleText" type="text">
+    <description/>
+    <value>My Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="detailsText" type="text">
+    <description/>
+    <value>Attachment Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="descriptionText" type="text">
+    <description/>
+    <value>description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="fileNameText" type="text">
+    <description/>
+    <value>file name</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="attachDateText" type="text">
+    <description/>
+    <value>attachment date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="fileSizeText" type="text">
+    <description/>
+    <value>file size</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="userText" type="text">
+    <description/>
+    <value>user</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="attachmentNotSupportedText" type="text">
+    <description/>
+    <value>The attachment type is not supported for viewing.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="downloadingText" type="text">
+    <description/>
+    <value>Downloading attachment ...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="titleText" type="text">
+    <description/>
+    <value>Calendar</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="todayText" type="text">
+    <description/>
+    <value>Today</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="dayText" type="text">
+    <description/>
+    <value>Day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="weekText" type="text">
+    <description/>
+    <value>Week</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="monthText" type="text">
+    <description/>
+    <value>Month</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="allDayText" type="text">
+    <description/>
+    <value>All-Day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="eventHeaderText" type="text">
+    <description/>
+    <value>Events</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="activityHeaderText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="eventMoreText" type="text">
+    <description/>
+    <value>View ${0} More Event(s)</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="toggleCollapseText" type="text">
+    <description/>
+    <value>toggle collapse</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="titleText" type="text">
+    <description/>
+    <value>Calendar</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="todayText" type="text">
+    <description/>
+    <value>Today</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="dayText" type="text">
+    <description/>
+    <value>Day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekText" type="text">
+    <description/>
+    <value>Week</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="monthText" type="text">
+    <description/>
+    <value>Month</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="allDayText" type="text">
+    <description/>
+    <value>All-Day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="eventText" type="text">
+    <description/>
+    <value>Event</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="eventHeaderText" type="text">
+    <description/>
+    <value>Events</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="countMoreText" type="text">
+    <description/>
+    <value>View More</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="activityHeaderText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="toggleCollapseText" type="text">
+    <description/>
+    <value>toggle collapse</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="titleText" type="text">
+    <description/>
+    <value>Calendar</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="todayText" type="text">
+    <description/>
+    <value>Today</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="dayText" type="text">
+    <description/>
+    <value>Day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="weekText" type="text">
+    <description/>
+    <value>Week</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="monthText" type="text">
+    <description/>
+    <value>Month</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="allDayText" type="text">
+    <description/>
+    <value>All Day</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="eventHeaderText" type="text">
+    <description/>
+    <value>Events</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="eventMoreText" type="text">
+    <description/>
+    <value>View ${0} More Event(s)</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="toggleCollapseText" type="text">
+    <description/>
+    <value>toggle collapse</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Charts.GenericBar" property="titleText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Charts.GenericBar" property="otherText" type="text">
+    <description/>
+    <value>Other</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Charts.GenericPie" property="titleText" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Charts.GenericPie" property="otherText" type="text">
+    <description/>
+    <value>Other</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Competitor.List" property="titleText" type="text">
+    <description/>
+    <value>Competitors</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Configure" property="titleText" type="text">
+    <description/>
+    <value>Configure</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="activityTypeText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="activityTypeText[atEMail]" type="text">
+    <description/>
+    <value>E-mail</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="acctMgrText" type="text">
+    <description/>
+    <value>acct mgr</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="addressText" type="text">
+    <description/>
+    <value>address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="contactTitleText" type="text">
+    <description/>
+    <value>title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="createDateText" type="text">
+    <description/>
+    <value>create date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="createUserText" type="text">
+    <description/>
+    <value>create user</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="emailText" type="text">
+    <description/>
+    <value>email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="faxText" type="text">
+    <description/>
+    <value>fax</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="homeText" type="text">
+    <description/>
+    <value>home phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="nameText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="ownerText" type="text">
+    <description/>
+    <value>owner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="actionsText" type="text">
+    <description/>
+    <value>Quick Actions</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedAccountsText" type="text">
+    <description/>
+    <value>Accounts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedActivitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedHistoriesText" type="text">
+    <description/>
+    <value>Notes/History</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedNotesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedOpportunitiesText" type="text">
+    <description/>
+    <value>Opportunities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedTicketsText" type="text">
+    <description/>
+    <value>Tickets</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedAddressesText" type="text">
+    <description/>
+    <value>Addresses</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedAttachmentText" type="text">
+    <description/>
+    <value>Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedAttachmentTitleText" type="text">
+    <description/>
+    <value>Contact Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="titleText" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="webText" type="text">
+    <description/>
+    <value>web</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="workText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="cuisinePreferenceText" type="text">
+    <description/>
+    <value>cuisine</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="callMobileNumberText" type="text">
+    <description/>
+    <value>Call mobile</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="callWorkNumberText" type="text">
+    <description/>
+    <value>Call main number</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="calledText" type="text">
+    <description/>
+    <value>Called</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="scheduleActivityText" type="text">
+    <description/>
+    <value>Schedule activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="addNoteText" type="text">
+    <description/>
+    <value>Add note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="sendEmailText" type="text">
+    <description/>
+    <value>Send email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="viewAddressText" type="text">
+    <description/>
+    <value>View address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="titleText" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="nameText" type="text">
+    <description/>
+    <value>name</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="workText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="mobileText" type="text">
+    <description/>
+    <value>mobile</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="emailText" type="text">
+    <description/>
+    <value>email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="webText" type="text">
+    <description/>
+    <value>web</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="acctMgrText" type="text">
+    <description/>
+    <value>acct mgr</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="accountNameText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="homePhoneText" type="text">
+    <description/>
+    <value>home phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="faxText" type="text">
+    <description/>
+    <value>fax</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="addressText" type="text">
+    <description/>
+    <value>address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="contactTitleText" type="text">
+    <description/>
+    <value>title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="titleTitleText" type="text">
+    <description/>
+    <value>Title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="addressTitleText" type="text">
+    <description/>
+    <value>Address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="ownerText" type="text">
+    <description/>
+    <value>owner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="cuisinePreferenceText" type="text">
+    <description/>
+    <value>cuisine</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.Edit" property="cuisinePreferenceTitleText" type="text">
+    <description/>
+    <value>Cuisine</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="titleText" type="text">
+    <description/>
+    <value>Contacts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="activitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="notesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="scheduleText" type="text">
+    <description/>
+    <value>Schedule</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="editActionText" type="text">
+    <description/>
+    <value>Edit</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="callMainActionText" type="text">
+    <description/>
+    <value>Call Main</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="callWorkActionText" type="text">
+    <description/>
+    <value>Call Work</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="callMobileActionText" type="text">
+    <description/>
+    <value>Call Mobile</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="sendEmailActionText" type="text">
+    <description/>
+    <value>Email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="viewAccountActionText" type="text">
+    <description/>
+    <value>Account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="addNoteActionText" type="text">
+    <description/>
+    <value>Add Note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="addActivityActionText" type="text">
+    <description/>
+    <value>Add Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="addAttachmentActionText" type="text">
+    <description/>
+    <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="phoneAbbreviationText" type="text">
+    <description/>
+    <value>Work: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="mobileAbbreviationText" type="text">
+    <description/>
+    <value>Mobile: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[my-contacts]" type="text">
+    <description/>
+    <value>my-contacts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[primary]" type="text">
+    <description/>
+    <value>primary</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[not-primary]" type="text">
+    <description/>
+    <value>not-primary</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-email]" type="text">
+    <description/>
+    <value>can-email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-phone]" type="text">
+    <description/>
+    <value>can-phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-fax]" type="text">
+    <description/>
+    <value>can-fax</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-mail]" type="text">
+    <description/>
+    <value>can-mail</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-solicit]" type="text">
+    <description/>
+    <value>can-solicit</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Contract.List" property="titleText" type="text">
+    <description/>
+    <value>Contracts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="titleText" type="text">
+    <description/>
+    <value>Error Log</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="errorDateText" type="text">
+    <description/>
+    <value>date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="statusTextText" type="text">
+    <description/>
+    <value>error</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="urlText" type="text">
+    <description/>
+    <value>url</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="severityText" type="text">
+    <description/>
+    <value>severity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="statusCodeText" type="text">
+    <description/>
+    <value>status code</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="errorText" type="text">
+    <description/>
+    <value>error</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="emailSubjectText" type="text">
+    <description/>
+    <value>Error received in Saleslogix Mobile Client</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="copiedSuccessText" type="text">
+    <description/>
+    <value>Copied to clipboard</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ErrorLog.List" property="titleText" type="text">
+    <description/>
+    <value>Error Logs</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="eventTypeText[atToDo]" type="text">
+    <description/>
+    <value>To-Do</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="eventTypeText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="eventTypeText[atAppointment]" type="text">
+    <description/>
+    <value>Meeting</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="eventTypeText[atLiterature]" type="text">
+    <description/>
+    <value>Literature Request</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="eventTypeText[atPersonal]" type="text">
+    <description/>
+    <value>Personal Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="actionsText" type="text">
+    <description/>
+    <value>Quick Actions</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="startTimeText" type="text">
+    <description/>
+    <value>start date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="endTimeText" type="text">
+    <description/>
+    <value>end date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="titleText" type="text">
+    <description/>
+    <value>Event</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="descriptionText" type="text">
+    <description/>
+    <value>description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Detail" property="whenText" type="text">
+    <description/>
+    <value>When</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="titleText" type="text">
+    <description/>
+    <value>Event</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="descriptionText" type="text">
+    <description/>
+    <value>description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="startDateText" type="text">
+    <description/>
+    <value>start date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="endDateText" type="text">
+    <description/>
+    <value>end date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.List" property="titleText" type="text">
+    <description/>
+    <value>Events</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.List" property="eventText" type="text">
+    <description/>
+    <value>Event</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ExchangeRateLookup" property="titleText" type="text">
+    <description/>
+    <value>Exchange Rates</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.FooterToolbar" property="copyrightText" type="text">
+    <description/>
+    <value>&amp;copy; 2013 SalesLogix, NA, LLC. All rights reserved.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Help" property="titleText" type="text">
+    <description/>
+    <value>Help</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Help" property="errorText" type="text">
+    <description/>
+    <value>Error</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Help" property="errorMessageText" type="text">
+    <description/>
+    <value>Unable to load the help document.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="categoryText" type="text">
+    <description/>
+    <value>category</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="completedText" type="text">
+    <description/>
+    <value>completed</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="durationText" type="text">
+    <description/>
+    <value>duration</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="leaderText" type="text">
+    <description/>
+    <value>leader</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="longNotesText" type="text">
+    <description/>
+    <value>notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="notesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="priorityText" type="text">
+    <description/>
+    <value>priority</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="regardingText" type="text">
+    <description/>
+    <value>regarding</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="completedByText" type="text">
+    <description/>
+    <value>completed by</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="scheduledText" type="text">
+    <description/>
+    <value>scheduled</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="timelessText" type="text">
+    <description/>
+    <value>timeless</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="companyText" type="text">
+    <description/>
+    <value>company</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="leadText" type="text">
+    <description/>
+    <value>lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="titleText" type="text">
+    <description/>
+    <value>History</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="contactText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="ticketNumberText" type="text">
+    <description/>
+    <value>ticket</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="relatedAttachmentText" type="text">
+    <description/>
+    <value>Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="relatedAttachmentTitleText" type="text">
+    <description/>
+    <value>History Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="modifiedText" type="text">
+    <description/>
+    <value>modified</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="activityTypeText[atToDo]" type="text">
+    <description/>
+    <value>To-Do</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="activityTypeText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="activityTypeText[atAppointment]" type="text">
+    <description/>
+    <value>Meeting</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="activityTypeText[atLiterature]" type="text">
+    <description/>
+    <value>Literature Request</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="activityTypeText[atPersonal]" type="text">
+    <description/>
+    <value>Personal Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="activityTypeText[atQuestion]" type="text">
+    <description/>
+    <value>Question</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Detail" property="activityTypeText[atEMail]" type="text">
+    <description/>
+    <value>E-mail</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="noteDescriptionTitleText" type="text">
+    <description/>
+    <value>Note Description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="contactText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="longNotesText" type="text">
+    <description/>
+    <value>notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="longNotesTitleText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="ticketNumberText" type="text">
+    <description/>
+    <value>ticket</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="regardingText" type="text">
+    <description/>
+    <value>regarding</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="isLeadText" type="text">
+    <description/>
+    <value>for lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="startingText" type="text">
+    <description/>
+    <value>time</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="titleText" type="text">
+    <description/>
+    <value>Note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="companyText" type="text">
+    <description/>
+    <value>company</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="leadText" type="text">
+    <description/>
+    <value>lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="yesText" type="text">
+    <description/>
+    <value>YES</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="noText" type="text">
+    <description/>
+    <value>NO</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atToDo]" type="text">
+    <description/>
+    <value>To-Do</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atAppointment]" type="text">
+    <description/>
+    <value>Meeting</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atLiterature]" type="text">
+    <description/>
+    <value>Literature Request</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atPersonal]" type="text">
+    <description/>
+    <value>Personal Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atQuestion]" type="text">
+    <description/>
+    <value>Question</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atEMail]" type="text">
+    <description/>
+    <value>E-mail</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[my-history]" type="text">
+    <description/>
+    <value>my-history</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[note]" type="text">
+    <description/>
+    <value>note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[phonecall]" type="text">
+    <description/>
+    <value>phonecall</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[meeting]" type="text">
+    <description/>
+    <value>meeting</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[personal]" type="text">
+    <description/>
+    <value>personal</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[email]" type="text">
+    <description/>
+    <value>email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="titleText" type="text">
+    <description/>
+    <value>Notes/History</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="viewAccountActionText" type="text">
+    <description/>
+    <value>Account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="viewOpportunityActionText" type="text">
+    <description/>
+    <value>Opp.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="viewContactActionText" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="addAttachmentActionText" type="text">
+    <description/>
+    <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="regardingText" type="text">
+    <description/>
+    <value>Regarding: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.RelatedView" property="regardingText" type="text">
+    <description/>
+    <value>Regarding</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.RelatedView" property="byText" type="text">
+    <description/>
+    <value>wrote </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Home" property="configureText" type="text">
+    <description/>
+    <value>Configure</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Home" property="addAccountContactText" type="text">
+    <description/>
+    <value>Add Account/Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Home" property="titleText" type="text">
+    <description/>
+    <value>Home</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Home" property="actionsText" type="text">
+    <description/>
+    <value>Quick Actions</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Home" property="viewsText" type="text">
+    <description/>
+    <value>Go To</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="activityTypeText[atPhoneCall]" type="text">
+    <description/>
+    <value>Phone Call</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="activityTypeText[atEMail]" type="text">
+    <description/>
+    <value>E-mail</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="accountText" type="text">
+    <description/>
+    <value>company</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="addressText" type="text">
+    <description/>
+    <value>address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="businessDescriptionText" type="text">
+    <description/>
+    <value>bus desc</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="createDateText" type="text">
+    <description/>
+    <value>create date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="createUserText" type="text">
+    <description/>
+    <value>create user</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="eMailText" type="text">
+    <description/>
+    <value>email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="leadSourceText" type="text">
+    <description/>
+    <value>lead source</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="industryText" type="text">
+    <description/>
+    <value>industry</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="interestsText" type="text">
+    <description/>
+    <value>interests</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="leadTitleText" type="text">
+    <description/>
+    <value>title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="nameText" type="text">
+    <description/>
+    <value>name</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="notesText" type="text">
+    <description/>
+    <value>comments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="ownerText" type="text">
+    <description/>
+    <value>owner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="relatedActivitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="relatedHistoriesText" type="text">
+    <description/>
+    <value>Notes/History</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="relatedNotesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="relatedAttachmentText" type="text">
+    <description/>
+    <value>Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="relatedAttachmentTitleText" type="text">
+    <description/>
+    <value>Lead Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="sicCodeText" type="text">
+    <description/>
+    <value>sic code</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="titleText" type="text">
+    <description/>
+    <value>Lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="tollFreeText" type="text">
+    <description/>
+    <value>toll free</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="mobileText" type="text">
+    <description/>
+    <value>mobile phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="webText" type="text">
+    <description/>
+    <value>web</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="workText" type="text">
+    <description/>
+    <value>work phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="actionsText" type="text">
+    <description/>
+    <value>Quick Actions</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="callWorkNumberText" type="text">
+    <description/>
+    <value>Call main number</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="scheduleActivityText" type="text">
+    <description/>
+    <value>Schedule activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="addNoteText" type="text">
+    <description/>
+    <value>Add note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="sendEmailText" type="text">
+    <description/>
+    <value>Send email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="viewAddressText" type="text">
+    <description/>
+    <value>View address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="calledText" type="text">
+    <description/>
+    <value>Called ${0}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Detail" property="emailedText" type="text">
+    <description/>
+    <value>Emailed ${0}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="addressText" type="text">
+    <description/>
+    <value>address</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="businessText" type="text">
+    <description/>
+    <value>bus desc</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="businessTitleText" type="text">
+    <description/>
+    <value>Business Description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="companyText" type="text">
+    <description/>
+    <value>company</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="contactTitleText" type="text">
+    <description/>
+    <value>title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="emailText" type="text">
+    <description/>
+    <value>email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="faxText" type="text">
+    <description/>
+    <value>fax</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="importSourceText" type="text">
+    <description/>
+    <value>lead source</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="industryText" type="text">
+    <description/>
+    <value>industry</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="industryTitleText" type="text">
+    <description/>
+    <value>Industry</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="interestsText" type="text">
+    <description/>
+    <value>interests</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="leadNameLastFirstText" type="text">
+    <description/>
+    <value>name</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="leadOwnerText" type="text">
+    <description/>
+    <value>owner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="nameText" type="text">
+    <description/>
+    <value>name</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="notesText" type="text">
+    <description/>
+    <value>comments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="notesTitleText" type="text">
+    <description/>
+    <value>Comments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="sicCodeText" type="text">
+    <description/>
+    <value>sic code</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="titleText" type="text">
+    <description/>
+    <value>Lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="titleTitleText" type="text">
+    <description/>
+    <value>Title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="tollFreeText" type="text">
+    <description/>
+    <value>toll free</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="webText" type="text">
+    <description/>
+    <value>web</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="workText" type="text">
+    <description/>
+    <value>work phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.Edit" property="mobileText" type="text">
+    <description/>
+    <value>mobile phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="titleText" type="text">
+    <description/>
+    <value>Leads</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="activitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="notesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="scheduleText" type="text">
+    <description/>
+    <value>Schedule</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="emailedText" type="text">
+    <description/>
+    <value>E-mailed ${0}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="calledText" type="text">
+    <description/>
+    <value>Called ${0}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="editActionText" type="text">
+    <description/>
+    <value>Edit</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="callMobileActionText" type="text">
+    <description/>
+    <value>Call Mobile</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="callWorkActionText" type="text">
+    <description/>
+    <value>Call Work</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="sendEmailActionText" type="text">
+    <description/>
+    <value>Email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="addNoteActionText" type="text">
+    <description/>
+    <value>Add Note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="addActivityActionText" type="text">
+    <description/>
+    <value>Add Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="addAttachmentActionText" type="text">
+    <description/>
+    <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="phoneAbbreviationText" type="text">
+    <description/>
+    <value>Work: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="mobileAbbreviationText" type="text">
+    <description/>
+    <value>Mobile: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="tollFreeAbbreviationText" type="text">
+    <description/>
+    <value>Toll Free: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[my-leads]" type="text">
+    <description/>
+    <value>my-leads</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-email]" type="text">
+    <description/>
+    <value>can-email</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-phone]" type="text">
+    <description/>
+    <value>can-phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-fax]" type="text">
+    <description/>
+    <value>can-fax</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-mail]" type="text">
+    <description/>
+    <value>can-mail</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-solicit]" type="text">
+    <description/>
+    <value>can-solicit</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeadSource.List" property="titleText" type="text">
+    <description/>
+    <value>Lead Sources</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="configureText" type="text">
+    <description/>
+    <value>Configure Menu</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="addAccountContactText" type="text">
+    <description/>
+    <value>Add Account/Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="titleText" type="text">
+    <description/>
+    <value>Main Menu</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="actionsText" type="text">
+    <description/>
+    <value>Quick Actions</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="viewsText" type="text">
+    <description/>
+    <value>Go To</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="footerText" type="text">
+    <description/>
+    <value>Other</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="settingsText" type="text">
+    <description/>
+    <value>Settings</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="helpText" type="text">
+    <description/>
+    <value>Help</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="logOutText" type="text">
+    <description/>
+    <value>Log Out</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LeftDrawer" property="logOutConfirmText" type="text">
+    <description/>
+    <value>Are you sure you want to log out?</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
+    <description/>
+    <value>&amp;copy; 2013 SalesLogix, NA, LLC. All rights reserved.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
+    <description/>
+    <value>Log on to Saleslogix</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="passText" type="text">
+    <description/>
+    <value>password</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="rememberText" type="text">
+    <description/>
+    <value>remember</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="titleText" type="text">
+    <description/>
+    <value>Log On</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="userText" type="text">
+    <description/>
+    <value>user name</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="invalidUserText" type="text">
+    <description/>
+    <value>The user name or password is invalid.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="missingUserText" type="text">
+    <description/>
+    <value>The user record was not found.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="serverProblemText" type="text">
+    <description/>
+    <value>A problem occured on the server.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Login" property="requestAbortedText" type="text">
+    <description/>
+    <value>The request was aborted.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MainToolbar" property="titleText" type="text">
+    <description/>
+    <value>Saleslogix</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricConfigure" property="titleText" type="text">
+    <description/>
+    <value>Configure Metric</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricConfigure" property="metricTitleText" type="text">
+    <description/>
+    <value>title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricConfigure" property="metricFilterText" type="text">
+    <description/>
+    <value>filter</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricConfigure" property="metricText" type="text">
+    <description/>
+    <value>metric</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricConfigure" property="chartTypeText" type="text">
+    <description/>
+    <value>chart type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricConfigure" property="advancedText" type="text">
+    <description/>
+    <value>advanced options</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricConfigure" property="formatterText" type="text">
+    <description/>
+    <value>formatter</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricConfigure" property="aggregateText" type="text">
+    <description/>
+    <value>aggregate</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricConfigure" property="reportViewText" type="text">
+    <description/>
+    <value>chart view id</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricFilterLookup" property="titleText" type="text">
+    <description/>
+    <value>Filter/Metric Lookup</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricWidget" property="loadingText" type="text">
+    <description/>
+    <value>loading...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.NameEdit" property="titleText" type="text">
+    <description/>
+    <value>Edit Name</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.NameEdit" property="firstNameText" type="text">
+    <description/>
+    <value>first</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.NameEdit" property="middleNameText" type="text">
+    <description/>
+    <value>middle</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.NameEdit" property="lastNameText" type="text">
+    <description/>
+    <value>last</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.NameEdit" property="prefixText" type="text">
+    <description/>
+    <value>prefix</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.NameEdit" property="prefixTitleText" type="text">
+    <description/>
+    <value>Name Prefix</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.NameEdit" property="suffixText" type="text">
+    <description/>
+    <value>suffix</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.NameEdit" property="suffixTitleText" type="text">
+    <description/>
+    <value>Name Suffix</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="accountText" type="text">
+    <description/>
+    <value>acct</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="acctMgrText" type="text">
+    <description/>
+    <value>acct mgr</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="estCloseText" type="text">
+    <description/>
+    <value>est close</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="fbarHomeTitleText" type="text">
+    <description/>
+    <value>home</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="fbarScheduleTitleText" type="text">
+    <description/>
+    <value>schedule</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="importSourceText" type="text">
+    <description/>
+    <value>lead source</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="ownerText" type="text">
+    <description/>
+    <value>owner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="actionsText" type="text">
+    <description/>
+    <value>Quick Actions</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="potentialText" type="text">
+    <description/>
+    <value>sales potential</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="potentialBaseText" type="text">
+    <description/>
+    <value>sales potential (base rate)</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="potentialOpportunityText" type="text">
+    <description/>
+    <value>sales potential (opp. rate)</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="potentialMyRateText" type="text">
+    <description/>
+    <value>sales potential (my rate)</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="probabilityText" type="text">
+    <description/>
+    <value>close prob</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedActivitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedContactsText" type="text">
+    <description/>
+    <value>Opportunity Contacts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedHistoriesText" type="text">
+    <description/>
+    <value>Notes/History</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedNotesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedProductsText" type="text">
+    <description/>
+    <value>Products</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedAttachmentText" type="text">
+    <description/>
+    <value>Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedAttachmentTitleText" type="text">
+    <description/>
+    <value>Opportunity Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="resellerText" type="text">
+    <description/>
+    <value>reseller</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="statusText" type="text">
+    <description/>
+    <value>status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="titleText" type="text">
+    <description/>
+    <value>Opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="scheduleActivityText" type="text">
+    <description/>
+    <value>Schedule activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="addNoteText" type="text">
+    <description/>
+    <value>Add note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="multiCurrencyText" type="text">
+    <description/>
+    <value>Multi Currency</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="multiCurrencyRateText" type="text">
+    <description/>
+    <value>exchange rate</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="multiCurrencyCodeText" type="text">
+    <description/>
+    <value>code</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="multiCurrencyDateText" type="text">
+    <description/>
+    <value>rate date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="multiCurrencyLockedText" type="text">
+    <description/>
+    <value>rate locked</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="accountText" type="text">
+    <description/>
+    <value>acct</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="acctMgrText" type="text">
+    <description/>
+    <value>acct mgr</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="estCloseText" type="text">
+    <description/>
+    <value>est close</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="importSourceText" type="text">
+    <description/>
+    <value>lead source</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="opportunityStatusTitleText" type="text">
+    <description/>
+    <value>Opportunity Status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="opportunityTypeTitleText" type="text">
+    <description/>
+    <value>Opportunity Type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="ownerText" type="text">
+    <description/>
+    <value>owner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="potentialText" type="text">
+    <description/>
+    <value>sales potential</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="probabilityText" type="text">
+    <description/>
+    <value>close prob</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="probabilityTitleText" type="text">
+    <description/>
+    <value>Opportunity Probability</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="resellerText" type="text">
+    <description/>
+    <value>reseller</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="statusText" type="text">
+    <description/>
+    <value>status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="titleText" type="text">
+    <description/>
+    <value>Opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="multiCurrencyText" type="text">
+    <description/>
+    <value>Multi Currency</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="multiCurrencyRateText" type="text">
+    <description/>
+    <value>exchange rate</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="multiCurrencyCodeText" type="text">
+    <description/>
+    <value>code</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="multiCurrencyDateText" type="text">
+    <description/>
+    <value>rate date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="multiCurrencyLockedText" type="text">
+    <description/>
+    <value>rate locked</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="subTypePickListResellerText" type="text">
+    <description/>
+    <value>RESELLER</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="titleText" type="text">
+    <description/>
+    <value>Opportunities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="activitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="notesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="scheduleText" type="text">
+    <description/>
+    <value>Schedule</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="editActionText" type="text">
+    <description/>
+    <value>Edit</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="viewAccountActionText" type="text">
+    <description/>
+    <value>Account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="viewContactsActionText" type="text">
+    <description/>
+    <value>Contacts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="viewProductsActionText" type="text">
+    <description/>
+    <value>Products</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="addNoteActionText" type="text">
+    <description/>
+    <value>Add Note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="addActivityActionText" type="text">
+    <description/>
+    <value>Add Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="addAttachmentActionText" type="text">
+    <description/>
+    <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="actualCloseText" type="text">
+    <description/>
+    <value>Closed </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="estimatedCloseText" type="text">
+    <description/>
+    <value>Estimated close </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[my-opportunities]" type="text">
+    <description/>
+    <value>my-opportunities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[open]" type="text">
+    <description/>
+    <value>open</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[closed]" type="text">
+    <description/>
+    <value>closed</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[won]" type="text">
+    <description/>
+    <value>won</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[lost]" type="text">
+    <description/>
+    <value>lost</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[inactive]" type="text">
+    <description/>
+    <value>inactive</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[prospect]" type="text">
+    <description/>
+    <value>prospect</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[qualification]" type="text">
+    <description/>
+    <value>qualification</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[negotiation]" type="text">
+    <description/>
+    <value>negotiation</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[needs-analysis]" type="text">
+    <description/>
+    <value>needs-analysis</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[demonstration]" type="text">
+    <description/>
+    <value>demonstration</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[decision]" type="text">
+    <description/>
+    <value>decision</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="titleText" type="text">
+    <description/>
+    <value>Opportunity Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="contactTitleText" type="text">
+    <description/>
+    <value>title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="nameText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="salesRoleText" type="text">
+    <description/>
+    <value>role</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="strategyText" type="text">
+    <description/>
+    <value>strategy</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="personalBenefitsText" type="text">
+    <description/>
+    <value>personal ben</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="standingText" type="text">
+    <description/>
+    <value>standing</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="issuesText" type="text">
+    <description/>
+    <value>issues</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="competitorNameText" type="text">
+    <description/>
+    <value>competitor pref</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="removeContactTitleText" type="text">
+    <description/>
+    <value>Remove Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="confirmDeleteText" type="text">
+    <description/>
+    <value>Remove "${0}" from the opportunity?</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="contactText" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="titleText" type="text">
+    <description/>
+    <value>Edit Opp. Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="nameText" type="text">
+    <description/>
+    <value>name</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="accountNameText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="contactTitleText" type="text">
+    <description/>
+    <value>title</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="salesRoleText" type="text">
+    <description/>
+    <value>role</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="salesRoleTitleText" type="text">
+    <description/>
+    <value>Role</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="personalBenefitsText" type="text">
+    <description/>
+    <value>personal ben.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="strategyText" type="text">
+    <description/>
+    <value>strategy</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="issuesText" type="text">
+    <description/>
+    <value>issues</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="standingText" type="text">
+    <description/>
+    <value>standing</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="standingTitleText" type="text">
+    <description/>
+    <value>Standing</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="contactText" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="competitorPrefText" type="text">
+    <description/>
+    <value>competitor pref</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.List" property="titleText" type="text">
+    <description/>
+    <value>Opportunity Contacts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.List" property="selectTitleText" type="text">
+    <description/>
+    <value>Select Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.List" property="activitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.List" property="notesText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityContact.List" property="scheduleText" type="text">
+    <description/>
+    <value>Schedule</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="productText" type="text">
+    <description/>
+    <value>product</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="productFamilyText" type="text">
+    <description/>
+    <value>product family</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="priceLevelText" type="text">
+    <description/>
+    <value>price level</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="priceText" type="text">
+    <description/>
+    <value>price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="basePriceText" type="text">
+    <description/>
+    <value>base price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="discountText" type="text">
+    <description/>
+    <value>discount</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="quantityText" type="text">
+    <description/>
+    <value>quantity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="baseExtendedPriceText" type="text">
+    <description/>
+    <value>base</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="extendedPriceText" type="text">
+    <description/>
+    <value>extended price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="extendedPriceSectionText" type="text">
+    <description/>
+    <value>Extended Price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="adjustedPriceSectionText" type="text">
+    <description/>
+    <value>Adjusted Price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="baseAdjustedPriceText" type="text">
+    <description/>
+    <value>base</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="adjustedPriceText" type="text">
+    <description/>
+    <value>adjusted price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="myAdjustedPriceText" type="text">
+    <description/>
+    <value>user</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="confirmDeleteText" type="text">
+    <description/>
+    <value>Remove ${0} from the opportunity products?</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="removeOppProductTitleText" type="text">
+    <description/>
+    <value>remove opportunity product</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="titleText" type="text">
+    <description/>
+    <value>Opportunity Product</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="productText" type="text">
+    <description/>
+    <value>product</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="productFamilyText" type="text">
+    <description/>
+    <value>product family</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="priceLevelText" type="text">
+    <description/>
+    <value>price level</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="priceText" type="text">
+    <description/>
+    <value>price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="basePriceText" type="text">
+    <description/>
+    <value>base price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="discountText" type="text">
+    <description/>
+    <value>discount %</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="adjustedPriceText" type="text">
+    <description/>
+    <value>adjusted price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="myAdjustedPriceText" type="text">
+    <description/>
+    <value>user</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="baseAdjustedPriceText" type="text">
+    <description/>
+    <value>base</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="quantityText" type="text">
+    <description/>
+    <value>quantity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="baseExtendedPriceText" type="text">
+    <description/>
+    <value>base</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="extendedPriceText" type="text">
+    <description/>
+    <value>extended price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="extendedPriceSectionText" type="text">
+    <description/>
+    <value>Extended Price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="adjustedPriceSectionText" type="text">
+    <description/>
+    <value>Adjusted Price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.OpportunityProduct.List" property="titleText" type="text">
+    <description/>
+    <value>Products</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Owner.List" property="titleText" type="text">
+    <description/>
+    <value>Owners</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Product.List" property="titleText" type="text">
+    <description/>
+    <value>Products</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.ProductProgram.List" property="titleText" type="text">
+    <description/>
+    <value>Product Programs</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Settings" property="clearLocalStorageTitleText" type="text">
+    <description/>
+    <value>Clear Storage</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Settings" property="clearAuthenticationTitleText" type="text">
+    <description/>
+    <value>Clear Saved Credentials</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Settings" property="errorLogTitleText" type="text">
+    <description/>
+    <value>View Error Logs</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Settings" property="localStorageClearedText" type="text">
+    <description/>
+    <value>Local storage cleared successfully.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Settings" property="credentialsClearedText" type="text">
+    <description/>
+    <value>Saved credentials cleared successfully.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Settings" property="titleText" type="text">
+    <description/>
+    <value>Settings</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.SpeedSearchList" property="titleText" type="text">
+    <description/>
+    <value>SpeedSearch</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.SpeedSearchList" property="indexesText[Account]" type="text">
+    <description/>
+    <value>Account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.SpeedSearchList" property="indexesText[Activity]" type="text">
+    <description/>
+    <value>Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.SpeedSearchList" property="indexesText[Contact]" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.SpeedSearchList" property="indexesText[History]" type="text">
+    <description/>
+    <value>History</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.SpeedSearchList" property="indexesText[Lead]" type="text">
+    <description/>
+    <value>Lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.SpeedSearchList" property="indexesText[Opportunity]" type="text">
+    <description/>
+    <value>Opportunity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.SpeedSearchList" property="indexesText[Ticket]" type="text">
+    <description/>
+    <value>Ticket</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TextEdit" property="titleText" type="text">
+    <description/>
+    <value>Edit Text</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="areaText" type="text">
+    <description/>
+    <value>area</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="assignedDateText" type="text">
+    <description/>
+    <value>assigned date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="assignedToText" type="text">
+    <description/>
+    <value>assigned to</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="completedByText" type="text">
+    <description/>
+    <value>completed by</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="categoryText" type="text">
+    <description/>
+    <value>category</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="contactText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="contractText" type="text">
+    <description/>
+    <value>contract</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="descriptionText" type="text">
+    <description/>
+    <value>desc</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="issueText" type="text">
+    <description/>
+    <value>issue</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="needByText" type="text">
+    <description/>
+    <value>needed date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="notesText" type="text">
+    <description/>
+    <value>comments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="phoneText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="actionsText" type="text">
+    <description/>
+    <value>Quick Actions</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="relatedAttachmentText" type="text">
+    <description/>
+    <value>Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="relatedAttachmentTitleText" type="text">
+    <description/>
+    <value>Ticket Attachments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="relatedActivitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="resolutionText" type="text">
+    <description/>
+    <value>resolution</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="sourceText" type="text">
+    <description/>
+    <value>source</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="statusText" type="text">
+    <description/>
+    <value>status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="subjectText" type="text">
+    <description/>
+    <value>subject</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="ticketIdText" type="text">
+    <description/>
+    <value>ticket number</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="titleText" type="text">
+    <description/>
+    <value>Ticket</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="urgencyText" type="text">
+    <description/>
+    <value>urgency</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="scheduleActivityText" type="text">
+    <description/>
+    <value>Schedule activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="relatedTicketActivitiesText" type="text">
+    <description/>
+    <value>Ticket Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="loadingText" type="text">
+    <description/>
+    <value>loading...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="accountText" type="text">
+    <description/>
+    <value>acct</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="areaText" type="text">
+    <description/>
+    <value>area</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="assignedDateText" type="text">
+    <description/>
+    <value>assigned date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="assignedToText" type="text">
+    <description/>
+    <value>assigned to</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="categoryText" type="text">
+    <description/>
+    <value>category</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="contactText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="contractText" type="text">
+    <description/>
+    <value>contract</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="descriptionText" type="text">
+    <description/>
+    <value>desc</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="descriptionTitleText" type="text">
+    <description/>
+    <value>Description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="issueText" type="text">
+    <description/>
+    <value>issue</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="needByText" type="text">
+    <description/>
+    <value>needed date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="notesText" type="text">
+    <description/>
+    <value>comments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="notesTitleText" type="text">
+    <description/>
+    <value>Comments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="phoneText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="relatedActivitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="resolutionText" type="text">
+    <description/>
+    <value>resolution</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="resolutionTitleText" type="text">
+    <description/>
+    <value>Resolution</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="sourceText" type="text">
+    <description/>
+    <value>source</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="sourceTitleText" type="text">
+    <description/>
+    <value>Source</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="statusText" type="text">
+    <description/>
+    <value>status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="subjectText" type="text">
+    <description/>
+    <value>subject</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="ticketAreaTitleText" type="text">
+    <description/>
+    <value>Ticket Area</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="ticketCategoryTitleText" type="text">
+    <description/>
+    <value>Ticket Category</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="ticketIdText" type="text">
+    <description/>
+    <value>ticket number</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="ticketIssueTitleText" type="text">
+    <description/>
+    <value>Ticket Issue</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="ticketStatusTitleText" type="text">
+    <description/>
+    <value>Ticket Status</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="ticketUrgencyTitleText" type="text">
+    <description/>
+    <value>Ticket Urgency</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="titleText" type="text">
+    <description/>
+    <value>Ticket</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="urgencyText" type="text">
+    <description/>
+    <value>urgency</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="titleText" type="text">
+    <description/>
+    <value>Tickets</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="activitiesText" type="text">
+    <description/>
+    <value>Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="scheduleText" type="text">
+    <description/>
+    <value>Schedule</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="notAssignedText" type="text">
+    <description/>
+    <value>Not assigned</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="editActionText" type="text">
+    <description/>
+    <value>Edit</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="viewAccountActionText" type="text">
+    <description/>
+    <value>Account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="viewContactActionText" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="addNoteActionText" type="text">
+    <description/>
+    <value>Add Note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="addActivityActionText" type="text">
+    <description/>
+    <value>Add Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="addAttachmentActionText" type="text">
+    <description/>
+    <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="assignedToText" type="text">
+    <description/>
+    <value>Assigned To: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="urgencyText" type="text">
+    <description/>
+    <value>Urgency: </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="createdOnText" type="text">
+    <description/>
+    <value>Created  </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="modifiedText" type="text">
+    <description/>
+    <value>Modified </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="neededByText" type="text">
+    <description/>
+    <value>Needed  </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="hashTagQueriesText[assigned-to-me]" type="text">
+    <description/>
+    <value>assigned-to-me</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.List" property="hashTagQueriesText[completed-by-me]" type="text">
+    <description/>
+    <value>completed-by-me</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Ticket.UrgencyLookup" property="titleText" type="text">
+    <description/>
+    <value>Ticket Urgency</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="titleText" type="text">
+    <description/>
+    <value>Ticket Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="accountText" type="text">
+    <description/>
+    <value>account</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="contactText" type="text">
+    <description/>
+    <value>contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="typeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="publicAccessText" type="text">
+    <description/>
+    <value>public access</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="assignedDateText" type="text">
+    <description/>
+    <value>start date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="completedDateText" type="text">
+    <description/>
+    <value>end date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="followUpText" type="text">
+    <description/>
+    <value>follow up</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="unitsText" type="text">
+    <description/>
+    <value>time units</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="elapsedUnitsText" type="text">
+    <description/>
+    <value>elapsed hours</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="rateTypeDescriptionText" type="text">
+    <description/>
+    <value>charge type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="rateText" type="text">
+    <description/>
+    <value>rate</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalLaborText" type="text">
+    <description/>
+    <value>total labor</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalPartsText" type="text">
+    <description/>
+    <value>total parts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalFeeText" type="text">
+    <description/>
+    <value>total fee</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="activityDescriptionText" type="text">
+    <description/>
+    <value>comments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="ticketNumberText" type="text">
+    <description/>
+    <value>ticket number</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="userText" type="text">
+    <description/>
+    <value>user</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="completeTicketText" type="text">
+    <description/>
+    <value>Complete Ticket Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedItemsText" type="text">
+    <description/>
+    <value>Related Items</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="text">
+    <description/>
+    <value>Ticket Activity Parts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="titleText" type="text">
+    <description/>
+    <value>Edit Ticket Activity</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeText" type="text">
+    <description/>
+    <value>type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeTitleText" type="text">
+    <description/>
+    <value>Type</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="publicAccessText" type="text">
+    <description/>
+    <value>public access</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="publicAccessTitleText" type="text">
+    <description/>
+    <value>Public Access</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="userText" type="text">
+    <description/>
+    <value>user</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="startDateText" type="text">
+    <description/>
+    <value>start date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="endDateText" type="text">
+    <description/>
+    <value>end date</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="commentsText" type="text">
+    <description/>
+    <value>comments</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.List" property="titleText" type="text">
+    <description/>
+    <value>Ticket Activities</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivity.RateLookup" property="titleText" type="text">
+    <description/>
+    <value>Rates</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="titleText" type="text">
+    <description/>
+    <value>Ticket Activity Part</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="productNameText" type="text">
+    <description/>
+    <value>product</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="skuText" type="text">
+    <description/>
+    <value>SKU</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="serialNumberText" type="text">
+    <description/>
+    <value>serial #</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="itemAmountText" type="text">
+    <description/>
+    <value>price</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="itemDescriptionText" type="text">
+    <description/>
+    <value>description</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.List" property="titleText" type="text">
+    <description/>
+    <value>Ticket Activity Parts</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.UpdateToolbar" property="updateText" type="text">
+    <description/>
+    <value>An update is available.  Click to reload.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.User.List" property="titleText" type="text">
+    <description/>
+    <value>Users</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="itemIconAltText" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="allRecordsText" type="text">
+    <description/>
+    <value>no search applied</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="hashTagsSectionText" type="text">
+    <description/>
+    <value>Hash Tags</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="kpiSectionText" type="text">
+    <description/>
+    <value>KPI</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
+    <description/>
+    <value>Indexes</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="configureText" type="text">
+    <description/>
+    <value>Configure</value>
+  </data>
+</localization>
