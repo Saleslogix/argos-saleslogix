@@ -129,6 +129,9 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'influencer': 'influencer',
             'competitor': 'competitor'
         },
+        defaultSearchTerm: function() {
+            return '#' + this.hashTagQueriesText['my-accounts'];
+        },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'edit',

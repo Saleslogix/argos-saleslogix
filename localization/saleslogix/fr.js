@@ -837,6 +837,7 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "phoneAbbreviationText": "N° de téléphone : ",
   "faxAbbreviationText": "Fax : ",
   "hashTagQueriesText": {
+    "my-accounts": "my-accounts",  
     "active": "Actif",
     "inactive": "Inactive",
     "suspect": "suspect",
