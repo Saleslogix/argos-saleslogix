@@ -64,6 +64,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             'LeadName',
             'StartDate'
         ],
+        existsRE: /^[\w]{12}$/,
         init: function() {
             this.inherited(arguments);
 
@@ -76,14 +77,19 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.connect(this.fields['Ticket'], 'onChange', this.onAccountDependentChange);
         },
         isHistoryForLead: function(entry) {
-            return entry && /^[\w]{12}$/.test(entry['LeadId']);
+            return entry &&  this.existsRE.test(entry['LeadId']);
         },
         isInLeadContext: function() {
             var insert = this.options && this.options.insert,
                 entry = this.options && this.options.entry,
-                lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) {
-                    return c.resourceKind === 'leads';
-                })) || this.isHistoryForLead(entry);
+                isLeadContext = App.isNavigationFromResourceKind('leads', function(o, c) {
+                    var result = false;
+                    if (c.resourceKind === 'leads'){
+                        result = true;
+                    }
+                    return result;
+                });
+            lead = (insert && isLeadContext) || this.isHistoryForLead(entry);
             return !!lead;
         },
         beforeTransitionTo: function() {
@@ -152,7 +158,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
         },
         showFieldsForLead: function() {
-            array.forEach(this.fieldsForStandard.concat(this.fieldsForLeads), function(item) {
+            array.forEach(this.fieldsForStandard.concat(this.fieldsForStandard), function(item) {
                 if (this.fields[item]) {
                     this.fields[item].hide();
                 }
@@ -334,21 +340,32 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
         },
         setValues: function(values) {
-            this.inherited(arguments);
+            var isLeadField, field, value, leadCompany, longNotes, insert;
 
+            this.inherited(arguments);
+            isLeadField = this.fields['IsLead'];
             if (this.isInLeadContext()) {
-                var isLeadField = this.fields['IsLead'];
                 isLeadField.setValue(true);
                 this.onIsLeadChange(true, isLeadField);
-
-                var leadCompany = utility.getValue(values, 'Company');
+                field = this.fields['Lead'];
+                value = utility.getValue(values, field.applyTo, {});
+                field.setValue(value, true);
+                leadCompany = utility.getValue(values, 'AccountName');
                 if (leadCompany) {
                     this.fields['AccountName'].setValue(leadCompany);
                 }
+            } else {
+                isLeadField.setValue(false);
             }
 
+            longNotes = utility.getValue(values, 'LongNotes');
+            if (longNotes) {
+                this.fields['Text'].setValue(longNotes);
+            }
+
+            insert = this.options && this.options.insert;
             // entry may have been passed as full entry, reapply context logic to extract properties
-            if (this.context && this.context.resourceKind) {
+            if (insert && this.context && this.context.resourceKind) {
                 var lookup = {
                     'accounts': this.applyAccountContext,
                     'contacts': this.applyContactContext,
