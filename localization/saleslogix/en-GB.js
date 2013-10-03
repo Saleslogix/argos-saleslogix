@@ -30,28 +30,28 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
 
 localize("Mobile.SalesLogix.Views.Activity.List", {
   "startDateFormatText": "ddd D/M/YYYY",
-  "startTimeFormatText": "h:mm"
+  "startTimeFormatText": "h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.Attachment.List", {
-  "attachmentDateFormatText": "ddd D/M/YYYY hh:mm:ss"
+  "attachmentDateFormatText": "ddd D/M/YYYY h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
-  "attachmentDateFormatText": "ddd D/M/YYYY h:mm a"
+  "attachmentDateFormatText": "ddd D/M/YYYY h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.DayView", {
   "eventDateFormatText": "D/M/YYYY",
   "dateHeaderFormatText": "dddd, D/M/YYYY",
-  "startTimeFormatText": "h:mm"
+  "startTimeFormatText": "h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "monthTitleFormatText": "MMMM YYYY",
   "dayTitleFormatText": "ddd D MMM, YYYY",
   "eventDateFormatText": "D/M/YYYY",
-  "startTimeFormatText": "h:mm"
+  "startTimeFormatText": "h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
@@ -59,7 +59,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "dayHeaderLeftFormatText": "dddd",
   "dayHeaderRightFormatText": "D MMM, YYYY",
   "eventDateFormatText": "D/M/YYYY",
-  "startTimeFormatText": "h:mm"
+  "startTimeFormatText": "h:mm A"
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
@@ -92,7 +92,7 @@ localize("Mobile.SalesLogix.Views.History.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.History.List", {
-  "hourMinuteFormatText": "h:mm",
+  "hourMinuteFormatText": "h:mm A",
   "dateFormatText": "D/M/YY"
 });
 
