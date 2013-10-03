@@ -84,8 +84,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 entry = this.options && this.options.entry,
                 isLeadContext = App.isNavigationFromResourceKind('leads', function(o, c) {
                     var result = false;
-                    if (c.resourceKind === 'leads')
-                    {
+                    if (c.resourceKind === 'leads'){
                         result = true;
                     }
                     return result;
@@ -366,7 +365,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
 
             insert = this.options && this.options.insert;
             // entry may have been passed as full entry, reapply context logic to extract properties
-            if (insert & this.context && this.context.resourceKind) {
+            if (insert && this.context && this.context.resourceKind) {
                 var lookup = {
                     'accounts': this.applyAccountContext,
                     'contacts': this.applyContactContext,
