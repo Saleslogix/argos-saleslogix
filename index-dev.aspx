@@ -20,8 +20,12 @@
     <title>Saleslogix</title>
 
     <link rel="apple-touch-icon" href="content/images/touch-icon-iphone.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="content/images/touch-icon-ipad.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="content/images/touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="content/images/72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="content/images/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="content/images/114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="content/images/touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="content/images/144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="content/images/touch-icon-ipad-retina.png" />
     <link rel="apple-touch-startup-image" href="content/images/loading.png">
 
     <!-- less files -->
