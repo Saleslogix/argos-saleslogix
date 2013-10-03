@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         titleText: 'Calendar',
         eventDateFormatText: 'M/D/YYYY',
         dateHeaderFormatText: 'dddd, M/D/YYYY',
-        startTimeFormatText: 'h:mm',
+        startTimeFormatText: 'h:mm A',
         todayText: 'Today',
         dayText: 'Day',
         weekText: 'Week',
@@ -84,7 +84,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
-            '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "A") %}</span>',
             '{% } %}'
         ]),
         itemTemplate: new Simplate([

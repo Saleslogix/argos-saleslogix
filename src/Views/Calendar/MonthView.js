@@ -39,7 +39,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         monthTitleFormatText: 'MMMM YYYY',
         dayTitleFormatText: 'ddd MMM D, YYYY',
         eventDateFormatText: 'M/D/YYYY',
-        startTimeFormatText: 'h:mm',
+        startTimeFormatText: 'h:mm A',
         allDayText: 'All-Day',
         eventText: 'Event',
         eventHeaderText: 'Events',
@@ -115,7 +115,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
             '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
-            '<span class="p-meridiem">{%: Mobile.SalesLogix.Format.date($.StartDate, "A") %}</span>',
             '{% } %}'
         ]),
         activityItemTemplate: new Simplate([

@@ -49,10 +49,8 @@ define('Mobile/SalesLogix/Views/History/List', [
             '<h3>',
             '{% if ($.Type === "atNote") { %}',
                 '{%: $$.formatDate($.ModifyDate) %}',
-                '&nbsp;{%: $$.formatMeridiem($.ModifyDate) %}',
             '{% } else { %}',
                 '{%: $$.formatDate($.CompletedDate) %}',
-                '&nbsp;{%: $$.formatMeridiem($.CompletedDate) %}',
             '{% } %}',
             '</h3>',
             '<h4>{%= $$.nameTemplate.apply($) %}</h4>',
@@ -89,7 +87,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atQuestion': 'Question',
             'atEMail': 'E-mail'
         },
-        hourMinuteFormatText: "h:mm",
+        hourMinuteFormatText: "h:mm A",
         dateFormatText: "M/D/YY",
         hashTagQueriesText: {
             'my-history': 'my-history',
@@ -269,15 +267,6 @@ define('Mobile/SalesLogix/Views/History/List', [
                 fmt = this.hourMinuteFormatText;
 
             return format.date(startDate.toDate(), fmt);
-        },
-        formatMeridiem: function(date) {
-            var startDate = moment(convert.toDateFromString(date)),
-                nextDate = startDate.clone().add({hours: 24});
-
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
-                return format.date(startDate.toDate(), 'A');
-
-            return '';
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
