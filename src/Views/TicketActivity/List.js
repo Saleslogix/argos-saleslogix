@@ -40,7 +40,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
 
         //Localization
         titleText: 'Ticket Activities',
-        startDateFormatText: 'MM/DD/YYYY h:mmA',
+        startDateFormatText: 'MM/DD/YYYY h:mm A',
 
         //View Properties       
         id: 'ticketactivity_list',
