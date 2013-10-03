@@ -80,9 +80,10 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             return entry &&  this.existsRE.test(entry['LeadId']);
         },
         isInLeadContext: function() {
-            var insert = this.options && this.options.insert,
-                entry = this.options && this.options.entry,
-                isLeadContext = App.isNavigationFromResourceKind('leads', function(o, c) {
+            var insert, entry, isLeadContext, lead;
+            insert = this.options && this.options.insert;
+            entry = this.options && this.options.entry;
+            isLeadContext = App.isNavigationFromResourceKind('leads', function(o, c) {
                     var result = false;
                     if (c.resourceKind === 'leads'){
                         result = true;
