@@ -86,7 +86,7 @@ define('Mobile/SalesLogix/Format', [
         */
         address: function(o, asText, separator, fmt) {
             var isEmpty = function(line) {
-                var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));
+                var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));//'
                 return filterSymbols === '';
             },
                 _this = Mobile.SalesLogix.Format;
@@ -193,7 +193,8 @@ define('Mobile/SalesLogix/Format', [
         },
         bigNumber: function(val) {
             try {
-                var numParse = dojoNumber.parse(val), text = Mobile.SalesLogix.Format.bigNumberAbbrText;
+                var numParse = isNaN(val) ? parseFloat(val) : val,
+                    text = Mobile.SalesLogix.Format.bigNumberAbbrText;
 
                 if (numParse && numParse >= 1000000000) {
                     numParse = numParse / 1000000000;
@@ -205,7 +206,9 @@ define('Mobile/SalesLogix/Format', [
                     numParse = numParse / 1000;
                     return dojoNumber.format(numParse, { places: 1 }) + text['thousand'];
                 }
-            } catch(ex) {}
+            } catch(ex) {
+                console.error(ex);
+            }
 
             return val;
         },
