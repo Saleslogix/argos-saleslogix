@@ -162,11 +162,14 @@ define('Mobile/SalesLogix/Recurrence', [
             for (var recurOption in this.simplifiedOptions) {
                 textOptions[0] = this.getPanel(this.simplifiedOptions[recurOption].RecurPeriod);
                 this.simplifiedOptions[recurOption].RecurIterations = this.defaultIterations[this.simplifiedOptions[recurOption].RecurPeriod];
-                list.push({
-                    '$key': recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
-                    '$descriptor': string.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
-                    'recurrence': this.simplifiedOptions[recurOption]
-                });
+
+                if (this[this.simplifiedOptions[recurOption].label]) {
+                    list.push({
+                        '$key': recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
+                        '$descriptor': string.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
+                        'recurrence': this.simplifiedOptions[recurOption]
+                    });
+                }
             }
 
             return {'$resources': list};
