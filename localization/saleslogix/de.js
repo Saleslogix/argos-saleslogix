@@ -1228,7 +1228,7 @@ localize("Mobile.SalesLogix.Views.LeftDrawer", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "&Kopie; 2013 SalesLogix, NA, LLC. Alle Rechte vorbehalten.",
+  "copyrightText": "&copy; 2013 SalesLogix, NA, LLC. Alle Rechte vorbehalten.",
   "logOnText": "Bei Saleslogix anmelden",
   "passText": "Passwort",
   "rememberText": "speichern",
