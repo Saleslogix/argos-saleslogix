@@ -58,7 +58,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Risultato",
   "resultTitleText": "Risultato",
   "startingText": "Data iniziale",
-  "startingFormatTimelessText": "M/G/AAAA",
+  "startingFormatTimelessText": "D/M/YYYY",
   "timelessText": "Senza orario",
   "durationValueText": {
     "0": "Nessuno",
@@ -145,7 +145,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "regardingText": "Argomento",
   "rolloverText": "Riporta Automaticamente",
   "startingText": "Ora iniziale",
-  "startingFormatTimelessText": "M/G/AAAA",
+  "startingFormatTimelessText": "D/M/YYYY",
   "repeatsText": "ripetizioni",
   "recurringText": "Ricorrente",
   "recurringTitleText": "Ricorrente",
