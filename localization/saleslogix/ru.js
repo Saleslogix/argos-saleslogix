@@ -78,9 +78,9 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
-  "startDateFormatText": "D.M.YYYY H:mm:ss A",
+  "startDateFormatText": "D.M.YYYY H:mm",
   "timelessDateFormatText": "D.M.YYYY",
-  "alarmDateFormatText": "D.M.YYYY H:mm:ss A",
+  "alarmDateFormatText": "D.M.YYYY H:mm",
   "activityTypeText": {
     "atToDo": "Выполнить",
     "atPhoneCall": "Звонок",
@@ -304,8 +304,8 @@ localize("Mobile.SalesLogix.Views.ErrorLog.List", {
 });
 
 localize("Mobile.SalesLogix.Views.Event.Detail", {
-  "startDateFormatText": "D.M.YYYY H:mm:ss A",
-  "endDateFormatText": "D.M.YYYY H:mm:ss A",
+  "startDateFormatText": "D.M.YYYY H:mm",
+  "endDateFormatText": "D.M.YYYY H:mm",
   "eventTypeText": {
     "atToDo": "Выполнить",
     "atPhoneCall": "Звонок",
@@ -338,7 +338,7 @@ localize("Mobile.SalesLogix.Views.Event.List", {
 });
 
 localize("Mobile.SalesLogix.Views.History.Detail", {
-  "dateFormatText": "D.M.YYYY H:mm:ss A",
+  "dateFormatText": "D.M.YYYY H:mm",
   "categoryText": "Категория",
   "completedText": "Заверш.",
   "durationText": "Длительность",
