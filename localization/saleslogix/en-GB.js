@@ -15,7 +15,8 @@ localize("Sage.Platform.Mobile.Format", {
 
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "completedFormatText": "D/M/YYYY h:mm A",
-  "startingFormatText": "D/M/YYYY h:mm A"
+  "startingFormatText": "D/M/YYYY h:mm A",
+  "startingFormatTimelessText": "D/M/YYYY"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
