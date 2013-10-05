@@ -117,7 +117,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var hashTagsSection, hashTag, kpiSection, layout, prefs;
+            var hashTagsSection, hashTag, kpiSection, layout, prefs, i, len;
             layout = [];
 
             hashTagsSection = {
@@ -125,18 +125,18 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 children: []
             };
 
-            if (this.hashTagQueries) {
-                for (hashTag in this.hashTagQueries) {
-                    if (this.hashTagQueries.hasOwnProperty(hashTag)) {
-                        hashTagsSection.children.push({
-                            'name': hashTag,
-                            'action': 'hashTagClicked', 
-                            'title': this.hashTagQueriesText[hashTag] || hashTag,
-                            'dataProps': {
-                                'hashtag': this.hashTagQueriesText[hashTag] || hashTag
-                            }
-                        });
-                    }
+            if (this.searchWidget && this.searchWidget.hashTagQueries) {
+                len = this.searchWidget.hashTagQueries.length;
+                for (i = 0; i < len; i++) {
+                    hashTag = this.searchWidget.hashTagQueries[i];
+                    hashTagsSection.children.push({
+                        'name': hashTag.key,
+                        'action': 'hashTagClicked', 
+                        'title': hashTag.tag,
+                        'dataProps': {
+                            'hashtag': hashTag.tag 
+                        }
+                    });
                 }
             }
 
