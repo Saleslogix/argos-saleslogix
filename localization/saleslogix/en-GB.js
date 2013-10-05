@@ -26,8 +26,8 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
-  "startingFormatText": "D/M/YYYY h:mm A"
-  "startingFormatTimelessText": "D/M/YYYY",
+  "startingFormatText": "D/M/YYYY h:mm A",
+  "startingFormatTimelessText": "D/M/YYYY"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.List", {
