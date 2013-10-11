@@ -50,7 +50,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         rolloverText: 'auto rollover',
         startingText: 'start time',
         startingFormatText: 'M/D/YYYY h:mm A',
-        startingFormatTimelessText: 'M/D/YYYY',
+        startingTimelessFormatText: 'M/D/YYYY',
         repeatsText: 'repeats',
         recurringText: 'recurring',
         recurringTitleText: 'Recurring',
@@ -313,7 +313,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (value) {
                 this.fields['Rollover'].enable();
-                startDateField['dateFormatText'] = this.startingFormatTimelessText;
+                startDateField['dateFormatText'] = this.startingTimelessFormatText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 if (!this.isDateTimeless(startDate)) {

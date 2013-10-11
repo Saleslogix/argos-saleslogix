@@ -55,7 +55,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         resultTitleText: 'Result',
         startingText: 'start date',
         startingFormatText: 'M/D/YYYY h:mm A',
-        startingFormatTimelessText: 'M/D/YYYY',
+        startingTimelessFormatText: 'M/D/YYYY',
         timelessText: 'timeless',
         durationValueText: {
             0: 'none',
@@ -199,7 +199,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                 startDate = startDateField.getValue();
 
             if (value) {
-                startDateField['dateFormatText'] = this.startingFormatTimelessText;
+                startDateField['dateFormatText'] = this.startingTimelessFormatText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 if (!this.isDateTimeless(startDate)) {
