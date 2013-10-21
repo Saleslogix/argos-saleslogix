@@ -1014,7 +1014,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     label: this.leaderText,
                     name: 'Leader',
                     property: 'Leader',
-                    include: false,
+                    include: true,
                     type: 'lookup',
                     textProperty: 'UserInfo',
                     textTemplate: template.nameLF,
