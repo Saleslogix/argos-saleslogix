@@ -97,10 +97,16 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
             this.inherited(arguments);
 
             var ticketContext = App.isNavigationFromResourceKind(['tickets']),
-                ticketKey = ticketContext && ticketContext.key;
+                ticketKey = ticketContext && ticketContext.key,
+                user = App.context.user,
+                userField = this.fields.User;
 
             if (ticketKey) {
                 this.fields['TicketId'].setValue(ticketKey);
+            }
+
+            if (userField) {
+                userField.setValue(user);
             }
         },
 
