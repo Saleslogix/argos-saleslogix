@@ -16,7 +16,7 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
     domGeo,
     domAttr
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericBar', null, {
+    return declare('Mobile.SalesLogix.Views.Charts._ChartMixin', null, {
         _handle: null,
         _feedData: null,
 

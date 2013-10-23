@@ -85,9 +85,10 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             array.forEach(widgetOptions, function(options) {
                 if (this._hasValidOptions(options)) {
                     options.returnToId = this.id;
-                    options.resourceKind = this.resourceKind;
-                    options.currentSearchExpression = this.currentSearchExpression;
-                    options.queryArgs._activeFilter = this._getCurrentQuery();
+                    options.parentResourceKind = this.resourceKind;
+                    options.resourceKind = options.resourceKind || this.resourceKind;
+                    options.currentSearchExpression = options.currentSearchExpression || this.currentSearchExpression;
+                    options.queryArgs._activeFilter = options.queryArgs._activeFilter || this._getCurrentQuery();
                     var widget = new MetricWidget(options);
                     widget.placeAt(this.metricNode, 'last');
                     widget.requestData();

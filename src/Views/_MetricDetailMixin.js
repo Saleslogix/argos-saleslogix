@@ -14,7 +14,7 @@ define('Mobile/SalesLogix/Views/_MetricDetailMixin', [
     aspect,
     MetricWidget
 ) {
-    return declare('Mobile.SalesLogix.Views._MetricListMixin', null, {
+    return declare('Mobile.SalesLogix.Views._MetricDetailMixin', null, {
         // Metrics
         metricNode: null,
         metricWidgets: null,
