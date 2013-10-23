@@ -47,6 +47,12 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         callText: 'Call',
         calledText: 'Called',
         addAttachmentActionText: 'Add Attachment',
+        overdueText: 'overdue',
+        alarmText: 'alarm',
+        touchedText: 'touched',
+        importantText: 'important',
+        recurringText: 'recurring',
+        activityText: 'activity',
 
         //Card View 
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
@@ -271,29 +277,29 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 return this.itemIndicators || (this.itemIndicators = [{
                     id: 'alarm',
                     icon: 'AlarmClock_24x24.png',
-                    label: 'Alarm',
+                    label: this.alarmText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.hasAlarm(entry);
                     }
                 }, {
                     id: 'touched',
                     icon: 'Touched_24x24.png',
-                    label: 'Touched',
+                    label: this.touchedText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.hasBeenTouched(entry);
                     }
                 }, {
                     id: 'important',
                     icon: 'Bang_24x24.png',
-                    label: 'Important',
+                    label: this.importantText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.isImportant(entry);
                     }
                 }, {
                     id: 'overdue',
                     cls: 'indicator_Important',
-                    label: 'overdue',
-                    valueText: 'overdue',
+                    label: this.overdueText,
+                    valueText: this.overdueText,
                     showIcon: false,
                     location: 'top',
                     onApply: function(entry, parent) {
@@ -302,14 +308,14 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 }, {
                     id: 'recurring',
                     icon: 'Recurring_24x24.png',
-                    label: 'Recurring',
+                    label: this.recurringText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.isRecurring(entry, this);
                     }
                 }, {
                     id: 'activityType',
                     icon: '',
-                    label: 'Activity',
+                    label: this.activityText,
                     onApply: function(entry, parent) {
                         parent.applyActivityIndicator(entry, this);
                     }
