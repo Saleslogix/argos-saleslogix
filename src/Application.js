@@ -81,7 +81,7 @@ define('Mobile/SalesLogix/Application', [
         mobileVersion: {
             'major': 3,
             'minor': 0,
-            'revision': 1
+            'revision': 2
         },
         init: function() {
             if (has('ie') && has('ie') < 9) {
