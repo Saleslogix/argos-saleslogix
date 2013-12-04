@@ -14,7 +14,7 @@ define('Mobile/SalesLogix/Application', [
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
-    'dojo/_base/sniff',
+    'dojo/sniff',
     'dojox/mobile/sniff',
     'moment'
 ], function(
