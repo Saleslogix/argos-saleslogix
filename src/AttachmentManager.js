@@ -120,7 +120,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
             });
             contextView = (found && found.options && found.options.source) || found;
             if (contextView) {
-                view = App.getView(contextView.id),
+                view = App.getView(contextView.id);
                 entry = contextView.entry || (view && view.entry) || contextView;
 
                 if (!entry || !entry['$key']) {

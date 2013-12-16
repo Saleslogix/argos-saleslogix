@@ -240,7 +240,6 @@
     top:3px;
     right:3px;
     */
-
   z-index: 500;
 }
 .p-meridiem {
@@ -420,12 +419,10 @@ td.calendar-day {
 .calendar-day.activeDay div {
   position: relative;
   /* support positioning of span.activity-count */
-
 }
 .calendar-day.activeDay span.activity-count {
   visibility: visible;
   /* flip visibility 'visible/hidden' */
-
   position: absolute;
   top: 14px;
   right: -10px;
@@ -434,7 +431,6 @@ td.calendar-day {
   /*border: 1px #5a5d59 solid;
     border-top-color: transparent;
     border-left-color: transparent; */
-
   color: #ffffff;
   font-size: 80%;
   font-weight: normal;
@@ -449,7 +445,6 @@ td.calendar-day {
   background-color: transparent;
   background-image: url(../images/icons/Down_Arrow.png);
   /*background-image: url(../images/icons/Hide_Details_active_24.png);*/
-
   background-repeat: no-repeat;
   background-position: left center;
   border: none;
@@ -459,7 +454,6 @@ td.calendar-day {
 .collapsed > .collapsed-indicator {
   background-image: url(../images/icons/Down_Arrow_Collapsed.png);
   /*background-image: url(../images/icons/Show_Details_active_24.png);*/
-
 }
 .toolButton[data-tool="back"] > span {
   background-image: url(../images/icons/Browse_Previous_24.png);
@@ -566,11 +560,9 @@ body.transition > .viewContainer > .footer-toolbar {
     border-top: none;
     border-bottom: 1px solid #212721;
     /*border-left: 1px solid #000000;*/
-  
   }
   body.landscape > .viewContainer > #calendar_monthlist > .day-content > div > h2 {
     /* border-left: 1px solid #000000;*/
-  
   }
 }
 /* Tablets */
@@ -701,7 +693,6 @@ body.transition > .viewContainer > .footer-toolbar {
 #calendar_monthlist .nav-bar > .button-prev {
   float: left;
   /*margin-left: 10px;*/
-
   z-index: 100;
 }
 #calendar_daylist .nav-bar > .button-next,
@@ -710,7 +701,6 @@ body.transition > .viewContainer > .footer-toolbar {
 #calendar_monthlist .nav-bar > .button-next {
   float: right;
   /*margin-right: 10px; */
-
   z-index: 100;
 }
 #calendar_weeklist > div > h2 > .dayHeaderLeft {
@@ -738,7 +728,6 @@ body.transition > .viewContainer > .footer-toolbar {
 #calendar_daylist .nav-bar,
 #calendar_weeklist .nav-bar {
   /*padding: 5px 0 0 0; */
-
 }
 #calendar_monthlist > .split-buttons,
 #calendar_weeklist > .split-buttons,

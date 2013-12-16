@@ -259,7 +259,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                     break;
                 case 'OrdMonth':
                     startDate.setMonth(value);
-                    weekday = startDate.getDay(),
+                    weekday = startDate.getDay();
                     ordWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1;
                     break;
                 default:

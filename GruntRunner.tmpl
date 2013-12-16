@@ -86,7 +86,7 @@
   <% with (scripts) { %>
   require([
   <% specs.forEach(function(spec) { %>
-    '<%= spec.replace("./tests/src", "spec").replace(".js", "") %>',
+    '<%= spec.replace("tests/src", "spec").replace(".js", "") %>',
   <% }); %>
     'localization/en',
     'localization/saleslogix/en'

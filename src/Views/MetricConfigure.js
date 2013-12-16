@@ -189,7 +189,7 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
 
             for (i = 0; i < this.metricsSupported; i++) {
                 key = 'metric' + i;
-                titleText = this.fields[key + '-title'].getValue(),//'Open Sales Potential',
+                titleText = this.fields[key + '-title'].getValue();//'Open Sales Potential',
 
                 // Display name (object)
                 filterItem = this.fields[key + '-filter'].getValue();
