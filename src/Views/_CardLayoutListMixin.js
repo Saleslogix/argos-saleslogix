@@ -250,12 +250,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             this.showSearchExpression();
             this.inherited(arguments);
         },
-        getSearchQuery:function(){
-            if (this.searchWidget) {
-                return this.searchWidget.getFormattedSearchQuery();
-            }
-            return null;
-        },
         showSearchExpression: function() {
             var html, searchNode;
             if (this.searchWidget) {
