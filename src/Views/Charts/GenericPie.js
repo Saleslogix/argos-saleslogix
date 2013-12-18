@@ -32,6 +32,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         otherText: 'Other',
         expose: false,
         chart: null,
+        MAX_ITEMS: 5,
 
         formatter: function(val) {
             return val;
@@ -79,9 +80,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             this.chart.resize(box.w, box.h);
         },
         _labels: function(feedData) {
-            var data = [], MAX_ITEMS = 5, otherY = 0, otherText;
+            var data = [], otherY = 0, otherText;
             array.forEach(feedData, function(item, index) {
-                if (index < MAX_ITEMS) {
+                if (index < this.MAX_ITEMS) {
                     data.push({
                         y: item.value,
                         text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
@@ -90,7 +91,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
                 } else {
                     otherY = otherY + item.value;
                     otherText = this.otherText + ' (' + this.formatter(otherY) + ')';
-                    data[MAX_ITEMS] = {
+                    data[this.MAX_ITEMS] = {
                         y: otherY,
                         text: otherText
                     };
