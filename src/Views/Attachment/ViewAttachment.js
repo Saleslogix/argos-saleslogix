@@ -80,7 +80,6 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                '<label>{%= $.description + " (" + $.fileType + ")"  %}</label>',
            '</div>',
            '<div class="attachment-viewer-area">',
-               '<button class="button" data-action="openNewWindow">{%: $$.newWindowText %}</button>',
                '<table><tr valign="middle"><td align="center">',
                    '<image id="attachment-image" border="1"></image>',
                '</table></td></tr>',
