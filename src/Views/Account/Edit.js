@@ -22,7 +22,6 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
         accountTypeTitleText: 'Account Type',
         acctMgrText: 'acct mgr',
         businessDescriptionText: 'bus desc',
-        businessDescriptionTitleText: 'Business Description',
         descriptionText: 'desc',
         faxText: 'fax',
         fullAddressText: 'address',
@@ -151,10 +150,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                 label: this.businessDescriptionText,
                 name: 'BusinessDescription',
                 property: 'BusinessDescription',
-                noteProperty: false,
-                title: this.businessDescriptionTitleText,
-                type: 'note',
-                view: 'text_edit'
+                type: 'textarea'
             },{
                 label: this.acctMgrText,
                 name: 'AccountManager',
