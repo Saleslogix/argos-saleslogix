@@ -27,13 +27,16 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         contactText: 'contact',
         contractText: 'contract',
         descriptionText: 'desc',
+        descriptionTitleText: 'Description',
         issueText: 'issue',
         needByText: 'needed date',
         notesText: 'comments',
+        notesTitleText: 'Comments',
         phoneText: 'phone',
         relatedActivitiesText: 'Activities',
         relatedItemsText: 'Related Items',
         resolutionText: 'resolution',
+        resolutionTitleText: 'Resolution',
         sourceText: 'source',
         sourceTitleText: 'Source',
         statusText: 'status',
@@ -384,7 +387,9 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                     label: this.descriptionText,
                     name: 'TicketProblem',
                     property: 'TicketProblem',
-                    type: 'textarea'
+                    title: this.descriptionTitleText,
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     name: 'TicketSolution.$key',
@@ -396,13 +401,18 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                     label: this.resolutionText,
                     name: 'TicketSolution',
                     property: 'TicketSolution',
-                    type: 'textarea'
+                    title: this.resolutionTitleText,
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     label: this.notesText,
                     name: 'Notes',
                     property: 'Notes',
-                    type: 'textarea'
+                    noteProperty: false,
+                    title: this.notesTitleText,
+                    type: 'note',
+                    view: 'text_edit'
                 }
             ]);
         }

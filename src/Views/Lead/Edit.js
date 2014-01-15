@@ -15,6 +15,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
         accountText: 'account',
         addressText: 'address',
         businessText: 'bus desc',
+        businessTitleText: 'Business Description',
         companyText: 'company',
         contactTitleText: 'title',
         emailText: 'email',
@@ -27,6 +28,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
         leadOwnerText: 'owner',
         nameText: 'name',
         notesText: 'comments',
+        notesTitleText: 'Comments',
         sicCodeText: 'sic code',
         titleText: 'Lead',
         titleTitleText: 'Title',
@@ -173,13 +175,19 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
                     label: this.businessText,
                     name: 'BusinessDescription',
                     property: 'BusinessDescription',
-                    type: 'textarea'
+                    noteProperty: false,
+                    title: this.businessTitleText,
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     label: this.notesText,
                     name: 'Notes',
                     property: 'Notes',
-                    type: 'textarea'
+                    noteProperty: false,
+                    title: this.notesTitleText,
+                    type: 'note',
+                    view: 'text_edit'
                 },
                 {
                     label: this.leadOwnerText,

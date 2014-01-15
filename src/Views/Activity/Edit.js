@@ -36,6 +36,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         reminderTitleText: 'Reminder',
         leaderText: 'leader',
         longNotesText: 'notes',
+        longNotesTitleText: 'Notes',
         priorityText: 'priority',
         priorityTitleText: 'Priority',
         regardingText: 'regarding',
@@ -882,9 +883,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 where: 'Type ne "Template" and Type ne "Retired"'
             },{
                 label: this.longNotesText,
+                noteProperty: false,
                 name: 'LongNotes',
                 property: 'LongNotes',
-                type: 'textarea'
+                title: this.longNotesTitleText,
+                type: 'note',
+                view: 'text_edit'
             },{
                 label: this.isLeadText,
                 name: 'IsLead',

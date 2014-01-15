@@ -42,6 +42,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
         followUpTitleText: 'Follow-up type',
         leaderText: 'leader',
         longNotesText: 'notes',
+        longNotesTitleText: 'Notes',
         otherInfoText: 'Other Info',
         priorityText: 'priority',
         priorityTitleText: 'Priority',
@@ -460,9 +461,12 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     type: 'boolean'
                 },{
                     label: this.longNotesText,
+                    noteProperty: false,
                     name: 'LongNotes',
                     property: 'LongNotes',
-                    type: 'textarea'
+                    title: this.longNotesTitleText,
+                    type: 'note',
+                    view: 'text_edit'
                 },{
                     label: this.accountText,
                     name: 'Account',
