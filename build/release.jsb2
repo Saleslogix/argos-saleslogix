@@ -612,6 +612,10 @@
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
         {
+          "text": "cache.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo"
+        },
+        {
           "text": "number.js",
           "path": "../../../argos-sdk/libraries/dojo/dojo"
         },
