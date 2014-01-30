@@ -386,8 +386,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                 },
                 {
                     label: this.descriptionText,
-                    name: 'TicketProblem',
-                    property: 'TicketProblem',
+                    name: 'TicketProblem.Notes',
+                    property: 'TicketProblem.Notes',
                     title: this.descriptionTitleText,
                     type: 'note',
                     view: 'text_edit'
@@ -400,8 +400,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                 },
                 {
                     label: this.resolutionText,
-                    name: 'TicketSolution',
-                    property: 'TicketSolution',
+                    name: 'TicketSolution.Notes',
+                    property: 'TicketSolution.Notes',
                     title: this.resolutionTitleText,
                     type: 'note',
                     view: 'text_edit'
