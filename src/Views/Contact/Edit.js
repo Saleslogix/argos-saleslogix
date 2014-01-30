@@ -3,6 +3,7 @@
  */
 define('Mobile/SalesLogix/Views/Contact/Edit', [
     'dojo/_base/declare',
+    'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
@@ -10,6 +11,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     'Sage/Platform/Mobile/Utility'
 ], function(
     declare,
+    dString,
     format,
     template,
     validator,
@@ -109,7 +111,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         requestAccount: function(accountId) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('accounts')
-                .setResourceSelector(dojo.string.substitute("'${0}'", [accountId]))
+                .setResourceSelector(dString.substitute("'${0}'", [accountId]))
                 .setQueryArg('select', [
                     'AccountName',
                     'Address/*',
