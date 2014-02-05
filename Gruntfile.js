@@ -60,6 +60,13 @@ module.exports = function(grunt) {
                     spawn: false
                 }
             }
+        },
+        simplate: {
+            src: ['src/**/*.js', '../../argos-sdk/src/**/*.js'],
+            options: {
+                output: 'compiled/templates.js',
+                amd: 'compiled/templates'
+            }
         }
     });
     
@@ -68,6 +75,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadTasks('../../../grunt-contrib-simplate/tasks');
 
     grunt.registerTask('test', ['connect', 'jasmine']);
     grunt.registerTask('default', ['test']);

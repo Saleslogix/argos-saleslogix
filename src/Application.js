@@ -16,7 +16,8 @@ define('Mobile/SalesLogix/Application', [
     'Sage/Platform/Mobile/Application',
     'dojo/sniff',
     'dojox/mobile/sniff',
-    'moment'
+    'moment',
+    'compiled/templates'
 ], function(
     win,
     declare,
@@ -32,8 +33,11 @@ define('Mobile/SalesLogix/Application', [
     Application,
     sniff,
     mobileSniff,
-    moment
+    moment,
+    compiled
 ) {
+
+    compiled();
 
     return declare('Mobile.SalesLogix.Application', [Application], {
         navigationState: null,
