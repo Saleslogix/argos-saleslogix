@@ -75,7 +75,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadTasks('../../../grunt-contrib-simplate/tasks');
+    grunt.loadNpmTasks('grunt-simplate');
 
     grunt.registerTask('test', ['connect', 'jasmine']);
     grunt.registerTask('default', ['test']);
