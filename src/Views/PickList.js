@@ -23,13 +23,17 @@ define('Mobile/SalesLogix/Views/PickList', [
         resourceKind: 'picklists',
         resourceProperty: 'items',
 
+        activateEntry: function(params) {
+            if (this.options.keyProperty === 'text') {
+                params.key = params.descriptor;
+            }
+
+            this.inherited(arguments);
+        },
+
         show: function(options) {
             this.set('title', options && options.title || this.title);
             this.inherited(arguments);
-        },
-        processFeed: function(feed) {
-            this.inherited(arguments);
-            this._loadPreviousSelections();
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

@@ -89,6 +89,8 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                 );
                 options.singleSelect = this.singleSelect;
                 options.previousSelections = !this.singleSelect ? this.createSelections() : null;
+                options.keyProperty = this.keyProperty;
+                options.textProperty = this.textProperty;
             }
 
             if (!this.singleSelect) {
