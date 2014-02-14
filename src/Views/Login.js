@@ -3,9 +3,11 @@
  */
 define('Mobile/SalesLogix/Views/Login', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
+    lang,
     Edit
 ) {
 
@@ -42,7 +44,11 @@ define('Mobile/SalesLogix/Views/Login', [
                 this.authenticate();
             }
         },
-
+        onShow: function() {
+            window.setTimeout(lang.hitch(this, function() {
+                this.fields.username.inputNode.focus();
+            }), 100);
+        },
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 bbar: false,
