@@ -20,24 +20,27 @@ define('spec/Views/MetricWidget.spec', [
             store = new MemoryStore({ data: data.$resources });
             widget = new MetricWidget({ store: store });
 
-            spyOn(widget.store, 'query').andCallThrough();
+            spyOn(widget.store, 'query').and.callThrough();
             widget.requestData();
             expect(widget.store.query).toHaveBeenCalled();
         });
 
-        it('should render an itemTemplate when requesting data completes', function() {
-            runs(function() {
+        describe('should render an itemTemplate when requesting data completes', function() {
+            beforeEach(function(done) {
                 this.store = new MemoryStore({ data: data.$resources });
                 this.widget = new MetricWidget({ store: this.store });
 
-                spyOn(this.widget.itemTemplate, 'apply').andCallThrough();
+                spyOn(this.widget.itemTemplate, 'apply').and.callThrough();
                 this.widget.requestData();
+                setTimeout(function() {
+                    done();
+                }, 100);
             });
 
-            waits(100);
 
-            runs(function() {
+            it('should call apply on itemTemplate', function(done) {
                 expect(this.widget.itemTemplate.apply).toHaveBeenCalled();
+                done();
             });
         });
     });

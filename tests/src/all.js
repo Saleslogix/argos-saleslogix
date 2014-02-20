@@ -1,7 +1,7 @@
 define([
     'spec/Aggregate.spec',
     'spec/Views/MetricWidget.spec',
-    'spec/Application.spec', 
+    'spec/Application.spec',
     'spec/Format.spec',
     'spec/Utility.spec',
     'spec/Validator.spec',

@@ -10,15 +10,15 @@ define('spec/Application.spec', [
             it('should activate', function() {
                 var instance = new application(configuration);
 
-                spyOn(instance, 'activate').andCallThrough();
-                spyOn(instance, 'init').andCallThrough();
-                spyOn(instance, 'initConnects').andCallThrough();
-                spyOn(instance, 'initCaching').andCallThrough();
-                spyOn(instance, 'initServices').andCallThrough();
+                spyOn(instance, 'activate').and.callThrough();
+                spyOn(instance, 'init').and.callThrough();
+                spyOn(instance, 'initConnects').and.callThrough();
+                spyOn(instance, 'initCaching').and.callThrough();
+                spyOn(instance, 'initServices').and.callThrough();
                 spyOn(instance, 'initModules');
                 spyOn(instance, 'initToolbars');
                 spyOn(instance, 'initReUI');
-                spyOn(instance, 'run').andCallThrough();
+                spyOn(instance, 'run').and.callThrough();
 
                 instance.activate();
                 expect(instance.activate).toHaveBeenCalled();
@@ -93,7 +93,7 @@ define('spec/Application.spec', [
                 expect(instance.getMyExchangeRate()).toEqual({code: '', rate: 1});
 
                 // with multicurrency on
-                spyOn(instance, 'hasMultiCurrency').andReturn(true);
+                spyOn(instance, 'hasMultiCurrency').and.returnValue(true);
                 expect(instance.getMyExchangeRate()).toEqual({code: '', rate: 1});
 
                 instance.context = {
@@ -116,7 +116,7 @@ define('spec/Application.spec', [
                 expect(instance.getBaseExchangeRate()).toEqual({code: '', rate: 1});
 
                 // Test with it on
-                spyOn(instance, 'hasMultiCurrency').andReturn(true);
+                spyOn(instance, 'hasMultiCurrency').and.returnValue(true);
                 expect(instance.getBaseExchangeRate()).toEqual({code: '', rate: 1});
 
                 instance.context = {
@@ -137,7 +137,7 @@ define('spec/Application.spec', [
 
                 expect(instance.getCurrentOpportunityExchangeRate()).toEqual({code: '', rate: 1});
 
-                spyOn(instance, 'queryNavigationContext').andReturn({
+                spyOn(instance, 'queryNavigationContext').and.returnValue({
                     options: {
                         ExchangeRateCode: 'EUR',
                         ExchangeRate: 5
