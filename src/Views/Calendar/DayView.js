@@ -165,7 +165,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         enableSearch: false,
         currentDate: null,
         contractName: 'system',
-        queryOrderBy: 'Timeless desc, StartDate',
+        queryOrderBy: 'StartDate desc',
         querySelect: [
             'Description',
             'StartDate',

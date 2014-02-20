@@ -213,7 +213,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
         pageSize: 500,
         queryWhere: null,
-        queryOrderBy: 'StartDate asc',
+        queryOrderBy: 'StartDate desc',
         querySelect: [
             'StartDate',
             'Timeless',

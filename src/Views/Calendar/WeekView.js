@@ -193,7 +193,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         continuousScrolling: false,
 
         queryWhere: null,
-        queryOrderBy: 'StartDate asc',
+        queryOrderBy: 'StartDate desc',
         querySelect: [
             'Description',
             'StartDate',
