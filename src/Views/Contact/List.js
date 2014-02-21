@@ -69,7 +69,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         phoneAbbreviationText: 'Work: ',
         mobileAbbreviationText: 'Mobile: ',
 
-        //View Properties        
+        //View Properties
         detailView: 'contact_detail',
         icon: 'content/images/icons/Contacts_24x24.png',
         cardLayoutIcon: 'content/images/icons/ContactProfile_48x48.png',

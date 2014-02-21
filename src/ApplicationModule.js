@@ -6,7 +6,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'dojo/_base/lang',
     'dojo/query',
     'dojo/_base/window',
-    
+
     'Sage/Platform/Mobile/ApplicationModule',
     'Sage/Platform/Mobile/Calendar',
     'Sage/Platform/Mobile/RelatedViewManager',
