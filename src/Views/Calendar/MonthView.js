@@ -356,7 +356,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.monthRequests = [];
 
             var request = this.createRequest();
-            request.setContractName('system');
+            request.setContractName(this.contractName || 'system');
 
             var xhr = request.read({
                 success: this.onRequestDataSuccess,
