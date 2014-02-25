@@ -16,6 +16,12 @@ define('spec/Utility.spec', ['Mobile/SalesLogix/Utility'],function(Utility) {
         it('should get the real activity id', function() {
             expect(Utility.getRealActivityId('ABCDEFGHIJKL;asdf')).toBe('ABCDEFGHIJKL');
             expect(Utility.getRealActivityId('1234')).toBe('1234');
+            expect(Utility.getRealActivityId('')).toBe('');
+        });
+        it('should get base64', function() {
+            expect(Utility.base64ArrayBuffer([0,0,0,0])).toBe('AAAAAA==');
+            expect(Utility.base64ArrayBuffer([0,0,0,0,0])).toBe('AAAAAAA=');
+            expect(Utility.base64ArrayBuffer([0,0,0,0,0,0])).toBe('AAAAAAAA');
         });
     });
 });

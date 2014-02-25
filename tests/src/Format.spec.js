@@ -37,6 +37,8 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format', 'moment'],function(Forma
             });
 
             it('should parse a custom formatter', function() {
+                var original = Format.resolveAddressCulture;
+
                 Format.resolveAddressCulture = function() {
                     return 'test-culture';
                 };
@@ -88,6 +90,9 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format', 'moment'],function(Forma
 
                 // nothing
                 expect(Format.address(addressFeed, true, ';', 'a')).toEqual('a');
+
+                // restore the original function
+                Format.resolveAddressCulture = original;
             });
         });
 
