@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/Login', [
         //Localization
         id: 'login',
         busy: false,
-        copyrightText: '&copy; 2013 SalesLogix, NA, LLC. All rights reserved.',
+        copyrightText: '&copy; 2014 SalesLogix, NA, LLC. All rights reserved.',
         logOnText: 'Log on to Saleslogix',
         passText: 'password',
         rememberText: 'remember',
