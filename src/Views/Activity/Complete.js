@@ -239,9 +239,14 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             return true;
         },
         onAsScheduledChange: function(scheduled, field) {
+            var duration, startDate, completedDate;
             if (scheduled) {
+                duration = this.fields['Duration'].getValue();
+                startDate = moment(this.fields['StartDate'].getValue());
+                completedDate = startDate.add({minutes: duration}).toDate();
+
                 this.toggleSelectField(this.fields['CompletedDate'], true);
-                this.fields['CompletedDate'].setValue(this.fields['StartDate'].getValue());
+                this.fields['CompletedDate'].setValue(completedDate);
             } else {
                 this.toggleSelectField(this.fields['CompletedDate'], false);
                 this.fields['CompletedDate'].setValue(new Date());
