@@ -201,10 +201,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (entry['$key'] != originalKey && view) {
                 // Editing single occurrence results in new $key/record
                 view.show({
-                        key: entry['$key']
-                    }, {
-                        returnTo: -2
-                    });
+                    key: entry['$key']
+                }, {
+                    returnTo: -2
+                });
 
             } else {
                 this.onUpdateCompleted(entry);
@@ -307,35 +307,31 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         onTimelessChange: function(value, field) {
             this.toggleSelectField(this.fields['Duration'], value);
 
-            var startDateField = this.fields['StartDate'],
-                wrapped = moment(startDateField.getValue()),
-                startDate = wrapped && wrapped.toDate();
+            var startDate, startDateField;
 
-            if (value) {
+            startDateField = this.fields['StartDate'];
+
+            if (value) { // StartDate timeless
                 this.fields['Rollover'].enable();
                 startDateField['dateFormatText'] = this.startingTimelessFormatText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
-                if (!this.isDateTimeless(startDate)) {
-                    wrapped.startOf('day');
-                    wrapped.add((-1 * wrapped.zone()), 'minutes');
-                    wrapped.add(5, 'seconds');
-                    startDate = wrapped.toDate();
+                startDate = this._getNewStartDate(startDateField.getValue(), true);
+                if (startDate) {
+
+                    startDateField.setValue(startDate);
                 }
-                startDateField.setValue(startDate);
-            } else {
+            } else { // StartDate with out time (Timeless)
                 this.fields['Rollover'].setValue(false);
                 this.fields['Rollover'].disable();
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
-                if (this.isDateTimeless(startDate)) {
-                    wrapped.startOf('day');
-                    wrapped.add((wrapped.zone() + 1), 'minutes');
-                    wrapped.add(-5, 'seconds');
-                    startDate = wrapped.toDate();
+                startDate = this._getNewStartDate(startDateField.getValue(), false);
+                if (startDate) {
+
+                    startDateField.setValue(startDate);
                 }
-                startDateField.setValue(startDate);
             }
         },
         onAlarmChange: function() {
@@ -869,6 +865,24 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         formatDependentQuery: function(dependentValue, format, property) {
             return string.substitute(format, [utility.getValue(dependentValue, property || '$key')]);
+        },
+        _getNewStartDate: function (orginalStartDate, timeless){
+            var startDate,
+                currentTime;
+
+                if (!orginalStartDate) {
+                    return null;
+                }
+
+                startDate = orginalStartDate;
+                if (timeless) {
+                    startDate = new Date(orginalStartDate.getUTCFullYear(), orginalStartDate.getUTCMonth(), orginalStartDate.getUTCDate(), 0, 0, 5);
+                } else {
+                    currentTime = moment();
+                    startDate = new Date(orginalStartDate.getUTCFullYear(), orginalStartDate.getUTCMonth(), orginalStartDate.getUTCDate(), currentTime.hours(), currentTime.minutes(), 0);
+                }
+
+            return startDate;
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
