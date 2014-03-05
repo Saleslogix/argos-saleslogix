@@ -870,20 +870,18 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             var startDate,
                 currentTime;
 
-                if(!orginalStartDate){
+                if (!orginalStartDate) {
                     return null;
                 }
+
                 startDate = orginalStartDate;
                 if (timeless) {
-
                     startDate = new Date(orginalStartDate.getUTCFullYear(), orginalStartDate.getUTCMonth(), orginalStartDate.getUTCDate(), 0, 0, 5);
-
                 } else {
-
                     currentTime = moment();
                     startDate = new Date(orginalStartDate.getUTCFullYear(), orginalStartDate.getUTCMonth(), orginalStartDate.getUTCDate(), currentTime.hours(), currentTime.minutes(), 0);
-
                 }
+
             return startDate;
         },
         createLayout: function() {
