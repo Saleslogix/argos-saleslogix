@@ -102,6 +102,7 @@
         autoInit: false,
         legacyMode: false,
         showInitialPage: false,
+        disableFx: true,
         updateBackButtonText: false
     };
     </script>
