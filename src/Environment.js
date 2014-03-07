@@ -37,17 +37,25 @@ define('Mobile/SalesLogix/Environment', [
             }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
         },
         showMapForAddress: function(address) {
-            var hiddenLink = domConstruct.create('a', {
-                href: string.substitute("http://maps.google.com/maps?q=${0}", [address]),
-                target: '_blank'
-            }, win.body(), 'last');
+            var hiddenLink, href, windowName = '_blank';
 
-            on.emit(hiddenLink, 'click', {
-                bubbles: true,
-                cancelable: true
-            });
+            href = string.substitute("http://maps.google.com/maps?q=${0}", [address]);
 
-            domConstruct.destroy(hiddenLink);
+            if (has('ie')) {
+                window.open(href, windowName);
+            } else {
+                hiddenLink = domConstruct.create('a', {
+                    href: href,
+                    target: windowName
+                }, win.body(), 'last');
+
+                on.emit(hiddenLink, 'click', {
+                    bubbles: true,
+                    cancelable: true
+                });
+
+                domConstruct.destroy(hiddenLink);
+            }
         },
         attachmentViewsToRefresh: [
             'myattachment_list',
