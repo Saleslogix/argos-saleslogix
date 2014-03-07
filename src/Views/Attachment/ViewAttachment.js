@@ -44,10 +44,12 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         newWindowText: 'Open in new window',
         attachmentNotSupportedText: 'The attachment type is not supported for viewing.',
         attachmentDateFormatText: 'ddd M/D/YYYY h:mm a',
+        downloadingText:'Downloading attachment ...',
+        notSupportedText: 'Viewing attachments is not supported by your device.',
+
         //View Properties
         id: 'view_attachment',
         editView: '',
-        downloadingText:'Downloading attachment ...',
         security: null,
         querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
         resourceKind: 'attachments',
@@ -56,6 +58,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         orginalImageSize: { width: 0, height: 0 },
         queryInclude: ['$descriptors'],
         dataURL: null,
+        notSupportedTemplate: new Simplate([
+            '<h2>{%= $$.notSupportedText %}</h2>'
+        ]),
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
             '{%! $.loadingTemplate %}',
@@ -109,6 +114,11 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         show: function(options) {
             this.inherited(arguments);
             this.attachmentViewerNode.innerHTML = "";
+            if (!has('html5-file-api')) {
+                domConstruct.place(this.notSupportedTemplate.apply({}, this), this.domNode, 'only');
+                return;
+            }
+
             //If this opened the second time we need to check to see if it is the same attachmnent and let the Process Entry function load the view.
             if (this.entry) {
                 if (options.key === this.entry.$key) {
@@ -140,7 +150,6 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
              return this.tools || (this.tools = []);
         },
         openNewWindow: function() {
-            console.log(this.dataURL);
             if (this.dataURL) {
                 window.open(this.dataURL);
             }
@@ -233,7 +242,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                             viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
                         }
                     }
-                } else { //File type not allowed 
+                } else { //File type not allowed
                     viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
                 }
 
