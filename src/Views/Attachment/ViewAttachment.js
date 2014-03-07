@@ -7,7 +7,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     'dojo/_base/connect',
     'dojo/_base/array',
     'Mobile/SalesLogix/Format',
-     'dojo/dom-construct',
+    'dojo/dom-construct',
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/has',
@@ -80,9 +80,12 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                '<label>{%= $.description + " (" + $.fileType + ")"  %}</label>',
            '</div>',
            '<div class="attachment-viewer-area">',
-               '<table><tr valign="middle"><td align="center">',
-                   '<image id="attachment-image" border="1"></image>',
-               '</table></td></tr>',
+               '<table>',
+                   '<tr valign="middle">',
+                       '<td id="imagePlaceholder" align="center">',
+                       '</td>',
+                   '</tr>',
+               '</table>',
            '</div>'
         ]),
         attachmentViewNotSupportedTemplate: new Simplate([
@@ -177,16 +180,32 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                         attachmentid = entry.$key;
                         //dataurl
                         am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                            var rData, url, a, image;
+                            var rData, url, a, image, loadHandler, loaded;
 
                             rData = Utility.base64ArrayBuffer(responseInfo.response);
                             self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
-                            image = dom.byId('attachment-image');
-                            image.onload = function() {
+
+                            image = new Image();
+
+                            loadHandler = function() {
+                                if (loaded) {
+                                    return;
+                                }
+
                                 self._orginalImageSize = { width: image.width, height: image.height };
                                 self._sizeImage(self.domNode, image);
+                                domConstruct.place(image, 'imagePlaceholder', 'only');
+                                loaded = true;
                             };
-                            domAttr.set(image, 'src', self.dataURL);
+
+                            image.onload = loadHandler;
+                            image.src = self.dataURL;
+
+                            if (image.complete) {
+                                loadHandler();
+                            }
+
+                            // Set download text to hidden
                             domClass.add(dl, 'display-none');
                         });
                     } else { //View file type in Iframe
