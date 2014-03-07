@@ -48,7 +48,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
             service.setContractName(this.contractName);
             this._baseUrl = service.getUri().toString();
             this._uploadUrl = this._baseUrl + '/attachments/file';
-            service.setContractName(oldContractName);            
+            service.setContractName(oldContractName);
         },
         createAttachments: function(files) {
 
@@ -104,7 +104,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
         },
         _getAttachmentContextMixin: function(fileName) {
             var contextMixin;
-            contextMixin = this._getAttachmentContext();            
+            contextMixin = this._getAttachmentContext();
             return contextMixin;
         },
         _getAttachmentContext: function() {
@@ -225,7 +225,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
         onSuccessUpload: function(request) {
             //the id of the new attachment is buried in the Location response header...
             var url, re, matches, id;
-           
+
             url = request.getResponseHeader('Location');
             re = /\'\w+\'/g;
             matches = url.match(re);
@@ -282,7 +282,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
                 pct = curFileProgress;
             }
             this._totalProgress = pct;
-           
+
             if (pct < 99) {
                 if (this.onUpdateProgress) {
                     this.onUpdateProgress(pct);
