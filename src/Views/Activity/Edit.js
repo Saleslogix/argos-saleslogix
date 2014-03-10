@@ -822,16 +822,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 isReminderDirty = this.fields['Reminder'].isDirty(),
                 startDate = this.fields['StartDate'].getValue(),
                 reminderIn = this.fields['Reminder'].getValue(),
-                timeless = this.fields['Timeless'].getValue();
+                timeless = this.fields['Timeless'].getValue(),
+                alarmTime;
 
             // if StartDate is dirty, always update AlarmTime
             if (startDate && (isStartDateDirty || isReminderDirty)) {
                 values = values || {};
-                values['AlarmTime'] = moment(startDate).clone().add({'minutes': -1 * reminderIn}).toDate();
-
-                // if timeless, convert back to local time
-                if (timeless)
-                    values['AlarmTime'] = moment(values['AlarmTime']).add({'minutes': startDate.getTimezoneOffset()}).toDate();
+                alarmTime = this._getNewAlarmTime(startDate, timeless, reminderIn);
+                values['AlarmTime'] = alarmTime;
             }
 
             return values;
@@ -883,6 +881,22 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 }
 
             return startDate;
+        },
+        _getNewAlarmTime: function(startDate, timeless, reminderIn) {
+            var alarmTime;
+
+            if (!startDate) {
+                return null;
+            }
+
+            if (timeless) {
+                alarmTime = new Date(startDate.getUTCFullYear(), startDate.getUTCMonth(), startDate.getUTCDate(), 24, 0, 0); 
+                alarmTime = moment(alarmTime).clone().add({ 'days': -1 }).add({ 'minutes': -1 * reminderIn }).toDate();
+            } else {
+                alarmTime = moment(startDate).clone().add({ 'minutes': -1 * reminderIn }).toDate();
+            }
+
+            return alarmTime;
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
