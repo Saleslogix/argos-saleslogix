@@ -87,7 +87,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             90: '1.5 hours',
             120: '2 hours'
         },
-        _settingValues: false, //To-Do remove this and add the ablity for the control not to fire change events wen binding in SDK
+
         //View Properties
         id: 'activity_edit',
         detailView: 'activity_detail',
@@ -309,7 +309,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         onTimelessChange: function(value, field) {
             
             this.toggleSelectField(this.fields['Duration'], value);
-            if (this._settingValues) { return; }
             var startDate, startDateField;
 
             startDateField = this.fields['StartDate'];
@@ -820,6 +819,22 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             return true;
         },
+        isDateTimelessLocal: function(date) {
+            if (!date) {
+                return false;
+            }
+            if (date.getHours() !== 0) {
+                return false;
+            }
+            if (date.getMinutes() !== 0) {
+                return false;
+            }
+            if (date.getSeconds() !== 5) {
+                return false;
+            }
+
+            return true;
+        },
         getValues: function() {
             var values = this.inherited(arguments),
                 isStartDateDirty = this.fields['StartDate'].isDirty(),
@@ -880,8 +895,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 if (timeless) {
                     startDate = new Date(orginalStartDate.getUTCFullYear(), orginalStartDate.getUTCMonth(), orginalStartDate.getUTCDate(), 0, 0, 5);
                 } else {
-                    currentTime = moment();
-                    startDate = new Date(orginalStartDate.getUTCFullYear(), orginalStartDate.getUTCMonth(), orginalStartDate.getUTCDate(), currentTime.hours(), currentTime.minutes(), 0);
+                    if (this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate)) {
+                        currentTime = moment();
+                        startDate = new Date(orginalStartDate.getUTCFullYear(), orginalStartDate.getUTCMonth(), orginalStartDate.getUTCDate(), currentTime.hours(), currentTime.minutes(), 0);
+                    }
                 }
 
             return startDate;
