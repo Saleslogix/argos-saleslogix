@@ -12,6 +12,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit',
     'Mobile/SalesLogix/Recurrence',
+    'Sage/Platform/Mobile/Format',
     'moment'
 ], function(
     declare,
@@ -24,6 +25,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     utility,
     Edit,
     recur,
+    format,
     moment
 ) {
 
@@ -749,7 +751,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 var span = startTime - values['AlarmTime'].getTime(), // ms
                     reminder = span / (1000 * 60);
 
-                values['Reminder'] = reminder;
+                values['Reminder'] = format.fixed(reminder,0);
             }
 
             this.inherited(arguments);
