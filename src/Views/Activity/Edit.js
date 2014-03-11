@@ -87,7 +87,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             90: '1.5 hours',
             120: '2 hours'
         },
-
+        _settingValues: false, //To-Do remove this and add the ablity for the control not to fire change events wen binding in SDK
         //View Properties
         id: 'activity_edit',
         detailView: 'activity_detail',
@@ -307,8 +307,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onTimelessChange: function(value, field) {
+            
             this.toggleSelectField(this.fields['Duration'], value);
-
+            if (this._settingValues) { return; }
             var startDate, startDateField;
 
             startDateField = this.fields['StartDate'];
@@ -743,6 +744,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         setValues: function(values) {
+            this._settingValues = true;
             if (values['StartDate'] && values['AlarmTime']) {
                 var startTime = (this.isDateTimeless(values['StartDate']))
                     ? moment(values['StartDate']).add({minutes: values['StartDate'].getTimezoneOffset()}).toDate().getTime()
@@ -800,7 +802,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (this.isActivityRecurring) {
                 this.fields['EndDate'].hide();
             }
-
+            this._settingValues = false;
         },
         isDateTimeless: function(date) {
             if (!date) {
