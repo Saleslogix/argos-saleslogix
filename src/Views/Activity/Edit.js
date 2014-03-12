@@ -885,19 +885,35 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         _getNewStartDate: function (orginalStartDate, timeless){
             var startDate,
-                currentTime;
+                currentTime,
+                wrapped,
+                isTimeLessDate;
 
                 if (!orginalStartDate) {
                     return null;
                 }
 
                 startDate = orginalStartDate;
+                isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
+
                 if (timeless) {
-                    startDate = new Date(orginalStartDate.getUTCFullYear(), orginalStartDate.getUTCMonth(), orginalStartDate.getUTCDate(), 0, 0, 5);
+                    if (!isTimeLessDate) {
+                        wrapped = moment(startDate);
+                        wrapped.subtract({ minutes: wrapped.zone() });
+                        wrapped.hours(0);
+                        wrapped.minutes(0);
+                        wrapped.seconds(5);
+                        startDate = wrapped.toDate();
+                    }
                 } else {
-                    if (this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate)) {
+                    if (isTimeLessDate) {
                         currentTime = moment();
-                        startDate = new Date(orginalStartDate.getUTCFullYear(), orginalStartDate.getUTCMonth(), orginalStartDate.getUTCDate(), currentTime.hours(), currentTime.minutes(), 0);
+                        wrapped = moment(startDate);
+                        wrapped.add({ minutes: wrapped.zone() });
+                        wrapped.hours(currentTime.hours());
+                        wrapped.minutes(currentTime.minutes());
+                        wrapped.seconds(0);
+                        startDate = wrapped.toDate();
                     }
                 }
 
@@ -911,7 +927,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
 
             if (timeless) {
-                alarmTime = new Date(startDate.getUTCFullYear(), startDate.getUTCMonth(), startDate.getUTCDate(), 24, 0, 0); 
+                wrapped = moment(startDate);
+                wrapped.add({ minutes: wrapped.zone() });
+                wrapped.hours(24);
+                wrapped.minutes(0);
+                wrapped.seconds(0);
+                alarmTime = wrapped.toDate();
                 alarmTime = moment(alarmTime).clone().add({ 'days': -1 }).add({ 'minutes': -1 * reminderIn }).toDate();
             } else {
                 alarmTime = moment(startDate).clone().add({ 'minutes': -1 * reminderIn }).toDate();
