@@ -920,7 +920,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return startDate;
         },
         _getNewAlarmTime: function(startDate, timeless, reminderIn) {
-            var alarmTime;
+            var alarmTime,
+                wrapped;
 
             if (!startDate) {
                 return null;
