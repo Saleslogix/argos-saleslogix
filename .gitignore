@@ -55,3 +55,4 @@ node_modules
 .grunt/
 _SpecRunner.html
 report/junit.xml
+coverage

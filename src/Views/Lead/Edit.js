@@ -172,7 +172,7 @@ define('Mobile/SalesLogix/Views/Lead/Edit', [
                     name: 'Interests',
                     property: 'Interests',
                     type: 'text',
-                    maxTextLength: 64,
+                    maxTextLength: 128,
                     validator: validator.exceedsMaxTextLength
                 },
                 {

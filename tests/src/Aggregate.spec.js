@@ -20,6 +20,10 @@ define('spec/Aggregate.spec', ['Mobile/SalesLogix/Aggregate'],function(Aggregate
             it('should be 3', function() {
                 expect(Aggregate.avg(data)).toEqual(3);
             });
+
+            it('should be 0', function() {
+                expect(Aggregate.avg([])).toEqual(0);
+            });
         });
 
         describe('max', function() {
@@ -31,6 +35,10 @@ define('spec/Aggregate.spec', ['Mobile/SalesLogix/Aggregate'],function(Aggregate
         describe('min', function() {
             it('should be 2', function() {
                 expect(Aggregate.min(data)).toEqual(2);
+            });
+
+            it('should be 0', function() {
+                expect(Aggregate.min([])).toEqual(0);
             });
         });
 

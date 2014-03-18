@@ -3,23 +3,15 @@
 <head>
   <meta charset="utf-8">
   <title>Jasmine Spec Runner</title>
-<% with (scripts) { %>
- <% jasmine.forEach(function(script) { %>
-   <script type="text/javascript" src="<%= script %>"></script>
- <% }); %>
- 
-  <% vendor.forEach(function(script) { %>
-   <script type="text/javascript" src="<%= script %>"></script>
- <% }); %>
- 
- <% helpers.forEach(function(script) { %>
-   <script type="text/javascript" src="<%= script %>"></script>
- <% }); %>
- 
- <% reporters.forEach(function(script) { %>
-   <script type="text/javascript" src="<%= script %>"></script>
- <% }); %>
-<% }; %>
+  <% css.forEach(function(style){ %>
+  <link rel="stylesheet" type="text/css" href="<%= style %>">
+  <% }); %>
+
+  <% with (scripts) { %>
+    <% [].concat(polyfills, jasmine, vendor, helpers).forEach(function(script){ %>
+    <script src="<%= script %>"></script>
+    <% }) %>
+  <% }; %>
 
   <!-- JSON -->
   <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
@@ -63,60 +55,34 @@
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment' },
             { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
-            { name: 'Mobile/SalesLogix', location: 'src' },
+            { name: 'Mobile/SalesLogix', location: '.grunt/grunt-contrib-jasmine/src' },
             { name: 'spec', location: 'tests/src' },
-            { name: 'localization', location: 'localization' },
-            { name: 'configuration', location: 'configuration' }
+            { name: 'localization', location: '.grunt/grunt-contrib-jasmine/localization' },
+            { name: 'configuration', location: '.grunt/grunt-contrib-jasmine/configuration' }
         ],
         paths: {
-            'Mobile/SalesLogix': './src',
+            'Mobile/SalesLogix': '.grunt/grunt-contrib-jasmine/src',
             'Sage/Platform/Mobile': '../../argos-sdk/src',
-            'configuration': './configuration',
-            'localization': './localization'
+            'configuration': '.grunt/grunt-contrib-jasmine/configuration',
+            'localization': '.grunt/grunt-contrib-jasmine/localization',
+            'Mobile/SalesLogix/DefaultMetrics.txt': 'src/DefaultMetrics.txt'
         }
   });
   </script>
-  <% css.forEach(function(style){ %>
-  <link rel="stylesheet" type="text/css" href="<%= style %>">
-  <% }); %>
-
 </head>
 <body>
   <script type="text/javascript">
-  <% with (scripts) { %>
   require([
-  <% specs.forEach(function(spec) { %>
-    '<%= spec.replace("tests/src", "spec").replace(".js", "") %>',
-  <% }); %>
+    'spec/all',
     'localization/en',
-    'localization/saleslogix/en'
-  ], function() {
-      var jasmineEnv = jasmine.getEnv();
-      jasmineEnv.updateInterval = 1000;
-
-      var htmlReporter = new jasmine.HtmlReporter();
-
-      jasmineEnv.addReporter(htmlReporter);
-
-      jasmineEnv.specFilter = function(spec) {
-        return htmlReporter.specFilter(spec);
-      };
-
-      var currentWindowOnload = window.onload;
-
-      window.onload = function() {
-        if (currentWindowOnload) {
-          currentWindowOnload();
-        }
-        execJasmine();
-      };
-
-      function execJasmine() {
-        jasmineEnv.execute();
-      }
-
-  });
+    'localization/saleslogix/en',
+  <% with (scripts) { %>
+    '<%= boot %>',
+    '<%= reporters[0] %>',
+    '<%= reporters[1] %>'
   <% }; %>
+  ], function() {
+  });
   </script>
 </body>
 </html>

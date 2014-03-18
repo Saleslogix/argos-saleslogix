@@ -95,6 +95,13 @@ define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'],function(Validator
             it('should not be currency', function() {
                 expect(Validator.isCurrency.fn('foo')).toEqual(true);
             });
+
+            it('should defualt to 2 decimal digits', function() {
+                var original = Mobile.CultureInfo.numberFormat.currencyDecimalDigts;
+                Mobile.CultureInfo.numberFormat.currencyDecimalDigits = false;
+                expect(Validator.isCurrency.fn('10.40')).toEqual(false);
+                Mobile.CultureInfo.numberFormat.currencyDecimalDigts = original;
+            });
         });
 
         describe('isInt32', function() {
@@ -133,7 +140,7 @@ define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'],function(Validator
 
             lt = new Date(1999, 0, 1);
             gt = new Date(2014, 0, 1);
-            inRange = new Date(2005, 0, 1); 
+            inRange = new Date(2005, 0, 1);
 
             it('should validate date is in range from today to one year from today', function() {
                 expect(Validator.isDateInRange.fn(inRange, field)).toEqual(false);
@@ -150,6 +157,10 @@ define('spec/Validator.spec', ['Mobile/SalesLogix/Validator'],function(Validator
                 // Test min/max seperate like in the application
                 expect(Validator.isDateInRange.fn(gt, { maxValue: (new Date(2013, 0, 1))})).toEqual(true);
                 expect(Validator.isDateInRange.fn(lt, { minValue: (new Date(2000, 0, 1))})).toEqual(true);
+            });
+
+            it('should validate false if value is not a date', function() {
+                expect(Validator.isDateInRange.fn(null, field)).toEqual(false);
             });
         });
     });

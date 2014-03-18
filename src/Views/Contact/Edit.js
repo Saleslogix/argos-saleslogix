@@ -202,23 +202,6 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                 this.fields['Fax'].setValue(fax);
             }
         },
-        formatCuisinePrefs: function(selections) {
-            if (typeof selections === 'string') {
-                return selections;
-            }
-
-            var values = [];
-            for (var key in selections) {
-                var data = selections[key].data;
-                if (data && data.text) {
-                    values.push(data.text);
-                } else if (typeof data === 'string') {
-                    values.push(data);
-                }
-            }
-
-            return values.join(', ');
-        },
         cleanAddressEntry: function(address) {
             if (address) {
                 var clean = {},
@@ -360,8 +343,6 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
                     property: 'CuisinePreference',
                     type: 'picklist',
                     picklist: 'CuisinePrefs',
-                    textRenderer: this.formatCuisinePrefs.bindDelegate(this),
-                    formatValue: this.formatCuisinePrefs.bindDelegate(this),
                     singleSelect: false,
                     title: this.cuisinePreferenceTitleText
                 }]);

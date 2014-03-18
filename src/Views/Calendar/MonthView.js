@@ -233,7 +233,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
         pageSize: 500,
         queryWhere: null,
-        queryOrderBy: 'StartDate asc',
+        queryOrderBy: 'StartDate desc',
         querySelect: [
             'StartDate',
             'Timeless',
@@ -376,7 +376,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             this.monthRequests = [];
 
             var request = this.createRequest();
-            request.setContractName('system');
+            request.setContractName(this.contractName || 'system');
 
             var xhr = request.read({
                 success: this.onRequestDataSuccess,

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
+define('spec/Format.spec', ['Mobile/SalesLogix/Format', 'moment'],function(Format, moment) {
     // Verify the the argos-saleslogix version of these work OK - SDK really contains the phone formatter.
     describe('Mobile/SalesLogix/Format', function() {
         describe('address', function() {
@@ -20,10 +20,79 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
 
             it('should format as text', function () {
                 expect(Format.address(addressFeed, true, ';', '')).toEqual('5555 N Gainey Center Dr;Suite 200;Scottsdale, AZ 85032;USA');
+                expect(Format.address(addressFeed, true, true, '')).toEqual('5555 N Gainey Center Dr\nSuite 200\nScottsdale, AZ 85032\nUSA');
+                expect(Format.address(addressFeed, true, false, '')).toEqual('5555 N Gainey Center Dr<br />Suite 200<br />Scottsdale, AZ 85032<br />USA');
             });
 
             it('should format as html', function () {
                 expect(Format.address(addressFeed, false, ';', '')).toEqual('<a target="_blank" href="http://maps.google.com/maps?q=5555%20N%20Gainey%20Center%20Dr%20Suite%20200%20Scottsdale%2C%20AZ%2085032%20USA">5555 N Gainey Center Dr<br />Suite 200<br />Scottsdale, AZ 85032<br />USA</a>');
+            });
+
+            it('should default to locale "en"', function() {
+                Format.resolveAddressCulture = function() {
+                    return 'bad culture';
+                };
+
+                expect(Format.address(addressFeed, true, ';', '')).toEqual('5555 N Gainey Center Dr;Suite 200;Scottsdale, AZ 85032;USA');
+            });
+
+            it('should parse a custom formatter', function() {
+                var original = Format.resolveAddressCulture;
+
+                Format.resolveAddressCulture = function() {
+                    return 'test-culture';
+                };
+
+                Format.addressCultureFormats['test-culture'] = 's';
+
+                // Not specifying a format string will pull our custom test-culture defined above
+                expect(Format.address(addressFeed, true, ';')).toEqual(addressFeed.Salutation);
+
+                // salutation
+                expect(Format.address(addressFeed, true, ';', 's')).toEqual(addressFeed.Salutation);
+                expect(Format.address(addressFeed, true, ';', 'S')).toEqual(addressFeed.Salutation.toUpperCase());
+                expect(Format.address({}, true, ';', 's')).toEqual('');
+                expect(Format.address({}, true, ';', 'S')).toEqual('');
+
+                // address
+                expect(Format.address(addressFeed, true, ';', 'a4')).toEqual(addressFeed.Address4);
+                expect(Format.address({}, true, ';', 'a1')).toEqual('');
+                expect(Format.address({}, true, ';', 'a2')).toEqual('');
+                expect(Format.address({}, true, ';', 'a3')).toEqual('');
+                expect(Format.address({}, true, ';', 'a4')).toEqual('');
+
+                // city
+                expect(Format.address(addressFeed, true, ';', 'm')).toEqual(addressFeed.City);
+                expect(Format.address({}, true, ';', 'm')).toEqual('');
+                expect(Format.address(addressFeed, true, ';', 'M')).toEqual(addressFeed.City.toUpperCase());
+                expect(Format.address({}, true, ';', 'M')).toEqual('');
+
+                // county
+                expect(Format.address(addressFeed, true, ';', 'z')).toEqual(addressFeed.County);
+                expect(Format.address({}, true, ';', 'z')).toEqual('');
+                expect(Format.address(addressFeed, true, ';', 'Z')).toEqual(addressFeed.County.toUpperCase());
+                expect(Format.address({}, true, ';', 'Z')).toEqual('');
+
+                // state
+                expect(Format.address(addressFeed, true, ';', 'r')).toEqual(addressFeed.State);
+                expect(Format.address({}, true, ';', 'r')).toEqual('');
+                expect(Format.address({}, true, ';', 'R')).toEqual('');
+
+                // postal code
+                expect(Format.address({}, true, ';', 'p')).toEqual('');
+                expect(Format.address(addressFeed, true, ';', 'P')).toEqual(addressFeed.PostalCode.toUpperCase());
+                expect(Format.address({}, true, ';', 'P')).toEqual('');
+
+                // state
+                expect(Format.address(addressFeed, true, ';', 'c')).toEqual(addressFeed.Country);
+                expect(Format.address({}, true, ';', 'c')).toEqual('');
+                expect(Format.address({}, true, ';', 'C')).toEqual('');
+
+                // nothing
+                expect(Format.address(addressFeed, true, ';', 'a')).toEqual('a');
+
+                // restore the original function
+                Format.resolveAddressCulture = original;
             });
         });
 
@@ -39,6 +108,11 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
             it('should contain a K', function() {
                 expect(Format.bigNumber(100000)).toEqual('100.0K');
                 expect(Format.bigNumber(999999)).toEqual('1,000.0K');
+                expect(Format.bigNumber(1000)).toEqual('1.0K');
+            });
+
+            it('should return the original value for NaN', function() {
+                expect(Format.bigNumber('foo')).toEqual('foo');
             });
         });
 
@@ -83,6 +157,11 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
             it('should group larger numbers', function() {
                 expect(Format.currency(1294.55)).toEqual('1,294.55');
             });
+
+            it('should use two significant digits', function() {
+                expect(Format.currency(1294)).toEqual('1,294.00');
+                expect(Format.currency(1294.5)).toEqual('1,294.50');
+            });
         });
 
         describe('multiCurrency', function() {
@@ -90,15 +169,17 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
                 expect(Format.multiCurrency(12.55, 'USD')).toEqual('12.55 USD');
             });
         });
-        
+
         describe('nameLF', function() {
             var user = {
                 FirstName: 'Bob',
                 LastName: 'Smith'
             };
-            
+
             it('should format a users last and first name with a comma', function() {
                 expect(Format.nameLF(user)).toEqual('Smith, Bob');
+                expect(Format.nameLF()).toEqual('');
+                expect(Format.nameLF({ FirstName: 'Bob'})).toEqual('Bob');
             });
         });
 
@@ -119,12 +200,50 @@ define('spec/Format.spec', ['Mobile/SalesLogix/Format'],function(Format) {
                 expect(Format.mail(null)).toEqual(null);
             });
         });
-        
+
         describe('userActivityStatus', function() {
             it('should format the activty status', function() {
                 expect(Format.userActivityStatus('asAccepted')).toEqual('Accepted');
                 expect(Format.userActivityStatus('asUnconfirmed')).toEqual('Unconfirmed');
                 expect(Format.userActivityStatus('asDeclned')).toEqual('Declined');
+            });
+        });
+
+        describe('formatUserInitial', function() {
+            it('should format the user\'s initials', function() {
+                expect(Format.formatUserInitial('John Doe')).toBe('JD');
+                expect(Format.formatUserInitial('Doe, John')).toBe('JD');
+                expect(Format.formatUserInitial('John')).toBe('J');
+            });
+        });
+
+        describe('formatByUser', function() {
+            it('should format the user\'s name', function() {
+                expect(Format.formatByUser('Doe, John')).toBe('John Doe');
+                expect(Format.formatByUser('John Doe')).toBe('John Doe');
+                expect(Format.formatByUser('John')).toBe('John');
+            });
+        });
+
+        describe('relativeDate', function() {
+            var date = new Date(Date.now()),
+                zone = moment(date).zone();
+            it('should show a relative date', function() {
+                expect(Format.relativeDate(date)).toEqual('a few seconds ago');
+            });
+
+            it('should show a relative date using timeless', function() {
+                if (zone > 0) {
+                    expect(Format.relativeDate(date, true)).toMatch(/^in.+/);
+                } else {
+                    expect(Format.relativeDate(date, true)).toMatch(/^.+ago$/);
+                }
+            });
+
+            it('should throw an error for an invalid date', function() {
+                expect(function() {
+                    Format.relativeDate(null)
+                }).toThrow();
             });
         });
     });

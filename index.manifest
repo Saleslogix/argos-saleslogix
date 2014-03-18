@@ -28,7 +28,13 @@ content/images/loading-indicator-gray.gif
 content/images/loading-indicator-light-green.gif
 content/images/loading-indicator-red.gif
 content/images/loading-indicator-white.gif
-content/images/loading.png
+content/images/apple-touch-startup-image-320x480.png
+content/images/apple-touch-startup-image-640x920.png
+content/images/apple-touch-startup-image-640x1096.png
+content/images/apple-touch-startup-image-748x1024.png
+content/images/apple-touch-startup-image-768x1004.png
+content/images/apple-touch-startup-image-1496x2048.png
+content/images/apple-touch-startup-image-1536x2008.png
 content/images/meter-empty.png
 content/images/meter-full-1.png
 content/images/meter-full-2.png

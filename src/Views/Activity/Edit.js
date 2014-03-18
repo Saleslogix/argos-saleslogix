@@ -29,6 +29,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Edit',
     'Mobile/SalesLogix/Recurrence',
+    'Sage/Platform/Mobile/Format',
     'moment'
 ], function(
     declare,
@@ -41,6 +42,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     utility,
     Edit,
     recur,
+    format,
     moment
 ) {
 
@@ -218,11 +220,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (item['$key'] != originalKey && view) {
                 // Editing single occurrence results in new $key/record
                 view.show({
-                        key: item['$key']
-                    }, {
-                        returnTo: -2
-                    });
-
+                    key: item['$key']
+                }, {
+                    returnTo: -2
+                });
             } else {
                 this.onUpdateCompleted(item);
             }
@@ -322,37 +323,33 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onTimelessChange: function(value, field) {
+            
             this.toggleSelectField(this.fields['Duration'], value);
+            var startDate, startDateField;
 
-            var startDateField = this.fields['StartDate'],
-                wrapped = moment(startDateField.getValue()),
-                startDate = wrapped && wrapped.toDate();
+            startDateField = this.fields['StartDate'];
 
-            if (value) {
+            if (value) { // StartDate timeless
                 this.fields['Rollover'].enable();
                 startDateField['dateFormatText'] = this.startingTimelessFormatText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
-                if (!this.isDateTimeless(startDate)) {
-                    wrapped.startOf('day');
-                    wrapped.add((-1 * wrapped.zone()), 'minutes');
-                    wrapped.add(5, 'seconds');
-                    startDate = wrapped.toDate();
+                startDate = this._getNewStartDate(startDateField.getValue(), true);
+                if (startDate) {
+
+                    startDateField.setValue(startDate);
                 }
-                startDateField.setValue(startDate);
-            } else {
+            } else { // StartDate with out time (Timeless)
                 this.fields['Rollover'].setValue(false);
                 this.fields['Rollover'].disable();
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
-                if (this.isDateTimeless(startDate)) {
-                    wrapped.startOf('day');
-                    wrapped.add((wrapped.zone() + 1), 'minutes');
-                    wrapped.add(-5, 'seconds');
-                    startDate = wrapped.toDate();
+                startDate = this._getNewStartDate(startDateField.getValue(), false);
+                if (startDate) {
+
+                    startDateField.setValue(startDate);
                 }
-                startDateField.setValue(startDate);
             }
         },
         onAlarmChange: function() {
@@ -762,6 +759,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         setValues: function(values) {
+            this._settingValues = true;
             if (values['StartDate'] && values['AlarmTime']) {
                 var startTime = (this.isDateTimeless(values['StartDate']))
                     ? moment(values['StartDate']).add({minutes: values['StartDate'].getTimezoneOffset()}).toDate().getTime()
@@ -770,7 +768,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 var span = startTime - values['AlarmTime'].getTime(), // ms
                     reminder = span / (1000 * 60);
 
-                values['Reminder'] = reminder;
+                values['Reminder'] = format.fixed(reminder,0);
             }
 
             this.inherited(arguments);
@@ -819,7 +817,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (this.isActivityRecurring) {
                 this.fields['EndDate'].hide();
             }
-
+            this._settingValues = false;
         },
         isDateTimeless: function(date) {
             if (!date) {
@@ -837,22 +835,36 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             return true;
         },
+        isDateTimelessLocal: function(date) {
+            if (!date) {
+                return false;
+            }
+            if (date.getHours() !== 0) {
+                return false;
+            }
+            if (date.getMinutes() !== 0) {
+                return false;
+            }
+            if (date.getSeconds() !== 5) {
+                return false;
+            }
+
+            return true;
+        },
         getValues: function() {
             var values = this.inherited(arguments),
                 isStartDateDirty = this.fields['StartDate'].isDirty(),
                 isReminderDirty = this.fields['Reminder'].isDirty(),
                 startDate = this.fields['StartDate'].getValue(),
                 reminderIn = this.fields['Reminder'].getValue(),
-                timeless = this.fields['Timeless'].getValue();
+                timeless = this.fields['Timeless'].getValue(),
+                alarmTime;
 
             // if StartDate is dirty, always update AlarmTime
             if (startDate && (isStartDateDirty || isReminderDirty)) {
                 values = values || {};
-                values['AlarmTime'] = moment(startDate).clone().add({'minutes': -1 * reminderIn}).toDate();
-
-                // if timeless, convert back to local time
-                if (timeless)
-                    values['AlarmTime'] = moment(values['AlarmTime']).add({'minutes': startDate.getTimezoneOffset()}).toDate();
+                alarmTime = this._getNewAlarmTime(startDate, timeless, reminderIn);
+                values['AlarmTime'] = alarmTime;
             }
 
             return values;
@@ -886,6 +898,64 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         formatDependentQuery: function(dependentValue, format, property) {
             return string.substitute(format, [utility.getValue(dependentValue, property || '$key')]);
+        },
+        _getNewStartDate: function (orginalStartDate, timeless){
+            var startDate,
+                currentTime,
+                wrapped,
+                isTimeLessDate;
+
+                if (!orginalStartDate) {
+                    return null;
+                }
+
+                startDate = orginalStartDate;
+                isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
+
+                if (timeless) {
+                    if (!isTimeLessDate) {
+                        wrapped = moment(startDate);
+                        wrapped.subtract({ minutes: wrapped.zone() });
+                        wrapped.hours(0);
+                        wrapped.minutes(0);
+                        wrapped.seconds(5);
+                        startDate = wrapped.toDate();
+                    }
+                } else {
+                    if (isTimeLessDate) {
+                        currentTime = moment();
+                        wrapped = moment(startDate);
+                        wrapped.add({ minutes: wrapped.zone() });
+                        wrapped.hours(currentTime.hours());
+                        wrapped.minutes(currentTime.minutes());
+                        wrapped.seconds(0);
+                        startDate = wrapped.toDate();
+                    }
+                }
+
+            return startDate;
+        },
+        _getNewAlarmTime: function(startDate, timeless, reminderIn) {
+            var alarmTime,
+                wrapped;
+
+            if (!startDate) {
+                return null;
+            }
+
+            if (timeless) {
+                wrapped = moment(startDate);
+                wrapped.add({ minutes: wrapped.zone() });
+                wrapped.hours(24);
+                wrapped.minutes(0);
+                wrapped.seconds(0);
+                alarmTime = wrapped.toDate();
+                alarmTime = moment(alarmTime).clone().add({ 'days': -1 }).add({ 'minutes': -1 * reminderIn }).toDate();
+            } else {
+                alarmTime = moment(startDate).clone().add({ 'minutes': -1 * reminderIn }).toDate();
+            }
+
+            return alarmTime;
         },
         createLayout: function() {
             return this.layout || (this.layout = [{

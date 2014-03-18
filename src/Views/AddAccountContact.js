@@ -87,6 +87,11 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             'SubType',
             'Type'
         ],
+        routes: {
+            '_add_account_contact': function(evt) {
+                this.show({insert: true});
+            }
+        },
         init: function() {
             this.inherited(arguments);
 

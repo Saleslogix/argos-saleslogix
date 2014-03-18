@@ -33,7 +33,7 @@ define('Mobile/SalesLogix/Views/PickList', [
         contractName: 'system',
 
         activateEntry: function(params) {
-            if (this.options.keyProperty === 'text') {
+            if (this.options.keyProperty === 'text' && !this.options.singleSelect) {
                 params.key = params.descriptor;
             }
 

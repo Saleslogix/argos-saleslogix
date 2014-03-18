@@ -253,6 +253,7 @@ define('Mobile/SalesLogix/FileManager', [
                 request.setRequestHeader('X-Authorization', service.createBasicAuthToken());
                 request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
             }
+
             request.addEventListener("load", function() {
                 var data, contentType, contentInfo, responseInfo, fileName;
 
@@ -268,7 +269,7 @@ define('Mobile/SalesLogix/FileManager', [
                     response: this.response,
                     contentType: contentType,
                     fileName: fileName
-                };                
+                };
                 if (onSuccess) {
                     onSuccess(responseInfo);
                 }
