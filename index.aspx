@@ -95,17 +95,6 @@
     });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
-
-    <!-- Core -->
-    <script type="text/javascript">
-    reConfig = {
-        autoInit: false,
-        legacyMode: false,
-        showInitialPage: false,
-        disableFx: true,
-        updateBackButtonText: false
-    };
-    </script>
     <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
     <script type="text/javascript" src="content/javascript/argos-sdk.js"></script>
 

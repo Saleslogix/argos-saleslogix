@@ -84,6 +84,8 @@ define('Mobile/SalesLogix/Application', [
             'revision': 3
         },
         versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
+        homeViewRoute: '_myactivity_list',
+        loginViewRoute: '_login',
         init: function() {
             if (has('ie') && has('ie') < 9) {
                 window.location.href = 'unsupported.html';
@@ -99,6 +101,24 @@ define('Mobile/SalesLogix/Application', [
             if (window.applicationCache) {
                 this._connects.push(connect.connect(window.applicationCache, 'updateready', this, this._checkForUpdate));
             }
+        },
+        isOnFirstView: function() {
+            var history, isOnFirstView;
+            history = this.history;
+
+            if (history.length > 0) {
+                if (history[0].page === 'login') {
+                    // Check if there are two entries in history,
+                    // the first would be login, the second is the initial page
+                    isOnFirstView = history.length === 2;
+                } else {
+                    // Login is not always the first entry in history,
+                    // the user can save their credentials and skip the login page entirely
+                    isOnFirstView = history.length === 1;
+                }
+            }
+
+            return isOnFirstView;
         },
         onSetOrientation: function(value) {
             if (App.snapper) {
@@ -130,7 +150,7 @@ define('Mobile/SalesLogix/Application', [
         _saveNavigationState: function() {
             try {
                 if (window.localStorage) {
-                    window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
+                    window.localStorage.setItem('navigationState', json.stringify(this.history));
                 }
             } catch(e) {
             }
@@ -322,6 +342,8 @@ define('Mobile/SalesLogix/Application', [
             return !!userSecurity[security];
         },
         reload: function() {
+            ReUI.disableLocationCheck();
+            this.hash('');
             window.location.reload();
         },
         logOut: function() {
@@ -673,7 +695,7 @@ define('Mobile/SalesLogix/Application', [
 
                 if (cleanedHistory) {
                     ReUI.context.transitioning = true;
-                    ReUI.context.history = ReUI.context.history.concat(cleanedHistory.slice(0, cleanedHistory.length - 1));
+                    this.history = this.history.concat(cleanedHistory.slice(0, cleanedHistory.length - 1));
 
                     for (var i = 0; i < cleanedHistory.length - 1; i++) {
                         window.location.hash = cleanedHistory[i].hash;
@@ -695,10 +717,7 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToLoginView: function() {
-            var view = this.getView('login');
-            if (view) {
-                view.show();
-            }
+            this.router.go(this.loginViewRoute);
         },
         showLeftDrawer: function() {
             var view = this.getView('left_drawer');
@@ -714,16 +733,14 @@ define('Mobile/SalesLogix/Application', [
         },
         navigateToHomeView: function() {
             this.loadSnapper();
-            var view = this.getView('myactivity_list');
-            if (view) {
-                view.show();
+            if (this.redirectHash !== '' && this.redirectHash !== this.loginViewRoute) {
+                this.router.go(this.redirectHash);
+            } else {
+                this.router.go(this.homeViewRoute);
             }
         },
-        navigateToActivityInsertView: function(options) {
-            var view = this.getView('activity_types_list');
-            if (view) {
-                view.show(options || {});
-            }
+        navigateToActivityInsertView: function() {
+            this.router.go('_activity_types_list');
         },
         initiateCall: function() {
             // shortcut for environment call

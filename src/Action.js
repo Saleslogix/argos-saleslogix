@@ -84,7 +84,7 @@ define('Mobile/SalesLogix/Action', [
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
-            App.navigateToActivityInsertView({insert: true});
+            App.navigateToActivityInsertView();
         },
         navigateToEntity: function(action, selection, o) {
             var options = {
