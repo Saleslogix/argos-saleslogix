@@ -89,7 +89,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
         phoneAbbreviationText: 'Phone: ',
         faxAbbreviationText: 'Fax: ',
 
-        //View Properties        
+        //View Properties
         detailView: 'account_detail',
         icon: 'content/images/icons/Company_24.png',
         id: 'account_list',

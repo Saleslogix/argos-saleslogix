@@ -17,22 +17,26 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/_base/lang',
     'dojo/dom-construct',
     'dojo/dom-attr',
-    'Mobile/SalesLogix/Views/_RightDrawerBaseMixin'
+    'Mobile/SalesLogix/Views/_RightDrawerBaseMixin',
+    'Sage/Platform/Mobile/Store/SData'
 ], function(
     declare,
     array,
     lang,
     domConstruct,
     domAttr,
-    _RightDrawerBaseMixin
+    _RightDrawerBaseMixin,
+    SDataStore
 ) {
 
     return declare('Mobile.SalesLogix.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
+        groupsSectionText: 'Groups',
         kpiSectionText: 'KPI',
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
+        groupList: null,
 
         onBeforeTransitionTo: function() {
             var drawer = App.getView('right_drawer');
@@ -41,23 +45,43 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             }
         },
         setupRightDrawer: function() {
-            var drawer = App.getView('right_drawer'), handle;
+            var drawer = App.getView('right_drawer'), handle, store, def;
             if (drawer) {
-                lang.mixin(drawer, this._createActions());
-                drawer.setLayout(this.createRightDrawerLayout());
-                drawer.getGroupForEntry = lang.hitch(this, function(entry) {
-                    return this.getGroupForRightDrawerEntry(entry);
-                });
+                store = this.createGroupStore();
+                if (store) {
+                    def = store.query(null);
+                    def.then(lang.hitch(this, function(data) {
+                        this.groupList = data;
+                        this._finishSetup(drawer);
 
-                if (this.rebuildWidgets) {
-                    App.snapper.on('close', lang.hitch(this, function() {
-                        if (this._hasChangedKPIPrefs) {
-                            this.destroyWidgets();
-                            this.rebuildWidgets();
-                            this._hasChangedKPIPrefs = false;
-                        }
-                    }));
+                        // Force a refresh since we fetched this async and the user could have opened it before we loaded.
+                        drawer.store = null;
+                        drawer.refresh();
+                        this.drawerLoaded = true;
+                    }), function(e) {
+                        console.error(e);
+                        this._finishSetup(drawer);
+                    });
+                } else {
+                    this._finishSetup(drawer);
                 }
+            }
+        },
+        _finishSetup: function(drawer) {
+            lang.mixin(drawer, this._createActions());
+            drawer.setLayout(this.createRightDrawerLayout());
+            drawer.getGroupForEntry = lang.hitch(this, function(entry) {
+                return this.getGroupForRightDrawerEntry(entry);
+            });
+
+            if (this.rebuildWidgets) {
+                App.snapper.on('close', lang.hitch(this, function() {
+                    if (this._hasChangedKPIPrefs) {
+                        this.destroyWidgets();
+                        this.rebuildWidgets();
+                        this._hasChangedKPIPrefs = false;
+                    }
+                }));
             }
         },
         unloadRightDrawer: function() {
@@ -108,6 +132,10 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         view.show({ returnTo: -1 });
                         this.toggleRightDrawer();
                     }
+                }),
+                groupClicked: lang.hitch(this, function(params) {
+                    console.dir(params);
+                    this.toggleRightDrawer();
                 })
             };
 
@@ -121,14 +149,45 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 };
             }
 
+            if (entry.action === 'groupClicked') {
+                return {
+                    tag: 'group',
+                    title: this.groupsSectionText
+                }
+            }
+
             return {
                 tag: 'kpi',
                 title: this.kpiSectionText
             };
         },
         createRightDrawerLayout: function() {
-            var hashTagsSection, hashTag, kpiSection, layout, prefs, i, len;
+            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, prefs, i, len, store, def;
+
             layout = [];
+
+            groupsSection = {
+                id: 'actions',
+                children: []
+            };
+
+            if (this.groupList && this.groupList.length > 0) {
+                array.forEach(this.groupList, function(group) {
+                    groupsSection.children.push({
+                        'name': group.name,
+                        'action': 'groupClicked',
+                        'title': group.displayName,
+                        'dataProps': {
+                            family: group.family,
+                            userId: group.userId,
+                            isHidden: group.isHidden,
+                            isAdHoc: group.isAdHoc
+                        }
+                    });
+                });
+
+                layout.push(groupsSection);
+            }
 
             hashTagsSection = {
                 id: 'actions',
@@ -141,17 +200,17 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     hashTag = this.searchWidget.hashTagQueries[i];
                     hashTagsSection.children.push({
                         'name': hashTag.key,
-                        'action': 'hashTagClicked', 
+                        'action': 'hashTagClicked',
                         'title': hashTag.tag,
                         'dataProps': {
-                            'hashtag': hashTag.tag 
+                            'hashtag': hashTag.tag
                         }
                     });
                 }
             }
 
             layout.push(hashTagsSection);
- 
+
             prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
 
             kpiSection = {
@@ -178,6 +237,24 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             }
 
             return layout;
+        },
+        createGroupStore: function() {
+            if (!this.entityName) {
+                return null;
+            }
+
+            var store = new SDataStore({
+                service: App.services.crm,
+                resourceKind: 'groups',
+                contractName: 'system',
+                where: "upper(family) eq '" + this.entityName.toUpperCase() + "'",
+                include: ['layout', 'tableAliases'],
+                idProperty: '$key',
+                applicationName: 'slx',
+                scope: this
+            });
+
+            return store;
         }
     });
 });
