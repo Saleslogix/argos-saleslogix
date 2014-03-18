@@ -1,6 +1,15 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Help
+ *
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ *
+ */
 define('Mobile/SalesLogix/Views/Help', [
     'dojo/_base/declare',
     'dojo/string',
@@ -8,17 +17,19 @@ define('Mobile/SalesLogix/Views/Help', [
     'dojo/dom-construct',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Detail',
-    'dojo/NodeList-manipulate'
+    'dojo/NodeList-manipulate',
+    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
 ], function(
     declare,
     string,
     domClass,
     domConstruct,
     ErrorManager,
-    Detail
+    Detail,
+    _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Help', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Help', [Detail, _LegacySDataDetailMixin], {
         //Templates
         errorTemplate: new Simplate([
             '<div data-dojo-attach-point="errorNode" class="panel-validation-summary">',

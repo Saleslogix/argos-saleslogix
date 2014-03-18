@@ -1,6 +1,12 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Ticket.UrgencyLookup
+ *
+ * @extends Sage.Platform.Mobile.List
+ */
 define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', [
     'dojo/_base/declare',
     'dojo/string',

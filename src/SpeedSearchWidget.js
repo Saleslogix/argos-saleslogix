@@ -1,6 +1,13 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.SpeedSearchWidget
+ *
+ * @mixins Sage.Platform.Mobile._Templated
+ *
+ */
 define('Mobile/SalesLogix/SpeedSearchWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -17,9 +24,16 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
     _Templated
 ) {
     return declare('Mobile.SalesLogix.SpeedSearchWidget', [_Widget, _Templated], {
+        /**
+         * @property {Object} attributeMap
+         */
         attributeMap: {
             queryValue: {node: 'queryNode', type: 'attribute', attribute: 'value'}
         },
+
+        /**
+         * @property {Simplate} widgetTemplate
+         */
         widgetTemplate: new Simplate([
             '<div class="search-widget">',
             '<div class="table-layout">',
@@ -29,18 +43,30 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
             '</div>',
             '</div>'
         ]),
+        /**
+         * @property {DOMNode} queryNode HTML input node. The dojo attach point.
+         */
         queryNode: null,
 
+        /**
+         * @property {String} searchText The placeholder text for the input.
+         */
         searchText: 'SpeedSearch',
 
         _setQueryValueAttr: function(value) {
             this._onFocus();
             this.queryNode.value = value;
         },
+        /**
+         * Clears the current search query.
+         */
         clear: function() {
             domClass.remove(this.domNode, 'search-active');
             this.set('queryValue', '');
         },
+        /**
+         * Fires onSearchExpression using the current search query.
+         */
         search: function() {
             var queryTerm = this.getQuery();
             if (!lang.trim(queryTerm)) {
@@ -49,6 +75,10 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
 
             this.onSearchExpression(queryTerm, this);
         },
+        /**
+         * Returns the current search query.
+         * @returns {String}
+         */
         getQuery: function() {
             return this.queryNode.value;
         },
@@ -76,8 +106,8 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
         },
         /**
          * The event that fires when the search widget provides an explicit search query
-         * @param expression
-         * @param widget
+         * @param {String} expression
+         * @param {Object} widget
          */
         onSearchExpression: function(expression, widget) {
         }

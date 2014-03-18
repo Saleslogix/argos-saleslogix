@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.UpdateToolbar
+ *
+ *
+ * @extends Sage.Platform.Mobile.MainToolbar
+ *
+ */
 define('Mobile/SalesLogix/Views/UpdateToolbar', [
     'dojo/_base/declare',
     'dojo/_base/window',

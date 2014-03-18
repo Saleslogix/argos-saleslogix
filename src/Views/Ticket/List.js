@@ -1,6 +1,19 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Ticket.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @mixins Mobile.SalesLogix.Views._MetricListMixin
+ * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ *
+ * @requires Mobile.SalesLogix.Action
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Views.History.RelatedView
+ */
 define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/declare',
     'dojo/string',

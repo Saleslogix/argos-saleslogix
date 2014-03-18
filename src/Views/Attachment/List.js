@@ -1,12 +1,34 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Attachments.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Sage.Platform.Mobile.List
+ * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ *
+ * @requires Sage.Platform.Mobile.List
+ * @requires Sage.Platform.Mobile._LegacySDataListMixin
+ * @requires Sage.Platform.Mobile.Convert
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
+ *
+ * @requires moment
+ *
+ */
 define('Mobile/SalesLogix/Views/Attachment/List', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/has',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_LegacySDataListMixin',
     'Sage/Platform/Mobile/Convert',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin',
@@ -17,13 +39,14 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     has,
     format,
     List,
+    _LegacySDataListMixin,
     convert,
     _RightDrawerListMixin,
     _CardLayoutListMixin,
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
         //Templates
 
         //used when card layout is no used used.

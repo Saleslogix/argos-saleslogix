@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Home
+ *
+ *
+ * @extends Sage.Platform.Mobile.GroupedList
+ *
+ */
 define('Mobile/SalesLogix/Views/Home', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -152,7 +160,7 @@ define('Mobile/SalesLogix/Views/Home', [
                 }
             }
 
-            this.processFeed({'$resources': list});
+            this.processData(list);
         },
 
         _onSearchExpression: function(expression, widget) {

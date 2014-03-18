@@ -1,6 +1,19 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Attachment.AddAttachment
+ *
+ * @extends Sage.Platform.Mobile.Views.FileSelect
+ *
+ * @requires Sage.Platform.Mobile.Views.FileSelect
+ * @requires Sage.Platform.Mobile.Format
+ *
+ * @requires Mobile.SalesLogix.AttachmentManager
+ * @requires Mobile.SalesLogix.Environment
+ *
+ */
 define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
     'dojo/_base/declare',
     'dojo/string',

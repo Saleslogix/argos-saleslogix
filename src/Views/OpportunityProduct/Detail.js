@@ -1,23 +1,34 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.OpportunityProduct.Detail
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ *
+ * @requires Mobile.SalesLogix.Format
+ */
 define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/connect',
     'dojo/_base/array',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
 ], function(
     declare,
     string,
     connect,
     array,
     format,
-    Detail
+    Detail,
+    _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityProduct.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.OpportunityProduct.Detail', [Detail, _LegacySDataDetailMixin], {
         //Localization
         detailsText: 'Details',
         opportunityText: 'opportunity',

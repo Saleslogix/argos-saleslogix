@@ -1,6 +1,24 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Activity.Detail
+ *
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ * @mixins Sage.Platform.Mobile.Detail
+ *
+ * @requires Sage.Platform.Mobile.Detail
+ * @requires Sage.Platform.Mobile.Utility
+ * @requires Sage.Platform.Mobile.Convert
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Template
+ * @requires Mobile.SalesLogix.Environment
+ * @requires Mobile.SalesLogix.Recurrence
+ * @requires Mobile.SalesLogix.Utility
+ *
+ */
 define('Mobile/SalesLogix/Views/Activity/Detail', [
     'dojo/_base/declare',
     'dojo/string',
@@ -128,12 +146,12 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             var view = App.getView(this.editView);
 
             if (view) {
-                if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
-                    this.recurrence.Leader = this.entry.Leader;
-                    view.show({entry: this.recurrence});
+                if (this.isActivityRecurringSeries(this.item) && confirm(this.confirmEditRecurrenceText)) {
+                    this.recurrence.Leader = this.item.Leader;
+                    view.show({item: this.recurrence});
 
                 } else {
-                    view.show({entry: this.entry});
+                    view.show({item: this.item});
                 }
             }
         },
@@ -150,10 +168,10 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 };
 
                 if (isSeries) {
-                    this.recurrence.Leader = this.entry.Leader;
-                    options.entry = this.recurrence;
+                    this.recurrence.Leader = this.item.Leader;
+                    options.item = this.recurrence;
                 } else {
-                    options.entry = this.entry;
+                    options.item = this.item;
                 }
 
                 view.show(options, {
@@ -165,11 +183,11 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             this.navigateToCompleteView(this.completeActivityText);
         },
         completeOccurrence: function() {
-            var request, key, entry = this.entry;
-            key = entry['$key'];
+            var request, key, item = this.item;
+            key = item['$key'];
 
             // Check to ensure we have a composite key (meaning we have the occurance, not the master)
-            if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
+            if (this.isActivityRecurring(item) && key.split(this.recurringActivityIdSeparator).length !== 2) {
                 // Fetch the occurance, and continue on to the complete screen
                 request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
                     .setResourceKind('activities')
@@ -187,30 +205,30 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         processOccurance: function(feed) {
             if (feed && feed.$resources && feed.$resources.length > 0) {
-                this.entry = feed.$resources[0];
+                this.item = feed.$resources[0];
                 this.navigateToCompleteView(this.completeOccurrenceText);
             }
         },
         completeSeries: function() {
             this.navigateToCompleteView(this.completeSeriesText, true);
         },
-        isActivityRecurring: function(entry) {
-            return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
+        isActivityRecurring: function(item) {
+            return item && (item['Recurring'] || item['RecurrenceState'] == 'rstOccurrence');
         },
-        isActivityRecurringSeries: function(entry) {
-            return this.isActivityRecurring(entry) && !recur.isAfterCompletion(entry['RecurPeriod']);
+        isActivityRecurringSeries: function(item) {
+            return this.isActivityRecurring(item) && !recur.isAfterCompletion(item['RecurPeriod']);
         },
-        isActivityForLead: function(entry) {
-            return entry && /^[\w]{12}$/.test(entry['LeadId']);
+        isActivityForLead: function(item) {
+            return item && /^[\w]{12}$/.test(item['LeadId']);
         },
-        isActivityTimeless: function(entry) {
-            return entry && convert.toBoolean(entry['Timeless']);
+        isActivityTimeless: function(item) {
+            return item && convert.toBoolean(item['Timeless']);
         },
-        doesActivityHaveReminder: function(entry) {
-            return convert.toBoolean(entry && entry['Alarm']);
+        doesActivityHaveReminder: function(item) {
+            return convert.toBoolean(item && item['Alarm']);
         },
         requestLeader: function(userId) {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
                 .setResourceKind('users')
                 .setResourceSelector(string.substitute("'${0}'", [userId]))
                 .setQueryArg('select', [
@@ -218,7 +236,6 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     'UserInfo/LastName'
                 ].join(','));
 
-            request.allowCacheUse = true;
             request.read({
                 success: this.processLeader,
                 failure: this.requestLeaderFailure,
@@ -229,16 +246,19 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         processLeader: function(leader) {
             if (leader) {
-                this.entry['Leader'] = leader;
+                this.item['Leader'] = leader;
 
+                // There could be a timing issue here. The call to request the leader is done before the layout is processed,
+                // so we could potentially end up in here before any dom was created for the view.
+                // TODO: Fix
                 var rowNode = query('[data-property="Leader"]'),
                     contentNode = rowNode && query('[data-property="Leader"] > span', this.domNode);
 
-                if (rowNode) {
+                if (rowNode && rowNode.length > 0) {
                     domClass.remove(rowNode[0], 'content-loading');
                 }
 
-                if (contentNode) {
+                if (contentNode && contentNode.length > 0) {
                     contentNode[0].innerHTML = this.leaderTemplate.apply(leader['UserInfo']);
                 }
             }
@@ -267,36 +287,36 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 rowNode = query('[data-property="RecurrenceUI"]');
                 contentNode = rowNode && query('[data-property="RecurrenceUI"] > span', this.domNode);
 
-                if (rowNode) {
+                if (rowNode && rowNode.length > 0) {
                     domClass.remove(rowNode[0], 'content-loading');
                 }
 
-                if (contentNode) {
+                if (contentNode && contentNode.length > 0) {
                     contentNode[0].innerHTML = recur.toString(this.recurrence);
                 }
             }
         },
         requestRecurrenceFailure: function(xhr, o) {
         },
-        checkCanComplete: function(entry) {
-            return !entry || (entry['Leader']['$key'] !== App.context['user']['$key']);
+        checkCanComplete: function(item) {
+            return !item || (item['Leader']['$key'] !== App.context['user']['$key']);
         },
-        processEntry: function(entry) {
-            this.inherited(arguments);
+        processItem: function(item) {
+            if (item && item['Leader']['$key']) {
+                this.requestLeader(item['Leader']['$key']);
+            }
+            if (this.isActivityRecurring(item)) {
+                this.requestRecurrence(item['$key'].split(this.recurringActivityIdSeparator).shift());
+            }
 
-            if (entry && entry['Leader']['$key']) {
-                this.requestLeader(entry['Leader']['$key']);
-            }
-            if (this.isActivityRecurring(entry)) {
-                this.requestRecurrence(entry['$key'].split(this.recurringActivityIdSeparator).shift());
-            }
+            return item;
         },
-        formatRelatedQuery: function(entry, fmt, property) {
+        formatRelatedQuery: function(item, fmt, property) {
             if (property === 'activityId') {
-                  return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
+                  return string.substitute(fmt, [utility.getRealActivityId(item.$key)]);
             } else {
                 property = property || '$key';
-                return string.substitute(fmt, [platformUtility.getValue(entry, property, "")]);
+                return string.substitute(fmt, [platformUtility.getValue(item, property, "")]);
             }
         },
         createLayout: function() {

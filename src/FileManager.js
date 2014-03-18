@@ -1,6 +1,11 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.FileManager
+ *
+ */
 define('Mobile/SalesLogix/FileManager', [
     'dojo/_base/lang',
     'dojo/_base/declare',
@@ -29,14 +34,27 @@ define('Mobile/SalesLogix/FileManager', [
         _filesUploadedCount: 0,
         _isUploading: false,
 
+        /**
+         * @constructor
+         */
         constructor: function() {
             this._files = [];
             this.fileUploadOptions.maxFileSize = App.maxUploadFileSize;
         },
+        /**
+         * Checks if the HTML5 file api is supported.
+         * @returns {Boolean}
+         */
         isHTML5Supported:function(){
             var results = has('html5-file-api');
             return results;
         },
+        /**
+         * Checks the {@link Mobile.SalesLogix.Application}'s maxFileSize to determine
+         * if the file size being added exeeds this limit.
+         * @param {Array}
+         * @returns {Boolean}
+         */
         isFileSizeAllowed: function(files) {
             var len = 0, maxfileSize, title, msg;
             maxfileSize = this.fileUploadOptions.maxFileSize;
@@ -57,6 +75,19 @@ define('Mobile/SalesLogix/FileManager', [
 
             return true;
         },
+        /**
+         * Uploads a file to a URL.
+         * @param {File} file
+         * @param {String} url
+         * @param {Function} progress Progress callback
+         * @param {Event} progress.e
+         * @param {Function} complete Complete callback
+         * @param {Object} complete.request
+         * @param {Function} error Error callback
+         * @param {Function} error.errorText
+         * @param {Object} scope
+         * @param {Boolean} asPut
+         */ 
         uploadFile: function(file, url, progress, complete, error, scope, asPut) {
             this.uploadFileHTML5(file, url, progress, complete, error, scope, asPut);
         },
@@ -178,6 +209,11 @@ define('Mobile/SalesLogix/FileManager', [
                 console.warn([msg]);
             }
         },
+        /**
+         * Formats the file size formatted in KB.
+         * @param {Number} size
+         * @returns {String}
+         */
         formatFileSize: function(size) {
             size = parseInt(size, 10);
             if (size === 0) {
@@ -191,6 +227,13 @@ define('Mobile/SalesLogix/FileManager', [
             }
             return dNumber.format(Math.round(size / 1024)) + ' KB';
         },
+        /**
+         * Loads a remote file.
+         * @param {String} fileUrl
+         * @param {String} responseType
+         * @param {Function} onSuccess
+         * @param {Object} onSuccess.responseInfo
+         */
         getFile: function(fileUrl, responseType , onSuccess) {
             var request, service, self;
 

@@ -1,6 +1,23 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Activity.Complete
+ *
+ * @extends Sage.Platform.Mobile.Edit
+ * @mixins Sage.Platform.Mobile.Edit
+ *
+ * @requires Sage.Platform.Mobile.Edit
+ * @requires Sage.Platform.Mobile.Utility
+ *
+ * @requires Mobile.SalesLogix.Environment
+ * @requires Mobile.SalesLogix.Validator
+ * @requires Mobile.SalesLogix.Template
+ *
+ * @requires moment
+ *
+ */
 define('Mobile/SalesLogix/Views/Activity/Complete', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -200,26 +217,22 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             var startDateField = this.fields['StartDate'],
                 startDate = startDateField.getValue();
 
-            if (!startDate) {
-                return;
-            }
-
             if (value) {
                 startDateField['dateFormatText'] = this.startingTimelessFormatText;
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 if (!this.isDateTimeless(startDate)) {
-                    startDate = moment(startDate).hours(0).minutes(0).seconds(0).add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
+                    startDate = startDate.clone().clearTime().add({minutes: -1 * startDate.getTimezoneOffset(), seconds: 5});
                 }
-                startDateField.setValue(moment(startDate).toDate());
+                startDateField.setValue(startDate);
             } else {
                 startDateField['dateFormatText'] = this.startingFormatText;
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
                 if (this.isDateTimeless(startDate)) {
-                    startDate = moment(startDate).add({minutes: startDate.getTimezoneOffset() + 1, seconds: -5});
+                    startDate = startDate.clone().add({minutes: startDate.getTimezoneOffset() + 1, seconds: -5});
                 }
-                startDateField.setValue(moment(startDate).toDate());
+                startDateField.setValue(startDate);
             }
         },
         isDateTimeless: function(date) {
@@ -337,12 +350,13 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                 });
         },
         completeActivity: function(entry, callback) {
+            var leader = this.fields['Leader'].getValue();
             var completeActivityEntry = {
                 "$name": "ActivityComplete",
                 "request": {
                     "entity": {'$key': entry['$key']},
                     "ActivityId": entry['$key'],
-                    "userId": entry['Leader']['$key'],
+                    "userId": leader['$key'],
                     "result": this.fields['Result'].getValue(),
                     "resultCode": this.fields['ResultCode'].getValue(),
                     "completeDate": this.fields['CompletedDate'].getValue()

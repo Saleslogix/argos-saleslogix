@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.MetricFilterLookup
+ *
+ *
+ * @extends Sage.Platform.Mobile.List
+ *
+ */
 define('Mobile/SalesLogix/Views/MetricFilterLookup', [
     'dojo/_base/declare',
     'dojo/_base/lang',

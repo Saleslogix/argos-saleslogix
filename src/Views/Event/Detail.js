@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Event.Detail
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ *
+ * @requires Mobile.SalesLogix.Format
+ */
 define('Mobile/SalesLogix/Views/Event/Detail', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Format',

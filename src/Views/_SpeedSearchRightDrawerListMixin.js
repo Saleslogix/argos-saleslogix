@@ -1,6 +1,15 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin
+ *
+ * Speedsearch specific mixin for right drawer functionality.
+ *
+ * @mixins Mobile.SalesLogix.Views._RightDrawerBaseMixin
+ *
+ */
 define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',

@@ -1,6 +1,24 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Account.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @requires Sage.Platform.Mobile.List
+ * @requires Sage.Platform.Mobile.Format
+ * @requires Sage.Platform.Mobile.Utility
+ * @requires Sage.Platform.Mobile.Convert
+ * @requires Sage.Platform.Mobile.RelatedViewWidget
+ *
+ * @requires Mobile.SalesLogix.Action
+ * @requires Mobile.SalesLogix.Views.History.RelatedView
+ * @requires Mobile.SalesLogix.Views._MetricListMixin
+ * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
+ *
+ */
 define('Mobile/SalesLogix/Views/Account/List', [
     'dojo/_base/declare',
     'dojo/_base/array',

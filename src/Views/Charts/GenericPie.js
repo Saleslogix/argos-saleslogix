@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Charts.GenericPie
+ *
+ * @extends Sage.Platform.Mobile.View
+ * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
+ *
+ * @requires Sage.Platform.Mobile.View
+ *
+ */
 define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     'dojo/_base/declare',
     'dojo/_base/lang',

@@ -3,9 +3,13 @@
  */
 
 /**
+ * @class Mobile.SalesLogix.Utility
+ *
  * Utility provides functions that are more javascript enhancers than application related code.
- * @alternateClassName utility
+ *
+ * @requires Sage.Platform.Mobile.Format
  * @singleton
+ *
  */
 define('Mobile/SalesLogix/Utility', [
     'dojo/_base/lang',
@@ -72,12 +76,24 @@ define('Mobile/SalesLogix/Utility', [
 
             return base64;
         },
+
+        /** Gets the extension for a file.
+         * @param {String} fileName
+         * The file name including the extension
+         * @returns {String}
+         * Returns the file extension, if fileName is null or undefined, returns the string '.'
+         */
         getFileExtension: function(fileName) {
             if (!fileName){
                 return '.';
             }
             return fileName.substr(fileName.lastIndexOf('.'));
         },
+        /** Parses the activity ID
+         * @param {String} activityId
+         * A string with the activity id seperated by a semi-colon
+         * @returns {String}
+         */
         getRealActivityId: function(activityId) {
             var Id = activityId;
             if (activityId) {

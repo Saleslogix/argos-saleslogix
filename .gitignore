@@ -31,6 +31,8 @@ _ReSharper*/
 *.resharper.user
 [Tt]est[Rr]esult*
 .idea/
+docs/
+docs-output/
 
 # os junk files
 Thumbs.db

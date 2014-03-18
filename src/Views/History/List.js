@@ -1,6 +1,22 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.History.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @mixins Mobile.SalesLogix.Views._MetricListMixin
+ * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ *
+ * @requires Sage.Platform.Mobile.Convert
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Action
+ *
+ * @requires moment
+ */
 define('Mobile/SalesLogix/Views/History/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -270,9 +286,6 @@ define('Mobile/SalesLogix/Views/History/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-        },
-        processFeed: function() {
-            this.inherited(arguments);
         },
         onApplyRowActionPanel: function(actionsNode, rowNode) {
             var colorRowCls, colorCls;

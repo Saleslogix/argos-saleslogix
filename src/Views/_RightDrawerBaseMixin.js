@@ -1,6 +1,15 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views._RightDrawerBaseMixin
+ *
+ * The base mixin for the right drawer.
+ *
+ * @since 3.0
+ *
+ */
 define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -36,6 +45,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
             this.setupRightDrawer();
             var drawer = App.getView('right_drawer');
             if (drawer) {
+                drawer.store = null;
                 drawer.refresh();
                 this.drawerLoaded = true;
             }

@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Action
+ *
+ *
+ * @requires Sage.Platform.Mobile.Utility
+ *
+ */
 define('Mobile/SalesLogix/Action', [
     'dojo/_base/lang',
     'dojo/string',
@@ -41,6 +49,7 @@ define('Mobile/SalesLogix/Action', [
         callPhone: function(action, selection, phoneProperty) {
             this.setSource({
                 entry: selection.data,
+                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
@@ -68,6 +77,7 @@ define('Mobile/SalesLogix/Action', [
         addNote: function(action, selection) {
             this.setSource({
                 entry: selection.data,
+                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
@@ -81,6 +91,7 @@ define('Mobile/SalesLogix/Action', [
         addActivity: function(action, selection) {
             this.setSource({
                 entry: selection.data,
+                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
@@ -105,6 +116,7 @@ define('Mobile/SalesLogix/Action', [
             var view;
             this.setSource({
                 entry: selection.data,
+                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });

@@ -1,6 +1,14 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Login
+ *
+ *
+ * @extends Sage.Platform.Mobile.Edit
+ *
+ */
 define('Mobile/SalesLogix/Views/Login', [
     'dojo/_base/declare',
     'dojo/_base/lang',

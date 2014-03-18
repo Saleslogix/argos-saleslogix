@@ -1,6 +1,12 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Owner.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ */
 define('Mobile/SalesLogix/Views/Owner/List', [
     'dojo/_base/declare',
     'dojo/string',
@@ -38,10 +44,9 @@ define('Mobile/SalesLogix/Views/Owner/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(OwnerDescription) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        processFeed: function(feed) {
-            // Filter the feed in memory (SData cannot check if owner.User is null)
-            if (feed.$resources) {
-                feed.$resources = array.filter(feed.$resources, function(item) {
+        processData: function(items) {
+            if (items) {
+                items = array.filter(items, function(item) {
                     return this._userEnabled(item) && this._isCorrectType(item);
                 }, this);
             }

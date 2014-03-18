@@ -1,6 +1,17 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.History.Detail
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ *
+ * @requires Sage.Platform.Mobile.ErrorManager
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Template
+ */
 define('Mobile/SalesLogix/Views/History/Detail', [
     'dojo/_base/declare',
     'dojo/string',
@@ -21,7 +32,8 @@ define('Mobile/SalesLogix/Views/History/Detail', [
     format,
     ErrorManager,
     template,
-    Detail
+    Detail,
+    NodeList
 ) {
 
     return declare('Mobile.SalesLogix.Views.History.Detail', [Detail], {

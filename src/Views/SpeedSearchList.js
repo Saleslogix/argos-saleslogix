@@ -1,6 +1,16 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.SpeedSearchList
+ *
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin
+ * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ *
+ */
 define('Mobile/SalesLogix/Views/SpeedSearchList', [
     'dojo/_base/declare',
     'dojo/_base/lang',

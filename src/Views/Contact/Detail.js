@@ -1,6 +1,15 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Contact.Detail
+ *
+ * @extends Sage.Platform.Mobile.Detail
+ *
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Template
+ */
 define('Mobile/SalesLogix/Views/Contact/Detail', [
     'dojo/_base/declare',
     'dojo/string',

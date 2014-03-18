@@ -1,6 +1,15 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.MetricWidget
+ *
+ *
+ * @requires Sage.Platform.Mobile._Templated
+ * @requires Sage.Platform.Mobile.Store.SData
+ *
+ */
 define('Mobile/SalesLogix/Views/MetricWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',

@@ -1,6 +1,24 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Calendar.MonthView
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Sage.Platform.Mobile.List
+ * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ *
+ * @requires Sage.Platform.Mobile.List
+ * @requires Sage.Platform.Mobile._LegacySDataListMixin
+ * @requires Sage.Platform.Mobile.Convert
+ * @requires Sage.Platform.Mobile.ErrorManager
+ *
+ * @requires Mobile.SalesLogix.Format
+ *
+ * @requires moment
+ *
+ */
 define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -13,6 +31,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Convert',
     'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_LegacySDataListMixin',
     'moment'
 ], function(
     declare,
@@ -26,10 +45,11 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     ErrorManager,
     convert,
     List,
+    _LegacySDataListMixin,
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List], {
+    return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
         // Localization
         titleText: 'Calendar',
         todayText: 'Today',

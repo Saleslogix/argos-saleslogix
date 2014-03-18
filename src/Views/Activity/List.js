@@ -1,6 +1,25 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
+
+/**
+ * @class Mobile.SalesLogix.Views.Activity.List
+ *
+ * @extends Sage.Platform.Mobile.List
+ * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ *
+ * @requires Sage.Platform.Mobile.List
+ * @requires Sage.Platform.Mobile.Utility
+ * @requires Sage.Platform.Mobile.Convert
+ * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires Mobile.SalesLogix.Action
+ * @requires Mobile.SalesLogix.Environment
+ * @requires Mobile.SalesLogix.Format
+ * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
+ *
+ */
 define('Mobile/SalesLogix/Views/Activity/List', [
     'dojo/_base/declare',
     'dojo/_base/connect',
@@ -10,7 +29,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     'Mobile/SalesLogix/Views/_RightDrawerListMixin',
     'Sage/Platform/Mobile/List',
     'Mobile/SalesLogix/Views/_CardLayoutListMixin',
-    'Sage/Platform/Mobile/Groups/DateTimeSection',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
@@ -27,7 +45,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     _RightDrawerListMixin,
     List,
     _CardLayoutListMixin,
-    DateTimeSection,
     format,
     Utility,
     convert,
