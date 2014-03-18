@@ -15,6 +15,18 @@ module.exports = function(grunt) {
                 }
             }
         },
+        weinre: {
+            dev: {
+                options: {
+                    httpPort: 8080,
+                    boundHost: '-all-',
+                    verbose: false,
+                    debug: false,
+                    readTimeout: 5,
+                    deathTimeout: 15
+                }
+            }
+        },
         jasmine: {
             coverage: {
                 src: ['src/**/*.js', 'configuration/**/*.js', 'localization/**/*.js'],
@@ -83,6 +95,7 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-weinre');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-jasmine');

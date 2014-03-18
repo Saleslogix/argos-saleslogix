@@ -6,6 +6,7 @@ define('Mobile/SalesLogix/Environment', [
     'dojo/_base/window',
     'dojo/_base/array',
     'dojo/has',
+    'dojo/on',
     'dojo/string',
     'dojo/dom-construct',
     'dojo/_base/sniff'
@@ -14,6 +15,7 @@ define('Mobile/SalesLogix/Environment', [
     win,
     array,
     has,
+    on,
     string,
     domConstruct
 ) {
@@ -35,34 +37,25 @@ define('Mobile/SalesLogix/Environment', [
             }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
         },
         showMapForAddress: function(address) {
-            setTimeout(function() {
-                var eventFire = function(node, eventType) {
-                    if (node.fireEvent) { // for IE
-                        node.fireEvent('on' + eventType);
-                        node[eventType]();
-                    } else {
-                        var event = document.createEvent('MouseEvents');
-                        event.initMouseEvent(eventType, true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-                        node.dispatchEvent(event);
+            var hiddenLink, href, windowName = '_blank';
 
-                        // FF 3.6-4 do not follow untrusted events, fixed in FF5+
-                        // https://bugzilla.mozilla.org/show_bug.cgi?id=666604
-                        if (has('ff') < 5) {
-                            window.open(node.href);
-                        }
-                    }
-                };
+            href = string.substitute("http://maps.google.com/maps?q=${0}", [address]);
 
-                var hiddenLink = domConstruct.create('a', {
-                    href: string.substitute("http://maps.google.com/maps?q=${0}", [address]),
-                    target: '_blank'
+            if (has('ie')) {
+                window.open(href, windowName);
+            } else {
+                hiddenLink = domConstruct.create('a', {
+                    href: href,
+                    target: windowName
                 }, win.body(), 'last');
 
-                eventFire(hiddenLink, 'click');
+                on.emit(hiddenLink, 'click', {
+                    bubbles: true,
+                    cancelable: true
+                });
 
                 domConstruct.destroy(hiddenLink);
-
-            }, 50);
+            }
         },
         attachmentViewsToRefresh: [
             'myattachment_list',

@@ -7,7 +7,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     'dojo/_base/connect',
     'dojo/_base/array',
     'Mobile/SalesLogix/Format',
-     'dojo/dom-construct',
+    'dojo/dom-construct',
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/has',
@@ -44,10 +44,12 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         newWindowText: 'Open in new window',
         attachmentNotSupportedText: 'The attachment type is not supported for viewing.',
         attachmentDateFormatText: 'ddd M/D/YYYY h:mm a',
+        downloadingText:'Downloading attachment ...',
+        notSupportedText: 'Viewing attachments is not supported by your device.',
+
         //View Properties
         id: 'view_attachment',
         editView: '',
-        downloadingText:'Downloading attachment ...',
         security: null,
         querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
         resourceKind: 'attachments',
@@ -56,6 +58,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         orginalImageSize: { width: 0, height: 0 },
         queryInclude: ['$descriptors'],
         dataURL: null,
+        notSupportedTemplate: new Simplate([
+            '<h2>{%= $$.notSupportedText %}</h2>'
+        ]),
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow detail panel {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
             '{%! $.loadingTemplate %}',
@@ -80,9 +85,12 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                '<label>{%= $.description + " (" + $.fileType + ")"  %}</label>',
            '</div>',
            '<div class="attachment-viewer-area">',
-               '<table><tr valign="middle"><td align="center">',
-                   '<image id="attachment-image" border="1"></image>',
-               '</table></td></tr>',
+               '<table>',
+                   '<tr valign="middle">',
+                       '<td id="imagePlaceholder" align="center">',
+                       '</td>',
+                   '</tr>',
+               '</table>',
            '</div>'
         ]),
         attachmentViewNotSupportedTemplate: new Simplate([
@@ -106,6 +114,11 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         show: function(options) {
             this.inherited(arguments);
             this.attachmentViewerNode.innerHTML = "";
+            if (!has('html5-file-api')) {
+                domConstruct.place(this.notSupportedTemplate.apply({}, this), this.domNode, 'only');
+                return;
+            }
+
             //If this opened the second time we need to check to see if it is the same attachmnent and let the Process Entry function load the view.
             if (this.entry) {
                 if (options.key === this.entry.$key) {
@@ -137,7 +150,6 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
              return this.tools || (this.tools = []);
         },
         openNewWindow: function() {
-            console.log(this.dataURL);
             if (this.dataURL) {
                 window.open(this.dataURL);
             }
@@ -177,16 +189,32 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                         attachmentid = entry.$key;
                         //dataurl
                         am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                            var rData, url, a, image;
+                            var rData, url, a, image, loadHandler, loaded;
 
                             rData = Utility.base64ArrayBuffer(responseInfo.response);
                             self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
-                            image = dom.byId('attachment-image');
-                            image.onload = function() {
+
+                            image = new Image();
+
+                            loadHandler = function() {
+                                if (loaded) {
+                                    return;
+                                }
+
                                 self._orginalImageSize = { width: image.width, height: image.height };
                                 self._sizeImage(self.domNode, image);
+                                domConstruct.place(image, 'imagePlaceholder', 'only');
+                                loaded = true;
                             };
-                            domAttr.set(image, 'src', self.dataURL);
+
+                            image.onload = loadHandler;
+                            image.src = self.dataURL;
+
+                            if (image.complete) {
+                                loadHandler();
+                            }
+
+                            // Set download text to hidden
                             domClass.add(dl, 'display-none');
                         });
                     } else { //View file type in Iframe
@@ -214,7 +242,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                             viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
                         }
                     }
-                } else { //File type not allowed 
+                } else { //File type not allowed
                     viewNode = domConstruct.place(this.attachmentViewNotSupportedTemplate.apply(entry, this), this.attachmentViewerNode, 'last');
                 }
 

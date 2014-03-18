@@ -69,6 +69,39 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         formatResourcePredicate: function(name) {
             return string.substitute('name eq "${0}"', [name]);
         },
+        _handleSaleslogixMultiSelectPicklist: function(value) {
+            var values, key, data;
+            if (typeof value === 'string') {
+                return value;
+            }
+
+            values = [];
+            for (key in value) {
+                data = value[key].data;
+                if (data && data.text) {
+                    values.push(data.text);
+                } else if (typeof data === 'string') {
+                    values.push(data);
+                }
+            }
+
+            return values.join(', ');
+        },
+        textRenderer: function(value) {
+            if (this.singleSelect) {
+                return this.inherited(arguments);
+            }
+
+            return this._handleSaleslogixMultiSelectPicklist(value);
+
+        },
+        formatValue: function(value) {
+            if (this.singleSelect) {
+                return this.inherited(arguments);
+            }
+
+            return this._handleSaleslogixMultiSelectPicklist(value);
+        },
         createSelections: function() {
             var value = this.getText(),
                 selections = (value)
