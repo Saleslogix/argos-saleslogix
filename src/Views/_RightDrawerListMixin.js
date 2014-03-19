@@ -134,7 +134,41 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }
                 }),
                 groupClicked: lang.hitch(this, function(params) {
-                    console.dir(params);
+                    var template = [],
+                        request,
+                        layout = params && params.layout && params.layout.split(',');
+
+                    // Create a custom request that the store will use to execute the group query
+                    this.request = request = new Sage.SData.Client.SDataNamedQueryRequest(this.getConnection());
+                    request.setQueryName('execute');
+                    request.setResourceKind('groups');
+                    request.setContractName('system');
+                    request.getUri().setCollectionPredicate("'" + params.$key + "'");
+
+                    this.querySelect = layout;
+                    this.queryOrderBy = '';
+                    this.keyProperty = params.family.toUpperCase() + 'ID';
+                    this.descriptorProperty = params.family.toUpperCase();
+                    this.store = null;
+
+                    this.rowTemplate = new Simplate([
+                        '<li data-action="activateEntry" data-key="{%= $[$$.keyProperty] %}" data-descriptor="{%: $[$$.descriptorProperty] %}">',
+                            '<button data-action="selectEntry" class="list-item-selector button">',
+                                '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
+                            '</button>',
+                            '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
+                        '</li>'
+                    ]);
+
+                    template = array.map(array.filter(layout, function(item) { return item.toUpperCase !== (params.family.toUpperCase() + 'ID'); }), function(item) {
+                        return ["<h4>", item.toUpperCase(), " : {%= $['" + item.toUpperCase() + "'] %}", "</h4>"].join('');
+                    });
+
+                    this.itemTemplate = new Simplate(template);
+
+                    this.clear(true);
+                    this.refreshRequired = true;
+                    this.refresh();
                     this.toggleRightDrawer();
                 })
             };
@@ -162,7 +196,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, prefs, i, len, store, def;
+            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, prefs, i, len, store, def, groupLayout;
 
             layout = [];
 
@@ -173,15 +207,28 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             if (this.groupList && this.groupList.length > 0) {
                 array.forEach(this.groupList, function(group) {
+                    group.layout = array.filter(group.layout, function(item) {
+                        return item.visible && item.fieldType !== 'FixedChar';
+                    });
+
+                    groupLayout = array.map(group.layout, function(layout) {
+                        return layout.alias;
+                    });
+
+                    // Try to select the entity id as well
+                    groupLayout.push(group.family + 'ID');
+
                     groupsSection.children.push({
                         'name': group.name,
                         'action': 'groupClicked',
                         'title': group.displayName,
                         'dataProps': {
+                            $key: group.$key,
                             family: group.family,
                             userId: group.userId,
                             isHidden: group.isHidden,
-                            isAdHoc: group.isAdHoc
+                            isAdHoc: group.isAdHoc,
+                            layout: groupLayout.join(',')
                         }
                     });
                 });
