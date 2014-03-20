@@ -301,7 +301,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         checkCanComplete: function(entry) {
             return !entry || (entry['Leader']['$key'] !== App.context['user']['$key']);
         },
-        processEntry: function(entry) {
+        preProcessEntry: function(entry) {
             if (entry && entry['Leader']['$key']) {
                 this.requestLeader(entry['Leader']['$key']);
             }

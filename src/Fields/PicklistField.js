@@ -88,19 +88,24 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
             return values.join(', ');
         },
         textRenderer: function(value) {
+            var results;
             if (this.singleSelect) {
-                return this.inherited(arguments);
+                results = this.inherited(arguments);
+            } else {
+                results = this._handleSaleslogixMultiSelectPicklist(value);
             }
 
-            return this._handleSaleslogixMultiSelectPicklist(value);
-
+            return results;
         },
         formatValue: function(value) {
+            var results;
             if (this.singleSelect) {
-                return this.inherited(arguments);
+                results = this.inherited(arguments);
+            } else {
+                results = this._handleSaleslogixMultiSelectPicklist(value);
             }
 
-            return this._handleSaleslogixMultiSelectPicklist(value);
+            return results || value;
         },
         createSelections: function() {
             var value = this.getText(),
