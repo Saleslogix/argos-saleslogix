@@ -49,7 +49,6 @@ define('Mobile/SalesLogix/Action', [
         callPhone: function(action, selection, phoneProperty) {
             this.setSource({
                 entry: selection.data,
-                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
@@ -77,7 +76,6 @@ define('Mobile/SalesLogix/Action', [
         addNote: function(action, selection) {
             this.setSource({
                 entry: selection.data,
-                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
@@ -91,7 +89,6 @@ define('Mobile/SalesLogix/Action', [
         addActivity: function(action, selection) {
             this.setSource({
                 entry: selection.data,
-                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
@@ -116,7 +113,6 @@ define('Mobile/SalesLogix/Action', [
             var view;
             this.setSource({
                 entry: selection.data,
-                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });

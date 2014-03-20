@@ -104,6 +104,7 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
                     view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
 
                 if (view) {
+                    App.router.go('_' + view.id);
                     view.show({
                             insert: true,
                             entry: (this.options && this.options.entry) || null,
