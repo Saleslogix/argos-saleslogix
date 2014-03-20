@@ -95,7 +95,7 @@
                                 //resource
         };
     </script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.5.0.min.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.7.0.min.js"></script>
 
     <!-- JSON -->
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
