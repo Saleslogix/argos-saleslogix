@@ -123,8 +123,7 @@
             { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
             { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
-            { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment' },
-            { name: 'moment_langs', location: '../../argos-sdk/libraries/moment/min', main: 'langs' },
+            { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
             { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
             { name: 'Mobile/SalesLogix', location: 'src' },
             { name: 'configuration', location: 'configuration' },
@@ -148,7 +147,7 @@
                 EnumerateLocalizations("localization")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
-            require(localization.concat(['moment_langs', 'dojo/domReady!']), function() {
+            require(localization.concat(['dojo/domReady!']), function() {
                 moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
                 var instance = new application(configuration);
 
