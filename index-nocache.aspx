@@ -105,6 +105,7 @@
     <!--{{modules}}-->
 
     <script type="text/javascript">
+    (function() {
         var application = 'Mobile/SalesLogix/Application',
             configuration = [
                 'configuration/development'
