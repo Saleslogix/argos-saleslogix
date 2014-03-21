@@ -160,7 +160,7 @@ define('Mobile/SalesLogix/Views/Configure', [
 
             return Memory({data: list});
         },
-        processData: function(items) {
+        processData: function(entries) {
             this.inherited(arguments);
 
             var visible = (App.preferences.home && App.preferences.home.visible) || [];
@@ -169,7 +169,7 @@ define('Mobile/SalesLogix/Views/Configure', [
                 var row = query((string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
 
                 if (row) {
-                    this._selectionModel.toggle(visible[i], this.items[visible[i]], row);
+                    this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
                 }
             }
         }
