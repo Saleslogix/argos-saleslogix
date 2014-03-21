@@ -716,6 +716,14 @@
           "path": "../../../argos-sdk/libraries/dojo/dojo/store/util"
         },
         {
+          "text": "SimpleQueryEngine.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/store/util"
+        },
+        {
+          "text": "Memory.js",
+          "path": "../../../argos-sdk/libraries/dojo/dojo/store"
+        },
+        {
           "text": "wai.js",
           "path": "../../../argos-sdk/libraries/dojo/dijit/_base"
         },
