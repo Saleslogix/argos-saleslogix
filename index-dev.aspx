@@ -142,19 +142,40 @@
             configuration = [
                 'configuration/development'
             ];
-        require([application].concat(configuration), function(application, configuration) {
-            var localization = <%= Serialize(
+        require(['moment', application].concat(configuration), function(moment, application, configuration) {
+            var localization, bootstrap, fallBackLocalization, completed = false;
+            localization = <%= Serialize(
                 EnumerateLocalizations("localization")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
-            require(localization.concat(['dojo/domReady!']), function() {
-                moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
-                var instance = new application(configuration);
 
-                instance.activate();
-                instance.init();
-                instance.run();
+            fallBackLocalization = [
+                'localization/en',
+                'localization/saleslogix/en'
+            ];
+
+            bootstrap = function(requires) {
+                require(requires.concat('dojo/domReady!'), function() {
+                    if (completed) {
+                        return;
+                    }
+
+                    moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
+                    var instance = new application(configuration);
+
+                    instance.activate();
+                    instance.init();
+                    instance.run();
+                    completed = true;
+                });
+            };
+
+            require.on('error', function(error) {
+                console.log('Error loading localization, falling back to "en"');
+                bootstrap(fallBackLocalization);
             });
+
+            bootstrap(localization);
         });
     })();
     </script>
