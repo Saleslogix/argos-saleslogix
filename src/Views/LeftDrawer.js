@@ -221,13 +221,16 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                 i,
                 section,
                 j,
-                row;
+                row,
+                total = 0;
 
             for (i = 0; i < layout.length; i++) {
                 section = layout[i].children;
 
                 for (j = 0; j < section.length; j++) {
+                    total = total + 1;
                     row = section[j];
+                    row.$key = total;
 
                     if (row['security'] && !App.hasAccessTo(row['security'])) {
                         continue;
@@ -239,6 +242,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             }
 
             store = new Memory({data: list});
+            store.idProperty = '$key';
             return store;
         },
         /**
