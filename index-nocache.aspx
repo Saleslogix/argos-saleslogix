@@ -105,23 +105,12 @@
     <!--{{modules}}-->
 
     <script type="text/javascript">
-    (function() {
         var application = 'Mobile/SalesLogix/Application',
             configuration = [
                 'configuration/development'
             ];
         require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization, bootstrap, fallBackLocalization, completed = false;
-            localization = <%= Serialize(
-                EnumerateLocalizations("localization")
-                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-            ) %>;
-
-            fallBackLocalization = [
-                'localization/en',
-                'localization/saleslogix/en'
-            ];
-
             bootstrap = function(requires) {
                 require(requires.concat('dojo/domReady!'), function() {
                     if (completed) {
@@ -138,12 +127,25 @@
                 });
             };
 
+            localization = <%= Serialize(
+                EnumerateLocalizations("localization")
+                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+            ) %>;
+
             require.on('error', function(error) {
                 console.log('Error loading localization, falling back to "en"');
                 bootstrap(fallBackLocalization);
             });
 
-            bootstrap(localization);
+            if (localization.length === 0) {
+                fallBackLocalization = <%= Serialize(
+                        EnumerateLocalizations(string.Empty, "localization", "en")
+                            .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+                    ) %>;
+                bootstrap(fallBackLocalization);
+            } else {
+                bootstrap(localization);
+            }
         });
     })();
     </script>
@@ -211,10 +213,10 @@
 
     protected IEnumerable<FileItem> EnumerateLocalizations(string path)
     {
-        return EnumerateLocalizations(String.Empty, path);
+        return EnumerateLocalizations(String.Empty, path, null);
     }
 
-    protected IEnumerable<FileItem> EnumerateLocalizations(string root, string path)
+    protected IEnumerable<FileItem> EnumerateLocalizations(string root, string path, string culture)
     {
         var currentCulture = System.Globalization.CultureInfo.CurrentCulture;
         var rootDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(Request.PhysicalPath), root));
@@ -222,9 +224,9 @@
 
         if (includeDirectory.Exists)
         {
-            var parentFileName = String.Format(@"{0}.js", currentCulture.Parent.Name);
+            var parentFileName = String.Format(@"{0}.js", culture ?? currentCulture.Parent.Name);
             var parentFile = new FileInfo(Path.Combine(includeDirectory.FullName, parentFileName));
-            var targetFileName = String.Format(@"{0}.js", currentCulture.Name);
+            var targetFileName = String.Format(@"{0}.js", culture ?? currentCulture.Name);
             var targetFile = new FileInfo(Path.Combine(includeDirectory.FullName, targetFileName));
 
             if (targetFile.Exists)
