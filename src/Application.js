@@ -742,10 +742,16 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToHomeView: function() {
+            var visible;
             this.loadSnapper();
             if (this.redirectHash !== '' && this.redirectHash !== this.loginViewRoute) {
                 this.router.go(this.redirectHash);
             } else {
+                visible = this.preferences && this.preferences.home && this.preferences.home.visible;
+                if (visible && visible.length > 0) {
+                    this.homeViewRoute = '_' + visible[0];
+                }
+
                 this.router.go(this.homeViewRoute);
             }
         },
