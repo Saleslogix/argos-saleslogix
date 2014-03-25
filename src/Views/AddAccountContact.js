@@ -107,9 +107,11 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             return string.substitute(fmt, [dependentValue]);
         },
         onInsertCompleted: function(entry) {
-            var view = App.getView('account_detail');
+            var view = App.getView('account_detail'),
+                route;
             if (view) {
-                view.show({
+                route = (entry && entry.$key) ? view.id + '/' + entry.$key : view.id;
+                App.goRoute(route, {
                         descriptor: entry.$descriptor,
                         key: entry.$key
                     }, {

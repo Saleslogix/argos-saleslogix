@@ -341,7 +341,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                 };
 
             //Return to activity list view after follow up.
-            view.show({
+            App.goRoute(view.id, {
                     entry: followupEntry,
                     insert: true,
                     title: this.followupValueText[this.fields['Followup'].getValue()]
