@@ -113,19 +113,18 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         isOnFirstView: function() {
-            var history, isOnFirstView;
+            var history, isOnFirstView = false, length, current, previous;
             history = this.history;
+            length = history.length;
+            current = history[length - 1];
+            previous = history[length - 2];
 
-            if (history.length > 0) {
-                if (history[0].page === 'login') {
-                    // Check if there are two entries in history,
-                    // the first would be login, the second is the initial page
-                    isOnFirstView = history.length === 2;
-                } else {
-                    // Login is not always the first entry in history,
-                    // the user can save their credentials and skip the login page entirely
-                    isOnFirstView = history.length === 1;
-                }
+            if (current && current.page === 'login') {
+                isOnFirstView = true;
+            } else if (previous && previous.page === 'login') {
+                isOnFirstView = true;
+            } else if (length === 1) {
+                isOnFirstView = true;
             }
 
             return isOnFirstView;
@@ -727,7 +726,17 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToLoginView: function() {
-            this.goRoute(this.loginViewRoute);
+            var route = this.loginViewRoute;
+            if (this._hasValidRedirect(this.redirectHash)) {
+                route = this.redirectHash;
+            } else {
+                this.redirectHash = '';
+            }
+
+            this.goRoute(route);
+        },
+        _hasValidRedirect: function(redirect) {
+            return this.redirectHash !== '' && this.redirectHash.indexOf('/redirectTo/') > 0;
         },
         showLeftDrawer: function() {
             var view = this.getView('left_drawer');
@@ -743,7 +752,7 @@ define('Mobile/SalesLogix/Application', [
         },
         navigateToHomeView: function() {
             this.loadSnapper();
-            if (this.redirectHash !== '' && this.redirectHash !== this.loginViewRoute) {
+            if (this.redirectHash) {
                 this.goRoute(this.redirectHash);
             } else {
                 this.goRoute(this.homeViewRoute);
