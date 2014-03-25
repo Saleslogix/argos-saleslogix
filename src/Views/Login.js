@@ -57,14 +57,6 @@ define('Mobile/SalesLogix/Views/Login', [
                 this.fields.username.inputNode.focus();
             }), 100);
         },
-        // Override the Views registerDefaultRoute to include the entity id in the route
-        registerDefaultRoute: function() {
-            var router = App.router;
-            router.register(['_', this.id].join(''), lang.hitch(this, this.onDefaultRoute));
-        },
-        onDefaultRoute: function(evt) {
-            this.show();
-        },
         createToolLayout: function() {
             return this.tools || (this.tools = {
                 bbar: false,

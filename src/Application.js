@@ -94,8 +94,8 @@ define('Mobile/SalesLogix/Application', [
             'revision': 3
         },
         versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
-        homeViewRoute: '_myactivity_list',
-        loginViewRoute: '_login',
+        homeViewRoute: 'myactivity_list',
+        loginViewRoute: 'login',
         init: function() {
             if (has('ie') && has('ie') < 9) {
                 window.location.href = 'unsupported.html';
@@ -727,7 +727,7 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToLoginView: function() {
-            this.router.go(this.loginViewRoute);
+            this.goRoute(this.loginViewRoute);
         },
         showLeftDrawer: function() {
             var view = this.getView('left_drawer');
@@ -744,13 +744,13 @@ define('Mobile/SalesLogix/Application', [
         navigateToHomeView: function() {
             this.loadSnapper();
             if (this.redirectHash !== '' && this.redirectHash !== this.loginViewRoute) {
-                this.router.go(this.redirectHash);
+                this.goRoute(this.redirectHash);
             } else {
-                this.router.go(this.homeViewRoute);
+                this.goRoute(this.homeViewRoute);
             }
         },
         navigateToActivityInsertView: function() {
-            this.router.go('_activity_types_list');
+            this.goRoute('activity_types_list');
         },
         initiateCall: function() {
             // shortcut for environment call
