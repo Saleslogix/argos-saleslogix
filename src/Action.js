@@ -23,9 +23,11 @@ define('Mobile/SalesLogix/Action', [
         emailedText: 'E-mailed ${0}',
 
         navigateToHistoryInsert: function(entry, complete) {
-            var view = App.getView('history_edit');
+            var view = App.getView('history_edit'),
+                route;
             if (view) {
-                view.show({
+                route = entry.$key ? view.id + '/' + entry.$key : view.id;
+                App.goRoute(route, {
                         title: entry['Title'] || null,
                         template: {},
                         entry: entry,
@@ -80,10 +82,11 @@ define('Mobile/SalesLogix/Action', [
                 key: selection.data['$key']
             });
 
-            var view = App.getView('history_edit');
+            var view = App.getView('history_edit'),
+                route;
 
             if (view) {
-                view.show({insert: true});
+                App.goRoute(view.id + '/' + entry.$key, {insert: true});
             }
         },
         addActivity: function(action, selection) {
@@ -102,7 +105,8 @@ define('Mobile/SalesLogix/Action', [
                 view = App.getView(o.view);
 
             if (view && options.key) {
-                view.show(options);
+                route = view.id + '/' + options.key;
+                App.goRoute(route, options);
             }
         },
 
@@ -119,7 +123,7 @@ define('Mobile/SalesLogix/Action', [
             view = App.getView('attachment_Add');
 
             if (view) {
-                view.show({ insert: true });
+                App.goRoute(view.id, { insert: true });
             }
         }
     });

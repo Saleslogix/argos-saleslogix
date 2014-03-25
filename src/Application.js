@@ -717,7 +717,7 @@ define('Mobile/SalesLogix/Application', [
                         view = App.getView(last.page),
                         options = last.data && last.data.options;
 
-                    view.show(options);
+                    this.goRoute(view.id, options);
                 } else {
                     this.navigateToHomeView();
                 }
