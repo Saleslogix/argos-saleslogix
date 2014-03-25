@@ -53,6 +53,19 @@ define('Mobile/SalesLogix/Views/Login', [
             }
         },
         onShow: function() {
+            var credentials;
+            credentials = App.getCredentials();
+
+            if (credentials) {
+                App.authenticateUser(credentials, {
+                    success: function(result) {
+                        App.requestUserDetails();
+                        App.navigateToInitialView();
+                    },
+                    scope: this
+                });
+            }
+
             window.setTimeout(lang.hitch(this, function() {
                 this.fields.username.inputNode.focus();
             }), 100);

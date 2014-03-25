@@ -370,9 +370,8 @@ define('Mobile/SalesLogix/Application', [
 
             this.reload();
         },
-        handleAuthentication: function() {
+        getCredentials: function() {
             var stored, encoded, credentials;
-
             try {
                 if (window.localStorage) {
                     stored = window.localStorage.getItem('credentials');
@@ -381,6 +380,13 @@ define('Mobile/SalesLogix/Application', [
                 }
             } catch(e) {
             }
+
+            return credentials;
+        },
+        handleAuthentication: function() {
+            var credentials;
+
+            credentials = this.getCredentials();
 
             if (credentials) {
                 this.authenticateUser(credentials, {
