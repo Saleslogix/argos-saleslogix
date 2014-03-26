@@ -108,7 +108,7 @@
     (function() {
         var application = 'Mobile/SalesLogix/Application',
             configuration = [
-                'configuration/development'
+                'configuration/production'
             ];
         require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization, bootstrap, fallBackLocalization, completed = false;
