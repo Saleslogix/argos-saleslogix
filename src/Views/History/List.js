@@ -259,7 +259,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             var view = App.getView(viewId);
 
             if (view && options) {
-                view.show(options);
+                App.goRoute(view.id, options);
             }
         },
         resolveContactOrLeadEntity: function(entry) {
@@ -295,7 +295,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             for (var colorKey in this.entityColorClassByType) {
                 domClass.remove(actionsNode, this.entityColorClassByType[colorKey]);
             }
-            
+
             if (colorCls) {
                 domClass.add(actionsNode, colorCls);
             }

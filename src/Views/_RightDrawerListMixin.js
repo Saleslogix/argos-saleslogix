@@ -99,15 +99,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
                         domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
                     }
-                }),
-                navigateToConfigurationView: lang.hitch(this, function() {
-                    var view = App.getView(this.configurationView);
-                    if (view) {
-                        view.resourceKind = this.resourceKind;
-                        view.entityName = this.entityName;
-                        view.show({ returnTo: -1 });
-                        this.toggleRightDrawer();
-                    }
                 })
             };
 

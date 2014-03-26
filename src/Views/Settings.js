@@ -76,7 +76,7 @@ define('Mobile/SalesLogix/Views/Settings', [
         viewErrorLogs: function() {
             var view = App.getView('errorlog_list');
             if (view) {
-                view.show();
+                App.goRoute(view.id);
             }
         },
         clearLocalStorage: function() {

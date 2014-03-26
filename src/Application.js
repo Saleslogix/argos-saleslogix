@@ -94,8 +94,8 @@ define('Mobile/SalesLogix/Application', [
             'revision': 3
         },
         versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
-        homeViewRoute: '_myactivity_list',
-        loginViewRoute: '_login',
+        homeViewRoute: 'myactivity_list',
+        loginViewRoute: 'login',
         init: function() {
             if (has('ie') && has('ie') < 9) {
                 window.location.href = 'unsupported.html';
@@ -113,19 +113,18 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         isOnFirstView: function() {
-            var history, isOnFirstView;
+            var history, isOnFirstView = false, length, current, previous;
             history = this.history;
+            length = history.length;
+            current = history[length - 1];
+            previous = history[length - 2];
 
-            if (history.length > 0) {
-                if (history[0].page === 'login') {
-                    // Check if there are two entries in history,
-                    // the first would be login, the second is the initial page
-                    isOnFirstView = history.length === 2;
-                } else {
-                    // Login is not always the first entry in history,
-                    // the user can save their credentials and skip the login page entirely
-                    isOnFirstView = history.length === 1;
-                }
+            if (current && current.page === 'login') {
+                isOnFirstView = true;
+            } else if (previous && previous.page === 'login') {
+                isOnFirstView = true;
+            } else if (length === 1) {
+                isOnFirstView = true;
             }
 
             return isOnFirstView;
@@ -371,9 +370,8 @@ define('Mobile/SalesLogix/Application', [
 
             this.reload();
         },
-        handleAuthentication: function() {
+        getCredentials: function() {
             var stored, encoded, credentials;
-
             try {
                 if (window.localStorage) {
                     stored = window.localStorage.getItem('credentials');
@@ -382,6 +380,13 @@ define('Mobile/SalesLogix/Application', [
                 }
             } catch(e) {
             }
+
+            return credentials;
+        },
+        handleAuthentication: function() {
+            var credentials;
+
+            credentials = this.getCredentials();
 
             if (credentials) {
                 this.authenticateUser(credentials, {
@@ -717,7 +722,7 @@ define('Mobile/SalesLogix/Application', [
                         view = App.getView(last.page),
                         options = last.data && last.data.options;
 
-                    view.show(options);
+                    this.goRoute(view.id, options);
                 } else {
                     this.navigateToHomeView();
                 }
@@ -727,7 +732,17 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToLoginView: function() {
-            this.router.go(this.loginViewRoute);
+            var route = this.loginViewRoute;
+            if (this._hasValidRedirect(this.redirectHash)) {
+                route = this.redirectHash;
+            } else {
+                this.redirectHash = '';
+            }
+
+            this.goRoute(route);
+        },
+        _hasValidRedirect: function(redirect) {
+            return this.redirectHash !== '' && this.redirectHash.indexOf('/redirectTo/') > 0;
         },
         showLeftDrawer: function() {
             var view = this.getView('left_drawer');
@@ -743,14 +758,14 @@ define('Mobile/SalesLogix/Application', [
         },
         navigateToHomeView: function() {
             this.loadSnapper();
-            if (this.redirectHash !== '' && this.redirectHash !== this.loginViewRoute) {
-                this.router.go(this.redirectHash);
+            if (this.redirectHash) {
+                this.goRoute(this.redirectHash);
             } else {
-                this.router.go(this.homeViewRoute);
+                this.goRoute(this.homeViewRoute);
             }
         },
         navigateToActivityInsertView: function() {
-            this.router.go('_activity_types_list');
+            this.goRoute('activity_types_list');
         },
         initiateCall: function() {
             // shortcut for environment call

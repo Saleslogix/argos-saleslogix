@@ -105,7 +105,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
             if (view) {
                 this.refreshRequired = true;
 
-                view.show({
+                App.goRoute(view.id + '/' + entry[this.idProperty], {
                         title: this.activityTypeText[type],
                         template: {},
                         entry: entry,
@@ -149,7 +149,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         addNote: function() {
             var view = App.getView(this.noteEditView);
             if (view) {
-                view.show({
+                App.goRoute(view.id, {
                     template: {},
                     insert: true
                 });

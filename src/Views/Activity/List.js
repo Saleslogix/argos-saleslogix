@@ -489,7 +489,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
            var view = App.getView(this.historyEditView);
            if (view) {
                environment.refreshActivityLists();
-               view.show({
+               App.goRoute(view.id, {
                    title: this.activityTypeText[type],
                    template: {},
                    entry: entry,
