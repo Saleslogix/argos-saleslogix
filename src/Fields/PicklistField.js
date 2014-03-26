@@ -89,8 +89,13 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         },
         textRenderer: function(value) {
             var results;
+
             if (this.singleSelect) {
-                results = this.inherited(arguments);
+                if (typeof value === 'string') {
+                    results = value;
+                } else {
+                    results = value[this.textProperty];
+                }
             } else {
                 results = this._handleSaleslogixMultiSelectPicklist(value);
             }
@@ -153,7 +158,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                 view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
 
             if (view && options) {
-                view.show(options);
+                App.goRoute(view.id, options);
             }
         }
     });

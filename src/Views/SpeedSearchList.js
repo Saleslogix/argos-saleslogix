@@ -293,10 +293,12 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             });
         },
         navigateToDetailView: function(key, type) {
-            var view = App.getView(type.toLowerCase() + '_detail');
+            var view = App.getView(type.toLowerCase() + '_detail'),
+                route;
 
             if (view) {
-                view.show({
+                route = key ? view.id + '/' + key : view.id;
+                App.goRoute(route, {
                     key: key
                 });
             }

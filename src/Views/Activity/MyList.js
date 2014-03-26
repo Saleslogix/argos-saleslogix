@@ -243,7 +243,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     return false;
                 }, 
                 fn: function(action, selection) {
-                    var viewId, options, view;
+                    var viewId, options, view, route;
 
                     viewId = 'account_detail';
                     options = {
@@ -253,7 +253,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 
                     view = App.getView(viewId);
                     if (view && options) {
-                        view.show(options);
+                        route = options.key ? view.id + '/' + options.key : view.id;
+                        App.goRoute(route, options);
                     }
                 }
             }, {
@@ -271,7 +272,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     return false;
                 }, 
                 fn: function(action, selection) {
-                    var viewId, options, view;
+                    var viewId, options, view, route;
 
                     viewId = 'opportunity_detail';
                     options = {
@@ -280,7 +281,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     };
                     view = App.getView(viewId);
                     if (view && options) {
-                        view.show(options);
+                        route = options.key ? view.id + '/' + options.key : view.id;
+                        App.goRoute(route, options);
                     }
                 }
             }, {
@@ -579,8 +581,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return (selection.data['Activity']['ContactId']) || (selection.data['Activity']['LeadId']);
         },
         navigateToContactOrLead: function(action, selection) {
-            var entry = selection.data["Activity"];
-            var entity = this.resolveContactOrLeadEntity(entry),
+            var entry = selection.data["Activity"],
+                entity = this.resolveContactOrLeadEntity(entry),
+                route,
                 viewId,
                 options;
 
@@ -604,7 +607,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             var view = App.getView(viewId);
 
             if (view && options) {
-                view.show(options);
+                route = options.key ? view.id + '/' + options.key : view.id;
+                App.goRoute(route, options);
             }
         },
         resolveContactOrLeadEntity: function(entry) {
@@ -641,7 +645,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             var view = App.getView(this.historyEditView);
             if (view) {
                 environment.refreshActivityLists();
-                view.show({
+                App.goRoute(view.id, {
                     title: this.activityTypeText[type],
                     template: {},
                     entry: entry,

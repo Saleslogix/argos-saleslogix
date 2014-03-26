@@ -103,7 +103,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
         addNote: function() {
             var view = App.getView(this.noteEditView);
             if (view) {
-                view.show({
+                App.goRoute({
                     template: {},
                     insert: true
                 });
