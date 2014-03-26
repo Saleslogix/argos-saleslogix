@@ -764,7 +764,7 @@ define('Mobile/SalesLogix/Application', [
             } else {
                 visible = this.preferences && this.preferences.home && this.preferences.home.visible;
                 if (visible && visible.length > 0) {
-                    this.homeViewRoute = '_' + visible[0];
+                    this.homeViewRoute = visible[0];
                 }
 
                 this.goRoute(this.homeViewRoute);
