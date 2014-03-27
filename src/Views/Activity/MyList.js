@@ -38,7 +38,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
 
         //Templates
-        //Card View 
+        //Card View
        itemRowContainerTemplate: new Simplate([
            '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
             '{%! $$.itemRowContentTemplate %}',
@@ -91,7 +91,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         viewContactActionText: 'Contact',
         viewAccountActionText: 'Account',
         viewOpportunityActionText: 'Opportunity',
-        
+
         //View Properties
         id: 'myactivity_list',
 
@@ -113,8 +113,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/AccountId',
             'Activity/ContactId',
             'Activity/ContactName',
-            'Activity/Leader/$key',
-            'Activity/Leader/$descriptor',
+            'Activity/Leader',
             'Activity/LeadName',
             'Activity/LeadId',
             'Activity/OpportunityId',
