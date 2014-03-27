@@ -188,12 +188,12 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 enabled: true,
                 relatedProperty:'AccountId',
                 where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
-            },{
+            }/*,{
                 widgetType: X3SalesOrderRelated,
                 autoLoad:true,
                 enabled: true,
                 relatedProperty:'AccountId'
-            }]);
+            }*/]);
         }
     });
 });

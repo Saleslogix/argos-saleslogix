@@ -518,6 +518,10 @@
         },
         {
           "text": "List.js",
+          "path": "../src/Views/SalesOrder"
+        },
+        {
+          "text": "List.js",
           "path": "../src/Views/Ticket"
         },
         {

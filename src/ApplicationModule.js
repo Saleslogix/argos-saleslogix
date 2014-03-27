@@ -80,6 +80,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Owner/List',
     'Mobile/SalesLogix/Views/Product/List',
     'Mobile/SalesLogix/Views/ProductProgram/List',
+    'Mobile/SalesLogix/Views/SalesOrder/List',
     'Mobile/SalesLogix/Views/Ticket/List',
     'Mobile/SalesLogix/Views/Ticket/Detail',
     'Mobile/SalesLogix/Views/Ticket/Edit',
@@ -187,6 +188,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     OwnerList,
     ProductList,
     ProductProgramList,
+    SalesOrderList,
     TicketList,
     TicketDetail,
     TicketEdit,
@@ -437,6 +439,14 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerView(new ProductProgramList({
                 id: 'productprogram_related',
+                expose: false,
+                defaultSearchTerm: function() {
+                    return '';
+                }
+            }));
+
+            this.registerView(new SalesOrderList({
+                id: 'salesorder_related',
                 expose: false,
                 defaultSearchTerm: function() {
                     return '';

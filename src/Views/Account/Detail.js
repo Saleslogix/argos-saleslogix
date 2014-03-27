@@ -4,6 +4,7 @@
 define('Mobile/SalesLogix/Views/Account/Detail', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/_base/lang',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
@@ -11,6 +12,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
 ], function(
     declare,
     string,
+    lang,
     format,
     template,
     Detail,
@@ -37,6 +39,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         },
         actionsText: 'Quick Actions',
         relatedActivitiesText: 'Activities',
+        relatedSalesOrdersText: 'Sales Orders',
         relatedContactsText: 'Contacts',
         relatedHistoriesText: 'Notes/History',
         relatedItemsText: 'Related Items',
@@ -84,7 +87,12 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
             'Status',
             'SubType',
             'Type',
-            'WebAddress'
+            'WebAddress',
+            // X3
+            'OperatingCompany',
+            'CreateSource',
+            '$uuid',
+            'PromotedToAccounting'
         ],
         resourceKind: 'accounts',
 
@@ -289,6 +297,20 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             label: this.relatedActivitiesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}"'),
                             view: 'activity_related'
+                        }, {
+                            name: 'SalesOrderRelated',
+                            icon: 'content/images/icons/accountant_link_24.png',
+                            label: this.relatedSalesOrdersText,
+                            disabled: function(entry) {
+                                return !entry.PromotedToAccounting;
+                            },
+                            resourcePredicate: function(entry) {
+                                return "$uuid eq '" + entry.$uuid + "'";
+                            },
+                            dataSet: function(entry) {
+                                return entry && entry.OperatingCompany && entry.OperatingCompany.$key;
+                            },
+                            view: 'salesorder_related'
                         }, {
                             name: 'ContactRelated',
                             icon: 'content/images/icons/Contacts_24x24.png',
