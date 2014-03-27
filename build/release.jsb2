@@ -345,6 +345,10 @@
           "path": "../src/Views/Attachment"
         },
         {
+          "text": "X3SalesOrderRelated.js",
+          "path": "../src/Views/Account"
+        },
+        {
           "text": "RelatedView.js",
           "path": "../src/Views/History"
         },

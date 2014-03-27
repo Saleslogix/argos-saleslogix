@@ -10,6 +10,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Views/History/RelatedView',
+    'Mobile/SalesLogix/Views/Account/X3SalesOrderRelated',
     'Sage/Platform/Mobile/RelatedViewWidget',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
@@ -24,6 +25,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     utility,
     Convert,
     HistoryRelatedView,
+    X3SalesOrderRelated,
     RelatedViewWidget,
     List,
     _MetricListMixin,
@@ -94,7 +96,11 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'Status',
             'SubType',
             'Type',
-            'ModifyDate'
+            'ModifyDate',
+            // X3
+            'OperatingCompany',
+            'CreateSource',
+            '$uuid'
         ],
         resourceKind: 'accounts',
         entityName: 'Account',
@@ -114,7 +120,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'partner': 'Type eq "Partner"',
             'vendor': 'Type eq "Vendor"',
             'influencer': 'Type eq "Influencer"',
-            'competitor': 'Type eq "Competitor"'
+            'competitor': 'Type eq "Competitor"',
+            'x3': 'CreateSource eq "CrmErp Contract Sync"'
         },
         hashTagQueriesText: {
             'my-accounts': 'my-accounts',
@@ -127,7 +134,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'partner': 'partner',
             'vendor': 'vendor',
             'influencer': 'influencer',
-            'competitor': 'competitor'
+            'competitor': 'competitor',
+            'x3': 'X3'
         },
         defaultSearchTerm: function() {
             return '#' + this.hashTagQueriesText['my-accounts'];
@@ -179,6 +187,11 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 enabled: true,
                 relatedProperty:'AccountId',
                 where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
+            },{
+                widgetType: X3SalesOrderRelated,
+                autoLoad:true,
+                enabled: true,
+                relatedProperty:'AccountId'
             }]);
         }
     });
