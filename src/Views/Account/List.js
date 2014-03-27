@@ -100,7 +100,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
             // X3
             'OperatingCompany',
             'CreateSource',
-            '$uuid'
+            '$uuid',
+            'PromotedToAccounting'
         ],
         resourceKind: 'accounts',
         entityName: 'Account',
@@ -121,7 +122,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'vendor': 'Type eq "Vendor"',
             'influencer': 'Type eq "Influencer"',
             'competitor': 'Type eq "Competitor"',
-            'x3': 'CreateSource eq "CrmErp Contract Sync"'
+            'x3': 'CreateSource eq "CrmErp Contract Sync" and PromotedToAccounting eq true'
         },
         hashTagQueriesText: {
             'my-accounts': 'my-accounts',

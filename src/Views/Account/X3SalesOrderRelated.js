@@ -75,7 +75,7 @@ define('Mobile/SalesLogix/Views/Account/X3SalesOrderRelated', [
             return 'Order Number: ' + entry.reference;
         },
         fetchData: function() {
-            if (!this.parentEntry.OperatingCompany) {
+            if (!this.parentEntry.OperatingCompany || this.parentEntry.PromotedToAccounting !== true) {
                 return [];
             }
 
