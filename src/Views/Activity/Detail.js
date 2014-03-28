@@ -31,7 +31,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'Sage/Platform/Mobile/Detail',
     'Mobile/SalesLogix/Recurrence',
     'Mobile/SalesLogix/Utility',
-    'Sage/Platform/Mobile/Utility'
+    'Sage/Platform/Mobile/Utility',
+    'Mobile/SalesLogix/Views/ActivityAttendee/RelatedView'
 ], function(
     declare,
     string,
@@ -44,7 +45,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     Detail,
     recur,
     utility,
-    platformUtility
+    platformUtility,
+    AttendeeRelatedView
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail], {
@@ -504,7 +506,22 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                         where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'),// must be lower case because of feed
                         view: 'activity_attachment_related',
                         title: this.relatedAttachmentTitleText
-                    }]
+                    },{
+                    name: 'AttendeeRelated',
+                    icon: 'content/images/icons/Attendee_24.png',
+                    label: 'Attendees',
+                    where: this.formatRelatedQuery.bindDelegate(this, 'ActivityId eq "${0}"', 'ActivityId'),// must be lower case because of feed
+                    view: 'activity_attendee_related',
+                    title: 'Attendees',
+                    relatedView: {
+                        widgetType: AttendeeRelatedView,
+                        id: 'activity_related_attendees',
+                        autoLoad: true,
+                        enabled: true,
+                        relatedProperty: 'ActivityId',
+                        where: function(entry) { return "ActivityId eq '" + entry.$key + "'"; }
+                    }
+                }]
                 }]);
         }
     });
