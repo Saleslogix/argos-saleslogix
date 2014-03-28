@@ -168,6 +168,9 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'RecurrenceState',
             'Recurring'
         ],
+        queryInclude: [
+            '$descriptors'
+        ],
         resourceKind: 'activities',
         contractName: 'system',
         pageSize: 105,
