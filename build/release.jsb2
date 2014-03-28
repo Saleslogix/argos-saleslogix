@@ -377,6 +377,18 @@
           "path": "../src/Views/Activity"
         },
         {
+          "text": "Edit.js",
+          "path": "../src/Views/ActivityAttendee"
+        },
+        {
+          "text": "List.js",
+          "path": "../src/Views/ActivityAttendee"
+        },
+        {
+          "text": "RelatedView.js",
+          "path": "../src/Views/ActivityAttendee"
+        },
+        {
           "text": "DayView.js",
           "path": "../src/Views/Calendar"
         },
