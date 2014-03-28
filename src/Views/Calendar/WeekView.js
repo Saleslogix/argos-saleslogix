@@ -610,7 +610,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             if (view) {
                 route = key ? view.id + '/' + key : view.id;
                 App.goRoute(route, {
-                    descriptor: descriptor,
+                    title: descriptor,
                     key: key
                 });
             }

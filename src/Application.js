@@ -90,8 +90,8 @@ define('Mobile/SalesLogix/Application', [
         },
         mobileVersion: {
             'major': 3,
-            'minor': 0,
-            'revision': 3
+            'minor': 1,
+            'revision': 0
         },
         versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
         homeViewRoute: 'myactivity_list',
@@ -356,10 +356,8 @@ define('Mobile/SalesLogix/Application', [
             window.location.reload();
         },
         logOut: function() {
-            if (window.localStorage) {
-                window.localStorage.removeItem('credentials');
-                window.localStorage.removeItem('navigationState');
-            }
+            this.removeCredentials();
+            this._clearNavigationState();
 
             var service = this.getService();
             if (service) {
@@ -383,6 +381,14 @@ define('Mobile/SalesLogix/Application', [
 
             return credentials;
         },
+        removeCredentials: function() {
+            try {
+                if (window.localStorage) {
+                    window.localStorage.removeItem('credentials');
+                }
+            } catch(e) {
+            }
+        },
         handleAuthentication: function() {
             var credentials;
 
@@ -396,6 +402,7 @@ define('Mobile/SalesLogix/Application', [
                     },
                     failure: function(result) {
                         this.navigateToLoginView();
+                        this.removeCredentials();
                     },
                     aborted: function(result) {
                         this.navigateToLoginView();
