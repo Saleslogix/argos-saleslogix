@@ -47,7 +47,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         activityTypeText: {
             'atPhoneCall': 'Phone Call'
         },
-        actionsText: 'Quick Actions',
+        actionsText: 'Actions',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
         relatedHistoriesText: 'Notes/History',
@@ -63,10 +63,8 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         titleText: 'Account',
         typeText: 'type',
         webText: 'web',
-        callMainNumberText: 'Call main number',
         scheduleActivityText: 'Schedule activity',
         addNoteText: 'Add note',
-        viewAddressText: 'View address',
         moreDetailsText: 'More Details',
         calledText: 'Called ${0}',
 
@@ -129,20 +127,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
 
             this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
-        callMainPhone: function() {
-            this.recordCallToHistory(function() {
-                App.initiateCall(this.entry['MainPhone']);
-            }.bindDelegate(this));
-        },
-        checkMainPhone: function(entry, value) {
-            return !value;
-        },
-        viewAddress: function() {
-            App.showMapForAddress(format.address(this.entry['Address'], true, ' '));
-        },
-        checkAddress: function(entry, value) {
-            return !format.address(value, true, '');
-        },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
@@ -200,40 +184,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                    title: this.actionsText,
-                    list: true,
-                    cls: 'action-list',
-                    name: 'QuickActionsSection',
-                    children: [{
-                            name: 'CallMainPhoneAction',
-                            property: 'MainPhone',
-                            label: this.callMainNumberText,
-                            icon: 'content/images/icons/Dial_24x24.png',
-                            action: 'callMainPhone',
-                            disabled: this.checkMainPhone,
-                            renderer: format.phone.bindDelegate(this, false)
-                        }, {
-                            name: 'ScheduleActivityAction',
-                            property: 'AccountName',
-                            label: this.scheduleActivityText,
-                            icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                            action: 'scheduleActivity'
-                        }, {
-                            name: 'AddNoteAction',
-                            property: 'AccountName',
-                            label: this.addNoteText,
-                            icon: 'content/images/icons/New_Note_24x24.png',
-                            action: 'addNote'
-                        }, {
-                            name: 'ViewAddressAction',
-                            property: 'Address',
-                            label: this.viewAddressText,
-                            icon: 'content/images/icons/Map_24.png',
-                            action: 'viewAddress',
-                            disabled: this.checkAddress,
-                            renderer: format.address.bindDelegate(this, true, ' ')
-                        }]
-                }, {
                     title: this.detailsText,
                     name: 'DetailsSection',
                     children: [{
@@ -246,10 +196,20 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             label: this.webText,
                             renderer: format.link
                         }, {
+                            name: 'MainPhone',
+                            property: 'MainPhone',
+                            label: this.phoneText,
+                            renderer: format.phone.bindDelegate(this, true)
+                        }, {
+                            name: 'Address',
+                            property: 'Address',
+                            label: this.addressText,
+                            renderer: format.address.bindDelegate(this, false)
+                        }, {
                             name: 'Fax',
                             property: 'Fax',
                             label: this.faxText,
-                            renderer: format.phone
+                            renderer: format.phone.bindDelegate(this, true)
                         }, {
                             name: 'Type',
                             property: 'Type',
@@ -262,12 +222,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             name: 'Status',
                             property: 'Status',
                             label: this.statusText
-                        }]
-                }, {
-                    title: this.moreDetailsText,
-                    collapsed: true,
-                    name: 'MoreDetailsSection',
-                    children: [{
+                        }, {
                             name: 'Industry',
                             property: 'Industry',
                             label: this.industryText,
@@ -290,6 +245,24 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             name: 'LeadSource.Description',
                             property: 'LeadSource.Description',
                             label: this.importSourceText
+                        }]
+                }, {
+                    title: this.actionsText,
+                    list: true,
+                    cls: 'action-list',
+                    name: 'QuickActionsSection',
+                    children: [{
+                            name: 'ScheduleActivityAction',
+                            property: 'AccountName',
+                            label: this.scheduleActivityText,
+                            icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                            action: 'scheduleActivity'
+                        }, {
+                            name: 'AddNoteAction',
+                            property: 'AccountName',
+                            label: this.addNoteText,
+                            icon: 'content/images/icons/New_Note_24x24.png',
+                            action: 'addNote'
                         }]
                 }, {
                     title: this.relatedItemsText,
