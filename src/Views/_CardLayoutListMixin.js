@@ -96,9 +96,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
            '<div id="list-item-content-related"></div>',
            '{%! $$.itemFooterTemplate %}'
         ]),
-        searchExpressionTemplate: new Simplate([
-            '<div id="{%= $.id %}_search-expression" class="card-layout-search-expression"></div>'
-        ]),
         postMixInProperties: function() {
             this.inherited(arguments);
             this.cls = ' card-layout';
@@ -113,7 +110,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         placeAt: function() {
             this.inherited(arguments);
             this._intFooter();
-            this._intSearchExpressionNode();
         },
         show: function(options) {
             if (options && options.simpleMode && (options.simpleMode === true)) {
@@ -124,14 +120,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         _intFooter: function(){
             if (!this.actions.length) {
                 this.itemFooterTemplate = new Simplate(['']);
-            }
-        },
-        _intSearchExpressionNode: function() {
-            var html, listNode;
-            listNode = query('#' + this.id);
-            if (listNode[0]) {
-                html = this.searchExpressionTemplate.apply(this);
-                domConstruct.place(html, listNode[0], 'first');
             }
         },
         getItemActionKey: function(entry) {
@@ -253,19 +241,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return false;
         },
         requestData: function(){
-            this.showSearchExpression();
             this.inherited(arguments);
-        },
-        showSearchExpression: function() {
-            var html, searchNode;
-            if (this.searchWidget) {
-                searchNode = query('#'+ this.id +'_search-expression');
-               if (searchNode[0]) {
-                   this.currentSearchExpression = this.searchWidget.getSearchExpression() || this.allRecordsText;
-                   html = '<div>' + this.currentSearchExpression + '</div>';
-                   domAttr.set(searchNode[0], { innerHTML: html });
-                }
-            }
         }
     });
 });

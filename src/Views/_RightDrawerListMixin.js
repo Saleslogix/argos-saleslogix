@@ -34,12 +34,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
 
-        onBeforeTransitionTo: function() {
-            var drawer = App.getView('right_drawer');
-            if (drawer) {
-                domConstruct.place(this.searchWidget.domNode, drawer.domNode, 'first');
-            }
-        },
         setupRightDrawer: function() {
             var drawer = App.getView('right_drawer'), handle;
             if (drawer) {
@@ -65,14 +59,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             if (drawer) {
                 drawer.setLayout([]);
                 drawer.getGroupForEntry = function(entry) {};
-                domConstruct.place(this.searchWidget.domNode, this.domNode, 'first');
                 App.snapper.off('close');
             }
-        },
-        _onSearchExpression: function() {
-            // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
-            this.inherited(arguments);
-            this.toggleRightDrawer();
         },
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
@@ -81,6 +69,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     if (params.hashtag) {
                         this.setSearchTerm('#' + params.hashtag);
                         this.search();
+                        this.toggleRightDrawer();
                     }
                 }),
                 kpiClicked: lang.hitch(this, function(params) {
@@ -132,17 +121,17 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     hashTag = this.searchWidget.hashTagQueries[i];
                     hashTagsSection.children.push({
                         'name': hashTag.key,
-                        'action': 'hashTagClicked', 
+                        'action': 'hashTagClicked',
                         'title': hashTag.tag,
                         'dataProps': {
-                            'hashtag': hashTag.tag 
+                            'hashtag': hashTag.tag
                         }
                     });
                 }
             }
 
             layout.push(hashTagsSection);
- 
+
             prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
 
             kpiSection = {
