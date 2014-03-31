@@ -16,6 +16,7 @@
 define('Mobile/SalesLogix/Views/Account/Detail', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/_base/lang',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
@@ -23,6 +24,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
 ], function(
     declare,
     string,
+    lang,
     format,
     template,
     Detail,
@@ -127,6 +129,11 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
 
             this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
+        callMainPhone: function() {
+            this.recordCallToHistory(lang.hitch(this, function() {
+                App.initiateCall(this.entry['MainPhone']);
+            }));
+        },
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
@@ -138,49 +145,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     insert: true
                 });
             }
-        },
-        createMetricWidgetsLayout: function (entry) {
-            return [{
-                    chartType: 'bar',
-                    formatter: 'bigNumber',
-                    title: 'Sales Potential',
-                    queryArgs: {
-                        _activeFilter: 'Account.Id eq "' + entry.$key + '" and Status eq "Open"',
-                        _filterName: 'Stage',
-                        _metricName: 'SumSalesPotential'
-                    },
-                    queryName: 'executeMetric',
-                    resourceKind: 'opportunities',
-                    aggregate: 'sum',
-                    valueType: 'Mobile/SalesLogix/Aggregate'
-                }, {
-                    chartType: 'bar',
-                    formatter: 'bigNumber',
-                    title: 'Total Opportunties',
-                    queryArgs: {
-                        _activeFilter: 'Account.Id eq "' + entry.$key + '"',
-                        _filterName: 'Stage',
-                        _metricName: 'CountOpportunities'
-                    },
-                    queryName: 'executeMetric',
-                    resourceKind: 'opportunities',
-                    aggregate: 'sum',
-                    valueType: 'Mobile/SalesLogix/Aggregate'
-                }, {
-                    chartType: 'bar',
-                    formatter: 'bigNumber',
-                    title: 'Total Tickets',
-                    queryArgs: {
-                        _activeFilter: 'Account.Id eq "' + entry.$key + '"',
-                        _filterName: 'AssignedTo',
-                        _metricName: 'TicketCount'
-                    },
-                    queryName: 'executeMetric',
-                    resourceKind: 'tickets',
-                    aggregate: 'sum',
-                    valueType: 'Mobile/SalesLogix/Aggregate'
-                }
-            ];
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
@@ -199,7 +163,8 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             name: 'MainPhone',
                             property: 'MainPhone',
                             label: this.phoneText,
-                            renderer: format.phone.bindDelegate(this, true)
+                            renderer: format.phone.bindDelegate(this, false),
+                            action: 'callMainPhone'
                         }, {
                             name: 'Address',
                             property: 'Address',
