@@ -150,9 +150,6 @@ define('Mobile/SalesLogix/Views/History/List', [
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
         entityName: 'History',
-        defaultSearchTerm: function() {
-            return '#' + this.hashTagQueriesText['my-history'];
-        },
         hashTagQueries: {
             'my-history': function() {
                 return 'UserId eq "' + App.context.user.$key + '"';
