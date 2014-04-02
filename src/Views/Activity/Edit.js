@@ -325,7 +325,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onTimelessChange: function(value, field) {
-            
             this.toggleSelectField(this.fields['Duration'], value);
             var startDate, startDateField;
 
@@ -337,8 +336,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 startDate = this._getNewStartDate(startDateField.getValue(), true);
-                if (startDate) {
 
+                if (startDate) {
                     startDateField.setValue(startDate);
                 }
             } else { // StartDate with out time (Timeless)
@@ -348,8 +347,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
                 startDate = this._getNewStartDate(startDateField.getValue(), false);
-                if (startDate) {
 
+                if (startDate) {
                     startDateField.setValue(startDate);
                 }
             }
@@ -917,10 +916,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 if (timeless) {
                     if (!isTimeLessDate) {
                         wrapped = moment(startDate);
-                        wrapped.subtract({ minutes: wrapped.zone() });
-                        wrapped.hours(0);
-                        wrapped.minutes(0);
-                        wrapped.seconds(5);
+                        wrapped = moment.utc(wrapped.format('YYYY-MM-DD'), 'YYYY-MM-DD');
+                        wrapped.add('seconds', 5);
                         startDate = wrapped.toDate();
                     }
                 } else {
