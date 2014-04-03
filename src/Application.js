@@ -822,4 +822,3 @@ define('Mobile/SalesLogix/Application', [
         }
     });
 });
-
