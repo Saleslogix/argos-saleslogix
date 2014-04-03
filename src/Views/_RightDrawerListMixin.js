@@ -73,12 +73,15 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }
                 }),
                 kpiClicked: lang.hitch(this, function(params) {
-                    var prefs, results, enabled;
-                    prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
+                    var results, enabled, metrics;
 
-                    results = array.filter(prefs, function(pref) {
-                        return pref.title === params.title;
-                    });
+                    metrics = App.getMetricsByResourceKind(this.resourceKind);
+
+                    if (metrics.length > 0) {
+                        results = array.filter(metrics, function(metric) {
+                            return metric.title === params.title;
+                        });
+                    }
 
                     if (results.length > 0) {
                         enabled = !!results[0].enabled;
@@ -107,7 +110,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var hashTagsSection, hashTag, kpiSection, layout, prefs, i, len;
+            var hashTagsSection, hashTag, kpiSection, layout, i, len, metrics;
             layout = [];
 
             hashTagsSection = {
@@ -132,23 +135,23 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             layout.push(hashTagsSection);
 
-            prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
+            metrics = App.getMetricsByResourceKind(this.resourceKind);
 
             kpiSection = {
                 id: 'kpi',
                 children: []
             };
 
-            if (prefs) {
-                array.forEach(prefs, function(pref, i) {
-                    if (pref.title) {
+            if (metrics.length > 0) {
+                array.forEach(metrics, function(metric, i) {
+                    if (metric.title) {
                         kpiSection.children.push({
                             'name': 'KPI' + i,
                             'action': 'kpiClicked',
-                            'title': pref.title,
+                            'title': metric.title,
                             'dataProps': {
-                                'title': pref.title,
-                                'enabled': !!pref.enabled
+                                'title': metric.title,
+                                'enabled': !!metric.enabled
                             }
                         });
                     }

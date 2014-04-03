@@ -49,11 +49,12 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         },
         createMetricWidgetsLayout: function() {
             var filtered = [],
-                prefs;
-            prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
+                metrics = [];
 
-            if (prefs) {
-                filtered = array.filter(prefs, function(item) {
+            metrics = App.getMetricsByResourceKind(this.resourceKind);
+
+            if (metrics.length > 0) {
+                filtered = array.filter(metrics, function(item) {
                     return item.enabled;
                 });
             }
