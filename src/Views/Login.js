@@ -53,17 +53,22 @@ define('Mobile/SalesLogix/Views/Login', [
             }
         },
         onShow: function() {
+            var credentials;
+            credentials = App.getCredentials();
+
+            if (credentials) {
+                App.authenticateUser(credentials, {
+                    success: function(result) {
+                        App.requestUserDetails();
+                        App.navigateToInitialView();
+                    },
+                    scope: this
+                });
+            }
+
             window.setTimeout(lang.hitch(this, function() {
                 this.fields.username.inputNode.focus();
             }), 100);
-        },
-        // Override the Views registerDefaultRoute to include the entity id in the route
-        registerDefaultRoute: function() {
-            var router = App.router;
-            router.register(['_', this.id].join(''), lang.hitch(this, this.onDefaultRoute));
-        },
-        onDefaultRoute: function(evt) {
-            this.show();
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
@@ -73,6 +78,28 @@ define('Mobile/SalesLogix/Views/Login', [
         },
         getContext: function() {
             return {id: this.id};
+        },
+        onSetupRoutes: function() {
+            App.clearRoutes(this);
+
+            // TODO: Figure out a better way to support more redirect patterns
+            App.registerRoute(this, [this.id].join(''), lang.hitch(this, this.onDefaultRoute));
+            App.registerRoute(this, [this.id, '/redirectTo/:view'].join(''), lang.hitch(this, this.onRedirectRoute));
+            App.registerRoute(this, [this.id, '/redirectTo/:view/:id'].join(''), lang.hitch(this, this.onRedirectRoute));
+        },
+        onDefaultRoute: function() {
+            this.showViaRoute();
+        },
+        onRedirectRoute: function(args) {
+            if (args.params.view) {
+                App.redirectHash = args.params.view;
+            }
+
+            if (args.params.id) {
+                App.redirectHash = App.redirectHash + '/' + args.params.id;
+            }
+
+            this.showViaRoute();
         },
         createLayout: function() {
             return this.layout || (this.layout = [

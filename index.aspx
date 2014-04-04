@@ -88,10 +88,7 @@
             { name: 'dojox', location: 'content/dojo/dojox' },
             { name: 'configuration', location: 'configuration' },
             { name: 'localization', location: 'localization' }
-        ],
-        paths: {
-            'Mobile/SalesLogix/DefaultMetrics.txt': 'content/javascript/DefaultMetrics.txt'
-        }
+        ]
     });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
@@ -107,23 +104,46 @@
     <script type="text/javascript">
     (function() {
         var application = 'Mobile/SalesLogix/Application',
-            configuration = <%= Serialize(
-                Enumerate("configuration", (file) => file.Name == "production.js")
-                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-            ) %>;
+            configuration = [
+                'configuration/production'
+            ];
         require(['moment', application].concat(configuration), function(moment, application, configuration) {
-            var localization = <%= Serialize(
+            var localization, bootstrap, fallBackLocalization, completed = false;
+            bootstrap = function(requires) {
+                require(requires.concat('dojo/domReady!'), function() {
+                    if (completed) {
+                        return;
+                    }
+
+                    moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
+                    var instance = new application(configuration);
+
+                    instance.activate();
+                    instance.init();
+                    instance.run();
+                    completed = true;
+                });
+            };
+
+            localization = <%= Serialize(
                 EnumerateLocalizations("localization")
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
-            require(localization.concat('dojo/domReady!'), function() {
-                moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
-                var instance = new application(configuration);
 
-                instance.activate();
-                instance.init();
-                instance.run();
+            require.on('error', function(error) {
+                console.log('Error loading localization, falling back to "en"');
+                bootstrap(fallBackLocalization);
             });
+
+            if (localization.length === 0) {
+                fallBackLocalization = <%= Serialize(
+                        EnumerateLocalizations(string.Empty, "localization", "en")
+                            .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+                    ) %>;
+                bootstrap(fallBackLocalization);
+            } else {
+                bootstrap(localization);
+            }
         });
     })();
     </script>
@@ -191,10 +211,10 @@
 
     protected IEnumerable<FileItem> EnumerateLocalizations(string path)
     {
-        return EnumerateLocalizations(String.Empty, path);
+        return EnumerateLocalizations(String.Empty, path, null);
     }
 
-    protected IEnumerable<FileItem> EnumerateLocalizations(string root, string path)
+    protected IEnumerable<FileItem> EnumerateLocalizations(string root, string path, string culture)
     {
         var currentCulture = System.Globalization.CultureInfo.CurrentCulture;
         var rootDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(Request.PhysicalPath), root));
@@ -202,9 +222,9 @@
 
         if (includeDirectory.Exists)
         {
-            var parentFileName = String.Format(@"{0}.js", currentCulture.Parent.Name);
+            var parentFileName = String.Format(@"{0}.js", culture ?? currentCulture.Parent.Name);
             var parentFile = new FileInfo(Path.Combine(includeDirectory.FullName, parentFileName));
-            var targetFileName = String.Format(@"{0}.js", currentCulture.Name);
+            var targetFileName = String.Format(@"{0}.js", culture ?? currentCulture.Name);
             var targetFile = new FileInfo(Path.Combine(includeDirectory.FullName, targetFileName));
 
             if (targetFile.Exists)

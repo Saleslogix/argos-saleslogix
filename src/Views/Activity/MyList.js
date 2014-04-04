@@ -57,7 +57,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
 
         //Templates
-        //Card View 
+        //Card View
        itemRowContainerTemplate: new Simplate([
            '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
             '{%! $$.itemRowContentTemplate %}',
@@ -110,7 +110,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         viewContactActionText: 'Contact',
         viewAccountActionText: 'Account',
         viewOpportunityActionText: 'Opportunity',
-        
+
         //View Properties
         id: 'myactivity_list',
 
@@ -132,8 +132,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'Activity/AccountId',
             'Activity/ContactId',
             'Activity/ContactName',
-            'Activity/Leader/$key',
-            'Activity/Leader/$descriptor',
+            'Activity/Leader',
             'Activity/LeadName',
             'Activity/LeadId',
             'Activity/OpportunityId',
@@ -243,7 +242,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     return false;
                 }, 
                 fn: function(action, selection) {
-                    var viewId, options, view;
+                    var viewId, options, view, route;
 
                     viewId = 'account_detail';
                     options = {
@@ -253,7 +252,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
 
                     view = App.getView(viewId);
                     if (view && options) {
-                        view.show(options);
+                        route = options.key ? view.id + '/' + options.key : view.id;
+                        App.goRoute(route, options);
                     }
                 }
             }, {
@@ -271,7 +271,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     return false;
                 }, 
                 fn: function(action, selection) {
-                    var viewId, options, view;
+                    var viewId, options, view, route;
 
                     viewId = 'opportunity_detail';
                     options = {
@@ -280,7 +280,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                     };
                     view = App.getView(viewId);
                     if (view && options) {
-                        view.show(options);
+                        route = options.key ? view.id + '/' + options.key : view.id;
+                        App.goRoute(route, options);
                     }
                 }
             }, {
@@ -579,8 +580,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             return (selection.data['Activity']['ContactId']) || (selection.data['Activity']['LeadId']);
         },
         navigateToContactOrLead: function(action, selection) {
-            var entry = selection.data["Activity"];
-            var entity = this.resolveContactOrLeadEntity(entry),
+            var entry = selection.data["Activity"],
+                entity = this.resolveContactOrLeadEntity(entry),
+                route,
                 viewId,
                 options;
 
@@ -604,7 +606,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             var view = App.getView(viewId);
 
             if (view && options) {
-                view.show(options);
+                route = options.key ? view.id + '/' + options.key : view.id;
+                App.goRoute(route, options);
             }
         },
         resolveContactOrLeadEntity: function(entry) {
@@ -641,7 +644,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             var view = App.getView(this.historyEditView);
             if (view) {
                 environment.refreshActivityLists();
-                view.show({
+                App.goRoute(view.id, {
                     title: this.activityTypeText[type],
                     template: {},
                     entry: entry,

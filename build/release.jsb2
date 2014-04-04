@@ -145,6 +145,10 @@
           "path": "../src"
         },
         {
+          "text": "DefaultMetrics.js",
+          "path": "../src"
+        },
+        {
           "text": "Application.js",
           "path": "../src"
         },

@@ -206,7 +206,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onPutComplete: function(entry) {
             var view = App.getView(this.detailView),
-                originalKey = this.options.entry['$key'];
+                originalKey = this.options.entry['$key'],
+                route;
 
             this.enable();
 
@@ -219,7 +220,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (entry['$key'] != originalKey && view) {
                 // Editing single occurrence results in new $key/record
-                view.show({
+                route = entry.$key ? view.id + '/' + entry.$key : view.id;
+                App.goRoute(route, {
                     key: entry['$key']
                 }, {
                     returnTo: -2
@@ -323,7 +325,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onTimelessChange: function(value, field) {
-            
             this.toggleSelectField(this.fields['Duration'], value);
             var startDate, startDateField;
 
@@ -335,8 +336,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 startDate = this._getNewStartDate(startDateField.getValue(), true);
-                if (startDate) {
 
+                if (startDate) {
                     startDateField.setValue(startDate);
                 }
             } else { // StartDate with out time (Timeless)
@@ -346,8 +347,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
                 startDate = this._getNewStartDate(startDateField.getValue(), false);
-                if (startDate) {
 
+                if (startDate) {
                     startDateField.setValue(startDate);
                 }
             }
@@ -915,10 +916,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 if (timeless) {
                     if (!isTimeLessDate) {
                         wrapped = moment(startDate);
-                        wrapped.subtract({ minutes: wrapped.zone() });
-                        wrapped.hours(0);
-                        wrapped.minutes(0);
-                        wrapped.seconds(5);
+                        wrapped = moment.utc(wrapped.format('YYYY-MM-DD'), 'YYYY-MM-DD');
+                        wrapped.add('seconds', 5);
                         startDate = wrapped.toDate();
                     }
                 } else {

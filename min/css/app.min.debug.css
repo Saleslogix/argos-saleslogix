@@ -18,7 +18,7 @@
 .row > div > a,
 .row > span,
 .row > a {
-  display: inline-block;
+  /*display: inline-block;*/
 }
 .list-item-selected {
   background-color: #D5EFFA;
@@ -59,7 +59,7 @@
 .note-text {
   height: 4.5em;
   overflow: hidden;
-  padding-left: 110px;
+  padding-left: 0px;
   padding-right: 34px;
 }
 .note-text-row > label,
@@ -342,7 +342,7 @@ li[data-ticket-status] .list-item-selector,
   right: 4px;
 }
 .row-edit[data-field-type="recurrences"] > div > input {
-  padding: 8px 34px 8px 110px !important;
+  padding: 8px 34px 8px 0px !important;
 }
 #activity_edit div.row-edit[data-field="Reminder"],
 #recurrence_edit div.row-edit[data-field="Scale"] {
@@ -1301,7 +1301,7 @@ td.entry-table-description {
 .row > div > .toggle {
   width: 100px;
   height: 28px;
-  margin: 3px 0px 3px 110px;
+  margin: 3px 0px 3px 0px;
   position: relative;
   right: auto;
 }

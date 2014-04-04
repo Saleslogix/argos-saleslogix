@@ -34,12 +34,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
 
-        onBeforeTransitionTo: function() {
-            var drawer = App.getView('right_drawer');
-            if (drawer) {
-                domConstruct.place(this.searchWidget.domNode, drawer.domNode, 'first');
-            }
-        },
         setupRightDrawer: function() {
             var drawer = App.getView('right_drawer'), handle;
             if (drawer) {
@@ -65,14 +59,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             if (drawer) {
                 drawer.setLayout([]);
                 drawer.getGroupForEntry = function(entry) {};
-                domConstruct.place(this.searchWidget.domNode, this.domNode, 'first');
                 App.snapper.off('close');
             }
-        },
-        _onSearchExpression: function() {
-            // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
-            this.inherited(arguments);
-            this.toggleRightDrawer();
         },
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
@@ -81,15 +69,19 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     if (params.hashtag) {
                         this.setSearchTerm('#' + params.hashtag);
                         this.search();
+                        this.toggleRightDrawer();
                     }
                 }),
                 kpiClicked: lang.hitch(this, function(params) {
-                    var prefs, results, enabled;
-                    prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
+                    var results, enabled, metrics;
 
-                    results = array.filter(prefs, function(pref) {
-                        return pref.title === params.title;
-                    });
+                    metrics = App.getMetricsByResourceKind(this.resourceKind);
+
+                    if (metrics.length > 0) {
+                        results = array.filter(metrics, function(metric) {
+                            return metric.title === params.title;
+                        });
+                    }
 
                     if (results.length > 0) {
                         enabled = !!results[0].enabled;
@@ -98,15 +90,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         this._hasChangedKPIPrefs = true;
 
                         domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
-                    }
-                }),
-                navigateToConfigurationView: lang.hitch(this, function() {
-                    var view = App.getView(this.configurationView);
-                    if (view) {
-                        view.resourceKind = this.resourceKind;
-                        view.entityName = this.entityName;
-                        view.show({ returnTo: -1 });
-                        this.toggleRightDrawer();
                     }
                 })
             };
@@ -127,7 +110,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var hashTagsSection, hashTag, kpiSection, layout, prefs, i, len;
+            var hashTagsSection, hashTag, kpiSection, layout, i, len, metrics;
             layout = [];
 
             hashTagsSection = {
@@ -141,34 +124,34 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     hashTag = this.searchWidget.hashTagQueries[i];
                     hashTagsSection.children.push({
                         'name': hashTag.key,
-                        'action': 'hashTagClicked', 
+                        'action': 'hashTagClicked',
                         'title': hashTag.tag,
                         'dataProps': {
-                            'hashtag': hashTag.tag 
+                            'hashtag': hashTag.tag
                         }
                     });
                 }
             }
 
             layout.push(hashTagsSection);
- 
-            prefs = App.preferences && App.preferences.metrics && App.preferences.metrics[this.resourceKind];
+
+            metrics = App.getMetricsByResourceKind(this.resourceKind);
 
             kpiSection = {
                 id: 'kpi',
                 children: []
             };
 
-            if (prefs) {
-                array.forEach(prefs, function(pref, i) {
-                    if (pref.title) {
+            if (metrics.length > 0) {
+                array.forEach(metrics, function(metric, i) {
+                    if (metric.title) {
                         kpiSection.children.push({
                             'name': 'KPI' + i,
                             'action': 'kpiClicked',
-                            'title': pref.title,
+                            'title': metric.title,
                             'dataProps': {
-                                'title': pref.title,
-                                'enabled': !!pref.enabled
+                                'title': metric.title,
+                                'enabled': !!metric.enabled
                             }
                         });
                     }
