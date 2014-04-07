@@ -61,7 +61,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
             '<h4>{%: $.WebAddress %}</h4>',
             '{% if ($.MainPhone) { %}',
                 '<h4>',
-                    '{%: $$.phoneAbbreviationText + Sage.Platform.Mobile.Format.phone($.MainPhone) %}',
+                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callMain" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.MainPhone) %}</span>',
                 '</h4>',
             '{% } %}',
             '{% if ($.Fax) { %}',
@@ -89,7 +89,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
         phoneAbbreviationText: 'Phone: ',
         faxAbbreviationText: 'Fax: ',
 
-        //View Properties        
+        //View Properties
         detailView: 'account_detail',
         icon: 'content/images/icons/Company_24.png',
         id: 'account_list',
@@ -146,6 +146,11 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'vendor': 'vendor',
             'influencer': 'influencer',
             'competitor': 'competitor'
+        },
+        callMain: function(params) {
+            this.invokeActionItemBy(function(action) {
+                return action.id === 'callMain';
+            }, params.key);
         },
         defaultSearchTerm: function() {
             return '#' + this.hashTagQueriesText['my-accounts'];
