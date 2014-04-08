@@ -61,6 +61,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Activity/Complete',
     'Mobile/SalesLogix/Views/Activity/TypesList',
     'Mobile/SalesLogix/Views/Activity/Recurring',
+    'Mobile/SalesLogix/Views/ActivityAttendee/List',
+    'Mobile/SalesLogix/Views/ActivityAttendee/Edit',
     'Mobile/SalesLogix/Views/Calendar/DayView',
     'Mobile/SalesLogix/Views/Calendar/WeekView',
     'Mobile/SalesLogix/Views/Calendar/MonthView',
@@ -170,6 +172,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     ActivityComplete,
     ActivityTypesList,
     ActivityRecurring,
+    ActivityAttendeeList,
+    ActivityAttendeeEdit,
     CalendarDayView,
     CalendarWeekView,
     CalendarMonthView,
@@ -421,6 +425,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerView(new MyActivityList());
             this.registerView(new ActivityRecurring());
+            this.registerView(new ActivityAttendeeList());
+            this.registerView(new ActivityAttendeeEdit());
 
             this.registerView(new HistoryDetail());
             this.registerView(new HistoryList());

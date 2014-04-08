@@ -12,7 +12,7 @@
  * @requires Mobile.SalesLogix.Format
  *
  */
-define('Mobile/SalesLogix/Views/Address/List', [
+define('Mobile/SalesLogix/Views/ActivityAttendee/List', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/dom-attr',
@@ -30,29 +30,38 @@ define('Mobile/SalesLogix/Views/Address/List', [
     NodeListTraverse
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Address.List', [List], {
+    return declare('Mobile.SalesLogix.Views.ActivityAttendee.List', [List], {
         //Templates
         itemTemplate: new Simplate([
-            '<h3>{%: $.$descriptor %}</h3>',
-            '<h4>{%= Mobile.SalesLogix.Format.address($, true) %}</h4>'
+           '<h3 ><strong>{%: $.Name %} </strong></h4>',
+            '{% if ($.IsPrimary) { %}',
+                 '<span class="" style="float:left;padding:2px">',
+                    '<img src="content/images/icons/IsPrimary_24x24.png" alt="{%= $$.IsPrimaryText %}" />',
+                '</span>',
+             '{% } %}',
+              '<h3>{%: $.PhoneNumber %}</h4>',
+              '<h3>{%: $.Email %}</h4>',
         ]),
 
         //Localization
-        titleText: 'Addresses',
+        titleText: 'Attendees',
 
         //View Properties
         detailView: null,
-        icon: 'content/images/icons/Map_24.png',
-        id: 'address_list',
-        security: null, //'Entities/Address/View',
-        insertSecurity: 'Entities/Address/Add',
-        insertView: 'address_edit',
-        resourceKind: 'addresses',
+        icon: 'content/images/icons/Attendee_24.png',
+        id: 'activity_attendee_list',
+        security: null, //'Entities/Attendee/View',
+        insertSecurity: null,//'Entities/Attendee/Add',
+        insertView: 'activity_attendee_edit',
+        resourceKind: 'activityAttendees',
+        contractName: 'dynamic',
+        querySelect: ['EntityType', 'ModifyDate', 'EntityId', 'IsPrimary', 'IsAttendee', 'RoleName', 'Name', 'AccountName', 'PhoneNumber', 'Email', 'TimeZone'],
+        queryOrderBy: 'IsPrimary desc, Name asc',
         allowSelection: true,
-        enableActions: true,
+        enableActions: false,
 
         formatSearchQuery: function(searchQuery) {
-            return string.substitute('(Description like "${0}%" or City like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+            return string.substitute('(Name like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
         // Disable Add/Insert on toolbar
         createToolLayout: function() {
@@ -60,14 +69,7 @@ define('Mobile/SalesLogix/Views/Address/List', [
                 tbar: []
             });
         },
-        selectEntry: function(params) {
-            var row = query(params.$source).closest('[data-key]')[0],
-                key = row ? domAttr.get(row, 'data-key') : false;
-
-            if (this._selectionModel && key) {
-                App.showMapForAddress(format.address(this.entries[key], true, ' '));
-            }
-        }
+        
     });
 });
 

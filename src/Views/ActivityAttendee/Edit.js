@@ -28,33 +28,68 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/Edit', [
 ) {
     return declare('Mobile.SalesLogix.Views.ActivityAttendee.Edit', [Edit], {
         //Localization
-        isPrimaryText: 'isPrimnay',
-        rolewText: 'role',
+        titleText: 'Edit Attendee',
+        isPrimaryText: 'is primnay',
+        isAttendeeText: 'is attendee',
+        roleNameText: 'role',
         typeText: 'type',
-       
+        nameText: 'name',
+        accountNameText: 'account name',
+        companyText: 'company',
+        phoneNumberText: 'phone',
+        emailText: 'email',
+        timeZoneText: 'time zone',
         //View Properties
-        id: 'activity-attendee_edit',
-
+        id: 'activity_attendee_edit',
+        detailView: 'activity_detail',
+        entityName: 'ActivityAttendee',
+        contractName: 'dynamic',
+        resourceKind: 'activityAttendees',
+        querySelect: ['EntityType',
+                       'Description',
+                       'ModifyDate',
+                       'EntityId',
+                       'IsPrimary',
+                       'IsAttendee',
+                       'RoleName',
+                       'Name',
+                       'AccountId',
+                       'AccountName',
+                       'Comppany',
+                       'PhoneNumber',
+                       'Email',
+                       'TimeZone'
+        ],
         init: function() {
             this.inherited(arguments);
             //this.connect(this.fields['Country'], 'onChange', this.onCountryChange);
+        },
+        setValues: function(values) {
+            this.inherited(arguments);
+            if (values['EntityType'] === 'Contact') {
+                this.fields['AccountName'].show();
+                this.fields['Company'].hide();
+            } else {
+                this.fields['AccountName'].hide();
+                this.fields['Company'].show();
+            }
+            this.fields['AccountName'].disable();
+            this.fields['IsPrimary'].disable();
+            this.fields['EntityType'].disable();
+            this.fields['Name'].disable();
+            this.fields['TimeZone'].disable();
+            this.fields['PhonNumber'].disable();
+            this.fields['Email'].disable();
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
                     name: 'EntityId',
                     property: 'EntityId',
                     type: 'hidden'
-                }, {
-                    label: this.descriptionText,
-                    name: 'Description',
-                    property: 'Description',
-                    requireSelection: false,
-                    type: 'text',
-                    maxTextLength: 64,
-                    validator: [
-                        validator.exists,
-                        validator.exceedsMaxTextLength
-                    ]
+                },{
+                    name: 'AccountId',
+                    property: 'AccountId',
+                    type: 'hidden'
                 }, {
                     name: 'IsPrimary',
                     property: 'IsPrimary',
@@ -65,9 +100,18 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/Edit', [
                     property: 'IsAttendee',
                     label: this.isAttendeeText,
                     type: 'boolean'
+                },{
+                    label: this.roleNameText,
+                    name: 'RoleName',
+                    property: 'RoleName',
+                    picklist: 'Attendee Role',
+                    title: this.roleNameTitleText,
+                    type: 'picklist',
+                    maxTextLength: 64,
+                    validator: validator.exceedsMaxTextLength
                 }, {
-                    name: 'Type',
-                    property: 'Type',
+                    name: 'EntityType',
+                    property: 'EntityType',
                     label: this.typeText,
                     type: 'text',
                     maxTextLength: 64,
@@ -82,7 +126,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/Edit', [
                 }, {
                     name: 'AccountName',
                     property: 'AccountName',
-                    label: this.accountName,
+                    label: this.accountNameText,
                     type: 'text',
                     maxTextLength: 64,
                     validator: validator.exceedsMaxTextLength
@@ -99,6 +143,20 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/Edit', [
                     label: this.phoneNumberText,
                     type: 'text',
                     maxTextLength: 24,
+                    validator: validator.exceedsMaxTextLength
+                },{
+                   name: 'Email',
+                   property: 'Eamil',
+                   label: this.emailText,
+                   type: 'text',
+                   maxTextLength: 128,
+                   validator: validator.exceedsMaxTextLength
+                }, {
+                    name: 'TimeZone',
+                    property: 'TimeZone',
+                    label: this.timeZoneText,
+                    type: 'text',
+                    maxTextLength: 64,
                     validator: validator.exceedsMaxTextLength
                 }]);
         }

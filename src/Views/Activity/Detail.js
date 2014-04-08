@@ -520,7 +520,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     relatedView: {
                         widgetType: AttendeeRelatedView,
                         id: 'activity_related_attendees',
-                        autoLoad: true,
+                        autoLoad: false,
                         enabled: true,
                         relatedProperty: 'ActivityId',
                         where: function(entry) { return "ActivityId eq '" + entry.$key + "'"; }

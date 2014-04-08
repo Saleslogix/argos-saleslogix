@@ -40,6 +40,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         addLeadText: 'Add lead',
         isAttendeeText: 'Is Attendee',
         isPrimaryText: 'Is Primary',
+        roleText: 'role',
 
         luContact: null,
         luLead: null,
@@ -48,9 +49,10 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         id: 'relatedView_activity_attendee',
         icon: 'content/images/icons/journal_24.png',
         itemIcon: 'content/images/icons/journal_24.png',
-        title: "Attendee's",
+        title: "Attendees",
         detailViewId: 'activity_attendee_detail',
-        listViewId: 'activity_attendee_related',
+        editViewId: 'activity_attendee_edit',
+        listViewId: 'activity_attendee_list',
         listViewWhere: null,
         enabled: true,
         showTab: true,
@@ -61,16 +63,18 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         showTotalInTab: true,
         hideWhenNoData: false,
         showSelectMore: true,
+        autoLoad: false,
+        pageSize: 20,
         resourceKind: 'activityAttendees',
-        select: ['EntityType', 'ModifyDate', 'EntityId', 'IsPrimary', 'Attendee', 'RoleName', 'Name', 'AccountName', 'PhoneNumber', 'Email','TimeZone'],
+        select: ['EntityType', 'ModifyDate', 'EntityId', 'IsPrimary', 'IsAttendee', 'RoleName', 'Name', 'AccountName', 'PhoneNumber', 'Email','TimeZone'],
         where:null ,
-        sort: 'IsPrimary desc, Name asc',
-        pageSize: 3,
+        sort: 'Name asc',
+        osort: 'IsPrimary desc, Name asc',
         relatedItemIconTemplate: new Simplate([
-            '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.EntityType) %}</div>'
+            '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.Name) %}</div>'
         ]),
         relatedItemHeaderTemplate: new Simplate([
-            '<h3 ><strong>{%: $$.getDescription($) %} </strong></h4>',
+            '<h3><strong>{%: $$.getItemDescriptor($) %} </h3>',
             '{% if ($.IsPrimary) { %}',
                  '<span class="" style="float:left;padding:2px">',
                     '<img src="content/images/icons/IsPrimary_24x24.png" alt="{%= $$.IsPrimaryText %}" />',
@@ -80,15 +84,20 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         ]),
         relatedItemDetailTemplate: new Simplate([
                '<div>',
-                '<h3>{%: $.PhoneNumber %}</h4>',
-                '<h3>{%: $.Email %}</h4>',
+                '<h3>{%: $.RoleName %} </h3>',
+                '<h3>{%: $.PhoneNumber %}</h3>',
+                '<h3>{%: $.Email %}</h3>',
               '</div>'
         ]),
         relatedItemFooterTemplate: new Simplate([
            '<br>'
         ]),
-        getDescription: function(entry) {
-            return (entry.Name)? entry.Name : entry.$descriptor;
+        getItemDescriptor: function(entry) {
+            if (entry) {
+                entry['$descriptor'] =  (entry.Name) ? entry.Name : entry.$descriptor;
+                return  entry.$descriptor;
+            }
+            return '';
         },
         createActionLayout: function() {
 
@@ -123,28 +132,52 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
                 icon: 'content/images/icons/IsPrimary_24x24.png',
                 label: this.isPrimaryText,
                 action: 'onIsPrimary',
-                selected: function(itemEntry) {
+                options: function(itemEntry) {
+                    var options = {};
+                   // options.label = '';
                     if (itemEntry.IsPrimary) {
-                        return true;
+                        options.cls = 'selected';
+                        options.icon = 'content/images/icons/Checked_24.png';
+                    } else {
+                        options.cls = 'un-selected';
+                        options.icon = 'content/images/icons/UnChecked_24.png';
                     }
-                    return false;
+                    options.cls = 'clear';
+                    return  options;
                 },
-                isEnabled: true
+                isEnabled: true,
             });
             this.itemActions.push({
                 id: 'isAttendee',
                 icon: 'content/images/icons/IsAttendee_24.png',
                 label: this.isAttendeeText,
                 action: 'onIsAttendee',
-                selected: function(itemEntry) {
-                    if (itemEntry.Attendee) {
-                        return true;
+                options: function(itemEntry) {
+                    var options = {};
+                    //options.label = '';
+                    if (itemEntry.IsAttendee) {
+                        options.cls = 'selected';
+                        options.icon = 'content/images/icons/Checked_24.png';
+                    } else {
+                        options.cls = 'un-selected';
+                        options.icon = 'content/images/icons/UnChecked_24.png';
                     }
-                    return false;
+                    options.cls = 'clear';
+                    return options;
                 },
                 isEnabled: true,
                 fn: this.onIsAttendee.bindDelegate(this)
             });
+            this.itemActions.push({
+                id: 'role',
+                icon: 'content/images/icons/Role_24.png',
+                label: this.roleText,
+                action: 'onAssignRole',
+                cls: 'clear',
+                isEnabled: true,
+                fn: this.onAssignRole.bindDelegate(this)
+            });
+
             return this.itemActions;
         },
         onAddContact: function(evt) {
@@ -189,6 +222,16 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
             this.luLead.buttonClick();
 
         },
+        onItemEdit: function(action, entryKey, entry) {
+            var view = App.getView(this.editViewId);
+
+            if (view) {
+                view.show({title:this.getItemDescriptor(entry), key: entryKey });
+                //view.show({ title: this.getItemDescriptor(entry), descriptor: this.getItemDescriptor(entry), entry: entry });
+                // view.show({ entry: entry });
+                //view.show({ key: entryKey });
+            }
+        },
         _processContactLookupResults: function(values, field) {
 
             var contactAttendees = [];
@@ -202,7 +245,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
             }
             if (contactAttendees.length > 0) {
 
-                this._addLContactAttendees(contactAttendees);
+                this._addContactAttendees(contactAttendees);
             }
         },
         _processLeadLookupResults: function(values, field) {
@@ -294,7 +337,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
        _attendeesAddFailed: function(result) {
 
        },
-       _addLContactAttendees: function(contactIds) {
+       _addContactAttendees: function(contactIds) {
            var entry;
            var service = this.store.service;
            var request = new Sage.SData.Client.SDataServiceOperationRequest(service)
@@ -339,9 +382,9 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
            var service = this.store.service;
            var request = new Sage.SData.Client.SDataServiceOperationRequest(service)
                .setResourceKind('activities')
-               .setOperationName('UpdatePrimaryActivityAttendee');
+               .setOperationName('updatePrimaryActivityAttendee');
            var entry = {
-               "$name": "UpdatePrimaryActivityAttendee",
+               "$name": "updatePrimaryActivityAttendee",
                "request": {
                    "ActivityId": activityId,
                    "entityId": attendee.EntityId,
@@ -351,7 +394,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
            };
            request.execute(entry, {
                success: function(result) {
-                   this.onRefreshView();
+                   this._onRefreshView();
                },
                failure: function(ex) {
                    console.log("failed to Update Attendee");
@@ -360,23 +403,53 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
            });
        },
        onIsPrimary: function(action, entryKey, entry) {
-           //alert('onIsPrimary ' + entryKey);
-           var attendee = {
-               EntityId: entry.EntityId,
-               IsAttendee: entry.IsAttendee,
-               RoleName: entry.RoleName
-           };
-           this._updatePrimaryAttendee(attendee, this._getActivityId());
-
+           
+           var updateEntry = {
+               $key: entry.$key,
+               IsPrimary: !entry.IsPrimary
+           }
+           this.UpdateItem(updateEntry, { onSuccess: this.onSetPrimaryComplete, onFailed: this.onSetPrimaryFailed });
+       },
+       onSetPrimaryComplete: function(result, entry) {
+           this._onRefreshView();
+       },
+       onSetPrimaryFailed: function(result, entry) {
+           console.log("failed setting attendee as primary");
        },
        onIsAttendee: function(action, entryKey, entry) {
-           alert('onIsAttendee ' + entryKey);
+           var updateEntry = {
+               $key: entry.$key,
+               IsAttendee: !entry.IsAttendee
+           }
+           this.UpdateItem(updateEntry, { onSuccess: this.onSetAttendeeComplete, onFailed: this.onSetAttendeeFailed });
        },
-       onItemEdit: function(action, entryKey, entry) {
-           alert('Edit ' + entryKey);
+       onSetAttendeeComplete: function(result, entry) {
+           this._onRefreshView();
        },
-       onItemDelete: function(action, entryKey, entry) {
-           alert('Delete ' + entryKey);
+       onSetAttendeeFailed: function(result, entry) {
+           console.log("failed setting attendee as an attendee");
        },
+       onAssignRole: function(action, entryKey, entry) {
+           var ctor;
+
+           if (!this.rolePicklist) {
+               ctor = FieldManager.get('lookup'),
+                this.luLead = new ctor(lang.mixin({
+                    owner: this
+                }, {
+                    name: 'Lead',
+                    property: 'Lead',
+                    textProperty: 'Lead',
+                    singleSelect: false,
+                    view: 'lead_related'
+
+                }));
+               this.connect(this.rolePicklist, 'onChange', this._processRoleResults);
+           }
+
+           this.rolePicklist.buttonClick();
+
+       },
+       
     });
 });
