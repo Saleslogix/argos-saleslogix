@@ -1334,3 +1334,8 @@ td.entry-table-description {
   margin-top: 0;
   white-space: normal;
 }
+.attendee-indicator > span {
+  font-size: 0.85em;
+  font-weight: bolder;
+  font-style: normal;
+}
