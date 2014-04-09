@@ -40,6 +40,8 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         addLeadText: 'Add lead',
         isAttendeeText: 'Is Attendee',
         isPrimaryText: 'Is Primary',
+        primaryIndText: 'P',
+        attendeeIndText:'A',
         roleText: 'role',
 
         luContact: null,
@@ -47,8 +49,8 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
 
 
         id: 'relatedView_activity_attendee',
-        icon: 'content/images/icons/journal_24.png',
-        itemIcon: 'content/images/icons/journal_24.png',
+        icon: 'content/images/icons/Attendees_24.png',
+        itemIcon: 'content/images/icons/ContactProfile_48x48.png',
         title: "Attendees",
         detailViewId: 'activity_attendee_detail',
         editViewId: 'activity_attendee_edit',
@@ -71,21 +73,33 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         sort: 'Name asc',
         osort: 'IsPrimary desc, Name asc',
         relatedItemIconTemplate: new Simplate([
-            '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.Name) %}</div>'
+           // '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.Name) %}</div>'
+              '<div class="',
+              '{% if (($.IsPrimary)||($.IsAttendee)) { %}',
+                'attendee-indicator',
+              '{% } %}',
+              '" >',
+             '{% if ($.EntityType === "Contact") { %}',
+                    '<img src="content/images/icons/Contacts_24x24.png" alt="{%= $$.contactText %}" />',
+             '{% } else { %}',
+                    '<img src="content/images/icons/Leads_24x24.png" alt="{%= $$.leadText %}" />',
+             '{% } %}',
+             '{% if ($.IsPrimary) { %}',
+                '<span>{%= $$.primaryIndText %}</span>',
+              '{% } %}',
+              '{% if ($.IsAttendee) { %}',
+                '<span>{%= $$.attendeeIndText %}</span>',
+              '{% } %}',
+              '</div>'
         ]),
         relatedItemHeaderTemplate: new Simplate([
             '<h3><strong>{%: $$.getItemDescriptor($) %} </h3>',
-            '{% if ($.IsPrimary) { %}',
-                 '<span class="" style="float:left;padding:2px">',
-                    '<img src="content/images/icons/IsPrimary_24x24.png" alt="{%= $$.IsPrimaryText %}" />',
-                '</span>',
-             '{% } %}',
-           //'<h3>{%: $.EntityType %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</h4>'
+            //'<h3>{%: $.EntityType %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</h4>'
         ]),
         relatedItemDetailTemplate: new Simplate([
                '<div>',
                 '<h3>{%: $.RoleName %} </h3>',
-                '<h3>{%: $.PhoneNumber %}</h3>',
+                '<h3>{%: Sage.Platform.Mobile.Format.phone($.PhoneNumber) %}</h3>',
                 '<h3>{%: $.Email %}</h3>',
               '</div>'
         ]),
@@ -106,7 +120,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
             }
            this.actions.push({
                 id: 'add_contact',
-                icon: 'content/images/icons/Contacts_24x24.png',
+                icon: 'content/images/icons/Add_Contact_Attendee_24.png',
                 label: this.addContactText,
                 action: 'onAddContact',
                 isEnabled: true,
@@ -114,7 +128,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
             });
             this.actions.push({
                 id: 'add_lead',
-                icon: 'content/images/icons/Leads_24x24.png',
+                icon: 'content/images/icons/Add_Lead_Attendee_24.png',
                 label: this.addLeadText,
                 action: 'onAddLead',
                 isEnabled: true,
@@ -181,20 +195,20 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
             return this.itemActions;
         },
         onAddContact: function(evt) {
-            var ctor;
+            var ctor, options;
 
             if (!this.luContact) {
                 ctor = FieldManager.get('lookup'),
-                 this.luContact = new ctor(lang.mixin({
-                     owner: this
-                 }, {
-                     name: 'Contact',
-                     property: 'Contact',
-                     textProperty: 'Contct',
-                     singleSelect:false,
-                     view: 'contact_related'
-
-                 }));
+                options = lang.mixin({
+                    owner: this
+                }, {
+                    name: 'Contact',
+                    property: 'Contact',
+                    textProperty: 'Contct',
+                    singleSelect: false,
+                    view: 'contact_related'
+                });
+                this.luContact = new ctor(options);
                 this.connect(this.luContact, 'onChange', this._processContactLookupResults);
             }
 
@@ -202,20 +216,21 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
 
         },
         onAddLead: function(evt) {
-            var ctor;
+            var ctor, options;
 
             if (!this.luLead) {
                 ctor = FieldManager.get('lookup'),
-                 this.luLead = new ctor(lang.mixin({
-                     owner: this
-                 }, {
-                     name: 'Lead',
-                     property: 'Lead',
-                     textProperty: 'Lead',
-                     singleSelect: false,
-                     view: 'lead_related'
+                options = lang.mixin({
+                    owner: this
+                }, {
+                    name: 'Lead',
+                    property: 'Lead',
+                    textProperty: 'Lead',
+                    singleSelect: false,
+                    view: 'lead_related'
 
-                 }));
+                });
+                 this.luLead = new ctor(options);
                 this.connect(this.luLead, 'onChange', this._processLeadLookupResults);
             }
 
@@ -407,7 +422,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
            var updateEntry = {
                $key: entry.$key,
                IsPrimary: !entry.IsPrimary
-           }
+           };
            this.UpdateItem(updateEntry, { onSuccess: this.onSetPrimaryComplete, onFailed: this.onSetPrimaryFailed });
        },
        onSetPrimaryComplete: function(result, entry) {
@@ -420,7 +435,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
            var updateEntry = {
                $key: entry.$key,
                IsAttendee: !entry.IsAttendee
-           }
+           };
            this.UpdateItem(updateEntry, { onSuccess: this.onSetAttendeeComplete, onFailed: this.onSetAttendeeFailed });
        },
        onSetAttendeeComplete: function(result, entry) {
@@ -433,23 +448,37 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
            var ctor;
 
            if (!this.rolePicklist) {
-               ctor = FieldManager.get('lookup'),
-                this.luLead = new ctor(lang.mixin({
+               ctor = FieldManager.get('picklist'),
+                this.rolePicklist = new ctor(lang.mixin({
                     owner: this
                 }, {
-                    name: 'Lead',
-                    property: 'Lead',
-                    textProperty: 'Lead',
-                    singleSelect: false,
-                    view: 'lead_related'
-
+                    name: 'role',
+                    property: 'roleName',
+                    picklist: 'Attendee Role',
+                    requireSelection: false,
+                    title: 'Attendee Role'
                 }));
                this.connect(this.rolePicklist, 'onChange', this._processRoleResults);
            }
-
+           this.rolePicklist.currentEntryKey = entryKey;
            this.rolePicklist.buttonClick();
 
        },
-       
+       _processRoleResults: function(values, field) {
+           var updateEntry;
+           
+           updateEntry = {
+               $key: this.rolePicklist.currentEntryKey,
+               RoleName: values.text
+           }
+           this.UpdateItem(updateEntry, { onSuccess: this.onUpdateRoleComplete, onFailed: this.onUpdateRoleFailed });
+
+       },
+       onUpdateRoleComplete: function(result, entry) {
+           this._onRefreshView();
+       },
+       onUpdateRoleFailed: function(result, entry) {
+           console.log("failed updating role");
+       },
     });
 });
