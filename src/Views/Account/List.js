@@ -103,7 +103,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'AccountManager/UserInfo/LastName',
             'AccountManager/UserInfo/FirstName',
             'Owner/OwnerDescription',
-            'MainPhone',
             'WebAddress',
             'Industry',
             'LeadSource/Description',
