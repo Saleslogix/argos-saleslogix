@@ -94,7 +94,6 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         ]),
         relatedItemHeaderTemplate: new Simplate([
             '<h3><strong>{%: $$.getItemDescriptor($) %} </h3>',
-            //'<h3>{%: $.EntityType %}  {%: Mobile.SalesLogix.Format.relativeDate($.ModifyDate, false) %}</h4>'
         ]),
         relatedItemDetailTemplate: new Simplate([
                '<div>',
@@ -154,7 +153,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
                         options.icon = 'content/images/icons/Checked_24.png';
                     } else {
                         options.cls = 'un-selected';
-                        options.icon = 'content/images/icons/UnChecked_24.png';
+                        options.icon = 'content/images/icons/Checkbox_Off_16.png';
                     }
                     options.cls = 'clear';
                     return  options;
@@ -174,7 +173,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
                         options.icon = 'content/images/icons/Checked_24.png';
                     } else {
                         options.cls = 'un-selected';
-                        options.icon = 'content/images/icons/UnChecked_24.png';
+                        options.icon = 'content/images/icons/Checkbox_Off_16.png';
                     }
                     options.cls = 'clear';
                     return options;
