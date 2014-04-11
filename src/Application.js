@@ -757,17 +757,22 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToLoginView: function() {
-            var route = this.loginViewId, view;
+            var viewId = this.loginViewId, view, split;
             if (this._hasValidRedirect(this.redirectHash)) {
-                route = this.redirectHash;
+                // Split by "/redirectTo/"
+                split = this.redirectHash.split(/\/redirectTo\//);
+                if (split.length === 2) {
+                    this.redirectHash = split[1];
+                }
             } else {
                 this.redirectHash = '';
             }
 
-            view = this.getView(route);
+            view = this.getView(viewId);
             if (view) {
                 view.show();
             }
+
         },
         _hasValidRedirect: function(redirect) {
             return this.redirectHash !== '' && this.redirectHash.indexOf('/redirectTo/') > 0;
@@ -788,10 +793,7 @@ define('Mobile/SalesLogix/Application', [
             var visible, view;
             this.loadSnapper();
             if (this.redirectHash) {
-                view = this.getView(this.redirectHash);
-                if (view){
-                    view.show();
-                }
+                hash(this.redirectHash);
             } else {
                 visible = this.preferences && this.preferences.home && this.preferences.home.visible;
                 if (visible && visible.length > 0) {
