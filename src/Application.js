@@ -94,8 +94,8 @@ define('Mobile/SalesLogix/Application', [
             'revision': 0
         },
         versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
-        homeViewRoute: 'myactivity_list',
-        loginViewRoute: 'login',
+        homeViewId: 'myactivity_list',
+        loginViewId: 'login',
         init: function() {
             if (has('ie') && has('ie') < 9) {
                 window.location.href = 'unsupported.html';
@@ -747,7 +747,7 @@ define('Mobile/SalesLogix/Application', [
                         view = App.getView(last.page),
                         options = last.data && last.data.options;
 
-                    this.goRoute(view.id, options);
+                    view.show(options);
                 } else {
                     this.navigateToHomeView();
                 }
@@ -757,14 +757,17 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToLoginView: function() {
-            var route = this.loginViewRoute;
+            var route = this.loginViewId, view;
             if (this._hasValidRedirect(this.redirectHash)) {
                 route = this.redirectHash;
             } else {
                 this.redirectHash = '';
             }
 
-            this.goRoute(route);
+            view = this.getView(route);
+            if (view) {
+                view.show();
+            }
         },
         _hasValidRedirect: function(redirect) {
             return this.redirectHash !== '' && this.redirectHash.indexOf('/redirectTo/') > 0;
@@ -782,21 +785,31 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToHomeView: function() {
-            var visible;
+            var visible, view;
             this.loadSnapper();
             if (this.redirectHash) {
-                this.goRoute(this.redirectHash);
+                view = this.getView(this.redirectHash);
+                if (view){
+                    view.show();
+                }
             } else {
                 visible = this.preferences && this.preferences.home && this.preferences.home.visible;
                 if (visible && visible.length > 0) {
-                    this.homeViewRoute = visible[0];
+                    this.homeViewId = visible[0];
                 }
 
-                this.goRoute(this.homeViewRoute);
+                view = this.getView(this.homeViewId);
+                if (view) {
+                    // TODO: Handle if the default view doesn't load
+                    view.show();
+                }
             }
         },
         navigateToActivityInsertView: function() {
-            this.goRoute('activity_types_list');
+            var view = this.getView('activity_types_list');
+            if (view) {
+                view.show();
+            }
         },
         initiateCall: function() {
             // shortcut for environment call

@@ -158,7 +158,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                 view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
 
             if (view && options) {
-                App.goRoute(view.id, options);
+                view.show(options);
             }
         }
     });

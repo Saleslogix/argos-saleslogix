@@ -80,12 +80,15 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         navigateToView: function(view) {
             App.snapper.close();
             if (view) {
-                App.goRoute(view.id);
+                view.show();
             }
         },
         addAccountContact: function(params) {
             App.snapper.close();
-            App.goRoute('add_account_contact', {insert: true});
+            var view = App.getView('add_account_contact');
+            if (view) {
+                view.show({insert: true});
+            }
         },
         navigateToConfigurationView: function() {
             var view = App.getView(this.configurationView);
@@ -252,18 +255,12 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             this.clear();
             this.requestData();
         },
-        showViaRoute: function() {
+        show: function() {
             if (this.onShow(this) === false){
                 return;
             }
 
             this.refresh();
-        },
-        /**
-         * Override the List show to not use RUI (this view will always be on the screen, just hidden behind the main content)
-         */
-        show: function() {
-            this.showViaRoute();
         },
         refreshRequiredFor: function(options) {
             var visible = lang.getObject('preferences.home.visible', false, App) || [],
@@ -292,7 +289,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             if (view) {
                 // If the speedsearch list is not our current view, show it first
                 if (view.id !== current.id) {
-                    App.goRoute(view.id, {
+                    view.show({
                         query: expression
                     });
                 }
