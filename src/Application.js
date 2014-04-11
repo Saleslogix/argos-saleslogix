@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Application', [
     'dojo/_base/lang',
     'dojo/has',
     'dojo/string',
-    'dojo/text!Mobile/SalesLogix/DefaultMetrics.txt',
+    'Mobile/SalesLogix/DefaultMetrics',
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
@@ -90,12 +90,12 @@ define('Mobile/SalesLogix/Application', [
         },
         mobileVersion: {
             'major': 3,
-            'minor': 0,
-            'revision': 3
+            'minor': 1,
+            'revision': 0
         },
         versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
-        homeViewRoute: '_myactivity_list',
-        loginViewRoute: '_login',
+        homeViewRoute: 'myactivity_list',
+        loginViewRoute: 'login',
         init: function() {
             if (has('ie') && has('ie') < 9) {
                 window.location.href = 'unsupported.html';
@@ -113,19 +113,18 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         isOnFirstView: function() {
-            var history, isOnFirstView;
+            var history, isOnFirstView = false, length, current, previous;
             history = this.history;
+            length = history.length;
+            current = history[length - 1];
+            previous = history[length - 2];
 
-            if (history.length > 0) {
-                if (history[0].page === 'login') {
-                    // Check if there are two entries in history,
-                    // the first would be login, the second is the initial page
-                    isOnFirstView = history.length === 2;
-                } else {
-                    // Login is not always the first entry in history,
-                    // the user can save their credentials and skip the login page entirely
-                    isOnFirstView = history.length === 1;
-                }
+            if (current && current.page === 'login') {
+                isOnFirstView = true;
+            } else if (previous && previous.page === 'login') {
+                isOnFirstView = true;
+            } else if (length === 1) {
+                isOnFirstView = true;
             }
 
             return isOnFirstView;
@@ -357,10 +356,8 @@ define('Mobile/SalesLogix/Application', [
             window.location.reload();
         },
         logOut: function() {
-            if (window.localStorage) {
-                window.localStorage.removeItem('credentials');
-                window.localStorage.removeItem('navigationState');
-            }
+            this.removeCredentials();
+            this._clearNavigationState();
 
             var service = this.getService();
             if (service) {
@@ -371,9 +368,8 @@ define('Mobile/SalesLogix/Application', [
 
             this.reload();
         },
-        handleAuthentication: function() {
+        getCredentials: function() {
             var stored, encoded, credentials;
-
             try {
                 if (window.localStorage) {
                     stored = window.localStorage.getItem('credentials');
@@ -383,6 +379,21 @@ define('Mobile/SalesLogix/Application', [
             } catch(e) {
             }
 
+            return credentials;
+        },
+        removeCredentials: function() {
+            try {
+                if (window.localStorage) {
+                    window.localStorage.removeItem('credentials');
+                }
+            } catch(e) {
+            }
+        },
+        handleAuthentication: function() {
+            var credentials;
+
+            credentials = this.getCredentials();
+
             if (credentials) {
                 this.authenticateUser(credentials, {
                     success: function(result) {
@@ -391,6 +402,7 @@ define('Mobile/SalesLogix/Application', [
                     },
                     failure: function(result) {
                         this.navigateToLoginView();
+                        this.removeCredentials();
                     },
                     aborted: function(result) {
                         this.navigateToLoginView();
@@ -442,11 +454,29 @@ define('Mobile/SalesLogix/Application', [
                 };
             }
         },
+        getMetricsByResourceKind: function(resourceKind) {
+            var prefs,
+                results = [];
+
+            prefs = this.preferences && this.preferences.metrics && this.preferences.metrics;
+
+            if (prefs) {
+                prefs = array.filter(prefs, function(item) {
+                    return item.resourceKind === resourceKind;
+                });
+
+                if (prefs.length === 1) {
+                    results = prefs[0].children;
+                }
+            }
+
+            return results;
+        },
         setDefaultMetricPreferences: function() {
             var defaults;
             if (!this.preferences.metrics) {
-                defaults = json.parse(DefaultMetrics);
-                this.preferences.metrics = defaults;
+                defaults = new DefaultMetrics();
+                this.preferences.metrics = defaults.getDefinitions();
                 this.persistPreferences();
             }
         },
@@ -717,7 +747,7 @@ define('Mobile/SalesLogix/Application', [
                         view = App.getView(last.page),
                         options = last.data && last.data.options;
 
-                    view.show(options);
+                    this.goRoute(view.id, options);
                 } else {
                     this.navigateToHomeView();
                 }
@@ -727,7 +757,17 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToLoginView: function() {
-            this.router.go(this.loginViewRoute);
+            var route = this.loginViewRoute;
+            if (this._hasValidRedirect(this.redirectHash)) {
+                route = this.redirectHash;
+            } else {
+                this.redirectHash = '';
+            }
+
+            this.goRoute(route);
+        },
+        _hasValidRedirect: function(redirect) {
+            return this.redirectHash !== '' && this.redirectHash.indexOf('/redirectTo/') > 0;
         },
         showLeftDrawer: function() {
             var view = this.getView('left_drawer');
@@ -742,15 +782,21 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToHomeView: function() {
+            var visible;
             this.loadSnapper();
-            if (this.redirectHash !== '' && this.redirectHash !== this.loginViewRoute) {
-                this.router.go(this.redirectHash);
+            if (this.redirectHash) {
+                this.goRoute(this.redirectHash);
             } else {
-                this.router.go(this.homeViewRoute);
+                visible = this.preferences && this.preferences.home && this.preferences.home.visible;
+                if (visible && visible.length > 0) {
+                    this.homeViewRoute = visible[0];
+                }
+
+                this.goRoute(this.homeViewRoute);
             }
         },
         navigateToActivityInsertView: function() {
-            this.router.go('_activity_types_list');
+            this.goRoute('activity_types_list');
         },
         initiateCall: function() {
             // shortcut for environment call
@@ -776,4 +822,3 @@ define('Mobile/SalesLogix/Application', [
         }
     });
 });
-

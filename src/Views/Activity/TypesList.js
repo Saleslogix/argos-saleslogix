@@ -104,16 +104,16 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
                     view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
 
                 if (view) {
-                    view.show({
+                    App.goRoute(view.id, {
                             insert: true,
                             entry: (this.options && this.options.entry) || null,
                             source: source,
                             activityType: params.key,
                             title: this.activityTypeText[params.key],
                             returnTo: this.options && this.options.returnTo
-                        }, {
+                        },{
                             returnTo: -1
-                        });
+                    });
                 }
             }
         },
@@ -141,7 +141,7 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
                     '$key': this.activityTypeOrder[i],
                     '$descriptor': this.activityTypeText[this.activityTypeOrder[i]],
                     'icon': this.activityTypeIcons[this.activityTypeOrder[i]],
-                    'type':this.activityTypeOrder[i] 
+                    'type':this.activityTypeOrder[i]
                 });
             }
             if (eventViews.indexOf(this.options.returnTo) === -1) {

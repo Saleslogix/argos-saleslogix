@@ -143,20 +143,23 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             return this.activityTypeText[val] || val;
         },
         navigateToEditView: function(el) {
-            var view = App.getView(this.editView);
+            var view = App.getView(this.editView),
+                route;
 
             if (view) {
-                if (this.isActivityRecurringSeries(this.item) && confirm(this.confirmEditRecurrenceText)) {
-                    this.recurrence.Leader = this.item.Leader;
-                    view.show({item: this.recurrence});
+                if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
+                    this.recurrence.Leader = this.entry.Leader;
+                    route = this.recurrence.$key ? view.id + '/' + this.recurrence.$key : view.id;
+                    App.goRoute(route, {entry: this.recurrence});
 
                 } else {
-                    view.show({item: this.item});
+                    route = this.entry.$key ? view.id + '/' + this.entry.$key : view.id;
+                    App.goRoute(route, {entry: this.entry});
                 }
             }
         },
         navigateToCompleteView: function(completionTitle, isSeries) {
-            var view, options;
+            var view, options, route;
 
             view = App.getView(this.completeView);
 
@@ -168,13 +171,14 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                 };
 
                 if (isSeries) {
-                    this.recurrence.Leader = this.item.Leader;
-                    options.item = this.recurrence;
+                    this.recurrence.Leader = this.entry.Leader;
+                    options.entry = this.recurrence;
                 } else {
-                    options.item = this.item;
+                    options.entry = this.entry;
                 }
 
-                view.show(options, {
+                route = options.entry.$key ? view.id + '/' + options.entry.$key : view.id;
+                App.goRoute(route, options, {
                     returnTo: -1
                 });
             }
@@ -183,11 +187,11 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             this.navigateToCompleteView(this.completeActivityText);
         },
         completeOccurrence: function() {
-            var request, key, item = this.item;
-            key = item['$key'];
+            var request, key, entry = this.entry;
+            key = entry['$key'];
 
             // Check to ensure we have a composite key (meaning we have the occurance, not the master)
-            if (this.isActivityRecurring(item) && key.split(this.recurringActivityIdSeparator).length !== 2) {
+            if (this.isActivityRecurring(entry) && key.split(this.recurringActivityIdSeparator).length !== 2) {
                 // Fetch the occurance, and continue on to the complete screen
                 request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
                     .setResourceKind('activities')
@@ -205,27 +209,27 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         processOccurance: function(feed) {
             if (feed && feed.$resources && feed.$resources.length > 0) {
-                this.item = feed.$resources[0];
+                this.entry = feed.$resources[0];
                 this.navigateToCompleteView(this.completeOccurrenceText);
             }
         },
         completeSeries: function() {
             this.navigateToCompleteView(this.completeSeriesText, true);
         },
-        isActivityRecurring: function(item) {
-            return item && (item['Recurring'] || item['RecurrenceState'] == 'rstOccurrence');
+        isActivityRecurring: function(entry) {
+            return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
         },
-        isActivityRecurringSeries: function(item) {
-            return this.isActivityRecurring(item) && !recur.isAfterCompletion(item['RecurPeriod']);
+        isActivityRecurringSeries: function(entry) {
+            return this.isActivityRecurring(entry) && !recur.isAfterCompletion(entry['RecurPeriod']);
         },
-        isActivityForLead: function(item) {
-            return item && /^[\w]{12}$/.test(item['LeadId']);
+        isActivityForLead: function(entry) {
+            return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        isActivityTimeless: function(item) {
-            return item && convert.toBoolean(item['Timeless']);
+        isActivityTimeless: function(entry) {
+            return entry && convert.toBoolean(entry['Timeless']);
         },
-        doesActivityHaveReminder: function(item) {
-            return convert.toBoolean(item && item['Alarm']);
+        doesActivityHaveReminder: function(entry) {
+            return convert.toBoolean(entry && entry['Alarm']);
         },
         requestLeader: function(userId) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
@@ -246,7 +250,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         processLeader: function(leader) {
             if (leader) {
-                this.item['Leader'] = leader;
+                this.entry['Leader'] = leader;
 
                 // There could be a timing issue here. The call to request the leader is done before the layout is processed,
                 // so we could potentially end up in here before any dom was created for the view.
@@ -298,25 +302,25 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         requestRecurrenceFailure: function(xhr, o) {
         },
-        checkCanComplete: function(item) {
-            return !item || (item['Leader']['$key'] !== App.context['user']['$key']);
+        checkCanComplete: function(entry) {
+            return !entry || (entry['Leader']['$key'] !== App.context['user']['$key']);
         },
-        processItem: function(item) {
-            if (item && item['Leader']['$key']) {
-                this.requestLeader(item['Leader']['$key']);
+        preProcessEntry: function(entry) {
+            if (entry && entry['Leader']['$key']) {
+                this.requestLeader(entry['Leader']['$key']);
             }
-            if (this.isActivityRecurring(item)) {
-                this.requestRecurrence(item['$key'].split(this.recurringActivityIdSeparator).shift());
+            if (this.isActivityRecurring(entry)) {
+                this.requestRecurrence(entry['$key'].split(this.recurringActivityIdSeparator).shift());
             }
 
-            return item;
+            return entry;
         },
-        formatRelatedQuery: function(item, fmt, property) {
+        formatRelatedQuery: function(entry, fmt, property) {
             if (property === 'activityId') {
-                  return string.substitute(fmt, [utility.getRealActivityId(item.$key)]);
+                  return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
             } else {
                 property = property || '$key';
-                return string.substitute(fmt, [platformUtility.getValue(item, property, "")]);
+                return string.substitute(fmt, [platformUtility.getValue(entry, property, "")]);
             }
         },
         createLayout: function() {

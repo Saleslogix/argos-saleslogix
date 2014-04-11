@@ -298,7 +298,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             var view = App.getView("event_related"),
                 where = this.getEventQuery();
             if (view) {
-                view.show({"where": where});
+                App.goRoute(view.id, {"where": where});
             }
         },
         hideEventList: function() {
@@ -394,8 +394,10 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             return domClass.contains(this.domNode, 'list-loading');
         },
         getNextDay: function() {
-            if (this.isLoading()) return;
-            
+            if (this.isLoading()) {
+                return;
+            }
+
             this.currentDate.add({days: 1});
             this.refresh();
         },
@@ -459,7 +461,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             },
                 view = App.getView(this.datePickerView);
             if (view) {
-                view.show(options);
+                App.goRoute(view.id, options);
             }
         },
         selectDateSuccess: function() {
@@ -472,20 +474,20 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             var view = App.getView(this.weekView),
                 navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
                 options = {currentDate: navDate.valueOf()};
-            view.show(options);
+            App.goRoute(view.id, options);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView),
                 navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
                 options = {currentDate: navDate.valueOf()};
-            view.show(options);
+            App.goRoute(view.id, options);
         },
         navigateToInsertView: function(el) {
             var view = App.getView(this.insertView || this.editView);
 
             this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();
             if (view) {
-                view.show({
+                App.goRoute(view.id, {
                     negateHistory: true,
                     returnTo: this.id,
                     insert: true
@@ -495,11 +497,13 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
-                view = App.getView(detailView);
+                view = App.getView(detailView),
+                route;
             descriptor = (entry.isEvent) ? descriptor : entry.Description;
             if (view) {
-                view.show({
-                    descriptor: descriptor,
+                route = key ? view.id + '/' + key : view.id;
+                App.goRoute(route, {
+                    title: descriptor,
                     key: key
                 });
             }

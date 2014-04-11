@@ -200,52 +200,54 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceUIChange);
             this.connect(this.fields['Recurrence'], 'onChange', this.onRecurrenceChange);
         },
-        onAddComplete: function(item) {
+        onAddComplete: function(entry) {
             environment.refreshActivityLists();
             this.inherited(arguments);
         },
-        onPutComplete: function(item) {
+        onPutComplete: function(entry) {
             var view = App.getView(this.detailView),
-                originalKey = this.options.item['$key'];
+                originalKey = this.options.entry['$key'],
+                route;
 
             this.enable();
 
             environment.refreshActivityLists();
             connect.publish('/app/refresh', [{
                 resourceKind: this.resourceKind,
-                key: item['$key'],
-                data: item
+                key: entry['$key'],
+                data: entry
             }]);
 
-            if (item['$key'] != originalKey && view) {
+            if (entry['$key'] != originalKey && view) {
                 // Editing single occurrence results in new $key/record
-                view.show({
-                    key: item['$key']
+                route = entry.$key ? view.id + '/' + entry.$key : view.id;
+                App.goRoute(route, {
+                    key: entry['$key']
                 }, {
                     returnTo: -2
                 });
             } else {
-                this.onUpdateCompleted(item);
+                this.onUpdateCompleted(entry);
             }
         },
-        currentUserCanEdit: function(item) {
-            return !!item && (item['Leader']['$key'] === App.context['user']['$key']);
+        currentUserCanEdit: function(entry) {
+            return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
         },
-        currentUserCanSetAlarm: function(item) {
-            return !!item && (item['Leader']['$key'] === App.context['user']['$key']);
+        currentUserCanSetAlarm: function(entry) {
+            return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
         },
-        isActivityForLead: function(item) {
-            return item && /^[\w]{12}$/.test(item['LeadId']);
+        isActivityForLead: function(entry) {
+            return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        isActivityRecurring: function(item) {
+        isActivityRecurring: function(entry) {
             return (/rstMaster/).test(this.fields['RecurrenceState'].getValue());
         },
         isInLeadContext: function() {
             var insert = this.options && this.options.insert,
-                item = this.options && this.options.item,
+                entry = this.options && this.options.entry,
                 lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) {
                     return c.key;
-                })) || this.isActivityForLead(item);
+                })) || this.isActivityForLead(entry);
 
             return !!lead;
         },
@@ -323,7 +325,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onTimelessChange: function(value, field) {
-            
             this.toggleSelectField(this.fields['Duration'], value);
             var startDate, startDateField;
 
@@ -335,8 +336,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = false;
                 startDateField['timeless'] = true;
                 startDate = this._getNewStartDate(startDateField.getValue(), true);
-                if (startDate) {
 
+                if (startDate) {
                     startDateField.setValue(startDate);
                 }
             } else { // StartDate with out time (Timeless)
@@ -346,8 +347,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 startDateField['showTimePicker'] = true;
                 startDateField['timeless'] = false;
                 startDate = this._getNewStartDate(startDateField.getValue(), false);
-                if (startDate) {
 
+                if (startDate) {
                     startDateField.setValue(startDate);
                 }
             }
@@ -362,16 +363,16 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         onLeadChange: function(value, field) {
             var selection = field.getSelection(),
                 phoneField,
-                item;
+                entry;
 
             if (selection && this.insert) {
                 this.fields['AccountName'].setValue(utility.getValue(selection, 'Company'));
             }
 
-            item = field.currentSelection;
-            if (item.WorkPhone) {
+            entry = field.currentSelection;
+            if (entry.WorkPhone) {
                 phoneField = this.fields['PhoneNumber'];
-                phoneField.setValue(item.WorkPhone);
+                phoneField.setValue(entry.WorkPhone);
             }
         },
         onLeaderChange: function(value, field) {
@@ -379,7 +380,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.fields['UserId'].setValue(userId && userId['$key']);
         },
         onAccountChange: function(value, field) {
-            var fields, item, phoneField;
+            var fields, entry, phoneField;
 
             fields = this.fields;
             array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
@@ -399,43 +400,43 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 }
             });
 
-            item = field.currentSelection;
-            if (item && item.MainPhone) {
+            entry = field.currentSelection;
+            if (entry && entry.MainPhone) {
                 phoneField = this.fields['PhoneNumber'];
-                phoneField.setValue(item.MainPhone);
+                phoneField.setValue(entry.MainPhone);
             }
         },
         onContactChange: function(value, field) {
             this.onAccountDependentChange(value, field);
 
-            var item, phoneField;
+            var entry, phoneField;
 
-            item = field.currentSelection;
+            entry = field.currentSelection;
 
-            if (item && item.WorkPhone) {
+            if (entry && entry.WorkPhone) {
                 phoneField = this.fields['PhoneNumber'];
-                phoneField.setValue(item.WorkPhone);
+                phoneField.setValue(entry.WorkPhone);
             }
         },
         onOpportunityChange: function(value, field) {
             this.onAccountDependentChange(value, field);
 
-            var item, phoneField;
+            var entry, phoneField;
 
-            item = field.currentSelection;
+            entry = field.currentSelection;
 
-            if (item && item.Account && item.Account.MainPhone) {
+            if (entry && entry.Account && entry.Account.MainPhone) {
                 phoneField = this.fields['PhoneNumber'];
-                phoneField.setValue(item.Account.MainPhone);
+                phoneField.setValue(entry.Account.MainPhone);
             }
         },
         onTicketChange: function(value, field) {
             this.onAccountDependentChange(value, field);
 
-            var item, phoneField, phone;
+            var entry, phoneField, phone;
 
-            item = field.currentSelection;
-            phone = item && item.Contact && item.Contact.WorkPhone || item && item.Account && item.Account.MainPhone;
+            entry = field.currentSelection;
+            phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
             if (phone) {
                 phoneField = this.fields['PhoneNumber'];
                 phoneField.setValue(phone);
@@ -617,86 +618,86 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
-                item = context.item || (view && view.item) || context;
+                entry = context.entry || (view && view.entry) || context;
 
-            if (!item || !item['$key']) {
+            if (!entry || !entry['$key']) {
                 return;
             }
 
             var accountField = this.fields['Account'];
-            accountField.setSelection(item);
+            accountField.setSelection(entry);
             accountField.setValue({
-                'AccountId': item['$key'],
-                'AccountName': item['$descriptor']
+                'AccountId': entry['$key'],
+                'AccountName': entry['$descriptor']
             });
             this.onAccountChange(accountField.getValue(), accountField);
         },
         applyContactContext: function(context) {
-            var view, item, contactField, accountField, phoneField;
+            var view, entry, contactField, accountField, phoneField;
 
             view = App.getView(context.id);
-            item = context.item || (view && view.item) || context;
+            entry = context.entry || (view && view.entry) || context;
 
-            if (!item || !item['$key']) {
+            if (!entry || !entry['$key']) {
                 return;
             }
 
             contactField = this.fields['Contact'];
 
-            contactField.setSelection(item);
+            contactField.setSelection(entry);
             contactField.setValue({
-                'ContactId': item['$key'],
-                'ContactName': item['$descriptor']
+                'ContactId': entry['$key'],
+                'ContactName': entry['$descriptor']
             });
 
             this.onAccountDependentChange(contactField.getValue(), contactField);
 
             accountField = this.fields['Account'];
             accountField.setValue({
-                'AccountId': utility.getValue(item, 'Account.$key'),
-                'AccountName': utility.getValue(item, 'Account.AccountName')
+                'AccountId': utility.getValue(entry, 'Account.$key'),
+                'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
 
-            if (item.WorkPhone) {
+            if (entry.WorkPhone) {
                 phoneField = this.fields['PhoneNumber'];
-                phoneField.setValue(item.WorkPhone);
+                phoneField.setValue(entry.WorkPhone);
             }
         },
         applyTicketContext: function(context) {
             var view = App.getView(context.id),
-                item = context.item || (view && view.item),
+                entry = context.entry || (view && view.entry),
                 phoneField,
                 phone,
                 accountField,
                 contactField,
                 ticketField;
 
-            if (!item || !item['$key']) {
+            if (!entry || !entry['$key']) {
                 return;
             }
 
             ticketField = this.fields['Ticket'];
-            ticketField.setSelection(item);
+            ticketField.setSelection(entry);
             ticketField.setValue({
-                'TicketId': item['$key'],
-                'TicketNumber': item['$descriptor']
+                'TicketId': entry['$key'],
+                'TicketNumber': entry['$descriptor']
             });
             this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
             contactField = this.fields['Contact'];
             contactField.setValue({
-                'ContactId': utility.getValue(item, 'Contact.$key'),
-                'ContactName': utility.getValue(item, 'Contact.NameLF')
+                'ContactId': utility.getValue(entry, 'Contact.$key'),
+                'ContactName': utility.getValue(entry, 'Contact.NameLF')
             });
             this.onAccountDependentChange(contactField.getValue(), contactField);
 
             accountField = this.fields['Account'];
             accountField.setValue({
-                'AccountId': utility.getValue(item, 'Account.$key'),
-                'AccountName': utility.getValue(item, 'Account.AccountName')
+                'AccountId': utility.getValue(entry, 'Account.$key'),
+                'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
 
-            phone = item && item.Contact && item.Contact.WorkPhone || item && item.Account && item.Account.MainPhone;
+            phone = entry && entry.Contact && entry.Contact.WorkPhone || entry && entry.Account && entry.Account.MainPhone;
             if (phone) {
                 phoneField = this.fields['PhoneNumber'];
                 phoneField.setValue(phone);
@@ -704,58 +705,58 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
-                item = context.item || (view && view.item),
+                entry = context.entry || (view && view.entry),
                 phoneField;
 
-            if (!item || !item['$key']) {
+            if (!entry || !entry['$key']) {
                 return;
             }
 
             var opportunityField = this.fields['Opportunity'];
-            opportunityField.setSelection(item);
+            opportunityField.setSelection(entry);
             opportunityField.setValue({
-                'OpportunityId': item['$key'],
-                'OpportunityName': item['$descriptor']
+                'OpportunityId': entry['$key'],
+                'OpportunityName': entry['$descriptor']
             });
             this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
 
             var accountField = this.fields['Account'];
             accountField.setValue({
-                'AccountId': utility.getValue(item, 'Account.$key'),
-                'AccountName': utility.getValue(item, 'Account.AccountName')
+                'AccountId': utility.getValue(entry, 'Account.$key'),
+                'AccountName': utility.getValue(entry, 'Account.AccountName')
             });
 
-            if (item.Account && item.Account.MainPhone) {
+            if (entry.Account && entry.Account.MainPhone) {
                 phoneField = this.fields['PhoneNumber'];
-                phoneField.setValue(item.Account.MainPhone);
+                phoneField.setValue(entry.Account.MainPhone);
             }
         },
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
-                item = context.item || (view && view.item),
+                entry = context.entry || (view && view.entry),
                 phoneField;
 
-            if (!item || !item['$key']) {
+            if (!entry || !entry['$key']) {
                 return;
             }
 
             var leadField = this.fields['Lead'];
-            leadField.setSelection(item);
+            leadField.setSelection(entry);
             leadField.setValue({
-                'LeadId': item['$key'],
-                'LeadName': item['$descriptor']
+                'LeadId': entry['$key'],
+                'LeadName': entry['$descriptor']
             });
             this.onLeadChange(leadField.getValue(), leadField);
 
-            this.fields['AccountName'].setValue(item['Company']);
+            this.fields['AccountName'].setValue(entry['Company']);
 
             var isLeadField = this.fields['IsLead'];
             isLeadField.setValue(context.resourceKind == 'leads');
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
 
-            if (item.WorkPhone) {
+            if (entry.WorkPhone) {
                 phoneField = this.fields['PhoneNumber'];
-                phoneField.setValue(item.WorkPhone);
+                phoneField.setValue(entry.WorkPhone);
             }
         },
         setValues: function(values) {
@@ -797,9 +798,9 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.fields['AccountName'].setValue(values['AccountName']);
             }
 
-            var item = this.options.item || this.item,
-                denyEdit = !this.options.insert && !this.currentUserCanEdit(item),
-                allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(item);
+            var entry = this.options.entry || this.entry,
+                denyEdit = !this.options.insert && !this.currentUserCanEdit(entry),
+                allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
 
             if (denyEdit) {
                 this.disableFields();
@@ -915,10 +916,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 if (timeless) {
                     if (!isTimeLessDate) {
                         wrapped = moment(startDate);
-                        wrapped.subtract({ minutes: wrapped.zone() });
-                        wrapped.hours(0);
-                        wrapped.minutes(0);
-                        wrapped.seconds(5);
+                        wrapped = moment.utc(wrapped.format('YYYY-MM-DD'), 'YYYY-MM-DD');
+                        wrapped.add('seconds', 5);
                         startDate = wrapped.toDate();
                     }
                 } else {

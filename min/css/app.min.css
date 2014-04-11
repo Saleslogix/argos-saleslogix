@@ -18,7 +18,7 @@
 .row > div > a,
 .row > span,
 .row > a {
-  display: inline-block;
+  /*display: inline-block;*/
 }
 .list-item-selected {
   background-color: #D5EFFA;
@@ -42,16 +42,6 @@
 #login h2 {
   display: none;
 }
-#login fieldset {
-  padding: 0;
-  background: #fff;
-  border-width: 1px;
-  border-color: #b3b3b3;
-  border-style: solid;
-  background-clip: padding-box;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-}
 #login .clear-button {
   right: 12px;
 }
@@ -59,8 +49,10 @@
 .note-text {
   height: 4.5em;
   overflow: hidden;
-  padding-left: 110px;
+  padding-left: 0px;
   padding-right: 34px;
+  border: 1px solid #d0d0d0;
+  background-color: #fafafa;
 }
 .note-text-row > label,
 .note-text-row > div > label {
@@ -337,12 +329,12 @@ li[data-ticket-status] .list-item-selector,
 }
 .row-edit[data-field-type="recurrences"] > div > .button {
   margin: 0;
-  padding: 0 8px;
+  padding: 0 12px;
   position: absolute;
-  right: 4px;
+  right: 5px;
 }
 .row-edit[data-field-type="recurrences"] > div > input {
-  padding: 8px 34px 8px 110px !important;
+  padding: 8px 34px 8px 0px !important;
 }
 #activity_edit div.row-edit[data-field="Reminder"],
 #recurrence_edit div.row-edit[data-field="Scale"] {
@@ -1301,7 +1293,7 @@ td.entry-table-description {
 .row > div > .toggle {
   width: 100px;
   height: 28px;
-  margin: 3px 0px 3px 110px;
+  margin: 3px 0px 3px 0px;
   position: relative;
   right: auto;
 }

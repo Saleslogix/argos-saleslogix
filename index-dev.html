@@ -88,7 +88,7 @@
                                 //resource
         };
     </script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.5.0.min.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.7.0.min.js"></script>
 
     <!-- JSON -->
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
@@ -116,8 +116,7 @@
             { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
             { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
-            { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment' },
-            { name: 'moment_langs', location: '../../argos-sdk/libraries/moment/min', main: 'langs' },
+            { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
             { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
             { name: 'Mobile/SalesLogix', location: 'src' },
             { name: 'configuration', location: 'configuration' },
@@ -137,18 +136,40 @@
                 'configuration/development'
             ];
         require(['moment', application].concat(configuration), function(moment, application, configuration) {
-            var localization = [
+            var localization, bootstrap, fallBackLocalization, completed = false;
+
+            localization = [
                 'localization/en',
                 'localization/saleslogix/en'
             ];
-            require(localization.concat(['moment_langs', 'dojo/domReady!']), function() {
-                moment.lang('en');
-                var instance = new application(configuration);
 
-                instance.activate();
-                instance.init();
-                instance.run();
+            fallBackLocalization = [
+                'localization/en',
+                'localization/saleslogix/en'
+            ];
+
+            bootstrap = function(requires) {
+                require(requires.concat('dojo/domReady!'), function() {
+                    if (completed) {
+                        return;
+                    }
+
+                    moment.lang('en');
+                    var instance = new application(configuration);
+
+                    instance.activate();
+                    instance.init();
+                    instance.run();
+                    completed = true;
+                });
+            };
+
+            require.on('error', function(error) {
+                console.log('Error loading localization, falling back to "en"');
+                bootstrap(fallBackLocalization);
             });
+
+            bootstrap(localization);
         });
     })();
     </script>

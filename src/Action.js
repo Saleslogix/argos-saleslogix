@@ -23,9 +23,11 @@ define('Mobile/SalesLogix/Action', [
         emailedText: 'E-mailed ${0}',
 
         navigateToHistoryInsert: function(entry, complete) {
-            var view = App.getView('history_edit');
+            var view = App.getView('history_edit'),
+                route;
             if (view) {
-                view.show({
+                route = entry.$key ? view.id + '/' + entry.$key : view.id;
+                App.goRoute(route, {
                         title: entry['Title'] || null,
                         template: {},
                         entry: entry,
@@ -49,7 +51,6 @@ define('Mobile/SalesLogix/Action', [
         callPhone: function(action, selection, phoneProperty) {
             this.setSource({
                 entry: selection.data,
-                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
@@ -75,23 +76,26 @@ define('Mobile/SalesLogix/Action', [
         },
 
         addNote: function(action, selection) {
+            var entry = selection.data,
+                key = selection.data.$key,
+                desc = selection.data.$descriptor;
+
             this.setSource({
-                entry: selection.data,
-                item: selection.data,
-                descriptor: selection.data['$descriptor'],
-                key: selection.data['$key']
+                entry: entry,
+                descriptor: desc,
+                key: key
             });
 
-            var view = App.getView('history_edit');
+            var view = App.getView('history_edit'),
+                route;
 
             if (view) {
-                view.show({insert: true});
+                App.goRoute(view.id + '/' + key, {insert: true});
             }
         },
         addActivity: function(action, selection) {
             this.setSource({
                 entry: selection.data,
-                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
@@ -99,13 +103,15 @@ define('Mobile/SalesLogix/Action', [
         },
         navigateToEntity: function(action, selection, o) {
             var options = {
-                key: utility.getValue(selection.data, o.keyProperty),
-                descriptor: utility.getValue(selection.data, o.textProperty)
-            },
-                view = App.getView(o.view);
+                    key: utility.getValue(selection.data, o.keyProperty),
+                    descriptor: utility.getValue(selection.data, o.textProperty)
+                },
+                view = App.getView(o.view),
+                route;
 
             if (view && options.key) {
-                view.show(options);
+                route = view.id + '/' + options.key;
+                App.goRoute(route, options);
             }
         },
 
@@ -116,14 +122,13 @@ define('Mobile/SalesLogix/Action', [
             var view;
             this.setSource({
                 entry: selection.data,
-                item: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
             view = App.getView('attachment_Add');
 
             if (view) {
-                view.show({ insert: true });
+                App.goRoute(view.id, { insert: true });
             }
         }
     });
