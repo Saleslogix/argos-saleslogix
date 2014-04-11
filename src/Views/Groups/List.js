@@ -14,23 +14,26 @@ define('Mobile/SalesLogix/Views/Groups/List', [
     'dojo/_base/array',
     'dojo/_base/lang',
     'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/Store/SData',
-    '../_RightDrawerListMixin'
+    'Sage/Platform/Mobile/Store/SData'
 ], function(
     declare,
     array,
     lang,
     List,
-    SDataStore,
-    _RightDrawerListMixin
+    SDataStore
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Groups.List', [List, _RightDrawerListMixin], {
+    return declare('Mobile.SalesLogix.Views.Groups.List', [List], {
         id: 'groups_list',
         expose: false,
+        enableSearch: false,
 
         // Localization
         titleText: 'Group List',
+
+        constructor: function() {
+            this.tools = { tbar: [] };
+        },
 
         refreshRequiredFor: function(newOptions) {
             // This gets called before setting new options
@@ -115,10 +118,14 @@ define('Mobile/SalesLogix/Views/Groups/List', [
             var select = [];
 
             layout = array.filter(layout, function(item) {
-                return item.visible && item.fieldType !== 'FixedChar';
+                return item.visible;
             });
 
             select = array.map(layout, function(item) {
+                if (item.format === 'PickList Item') {
+                    return item.alias + 'TEXT';
+                }
+
                 return item.alias;
             });
 

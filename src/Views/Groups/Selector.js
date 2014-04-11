@@ -26,6 +26,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
     return declare('Mobile.SalesLogix.Views.Groups.Selector', [List, _RightDrawerGroupsMixin], {
         id: 'groups_selector',
         expose: true,
+        enableSearch: false,
 
         listViewId: 'groups_list',
 
@@ -35,6 +36,10 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
         itemTemplate: new Simplate([
             '<h3>{%: $[$$.labelProperty] %}</h3>'
         ]),
+
+        constructor: function() {
+            this.tools = { tbar: [] };
+        },
 
         activateEntry: function(params) {
             var key, descriptor, entry, view;
