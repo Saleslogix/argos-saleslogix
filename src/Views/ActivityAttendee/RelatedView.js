@@ -61,7 +61,8 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         enableActions: true,
         enableItemActions: true,
         showItemActionAsButton: true,
-        showItemFooter:false,
+        showItemDetail: false,
+        showItemFooter: false,
         showTotalInTab: true,
         hideWhenNoData: false,
         showSelectMore: true,
@@ -95,16 +96,34 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         relatedItemHeaderTemplate: new Simplate([
             '<h3><strong>{%: $$.getItemDescriptor($) %} </h3>',
         ]),
-        relatedItemDetailTemplate: new Simplate([
-               '<div>',
+       relatedItemDetailTemplate: new Simplate([
+               '<div class="attendee-item-detail">',
                 '<h3>{%: $.RoleName %} </h3>',
+                '<h3>{%: $.Title %}</h3>',
+              '</div>',
+              '<div class="attendee-item-detail">',
                 '<h3>{%: Sage.Platform.Mobile.Format.phone($.PhoneNumber) %}</h3>',
                 '<h3>{%: $.Email %}</h3>',
+                '<h3>{%: $.TimeZone %}</h3>',
               '</div>'
         ]),
         relatedItemFooterTemplate: new Simplate([
-           '<br>'
+             '<br>'
         ]),
+        getRowItemCls: function(entry) {
+            if (entry) {
+                if (entry.IsPrimary) {
+                    return 'attendee-item-primary';
+                }
+                if (entry.IsAttendee) {
+                    return 'attendee-item-attendee';
+                }
+                if (entry.IsAttendee) {
+                    return 'attendee-item-other';
+                }
+            }
+            return '';
+        },
         getItemDescriptor: function(entry) {
             if (entry) {
                 entry['$descriptor'] =  (entry.Name) ? entry.Name : entry.$descriptor;

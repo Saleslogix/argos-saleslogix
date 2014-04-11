@@ -1755,6 +1755,7 @@ td.entry-table-description {
     font-weight: bold;
     color:@black-dark;
 }
+
 .related-view-widget .note-text-wrap > h4
 {
 
@@ -1765,10 +1766,27 @@ td.entry-table-description {
     margin-top: 0;
     white-space: normal;
 }
- .attendee-indicator > span
+
+.attendee-indicator > span
 {
-   font-size: 0.85em;
-   font-weight: bolder;
-   font-style: normal;
+    font-size: 0.85em;
+    font-weight: bolder;
+    font-style: normal;
+    float: left;
 }
 
+div .attendee-item-primary 
+{
+    background: @blue3-lighter;
+}
+
+.attendee-item-attendee 
+{
+    background: @gray5-dark;
+}
+
+.attendee-item-detail 
+{
+    float: left;
+    margin: 1px 20px 1px 1px;
+}

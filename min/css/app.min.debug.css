@@ -1338,4 +1338,15 @@ td.entry-table-description {
   font-size: 0.85em;
   font-weight: bolder;
   font-style: normal;
+  float: left;
+}
+div .attendee-item-primary {
+  background: #c0d9e2;
+}
+.attendee-item-attendee {
+  background: #f1f1f1;
+}
+.attendee-item-detail {
+  float: left;
+  margin: 1px 20px 1px 1px;
 }
