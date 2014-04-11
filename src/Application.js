@@ -793,7 +793,7 @@ define('Mobile/SalesLogix/Application', [
             var visible, view;
             this.loadSnapper();
             if (this.redirectHash) {
-                hash(this.redirectHash);
+                this.hash(this.redirectHash);
             } else {
                 visible = this.preferences && this.preferences.home && this.preferences.home.visible;
                 if (visible && visible.length > 0) {
