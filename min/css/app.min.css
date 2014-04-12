@@ -1340,7 +1340,7 @@ td.entry-table-description {
   font-style: normal;
   float: left;
 }
-div .attendee-item-primary {
+.attendee-item-primary {
   background: #c0d9e2;
 }
 .attendee-item-attendee {

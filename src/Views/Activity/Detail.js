@@ -32,7 +32,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     'Mobile/SalesLogix/Recurrence',
     'Mobile/SalesLogix/Utility',
     'Sage/Platform/Mobile/Utility',
-    'Mobile/SalesLogix/Views/ActivityAttendee/RelatedView'
+    'Mobile/SalesLogix/Views/ActivityAttendee/RelatedView',
+    'Mobile/SalesLogix/Views/Attachment/RelatedView'
 ], function(
     declare,
     string,
@@ -46,7 +47,8 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     recur,
     utility,
     platformUtility,
-    AttendeeRelatedView
+    AttendeeRelatedView,
+    AttachmentRelatedView
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail], {
@@ -510,22 +512,28 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                         where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'),// must be lower case because of feed
                         view: 'activity_attachment_related',
                         title: this.relatedAttachmentTitleText
-                    },{
-                    name: 'AttendeeRelated',
-                    icon: 'content/images/icons/Attendee_24.png',
-                    label: 'Attendees',
-                    where: this.formatRelatedQuery.bindDelegate(this, 'ActivityId eq "${0}"', 'ActivityId'),// must be lower case because of feed
-                    view: 'activity_attendee_related',
-                    title: 'Attendees',
-                    relatedView: {
-                        widgetType: AttendeeRelatedView,
-                        id: 'activity_related_attendees',
-                        autoLoad: false,
-                        enabled: true,
-                        relatedProperty: 'ActivityId',
-                        where: function(entry) { return "ActivityId eq '" + entry.$key + "'"; }
-                    }
-                }]
+                      },{
+                        name: 'AttendeeRelated',
+                        relatedView: {
+                          widgetType: AttendeeRelatedView,
+                          id: 'activity_attendees_related_view',
+                          autoLoad: false,
+                          enabled: true,
+                          relatedProperty: 'ActivityId',
+                          where: function(entry) { return "ActivityId eq '" + entry.$key + "'"; }
+                        }
+                      }, {
+                         name: 'AttatchementRelated',
+                         relatedView: {
+                            widgetType: AttachmentRelatedView,
+                            id: 'activity_attachmnets_realted_view',
+                            listViewId: 'activity_attachment_related',
+                            autoLoad: false,
+                            enabled: true,
+                            relatedProperty: 'ActivityId',
+                            where: function(entry) { return "activityId eq '" + entry.$key + "'"; }
+                        }
+                    }]
                 }]);
         }
     });

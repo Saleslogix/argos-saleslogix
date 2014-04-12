@@ -51,7 +51,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         id: 'relatedView_activity_attendee',
         icon: 'content/images/icons/Attendees_24.png',
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
-        title: "Attendees",
+        title: "Participants",
         detailViewId: 'activity_attendee_detail',
         editViewId: 'activity_attendee_edit',
         listViewId: 'activity_attendee_list',
@@ -64,15 +64,16 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         showItemDetail: false,
         showItemFooter: false,
         showTotalInTab: true,
+        showAdd:false,
         hideWhenNoData: false,
         showSelectMore: true,
         autoLoad: false,
-        pageSize: 20,
+        pageSize: 3,
         resourceKind: 'activityAttendees',
         select: ['EntityType', 'ModifyDate', 'EntityId', 'IsPrimary', 'IsAttendee', 'RoleName', 'Name', 'AccountName', 'PhoneNumber', 'Email','TimeZone'],
         where:null ,
-        sort: 'Name asc',
-        osort: 'IsPrimary desc, Name asc',
+        osort: 'Name asc',
+        sort: 'IsPrimary desc, Name asc',
         relatedItemIconTemplate: new Simplate([
            // '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.Name) %}</div>'
               '<div class="',
@@ -111,6 +112,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
              '<br>'
         ]),
         getRowItemCls: function(entry) {
+            return '';
             if (entry) {
                 if (entry.IsPrimary) {
                     return 'attendee-item-primary';
