@@ -28,6 +28,14 @@ define('Mobile/SalesLogix/Views/Groups/List', [
         expose: false,
         enableSearch: false,
 
+        groupFamilyDetailViews: {
+            'ACCOUNT': 'account_detail',
+            'CONTACT': 'contact_detail',
+            'LEAD': 'lead_detail',
+            'OPPORTUNITY': 'opportunity_detail',
+            'TICKET': 'ticket_detail'
+        },
+
         // Localization
         titleText: 'Group List',
 
@@ -70,6 +78,11 @@ define('Mobile/SalesLogix/Views/Groups/List', [
             }
 
             family = entry.family.toUpperCase();
+
+            if (this.groupFamilyDetailViews[family]) {
+                this.detailView = this.groupFamilyDetailViews[family];
+            }
+
             layout = entry.layout;
             select = this.createSelectFromLayout(layout);
             this.setupTemplates(select);

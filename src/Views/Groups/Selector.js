@@ -27,11 +27,15 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
         id: 'groups_selector',
         expose: true,
         enableSearch: false,
+        icon: 'content/images/icons/database_24.png',
 
         listViewId: 'groups_list',
 
         //Localization
-        titleText: 'Group Selector',
+        titleText: 'Groups',
+        initialText: 'Select a family using the right context menu.',
+
+        emptyMessageId: 'NIL',
 
         itemTemplate: new Simplate([
             '<h3>{%: $[$$.labelProperty] %}</h3>'
@@ -45,6 +49,10 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
             var key, descriptor, entry, view;
 
             key = params.key;
+            if (key === this.emptyMessageId) {
+                return;
+            }
+
             descriptor = params.descriptor;
             entry = this.entries[key];
             view = App.getView(this.listViewId);
@@ -57,7 +65,11 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
         createStore: function() {
             // Return an empty store initially.
             // The _RightDrawerGroupsMixin will set the store when the user clicks a family.
-            return new MemoryStore();
+            var store = new MemoryStore({data: [
+                { '$key': this.emptyMessageId, '$descriptor': this.initialText }
+            ]});
+            store.idProperty = '$key';
+            return store;
         },
 
         createGroupStore: function(entityName) {
