@@ -760,7 +760,7 @@ define('Mobile/SalesLogix/Application', [
             var viewId = this.loginViewId, view, split;
             if (this._hasValidRedirect(this.redirectHash)) {
                 // Split by "/redirectTo/"
-                split = this.redirectHash.split(/\/redirectTo\//);
+                split = this.redirectHash.split(/\/redirectTo\//gi);
                 if (split.length === 2) {
                     this.redirectHash = split[1];
                 }
@@ -790,10 +790,24 @@ define('Mobile/SalesLogix/Application', [
             }
         },
         navigateToHomeView: function() {
-            var visible, view;
+            var visible, view, split, key, viewId;
             this.loadSnapper();
             if (this.redirectHash) {
-                this.hash(this.redirectHash);
+                split = this.redirectHash.split(';');
+                if (split.length > 0) {
+                    viewId = split[0];
+                    key = split[1];
+                    view = this.getView(viewId);
+                    if (view) {
+                        if (key) {
+                            view.show({
+                                key: key
+                            });
+                        } else {
+                            view.show();
+                        }
+                    }
+                }
             } else {
                 visible = this.preferences && this.preferences.home && this.preferences.home.visible;
                 if (visible && visible.length > 0) {
