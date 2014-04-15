@@ -114,7 +114,7 @@ define('Mobile/SalesLogix/Application', [
         },
         isOnFirstView: function() {
             var history, isOnFirstView = false, length, current, previous;
-            history = this.history;
+            history = ReUI.context.history;
             length = history.length;
             current = history[length - 1];
             previous = history[length - 2];
@@ -159,7 +159,7 @@ define('Mobile/SalesLogix/Application', [
         _saveNavigationState: function() {
             try {
                 if (window.localStorage) {
-                    window.localStorage.setItem('navigationState', json.stringify(this.history));
+                    window.localStorage.setItem('navigationState', json.stringify(ReUI.context.history));
                 }
             } catch(e) {
             }
@@ -735,7 +735,7 @@ define('Mobile/SalesLogix/Application', [
 
                 if (cleanedHistory) {
                     ReUI.context.transitioning = true;
-                    this.history = this.history.concat(cleanedHistory.slice(0, cleanedHistory.length - 1));
+                    ReUI.context.history = ReUI.context.history.concat(cleanedHistory.slice(0, cleanedHistory.length - 1));
 
                     for (var i = 0; i < cleanedHistory.length - 1; i++) {
                         window.location.hash = cleanedHistory[i].hash;
