@@ -117,14 +117,14 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
                     insert: true
                 };
             if (view && options) {
-                App.goRoute(view.id, options, {returnTo: -1});
+                view.show(options, {returnTo: -1});
             }
         },
         navigateToSelectView: function() {
             var view = App.getView(this.selectView),
                 options = this.createNavigationOptions();
             if (view && options) {
-                App.goRoute(view.id, options);
+                view.show(options);
             }
         },
         createToolLayout: function() {
