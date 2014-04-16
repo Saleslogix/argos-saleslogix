@@ -533,7 +533,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             var view = App.getView("event_related"),
                 where = this.getEventQuery();
             if (view) {
-                App.goRoute(view.id, {"where": where});
+                view.show({"where": where});
             }
         },
         clear: function() {
@@ -568,7 +568,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             },
                 view = App.getView(this.datePickerView);
             if (view) {
-                App.goRoute(view.id, options);
+                view.show(options);
             }
         },
         selectDateSuccess: function() {
@@ -580,19 +580,19 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         navigateToDayView: function() {
             var view = App.getView(this.activityListView),
                 options = {currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf()};
-            App.goRoute(view.id, options);
+            view.show(options);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView),
                 options = {currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf()};
-            App.goRoute(view.id, options);
+            view.show(options);
         },
         navigateToInsertView: function(el) {
             var view = App.getView(this.insertView || this.editView);
 
             this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();
             if (view) {
-                App.goRoute(view.id, {
+                view.show({
                     negateHistory: true,
                     returnTo: this.id,
                     insert: true
@@ -602,14 +602,12 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
-                view = App.getView(detailView),
-                route;
+                view = App.getView(detailView);
 
             descriptor = (entry.isEvent) ? descriptor : entry.Description;
 
             if (view) {
-                route = key ? view.id + '/' + key : view.id;
-                App.goRoute(route, {
+                view.show({
                     title: descriptor,
                     key: key
                 });

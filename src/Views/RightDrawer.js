@@ -104,18 +104,12 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
             this.clear();
             this.requestData();
         },
-        showViaRoute: function() {
+        show: function() {
             if (this.onShow(this) === false){
                 return;
             }
 
             this.refresh();
-        },
-        /**
-         * Override the List show to not use RUI (this view will always be on the screen, just hidden behind the main content)
-         */
-        show: function() {
-            this.showViaRoute();
         },
         _onRegistered: function() {
             this.refreshRequired = true;

@@ -529,8 +529,6 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 name: 'updatebar'
             }));
         },
-        loadRoutes: function() {
-        },
         loadCustomizations: function() {
             this.loadBaseCustomizations();
         },

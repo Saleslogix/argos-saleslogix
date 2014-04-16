@@ -298,7 +298,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             var view = App.getView("event_related"),
                 where = this.getEventQuery();
             if (view) {
-                App.goRoute(view.id, {"where": where});
+                view.show({"where": where});
             }
         },
         hideEventList: function() {
@@ -461,7 +461,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             },
                 view = App.getView(this.datePickerView);
             if (view) {
-                App.goRoute(view.id, options);
+                view.show(options);
             }
         },
         selectDateSuccess: function() {
@@ -474,20 +474,20 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             var view = App.getView(this.weekView),
                 navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
                 options = {currentDate: navDate.valueOf()};
-            App.goRoute(view.id, options);
+            view.show(options);
         },
         navigateToMonthView: function() {
             var view = App.getView(this.monthView),
                 navDate = this.currentDate ? this.currentDate : moment().startOf('day'),
                 options = {currentDate: navDate.valueOf()};
-            App.goRoute(view.id, options);
+            view.show(options);
         },
         navigateToInsertView: function(el) {
             var view = App.getView(this.insertView || this.editView);
 
             this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();
             if (view) {
-                App.goRoute(view.id, {
+                view.show({
                     negateHistory: true,
                     returnTo: this.id,
                     insert: true
@@ -497,12 +497,11 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         navigateToDetailView: function(key, descriptor) {
             var entry = this.entries[key],
                 detailView = (entry.isEvent) ? this.eventDetailView : this.activityDetailView,
-                view = App.getView(detailView),
-                route;
+                view = App.getView(detailView);
+
             descriptor = (entry.isEvent) ? descriptor : entry.Description;
             if (view) {
-                route = key ? view.id + '/' + key : view.id;
-                App.goRoute(route, {
+                view.show({
                     title: descriptor,
                     key: key
                 });
