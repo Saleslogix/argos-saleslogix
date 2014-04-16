@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+ * Copyright (c) 1997-2014, SalesLogix, NA., LLC. All rights reserved.
  */
 
 /**
@@ -32,28 +32,52 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     return declare('Mobile.SalesLogix.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
+        groupsSectionText: 'Groups',
         kpiSectionText: 'KPI',
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
+        groupList: null,
+        DRAWER_PAGESIZE: 100,
 
         setupRightDrawer: function() {
-            var drawer = App.getView('right_drawer');
+            var drawer = App.getView('right_drawer'), store, def;
             if (drawer) {
-                lang.mixin(drawer, this._createActions());
-                drawer.setLayout(this.createRightDrawerLayout());
-                drawer.getGroupForEntry = lang.hitch(this, function(entry) {
-                    return this.getGroupForRightDrawerEntry(entry);
-                });
+                drawer.pageSize = this.DRAWER_PAGESIZE;
+                store = this.createGroupStore();
+                if (store) {
+                    def = store.query(null);
+                    def.then(lang.hitch(this, function(data) {
+                        this.groupList = data;
+                        this._finishSetup(drawer);
 
-                if (this.rebuildWidgets) {
-                    App.snapper.on('close', lang.hitch(this, function() {
-                        if (this._hasChangedKPIPrefs) {
-                            this.destroyWidgets();
-                            this.rebuildWidgets();
-                            this._hasChangedKPIPrefs = false;
-                        }
-                    }));
+                        // Force a refresh since we fetched this async and the user could have opened it before we loaded.
+                        drawer.store = null;
+                        drawer.refresh();
+                        this.drawerLoaded = true;
+                    }), function(e) {
+                        console.error(e);
+                        this._finishSetup(drawer);
+                    });
+                } else {
+                    this._finishSetup(drawer);
                 }
+            }
+        },
+        _finishSetup: function(drawer) {
+            lang.mixin(drawer, this._createActions());
+            drawer.setLayout(this.createRightDrawerLayout());
+            drawer.getGroupForEntry = lang.hitch(this, function(entry) {
+                return this.getGroupForRightDrawerEntry(entry);
+            });
+
+            if (this.rebuildWidgets) {
+                App.snapper.on('close', lang.hitch(this, function() {
+                    if (this._hasChangedKPIPrefs) {
+                        this.destroyWidgets();
+                        this.rebuildWidgets();
+                        this._hasChangedKPIPrefs = false;
+                    }
+                }));
             }
         },
         unloadRightDrawer: function() {
@@ -64,10 +88,53 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 App.snapper.off('close');
             }
         },
+        _onSearchExpression: function() {
+            // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
+            this._restoreProps();
+            this.inherited(arguments);
+        },
+        originalProps: null,
+        _preserveProps: function() {
+            this.originalProps = {};
+
+            var original = this.originalProps;
+
+            original.request = this.request;
+            original.querySelect = this.querySelect;
+            original.queryOrderBy = this.queryOrderBy;
+            original.keyProperty = this.keyProperty;
+            original.descriptorProperty = this.descriptorProperty;
+            original.store = this.store;
+            original.rowTemplate = this.rowTemplate;
+            original.itemTemplate = this.itemTemplate;
+        },
+        _restoreProps: function() {
+            if (!this.originalProps) {
+                return;
+            }
+
+            var original = this.originalProps;
+
+            this.request = null;
+            this.querySelect = original.querySelect;
+            this.queryOrderBy = original.queryOrderBy;
+            this.keyProperty = original.keyProperty;
+            this.descriptorProperty = original.descriptorProperty;
+            this.set('store', original.store);
+            this.rowTemplate = original.rowTemplate;
+            this.itemTemplate = original.itemTemplate;
+
+            this.originalProps = null;
+
+            this.clear(true);
+            this.refreshRequired = true;
+        },
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
             var actions = {
                 hashTagClicked: lang.hitch(this, function(params) {
+                    this._restoreProps();
+
                     if (params.hashtag) {
                         this.setSearchTerm('#' + params.hashtag);
                         this.search();
@@ -93,6 +160,56 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
                         domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
                     }
+                }),
+                navigateToConfigurationView: lang.hitch(this, function() {
+                    var view = App.getView(this.configurationView);
+                    if (view) {
+                        view.resourceKind = this.resourceKind;
+                        view.entityName = this.entityName;
+                        view.show({ returnTo: -1 });
+                        this.toggleRightDrawer();
+                    }
+                }),
+                groupClicked: lang.hitch(this, function(params) {
+                    var template = [],
+                        request,
+                        layout = params && params.layout && params.layout.split(','),
+                        original = this.originalProps;
+
+                    this._preserveProps();
+
+                    // Create a custom request that the store will use to execute the group query
+                    this.request = request = new Sage.SData.Client.SDataNamedQueryRequest(this.getConnection());
+                    request.setQueryName('execute');
+                    request.setResourceKind('groups');
+                    request.setContractName('system');
+                    request.getUri().setCollectionPredicate("'" + params.$key + "'");
+
+                    this.querySelect = layout;
+                    this.queryOrderBy = '';
+                    this.keyProperty = params.family.toUpperCase() + 'ID';
+                    this.descriptorProperty = params.family.toUpperCase();
+                    this.store = null;
+
+                    this.rowTemplate = new Simplate([
+                        '<li data-action="activateEntry" data-key="{%= $[$$.keyProperty] %}" data-descriptor="{%: $[$$.descriptorProperty] %}">',
+                            '<button data-action="selectEntry" class="list-item-selector button">',
+                                '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
+                            '</button>',
+                            '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
+                        '</li>'
+                    ]);
+
+                    template = array.map(array.filter(layout, function(item) { return item.toUpperCase !== (params.family.toUpperCase() + 'ID'); }), function(item) {
+                        return ["<h4>", item.toUpperCase(), " : {%= $['" + item.toUpperCase() + "'] %}", "</h4>"].join('');
+                    });
+
+                    this.itemTemplate = new Simplate(template);
+
+                    this.clear(true);
+                    this.refreshRequired = true;
+                    this.refresh();
+                    this.toggleRightDrawer();
                 })
             };
 
@@ -106,15 +223,58 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 };
             }
 
+            if (entry.action === 'groupClicked') {
+                return {
+                    tag: 'group',
+                    title: this.groupsSectionText
+                }
+            }
+
             return {
                 tag: 'kpi',
                 title: this.kpiSectionText
             };
         },
         createRightDrawerLayout: function() {
-            var hashTagsSection, hashTag, kpiSection, layout, prefs, i, len, metrics;
+            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len, store, def, groupLayout;
 
             layout = [];
+
+            groupsSection = {
+                id: 'actions',
+                children: []
+            };
+
+            if (this.groupList && this.groupList.length > 0) {
+                array.forEach(this.groupList, function(group) {
+                    group.layout = array.filter(group.layout, function(item) {
+                        return item.visible && item.fieldType !== 'FixedChar';
+                    });
+
+                    groupLayout = array.map(group.layout, function(layout) {
+                        return layout.alias;
+                    });
+
+                    // Try to select the entity id as well
+                    groupLayout.push(group.family + 'ID');
+
+                    groupsSection.children.push({
+                        'name': group.name,
+                        'action': 'groupClicked',
+                        'title': group.displayName,
+                        'dataProps': {
+                            $key: group.$key,
+                            family: group.family,
+                            userId: group.userId,
+                            isHidden: group.isHidden,
+                            isAdHoc: group.isAdHoc,
+                            layout: groupLayout.join(',')
+                        }
+                    });
+                });
+
+                layout.push(groupsSection);
+            }
 
             hashTagsSection = {
                 id: 'actions',
@@ -164,6 +324,24 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             }
 
             return layout;
+        },
+        createGroupStore: function() {
+            if (!this.entityName) {
+                return null;
+            }
+
+            var store = new SDataStore({
+                service: App.services.crm,
+                resourceKind: 'groups',
+                contractName: 'system',
+                where: "upper(family) eq '" + this.entityName.toUpperCase() + "'",
+                include: ['layout', 'tableAliases'],
+                idProperty: '$key',
+                applicationName: 'slx',
+                scope: this
+            });
+
+            return store;
         }
     });
 });
