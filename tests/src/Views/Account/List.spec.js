@@ -98,7 +98,7 @@ define('spec/Views/Account/List.spec', [
             view._started = true;
             view._placeAt = null;
 
-            view.showViaRoute();
+            view.show();
             view.refresh();
             expect(this.list.rowTemplate.apply.calls.count()).toEqual(2);
         });
