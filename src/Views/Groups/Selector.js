@@ -30,6 +30,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
         icon: 'content/images/icons/database_24.png',
 
         listViewId: 'groups_list',
+        family: '',
 
         //Localization
         titleText: 'Groups',
@@ -53,40 +54,45 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
                 return;
             }
 
-            descriptor = params.descriptor;
-            entry = this.entries[key];
-            view = App.getView(this.listViewId);
+            if (this._selectionModel && this.isNavigationDisabled()) {
+                this._selectionModel.toggle(params.key, this.entries[params.key] || params.descriptor, params.$source);
+                if (this.options.singleSelect && this.options.singleSelectAction) {
+                    this.invokeSingleSelectAction();
+                }
+            } else {
+                descriptor = params.descriptor;
+                entry = this.entries[key];
+                view = App.getView(this.listViewId);
 
-            if (view) {
-                view.show({ key: key, descriptor: descriptor, entry: entry});
+                if (view) {
+                    view.show({ key: key, descriptor: descriptor, entry: entry});
+                }
             }
         },
 
         createStore: function() {
-            // Return an empty store initially.
-            // The _RightDrawerGroupsMixin will set the store when the user clicks a family.
-            var store = new MemoryStore({data: [
-                { '$key': this.emptyMessageId, '$descriptor': this.initialText }
-            ]});
-            store.idProperty = '$key';
-            return store;
+            return this.createGroupStore(this.family) || new MemoryStore({
+                data: [
+                    { '$key': this.emptyMessageId, '$descriptor': this.initialText }
+                ]
+            });
         },
 
         createGroupStore: function(entityName) {
-            if (typeof entityName !== 'string') {
-                return null;
-            }
+            var store = null;
 
-            var store = new SDataStore({
-                service: App.services.crm,
-                resourceKind: 'groups',
-                contractName: 'system',
-                where: "upper(family) eq '" + entityName.toUpperCase() + "'",
-                include: ['layout', 'tableAliases'],
-                idProperty: '$key',
-                applicationName: 'slx',
-                scope: this
-            });
+            if (typeof entityName === 'string' && entityName !== '') {
+                store = new SDataStore({
+                    service: App.services.crm,
+                    resourceKind: 'groups',
+                    contractName: 'system',
+                    where: "upper(family) eq '" + entityName.toUpperCase() + "'",
+                    include: ['layout', 'tableAliases'],
+                    idProperty: '$key',
+                    applicationName: 'slx',
+                    scope: this
+                });
+            }
 
             return store;
         }

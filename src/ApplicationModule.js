@@ -329,6 +329,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerView(new GroupsList());
             this.registerView(new GroupsSelector());
+            this.registerView(new GroupsSelector({
+                id: 'groups_configure',
+                icon: '',
+                expose: false
+            }));
 
             this.registerView(new OpportunityEdit());
             this.registerView(new OpportunityList());

@@ -17,16 +17,20 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/_base/lang',
     'dojo/dom-construct',
     'dojo/dom-attr',
+    'dojo/dom-style',
+    'dojo/aspect',
     'Mobile/SalesLogix/Views/_RightDrawerBaseMixin',
-    'Sage/Platform/Mobile/Store/SData'
+    'Sage/Platform/Mobile/Fields/LookupField'
 ], function(
     declare,
     array,
     lang,
     domConstruct,
     domAttr,
+    domStyle,
+    aspect,
     _RightDrawerBaseMixin,
-    SDataStore
+    LookupField
 ) {
 
     return declare('Mobile.SalesLogix.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
@@ -34,33 +38,20 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         hashTagsSectionText: 'Hash Tags',
         groupsSectionText: 'Groups',
         kpiSectionText: 'KPI',
+        groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to get back to entity mode.',
+        configureGroupsText: 'Configure',
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
         groupList: null,
         DRAWER_PAGESIZE: 100,
+        groupLookupId: 'groups_configure',
 
         setupRightDrawer: function() {
-            var drawer = App.getView('right_drawer'), store, def;
+            var drawer = App.getView('right_drawer');
             if (drawer) {
                 drawer.pageSize = this.DRAWER_PAGESIZE;
-                store = this.createGroupStore();
-                if (store) {
-                    def = store.query(null);
-                    def.then(lang.hitch(this, function(data) {
-                        this.groupList = data;
-                        this._finishSetup(drawer);
-
-                        // Force a refresh since we fetched this async and the user could have opened it before we loaded.
-                        drawer.store = null;
-                        drawer.refresh();
-                        this.drawerLoaded = true;
-                    }), function(e) {
-                        console.error(e);
-                        this._finishSetup(drawer);
-                    });
-                } else {
-                    this._finishSetup(drawer);
-                }
+                this.groupList = App.preferences[this.entityName];
+                this._finishSetup(drawer);
             }
         },
         _finishSetup: function(drawer) {
@@ -107,6 +98,13 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             original.store = this.store;
             original.rowTemplate = this.rowTemplate;
             original.itemTemplate = this.itemTemplate;
+            if (this.groupsNode) {
+                domStyle.set(this.groupsNode, {
+                    display: 'block'
+                });
+
+                this.groupsNode.innerHTML = this.groupsModeText;
+            }
         },
         _restoreProps: function() {
             if (!this.originalProps) {
@@ -128,6 +126,13 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             this.clear(true);
             this.refreshRequired = true;
+            if (this.groupsNode) {
+                domStyle.set(this.groupsNode, {
+                    display: 'none'
+                });
+
+                this.groupsNode.innerHTML = '';
+            }
         },
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
@@ -161,14 +166,47 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
                     }
                 }),
-                navigateToConfigurationView: lang.hitch(this, function() {
-                    var view = App.getView(this.configurationView);
-                    if (view) {
-                        view.resourceKind = this.resourceKind;
-                        view.entityName = this.entityName;
-                        view.show({ returnTo: -1 });
-                        this.toggleRightDrawer();
-                    }
+                groupConfigureClicked: lang.hitch(this, function() {
+                    var field, handle, view;
+                    view = App.getView(this.groupLookupId);
+                    view.family = this.entityName;
+                    view.set('store', null);
+                    view.clear(true);
+                    view.refreshRequired = true;
+
+                    field = new LookupField({
+                        owner: this,
+                        view: view,
+                        singleSelect: false
+                    });
+
+                    handle = aspect.after(field, 'complete', lang.hitch(field, function() {
+                        var field = this,
+                            list = this.owner,
+                            groupId,
+                            entry
+                            items = [];
+
+                        // We will get an object back where the property names are the keys (groupId's)
+                        // Extract them out, and save the entry, which is the data property on the extracted object
+                        for (groupId in field.currentValue) {
+                            if (field.currentValue.hasOwnProperty(groupId)) {
+                                entry = field.currentValue[groupId].data;
+                                if (entry) {
+                                    items.push(entry);
+                                }
+                            }
+                        }
+
+                        App.preferences[list.entityName] = items;
+                        App.persistPreferences();
+
+                        handle.remove();
+                        field.destroy();
+                    }));
+
+                    field.navigateToListView();
+                    this.toggleRightDrawer();
                 }),
                 groupClicked: lang.hitch(this, function(params) {
                     var template = [],
@@ -223,7 +261,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 };
             }
 
-            if (entry.action === 'groupClicked') {
+            if (entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked') {
                 return {
                     tag: 'group',
                     title: this.groupsSectionText
@@ -244,6 +282,12 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 id: 'actions',
                 children: []
             };
+
+            groupsSection.children.push({
+                'name': 'configureGroups',
+                'action': 'groupConfigureClicked',
+                'title': this.configureGroupsText
+            });
 
             if (this.groupList && this.groupList.length > 0) {
                 array.forEach(this.groupList, function(group) {
@@ -272,7 +316,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         }
                     });
                 });
+            }
 
+            if (this.entityName) {
                 layout.push(groupsSection);
             }
 
@@ -324,24 +370,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             }
 
             return layout;
-        },
-        createGroupStore: function() {
-            if (!this.entityName) {
-                return null;
-            }
-
-            var store = new SDataStore({
-                service: App.services.crm,
-                resourceKind: 'groups',
-                contractName: 'system',
-                where: "upper(family) eq '" + this.entityName.toUpperCase() + "'",
-                include: ['layout', 'tableAliases'],
-                idProperty: '$key',
-                applicationName: 'slx',
-                scope: this
-            });
-
-            return store;
         }
     });
 });
