@@ -20,6 +20,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
+    'Mobile/SalesLogix/Views/Activity/RelatedView',
+    'Mobile/SalesLogix/Views/Attachment/RelatedView',
+    'Mobile/SalesLogix/Views/History/RelatedView',
+    'Mobile/SalesLogix/Views/Address/RelatedView',
     '../_MetricDetailMixin'
 ], function(
     declare,
@@ -28,6 +32,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     format,
     template,
     Detail,
+    ActvityRelatedView,
+    AttachmentRelatedView,
+    HistoryRelatedView,
+    AddressRelatedView,
     _MetricDetailMixin
 ) {
 
@@ -234,49 +242,91 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     list: true,
                     name: 'RelatedItemsSection',
                     children: [{
-                            name: 'ActivityRelated',
-                            icon: 'content/images/icons/To_Do_24x24.png',
-                            label: this.relatedActivitiesText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}"'),
-                            view: 'activity_related'
-                        }, {
-                            name: 'ContactRelated',
+                        name: 'ContactRelated',
+                        relatedView: {
+                            id: 'account_contact_related_view',
                             icon: 'content/images/icons/Contacts_24x24.png',
-                            label: this.relatedContactsText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
-                            view: 'contact_related'
-                        }, {
-                            name: 'OpportunityRelated',
+                            resourceKind: 'contacts',
+                            title: this.relatedContactsText,
+                            detailViewId: 'contact_detail',
+                            listViewId: 'contact_related',
+                            insertViewId: 'contact_edit',
+                            showAdd: true,
+                            enabled: true,
+                            relatedProperty: 'Account.$key',
+                            where: function(entry) { return "Account.id eq '" + entry.$key + "'"; }
+                        }
+                    }, {
+                        name: 'OpportunityRelated',
+                        relatedView: {
+                            id: 'account_opp_related_view',
                             icon: 'content/images/icons/opportunity_24.png',
-                            label: this.relatedOpportunitiesText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
-                            view: 'opportunity_related'
-                        }, {
-                            name: 'TicketRelated',
+                            title: this.relatedOpportunitiesText,
+                            resourceKind: 'opportunities',
+                            detailViewId: 'opprtunity_detail',
+                            listViewId: 'opportunity_related',
+                            insertViewId: 'opportunity_edit',
+                            showAdd: true,
+                            enabled: true,
+                            relatedProperty: 'Account.$key',
+                            where: function(entry) { return "Account.id eq '" + entry.$key + "'"; }
+                        }
+                    }, {
+                        name: 'TicketRelated',
+                        relatedView: {
+                            id: 'account_ticket_related_view',
                             icon: 'content/images/icons/Ticket_24x24.png',
-                            label: this.relatedTicketsText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
-                            view: 'ticket_related'
-                        }, {
-                            name: 'HistoryRelated',
-                            icon: 'content/images/icons/journal_24.png',
-                            label: this.relatedHistoriesText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}" and Type ne "atDatabaseChange"'),
-                            view: 'history_related'
-                        }, {
-                            name: 'AddressesRelated',
-                            icon: 'content/images/icons/Map_24.png',
-                            label: this.relatedAddressesText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
-                            view: 'address_related'
-                        }, {
-                            name: 'AttachmentRelated',
-                            icon: 'content/images/icons/Attachment_24.png',
-                            label: this.relatedAttachmentText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'accountId eq "${0}"'), // must be lower case because of feed
-                            view: 'account_attachment_related',
-                            title:  this.relatedAttachmentTitleText
-                        }]
+                            title: this.relatedTicketsText,
+                            resourceKind: 'tickets',
+                            detailViewId: 'ticket_detail',
+                            listViewId: 'ticket_related',
+                            insertViewId: 'ticket_edit',
+                            showAdd: true,
+                            enabled: true,
+                            relatedProperty: 'Account.$key',
+                            where: function(entry) { return "Account.id eq '" + entry.$key + "'"; }
+                        }
+                    }, {
+                        name: 'ActvitiyRelated',
+                        relatedView: {
+                            widgetType: ActvityRelatedView,
+                            id: 'account_activity_realted_view',
+                            enabled: true,
+                            relatedProperty: 'AccountId',
+                            where: function(entry) { return "AccountId eq '" + entry.$key + "'"; }
+                        }
+                    }, {
+                        name: 'AttatchementRelated',
+                        relatedView: {
+                            widgetType: AttachmentRelatedView,
+                            id: 'account_attachmnets_realted_view',
+                            listViewId: 'account_attachment_related',
+                            relatedProperty: 'accountId',
+                            enabled: true,
+                            where: function(entry) { return "accountId eq '" + entry.$key + "'"; }
+                        }
+                    }, {
+                        name: 'HistoryRelated',
+                        relatedView: {
+                            widgetType: HistoryRelatedView,
+                            id: 'account_history_realted_view',
+                            listViewId: 'history_related',
+                            enabled: true,
+                            relatedProperty: 'AccountId',
+                            where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
+                        }
+                    }, {
+                        name: 'AddressesRelated',
+                        relatedView: {
+                            widgetType: AddressRelatedView,
+                            id: 'account_addresses_related_view',
+                            llistViewId: 'address_related',
+                            enabled: true,
+                            showAdd: false,
+                            relatedProperty: 'EntityId',
+                            where: function(entry) { return "EntityId eq '" + entry.$key + "'"; }
+                        }
+                    }]
                 }]);
         }
     });

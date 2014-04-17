@@ -43,21 +43,12 @@ define('Mobile/SalesLogix/Views/Attachment/RelatedView', [
         itemIcon: 'content/images/icons/Attachment_24.png',
         title: "Attatchments",
         detailViewId: 'view_attachment',
-        editViewId: '',
         insertViewId: 'attachment_Add',
         listViewId: 'attachment_list',
         listViewWhere: null,
         enabled: true,
-        showTab: true,
-        enableActions: true,
-        enableItemActions: false,
-        showItemDetail: true,
-        showItemFooter: false,
-        showTotalInTab: true,
-        hideWhenNoData: false,
         showSelectMore: true,
-        autoLoad: false,
-        pageSize: 3,
+        showAdd: true,
         resourceKind: 'attachments',
         contractName: 'system',
         include: ['$descriptors'],
@@ -75,7 +66,7 @@ define('Mobile/SalesLogix/Views/Attachment/RelatedView', [
             'ModifyDate'
         ],
         where:null ,
-        sort: 'attachDate desc',
+        sort: 'attachDate Desc',
         relatedItemIconTemplate: new Simplate([
            // '<div class="user-icon">{%: Mobile.SalesLogix.Format.formatUserInitial($.datatype) %}</div>',
              '{% if ($.dataType === "R") { %}',
@@ -120,34 +111,6 @@ define('Mobile/SalesLogix/Views/Attachment/RelatedView', [
                 return  entry.$descriptor;
             }
             return '';
-        },
-        onAddContact: function(evt) {
-            var ctor, options;
-
-            if (!this.luContact) {
-                ctor = FieldManager.get('lookup'),
-                options = lang.mixin({
-                    owner: this
-                }, {
-                    name: 'Contact',
-                    property: 'Contact',
-                    textProperty: 'Contct',
-                    singleSelect: false,
-                    view: 'contact_related'
-                });
-                this.luContact = new ctor(options);
-                this.connect(this.luContact, 'onChange', this._processContactLookupResults);
-            }
-
-            this.luContact.buttonClick();
-
-        },
-        onItemEdit: function(action, entryKey, entry) {
-            var view = App.getView(this.editViewId);
-            if (view) {
-                view.show({title:this.getItemDescriptor(entry), key: entryKey });
-               
-            }
         }
     });
 });

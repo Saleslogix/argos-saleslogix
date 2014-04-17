@@ -506,13 +506,6 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     list: true,
                     name: 'RelatedItemsSection',
                     children: [{
-                        name: 'AttachmentRelated',
-                        icon: 'content/images/icons/Attachment_24.png',
-                        label: this.relatedAttachmentText,
-                        where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'),// must be lower case because of feed
-                        view: 'activity_attachment_related',
-                        title: this.relatedAttachmentTitleText
-                      },{
                         name: 'AttendeeRelated',
                         relatedView: {
                           widgetType: AttendeeRelatedView,

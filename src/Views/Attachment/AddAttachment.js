@@ -17,6 +17,7 @@
 define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
     'dojo/_base/declare',
     'dojo/string',
+    'dojo/_base/connect',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Views/FileSelect',
@@ -25,6 +26,7 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
 ], function(
     declare,
     string,
+    connect,
     format,
     sdkFormat,
     FileSelect,
@@ -50,6 +52,12 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
 
                 am.onSuccessUpdate = function() {
                     Environment.refreshAttachmentViews();
+                    var message = {
+                        id: 'attachment_Add',
+                        resourceKind: 'attachments',
+                        data:{}
+                    };
+                    connect.publish('/app/refresh', [message]);
                     ReUI.back();
                 };
 

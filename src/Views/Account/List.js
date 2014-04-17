@@ -193,7 +193,11 @@ define('Mobile/SalesLogix/Views/Account/List', [
             return this.relatedViews || (this.relatedViews = [{
                 widgetType: HistoryRelatedView,
                 id: 'account_relatedNotes',
-                autoLoad:true,
+                autoLoad: true,
+                showTab: false,
+                enableActions: false,
+                showTotalInTab: false,
+                hideWhenNoData: true,
                 enabled: true,
                 relatedProperty:'AccountId',
                 where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }

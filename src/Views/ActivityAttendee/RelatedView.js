@@ -257,15 +257,23 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
             this.luLead.buttonClick();
 
         },
-        onItemEdit: function(action, entryKey, entry) {
-            var view = App.getView(this.editViewId);
+        onDrillToDetailView: function(action, entryKey, entry) {
+            var detailViewId = 'contact_detail';
+            if (entry.EntityType === 'Lead') {
+                detailViewId = 'lead_detail';
+            }
+
+            view = App.getView(detailViewId);
+            options = {
+                key: entry.EntityId,
+                descriptor: this.getItemDescriptor(entry),
+                title: this.getItemDescriptor(entry)
+            };
 
             if (view) {
-                view.show({title:this.getItemDescriptor(entry), key: entryKey });
-                //view.show({ title: this.getItemDescriptor(entry), descriptor: this.getItemDescriptor(entry), entry: entry });
-                // view.show({ entry: entry });
-                //view.show({ key: entryKey });
+                view.show(options);
             }
+
         },
         _processContactLookupResults: function(values, field) {
 
