@@ -337,6 +337,10 @@
           "path": "../src/Views/History"
         },
         {
+          "text": "ListRelatedView.js",
+          "path": "../src/Views/History"
+        },
+        {
           "text": "List.js",
           "path": "../src/Views/Account"
         },
@@ -354,6 +358,10 @@
         },
         {
           "text": "Edit.js",
+          "path": "../src/Views/Address"
+        },
+        {
+          "text": "RelatedView.js",
           "path": "../src/Views/Address"
         },
         {
@@ -382,6 +390,10 @@
         },
         {
           "text": "Recurring.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "RelatedView.js",
           "path": "../src/Views/Activity"
         },
         {

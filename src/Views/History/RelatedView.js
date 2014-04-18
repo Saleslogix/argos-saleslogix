@@ -121,15 +121,14 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         onAddQuickNote: function(evt) {
             var insertEntry, currentUserId, currentUserName, notes;
             currentUserId = App.context['user'].$key;
-            currentUserName = App.context['user'].$descriptor,
+            currentUserName = App.context['user'].$descriptor;
             notes = this.fieldNote.getValue();
-            if (!notes == '') {
+            if (notes !== '') {
                 insertEntry = {
                     Type: 'atNote',
                     UserName: currentUserName,
                     UserId: currentUserId,
-                  //  Description: 'Quick Note',
-                    LongNotes: this.fieldNote.getValue()
+                    LongNotes: notes
                 };
                 this.setParentContext(insertEntry);
                 this.insertItem(insertEntry, { onSuccess: this.onAddNoteComplete, onFailed: this.onAddNoteFailed });

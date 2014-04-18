@@ -46,7 +46,7 @@ define('Mobile/SalesLogix/Views/Address/RelatedView', [
         listViewWhere: null,
         enabled: true,
         showAdd: true,
-        resourceKind: 'addresses',        
+        resourceKind: 'addresses',
         //select: [],
         where:null ,
         sort: 'IsPrimary Desc',
@@ -63,7 +63,7 @@ define('Mobile/SalesLogix/Views/Address/RelatedView', [
             }
             return '';
        },
-       navigateToDetailView: function(relatedKey, descriptor, descriptor) {
+       navigateToDetailView: function(relatedKey, descriptor, title) {
            var entry = this.getItemEntry(relatedKey);
            App.showMapForAddress(format.address(entry, true, ' '));
        }

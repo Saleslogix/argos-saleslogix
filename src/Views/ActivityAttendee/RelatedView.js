@@ -112,7 +112,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
              '<br>'
         ]),
         getRowItemCls: function(entry) {
-            return '';
+            /*
             if (entry) {
                 if (entry.IsPrimary) {
                     return 'attendee-item-primary';
@@ -125,6 +125,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
                 }
             }
             return '';
+            */
         },
         getItemDescriptor: function(entry) {
             if (entry) {
@@ -258,7 +259,9 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
 
         },
         onDrillToDetailView: function(action, entryKey, entry) {
-            var detailViewId = 'contact_detail';
+            var detailViewId, view, options;
+
+            detailViewId = 'contact_detail';
             if (entry.EntityType === 'Lead') {
                 detailViewId = 'lead_detail';
             }
@@ -498,7 +501,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
            updateEntry = {
                $key: this.rolePicklist.currentEntryKey,
                RoleName: values.text
-           }
+           };
            this.UpdateItem(updateEntry, { onSuccess: this.onUpdateRoleComplete, onFailed: this.onUpdateRoleFailed });
 
        },
