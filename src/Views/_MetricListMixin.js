@@ -38,6 +38,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             this.inherited(arguments);
             this.widgetTemplate =  new Simplate([
                 '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+                '<div data-dojo-attach-point="groupsNode" class="groups-notice"></div>',
                 '<div data-dojo-attach-point="searchNode"></div>',
                 '<div data-dojo-attach-point="metricNode" class="metric-list"></div>',
                 '{%! $.emptySelectionTemplate %}',
