@@ -24,6 +24,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
     'dojo/dom-construct',
     'dojo/dom-class',
     'dojo/_base/lang',
+    'Sage/Platform/Mobile/Utility'
 ], function(
     declare,
     format,
@@ -33,7 +34,8 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
     FieldManager,
     domConstruct,
     domClass,
-    lang
+    lang,
+    utility
 ) {
     return declare('Mobile.SalesLogix.Views.History.RelatedView', [RelatedViewWidget], {
         regardingText: 'Regarding',
@@ -60,17 +62,17 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         pageSize: 3,
 
         relatedViewHeaderTemplate: new Simplate([
-            '<div  data-dojo-attach-point="quicNoteNode" class="hidden" style="width:100%">',
-               '<div>',
-               '<button  class="action-item-with-button "  data-dojo-attach-event="onclick:onCancelQuickNote" >',
+            '<div  data-dojo-attach-point="quicNoteNode" class="hidden quick-note">',
+               '<div class= "action-items">',
+                '<span class="action-item" data-dojo-attach-event="onclick:onCancelQuickNote" >',
                       '<img src="content/images/icons/cancl_24.png" />',
-                '</button>',
-                '<button  class="action-item-with-button " data-dojo-attach-event="onclick:onAddQuickNote" >',
+                '</span>',
+                 '<span class="action-item" data-dojo-attach-event="onclick:onAddQuickNote" >',
                       '<img src="content/images/icons/OK_24.png" />',
-                '</button>',
+                '</span>',
+                '</div>',
               '</div>',
-              '</div>',
-             '<div class="line-bar"></div>'
+             '<div  class="line-bar"></div>'
         ]),
 
         relatedItemIconTemplate: new Simplate([
@@ -95,13 +97,13 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
             }
             this.actions.push({
                 id: 'add_quick_note',
-                icon: 'content/images/icons/quick_note_24.png',
+                icon: 'content/images/icons/note_24.png',
                 label: this.addQuickNoteText,
                 action: 'onShowQuickNote',
                 isEnabled: true,
                 fn: this.onShowQuickNote.bindDelegate(this)
             });
-           return this.actions;
+            return this.actions;
         },
         onShowQuickNote: function(evt) {
             var ctor;
@@ -109,7 +111,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
 
                 ctor = FieldManager.get('note'),
                 this.fieldNote = new ctor(lang.mixin({
-                          owner: this
+                    owner: this
                 }, { name: 'QuickNote', label: 'Quick Note', rows: 5 }));
 
                 this.fieldNote.placeAt(this.quicNoteNode, 'first');
@@ -117,28 +119,87 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
             domClass.toggle(this.quicNoteNode, 'hidden');
         },
         onAddQuickNote: function(evt) {
-           
-           alert (this.fieldNote.getValue());
-           var updateEntry = {
-               Type: 'atNote',
-               AccountId: this.parentEntry.$key,
-               LongNotes: this.fieldNote.getValue()
-               //Note: this.fieldNote.getValue()
-           };
-           //this..UpdateItem(updateEntry, { onSuccess: this.onAddNoteComplete, onFailed: this.onAddNoteFailed });
-
-            domClass.toggle(this.quicNoteNode, 'hidden');
+            var insertEntry, currentUserId, currentUserName, notes;
+            currentUserId = App.context['user'].$key;
+            currentUserName = App.context['user'].$descriptor,
+            notes = this.fieldNote.getValue();
+            if (!notes == '') {
+                insertEntry = {
+                    Type: 'atNote',
+                    UserName: currentUserName,
+                    UserId: currentUserId,
+                  //  Description: 'Quick Note',
+                    LongNotes: this.fieldNote.getValue()
+                };
+                this.setParentContext(insertEntry);
+                this.insertItem(insertEntry, { onSuccess: this.onAddNoteComplete, onFailed: this.onAddNoteFailed });
+            } else {
+                domClass.toggle(this.quicNoteNode, 'hidden');
+            }
         },
         onCancelQuickNote: function(evt) {
            
             domClass.toggle(this.quicNoteNode, 'hidden');
         },
         onAddNoteComplete: function(result, entry) {
+            domClass.toggle(this.quicNoteNode, 'hidden');
+            this.fieldNote.setValue('');
             this._onRefreshView();
         },
         onAddNoteFailed: function(result, entry) {
             console.log("failed adding note");
         },
+        setParentContext: function(entry) {
+            var resourceKind, context;
+            resourceKind = this.owner.resourceKind;
+            context = {};
+            switch (resourceKind) {
+                case 'accounts':
+                    context = {
+                        'AccountId': this.parentEntry['$key'],
+                        'AccountName': this.parentEntry['$descriptor']
+                    };
+                    break;
+                case 'contacts':
+                    context = {
+                        'ContactId': this.parentEntry['$key'],
+                        'ContactName': this.parentEntry['$descriptor'],
+                        'AccountId': utility.getValue(this.parentEntry, 'Account.$key'),
+                        'AccountName': utility.getValue(this.parentEntry, 'Account.AccountName')
+                    };
+                    break;
+                case 'leads':
+                    context = {
+                        'LeadId': this.parentEntry['$key'],
+                        'LeadName': this.parentEntry['$descriptor'],
+                        'AccountName': this.parentEntry['Company']
+                    };
+                    break;
+                case 'ticktes':
+                    context = {
+                        'TicketId': this.parentEntry['$key'],
+                        'TicketNumber': this.parentEntry['$descriptor'],
+                        'AccountId': utility.getValue(this.parentEntry, 'Account.$key'),
+                        'AccountName': utility.getValue(this.parentEntry, 'Account.AccountName'),
+                        'ContactId': utility.getValue(this.parentEntry, 'Contact.$key'),
+                        'ContactName': utility.getValue(this.parentEntry, 'Contact.NameLF')
+                    };
+                    break;
+                case 'opportunities':
+                    context = {
+                        'OpportunityId': entry['$key'],
+                        'OpportunityName': entry['$descriptor'],
+                        'AccountId': utility.getValue(this.parentEntry, 'Account.$key'),
+                        'AccountName': utility.getValue(this.parentEntry, 'Account.AccountName'),
+                    };
+                    break;
+            }
+            
+            lang.mixin(entry, context);
+
+
+        }
+
 
     });
 });

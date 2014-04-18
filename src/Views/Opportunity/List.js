@@ -14,7 +14,7 @@
  *
  * @requires Mobile.SalesLogix.Action
  * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Views.History.RelatedView
+ * @requires Mobile.SalesLogix.Views.History.ListRelatedView
  */
 define('Mobile/SalesLogix/Views/Opportunity/List', [
     'dojo/_base/declare',
@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Format',
-    'Mobile/SalesLogix/Views/History/RelatedView',
+    'Mobile/SalesLogix/Views/History/ListRelatedView',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',

@@ -13,7 +13,7 @@
  * @requires Sage.Platform.Mobile.RelatedViewWidget
  *
  * @requires Mobile.SalesLogix.Action
- * @requires Mobile.SalesLogix.Views.History.RelatedView
+ * @requires Mobile.SalesLogix.Views.History.ListRelatedView
  * @requires Mobile.SalesLogix.Views._MetricListMixin
  * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
  * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Views/History/RelatedView',
+    'Mobile/SalesLogix/Views/History/ListRelatedView',
     'Sage/Platform/Mobile/RelatedViewWidget',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
@@ -193,11 +193,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
             return this.relatedViews || (this.relatedViews = [{
                 widgetType: HistoryRelatedView,
                 id: 'account_relatedNotes',
-                autoLoad: true,
-                showTab: false,
-                enableActions: false,
-                showTotalInTab: false,
-                hideWhenNoData: true,
                 enabled: true,
                 relatedProperty:'AccountId',
                 where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }

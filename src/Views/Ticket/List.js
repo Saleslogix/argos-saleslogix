@@ -12,7 +12,7 @@
  *
  * @requires Mobile.SalesLogix.Action
  * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Views.History.RelatedView
+ * @requires Mobile.SalesLogix.Views.History.ListRelatedView
  */
 define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/declare',
@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Views/History/RelatedView',
+    'Mobile/SalesLogix/Views/History/ListRelatedView',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',

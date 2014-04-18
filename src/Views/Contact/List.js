@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Views/History/RelatedView',
+    'Mobile/SalesLogix/Views/History/ListRelatedView',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
      'Mobile/SalesLogix/Views/_CardLayoutListMixin',
