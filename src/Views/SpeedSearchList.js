@@ -22,6 +22,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     'dojo/dom-attr',
     'Mobile/SalesLogix/SpeedSearchWidget',
     'Sage/Platform/Mobile/List',
+    'Sage/Platform/Mobile/_LegacySDataListMixin',
     'Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin',
     'Mobile/SalesLogix/Views/_CardLayoutListMixin'
 ], function(
@@ -35,11 +36,12 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     domAttr,
     SpeedSearchWidget,
     List,
+    _LegacySDataListMixin,
     _SpeedSearchRightDrawerListMixin,
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.SpeedSearchList', [List, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
         //Templates
         //Used when card layout is not mixed in
         rowTemplate: new Simplate([
