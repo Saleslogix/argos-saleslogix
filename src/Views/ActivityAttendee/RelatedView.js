@@ -96,10 +96,11 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         ]),
         relatedItemHeaderTemplate: new Simplate([
             '<h3><strong>{%: $$.getItemDescriptor($) %} </h3>',
+            '<h3 style="color:gray" >{%: $.RoleName %} </h3>',
         ]),
        relatedItemDetailTemplate: new Simplate([
                '<div class="attendee-item-detail">',
-                '<h3>{%: $.RoleName %} </h3>',
+               // '<h3>{%: $.RoleName %} </h3>',
                 '<h3>{%: $.Title %}</h3>',
               '</div>',
               '<div class="attendee-item-detail">',
