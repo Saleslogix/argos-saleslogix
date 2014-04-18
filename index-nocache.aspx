@@ -116,6 +116,8 @@
                     }
 
                     moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
+                    window.moment = moment;
+
                     var instance = new application(configuration);
 
                     instance.activate();

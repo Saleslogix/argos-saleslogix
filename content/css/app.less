@@ -65,20 +65,6 @@
         display: none;
     }
 
-    fieldset
-    {
-        padding: 0;    
-        background: #fff;
-        
-        border-width: 1px;
-        border-color: #b3b3b3;
-        border-style: solid;
-
-        background-clip: padding-box;
-        -webkit-background-clip: padding-box;
-        -moz-background-clip: padding-box;
-    }
-
     .clear-button
     {
         right: 12px;
@@ -92,6 +78,8 @@
     overflow: hidden;
     padding-left: 0px;
     padding-right: 34px;
+    border: 1px solid @gray1-lighter;
+    background-color: @gray5-lighter;
 }
 
 .note-text-row > label,
@@ -501,9 +489,9 @@ li[data-ticket-status] .list-item-selector,
 .row-edit[data-field-type="recurrences"] > div > .button
 {
     margin: 0;
-    padding: 0 8px;
+    padding: 0 12px;
     position: absolute;
-    right: 4px;
+    right: 5px;
 }
 .row-edit[data-field-type="recurrences"] > div > input
 {

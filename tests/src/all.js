@@ -11,6 +11,7 @@ define([
     'spec/Fields/PicklistField.spec',
     'spec/Fields/RecurrencesField.spec',
     'spec/Views/ExchangeRateLookup.spec',
+    'spec/Views/Account/List.spec',
     'localization/en',
     'localization/saleslogix/en'
 ], function() {});

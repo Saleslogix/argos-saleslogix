@@ -147,23 +147,20 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             return this.activityTypeText[val] || val;
         },
         navigateToEditView: function(el) {
-            var view = App.getView(this.editView),
-                route;
+            var view = App.getView(this.editView);
 
             if (view) {
                 if (this.isActivityRecurringSeries(this.entry) && confirm(this.confirmEditRecurrenceText)) {
                     this.recurrence.Leader = this.entry.Leader;
-                    route = this.recurrence.$key ? view.id + '/' + this.recurrence.$key : view.id;
-                    App.goRoute(route, {entry: this.recurrence});
+                    view.show({entry: this.recurrence});
 
                 } else {
-                    route = this.entry.$key ? view.id + '/' + this.entry.$key : view.id;
-                    App.goRoute(route, {entry: this.entry});
+                    view.show({entry: this.entry});
                 }
             }
         },
         navigateToCompleteView: function(completionTitle, isSeries) {
-            var view, options, route;
+            var view, options;
 
             view = App.getView(this.completeView);
 
@@ -181,8 +178,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     options.entry = this.entry;
                 }
 
-                route = options.entry.$key ? view.id + '/' + options.entry.$key : view.id;
-                App.goRoute(route, options, {
+                view.show(options, {
                     returnTo: -1
                 });
             }

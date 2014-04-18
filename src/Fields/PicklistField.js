@@ -91,7 +91,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
             var results;
 
             if (this.singleSelect) {
-                if (typeof value === 'string') {
+                if (typeof value === 'string' || typeof value === 'number') {
                     results = value;
                 } else {
                     results = value[this.textProperty];
@@ -158,7 +158,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
                 view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
 
             if (view && options) {
-                App.goRoute(view.id, options);
+                view.show(options);
             }
         }
     });

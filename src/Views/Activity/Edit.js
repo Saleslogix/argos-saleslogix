@@ -206,8 +206,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onPutComplete: function(entry) {
             var view = App.getView(this.detailView),
-                originalKey = this.options.entry['$key'],
-                route;
+                originalKey = this.options.entry['$key'];
 
             this.enable();
 
@@ -220,8 +219,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             if (entry['$key'] != originalKey && view) {
                 // Editing single occurrence results in new $key/record
-                route = entry.$key ? view.id + '/' + entry.$key : view.id;
-                App.goRoute(route, {
+                view.show({
                     key: entry['$key']
                 }, {
                     returnTo: -2

@@ -55,17 +55,17 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             '<h4>{%: $.WebAddress %}</h4>',
             '{% if ($.WorkPhone) { %}',
                 '<h4>',
-                    '{%: $$.phoneAbbreviationText + Sage.Platform.Mobile.Format.phone($.WorkPhone) %}',
+                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callWork" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.WorkPhone) %}</span>',
                 '</h4>',
             '{% } %}',
             '{% if ($.Mobile) { %}',
                 '<h4>',
-                    '{%: $$.mobileAbbreviationText + Sage.Platform.Mobile.Format.phone($.Mobile) %}',
+                    '{%: $$.mobileAbbreviationText %} <span class="href" data-action="callMobile" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.Mobile) %}</span>',
                 '</h4>',
             '{% } %}',
             '{% if ($.Email) { %}',
                 '<h4>',
-                    '{%: $.Email %}',
+                    '<span class="href" data-action="sendEmail" data-key="{%: $.$key %}">{%: $.Email %}</span>',
                 '</h4>',
             '{% } %}'
         ]),
@@ -109,6 +109,21 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         resourceKind: 'contacts',
         entityName: 'Contact',
         enableActions: true,
+        callWork: function(params, evt, el) {
+            this.invokeActionItemBy(function(action) {
+                return action.id === 'callWork';
+            }, params.key);
+        },
+        callMobile: function(params, evt, el) {
+            this.invokeActionItemBy(function(action) {
+                return action.id === 'callMobile';
+            }, params.key);
+        },
+        sendEmail: function(params) {
+            this.invokeActionItemBy(function(action) {
+                return action.id === 'sendEmail';
+            }, params.key);
+        },
         defaultSearchTerm: function() {
             return '#' + this.hashTagQueriesText['my-contacts'];
         },

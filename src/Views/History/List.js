@@ -259,7 +259,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             var view = App.getView(viewId);
 
             if (view && options) {
-                App.goRoute(view.id, options);
+                view.show(options);
             }
         },
         resolveContactOrLeadEntity: function(entry) {
