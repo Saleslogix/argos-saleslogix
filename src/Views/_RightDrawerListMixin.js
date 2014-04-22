@@ -90,7 +90,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             var original = this.originalProps;
 
-            original.request = this.request;
+            original.request = this.request ? this.request.clone() : null;
             original.querySelect = this.querySelect;
             original.queryOrderBy = this.queryOrderBy;
             original.keyProperty = this.keyProperty;
@@ -113,7 +113,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             var original = this.originalProps;
 
-            this.request = null;
+            this.request = original.request || null;
             this.querySelect = original.querySelect;
             this.queryOrderBy = original.queryOrderBy;
             this.keyProperty = original.keyProperty;
@@ -124,7 +124,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             this.originalProps = null;
 
-            this.clear(true);
+            this.clear();
             this.refreshRequired = true;
             if (this.groupsNode) {
                 domStyle.set(this.groupsNode, {
@@ -171,7 +171,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     view = App.getView(this.groupLookupId);
                     view.family = this.entityName;
                     view.set('store', null);
-                    view.clear(true);
+                    view.clear();
                     view.refreshRequired = true;
 
                     field = new LookupField({
