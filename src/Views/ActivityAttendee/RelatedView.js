@@ -313,7 +313,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
         _getActivityId: function() {
             var key = null;
             if (this.parentEntry) {
-                key = this.parentEntry.$key
+                key = this.parentEntry.$key;
                 if (this._isRecurring(this.parentEntry) && key.split(";").length === 2){
                   key =  key.split(";").shift();
                 }
