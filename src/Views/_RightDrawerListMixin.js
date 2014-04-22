@@ -184,7 +184,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         var field = this,
                             list = this.owner,
                             groupId,
-                            entry
+                            entry,
                             items = [];
 
                         // We will get an object back where the property names are the keys (groupId's)
@@ -211,10 +211,30 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 groupClicked: lang.hitch(this, function(params) {
                     var template = [],
                         request,
-                        layout = params && params.layout && params.layout.split(','),
+                        groupLayout,
+                        group,
                         original = this.originalProps;
 
                     this._preserveProps();
+
+                    group = array.filter(this.groupList, function(item) {
+                        return item.$key === params.$key;
+                    })[0];
+
+                    if (!group) {
+                        throw new Error("Expected a group.");
+                    }
+
+                    group.layout = array.filter(group.layout, function(item) {
+                        return item.visible && item.fieldType !== 'FixedChar';
+                    });
+
+                    groupLayout = array.map(group.layout, function(layout) {
+                        return layout.alias;
+                    });
+
+                    // Try to select the entity id as well
+                    groupLayout.push(group.family + 'ID');
 
                     // Create a custom request that the store will use to execute the group query
                     this.request = request = new Sage.SData.Client.SDataNamedQueryRequest(this.getConnection());
@@ -223,10 +243,10 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     request.setContractName('system');
                     request.getUri().setCollectionPredicate("'" + params.$key + "'");
 
-                    this.querySelect = layout;
+                    this.querySelect = groupLayout;
                     this.queryOrderBy = '';
-                    this.keyProperty = params.family.toUpperCase() + 'ID';
-                    this.descriptorProperty = params.family.toUpperCase();
+                    this.keyProperty = group.family.toUpperCase() + 'ID';
+                    this.descriptorProperty = group.family.toUpperCase();
                     this.store = null;
 
                     this.rowTemplate = new Simplate([
@@ -238,7 +258,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         '</li>'
                     ]);
 
-                    template = array.map(array.filter(layout, function(item) { return item.toUpperCase !== (params.family.toUpperCase() + 'ID'); }), function(item) {
+                    groupLayout.pop(); // pop the groupfamily + ID entry out
+
+                    template = array.map(groupLayout, function(item) {
                         return ["<h4>", item.toUpperCase(), " : {%= $['" + item.toUpperCase() + "'] %}", "</h4>"].join('');
                     });
 
@@ -265,7 +287,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 return {
                     tag: 'group',
                     title: this.groupsSectionText
-                }
+                };
             }
 
             return {
@@ -274,7 +296,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len, store, def, groupLayout;
+            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len, store, def;
 
             layout = [];
 
@@ -291,28 +313,13 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             if (this.groupList && this.groupList.length > 0) {
                 array.forEach(this.groupList, function(group) {
-                    group.layout = array.filter(group.layout, function(item) {
-                        return item.visible && item.fieldType !== 'FixedChar';
-                    });
-
-                    groupLayout = array.map(group.layout, function(layout) {
-                        return layout.alias;
-                    });
-
-                    // Try to select the entity id as well
-                    groupLayout.push(group.family + 'ID');
 
                     groupsSection.children.push({
                         'name': group.name,
                         'action': 'groupClicked',
                         'title': group.displayName,
                         'dataProps': {
-                            $key: group.$key,
-                            family: group.family,
-                            userId: group.userId,
-                            isHidden: group.isHidden,
-                            isAdHoc: group.isAdHoc,
-                            layout: groupLayout.join(',')
+                            $key: group.$key
                         }
                     });
                 });
