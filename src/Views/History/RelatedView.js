@@ -40,6 +40,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
     return declare('Mobile.SalesLogix.Views.History.RelatedView', [RelatedViewWidget], {
         regardingText: 'Regarding',
         byText: 'wrote ',
+        addingNoteText:'Adding note please wait.',
         id: 'relatedNotes',
         icon: 'content/images/icons/journal_24.png',
         itemIcon: 'content/images/icons/journal_24.png',
@@ -55,6 +56,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         //enableActions: false,
         //showTotalInTab: false,
         //hideWhenNoData: true,
+        _addingNote: false,
         resourceKind: 'history',
         select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],
         where:null ,
@@ -62,6 +64,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         pageSize: 3,
 
         relatedViewHeaderTemplate: new Simplate([
+            '<div data-dojo-attach-point="addingNoteNode" class="loading-indicator"><div>{%= $.addingNoteText %}</div></div>',
             '<div  data-dojo-attach-point="quicNoteNode" class="hidden quick-note">',
                '<div class= "action-items">',
                 '<span class="action-item" data-dojo-attach-event="onclick:onCancelQuickNote" >',
@@ -97,7 +100,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
             }
             this.actions.push({
                 id: 'add_quick_note',
-                icon: 'content/images/icons/note_24.png',
+                icon: 'content/images/icons/New_Note_24x24.png',
                 label: this.addQuickNoteText,
                 action: 'onShowQuickNote',
                 isEnabled: true,
@@ -116,37 +119,50 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
 
                 this.fieldNote.placeAt(this.quicNoteNode, 'first');
             }
-            domClass.toggle(this.quicNoteNode, 'hidden');
+
+            if (!this._addingNote) {
+               domClass.toggle(this.quicNoteNode, 'hidden');
+           }
         },
         onAddQuickNote: function(evt) {
             var insertEntry, currentUserId, currentUserName, notes;
-            currentUserId = App.context['user'].$key;
-            currentUserName = App.context['user'].$descriptor;
-            notes = this.fieldNote.getValue();
-            if (notes !== '') {
-                insertEntry = {
-                    Type: 'atNote',
-                    UserName: currentUserName,
-                    UserId: currentUserId,
-                    LongNotes: notes
-                };
-                this.setParentContext(insertEntry);
-                this.insertItem(insertEntry, { onSuccess: this.onAddNoteComplete, onFailed: this.onAddNoteFailed });
-            } else {
-                domClass.toggle(this.quicNoteNode, 'hidden');
+
+            if (!this._addingNote) {
+                this._addingNote = true;
+                currentUserId = App.context['user'].$key;
+                currentUserName = App.context['user'].$descriptor;
+                notes = this.fieldNote.getValue();
+                if (notes !== '') {
+                    insertEntry = {
+                        Type: 'atNote',
+                        UserName: currentUserName,
+                        UserId: currentUserId,
+                        LongNotes: notes
+                    };
+                    this.setParentContext(insertEntry);
+                    domClass.toggle(this.addingNoteNode, 'loading');
+                    this.insertItem(insertEntry, { onSuccess: this.onAddNoteComplete, onFailed: this.onAddNoteFailed });
+                } else {
+                    domClass.toggle(this.quicNoteNode, 'hidden');
+                    this._addingNote = false;
+                }
             }
         },
         onCancelQuickNote: function(evt) {
-           
+            this._addingNote = false;
             domClass.toggle(this.quicNoteNode, 'hidden');
+            
         },
         onAddNoteComplete: function(result, entry) {
             domClass.toggle(this.quicNoteNode, 'hidden');
+            domClass.toggle(this.addingNoteNode, 'loading');
             this.fieldNote.setValue('');
+            this._addingNote = false;
             this._onRefreshView();
         },
         onAddNoteFailed: function(result, entry) {
             console.log("failed adding note");
+            domClass.toggle(this._addingNoteNode, 'loading');
         },
         setParentContext: function(entry) {
             var resourceKind, context;

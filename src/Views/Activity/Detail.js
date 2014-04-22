@@ -509,7 +509,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                           autoLoad: false,
                           enabled: true,
                           relatedProperty: 'ActivityId',
-                          where: function(entry) { return "ActivityId eq '" + entry.$key + "'"; }
+                          where: function(entry) { return "ActivityId eq '" + this._getActivityId() + "'"; }
                         }
                       }, {
                          name: 'AttatchementRelated',
@@ -520,7 +520,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             autoLoad: false,
                             enabled: true,
                             relatedProperty: 'ActivityId',
-                            where: function(entry) { return "activityId eq '" + entry.$key + "'"; }
+                            where: function(entry) { return "activityId eq '" + this._getActivityId() + "'"; }
                         }
                     }]
                 }]);

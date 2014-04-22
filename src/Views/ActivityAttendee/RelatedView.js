@@ -311,12 +311,22 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
             }
         },
         _getActivityId: function() {
-
+            var key = null;
             if (this.parentEntry) {
-                return this.parentEntry.$key;
+                key = this.parentEntry.$key
+                if (this._isRecurring(this.parentEntry) && key.split(";").length === 2){
+                  key =  key.split(";").shift();
+                }
             }
-            return null;
-
+            return key;
+        },
+        _isRecurring: function(entry) {
+            if (entry['RecurrenceState']) {
+                if (entry['RecurrenceState'] === 'rstOccurrence') {
+                    return true;
+                }
+            }
+            return false;
         },
         _attendeeExists: function(attendeeKey) {
             return false;
