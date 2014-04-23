@@ -93,11 +93,13 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             original.request = this.request ? this.request.clone() : null;
             original.querySelect = this.querySelect;
             original.queryOrderBy = this.queryOrderBy;
-            original.keyProperty = this.keyProperty;
-            original.descriptorProperty = this.descriptorProperty;
+            original.idProperty = this.idProperty;
+            original.labelProperty = this.labelProperty;
             original.store = this.store;
             original.rowTemplate = this.rowTemplate;
             original.itemTemplate = this.itemTemplate;
+            original.relatedViews = this.relatedViews;
+
             if (this.groupsNode) {
                 domStyle.set(this.groupsNode, {
                     display: 'block'
@@ -116,11 +118,12 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             this.request = original.request || null;
             this.querySelect = original.querySelect;
             this.queryOrderBy = original.queryOrderBy;
-            this.keyProperty = original.keyProperty;
-            this.descriptorProperty = original.descriptorProperty;
+            this.idProperty = original.idProperty;
+            this.labelProperty = original.labelProperty;
             this.set('store', original.store);
             this.rowTemplate = original.rowTemplate;
             this.itemTemplate = original.itemTemplate;
+            this.relatedViews = original.relatedViews;
 
             this.originalProps = null;
 
@@ -210,7 +213,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 }),
                 groupClicked: lang.hitch(this, function(params) {
                     var template = [],
-                        request,
                         groupLayout,
                         group,
                         original = this.originalProps;
@@ -233,39 +235,25 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         return layout.alias;
                     });
 
-                    // Try to select the entity id as well
-                    groupLayout.push(group.family + 'ID');
-
-                    // Create a custom request that the store will use to execute the group query
-                    this.request = request = new Sage.SData.Client.SDataNamedQueryRequest(this.getConnection());
-                    request.setQueryName('execute');
-                    request.setResourceKind('groups');
-                    request.setContractName('system');
-                    request.getUri().setCollectionPredicate("'" + params.$key + "'");
-
-                    this.querySelect = groupLayout;
-                    this.queryOrderBy = '';
-                    this.keyProperty = group.family.toUpperCase() + 'ID';
-                    this.descriptorProperty = group.family.toUpperCase();
-                    this.store = null;
-
-                    this.rowTemplate = new Simplate([
-                        '<li data-action="activateEntry" data-key="{%= $[$$.keyProperty] %}" data-descriptor="{%: $[$$.descriptorProperty] %}">',
-                            '<button data-action="selectEntry" class="list-item-selector button">',
-                                '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
-                            '</button>',
-                            '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
-                        '</li>'
-                    ]);
-
-                    groupLayout.pop(); // pop the groupfamily + ID entry out
-
                     template = array.map(groupLayout, function(item) {
                         return ["<h4>", item.toUpperCase(), " : {%= $['" + item.toUpperCase() + "'] %}", "</h4>"].join('');
                     });
 
+                    // Create a custom request that the store will use to execute the group query
+                    this.request = this._createGroupRequest(params.$key);
+
+                    // Try to select the entity id as well
+                    groupLayout.push(group.family + 'ID');
+                    this.querySelect = groupLayout;
+
+                    this.queryOrderBy = '';
+                    this.idProperty = group.family.toUpperCase() + 'ID';
+                    this.labelProperty = group.family.toUpperCase();
+
                     this.itemTemplate = new Simplate(template);
 
+                    this.store = null;
+                    this.relatedViews = [];
                     this.clear(true);
                     this.refreshRequired = true;
                     this.refresh();
@@ -274,6 +262,15 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
 
             return actions;
+        },
+        _createGroupRequest: function(groupId) {
+            var request;
+            request = new Sage.SData.Client.SDataNamedQueryRequest(this.getConnection());
+            request.setQueryName('execute');
+            request.setResourceKind('groups');
+            request.setContractName('system');
+            request.getUri().setCollectionPredicate("'" + groupId + "'");
+            return request;
         },
         getGroupForRightDrawerEntry: function(entry) {
             if (entry.dataProps && entry.dataProps.hashtag) {
