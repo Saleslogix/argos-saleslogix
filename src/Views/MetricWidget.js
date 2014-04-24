@@ -224,7 +224,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                     setTimeout(lang.hitch(this, function() {
                         view.createChart(this._data);
                         signal.remove();
-                    }), 1);
+                    }), 100);
                 }));
 
                 view.show({ returnTo: this.returnToId, currentSearchExpression: this.currentSearchExpression });
