@@ -5,11 +5,11 @@
 /**
  * @class Mobile.SalesLogix.Views._MetricListMixin
  *
- * Mixin for adding KPI widgets to list views. 
+ * Mixin for adding KPI widgets to list views.
  *
  * @since 3.0
  *
- * @requires Mobile.SalesLogix.Views.MetricWidget 
+ * @requires Mobile.SalesLogix.Views.MetricWidget
  *
  */
 define('Mobile/SalesLogix/Views/_MetricListMixin', [
@@ -17,13 +17,15 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/aspect',
-    './MetricWidget'
+    './MetricWidget',
+    'Mobile/SalesLogix/GroupUtility'
 ], function(
     declare,
     array,
     lang,
     aspect,
-    MetricWidget
+    MetricWidget,
+    GroupUtility
 ) {
     return declare('Mobile.SalesLogix.Views._MetricListMixin', null, {
         // Metrics
@@ -98,10 +100,20 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             array.forEach(widgetOptions, function(options) {
                 if (this._hasValidOptions(options)) {
                     options.returnToId = this.id;
-                    options.parentResourceKind = this.resourceKind;
-                    options.resourceKind = this.resourceKind;
-                    options.currentSearchExpression = this.currentSearchExpression;
-                    options.queryArgs._activeFilter = this._getCurrentQuery();
+
+                    if (this.groupsMode) {
+                        options.queryArgs._activeFilter = '';
+                        options.request = GroupUtility.createGroupMetricRequest({
+                            groupId: this.currentGroupId,
+                            queryArgs: options.queryArgs
+                        });
+                    } else {
+                        options.request = null;
+                        options.parentResourceKind = this.resourceKind;
+                        options.resourceKind = this.resourceKind;
+                        options.currentSearchExpression = this.currentSearchExpression;
+                        options.queryArgs._activeFilter = this._getCurrentQuery();
+                    }
 
                     var widget = new MetricWidget(options);
                     widget.placeAt(this.metricNode, 'last');
@@ -121,10 +133,11 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             }).join(' and ');
         },
         _hasValidOptions: function(options) {
-            return options 
-                && options.queryArgs 
-                && options.queryArgs._filterName 
+            return options
+                && options.queryArgs
+                && options.queryArgs._filterName
                 && options.queryArgs._metricName;
         }
     });
 });
+

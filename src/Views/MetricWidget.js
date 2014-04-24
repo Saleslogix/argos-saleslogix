@@ -267,6 +267,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         },
         createStore: function() {
             var store = new SDataStore({
+                request: this.request,
                 service: App.services.crm,
                 resourceKind: this.resourceKind,
                 resourcePredicate: this.resourcePredicate,

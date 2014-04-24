@@ -19,6 +19,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/dom-attr',
     'dojo/dom-style',
     'dojo/aspect',
+    'Mobile/SalesLogix/GroupUtility',
     'Mobile/SalesLogix/Views/_RightDrawerBaseMixin',
     'Sage/Platform/Mobile/Fields/LookupField'
 ], function(
@@ -29,6 +30,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     domAttr,
     domStyle,
     aspect,
+    GroupUtility,
     _RightDrawerBaseMixin,
     LookupField
 ) {
@@ -45,6 +47,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         groupList: null,
         DRAWER_PAGESIZE: 100,
         groupLookupId: 'groups_configure',
+        groupsMode: false,
+        currentGroupId: null,
 
         setupRightDrawer: function() {
             var drawer = App.getView('right_drawer');
@@ -81,11 +85,15 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         },
         _onSearchExpression: function() {
             // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
-            this._restoreProps();
+            this._clearGroupMode();
             this.inherited(arguments);
         },
         originalProps: null,
-        _preserveProps: function() {
+        _startGroupMode: function() {
+            if (this.groupsMode) {
+                return;
+            }
+
             this.originalProps = {};
 
             var original = this.originalProps;
@@ -107,9 +115,12 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
                 this.groupsNode.innerHTML = this.groupsModeText;
             }
+
+            this.groupsMode = true;
+
         },
-        _restoreProps: function() {
-            if (!this.originalProps) {
+        _clearGroupMode: function() {
+            if (!this.groupsMode) {
                 return;
             }
 
@@ -127,6 +138,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             this.originalProps = null;
 
+            this.groupsMode = false;
+            this.currentGroupId = null;
+
             this.clear();
             this.refreshRequired = true;
             if (this.groupsNode) {
@@ -141,7 +155,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             // These actions will get mixed into the right drawer view.
             var actions = {
                 hashTagClicked: lang.hitch(this, function(params) {
-                    this._restoreProps();
+                    this._clearGroupMode();
 
                     if (params.hashtag) {
                         this.setSearchTerm('#' + params.hashtag);
@@ -215,17 +229,21 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     var template = [],
                         groupLayout,
                         group,
-                        original = this.originalProps;
+                        original = this.originalProps,
+                        groupId;
 
-                    this._preserveProps();
+                    this._startGroupMode();
+                    groupId = params.$key;
 
                     group = array.filter(this.groupList, function(item) {
-                        return item.$key === params.$key;
+                        return item.$key === groupId;
                     })[0];
 
                     if (!group) {
                         throw new Error("Expected a group.");
                     }
+
+                    this.currentGroupId = groupId;
 
                     group.layout = array.filter(group.layout, function(item) {
                         return item.visible && item.fieldType !== 'FixedChar';
@@ -240,7 +258,10 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     });
 
                     // Create a custom request that the store will use to execute the group query
-                    this.request = this._createGroupRequest(params.$key);
+                    this.request = GroupUtility.createGroupRequest({
+                        groupId: groupId,
+                        connection: this.getConnection()
+                    });
 
                     // Try to select the entity id as well
                     groupLayout.push(group.family + 'ID');
@@ -262,15 +283,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
 
             return actions;
-        },
-        _createGroupRequest: function(groupId) {
-            var request;
-            request = new Sage.SData.Client.SDataNamedQueryRequest(this.getConnection());
-            request.setQueryName('execute');
-            request.setResourceKind('groups');
-            request.setContractName('system');
-            request.getUri().setCollectionPredicate("'" + groupId + "'");
-            return request;
         },
         getGroupForRightDrawerEntry: function(entry) {
             if (entry.dataProps && entry.dataProps.hashtag) {

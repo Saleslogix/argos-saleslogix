@@ -157,6 +157,10 @@
           "path": "../src"
         },
         {
+          "text": "GroupUtility.js",
+          "path": "../src"
+        },
+        {
           "text": "FileManager.js",
           "path": "../src"
         },
