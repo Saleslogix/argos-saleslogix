@@ -142,6 +142,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             this.groupsMode = false;
             this.currentGroupId = null;
+            App.setPrimaryTitle(this.get('title'));
 
             this.clear();
             this.refreshRequired = true;
@@ -196,7 +197,10 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     field = new LookupField({
                         owner: this,
                         view: view,
-                        singleSelect: false
+                        singleSelect: false,
+                        previousSelections: array.map(this.groupList, function(group) {
+                            return group.$key;
+                        })
                     });
 
                     handle = aspect.after(field, 'complete', lang.hitch(field, function() {
@@ -246,6 +250,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }
 
                     this.currentGroupId = groupId;
+
+                    // Set the toolbar title to the current group displayName
+                    App.setPrimaryTitle(params.title);
 
                     group.layout = array.filter(group.layout, function(item) {
                         return array.every(GroupUtility.groupFilters, function(filter) {
@@ -336,7 +343,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         'action': 'groupClicked',
                         'title': group.displayName,
                         'dataProps': {
-                            $key: group.$key
+                            $key: group.$key,
+                            'title': group.displayName
                         }
                     });
                 });
