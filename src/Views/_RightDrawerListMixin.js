@@ -15,6 +15,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
+    'dojo/json',
     'dojo/dom-construct',
     'dojo/dom-attr',
     'dojo/dom-style',
@@ -26,6 +27,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     declare,
     array,
     lang,
+    json,
     domConstruct,
     domAttr,
     domStyle,
@@ -227,7 +229,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 }),
                 groupClicked: lang.hitch(this, function(params) {
                     var template = [],
-                        groupLayout,
+                        selectColumns,
                         group,
                         original = this.originalProps,
                         groupId;
@@ -246,15 +248,18 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     this.currentGroupId = groupId;
 
                     group.layout = array.filter(group.layout, function(item) {
-                        return item.visible && item.fieldType !== 'FixedChar';
-                    });
+                        return array.every(GroupUtility.groupFilters, function(filter) {
+                            return filter(item);
+                        }, this);
+                    }, this);
 
-                    groupLayout = array.map(group.layout, function(layout) {
+                    selectColumns = array.map(group.layout, function(layout) {
                         return layout.alias;
                     });
 
-                    template = array.map(groupLayout, function(item) {
-                        return ["<h4>", item.toUpperCase(), " : {%= $['" + item.toUpperCase() + "'] %}", "</h4>"].join('');
+                    template = array.map(group.layout, function(item) {
+                        var template = ["<h4>", item.caption, " : {%= $$.getFormatterByLayout(" + json.stringify(item) + ")($['" + item.alias.toUpperCase() + "']) %}", "</h4>"].join('');
+                        return template;
                     });
 
                     // Create a custom request that the store will use to execute the group query
@@ -264,8 +269,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     });
 
                     // Try to select the entity id as well
-                    groupLayout.push(group.family + 'ID');
-                    this.querySelect = groupLayout;
+                    selectColumns.push(group.family + 'ID');
+                    this.querySelect = selectColumns;
 
                     this.queryOrderBy = '';
                     this.idProperty = group.family.toUpperCase() + 'ID';
@@ -283,6 +288,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
 
             return actions;
+        },
+        getFormatterByLayout: function(layoutItem) {
+            return GroupUtility.getFormatterByLayout(layoutItem);
         },
         getGroupForRightDrawerEntry: function(entry) {
             if (entry.dataProps && entry.dataProps.hashtag) {

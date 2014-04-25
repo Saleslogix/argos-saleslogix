@@ -88,7 +88,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         modifiedText: 'Modified ',
         neededByText: 'Needed  ',
 
-        //View Properties       
+        //View Properties
         detailView: 'ticket_detail',
         icon: 'content/images/icons/Ticket_24x24.png',
         id: 'ticket_list',

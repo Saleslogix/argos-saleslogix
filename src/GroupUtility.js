@@ -11,9 +11,15 @@
  *
  */
 define('Mobile/SalesLogix/GroupUtility', [
-    'dojo/_base/lang'
+    'dojo/_base/lang',
+    'dojo/_base/array',
+    './Format',
+    'moment'
 ], function(
-    lang
+    lang,
+    array,
+    format,
+    moment
 ) {
     var _createGroupRequest = function(options) {
         var request, defaultOptions, arg;
@@ -43,6 +49,7 @@ define('Mobile/SalesLogix/GroupUtility', [
     };
 
     return lang.setObject('Mobile.SalesLogix.GroupUtility', {
+        groupDateFormatText: 'M/D/YYYY h:mm:ss a',
         /**
          * Returns an SDataNamedQueryRequest setup for groups
          * @param {Object} options Options for creating the request
@@ -73,6 +80,79 @@ define('Mobile/SalesLogix/GroupUtility', [
             };
 
             return _createGroupRequest(lang.mixin(defaults, options));
+        },
+        /**
+         * Array of functions that will filter out group layout
+         */
+        groupFilters: [
+            function(layoutItem) {
+                return layoutItem.fieldType !== 'FixedChar';
+            },
+            function(layoutItem) {
+                return layoutItem.visible;
+            },
+            function(layoutItem) {
+                return layoutItem.format !== 'Owner';
+            },
+            function(layoutItem) {
+                return layoutItem.format !== 'User';
+            },
+            function(layoutItem) {
+                // TODO: Add the picklist item.alias + "TEXT" to the querySelect instead?
+                return layoutItem.format !== 'PickList Item';
+            }
+        ],
+        groupFormatters: [
+            {
+                name: 'NoFormat',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'None';
+                },
+                formatter: function(value) {
+                    return value;
+                }
+            },
+            {
+                name: 'Phone',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'Phone';
+                },
+                formatter: function(value) {
+                    return format.phone(value);
+                }
+            },
+            {
+                name: 'Fixed',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'Fixed';
+                },
+                formatter: function(value) {
+                    return format.fixed(value);
+                }
+            },
+            {
+                name: 'DateTime',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'DateTime';
+                },
+                formatter: function(value) {
+                    return moment(value).format(this.groupDateFormatText);
+                }
+            }
+        ],
+        getFormatterByLayout: function(layoutItem) {
+            var results = array.filter(this.groupFormatters, function(formatter) {
+                return formatter.test(layoutItem);
+            });
+
+            if (results.length === 0) {
+                results.push({
+                    formatter: function(value) {
+                    return value;
+                }});
+            }
+
+            return lang.hitch(this, results[0].formatter);
         }
     });
 });
