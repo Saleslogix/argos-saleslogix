@@ -27,7 +27,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     _RightDrawerBaseMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+    var mixinName = 'Mobile.SalesLogix.Views._RightDrawerListMixin';
+
+    return declare(mixinName, [_RightDrawerBaseMixin], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
         kpiSectionText: 'KPI',
@@ -97,16 +99,17 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             return actions;
         },
         getGroupForRightDrawerEntry: function(entry) {
+            var mixin = lang.getObject(mixinName);
             if (entry.dataProps && entry.dataProps.hashtag) {
                 return {
                     tag: 'view',
-                    title: this.hashTagsSectionText
+                    title: mixin.prototype.hashTagsSectionText
                 };
             }
 
             return {
                 tag: 'kpi',
-                title: this.kpiSectionText
+                title: mixin.prototype.kpiSectionText
             };
         },
         createRightDrawerLayout: function() {
