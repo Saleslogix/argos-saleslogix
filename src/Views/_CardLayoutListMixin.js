@@ -30,7 +30,9 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
+    var mixinName = 'Mobile.SalesLogix.Views._CardLayoutListMixin';
+
+    return declare(mixinName, null, {
         itemColorClass: 'color-default',
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
         itemIconAltText:'Contact',
@@ -251,11 +253,15 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             this.inherited(arguments);
         },
         showSearchExpression: function() {
-            var html, searchNode;
+            var html, searchNode, mixin;
             if (this.searchWidget) {
                 searchNode = query('#'+ this.id +'_search-expression');
                if (searchNode[0]) {
-                   this.currentSearchExpression = this.searchWidget.getSearchExpression() || this.allRecordsText;
+                   // We cannot use "this.allRecordsText"
+                   // The mixin is applied to the original view, and THEN localized. Since "this" refers to the view and not this mixin, it will not have been localized.
+                   // We will instead just get a reference to the mixin's prototype and use that instead.
+                   mixin = lang.getObject(mixinName);
+                   this.currentSearchExpression = this.searchWidget.getSearchExpression() || mixin.prototype.allRecordsText;
                    html = '<div>' + this.currentSearchExpression + '</div>';
                    domAttr.set(searchNode[0], { innerHTML: html });
                 }
