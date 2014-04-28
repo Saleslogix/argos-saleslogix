@@ -58,7 +58,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Risultato",
   "resultTitleText": "Risultato",
   "startingText": "Data inizio",
-  "startingFormatTimelessText": "M/D/YYYY",
+  "startingFormatTimelessText": "D/M/YYYY",
   "timelessText": "Senza orario",
   "durationValueText": {
     "0": "Nessuno",
@@ -145,7 +145,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "regardingText": "Argomento",
   "rolloverText": "Riporta Automaticamente",
   "startingText": "Ora iniziale",
-  "startingFormatTimelessText": "M/D/YYYY",
+  "startingFormatTimelessText": "D/M/YYYY",
   "repeatsText": "ripetizioni",
   "recurringText": "Ricorrente",
   "recurringTitleText": "Ricorrente",
@@ -250,7 +250,7 @@ localize("Mobile.SalesLogix.Views.Calendar.DayView", {
 
 localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "monthTitleFormatText": "MMMM YYYY",
-  "dayTitleFormatText": "ddd MMM D, YYYY",
+  "dayTitleFormatText": "ddd D MMM, YYYY",
   "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm",
   "titleText": "Calendario",
@@ -267,9 +267,9 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
-  "weekTitleFormatText": "MMM D, YYYY",
+  "weekTitleFormatText": "D MMM, YYYY",
   "dayHeaderLeftFormatText": "dddd",
-  "dayHeaderRightFormatText": "MMM D, YYYY",
+  "dayHeaderRightFormatText": "D MMM, YYYY",
   "eventDateFormatText": "D/M/YYYY",
   "startTimeFormatText": "h:mm",
   "titleText": "Calendario",
@@ -1201,11 +1201,11 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "tollFreeAbbreviationText": "Num. verde: ",
   "hashTagQueriesText": {
     "my-leads": "I miei nominativi",
-    "can-email": "Può inviare e-mail",
-    "can-phone": "Può telefonare",
-    "can-fax": "Può inviare fax",
-    "can-mail": "Può inviare posta",
-    "can-solicit": "Può contattare"
+    "can-email": "Si può inviare email",
+    "can-phone": "Si può telefonare",
+    "can-fax": "Si può inviare fax",
+    "can-mail": "Si può inviare posta",
+    "can-solicit": "Si può contattare"
   }
 });
 
@@ -1266,7 +1266,7 @@ localize("Mobile.SalesLogix.Views.MetricWidget", {
 localize("Mobile.SalesLogix.Views.NameEdit", {
   "titleText": "Modifica Nome",
   "firstNameText": "Nome",
-  "middleNameText": "secondo nome",
+  "middleNameText": "Secondo nome",
   "lastNameText": "Cognome",
   "prefixText": "Titolo",
   "prefixTitleText": "Titolo",
@@ -1294,7 +1294,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "closed": "Chiuse",
     "won": "Vinte",
     "lost": "Perse",
-    "inactive": "Inattivo",
+    "inactive": "Inattive",
     "prospect": "Prospect",
     "qualification": "Qualifica",
     "negotiation": "In negoziazione",
@@ -1506,7 +1506,7 @@ localize("Mobile.SalesLogix.Views.Ticket.List", {
   "addAttachmentActionText": "Aggiungi Allegato",
   "assignedToText": "Assegnato a: ",
   "urgencyText": "Urgenza: ",
-  "createdOnText": "Creato il  ",
+  "createdOnText": "Creato  ",
   "modifiedText": "Modificato ",
   "neededByText": "Necessario  ",
   "hashTagQueriesText": {
