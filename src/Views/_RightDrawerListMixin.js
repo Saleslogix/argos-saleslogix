@@ -15,25 +15,31 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
+    'dojo/json',
     'dojo/dom-construct',
     'dojo/dom-attr',
     'dojo/dom-style',
     'dojo/aspect',
+    'Mobile/SalesLogix/GroupUtility',
     'Mobile/SalesLogix/Views/_RightDrawerBaseMixin',
     'Sage/Platform/Mobile/Fields/LookupField'
 ], function(
     declare,
     array,
     lang,
+    json,
     domConstruct,
     domAttr,
     domStyle,
     aspect,
+    GroupUtility,
     _RightDrawerBaseMixin,
     LookupField
 ) {
 
-    return declare('Mobile.SalesLogix.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+    var mixinName = 'Mobile.SalesLogix.Views._RightDrawerListMixin';
+
+    return declare(mixinName, [_RightDrawerBaseMixin], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
         groupsSectionText: 'Groups',
@@ -45,6 +51,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         groupList: null,
         DRAWER_PAGESIZE: 100,
         groupLookupId: 'groups_configure',
+        groupsMode: false,
+        currentGroupId: null,
 
         setupRightDrawer: function() {
             var drawer = App.getView('right_drawer');
@@ -81,23 +89,29 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         },
         _onSearchExpression: function() {
             // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
-            this._restoreProps();
+            this._clearGroupMode();
             this.inherited(arguments);
         },
         originalProps: null,
-        _preserveProps: function() {
+        _startGroupMode: function() {
+            if (this.groupsMode) {
+                return;
+            }
+
             this.originalProps = {};
 
             var original = this.originalProps;
 
-            original.request = this.request;
+            original.request = this.request ? this.request.clone() : null;
             original.querySelect = this.querySelect;
             original.queryOrderBy = this.queryOrderBy;
-            original.keyProperty = this.keyProperty;
-            original.descriptorProperty = this.descriptorProperty;
+            original.idProperty = this.idProperty;
+            original.labelProperty = this.labelProperty;
             original.store = this.store;
             original.rowTemplate = this.rowTemplate;
             original.itemTemplate = this.itemTemplate;
+            original.relatedViews = this.relatedViews;
+
             if (this.groupsNode) {
                 domStyle.set(this.groupsNode, {
                     display: 'block'
@@ -105,26 +119,34 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
                 this.groupsNode.innerHTML = this.groupsModeText;
             }
+
+            this.groupsMode = true;
+
         },
-        _restoreProps: function() {
-            if (!this.originalProps) {
+        _clearGroupMode: function() {
+            if (!this.groupsMode) {
                 return;
             }
 
             var original = this.originalProps;
 
-            this.request = null;
+            this.request = original.request || null;
             this.querySelect = original.querySelect;
             this.queryOrderBy = original.queryOrderBy;
-            this.keyProperty = original.keyProperty;
-            this.descriptorProperty = original.descriptorProperty;
+            this.idProperty = original.idProperty;
+            this.labelProperty = original.labelProperty;
             this.set('store', original.store);
             this.rowTemplate = original.rowTemplate;
             this.itemTemplate = original.itemTemplate;
+            this.relatedViews = original.relatedViews;
 
             this.originalProps = null;
 
-            this.clear(true);
+            this.groupsMode = false;
+            this.currentGroupId = null;
+            App.setPrimaryTitle(this.get('title'));
+
+            this.clear();
             this.refreshRequired = true;
             if (this.groupsNode) {
                 domStyle.set(this.groupsNode, {
@@ -138,7 +160,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             // These actions will get mixed into the right drawer view.
             var actions = {
                 hashTagClicked: lang.hitch(this, function(params) {
-                    this._restoreProps();
+                    this._clearGroupMode();
 
                     if (params.hashtag) {
                         this.setSearchTerm('#' + params.hashtag);
@@ -171,20 +193,23 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     view = App.getView(this.groupLookupId);
                     view.family = this.entityName;
                     view.set('store', null);
-                    view.clear(true);
+                    view.clear();
                     view.refreshRequired = true;
 
                     field = new LookupField({
                         owner: this,
                         view: view,
-                        singleSelect: false
+                        singleSelect: false,
+                        previousSelections: array.map(this.groupList, function(group) {
+                            return group.$key;
+                        })
                     });
 
                     handle = aspect.after(field, 'complete', lang.hitch(field, function() {
                         var field = this,
                             list = this.owner,
                             groupId,
-                            entry
+                            entry,
                             items = [];
 
                         // We will get an object back where the property names are the keys (groupId's)
@@ -210,40 +235,60 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 }),
                 groupClicked: lang.hitch(this, function(params) {
                     var template = [],
-                        request,
-                        layout = params && params.layout && params.layout.split(','),
-                        original = this.originalProps;
+                        selectColumns,
+                        group,
+                        original = this.originalProps,
+                        groupId;
 
-                    this._preserveProps();
+                    this._startGroupMode();
+                    groupId = params.$key;
+
+                    group = array.filter(this.groupList, function(item) {
+                        return item.$key === groupId;
+                    })[0];
+
+                    if (!group) {
+                        throw new Error("Expected a group.");
+                    }
+
+                    this.currentGroupId = groupId;
+
+                    // Set the toolbar title to the current group displayName
+                    App.setPrimaryTitle(params.title);
+
+                    group.layout = array.filter(group.layout, function(item) {
+                        return array.every(GroupUtility.groupFilters, function(filter) {
+                            return filter(item);
+                        }, this);
+                    }, this);
+
+                    selectColumns = array.map(group.layout, function(layout) {
+                        return layout.alias;
+                    });
+
+                    template = array.map(group.layout, function(item) {
+                        var template = ["<h4>", item.caption, " : {%= $$.getFormatterByLayout(" + json.stringify(item) + ")($['" + item.alias.toUpperCase() + "']) %}", "</h4>"].join('');
+                        return template;
+                    });
 
                     // Create a custom request that the store will use to execute the group query
-                    this.request = request = new Sage.SData.Client.SDataNamedQueryRequest(this.getConnection());
-                    request.setQueryName('execute');
-                    request.setResourceKind('groups');
-                    request.setContractName('system');
-                    request.getUri().setCollectionPredicate("'" + params.$key + "'");
-
-                    this.querySelect = layout;
-                    this.queryOrderBy = '';
-                    this.keyProperty = params.family.toUpperCase() + 'ID';
-                    this.descriptorProperty = params.family.toUpperCase();
-                    this.store = null;
-
-                    this.rowTemplate = new Simplate([
-                        '<li data-action="activateEntry" data-key="{%= $[$$.keyProperty] %}" data-descriptor="{%: $[$$.descriptorProperty] %}">',
-                            '<button data-action="selectEntry" class="list-item-selector button">',
-                                '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
-                            '</button>',
-                            '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
-                        '</li>'
-                    ]);
-
-                    template = array.map(array.filter(layout, function(item) { return item.toUpperCase !== (params.family.toUpperCase() + 'ID'); }), function(item) {
-                        return ["<h4>", item.toUpperCase(), " : {%= $['" + item.toUpperCase() + "'] %}", "</h4>"].join('');
+                    this.request = GroupUtility.createGroupRequest({
+                        groupId: groupId,
+                        connection: this.getConnection()
                     });
+
+                    // Try to select the entity id as well
+                    selectColumns.push(group.family + 'ID');
+                    this.querySelect = selectColumns;
+
+                    this.queryOrderBy = '';
+                    this.idProperty = group.family.toUpperCase() + 'ID';
+                    this.labelProperty = group.family.toUpperCase();
 
                     this.itemTemplate = new Simplate(template);
 
+                    this.store = null;
+                    this.relatedViews = [];
                     this.clear(true);
                     this.refreshRequired = true;
                     this.refresh();
@@ -253,11 +298,15 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             return actions;
         },
+        getFormatterByLayout: function(layoutItem) {
+            return GroupUtility.getFormatterByLayout(layoutItem);
+        },
         getGroupForRightDrawerEntry: function(entry) {
+            var mixin = lang.getObject(mixinName);
             if (entry.dataProps && entry.dataProps.hashtag) {
                 return {
                     tag: 'view',
-                    title: this.hashTagsSectionText
+                    title: mixin.prototype.hashTagsSectionText
                 };
             }
 
@@ -265,16 +314,16 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 return {
                     tag: 'group',
                     title: this.groupsSectionText
-                }
+                };
             }
 
             return {
                 tag: 'kpi',
-                title: this.kpiSectionText
+                title: mixin.prototype.kpiSectionText
             };
         },
         createRightDrawerLayout: function() {
-            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len, store, def, groupLayout;
+            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len, store, def;
 
             layout = [];
 
@@ -291,16 +340,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             if (this.groupList && this.groupList.length > 0) {
                 array.forEach(this.groupList, function(group) {
-                    group.layout = array.filter(group.layout, function(item) {
-                        return item.visible && item.fieldType !== 'FixedChar';
-                    });
-
-                    groupLayout = array.map(group.layout, function(layout) {
-                        return layout.alias;
-                    });
-
-                    // Try to select the entity id as well
-                    groupLayout.push(group.family + 'ID');
 
                     groupsSection.children.push({
                         'name': group.name,
@@ -308,11 +347,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         'title': group.displayName,
                         'dataProps': {
                             $key: group.$key,
-                            family: group.family,
-                            userId: group.userId,
-                            isHidden: group.isHidden,
-                            isAdHoc: group.isAdHoc,
-                            layout: groupLayout.join(',')
+                            'title': group.displayName
                         }
                     });
                 });

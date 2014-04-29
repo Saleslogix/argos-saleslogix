@@ -36,7 +36,9 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
+    var mixinName = 'Mobile.SalesLogix.Views._CardLayoutListMixin';
+
+    return declare(mixinName, null, {
         itemColorClass: 'color-default',
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
         itemIconAltText:'Contact',
@@ -123,10 +125,10 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
         },
         getItemActionKey: function(entry) {
-            return entry.$key;
+            return entry.$key || entry[this.idProperty];
         },
         getItemDescriptor: function(entry) {
-            return entry.$descriptor;
+            return entry.$descriptor || entry[this.labelProperty];
         },
         getItemTabValue: function(entry) {
             var value = '';
