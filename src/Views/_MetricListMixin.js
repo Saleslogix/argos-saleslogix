@@ -37,13 +37,15 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
         postMixInProperties: function() {
             this.inherited(arguments);
             this.widgetTemplate =  new Simplate([
-                '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
-                '<div data-dojo-attach-point="searchNode"></div>',
-                '<div data-dojo-attach-point="metricNode" class="metric-list"></div>',
-                '{%! $.emptySelectionTemplate %}',
-                '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
-                '{%! $.moreTemplate %}',
-                '{%! $.listActionTemplate %}',
+                '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
+                    '<div data-dojo-attach-point="searchNode"></div>',
+                    '<div data-dojo-attach-point="metricNode" class="metric-list"></div>',
+                    '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
+                        '{%! $.emptySelectionTemplate %}',
+                        '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',
+                        '{%! $.moreTemplate %}',
+                        '{%! $.listActionTemplate %}',
+                    '</div>',
                 '</div>'
             ]);
         },
