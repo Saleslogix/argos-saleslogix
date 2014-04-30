@@ -437,14 +437,6 @@
           "path": "../src/Views/Event"
         },
         {
-          "text": "_RightDrawerGroupsMixin.js",
-          "path": "../src/Views/Groups"
-        },
-        {
-          "text": "List.js",
-          "path": "../src/Views/Groups"
-        },
-        {
           "text": "Selector.js",
           "path": "../src/Views/Groups"
         },
