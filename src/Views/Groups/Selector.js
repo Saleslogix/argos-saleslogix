@@ -11,18 +11,14 @@
  */
 define('Mobile/SalesLogix/Views/Groups/Selector', [
     'dojo/_base/declare',
-    'dojo/store/Memory',
     'dojo/string',
     'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/Store/SData',
-    './_RightDrawerGroupsMixin'
+    'Sage/Platform/Mobile/Store/SData'
 ], function(
     declare,
-    MemoryStore,
     string,
     List,
-    SDataStore,
-    _RightDrawerGroupsMixin
+    SDataStore
 ) {
 
     return declare('Mobile.SalesLogix.Views.Groups.Selector', [List], {
@@ -86,7 +82,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('name like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-        },
+        }
     });
 });
 
