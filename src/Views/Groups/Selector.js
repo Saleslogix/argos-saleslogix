@@ -11,32 +11,27 @@
  */
 define('Mobile/SalesLogix/Views/Groups/Selector', [
     'dojo/_base/declare',
-    'dojo/store/Memory',
+    'dojo/string',
     'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/Store/SData',
-    './_RightDrawerGroupsMixin'
+    'Sage/Platform/Mobile/Store/SData'
 ], function(
     declare,
-    MemoryStore,
+    string,
     List,
-    SDataStore,
-    _RightDrawerGroupsMixin
+    SDataStore
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Groups.Selector', [List, _RightDrawerGroupsMixin], {
-        id: 'groups_selector',
-        expose: true,
-        enableSearch: false,
-        icon: 'content/images/icons/database_24.png',
+    return declare('Mobile.SalesLogix.Views.Groups.Selector', [List], {
+        id: 'groups_configure',
+        expose: false,
+        enableSearch: true,
+        icon: '',
 
         listViewId: 'groups_list',
         family: '',
 
         //Localization
         titleText: 'Groups',
-        initialText: 'Select a family using the right context menu.',
-
-        emptyMessageId: 'NIL',
 
         itemTemplate: new Simplate([
             '<h3>{%: $[$$.labelProperty] %}</h3>'
@@ -50,32 +45,21 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
             var key, descriptor, entry, view;
 
             key = params.key;
-            if (key === this.emptyMessageId) {
-                return;
-            }
 
             if (this._selectionModel && this.isNavigationDisabled()) {
                 this._selectionModel.toggle(params.key, this.entries[params.key] || params.descriptor, params.$source);
                 if (this.options.singleSelect && this.options.singleSelectAction) {
                     this.invokeSingleSelectAction();
                 }
-            } else {
-                descriptor = params.descriptor;
-                entry = this.entries[key];
-                view = App.getView(this.listViewId);
-
-                if (view) {
-                    view.show({ key: key, descriptor: descriptor, entry: entry});
-                }
             }
         },
 
         createStore: function() {
-            return this.createGroupStore(this.family) || new MemoryStore({
-                data: [
-                    { '$key': this.emptyMessageId, '$descriptor': this.initialText }
-                ]
-            });
+            if (!this.family) {
+                throw new Error('The groups selector must have a family set.');
+            }
+
+            return this.createGroupStore(this.family);
         },
 
         createGroupStore: function(entityName) {
@@ -95,6 +79,9 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
             }
 
             return store;
+        },
+        formatSearchQuery: function(searchQuery) {
+            return string.substitute('name like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });

@@ -44,7 +44,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         hashTagsSectionText: 'Hash Tags',
         groupsSectionText: 'Groups',
         kpiSectionText: 'KPI',
-        groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to get back to entity mode.',
+        groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.',
         configureGroupsText: 'Configure',
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
