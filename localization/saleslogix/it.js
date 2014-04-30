@@ -1092,7 +1092,7 @@ localize("Mobile.SalesLogix.Views.ExchangeRateLookup", {
 });
 
 localize("Mobile.SalesLogix.Views.FooterToolbar", {
-  "copyrightText": "&copy; 2013 SalesLogix, NA, LLC. Tutti i diritti riservati."
+  "copyrightText": "&copy; 2014 SalesLogix, NA, LLC. Tutti i diritti riservati."
 });
 
 localize("Mobile.SalesLogix.Views.Help", {
@@ -1227,7 +1227,7 @@ localize("Mobile.SalesLogix.Views.LeftDrawer", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "&copy; 2013 SalesLogix, NA, LLC. Tutti i diritti riservati.",
+  "copyrightText": "&copy; 2014 SalesLogix, NA, LLC. Tutti i diritti riservati.",
   "logOnText": "Accedi a Saleslogix",
   "passText": "Password",
   "rememberText": "Ricorda",
@@ -1508,7 +1508,7 @@ localize("Mobile.SalesLogix.Views.Ticket.List", {
   "urgencyText": "Urgenza: ",
   "createdOnText": "Creato  ",
   "modifiedText": "Modificato ",
-  "neededByText": "Necessario  ",
+  "neededByText": "Data Limite  ",
   "hashTagQueriesText": {
     "assigned-to-me": "Assegnati a me",
     "completed-by-me": "Completati da me"
