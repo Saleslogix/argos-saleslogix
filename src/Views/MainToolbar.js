@@ -92,11 +92,11 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
             if (view && state && state.state === 'closed') {
                 if (has('android')) {
                     // Hack to work around https://code.google.com/p/android/issues/detail?id=19625
-                    domStyle.set(view.domNode, 'overflow', 'hidden');
-                    view.domNode.scrollTop = 0;
-                    domStyle.set(view.domNode, 'overflow', 'auto');
+                    domStyle.set(view.scrollerNode, 'overflow', 'hidden');
+                    view.scrollerNode.scrollTop = 0;
+                    domStyle.set(view.scrollerNode, 'overflow', 'auto');
                 } else {
-                    view.domNode.scrollTop = 0;
+                    view.scrollerNode.scrollTop = 0;
                 }
             }
         },
