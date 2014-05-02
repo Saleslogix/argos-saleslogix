@@ -118,9 +118,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         entityName: 'Ticket',
         allowSelection: true,
         enableActions: true,
-        defaultSearchTerm: function() {
-            return '#' + this.hashTagQueriesText['assigned-to-me'];
-        },
         hashTagQueries: {
             'assigned-to-me': function() {
                 return 'AssignedTo.OwnerDescription eq "' + App.context.user.$descriptor + '"';

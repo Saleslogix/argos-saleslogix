@@ -121,9 +121,6 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         icon: 'content/images/icons/opportunity_24.png',
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
-        defaultSearchTerm: function() {
-            return '#' + this.hashTagQueriesText['my-opportunities'];
-        },
         hashTagQueries: {
             'my-opportunities': function() {
                 return 'AccountManager.Id eq "' + App.context.user.$key + '"';

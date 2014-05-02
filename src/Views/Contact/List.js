@@ -124,9 +124,6 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                 return action.id === 'sendEmail';
             }, params.key);
         },
-        defaultSearchTerm: function() {
-            return '#' + this.hashTagQueriesText['my-contacts'];
-        },
         hashTagQueries: {
             'my-contacts': function() {
                 return 'AccountManager.Id eq "' + App.context.user.$key + '"';
