@@ -73,6 +73,7 @@ define('Mobile/SalesLogix/Application', [
             'ChangeOpportunityRate',
             'LockOpportunityRate'
         ],
+        appName: 'argos-saleslogix',
         serverVersion: {
             'major': 8,
             'minor': 0,
@@ -85,6 +86,8 @@ define('Mobile/SalesLogix/Application', [
         },
         versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
         init: function() {
+            var original,
+                app = this;
             if (has('ie') && has('ie') < 9) {
                 window.location.href = 'unsupported.html';
             }
@@ -92,6 +95,14 @@ define('Mobile/SalesLogix/Application', [
             this.inherited(arguments);
             this._loadNavigationState();
             this._loadPreferences();
+
+            original = Sage.SData.Client.SDataService.prototype.executeRequest;
+
+            Sage.SData.Client.SDataService.prototype.executeRequest = function(request, options, ajax) {
+                request.setRequestHeader('X-Application-Name', app.appName);
+                request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
+                original.apply(this, arguments);
+            };
         },
         initConnects: function() {
             this.inherited(arguments);
