@@ -78,6 +78,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Event/List',
     'Mobile/SalesLogix/Views/Event/Detail',
     'Mobile/SalesLogix/Views/Event/Edit',
+    'Mobile/SalesLogix/Views/Groups/Selector',
     'Mobile/SalesLogix/Views/Lead/List',
     'Mobile/SalesLogix/Views/Lead/Detail',
     'Mobile/SalesLogix/Views/Lead/Edit',
@@ -185,6 +186,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     EventList,
     EventDetail,
     EventEdit,
+    GroupsSelector,
     LeadList,
     LeadDetail,
     LeadEdit,
@@ -322,6 +324,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
                     return '';
                 }
             }));
+
+            this.registerView(new GroupsSelector());
 
             this.registerView(new OpportunityEdit());
             this.registerView(new OpportunityList());

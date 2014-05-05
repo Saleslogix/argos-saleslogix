@@ -173,6 +173,10 @@
           "path": "../src"
         },
         {
+          "text": "GroupUtility.js",
+          "path": "../src"
+        },
+        {
           "text": "Aggregate.js",
           "path": "../src"
         },
@@ -431,6 +435,10 @@
         {
           "text": "Edit.js",
           "path": "../src/Views/Event"
+        },
+        {
+          "text": "Selector.js",
+          "path": "../src/Views/Groups"
         },
         {
           "text": "List.js",

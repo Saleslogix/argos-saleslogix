@@ -125,10 +125,10 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
         },
         getItemActionKey: function(entry) {
-            return entry.$key;
+            return entry.$key || entry[this.idProperty];
         },
         getItemDescriptor: function(entry) {
-            return entry.$descriptor;
+            return entry.$descriptor || entry[this.labelProperty];
         },
         getItemTabValue: function(entry) {
             var value = '';

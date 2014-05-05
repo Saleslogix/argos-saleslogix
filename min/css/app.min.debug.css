@@ -253,9 +253,18 @@
 }
 .metric-list {
   width: 100%;
+  margin: 0 0 6px 0;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+}
+.groups-notice {
+  width: 100%;
+  border-left: 5px solid #00678a;
+  padding: 10px;
+  margin: 0 0 6px 0;
+  font-weight: bold;
+  display: none;
 }
 .metric-title {
   font-size: 10pt;
