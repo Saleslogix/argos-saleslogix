@@ -151,9 +151,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 return action.id === 'callMain';
             }, params.key);
         },
-        defaultSearchTerm: function() {
-            return '#' + this.hashTagQueriesText['my-accounts'];
-        },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'edit',
