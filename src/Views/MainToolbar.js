@@ -52,6 +52,7 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
                 if (!hasLeftDrawer) {
                     tools.unshift({
                         id: 'toggleLeftDrawer',
+                        'cls': 'fa fa-bars fa-fw fa-lg',
                         side: 'left',
                         fn: this.toggleLeftDrawer,
                         scope: this
@@ -61,6 +62,7 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
                 if (!isOnEdit && !isOnFirstView) {
                     tools = tools.concat([{
                             id: 'back',
+                            cls: 'fa fa-arrow-left fa-fw fa-lg',
                             side: 'left',
                             fn: this.navigateBack,
                             scope: this

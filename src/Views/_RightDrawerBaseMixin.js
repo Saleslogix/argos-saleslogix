@@ -73,6 +73,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
             if (tools) {
                 tools.tbar.unshift({
                     id: 'toggleRightDrawer',
+                    cls: 'fa fa-ellipsis-v fa-fw fa-lg',
                     side: 'right',
                     fn: this.toggleRightDrawer,
                     scope: this
