@@ -353,6 +353,10 @@
           "path": "../src/Views/Account"
         },
         {
+          "text": "RelatedViewDetail.js",
+          "path": "../src/Views/Account"
+        },
+        {
           "text": "List.js",
           "path": "../src/Views/Address"
         },
