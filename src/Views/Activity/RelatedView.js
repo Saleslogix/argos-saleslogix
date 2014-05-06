@@ -40,7 +40,7 @@ define('Mobile/SalesLogix/Views/Activity/RelatedView', [
         id: 'relatedView_actvity',
         icon: 'content/images/icons/To_Do_24x24.png',
         itemIcon: 'content/images/icons/To_Do_24x24.png',
-        title: "Activites",
+        title: "Activities",
         detailViewId: 'activity_detail',
         insertViewId: 'activity_types_list',
         listViewId: 'activity_related',

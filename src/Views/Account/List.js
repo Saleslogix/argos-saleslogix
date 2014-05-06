@@ -28,6 +28,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Views/History/ListRelatedView',
+    'Mobile/SalesLogix/Views/Account/RelatedViewDetail',
     'Sage/Platform/Mobile/RelatedViewWidget',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
@@ -42,6 +43,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     utility,
     Convert,
     HistoryRelatedView,
+    AccountRelatedViewDetail,
     RelatedViewWidget,
     List,
     _MetricListMixin,
@@ -197,9 +199,17 @@ define('Mobile/SalesLogix/Views/Account/List', [
             return this.relatedViews || (this.relatedViews = [{
                 widgetType: HistoryRelatedView,
                 id: 'account_relatedNotes',
-                enabled: true,
+                enabled: false,
                 relatedProperty:'AccountId',
                 where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
+            }]);
+        },
+        createRelatedDetailViewLayout: function() {
+            return this.relatedDetailViews || (this.relatedDetailViews = [{
+                widgetType: AccountRelatedViewDetail,
+                id: 'account_related_view_detail',
+                enabled: true
+                //relatedProperty:'$key',
             }]);
         }
     });

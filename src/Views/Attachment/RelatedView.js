@@ -41,7 +41,7 @@ define('Mobile/SalesLogix/Views/Attachment/RelatedView', [
         id: 'relatedView_attachment',
         icon: 'content/images/icons/Attachment_24.png',
         itemIcon: 'content/images/icons/Attachment_24.png',
-        title: "Attatchments",
+        title: "Attachments",
         detailViewId: 'view_attachment',
         insertViewId: 'attachment_Add',
         listViewId: 'attachment_list',
