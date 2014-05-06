@@ -27,10 +27,8 @@ define('Mobile/SalesLogix/Views/Account/RelatedViewDetail', [
 ) {
     return declare('Mobile.SalesLogix.Views.Account.RelatedView', [RelatedViewDetailWidget], {
         relatedDetailWidget: AccountDetail,
-        relatedProperty:'$key',
-        createActionLayout: function() {
-            this.actions = [];
-            return this.actions;
-        }
+        relatedProperty: '$key',
+        editViewId: 'account_edit'
+       
     });
 });

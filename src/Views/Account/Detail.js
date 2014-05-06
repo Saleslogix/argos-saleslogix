@@ -263,7 +263,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             icon: 'content/images/icons/opportunity_24.png',
                             title: this.relatedOpportunitiesText,
                             resourceKind: 'opportunities',
-                            detailViewId: 'opprtunity_detail',
+                            detailViewId: 'opportunity_detail',
                             listViewId: 'opportunity_related',
                             insertViewId: 'opportunity_edit',
                             showAdd: true,
