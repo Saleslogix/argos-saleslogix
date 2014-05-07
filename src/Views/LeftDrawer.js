@@ -32,7 +32,10 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
             '<div class="list-item-static-selector">',
                 '{% if ($.icon) { %}',
-                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                    '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                '{% } %}',
+                '{% if ($.cls) { %}',
+                    '<div class="{%: $.cls %}"></div>',
                 '{% } %}',
             '</div>',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
@@ -207,7 +210,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                     }, {
                         'name': 'Logout',
                         'action': 'logOut',
-                        'icon': 'content/images/icons/login_24.png',
+                        'cls': 'fa fa-power-off fa-lg',
                         'title': this.logOutText
                     }
                 ]
