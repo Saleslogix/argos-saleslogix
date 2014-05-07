@@ -174,6 +174,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         id: 'calendar_daylist',
         cls: 'activities-for-day',
         icon: 'content/images/icons/Calendar_24x24.png',
+        iconClass: 'fa fa-calendar fa-lg',
+
         datePickerView: 'generic_calendar',
         monthView: 'calendar_monthlist',
         weekView: 'calendar_weeklist',

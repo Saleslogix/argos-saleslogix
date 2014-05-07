@@ -119,6 +119,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         id: 'opportunity_list',
         security: 'Entities/Opportunity/View',
         icon: 'content/images/icons/opportunity_24.png',
+        iconClass: 'fa fa-bar-chart-o fa-lg',
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
         hashTagQueries: {

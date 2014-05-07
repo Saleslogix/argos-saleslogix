@@ -31,11 +31,10 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
             '<div class="list-item-static-selector">',
-                '{% if ($.icon) { %}',
-                    '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-                '{% } %}',
                 '{% if ($.cls) { %}',
                     '<div class="{%: $.cls %}"></div>',
+                '{% } else if (!$.cls && $.icon) { %}',
+                    '<img src="{%: $.icon %}" alt="icon" class="icon" />',
                 '{% } %}',
             '</div>',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
@@ -181,12 +180,13 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                         'action': 'loadAndNavigateToView',
                         'view': view.id,
                         'icon': view.icon,
+                        'cls': view.iconClass,
                         'title': view.titleText,
                         'security': view.getSecurity()
                     });
                 }
             }
-            
+
             layout.push(goTo);
 
             footer = {
@@ -195,22 +195,22 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                     {
                         'name': 'ConfigureMenu',
                         'action': 'navigateToConfigurationView',
-                        'icon': 'content/images/icons/Tools_24x24.png',
-                        'title': this.configureText 
+                        'cls': 'fa fa-wrench fa-lg',
+                        'title': this.configureText
                     }, {
                         'name': 'SettingsAction',
                         'action': 'navigateToSettingsView',
-                        'icon': 'content/images/icons/settings_24.png',
-                        'title': this.settingsText 
+                        'cls': 'fa fa-cog fa-lg',
+                        'title': this.settingsText
                     }, {
                         'name': 'HelpAction',
                         'action': 'navigateToHelpView',
-                        'icon': 'content/images/icons/help_24.png',
+                        'cls': 'fa fa-question fa-lg',
                         'title': this.helpText
                     }, {
                         'name': 'Logout',
                         'action': 'logOut',
-                        'cls': 'fa fa-power-off fa-lg',
+                        'cls': 'fa fa-sign-out fa-lg',
                         'title': this.logOutText
                     }
                 ]

@@ -158,6 +158,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         id: 'activity_list',
         security: null, //'Entities/Activity/View',
         icon: 'content/images/icons/To_Do_24x24.png',
+        iconClass: 'fa fa-check-square-o fa-lg',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
         historyEditView: 'history_edit',
