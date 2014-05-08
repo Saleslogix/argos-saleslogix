@@ -1,9 +1,9 @@
-/*1px @gray1-light;*/
+/*2px solid @icon-color;*/
 .list-content > [data-enabled="false"] {
   opacity: 0.5;
 }
 .viewContainer > .list {
-  background-color: #a1a1a1;
+  background-color: #ebebeb;
 }
 .viewContainer > .panel {
   background-color: #ffffff;
@@ -51,8 +51,8 @@
   overflow: hidden;
   padding-left: 0px;
   padding-right: 34px;
-  border: 1px solid #d0d0d0;
-  background-color: #fafafa;
+  border: 1px solid #dcdcde;
+  background-color: #ebebee;
 }
 .note-text-row > label,
 .note-text-row > div > label {
@@ -245,7 +245,7 @@
   border-color: #000;
   border-width: 0px;
   width: 100%;
-  background-color: #00678a;
+  background-color: #4c75bb;
   color: #fff;
 }
 .metric-widget {
@@ -260,7 +260,7 @@
 }
 .groups-notice {
   width: 100%;
-  border-left: 5px solid #00678a;
+  border-left: 5px solid #4c75bb;
   padding: 10px;
   margin: 0 0 6px 0;
   font-weight: bold;
@@ -397,17 +397,17 @@ li[data-ticket-status] .list-item-selector,
 }
 .calendar-day {
   color: #000;
-  background-color: #727272;
+  background-color: #999b9f;
 }
 .calendar-day.today {
-  background-color: #80b3c4;
+  background-color: #96b9da;
 }
 .calendar-day.weekend {
-  background-color: #00678a;
+  background-color: #4c75bb;
 }
 .calendar-day.selected {
   color: #000;
-  background-color: #408da7;
+  background-color: #6a97cb;
 }
 /* in Month view .activeDay indicates individual events */
 td.calendar-day {
@@ -453,8 +453,8 @@ td.calendar-day {
   background-image: url(../images/icons/Down_Arrow_Collapsed.png);
   /*background-image: url(../images/icons/Show_Details_active_24.png);*/
 }
-.toolButton[data-tool="back"] > span {
-  background-image: url(../images/icons/Browse_Previous_24.png);
+.toolButton {
+  color: #ffffff;
 }
 .toolButton[data-tool="home"] > span {
   background-image: url(../images/icons/home_24.png);
@@ -488,13 +488,6 @@ td.calendar-day {
 }
 .toolButton[data-tool="top"] > span {
   background-image: url(../images/icons/Down_Arrow.png);
-}
-/*.toolButton[data-tool="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }*/
-.toolButton[data-tool="toggleLeftDrawer"] > span {
-  background-image: url(../images/icons/drawer_24.png);
-}
-.toolButton[data-tool="toggleRightDrawer"] > span {
-  background-image: url(../images/icons/headerMenu_24.png);
 }
 .toolbar button.disabled > span {
   opacity: .1;
@@ -649,7 +642,7 @@ body.transition > .viewContainer > .footer-toolbar {
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
   color: #ffffff;
-  background-color: #666666;
+  background-color: #b4b7bc;
   font-weight: bold;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -803,7 +796,7 @@ td.entry-table-description {
   padding-left: 3px;
 }
 .nav-bar > .button {
-  background-color: #d0d0d0;
+  background-color: #b4b7bc;
   height: 34px;
   width: 40px;
 }
@@ -887,8 +880,8 @@ td.entry-table-description {
   z-index: 10;
   border-width: 0 0 1px 0;
   border-style: solid;
-  border-color: #212721;
-  background-color: #fe5000;
+  border-color: #1c2324;
+  background-color: #d96123;
   background-clip: padding-box;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
@@ -1028,7 +1021,6 @@ td.entry-table-description {
   visibility: hidden;
   width: 61px;
   height: 61px;
-  color: #ff0;
   position: absolute;
   top: 8px;
   left: 22px;
@@ -1074,7 +1066,6 @@ td.entry-table-description {
 .card-layout .list-item-static-selector > img.icon,
 .card-layout .list-item-static-selector > * > img.icon {
   bottom: 0;
-  color: #FFFF00;
   height: 24px !important;
   left: 30px;
   position: relative;
@@ -1255,11 +1246,11 @@ td.entry-table-description {
   color: #fff!important;
 }
 .card-layout-speed-search-synopsis > span[style="font-weight: bold; background-color : yellow;"] {
-  background-color: #fe5000 !important;
+  background-color: #d96123 !important;
   color: white;
 }
 .color-default {
-  background-color: #fe5000 !important;
+  background-color: #d96123 !important;
   color: white !important;
 }
 .color-account {
@@ -1275,11 +1266,11 @@ td.entry-table-description {
   color: white !important;
 }
 .color-opportunity {
-  background-color: #fe5000 !important;
+  background-color: #d96123 !important;
   color: white !important;
 }
 .color-ToDo {
-  background-color: #fe5000 !important;
+  background-color: #d96123 !important;
   color: white !important;
 }
 .color-Meeting {
@@ -1309,23 +1300,23 @@ td.entry-table-description {
 .card-layout-search-expression,
 .chart-hash {
   padding: 10px 0 10px 5px;
-  border-left: 5px solid #00678a;
+  border-left: 5px solid #4c75bb;
   margin: 2px 0 0 2px;
   font-size: 16px;
   font-weight: bold;
 }
 .user-icon {
   position: relative;
-  border: 1px solid #585d58;
+  border: 1px solid #4f5657;
   height: 28px;
   width: 28px;
   line-height: 28px;
   text-align: center;
-  background: #fafafa;
+  background: #ebebee;
   text-shadow: 0px 1px 0px #fff;
   font-size: 0.8em;
   font-weight: bold;
-  color: #585d58;
+  color: #4f5657;
 }
 .related-view-widget .note-text-wrap > h4 {
   font-size: 0.85em;
