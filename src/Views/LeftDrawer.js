@@ -31,9 +31,11 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
             '<div class="list-item-static-selector">',
-                '{% if ($.cls) { %}',
+                '{% if ($.iconTemplate) { %}',
+                    '{%! $.iconTemplate %}',
+                '{% } else if ($.cls) { %}',
                     '<div class="{%: $.cls %}"></div>',
-                '{% } else if (!$.cls && $.icon) { %}',
+                '{% } else if ($.icon) { %}',
                     '<img src="{%: $.icon %}" alt="icon" class="icon" />',
                 '{% } %}',
             '</div>',
@@ -159,7 +161,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                     {
                         'name': 'AddAccountContactAction',
                         'action': 'addAccountContact',
-                        'icon': 'content/images/icons/New_Contact_24x24.png',
+                        'cls': 'fa fa-plus-square-o',
                         'title': this.addAccountContactText
                     }
                 ]
@@ -181,6 +183,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                         'view': view.id,
                         'icon': view.icon,
                         'cls': view.iconClass,
+                        'iconTemplate': view.iconTemplate,
                         'title': view.titleText,
                         'security': view.getSecurity()
                     });
