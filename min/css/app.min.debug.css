@@ -642,7 +642,7 @@ body.transition > .viewContainer > .footer-toolbar {
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
   color: #ffffff;
-  background-color: #b4b7bc;
+  background-color: #b4b9be;
   font-weight: bold;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -796,7 +796,7 @@ td.entry-table-description {
   padding-left: 3px;
 }
 .nav-bar > .button {
-  background-color: #b4b7bc;
+  background-color: #b4b9be;
   height: 34px;
   width: 40px;
 }
@@ -880,8 +880,8 @@ td.entry-table-description {
   z-index: 10;
   border-width: 0 0 1px 0;
   border-style: solid;
-  border-color: #1c2324;
-  background-color: #d96123;
+  border-color: #0f1e1e;
+  background-color: #fe5000;
   background-clip: padding-box;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
@@ -1246,11 +1246,11 @@ td.entry-table-description {
   color: #fff!important;
 }
 .card-layout-speed-search-synopsis > span[style="font-weight: bold; background-color : yellow;"] {
-  background-color: #d96123 !important;
+  background-color: #fe5000 !important;
   color: white;
 }
 .color-default {
-  background-color: #d96123 !important;
+  background-color: #fe5000 !important;
   color: white !important;
 }
 .color-account {
@@ -1266,11 +1266,11 @@ td.entry-table-description {
   color: white !important;
 }
 .color-opportunity {
-  background-color: #d96123 !important;
+  background-color: #fe5000 !important;
   color: white !important;
 }
 .color-ToDo {
-  background-color: #d96123 !important;
+  background-color: #fe5000 !important;
   color: white !important;
 }
 .color-Meeting {

@@ -4,12 +4,15 @@ CACHE MANIFEST
 
 CACHE:
 # css
-content/css/app.css
-content/css/awesome-buttons.css
-content/css/base.css
-content/css/toggle.css
-content/reui/themes/sage-green/base.css
-content/reui/themes/sage-green/theme.css
+content/css/app.min.css
+content/css/themes/swiftpage/sdk.min.swiftpage.css
+
+# fonts
+content/css/themes/fonts/FontAwesome.otf
+content/css/themes/fonts/fontawesome-webfont.eot
+content/css/themes/fonts/fontawesome-webfont.svg
+content/css/themes/fonts/fontawesome-webfont.ttf
+content/css/themes/fonts/fontawesome-webfont.woff
 
 # images
 content/images/arrow-left-black.png
