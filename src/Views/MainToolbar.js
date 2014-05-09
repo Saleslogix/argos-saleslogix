@@ -84,19 +84,20 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
             this._toggleDrawer('left');
         },
         onTitleClick: function() {
-            var view, state;
+            var view, state, scrollerNode;
 
             state = App.snapper && App.snapper.state();
             view = App.getPrimaryActiveView();
 
             if (view && state && state.state === 'closed') {
+                scrollerNode = view.scrollerNode || view.domNode;
                 if (has('android')) {
                     // Hack to work around https://code.google.com/p/android/issues/detail?id=19625
-                    domStyle.set(view.scrollerNode, 'overflow', 'hidden');
-                    view.scrollerNode.scrollTop = 0;
-                    domStyle.set(view.scrollerNode, 'overflow', 'auto');
+                    domStyle.set(scrollerNode, 'overflow', 'hidden');
+                    scrollerNode.scrollTop = 0;
+                    domStyle.set(scrollerNode, 'overflow', 'auto');
                 } else {
-                    view.scrollerNode.scrollTop = 0;
+                    scrollerNode.scrollTop = 0;
                 }
             }
         },
