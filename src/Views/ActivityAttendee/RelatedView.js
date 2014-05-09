@@ -172,16 +172,16 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
                     var options = {};
                    // options.label = '';
                     if (itemEntry.IsPrimary) {
-                        options.cls = 'selected';
+                       // options.cls = 'selected';
                         options.icon = 'content/images/icons/Checked_24.png';
                     } else {
-                        options.cls = 'un-selected';
+                        //options.cls = 'un-selected';
                         options.icon = 'content/images/icons/Checkbox_Off_16.png';
                     }
-                    options.cls = 'clear';
+                    //options.cls = 'clear';
                     return  options;
-                },
-                isEnabled: true,
+                }
+                
             });
             this.itemActions.push({
                 id: 'isAttendee',
@@ -192,16 +192,15 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
                     var options = {};
                     //options.label = '';
                     if (itemEntry.IsAttendee) {
-                        options.cls = 'selected';
+                       // options.cls = 'selected';
                         options.icon = 'content/images/icons/Checked_24.png';
                     } else {
-                        options.cls = 'un-selected';
+                       // options.cls = 'un-selected';
                         options.icon = 'content/images/icons/Checkbox_Off_16.png';
                     }
-                    options.cls = 'clear';
+                    //options.cls = 'clear';
                     return options;
                 },
-                isEnabled: true,
                 fn: this.onIsAttendee.bindDelegate(this)
             });
             this.itemActions.push({
@@ -209,8 +208,7 @@ define('Mobile/SalesLogix/Views/ActivityAttendee/RelatedView', [
                 icon: 'content/images/icons/Role_24.png',
                 label: this.roleText,
                 action: 'onAssignRole',
-                cls: 'clear',
-                isEnabled: true,
+                //cls: 'clear',
                 fn: this.onAssignRole.bindDelegate(this)
             });
 
