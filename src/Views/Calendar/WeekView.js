@@ -327,16 +327,19 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
 
             var todayNode = this.addTodayDom(),
                 entryGroups = this.entryGroups,
+                feedLength = feed['$resources'].length,
                 entryOrder = [],
                 dateCompareString = 'YYYY-MM-DD',
                 o = [],
-                i, 
+                i,
                 currentEntry,
                 entryOrderLength,
                 remaining,
                 startDate;
 
-            if (this.feed['$totalResults'] === 0) {
+            // If we fetched a page that has no data due to un-reliable counts,
+            // check if we fetched anything in the previous pages before assuming there is no data.
+            if (feedLength === 0 && Object.keys(this.entries).length === 0) {
                 query(this.contentNode).append(this.noDataTemplate.apply(this));
             } else if (feed['$resources']) {
 
@@ -393,10 +396,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
                 }
             }
 
-            if (typeof this.feed['$totalResults'] !== 'undefined') {
-                remaining = this.feed['$totalResults'] - (this.feed['$startIndex'] + this.feed['$itemsPerPage'] - 1);
-                this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
-            }
+            this.set('remainingContent', '');// Feed does not return reliable data, don't show remaining
 
             domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
             this._loadPreviousSelections();
