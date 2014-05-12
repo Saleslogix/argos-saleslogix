@@ -120,7 +120,14 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             }
         },
         onContactAddressChange: function(value, field) {
-            if (this.fields['Address'].getValue() && !this.fields['Address'].getValue().Address1) {
+            // Copy contact address down into the account address if the account address is not set
+            var address, address1;
+            if (this.fields['Address']) {
+                address = this.fields['Address'].getValue();
+                address1 = address && address.Address1;
+            }
+
+            if (!address || !address1) {
                 this.fields['Address'].setValue(value);
             }
         },
