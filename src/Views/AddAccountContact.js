@@ -127,7 +127,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                 address1 = address && address.Address1;
             }
 
-            if (!address && !address1) {
+            if (!address || !address1) {
                 this.fields['Address'].setValue(value);
             }
         },
