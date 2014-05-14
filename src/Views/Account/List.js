@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Views/History/ListRelatedView',
+    'Mobile/SalesLogix/Views/History/RelatedView',
     'Mobile/SalesLogix/Views/Account/RelatedViewDetail',
     'Sage/Platform/Mobile/RelatedViewWidget',
     'Sage/Platform/Mobile/List',
@@ -198,8 +198,16 @@ define('Mobile/SalesLogix/Views/Account/List', [
         createRelatedViewLayout: function() {
             return this.relatedViews || (this.relatedViews = [{
                 widgetType: HistoryRelatedView,
-                id: 'account_relatedNotes',
-                enabled: false,
+                id: 'list_account_relateview_notes',
+                //enabled: false,
+                autoLoad: true,
+                showAdd: false,
+                showRefresh: false,
+                showNavigateToList: false,
+                showTab: false,
+                enableActions: false,
+                showTotalInTab: false,
+                hideWhenNoData: true,
                 relatedProperty:'AccountId',
                 where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
             }]);

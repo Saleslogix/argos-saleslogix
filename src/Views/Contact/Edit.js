@@ -93,11 +93,15 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             this.requestAccount(value['key']);
         },
         applyContext: function() {
-            var found = App.queryNavigationContext(function(o) {
-                o = (o.options && o.options.source) || o;
-                return (/^(accounts|opportunities)$/).test(o.resourceKind) && o.key;
-            });
-
+            var found;
+            if (this.options.relatedContext) {
+                found = this.options.relatedContext;
+            } else {
+                found = App.queryNavigationContext(function(o) {
+                    o = (o.options && o.options.source) || o;
+                    return (/^(accounts|opportunities)$/).test(o.resourceKind) && o.key;
+                });
+            }
             var lookup = {
                 'accounts': this.applyAccountContext,
                 'opportunities': this.applyOpportunityContext
@@ -111,13 +115,26 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             }
         },
         applyAccountContext: function(context) {
-            var view = App.getView(context.id),
-                entry = view && view.entry;
+            var view, entry, key;
 
-            if (!entry && context.options && context.options.source && context.options.source.entry) {
-                this.requestAccount(context.options.source.entry['$key']);
-            }
+              if(context.entry){
+                  entry = context.entry;
+              }else{
+                  view = App.getView(context.id);
+                  entry = view && view.entry; 
+              }
 
+              if (context.key) {
+                  key = context.key
+              }
+
+              if (!entry && context.options && context.options.source && context.options.source.entry) {
+                  if (key) {
+                      this.requestAccount(key);
+                  } else {
+                      this.requestAccount(context.options.source.entry['$key']);
+                  }
+              }
             this.processAccount(entry);
         },
         requestAccount: function(accountId) {

@@ -25,6 +25,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
     'dojo/dom-class',
     'dojo/_base/lang',
     'Sage/Platform/Mobile/Utility'
+
 ], function(
     declare,
     format,
@@ -50,12 +51,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         insertViewId: 'history_edit',
         listViewId: 'history_related',
         listViewWhere: null,
-        enabled: true,
         showAdd: true,
-        //showTab: false,
-        //enableActions: false,
-        //showTotalInTab: false,
-        //hideWhenNoData: true,
         _addingNote: false,
         resourceKind: 'history',
         select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],

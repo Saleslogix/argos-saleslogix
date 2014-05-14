@@ -22,20 +22,26 @@ define('Mobile/SalesLogix/Action', [
         calledText: 'Called ${0}',
         emailedText: 'E-mailed ${0}',
 
-        navigateToHistoryInsert: function(entry, complete) {
-            var view = App.getView('history_edit');
+        navigateToHistoryInsert: function(entry, complete, options) {
+            var view = App.getView('history_edit'),
+                viewOptions;
+
+            viewOptions = {
+                title: entry['Title'] || null,
+                template: {},
+                entry: entry,
+                insert: true
+            }, {
+                complete: complete
+            }
+
+            lang.mixin(viewOptions, options);
+
             if (view) {
-                view.show({
-                        title: entry['Title'] || null,
-                        template: {},
-                        entry: entry,
-                        insert: true
-                    }, {
-                        complete: complete
-                    });
+                view.show(viewOptions);
             }
         },
-        recordToHistory: function(complete, o) {
+        recordToHistory: function(complete, o, options) {
             var entry = {
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
@@ -44,7 +50,7 @@ define('Mobile/SalesLogix/Action', [
             };
             lang.mixin(entry, o);
 
-            this.navigateToHistoryInsert(entry, complete);
+            this.navigateToHistoryInsert(entry, complete, options);
         },
         callPhone: function(action, selection, phoneProperty) {
             this.setSource({
@@ -60,7 +66,7 @@ define('Mobile/SalesLogix/Action', [
 
             Mobile.SalesLogix.Action.recordToHistory(function() {
                 App.initiateCall(selection.data[phoneProperty]);
-            }.bindDelegate(this), selection.data);
+            }.bindDelegate(this), selection.data, selection.options);
         },
         sendEmail: function(action, selection, emailProperty) {
             lang.mixin(selection.data, {

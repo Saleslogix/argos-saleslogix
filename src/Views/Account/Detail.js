@@ -24,6 +24,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     'Mobile/SalesLogix/Views/Attachment/RelatedView',
     'Mobile/SalesLogix/Views/History/RelatedView',
     'Mobile/SalesLogix/Views/Address/RelatedView',
+    'Mobile/SalesLogix/Views/Contact/RelatedView',
     '../_MetricDetailMixin'
 ], function(
     declare,
@@ -36,6 +37,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     AttachmentRelatedView,
     HistoryRelatedView,
     AddressRelatedView,
+    ContactRelatedView,
     _MetricDetailMixin
 ) {
 
@@ -244,15 +246,9 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     children: [{
                         name: 'ContactRelated',
                         relatedView: {
+                            widgetType: ContactRelatedView,
                             id: 'account_contact_related_view',
-                            icon: 'content/images/icons/Contacts_24x24.png',
-                            resourceKind: 'contacts',
                             title: this.relatedContactsText,
-                            detailViewId: 'contact_detail',
-                            listViewId: 'contact_related',
-                            insertViewId: 'contact_edit',
-                            showAdd: true,
-                            enabled: true,
                             relatedProperty: 'Account.$key',
                             where: function(entry) { return "Account.id eq '" + entry.$key + "'"; }
                         }
@@ -267,7 +263,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             listViewId: 'opportunity_related',
                             insertViewId: 'opportunity_edit',
                             showAdd: true,
-                            enabled: true,
                             relatedProperty: 'Account.$key',
                             where: function(entry) { return "Account.id eq '" + entry.$key + "'"; }
                         }
@@ -282,7 +277,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             listViewId: 'ticket_related',
                             insertViewId: 'ticket_edit',
                             showAdd: true,
-                            enabled: true,
                             relatedProperty: 'Account.$key',
                             where: function(entry) { return "Account.id eq '" + entry.$key + "'"; }
                         }
@@ -302,7 +296,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             id: 'account_attachmnets_realted_view',
                             listViewId: 'account_attachment_related',
                             relatedProperty: 'accountId',
-                            enabled: true,
                             where: function(entry) { return "accountId eq '" + entry.$key + "'"; }
                         }
                     }, {
@@ -311,7 +304,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             widgetType: HistoryRelatedView,
                             id: 'account_history_realted_view',
                             listViewId: 'history_related',
-                            enabled: true,
                             relatedProperty: 'AccountId',
                             where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
                         }
@@ -321,7 +313,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             widgetType: AddressRelatedView,
                             id: 'account_addresses_related_view',
                             llistViewId: 'address_related',
-                            enabled: true,
                             showAdd: false,
                             relatedProperty: 'EntityId',
                             where: function(entry) { return "EntityId eq '" + entry.$key + "'"; }

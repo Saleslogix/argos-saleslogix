@@ -333,14 +333,6 @@
           "path": "../src/Views/Attachment"
         },
         {
-          "text": "RelatedView.js",
-          "path": "../src/Views/History"
-        },
-        {
-          "text": "ListRelatedView.js",
-          "path": "../src/Views/History"
-        },
-        {
           "text": "List.js",
           "path": "../src/Views/Account"
         },
@@ -438,6 +430,10 @@
         },
         {
           "text": "Edit.js",
+          "path": "../src/Views/Contact"
+        },
+        {
+          "text": "RelatedView.js",
           "path": "../src/Views/Contact"
         },
         {
@@ -578,6 +574,10 @@
         },
         {
           "text": "Edit.js",
+          "path": "../src/Views/History"
+        },
+        {
+          "text": "RelatedView.js",
           "path": "../src/Views/History"
         },
         {

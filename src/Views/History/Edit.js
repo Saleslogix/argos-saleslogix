@@ -200,11 +200,17 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.inherited(arguments);
         },
         applyContext: function() {
-            var found = App.queryNavigationContext(function(o) {
-                var context = (o.options && o.options.source) || o;
-                return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
-            });
 
+            if (this.options.relatedContext) {
+                found = this.options.relatedContext;
+
+            } else {
+                var found = App.queryNavigationContext(function(o) {
+                    var context = (o.options && o.options.source) || o;
+                    return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
+                });
+
+            }
             found = (found && found.options && found.options.source) || found;
 
             var lookup = {
@@ -220,6 +226,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
 
             this.context = found;
+
 
             var user = App.context && App.context.user;
 
