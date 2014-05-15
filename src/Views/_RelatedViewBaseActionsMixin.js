@@ -19,6 +19,12 @@ define('Mobile/SalesLogix/Views/_RelatedViewBaseActionsMixin', [
 ){
 
     return declare('Mobile.SalesLogix.Views._RelatedViewBaseActionsMixin', null, {
+
+        sendEmailActionText: 'send email',
+        callPhoneText: 'call',
+        addNoteActionText:'add note',
+        scheduleActivityActionText:'schedule activity',
+        addAttachmentActionText:'add attatchment',
         postMixInProperties: function() {
             this.inherited(arguments);
             this.setBaseItemActions();
@@ -68,7 +74,7 @@ define('Mobile/SalesLogix/Views/_RelatedViewBaseActionsMixin', [
                     itemActions.push({
                         id: 'addActivity',
                         icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                        label: this.addActivityActionText,
+                        label: this.scheduleActivityActionText,
                         action: 'addActivity'
                         //fn: action.addActivity.bindDelegate(this)
                     });
@@ -76,7 +82,7 @@ define('Mobile/SalesLogix/Views/_RelatedViewBaseActionsMixin', [
                         id: 'addAttachment',
                         icon: 'content/images/icons/Attachment_24.png',
                         label: this.addAttachmentActionText,
-                        action: 'addAttachmnet'
+                        action: 'addAttachment'
                         //fn: action.addAttachment.bindDelegate(this)
                     });
                     break;

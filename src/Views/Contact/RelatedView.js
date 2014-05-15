@@ -43,7 +43,9 @@ define('Mobile/SalesLogix/Views/Contact/RelatedView', [
         listViewId: 'contact_related',
         listViewWhere: null,
         resourceKind: 'contacts',
-        showAdd:true,
+        showAdd: true,
+        autoLoad: true,
+
         select: ['Type', 'ModifyDate', 'FirstName', 'LastName', 'WorkPhone', 'Email', 'Title', 'IsPrimary', 'Account', 'Account/AccountName'],
         sort: 'LastName asc',
         relatedItemHeaderTemplate: new Simplate([

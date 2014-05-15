@@ -39,7 +39,8 @@ define('Mobile/SalesLogix/Views/Activity/RelatedView', [
         completeText: 'Complete',
         completeOccurenceText: 'Complete Occurence',
         completeSeriesText: 'Complete Series',
-        completeUnScheduledText:'complete UnScheduled',
+        completeUnScheduledText: 'complete UnScheduled',
+        byText:'by',
 
         id: 'relatedView_actvity',
         icon: 'content/images/icons/To_Do_24x24.png',
@@ -72,12 +73,14 @@ define('Mobile/SalesLogix/Views/Activity/RelatedView', [
             'OpportunityId',
             'Leader',
             'UserId',
+            'UserName',
             'Timeless',
             'Alarm',
             'Priority',
             'ModifyDate',
             'RecurrenceState',
-            'Recurring'
+            'Recurring',
+            'Notes'
         ],
         where:null ,
         sort: 'StartDate Desc',
@@ -85,10 +88,14 @@ define('Mobile/SalesLogix/Views/Activity/RelatedView', [
           '<img src="{%= $$.getActivityIcon($) %}" />'
         ]),
         relatedItemHeaderTemplate: new Simplate([
-            '<h3><strong>{%: $$.getItemDescriptor($) %} </h3>',
+            '<h4><strong>{%: $$.getItemDescriptor($) %}</strong></h4>',
+            '<h4> {%: $$.byText %} {%: Mobile.SalesLogix.Format.relativeDate($.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}</h4>',
+           // '<h4>{%: Mobile.SalesLogix.Format.formatByUser($.UserName) %} {%: $$.byText %} {%: Mobile.SalesLogix.Format.relativeDate($.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}</h4>'
         ]),
         relatedItemDetailTemplate: new Simplate([
-             '<h3>{%: Mobile.SalesLogix.Format.relativeDate($.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}</h3>'
+               '<div class="note-text-wrap">',
+                '<h4>{%: $.Notes %} ... </h4>',
+              '</div>'
         ]),
         activityIconByType: {
             'atToDo': 'content/images/icons/To_Do_24x24.png',

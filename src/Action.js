@@ -33,7 +33,7 @@ define('Mobile/SalesLogix/Action', [
                 insert: true
             }, {
                 complete: complete
-            }
+            };
 
             lang.mixin(viewOptions, options);
 
@@ -76,25 +76,26 @@ define('Mobile/SalesLogix/Action', [
 
             Mobile.SalesLogix.Action.recordToHistory(function() {
                 App.initiateEmail(selection.data[emailProperty]);
-            }.bindDelegate(this), selection.data);
+            }.bindDelegate(this), selection.data, selection.options);
         },
 
         addNote: function(action, selection) {
             var entry = selection.data,
                 key = selection.data.$key,
-                desc = selection.data.$descriptor;
+                desc = selection.data.$descriptor,
+                viewOptions = { insert: true };
 
             this.setSource({
                 entry: entry,
                 descriptor: desc,
                 key: key
             });
-
+            lang.mixin(viewOptions, selection.options);
             var view = App.getView('history_edit'),
                 route;
 
             if (view) {
-                view.show({insert: true});
+                view.show(viewOptions);
             }
         },
         addActivity: function(action, selection) {
@@ -121,16 +122,17 @@ define('Mobile/SalesLogix/Action', [
             return utility.getValue(selection.data, property);
         },
         addAttachment: function(action, selection) {
-            var view;
+            var view, viewOptions = { insert: true };
             this.setSource({
                 entry: selection.data,
                 descriptor: selection.data['$descriptor'],
                 key: selection.data['$key']
             });
+            lang.mixin(viewOptions, selection.options);
             view = App.getView('attachment_Add');
 
             if (view) {
-                view.show({ insert: true });
+                view.show(viewOptions);
             }
         }
     });

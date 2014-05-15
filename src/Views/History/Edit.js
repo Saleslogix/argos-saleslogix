@@ -200,12 +200,12 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.inherited(arguments);
         },
         applyContext: function() {
-
+            var found;
             if (this.options.relatedContext) {
                 found = this.options.relatedContext;
 
             } else {
-                var found = App.queryNavigationContext(function(o) {
+                found = App.queryNavigationContext(function(o) {
                     var context = (o.options && o.options.source) || o;
                     return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
                 });

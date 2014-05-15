@@ -249,6 +249,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "_RelatedViewBaseActionsMixin.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "_CardLayoutListMixin.js",
           "path": "../src/Views"
         },

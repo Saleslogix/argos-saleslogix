@@ -52,6 +52,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         listViewId: 'history_related',
         listViewWhere: null,
         showAdd: true,
+        expandOnLoad: true,
         _addingNote: false,
         resourceKind: 'history',
         select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],

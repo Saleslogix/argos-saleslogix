@@ -125,7 +125,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
               }
 
               if (context.key) {
-                  key = context.key
+                  key = context.key;
               }
 
               if (!entry && context.options && context.options.source && context.options.source.entry) {
