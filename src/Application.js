@@ -60,6 +60,11 @@ define('Mobile/SalesLogix/Application', [
         enableCaching: true,
         userDetailsQuerySelect: ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'],
         userOptionsToRequest: [
+            'DefaultGroup;ACCOUNT',
+            'DefaultGroup;CONTACT',
+            'DefaultGroup;OPPORTUNITY',
+            'DefaultGroup;LEAD',
+            'DefaultGroup;TICKET',
             'General;InsertSecCodeID',
             'General;Currency',
             'Calendar;DayStartTime',
