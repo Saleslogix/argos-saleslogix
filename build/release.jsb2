@@ -317,6 +317,34 @@
           "path": "../src/Views/Charts"
         },
         {
+          "text": "RelatedView.js",
+          "path": "../src/Views/Contact"
+        },
+        {
+          "text": "RelatedView.js",
+          "path": "../src/Views/Attachment"
+        },
+        {
+          "text": "RelatedView.js",
+          "path": "../src/Views/Address"
+        },
+        {
+          "text": "RelatedView.js",
+          "path": "../src/Views/Activity"
+        },
+        {
+          "text": "RelatedView.js",
+          "path": "../src/Views/ActivityAttendee"
+        },
+        {
+          "text": "RelatedView.js",
+          "path": "../src/Views/History"
+        },
+        {
+          "text": "RelatedViewDetail.js",
+          "path": "../src/Views/Account"
+        },
+        {
           "text": "AddAttachment.js",
           "path": "../src/Views/Attachment"
         },
@@ -333,10 +361,6 @@
           "path": "../src/Views/Attachment"
         },
         {
-          "text": "RelatedView.js",
-          "path": "../src/Views/Attachment"
-        },
-        {
           "text": "List.js",
           "path": "../src/Views/Account"
         },
@@ -349,19 +373,11 @@
           "path": "../src/Views/Account"
         },
         {
-          "text": "RelatedViewDetail.js",
-          "path": "../src/Views/Account"
-        },
-        {
           "text": "List.js",
           "path": "../src/Views/Address"
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Address"
-        },
-        {
-          "text": "RelatedView.js",
           "path": "../src/Views/Address"
         },
         {
@@ -393,19 +409,11 @@
           "path": "../src/Views/Activity"
         },
         {
-          "text": "RelatedView.js",
-          "path": "../src/Views/Activity"
-        },
-        {
           "text": "Edit.js",
           "path": "../src/Views/ActivityAttendee"
         },
         {
           "text": "List.js",
-          "path": "../src/Views/ActivityAttendee"
-        },
-        {
-          "text": "RelatedView.js",
           "path": "../src/Views/ActivityAttendee"
         },
         {
@@ -434,10 +442,6 @@
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Contact"
-        },
-        {
-          "text": "RelatedView.js",
           "path": "../src/Views/Contact"
         },
         {
@@ -578,10 +582,6 @@
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/History"
-        },
-        {
-          "text": "RelatedView.js",
           "path": "../src/Views/History"
         },
         {
