@@ -303,7 +303,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         },
         getGroupForRightDrawerEntry: function(entry) {
             var mixin = lang.getObject(mixinName);
-            if (entry.dataProps && entry.dataProps.hashtag) {
+            if (entry.dataProps && entry.dataProps.hashtag && this._hasHashTags()) {
                 return {
                     tag: 'view',
                     title: mixin.prototype.hashTagsSectionText
@@ -362,7 +362,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 children: []
             };
 
-            if (this.searchWidget && this.searchWidget.hashTagQueries) {
+            if (this._hasHashTags()) {
                 len = this.searchWidget.hashTagQueries.length;
                 for (i = 0; i < len; i++) {
                     hashTag = this.searchWidget.hashTagQueries[i];
@@ -405,6 +405,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             }
 
             return layout;
+        },
+        _hasHashTags: function() {
+            return this.searchWidget && this.searchWidget.hashTagQueries && this.searchWidget.hashTagQueries.length > 0;
         }
     });
 });
