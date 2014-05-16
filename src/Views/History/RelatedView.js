@@ -45,7 +45,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         id: 'relatedNotes',
         icon: 'content/images/icons/journal_24.png',
         itemIcon: 'content/images/icons/journal_24.png',
-        title: 'Notes',
+        titleText: 'Notes',
         detailViewId: 'history_detail',
         editViewId: 'history_edit',
         insertViewId: 'history_edit',
@@ -62,7 +62,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
 
         relatedViewHeaderTemplate: new Simplate([
             '<div data-dojo-attach-point="addingNoteNode" class="loading-indicator"><div>{%= $.addingNoteText %}</div></div>',
-            '<div  data-dojo-attach-point="quicNoteNode" class="hidden quick-note">',
+            '<div  data-dojo-attach-point="quicNoteNode" class="hidden quick-note"  data-dojo-attach-event="onclick:onNoteClick">',
                '<div class= "action-items">',
                 '<span class="action-item" data-dojo-attach-event="onclick:onCancelQuickNote" >',
                       '<img src="content/images/icons/cancl_24.png" />',
@@ -121,6 +121,9 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
                domClass.toggle(this.quicNoteNode, 'hidden');
            }
         },
+        onNoteClick: function(evt) {
+            evt.stopPropagation();
+        },
         onAddQuickNote: function(evt) {
             var insertEntry, currentUserId, currentUserName, notes;
 
@@ -144,10 +147,12 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
                     this._addingNote = false;
                 }
             }
+            evt.stopPropagation();
         },
         onCancelQuickNote: function(evt) {
             this._addingNote = false;
             domClass.toggle(this.quicNoteNode, 'hidden');
+            evt.stopPropagation();
             
         },
         onAddNoteComplete: function(result, entry) {

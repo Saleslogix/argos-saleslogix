@@ -28,6 +28,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Views/History/RelatedView',
+    'Mobile/SalesLogix/Views/Activity/RelatedView',
+    'Mobile/SalesLogix/Views/Contact/RelatedView',
     'Mobile/SalesLogix/Views/Account/RelatedViewDetail',
     'Sage/Platform/Mobile/RelatedViewWidget',
     'Sage/Platform/Mobile/List',
@@ -43,6 +45,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     utility,
     Convert,
     HistoryRelatedView,
+    ActivityRelatedView,
+    ContactRelatedView,
     AccountRelatedViewDetail,
     RelatedViewWidget,
     List,
@@ -198,18 +202,32 @@ define('Mobile/SalesLogix/Views/Account/List', [
         createRelatedViewLayout: function() {
             return this.relatedViews || (this.relatedViews = [{
                 widgetType: HistoryRelatedView,
-                id: 'list_account_relateview_notes',
-                //enabled: false,
+                id: 'list_account_notes_relate_view',
                 autoLoad: true,
-                showAdd: false,
-                showRefresh: false,
-                showNavigateToList: false,
-                showTab: false,
-                enableActions: false,
-                showTotalInTab: false,
-                hideWhenNoData: true,
+                expandOnLoad: false,
+                //showAdd: false,
+                //showRefresh: false,
+                //showNavigateToList: false,
+                //showTab: false,
+                //enableActions: false,
+                //showTotalInTab: false,
+                //hideWhenNoData: true,
                 relatedProperty:'AccountId',
                 where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
+            }, {
+                widgetType: ActivityRelatedView,
+                id: 'list_account_activity_realted_view',
+                autoLoad: true,
+                expandOnLoad: false,
+                relatedProperty: 'AccountId',
+                where: function(entry) { return "AccountId eq '" + entry.$key + "'"; }
+            }, {
+                widgetType: ContactRelatedView,
+                id: 'list_account_contact_related_view',
+                autoLoad: true,
+                expandOnLoad: false,
+                relatedProperty: 'Account.$key',
+                where: function(entry) { return "Account.id eq '" + entry.$key + "'"; }
             }]);
         },
         createRelatedDetailViewLayout: function() {

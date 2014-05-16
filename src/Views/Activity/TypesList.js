@@ -99,19 +99,23 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
         eventEditView: 'event_edit',
 
         activateEntry: function(params) {
+            var viewOptions;
             if (params.key) {
                 var source = this.options && this.options.source,
                     view = App.getView((params.key === 'event') ? this.eventEditView : this.editView);
 
+                viewOptions = {
+                    insert: true,
+                    entry: (this.options && this.options.entry) || null,
+                    source: source,
+                    activityType: params.key,
+                    title: this.activityTypeText[params.key],
+                    returnTo: this.options && this.options.returnTo,
+                    relatedContext: this.options && this.options.relatedContext
+                };
+
                 if (view) {
-                    view.show({
-                            insert: true,
-                            entry: (this.options && this.options.entry) || null,
-                            source: source,
-                            activityType: params.key,
-                            title: this.activityTypeText[params.key],
-                            returnTo: this.options && this.options.returnTo
-                        },{
+                    view.show(viewOptions, {
                             returnTo: -1
                     });
                 }

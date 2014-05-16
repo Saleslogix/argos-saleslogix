@@ -578,23 +578,30 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.onLeaderChange(user, leaderField);
             }
 
-            var found = App.queryNavigationContext(function(o) {
-                var context = (o.options && o.options.source) || o;
+            var found;
+            if (this.options.relatedContext) {
+                found = this.options.relatedContext;
 
-                if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
-                    return true;
-                }
+            } else {
 
-                if (/^(useractivities)$/.test(context.resourceKind)) {
-                    return true;
-                }
+                found = App.queryNavigationContext(function(o) {
+                    var context = (o.options && o.options.source) || o;
 
-                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate']) {
-                    return true;
-                }
+                    if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
+                        return true;
+                    }
 
-                return false;
-            });
+                    if (/^(useractivities)$/.test(context.resourceKind)) {
+                        return true;
+                    }
+
+                    if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate']) {
+                        return true;
+                    }
+
+                    return false;
+                });
+            }
 
             var accountField = this.fields['Account'];
             this.onAccountChange(accountField.getValue(), accountField);
