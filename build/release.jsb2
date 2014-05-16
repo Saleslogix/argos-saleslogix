@@ -341,10 +341,6 @@
           "path": "../src/Views/History"
         },
         {
-          "text": "RelatedViewDetail.js",
-          "path": "../src/Views/Account"
-        },
-        {
           "text": "AddAttachment.js",
           "path": "../src/Views/Attachment"
         },
@@ -370,6 +366,10 @@
         },
         {
           "text": "Edit.js",
+          "path": "../src/Views/Account"
+        },
+        {
+          "text": "RelatedViewDetail.js",
           "path": "../src/Views/Account"
         },
         {
