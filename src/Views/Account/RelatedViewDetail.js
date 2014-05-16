@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/Account/RelatedViewDetail', [
     AccountDetail
    
 ) {
-    return declare('Mobile.SalesLogix.Views.Account.RelatedView', [RelatedViewDetailWidget], {
+    return declare('Mobile.SalesLogix.Views.Account.RelatedViewDetail', [RelatedViewDetailWidget], {
         relatedDetailWidget: AccountDetail,
         relatedProperty: '$key',
         editViewId: 'account_edit'

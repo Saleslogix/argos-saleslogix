@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
     'Sage/Platform/Mobile/Format',
-    'Mobile/SalesLogix/Views/History/ListRelatedView',
+    'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
