@@ -1,7 +1,7 @@
 define('localization/saleslogix/de', ['localization/de', 'Mobile/SalesLogix/ApplicationModule'], function() {
 
 localize("Sage.Platform.Mobile.Calendar", {
-  "timeFormatText": "H:mm",
+  "timeFormatText": "h:mm",
   "titleText": "Kalender",
   "amText": "AM",
   "pmText": "PM"
@@ -28,8 +28,8 @@ localize("Sage.Platform.Mobile.Format", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
-  "completedFormatText": "D.M.YYYY H:mm",
-  "startingFormatText": "D.M.YYYY H:mm",
+  "completedFormatText": "D.M.YYYY h:mm",
+  "startingFormatText": "D.M.YYYY h:mm",
   "activityInfoText": "Tätigkeitsinfo",
   "accountText": "Firma",
   "contactText": "Kontakt",
@@ -61,7 +61,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "startingFormatTimelessText": "D.M.YYYY",
   "timelessText": "Ohne Zeitangabe",
   "durationValueText": {
-    "0": "Keine",
+    "0": "unbegrenzt",
     "15": "15 Minuten",
     "30": "30 Minuten",
     "60": "1 Stunde",
@@ -69,7 +69,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
     "120": "2 Stunden"
   },
   "followupValueText": {
-    "none": "Keine",
+    "none": "unbegrenzt",
     "atPhoneCall": "Anruf",
     "atAppointment": "Meeting",
     "atToDo": "Aufgabe",
@@ -78,9 +78,9 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
-  "startDateFormatText": "D.M.YYYY H:mm:ss",
+  "startDateFormatText": "D.M.YYYY h:mm:ss",
   "timelessDateFormatText": "D.M.YYYY",
-  "alarmDateFormatText": "D.M.YYYY H:mm:ss",
+  "alarmDateFormatText": "D.M.YYYY h:mm:ss",
   "activityTypeText": {
     "atToDo": "Aufgabe",
     "atPhoneCall": "Anruf",
@@ -124,7 +124,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
-  "startingFormatText": "D.M.YYYY H:mm",
+  "startingFormatText": "D.M.YYYY h:mm",
   "activityCategoryTitleText": "Tätigkeitskategorie",
   "activityDescriptionTitleText": "Aktivitätsbeschreibung",
   "locationText": "Standort",
@@ -164,7 +164,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "phoneText": "Telefon",
   "updateUserActErrorText": "Bei der Aktualisierung der Benutzertätigkeiten ist ein Fehler aufgetreten.",
   "reminderValueText": {
-    "0": "Keine",
+    "0": "unbegrenzt",
     "5": "5 Minuten",
     "15": "15 Minuten",
     "30": "30 Minuten",
@@ -172,7 +172,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
     "1440": "1 Tag"
   },
   "durationValueText": {
-    "0": "Keine",
+    "0": "unbegrenzt",
     "15": "15 Minuten",
     "30": "30 Minuten",
     "60": "1 Stunde",
@@ -183,7 +183,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
 
 localize("Mobile.SalesLogix.Views.Activity.List", {
   "startDateFormatText": "ddd D.M.YYYY",
-  "startTimeFormatText": "H:mm",
+  "startTimeFormatText": "h:mm",
   "allDayText": "Den gesamten Tag",
   "completeActivityText": "Abschließen",
   "callText": "Anruf",
@@ -202,16 +202,16 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "titleText": "Aktivitäten",
   "hashTagQueriesText": {
     "alarm": "Alarm",
-    "recurring": "Sich-wiederholende-Aktivität",
-    "timeless": "Ohne-Zeitangabe",
+    "recurring": "Sich wiederholende Aktivität",
+    "timeless": "Ohne Zeitangabe",
     "today": "Heute",
-    "this-week": "diese-Woche",
+    "this-week": "diese Woche",
     "yesterday": "Gestern"
   }
 });
 
 localize("Mobile.SalesLogix.Views.Attachment.List", {
-  "attachmentDateFormatText": "ddd D.M.YYYY H:mm:ss",
+  "attachmentDateFormatText": "ddd D.M.YYYY hh:mm:ss",
   "titleText": "Anlagen",
   "uploadedOnText": "Hochgeladen ",
   "hashTagQueriesText": {
@@ -221,7 +221,7 @@ localize("Mobile.SalesLogix.Views.Attachment.List", {
 });
 
 localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
-  "attachmentDateFormatText": "ddd M/D/YYYY H:mm",
+  "attachmentDateFormatText": "ddd M/D/YYYY h:mm",
   "detailsText": "Anlagendetails",
   "descriptionText": "Beschreibung",
   "fileNameText": "Dateiname",
@@ -235,7 +235,7 @@ localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
 localize("Mobile.SalesLogix.Views.Calendar.DayView", {
   "eventDateFormatText": "D.M.YYYY",
   "dateHeaderFormatText": "dddd, D.M.YYYY",
-  "startTimeFormatText": "H:mm",
+  "startTimeFormatText": "h:mm",
   "titleText": "Kalender",
   "todayText": "Heute",
   "dayText": "Tag",
@@ -252,7 +252,7 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "monthTitleFormatText": "MMMM YYYY",
   "dayTitleFormatText": "ddd, D. MMM YYYY",
   "eventDateFormatText": "D.M.YYYY",
-  "startTimeFormatText": "H:mm",
+  "startTimeFormatText": "h:mm",
   "titleText": "Kalender",
   "todayText": "Heute",
   "dayText": "Tag",
@@ -268,10 +268,10 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "weekTitleFormatText": "D. MMM YYYY",
-  "dayHeaderLeftFormatText": "dddd",
+  "dayHeaderLeftFormatText": "tttt",
   "dayHeaderRightFormatText": "D. MMM YYYY",
   "eventDateFormatText": "D.M.YYYY",
-  "startTimeFormatText": "H:mm",
+  "startTimeFormatText": "h:mm",
   "titleText": "Kalender",
   "todayText": "Heute",
   "dayText": "Tag",
@@ -284,7 +284,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
-  "errorDateFormatText": "DD.MM.YYYY H:mm",
+  "errorDateFormatText": "DD.MM.YYYY hh:mm",
   "titleText": "Fehlerprotokoll",
   "detailsText": "Details",
   "errorDateText": "Datum",
@@ -299,13 +299,13 @@ localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.List", {
-  "errorDateFormatText": "DD.MM.YYYY H:mm",
+  "errorDateFormatText": "DD.MM.YYYY hh:mm",
   "titleText": "Fehlerprotokolle"
 });
 
 localize("Mobile.SalesLogix.Views.Event.Detail", {
-  "startDateFormatText": "D.M.YYYY H:mm:ss",
-  "endDateFormatText": "D.M.YYYY H:mm:ss",
+  "startDateFormatText": "D.M.YYYY h:mm:ss",
+  "endDateFormatText": "D.M.YYYY h:mm:ss",
   "eventTypeText": {
     "atToDo": "Aufgabe",
     "atPhoneCall": "Anruf",
@@ -323,7 +323,7 @@ localize("Mobile.SalesLogix.Views.Event.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Event.Edit", {
-  "startingFormatText": "D.M.YYYY H:mm",
+  "startingFormatText": "D.M.YYYY h:mm",
   "titleText": "Ereignis",
   "typeText": "Typ",
   "descriptionText": "Beschreibung",
@@ -338,7 +338,7 @@ localize("Mobile.SalesLogix.Views.Event.List", {
 });
 
 localize("Mobile.SalesLogix.Views.History.Detail", {
-  "dateFormatText": "D.M.YYYY H:mm:ss",
+  "dateFormatText": "D.M.YYYY h:mm:ss",
   "categoryText": "Kategorie",
   "completedText": "Abgeschlossen",
   "durationText": "Dauer",
@@ -375,7 +375,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.History.Edit", {
-  "startingFormatText": "D.M.YYYY H:mm",
+  "startingFormatText": "D.M.YYYY h:mm",
   "accountText": "Firma",
   "noteDescriptionTitleText": "Hinweisbeschreibung",
   "contactText": "Kontakt",
@@ -395,7 +395,7 @@ localize("Mobile.SalesLogix.Views.History.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.History.List", {
-  "hourMinuteFormatText": "H:mm",
+  "hourMinuteFormatText": "h:mm",
   "dateFormatText": "D.M.YY",
   "activityTypeText": {
     "atToDo": "Aufgabe",
@@ -407,7 +407,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
     "atEMail": "E-Mail"
   },
   "hashTagQueriesText": {
-    "my-history": "meine-Historie",
+    "my-history": "meine Historie",
     "note": "Notiz",
     "phonecall": "Telefonanruf",
     "meeting": "Meeting",
@@ -423,10 +423,10 @@ localize("Mobile.SalesLogix.Views.History.List", {
 });
 
 localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
-  "exchangeRateDateFormatText": "D.M.YYYY H:mm",
+  "exchangeRateDateFormatText": "D.M.YYYY h:mm",
   "accountText": "Konto",
   "acctMgrText": "Acct Mgr",
-  "estCloseText": "Geschätzter Abschluss",
+  "estCloseText": "Voraussichtlich",
   "detailsText": "Details",
   "fbarHomeTitleText": "Privat",
   "fbarScheduleTitleText": "Planen",
@@ -434,7 +434,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
   "opportunityText": "Verkaufschance",
   "ownerText": "Zugriffsberechtigter",
   "actionsText": "Schnellaktionen",
-  "potentialText": "Forecast",
+  "potentialText": "Prognose",
   "potentialBaseText": "Absatzpotenzial (Basissatz)",
   "potentialOpportunityText": "Absatzpotenzial (VKC-Satz)",
   "potentialMyRateText": "Absatzpotenzial (eigener Satz)",
@@ -462,17 +462,17 @@ localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
-  "exchangeRateDateFormatText": "D.M.YYYY H:mm",
+  "exchangeRateDateFormatText": "D.M.YYYY h:mm",
   "accountText": "Konto",
   "acctMgrText": "Acct Mgr",
-  "estCloseText": "Geschätzter Abschluss",
+  "estCloseText": "Voraussichtlich",
   "importSourceText": "Interessentenquelle",
   "detailsText": "Details",
   "opportunityStatusTitleText": "Status der Verkaufschance",
   "opportunityText": "Verkaufschance",
   "opportunityTypeTitleText": "Verkaufschancentyp",
   "ownerText": "Zugriffsberechtigter",
-  "potentialText": "Forecast",
+  "potentialText": "Prognose",
   "probabilityText": "Wahrsch. schließen",
   "probabilityTitleText": "Wahrscheinlichkeit Verkaufschance",
   "resellerText": "Wiederverkäufer",
@@ -488,7 +488,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
-  "startingFormatText": "D.M.YYYY H:mm",
+  "startingFormatText": "D.M.YYYY h:mm",
   "titleText": "Ticket-Aktivität bearbeiten",
   "activityTypeText": "Typ",
   "activityTypeTitleText": "Typ",
@@ -501,7 +501,7 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
-  "startDateFormatText": "DD.MM.YYYY H:mm",
+  "startDateFormatText": "DD.MM.YYYY h:mm",
   "titleText": "Ticket-Aktivitäten"
 });
 
@@ -531,8 +531,8 @@ localize("Sage.Platform.Mobile.ErrorManager", {
 });
 
 localize("Sage.Platform.Mobile.Fields.BooleanField", {
-  "onText": "am",
-  "offText": "Aus"
+  "onText": "an",
+  "offText": "aus"
 });
 
 localize("Sage.Platform.Mobile.Fields.DurationField", {
@@ -606,7 +606,7 @@ localize("Sage.Platform.Mobile.Groups.GroupByValueSection", {
 
 localize("Sage.Platform.Mobile.List", {
   "moreText": "Mehr Datensätze abrufen",
-  "emptySelectionText": "Keine",
+  "emptySelectionText": "unbegrenzt",
   "titleText": "Liste",
   "remainingText": "${0} Datensätze verbleibend",
   "cancelText": "Abbrechen",
@@ -695,30 +695,30 @@ localize("Mobile.SalesLogix.Format", {
 });
 
 localize("Mobile.SalesLogix.Recurrence", {
-  "neverText": "Nie",
+  "neverText": "niemals",
   "daysText": "Tage",
-  "dailyText": "Täglich",
+  "dailyText": "täglich",
   "weeksText": "Wochen",
   "weeklyText": "Wöchentlich",
-  "weeklyOnText": "Wöchentlich am ${3}",
+  "weeklyOnText": "Wöchentlich jeden ${3}",
   "monthsText": "Monate",
   "monthlyText": "Monatlich",
-  "monthlyOnDayText": "Monatlich am Tag ${1}",
-  "monthlyOnText": "Monatlich am ${5} ${3}",
+  "monthlyOnDayText": "monatlich am ${1}. Tag",
+  "monthlyOnText": "monatlich jeden ${5}. ${3}",
   "yearsText": "Jahre",
   "yearlyText": "Jährlich",
-  "yearlyOnText": "Jährlich am ${2}",
-  "yearlyOnWeekdayText": "Jährlich am ${5} ${3} im ${4}",
+  "yearlyOnText": "jährlich am ${2}. Tag",
+  "yearlyOnWeekdayText": "jährlich am ${5} ${3}. im ${4}",
   "everyText": "jeden ${0} ${1}",
   "afterCompletionText": "nach Abschluss",
   "untilEndDateText": "${0} bis ${1}",
   "ordText": {
     "0": "Tag",
-    "1": "Ersten",
+    "1": "Vorname",
     "2": "2.",
     "3": "3.",
     "4": "4.",
-    "5": "Letzte"
+    "5": "Nachnahme"
   }
 });
 
@@ -837,12 +837,11 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "phoneAbbreviationText": "Telefon: ",
   "faxAbbreviationText": "Fax: ",
   "hashTagQueriesText": {
-    "my-accounts": "eigene-firmen",  
     "active": "Aktiv",
     "inactive": "Inaktiv",
     "suspect": "Nicht-Kunde",
     "lead": "Interessent",
-    "prospect": "Potenzieller-Kunde",
+    "prospect": "Interessent",
     "customer": "Kunde",
     "partner": "Partner",
     "vendor": "Hersteller",
@@ -864,13 +863,13 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
   "viewOpportunityActionText": "Verkaufschance",
   "hashTagQueriesText": {
     "alarm": "Alarm",
-    "status-unconfirmed": "Status-unbestätigt",
-    "status-accepted": "Status-akzeptiert",
-    "status-declined": "Status-abgelehnt",
-    "recurring": "Sich-wiederholende-Aktivität",
-    "timeless": "Ohne-Zeitangabe",
+    "status-unconfirmed": "Status unbestätigt",
+    "status-accepted": "Status akzeptiert",
+    "status-declined": "Status abgelehnt",
+    "recurring": "Sich wiederholende Aktivität",
+    "timeless": "Ohne Zeitangabe",
     "today": "Heute",
-    "this-week": "diese-Woche",
+    "this-week": "diese Woche",
     "yesterday": "Gestern"
   }
 });
@@ -885,7 +884,7 @@ localize("Mobile.SalesLogix.Views.Activity.Recurring", {
   "weekdaysText": "Wochentag(e)",
   "dayText": "Tag",
   "monthText": "Monat",
-  "onText": "am",
+  "onText": "an",
   "occurrencesText": "Wiederholungen",
   "summaryText": "Zusammenfassung",
   "frequencyOptionsText": {
@@ -930,7 +929,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "homePhoneText": "Private Telefonnummer",
   "industryText": "Branche",
   "ownerText": "Zugriffsberechtigter",
-  "lastNameText": "Letzte",
+  "lastNameText": "Nachnahme",
   "mobileText": "Mobil",
   "nameText": "Name",
   "statusText": "Status",
@@ -1073,14 +1072,14 @@ localize("Mobile.SalesLogix.Views.Contact.List", {
   "phoneAbbreviationText": "Geschäftlich: ",
   "mobileAbbreviationText": "Mobil: ",
   "hashTagQueriesText": {
-    "my-contacts": "Meine-Kontakte",
+    "my-contacts": "Meine Kontakte",
     "primary": "Haupt",
-    "not-primary": "nicht-primär",
-    "can-email": "E-Mail-vorhanden",
-    "can-phone": "Telefon-vorhanden",
-    "can-fax": "Fax-vorhanden",
-    "can-mail": "Postanschrift-vorhanden",
-    "can-solicit": "Werbung-zulässig"
+    "not-primary": "nicht primär",
+    "can-email": "E-Mail vorhanden",
+    "can-phone": "Telefon vorhanden",
+    "can-fax": "Fax vorhanden",
+    "can-mail": "Postanschrift vorhanden",
+    "can-solicit": "Werbung zulässig"
   }
 });
 
@@ -1093,7 +1092,7 @@ localize("Mobile.SalesLogix.Views.ExchangeRateLookup", {
 });
 
 localize("Mobile.SalesLogix.Views.FooterToolbar", {
-  "copyrightText": "&copy; 2013 SalesLogix, NA, LLC. Alle Rechte vorbehalten."
+  "copyrightText": "&Kopie; 2013 SalesLogix, NA, LLC. Alle Rechte vorbehalten."
 });
 
 localize("Mobile.SalesLogix.Views.Help", {
@@ -1201,12 +1200,12 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "mobileAbbreviationText": "Mobil: ",
   "tollFreeAbbreviationText": "Gebührenfrei: ",
   "hashTagQueriesText": {
-    "my-leads": "meine-Interessenten",
-    "can-email": "E-Mail-vorhanden",
-    "can-phone": "Telefon-vorhanden",
-    "can-fax": "Fax-vorhanden",
-    "can-mail": "Postanschrift-vorhanden",
-    "can-solicit": "Werbung-zulässig"
+    "my-leads": "meine Interessenten",
+    "can-email": "E-Mail vorhanden",
+    "can-phone": "Telefon vorhanden",
+    "can-fax": "Fax vorhanden",
+    "can-mail": "Postanschrift vorhanden",
+    "can-solicit": "Werbung zulässig"
   }
 });
 
@@ -1228,7 +1227,7 @@ localize("Mobile.SalesLogix.Views.LeftDrawer", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "&copy; 2013 SalesLogix, NA, LLC. Alle Rechte vorbehalten.",
+  "copyrightText": "&Kopie; 2013 SalesLogix, NA, LLC. Alle Rechte vorbehalten.",
   "logOnText": "Bei Saleslogix anmelden",
   "passText": "Passwort",
   "rememberText": "speichern",
@@ -1266,10 +1265,10 @@ localize("Mobile.SalesLogix.Views.MetricWidget", {
 
 localize("Mobile.SalesLogix.Views.NameEdit", {
   "titleText": "Name bearbeiten",
-  "firstNameText": "Ersten",
-  "middleNameText": "zweiter Name",
-  "lastNameText": "Letzte",
-  "prefixText": "Präfix",
+  "firstNameText": "Vorname",
+  "middleNameText": "Mittelname",
+  "lastNameText": "Nachnahme",
+  "prefixText": "Anrede",
   "prefixTitleText": "Namenspräfix",
   "suffixText": "Suffix",
   "suffixTitleText": "Namenssuffix"
@@ -1290,16 +1289,16 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
   "actualCloseText": "Abgeschlossen ",
   "estimatedCloseText": "Voraussichtlicher Abschluss ",
   "hashTagQueriesText": {
-    "my-opportunities": "meine-Verkaufschancen",
+    "my-opportunities": "meine Verkaufschancen",
     "open": "Offen",
     "closed": "Abgeschlossen",
     "won": "gewonnen",
     "lost": "verloren",
     "inactive": "Inaktiv",
-    "prospect": "Potenzieller-Kunde",
+    "prospect": "Interessent",
     "qualification": "Qualifizierungsmerkmal",
     "negotiation": "Verhandlung",
-    "needs-analysis": "Analyse-erforderlich",
+    "needs-analysis": "Analyse erforderlich",
     "demonstration": "Vorführung",
     "decision": "Entscheidung"
   }
@@ -1511,8 +1510,8 @@ localize("Mobile.SalesLogix.Views.Ticket.List", {
   "modifiedText": "Geändert ",
   "neededByText": "Erforderlich  ",
   "hashTagQueriesText": {
-    "assigned-to-me": "mir-zugewiesen",
-    "completed-by-me": "von-mir-ausgefüllt"
+    "assigned-to-me": "mir zugewiesen",
+    "completed-by-me": "von mir ausgefüllt"
   }
 });
 
