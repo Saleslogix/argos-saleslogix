@@ -156,10 +156,6 @@
     <description/>
     <value>...</value>
   </data>
-  <data class="Sage.Platform.Mobile.Fields.NoteField" property="emptyText" type="text">
-    <description/>
-    <value/>
-  </data>
   <data class="Sage.Platform.Mobile.Fields.SignatureField" property="signatureLabelText" type="text">
     <description/>
     <value>signature</value>
@@ -312,6 +308,10 @@
     <description/>
     <value>List</value>
   </data>
+  <data class="Sage.Platform.Mobile.List" property="errorRenderText" type="text">
+    <description/>
+    <value>Error rendering row template.</value>
+  </data>
   <data class="Sage.Platform.Mobile.List" property="remainingText" type="text">
     <description/>
     <value>${0} records remaining</value>
@@ -408,6 +408,10 @@
     <description/>
     <value>bytes</value>
   </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="notSupportedText" type="text">
+    <description/>
+    <value>Adding attachments is not supported by your device.</value>
+  </data>
   <data class="Sage.Platform.Mobile.Views.Signature" property="titleText" type="text">
     <description/>
     <value>Signature</value>
@@ -427,6 +431,10 @@
   <data class="Mobile.SalesLogix.Action" property="emailedText" type="text">
     <description/>
     <value>E-mailed ${0}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Application" property="versionInfoText" type="text">
+    <description/>
+    <value>Mobile v${0}.${1}.${2} / Saleslogix v${3} platform</value>
   </data>
   <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="text">
     <description/>
@@ -936,6 +944,10 @@
     <description/>
     <value>competitor</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Account.SlxGroupList" property="titleText" type="text">
+    <description/>
+    <value>Accounts</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="activityInfoText" type="text">
     <description/>
     <value>Activity Info</value>
@@ -1047,10 +1059,6 @@
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="startingText" type="text">
     <description/>
     <value>start date</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="startingFormatTimelessText" type="text">
-    <description/>
-    <value>M/D/YYYY</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="timelessText" type="text">
     <description/>
@@ -1332,10 +1340,6 @@
     <description/>
     <value>start time</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingFormatTimelessText" type="text">
-    <description/>
-    <value>M/D/YYYY</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="repeatsText" type="text">
     <description/>
     <value>repeats</value>
@@ -1471,6 +1475,30 @@
   <data class="Mobile.SalesLogix.Views.Activity.List" property="addAttachmentActionText" type="text">
     <description/>
     <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="overdueText" type="text">
+    <description/>
+    <value>overdue</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="alarmText" type="text">
+    <description/>
+    <value>alarm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="touchedText" type="text">
+    <description/>
+    <value>touched</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="importantText" type="text">
+    <description/>
+    <value>important</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="recurringText" type="text">
+    <description/>
+    <value>recurring</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityText" type="text">
+    <description/>
+    <value>activity</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
     <description/>
@@ -1944,6 +1972,10 @@
     <description/>
     <value>user</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="newWindowText" type="text">
+    <description/>
+    <value>Open in new window</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="attachmentNotSupportedText" type="text">
     <description/>
     <value>The attachment type is not supported for viewing.</value>
@@ -1951,6 +1983,10 @@
   <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="downloadingText" type="text">
     <description/>
     <value>Downloading attachment ...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="notSupportedText" type="text">
+    <description/>
+    <value>Viewing attachments is not supported by your device.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="titleText" type="text">
     <description/>
@@ -1986,7 +2022,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="eventMoreText" type="text">
     <description/>
-    <value>View ${0} More Event(s)</value>
+    <value>View More Event(s)</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="toggleCollapseText" type="text">
     <description/>
@@ -2534,7 +2570,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.FooterToolbar" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2013 SalesLogix, NA, LLC. All rights reserved.</value>
+    <value>&amp;copy; 2014 SalesLogix, NA, LLC. All rights reserved.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Help" property="titleText" type="text">
     <description/>
@@ -3214,7 +3250,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2013 SalesLogix, NA, LLC. All rights reserved.</value>
+    <value>&amp;copy; 2014 SalesLogix, NA, LLC. All rights reserved.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
@@ -4480,7 +4516,7 @@
     <description/>
     <value>Users</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="itemIconAltText" type="text">
+    <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="itemIconAltText" type="text">
     <description/>
     <value>Contact</value>
   </data>
@@ -4496,6 +4532,7 @@
     <description/>
     <value>KPI</value>
   </data>
+
   <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
     <description/>
     <value>Indexes</value>
@@ -4528,6 +4565,10 @@
     <description/>
     <value>M/D/YYYY h:mm A</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="startingTimelessFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="startDateFormatText" type="format">
     <description/>
     <value>M/D/YYYY h:mm:ss A</value>
@@ -4543,6 +4584,10 @@
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingFormatText" type="format">
     <description/>
     <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingTimelessFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="startDateFormatText" type="format">
     <description/>
@@ -4570,7 +4615,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="startTimeFormatText" type="format">
     <description/>
-    <value>h:mm</value>
+    <value>h:mm A</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="monthTitleFormatText" type="format">
     <description/>
@@ -4586,7 +4631,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="startTimeFormatText" type="format">
     <description/>
-    <value>h:mm</value>
+    <value>h:mm A</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="weekTitleFormatText" type="format">
     <description/>
@@ -4606,7 +4651,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="startTimeFormatText" type="format">
     <description/>
-    <value>h:mm</value>
+    <value>h:mm A</value>
   </data>
   <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="errorDateFormatText" type="format">
     <description/>
@@ -4642,7 +4687,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="hourMinuteFormatText" type="format">
     <description/>
-    <value>h:mm</value>
+    <value>h:mm A</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="dateFormatText" type="format">
     <description/>
@@ -4662,6 +4707,6 @@
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.List" property="startDateFormatText" type="format">
     <description/>
-    <value>MM/DD/YYYY h:mmA</value>
+    <value>MM/DD/YYYY h:mm A</value>
   </data>
 </localization>

@@ -24,6 +24,10 @@
     <description/>
     <value>M/D/YYYY h:mm A</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="startingTimelessFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="startDateFormatText" type="format">
     <description/>
     <value>M/D/YYYY h:mm:ss A</value>
@@ -39,6 +43,10 @@
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingFormatText" type="format">
     <description/>
     <value>M/D/YYYY h:mm A</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingTimelessFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="startDateFormatText" type="format">
     <description/>
@@ -66,7 +74,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="startTimeFormatText" type="format">
     <description/>
-    <value>h:mm</value>
+    <value>h:mm A</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="monthTitleFormatText" type="format">
     <description/>
@@ -82,7 +90,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="startTimeFormatText" type="format">
     <description/>
-    <value>h:mm</value>
+    <value>h:mm A</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="weekTitleFormatText" type="format">
     <description/>
@@ -102,7 +110,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="startTimeFormatText" type="format">
     <description/>
-    <value>h:mm</value>
+    <value>h:mm A</value>
   </data>
   <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="errorDateFormatText" type="format">
     <description/>
@@ -138,7 +146,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="hourMinuteFormatText" type="format">
     <description/>
-    <value>h:mm</value>
+    <value>h:mm A</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="dateFormatText" type="format">
     <description/>
@@ -158,6 +166,6 @@
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.List" property="startDateFormatText" type="format">
     <description/>
-    <value>MM/DD/YYYY h:mmA</value>
+    <value>MM/DD/YYYY h:mm A</value>
   </data>
 </localization>
