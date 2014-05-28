@@ -16,7 +16,7 @@ localize("Sage.Platform.Mobile.Format", {
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "completedFormatText": "D/M/YYYY h:mm A",
   "startingFormatText": "D/M/YYYY h:mm A",
-  "startingFormatTimelessText": "D/M/YYYY"
+  "startingTimelessFormatText": "D/M/YYYY"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
@@ -27,7 +27,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A",
-  "startingFormatTimelessText": "D/M/YYYY"
+  "startingTimelessFormatText": "D/M/YYYY"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.List", {
@@ -111,6 +111,6 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
-  "startDateFormatText": "DD/MM/YYYY h:mmA"
+  "startDateFormatText": "DD/MM/YYYY h:mm A"
 });
 });
