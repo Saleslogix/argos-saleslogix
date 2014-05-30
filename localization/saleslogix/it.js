@@ -211,7 +211,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
     "recurring": "Ricorrente",
     "timeless": "Senza orario",
     "today": "Oggi",
-    "this-week": "questa settimana",
+    "this-week": "questa-settimana",
     "yesterday": "Ieri"
   }
 });

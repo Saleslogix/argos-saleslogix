@@ -78,9 +78,9 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
-  "startDateFormatText": "D/M/YYYY H:mm",
+  "startDateFormatText": "D/M/YYYY H:mm:ss",
   "timelessDateFormatText": "D/M/YYYY",
-  "alarmDateFormatText": "D/M/YYYY H:mm",
+  "alarmDateFormatText": "D/M/YYYY HH:mm:ss",
   "activityTypeText": {
     "atToDo": "Tâche à faire",
     "atPhoneCall": "Appel",
@@ -211,13 +211,13 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
     "recurring": "périodicité",
     "timeless": "heure indéfinie",
     "today": "aujourd'hui",
-    "this-week": "cette semaine",
+    "this-week": "cette-semaine",
     "yesterday": "hier"
   }
 });
 
 localize("Mobile.SalesLogix.Views.Attachment.List", {
-  "attachmentDateFormatText": "ddd D/M/YYYY H:mm",
+  "attachmentDateFormatText": "ddd D/M/YYYY HH:mm:ss",
   "titleText": "Pièces jointes",
   "uploadedOnText": "Téléchargé ",
   "hashTagQueriesText": {
@@ -292,7 +292,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
 });
 
 localize("Mobile.SalesLogix.Views.ErrorLog.Detail", {
-  "errorDateFormatText": "DD/MM/YYYY H:mm",
+  "errorDateFormatText": "DD/MM/YYYY HH:mm",
   "titleText": "Journal d'erreur",
   "detailsText": "Détails",
   "errorDateText": "Date",
@@ -312,8 +312,8 @@ localize("Mobile.SalesLogix.Views.ErrorLog.List", {
 });
 
 localize("Mobile.SalesLogix.Views.Event.Detail", {
-  "startDateFormatText": "D/M/YYYY H:mm",
-  "endDateFormatText": "D/M/YYYY H:mm",
+  "startDateFormatText": "D/M/YYYY H:mm:ss",
+  "endDateFormatText": "D/M/YYYY H:mm:ss",
   "eventTypeText": {
     "atToDo": "Tâche à faire",
     "atPhoneCall": "Appel",

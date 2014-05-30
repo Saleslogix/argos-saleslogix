@@ -211,7 +211,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
     "recurring": "Sich wiederholende Aktivität",
     "timeless": "Ohne Zeitangabe",
     "today": "Heute",
-    "this-week": "diese Woche",
+    "this-week": "diese-Woche",
     "yesterday": "Gestern"
   }
 });
@@ -884,7 +884,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
     "recurring": "Sich wiederholende Aktivität",
     "timeless": "Ohne Zeitangabe",
     "today": "Heute",
-    "this-week": "diese Woche",
+    "this-week": "diese-Woche",
     "yesterday": "Gestern"
   }
 });
