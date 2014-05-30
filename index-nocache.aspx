@@ -128,7 +128,10 @@
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
             require(localization.concat('dojo/domReady!'), function() {
-                moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
+                var culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>' ;
+                moment.lang(culture);
+                configuration.currentCulture = culture;
+                configuration.moment = moment().lang(culture);
                 var instance = new application(configuration);
 
                 instance.activate();

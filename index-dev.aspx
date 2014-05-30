@@ -161,7 +161,10 @@
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
             require(localization.concat(['moment_langs', 'dojo/domReady!']), function() {
-                moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
+                var culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>' ;
+                moment.lang(culture);
+                configuration.currentCulture = culture;
+                configuration.moment = moment().lang(culture);
                 var instance = new application(configuration);
 
                 instance.activate();
@@ -174,7 +177,7 @@
 </head>
 <body>
     <!-- Run "grunt watch" to enable this script -->
-    <script src="http://localhost:35729/livereload.js"></script>
+   <!-- <script src="http://localhost:35729/livereload.js"></script> -->
 </body>
 </html>
 
