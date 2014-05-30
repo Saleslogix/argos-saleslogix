@@ -164,7 +164,7 @@
                 var culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>' ;
                 moment.lang(culture);
                 configuration.currentCulture = culture;
-                configuration.moment = moment().lang(culture);
+
                 var instance = new application(configuration);
 
                 instance.activate();
