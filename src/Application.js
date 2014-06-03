@@ -103,11 +103,7 @@ define('Mobile/SalesLogix/Application', [
                 request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
                 original.apply(this, arguments);
             };
-            if (this.currentCulture) {
-                this.moment = moment().lang(this.currentCulture);
-            } else {
-                this.moment = moment().lang();
-            }
+           
         },
         initConnects: function() {
             this.inherited(arguments);
