@@ -10,7 +10,7 @@ define('Mobile/SalesLogix/Application', [
     'dojo/_base/lang',
     'dojo/has',
     'dojo/string',
-    'dojo/text!Mobile/SalesLogix/DefaultMetrics.txt',
+    'Mobile/SalesLogix/DefaultMetrics',
     'Sage/Platform/Mobile/ErrorManager',
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
@@ -422,11 +422,29 @@ define('Mobile/SalesLogix/Application', [
                 };
             }
         },
+        getMetricsByResourceKind: function(resourceKind) {
+            var prefs,
+                results = [];
+
+            prefs = this.preferences && this.preferences.metrics && this.preferences.metrics;
+
+            if (prefs) {
+                prefs = array.filter(prefs, function(item) {
+                    return item.resourceKind === resourceKind;
+                });
+
+                if (prefs.length === 1) {
+                    results = prefs[0].children;
+                }
+            }
+
+            return results;
+        },
         setDefaultMetricPreferences: function() {
             var defaults;
             if (!this.preferences.metrics) {
-                defaults = json.parse(DefaultMetrics);
-                this.preferences.metrics = defaults;
+                defaults = new DefaultMetrics();
+                this.preferences.metrics = defaults.getDefinitions();
                 this.persistPreferences();
             }
         },
