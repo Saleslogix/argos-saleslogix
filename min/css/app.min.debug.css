@@ -245,7 +245,7 @@
   border-color: #000;
   border-width: 0px;
   width: 100%;
-  background-color: #4c75bb;
+  background-color: #3471af;
   color: #fff;
 }
 .metric-widget {
@@ -260,7 +260,7 @@
 }
 .groups-notice {
   width: 100%;
-  border-left: 5px solid #4c75bb;
+  border-left: 5px solid #3471af;
   padding: 10px;
   margin: 0 0 6px 0;
   font-weight: bold;
@@ -403,7 +403,7 @@ li[data-ticket-status] .list-item-selector,
   background-color: #96b9da;
 }
 .calendar-day.weekend {
-  background-color: #4c75bb;
+  background-color: #3471af;
 }
 .calendar-day.selected {
   color: #000;
@@ -1009,21 +1009,21 @@ td.entry-table-description {
   font-weight: normal;
 }
 .card-layout .list-show-selectors {
-  padding-left: 80px;
+  padding-left: 90px;
 }
 .card-layout .list-show-selectors .list-item-content,
 .card-layout .list-item-static-selector + .list-item-content,
 .card-layout .list-item-content,
 .card-layout .actions-enabled + .list-item-content {
-  padding-left: 80px;
+  padding-left: 90px;
 }
 .card-layout .list-item-selector {
   visibility: hidden;
   width: 61px;
   height: 61px;
   position: absolute;
-  top: 8px;
-  left: 22px;
+  top: 6px;
+  left: 26px;
   z-index: 10;
   background: none;
   border: 0 none #000;
@@ -1250,15 +1250,15 @@ td.entry-table-description {
   color: white;
 }
 .color-default {
-  background-color: #fe5000 !important;
+  background-color: #ebebeb !important;
   color: white !important;
 }
 .color-account {
-  background-color: #0066FF !important;
+  background-color: #3471af !important;
   color: white !important;
 }
 .color-contact {
-  background-color: #3366FF !important;
+  background-color: #3471af !important;
   color: white !important;
 }
 .color-activity {
@@ -1274,7 +1274,7 @@ td.entry-table-description {
   color: white !important;
 }
 .color-Meeting {
-  background-color: #0054a6 !important;
+  background-color: #3471af !important;
   color: white !important;
 }
 .color-PhoneCall {
@@ -1300,7 +1300,7 @@ td.entry-table-description {
 .card-layout-search-expression,
 .chart-hash {
   padding: 10px 0 10px 5px;
-  border-left: 5px solid #4c75bb;
+  border-left: 5px solid #3471af;
   margin: 2px 0 0 2px;
   font-size: 16px;
   font-weight: bold;
