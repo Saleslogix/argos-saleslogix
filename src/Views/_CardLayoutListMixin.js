@@ -40,7 +40,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
 
     return declare(mixinName, null, {
         itemColorClass: 'color-default',
-        itemIcon: 'content/images/icons/ContactProfile_48x48.png',
+        itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText:'Contact',
         allRecordsText: 'no search applied',
         itemIndicators:null,
@@ -77,11 +77,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         ]),
         itemFooterTemplate: new Simplate([
             '<div id="list-item-footer" class="list-item-footer">',
-                '<div>',
-                    '<button data-action="selectEntry" class="footer-item-selector button ">',
-                        '<img src="content/images/icons/Down_Arrow_24x24.png" alt="Actions"></img>',
-                    '</button>',
-                '</div>',
             '</div>'
         ]),
         itemIconTemplate: new Simplate([

@@ -91,6 +91,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         //View Properties
         detailView: 'ticket_detail',
         icon: 'content/images/icons/Ticket_24x24.png',
+        iconClass: 'fa fa-ticket fa-lg',
         id: 'ticket_list',
         security: 'Entities/Ticket/View',
         insertView: 'ticket_edit',

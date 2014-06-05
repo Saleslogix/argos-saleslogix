@@ -110,6 +110,12 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         //View Properties
         detailView: 'lead_detail',
         icon: 'content/images/icons/Leads_24x24.png',
+        iconTemplate: new Simplate([
+            '<span class="fa-stack">',
+                '<i class="fa fa-square-o fa-stack-2x"></i>',
+                '<i class="fa fa-user fa-stack-1x fa-inverse"></i>',
+            '</span>'
+        ]),
         id: 'lead_list',
         security: 'Entities/Lead/View',
         insertView: 'lead_edit',

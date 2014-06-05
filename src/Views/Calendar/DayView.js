@@ -54,7 +54,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         allDayText: 'All-Day',
         eventHeaderText: 'Events',
         activityHeaderText: 'Activities',
-        eventMoreText: 'View ${0} More Event(s)',
+        eventMoreText: 'View More Event(s)',
         toggleCollapseText: 'toggle collapse',
 
         // Templates
@@ -174,6 +174,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         id: 'calendar_daylist',
         cls: 'activities-for-day',
         icon: 'content/images/icons/Calendar_24x24.png',
+        iconClass: 'fa fa-calendar fa-lg',
+
         datePickerView: 'generic_calendar',
         monthView: 'calendar_monthlist',
         weekView: 'calendar_weeklist',
@@ -216,6 +218,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         },
         eventIcon: 'content/images/icons/Holiday_schemes_24.png',
         resourceKind: 'activities',
+        pageSize: 1000,
 
         continuousScrolling: false,
 
@@ -329,7 +332,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
 
             if (feed['$totalResults'] > feedLength) {
                 domClass.add(this.eventContainerNode, 'list-has-more');
-                this.set('eventRemainingContent', string.substitute(this.eventMoreText, [feed['$totalResults'] - feedLength]));
+                this.set('eventRemainingContent', this.eventMoreText);
             } else {
                 domClass.remove(this.eventContainerNode, 'list-has-more');
                 this.set('eventRemainingContent', '');
@@ -350,7 +353,9 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 o.push(this.rowTemplate.apply(row, this));
             }
 
-            if (feedLength === 0) {
+            // If we fetched a page that has no data due to un-reliable counts,
+            // check if we fetched anything in the previous pages before assuming there is no data.
+            if (feedLength === 0 && Object.keys(this.entries).length === 0) {
                 this.set('listContent', this.noDataTemplate.apply(this));
                 return false;
             }
@@ -359,12 +364,9 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 domConstruct.place(o.join(''), this.contentNode, 'last');
             }
 
-            if (typeof this.feed['$totalResults'] !== 'undefined') {
-                remaining = this.feed['$totalResults'] - (this.feed['$startIndex'] + this.feed['$itemsPerPage'] - 1);
-                this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
-            }
+            this.set('remainingContent', '');// Feed does not return reliable data, don't show remaining
 
-            domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());
+            domClass.toggle(this.domNode, 'list-has-more', this.hasMoreData());// This could be wrong, handle it on the next processFeed if so
 
             if (this.options.allowEmptySelection) {
                 domClass.add(this.domNode, 'list-has-empty-opt');

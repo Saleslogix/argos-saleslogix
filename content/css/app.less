@@ -79,7 +79,7 @@
     padding-left: 0px;
     padding-right: 34px;
     border: 1px solid @gray1-lighter;
-    background-color: @gray5-lighter;
+    background-color: @gray2-lighter;
 }
 
 .note-text-row > label,
@@ -173,7 +173,7 @@
 
 #configure
 {
-    > .list-content
+    .list-content
     {
         > li
         {
@@ -364,7 +364,7 @@
     border-color: #000;
     border-width: 0px;
     width: 100%;
-    background-color: @blue3-darker;
+    background-color: @blue1-darker;
     color: #fff;
 }
 
@@ -383,7 +383,7 @@
 .groups-notice
 {
     width: 100%;
-    border-left: 5px solid @blue3-darker;
+    border-left: 5px solid @blue1-darker;
     padding: 10px;
     margin: 0 0 6px 0;
     font-weight: bold;
@@ -586,18 +586,18 @@ li[data-ticket-status] .list-item-selector,
 
 .calendar-day.today
 {
-    background-color: @blue3-light;
+    background-color: @blue1-light;
 }
 
 .calendar-day.weekend
 {
-    background-color: @blue3-darker;
+    background-color: @blue1-darker;
 }
 
 .calendar-day.selected
 {
     color: #000;
-    background-color: @blue3-dark;
+    background-color: @blue1-dark;
 }
 
 /* in Month view .activeDay indicates individual events */
@@ -647,7 +647,11 @@ td.calendar-day {
     /*background-image: url(../images/icons/Show_Details_active_24.png);*/
 }
 
-.toolButton[data-tool="back"] > span { background-image: url(../images/icons/Browse_Previous_24.png); }
+.toolButton
+{
+    color: @icon-color;
+}
+
 .toolButton[data-tool="home"] > span { background-image: url(../images/icons/home_24.png); }
 .toolButton[data-tool="edit"] > span { background-image: url(../images/icons/edit_24.png); }
 .toolButton[data-tool="new"] > span { background-image: url(../images/icons/add_24.png); }
@@ -659,9 +663,7 @@ td.calendar-day {
 .toolButton[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
 .toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
 .toolButton[data-tool="top"] > span { background-image: url(../images/icons/Down_Arrow.png); }
-/*.toolButton[data-tool="top"] > span { background-image: url(../images/icons/Hide_Details_active_24.png); }*/
-.toolButton[data-tool="toggleLeftDrawer"] > span { background-image: url(../images/icons/drawer_24.png); }
-.toolButton[data-tool="toggleRightDrawer"] > span { background-image: url(../images/icons/headerMenu_24.png); }
+
 .toolbar button.disabled {}
 .toolbar button.disabled > span {
     opacity: .1;
@@ -1333,7 +1335,7 @@ td.entry-table-description {
 
     .list-show-selectors
     {
-        padding-left: 80px;
+        padding-left: 90px;
     }
 
     .list-show-selectors .list-item-content,
@@ -1341,7 +1343,7 @@ td.entry-table-description {
     .list-item-content,
     .actions-enabled + .list-item-content
     {
-        padding-left: 80px;
+        padding-left: 90px;
     }
 
     .list-item-selector
@@ -1349,10 +1351,9 @@ td.entry-table-description {
         visibility: hidden;
         width: 61px;
         height: 61px;
-        color: #ff0;
         position: absolute;
-        top: 8px;
-        left: 22px;
+        top: 6px;
+        left: 26px;
         z-index: 10;
         background: none;
         border: 0 none #000;
@@ -1416,13 +1417,12 @@ td.entry-table-description {
         }
     }
 
-    .list-item-static-selector 
+    .list-item-static-selector
     {
         > img.icon,
         > * > img.icon
         {
             bottom: 0;
-            color: #FFFF00;
             height: 24px !important;
             left: 30px;
             position: relative;
@@ -1672,17 +1672,17 @@ td.entry-table-description {
 
 .color-default
 {
-    background-color: @orange-darker !important;
+    background-color: @list-bg-color !important;
     color: white !important;
 }
 .color-account
 {
-    background-color: #0066FF !important;
+    background-color: @blue1-darker !important;
     color: white !important;
 }
 .color-contact
 {
-    background-color: #3366FF !important;
+    background-color: @blue1-darker !important;
     color: white !important;
 }
 .color-activity
@@ -1702,7 +1702,7 @@ td.entry-table-description {
 }
 .color-Meeting
 {
-    background-color: #0054a6 !important;
+    background-color: @blue1-darker !important;
     color: white !important;
 }
 .color-PhoneCall
@@ -1734,7 +1734,7 @@ td.entry-table-description {
 .chart-hash 
 {
     padding: 10px 0 10px 5px;
-    border-left: 5px solid @blue3-darker;
+    border-left: 5px solid @blue1-darker;
     margin: 2px 0 0 2px;
     font-size: @font-size-large;
     font-weight: bold;
@@ -1748,7 +1748,7 @@ td.entry-table-description {
     width: 28px;
     line-height: 28px;
     text-align: center;
-    background: @gray5-lighter;
+    background: @gray2-lighter;
     text-shadow: 0px 1px 0px #fff;
     font-size:0.8em;
     font-weight: bold;

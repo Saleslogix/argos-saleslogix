@@ -808,9 +808,18 @@ define('Mobile/SalesLogix/Application', [
         navigateToHomeView: function() {
             var visible, view, split, key, viewId;
             this.loadSnapper();
+
+            visible = this.preferences && this.preferences.home && this.preferences.home.visible;
+            if (visible && visible.length > 0) {
+                this.homeViewId = visible[0];
+            }
+
+            // Default view will be the home view, overwritten below if a redirect hash is supplied
+            view = this.getView(this.homeViewId);
+
             if (this.redirectHash) {
                 split = this.redirectHash.split(';');
-                if (split.length > 0) {
+                if (split.length > 1) {
                     viewId = split[0];
                     key = split[1];
                     view = this.getView(viewId);
@@ -819,22 +828,13 @@ define('Mobile/SalesLogix/Application', [
                             view.show({
                                 key: key
                             });
-                        } else {
-                            view.show();
                         }
                     }
                 }
-            } else {
-                visible = this.preferences && this.preferences.home && this.preferences.home.visible;
-                if (visible && visible.length > 0) {
-                    this.homeViewId = visible[0];
-                }
+            }
 
-                view = this.getView(this.homeViewId);
-                if (view) {
-                    // TODO: Handle if the default view doesn't load
-                    view.show();
-                }
+            if (view) {
+                view.show();
             }
         },
         navigateToActivityInsertView: function() {

@@ -98,6 +98,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         insertView: 'attachment_Add',
         icon: 'content/images/icons/Attachment_24.png',
         iconurl: 'content/images/icons/Attachment_URL_24.png',
+        iconClass: 'fa fa-paperclip fa-lg',
         queryOrderBy: 'attachDate desc',
         querySelect:  [
             'description',
