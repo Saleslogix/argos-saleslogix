@@ -72,7 +72,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         activityText: 'activity',
 
         //Card View 
-        itemIcon: 'content/images/icons/ContactProfile_48x48.png',
+        itemIcon: 'content/images/icons/man_1.png',
         itemColorClass: 'color-activity',
         //Templates
         //Card View 

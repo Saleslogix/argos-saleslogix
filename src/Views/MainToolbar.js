@@ -62,7 +62,7 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
                 if (!isOnEdit && !isOnFirstView) {
                     tools = tools.concat([{
                             id: 'back',
-                            cls: 'fa fa-arrow-left fa-fw fa-lg',
+                            cls: 'fa fa-angle-left fa-fw fa-lg',
                             side: 'left',
                             fn: this.navigateBack,
                             scope: this

@@ -30,18 +30,23 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
         cls: ' contextualContent',
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
-            '<div class="list-item-static-selector">',
-                '{% if ($.iconTemplate) { %}',
-                    '{%! $.iconTemplate %}',
-                '{% } else if ($.cls) { %}',
-                    '<div class="{%: $.cls %}"></div>',
-                '{% } else if ($.icon) { %}',
-                    '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-                '{% } %}',
-            '</div>',
+            '{% if ($$._hasIcon($)) { %}',
+                '<div class="list-item-static-selector">',
+                    '{% if ($.iconTemplate) { %}',
+                        '{%! $.iconTemplate %}',
+                    '{% } else if ($.cls) { %}',
+                        '<div class="{%: $.cls %}"></div>',
+                    '{% } else if ($.icon) { %}',
+                        '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                    '{% } %}',
+                '</div>',
+            '{% } %}',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
+        _hasIcon: function(entry) {
+            return entry.iconTemplate || entry.cls || entry.icon;
+        },
         itemTemplate: new Simplate([
             '<h3>{%: $.title %}</h3>'
         ]),
@@ -161,7 +166,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                     {
                         'name': 'AddAccountContactAction',
                         'action': 'addAccountContact',
-                        'cls': 'fa fa-plus-square-o',
+                        //'cls': 'fa fa-plus-square-o',
                         'title': this.addAccountContactText
                     }
                 ]
@@ -181,9 +186,9 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                     goTo.children.push({
                         'action': 'loadAndNavigateToView',
                         'view': view.id,
-                        'icon': view.icon,
-                        'cls': view.iconClass,
-                        'iconTemplate': view.iconTemplate,
+                        //'icon': view.icon,
+                        //'cls': view.iconClass,
+                        //'iconTemplate': view.iconTemplate,
                         'title': view.titleText,
                         'security': view.getSecurity()
                     });
@@ -198,22 +203,22 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                     {
                         'name': 'ConfigureMenu',
                         'action': 'navigateToConfigurationView',
-                        'cls': 'fa fa-wrench fa-lg',
+                        //'cls': 'fa fa-wrench fa-lg',
                         'title': this.configureText
                     }, {
                         'name': 'SettingsAction',
                         'action': 'navigateToSettingsView',
-                        'cls': 'fa fa-cog fa-lg',
+                        //'cls': 'fa fa-cog fa-lg',
                         'title': this.settingsText
                     }, {
                         'name': 'HelpAction',
                         'action': 'navigateToHelpView',
-                        'cls': 'fa fa-question fa-lg',
+                        //'cls': 'fa fa-question fa-lg',
                         'title': this.helpText
                     }, {
                         'name': 'Logout',
                         'action': 'logOut',
-                        'cls': 'fa fa-sign-out fa-lg',
+                        //'cls': 'fa fa-sign-out fa-lg',
                         'title': this.logOutText
                     }
                 ]
@@ -301,7 +306,7 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
                 }
 
                 // Set the search term on the list and call search.
-                // This will keep the search terms on each widget in sync. 
+                // This will keep the search terms on each widget in sync.
                 setTimeout(function() {
                     view.setSearchTerm(expression);
                     if (current && current.id === view.id) {

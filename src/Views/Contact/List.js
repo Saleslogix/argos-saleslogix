@@ -48,7 +48,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Template
         //Card Layout
-        itemIcon: 'content/images/icons/ContactProfile_48x48.png',
+        itemIcon: 'content/images/icons/man_1.png',
         itemTemplate: new Simplate([
             '<h3>{%: $.NameLF %}</h3>',
             '<h4>{% if($.Title) { %} {%: $.Title %} | {% } %} {%: $.AccountName %}</h4>',

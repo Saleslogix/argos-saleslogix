@@ -36,14 +36,19 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
                 '{% } %}',
             '{% } %}',
             '>',
-            '<div class="list-item-static-selector">',
-                '{% if ($.icon) { %}',
-                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-                '{% } %}',
-            '</div>',
+            '{% if ($$._hasIcon($)) { %}',
+                '<div class="list-item-static-selector">',
+                    '{% if ($.icon) { %}',
+                    '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                    '{% } %}',
+                '</div>',
+            '{% } %}',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
             '</li>'
         ]),
+        _hasIcon: function(entry) {
+            return entry.iconTemplate || entry.cls || entry.icon;
+        },
         itemTemplate: new Simplate([
             '<h3>{%: $.title %}</h3>'
         ]),
