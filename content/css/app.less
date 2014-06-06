@@ -124,7 +124,7 @@
     visibility: hidden;
     height: 24px;
     width: 24px;
-    background-image: url(../images/icons/Note_More_24x24.png) !important;
+    background-image: data-uri('../images/icons/Note_More_24x24.png') !important;
     background-repeat: no-repeat;
     background-position: center center;
     z-index: 1;
@@ -211,12 +211,12 @@
 
                 > [data-action="moveUp"]
                 {
-                    background-image: url(../images/icons/Sort_Down_24.png);
+                    background-image: data-uri('../images/icons/Sort_Down_24.png');
                 }
 
                 > [data-action="moveDown"]
                 {
-                    background-image: url(../images/icons/Sort_Up_24.png);
+                    background-image: data-uri('../images/icons/Sort_Up_24.png');
                 }
 
                 > .icon
@@ -427,33 +427,33 @@ li[data-ticket-status] .list-item-selector,
 
 .row-edit[data-field-type="lookup"] > div > .button
 {
-    background-image: url(../images/icons/srch_24.png);
-    background-image: url(../images/icons/srch_24.png), linear-gradient(to bottom, #e6e6e6, #cccccc);
-    background-image: url(../images/icons/srch_24.png), -webkit-gradient(
+    background-image: data-uri('../images/icons/srch_24.png');
+    background-image: data-uri('../images/icons/srch_24.png'), linear-gradient(to bottom, #e6e6e6, #cccccc);
+    background-image: data-uri('../images/icons/srch_24.png'), -webkit-gradient(
         linear,
         left top,
         left bottom,
         color-stop(0, #e6e6e6),
         color-stop(1, #cccccc)
     );
-    background-image: url(../images/icons/srch_24.png), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
-    background-image: url(../images/icons/srch_24.png), -moz-linear-gradient(top, #e6e6e6, #cccccc);
-    background-image: url(../images/icons/srch_24.png), -ms-linear-gradient(top, #e6e6e6, #cccccc);
-    background-image: url(../images/icons/srch_24.png), -o-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: data-uri('../images/icons/srch_24.png'), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: data-uri('../images/icons/srch_24.png'), -moz-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: data-uri('../images/icons/srch_24.png'), -ms-linear-gradient(top, #e6e6e6, #cccccc);
+    background-image: data-uri('../images/icons/srch_24.png'), -o-linear-gradient(top, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
 }
 
 .row-edit[data-field-type="lookup"] > div > .button:active
 {
-    background-image: url(../images/icons/srch_24.png), -webkit-gradient(
+    background-image: data-uri('../images/icons/srch_24.png'), -webkit-gradient(
         linear,
         left bottom,
         left top,
         color-stop(0, #e6e6e6),
         color-stop(1, #cccccc)
     );
-    background-image: url(../images/icons/srch_24.png), -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
+    background-image: data-uri('../images/icons/srch_24.png'), -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
     background-repeat: no-repeat, repeat;
     background-position: center;
 }
@@ -465,14 +465,14 @@ li[data-ticket-status] .list-item-selector,
 
 .row-edit[data-field-type="date"] > div > .button
 {
-    background-image: url(../images/icons/Calendar_24x24.png);
+    background-image: data-uri('../images/icons/Calendar_24x24.png');
     background-repeat: no-repeat, repeat;
     background-position: center;
 }
 
 .row-edit[data-field-type="date"] > div > .button:active
 {
-    background-image: url(../images/icons/Calendar_24x24.png);
+    background-image: data-uri('../images/icons/Calendar_24x24.png');
     background-repeat: no-repeat, repeat;
     background-position: center;
 }
@@ -486,7 +486,7 @@ li[data-ticket-status] .list-item-selector,
 .row-edit[data-field-type="address"] > div > .button,
 .row-edit[data-field-type="note"] > div > .button
 {
-    background-image: url(../images/icons/edit_24.png);
+    background-image: data-uri('../images/icons/edit_24.png');
     background-repeat: no-repeat, repeat;
     background-position: center;
 }
@@ -552,7 +552,7 @@ li[data-ticket-status] .list-item-selector,
 .calendar-prev-month > button > span
 {
     display: inline-block;
-    background-image: url(../images/icons/Browse_Previous_24.png);
+    background-image: data-uri('../images/icons/Browse_Previous_24.png');
     background-repeat: no-repeat;
     background-position: center center;
     margin: 6px;
@@ -570,7 +570,7 @@ li[data-ticket-status] .list-item-selector,
 .calendar-next-month > button > span
 {
     display: inline-block;
-    background-image: url(../images/icons/Browse_Next_24.png);
+    background-image: data-uri('../images/icons/Browse_Next_24.png');
     background-repeat: no-repeat;
     background-position: center center;
     margin: 6px;
@@ -632,8 +632,7 @@ td.calendar-day {
 .collapsed-indicator
 {
     background-color: transparent;
-    background-image: url(../images/icons/Down_Arrow.png);
-    /*background-image: url(../images/icons/Hide_Details_active_24.png);*/
+    background-image: data-uri('../images/icons/Down_Arrow.png');
     background-repeat: no-repeat;
     background-position: left center;
     border: none;
@@ -643,8 +642,7 @@ td.calendar-day {
 
 .collapsed > .collapsed-indicator
 {
-    background-image: url(../images/icons/Down_Arrow_Collapsed.png);
-    /*background-image: url(../images/icons/Show_Details_active_24.png);*/
+    background-image: data-uri('../images/icons/Down_Arrow_Collapsed.png');
 }
 
 .toolButton
@@ -652,17 +650,17 @@ td.calendar-day {
     color: @icon-color;
 }
 
-.toolButton[data-tool="home"] > span { background-image: url(../images/icons/home_24.png); }
-.toolButton[data-tool="edit"] > span { background-image: url(../images/icons/edit_24.png); }
-.toolButton[data-tool="new"] > span { background-image: url(../images/icons/add_24.png); }
-.toolButton[data-tool="save"] > span { background-image: url(../images/icons/save_24.png); }
-.toolButton[data-tool="help"] > span { background-image: url(../images/icons/help_24.png); }
-.toolButton[data-tool="cancel"] > span { background-image: url(../images/icons/cancl_24.png); }
-.toolButton[data-tool="complete"] > span { background-image: url(../images/icons/OK_24.png); }
-.toolButton[data-tool="configure"] > span { background-image: url(../images/icons/Tools_24x24.png); }
-.toolButton[data-tool="settings"] > span { background-image: url(../images/icons/settings_24.png); }
-.toolButton[data-tool="logout"] > span { background-image: url(../images/icons/login_24.png); }
-.toolButton[data-tool="top"] > span { background-image: url(../images/icons/Down_Arrow.png); }
+.toolButton[data-tool="home"] > span { background-image: data-uri('../images/icons/home_24.png'); }
+.toolButton[data-tool="edit"] > span { background-image: data-uri('../images/icons/edit_24.png'); }
+.toolButton[data-tool="new"] > span { background-image: data-uri('../images/icons/add_24.png'); }
+.toolButton[data-tool="save"] > span { background-image: data-uri('../images/icons/save_24.png'); }
+.toolButton[data-tool="help"] > span { background-image: data-uri('../images/icons/help_24.png'); }
+.toolButton[data-tool="cancel"] > span { background-image: data-uri('../images/icons/cancl_24.png'); }
+.toolButton[data-tool="complete"] > span { background-image: data-uri('../images/icons/OK_24.png'); }
+.toolButton[data-tool="configure"] > span { background-image: data-uri('../images/icons/Tools_24x24.png'); }
+.toolButton[data-tool="settings"] > span { background-image: data-uri('../images/icons/settings_24.png'); }
+.toolButton[data-tool="logout"] > span { background-image: data-uri('../images/icons/login_24.png'); }
+.toolButton[data-tool="top"] > span { background-image: data-uri('../images/icons/Down_Arrow.png'); }
 
 .toolbar button.disabled {}
 .toolbar button.disabled > span {
@@ -1054,7 +1052,7 @@ td.entry-table-description {
 }
 .nav-bar > .button-prev > span
 {
-    background-image: url(../images/icons/Browse_Previous.png);
+    background-image: data-uri('../images/icons/Browse_Previous.png');
     margin: 6px 6px 6px 4px;
     background-size: 90%;
     background-position-y: 0px;
@@ -1063,7 +1061,7 @@ td.entry-table-description {
 
 .nav-bar > .button-next > span
 {
-    background-image: url(../images/icons/Browse_Next.png);
+    background-image: data-uri('../images/icons/Browse_Next.png');
     background-size: 90%;
     background-position-y: -1px;
 }
@@ -1138,7 +1136,7 @@ td.entry-table-description {
 .split-buttons > .button[data-tool="selectdate"] > span
 {
     display: inline-block;
-    background-image: url(../images/icons/Calendar_24x24.png);
+    background-image: data-uri('../images/icons/Calendar_24x24.png');
     background-repeat: no-repeat;
     background-position: center center;
     width: 24px;
@@ -1614,7 +1612,7 @@ td.entry-table-description {
         {
             > span
             {
-                background-image: url(../images/icons/Browse_Next_24.png);
+                background-image: data-uri('../images/icons/Browse_Next_24.png');
             }
         }
     }
