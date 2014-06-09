@@ -44,7 +44,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         hashTagsSectionText: 'Hash Tags',
         groupsSectionText: 'Groups',
         kpiSectionText: 'KPI',
-        groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.',
         configureGroupsText: 'Configure',
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
@@ -112,14 +111,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             original.itemTemplate = this.itemTemplate;
             original.relatedViews = this.relatedViews;
 
-            if (this.groupsNode) {
-                domStyle.set(this.groupsNode, {
-                    display: 'block'
-                });
-
-                this.groupsNode.innerHTML = this.groupsModeText;
-            }
-
             this.groupsMode = true;
 
         },
@@ -148,13 +139,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             this.clear();
             this.refreshRequired = true;
-            if (this.groupsNode) {
-                domStyle.set(this.groupsNode, {
-                    display: 'none'
-                });
-
-                this.groupsNode.innerHTML = '';
-            }
         },
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
