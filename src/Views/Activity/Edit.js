@@ -1130,7 +1130,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     property: 'Contact',
                     type: 'lookup',
                     emptyText: '',
-                    applyTo: '.',
+                    applyTo: function(payload, value) {
+                        if (value === null) {
+                            payload[this.valueKeyProperty] = null;
+                            payload[this.valueTextProperty] = null;
+                        }
+                    },
                     valueKeyProperty: 'ContactId',
                     valueTextProperty: 'ContactName',
                     view: 'contact_related',
@@ -1144,7 +1149,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     property: 'Opportunity',
                     type: 'lookup',
                     emptyText: '',
-                    applyTo: '.',
+                    applyTo: function(payload, value) {
+                        if (value === null) {
+                            payload[this.valueKeyProperty] = null;
+                            payload[this.valueTextProperty] = null;
+                        }
+                    },
                     valueKeyProperty: 'OpportunityId',
                     valueTextProperty: 'OpportunityName',
                     view: 'opportunity_related',
@@ -1158,7 +1168,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     property: 'Ticket',
                     type: 'lookup',
                     emptyText: '',
-                    applyTo: '.',
+                    applyTo: function(payload, value) {
+                        if (value === null) {
+                            payload[this.valueKeyProperty] = null;
+                            payload[this.valueTextProperty] = null;
+                        }
+                    },
                     valueKeyProperty: 'TicketId',
                     valueTextProperty: 'TicketNumber',
                     view: 'ticket_related',
