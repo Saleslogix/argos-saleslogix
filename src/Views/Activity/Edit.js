@@ -392,6 +392,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                         fields[f].setValue(false);
                     }
 
+                    // No way to determine if the field is part of the changed account, clear it
+                    if (!fields[f].currentSelection) {
+                        fields[f].setValue(null);
+                    }
+
                 } else {
                     fields[f].dependsOn = null;
                     fields[f].where = 'Account.AccountName ne null';
@@ -1138,7 +1143,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     property: 'Contact',
                     type: 'lookup',
                     emptyText: '',
-                    applyTo: '.',
+                    applyTo: function(payload, value) {
+                        if (value === null) {
+                            payload[this.valueKeyProperty] = null;
+                            payload[this.valueTextProperty] = null;
+                        }
+                    },
                     valueKeyProperty: 'ContactId',
                     valueTextProperty: 'ContactName',
                     view: 'contact_related',
@@ -1152,7 +1162,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     property: 'Opportunity',
                     type: 'lookup',
                     emptyText: '',
-                    applyTo: '.',
+                    applyTo: function(payload, value) {
+                        if (value === null) {
+                            payload[this.valueKeyProperty] = null;
+                            payload[this.valueTextProperty] = null;
+                        }
+                    },
                     valueKeyProperty: 'OpportunityId',
                     valueTextProperty: 'OpportunityName',
                     view: 'opportunity_related',
@@ -1166,7 +1181,12 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     property: 'Ticket',
                     type: 'lookup',
                     emptyText: '',
-                    applyTo: '.',
+                    applyTo: function(payload, value) {
+                        if (value === null) {
+                            payload[this.valueKeyProperty] = null;
+                            payload[this.valueTextProperty] = null;
+                        }
+                    },
                     valueKeyProperty: 'TicketId',
                     valueTextProperty: 'TicketNumber',
                     view: 'ticket_related',
