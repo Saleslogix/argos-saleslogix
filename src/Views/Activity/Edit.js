@@ -392,7 +392,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                         fields[f].setValue(false);
                     }
 
-                    // No way to determine if the contact is part of the changed account, clear it
+                    // No way to determine if the field is part of the changed account, clear it
                     if (!fields[f].currentSelection) {
                         fields[f].setValue(null);
                     }
