@@ -86,20 +86,7 @@ define('Mobile/SalesLogix/GroupUtility', [
          */
         groupFilters: [
             function(layoutItem) {
-                return layoutItem.fieldType !== 'FixedChar';
-            },
-            function(layoutItem) {
                 return layoutItem.visible;
-            },
-            function(layoutItem) {
-                return layoutItem.format !== 'Owner';
-            },
-            function(layoutItem) {
-                return layoutItem.format !== 'User';
-            },
-            function(layoutItem) {
-                // TODO: Add the picklist item.alias + "TEXT" to the querySelect instead?
-                return layoutItem.format !== 'PickList Item';
             }
         ],
         groupFormatters: [
@@ -153,6 +140,44 @@ define('Mobile/SalesLogix/GroupUtility', [
             }
 
             return lang.hitch(this, results[0].formatter);
+        },
+        groupFieldNames: [
+            {
+                name: 'PickList',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'PickList Item';
+                },
+                fieldName: function(layoutItem) {
+                    return layoutItem.alias.toUpperCase() + 'TEXT';
+                }
+            },
+            {
+                name: 'OwnerOrUser',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'Owner' || layoutItem.format === 'User';
+                },
+                fieldName: function(layoutItem) {
+                    return layoutItem.alias.toUpperCase() + 'NAME';
+                }
+            }
+        ],
+        getFieldNameByLayout: function(layoutItem) {
+            // Determines what field/property name should be used in the feed for a layout item.
+            // This is usually just the layout item's alias in upper case, however there are some exceptions:
+            // Picklist layout items need to select the alias + 'TEXT',
+            // Owner and user items need to select the alias + 'NAME'
+            var results = array.filter(this.groupFieldNames, function(name) {
+                return name.test(layoutItem);
+            });
+
+            if (results.length === 0) {
+                results.push({
+                    fieldName: function(layoutItem) {
+                    return layoutItem.alias.toUpperCase();
+                }});
+            }
+
+            return results[0].fieldName(layoutItem);
         }
     });
 });

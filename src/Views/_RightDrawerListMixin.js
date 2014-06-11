@@ -220,6 +220,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 groupClicked: lang.hitch(this, function(params) {
                     var template = [],
                         selectColumns,
+                        extraSelectColumns = [],
                         group,
                         original = this.originalProps,
                         groupId;
@@ -247,11 +248,21 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }, this);
 
                     selectColumns = array.map(group.layout, function(layout) {
+                        if (layout.format === 'PickList Item') {
+                            extraSelectColumns.push(layout.alias + 'TEXT');
+                        }
+
+                        if (layout.format === 'User' || layout.format === 'Owner') {
+                            extraSelectColumns.push(layout.alias + 'NAME');
+                        }
+
                         return layout.alias;
                     });
 
                     template = array.map(group.layout, function(item) {
-                        var template = ["<h4>", item.caption, " : {%= $$.getFormatterByLayout(" + json.stringify(item) + ")($['" + item.alias.toUpperCase() + "']) %}", "</h4>"].join('');
+                        var template, jsonString;
+                        jsonString = json.stringify(item);
+                        template = ["<h4>", item.caption, " : {%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}", "</h4>"].join('');
                         return template;
                     });
 
@@ -263,7 +274,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
                     // Try to select the entity id as well
                     selectColumns.push(group.family + 'ID');
-                    this.querySelect = selectColumns;
+                    this.querySelect = selectColumns.concat(extraSelectColumns);
 
                     this.queryOrderBy = '';
                     this.idProperty = group.family.toUpperCase() + 'ID';
@@ -284,6 +295,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         },
         getFormatterByLayout: function(layoutItem) {
             return GroupUtility.getFormatterByLayout(layoutItem);
+        },
+        getFieldNameByLayout: function(layoutItem) {
+            return GroupUtility.getFieldNameByLayout(layoutItem);
         },
         getGroupForRightDrawerEntry: function(entry) {
             var mixin = lang.getObject(mixinName);
