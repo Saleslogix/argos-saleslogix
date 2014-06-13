@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
     var mixinName = 'Mobile.SalesLogix.Views._RightDrawerListMixin';
 
-    return declare(mixinName, [_RightDrawerBaseMixin], {
+    return declare('Mobile.SalesLogix.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
         kpiSectionText: 'KPI',

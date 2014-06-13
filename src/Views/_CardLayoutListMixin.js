@@ -30,9 +30,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     moment
 ) {
 
-    var mixinName = 'Mobile.SalesLogix.Views._CardLayoutListMixin';
-
-    return declare(mixinName, null, {
+    return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
         itemColorClass: 'color-default',
         itemIcon: 'content/images/icons/ContactProfile_48x48.png',
         itemIconAltText:'Contact',
