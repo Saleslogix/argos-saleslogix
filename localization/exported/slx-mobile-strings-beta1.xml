@@ -4556,6 +4556,22 @@
     <description/>
     <value>Users</value>
   </data>
+  <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="itemIconAltText" type="text">
+    <description/>
+    <value>Contact</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="allRecordsText" type="text">
+    <description/>
+    <value>no search applied</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="hashTagsSectionText" type="text">
+    <description/>
+    <value>Hash Tags</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="kpiSectionText" type="text">
+    <description/>
+    <value>KPI</value>
+  </data>
   <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
     <description/>
     <value>Indexes</value>
