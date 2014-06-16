@@ -19,7 +19,7 @@ The `*.html` files hard-code the localization:
 Which includes two localization pieces:
 
 * Top Level: `localization/en` which is for currency, decimal and thousands symbols, etc; and
-* App Strings: `localization/appname/en` which is the translated strings .js file from [Argos-Localizer](https://github.com/SageScottsdalePlatform/argos-localizer).
+* App Strings: `localization/appname/en` which is the translated strings .js file from [Argos-Localizer](https://github.com/Saleslogix/argos-localizer).
 
 
 
@@ -68,7 +68,7 @@ to
 
 ###App Strings
 
-1\. Follow either [Localization Example](#!/guide/v2_localization_example) or the Argos-Localizer code directly on [Github](https://github.com/SageScottsdalePlatform/argos-localizer).
+1\. Follow either [Localization Example](#!/guide/v2_localization_example) or the Argos-Localizer code directly on [Github](https://github.com/Saleslogix/argos-localizer).
 
 2\. Take the resulting `.js` file and drop it into the `products/appname/localization/appname/` folder.
 

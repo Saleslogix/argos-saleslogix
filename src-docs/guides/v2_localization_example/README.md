@@ -10,7 +10,7 @@ If you have completed the Argos Template Guide, then you already have the folder
 
 1\. Create a root folder, for this example we will be using `C:\code\mobile`.
 
-2\. In that root folder, download and extract (or git clone) [Argos-SDK](https://github.com/Sage/argos-sdk/zipball/2.0) into a new folder named `argos-sdk`.
+2\. In that root folder, download and extract (or git clone) the latest version of the [Argos-SDK](https://github.com/Saleslogix/argos-sdk) into a new folder named `argos-sdk`.
 
 3\. Create another folder at the same level named 'products'.
 
@@ -29,7 +29,7 @@ If you have completed the Argos Template Guide, then you already have the folder
 
 Now that you have all the source files, it's time to get the localizer tool itself.
 
-1\. Download and extract the [windows exe bundle](https://github.com/downloads/SageScottsdalePlatform/argos-localizer/argos-localizer-windows.zip), for this example it'll be extracted to `C:\code\argos-localizer`.
+1\. Download and extract the [windows exe bundle](https://github.com/downloads/Saleslogix/argos-localizer/argos-localizer-windows.zip), for this example it'll be extracted to `C:\code\argos-localizer`.
 
 2\. Duplicate (copy+paste and rename) the file `C:\code\argos-localizer\config\argos-saleslogix.json` to the same folder and named `argos-template`.
 

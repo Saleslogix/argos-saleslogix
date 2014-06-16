@@ -23,10 +23,10 @@ structure allows a single copy of Argos-SDK. You may opt for a different structu
 
 3\. All applications will be a new folder within `products`.
 
-4\. Download the SDK and extract the zip into the `argos-sdk` folder: [https://github.com/Sage/argos-sdk/zipball/2.0](https://github.com/Sage/argos-sdk/zipball/2.0) 
+4\. Download the latest version of the SDK and extract the zip into the `argos-sdk` folder: [https://github.com/Saleslogix/argos-sdk](https://github.com/Saleslogix/argos-sdk) 
 
 5\. A bare-bones app that this guide will use as a kickstarter has been created as Argos-Template. 
-Download it from GitHub: [https://github.com/Sage/argos-template/zipball/master](https://github.com/Sage/argos-template/zipball/master)
+Download it from GitHub: [https://github.com/Saleslogix/argos-template/zipball/master](https://github.com/Saleslogix/argos-template/zipball/master)
 
 6\. Create a new folder under `products` named `argos-template` and place the extracted contents there.
 

@@ -164,7 +164,7 @@ a `onCreate` function that gets new data and replaces the placeholder.
     },
 
 4\. While out of scope for going into the details of making SData requests you can just follow along. If you want to know more about 
-the functions used here please see the github repo [SDataJavascriptClientLib](https://github.com/Sage/SDataJavaScriptClientLib). Add the SData request:
+the functions used here please see the github repo [SDataJavascriptClientLib](https://github.com/Saleslogix/SDataJavaScriptClientLib). Add the SData request:
 
     requestAddress: function(row, node, value, entry) {
        var request = this.createRequest();
