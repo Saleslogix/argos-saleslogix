@@ -23,7 +23,7 @@ All throughout the guide and topics you may have seen `this.labelText` instead o
 ##Making the Localization Module
 Now you may make that localization file by hand, carefully copying all the strings and formats - by hey! We are programmers. Meaning if you follow the conventions you may utilize a Ruby localization script that extracts all the strings into a handy XML file for the translation team. Running the same script on the translated XML file converts it into the localization module.js as seen above.
 
-Github: [Argos-Localizer](https://github.com/SageScottsdalePlatform/argos-localizer)
+Github: [Argos-Localizer](https://github.com/Saleslogix/argos-localizer)
 
 Just follow the `README.md` file in argos-localizer.
 

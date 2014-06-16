@@ -61,6 +61,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
             'AccountManager/UserInfo/FirstName',
             'AccountManager/UserInfo/LastName',
             'AccountName',
+            'Address/*',
             'BusinessDescription',
             'Description',
             'Fax',
