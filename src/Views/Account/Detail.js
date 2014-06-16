@@ -49,7 +49,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         activityTypeText: {
             'atPhoneCall': 'Phone Call'
         },
-        actionsText: 'Actions',
+        actionsText: 'Quick Actions',
         relatedActivitiesText: 'Activities',
         relatedContactsText: 'Contacts',
         relatedHistoriesText: 'Notes/History',
@@ -148,6 +148,24 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
+                    title: this.actionsText,
+                    list: true,
+                    cls: 'action-list',
+                    name: 'QuickActionsSection',
+                    children: [{
+                            name: 'ScheduleActivityAction',
+                            property: 'AccountName',
+                            label: this.scheduleActivityText,
+                            icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                            action: 'scheduleActivity'
+                        }, {
+                            name: 'AddNoteAction',
+                            property: 'AccountName',
+                            label: this.addNoteText,
+                            icon: 'content/images/icons/New_Note_24x24.png',
+                            action: 'addNote'
+                        }]
+                }, {
                     title: this.detailsText,
                     name: 'DetailsSection',
                     children: [{
@@ -210,24 +228,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             name: 'LeadSource.Description',
                             property: 'LeadSource.Description',
                             label: this.importSourceText
-                        }]
-                }, {
-                    title: this.actionsText,
-                    list: true,
-                    cls: 'action-list',
-                    name: 'QuickActionsSection',
-                    children: [{
-                            name: 'ScheduleActivityAction',
-                            property: 'AccountName',
-                            label: this.scheduleActivityText,
-                            icon: 'content/images/icons/Schedule_ToDo_24x24.png',
-                            action: 'scheduleActivity'
-                        }, {
-                            name: 'AddNoteAction',
-                            property: 'AccountName',
-                            label: this.addNoteText,
-                            icon: 'content/images/icons/New_Note_24x24.png',
-                            action: 'addNote'
                         }]
                 }, {
                     title: this.relatedItemsText,
