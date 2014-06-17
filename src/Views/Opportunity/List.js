@@ -176,7 +176,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             }, {
                 id: 'viewContacts',
                 icon: 'content/images/icons/Contacts_24x24.png',
-                label: 'Contacts',
+                label: this.viewContactsActionText,
                 fn: this.navigateToRelatedView.bindDelegate(this, 'opportunitycontact_related', 'Opportunity.Id eq "${0}"')
             }, {
                 id: 'viewProducts',
