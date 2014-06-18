@@ -27,6 +27,39 @@ localize("Sage.Platform.Mobile.Format", {
   "bytesText": "Byte"
 });
 
+localize("Mobile.SalesLogix.Recurrence", {
+  "dayFormatText": "DD",
+  "monthFormatText": "MM",
+  "monthAndDayFormatText": "MM.DD",
+  "weekdayFormatText": "dddd",
+  "endDateFormatText": "D.M.YYYY",
+  "neverText": "niemals",
+  "daysText": "Tage",
+  "dailyText": "täglich",
+  "weeksText": "Wochen",
+  "weeklyText": "Wöchentlich",
+  "weeklyOnText": "Wöchentlich jeden ${3}",
+  "monthsText": "Monate",
+  "monthlyText": "Monatlich",
+  "monthlyOnDayText": "monatlich am ${1}. Tag",
+  "monthlyOnText": "monatlich jeden ${5}. ${3}",
+  "yearsText": "Jahre",
+  "yearlyText": "Jährlich",
+  "yearlyOnText": "jährlich am ${2}. Tag",
+  "yearlyOnWeekdayText": "jährlich am ${5} ${3}. im ${4}",
+  "everyText": "jeden ${0} ${1}",
+  "afterCompletionText": "nach Abschluss",
+  "untilEndDateText": "${0} bis ${1}",
+  "ordText": {
+    "0": "Tag",
+    "1": "Vorname",
+    "2": "2.",
+    "3": "3.",
+    "4": "4.",
+    "5": "Nachnahme"
+  }
+});
+
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "completedFormatText": "D.M.YYYY H:mm",
   "startingFormatText": "D.M.YYYY H:mm",
@@ -59,7 +92,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Ergebnis",
   "resultTitleText": "Ergebnis",
   "startingText": "Startdatum",
-  "timelessText": "Ohne Zeitangabe",
+  "timelessText": "ohne-Zeitangabe",
   "durationValueText": {
     "0": "unbegrenzt",
     "15": "15 Minuten",
@@ -104,7 +137,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "rolloverText": "Auto-Rollover",
   "startTimeText": "Anfangszeit",
   "allDayText": "den gesamten Tag",
-  "timelessText": "Ohne Zeitangabe",
+  "timelessText": "ohne-Zeitangabe",
   "titleText": "Aktivität",
   "typeText": "Typ",
   "companyText": "Unternehmen",
@@ -147,9 +180,9 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "rolloverText": "Auto-Rollover",
   "startingText": "Anfangszeit",
   "repeatsText": "Wiederholungen",
-  "recurringText": "Sich wiederholende Aktivität",
+  "recurringText": "Sich-wiederholende-Aktivität",
   "recurringTitleText": "Sich wiederholende Aktivität",
-  "timelessText": "Ohne Zeitangabe",
+  "timelessText": "ohne-Zeitangabe",
   "titleText": "Aktivität",
   "typeText": "Typ",
   "accountText": "Firma",
@@ -193,7 +226,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "alarmText": "Alarm",
   "touchedText": "angefasst",
   "importantText": "wichtig",
-  "recurringText": "Sich wiederholende Aktivität",
+  "recurringText": "Sich-wiederholende-Aktivität",
   "activityText": "Aktivität",
   "activityTypeText": {
     "atToDo": "Aufgabe",
@@ -208,8 +241,8 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "titleText": "Aktivitäten",
   "hashTagQueriesText": {
     "alarm": "Alarm",
-    "recurring": "Sich wiederholende Aktivität",
-    "timeless": "Ohne Zeitangabe",
+    "recurring": "Sich-wiederholende-Aktivität",
+    "timeless": "ohne-Zeitangabe",
     "today": "Heute",
     "this-week": "diese-Woche",
     "yesterday": "Gestern"
@@ -357,7 +390,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   "regardingText": "Betreff",
   "completedByText": "Abgeschlossen von",
   "scheduledText": "Geplant",
-  "timelessText": "Ohne Zeitangabe",
+  "timelessText": "ohne-Zeitangabe",
   "companyText": "Unternehmen",
   "leadText": "Interessent",
   "titleText": "Historie",
@@ -415,7 +448,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
     "atEMail": "E-Mail"
   },
   "hashTagQueriesText": {
-    "my-history": "meine Historie",
+    "my-history": "meine-Historie",
     "note": "Notiz",
     "phonecall": "Telefonanruf",
     "meeting": "Meeting",
@@ -674,6 +707,32 @@ localize("Mobile.SalesLogix.ApplicationModule", {
   "searchText": "Suchen"
 });
 
+localize("Mobile.SalesLogix.DefaultMetrics", {
+  "accountsText": {
+    "totalRevenue": "Umsatz - gesamt",
+    "averageTime": "Durchschn. Zeit als Kunde",
+    "total": "Konten - gesamt"
+  },
+  "opportunitiesText": {
+    "total": "Opportunitys - gesamt",
+    "potential": "Verkaufspotenzial"
+  },
+  "ticketsText": {
+    "total": "Tickets - gesamt",
+    "averageOpen": "Durchschnittsalter - offen"
+  },
+  "contactsText": {
+    "total": "Kontakte - gesamt"
+  },
+  "leadsText": {
+    "total": "Leads - gesamt"
+  },
+  "historyText": {
+    "total": "Verlauf - gesamt",
+    "duration": "Dauer - gesamt"
+  }
+});
+
 localize("Mobile.SalesLogix.Fields.AddressField", {
   "lookupLabelText": "Bearbeiten",
   "emptyText": ""
@@ -701,34 +760,6 @@ localize("Mobile.SalesLogix.Format", {
     "billion": "Mrd",
     "million": "Mio",
     "thousand": "Tsd"
-  }
-});
-
-localize("Mobile.SalesLogix.Recurrence", {
-  "neverText": "niemals",
-  "daysText": "Tage",
-  "dailyText": "täglich",
-  "weeksText": "Wochen",
-  "weeklyText": "Wöchentlich",
-  "weeklyOnText": "Wöchentlich jeden ${3}",
-  "monthsText": "Monate",
-  "monthlyText": "Monatlich",
-  "monthlyOnDayText": "monatlich am ${1}. Tag",
-  "monthlyOnText": "monatlich jeden ${5}. ${3}",
-  "yearsText": "Jahre",
-  "yearlyText": "Jährlich",
-  "yearlyOnText": "jährlich am ${2}. Tag",
-  "yearlyOnWeekdayText": "jährlich am ${5} ${3}. im ${4}",
-  "everyText": "jeden ${0} ${1}",
-  "afterCompletionText": "nach Abschluss",
-  "untilEndDateText": "${0} bis ${1}",
-  "ordText": {
-    "0": "Tag",
-    "1": "Vorname",
-    "2": "2.",
-    "3": "3.",
-    "4": "4.",
-    "5": "Nachnahme"
   }
 });
 
@@ -839,7 +870,7 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "notesText": "Notizen",
   "scheduleText": "Planen",
   "editActionText": "Bearbeiten",
-  "callMainActionText": "Hauptnr. anrufen",
+  "callMainActionText": "Hauptnummer anrufen",
   "viewContactsActionText": "Kontakte",
   "addNoteActionText": "Notiz hinzufügen",
   "addActivityActionText": "Tätigkeit hinzufügen",
@@ -850,19 +881,15 @@ localize("Mobile.SalesLogix.Views.Account.List", {
     "my-accounts": "meine-konten",
     "active": "Aktiv",
     "inactive": "Inaktiv",
-    "suspect": "unter Beobachtung",
+    "suspect": "unter-Beobachtung",
     "lead": "Interessent",
-    "prospect": "potenzieller Kunde",
+    "prospect": "potenzieller-Kunde",
     "customer": "Kunde",
     "partner": "Partner",
     "vendor": "Hersteller",
     "influencer": "Beeinflusser",
     "competitor": "Mitbewerber"
   }
-});
-
-localize("Mobile.SalesLogix.Views.Account.SlxGroupList", {
-  "titleText": "Firmen"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.MyList", {
@@ -878,11 +905,11 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
   "viewOpportunityActionText": "Verkaufschance",
   "hashTagQueriesText": {
     "alarm": "Alarm",
-    "status-unconfirmed": "Status unbestätigt",
-    "status-accepted": "Status akzeptiert",
-    "status-declined": "Status abgelehnt",
-    "recurring": "Sich wiederholende Aktivität",
-    "timeless": "Ohne Zeitangabe",
+    "status-unconfirmed": "Status-unbestätigt",
+    "status-accepted": "Status-akzeptiert",
+    "status-declined": "Status-abgelehnt",
+    "recurring": "Sich-wiederholende-Aktivität",
+    "timeless": "ohne-Zeitangabe",
     "today": "Heute",
     "this-week": "diese-Woche",
     "yesterday": "Gestern"
@@ -1041,7 +1068,7 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
   "workText": "Telefon",
   "cuisinePreferenceText": "Kulinarische Vorlieben",
   "callMobileNumberText": "Mobilnr. anrufen",
-  "callWorkNumberText": "Hauptnr. anrufen",
+  "callWorkNumberText": "Hauptnummer anrufen",
   "calledText": "Angerufen",
   "scheduleActivityText": "Aktivität planen",
   "addNoteText": "Notiz hinzufügen",
@@ -1076,7 +1103,7 @@ localize("Mobile.SalesLogix.Views.Contact.List", {
   "notesText": "Notizen",
   "scheduleText": "Planen",
   "editActionText": "Bearbeiten",
-  "callMainActionText": "Hauptnummer anrufen",
+  "callMainActionText": "Hauptnr. anrufen",
   "callWorkActionText": "Geschäftsnr. anrufen",
   "callMobileActionText": "Mobilnr. anrufen",
   "sendEmailActionText": "E-Mail",
@@ -1087,14 +1114,14 @@ localize("Mobile.SalesLogix.Views.Contact.List", {
   "phoneAbbreviationText": "Geschäftlich: ",
   "mobileAbbreviationText": "Mobil: ",
   "hashTagQueriesText": {
-    "my-contacts": "Meine Kontakte",
+    "my-contacts": "Meine-Kontakte",
     "primary": "Haupt",
-    "not-primary": "nicht primär",
-    "can-email": "E-Mail vorhanden",
-    "can-phone": "Telefon vorhanden",
-    "can-fax": "Fax vorhanden",
-    "can-mail": "Postanschrift vorhanden",
-    "can-solicit": "Werbung zulässig"
+    "not-primary": "nicht-primär",
+    "can-email": "E-Mail-vorhanden",
+    "can-phone": "Telefon-vorhanden",
+    "can-fax": "Fax-vorhanden",
+    "can-mail": "Postanschrift-vorhanden",
+    "can-solicit": "Werbung-zulässig"
   }
 });
 
@@ -1160,7 +1187,7 @@ localize("Mobile.SalesLogix.Views.Lead.Detail", {
   "webText": "Web",
   "workText": "Geschäftliche",
   "actionsText": "Express-Optionen",
-  "callWorkNumberText": "Hauptnummer anrufen",
+  "callWorkNumberText": "Hauptnr. anrufen",
   "scheduleActivityText": "Aktivität planen",
   "addNoteText": "Notiz hinzufügen",
   "sendEmailText": "E-Mail senden",
@@ -1215,12 +1242,12 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "mobileAbbreviationText": "Mobil: ",
   "tollFreeAbbreviationText": "Gebührenfrei: ",
   "hashTagQueriesText": {
-    "my-leads": "meine Interessenten",
-    "can-email": "E-Mail vorhanden",
-    "can-phone": "Telefon vorhanden",
-    "can-fax": "Fax vorhanden",
-    "can-mail": "Postanschrift vorhanden",
-    "can-solicit": "Werbung zulässig"
+    "my-leads": "meine-Interessenten",
+    "can-email": "E-Mail-vorhanden",
+    "can-phone": "Telefon-vorhanden",
+    "can-fax": "Fax-vorhanden",
+    "can-mail": "Postanschrift-vorhanden",
+    "can-solicit": "Werbung-zulässig"
   }
 });
 
@@ -1304,16 +1331,16 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
   "actualCloseText": "Abgeschlossen ",
   "estimatedCloseText": "Voraussichtlicher Abschluss ",
   "hashTagQueriesText": {
-    "my-opportunities": "meine Verkaufschancen",
+    "my-opportunities": "meine-Verkaufschancen",
     "open": "Offen",
     "closed": "Abgeschlossen",
     "won": "gewonnen",
     "lost": "verloren",
     "inactive": "Inaktiv",
-    "prospect": "potenzieller Kunde",
+    "prospect": "potenzieller-Kunde",
     "qualification": "Qualifizierungsmerkmal",
     "negotiation": "Verhandlung",
-    "needs-analysis": "Analyse erforderlich",
+    "needs-analysis": "Analyse-erforderlich",
     "demonstration": "Vorführung",
     "decision": "Entscheidung"
   }
@@ -1525,8 +1552,8 @@ localize("Mobile.SalesLogix.Views.Ticket.List", {
   "modifiedText": "Geändert ",
   "neededByText": "Erforderlich  ",
   "hashTagQueriesText": {
-    "assigned-to-me": "mir zugewiesen",
-    "completed-by-me": "von mir ausgefüllt"
+    "assigned-to-me": "mir-zugewiesen",
+    "completed-by-me": "von-mir-ausgefüllt"
   }
 });
 

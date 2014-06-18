@@ -27,10 +27,43 @@ localize("Sage.Platform.Mobile.Format", {
   "bytesText": "байт"
 });
 
+localize("Mobile.SalesLogix.Recurrence", {
+  "dayFormatText": "DD",
+  "monthFormatText": "ММ",
+  "monthAndDayFormatText": "ММ.DD",
+  "weekdayFormatText": "dddd",
+  "endDateFormatText": "D.М.YYYY",
+  "neverText": "Никогда",
+  "daysText": "Дней",
+  "dailyText": "Ежедневно",
+  "weeksText": "недель",
+  "weeklyText": "Еженедельно",
+  "weeklyOnText": "Еженедельно (${3})",
+  "monthsText": "месяцев",
+  "monthlyText": "Ежемесячно",
+  "monthlyOnDayText": "Ежемесячно (${1})",
+  "monthlyOnText": "Ежемесячно (${5} ${3})",
+  "yearsText": "лет",
+  "yearlyText": "Ежегодно",
+  "yearlyOnText": "Ежегодно (${2})",
+  "yearlyOnWeekdayText": "Ежегодно (${5} ${3} в ${4})",
+  "everyText": "каждые ${0} ${1}",
+  "afterCompletionText": "по завершении",
+  "untilEndDateText": "${0} вплоть до ${1}",
+  "ordText": {
+    "0": "День",
+    "1": "Имя",
+    "2": "втор.",
+    "3": "трет.",
+    "4": "четверт.",
+    "5": "Фамилия"
+  }
+});
+
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "completedFormatText": "D.M.YYYY H:mm",
   "startingFormatText": "D.M.YYYY H:mm",
-  "startingTimelessFormatText": "D.M.YYYY",
+  "startingTimelessFormatText": "D.М.YYYY",
   "activityInfoText": "Информация о действии",
   "accountText": "Субъект",
   "contactText": "Контакт",
@@ -59,7 +92,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Результат",
   "resultTitleText": "Результат",
   "startingText": "Дата начала",
-  "timelessText": "Без времени",
+  "timelessText": "Без-времени",
   "durationValueText": {
     "0": "Нет",
     "15": "15 минут",
@@ -79,7 +112,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "startDateFormatText": "D.M.YYYY H:mm:ss",
-  "timelessDateFormatText": "D.M.YYYY",
+  "timelessDateFormatText": "D.М.YYYY",
   "alarmDateFormatText": "D.M.YYYY H:mm:ss",
   "activityTypeText": {
     "atToDo": "Выполнить",
@@ -104,7 +137,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "rolloverText": "Автопродление",
   "startTimeText": "Время начала",
   "allDayText": "Дата начала",
-  "timelessText": "Без времени",
+  "timelessText": "Без-времени",
   "titleText": "Дело",
   "typeText": "Тип",
   "companyText": "Компания",
@@ -125,7 +158,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "startingFormatText": "D.M.YYYY H:mm",
-  "startingTimelessFormatText": "D.M.YYYY",
+  "startingTimelessFormatText": "D.М.YYYY",
   "activityCategoryTitleText": "Категория действия",
   "activityDescriptionTitleText": "Описание Дела",
   "locationText": "Размещение",
@@ -149,7 +182,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "repeatsText": "повтор",
   "recurringText": "повторяется",
   "recurringTitleText": "Повторяется",
-  "timelessText": "Без времени",
+  "timelessText": "Без-времени",
   "titleText": "Дело",
   "typeText": "Тип",
   "accountText": "Субъект",
@@ -209,7 +242,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "Оповещение",
     "recurring": "повторяется",
-    "timeless": "Без времени",
+    "timeless": "Без-времени",
     "today": "Сегодня",
     "this-week": "на-этой-неделе",
     "yesterday": "Вчера"
@@ -241,7 +274,7 @@ localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.DayView", {
-  "eventDateFormatText": "D.M.YYYY",
+  "eventDateFormatText": "D.М.YYYY",
   "dateHeaderFormatText": "dddd, D.M.YYYY",
   "startTimeFormatText": "H:mm",
   "titleText": "Календарь",
@@ -259,7 +292,7 @@ localize("Mobile.SalesLogix.Views.Calendar.DayView", {
 localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "monthTitleFormatText": "MMMM YYYY",
   "dayTitleFormatText": "ddd D MMM, YYYY",
-  "eventDateFormatText": "D.M.YYYY",
+  "eventDateFormatText": "D.М.YYYY",
   "startTimeFormatText": "H:mm",
   "titleText": "Календарь",
   "todayText": "Сегодня",
@@ -278,7 +311,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "weekTitleFormatText": "D MMM, YYYY",
   "dayHeaderLeftFormatText": "dddd",
   "dayHeaderRightFormatText": "D MMM, YYYY",
-  "eventDateFormatText": "D.M.YYYY",
+  "eventDateFormatText": "D.М.YYYY",
   "startTimeFormatText": "H:mm",
   "titleText": "Календарь",
   "todayText": "Сегодня",
@@ -340,7 +373,7 @@ localize("Mobile.SalesLogix.Views.Event.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.Event.List", {
-  "eventDateFormatText": "D.M.YYYY",
+  "eventDateFormatText": "D.М.YYYY",
   "titleText": "События",
   "eventText": "Событие"
 });
@@ -357,7 +390,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   "regardingText": "Тема",
   "completedByText": "Завершено",
   "scheduledText": "Запланировано",
-  "timelessText": "Без времени",
+  "timelessText": "Без-времени",
   "companyText": "Компания",
   "leadText": "Наводка",
   "titleText": "История",
@@ -674,6 +707,32 @@ localize("Mobile.SalesLogix.ApplicationModule", {
   "searchText": "Поиск"
 });
 
+localize("Mobile.SalesLogix.DefaultMetrics", {
+  "accountsText": {
+    "totalRevenue": "Общий доход",
+    "averageTime": "Среднее время как клиент",
+    "total": "Всего счетов"
+  },
+  "opportunitiesText": {
+    "total": "Всего возможностей",
+    "potential": "Потенциал продаж"
+  },
+  "ticketsText": {
+    "total": "Всего квитанций",
+    "averageOpen": "Средняя продолжительность использования"
+  },
+  "contactsText": {
+    "total": "Всего контактов"
+  },
+  "leadsText": {
+    "total": "Всего идей"
+  },
+  "historyText": {
+    "total": "Общий журнал",
+    "duration": "Общая продолжительность"
+  }
+});
+
 localize("Mobile.SalesLogix.Fields.AddressField", {
   "lookupLabelText": "Изменить",
   "emptyText": ""
@@ -701,34 +760,6 @@ localize("Mobile.SalesLogix.Format", {
     "billion": "млрд",
     "million": "млн",
     "thousand": "тыс."
-  }
-});
-
-localize("Mobile.SalesLogix.Recurrence", {
-  "neverText": "Никогда",
-  "daysText": "Дней",
-  "dailyText": "Ежедневно",
-  "weeksText": "недель",
-  "weeklyText": "Еженедельно",
-  "weeklyOnText": "Еженедельно (${3})",
-  "monthsText": "месяцев",
-  "monthlyText": "Ежемесячно",
-  "monthlyOnDayText": "Ежемесячно (${1})",
-  "monthlyOnText": "Ежемесячно (${5} ${3})",
-  "yearsText": "лет",
-  "yearlyText": "Ежегодно",
-  "yearlyOnText": "Ежегодно (${2})",
-  "yearlyOnWeekdayText": "Ежегодно (${5} ${3} в ${4})",
-  "everyText": "каждые ${0} ${1}",
-  "afterCompletionText": "по завершении",
-  "untilEndDateText": "${0} вплоть до ${1}",
-  "ordText": {
-    "0": "День",
-    "1": "Имя",
-    "2": "втор.",
-    "3": "трет.",
-    "4": "четверт.",
-    "5": "Фамилия"
   }
 });
 
@@ -811,7 +842,7 @@ localize("Mobile.SalesLogix.Views.Account.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Account.Edit", {
-  "accountStatusTitleText": "Состояние учетной записи",
+  "accountStatusTitleText": "Статус учетной записи",
   "accountSubTypeTitleText": "Подтип учетной записи",
   "accountText": "Субъект",
   "accountTypeTitleText": "Тип субъекта",
@@ -847,7 +878,7 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "phoneAbbreviationText": "Телефон: ",
   "faxAbbreviationText": "Факс: ",
   "hashTagQueriesText": {
-    "my-accounts": "мои учетные записи",
+    "my-accounts": "мои-учетные-записи",
     "active": "Активн.",
     "inactive": "Неактивна",
     "suspect": "подозрительный",
@@ -856,13 +887,9 @@ localize("Mobile.SalesLogix.Views.Account.List", {
     "customer": "Клиент",
     "partner": "Партнер",
     "vendor": "Поставщик",
-    "influencer": "источник влияния",
+    "influencer": "источник-влияния",
     "competitor": "Конкурент"
   }
-});
-
-localize("Mobile.SalesLogix.Views.Account.SlxGroupList", {
-  "titleText": "Субъекты"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.MyList", {
@@ -878,11 +905,11 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
   "viewOpportunityActionText": "Сделка",
   "hashTagQueriesText": {
     "alarm": "Оповещение",
-    "status-unconfirmed": "статус-нет подтверждения",
-    "status-accepted": "статус утверждено",
+    "status-unconfirmed": "статус-нет-подтверждения",
+    "status-accepted": "статус-утверждено",
     "status-declined": "статус-отмена",
     "recurring": "повторяется",
-    "timeless": "Без времени",
+    "timeless": "Без-времени",
     "today": "Сегодня",
     "this-week": "на-этой-неделе",
     "yesterday": "Вчера"
@@ -928,7 +955,7 @@ localize("Mobile.SalesLogix.Views.Activity.TypesList", {
 
 localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "accountNameText": "Субъект",
-  "accountStatusTitleText": "Статус учетной записи",
+  "accountStatusTitleText": "Состояние учетной записи",
   "accountSubTypeTitleText": "Подтип учетной записи",
   "accountText": "Субъект",
   "accountTypeTitleText": "Тип субъекта",
@@ -1586,12 +1613,12 @@ localize("Mobile.SalesLogix.Views.User.List", {
 
 localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
   "itemIconAltText": "Контакт",
-  "allRecordsText": "поиск не выполнялся"
+  "allRecordsText": "поиск не выполнен"
 });
 
 localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
-  "hashTagsSectionText": "Тематические метки",
-  "kpiSectionText": "Ключевые показатели производительности"
+  "hashTagsSectionText": "Хэш-теги",
+  "kpiSectionText": "КПЭ"
 });
 
 localize("Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin", {

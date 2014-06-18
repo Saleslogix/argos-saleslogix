@@ -27,6 +27,39 @@ localize("Sage.Platform.Mobile.Format", {
   "bytesText": "octets"
 });
 
+localize("Mobile.SalesLogix.Recurrence", {
+  "dayFormatText": "DD",
+  "monthFormatText": "MM",
+  "monthAndDayFormatText": "DD/MM",
+  "weekdayFormatText": "dddd",
+  "endDateFormatText": "D/M/YYYY",
+  "neverText": "Jamais",
+  "daysText": "Jours",
+  "dailyText": "Quotidienne",
+  "weeksText": "semaines",
+  "weeklyText": "Hebdomadaire",
+  "weeklyOnText": "Toutes les semaines le ${3}",
+  "monthsText": "mois",
+  "monthlyText": "Mensuelle",
+  "monthlyOnDayText": "Tous les mois le ${1}",
+  "monthlyOnText": "Tous les mois le ${5} ${3}",
+  "yearsText": "ans",
+  "yearlyText": "Annuelle",
+  "yearlyOnText": "Tous les ans le ${2}",
+  "yearlyOnWeekdayText": "Tous les ans le ${5} ${3} en ${4}",
+  "everyText": "chaque ${0} ${1}",
+  "afterCompletionText": "après la fin",
+  "untilEndDateText": "${0} jusqu'à ${1}",
+  "ordText": {
+    "0": "Jour",
+    "1": "Prénom",
+    "2": "deuxième",
+    "3": "troisième",
+    "4": "quatrième",
+    "5": "Dernier"
+  }
+});
+
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "completedFormatText": "D/M/YYYY H:mm",
   "startingFormatText": "D/M/YYYY H:mm",
@@ -59,7 +92,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Résultat",
   "resultTitleText": "Résultat",
   "startingText": "Date de début",
-  "timelessText": "heure indéfinie",
+  "timelessText": "heure-indéfinie",
   "durationValueText": {
     "0": "Aucun",
     "15": "15 minutes",
@@ -104,7 +137,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "rolloverText": "report automatique",
   "startTimeText": "Heure de début",
   "allDayText": "toute la journée",
-  "timelessText": "heure indéfinie",
+  "timelessText": "heure-indéfinie",
   "titleText": "Activité",
   "typeText": "Type",
   "companyText": "Société",
@@ -149,7 +182,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "repeatsText": "répétitions",
   "recurringText": "périodicité",
   "recurringTitleText": "Périodicité",
-  "timelessText": "heure indéfinie",
+  "timelessText": "heure-indéfinie",
   "titleText": "Activité",
   "typeText": "Type",
   "accountText": "Compte",
@@ -209,7 +242,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "alarme",
     "recurring": "périodicité",
-    "timeless": "heure indéfinie",
+    "timeless": "heure-indéfinie",
     "today": "aujourd'hui",
     "this-week": "cette-semaine",
     "yesterday": "hier"
@@ -357,7 +390,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   "regardingText": "Objet",
   "completedByText": "Terminé par",
   "scheduledText": "Planifié",
-  "timelessText": "heure indéfinie",
+  "timelessText": "heure-indéfinie",
   "companyText": "Société",
   "leadText": "Lead",
   "titleText": "Historique",
@@ -417,7 +450,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
   "hashTagQueriesText": {
     "my-history": "mon-historique",
     "note": "Note",
-    "phonecall": "appel téléphonique",
+    "phonecall": "appel-téléphonique",
     "meeting": "Rendez-vous",
     "personal": "Personnel",
     "email": "E-mail"
@@ -674,6 +707,32 @@ localize("Mobile.SalesLogix.ApplicationModule", {
   "searchText": "Recherche"
 });
 
+localize("Mobile.SalesLogix.DefaultMetrics", {
+  "accountsText": {
+    "totalRevenue": "Revenu total",
+    "averageTime": "Durée moyenne par client",
+    "total": "Total des comptes"
+  },
+  "opportunitiesText": {
+    "total": "Total des opportunités",
+    "potential": "Potentiel de vente"
+  },
+  "ticketsText": {
+    "total": "Total des tickets",
+    "averageOpen": "Ancienneté moyenne"
+  },
+  "contactsText": {
+    "total": "Total des contacts"
+  },
+  "leadsText": {
+    "total": "Total des prospects"
+  },
+  "historyText": {
+    "total": "Historique complet",
+    "duration": "Durée totale"
+  }
+});
+
 localize("Mobile.SalesLogix.Fields.AddressField", {
   "lookupLabelText": "Modifier",
   "emptyText": ""
@@ -701,34 +760,6 @@ localize("Mobile.SalesLogix.Format", {
     "billion": "G",
     "million": "M",
     "thousand": "K"
-  }
-});
-
-localize("Mobile.SalesLogix.Recurrence", {
-  "neverText": "Jamais",
-  "daysText": "Jours",
-  "dailyText": "Quotidienne",
-  "weeksText": "semaines",
-  "weeklyText": "Hebdomadaire",
-  "weeklyOnText": "Toutes les semaines le ${3}",
-  "monthsText": "mois",
-  "monthlyText": "Mensuelle",
-  "monthlyOnDayText": "Tous les mois le ${1}",
-  "monthlyOnText": "Tous les mois le ${5} ${3}",
-  "yearsText": "ans",
-  "yearlyText": "Annuelle",
-  "yearlyOnText": "Tous les ans le ${2}",
-  "yearlyOnWeekdayText": "Tous les ans le ${5} ${3} en ${4}",
-  "everyText": "chaque ${0} ${1}",
-  "afterCompletionText": "après la fin",
-  "untilEndDateText": "${0} jusqu'à ${1}",
-  "ordText": {
-    "0": "Jour",
-    "1": "Prénom",
-    "2": "deuxième",
-    "3": "troisième",
-    "4": "quatrième",
-    "5": "Dernier"
   }
 });
 
@@ -861,10 +892,6 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   }
 });
 
-localize("Mobile.SalesLogix.Views.Account.SlxGroupList", {
-  "titleText": "Comptes"
-});
-
 localize("Mobile.SalesLogix.Views.Activity.MyList", {
   "titleText": "Mes activités",
   "completeActivityText": "Terminer",
@@ -882,7 +909,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
     "status-accepted": "statut-accepté",
     "status-declined": "statut-refusé",
     "recurring": "périodicité",
-    "timeless": "heure indéfinie",
+    "timeless": "heure-indéfinie",
     "today": "aujourd'hui",
     "this-week": "cette-semaine",
     "yesterday": "hier"

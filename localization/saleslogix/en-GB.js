@@ -13,6 +13,14 @@ localize("Sage.Platform.Mobile.Format", {
   "percentFormatText": "${0}${1}"
 });
 
+localize("Mobile.SalesLogix.Recurrence", {
+  "dayFormatText": "DD",
+  "monthFormatText": "MM",
+  "monthAndDayFormatText": "DD/MM",
+  "weekdayFormatText": "dddd",
+  "endDateFormatText": "D/M/YYYY"
+});
+
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "completedFormatText": "D/M/YYYY h:mm A",
   "startingFormatText": "D/M/YYYY h:mm A",
