@@ -52,11 +52,11 @@ localize("Mobile.SalesLogix.Recurrence", {
   "untilEndDateText": "${0} bis ${1}",
   "ordText": {
     "0": "Tag",
-    "1": "Vorname",
-    "2": "2.",
-    "3": "3.",
-    "4": "4.",
-    "5": "Nachnahme"
+    "1": "Ersten",
+    "2": "Zweiten",
+    "3": "Dritten",
+    "4": "Vierten",
+    "5": "Letzte"
   }
 });
 
@@ -1307,7 +1307,7 @@ localize("Mobile.SalesLogix.Views.MetricWidget", {
 
 localize("Mobile.SalesLogix.Views.NameEdit", {
   "titleText": "Name bearbeiten",
-  "firstNameText": "Vorname",
+  "firstNameText": "Ersten",
   "middleNameText": "Mittelname",
   "lastNameText": "Nachnahme",
   "prefixText": "Anrede",

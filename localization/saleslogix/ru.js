@@ -28,11 +28,11 @@ localize("Sage.Platform.Mobile.Format", {
 });
 
 localize("Mobile.SalesLogix.Recurrence", {
-  "dayFormatText": "DD",
-  "monthFormatText": "ММ",
-  "monthAndDayFormatText": "ММ.DD",
+  "dayFormatText": "D",
+  "monthFormatText": "M",
+  "monthAndDayFormatText": "D.M",
   "weekdayFormatText": "dddd",
-  "endDateFormatText": "D.М.YYYY",
+  "endDateFormatText": "D.M.YYYY",
   "neverText": "Никогда",
   "daysText": "Дней",
   "dailyText": "Ежедневно",
@@ -63,7 +63,7 @@ localize("Mobile.SalesLogix.Recurrence", {
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "completedFormatText": "D.M.YYYY H:mm",
   "startingFormatText": "D.M.YYYY H:mm",
-  "startingTimelessFormatText": "D.М.YYYY",
+  "startingTimelessFormatText": "D.M.YYYY",
   "activityInfoText": "Информация о действии",
   "accountText": "Субъект",
   "contactText": "Контакт",
@@ -112,7 +112,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "startDateFormatText": "D.M.YYYY H:mm:ss",
-  "timelessDateFormatText": "D.М.YYYY",
+  "timelessDateFormatText": "D.M.YYYY",
   "alarmDateFormatText": "D.M.YYYY H:mm:ss",
   "activityTypeText": {
     "atToDo": "Выполнить",
@@ -158,7 +158,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "startingFormatText": "D.M.YYYY H:mm",
-  "startingTimelessFormatText": "D.М.YYYY",
+  "startingTimelessFormatText": "D.M.YYYY",
   "activityCategoryTitleText": "Категория действия",
   "activityDescriptionTitleText": "Описание Дела",
   "locationText": "Размещение",
@@ -274,7 +274,7 @@ localize("Mobile.SalesLogix.Views.Attachment.ViewAttachment", {
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.DayView", {
-  "eventDateFormatText": "D.М.YYYY",
+  "eventDateFormatText": "D.M.YYYY",
   "dateHeaderFormatText": "dddd, D.M.YYYY",
   "startTimeFormatText": "H:mm",
   "titleText": "Календарь",
@@ -292,7 +292,7 @@ localize("Mobile.SalesLogix.Views.Calendar.DayView", {
 localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "monthTitleFormatText": "MMMM YYYY",
   "dayTitleFormatText": "ddd D MMM, YYYY",
-  "eventDateFormatText": "D.М.YYYY",
+  "eventDateFormatText": "D.M.YYYY",
   "startTimeFormatText": "H:mm",
   "titleText": "Календарь",
   "todayText": "Сегодня",
@@ -311,7 +311,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "weekTitleFormatText": "D MMM, YYYY",
   "dayHeaderLeftFormatText": "dddd",
   "dayHeaderRightFormatText": "D MMM, YYYY",
-  "eventDateFormatText": "D.М.YYYY",
+  "eventDateFormatText": "D.M.YYYY",
   "startTimeFormatText": "H:mm",
   "titleText": "Календарь",
   "todayText": "Сегодня",
@@ -373,7 +373,7 @@ localize("Mobile.SalesLogix.Views.Event.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.Event.List", {
-  "eventDateFormatText": "D.М.YYYY",
+  "eventDateFormatText": "D.M.YYYY",
   "titleText": "События",
   "eventText": "Событие"
 });
