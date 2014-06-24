@@ -944,6 +944,46 @@
     <description/>
     <value>Fax: </value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[active]" type="text">
+    <description/>
+    <value>Active</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[inactive]" type="text">
+    <description/>
+    <value>Inactive</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[suspect]" type="text">
+    <description/>
+    <value>Suspect</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[lead]" type="text">
+    <description/>
+    <value>Lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[prospect]" type="text">
+    <description/>
+    <value>Prospect</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[customer]" type="text">
+    <description/>
+    <value>Customer</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[partner]" type="text">
+    <description/>
+    <value>Partner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[vendor]" type="text">
+    <description/>
+    <value>Vendor</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[influencer]" type="text">
+    <description/>
+    <value>Influencer</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[competitor]" type="text">
+    <description/>
+    <value>Competitor</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[my-accounts]" type="text">
     <description/>
     <value>my-accounts</value>
@@ -3735,6 +3775,46 @@
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[decision]" type="text">
     <description/>
     <value>decision</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[open]" type="text">
+    <description/>
+    <value>Open</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[won]" type="text">
+    <description/>
+    <value>Closed - Won</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[lost]" type="text">
+    <description/>
+    <value>Closed - Lost</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[inactive]" type="text">
+    <description/>
+    <value>Inactive</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[prospect]" type="text">
+    <description/>
+    <value>1-Prospect</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[qualification]" type="text">
+    <description/>
+    <value>2-Qualification</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[needs-analysis]" type="text">
+    <description/>
+    <value>3-Needs Analysis</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[demonstration]" type="text">
+    <description/>
+    <value>4-Demonstration</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[negotiation]" type="text">
+    <description/>
+    <value>5-Negotiation</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[decision]" type="text">
+    <description/>
+    <value>6-Decision</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="titleText" type="text">
     <description/>
