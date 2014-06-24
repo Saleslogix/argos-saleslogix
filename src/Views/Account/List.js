@@ -71,6 +71,20 @@ define('Mobile/SalesLogix/Views/Account/List', [
         phoneAbbreviationText: 'Phone: ',
         faxAbbreviationText: 'Fax: ',
 
+        // Important - These values must match the picklist translations
+        hashTagExpressionText: {
+            'active': 'Active',
+            'inactive': 'Inactive',
+            'suspect': 'Suspect',
+            'lead': 'Lead',
+            'prospect': 'Prospect',
+            'customer': 'Customer',
+            'partner': 'Partner',
+            'vendor': 'Vendor',
+            'influencer': 'Influencer',
+            'competitor': 'Competitor'
+        },
+
         //View Properties        
         detailView: 'account_detail',
         icon: 'content/images/icons/Company_24.png',
@@ -105,16 +119,46 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'my-accounts': function() {
                 return 'AccountManager.Id eq "' + App.context.user.$key + '"';
             },
-            'active': 'Status eq "Active"',
-            'inactive': 'Status eq "Inactive"',
-            'suspect': 'Type eq "Suspect"',
-            'lead': 'Type eq "Lead"',
-            'prospect': 'Type eq "Prospect"',
-            'customer': 'Type eq "Customer"',
-            'partner': 'Type eq "Partner"',
-            'vendor': 'Type eq "Vendor"',
-            'influencer': 'Type eq "Influencer"',
-            'competitor': 'Type eq "Competitor"'
+            'active': function() {
+                var list = this.owner;
+                return 'Status eq "' + list.hashTagExpressionText['active'] + '"'; //'Status eq "Active"'
+            },
+            'inactive': function() {
+                var list = this.owner;
+                return 'Status eq "' + list.hashTagExpressionText['inactive'] + '"'; //'Status eq "Inactive"'
+            },
+            'suspect': function() {
+                var list = this.owner;
+                return 'Type eq "' + list.hashTagExpressionText['suspect'] + '"'; //'Type eq "Suspect"'
+            },
+            'lead': function() {
+                var list = this.owner;
+                return 'Type eq "' + list.hashTagExpressionText['lead'] + '"'; //'Type eq "Lead"'
+            },
+            'prospect': function() {
+                var list = this.owner;
+                return 'Type eq "' + list.hashTagExpressionText['prospect'] + '"'; //'Type eq "Prospect"'
+            },
+            'customer': function() {
+                var list = this.owner;
+                return 'Type eq "' + list.hashTagExpressionText['customer'] + '"'; //'Type eq "Customer"'
+            },
+            'partner': function() {
+                var list = this.owner;
+                return 'Type eq "' + list.hashTagExpressionText['partner'] + '"'; //'Type eq "Partner"'
+            },
+            'vendor': function() {
+                var list = this.owner;
+                return 'Type eq "' + list.hashTagExpressionText['vendor'] + '"'; //'Type eq "Vendor"'
+            },
+            'influencer': function() {
+                var list = this.owner;
+                return 'Type eq "' + list.hashTagExpressionText['influencer'] + '"'; //'Type eq "Influencer"'
+            },
+            'competitor': function() {
+                var list = this.owner;
+                return 'Type eq "' + list.hashTagExpressionText['competitor'] + '"'; //'Type eq "Competitor"'
+            }
         },
         hashTagQueriesText: {
             'my-accounts': 'my-accounts',
