@@ -323,7 +323,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len, store, def;
+            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len;
 
             layout = [];
 

@@ -344,7 +344,12 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             for (var key in selections) {
                 if (selections[key]) {
-                    values.push(moment().lang()._weekdaysShort[key]);
+                    //https://github.com/moment/moment/issues/682
+                    if (moment().lang()._abbr === 'ru') {
+                        values.push(moment().lang()._weekdaysShort[key]);
+                    } else {
+                        values.push(moment().lang()._weekdays[key]);
+                    }
                     weekdays[key] = 1;
                 }
             }
@@ -362,21 +367,26 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
-
-            return moment().lang()._weekdays[parseInt(selection, 10)];
+            if (moment().lang()._abbr === 'ru') {
+                return moment().lang()._weekdaysShort[parseInt(selection, 10)];
+            } else {
+                return moment().lang()._weekdays[parseInt(selection, 10)];
+            }
         },
         formatMonth: function(selection) {
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
-
-            return moment().lang()._months[parseInt(selection, 10) - 1];
+            if (moment().lang()._abbr === 'ru') {
+                return moment().lang()._monthsShort[parseInt(selection, 10) - 1];
+            } else {
+                return moment().lang()._months[parseInt(selection, 10) - 1];
+            }
         },
         formatOrd: function(selection) {
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
-
             return recur.ordText[parseInt(selection, 10)];
         },
         preselectWeekdays: function() {
@@ -401,8 +411,15 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             return {'$resources': list};
         },
         createWeekdaysData: function() {
-            var list = [];
-            array.forEach(moment().lang()._weekdays, function(name, idx) {
+            var list = [], weekDays;
+            //https://github.com/moment/moment/issues/682
+             if (moment().lang()._abbr === 'ru') {
+                weekDays = moment().lang()._weekdaysShort;
+             } else {
+                weekDays = moment().lang()._weekdays;
+             }
+
+            array.forEach(weekDays, function(name, idx) {
                 list.push({
                     '$key': idx,
                     '$descriptor': name
@@ -411,8 +428,14 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
             return {'$resources': list};
         },
         createMonthsData: function() {
-            var list = [];
-            array.forEach(moment.months, function(name, idx) {
+            var list = [], months;
+            //https://github.com/moment/moment/issues/682
+            if (moment().lang()._abbr === 'ru') {
+                months = moment().lang()._monthsShort;
+            } else {
+                months = moment().lang()._months;
+            }
+            array.forEach(months, function(name, idx) {
                 list.push({
                     '$key': idx,
                     '$descriptor': name 

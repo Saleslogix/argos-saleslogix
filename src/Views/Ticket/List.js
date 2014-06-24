@@ -43,7 +43,10 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',
             '<h4>{%: $.Subject %}</h3>',
-            '{% if($.Account) { %}',
+            '{% if(($.Account) && (!$.Contact)) { %}',
+                '<h4>{%: $$.viewContactActionText + ": " + $.Account.AccountName %}</h4>',
+            '{% } %}',
+            '{% if(($.Account) && ($.Contact)) { %}',
                 '<h4>{%: $$.viewContactActionText + ": " + $.Contact.NameLF + " | " + $.Account.AccountName %}</h4>',
             '{% } %}',
             '<h4> {%: $.AssignedTo ? ($$.assignedToText + $.AssignedTo.OwnerDescription) : this.notAssignedText %}</h4>',

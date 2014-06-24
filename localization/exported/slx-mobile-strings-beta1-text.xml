@@ -156,10 +156,6 @@
     <description/>
     <value>...</value>
   </data>
-  <data class="Sage.Platform.Mobile.Fields.NoteField" property="emptyText" type="text">
-    <description/>
-    <value/>
-  </data>
   <data class="Sage.Platform.Mobile.Fields.SignatureField" property="signatureLabelText" type="text">
     <description/>
     <value>signature</value>
@@ -312,6 +308,10 @@
     <description/>
     <value>List</value>
   </data>
+  <data class="Sage.Platform.Mobile.List" property="errorRenderText" type="text">
+    <description/>
+    <value>Error rendering row template.</value>
+  </data>
   <data class="Sage.Platform.Mobile.List" property="remainingText" type="text">
     <description/>
     <value>${0} records remaining</value>
@@ -408,6 +408,10 @@
     <description/>
     <value>bytes</value>
   </data>
+  <data class="Sage.Platform.Mobile.Views.FileSelect" property="notSupportedText" type="text">
+    <description/>
+    <value>Adding attachments is not supported by your device.</value>
+  </data>
   <data class="Sage.Platform.Mobile.Views.Signature" property="titleText" type="text">
     <description/>
     <value>Signature</value>
@@ -428,9 +432,57 @@
     <description/>
     <value>E-mailed ${0}</value>
   </data>
+  <data class="Mobile.SalesLogix.Application" property="versionInfoText" type="text">
+    <description/>
+    <value>Mobile v${0}.${1}.${2} / Saleslogix v${3} platform</value>
+  </data>
   <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="text">
     <description/>
     <value>Lookup</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="accountsText[totalRevenue]" type="text">
+    <description/>
+    <value>Total Revenue</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="accountsText[averageTime]" type="text">
+    <description/>
+    <value>Avg Time as Customer</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="accountsText[total]" type="text">
+    <description/>
+    <value>Total Accounts</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[total]" type="text">
+    <description/>
+    <value>Total Opportunities</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[potential]" type="text">
+    <description/>
+    <value>Sales Potential</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="ticketsText[total]" type="text">
+    <description/>
+    <value>Total Tickets</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="ticketsText[averageOpen]" type="text">
+    <description/>
+    <value>Open Age Average</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="contactsText[total]" type="text">
+    <description/>
+    <value>Total Contacts</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="leadsText[total]" type="text">
+    <description/>
+    <value>Total Leads</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="historyText[total]" type="text">
+    <description/>
+    <value>Total History</value>
+  </data>
+  <data class="Mobile.SalesLogix.DefaultMetrics" property="historyText[duration]" type="text">
+    <description/>
+    <value>Total Duration</value>
   </data>
   <data class="Mobile.SalesLogix.Fields.AddressField" property="lookupLabelText" type="text">
     <description/>
@@ -892,6 +944,46 @@
     <description/>
     <value>Fax: </value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[active]" type="text">
+    <description/>
+    <value>Active</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[inactive]" type="text">
+    <description/>
+    <value>Inactive</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[suspect]" type="text">
+    <description/>
+    <value>Suspect</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[lead]" type="text">
+    <description/>
+    <value>Lead</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[prospect]" type="text">
+    <description/>
+    <value>Prospect</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[customer]" type="text">
+    <description/>
+    <value>Customer</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[partner]" type="text">
+    <description/>
+    <value>Partner</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[vendor]" type="text">
+    <description/>
+    <value>Vendor</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[influencer]" type="text">
+    <description/>
+    <value>Influencer</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[competitor]" type="text">
+    <description/>
+    <value>Competitor</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[my-accounts]" type="text">
     <description/>
     <value>my-accounts</value>
@@ -1047,10 +1139,6 @@
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="startingText" type="text">
     <description/>
     <value>start date</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Activity.Complete" property="startingFormatTimelessText" type="text">
-    <description/>
-    <value>M/D/YYYY</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="timelessText" type="text">
     <description/>
@@ -1332,10 +1420,6 @@
     <description/>
     <value>start time</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingFormatTimelessText" type="text">
-    <description/>
-    <value>M/D/YYYY</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="repeatsText" type="text">
     <description/>
     <value>repeats</value>
@@ -1471,6 +1555,30 @@
   <data class="Mobile.SalesLogix.Views.Activity.List" property="addAttachmentActionText" type="text">
     <description/>
     <value>Add Attachment</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="overdueText" type="text">
+    <description/>
+    <value>overdue</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="alarmText" type="text">
+    <description/>
+    <value>alarm</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="touchedText" type="text">
+    <description/>
+    <value>touched</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="importantText" type="text">
+    <description/>
+    <value>important</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="recurringText" type="text">
+    <description/>
+    <value>recurring</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityText" type="text">
+    <description/>
+    <value>activity</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
     <description/>
@@ -1944,6 +2052,10 @@
     <description/>
     <value>user</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="newWindowText" type="text">
+    <description/>
+    <value>Open in new window</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="attachmentNotSupportedText" type="text">
     <description/>
     <value>The attachment type is not supported for viewing.</value>
@@ -1951,6 +2063,10 @@
   <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="downloadingText" type="text">
     <description/>
     <value>Downloading attachment ...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="notSupportedText" type="text">
+    <description/>
+    <value>Viewing attachments is not supported by your device.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="titleText" type="text">
     <description/>
@@ -1986,7 +2102,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="eventMoreText" type="text">
     <description/>
-    <value>View ${0} More Event(s)</value>
+    <value>View More Event(s)</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="toggleCollapseText" type="text">
     <description/>
@@ -2534,7 +2650,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.FooterToolbar" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2013 SalesLogix, NA, LLC. All rights reserved.</value>
+    <value>&amp;copy; 2014 SalesLogix, NA, LLC. All rights reserved.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Help" property="titleText" type="text">
     <description/>
@@ -3214,7 +3330,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2013 SalesLogix, NA, LLC. All rights reserved.</value>
+    <value>&amp;copy; 2014 SalesLogix, NA, LLC. All rights reserved.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
@@ -3659,6 +3775,46 @@
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[decision]" type="text">
     <description/>
     <value>decision</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[open]" type="text">
+    <description/>
+    <value>Open</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[won]" type="text">
+    <description/>
+    <value>Closed - Won</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[lost]" type="text">
+    <description/>
+    <value>Closed - Lost</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[inactive]" type="text">
+    <description/>
+    <value>Inactive</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[prospect]" type="text">
+    <description/>
+    <value>1-Prospect</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[qualification]" type="text">
+    <description/>
+    <value>2-Qualification</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[needs-analysis]" type="text">
+    <description/>
+    <value>3-Needs Analysis</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[demonstration]" type="text">
+    <description/>
+    <value>4-Demonstration</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[negotiation]" type="text">
+    <description/>
+    <value>5-Negotiation</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[decision]" type="text">
+    <description/>
+    <value>6-Decision</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="titleText" type="text">
     <description/>

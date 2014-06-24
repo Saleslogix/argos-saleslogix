@@ -151,7 +151,9 @@
                         return;
                     }
 
-                    moment.lang('<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.ToString().ToLower() %>');
+                    var culture = '<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.Name.ToLower() %>';
+                    moment.lang(culture);
+                    configuration.currentCulture = culture;
                     window.moment = moment;
 
                     var instance = new application(configuration);

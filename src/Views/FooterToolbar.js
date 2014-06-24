@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
 
     return declare('Mobile.SalesLogix.Views.FooterToolbar', [MainToolbar], {
         // Localization
-        copyrightText: '&copy; 2013 SalesLogix, NA, LLC. All rights reserved.',
+        copyrightText: '&copy; 2014 SalesLogix, NA, LLC. All rights reserved.',
 
         widgetTemplate: new Simplate([
             '<div class="footer-toolbar {%= $.cls %}">',

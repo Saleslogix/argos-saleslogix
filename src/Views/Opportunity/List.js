@@ -116,6 +116,19 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'demonstration': 'demonstration',
             'decision': 'decision'
         },
+        // Important - These values must match the picklist translations
+        hashTagExpressionText: {
+            'open': 'Open',
+            'won': 'Closed - Won',
+            'lost': 'Closed - Lost',
+            'inactive': 'Inactive',
+            'prospect': '1-Prospect',
+            'qualification': '2-Qualification',
+            'needs-analysis': '3-Needs Analysis',
+            'demonstration': '4-Demonstration',
+            'negotiation': '5-Negotiation',
+            'decision': '6-Decision'
+        },
 
         //View Properties
         id: 'opportunity_list',
@@ -128,16 +141,46 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'my-opportunities': function() {
                 return 'AccountManager.Id eq "' + App.context.user.$key + '"';
             },
-            'open': 'Status eq "Open"',
-            'won': 'Status eq "Closed - Won"',
-            'lost': 'Status eq "Closed - Lost"',
-            'inactive': 'Status eq "Inactive"',
-            'prospect': 'Stage eq "1-Prospect"',
-            'qualification': 'Stage eq "2-Qualification"',
-            'needs-analysis': 'Stage eq "3-Needs Analysis"',
-            'demonstration': 'Stage eq "4-Demonstration"',
-            'negotiation': 'Stage eq "5-Negotiation"',
-            'decision': 'Stage eq "6-Decision"'
+            'open': function() {
+                var list = this.owner;
+                return 'Status eq "' + list.hashTagExpressionText['open'] + '"'; //'Status eq "Open"'
+            },
+            'won': function() {
+                var list = this.owner;
+                return 'Status eq "' + list.hashTagExpressionText['won'] + '"'; //'Status eq "Closed - Won"'
+            },
+            'lost': function() {
+                var list = this.owner;
+                return 'Status eq "' + list.hashTagExpressionText['lost'] + '"'; //'Status eq "Closed - Lost"'
+            },
+            'inactive': function() {
+                var list = this.owner;
+                return 'Status eq "' + list.hashTagExpressionText['inactive'] + '"'; //'Status eq "Inactive"'
+            },
+            'prospect': function() {
+                var list = this.owner;
+                return 'Stage eq "' + list.hashTagExpressionText['prospect'] + '"'; //'Stage eq "1-Prospect"'
+            },
+            'qualification': function() {
+                var list = this.owner;
+                return 'Stage eq "' + list.hashTagExpressionText['qualification'] + '"'; //'Stage eq "2-Qualification"'
+            },
+            'needs-analysis': function() {
+                var list = this.owner;
+                return 'Stage eq "' + list.hashTagExpressionText['needs-analysis'] + '"'; //'Stage eq "3-Needs Analysis"'
+            },
+            'demonstration': function() {
+                var list = this.owner;
+                return 'Stage eq "' + list.hashTagExpressionText['demonstration'] + '"'; //'Stage eq "4-Demonstration"'
+            },
+            'negotiation': function() {
+                var list = this.owner;
+                return 'Stage eq "' + list.hashTagExpressionText['negotiation'] + '"'; //'Stage eq "5-Negotiation"'
+            },
+            'decision': function() {
+                var list = this.owner;
+                return 'Stage eq "' + list.hashTagExpressionText['decision'] + '"'; //'Stage eq "6-Decision"'
+            }
         },
         statusIcons: {
             'Open': 'content/images/icons/opportunity_24.png',
@@ -192,7 +235,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             }, {
                 id: 'viewContacts',
                 icon: 'content/images/icons/Contacts_24x24.png',
-                label: 'Contacts',
+                label: this.viewContactsActionText,
                 fn: this.navigateToRelatedView.bindDelegate(this, 'opportunitycontact_related', 'Opportunity.Id eq "${0}"')
             }, {
                 id: 'viewProducts',

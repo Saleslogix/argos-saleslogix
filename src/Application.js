@@ -115,6 +115,7 @@ define('Mobile/SalesLogix/Application', [
                 request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
                 original.apply(this, arguments);
             };
+           
         },
         initConnects: function() {
             this.inherited(arguments);
@@ -567,6 +568,7 @@ define('Mobile/SalesLogix/Application', [
 
             currentLang = moment.lang();
             moment.lang(currentLang, custom);
+            this.moment = moment().lang(currentLang, custom);
         },
         /*
          * Builds an object that will get passed into moment.lang()

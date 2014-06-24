@@ -48,6 +48,12 @@ define('Mobile/SalesLogix/Recurrence', [
         everyText: 'every ${0} ${1}', // eg. every {2} {weeks}
         afterCompletionText: 'after completion',
         untilEndDateText: '${0} until ${1}', // eg. {daily} until {31/10/2012}
+        dayFormatText: 'DD',
+        monthFormatText: 'MM',
+        monthAndDayFormatText: 'MM/DD',
+        weekdayFormatText: 'dddd',
+        endDateFormatText: 'M/D/YYYY',
+
         ordText: [
             'day',
             'first',
@@ -161,7 +167,7 @@ define('Mobile/SalesLogix/Recurrence', [
                 textOptions = [
                     null, // scale, replaced in loop
                     day,
-                    wrapped.format('DD'),
+                    wrapped.format(this.dayFormatText),
                     wrapped.lang().weekdays(wrapped),
                     wrapped.lang().monthsShort(wrapped),
                     ord
@@ -331,13 +337,13 @@ define('Mobile/SalesLogix/Recurrence', [
                     : ((true === dependsOnPanel) ? '' : this.getPanel(rp)),
                 currentDate = Sage.Platform.Mobile.Convert.toDateFromString(entry['StartDate']),
                 day = currentDate.getDate(),
-                weekday = moment(currentDate).format('dddd'),
+                weekday = moment(currentDate).format(this.weekdayFormatText),
                 textOptions = [
                     text,
                     day,
-                    moment(currentDate).format('MM/DD'),
+                    moment(currentDate).format(this.monthAndDayFormatText),
                     this.getWeekdays(recurPeriodSpec, true),
-                    moment(currentDate).format('MMMM'),
+                    moment(currentDate).format(this.monthFormatText),
                     this.ordText[parseInt((day - 1) / 7, 10) + 1]
                 ];
 
@@ -380,7 +386,7 @@ define('Mobile/SalesLogix/Recurrence', [
             if (this.isAfterCompletion(rp)) {
                 text = string.substitute("${0} ${1}", [text, this.afterCompletionText]);
             } else {
-                text = string.substitute(this.untilEndDateText, [text, this.calcEndDate(currentDate, entry).format('M/D/YYYY')]);
+                text = string.substitute(this.untilEndDateText, [text, this.calcEndDate(currentDate, entry).format(this.endDateFormatText)]);
             }
 
             return text;
