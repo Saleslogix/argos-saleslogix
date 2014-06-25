@@ -93,13 +93,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'closed': 'closed',
             'won': 'won',
             'lost': 'lost',
-            'inactive': 'inactive',
-            'prospect': 'prospect',
-            'qualification': 'qualification',
-            'negotiation': 'negotiation',
-            'needs-analysis': 'needs-analysis',
-            'demonstration': 'demonstration',
-            'decision': 'decision'
+            'inactive': 'inactive'
         },
         // Important - These values must match the picklist translations
         hashTagExpressionText: {
@@ -134,13 +128,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'inactive': function() {
                 var list = this.owner;
                 return 'Status eq "' + list.hashTagExpressionText['inactive'] + '"'; //'Status eq "Inactive"'
-            },
-            'prospect': 'Stage eq "1-Prospect"',
-            'qualification': 'Stage eq "2-Qualification"',
-            'needs-analysis': 'Stage eq "3-Needs Analysis"',
-            'demonstration': 'Stage eq "4-Demonstration"',
-            'negotiation': 'Stage eq "5-Negotiation"',
-            'decision': 'Stage eq "6-Decision"'
+            }
         },
         statusIcons: {
             'Open': 'content/images/icons/opportunity_24.png',

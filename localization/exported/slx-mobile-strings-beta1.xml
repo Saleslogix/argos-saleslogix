@@ -3752,30 +3752,6 @@
     <description/>
     <value>inactive</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[prospect]" type="text">
-    <description/>
-    <value>prospect</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[qualification]" type="text">
-    <description/>
-    <value>qualification</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[negotiation]" type="text">
-    <description/>
-    <value>negotiation</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[needs-analysis]" type="text">
-    <description/>
-    <value>needs-analysis</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[demonstration]" type="text">
-    <description/>
-    <value>demonstration</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[decision]" type="text">
-    <description/>
-    <value>decision</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[open]" type="text">
     <description/>
     <value>Open</value>
