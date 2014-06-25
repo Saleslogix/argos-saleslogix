@@ -106,13 +106,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             'open': 'Open',
             'won': 'Closed - Won',
             'lost': 'Closed - Lost',
-            'inactive': 'Inactive',
-            'prospect': '1-Prospect',
-            'qualification': '2-Qualification',
-            'needs-analysis': '3-Needs Analysis',
-            'demonstration': '4-Demonstration',
-            'negotiation': '5-Negotiation',
-            'decision': '6-Decision'
+            'inactive': 'Inactive'
         },
 
         //View Properties
@@ -141,30 +135,12 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                 var list = this.owner;
                 return 'Status eq "' + list.hashTagExpressionText['inactive'] + '"'; //'Status eq "Inactive"'
             },
-            'prospect': function() {
-                var list = this.owner;
-                return 'Stage eq "' + list.hashTagExpressionText['prospect'] + '"'; //'Stage eq "1-Prospect"'
-            },
-            'qualification': function() {
-                var list = this.owner;
-                return 'Stage eq "' + list.hashTagExpressionText['qualification'] + '"'; //'Stage eq "2-Qualification"'
-            },
-            'needs-analysis': function() {
-                var list = this.owner;
-                return 'Stage eq "' + list.hashTagExpressionText['needs-analysis'] + '"'; //'Stage eq "3-Needs Analysis"'
-            },
-            'demonstration': function() {
-                var list = this.owner;
-                return 'Stage eq "' + list.hashTagExpressionText['demonstration'] + '"'; //'Stage eq "4-Demonstration"'
-            },
-            'negotiation': function() {
-                var list = this.owner;
-                return 'Stage eq "' + list.hashTagExpressionText['negotiation'] + '"'; //'Stage eq "5-Negotiation"'
-            },
-            'decision': function() {
-                var list = this.owner;
-                return 'Stage eq "' + list.hashTagExpressionText['decision'] + '"'; //'Stage eq "6-Decision"'
-            }
+            'prospect': 'Stage eq "1-Prospect"',
+            'qualification': 'Stage eq "2-Qualification"',
+            'needs-analysis': 'Stage eq "3-Needs Analysis"',
+            'demonstration': 'Stage eq "4-Demonstration"',
+            'negotiation': 'Stage eq "5-Negotiation"',
+            'decision': 'Stage eq "6-Decision"'
         },
         statusIcons: {
             'Open': 'content/images/icons/opportunity_24.png',
