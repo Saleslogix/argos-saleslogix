@@ -109,6 +109,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/History/Detail',
     'Mobile/SalesLogix/Views/History/Edit',
     'Mobile/SalesLogix/Views/History/RelatedView',
+    'Mobile/SalesLogix/Views/User/CalendarAccessList',
     'Mobile/SalesLogix/Views/User/List',
     'Mobile/SalesLogix/Views/Attachment/ViewAttachment',
     'Mobile/SalesLogix/Views/Attachment/List',
@@ -217,6 +218,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     HistoryDetail,
     HistoryEdit,
     HistoryRelatedView,
+    CalendarAccessList,
     UserList,
     ViewAttachment,
     AttachmentList,
@@ -435,6 +437,10 @@ define('Mobile/SalesLogix/ApplicationModule', [
                 defaultSearchTerm: function() {
                     return '';
                 }
+            }));
+
+            this.registerView(new CalendarAccessList({
+                expose: false
             }));
 
             this.registerView(new UserList({

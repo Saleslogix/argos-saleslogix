@@ -374,8 +374,29 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onLeaderChange: function(value, field) {
-            var userId = field.getValue();
-            this.fields['UserId'].setValue(userId && userId['$key']);
+            var user = field.getValue(),
+                key,
+                resourceId = '';
+
+            key = user['$key'];
+
+            // They key is a composite key on activityresourceviews endpoint.
+            // The format is 'ResourceId-AccessId'
+            // The feed does include these as seperate fields, but we need to keep the $key/$descriptor format for doing
+            // the PUT to the activities endpoint. We will convert the composite key to something the activities endpoint will understand.
+            if (key) {
+                key = key.split('-');
+                resourceId = key[0];
+                if (resourceId) {
+                    this.fields['UserId'].setValue(resourceId);
+
+                    // Set back to a single $key so the PUT request payload is not messed up
+                    this.fields['Leader'].setValue({
+                        '$key': resourceId,
+                        '$descriptor': user['$descriptor']
+                    });
+                }
+            }
         },
         onAccountChange: function(value, field) {
             var fields, entry, phoneField;
@@ -1105,11 +1126,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     property: 'Leader',
                     include: true,
                     type: 'lookup',
-                    textProperty: 'UserInfo',
-                    textTemplate: template.nameLF,
                     requireSelection: true,
-                    view: 'user_list',
-                    where: 'Type ne "Template" and Type ne "Retired"'
+                    view: 'calendar_access_list'
                 }, {
                     label: this.longNotesText,
                     noteProperty: false,

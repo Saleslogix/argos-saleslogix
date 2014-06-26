@@ -561,6 +561,10 @@
           "path": "../src/Views/User"
         },
         {
+          "text": "CalendarAccessList.js",
+          "path": "../src/Views/User"
+        },
+        {
           "text": "AddressField.js",
           "path": "../src/Fields"
         },
