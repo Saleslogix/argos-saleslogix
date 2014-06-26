@@ -380,8 +380,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
 
             key = user['$key'];
 
-            // They key is a composite key on activityresourceviews endpoint.
-            // The format is 'ResourceId-AccessId'
+            // The key is a composite key on activityresourceviews endpoint.
+            // The format is 'ResourceId-AccessId'.
             // The feed does include these as seperate fields, but we need to keep the $key/$descriptor format for doing
             // the PUT to the activities endpoint. We will convert the composite key to something the activities endpoint will understand.
             if (key) {
