@@ -56,7 +56,7 @@ localize("Mobile.SalesLogix.Recurrence", {
     "2": "втор.",
     "3": "трет.",
     "4": "четверт.",
-    "5": "Фамилия"
+    "5": "Последний"
   }
 });
 
@@ -877,6 +877,18 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "addAttachmentActionText": "Добавить Вложение",
   "phoneAbbreviationText": "Телефон: ",
   "faxAbbreviationText": "Факс: ",
+  "hashTagExpressionText": {
+    "active": "Активн.",
+    "inactive": "Неактивна",
+    "suspect": "Подозрительный",
+    "lead": "Наводка",
+    "prospect": "Проспект",
+    "customer": "Клиент",
+    "partner": "Партнер",
+    "vendor": "Поставщик",
+    "influencer": "Влиятель",
+    "competitor": "Конкурент"
+  },
   "hashTagQueriesText": {
     "my-accounts": "мои-учетные-записи",
     "active": "Активн.",
@@ -919,7 +931,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
 localize("Mobile.SalesLogix.Views.Activity.Recurring", {
   "startingText": "Дата начала",
   "endingText": "Дата окончания",
-  "repeatsText": "Повторяется",
+  "repeatsText": "повтор",
   "everyText": "Каждый(е)",
   "afterCompletionText": "после выполнения",
   "singleWeekdayText": "будний день",
@@ -1044,7 +1056,7 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
   "accountText": "Субъект",
   "acctMgrText": "Менеджер учетной записи",
   "addressText": "Адрес",
-  "contactTitleText": "Должность",
+  "contactTitleText": "должность",
   "createDateText": "Дата создания",
   "createUserText": "Создано",
   "emailText": "Эл.почта",
@@ -1089,7 +1101,7 @@ localize("Mobile.SalesLogix.Views.Contact.Edit", {
   "homePhoneText": "Домашний тел.",
   "faxText": "Факс",
   "addressText": "Адрес",
-  "contactTitleText": "Должность",
+  "contactTitleText": "должность",
   "titleTitleText": "Должность",
   "addressTitleText": "Адрес",
   "ownerText": "Куратор",
@@ -1170,7 +1182,7 @@ localize("Mobile.SalesLogix.Views.Lead.Detail", {
   "leadSourceText": "Источник наводки",
   "industryText": "Отрасль",
   "interestsText": "Интересы",
-  "leadTitleText": "Должность",
+  "leadTitleText": "должность",
   "nameText": "Имя",
   "notesText": "Комментарии",
   "ownerText": "Куратор",
@@ -1203,7 +1215,7 @@ localize("Mobile.SalesLogix.Views.Lead.Edit", {
   "businessText": "Описание бизнеса",
   "businessTitleText": "Описание бизнеса",
   "companyText": "Компания",
-  "contactTitleText": "Должность",
+  "contactTitleText": "должность",
   "emailText": "Эл.почта",
   "faxText": "Факс",
   "importSourceText": "Источник наводки",
@@ -1287,7 +1299,7 @@ localize("Mobile.SalesLogix.Views.MainToolbar", {
 
 localize("Mobile.SalesLogix.Views.MetricConfigure", {
   "titleText": "Настройка метрики",
-  "metricTitleText": "Должность",
+  "metricTitleText": "должность",
   "metricFilterText": "Фильтр",
   "metricText": "Метрика",
   "chartTypeText": "тип диаграммы",
@@ -1336,20 +1348,20 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "closed": "Закрыта",
     "won": "успех",
     "lost": "неудача",
-    "inactive": "Неактивна",
-    "prospect": "Проспект",
-    "qualification": "Квалификация",
-    "negotiation": "переговоры",
-    "needs-analysis": "нужен-анализ",
-    "demonstration": "демонстрация",
-    "decision": "решение"
+    "inactive": "Неактивна"
+  },
+  "hashTagExpressionText": {
+    "open": "Открыть",
+    "won": "Закрыта и выиграна",
+    "lost": "Закрыта и проиграна",
+    "inactive": "Неактивна"
   }
 });
 
 localize("Mobile.SalesLogix.Views.OpportunityContact.Detail", {
   "titleText": "Контакт по сделке",
   "accountText": "Субъект",
-  "contactTitleText": "Должность",
+  "contactTitleText": "должность",
   "nameText": "Контакт",
   "moreDetailsText": "Подробнее",
   "salesRoleText": "Роль",
@@ -1367,7 +1379,7 @@ localize("Mobile.SalesLogix.Views.OpportunityContact.Edit", {
   "titleText": "Редактировать потенциальный контакт",
   "nameText": "Имя",
   "accountNameText": "Субъект",
-  "contactTitleText": "Должность",
+  "contactTitleText": "должность",
   "salesRoleText": "Роль",
   "salesRoleTitleText": "Роль",
   "personalBenefitsText": "личная выгода",

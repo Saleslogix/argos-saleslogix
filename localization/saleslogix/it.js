@@ -877,6 +877,18 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "addAttachmentActionText": "Aggiungi Allegato",
   "phoneAbbreviationText": "Telefono: ",
   "faxAbbreviationText": "Fax: ",
+  "hashTagExpressionText": {
+    "active": "Attivo",
+    "inactive": "Inattivo",
+    "suspect": "sospetto",
+    "lead": "Nominativo",
+    "prospect": "Prospetto",
+    "customer": "Cliente",
+    "partner": "Partner",
+    "vendor": "Distributore",
+    "influencer": "Influenzatore",
+    "competitor": "Concorrente"
+  },
   "hashTagQueriesText": {
     "my-accounts": "miei-account",
     "active": "Attivo",
@@ -1117,9 +1129,9 @@ localize("Mobile.SalesLogix.Views.Contact.List", {
     "my-contacts": "I-miei-contatti",
     "primary": "Primario",
     "not-primary": "Non-primari",
-    "can-email": "Può-inviare-e-mail",
+    "can-email": "Si-può-inviare-e-mail",
     "can-phone": "Si-può-telefonare",
-    "can-fax": "Può-inviare-fax",
+    "can-fax": "Si-può-inviare-fax",
     "can-mail": "Si-può-inviare-posta",
     "can-solicit": "Si-può-contattare"
   }
@@ -1244,10 +1256,10 @@ localize("Mobile.SalesLogix.Views.Lead.List", {
   "hashTagQueriesText": {
     "my-leads": "I-miei-nominativi",
     "can-email": "Si-può-inviare-email",
-    "can-phone": "Può-telefonare",
+    "can-phone": "Si-può-telefonare",
     "can-fax": "Si-può-inviare-fax",
-    "can-mail": "Può-inviare-posta",
-    "can-solicit": "Può-contattare"
+    "can-mail": "Si-può-inviare-posta",
+    "can-solicit": "Si-può-contattare"
   }
 });
 
@@ -1336,13 +1348,13 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "closed": "Chiuse",
     "won": "Vinte",
     "lost": "Perse",
-    "inactive": "Inattivo",
-    "prospect": "Prospect",
-    "qualification": "Qualifica",
-    "negotiation": "In-negoziazione",
-    "needs-analysis": "Analisi-fabbisogni",
-    "demonstration": "Dimostrazione",
-    "decision": "Decisione"
+    "inactive": "Inattivo"
+  },
+  "hashTagExpressionText": {
+    "open": "Apri",
+    "won": "Chiusa - Vinta",
+    "lost": "Chiusa - Persa",
+    "inactive": "Inattivo"
   }
 });
 

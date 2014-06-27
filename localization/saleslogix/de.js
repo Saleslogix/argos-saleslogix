@@ -465,7 +465,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
 
 localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
   "exchangeRateDateFormatText": "D.M.YYYY H:mm",
-  "accountText": "Konto",
+  "accountText": "Firma",
   "acctMgrText": "Acct Mgr",
   "estCloseText": "voraussichtlich",
   "detailsText": "Details",
@@ -504,7 +504,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
 
 localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
   "exchangeRateDateFormatText": "D.M.YYYY H:mm",
-  "accountText": "Konto",
+  "accountText": "Firma",
   "acctMgrText": "Acct Mgr",
   "estCloseText": "voraussichtlich",
   "importSourceText": "Interessentenquelle",
@@ -827,7 +827,7 @@ localize("Mobile.SalesLogix.Views.Account.Detail", {
   "relatedTicketsText": "Tickets",
   "relatedAddressesText": "Adressen",
   "relatedAttachmentText": "Anlagen",
-  "relatedAttachmentTitleText": "Kontoanlagen",
+  "relatedAttachmentTitleText": "Firmenanlagen",
   "statusText": "Status",
   "subTypeText": "Untertyp",
   "titleText": "Firma",
@@ -842,8 +842,8 @@ localize("Mobile.SalesLogix.Views.Account.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Account.Edit", {
-  "accountStatusTitleText": "Kontostatus",
-  "accountSubTypeTitleText": "Konto-Untertyp",
+  "accountStatusTitleText": "Firmenstatus",
+  "accountSubTypeTitleText": "Firmen-Untertyp",
   "accountText": "Firma",
   "accountTypeTitleText": "Firmentyp",
   "acctMgrText": "Acct Mgr",
@@ -877,6 +877,18 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "addAttachmentActionText": "Anlage hinzufügen",
   "phoneAbbreviationText": "Telefon: ",
   "faxAbbreviationText": "Fax: ",
+  "hashTagExpressionText": {
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "suspect": "unter-Beobachtung",
+    "lead": "Interessent",
+    "prospect": "potenzieller-Kunde",
+    "customer": "Kunde",
+    "partner": "Partner",
+    "vendor": "Hersteller",
+    "influencer": "Beeinflusser",
+    "competitor": "Mitbewerber"
+  },
   "hashTagQueriesText": {
     "my-accounts": "meine-konten",
     "active": "Aktiv",
@@ -955,17 +967,17 @@ localize("Mobile.SalesLogix.Views.Activity.TypesList", {
 
 localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "accountNameText": "Firma",
-  "accountStatusTitleText": "Kontostatus",
-  "accountSubTypeTitleText": "Konto-Untertyp",
+  "accountStatusTitleText": "Firmenstatus",
+  "accountSubTypeTitleText": "Firmen-Untertyp",
   "accountText": "Firma",
   "accountTypeTitleText": "Firmentyp",
   "acctMgrText": "Acct Mgr",
   "addressText": "Adresse",
   "contactTitleText": "Tätigkeit",
   "descriptionText": "Beschreibung",
-  "detailsAccountText": "Kontoinformationen",
+  "detailsAccountText": "Firmeninformationen",
   "detailsContactText": "Kontaktinformationen",
-  "detailsText": "Kontakt-/Kontoinformationen",
+  "detailsText": "Kontakt/Firmeninformationen",
   "emailText": "E-Mail",
   "faxText": "Fax",
   "homePhoneText": "Privat",
@@ -976,7 +988,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "nameText": "Name",
   "statusText": "Status",
   "subTypeText": "Untertyp",
-  "titleText": "Konto/Kontakt hinzufügen",
+  "titleText": "Firma/Kontakt hinzufügen",
   "typeText": "Typ",
   "webText": "Web",
   "workText": "Geschäftliche",
@@ -1150,7 +1162,7 @@ localize("Mobile.SalesLogix.Views.History.RelatedView", {
 
 localize("Mobile.SalesLogix.Views.Home", {
   "configureText": "Konfigurieren",
-  "addAccountContactText": "Konto/Kontakt hinzufügen",
+  "addAccountContactText": "Firma/Kontakt hinzufügen",
   "titleText": "Privat",
   "actionsText": "Express-Optionen",
   "viewsText": "Gehe zu"
@@ -1257,7 +1269,7 @@ localize("Mobile.SalesLogix.Views.LeadSource.List", {
 
 localize("Mobile.SalesLogix.Views.LeftDrawer", {
   "configureText": "Menü konfigurieren",
-  "addAccountContactText": "Konto/Kontakt hinzufügen",
+  "addAccountContactText": "Firma/Kontakt hinzufügen",
   "titleText": "Hauptmenü",
   "actionsText": "Express-Optionen",
   "viewsText": "Gehe zu",
@@ -1336,13 +1348,13 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "closed": "Abgeschlossen",
     "won": "gewonnen",
     "lost": "verloren",
-    "inactive": "Inaktiv",
-    "prospect": "potenzieller-Kunde",
-    "qualification": "Qualifizierungsmerkmal",
-    "negotiation": "Verhandlung",
-    "needs-analysis": "Analyse-erforderlich",
-    "demonstration": "Vorführung",
-    "decision": "Entscheidung"
+    "inactive": "Inaktiv"
+  },
+  "hashTagExpressionText": {
+    "open": "Offen",
+    "won": "Abgeschlossen - Erfolg",
+    "lost": "Abgeschlossen - Verloren",
+    "inactive": "Inaktiv"
   }
 });
 
@@ -1503,7 +1515,7 @@ localize("Mobile.SalesLogix.Views.Ticket.Detail", {
 });
 
 localize("Mobile.SalesLogix.Views.Ticket.Edit", {
-  "accountText": "Konto",
+  "accountText": "Firma",
   "areaText": "Bereich",
   "assignedDateText": "Zugewiesenes Datum",
   "assignedToText": "Zugewiesen",

@@ -877,6 +877,18 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "addAttachmentActionText": "Ajouter une pièce jointe",
   "phoneAbbreviationText": "N° de téléphone : ",
   "faxAbbreviationText": "Fax : ",
+  "hashTagExpressionText": {
+    "active": "Actif",
+    "inactive": "Inactive",
+    "suspect": "Suspect",
+    "lead": "Lead",
+    "prospect": "Prospect",
+    "customer": "Client",
+    "partner": "Partenaire",
+    "vendor": "Revendeur",
+    "influencer": "influenceur",
+    "competitor": "Concurrent"
+  },
   "hashTagQueriesText": {
     "my-accounts": "mes-comptes",
     "active": "Actif",
@@ -1336,13 +1348,13 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "closed": "Terminée",
     "won": "gagné",
     "lost": "perdu",
-    "inactive": "Inactive",
-    "prospect": "Prospect",
-    "qualification": "Qualification",
-    "negotiation": "négociation",
-    "needs-analysis": "analyse-nécessaire",
-    "demonstration": "démonstration",
-    "decision": "décision"
+    "inactive": "Inactive"
+  },
+  "hashTagExpressionText": {
+    "open": "Ouvrir",
+    "won": "Clôturée - Gagnée",
+    "lost": "Clôturée - Perdue",
+    "inactive": "Inactive"
   }
 });
 
