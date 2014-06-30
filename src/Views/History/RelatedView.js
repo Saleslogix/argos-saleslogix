@@ -33,7 +33,7 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         id: 'relatedNotes',
         icon: 'content/images/icons/journal_24.png',
         itemIcon: 'content/images/icons/journal_24.png',
-        title: 'Notes',
+        titleText: 'Notes',
         detailViewId: 'history_detail',
         listViewId: 'history_related',
         listViewWhere: null,
