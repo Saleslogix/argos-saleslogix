@@ -1157,7 +1157,8 @@ localize("Mobile.SalesLogix.Views.Help", {
 
 localize("Mobile.SalesLogix.Views.History.RelatedView", {
   "regardingText": "Тема",
-  "byText": "написал(-а) "
+  "byText": "написал(-а) ",
+  "titleText": "Заметки"
 });
 
 localize("Mobile.SalesLogix.Views.Home", {

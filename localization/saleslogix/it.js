@@ -484,7 +484,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
   "relatedContactsText": "Contatti Opportunità",
   "relatedHistoriesText": "Note/Cronologia",
   "relatedItemsText": "Elementi correlati",
-  "relatedNotesText": "Note",
+  "relatedNotesText": "Nota",
   "relatedProductsText": "Prodotti",
   "relatedAttachmentText": "Allegati",
   "relatedAttachmentTitleText": "Allegati opportunità",
@@ -1157,7 +1157,8 @@ localize("Mobile.SalesLogix.Views.Help", {
 
 localize("Mobile.SalesLogix.Views.History.RelatedView", {
   "regardingText": "Argomento",
-  "byText": "ha scritto "
+  "byText": "ha scritto ",
+  "titleText": "Note"
 });
 
 localize("Mobile.SalesLogix.Views.Home", {

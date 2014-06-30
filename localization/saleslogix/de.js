@@ -1157,7 +1157,8 @@ localize("Mobile.SalesLogix.Views.Help", {
 
 localize("Mobile.SalesLogix.Views.History.RelatedView", {
   "regardingText": "Betreff",
-  "byText": "geschrieben "
+  "byText": "geschrieben ",
+  "titleText": "Notizen"
 });
 
 localize("Mobile.SalesLogix.Views.Home", {
