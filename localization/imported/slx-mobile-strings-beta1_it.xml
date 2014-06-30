@@ -2935,6 +2935,10 @@
     <description/>
     <value>ha scritto </value>
   </data>
+  <data class="Mobile.SalesLogix.Views.History.RelatedView" property="titleText" type="text">
+    <description/>
+    <value>Note</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Home" property="configureText" type="text">
     <description/>
     <value>Configura</value>
@@ -3685,7 +3689,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="notesText" type="text">
     <description/>
-    <value>Note</value>
+    <value>Nota</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="scheduleText" type="text">
     <description/>
@@ -4499,23 +4503,23 @@
     <description/>
     <value>Altri dettagli</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedItemsText" type="Testo">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedItemsText" type="text">
     <description/>
     <value>Elementi correlati</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="Testo">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="text">
     <description/>
     <value>Ricambi</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="titleText" type="Testo">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="titleText" type="text">
     <description/>
     <value>Modifica Attività Ticket</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeText" type="Testo">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeText" type="text">
     <description/>
     <value>Tipo</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeTitleText" type="Testo">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeTitleText" type="text">
     <description/>
     <value>Tipo</value>
   </data>
@@ -4669,7 +4673,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="alarmDateFormatText" type="format">
     <description/>
-    <value>D/M/YYYY H:mm</value>
+    <value>D/M/YYYY H:mm:ss</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingFormatText" type="format">
     <description/>
@@ -4745,11 +4749,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="errorDateFormatText" type="format">
     <description/>
-    <value>DD/MM/YYYY H:mm</value>
+    <value>DD/MM/YYYY HH:mm</value>
   </data>
   <data class="Mobile.SalesLogix.Views.ErrorLog.List" property="errorDateFormatText" type="format">
     <description/>
-    <value>DD/MM/YYYY HH:mm</value>
+    <value>DD/MM/YYYY H:mm</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Event.Detail" property="startDateFormatText" type="format">
     <description/>
@@ -4769,7 +4773,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="dateFormatText" type="format">
     <description/>
-    <value>D/M/YYYY H:mm:ss</value>
+    <value>D/M/YYYY H:mm</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.Edit" property="startingFormatText" type="format">
     <description/>

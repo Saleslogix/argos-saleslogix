@@ -2935,6 +2935,10 @@
     <description/>
     <value>написал(-а) </value>
   </data>
+  <data class="Mobile.SalesLogix.Views.History.RelatedView" property="titleText" type="text">
+    <description/>
+    <value>Заметки</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Home" property="configureText" type="text">
     <description/>
     <value>Конфигурировать</value>
@@ -4499,23 +4503,23 @@
     <description/>
     <value>Подробнее</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedItemsText" type="Текст">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedItemsText" type="text">
     <description/>
     <value>Связанные элементы</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="Текст">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="text">
     <description/>
     <value>Компоненты дела по заявке</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="titleText" type="Текст">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="titleText" type="text">
     <description/>
     <value>Измен. дело по заявке</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeText" type="Текст">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeText" type="text">
     <description/>
     <value>Тип</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeTitleText" type="Текст">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeTitleText" type="text">
     <description/>
     <value>Тип</value>
   </data>

@@ -2935,6 +2935,10 @@
     <description/>
     <value>geschrieben </value>
   </data>
+  <data class="Mobile.SalesLogix.Views.History.RelatedView" property="titleText" type="text">
+    <description/>
+    <value>Notizen</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Home" property="configureText" type="text">
     <description/>
     <value>Konfigurieren</value>
@@ -4499,23 +4503,23 @@
     <description/>
     <value>Weitere Informationen</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedItemsText" type="Text">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedItemsText" type="text">
     <description/>
     <value>Verknüpfte Elemente</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="Text">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="text">
     <description/>
     <value>Ticket-Aktivität (Teile)</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="titleText" type="Text">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="titleText" type="text">
     <description/>
     <value>Ticket-Aktivität bearbeiten</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeText" type="Text">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeText" type="text">
     <description/>
     <value>Typ</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeTitleText" type="Text">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeTitleText" type="text">
     <description/>
     <value>Typ</value>
   </data>
