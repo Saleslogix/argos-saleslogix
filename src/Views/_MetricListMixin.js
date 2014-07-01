@@ -42,7 +42,6 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                 '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
                     '<div data-dojo-attach-point="searchNode"></div>',
                     '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
-                        '<div data-dojo-attach-point="groupsNode" class="groups-notice"></div>',
                         '<div data-dojo-attach-point="metricNode" class="metric-list"></div>',
                         '{%! $.emptySelectionTemplate %}',
                         '<ul class="list-content" data-dojo-attach-point="contentNode"></ul>',

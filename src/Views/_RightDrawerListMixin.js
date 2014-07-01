@@ -128,6 +128,14 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 groupClicked: lang.hitch(this, function(params) {
                     var  group, groupList,
                       groupId;
+                    var template = [],
+                        selectColumns,
+                        extraSelectColumns = [],
+                        group,
+                        original = this._originalProps,
+                        groupId;
+
+                    this._startGroupMode();
                     groupId = params.$key;
 
                     group = array.filter(this.groupList, function(item) {
@@ -137,7 +145,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     if (!group) {
                         throw new Error("Expected a group.");
                     }
-                    this.groupsMode = true;
                     this.setCurrentGroup(group);
                     this.refresh();
                     this.toggleRightDrawer();
@@ -170,10 +177,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     groupId,
                     entry,
                     currentGroup,
-                    currentGroupName,
                     items = [];
                     
-                currentGroupName = GroupUtility.getaddToGroupPreferences
                 // We will get an object back where the property names are the keys (groupId's)
                 // Extract them out, and save the entry, which is the data property on the extracted object
                 for (groupId in field.currentValue) {
@@ -187,8 +192,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
                 GroupUtility.addToGroupPreferences(items, list.entityName, true);
                 currentGroup = GroupUtility.getDefaultGroup(list.entityName);
-
-                if (currentGroup) {
+               if (currentGroup) {
                     list.setCurrentGroup(currentGroup);
                     list.refresh();
                 }
@@ -203,9 +207,12 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         getFormatterByLayout: function(layoutItem) {
             return GroupUtility.getFormatterByLayout(layoutItem);
         },
+        getFieldNameByLayout: function(layoutItem) {
+            return GroupUtility.getFieldNameByLayout(layoutItem);
+        },
         getGroupForRightDrawerEntry: function(entry) {
             var mixin = lang.getObject(mixinName);
-            if (entry.dataProps && entry.dataProps.hashtag) {
+            if (entry.dataProps && entry.dataProps.hashtag && this._hasHashTags()) {
                 return {
                     tag: 'view',
                     title: mixin.prototype.hashTagsSectionText
@@ -264,7 +271,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 children: []
             };
 
-            if (this.searchWidget && this.searchWidget.hashTagQueries) {
+            if (this._hasHashTags()) {
                 len = this.searchWidget.hashTagQueries.length;
                 for (i = 0; i < len; i++) {
                     hashTag = this.searchWidget.hashTagQueries[i];
@@ -307,6 +314,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             }
 
             return layout;
+        },
+        _hasHashTags: function() {
+            return this.searchWidget && this.searchWidget.hashTagQueries && this.searchWidget.hashTagQueries.length > 0;
         }
     });
 });
