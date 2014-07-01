@@ -449,7 +449,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="accountsText[total]" type="text">
     <description/>
-    <value>Konten - gesamt</value>
+    <value>Firmen - gesamt</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[total]" type="text">
     <description/>
@@ -769,7 +769,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedAttachmentTitleText" type="text">
     <description/>
-    <value>Firmenanlagen</value>
+    <value>Anlagen mit Firmen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="statusText" type="text">
     <description/>
@@ -985,7 +985,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[my-accounts]" type="text">
     <description/>
-    <value>meine-konten</value>
+    <value>meine-firmen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[active]" type="text">
     <description/>

@@ -711,7 +711,7 @@ localize("Mobile.SalesLogix.DefaultMetrics", {
   "accountsText": {
     "totalRevenue": "Umsatz - gesamt",
     "averageTime": "Durchschn. Zeit als Kunde",
-    "total": "Konten - gesamt"
+    "total": "Firmen - gesamt"
   },
   "opportunitiesText": {
     "total": "Opportunitys - gesamt",
@@ -827,7 +827,7 @@ localize("Mobile.SalesLogix.Views.Account.Detail", {
   "relatedTicketsText": "Tickets",
   "relatedAddressesText": "Adressen",
   "relatedAttachmentText": "Anlagen",
-  "relatedAttachmentTitleText": "Firmenanlagen",
+  "relatedAttachmentTitleText": "Anlagen mit Firmen",
   "statusText": "Status",
   "subTypeText": "Untertyp",
   "titleText": "Firma",
@@ -890,7 +890,7 @@ localize("Mobile.SalesLogix.Views.Account.List", {
     "competitor": "Mitbewerber"
   },
   "hashTagQueriesText": {
-    "my-accounts": "meine-konten",
+    "my-accounts": "meine-firmen",
     "active": "Aktiv",
     "inactive": "Inaktiv",
     "suspect": "unter-Beobachtung",
