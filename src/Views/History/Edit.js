@@ -475,7 +475,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             applyTo: '.',
                             valueKeyProperty: 'AccountId',
                             valueTextProperty: 'AccountName',
-                            view: 'account_related'
+                            view: 'account_related',
+                            validator: validator.exists
                         }, {
                             dependsOn: 'Account',
                             label: this.contactText,
