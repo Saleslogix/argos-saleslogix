@@ -41,7 +41,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         //View Properties
         entityName: null,
         groupsMode: false,
-        _currentGroupId: null,
+        currentGroupId: null,
         _currentGroup: null,
         _groupInitalized: false,
         _originalProps: null,
@@ -51,7 +51,6 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
         requestData: function() {
             try {
-
                 if ((!this._groupInitalized)&&(this.groupsMode)) {
                     this.initGroup();
                 }
@@ -72,16 +71,13 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         getCurrentGroup: function() {
             return this._currentGroup;
         },
-
-
-
         setCurrentGroup: function(group) {
             if (group) {
-                if (this._currentGroupId !== group.$key) {
+                if (this.currentGroupId !== group.$key) {
                     this.groupsMode = true;
                     this._groupInitalized = false;
                     this._currentGroup = group;
-                    this._currentGroupId = group.$key;
+                    this.currentGroupId = group.$key;
                     GroupUtility.setDefaultGroupPreference(this.entityName, group.name);
                 }
             }
@@ -123,10 +119,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
 
             if (!group) {
-                //return;
                 App.setPrimaryTitle(this.getGroupTitle({ displayName: '' }));
-                //this.toggleRightDrawer(true);
-                this._addGroup();
+               // this._addGroup();
                 throw new Error("group not found.");
             }
 
@@ -140,11 +134,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
 
             this.layout = GroupUtility.getLayout(group);
-
             this.selectColumns = GroupUtility.getColumNames(this.layout);
-
             template = array.map(this.layout, this.getItemLayoutTemplate);
-
             this.itemTemplate = new Simplate(template);
 
             // Create a custom request that the store will use to execute the group query
@@ -156,7 +147,6 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             // Try to select the entity id as well
             this.selectColumns.push(group.family + 'ID');
             this.querySelect = this.selectColumns;
-
             this.queryOrderBy = '';
             this.idProperty = group.family.toUpperCase() + 'ID';
             this.labelProperty = group.family.toUpperCase();
@@ -215,7 +205,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
         },
         getGroupTitle: function(group) {
-            return string.substitute('${0} - [ ${1} ]', [this.titleText, group.displayName]);
+            //return string.substitute('${0} - [ ${1} ]', [this.titleText, group.displayName]);
+            return group.displayName;
         },
         getItemLayoutTemplate: function(item) {
             var template;
@@ -248,8 +239,11 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             original.store = this.store;
             original.rowTemplate = this.rowTemplate;
             original.itemTemplate = this.itemTemplate;
+            original.itemFooterTemplate = this.itemFooterTemplate;
             original.relatedViews = this.relatedViews;
-            /*
+
+            this.itemFooterTemplate = new Simplate(['<div></div>']);
+
             if (this.groupsNode) {
                 domStyle.set(this.groupsNode, {
                     display: 'block'
@@ -257,7 +251,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
                 this.groupsNode.innerHTML = this.groupsModeText;
             }
-            */
+            
             this.groupsMode = true;
 
         },
@@ -277,27 +271,33 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.rowTemplate = original.rowTemplate;
             this.itemTemplate = original.itemTemplate;
             this.relatedViews = original.relatedViews;
+            this.itemFooterTemplate =  original.itemFooterTemplate;
 
             this.originalProps = null;
 
             this.groupsMode = false;
             this._groupInitalized = false;
             this._currentGroup = null;
-            this._currentGroupId = null;
+            this.currentGroupId = null;
             App.setPrimaryTitle(this.get('title'));
 
             this.clear();
             this.refreshRequired = true;
-            /*if (this.groupsNode) {
+            
+            if (this.groupsNode) {
                 domStyle.set(this.groupsNode, {
                     display: 'none'
                 });
                 
                 this.groupsNode.innerHTML = '';
              }
-            */
-        }
-
+        },
+        onProcessRelatedViews: function(entry, rowNode, entries) {
+            if (this.groupsMode) {
+                return;
+            }
+            this.inherited(arguments);
+        },
 
     });
 });

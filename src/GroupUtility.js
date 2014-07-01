@@ -210,10 +210,10 @@ define('Mobile/SalesLogix/GroupUtility', [
                 return defaultGroup;
             }
         },
-        addToGroupPreferences: function(items, entityName) {
+        addToGroupPreferences: function(items, entityName, overwrite) {
             var found, groupList;
-            groupList = getGroupPreferences(entityName);
-             if (groupList && groupList.length > 0) {
+            groupList = this.getGroupPreferences(entityName);
+            if (!overwrite && groupList && groupList.length > 0) {
                  if (items && items.length > 0) {
                      array.forEach(items, function(item) {
                          found = false;

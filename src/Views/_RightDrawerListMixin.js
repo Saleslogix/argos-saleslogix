@@ -122,45 +122,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }
                 }),
                 groupConfigureClicked: lang.hitch(this, function() {
-                    var field, handle, view;
-                    view = App.getView(this.groupLookupId);
-                    view.family = this.entityName;
-                    view.set('store', null);
-                    view.clear();
-                    view.refreshRequired = true;
-
-                    field = new LookupField({
-                        owner: this,
-                        view: view,
-                        singleSelect: false,
-                        previousSelections: array.map(this.groupList, function(group) {
-                            return group.$key;
-                        })
-                    });
-
-                    handle = aspect.after(field, 'complete', lang.hitch(field, function() {
-                        var field = this,
-                            list = this.owner,
-                            groupId,
-                            entry,
-                            items = [];
-
-                        // We will get an object back where the property names are the keys (groupId's)
-                        // Extract them out, and save the entry, which is the data property on the extracted object
-                        for (groupId in field.currentValue) {
-                            if (field.currentValue.hasOwnProperty(groupId)) {
-                                entry = field.currentValue[groupId].data;
-                                if (entry) {
-                                    items.push(entry);
-                                }
-                            }
-                        }
-                        GroupUtility.addToGroupPreferences(items, list.entityName)
-                        handle.remove();
-                        field.destroy();
-                    }));
-
-                    field.navigateToListView();
+                    this._selectGroups();
                     this.toggleRightDrawer();
                 }),
                 groupClicked: lang.hitch(this, function(params) {
@@ -185,7 +147,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             return actions;
         },
-        _selectGroup: function() {
+        _selectGroups: function() {
             var field, handle, view;
             view = App.getView(this.groupLookupId);
             view.family = this.entityName;
@@ -208,8 +170,10 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     groupId,
                     entry,
                     currentGroup,
+                    currentGroupName,
                     items = [];
-
+                    
+                currentGroupName = GroupUtility.getaddToGroupPreferences
                 // We will get an object back where the property names are the keys (groupId's)
                 // Extract them out, and save the entry, which is the data property on the extracted object
                 for (groupId in field.currentValue) {
@@ -221,11 +185,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }
                 }
 
-                if (items[0]) {
-                    currentGroup = items[0];
-                }
+                GroupUtility.addToGroupPreferences(items, list.entityName, true);
+                currentGroup = GroupUtility.getDefaultGroup(list.entityName);
 
-                list._addToGroupPrefrences(items, currentGroup.$key);
                 if (currentGroup) {
                     list.setCurrentGroup(currentGroup);
                     list.refresh();

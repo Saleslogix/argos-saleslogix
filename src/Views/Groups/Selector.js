@@ -71,6 +71,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
                     resourceKind: 'groups',
                     contractName: 'system',
                     where: "upper(family) eq '" + entityName.toUpperCase() + "'",
+                    orderBy: "name asc",
                     include: ['layout', 'tableAliases'],
                     idProperty: '$key',
                     applicationName: 'slx',
