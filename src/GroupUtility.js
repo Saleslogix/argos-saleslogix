@@ -148,11 +148,96 @@ define('Mobile/SalesLogix/GroupUtility', [
             if (results.length === 0) {
                 results.push({
                     formatter: function(value) {
-                    return value;
-                }});
+                        return value;
+                    }});
             }
 
             return lang.hitch(this, results[0].formatter);
+        },
+        getLayout: function(group) {
+            var layout;
+            var i = 0;
+            layout = array.filter(group.layout, function(item) {
+                item.index = i++;
+                return array.every(this.groupFilters, function(filter) {
+                    return filter(item);
+                }, this);
+            }, this);
+            return layout;
+        },
+        getColumNames: function(layout) {
+            var columns;
+            columns = array.map(layout, function(layout) {
+                return layout.alias;
+            });
+            return columns;
+        },
+        setDefaultGroupPreference: function(entityName, groupName){
+            App.preferences['default-group-' + entityName] = groupName;
+            App.persistPreferences();
+        },
+        getDefaultGroupPreference: function(entityName){
+            var defaultGroupName =  App.preferences['default-group-' + entityName];
+            if (!defaultGroupName) {
+                defaultGroupName = this.getDefaultGroupUserPreference(entityName);
+            }
+            return defaultGroupName;
+        },
+        getDefaultGroupUserPreference: function(entityName){
+           var defaultGroupName = App.context.userOptions['DefaultGroup:' + entityName.toUpperCase()];
+            if (defaultGroupName) {
+                defaultGroupName = defaultGroupName.split(':')[1];
+            }
+            return defaultGroupName;
+        },
+        getDefaultGroup: function(entityName) {
+            var groupList = App.preferences['groups-' + entityName];
+            var defaultGroup = null;
+            var defaultGroupName = null;
+
+            defaultGroupName = this.getDefaultGroupPreference(entityName);
+
+            if (groupList && groupList.length > 0) {
+                array.forEach(groupList, function(group) {
+                    if (group.name === defaultGroupName) {
+                        defaultGroup = group;
+                    }
+                });
+
+                if (!defaultGroup) {
+                    defaultGroup = groupList[0];
+                }
+                return defaultGroup;
+            }
+        },
+        addToGroupPreferences: function(items, entityName) {
+            var found, groupList;
+            groupList = getGroupPreferences(entityName);
+             if (groupList && groupList.length > 0) {
+                 if (items && items.length > 0) {
+                     array.forEach(items, function(item) {
+                         found = false;
+                         array.forEach(groupList, function(group) {
+                              if (group.$key === item.$key) {
+                                 found = true;
+                              }
+ 
+                         });
+                         if (!found) {
+                             groupList.push(item);
+                         }
+                     });
+                 }
+             }
+             else{
+                 groupList = items;
+             }
+             App.preferences['groups-' + entityName] = groupList;
+             App.persistPreferences();
+        },
+        getGroupPreferences: function(entityName){
+            var groupList = App.preferences['groups-' + entityName];
+            return groupList;
         }
     });
 });

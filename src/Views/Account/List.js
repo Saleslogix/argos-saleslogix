@@ -30,6 +30,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/RelatedViewWidget',
     'Sage/Platform/Mobile/List',
+     'Mobile/SalesLogix/Views/_GroupListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
     '../_RightDrawerListMixin'
@@ -44,12 +45,13 @@ define('Mobile/SalesLogix/Views/Account/List', [
     HistoryRelatedView,
     RelatedViewWidget,
     List,
+    _GroupListMixin,
     _MetricListMixin,
     _CardLayoutListMixin,
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -71,9 +73,9 @@ define('Mobile/SalesLogix/Views/Account/List', [
             '{% } %}'
         ]),
 
-        joinFields: function(sep, fields) {
-            return utility.joinFields(sep, fields);
-        },
+       // joinFields: function(sep, fields) {
+       //     return utility.joinFields(sep, fields);
+       // },
 
         //Localization
         titleText: 'Accounts',
@@ -128,8 +130,10 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'Type',
             'ModifyDate'
         ],
+        
         resourceKind: 'accounts',
         entityName: 'Account',
+        groupsMode: true,
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
