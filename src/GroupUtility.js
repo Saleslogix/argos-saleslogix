@@ -153,11 +153,20 @@ define('Mobile/SalesLogix/GroupUtility', [
             return layout;
         },
         getColumNames: function(layout) {
-            var columns;
+            var columns, extraSelectColumns;
+            extraSelectColumns = [];
             columns = array.map(layout, function(layout) {
+                if (layout.format === 'PickList Item') {
+                    extraSelectColumns.push(layout.alias + 'TEXT');
+                }
+
+                if (layout.format === 'User' || layout.format === 'Owner') {
+                    extraSelectColumns.push(layout.alias + 'NAME');
+                }
+
                 return layout.alias;
             });
-            return columns;
+            return columns.concat(extraSelectColumns);
         },
         setDefaultGroupPreference: function(entityName, groupName){
             App.preferences['default-group-' + entityName] = groupName;

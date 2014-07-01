@@ -135,6 +135,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
             this.layout = GroupUtility.getLayout(group);
             this.selectColumns = GroupUtility.getColumNames(this.layout);
+
             template = array.map(this.layout, this.getItemLayoutTemplate);
             this.itemTemplate = new Simplate(template);
 
@@ -198,22 +199,22 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 this._onApplyGroup(group);
             } else {
                 App.setPrimaryTitle(this.getGroupTitle({ displayName: '' }));
-                this._selectGroup();
+                this._selectGroups();
             }
         },
         _onGroupRequestFaild: function(result) {
 
         },
         getGroupTitle: function(group) {
-            //return string.substitute('${0} - [ ${1} ]', [this.titleText, group.displayName]);
             return group.displayName;
         },
         getItemLayoutTemplate: function(item) {
-            var template;
+            var template, jsonString;
+            jsonString = json.stringify(item)
             if (item.index === 0) {
-                template = ["<h4><strong>", item.caption, " : {%= $$.getFormatterByLayout(" + json.stringify(item) + ")($['" + item.alias.toUpperCase() + "']) %}", "</strong></h4>"].join('');
+                template = ["<h4><strong>", item.caption, " : {%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}", "</strong></h4>"].join('');
             } else {
-                template = ["<h4>", item.caption, " : {%= $$.getFormatterByLayout(" + json.stringify(item) + ")($['" + item.alias.toUpperCase() + "']) %}", "</h4>"].join('');
+                template = ["<h4>", item.caption, " : {%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}", "</h4>"].join('');
             }
             return template;
 
@@ -221,7 +222,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         getFormatterByLayout: function(layoutItem) {
             return GroupUtility.getFormatterByLayout(layoutItem);
         },
-
+        getFieldNameByLayout: function(layoutItem) {
+            return GroupUtility.getFieldNameByLayout(layoutItem);
+        },
         _startGroupMode: function(isInit) {
             if ((this.groupsMode)&&(!isInit )){
                return;
