@@ -64,6 +64,7 @@ define('spec/Views/Account/List.spec', [
         beforeEach(function() {
             this.store = new MemoryStore({ data: data});
             this.list = new AccountList();
+            this.list.groupsMode = false;
             this.list.set('store', this.store);
             window.App = {
                 history: [],
