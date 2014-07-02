@@ -276,7 +276,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.relatedViews = original.relatedViews;
             this.itemFooterTemplate =  original.itemFooterTemplate;
 
-            this.originalProps = null;
+            this._originalProps = null;
 
             this.groupsMode = false;
             this._groupInitalized = false;

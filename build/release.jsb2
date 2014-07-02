@@ -291,6 +291,10 @@
         {
           "text": "_SpeedSearchRightDrawerListMixin.js",
           "path": "../src/Views"
+        }, 
+		{
+          "text": "_GroupListMixin.js",
+          "path": "../src/Views"
         },
         {
           "text": "MetricConfigure.js",
