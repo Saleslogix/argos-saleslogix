@@ -86,14 +86,19 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         },
         _onSearchExpression: function() {
             // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
-            this._clearGroupMode();
+            if (this.groupsMode) {
+                this._clearGroupMode();
+            }
+
             this.inherited(arguments);
         },
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
             var actions = {
                 hashTagClicked: lang.hitch(this, function(params) {
-                    this._clearGroupMode();
+                    if (this.groupsMode) {
+                        this._clearGroupMode();
+                    }
 
                     if (params.hashtag) {
                         this.setSearchTerm('#' + params.hashtag);
@@ -201,12 +206,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             field.navigateToListView();
 
-        },
-        getFormatterByLayout: function(layoutItem) {
-            return GroupUtility.getFormatterByLayout(layoutItem);
-        },
-        getFieldNameByLayout: function(layoutItem) {
-            return GroupUtility.getFieldNameByLayout(layoutItem);
         },
         getGroupForRightDrawerEntry: function(entry) {
             var mixin = lang.getObject(mixinName);
