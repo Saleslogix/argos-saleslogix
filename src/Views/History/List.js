@@ -8,6 +8,7 @@
  * @extends Sage.Platform.Mobile.List
  * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
  * @mixins Mobile.SalesLogix.Views._MetricListMixin
+ * @mixins Mobile.SalesLogix.Views._GroupListMixin
  * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
  *
  * @requires Sage.Platform.Mobile.Convert
@@ -29,6 +30,7 @@ define('Mobile/SalesLogix/Views/History/List', [
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/List',
+    '../_GroupListMixin',
     '../_RightDrawerListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
@@ -45,13 +47,14 @@ define('Mobile/SalesLogix/Views/History/List', [
     convert,
     action,
     List,
+    _GroupListMixin,
     _RightDrawerListMixin,
     _MetricListMixin,
     _CardLayoutListMixin,
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
@@ -92,7 +95,7 @@ define('Mobile/SalesLogix/Views/History/List', [
             '{%: $.AccountName %}',
             '{% } %}'
         ]),
- 
+
         //Localization
         activityTypeText: {
             'atToDo': 'To-Do',
@@ -151,6 +154,7 @@ define('Mobile/SalesLogix/Views/History/List', [
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
         entityName: 'History',
+        groupsMode: true,
         hashTagQueries: {
             'my-history': function() {
                 return 'UserId eq "' + App.context.user.$key + '"';

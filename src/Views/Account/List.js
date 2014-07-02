@@ -14,6 +14,7 @@
  *
  * @requires Mobile.SalesLogix.Action
  * @requires Mobile.SalesLogix.Views.History.RelatedView
+ * @requires Mobile.SalesLogix.Views._GroupListMixin
  * @requires Mobile.SalesLogix.Views._MetricListMixin
  * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
  * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
@@ -30,7 +31,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/RelatedViewWidget',
     'Sage/Platform/Mobile/List',
-     'Mobile/SalesLogix/Views/_GroupListMixin',
+    '../_GroupListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
     '../_RightDrawerListMixin'
@@ -73,9 +74,9 @@ define('Mobile/SalesLogix/Views/Account/List', [
             '{% } %}'
         ]),
 
-       // joinFields: function(sep, fields) {
-       //     return utility.joinFields(sep, fields);
-       // },
+        joinFields: function(sep, fields) {
+            return utility.joinFields(sep, fields);
+        },
 
         //Localization
         titleText: 'Accounts',
@@ -130,7 +131,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
             'Type',
             'ModifyDate'
         ],
-        
         resourceKind: 'accounts',
         entityName: 'Account',
         groupsMode: true,

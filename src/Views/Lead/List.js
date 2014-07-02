@@ -8,6 +8,7 @@
  * @extends Sage.Platform.Mobile.List
  * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
  * @mixins Mobile.SalesLogix.Views._MetricListMixin
+ * @mixins Mobile.SalesLogix.Views._GroupListMixin
  * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
  *
  * @requires Sage.Platform.Mobile.Format
@@ -24,6 +25,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     'Sage/Platform/Mobile/Utility',
     'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
+    '../_GroupListMixin',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin'
@@ -35,12 +37,13 @@ define('Mobile/SalesLogix/Views/Lead/List', [
     utility,
     HistoryRelatedView,
     List,
+    _GroupListMixin,
     _MetricListMixin,
     _RightDrawerListMixin,
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
@@ -133,6 +136,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         ],
         resourceKind: 'leads',
         entityName: 'Lead',
+        groupsMode: true,
         allowSelection: true,
         enableActions: true,
         hashTagQueries: {

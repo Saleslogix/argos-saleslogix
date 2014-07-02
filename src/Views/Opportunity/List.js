@@ -2,12 +2,13 @@
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
 
-/** 
+/**
  * @class Mobile.SalesLogix.Views.Opportunity.List
  *
  * @extends Sage.Platform.Mobile.List
  * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
  * @mixins Mobile.SalesLogix.Views._MetricListMixin
+ * @mixins Mobile.SalesLogix.Views._GroupListMixin
  * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
  *
  * @requires Sage.Platform.Mobile.Format
@@ -25,6 +26,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     'Sage/Platform/Mobile/Format',
     'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
+    '../_GroupListMixin',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin'
@@ -37,12 +39,13 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     platformFormat,
     HistoryRelatedView,
     List,
+    _GroupListMixin,
     _MetricListMixin,
     _RightDrawerListMixin,
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
@@ -168,6 +171,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         ],
         resourceKind: 'opportunities',
         entityName: 'Opportunity',
+        groupsMode: true,
         allowSelection: true,
         enableActions: true,
 

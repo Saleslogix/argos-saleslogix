@@ -8,6 +8,7 @@
  * @extends Sage.Platform.Mobile.List
  * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
  * @mixins Mobile.SalesLogix.Views._MetricListMixin
+ * @mixins Mobile.SalesLogix.Views._GroupListMixin
  * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
  *
  * @requires Mobile.SalesLogix.Action
@@ -22,6 +23,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
+    '../_GroupListMixin',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin'
@@ -33,12 +35,13 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     format,
     HistoryRelatedView,
     List,
+    _GroupListMixin,
     _MetricListMixin,
     _RightDrawerListMixin,
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',
@@ -120,6 +123,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         ],
         resourceKind: 'tickets',
         entityName: 'Ticket',
+        groupsMode: true,
         allowSelection: true,
         enableActions: true,
         hashTagQueries: {

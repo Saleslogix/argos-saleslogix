@@ -14,6 +14,7 @@
  * @requires Sage.Platform.Mobile.Format
  * @requires Sage.Platform.Mobile.Convert
  * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @requires Mobile.SalesLogix.Views._GroupListMixin
  * @requires Mobile.SalesLogix.Views._MetricListMixin
  * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
  * @requires Mobile.SalesLogix.Action
@@ -28,8 +29,9 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
+    '../_GroupListMixin',
     '../_MetricListMixin',
-     'Mobile/SalesLogix/Views/_CardLayoutListMixin',
+    '../_CardLayoutListMixin',
     '../_RightDrawerListMixin'
 ], function(
     declare,
@@ -40,12 +42,13 @@ define('Mobile/SalesLogix/Views/Contact/List', [
     Convert,
     HistoryRelatedView,
     List,
+    _GroupListMixin,
     _MetricListMixin,
     _CardLayoutListMixin,
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Template
         //Card Layout
         itemIcon: 'content/images/icons/man_1.png',
@@ -109,6 +112,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         ],
         resourceKind: 'contacts',
         entityName: 'Contact',
+        groupsMode: true,
         enableActions: true,
         callWork: function(params, evt, el) {
             this.invokeActionItemBy(function(action) {
