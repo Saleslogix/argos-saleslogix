@@ -83,44 +83,40 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
         },
         getDefaultGroup: function() {
-
-            var defaultGroup = null;
-            var defaultGroupName = null;
+            var defaultGroup = null,
+                defaultGroupName = null;
 
             defaultGroup = GroupUtility.getDefaultGroup(this.entityName);
-            
-           if (defaultGroup) {
-                 return defaultGroup;
-            }
-            else {
+
+            if (defaultGroup) {
+                return defaultGroup;
+            } else {
                 defaultGroupName = GroupUtility.getDefaultGroupPreference(this.entityName);
                 if (defaultGroupName) {
                     this._requestGroup(defaultGroupName);
                 }
             }
+
             return null;
         },
-
         initGroup: function() {
             var group;
             group = this.getCurrentGroup();
+
             if (!group) {
                 group = this.getDefaultGroup();
                 this.setCurrentGroup(group);
             }
+
             if (group) {
                 this._onApplyGroup(group);
             }
         },
-        
-
         _onApplyGroup: function(group) {
             var template = [], layout, selectColumns;
 
-
             if (!group) {
                 App.setPrimaryTitle(this.getGroupTitle({ displayName: '' }));
-               // this._addGroup();
                 throw new Error("group not found.");
             }
 
@@ -172,12 +168,11 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                     scope: this
                 });
             }
-            if (store) {
 
+            if (store) {
                 queryResults = store.query();
 
                 (function(context, queryResults) {
-
                     try {
                         when(queryResults, lang.hitch(context, function(groupFeed) {
                             this._onGroupRequestSuccess(groupFeed);
@@ -203,7 +198,6 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
         },
         _onGroupRequestFaild: function(result) {
-
         },
         getGroupTitle: function(group) {
             return group.displayName;
@@ -217,6 +211,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             } else {
                 template = ["<h4>", item.caption, " : {%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}", "</h4>"].join('');
             }
+
             return template;
 
         },
@@ -255,9 +250,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
                 this.groupsNode.innerHTML = this.groupsModeText;
             }
-            
-            this.groupsMode = true;
 
+            this.groupsMode = true;
         },
         _clearGroupMode: function(isInit) {
             if ((!this.groupsMode)&&(!isInit)) {
@@ -299,6 +293,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             if (this.groupsMode) {
                 return;
             }
+
             this.inherited(arguments);
         }
     });
