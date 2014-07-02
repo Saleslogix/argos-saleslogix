@@ -62,10 +62,12 @@ define('Mobile/SalesLogix/Views/Configure', [
             return this.tools || (this.tools = {
                 tbar: [{
                         id: 'save',
+                        cls: 'fa fa-check fa-fw fa-lg',
                         fn: this.savePreferences,
                         scope: this
                     }, {
                         id: 'cancel',
+                        cls: 'fa fa-ban fa-fw fa-lg',
                         side: 'left',
                         fn: ReUI.back,
                         scope: ReUI
