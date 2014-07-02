@@ -13,7 +13,6 @@
  *
  * @requires Mobile.SalesLogix.Action
  * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Views.History.RelatedView
  */
 define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/declare',
@@ -21,7 +20,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
@@ -33,7 +31,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     array,
     action,
     format,
-    HistoryRelatedView,
     List,
     _GroupListMixin,
     _MetricListMixin,
@@ -177,16 +174,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
                 'TicketNumber like "${0}%" or AlternateKeySuffix like "${0}%" or upper(Subject) like "${0}%" or Account.AccountNameUpper like "${0}%"',
                 [this.escapeSearchQuery(searchQuery.toUpperCase())]
             );
-        },
-        createRelatedViewLayout: function() {
-            return this.relatedViews || (this.relatedViews = [{
-                widgetType: HistoryRelatedView,
-                id: 'ticket_relatedNotes',
-                autoLoad:true,
-                enabled: true,
-                relatedProperty: 'TicketId',
-                where: function(entry) { return "TicketId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
-            }]);
         }
     });
 });

@@ -173,11 +173,11 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                 } else {
                     indicator.indicatorIcon = iconPath + indicator.icon;
                 }
-                
+
                 if (indicator.isEnabled === false && indicator.showIcon === false) {
                     continue;
                 }
-                
+
                 if (this.itemIndicatorShowDisabled || indicator.isEnabled) {
 
                     if (indicator.isEnabled === false && indicator.showIcon === false) {
@@ -213,15 +213,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
         },
         createIndicatorLayout: function() {
-            return this.itemIndicators || (this.itemIndicators = [{
-                id: 'touched',
-                icon: 'Touched_24x24.png',
-                label: 'Touched',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.hasBeenTouched(entry);
-                }
-            }]
-            );
+            return this.itemIndicators || (this.itemIndicators = []);
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;

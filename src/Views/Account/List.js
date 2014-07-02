@@ -10,10 +10,8 @@
  * @requires Sage.Platform.Mobile.Format
  * @requires Sage.Platform.Mobile.Utility
  * @requires Sage.Platform.Mobile.Convert
- * @requires Sage.Platform.Mobile.RelatedViewWidget
  *
  * @requires Mobile.SalesLogix.Action
- * @requires Mobile.SalesLogix.Views.History.RelatedView
  * @requires Mobile.SalesLogix.Views._GroupListMixin
  * @requires Mobile.SalesLogix.Views._MetricListMixin
  * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
@@ -28,8 +26,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
     'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Views/History/RelatedView',
-    'Sage/Platform/Mobile/RelatedViewWidget',
     'Sage/Platform/Mobile/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
@@ -43,8 +39,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
     format,
     utility,
     Convert,
-    HistoryRelatedView,
-    RelatedViewWidget,
     List,
     _GroupListMixin,
     _MetricListMixin,
@@ -166,16 +160,6 @@ define('Mobile/SalesLogix/Views/Account/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
-        },
-        createRelatedViewLayout: function() {
-            return this.relatedViews || (this.relatedViews = [{
-                widgetType: HistoryRelatedView,
-                id: 'account_relatedNotes',
-                autoLoad:true,
-                enabled: true,
-                relatedProperty:'AccountId',
-                where: function(entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
-            }]);
         }
     });
 });
