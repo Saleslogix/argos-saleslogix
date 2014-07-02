@@ -105,22 +105,6 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         actualCloseText: 'Closed ',
         estimatedCloseText: 'Estimated close ',
 
-        hashTagQueriesText: {
-            'my-opportunities': 'my-opportunities',
-            'open': 'open',
-            'closed': 'closed',
-            'won': 'won',
-            'lost': 'lost',
-            'inactive': 'inactive'
-        },
-        // Important - These values must match the picklist translations
-        hashTagExpressionText: {
-            'open': 'Open',
-            'won': 'Closed - Won',
-            'lost': 'Closed - Lost',
-            'inactive': 'Inactive'
-        },
-
         //View Properties
         id: 'opportunity_list',
         security: 'Entities/Opportunity/View',
@@ -128,27 +112,6 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         iconClass: 'fa fa-bar-chart-o fa-lg',
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
-        hashTagQueries: {
-            'my-opportunities': function() {
-                return 'AccountManager.Id eq "' + App.context.user.$key + '"';
-            },
-            'open': function() {
-                var list = this.owner;
-                return 'Status eq "' + list.hashTagExpressionText['open'] + '"'; //'Status eq "Open"'
-            },
-            'won': function() {
-                var list = this.owner;
-                return 'Status eq "' + list.hashTagExpressionText['won'] + '"'; //'Status eq "Closed - Won"'
-            },
-            'lost': function() {
-                var list = this.owner;
-                return 'Status eq "' + list.hashTagExpressionText['lost'] + '"'; //'Status eq "Closed - Lost"'
-            },
-            'inactive': function() {
-                var list = this.owner;
-                return 'Status eq "' + list.hashTagExpressionText['inactive'] + '"'; //'Status eq "Inactive"'
-            }
-        },
         statusIcons: {
             'Open': 'content/images/icons/opportunity_24.png',
             'Closed - Won': 'content/images/icons/Opportunity_Won_24.png',

@@ -108,14 +108,6 @@ define('Mobile/SalesLogix/Views/History/List', [
         },
         hourMinuteFormatText: "h:mm A",
         dateFormatText: "M/D/YY",
-        hashTagQueriesText: {
-            'my-history': 'my-history',
-            'note': 'note',
-            'phonecall': 'phonecall',
-            'meeting': 'meeting',
-            'personal': 'personal',
-            'email': 'email'
-        },
         titleText: 'Notes/History',
         viewAccountActionText: 'Account',
         viewOpportunityActionText: 'Opp.',
@@ -155,16 +147,6 @@ define('Mobile/SalesLogix/Views/History/List', [
         resourceKind: 'history',
         entityName: 'History',
         groupsMode: true,
-        hashTagQueries: {
-            'my-history': function() {
-                return 'UserId eq "' + App.context.user.$key + '"';
-            },
-            'note': 'Type eq "atNote"',
-            'phonecall': 'Type eq "atPhoneCall"',
-            'meeting': 'Type eq "atAppointment"',
-            'personal': 'Type eq "atPersonal"',
-            'email': 'Type eq "atEMail"'
-        },
         entityIconByType: {
             'atToDo': 'content/images/icons/To_Do_24x24.png',
             'atPhoneCall': 'content/images/icons/Call_24x24.png',

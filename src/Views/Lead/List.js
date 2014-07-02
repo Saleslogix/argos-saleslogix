@@ -139,25 +139,6 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         groupsMode: true,
         allowSelection: true,
         enableActions: true,
-        hashTagQueries: {
-            'my-leads': function() {
-                return 'AccountManager.Id eq "' + App.context.user.$key + '"';
-            },
-            'can-email': 'DoNotEmail eq false',
-            'can-phone': 'DoNotPhone eq false',
-            'can-fax': 'DoNotFAX eq false',
-            'can-mail': 'DoNotMail eq false',
-            'can-solicit': 'DoNotSolicit eq false'
-        },
-        hashTagQueriesText: {
-            'my-leads': 'my-leads',
-            'can-email': 'can-email',
-            'can-phone': 'can-phone',
-            'can-fax': 'can-fax',
-            'can-mail': 'can-mail',
-            'can-solicit': 'can-solicit'
-        },
-
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                         id: 'edit',

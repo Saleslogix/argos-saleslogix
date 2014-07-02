@@ -129,29 +129,6 @@ define('Mobile/SalesLogix/Views/Contact/List', [
                 return action.id === 'sendEmail';
             }, params.key);
         },
-        hashTagQueries: {
-            'my-contacts': function() {
-                return 'AccountManager.Id eq "' + App.context.user.$key + '"';
-            },
-            'primary': 'IsPrimary eq true',
-            'not-primary': 'IsPrimary eq false',
-            'can-email': 'DoNotEmail eq false',
-            'can-phone': 'DoNotPhone eq false',
-            'can-fax': 'DoNotFax eq false',
-            'can-mail': 'DoNotMail eq false',
-            'can-solicit': 'DoNotSolicit eq false'
-        },
-        hashTagQueriesText: {
-            'my-contacts': 'my-contacts',
-            'primary': 'primary',
-            'not-primary': 'not-primary',
-            'can-email': 'can-email',
-            'can-phone': 'can-phone',
-            'can-fax': 'can-fax',
-            'can-mail': 'can-mail',
-            'can-solicit': 'can-solicit'
-        },
-
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                         id: 'edit',

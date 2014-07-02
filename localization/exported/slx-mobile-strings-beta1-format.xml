@@ -16,6 +16,10 @@
     <description/>
     <value>${0}${1}</value>
   </data>
+  <data class="Mobile.SalesLogix.GroupUtility" property="groupDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm:ss a</value>
+  </data>
   <data class="Mobile.SalesLogix.Recurrence" property="dayFormatText" type="format">
     <description/>
     <value>DD</value>

@@ -126,18 +126,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         groupsMode: true,
         allowSelection: true,
         enableActions: true,
-        hashTagQueries: {
-            'assigned-to-me': function() {
-                return 'AssignedTo.OwnerDescription eq "' + App.context.user.$descriptor + '"';
-            },
-            'completed-by-me': function() {
-                return 'CompletedBy.OwnerDescription eq "' + App.context.user.$descriptor + '"';
-            }
-        },
-        hashTagQueriesText: {
-            'assigned-to-me': 'assigned-to-me',
-            'completed-by-me': 'completed-by-me'
-        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
