@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     'Mobile/SalesLogix/GroupUtility',
     'dojo/when',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/Store/SData',
+    'Sage/Platform/Mobile/Store/SData'
 ], function(
     declare,
     array,
@@ -115,7 +115,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         
 
         _onApplyGroup: function(group) {
-            var group, template = [], layout, selectColumns;
+            var template = [], layout, selectColumns;
 
 
             if (!group) {
@@ -210,7 +210,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         },
         getItemLayoutTemplate: function(item) {
             var template, jsonString;
-            jsonString = json.stringify(item)
+            jsonString = json.stringify(item);
+
             if (item.index === 0) {
                 template = ["<h4><strong>", item.caption, " : {%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}", "</strong></h4>"].join('');
             } else {
@@ -286,12 +287,11 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
             this.clear();
             this.refreshRequired = true;
-            
+
             if (this.groupsNode) {
                 domStyle.set(this.groupsNode, {
                     display: 'none'
                 });
-                
                 this.groupsNode.innerHTML = '';
              }
         },
@@ -300,8 +300,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 return;
             }
             this.inherited(arguments);
-        },
-
+        }
     });
 });
 

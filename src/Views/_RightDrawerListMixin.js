@@ -50,7 +50,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         groupList: null,
         DRAWER_PAGESIZE: 100,
         groupLookupId: 'groups_configure',
- 
+
         setupRightDrawer: function() {
             var drawer = App.getView('right_drawer');
             if (drawer) {
@@ -126,12 +126,11 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     this.toggleRightDrawer();
                 }),
                 groupClicked: lang.hitch(this, function(params) {
-                    var  group, groupList,
-                      groupId;
-                    var template = [],
+                    var group,
+                        groupList,
+                        template = [],
                         selectColumns,
                         extraSelectColumns = [],
-                        group,
                         original = this._originalProps,
                         groupId;
 
@@ -149,7 +148,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     this.refresh();
                     this.toggleRightDrawer();
                 })
-                
             };
 
             return actions;
@@ -178,7 +176,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     entry,
                     currentGroup,
                     items = [];
-                    
+
                 // We will get an object back where the property names are the keys (groupId's)
                 // Extract them out, and save the entry, which is the data property on the extracted object
                 for (groupId in field.currentValue) {
