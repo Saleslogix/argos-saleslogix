@@ -86,20 +86,7 @@ define('Mobile/SalesLogix/GroupUtility', [
          */
         groupFilters: [
             function(layoutItem) {
-                return layoutItem.fieldType !== 'FixedChar';
-            },
-            function(layoutItem) {
                 return layoutItem.visible;
-            },
-            function(layoutItem) {
-                return layoutItem.format !== 'Owner';
-            },
-            function(layoutItem) {
-                return layoutItem.format !== 'User';
-            },
-            function(layoutItem) {
-                // TODO: Add the picklist item.alias + "TEXT" to the querySelect instead?
-                return layoutItem.format !== 'PickList Item';
             }
         ],
         groupFormatters: [
@@ -148,11 +135,143 @@ define('Mobile/SalesLogix/GroupUtility', [
             if (results.length === 0) {
                 results.push({
                     formatter: function(value) {
-                    return value;
-                }});
+                        return value;
+                    }});
             }
 
             return lang.hitch(this, results[0].formatter);
+        },
+        getLayout: function(group) {
+            var layout;
+            var i = 0;
+            layout = array.filter(group.layout, function(item) {
+                item.index = i++;
+                return array.every(this.groupFilters, function(filter) {
+                    return filter(item);
+                }, this);
+            }, this);
+            return layout;
+        },
+        getColumNames: function(layout) {
+            var columns, extraSelectColumns;
+            extraSelectColumns = [];
+            columns = array.map(layout, function(layout) {
+                if (layout.format === 'PickList Item') {
+                    extraSelectColumns.push(layout.alias + 'TEXT');
+                }
+
+                if (layout.format === 'User' || layout.format === 'Owner') {
+                    extraSelectColumns.push(layout.alias + 'NAME');
+                }
+
+                return layout.alias;
+            });
+            return columns.concat(extraSelectColumns);
+        },
+        setDefaultGroupPreference: function(entityName, groupName){
+            App.preferences['default-group-' + entityName] = groupName;
+            App.persistPreferences();
+        },
+        getDefaultGroupPreference: function(entityName){
+            var defaultGroupName =  App.preferences['default-group-' + entityName];
+            if (!defaultGroupName) {
+                defaultGroupName = this.getDefaultGroupUserPreference(entityName);
+            }
+            return defaultGroupName;
+        },
+        getDefaultGroupUserPreference: function(entityName){
+           var defaultGroupName = App.context.userOptions['DefaultGroup:' + entityName.toUpperCase()];
+            if (defaultGroupName) {
+                defaultGroupName = defaultGroupName.split(':')[1];
+            }
+            return defaultGroupName;
+        },
+        getDefaultGroup: function(entityName) {
+            var groupList = App.preferences['groups-' + entityName];
+            var defaultGroup = null;
+            var defaultGroupName = null;
+
+            defaultGroupName = this.getDefaultGroupPreference(entityName);
+
+            if (groupList && groupList.length > 0) {
+                array.forEach(groupList, function(group) {
+                    if (group.name === defaultGroupName) {
+                        defaultGroup = group;
+                    }
+                });
+
+                if (!defaultGroup) {
+                    defaultGroup = groupList[0];
+                }
+                return defaultGroup;
+            }
+        },
+        addToGroupPreferences: function(items, entityName, overwrite) {
+            var found, groupList;
+            groupList = this.getGroupPreferences(entityName);
+            if (!overwrite && groupList && groupList.length > 0) {
+                 if (items && items.length > 0) {
+                     array.forEach(items, function(item) {
+                         found = false;
+                         array.forEach(groupList, function(group) {
+                              if (group.$key === item.$key) {
+                                 found = true;
+                              }
+ 
+                         });
+                         if (!found) {
+                             groupList.push(item);
+                         }
+                     });
+                 }
+             }
+             else{
+                 groupList = items;
+             }
+             App.preferences['groups-' + entityName] = groupList;
+             App.persistPreferences();
+        },
+        getGroupPreferences: function(entityName){
+            var groupList = App.preferences['groups-' + entityName];
+            return groupList;
+        },
+        groupFieldNames: [
+            {
+                name: 'PickList',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'PickList Item';
+                },
+                fieldName: function(layoutItem) {
+                    return layoutItem.alias.toUpperCase() + 'TEXT';
+                }
+            },
+            {
+                name: 'OwnerOrUser',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'Owner' || layoutItem.format === 'User';
+                },
+                fieldName: function(layoutItem) {
+                    return layoutItem.alias.toUpperCase() + 'NAME';
+                }
+            }
+        ],
+        getFieldNameByLayout: function(layoutItem) {
+            // Determines what field/property name should be used in the feed for a layout item.
+            // This is usually just the layout item's alias in upper case, however there are some exceptions:
+            // Picklist layout items need to select the alias + 'TEXT',
+            // Owner and user items need to select the alias + 'NAME'
+            var results = array.filter(this.groupFieldNames, function(name) {
+                return name.test(layoutItem);
+            });
+
+            if (results.length === 0) {
+                results.push({
+                    fieldName: function(layoutItem) {
+                    return layoutItem.alias.toUpperCase();
+                }});
+            }
+
+            return results[0].fieldName(layoutItem);
         }
     });
 });
