@@ -350,6 +350,10 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                 });
         },
         completeActivity: function(entry, callback) {
+            if (!entry['$key']) {
+                return;
+            }
+
             var leader = this.fields['Leader'].getValue();
             var completeActivityEntry = {
                 "$name": "ActivityComplete",
@@ -386,9 +390,13 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             });
         },
         onUpdateCompleted: function(entry) {
-            var followup = this.fields['Followup'].getValue() !== 'none'
-                ? this.navigateToFollowUpView
-                : this.getInherited(arguments);
+            if (!entry) {
+                return;
+            }
+
+            var followup = this.fields['Followup'].getValue() === 'none'
+                ? this.getInherited(arguments)
+                : this.navigateToFollowUpView;
 
             this.completeActivity(entry, followup);
         },
