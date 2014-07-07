@@ -1110,15 +1110,17 @@ td.entry-table-description {
 .card-layout .list-item-indicator-content {
   padding-left: 80px;
   text-align: right;
-  font-size: 0.6em;
-  font-weight: bold;
+}
+.card-layout .list-item-indicator-content > span.disabled {
+  color: #0f1e1e;
+}
+.card-layout .list-item-indicator-content > span {
+  margin: 0 3px 0 3px;
+  color: #ffb900;
 }
 .card-layout .list-item-indicator-content > span > img {
   width: 24px;
   height: 24px;
-  margin: 2px;
-  font-size: 0.6em;
-  font-weight: normal;
 }
 .card-layout .list-item-footer {
   height: 28px;
