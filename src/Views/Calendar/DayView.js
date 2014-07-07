@@ -135,8 +135,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
             '</div>',
             '<div class="nav-bar">',
-            '<button data-tool="next" data-action="getNextDay" class="button button-next"><span></span></button>',
-            '<button data-tool="prev" data-action="getPrevDay" class="button button-prev"><span></span></button>',
+            '<button data-tool="next" data-action="getNextDay" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>',
+            '<button data-tool="prev" data-action="getPrevDay" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>',
             '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '</div>'
         ]),
@@ -451,11 +451,13 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 tools: {
                     tbar: [{
                             id: 'complete',
+                            cls: 'fa fa-check fa-fw fa-lg',
                             fn: this.selectDateSuccess,
                             scope: this
                         }, {
                             id: 'cancel',
                             side: 'left',
+                            cls: 'fa fa-ban fa-fw fa-lg',
                             fn: ReUI.back,
                             scope: ReUI
                         }]

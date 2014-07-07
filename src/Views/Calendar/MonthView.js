@@ -104,8 +104,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         ]),
         navBarTemplate: new Simplate([
             '<div class="nav-bar">',
-            '<button data-tool="next" data-action="goToNextMonth" class="button button-next"><span></span></button>',
-            '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev"><span></span></button>',
+            '<button data-tool="next" data-action="goToNextMonth" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>',
+            '<button data-tool="prev" data-action="goToPreviousMonth" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>',
             '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '</div>'
         ]),
@@ -828,10 +828,12 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
                 tools: {
                     tbar: [{
                             id: 'complete',
+                            cls: 'fa fa-check fa-fw fa-lg',
                             fn: this.selectDateSuccess,
                             scope: this
                         }, {
                             id: 'cancel',
+                            cls: 'fa fa-ban fa-fw fa-lg',
                             side: 'left',
                             fn: ReUI.back,
                             scope: ReUI

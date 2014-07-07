@@ -545,8 +545,8 @@ li[data-ticket-status] .list-item-selector,
 
 .calendar-day.selected
 {
-    color: #000;
-    background-color: @blue1-dark;
+    color: #fff;
+    background-color: @purple-darker;
 }
 
 /* in Month view .activeDay indicates individual events */
@@ -800,8 +800,6 @@ body.transition > .viewContainer > .footer-toolbar
 #calendar_daylist > h2,
 #calendar_weeklist > div > h2
 {
-    .box-shadow(rgba(0,0,0,0.5) 0px 2px 3px);
-    color: #ffffff;
     background-color: @gray2-darker;
     font-weight: bold;
     .box-sizing(border-box);
@@ -814,7 +812,7 @@ body.transition > .viewContainer > .footer-toolbar
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-    border-bottom: 1px solid #212721;
+    border-bottom: 1px solid @black-darker;
 }
 
 #calendar_daylist .nav-bar > h3,
@@ -883,7 +881,7 @@ body.transition > .viewContainer > .footer-toolbar
 #calendar_daylist .nav-bar,
 #calendar_weeklist .nav-bar
 {
-    /*padding: 5px 0 0 0; */
+    margin: 0 4px 0 0;
 }
 
 #calendar_monthlist > .split-buttons,
@@ -992,29 +990,9 @@ td.entry-table-description {
 .nav-bar > .button-next > span,
 .nav-bar > .button-prev > span
 {
-    display: inline-block;
-    background-repeat: no-repeat;
-    background-position: center center;
-    margin: 6px;
-    width: 24px;
-    height: 24px;
+    display: none;
+    visibility: hidden;
 }
-.nav-bar > .button-prev > span
-{
-    background-image: data-uri('../images/icons/Browse_Previous.png');
-    margin: 6px 6px 6px 4px;
-    background-size: 90%;
-    background-position-y: 0px;
-}
-
-
-.nav-bar > .button-next > span
-{
-    background-image: data-uri('../images/icons/Browse_Next.png');
-    background-size: 90%;
-    background-position-y: -1px;
-}
-
 
 .split-buttons
 {
@@ -1024,10 +1002,11 @@ td.entry-table-description {
 
 .split-buttons > .button
 {
-    display: inline-block;
+    display: inline-block !important;
     padding-left: 10px;
     padding-right: 10px;
     height: 34px;
+    outline: none;
 }
 
 
@@ -1053,27 +1032,8 @@ td.entry-table-description {
 .activities-for-year > .split-buttons > .button[data-tool="year"],
 .activities-for-week > .split-buttons > .button[data-tool="week"]
 {
-    color: #ffffff;
-    border-color: #5a5d59;
-
-    background-color: #FE5000;
-    background-image: linear-gradient(
-        to bottom,
-        #FE5000 0%,
-        #FE5000 100%
-    );
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #FE5000),
-        color-stop(1, #FE5000)
-    );
-    background-image: -moz-linear-gradient(
-        center top,
-        #FE5000 0%,
-        #FE5000 100%
-    );
+    color: #fff;
+    background-color: @blue1-darker;
 }
 
 .split-buttons > .button[data-tool="selectdate"]
