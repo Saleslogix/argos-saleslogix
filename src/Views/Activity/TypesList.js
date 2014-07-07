@@ -18,31 +18,22 @@
 define('Mobile/SalesLogix/Views/Activity/TypesList', [
     'dojo/_base/declare',
     'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin',
-    'Mobile/SalesLogix/Views/_CardLayoutListMixin'
+    'dojo/store/Memory',
 ], function(
     declare,
     List,
-    _LegacySDataListMixin,
-    _CardLayoutListMixin
+    MemoryStore
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.TypesList', [List, _LegacySDataListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Activity.TypesList', [List], {
         //Templates
-        itemIndicatorTemplate: new Simplate(['<div/> ']),
-        itemIconTemplate: new Simplate([
-            '<div class="list-item-static-selector">',
-                '{% if ($.icon) { %}',
-                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
-                '{% } %}',
-            '</div>'
-        ]),
-        //this us used if card layout is not mixed in
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
             '<div class="list-item-static-selector">',
                 '{% if ($.icon) { %}',
-                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                    '<img src="{%: $.icon || "" %}" alt="icon" class="icon" />',
+                '{% } else if ($.iconClass) { %}',
+                    '<div class="{%= $.iconClass %}"></div>',
                 '{% } %}',
             '</div>',
             '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
@@ -63,12 +54,12 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
             'event': 'Event'
         },
         activityTypeIcons: {
-            'atToDo': 'content/images/icons/Schedule_ToDo_24x24.png',
-            'atPhoneCall': 'content/images/icons/Schedule_Call_24x24.png',
-            'atAppointment': 'content/images/icons/Schedule_Meeting_24x24.png',
-            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'content/images/icons/Personal_24x24.png',
-            'event': 'content/images/icons/Holiday_schemes_24.png'
+            'atToDo': 'fa fa-tasks',
+            'atPhoneCall': 'fa fa-phone',
+            'atAppointment': 'fa fa-users',
+            'atLiterature': 'fa fa-users',
+            'atPersonal': 'fa fa-check-square-o',
+            'event': 'fa fa-calendar-o'
         },
 
         //View Properties
@@ -80,18 +71,6 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
             'atToDo',
             'event'
         ],
-        activityColorClassByType: {
-            'atToDo': 'color-ToDo',
-            'atPhoneCall': 'color-PhoneCall',
-            'atAppointment': 'color-Meeting',
-            'atLiterature': 'color-LitRequest',
-            'atPersonal': 'color-Personal',
-            'atQuestion': 'color-Question',
-            'atNote': 'color-Note',
-            'atEMail': 'color-Email'
-        },
-        itemIndicators: [{}],
-        itemIcon:'content/images/icons/Schedule_Meeting_24x24.png',
         expose: false,
         enableSearch: false,
         id: 'activity_types_list',
@@ -127,28 +106,32 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
         hasMoreData: function() {
             return false;
         },
-        requestData: function() {
-            var list = [],
-                eventViews = [
-                    'calendar_monthlist',
-                    'calendar_weeklist',
-                    'calendar_daylist',
-                    'calendar_yearlist'
-                ];
+        createStore: function() {
+            var list, i, store, eventViews;
 
-            for (var i = 0; i < this.activityTypeOrder.length; i++) {
+            list = [];
+            eventViews = [
+                'calendar_monthlist',
+                'calendar_weeklist',
+                'calendar_daylist',
+                'calendar_yearlist'
+            ];
+
+            for (i = 0; i < this.activityTypeOrder.length; i++) {
                 list.push({
                     '$key': this.activityTypeOrder[i],
                     '$descriptor': this.activityTypeText[this.activityTypeOrder[i]],
-                    'icon': this.activityTypeIcons[this.activityTypeOrder[i]],
+                    'iconClass': this.activityTypeIcons[this.activityTypeOrder[i]],
                     'type':this.activityTypeOrder[i]
                 });
             }
+
             if (eventViews.indexOf(this.options.returnTo) === -1) {
                 list.pop(); // remove event for non event views
             }
 
-            this.processFeed({'$resources': list});
+            store = new MemoryStore({data: list});
+            return store;
         },
         init: function() {
             this.inherited(arguments);
@@ -157,12 +140,6 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
             return this.tools || (this.tools = {
                 tbar: []
             });
-        },
-        getItemIconSource: function(entry) {
-            return this.itemIcon || this.activityTypeIcons[entry.type] || this.icon || this.selectIcon;
-        },
-        getItemColorClass: function(entry) {
-            return this.activityColorClassByType[entry.type] || this.itemColorClass;
         }
     });
 });

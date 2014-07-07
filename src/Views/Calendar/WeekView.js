@@ -106,7 +106,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
             '<table class="calendar-entry-table"><tr>',
             '<td class="entry-table-icon">',
-            '<button data-action="selectEntry" class="list-item-selector button"><img src="{%= $$.activityIconByType[$.Type] || $$.selectIcon %}" class="icon" /></button>',
+            '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
+            '</button>',
             '</td>',
             '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
             '<td class="entry-table-description">{%! $$.itemTemplate %}</td>',
@@ -232,16 +233,16 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             'Type'
         ],
         activityIconByType: {
-            'atToDo': 'content/images/icons/To_Do_24x24.png',
-            'atPhoneCall': 'content/images/icons/Call_24x24.png',
-            'atAppointment': 'content/images/icons/Meeting_24x24.png',
-            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'content/images/icons/Personal_24x24.png',
-            'atQuestion': 'content/images/icons/help_24.png',
-            'atNote': 'content/images/icons/note_24.png',
-            'atEMail': 'content/images/icons/letters_24.png'
+            'atToDo': 'fa fa-tasks',
+            'atPhoneCall': 'fa fa-phone',
+            'atAppointment': 'fa fa-users',
+            'atLiterature': 'fa fa-users',
+            'atPersonal': 'fa fa-check-square-o',
+            'atQuestion': 'fa fa-question',
+            'atNote': 'fa fa-users',
+            'atEMail': 'fa fa-envelope'
         },
-        eventIcon: 'content/images/icons/Holiday_schemes_24.png',
+        eventIcon: 'fa fa-calendar-o',
 
         contractName: 'system',
         pageSize: 105, // gives 15 activities per day
