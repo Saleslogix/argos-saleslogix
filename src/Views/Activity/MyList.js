@@ -518,6 +518,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;
+
             if (entry['Activity']['ModifyDate']) {
                 modifiedDate = moment(convert.toDateFromString(entry['Activity']['ModifyDate']));
                 currentDate = moment().endOf('day');
@@ -526,6 +527,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 return modifiedDate.isAfter(weekAgo) &&
                     modifiedDate.isBefore(currentDate);
             }
+
             return false;
         },
         isImportant: function(entry) {
@@ -533,7 +535,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 if (entry["Activity"]['Priority'] === 'High') {
                     return true;
                 }
-            }           
+            }
+
             return false;
         },
         isOverdue: function(entry) {

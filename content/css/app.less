@@ -1449,21 +1449,26 @@ td.entry-table-description {
         }
     }
 
-    .list-item-indicator-content 
-    { 
+    .list-item-indicator-content
+    {
         padding-left: 80px;
         text-align: right;
-        font-size: 0.6em;
-        font-weight: bold;
 
-        > span > img
-        { 
-          width: 24px;
-          height:24px;
-          margin: 2px;
-          font-size: 0.6em;
-          font-weight: normal;
+        > span.disabled
+        {
+            color: @black-darker;
+        }
 
+        > span
+        {
+            margin: 0 3px 0 3px;
+            color: @yellow-darker;
+
+            > img
+            {
+                width: 24px;
+                height:24px;
+            }
         }
     }
 

@@ -122,14 +122,14 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'atEMail': 'content/images/icons/letters_24.png'
         },
         activityIndicatorIconByType: {
-            'atToDo': 'To_Do_24x24.png',
-            'atPhoneCall': 'Call_24x24.png',
-            'atAppointment': 'Meeting_24x24.png',
-            'atLiterature': 'Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'Personal_24x24.png',
-            'atQuestion': 'help_24.png',
-            'atNote': 'note_24.png',
-            'atEMail': 'letters_24.png'
+            'atToDo': 'fa fa-tasks fa-lg',
+            'atPhoneCall': 'fa fa-phone fa-lg',
+            'atAppointment': 'fa fa-users fa-lg',
+            'atLiterature': 'fa fa-users fa-lg',
+            'atPersonal': 'fa fa-check-square-o fa-lg'
+            //'atQuestion': 'help_24.png',
+            //'atNote': 'note_24.png',
+            //'atEMail': 'letters_24.png'
         },
         activityTypeText: {
             'atToDo': 'To-Do',
@@ -292,25 +292,25 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             },
             getItemIconSource: function(entry) {
                 return this.itemIcon || this.activityIconByType[entry.Type] || this.icon || this.selectIcon;
-            },        
+            },
             createIndicatorLayout: function() {
                 return this.itemIndicators || (this.itemIndicators = [{
                     id: 'alarm',
-                    icon: 'AlarmClock_24x24.png',
+                    cls: 'fa fa-clock-o fa-lg',
                     label: this.alarmText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.hasAlarm(entry);
                     }
                 }, {
                     id: 'touched',
-                    icon: 'Touched_24x24.png',
+                    cls: 'fa fa-hand-o-up fa-lg',
                     label: this.touchedText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.hasBeenTouched(entry);
                     }
                 }, {
                     id: 'important',
-                    icon: 'Bang_24x24.png',
+                    cls: 'fa fa-exclamation fa-lg',
                     label: this.importantText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.isImportant(entry);
@@ -327,14 +327,14 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                     }
                 }, {
                     id: 'recurring',
-                    icon: 'Recurring_24x24.png',
+                    cls: 'fa fa-refresh fa-lg',
                     label: this.recurringText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.isRecurring(entry, this);
                     }
                 }, {
                     id: 'activityType',
-                    icon: '',
+                    cls: '',
                     label: this.activityText,
                     onApply: function(entry, parent) {
                         parent.applyActivityIndicator(entry, this);
@@ -409,7 +409,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             indicator.isEnabled = false;
             indicator.showIcon = false;
             if (type) {
-                indicator.icon = this.activityIndicatorIconByType[type];
+                indicator.cls = this.activityIndicatorIconByType[type];
                 indicator.label = this.activityTypeText[type];
                 indicator.isEnabled = true;
                 indicator.showIcon = true;

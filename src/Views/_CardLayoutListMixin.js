@@ -50,10 +50,10 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         itemIndicatorShowDisabled: true,
         currentSearchExpression: '',
         itemIndicatorTemplate: new Simplate([
-           '<span class="{%= $.cls %}" >',
+           '<span{% if ($.iconCls) { %} class="{%= $.iconCls %}" {% } %}>',
                 '{% if ($.showIcon === false) { %}',
                      '{%: $.valueText %}',
-                '{% } else { %}',
+                '{% } else if ($.indicatorIcon && !$.iconCls) { %}',
                       '<img src="{%= $.indicatorIcon %}" alt="{%= $.label %}" />',
                  '{% } %}',
            '</span>'
@@ -146,52 +146,58 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return this.itemIconAltText;
         },
         createIndicators: function(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
-            var indicatorTemplate, indicator, options, indicatorHTML, i, iconPath;
+            var indicatorTemplate, indicator, options, indicatorHTML, i, iconPath, self = this;
             for (i = 0; i < indicators.length; i++) {
-                indicator = indicators[i];
+                (function(indicator) {
+                    iconPath = indicator.iconPath || self.itemIndicatorIconPath;
 
-                iconPath = indicators[i].iconPath || this.itemIndicatorIconPath;
-
-                if (indicator.onApply) {
-                    try{
-                        indicator.onApply(entry, this);
-                    }catch(err){
-                        indicator.isEnabled = false;
-                    }
-                }
-                options = {
-                    indicatorIndex: i,
-                    indicatorIcon: iconPath + indicator.icon
-                };
-                indicatorTemplate = indicator.template || this.itemIndicatorTemplate;
-
-                lang.mixin(indicator, options);
-
-                if (indicator.isEnabled === false) {
-                    indicator.indicatorIcon = iconPath + 'disabled_' + indicator.icon;
-                    indicator.label = '';
-                } else {
-                    indicator.indicatorIcon = iconPath + indicator.icon;
-                }
-
-                if (indicator.isEnabled === false && indicator.showIcon === false) {
-                    continue;
-                }
-
-                if (this.itemIndicatorShowDisabled || indicator.isEnabled) {
-
-                    if (indicator.isEnabled === false && indicator.showIcon === false) {
-                        continue;
-                    } else {
-
-                        indicatorHTML = indicatorTemplate.apply(indicator, indicator.id);
-                        if (indicator.location === 'top') {
-                            domConstruct.place(indicatorHTML, topIndicatorsNode, 'last');
-                        } else {
-                            domConstruct.place(indicatorHTML, bottomIndicatorsNode, 'last');
+                    if (indicator.onApply) {
+                        try{
+                            indicator.onApply(entry, self);
+                        }catch(err){
+                            indicator.isEnabled = false;
                         }
                     }
-                }
+                    options = {
+                        indicatorIndex: i,
+                        indicatorIcon: iconPath + indicator.icon,
+                        iconCls: indicator.cls
+                    };
+
+                    indicatorTemplate = indicator.template || self.itemIndicatorTemplate;
+
+                    lang.mixin(indicator, options);
+
+                    if (indicator.isEnabled === false) {
+                        indicator.label = '';
+                        if (indicator.cls) {
+                            indicator.iconCls = indicator.cls + ' disabled';
+                        } else {
+                            indicator.indicatorIcon = iconPath + 'disabled_' + indicator.icon;
+                        }
+                    } else {
+                        indicator.indicatorIcon = iconPath + indicator.icon;
+                    }
+
+                    if (indicator.isEnabled === false && indicator.showIcon === false) {
+                        return;
+                    }
+
+                    if (self.itemIndicatorShowDisabled || indicator.isEnabled) {
+
+                        if (indicator.isEnabled === false && indicator.showIcon === false) {
+                            return;
+                        } else {
+
+                            indicatorHTML = indicatorTemplate.apply(indicator, indicator.id);
+                            if (indicator.location === 'top') {
+                                domConstruct.place(indicatorHTML, topIndicatorsNode, 'last');
+                            } else {
+                                domConstruct.place(indicatorHTML, bottomIndicatorsNode, 'last');
+                            }
+                        }
+                    }
+                })(indicators[i]);
             }
         },
         onApplyRowTemplate: function(entry, rowNode) {
