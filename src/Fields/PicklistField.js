@@ -40,6 +40,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         requireSelection: false,
         valueKeyProperty: false,
         valueTextProperty: false,
+        iconClass: 'fa fa-ellipsis-h fa-lg',
 
         constructor: function(options) {
             switch (this.storageMode) {

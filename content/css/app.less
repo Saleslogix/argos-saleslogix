@@ -425,70 +425,18 @@ li[data-ticket-status] .list-item-selector,
     right: 4px;
 }
 
-.row-edit[data-field-type="lookup"] > div > .button
-{
-    background-image: data-uri('../images/icons/srch_24.png');
-    background-image: data-uri('../images/icons/srch_24.png'), linear-gradient(to bottom, #e6e6e6, #cccccc);
-    background-image: data-uri('../images/icons/srch_24.png'), -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #e6e6e6),
-        color-stop(1, #cccccc)
-    );
-    background-image: data-uri('../images/icons/srch_24.png'), -webkit-linear-gradient(top, #e6e6e6, #cccccc);
-    background-image: data-uri('../images/icons/srch_24.png'), -moz-linear-gradient(top, #e6e6e6, #cccccc);
-    background-image: data-uri('../images/icons/srch_24.png'), -ms-linear-gradient(top, #e6e6e6, #cccccc);
-    background-image: data-uri('../images/icons/srch_24.png'), -o-linear-gradient(top, #e6e6e6, #cccccc);
-    background-repeat: no-repeat, repeat;
-    background-position: center;
-}
-
-.row-edit[data-field-type="lookup"] > div > .button:active
-{
-    background-image: data-uri('../images/icons/srch_24.png'), -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0, #e6e6e6),
-        color-stop(1, #cccccc)
-    );
-    background-image: data-uri('../images/icons/srch_24.png'), -moz-linear-gradient(bottom, #e6e6e6, #cccccc);
-    background-repeat: no-repeat, repeat;
-    background-position: center;
-}
-
-.row-edit[data-field-type="lookup"] > div > .button span
+.row-edit[data-field-type="lookup"] > div > .button span,
+.row-edit[data-field-type="picklist"] > div > .button span,
+.row-edit[data-field-type="select"] > div > .button span
 {
     visibility: hidden;
-}
-
-.row-edit[data-field-type="date"] > div > .button
-{
-    background-image: data-uri('../images/icons/Calendar_24x24.png');
-    background-repeat: no-repeat, repeat;
-    background-position: center;
-}
-
-.row-edit[data-field-type="date"] > div > .button:active
-{
-    background-image: data-uri('../images/icons/Calendar_24x24.png');
-    background-repeat: no-repeat, repeat;
-    background-position: center;
+    display: none;
 }
 
 .row-edit[data-field-type="date"] > div > .button span
 {
     visibility: hidden;
-}
-
-.row-edit[data-field-type="name"] > div > .button,
-.row-edit[data-field-type="address"] > div > .button,
-.row-edit[data-field-type="note"] > div > .button
-{
-    background-image: data-uri('../images/icons/edit_24.png');
-    background-repeat: no-repeat, repeat;
-    background-position: center;
+    display: none;
 }
 
 .row-edit[data-field-type="name"] > div > .button span,
@@ -496,6 +444,7 @@ li[data-ticket-status] .list-item-selector,
 .row-edit[data-field-type="note"] > div > .button span
 {
     visibility: hidden;
+    display: none;
 }
 .row-edit[data-field-type="recurrences"] > div > .button
 {

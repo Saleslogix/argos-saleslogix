@@ -13,9 +13,12 @@ define('Mobile/SalesLogix/Fields/AddressField', [
     var control = declare('Mobile.SalesLogix.Fields.AddressField', [EditorField], {
         widgetTemplate: new Simplate([
             '<label for="{%= $.name %}">{%: $.label %}</label>',
-            '<button class="button simpleSubHeaderButton" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
+            '<button class="button simpleSubHeaderButton {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
             '<div data-dojo-attach-point="inputNode"></div>'
         ]),
+
+        iconClass: 'fa fa-pencil fa-lg',
+
         attributeMap: {
             addressContent: {
                 node: 'inputNode',
