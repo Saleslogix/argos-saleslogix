@@ -183,7 +183,6 @@ define('Mobile/SalesLogix/Views/History/List', [
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'viewAccount',
-                icon: 'content/images/icons/Company_24.png',
                 label: this.viewAccountActionText,
                 enabled: action.hasProperty.bindDelegate(this, 'AccountId'),
                 fn: action.navigateToEntity.bindDelegate(this, {
@@ -193,7 +192,6 @@ define('Mobile/SalesLogix/Views/History/List', [
                 })
             }, {
                 id: 'viewOpportunity',
-                icon: 'content/images/icons/opportunity_24.png',
                 label: this.viewOpportunityActionText,
                 enabled: action.hasProperty.bindDelegate(this, 'OpportunityId'),
                 fn: action.navigateToEntity.bindDelegate(this, {
@@ -203,13 +201,12 @@ define('Mobile/SalesLogix/Views/History/List', [
                 })
             }, {
                 id: 'viewContact',
-                icon: 'content/images/icons/Contacts_24x24.png',
                 label: this.viewContactActionText,
                 action: 'navigateToContactOrLead',
                 enabled: this.hasContactOrLead
             }, {
                 id: 'addAttachment',
-                icon: 'content/images/icons/Attachment_24.png',
+                cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
             }]

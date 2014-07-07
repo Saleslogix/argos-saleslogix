@@ -131,7 +131,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
             return this.tools || (this.tools = {
                 'tbar': [{
                     id: 'associate',
-                    icon: 'content/images/icons/add_24.png',
+                    cls: 'fa fa-plus fa-fw fa-lg',
                     action: 'navigateToSelectView',
                     security: App.getViewSecurity(this.insertView, 'insert')
                 }]

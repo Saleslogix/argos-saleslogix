@@ -329,7 +329,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'CompleteActivityAction',
                             property: 'Description',
                             label: this.completeActivityText,
-                            icon: 'content/images/icons/Clear_Activity_24x24.png',
+                            iconClass: 'fa fa-check-square fa-lg',
                             action: 'completeActivity',
                             disabled: this.checkCanComplete,
                             exclude: this.isActivityRecurringSeries
@@ -337,7 +337,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'completeOccurrenceAction',
                             property: 'StartDate',
                             label: this.completeOccurrenceText,
-                            icon: 'content/images/icons/Clear_Activity_24x24.png',
+                            iconClass: 'fa fa-check-square fa-lg',
                             action: 'completeOccurrence',
                             disabled: this.checkCanComplete,
                             renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
@@ -346,7 +346,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'completeSeriesAction',
                             property: 'Description',
                             label: this.completeSeriesText,
-                            icon: 'content/images/icons/Clear_Activity_24x24.png',
+                            iconClass: 'fa fa-check-square fa-lg',
                             action: 'completeSeries',
                             disabled: this.checkCanComplete,
                             include: this.isActivityRecurringSeries
@@ -499,7 +499,6 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     name: 'RelatedItemsSection',
                     children: [{
                         name: 'AttachmentRelated',
-                        icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'),// must be lower case because of feed
                         view: 'activity_attachment_related',

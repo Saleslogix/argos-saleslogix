@@ -139,40 +139,40 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                         id: 'edit',
-                        icon: 'content/images/icons/edit_24.png',
+                        cls: 'fa fa-pencil fa-2x',
                         label: this.editActionText,
                         action: 'navigateToEditView'
                     }, {
                         id: 'callWork',
-                        icon: 'content/images/icons/Call_24x24.png',
+                        cls: 'fa fa-phone-square fa-2x',
                         label: this.callWorkActionText,
                         enabled: action.hasProperty.bindDelegate(this, 'WorkPhone'),
                         fn: action.callPhone.bindDelegate(this, 'WorkPhone')
                     }, {
                         id: 'callMobile',
-                        icon: 'content/images/icons/Call_24x24.png',
+                        cls: 'fa fa-mobile fa-2x',
                         label: this.callMobileActionText,
                         enabled: action.hasProperty.bindDelegate(this, 'Mobile'),
                         fn: action.callPhone.bindDelegate(this, 'Mobile')
                     }, {
                         id: 'sendEmail',
-                        icon: 'content/images/icons/Send_Write_email_24x24.png',
+                        cls: 'fa fa-envelope fa-2x',
                         label: this.sendEmailActionText,
                         enabled: action.hasProperty.bindDelegate(this, 'Email'),
                         fn: action.sendEmail.bindDelegate(this, 'Email')
                     }, {
                         id: 'addNote',
-                        icon: 'content/images/icons/New_Note_24x24.png',
+                        cls: 'fa fa-edit fa-2x',
                         label: this.addNoteActionText,
                         fn: action.addNote.bindDelegate(this)
                     }, {
                         id: 'addActivity',
-                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                        cls: 'fa fa-calendar fa-2x',
                         label: this.addActivityActionText,
                         fn: action.addActivity.bindDelegate(this)
                     }, {
                         id: 'addAttachment',
-                        icon: 'content/images/icons/Attachment_24.png',
+                        cls: 'fa fa-paperclip fa-2x',
                         label: this.addAttachmentActionText,
                         fn: action.addAttachment.bindDelegate(this)
                     }]

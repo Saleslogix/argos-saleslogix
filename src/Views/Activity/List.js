@@ -55,7 +55,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
-       
+
         // Localization
         startDateFormatText: 'ddd M/D/YYYY',
         startTimeFormatText: 'h:mm',
@@ -71,11 +71,11 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         recurringText: 'recurring',
         activityText: 'activity',
 
-        //Card View 
+        //Card View
         itemIcon: 'content/images/icons/man_1.png',
         itemColorClass: 'color-activity',
         //Templates
-        //Card View 
+        //Card View
         itemRowContainerTemplate: new Simplate([
        '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
            '{%! $$.itemRowContentTemplate %}',
@@ -122,7 +122,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'atEMail': 'content/images/icons/letters_24.png'
         },
         activityIndicatorIconByType: {
-            'atToDo': 'fa fa-tasks fa-lg',
+            'atToDo': 'fa fa-list-ul fa-lg',
             'atPhoneCall': 'fa fa-phone fa-lg',
             'atAppointment': 'fa fa-users fa-lg',
             'atLiterature': 'fa fa-users fa-lg',
@@ -157,7 +157,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         //View Properties
         id: 'activity_list',
         security: null, //'Entities/Activity/View',
-        icon: 'content/images/icons/To_Do_24x24.png',
         iconClass: 'fa fa-check-square-o fa-lg',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
@@ -296,7 +295,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             createIndicatorLayout: function() {
                 return this.itemIndicators || (this.itemIndicators = [{
                     id: 'alarm',
-                    cls: 'fa fa-clock-o fa-lg',
+                    cls: 'fa fa-bell-o fa-lg',
                     label: this.alarmText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.hasAlarm(entry);
@@ -350,7 +349,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
 
             for (var colorKey in this.activityColorClassByType) {
                 domClass.remove(actionsNode, this.activityColorClassByType[colorKey]);
-            }           
+            }
             if (colorCls) {
                 domClass.add(actionsNode, colorCls);
             }
@@ -399,7 +398,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         hasAlarm: function(entry) {
             if (entry['Alarm'] === true) {
                 return true;
-            }            
+            }
             return false;
         },
        applyActivityIndicator: function(entry, indicator) {
@@ -418,7 +417,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
        createActionLayout: function() {
            return this.actions || (this.actions = [{
                id: 'complete',
-               icon: 'content/images/icons/Clear_Activity_24x24.png',
+               cls: 'fa fa-check-square fa-2x',
                label: this.completeActivityText,
                enabled: function(action, selection) {
                    var recur, entry = selection && selection.data;
@@ -446,7 +445,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                }).bindDelegate(this)
            }, {
                id: 'call',
-               icon: 'content/images/icons/Dial_24x24.png',
+               cls: 'fa fa-phone-square fa-2x',
                label: this.callText,
                enabled: function(action, selection) {
                    var entry;
@@ -465,7 +464,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                }.bindDelegate(this)
            }, {
                id: 'addAttachment',
-               icon: 'content/images/icons/Attachment_24.png',
+               cls: 'fa fa-paperclip fa-2x',
                label: this.addAttachmentActionText,
                fn: action.addAttachment.bindDelegate(this)
            }]

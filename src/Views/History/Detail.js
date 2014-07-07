@@ -276,7 +276,6 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                     name: 'RelatedItemsSection',
                     children: [{
                         name: 'AttachmentRelated',
-                        icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'historyId eq "${0}"'),// must be lower case because of feed
                         view: 'history_attachment_related',

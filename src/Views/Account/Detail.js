@@ -156,13 +156,13 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             name: 'ScheduleActivityAction',
                             property: 'AccountName',
                             label: this.scheduleActivityText,
-                            icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                            iconClass: 'fa fa-calendar fa-lg',
                             action: 'scheduleActivity'
                         }, {
                             name: 'AddNoteAction',
                             property: 'AccountName',
                             label: this.addNoteText,
-                            icon: 'content/images/icons/New_Note_24x24.png',
+                            iconClass: 'fa fa-edit fa-lg',
                             action: 'addNote'
                         }]
                 }, {
@@ -235,43 +235,36 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     name: 'RelatedItemsSection',
                     children: [{
                             name: 'ActivityRelated',
-                            icon: 'content/images/icons/To_Do_24x24.png',
                             label: this.relatedActivitiesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}"'),
                             view: 'activity_related'
                         }, {
                             name: 'ContactRelated',
-                            icon: 'content/images/icons/Contacts_24x24.png',
                             label: this.relatedContactsText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
                             view: 'contact_related'
                         }, {
                             name: 'OpportunityRelated',
-                            icon: 'content/images/icons/opportunity_24.png',
                             label: this.relatedOpportunitiesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
                             view: 'opportunity_related'
                         }, {
                             name: 'TicketRelated',
-                            icon: 'content/images/icons/Ticket_24x24.png',
                             label: this.relatedTicketsText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
                             view: 'ticket_related'
                         }, {
                             name: 'HistoryRelated',
-                            icon: 'content/images/icons/journal_24.png',
                             label: this.relatedHistoriesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}" and Type ne "atDatabaseChange"'),
                             view: 'history_related'
                         }, {
                             name: 'AddressesRelated',
-                            icon: 'content/images/icons/Map_24.png',
                             label: this.relatedAddressesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
                             view: 'address_related'
                         }, {
                             name: 'AttachmentRelated',
-                            icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'accountId eq "${0}"'), // must be lower case because of feed
                             view: 'account_attachment_related',

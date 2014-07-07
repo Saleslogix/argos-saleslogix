@@ -155,39 +155,20 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
                 }
             }
         },
+        itemIconClass: 'fa fa-paperclip fa-4x',
         getItemIconSource: function(entry) {
               return "content/images/icons/Attachment_48x48.png";
         },
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'touched',
-                icon: 'Touched_24x24.png',
+                cls: 'fa fa-hand-o-up',
                 label: 'Touched',
                 onApply: function(entry, parent) {
                     this.isEnabled = parent.hasBeenTouched(entry);
                 }
-            }, {
-                id: 'attachmentIcon',
-                icon: '',
-                label: 'Activity',
-                onApply: function(entry, parent) {
-                    parent.applyActivityIndicator(entry, this);
-                }
             }]
             );
-        },
-        applyActivityIndicator: function(entry, indicator) {
-            var dataType = entry['dataType'];
-            indicator.isEnabled = true;
-            indicator.showIcon = true;
-            if (dataType === 'R') {
-                indicator.icon = "Attachment_24.png";
-                indicator.label = "file";
-                
-            } else {
-                indicator.icon = "Attachment_URL_24.png";
-                indicator.label = "url";
-            }
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;

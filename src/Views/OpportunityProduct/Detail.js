@@ -120,11 +120,12 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Detail', [
             return this.tools || (this.tools = {
                 'tbar': [{
                         id: 'edit',
+                        cls: 'fa fa-pencil fa-lg',
                         action: 'navigateToEditView',
                         security: App.getViewSecurity(this.editView, 'update')
                     }, {
                         id: 'removeOpportunityProduct',
-                        icon: 'content/images/icons/del_24.png',
+                        cls: 'fa fa-times-circle fa-lg',
                         action: 'removeOpportunityProduct',
                         title: this.removeOppProductTitleText
                     }]

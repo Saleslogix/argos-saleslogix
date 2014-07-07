@@ -158,7 +158,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                         name: 'ScheduleActivityAction',
                         property: 'TicketNumber',
                         label: this.scheduleActivityText,
-                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                        iconClass: 'fa fa-calendar fa-lg',
                         action: 'scheduleActivity'
                     }]
                 }, {
@@ -258,19 +258,16 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                     name: 'RelatedItemsSection',
                     children: [{
                             name: 'ActivityRelated',
-                            icon: 'content/images/icons/To_Do_24x24.png',
                             label: this.relatedActivitiesText,
                             view: 'activity_related',
                             where: this.formatRelatedQuery.bindDelegate(this, 'TicketId eq "${0}"')
                         }, {
                             name: 'TicketActivityRelated',
-                            icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                             label: this.relatedTicketActivitiesText,
                             view: 'ticketactivity_related',
                             where: this.formatRelatedQuery.bindDelegate(this, 'Ticket.Id eq "${0}"')
                         }, {
                             name: 'AttachmentRelated',
-                            icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'ticketId eq "${0}"'),// must be lower case because of feed
                             view: 'ticket_attachment_related',

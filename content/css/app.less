@@ -204,19 +204,7 @@
                     display: block;
                     width: 48px;
                     height: 24px;
-                    background-repeat: no-repeat;
-                    background-position: center center;
                     cursor: pointer;
-                }
-
-                > [data-action="moveUp"]
-                {
-                    background-image: data-uri('../images/icons/Sort_Down_24.png');
-                }
-
-                > [data-action="moveDown"]
-                {
-                    background-image: data-uri('../images/icons/Sort_Up_24.png');
                 }
 
                 > .icon
@@ -503,9 +491,6 @@ li[data-ticket-status] .list-item-selector,
 .calendar-prev-month > button > span
 {
     display: inline-block;
-    background-image: data-uri('../images/icons/Browse_Previous_24.png');
-    background-repeat: no-repeat;
-    background-position: center center;
     margin: 6px;
     width: 24px;
     height: 24px;
@@ -521,9 +506,6 @@ li[data-ticket-status] .list-item-selector,
 .calendar-next-month > button > span
 {
     display: inline-block;
-    background-image: data-uri('../images/icons/Browse_Next_24.png');
-    background-repeat: no-repeat;
-    background-position: center center;
     margin: 6px;
     width: 24px;
     height: 24px;
@@ -869,7 +851,8 @@ body.transition > .viewContainer > .footer-toolbar
 
 #calendar_weeklist > div > h2.currentDate {
     background-color: #444444;
-    border-left: 8px solid #00678a;
+    border-left: 8px solid @blue1-darker;
+    color: #fff;
 }
 #calendar_monthlist,
 #calendar_weeklist,

@@ -36,7 +36,6 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', [
         id: 'ticketactivityitem_list',
         detailView: 'ticketactivityitem_detail',
         expose: false,
-        icon: 'content/images/icons/product_24.png',
         querySelect: [
             'Product/Name',
             'Product/ActualId',

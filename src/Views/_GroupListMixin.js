@@ -254,7 +254,11 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.groupsMode = true;
         },
         _clearGroupMode: function(isInit) {
-            if ((!this.groupsMode)&&(!isInit)) {
+            if (!this.groupsMode && !isInit) {
+                return;
+            }
+
+            if (!this._originalProps) {
                 return;
             }
 

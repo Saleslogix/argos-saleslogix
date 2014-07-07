@@ -234,7 +234,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'viewAccount',
-                icon: 'content/images/icons/Company_24.png',
                 label: this.viewAccountActionText,
                 enabled: function(action, selection) {
                     var entry = selection && selection.data;
@@ -262,7 +261,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }
             }, {
                 id: 'viewOpportunity',
-                icon: 'content/images/icons/opportunity_24.png',
                 label: this.viewOpportunityActionText,
                 enabled: function(action, selection) {
                     var entry = selection && selection.data;
@@ -273,7 +271,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         return true;
                     }
                     return false;
-                }, 
+                },
                 fn: function(action, selection) {
                     var viewId, options, view;
 
@@ -289,13 +287,12 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }
             }, {
                 id: 'viewContact',
-                icon: 'content/images/icons/Contacts_24x24.png',
                 label: this.viewContactActionText,
                 action: 'navigateToContactOrLead',
                 enabled: this.hasContactOrLead
             }, {
                 id: 'complete',
-                icon: 'content/images/icons/Clear_Activity_24x24.png',
+                cls: 'fa fa-check-square fa-2x',
                 label: this.completeActivityText,
                 enabled: function(action, selection) {
                     var recur, entry = selection && selection.data;
@@ -321,7 +318,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }).bindDelegate(this)
             }, {
                 id: 'accept',
-                icon: 'content/images/icons/OK_24.png',
+                cls: 'fa fa-check fa-2x',
                 label: this.acceptActivityText,
                 enabled: function(action, selection) {
                     var entry = selection && selection.data;
@@ -341,7 +338,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }).bindDelegate(this)
             }, {
                 id: 'decline',
-                icon: 'content/images/icons/cancl_24.png',
+                cls: 'fa fa-ban fa-2x',
                 label: this.declineActivityText,
                 enabled: function(action, selection) {
                     var entry = selection && selection.data;
@@ -360,7 +357,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }).bindDelegate(this)
             }, {
                 id: 'call',
-                icon: 'content/images/icons/Dial_24x24.png',
+                cls: 'fa fa-phone-square fa-2x',
                 label: this.callText,
                 enabled: function(action, selection) {
                     var entry;
@@ -379,7 +376,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }.bindDelegate(this)
             }, {
                 id: 'addAttachment',
-                icon: 'content/images/icons/Attachment_24.png',
+                cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
             }]

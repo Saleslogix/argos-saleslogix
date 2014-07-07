@@ -147,12 +147,11 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'edit',
-                icon: 'content/images/icons/edit_24.png',
+                cls: 'fa fa-pencil fa-lg',
                 label: this.editActionText,
                 action: 'navigateToEditView'
             }, {
                 id: 'viewAccount',
-                icon: 'content/images/icons/Company_24.png',
                 label: this.viewAccountActionText,
                 enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
                 fn: action.navigateToEntity.bindDelegate(this, {
@@ -162,27 +161,25 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
                 })
             }, {
                 id: 'viewContacts',
-                icon: 'content/images/icons/Contacts_24x24.png',
                 label: this.viewContactsActionText,
                 fn: this.navigateToRelatedView.bindDelegate(this, 'opportunitycontact_related', 'Opportunity.Id eq "${0}"')
             }, {
                 id: 'viewProducts',
-                icon: 'content/images/icons/product_24.png',
                 label: this.viewProductsActionText,
                 fn: this.navigateToRelatedView.bindDelegate(this, 'opportunityproduct_related', 'Opportunity.Id eq "${0}"')
             }, {
                 id: 'addNote',
-                icon: 'content/images/icons/New_Note_24x24.png',
+                cls: 'fa fa-edit fa-2x',
                 label: this.addNoteActionText,
                 fn: action.addNote.bindDelegate(this)
             }, {
                 id: 'addActivity',
-                icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                cls: 'fa fa-calendar fa-2x',
                 label: this.addActivityActionText,
                 fn: action.addActivity.bindDelegate(this)
             }, {
                 id: 'addAttachment',
-                icon: 'content/images/icons/Attachment_24.png',
+                cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
             }]

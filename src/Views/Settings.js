@@ -24,8 +24,10 @@ define('Mobile/SalesLogix/Views/Settings', [
         rowTemplate: new Simplate([
         '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
         '<div class="list-item-static-selector">',
-            '{% if ($.icon) { %}',
-            '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+            '{% if ($.cls) { %}',
+                '<span class="{%= $.cls %}"></span>',
+            '{% } else if ($.icon) { %}',
+                '<img src="{%: $.icon %}" alt="icon" class="icon" />',
             '{% } %}',
         '</div>',
         '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
@@ -46,7 +48,6 @@ define('Mobile/SalesLogix/Views/Settings', [
 
         //View Properties
         id: 'settings',
-        icon: 'content/images/icons/settings_24.png',
         expose: false,
         enableSearch: false,
         selectionOnly: true,
@@ -61,15 +62,15 @@ define('Mobile/SalesLogix/Views/Settings', [
             this.actions = {
                 'clearLocalStorage': {
                     title: this.clearLocalStorageTitleText,
-                    icon: 'content/images/icons/database_24.png'
+                    cls: 'fa fa-database'
                 },
                 'clearAuthentication': {
                     title: this.clearAuthenticationTitleText,
-                    icon: 'content/images/icons/security_24.png'
+                    cls: 'fa fa-unlock'
                 },
                 'viewErrorLogs': {
                     title: this.errorLogTitleText,
-                    icon: 'content/images/icons/Ticket_24x24.png'
+                    cls: 'fa fa-list-alt'
                 }
             };
         },
@@ -109,7 +110,8 @@ define('Mobile/SalesLogix/Views/Settings', [
                     list.push({
                         action: this.actionOrder[i],
                         title: action.title,
-                        icon: action.icon
+                        icon: action.icon,
+                        cls: action.cls
                     });
                 }
             }

@@ -206,7 +206,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             'Type'
         ],
         activityIconByType: {
-            'atToDo': 'fa fa-tasks',
+            'atToDo': 'fa fa-list-ul',
             'atPhoneCall': 'fa fa-phone',
             'atAppointment': 'fa fa-users',
             'atLiterature': 'fa fa-users',

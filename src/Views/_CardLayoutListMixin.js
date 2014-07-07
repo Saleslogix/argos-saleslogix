@@ -79,7 +79,11 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         ]),
         itemIconTemplate: new Simplate([
             '<button data-action="selectEntry" class="list-item-selector button">',
-            '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
+            '{% if ($$.itemIconClass) { %}',
+                '<span class="{%= $$.itemIconClass %}"></span>',
+            '{% } else { %}',
+                '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
+            '{% } %}',
             '</button>'
         ]),
         itemRowContentTemplate: new Simplate([

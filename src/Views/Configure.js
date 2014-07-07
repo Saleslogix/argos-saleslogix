@@ -39,8 +39,8 @@ define('Mobile/SalesLogix/Views/Configure', [
         itemTemplate: new Simplate([
             '<h3>',
             '<span>{%: $.$descriptor %}</span>',
-            '<span data-action="moveUp"></span>',
-            '<span data-action="moveDown"></span>',
+            '<span data-action="moveUp" class="fa fa-arrow-up"></span>',
+            '<span data-action="moveDown" class="fa fa-arrow-down"></span>',
             '</h3>'
         ]),
 
