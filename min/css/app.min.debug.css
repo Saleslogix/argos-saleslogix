@@ -26,24 +26,69 @@
 /* login view */
 #login {
   padding: 0px 2px;
+  /* larger than typical phone, put styles that apply to tablet AND desktop here */
+  /*
+        1500px width and higher, desktop style only
+    */
+  /* Tablet */
 }
 #login .panel-content {
   background-color: transparent;
   border-bottom: none 0px black;
 }
 #login .button {
-  margin: 12px 0 12px 0;
   width: 100%;
+  margin: 12px 0 12px 0;
   height: 40px;
   line-height: 40px;
   cursor: pointer;
-  font-size: .9em;
+  font-size: 1em;
+  background-color: #3471af;
+  color: #fff;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 #login h2 {
   display: none;
 }
-#login .clear-button {
-  right: 12px;
+@media only screen and (min-width: 768px) {
+  #login .button {
+    margin-left: 25%;
+    width: auto;
+    padding: 0 50px 0 50px;
+  }
+}
+@media only screen and (min-width: 1500px) {
+  #login .panel-content {
+    width: 30%;
+  }
+  #login .button {
+    margin-left: 35%;
+  }
+  #login .panel-content {
+    margin: auto;
+  }
+  #login .clear-button {
+    right: 35%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1499px) {
+  #login .panel-content {
+    width: 50%;
+  }
+  #login .button {
+    margin-left: 25%;
+  }
+  #login .panel-content {
+    margin: auto;
+  }
+  #login .clear-button {
+    right: 25%;
+  }
 }
 /* note view */
 .note-text {
