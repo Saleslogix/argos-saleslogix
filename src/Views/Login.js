@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/Login', [
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
             '<p class="logo"><img src="content/images/logo.png"></img></p>',
             '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress" data-dojo-attach-point="contentNode"></div>',
-            '<button class="button actionButton" data-action="authenticate"><span>{%: $.logOnText %}</span></button>',
+            '<button class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
             '<span class="copyright">{%= $.copyrightText %}</span>',
             '<span class="copyright">{%= App.getVersionInfo() %}</span>',
             '</div>'
