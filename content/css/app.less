@@ -52,12 +52,16 @@
 
     .button
     {
-        margin: 12px 0 12px 0;
         width: 100%;
+        margin: 12px 0 12px 0;
         height: 40px;
         line-height: 40px;
         cursor: pointer;
-        font-size: .9em;
+        font-size: 1em;
+        background-color: @blue1-darker;
+        color: #fff;
+        .border-radius(6px);
+        .box-sizing(border-box);
     }
 
     h2
@@ -65,9 +69,65 @@
         display: none;
     }
 
-    .clear-button
+    /* larger than typical phone, put styles that apply to tablet AND desktop here */
+    @media only screen and (min-width: 768px)
     {
-        right: 12px;
+        .button
+        {
+            margin-left: 25%;
+            width: auto;
+            padding: 0 50px 0 50px;
+        }
+    }
+
+    /*
+        1500px width and higher, desktop style only
+    */
+    @media only screen and (min-width: 1500px)
+    {
+        .panel-content
+        {
+            width: 30%;
+        }
+
+        .button
+        {
+            margin-left: 35%;
+        }
+
+        .panel-content
+        {
+            margin: auto;
+        }
+
+        .clear-button
+        {
+            right: 35%;
+        }
+    }
+
+    /* Tablet */
+    @media only screen and (min-width: 768px) and (max-width: 1499px)
+    {
+        .panel-content
+        {
+            width: 50%;
+        }
+
+        .button
+        {
+            margin-left: 25%;
+        }
+
+        .panel-content
+        {
+            margin: auto;
+        }
+
+        .clear-button
+        {
+            right: 25%;
+        }
     }
 }
 

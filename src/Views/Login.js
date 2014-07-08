@@ -35,7 +35,7 @@ define('Mobile/SalesLogix/Views/Login', [
         id: 'login',
         busy: false,
         copyrightText: '&copy; 2014 SalesLogix, NA, LLC. All rights reserved.',
-        logOnText: 'Log on to Saleslogix',
+        logOnText: 'Log On',
         passText: 'password',
         rememberText: 'remember',
         titleText: 'Log On',
