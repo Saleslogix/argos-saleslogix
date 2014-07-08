@@ -56,6 +56,13 @@
   display: none;
 }
 @media only screen and (min-width: 768px) {
+  #login {
+    background-color: #ebebee;
+  }
+  #login .panel-content {
+    background-color: #fff;
+    padding: 25px;
+  }
   #login .button {
     margin-left: 25%;
     width: auto;
