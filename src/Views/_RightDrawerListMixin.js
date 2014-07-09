@@ -193,9 +193,10 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }
                 }
 
+
                 GroupUtility.addToGroupPreferences(items, list.entityName, true);
                 currentGroup = GroupUtility.getDefaultGroup(list.entityName);
-               if (currentGroup) {
+                if (currentGroup) {
                     list.setCurrentGroup(currentGroup);
                     list.refresh();
                 }
@@ -205,7 +206,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             }));
 
             field.navigateToListView();
-
         },
         getGroupForRightDrawerEntry: function(entry) {
             var mixin = lang.getObject(mixinName);
@@ -216,7 +216,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 };
             }
 
-            if (entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked') {
+            if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked') && this.groupsMode) {
                 return {
                     tag: 'group',
                     title: this.groupsSectionText
