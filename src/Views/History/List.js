@@ -30,7 +30,6 @@ define('Mobile/SalesLogix/Views/History/List', [
     'Sage/Platform/Mobile/Convert',
     'Mobile/SalesLogix/Action',
     'Sage/Platform/Mobile/List',
-    '../_GroupListMixin',
     '../_RightDrawerListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
@@ -47,23 +46,14 @@ define('Mobile/SalesLogix/Views/History/List', [
     convert,
     action,
     List,
-    _GroupListMixin,
     _RightDrawerListMixin,
     _MetricListMixin,
     _CardLayoutListMixin,
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-            '<button data-action="selectEntry" class="list-item-selector button">',
-            '<img src="{%= $$.entityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
-            '</button>',
-            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
-        ]),
         itemTemplate: new Simplate([
             '<h3>',
             '{% if ($.Type === "atNote") { %}',
@@ -107,6 +97,14 @@ define('Mobile/SalesLogix/Views/History/List', [
             'atEMail': 'E-mail'
         },
         hourMinuteFormatText: "h:mm A",
+        hashTagQueriesText: {
+            'my-history': 'my-history',
+            'note': 'note',
+            'phonecall': 'phonecall',
+            'meeting': 'meeting',
+            'personal': 'personal',
+            'email': 'email'
+        },
         dateFormatText: "M/D/YY",
         titleText: 'Notes/History',
         viewAccountActionText: 'Account',
@@ -146,36 +144,25 @@ define('Mobile/SalesLogix/Views/History/List', [
         queryWhere: 'Type ne "atDatabaseChange"',
         resourceKind: 'history',
         entityName: 'History',
-        groupsMode: true,
-        entityIconByType: {
-            'atToDo': 'content/images/icons/To_Do_24x24.png',
-            'atPhoneCall': 'content/images/icons/Call_24x24.png',
-            'atAppointment': 'content/images/icons/Meeting_24x24.png',
-            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'content/images/icons/Personal_24x24.png',
-            'atQuestion': 'content/images/icons/help_24.png',
-            'atNote': 'content/images/icons/note_24.png',
-            'atEMail': 'content/images/icons/letters_24.png'
+        hashTagQueries: {
+            'my-history': function() {
+                return 'UserId eq "' + App.context.user.$key + '"';
+            },
+            'note': 'Type eq "atNote"',
+            'phonecall': 'Type eq "atPhoneCall"',
+            'meeting': 'Type eq "atAppointment"',
+            'personal': 'Type eq "atPersonal"',
+            'email': 'Type eq "atEMail"'
         },
         activityIndicatorIconByType: {
-            'atToDo': 'To_Do_24x24.png',
-            'atPhoneCall': 'Call_24x24.png',
-            'atAppointment': 'Meeting_24x24.png',
-            'atLiterature': 'Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'Personal_24x24.png',
-            'atQuestion': 'help_24.png',
-            'atNote': 'note_24.png',
-            'atEMail': 'letters_24.png'
-        },
-        entityColorClassByType: {
-            'atToDo': 'color-ToDo',
-            'atPhoneCall': 'color-PhoneCall',
-            'atAppointment': 'color-Meeting',
-            //'atLiterature': 'color-LitRequest',
-            'atPersonal': 'color-Personal'
-            //'atQuestion': 'color-Question',
-            //'atNote': 'color-Note',
-            //'atEMail': 'color-Email'
+            'atToDo': 'fa fa-list-ul fa-lg',
+            'atPhoneCall': 'fa fa-phone fa-lg',
+            'atAppointment': 'fa fa-users fa-lg',
+            'atLiterature': 'fa fa-book fa-lg',
+            'atPersonal': 'fa fa-check-square-o fa-lg',
+            'atQuestion': 'fa fa-question-circle fa-lg',
+            'atNote': 'fa fa-file-text-o fa-lg',
+            'atEMail': 'fa fa-envelope fa-lg'
         },
         allowSelection: true,
         enableActions: true,
@@ -268,36 +255,16 @@ define('Mobile/SalesLogix/Views/History/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        onApplyRowActionPanel: function(actionsNode, rowNode) {
-            var colorRowCls, colorCls;
-
-            colorRowCls = query(rowNode).closest('[data-color-class]')[0];
-            colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
-            for (var colorKey in this.entityColorClassByType) {
-                domClass.remove(actionsNode, this.entityColorClassByType[colorKey]);
-            }
-
-            if (colorCls) {
-                domClass.add(actionsNode, colorCls);
-            }
-        },
-        getItemColorClass: function(entry) {
-            return this.entityColorClassByType[entry.Type] || this.itemColorClass;
-        },
-        getItemIconSource: function(entry) {
-            return this.itemIcon || this.entityIconByType[entry.Type] || this.icon || this.selectIcon;
-        },
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'touched',
-                icon: 'Touched_24x24.png',
+                cls: 'fa fa-hand-o-up fa-lg',
                 label: 'Touched',
                 onApply: function(entry, parent) {
                     this.isEnabled = parent.hasBeenTouched(entry);
                 }
             }, {
                 id: 'activityIcon',
-                icon: '',
                 label: 'Activity',
                 onApply: function(entry, parent) {
                     parent.applyActivityIndicator(entry, this);
@@ -311,8 +278,9 @@ define('Mobile/SalesLogix/Views/History/List', [
         _applyActivityIndicator: function(type, indicator) {
             indicator.isEnabled = false;
             indicator.showIcon = false;
+
             if (type) {
-                indicator.icon = this.activityIndicatorIconByType[type];
+                indicator.cls = this.activityIndicatorIconByType[type];
                 indicator.label = this.activityTypeText[type];
                 indicator.isEnabled = true;
                 indicator.showIcon = true;

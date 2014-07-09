@@ -52,10 +52,10 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         itemIndicatorTemplate: new Simplate([
            '<span{% if ($.iconCls) { %} class="{%= $.iconCls %}" {% } %}>',
                 '{% if ($.showIcon === false) { %}',
-                     '{%: $.valueText %}',
+                    '{%: $.valueText %}',
                 '{% } else if ($.indicatorIcon && !$.iconCls) { %}',
-                      '<img src="{%= $.indicatorIcon %}" alt="{%= $.label %}" />',
-                 '{% } %}',
+                    '<img src="{%= $.indicatorIcon %}" alt="{%= $.label %}" />',
+                '{% } %}',
            '</span>'
         ]),
         itemExtTemplate: new Simplate([
@@ -164,8 +164,10 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                     }
                     options = {
                         indicatorIndex: i,
-                        indicatorIcon: iconPath + indicator.icon,
-                        iconCls: indicator.cls
+                        indicatorIcon: indicator.icon
+                            ? iconPath + indicator.icon
+                            : '',
+                        iconCls: indicator.cls || ''
                     };
 
                     indicatorTemplate = indicator.template || self.itemIndicatorTemplate;
@@ -177,10 +179,14 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
                         if (indicator.cls) {
                             indicator.iconCls = indicator.cls + ' disabled';
                         } else {
-                            indicator.indicatorIcon = iconPath + 'disabled_' + indicator.icon;
+                            indicator.indicatorIcon = indicator.icon
+                                ? iconPath + 'disabled_' + indicator.icon
+                                : '';
                         }
                     } else {
-                        indicator.indicatorIcon = iconPath + indicator.icon;
+                        indicator.indicatorIcon = indicator.icon
+                            ? iconPath + indicator.icon 
+                            : '';
                     }
 
                     if (indicator.isEnabled === false && indicator.showIcon === false) {
