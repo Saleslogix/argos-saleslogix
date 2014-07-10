@@ -1321,7 +1321,8 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
     <description/>
-    <value>Edit all Occurrences?\nCancel to edit single Occurrence.</value>
+    <value>Edit all Occurrences?
+Cancel to edit single Occurrence.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -2934,6 +2935,10 @@
   <data class="Mobile.SalesLogix.Views.History.RelatedView" property="byText" type="text">
     <description/>
     <value>wrote </value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.RelatedView" property="titleText" type="text">
+    <description/>
+    <value>Notes</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Home" property="configureText" type="text">
     <description/>

@@ -149,7 +149,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "whenText": "Wann",
   "whoText": "Wer",
   "recurrenceText": "Wiederholung",
-  "confirmEditRecurrenceText": "Alle Vorkommen bearbeiten?\\nAbbrechen, um einzelnes Vorkommen zu bearbeiten.",
+  "confirmEditRecurrenceText": "Alle Vorkommen bearbeiten?\nAbbrechen, um einzelnes Vorkommen zu bearbeiten.",
   "relatedAttachmentText": "Anlagen",
   "relatedAttachmentTitleText": "Tätigkeitsanlagen",
   "relatedItemsText": "Verknüpfte Elemente",
@@ -714,7 +714,7 @@ localize("Mobile.SalesLogix.DefaultMetrics", {
     "total": "Firmen - gesamt"
   },
   "opportunitiesText": {
-    "total": "Opportunitys - gesamt",
+    "total": "Verkaufschancen - gesamt",
     "potential": "Verkaufspotenzial"
   },
   "ticketsText": {
@@ -725,7 +725,7 @@ localize("Mobile.SalesLogix.DefaultMetrics", {
     "total": "Kontakte - gesamt"
   },
   "leadsText": {
-    "total": "Leads - gesamt"
+    "total": "Interessenten - gesamt"
   },
   "historyText": {
     "total": "Verlauf - gesamt",
@@ -880,26 +880,26 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "hashTagExpressionText": {
     "active": "Aktiv",
     "inactive": "Inaktiv",
-    "suspect": "unter-Beobachtung",
+    "suspect": "Fehlerverdächtig",
     "lead": "Interessent",
     "prospect": "potenzieller-Kunde",
     "customer": "Kunde",
     "partner": "Partner",
     "vendor": "Hersteller",
-    "influencer": "Beeinflusser",
+    "influencer": "Influencer",
     "competitor": "Mitbewerber"
   },
   "hashTagQueriesText": {
     "my-accounts": "meine-firmen",
     "active": "Aktiv",
     "inactive": "Inaktiv",
-    "suspect": "unter-Beobachtung",
+    "suspect": "Fehlerverdächtig",
     "lead": "Interessent",
     "prospect": "potenzieller-Kunde",
     "customer": "Kunde",
     "partner": "Partner",
     "vendor": "Hersteller",
-    "influencer": "Beeinflusser",
+    "influencer": "Influencer",
     "competitor": "Mitbewerber"
   }
 });
@@ -1347,8 +1347,8 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "my-opportunities": "meine-Verkaufschancen",
     "open": "Offen",
     "closed": "Abgeschlossen",
-    "won": "gewonnen",
-    "lost": "verloren",
+    "won": "Erfolg",
+    "lost": "Verloren",
     "inactive": "Inaktiv"
   },
   "hashTagExpressionText": {

@@ -449,7 +449,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="accountsText[total]" type="text">
     <description/>
-    <value>Account totali</value>
+    <value>Aziende totali</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[total]" type="text">
     <description/>
@@ -953,7 +953,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[suspect]" type="text">
     <description/>
-    <value>sospetto</value>
+    <value>Sospetto</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[lead]" type="text">
     <description/>
@@ -993,7 +993,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[inactive]" type="text">
     <description/>
-    <value>Inattive</value>
+    <value>Inattivo</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[suspect]" type="text">
     <description/>
@@ -1005,7 +1005,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[prospect]" type="text">
     <description/>
-    <value>Prospect</value>
+    <value>Prospetto</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[customer]" type="text">
     <description/>
@@ -1321,7 +1321,8 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
     <description/>
-    <value>Modificare tutte le occorrenze?\nAnnulla per modificare una singola occorrenza.</value>
+    <value>Modificare tutte le occorrenze?
+Annulla per modificare una singola occorrenza.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -3737,7 +3738,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[open]" type="text">
     <description/>
-    <value>Aperte</value>
+    <value>Aperta</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[closed]" type="text">
     <description/>
@@ -3745,11 +3746,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[won]" type="text">
     <description/>
-    <value>Vinte</value>
+    <value>Vinta</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[lost]" type="text">
     <description/>
-    <value>Perse</value>
+    <value>Persa</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[inactive]" type="text">
     <description/>

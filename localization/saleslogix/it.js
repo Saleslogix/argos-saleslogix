@@ -149,7 +149,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "whenText": "Quando",
   "whoText": "Chi",
   "recurrenceText": "ricorrenza",
-  "confirmEditRecurrenceText": "Modificare tutte le occorrenze?\\nAnnulla per modificare una singola occorrenza.",
+  "confirmEditRecurrenceText": "Modificare tutte le occorrenze?\nAnnulla per modificare una singola occorrenza.",
   "relatedAttachmentText": "Allegati",
   "relatedAttachmentTitleText": "Allegati attività",
   "relatedItemsText": "Elementi correlati",
@@ -711,7 +711,7 @@ localize("Mobile.SalesLogix.DefaultMetrics", {
   "accountsText": {
     "totalRevenue": "Ricavi totali",
     "averageTime": "Tempo medio come cliente",
-    "total": "Account totali"
+    "total": "Aziende totali"
   },
   "opportunitiesText": {
     "total": "Opportunità totali",
@@ -880,7 +880,7 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "hashTagExpressionText": {
     "active": "Attivo",
     "inactive": "Inattivo",
-    "suspect": "sospetto",
+    "suspect": "Sospetto",
     "lead": "Nominativo",
     "prospect": "Prospetto",
     "customer": "Cliente",
@@ -892,10 +892,10 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "hashTagQueriesText": {
     "my-accounts": "miei-account",
     "active": "Attivo",
-    "inactive": "Inattive",
+    "inactive": "Inattivo",
     "suspect": "sospetto",
     "lead": "Nominativo",
-    "prospect": "Prospect",
+    "prospect": "Prospetto",
     "customer": "Cliente",
     "partner": "Partner",
     "vendor": "Distributore",
@@ -1345,10 +1345,10 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
   "estimatedCloseText": "Chiusura stimata ",
   "hashTagQueriesText": {
     "my-opportunities": "Le-mie-opportunità",
-    "open": "Aperte",
+    "open": "Aperta",
     "closed": "Chiuse",
-    "won": "Vinte",
-    "lost": "Perse",
+    "won": "Vinta",
+    "lost": "Persa",
     "inactive": "Inattivo"
   },
   "hashTagExpressionText": {

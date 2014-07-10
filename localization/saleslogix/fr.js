@@ -149,7 +149,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "whenText": "Quand",
   "whoText": "Qui",
   "recurrenceText": "récurrence",
-  "confirmEditRecurrenceText": "Modifier toutes les occurrences ?\\n Annuler pour modifier une seule occurrence.",
+  "confirmEditRecurrenceText": "Modifier toutes les occurrences ?\n Annuler pour modifier une seule occurrence.",
   "relatedAttachmentText": "Pièces jointes",
   "relatedAttachmentTitleText": "Pièces jointes de l'activité",
   "relatedItemsText": "Eléments associés",
@@ -879,27 +879,27 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "faxAbbreviationText": "Fax : ",
   "hashTagExpressionText": {
     "active": "Actif",
-    "inactive": "Inactive",
+    "inactive": "Inactif",
     "suspect": "Suspect",
     "lead": "Lead",
     "prospect": "Prospect",
     "customer": "Client",
     "partner": "Partenaire",
-    "vendor": "Revendeur",
-    "influencer": "influenceur",
+    "vendor": "Fournisseur",
+    "influencer": "Prescripteur",
     "competitor": "Concurrent"
   },
   "hashTagQueriesText": {
     "my-accounts": "mes-comptes",
     "active": "Actif",
-    "inactive": "Inactive",
+    "inactive": "Inactif",
     "suspect": "suspect",
     "lead": "Lead",
     "prospect": "Prospect",
     "customer": "Client",
     "partner": "Partenaire",
-    "vendor": "Revendeur",
-    "influencer": "influenceur",
+    "vendor": "Fournisseur",
+    "influencer": "prescripteur",
     "competitor": "Concurrent"
   }
 });
@@ -1347,15 +1347,15 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "my-opportunities": "mes-opportunités",
     "open": "Ouvrir",
     "closed": "Terminée",
-    "won": "gagné",
-    "lost": "perdu",
-    "inactive": "Inactive"
+    "won": "Gagnée",
+    "lost": "Perdu",
+    "inactive": "Inactif"
   },
   "hashTagExpressionText": {
     "open": "Ouvrir",
     "won": "Clôturée - Gagnée",
     "lost": "Clôturée - Perdue",
-    "inactive": "Inactive"
+    "inactive": "Inactif"
   }
 });
 
