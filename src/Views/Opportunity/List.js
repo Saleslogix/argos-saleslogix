@@ -44,15 +44,6 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
 
     return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-type="{%: $.Type || $$.defaultActionType %}">',
-            '<button data-action="selectEntry" class="list-item-selector button">',
-            '<img src="{%= $$.statusIcons[$.Status] || $$.icon || $$.selectIcon %}" class="icon" />',
-            '</button>',
-            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
-        ]),
-
         //TODO: Support ExchangeRateCode with proper symbol
         itemTemplate: new Simplate([
             '<h3>{%: $.Description %}</h3>',
@@ -105,15 +96,9 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         //View Properties
         id: 'opportunity_list',
         security: 'Entities/Opportunity/View',
-        icon: 'content/images/icons/opportunity_24.png',
         iconClass: 'fa fa-bar-chart-o fa-lg',
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
-        statusIcons: {
-            'Open': 'content/images/icons/opportunity_24.png',
-            'Closed - Won': 'content/images/icons/Opportunity_Won_24.png',
-            'Closed - Lost': 'content/images/icons/Opportunity_Lost_24.png'
-        },
         queryOrderBy: 'EstimatedClose desc',
         querySelect: [
             'Account/AccountName',

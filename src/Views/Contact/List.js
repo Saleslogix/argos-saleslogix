@@ -90,9 +90,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
 
         //View Properties
         detailView: 'contact_detail',
-        icon: 'content/images/icons/Contacts_24x24.png',
         iconClass: 'fa fa-user fa-lg',
-        cardLayoutIcon: 'content/images/icons/ContactProfile_48x48.png',
         id: 'contact_list',
         security: 'Entities/Contact/View',
         insertView: 'contact_edit',

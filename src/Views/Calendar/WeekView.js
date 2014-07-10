@@ -204,13 +204,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         weekStartDate: null,
         weekEndDate: null,
         todayDate: null,
-        typeIcons: {
-            'defaultIcon': 'content/images/icons/To_Do_24x24.png',
-            'atAppointment': 'content/images/icons/Meeting_24x24.png',
-            'atPhoneCall': 'content/images/icons/Call_24x24.png',
-            'atToDo': 'content/images/icons/To_Do_24x24.png',
-            'atPersonal': 'content/images/icons/Personal_24x24.png'
-        },
         continuousScrolling: false,
 
         queryWhere: null,
@@ -290,9 +283,6 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         getPrevWeekActivities: function() {
             this.currentDate = this.getStartDay(this.weekStartDate.clone().subtract({days:1}));
             this.refresh();
-        },
-        getTypeIcon: function(type) {
-            return this.typeIcons[type] || this.typeIcons['defaultIcon'];
         },
         setWeekQuery: function() {
             var setDate = this.currentDate || this.todayDate;

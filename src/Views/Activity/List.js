@@ -81,15 +81,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
            '{%! $$.itemRowContentTemplate %}',
        '</li>'
         ]),
-        //Used if Card View is not mixed in
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
-                '<div class="list-item-static-selector">',
-                    '<img src="{%= $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
-                '</div>',
-                '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
-        ]),
         activityTimeTemplate: new Simplate([
             '{%: Mobile.SalesLogix.Format.relativeDate($.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}'
         ]),
@@ -111,25 +102,15 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '{%: $.LeadName %}',
             '{% } %}'
         ]),
-        activityIconByType: {
-            'atToDo': 'content/images/icons/To_Do_24x24.png',
-            'atPhoneCall': 'content/images/icons/Call_24x24.png',
-            'atAppointment': 'content/images/icons/Meeting_24x24.png',
-            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'content/images/icons/Personal_24x24.png',
-            'atQuestion': 'content/images/icons/help_24.png',
-            'atNote': 'content/images/icons/note_24.png',
-            'atEMail': 'content/images/icons/letters_24.png'
-        },
         activityIndicatorIconByType: {
             'atToDo': 'fa fa-list-ul fa-lg',
             'atPhoneCall': 'fa fa-phone fa-lg',
             'atAppointment': 'fa fa-users fa-lg',
-            'atLiterature': 'fa fa-users fa-lg',
-            'atPersonal': 'fa fa-check-square-o fa-lg'
-            //'atQuestion': 'help_24.png',
-            //'atNote': 'note_24.png',
-            //'atEMail': 'letters_24.png'
+            'atLiterature': 'fa fa-book fa-lg',
+            'atPersonal': 'fa fa-check-square-o fa-lg',
+            'atQuestion': 'fa fa-question-circle fa-lg',
+            'atNote': 'fa fa-file-text-o fa-lg',
+            'atEMail': 'fa fa-envelope fa-lg'
         },
         activityTypeText: {
             'atToDo': 'To-Do',
@@ -288,9 +269,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             },
             getItemColorClass: function(entry) {
                 return  this.activityColorClassByType[entry.Type] || this.itemColorClass;
-            },
-            getItemIconSource: function(entry) {
-                return this.itemIcon || this.activityIconByType[entry.Type] || this.icon || this.selectIcon;
             },
             createIndicatorLayout: function() {
                 return this.itemIndicators || (this.itemIndicators = [{

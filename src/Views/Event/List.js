@@ -40,7 +40,6 @@ define('Mobile/SalesLogix/Views/Event/List', [
         //View Properties
         id: 'event_list',
         security: null, //'Entities/Event/View',
-        icon: 'content/images/icons/Holiday_schemes_24.png',
         detailView: 'event_detail',
         insertView: 'event_edit',
         queryOrderBy: 'StartDate asc',

@@ -40,7 +40,6 @@ define('Mobile/SalesLogix/Views/OpportunityContact/List', [
         detailView: 'opportunitycontact_detail',
         selectView: 'contact_related',
         insertView: 'opportunitycontact_edit',
-        icon: 'content/images/icons/Contacts_24x24.png',
         security: 'Entities/Contact/View',
         queryOrderBy: 'Contact.NameLF',
         expose: false,

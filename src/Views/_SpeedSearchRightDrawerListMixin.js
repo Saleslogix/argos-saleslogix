@@ -34,10 +34,6 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
         _hasChangedIndexPrefs: false,// Dirty flag so we know when to reload the widgets
 
         onShow: function() {
-            var drawer = App.getView('right_drawer');
-            if (drawer) {
-                domConstruct.place(this.searchWidget.domNode, drawer.domNode, 'first');
-            }
             this.setDefaultIndexPreferences();
         },
         setDefaultIndexPreferences: function() {
@@ -67,8 +63,6 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
                     return this.getGroupForRightDrawerEntry(entry);
                 });
 
-                domConstruct.place(this.searchWidget.domNode, drawer.domNode, 'first');
-
                 if (this.rebuildWidgets) {
                     App.snapper.on('close', lang.hitch(this, function() {
                         if (this._hasChangedIndexPrefs) {
@@ -84,14 +78,12 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
             if (drawer) {
                 drawer.setLayout([]);
                 drawer.getGroupForEntry = function(entry) {};
-                domConstruct.place(this.searchWidget.domNode, this.domNode, 'first');
                 App.snapper.off('close');
             }
         },
         _onSearchExpression: function() {
             // TODO: Don't extend this private function - connect to the search widget onSearchExpression instead
             this.inherited(arguments);
-            App.snapper.close();
         },
         _createActions: function() {
             // These actions will get mixed into the right drawer view.

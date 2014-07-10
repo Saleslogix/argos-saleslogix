@@ -31,8 +31,6 @@ define('Mobile/SalesLogix/Views/History/RelatedView', [
         regardingText: 'Regarding',
         byText: 'wrote ',
         id: 'relatedNotes',
-        icon: 'content/images/icons/journal_24.png',
-        itemIcon: 'content/images/icons/journal_24.png',
         titleText: 'Notes',
         detailViewId: 'history_detail',
         listViewId: 'history_related',

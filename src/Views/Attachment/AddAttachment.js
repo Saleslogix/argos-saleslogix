@@ -38,7 +38,6 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
 
         //View Properties       
         id: 'attachment_Add',
-        icon: 'content/images/icons/attachment_24.png',
 
         onUploadFiles: function() {
             var fileItems, self;

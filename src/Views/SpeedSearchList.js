@@ -43,14 +43,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
     return declare('Mobile.SalesLogix.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
         //Templates
-        //Used when card layout is not mixed in
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.type %}">',
-            '<div class="item-static-icon"><img src="{%: $$.iconPathsByType[$.type] %}" alt="{%: $.type %}" /></div>',
-            '{%! $$.itemTemplate %}',
-            '</li>'
-        ]),
-
         itemTemplate: new Simplate([
           '<h4><strong>{%: $.$heading %}</strong></h4>',
           '{% if ($$.showSynopsis) { %}',
@@ -65,9 +57,8 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
         //View Properties
         id: 'speedsearch_list',
-        icon: 'content/images/icons/SpeedSearch_24x24.png',
         enableSearch: true,
-        enableActions:true,
+        enableActions: true,
         searchWidgetClass: SpeedSearchWidget,
         expose: false,
         showSynopsis: false,
@@ -82,24 +73,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             {indexName: 'Ticket', indexType: 1, isSecure: false}
         ],
         types: ['Account', 'Activity','Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
-        iconPathsByType: {
-            'Account': 'content/images/icons/Company_24.png',
-            'Activity': 'content/images/icons/To_Do_24x24.png',
-            'Contact': 'content/images/icons/Contacts_24x24.png',
-            'History': 'content/images/icons/journal_24.png',
-            'Lead': 'content/images/icons/Leads_24x24.png',
-            'Opportunity': 'content/images/icons/opportunity_24.png',
-            'Ticket': 'content/images/icons/Ticket_24x24.png'
-        },
-        iconPathsByType2: {
-            'Account': 'Company_24.png',
-            'Activity': 'To_Do_24x24.png',
-            'Contact': 'Contacts_24x24.png',
-            'History': 'journal_24.png',
-            'Lead': 'Leads_24x24.png',
-            'Opportunity': 'opportunity_24.png',
-            'Ticket': 'Ticket_24x24.png'
-        },
         indexesText: {
             'Account': 'Account',
             'Activity': 'Activity',
@@ -233,7 +206,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                 if (docfrag.childNodes.length > 0) {
                     domConstruct.place(docfrag, this.contentNode, 'last');
                 }
-               
             }
 
             if (typeof feed.totalCount !== 'undefined') {
@@ -288,7 +260,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             var request = this.createRequest(),
                 entry = this.createSearchEntry();
 
-            this.showSearchExpression(entry);
             request.execute(entry, {
                 success: lang.hitch(this, this.onRequestDataSuccess),
                 failture: lang.hitch(this, this.onRequestDataFailure)
@@ -308,9 +279,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                 'tbar': []
             });
         },
-        getItemIconSource: function(entry) {
-            return   this.itemIcon || this.iconPathsByType[entry.type] ;
-        },
         getItemIconAlt: function(entry) {
             return entry.type;
         },
@@ -321,7 +289,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'speadSearchIcon',
                 icon: '',
-                label: 'speadSearch',
+                location: 'top',
                 onApply: function(entry, parent) {
                     parent.applyActivityIndicator(entry, this);
                 }
@@ -331,8 +299,9 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         applyActivityIndicator: function(entry, indicator) {
             var dataType = entry['type'];
             indicator.isEnabled = true;
-            indicator.showIcon = true;
-            indicator.icon = this.iconPathsByType2[entry.type];
+            indicator.showIcon = false;
+            indicator.label = this.indexesText[entry.type];
+            indicator.valueText = this.indexesText[entry.type];
 
         },
         _intSearchExpressionNode: function() {
@@ -360,9 +329,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             } else {
                 domClass.remove(button, 'card-layout-speed-search-index-selected');
             }
-            
         },
-        
         activateIndex: function(indexName) {
             var activated = false,
             tempActiveIndex = [],
@@ -385,17 +352,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             }
 
             return activated;
-        },
-        showSearchExpression: function(entry) {
-            var html, searchNode, searchText;
-            searchText =  entry.request.searchText ||'';
-            if (this.searchWidget) {
-                searchNode = query('#' + this.id + '_search-expression');
-                if (searchNode[0]) {
-                    html = '<div>' + searchText + '</div>';
-                    domAttr.set(searchNode[0], { innerHTML: html });
-                }
-            }
         }
     });
 });

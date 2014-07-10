@@ -115,7 +115,6 @@ define('Mobile/SalesLogix/Views/History/List', [
 
         //View Properties
         detailView: 'history_detail',
-        icon: 'content/images/icons/journal_24.png',
         iconClass: 'fa fa-archive fa-lg',
         id: 'history_list',
         security: null, //'Entities/History/View',

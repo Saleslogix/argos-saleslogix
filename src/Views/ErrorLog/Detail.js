@@ -91,7 +91,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
                 tools.tbar.push({
                     id: 'generateEmail',
                     action: 'constructReport',
-                    icon: 'content/images/icons/Send_Write_email_24x24.png',
+                    cls: 'fa fa-envelope fa-lg',
                     title: 'Generate Email Report'
                 });
             }

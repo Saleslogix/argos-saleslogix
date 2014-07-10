@@ -109,7 +109,6 @@ define('Mobile/SalesLogix/Views/Lead/List', [
 
         //View Properties
         detailView: 'lead_detail',
-        icon: 'content/images/icons/Leads_24x24.png',
         iconTemplate: new Simplate([
             '<span class="fa-stack">',
                 '<i class="fa fa-square-o fa-stack-2x"></i>',

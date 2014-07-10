@@ -630,38 +630,10 @@ td.calendar-day {
     border-right-color: #444;
 }
 
-.collapsed-indicator
-{
-    background-color: transparent;
-    background-image: data-uri('../images/icons/Down_Arrow.png');
-    background-repeat: no-repeat;
-    background-position: left center;
-    border: none;
-    background-size: 85%;
-    background-position-y: 3px;
-}
-
-.collapsed > .collapsed-indicator
-{
-    background-image: data-uri('../images/icons/Down_Arrow_Collapsed.png');
-}
-
 .toolButton
 {
     color: @icon-color;
 }
-
-.toolButton[data-tool="home"] > span { background-image: data-uri('../images/icons/home_24.png'); }
-.toolButton[data-tool="edit"] > span { background-image: data-uri('../images/icons/edit_24.png'); }
-.toolButton[data-tool="new"] > span { background-image: data-uri('../images/icons/add_24.png'); }
-.toolButton[data-tool="save"] > span { background-image: data-uri('../images/icons/save_24.png'); }
-.toolButton[data-tool="help"] > span { background-image: data-uri('../images/icons/help_24.png'); }
-.toolButton[data-tool="cancel"] > span { background-image: data-uri('../images/icons/cancl_24.png'); }
-.toolButton[data-tool="complete"] > span { background-image: data-uri('../images/icons/OK_24.png'); }
-.toolButton[data-tool="configure"] > span { background-image: data-uri('../images/icons/Tools_24x24.png'); }
-.toolButton[data-tool="settings"] > span { background-image: data-uri('../images/icons/settings_24.png'); }
-.toolButton[data-tool="logout"] > span { background-image: data-uri('../images/icons/login_24.png'); }
-.toolButton[data-tool="top"] > span { background-image: data-uri('../images/icons/Down_Arrow.png'); }
 
 .toolbar button.disabled {}
 .toolbar button.disabled > span {
@@ -1258,6 +1230,7 @@ td.entry-table-description {
 
         > li
         {
+            min-height: 55px;
             font-size: 1.25em;
             font-weight: bold;
             list-style: none;
@@ -1569,17 +1542,6 @@ td.entry-table-description {
                 position: relative !important;
                 top: 0px !important;
                 width: 24px;
-            }
-        }
-    }
-
-    .list-item-footer
-    {
-        > .button-unSelected
-        {
-            > span
-            {
-                background-image: data-uri('../images/icons/Browse_Next_24.png');
             }
         }
     }

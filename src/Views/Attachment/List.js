@@ -48,16 +48,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
 
     return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
         //Templates
-
-        //used when card layout is no used used.
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-                '<button data-action="selectEntry" class="list-item-selector button">',
-                    '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
-                '</button>',
-                '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
-        ]),
         itemTemplate: new Simplate([
            '{% if ($.dataType === "R") { %}',
                '{%! $$.fileTemplate %}',
@@ -96,8 +86,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         enableActions: true,
         detailView: 'view_attachment',
         insertView: 'attachment_Add',
-        icon: 'content/images/icons/Attachment_24.png',
-        iconurl: 'content/images/icons/Attachment_URL_24.png',
         iconClass: 'fa fa-paperclip fa-lg',
         queryOrderBy: 'attachDate desc',
         querySelect:  [
@@ -156,9 +144,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             }
         },
         itemIconClass: 'fa fa-paperclip fa-4x',
-        getItemIconSource: function(entry) {
-              return "content/images/icons/Attachment_48x48.png";
-        },
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'touched',

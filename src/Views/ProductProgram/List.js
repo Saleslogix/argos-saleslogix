@@ -36,7 +36,6 @@ define('Mobile/SalesLogix/Views/ProductProgram/List', [
         //View Properties       
         id: 'productprogram_list',
         security: 'Entities/ProductProgram/View',
-        icon: 'content/images/icons/product_24.png',
         queryOrderBy: 'Program',
         querySelect: [
             'DefaultProgram',

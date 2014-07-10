@@ -172,7 +172,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         //View Properties
         id: 'calendar_daylist',
         cls: 'activities-for-day',
-        icon: 'content/images/icons/Calendar_24x24.png',
         iconClass: 'fa fa-calendar fa-lg',
 
         datePickerView: 'generic_calendar',
@@ -209,10 +208,10 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             'atToDo': 'fa fa-list-ul',
             'atPhoneCall': 'fa fa-phone',
             'atAppointment': 'fa fa-users',
-            'atLiterature': 'fa fa-users',
+            'atLiterature': 'fa fa-book',
             'atPersonal': 'fa fa-check-square-o',
-            'atQuestion': 'fa fa-question',
-            'atNote': 'fa fa-users',
+            'atQuestion': 'fa fa-question-circle',
+            'atNote': 'fa fa-file-text-o',
             'atEMail': 'fa fa-envelope'
         },
         eventIcon: 'fa fa-calendar-o',

@@ -32,7 +32,6 @@ define('Mobile/SalesLogix/Views/Contract/List', [
         detailView: 'contract_detail',
         id: 'contract_list',
         security: 'Entities/Contract/View',
-        icon: 'content/images/contract_16x16.gif',
         insertView: 'contract_edit',
         queryOrderBy: 'ReferenceNumber asc',
         querySelect: [
