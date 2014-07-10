@@ -59,18 +59,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         //Templates
         //Card View
        itemRowContainerTemplate: new Simplate([
-           '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
+           '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">',
             '{%! $$.itemRowContentTemplate %}',
           '</li>'
-        ]),
-        //Used if Card View is not mixed in
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
-            '<div data-action="selectEntry" class="list-item-static-selector">',
-            '<img src="{%= $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
-            '</div>',
-            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
         ]),
         activityTimeTemplate: new Simplate([
             '{%: Mobile.SalesLogix.Format.relativeDate($.Activity.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
@@ -555,29 +546,15 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             }
             return false;
         },
-        applyActivityIndicator: function(entry, indicator) {
-            this._applyActivityIndicator(entry['Activity']['Type'], indicator);
+        getItemIconClass: function(entry) {
+            var type = entry && entry.Activity && entry.Activity.Type;
+            return this._getItemIconClass(type);
         },
         getItemActionKey: function(entry) {
             return entry.Activity.$key;
         },
         getItemDescriptor: function(entry) {
             return entry.Activity.$descriptor;
-        },
-        getItemTabValue: function(entry) {
-            var value = '';
-            if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
-                value = format.date(entry.Activity.StartDate, this.startTimeFormatText, entry.Activity.Timeless) + " " + format.date(entry.Activity.StartDate, "A", entry.Activity.Timeless);
-            } else {
-                value = format.date(entry.Activity.StartDate, this.startDateFormatText, entry.Activity.Timeless);
-            }
-            return value;
-        },
-        getItemColorClass: function(entry) {
-            return this.activityColorClassByType[entry.Activity.Type] || this.itemColorClass;
-        },
-        getItemIconSource: function(entry) {
-            return this.itemIcon || this.activityIconByType[entry.Activity.Type] || this.icon || this.selectIcon;
         },
         hasContactOrLead: function(action, selection) {
             return (selection.data['Activity']['ContactId']) || (selection.data['Activity']['LeadId']);

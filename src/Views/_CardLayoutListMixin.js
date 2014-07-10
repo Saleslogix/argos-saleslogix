@@ -37,15 +37,12 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
 ) {
 
     return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
-        itemColorClass: 'color-default',
         itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText:'Contact',
+        itemIconClass: '',
         allRecordsText: 'no search applied',
         itemIndicators:null,
         itemExts: null,
-        itemTabValueProperty: '$descriptor',
-        itemTabShowValue: false,
-        itemTabShowGroupValue: false,
         itemIndicatorIconPath: 'content/images/icons/',
         itemIndicatorShowDisabled: true,
         currentSearchExpression: '',
@@ -61,15 +58,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         itemExtTemplate: new Simplate([
             '<li data-dojo-attach-point="itemExtNode" class="card-item-ext-row"></li>'
         ]),
-        itemTabTemplate: new Simplate([
-            '<div class="{%: $$.getItemColorClass($) %} list-item-content-tab ">',
-            '<table><tr><td>',
-            '<div><span>{%: $$.getItemTabValue($) %}</span></div>',
-            '</td></tr></table>',
-           ' </div>'
-        ]),
         itemRowContainerTemplate: new Simplate([
-        '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
+        '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
             '{%! $$.itemRowContentTemplate %}',
         '</li>'
         ]),
@@ -79,15 +69,14 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         ]),
         itemIconTemplate: new Simplate([
             '<button data-action="selectEntry" class="list-item-selector button">',
-            '{% if ($$.itemIconClass) { %}',
-                '<span class="{%= $$.itemIconClass %}"></span>',
+            '{% if ($$.getItemIconClass($)) { %}',
+                '<span class="{%= $$.getItemIconClass($) %}"></span>',
             '{% } else { %}',
                 '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
             '{% } %}',
             '</button>'
         ]),
         itemRowContentTemplate: new Simplate([
-           '{%! $$.itemTabTemplate %}',
            '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
            '{%! $$.itemIconTemplate %}',
            '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
@@ -100,9 +89,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             this.cls = ' card-layout';
             this.rowTemplate = new Simplate([
              '{%! $$.itemRowContainerTemplate %}'
-            ]);
-            this.listActionTemplate = new Simplate([
-                '<li data-dojo-attach-point="actionsNode" class="card-layout actions-row  {%: $$.itemColorClass %}"></li>'
             ]);
             this.createIndicatorLayout();
         },
@@ -127,21 +113,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         getItemDescriptor: function(entry) {
             return entry.$descriptor || entry[this.labelProperty];
         },
-        getItemTabValue: function(entry) {
-            var value = '';
-
-            if (this.itemTabShowValue) {
-                if (this.itemTabShowGroupValue) {
-                    value = entry["$groupTitle"];
-                } else {
-                     value = entry[this.itemTabValueProperty];
-                }
-            }
-            return value;
-
-        },
-        getItemColorClass: function(entry) {
-            return this.itemColorClass;
+        getItemIconClass: function(entry, owner) {
+            return this.itemIconClass;
         },
         getItemIconSource: function(entry) {
             return this.itemIcon || this.icon || this.selectIcon;

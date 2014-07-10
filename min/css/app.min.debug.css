@@ -918,6 +918,10 @@ td.entry-table-description {
   margin: 0;
   padding: 0;
 }
+.card-layout .list-content > li.no-data,
+.card-layout .list-content li.list-loading-indicator {
+  min-height: inherit;
+}
 .card-layout .list-content > li {
   min-height: 55px;
   font-size: 1.25em;
@@ -942,8 +946,11 @@ td.entry-table-description {
 .card-layout .list-content > li,
 .card-layout .group-content > li {
   padding: 8px 6px 8px 6px;
-  background-color: #FFFFFF;
+  background-color: #fff;
   font-weight: normal;
+}
+.card-layout .actions-row {
+  background-color: #3471af !important;
 }
 .card-layout .list-show-selectors {
   padding-left: 90px;
@@ -952,7 +959,7 @@ td.entry-table-description {
 .card-layout .list-item-static-selector + .list-item-content,
 .card-layout .list-item-content,
 .card-layout .actions-enabled + .list-item-content {
-  padding-left: 90px;
+  padding-left: 70px;
 }
 .card-layout .list-item-selector {
   visibility: hidden;
@@ -960,7 +967,6 @@ td.entry-table-description {
   height: 61px;
   position: absolute;
   top: 6px;
-  left: 26px;
   z-index: 10;
   background: none;
   border: 0 none #000;
@@ -1052,49 +1058,6 @@ td.entry-table-description {
   float: left;
   clear: both;
 }
-.card-layout .list-item-content-tab {
-  height: 100%;
-  left: 0;
-  margin: 0;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  top: 0;
-  vertical-align: middle;
-  width: 20px;
-  z-index: 10;
-}
-.card-layout .list-item-content-tab > table {
-  height: 100%;
-  left: -8px;
-  position: absolute;
-  top: 0;
-  transform: rotate(-90deg);
-  width: 100%;
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-}
-.card-layout .list-item-content-tab > table > tbody > tr > td {
-  text-align: center;
-}
-.card-layout .list-item-content-tab > table > tbody > tr > td > div {
-  clear: both;
-  float: left;
-  height: 100px;
-  overflow: hidden;
-  position: relative;
-  width: 100px;
-}
-.card-layout .list-item-content-tab > table > tbody > tr > td > div > span {
-  font-size: 0.6em;
-  font-weight: normal;
-  height: 100%;
-  position: relative;
-  text-align: center;
-  width: 100%;
-}
 .card-layout .list-item-indicator-content {
   padding-left: 80px;
   text-align: right;
@@ -1111,7 +1074,8 @@ td.entry-table-description {
   height: 24px;
 }
 .card-layout .list-item-footer {
-  height: 28px;
+  overflow: hidden;
+  max-height: 28px;
   margin: 5px 0 0;
 }
 .card-layout .list-action-selected .footer-item-selector {
@@ -1184,42 +1148,6 @@ td.entry-table-description {
 .card-layout-speed-search-synopsis > span[style="font-weight: bold; background-color : yellow;"] {
   background-color: #fe5000 !important;
   color: white;
-}
-.color-default {
-  background-color: #ebebeb !important;
-  color: white !important;
-}
-.color-account {
-  background-color: #3471af !important;
-  color: white !important;
-}
-.color-contact {
-  background-color: #3471af !important;
-  color: white !important;
-}
-.color-activity {
-  background-color: #6600FF !important;
-  color: white !important;
-}
-.color-opportunity {
-  background-color: #fe5000 !important;
-  color: white !important;
-}
-.color-ToDo {
-  background-color: #fe5000 !important;
-  color: white !important;
-}
-.color-Meeting {
-  background-color: #3471af !important;
-  color: white !important;
-}
-.color-PhoneCall {
-  background-color: #128b0c !important;
-  color: white !important;
-}
-.color-Personal {
-  background-color: #5e00a6 !important;
-  color: white !important;
 }
 .indicator_Important {
   background-color: #FFFFFF !important;

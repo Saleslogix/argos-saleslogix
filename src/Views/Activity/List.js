@@ -55,10 +55,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
-
         // Localization
-        startDateFormatText: 'ddd M/D/YYYY',
-        startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
         completeActivityText: 'Complete',
         callText: 'Call',
@@ -69,17 +66,16 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         touchedText: 'touched',
         importantText: 'important',
         recurringText: 'recurring',
-        activityText: 'activity',
 
         //Card View
         itemIcon: 'content/images/icons/man_1.png',
-        itemColorClass: 'color-activity',
+
         //Templates
         //Card View
         itemRowContainerTemplate: new Simplate([
-       '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
-           '{%! $$.itemRowContentTemplate %}',
-       '</li>'
+            '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">',
+               '{%! $$.itemRowContentTemplate %}',
+            '</li>'
         ]),
         activityTimeTemplate: new Simplate([
             '{%: Mobile.SalesLogix.Format.relativeDate($.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}'
@@ -103,14 +99,14 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '{% } %}'
         ]),
         activityIndicatorIconByType: {
-            'atToDo': 'fa fa-list-ul fa-lg',
-            'atPhoneCall': 'fa fa-phone fa-lg',
-            'atAppointment': 'fa fa-users fa-lg',
-            'atLiterature': 'fa fa-book fa-lg',
-            'atPersonal': 'fa fa-check-square-o fa-lg',
-            'atQuestion': 'fa fa-question-circle fa-lg',
-            'atNote': 'fa fa-file-text-o fa-lg',
-            'atEMail': 'fa fa-envelope fa-lg'
+            'atToDo': 'fa fa-list-ul',
+            'atPhoneCall': 'fa fa-phone',
+            'atAppointment': 'fa fa-users',
+            'atLiterature': 'fa fa-book',
+            'atPersonal': 'fa fa-check-square-o',
+            'atQuestion': 'fa fa-question-circle',
+            'atNote': 'fa fa-file-text-o',
+            'atEMail': 'fa fa-envelope'
         },
         activityTypeText: {
             'atToDo': 'To-Do',
@@ -121,16 +117,6 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'atQuestion': 'Question',
             'atNote': 'Note',
             'atEMail': 'Email'
-        },
-        activityColorClassByType: {
-            'atToDo': 'color-ToDo',
-            'atPhoneCall': 'color-PhoneCall',
-            'atAppointment': 'color-Meeting',
-            'atLiterature': 'color-LitRequest',
-            'atPersonal': 'color-Personal',
-            'atQuestion': 'color-Question',
-            'atNote': 'color-Note',
-            'atEMail': 'color-Email'
         },
         //Localization
         titleText: 'Activities',
@@ -258,26 +244,14 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         getItemDescriptor: function(entry) {
             return entry.$descriptor;
         },
-        getItemTabValue: function(entry){
-            var value = '';
-            if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
-                value = format.date(entry.StartDate, this.startTimeFormatText) + " " + format.date(entry.StartDate, "A");
-                } else {
-                    value = format.date(entry.StartDate, this.startDateFormatText, entry.Timeless);
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'alarm',
+                cls: 'fa fa-bell-o fa-lg',
+                label: this.alarmText,
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasAlarm(entry);
                 }
-                return value;
-            },
-            getItemColorClass: function(entry) {
-                return  this.activityColorClassByType[entry.Type] || this.itemColorClass;
-            },
-            createIndicatorLayout: function() {
-                return this.itemIndicators || (this.itemIndicators = [{
-                    id: 'alarm',
-                    cls: 'fa fa-bell-o fa-lg',
-                    label: this.alarmText,
-                    onApply: function(entry, parent) {
-                        this.isEnabled = parent.hasAlarm(entry);
-                    }
                 }, {
                     id: 'touched',
                     cls: 'fa fa-hand-o-up fa-lg',
@@ -309,28 +283,8 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.isRecurring(entry, this);
                     }
-                }, {
-                    id: 'activityType',
-                    cls: '',
-                    label: this.activityText,
-                    onApply: function(entry, parent) {
-                        parent.applyActivityIndicator(entry, this);
-                    }
-                }]
-            );
-        },
-        onApplyRowActionPanel: function(actionsNode, rowNode) {
-            var colorRowCls, colorCls;
-
-            colorRowCls = query(rowNode).closest('[data-color-class]')[0];
-            colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
-
-            for (var colorKey in this.activityColorClassByType) {
-                domClass.remove(actionsNode, this.activityColorClassByType[colorKey]);
-            }
-            if (colorCls) {
-                domClass.add(actionsNode, colorCls);
-            }
+                }
+            ]);
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;
@@ -379,20 +333,19 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             }
             return false;
         },
-       applyActivityIndicator: function(entry, indicator) {
-           this._applyActivityIndicator(entry['Type'], indicator);
-       },
-       _applyActivityIndicator: function(type, indicator) {
-            indicator.isEnabled = false;
-            indicator.showIcon = false;
-            if (type) {
-                indicator.cls = this.activityIndicatorIconByType[type];
-                indicator.label = this.activityTypeText[type];
-                indicator.isEnabled = true;
-                indicator.showIcon = true;
+        getItemIconClass: function(entry) {
+            var type = entry && entry.Type;
+            return this._getItemIconClass(type);
+        },
+        _getItemIconClass: function(type) {
+            var cls = this.activityIndicatorIconByType[type];
+            if (cls) {
+                cls = cls + ' fa-2x';
             }
-       },
-       createActionLayout: function() {
+
+            return cls;
+        },
+        createActionLayout: function() {
            return this.actions || (this.actions = [{
                id: 'complete',
                cls: 'fa fa-check-square fa-2x',
@@ -447,8 +400,8 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                fn: action.addAttachment.bindDelegate(this)
            }]
            );
-       },
-       recordCallToHistory: function(complete, entry) {
+        },
+        recordCallToHistory: function(complete, entry) {
            var tempEntry = {
                '$name': 'History',
                'Type': 'atPhoneCall',
@@ -464,8 +417,8 @@ define('Mobile/SalesLogix/Views/Activity/List', [
            };
 
            this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
-       },
-       navigateToHistoryInsert: function(type, entry, complete) {
+        },
+        navigateToHistoryInsert: function(type, entry, complete) {
            var view = App.getView(this.historyEditView);
            if (view) {
                environment.refreshActivityLists();
@@ -478,8 +431,8 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                    complete: complete
                });
            }
-       },
-       completeActivity: function(entry) {
+        },
+        completeActivity: function(entry) {
            var completeActivity, request, completeActivityEntry;
 
            completeActivityEntry = {
@@ -510,10 +463,10 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                failure: this.onRequestFailure,
                scope: this
            });
-       },
-       onRequestFailure: function(response, o) {
+        },
+        onRequestFailure: function(response, o) {
            ErrorManager.addError(response, o, {}, 'failure');
-       }
+        }
     });
 });
 

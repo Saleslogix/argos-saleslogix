@@ -1221,6 +1221,11 @@ td.entry-table-description {
         margin: 0;
         padding: 0;
 
+        > li.no-data, li.list-loading-indicator
+        {
+            min-height: inherit;
+        }
+
         > li
         {
             min-height: 55px;
@@ -1254,9 +1259,14 @@ td.entry-table-description {
         > li
         {
             padding: 8px 6px 8px 6px;
-            background-color: #FFFFFF;
+            background-color: #fff;
             font-weight: normal;
         }
+    }
+
+    .actions-row
+    {
+        background-color: @blue1-darker !important;
     }
 
     .list-show-selectors
@@ -1269,7 +1279,7 @@ td.entry-table-description {
     .list-item-content,
     .actions-enabled + .list-item-content
     {
-        padding-left: 90px;
+        padding-left: 70px;
     }
 
     .list-item-selector
@@ -1279,7 +1289,6 @@ td.entry-table-description {
         height: 61px;
         position: absolute;
         top: 6px;
-        left: 26px;
         z-index: 10;
         background: none;
         border: 0 none #000;
@@ -1413,59 +1422,6 @@ td.entry-table-description {
         clear: both;
     }
 
-    .list-item-content-tab
-    {
-        height: 100%;
-        left: 0;
-        margin: 0;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        top: 0;
-        vertical-align: middle;
-        width: 20px;
-        z-index: 10;
-
-        > table
-        { 
-            height: 100%;
-            left: -8px;
-            position: absolute;
-            top: 0;
-            transform: rotate(-90deg);
-            width: 100%;
-            -webkit-transform: rotate(-90deg); 
-            -moz-transform: rotate(-90deg); 
-            -o-transform: rotate(-90deg);
-            -ms-transform: rotate(-90deg); 
-
-            > tbody > tr > td 
-            { 
-                text-align:center;
-
-                > div
-                { 
-                    clear: both;
-                    float: left;
-                    height: 100px;
-                    overflow: hidden;
-                    position: relative;
-                    width: 100px;
-
-                    > span
-                    {
-                        font-size: 0.6em;
-                        font-weight: normal;
-                        height: 100%;
-                        position: relative;
-                        text-align: center;
-                        width: 100%;
-                    }
-                }
-            }
-        }
-    }
-
     .list-item-indicator-content
     {
         padding-left: 80px;
@@ -1491,7 +1447,8 @@ td.entry-table-description {
 
     .list-item-footer
     {
-        height: 28px;
+        overflow: hidden;
+        max-height: 28px;
         margin: 5px 0 0;
     }
 
@@ -1590,51 +1547,6 @@ td.entry-table-description {
     color: white;
 }
 
-.color-default
-{
-    background-color: @list-bg-color !important;
-    color: white !important;
-}
-.color-account
-{
-    background-color: @blue1-darker !important;
-    color: white !important;
-}
-.color-contact
-{
-    background-color: @blue1-darker !important;
-    color: white !important;
-}
-.color-activity
-{
-    background-color: #6600FF !important;
-    color: white !important;
-}
-.color-opportunity
-{
-    background-color: @orange-darker !important;
-    color: white !important;
-}
-.color-ToDo
-{
-    background-color: @orange-darker !important;
-    color: white !important;
-}
-.color-Meeting
-{
-    background-color: @blue1-darker !important;
-    color: white !important;
-}
-.color-PhoneCall
-{
-    background-color: #128b0c !important;
-    color: white !important;
-}
-.color-Personal
-{
-    background-color: #5e00a6 !important;
-    color: white !important;
-}
 .indicator_Important
 {
     background-color:#FFFFFF !important;
