@@ -130,7 +130,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
 
             this.layout = GroupUtility.getLayout(group);
-            this.selectColumns = GroupUtility.getColumNames(this.layout);
+            this.selectColumns = GroupUtility.getColumnNames(this.layout);
 
             template = array.map(this.layout, this.getItemLayoutTemplate);
             this.itemTemplate = new Simplate(template);
