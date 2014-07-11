@@ -158,10 +158,12 @@ define('Mobile/SalesLogix/GroupUtility', [
             columns = array.map(layout, function(layout) {
                 if (layout.format === 'PickList Item') {
                     extraSelectColumns.push(layout.alias + 'TEXT');
+                    extraSelectColumns.push(layout.alias + 'TEXT0');
                 }
 
                 if (layout.format === 'User' || layout.format === 'Owner') {
                     extraSelectColumns.push(layout.alias + 'NAME');
+                    extraSelectColumns.push(layout.alias + 'NAME0');
                 }
 
                 return layout.alias;
