@@ -230,7 +230,11 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'yesterday': 'yesterday'
         },
         defaultSearchTerm: function() {
-            return '#' + this.hashTagQueriesText['this-week'];
+            if (App.enableHashTags) {
+                return '#' + this.hashTagQueriesText['this-week'];
+            }
+
+            return '';
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

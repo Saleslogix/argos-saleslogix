@@ -220,7 +220,11 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             }, params.key);
         },
         defaultSearchTerm: function() {
-            return '#' + this.hashTagQueriesText['this-week'];
+            if (App.enableHashTags) {
+                return '#' + this.hashTagQueriesText['this-week'];
+            }
+
+            return '';
         },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
