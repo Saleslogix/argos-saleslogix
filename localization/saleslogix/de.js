@@ -882,7 +882,7 @@ localize("Mobile.SalesLogix.Views.Account.List", {
     "inactive": "Inaktiv",
     "suspect": "Fehlerverdächtig",
     "lead": "Interessent",
-    "prospect": "potenzieller-Kunde",
+    "prospect": "Potenzieller Kunde",
     "customer": "Kunde",
     "partner": "Partner",
     "vendor": "Hersteller",

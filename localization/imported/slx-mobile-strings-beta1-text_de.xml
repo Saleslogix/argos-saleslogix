@@ -961,7 +961,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[prospect]" type="text">
     <description/>
-    <value>potenzieller-Kunde</value>
+    <value>Potenzieller Kunde</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[customer]" type="text">
     <description/>

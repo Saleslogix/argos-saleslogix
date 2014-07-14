@@ -3758,7 +3758,7 @@ Annulla per modificare una singola occorrenza.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[open]" type="text">
     <description/>
-    <value>Apri</value>
+    <value>Aperta</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[won]" type="text">
     <description/>

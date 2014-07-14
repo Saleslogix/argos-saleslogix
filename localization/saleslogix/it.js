@@ -1352,7 +1352,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
     "inactive": "Inattivo"
   },
   "hashTagExpressionText": {
-    "open": "Apri",
+    "open": "Aperta",
     "won": "Chiusa - Vinta",
     "lost": "Chiusa - Persa",
     "inactive": "Inattivo"
