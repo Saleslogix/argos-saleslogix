@@ -156,6 +156,9 @@ define('Mobile/SalesLogix/Application', [
         _viewTransitionTo: function(view) {
             this.inherited(arguments);
             this._checkSaveNavigationState();
+            if (App.snapper) {
+                App.snapper.close();
+            }
         },
         _checkSaveNavigationState: function() {
             if (this.rememberNavigationState !== false) {
