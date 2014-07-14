@@ -270,7 +270,6 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             original.itemFooterTemplate = this.itemFooterTemplate;
             original.relatedViews = this.relatedViews;
             original.title = this.get('title');
-            console.log('original title: ', original.title);
 
             this.itemFooterTemplate = new Simplate(['<div></div>']);
 
