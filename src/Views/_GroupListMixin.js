@@ -36,9 +36,21 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     lang,
     SDataStore
 ) {
+    var mixinName = 'Mobile.SalesLogix.Views._GroupListMixin';
 
     return declare('Mobile.SalesLogix.Views._GroupListMixin', null, {
-
+        noDefaultGroupText: 'No default group set. Open the right menu and press configure under the groups section to setup groups.',
+        noDefaultGroupTemplate: new Simplate([
+            '<li class="no-data">',
+            '<h3>{%= $$._getNoDefaultGroupMessage() %}</h3>',
+            '</li>'
+        ]),
+        _getNoDefaultGroupMessage: function() {
+            var mixin = lang.getObject(mixinName);
+            if (mixin) {
+                return mixin.prototype.noDefaultGroupText;
+            }
+        },
         groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.',
         //View Properties
         entityName: null,
@@ -53,12 +65,11 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
         requestData: function() {
             try {
-                if ((!this._groupInitalized)&&(this.groupsMode)) {
+                if (!this._groupInitalized && this.groupsMode) {
                     domClass.add(this.domNode, 'list-loading');
                     this.listLoading = true;
                     this.initGroup();
-                }
-                else {
+                } else {
                     this.inherited(arguments);
                 }
             } catch (e) {
@@ -98,6 +109,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 defaultGroupName = GroupUtility.getDefaultGroupPreference(this.entityName);
                 if (defaultGroupName) {
                     this._requestGroup(defaultGroupName);
+                } else {
+                    // No default group preference
+                    this.set('listContent', this.noDefaultGroupTemplate.apply(this));
                 }
             }
 
@@ -123,7 +137,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 throw new Error("Group not found.");
             }
 
-            this._startGroupMode(true);
+            this._startGroupMode();
 
             // Set the toolbar title to the current group displayName
             title = this.getGroupTitle(group);
@@ -236,9 +250,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         getFieldNameByLayout: function(layoutItem) {
             return GroupUtility.getFieldNameByLayout(layoutItem);
         },
-        _startGroupMode: function(isInit) {
-            if ((this.groupsMode)&&(!isInit )){
-               return;
+        _startGroupMode: function() {
+            if (this._originalProps) {
+                return;
             }
 
             this._originalProps = {};
@@ -255,6 +269,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             original.itemTemplate = this.itemTemplate;
             original.itemFooterTemplate = this.itemFooterTemplate;
             original.relatedViews = this.relatedViews;
+            original.title = this.get('title');
+            console.log('original title: ', original.title);
 
             this.itemFooterTemplate = new Simplate(['<div></div>']);
 
@@ -268,16 +284,12 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
             this.groupsMode = true;
         },
-        _clearGroupMode: function(isInit) {
-            if (!this.groupsMode && !isInit) {
-                return;
-            }
-
-            if (!this._originalProps) {
-                return;
-            }
-
+        _clearGroupMode: function() {
             var original = this._originalProps;
+
+            if (!this.groupsMode || !original) {
+                return;
+            }
 
             this.request = original.request || null;
             this.querySelect = original.querySelect;
@@ -296,7 +308,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this._groupInitalized = false;
             this._currentGroup = null;
             this.currentGroupId = null;
-            App.setPrimaryTitle(this.get('title'));
+            App.setPrimaryTitle(original.title);
+            this.set('title', original.title);
 
             this.clear();
             this.refreshRequired = true;
