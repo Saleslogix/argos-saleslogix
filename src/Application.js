@@ -50,6 +50,7 @@ define('Mobile/SalesLogix/Application', [
         rememberNavigationState: true,
         enableUpdateNotification: false,
         multiCurrency: false,
+        enableGroups: true,
         speedSearch: {
             includeStemming: true,
             includePhonic: true,

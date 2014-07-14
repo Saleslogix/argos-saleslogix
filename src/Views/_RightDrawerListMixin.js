@@ -233,34 +233,36 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             layout = [];
 
-            groupsSection = {
-                id: 'actions',
-                children: []
-            };
+            if (this.groupsMode) {
+                groupsSection = {
+                    id: 'actions',
+                    children: []
+                };
 
-            groupsSection.children.push({
-                'name': 'configureGroups',
-                'action': 'groupConfigureClicked',
-                'title': this.configureGroupsText
-            });
-
-            if (this.groupList && this.groupList.length > 0) {
-                array.forEach(this.groupList, function(group) {
-
-                    groupsSection.children.push({
-                        'name': group.name,
-                        'action': 'groupClicked',
-                        'title': group.displayName,
-                        'dataProps': {
-                            $key: group.$key,
-                            'title': group.displayName
-                        }
-                    });
+                groupsSection.children.push({
+                    'name': 'configureGroups',
+                    'action': 'groupConfigureClicked',
+                    'title': this.configureGroupsText
                 });
-            }
 
-            if (this.entityName) {
-                layout.push(groupsSection);
+                if (this.groupList && this.groupList.length > 0) {
+                    array.forEach(this.groupList, function(group) {
+
+                        groupsSection.children.push({
+                            'name': group.name,
+                            'action': 'groupClicked',
+                            'title': group.displayName,
+                            'dataProps': {
+                                $key: group.$key,
+                                'title': group.displayName
+                            }
+                        });
+                    });
+                }
+
+                if (this.entityName) {
+                    layout.push(groupsSection);
+                }
             }
 
             hashTagsSection = {

@@ -17,6 +17,7 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
         },
         enableUpdateNotification: true,
         multiCurrency: false,
+        enableGroups: true,
         maxUploadFileSize: 40000000
     };
 

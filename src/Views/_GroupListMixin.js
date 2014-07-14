@@ -63,6 +63,12 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         selectedColumns: null,
         layout: null,
 
+        constructor: function() {
+            if (!App.enableGroups) {
+                this.groupsMode = false;
+            }
+        },
+
         requestData: function() {
             try {
                 if (!this._groupInitalized && this.groupsMode) {
