@@ -209,7 +209,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         },
         getGroupForRightDrawerEntry: function(entry) {
             var mixin = lang.getObject(mixinName);
-            if (entry.dataProps && entry.dataProps.hashtag && this._hasHashTags()) {
+            if (entry.dataProps && entry.dataProps.hashtag && this._hasHashTags() && App.enableHashTags) {
                 return {
                     tag: 'view',
                     title: mixin.prototype.hashTagsSectionText
@@ -265,27 +265,29 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 }
             }
 
-            hashTagsSection = {
-                id: 'actions',
-                children: []
-            };
+            if (App.enableHashTags) {
+                hashTagsSection = {
+                    id: 'actions',
+                    children: []
+                };
 
-            if (this._hasHashTags()) {
-                len = this.searchWidget.hashTagQueries.length;
-                for (i = 0; i < len; i++) {
-                    hashTag = this.searchWidget.hashTagQueries[i];
-                    hashTagsSection.children.push({
-                        'name': hashTag.key,
-                        'action': 'hashTagClicked',
-                        'title': hashTag.tag,
-                        'dataProps': {
-                            'hashtag': hashTag.tag
-                        }
-                    });
+                if (this._hasHashTags()) {
+                    len = this.searchWidget.hashTagQueries.length;
+                    for (i = 0; i < len; i++) {
+                        hashTag = this.searchWidget.hashTagQueries[i];
+                        hashTagsSection.children.push({
+                            'name': hashTag.key,
+                            'action': 'hashTagClicked',
+                            'title': hashTag.tag,
+                            'dataProps': {
+                                'hashtag': hashTag.tag
+                            }
+                        });
+                    }
                 }
-            }
 
-            layout.push(hashTagsSection);
+                layout.push(hashTagsSection);
+            }
 
             metrics = App.getMetricsByResourceKind(this.resourceKind);
 
