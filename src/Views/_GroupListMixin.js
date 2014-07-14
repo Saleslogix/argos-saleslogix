@@ -15,6 +15,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     'dojo/string',
     'dojo/json',
     'dojo/dom-style',
+    'dojo/dom-class',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
     'Mobile/SalesLogix/GroupUtility',
@@ -27,6 +28,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     string,
     json,
     domStyle,
+    domClass,
     format,
     utility,
     GroupUtility,
@@ -52,13 +54,15 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         requestData: function() {
             try {
                 if ((!this._groupInitalized)&&(this.groupsMode)) {
+                    domClass.add(this.domNode, 'list-loading');
+                    this.listLoading = true;
                     this.initGroup();
                 }
                 else {
                     this.inherited(arguments);
                 }
             } catch (e) {
-
+                console.error(e);
             }
         },
 
@@ -113,17 +117,18 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
         },
         _onApplyGroup: function(group) {
-            var template = [], layout, selectColumns;
+            var template = [], layout, selectColumns, title;
 
             if (!group) {
-                App.setPrimaryTitle(this.getGroupTitle({ displayName: '' }));
-                throw new Error("group not found.");
+                throw new Error("Group not found.");
             }
 
             this._startGroupMode(true);
 
             // Set the toolbar title to the current group displayName
-            App.setPrimaryTitle(this.getGroupTitle(group));
+            title = this.getGroupTitle(group);
+            App.setPrimaryTitle(title);
+            this.set('title', title);
 
             if (this._groupInitalized) {
                 return;
@@ -186,20 +191,30 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
         },
         _onGroupRequestSuccess: function(result) {
-            var group;
+            var group, title;
             if (result.length > 0) {
                 group = result[0];
                 this.setCurrentGroup(group);
                 GroupUtility.addToGroupPreferences([group], this.entityName);
                 this._onApplyGroup(group);
             } else {
-                App.setPrimaryTitle(this.getGroupTitle({ displayName: '' }));
+                title = this.getGroupTitle();
+                App.setPrimaryTitle(title);
+                this.set('title', title);
                 this._selectGroups();
             }
+
+            domClass.remove(this.domNode, 'list-loading');
+            this.listLoading = false;
         },
         _onGroupRequestFaild: function(result) {
         },
         getGroupTitle: function(group) {
+            var title = '';
+            if (group && typeof group.displayName === 'string') {
+                title = group.displayName;
+            }
+
             return group.displayName;
         },
         getItemLayoutTemplate: function(item) {
