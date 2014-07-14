@@ -224,6 +224,10 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 this._selectGroups();
             }
 
+            // Reload the right menu
+            this.onTransitionAway();
+            this.loadRightDrawer();
+
             domClass.remove(this.domNode, 'list-loading');
             this.listLoading = false;
         },
