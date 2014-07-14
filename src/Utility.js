@@ -5,9 +5,9 @@
 /**
  * @class Mobile.SalesLogix.Utility
  *
- * Utility provides functions that are more javascript enhancers than application related code.
+ * Utility provides functions that are more javascript enhancers than application related code. Mixes in Sage.Platform.Mobile.Utility.
  *
- * @requires Sage.Platform.Mobile.Format
+ * @requires Sage.Platform.Mobile.Utility
  * @singleton
  *
  */
@@ -16,15 +16,17 @@ define('Mobile/SalesLogix/Utility', [
     'dojo/string',
     'dojo/has',
     'dojo/_base/sniff',
-    'dojox/mobile/sniff'
+    'dojox/mobile/sniff',
+    'Sage/Platform/Mobile/Utility'
 ], function(
     lang,
     string,
     has,
     baseSniff,
-    mobileSniff
+    mobileSniff,
+    Utility
 ) {
-    return lang.setObject('Mobile.SalesLogix.Utility', {
+    return lang.setObject('Mobile.SalesLogix.Utility', lang.mixin({}, Utility, {
         base64ArrayBuffer: function (arrayBuffer) {
             var base64    = '';
             var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -105,6 +107,6 @@ define('Mobile/SalesLogix/Utility', [
             }
             return Id;
         }
-    });
+    }));
 });
 

@@ -19,7 +19,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    'Sage/Platform/Mobile/Edit',
+    'Sage/Platform/Mobile/Utility'
 ], function(
     declare,
     array,
@@ -27,7 +28,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
     validator,
     template,
     utility,
-    Edit
+    Edit,
+    Utility
 ) {
 
     return declare('Mobile.SalesLogix.Views.OpportunityProduct.Edit', [Edit], {
@@ -338,7 +340,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
                         validator: validator.exists,
                         where: (function() {
                             var val = this.fields['Product'].getValue();
-                            return string.substitute('Product.Name eq "${0}"', [val.Name]);
+                            return string.substitute('Product.Name eq "${0}"', [Utility.escapeSearchQuery(val.Name)]);
                         }).bindDelegate(this)
                     },
                     {
