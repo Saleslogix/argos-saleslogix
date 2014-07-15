@@ -52,7 +52,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
         /**
          * @property {Simplate}
-         * HTML markup for the metric detail (name/value) 
+         * HTML markup for the metric detail (name/value)
         */
         itemTemplate: new Simplate([
             '<div class="metric-title">{%: $$.title %}</div>',
@@ -61,11 +61,11 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
         /**
          * @property {Simplate}
-         * HTML markup for the loading text and icon 
+         * HTML markup for the loading text and icon
         */
         loadingTemplate: new Simplate([
             '<div class="metric-title list-loading">',
-                '<span class="list-loading-indicator"><div>{%= $.loadingText %}</div></span>',
+                '<span class="list-loading-indicator"><span class="fa fa-spinner fa-spin"></span><div>{%= $.loadingText %}</div></span>',
             '</div>'
         ]),
 
@@ -74,14 +74,14 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         loadingText: 'loading...',
 
         // Store Options
-        querySelect: null, 
+        querySelect: null,
         queryName: null,
         queryArgs: null,
         queryOrderBy: null,
         resourceKind: null,
         resourcePredicate: null,
         contractName: null,
-        keyProperty: null, 
+        keyProperty: null,
         applicationName: null,
         position: 0,
         pageSize: 100,
@@ -102,10 +102,10 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
         formatModule: 'Mobile/SalesLogix/Format',// AMD Module
-        formatter: 'bigNumber',// Function of formatModule module 
+        formatter: 'bigNumber',// Function of formatModule module
 
         /**
-         * Loads a module/function via AMD and wraps it in a deferred 
+         * Loads a module/function via AMD and wraps it in a deferred
          * @return {object} Returns a deferred with the function loaded via AMD require
         */
         getFormatterFnDeferred: function() {
@@ -138,7 +138,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         aggregate: null,//'valueFn',
 
         /**
-         * Loads a module/function via AMD and wraps it in a deferred 
+         * Loads a module/function via AMD and wraps it in a deferred
          * @return {object} Returns a deferred with the function loaded via AMD require
         */
         getValueFnDeferred: function() {
@@ -152,7 +152,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             return d.promise;
         },
         _loadModuleFunction: function(module, fn) {
-            // Attempt to load the function fn from the AMD module 
+            // Attempt to load the function fn from the AMD module
             var def = new Deferred();
             try {
                 require([module], lang.hitch(this, function(mod) {
@@ -170,10 +170,10 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             }
 
             // the promise property prevents consumer from calling resolve/reject on the Deferred while still allowing access to the value
-            return def.promise; 
+            return def.promise;
         },
         /**
-         * Requests the widget's data, value fn, format fn, and renders it's itemTemplate 
+         * Requests the widget's data, value fn, format fn, and renders it's itemTemplate
         */
         requestData: function() {
             var loadFormatter, loadValueFn;
@@ -253,7 +253,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             }
 
             if (left > 0) {
-                this.position = this.position + this.pageSize; 
+                this.position = this.position + this.pageSize;
                 this._getData();
             } else {
                 // Signal complete
