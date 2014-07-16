@@ -149,7 +149,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "whenText": "Когда",
   "whoText": "Кто",
   "recurrenceText": "периодичность",
-  "confirmEditRecurrenceText": "Изменить все повторения?\\nОтмена для изменения одного повторения.",
+  "confirmEditRecurrenceText": "Изменить все повторения?\nОтмена для изменения одного повторения.",
   "relatedAttachmentText": "Вложения",
   "relatedAttachmentTitleText": "Вложения действия",
   "relatedItemsText": "Связанные элементы",
@@ -879,10 +879,10 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "faxAbbreviationText": "Факс: ",
   "hashTagExpressionText": {
     "active": "Активн.",
-    "inactive": "Неактивна",
+    "inactive": "Отказ от сделки",
     "suspect": "Подозрительный",
     "lead": "Наводка",
-    "prospect": "Проспект",
+    "prospect": "Потенциальный клиент",
     "customer": "Клиент",
     "partner": "Партнер",
     "vendor": "Поставщик",
@@ -892,14 +892,14 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "hashTagQueriesText": {
     "my-accounts": "мои-учетные-записи",
     "active": "Активн.",
-    "inactive": "Неактивна",
+    "inactive": "Отказ-от-сделки",
     "suspect": "подозрительный",
     "lead": "Наводка",
-    "prospect": "Проспект",
+    "prospect": "Потенциальный-клиент",
     "customer": "Клиент",
     "partner": "Партнер",
     "vendor": "Поставщик",
-    "influencer": "источник-влияния",
+    "influencer": "Влиятель",
     "competitor": "Конкурент"
   }
 });
@@ -1345,17 +1345,17 @@ localize("Mobile.SalesLogix.Views.Opportunity.List", {
   "estimatedCloseText": "План. закрытие ",
   "hashTagQueriesText": {
     "my-opportunities": "мои-сделки",
-    "open": "Открыть",
+    "open": "Открытая",
     "closed": "Закрыта",
     "won": "успех",
     "lost": "неудача",
-    "inactive": "Неактивна"
+    "inactive": "Отказ-от-сделки"
   },
   "hashTagExpressionText": {
-    "open": "Открыть",
+    "open": "Открытая",
     "won": "Закрыта и выиграна",
     "lost": "Закрыта и проиграна",
-    "inactive": "Неактивна"
+    "inactive": "Отказ от сделки"
   }
 });
 

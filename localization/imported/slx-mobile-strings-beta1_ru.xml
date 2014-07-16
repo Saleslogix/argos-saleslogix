@@ -949,7 +949,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[inactive]" type="text">
     <description/>
-    <value>Неактивна</value>
+    <value>Отказ от сделки</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[suspect]" type="text">
     <description/>
@@ -961,7 +961,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[prospect]" type="text">
     <description/>
-    <value>Проспект</value>
+    <value>Потенциальный клиент</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[customer]" type="text">
     <description/>
@@ -993,7 +993,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[inactive]" type="text">
     <description/>
-    <value>Неактивна</value>
+    <value>Отказ-от-сделки</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[suspect]" type="text">
     <description/>
@@ -1005,7 +1005,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[prospect]" type="text">
     <description/>
-    <value>Проспект</value>
+    <value>Потенциальный-клиент</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[customer]" type="text">
     <description/>
@@ -1021,7 +1021,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[influencer]" type="text">
     <description/>
-    <value>источник-влияния</value>
+    <value>Влиятель</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[competitor]" type="text">
     <description/>
@@ -1321,7 +1321,8 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
     <description/>
-    <value>Изменить все повторения?\nОтмена для изменения одного повторения.</value>
+    <value>Изменить все повторения?
+Отмена для изменения одного повторения.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -3737,7 +3738,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[open]" type="text">
     <description/>
-    <value>Открыть</value>
+    <value>Открытая</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[closed]" type="text">
     <description/>
@@ -3753,11 +3754,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[inactive]" type="text">
     <description/>
-    <value>Неактивна</value>
+    <value>Отказ-от-сделки</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[open]" type="text">
     <description/>
-    <value>Открыть</value>
+    <value>Открытая</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[won]" type="text">
     <description/>
@@ -3769,7 +3770,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[inactive]" type="text">
     <description/>
-    <value>Неактивна</value>
+    <value>Отказ от сделки</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="titleText" type="text">
     <description/>

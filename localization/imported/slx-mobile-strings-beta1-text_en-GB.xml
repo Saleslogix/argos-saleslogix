@@ -2935,6 +2935,10 @@
     <description/>
     <value>wrote </value>
   </data>
+  <data class="Mobile.SalesLogix.Views.History.RelatedView" property="titleText" type="text">
+    <description/>
+    <value>Notes</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Home" property="configureText" type="text">
     <description/>
     <value>Configure</value>

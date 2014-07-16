@@ -449,11 +449,11 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="accountsText[total]" type="text">
     <description/>
-    <value>Konten - gesamt</value>
+    <value>Firmen - gesamt</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[total]" type="text">
     <description/>
-    <value>Opportunitys - gesamt</value>
+    <value>Verkaufschancen - gesamt</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[potential]" type="text">
     <description/>
@@ -473,7 +473,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="leadsText[total]" type="text">
     <description/>
-    <value>Leads - gesamt</value>
+    <value>Interessenten - gesamt</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="historyText[total]" type="text">
     <description/>
@@ -769,7 +769,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedAttachmentTitleText" type="text">
     <description/>
-    <value>Anlagen mit Konten</value>
+    <value>Anlagen mit Firmen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="statusText" type="text">
     <description/>
@@ -953,7 +953,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[suspect]" type="text">
     <description/>
-    <value>unter-Beobachtung</value>
+    <value>Fehlerverdächtig</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[lead]" type="text">
     <description/>
@@ -961,7 +961,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[prospect]" type="text">
     <description/>
-    <value>potenzieller-Kunde</value>
+    <value>Potenzieller Kunde</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[customer]" type="text">
     <description/>
@@ -977,7 +977,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[influencer]" type="text">
     <description/>
-    <value>Beeinflusser</value>
+    <value>Influencer</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[competitor]" type="text">
     <description/>
@@ -985,7 +985,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[my-accounts]" type="text">
     <description/>
-    <value>meine-konten</value>
+    <value>meine-firmen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[active]" type="text">
     <description/>
@@ -997,7 +997,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[suspect]" type="text">
     <description/>
-    <value>unter-Beobachtung</value>
+    <value>Fehlerverdächtig</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[lead]" type="text">
     <description/>
@@ -1021,7 +1021,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[influencer]" type="text">
     <description/>
-    <value>Beeinflusser</value>
+    <value>Influencer</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[competitor]" type="text">
     <description/>
@@ -1321,7 +1321,8 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
     <description/>
-    <value>Alle Vorkommen bearbeiten?\nAbbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
+    <value>Alle Vorkommen bearbeiten?
+Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -3745,11 +3746,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[won]" type="text">
     <description/>
-    <value>gewonnen</value>
+    <value>Erfolg</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[lost]" type="text">
     <description/>
-    <value>verloren</value>
+    <value>Verloren</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[inactive]" type="text">
     <description/>

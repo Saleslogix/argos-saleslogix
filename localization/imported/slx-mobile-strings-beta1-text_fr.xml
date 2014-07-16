@@ -949,7 +949,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[inactive]" type="text">
     <description/>
-    <value>Inactive</value>
+    <value>Inactif</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[suspect]" type="text">
     <description/>
@@ -973,11 +973,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[vendor]" type="text">
     <description/>
-    <value>Revendeur</value>
+    <value>Fournisseur</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[influencer]" type="text">
     <description/>
-    <value>influenceur</value>
+    <value>Prescripteur</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[competitor]" type="text">
     <description/>
@@ -993,7 +993,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[inactive]" type="text">
     <description/>
-    <value>Inactive</value>
+    <value>Inactif</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[suspect]" type="text">
     <description/>
@@ -1017,11 +1017,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[vendor]" type="text">
     <description/>
-    <value>Revendeur</value>
+    <value>Fournisseur</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[influencer]" type="text">
     <description/>
-    <value>influenceur</value>
+    <value>prescripteur</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[competitor]" type="text">
     <description/>
@@ -1321,7 +1321,8 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
     <description/>
-    <value>Modifier toutes les occurrences ?\n Annuler pour modifier une seule occurrence.</value>
+    <value>Modifier toutes les occurrences ?
+ Annuler pour modifier une seule occurrence.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -3745,15 +3746,15 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[won]" type="text">
     <description/>
-    <value>gagné</value>
+    <value>Gagnée</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[lost]" type="text">
     <description/>
-    <value>perdu</value>
+    <value>Perdu</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[inactive]" type="text">
     <description/>
-    <value>Inactive</value>
+    <value>Inactif</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[open]" type="text">
     <description/>
@@ -3769,7 +3770,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[inactive]" type="text">
     <description/>
-    <value>Inactive</value>
+    <value>Inactif</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="titleText" type="text">
     <description/>

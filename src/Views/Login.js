@@ -107,7 +107,7 @@ define('Mobile/SalesLogix/Views/Login', [
             var credentials = this.getValues(),
                 username = credentials && credentials.username;
 
-            if (username && /\w+/.test(username)) {
+            if (username) {
                 this.validateCredentials(credentials);
             }
         },
