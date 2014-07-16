@@ -17,10 +17,11 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
     _RightDrawerBaseMixin
 ) {
 
+    var mixinName = 'Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin';
+
     return declare('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         indexSectionText: 'Indexes',
-        configureText: 'Configure',
 
         _hasChangedIndexPrefs: false,// Dirty flag so we know when to reload the widgets
 
@@ -109,9 +110,10 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
         },
         getGroupForRightDrawerEntry: function(entry) {
             if (entry.dataProps && entry.dataProps.indexname) {
+                var mixin = lang.getObject(mixinName);
                 return {
                     tag: 'view',
-                    title: this.indexSectionText
+                    title: mixin.prototype.indexSectionText
                 };
             }
         },
@@ -137,7 +139,7 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
                             'action': 'indexClicked', 
                             'title': this.indexesText[index.indexName] || index.indexName,
                             'dataProps': {
-                                'indexname': this.indexesText[index.indexName] || index.indexName,
+                                'indexname': index.indexName,
                                 'enabled':!!indexPref[0].enabled
                             }
                         });
