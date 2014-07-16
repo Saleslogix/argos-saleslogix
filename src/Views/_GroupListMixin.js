@@ -297,6 +297,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             var original = this._originalProps;
 
             if (!this.groupsMode || !original) {
+                this.groupsMode = false;// Ensure this is off
                 return;
             }
 
