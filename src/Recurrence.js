@@ -219,7 +219,11 @@ define('Mobile/SalesLogix/Recurrence', [
             for (var i = 0; i < this._weekDayValues.length; i++) {
                 if (names) {
                     if (rps & this._weekDayValues[i]) {
-                        weekdays.push(moment().lang()._weekdays[i]);
+                        if (moment().lang()._abbr === 'ru') {
+                            weekdays.push(moment().lang()._weekdaysShort[i]);
+                        } else {
+                            weekdays.push(moment().lang()._weekdays[i]);
+                        }
                     }
 
                 } else {
