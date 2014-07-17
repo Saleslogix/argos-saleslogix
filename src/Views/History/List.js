@@ -262,28 +262,20 @@ define('Mobile/SalesLogix/Views/History/List', [
                 onApply: function(entry, parent) {
                     this.isEnabled = parent.hasBeenTouched(entry);
                 }
-            }, {
-                id: 'activityIcon',
-                label: 'Activity',
-                onApply: function(entry, parent) {
-                    parent.applyActivityIndicator(entry, this);
-                }
             }]
             );
         },
-        applyActivityIndicator: function(entry, indicator) {
-            this._applyActivityIndicator(entry['Type'], indicator);
+        getItemIconClass: function(entry) {
+            var type = entry && entry.Type;
+            return this._getItemIconClass(type);
         },
-        _applyActivityIndicator: function(type, indicator) {
-            indicator.isEnabled = false;
-            indicator.showIcon = false;
-
-            if (type) {
-                indicator.cls = this.activityIndicatorIconByType[type];
-                indicator.label = this.activityTypeText[type];
-                indicator.isEnabled = true;
-                indicator.showIcon = true;
+        _getItemIconClass: function(type) {
+            var cls = this.activityIndicatorIconByType[type];
+            if (cls) {
+                cls = cls + ' fa-2x';
             }
+
+            return cls;
         }
     });
 });
