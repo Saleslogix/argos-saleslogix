@@ -212,14 +212,17 @@ define('Mobile/SalesLogix/GroupUtility', [
             if (!overwrite && groupList && groupList.length > 0) {
                  if (items && items.length > 0) {
                      array.forEach(items, function(item) {
-                         found = false;
-                         array.forEach(groupList, function(group) {
+                         found = -1;
+                         array.forEach(groupList, function(group, i) {
                               if (group.$key === item.$key) {
-                                 found = true;
+                                  found = i;
                               }
- 
+
                          });
-                         if (!found) {
+
+                         if (found > -1) {
+                             groupList[found] = item;
+                         } else {
                              groupList.push(item);
                          }
                      });

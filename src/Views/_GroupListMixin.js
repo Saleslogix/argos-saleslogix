@@ -178,7 +178,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this._groupInitalized = true;
             this.requestData();
         },
-        _requestGroup: function(groupName) {
+        _requestGroup: function(groupName, onSuccess) {
             var store = null, queryResults;
 
             if (typeof groupName === 'string' && groupName !== '') {
@@ -200,7 +200,11 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 (function(context, queryResults) {
                     try {
                         when(queryResults, lang.hitch(context, function(groupFeed) {
-                            this._onGroupRequestSuccess(groupFeed);
+                            if (typeof onSuccess === 'function') {
+                                onSuccess.apply(this, arguments);
+                            } else {
+                                this._onGroupRequestSuccess(groupFeed);
+                            }
                         }));
                     }
                     catch (error) {
