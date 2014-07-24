@@ -40,15 +40,27 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
     return declare('Mobile.SalesLogix.Views._GroupListMixin', null, {
         noDefaultGroupText: 'No default group set. Open the right menu and press configure under the groups section to setup groups.',
+        currentGroupNotFoundText: 'The current group was not found.',
         noDefaultGroupTemplate: new Simplate([
             '<li class="no-data">',
             '<h3>{%= $$._getNoDefaultGroupMessage() %}</h3>',
             '</li>'
         ]),
+        currentGoupNotFoundTemplate: new Simplate([
+           '<li class="no-data">',
+           '<h4>{%= $$._getCurrentGroupNotFoundMessage() %}</h4>',
+           '</li>'
+        ]),
         _getNoDefaultGroupMessage: function() {
             var mixin = lang.getObject(mixinName);
             if (mixin) {
                 return mixin.prototype.noDefaultGroupText;
+            }
+        },
+        _getCurrentGroupNotFoundMessage: function() {
+            var mixin = lang.getObject(mixinName);
+            if (mixin) {
+                return mixin.prototype.currentGroupNotFoundText;
             }
         },
         groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.',
@@ -236,6 +248,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.listLoading = false;
         },
         _onGroupRequestFaild: function(result) {
+
         },
         getGroupTitle: function(group) {
             var title = '';
@@ -341,6 +354,29 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
 
             this.inherited(arguments);
+        },
+        _onQueryError: function(queryOptions, error) {
+            try {
+                if (this._groupInitalized && this.groupsMode) {
+                    if(error.status === 404){
+                        this._onGroupNotFound();
+                    
+                    }else{
+                    
+                        this.inherited(arguments);
+                    }
+                } else {
+                    this.inherited(arguments);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        },
+        _onGroupNotFound: function() {
+            domClass.remove(this.domNode, 'list-loading');
+            //GroupUtility.removeGroupPreferences(this._currentGroup.$key, this.entityName);
+            this.set('listContent', this.currentGoupNotFoundTemplate.apply(this));
+
         }
     });
 });

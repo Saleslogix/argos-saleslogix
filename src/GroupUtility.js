@@ -234,6 +234,25 @@ define('Mobile/SalesLogix/GroupUtility', [
              App.preferences['groups-' + entityName] = groupList;
              App.persistPreferences();
         },
+        removeGroupPreferences: function(itemKey, entityName) {
+            var found, groupList;
+            found = -1;
+            groupList = this.getGroupPreferences(entityName);
+            if (groupList && groupList.length > 0) {
+                array.forEach(groupList, function(group, i) {
+                    if (group.$key === itemKey) {
+                        found = i;
+                    }
+                });
+            }
+
+            if (found > -1) {
+                groupList.splice(found, 1);
+                App.preferences['groups-' + entityName] = groupList;
+                App.persistPreferences();
+            }
+        
+        },
         getGroupPreferences: function(entityName){
             var groupList = App.preferences['groups-' + entityName];
             return groupList;
