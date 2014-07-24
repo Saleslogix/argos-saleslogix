@@ -945,7 +945,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[active]" type="text">
     <description/>
-    <value>Автивн.</value>
+    <value>Активн.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[inactive]" type="text">
     <description/>
@@ -989,7 +989,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[active]" type="text">
     <description/>
-    <value>Автивн.</value>
+    <value>Активн.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[inactive]" type="text">
     <description/>
@@ -1626,7 +1626,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>В течение дня</value>
+    <value>В-течение-дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[today]" type="text">
     <description/>
@@ -1702,7 +1702,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>В течение дня</value>
+    <value>В-течение-дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[today]" type="text">
     <description/>

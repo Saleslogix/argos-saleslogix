@@ -242,7 +242,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "С-оповещением",
     "recurring": "Повторяющиеся",
-    "timeless": "В течение дня",
+    "timeless": "В-течение-дня",
     "today": "Сегодняшние",
     "this-week": "На-этой-неделе",
     "yesterday": "Вчерашние"
@@ -878,7 +878,7 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   "phoneAbbreviationText": "Телефон: ",
   "faxAbbreviationText": "Факс: ",
   "hashTagExpressionText": {
-    "active": "Автивн.",
+    "active": "Активн.",
     "inactive": "Отказ от сделки",
     "suspect": "Подозрительный",
     "lead": "Наводка",
@@ -891,7 +891,7 @@ localize("Mobile.SalesLogix.Views.Account.List", {
   },
   "hashTagQueriesText": {
     "my-accounts": "мои-учетные-записи",
-    "active": "Автивн.",
+    "active": "Активн.",
     "inactive": "Отказ-от-сделки",
     "suspect": "подозрительный",
     "lead": "Наводка",
@@ -921,7 +921,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
     "status-accepted": "Подтвержденные",
     "status-declined": "Отмененные",
     "recurring": "Повторяющиеся",
-    "timeless": "В течение дня",
+    "timeless": "В-течение-дня",
     "today": "Сегодняшние",
     "this-week": "На-этой-неделе",
     "yesterday": "Вчерашние"
