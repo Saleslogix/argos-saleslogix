@@ -54,6 +54,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.',
         //View Properties
         entityName: null,
+        groupsEnabled: false,
         groupsMode: false,
         currentGroupId: null,
         _currentGroup: null,
@@ -63,10 +64,15 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         selectedColumns: null,
         layout: null,
 
-        constructor: function() {
+        postMixInProperties: function() {
             if (!App.enableGroups) {
                 this.groupsMode = false;
+                this.groupsEnabled = false;
+            } else {
+                this.groupsEnabled = this.groupsMode || false;
             }
+
+            this.inherited(arguments);
         },
 
         requestData: function() {

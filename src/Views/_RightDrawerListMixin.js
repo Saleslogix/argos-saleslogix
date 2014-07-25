@@ -132,7 +132,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     this.toggleRightDrawer();
                 }),
                 groupRefreshClicked: lang.hitch(this, function() {
-                    if (this.groupsMode && this.groupList) {
+                    if (this.groupsEnabled && this.groupList) {
                         this.groupList.forEach(function(group) {
                             this._requestGroup(group.name, function(results) {
                                 var group = results[0];
@@ -234,7 +234,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 };
             }
 
-            if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked' || entry.action === 'groupRefreshClicked') && this.groupsMode) {
+            if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked' || entry.action === 'groupRefreshClicked') && this.groupsEnabled) {
                 return {
                     tag: 'group',
                     title: this.groupsSectionText
@@ -251,7 +251,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
             layout = [];
 
-            if (this.groupsMode) {
+            if (this.groupsEnabled) {
                 groupsSection = {
                     id: 'actions',
                     children: []
