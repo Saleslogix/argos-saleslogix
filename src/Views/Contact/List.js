@@ -108,7 +108,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
         ],
         resourceKind: 'contacts',
         entityName: 'Contact',
-        groupsMode: true,
+        groupsEnabled: true,
         enableActions: true,
         callWork: function(params, evt, el) {
             this.invokeActionItemBy(function(action) {

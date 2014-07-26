@@ -132,7 +132,7 @@ define('Mobile/SalesLogix/Views/Lead/List', [
         ],
         resourceKind: 'leads',
         entityName: 'Lead',
-        groupsMode: true,
+        groupsEnabled: true,
         allowSelection: true,
         enableActions: true,
         createActionLayout: function() {

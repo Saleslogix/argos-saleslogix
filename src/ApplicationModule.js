@@ -273,7 +273,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new AccountList({
                 id: 'account_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -301,7 +301,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new ContactList({
                 id: 'contact_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -337,7 +337,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new OpportunityList({
                 id: 'opportunity_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -378,7 +378,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new LeadList({
                 id: 'lead_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -390,7 +390,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new TicketList({
                 id: 'ticket_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -439,7 +439,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new HistoryList({
                 id: 'history_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
