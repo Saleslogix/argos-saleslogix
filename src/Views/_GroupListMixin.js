@@ -48,7 +48,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         ]),
         currentGoupNotFoundTemplate: new Simplate([
            '<li class="no-data">',
-           '<h4>{%= $$._getCurrentGroupNotFoundMessage() %}</h4>',
+           '<h3>{%= $$._getCurrentGroupNotFoundMessage() %}</h3>',
            '</li>'
         ]),
         _getNoDefaultGroupMessage: function() {
@@ -348,25 +348,20 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.inherited(arguments);
         },
         _onQueryError: function(queryOptions, error) {
-            try {
-                if (this._groupInitalized && this.groupsMode) {
-                    if(error.status === 404){
-                        this._onGroupNotFound();
-                    
-                    }else{
-                    
-                        this.inherited(arguments);
+                if (this.groupsEnabled && this.groupsMode) {
+                    if (error.status === 404) {
+                        try{
+                            this._onGroupNotFound();
+                            return;
+                        } catch (e) {
+                            console.error(e);
+                        }
                     }
-                } else {
-                    this.inherited(arguments);
                 }
-            } catch (e) {
-                console.error(e);
-            }
+                this.inherited(arguments);
         },
         _onGroupNotFound: function() {
             domClass.remove(this.domNode, 'list-loading');
-            //GroupUtility.removeGroupPreferences(this._currentGroup.$key, this.entityName);
             this.set('listContent', this.currentGoupNotFoundTemplate.apply(this));
 
         }
