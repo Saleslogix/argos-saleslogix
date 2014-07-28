@@ -66,6 +66,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.',
         //View Properties
         entityName: null,
+        groupsEnabled: false,
         groupsMode: false,
         currentGroupId: null,
         _currentGroup: null,
@@ -75,10 +76,17 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         selectedColumns: null,
         layout: null,
 
-        constructor: function() {
+        postMixInProperties: function() {
             if (!App.enableGroups) {
                 this.groupsMode = false;
+                this.groupsEnabled = false;
             }
+
+            if (this.groupsEnabled) {
+                this.groupsMode = true;
+            }
+
+            this.inherited(arguments);
         },
 
         requestData: function() {
@@ -107,7 +115,6 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         setCurrentGroup: function(group) {
             if (group) {
                 if (this.currentGroupId !== group.$key) {
-                    this.groupsMode = true;
                     this._groupInitalized = false;
                     this._currentGroup = group;
                     this.currentGroupId = group.$key;
@@ -300,21 +307,14 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
             this.itemFooterTemplate = new Simplate(['<div></div>']);
 
-            if (this.groupsNode) {
-                domStyle.set(this.groupsNode, {
-                    display: 'block'
-                });
-
-                this.groupsNode.innerHTML = this.groupsModeText;
-            }
-
             this.groupsMode = true;
         },
         _clearGroupMode: function() {
             var original = this._originalProps;
 
-            if (!this.groupsMode || !original) {
-                this.groupsMode = false;// Ensure this is off
+            this.groupsMode = false;
+
+            if (!original) {
                 return;
             }
 
@@ -331,7 +331,6 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
             this._originalProps = null;
 
-            this.groupsMode = false;
             this._groupInitalized = false;
             this._currentGroup = null;
             this.currentGroupId = null;
@@ -340,16 +339,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
             this.clear();
             this.refreshRequired = true;
-
-            if (this.groupsNode) {
-                domStyle.set(this.groupsNode, {
-                    display: 'none'
-                });
-                this.groupsNode.innerHTML = '';
-             }
         },
         onProcessRelatedViews: function(entry, rowNode, entries) {
-            if (this.groupsMode) {
+            if (this.groupsEnabled) {
                 return;
             }
 

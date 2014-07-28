@@ -39,6 +39,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/LeftDrawer',
     'Mobile/SalesLogix/Views/RightDrawer',
     'Mobile/SalesLogix/Views/Login',
+    'Mobile/SalesLogix/Views/LogOff',
     'Mobile/SalesLogix/Views/Settings',
     'Mobile/SalesLogix/Views/Configure',
     'Mobile/SalesLogix/Views/MetricConfigure',
@@ -150,6 +151,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     LeftDrawer,
     RightDrawer,
     Login,
+    LogOff,
     Settings,
     Configure,
     MetricConfigure,
@@ -239,6 +241,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             }));
 
             this.registerView(new Login());
+            this.registerView(new LogOff());
 
             this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
             this.registerView(new RightDrawer(), query('.right-drawer')[0]);
@@ -273,7 +276,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new AccountList({
                 id: 'account_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -301,7 +304,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new ContactList({
                 id: 'contact_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -337,7 +340,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new OpportunityList({
                 id: 'opportunity_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -378,7 +381,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new LeadList({
                 id: 'lead_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -390,7 +393,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new TicketList({
                 id: 'ticket_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -439,7 +442,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
             this.registerView(new HistoryList({
                 id: 'history_related',
                 expose: false,
-                groupsMode: false,
+                groupsEnabled: false,
                 defaultSearchTerm: function() {
                     return '';
                 }
