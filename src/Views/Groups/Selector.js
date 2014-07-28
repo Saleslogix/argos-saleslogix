@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
         family: '',
 
         //Localization
-        titleText: 'Groups',
+        titleText: 'Groups Lookup',
 
         itemTemplate: new Simplate([
             '<h3>{%: $[$$.labelProperty] %}</h3>'
