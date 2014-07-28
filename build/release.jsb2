@@ -237,6 +237,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "LogOff.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "Settings.js",
           "path": "../src/Views"
         },

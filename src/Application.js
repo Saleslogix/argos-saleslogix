@@ -104,6 +104,8 @@ define('Mobile/SalesLogix/Application', [
         versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
         homeViewId: 'myactivity_list',
         loginViewId: 'login',
+        logOffViewId: 'logoff',
+
         init: function() {
             var original,
                 app = this;
@@ -138,9 +140,9 @@ define('Mobile/SalesLogix/Application', [
             current = history[length - 1];
             previous = history[length - 2];
 
-            if (current && current.page === 'login') {
+            if ((current && current.page === this.loginViewId) || (current && current.page === this.logOffViewId)) {
                 isOnFirstView = true;
-            } else if (previous && previous.page === 'login') {
+            } else if (previous && previous.page === this.loginViewId) {
                 isOnFirstView = true;
             } else if (length === 1) {
                 isOnFirstView = true;
@@ -381,14 +383,19 @@ define('Mobile/SalesLogix/Application', [
             this.removeCredentials();
             this._clearNavigationState();
 
-            var service = this.getService();
+            var service = this.getService(),
+                view;
             if (service) {
                 service
                     .setUserName(false)
                     .setPassword(false);
             }
 
-            this.reload();
+            view = this.getView(this.logOffViewId);
+
+            if (view) {
+                view.show();
+            }
         },
         getCredentials: function() {
             var stored, encoded, credentials;
