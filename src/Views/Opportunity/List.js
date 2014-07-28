@@ -116,7 +116,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         ],
         resourceKind: 'opportunities',
         entityName: 'Opportunity',
-        groupsMode: true,
+        groupsEnabled: true,
         allowSelection: true,
         enableActions: true,
 

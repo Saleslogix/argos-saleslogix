@@ -119,7 +119,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         ],
         resourceKind: 'tickets',
         entityName: 'Ticket',
-        groupsMode: true,
+        groupsEnabled: true,
         allowSelection: true,
         enableActions: true,
 

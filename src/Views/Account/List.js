@@ -112,7 +112,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
         ],
         resourceKind: 'accounts',
         entityName: 'Account',
-        groupsMode: true,
+        groupsEnabled: true,
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
