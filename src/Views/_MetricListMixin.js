@@ -63,7 +63,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                 });
             }
 
-            return filtered;
+            return lang.clone(filtered);
         },
         postCreate: function() {
             this.inherited(arguments);

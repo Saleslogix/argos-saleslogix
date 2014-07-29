@@ -466,6 +466,7 @@ define('Mobile/SalesLogix/Application', [
                     this.preferences = json.parse(window.localStorage.getItem('preferences'));
                 }
             } catch(e) {
+                console.error(e);
             }
 
             //Probably, the first time, its being accessed, or user cleared
@@ -702,6 +703,7 @@ define('Mobile/SalesLogix/Application', [
                     window.localStorage.setItem('preferences', json.stringify(App.preferences));
                 }
             } catch(e) {
+                console.error(e);
             }
         },
         getDefaultViews: function() {
