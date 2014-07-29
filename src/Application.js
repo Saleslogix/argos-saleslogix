@@ -835,7 +835,7 @@ define('Mobile/SalesLogix/Application', [
 
             if (this.redirectHash) {
                 split = this.redirectHash.split(';');
-                if (split.length > 1) {
+                if (split.length > 0) {
                     viewId = split[0];
                     key = split[1];
                     view = this.getView(viewId);
