@@ -125,6 +125,23 @@ define('Mobile/SalesLogix/GroupUtility', [
                 formatter: function(value) {
                     return moment(value).format(this.groupDateFormatText);
                 }
+            },
+            {
+                name: 'Boolean',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'Boolean';
+                },
+                formatter: function(value) {
+                    var truthy = [
+                        'T',
+                        't',
+                        'Y',
+                        '1',
+                        '+'
+                    ];
+
+                    return array.indexOf(truthy, value) === -1 ? format.noText : format.yesText;
+                }
             }
         ],
         getFormatterByLayout: function(layoutItem) {
