@@ -24,7 +24,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
     return declare('Mobile.SalesLogix.Views.Groups.Selector', [List], {
         id: 'groups_configure',
         expose: false,
-        enableSearch: true,
+        enableSearch: false,
         icon: '',
 
         listViewId: 'groups_list',
