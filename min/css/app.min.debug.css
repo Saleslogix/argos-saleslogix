@@ -1129,6 +1129,14 @@ td.entry-table-description {
   overflow: hidden;
   white-space: nowrap;
 }
+.speedsearch-fields {
+  list-style-type: square;
+  padding: 10px;
+}
+.speedsearch-fields span {
+  color: #3471af;
+  font-weight: bold;
+}
 .card-layout-speed-search-index {
   display: block;
   font-size: 1.5em;

@@ -45,11 +45,15 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         //Templates
         itemTemplate: new Simplate([
           '<h4><strong>{%: $.$heading %}</strong></h4>',
-          '{% if ($$.showSynopsis) { %}',
-               '<div class="card-layout-speed-search-synopsis note-text-wrap">',
-                '{%= $.synopsis %}',
-               '</div>',
-           '{% } %}'
+          '{%! $$.fieldTemplate %}'
+        ]),
+
+        fieldTemplate: new Simplate([
+          '<ul class="speedsearch-fields">',
+            '{% for(var i = 0; i < $.fields.length; i++) { %}',
+                '<li><h4><span>{%= $.fields[i].fieldName %}</span> {%= $.fields[i].fieldValue %}</h4></li>',
+            '{% } %}',
+          '</ul>'
         ]),
 
         //Localization
@@ -61,7 +65,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         enableActions: true,
         searchWidgetClass: SpeedSearchWidget,
         expose: false,
-        showSynopsis: false,
         activeIndexes: ['Account', 'Contact', 'Lead', 'Activity', 'History', 'Opportunity', 'Ticket'],
         indexes: [
             {indexName: 'Account', indexType: 1, isSecure: true},
@@ -88,6 +91,9 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             this.inherited(arguments);
             this.currentPage = 0;
         },
+        _formatFieldName: function(fieldName) {
+
+        },
         extractTypeFromItem: function(item) {
             for (var i = 0; i < this.types.length; i++) {
                 if (item.source.indexOf(this.types[i]) !== -1) {
@@ -97,33 +103,18 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
             return null;
         },
-        extractDescriptorFromItem: function(item, type) {
-            var descriptor = '';
+        extractDescriptorFromItem: function(item) {
+            var descriptor, entityName, rest;
 
-            switch (type) {
-                case 'Account':
-                    descriptor = this.getFieldValue(item.fields, 'account');
-                    break;
-                case 'Activity':
-                    descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
-                    break;
-                case 'Contact':
-                    descriptor = string.substitute('${firstname} ${lastname} (${account})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
-                    break;
-                case 'Lead':
-                    descriptor = string.substitute('${firstname} ${lastname} (${account})', this.getFieldValues(item.fields, ['firstname', 'lastname', 'account']));
-                    break;
-                case 'Opportunity':
-                    descriptor = this.getFieldValue(item.fields, 'subject');
-                    break;
-                case 'History':
-                    descriptor = string.substitute('${subject} (${date_created})', this.getFieldValues(item.fields, ['subject', 'date_created']));
-                    break;
-                case 'Ticket':
-                    descriptor = item.uiDisplayName;
-                    break;
+            descriptor = item && item.uiDisplayName;
+
+            if (descriptor) {
+                descriptor = descriptor.split(':');
+                entityName = descriptor[0];
+                rest = descriptor[1];
             }
-            return descriptor;
+
+            return rest;
         },
         extractKeyFromItem: function(item) {
             // Extract the entityId from the display name, which is the last 12 characters
@@ -135,35 +126,6 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
 
             len = displayName.length;
             return displayName.substring(len - 12);
-        },
-        getFieldValue: function(fields, name) {
-            for (var i = 0; i < fields.length; i++) {
-                var field = fields[i];
-                if (field.fieldName == name) {
-                    return field.fieldValue;
-                }
-            }
-
-            return '';
-        },
-        getFieldValues: function(fields, names) {
-            var results = {};
-
-            // Assign each field in the results to an empty string,
-            // so that dojo's string substitute won't blow up on undefined.
-            array.forEach(names, function(name) {
-                results[name] = '';
-            });
-
-            array.forEach(fields, function(field) {
-                array.forEach(names, function(name, i) {
-                    if (field.fieldName === name) {
-                        results[name] = field.fieldValue;
-                    }
-                });
-            });
-
-            return results;
         },
         more: function() {
             this.currentPage += 1;
@@ -193,10 +155,14 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
                     var rowNode;
                     var synopNode;
                     entry.type = this.extractTypeFromItem(entry);
-                    entry.$descriptor = entry.$descriptor || entry.uiDisplayName; 
+                    entry.$descriptor = entry.$descriptor || entry.uiDisplayName;
                     entry.$key = this.extractKeyFromItem(entry);
-                    entry.$heading = this.extractDescriptorFromItem(entry, entry.type);
+                    entry.$heading = this.extractDescriptorFromItem(entry);
                     entry.synopsis = unescape(entry.synopsis);
+                    entry.fields = array.filter(entry.fields, function(field) {
+                        return field.fieldName !== 'seccodelist' && field.fieldName !== 'filename';
+                    });
+
                     this.entries[entry.$key] = entry;
                     rowNode = domConstruct.toDom(this.rowTemplate.apply(entry, this));
                     docfrag.appendChild(rowNode);
