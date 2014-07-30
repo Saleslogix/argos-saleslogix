@@ -123,7 +123,11 @@ define('Mobile/SalesLogix/GroupUtility', [
                     return layoutItem.format === 'DateTime';
                 },
                 formatter: function(value) {
-                    return moment(value).format(this.groupDateFormatText);
+                    if (typeof value === 'string') {
+                        return moment(value).format(this.groupDateFormatText);
+                    }
+
+                    return value;
                 }
             },
             {
