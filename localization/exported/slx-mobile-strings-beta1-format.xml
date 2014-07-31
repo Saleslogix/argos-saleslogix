@@ -72,14 +72,6 @@
     <description/>
     <value>M/D/YYYY</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Activity.List" property="startDateFormatText" type="format">
-    <description/>
-    <value>ddd M/D/YYYY</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Activity.List" property="startTimeFormatText" type="format">
-    <description/>
-    <value>h:mm</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Attachment.List" property="attachmentDateFormatText" type="format">
     <description/>
     <value>ddd M/D/YYYY hh:mm:ss</value>

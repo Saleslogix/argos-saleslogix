@@ -1480,10 +1480,6 @@
     <description/>
     <value>recurring</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityText" type="text">
-    <description/>
-    <value>activity</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
     <description/>
     <value>To-Do</value>
@@ -2514,7 +2510,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Groups.Selector" property="titleText" type="text">
     <description/>
-    <value>Groups</value>
+    <value>Groups Lookup</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Help" property="titleText" type="text">
     <description/>
@@ -2743,6 +2739,30 @@
   <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atEMail]" type="text">
     <description/>
     <value>E-mail</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[my-history]" type="text">
+    <description/>
+    <value>my-history</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[note]" type="text">
+    <description/>
+    <value>note</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[phonecall]" type="text">
+    <description/>
+    <value>phonecall</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[meeting]" type="text">
+    <description/>
+    <value>meeting</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[personal]" type="text">
+    <description/>
+    <value>personal</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[email]" type="text">
+    <description/>
+    <value>email</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="titleText" type="text">
     <description/>
@@ -3148,13 +3168,21 @@
     <description/>
     <value>Are you sure you want to log out?</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.LogOff" property="messageText" type="text">
+    <description/>
+    <value>You have been logged out. Please close your browser window.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LogOff" property="titleText" type="text">
+    <description/>
+    <value>Logged Out</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
     <description/>
     <value>&amp;copy; 2014 SalesLogix, NA, LLC. All rights reserved.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
-    <value>Log on to Saleslogix</value>
+    <value>Log On</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="passText" type="text">
     <description/>
@@ -4372,6 +4400,14 @@
     <description/>
     <value>no search applied</value>
   </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
+    <description/>
+    <value>No default group set. Open the right menu and press configure under the groups section to setup groups.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
+    <description/>
+    <value>The current group was not found.</value>
+  </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupsModeText" type="text">
     <description/>
     <value>You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.</value>
@@ -4392,12 +4428,12 @@
     <description/>
     <value>Configure</value>
   </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="refreshGroupsText" type="text">
+    <description/>
+    <value>Refresh</value>
+  </data>
   <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
     <description/>
     <value>Indexes</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="configureText" type="text">
-    <description/>
-    <value>Configure</value>
   </data>
 </localization>
