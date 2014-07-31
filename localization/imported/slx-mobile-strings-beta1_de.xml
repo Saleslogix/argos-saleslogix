@@ -625,7 +625,7 @@
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[5]" type="text">
     <description/>
-    <value>Nachnahme</value>
+    <value>Nachname</value>
   </data>
   <data class="Mobile.SalesLogix.SpeedSearchWidget" property="searchText" type="text">
     <description/>
@@ -681,7 +681,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="acctMgrText" type="text">
     <description/>
-    <value>Acct Mgr</value>
+    <value>Acct. Mgr.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="addressText" type="text">
     <description/>
@@ -689,7 +689,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="businessDescriptionText" type="text">
     <description/>
-    <value>Betriebswirtsch. Beschreibung</value>
+    <value>Unternehmensbeschreibung</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="createDateText" type="text">
     <description/>
@@ -717,7 +717,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="ownerText" type="text">
     <description/>
-    <value>Zugriffsberecht</value>
+    <value>Zugriffsberechtigter</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="phoneText" type="text">
     <description/>
@@ -833,11 +833,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="acctMgrText" type="text">
     <description/>
-    <value>Acct Mgr</value>
+    <value>Acct. Mgr.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="businessDescriptionText" type="text">
     <description/>
-    <value>Betriebswirtsch. Beschreibung</value>
+    <value>Unternehmensbeschreibung</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="businessDescriptionTitleText" type="text">
     <description/>
@@ -869,7 +869,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="ownerText" type="text">
     <description/>
-    <value>Zugriffsberecht</value>
+    <value>Zugriffsberechtigter</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="phoneText" type="text">
     <description/>
@@ -1846,7 +1846,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="acctMgrText" type="text">
     <description/>
-    <value>Acct Mgr</value>
+    <value>Acct. Mgr.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="addressText" type="text">
     <description/>
@@ -1854,7 +1854,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="contactTitleText" type="text">
     <description/>
-    <value>Tätigkeit</value>
+    <value>Titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="descriptionText" type="text">
     <description/>
@@ -1890,11 +1890,11 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="ownerText" type="text">
     <description/>
-    <value>Zugriffsberecht</value>
+    <value>Zugriffsberechtigter</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="lastNameText" type="text">
     <description/>
-    <value>Nachnahme</value>
+    <value>Nachname</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="mobileText" type="text">
     <description/>
@@ -1926,7 +1926,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="workText" type="text">
     <description/>
-    <value>Geschäftliche</value>
+    <value>Geschäftliche Telefonnummer</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="industryTitleText" type="text">
     <description/>
@@ -1938,7 +1938,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="address2Text" type="text">
     <description/>
-    <value>Adresse2</value>
+    <value>Adresse 2</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="address3Text" type="text">
     <description/>
@@ -1982,7 +1982,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="salutationText" type="text">
     <description/>
-    <value>Achtung</value>
+    <value>Zu Händen von</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="stateText" type="text">
     <description/>
@@ -2226,7 +2226,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="acctMgrText" type="text">
     <description/>
-    <value>Acct Mgr</value>
+    <value>Acct. Mgr.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="addressText" type="text">
     <description/>
@@ -2234,7 +2234,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="contactTitleText" type="text">
     <description/>
-    <value>tätigkeit</value>
+    <value>titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="createDateText" type="text">
     <description/>
@@ -2262,7 +2262,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="ownerText" type="text">
     <description/>
-    <value>Zugriffsberecht</value>
+    <value>Zugriffsberechtigter</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="actionsText" type="text">
     <description/>
@@ -2382,7 +2382,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="acctMgrText" type="text">
     <description/>
-    <value>Acct Mgr</value>
+    <value>Acct. Mgr.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="accountNameText" type="text">
     <description/>
@@ -2402,11 +2402,11 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="contactTitleText" type="text">
     <description/>
-    <value>tätigkeit</value>
+    <value>titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="titleTitleText" type="text">
     <description/>
-    <value>Tätigkeit</value>
+    <value>Titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="addressTitleText" type="text">
     <description/>
@@ -2414,7 +2414,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="ownerText" type="text">
     <description/>
-    <value>Zugriffsberecht</value>
+    <value>Zugriffsberechtigter</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="cuisinePreferenceText" type="text">
     <description/>
@@ -2978,7 +2978,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="businessDescriptionText" type="text">
     <description/>
-    <value>Betriebswirtsch. Beschreibung</value>
+    <value>Unternehmensbeschreibung</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="createDateText" type="text">
     <description/>
@@ -3006,7 +3006,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="leadTitleText" type="text">
     <description/>
-    <value>tätigkeit</value>
+    <value>titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="nameText" type="text">
     <description/>
@@ -3018,7 +3018,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="ownerText" type="text">
     <description/>
-    <value>Zugriffsberecht</value>
+    <value>Zugriffsberechtigter</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="relatedActivitiesText" type="text">
     <description/>
@@ -3066,7 +3066,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="workText" type="text">
     <description/>
-    <value>Geschäftliche</value>
+    <value>Geschäftliche Telefonnummer</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="actionsText" type="text">
     <description/>
@@ -3114,7 +3114,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="businessText" type="text">
     <description/>
-    <value>Betriebswirtsch. Beschreibung</value>
+    <value>Unternehmensbeschreibung</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="businessTitleText" type="text">
     <description/>
@@ -3126,7 +3126,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="contactTitleText" type="text">
     <description/>
-    <value>tätigkeit</value>
+    <value>titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="emailText" type="text">
     <description/>
@@ -3158,7 +3158,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="leadOwnerText" type="text">
     <description/>
-    <value>Zugriffsberecht</value>
+    <value>Zugriffsberechtigter</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="nameText" type="text">
     <description/>
@@ -3182,7 +3182,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="titleTitleText" type="text">
     <description/>
-    <value>Tätigkeit</value>
+    <value>Titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="tollFreeText" type="text">
     <description/>
@@ -3194,7 +3194,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="workText" type="text">
     <description/>
-    <value>Geschäftliche</value>
+    <value>Geschäftliche Telefonnummer</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="mobileText" type="text">
     <description/>
@@ -3338,7 +3338,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
-    <value>Bei Saleslogix anmelden</value>
+    <value>An Saleslogix anmelden</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="passText" type="text">
     <description/>
@@ -3382,7 +3382,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="metricTitleText" type="text">
     <description/>
-    <value>tätigkeit</value>
+    <value>titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="metricFilterText" type="text">
     <description/>
@@ -3426,15 +3426,15 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="firstNameText" type="text">
     <description/>
-    <value>Ersten</value>
+    <value>Vorname</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="middleNameText" type="text">
     <description/>
-    <value>Mittelname</value>
+    <value>Zweiter Name</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="lastNameText" type="text">
     <description/>
-    <value>Nachnahme</value>
+    <value>Nachname</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="prefixText" type="text">
     <description/>
@@ -3446,7 +3446,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="suffixText" type="text">
     <description/>
-    <value>Zusatz</value>
+    <value>Titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="suffixTitleText" type="text">
     <description/>
@@ -3458,7 +3458,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="acctMgrText" type="text">
     <description/>
-    <value>Acct Mgr</value>
+    <value>Acct. Mgr.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="estCloseText" type="text">
     <description/>
@@ -3486,7 +3486,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="ownerText" type="text">
     <description/>
-    <value>Zugriffsberecht</value>
+    <value>Zugriffsberechtigter</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="actionsText" type="text">
     <description/>
@@ -3510,7 +3510,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="probabilityText" type="text">
     <description/>
-    <value>Wahrsch. schließen</value>
+    <value>Wahrscheinlichkeit</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedActivitiesText" type="text">
     <description/>
@@ -3598,7 +3598,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="acctMgrText" type="text">
     <description/>
-    <value>Acct Mgr</value>
+    <value>Acct. Mgr.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="estCloseText" type="text">
     <description/>
@@ -3626,7 +3626,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="ownerText" type="text">
     <description/>
-    <value>Zugriffsberecht</value>
+    <value>Zugriffsberechtigter</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="potentialText" type="text">
     <description/>
@@ -3634,7 +3634,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="probabilityText" type="text">
     <description/>
-    <value>Wahrsch. schließen</value>
+    <value>Wahrscheinlichkeit</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="probabilityTitleText" type="text">
     <description/>
@@ -3782,7 +3782,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="contactTitleText" type="text">
     <description/>
-    <value>tätigkeit</value>
+    <value>titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="nameText" type="text">
     <description/>
@@ -3842,7 +3842,7 @@ Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="contactTitleText" type="text">
     <description/>
-    <value>tätigkeit</value>
+    <value>titel</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="salesRoleText" type="text">
     <description/>
