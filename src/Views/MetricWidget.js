@@ -218,7 +218,6 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             view = App.getView(this.chartTypeMapping[this.chartType]);
 
             if (view) {
-                view.titleText = this.title;
                 view.formatter = this.formatter;
                 signal = aspect.after(view, 'show', lang.hitch(this, function() {
                     setTimeout(lang.hitch(this, function() {
@@ -227,7 +226,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                     }), 100);
                 }));
 
-                view.show({ returnTo: this.returnToId, currentSearchExpression: this.currentSearchExpression });
+                view.show({ returnTo: this.returnToId, currentSearchExpression: this.currentSearchExpression, title: this.title});
             }
         },
         _getData: function() {
