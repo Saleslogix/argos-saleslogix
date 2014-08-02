@@ -217,6 +217,10 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return false;
         },
         requestData: function(){
+            if (this.searchWidget) {
+                this.currentSearchExpression = this.searchWidget.getSearchExpression() || this.allRecordsText;
+            }
+
             this.inherited(arguments);
         }
     });
