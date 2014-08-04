@@ -36,7 +36,7 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
         //Localization
         titleText: 'Add Attachments',
 
-        //View Properties       
+        //View Properties
         id: 'attachment_Add',
 
         onUploadFiles: function() {
