@@ -5,7 +5,7 @@
  *
  * Mixin for slx group list layouts.
  *
- * @since 3.0
+ * @since 3.1
  *
  *
  */
