@@ -259,6 +259,13 @@
 #ticket_list > .list-content > li > h3 > .p-ticket-subject {
   font-weight: normal;
 }
+#errorlog-detail-copy > embed {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  opacity: 0;
+  z-index: 50;
+}
 #errorlog_detail > .panel-content > div > div.note-text-row > label {
   display: block;
 }

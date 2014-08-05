@@ -33,8 +33,8 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
 
         //Templates
         itemTemplate: new Simplate([
-            '<h3>{%: Mobile.SalesLogix.Format.date($.errorDateStamp, $$.errorDateFormatText) %}</h3>',
-            '<h4>{%: $.serverResponse && $.serverResponse.statusText || "" %}</h4>'
+            '<h3>{%: Mobile.SalesLogix.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
+            '<h4>{%: $.Description %}</h4>'
         ]),
 
         //View Properties
@@ -52,7 +52,6 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
         },
         createStore: function() {
             var errorItems = ErrorManager.getAllErrors();
-            console.dir(errorItems);
 
             errorItems.sort(function(a, b) {
                 a.errorDateStamp = a.errorDateStamp || a['Date'];
@@ -65,7 +64,6 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
                 return A.valueOf() > B.valueOf();
             });
 
-            console.dir(errorItems);
             return new Memory({data: errorItems});
         },
         createToolLayout: function() {
