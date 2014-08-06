@@ -418,7 +418,6 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         },
         onRequestEventDataAborted: function(response, o) {
             this.options = false; // force a refresh
-            ErrorManager.addError(response, o, this.options, 'aborted');
         },
         onRequestEventDataSuccess: function(feed) {
             this.processEventFeed(feed);
