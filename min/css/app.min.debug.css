@@ -43,7 +43,7 @@
   line-height: 40px;
   cursor: pointer;
   font-size: 1em;
-  background-color: #3471af;
+  background-color: #007dbe;
   color: #fff;
   border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -296,7 +296,7 @@
   border-color: #000;
   border-width: 0px;
   width: 100%;
-  background-color: #3471af;
+  background-color: #007dbe;
   color: #fff;
 }
 .metric-widget {
@@ -311,7 +311,7 @@
 }
 .groups-notice {
   width: 100%;
-  border-left: 5px solid #3471af;
+  border-left: 5px solid #007dbe;
   padding: 10px;
   margin: 0 0 6px 0;
   font-weight: bold;
@@ -422,7 +422,7 @@ li[data-ticket-status] .list-item-selector,
   background-color: #96b9da;
 }
 .calendar-day.weekend {
-  background-color: #3471af;
+  background-color: #007dbe;
 }
 .calendar-day.selected {
   color: #fff;
@@ -671,7 +671,7 @@ body.transition > .viewContainer > .footer-toolbar {
 }
 #calendar_weeklist > div > h2.currentDate {
   background-color: #444444;
-  border-left: 8px solid #3471af;
+  border-left: 8px solid #007dbe;
   color: #fff;
 }
 #calendar_monthlist,
@@ -765,7 +765,7 @@ td.entry-table-description {
   padding-left: 3px;
 }
 .nav-bar > .button {
-  background-color: #3471af;
+  background-color: #007dbe;
   height: 34px;
   width: 40px;
 }
@@ -801,7 +801,7 @@ td.entry-table-description {
 .activities-for-year > .split-buttons > .button[data-tool="year"],
 .activities-for-week > .split-buttons > .button[data-tool="week"] {
   color: #fff;
-  background-color: #3471af;
+  background-color: #007dbe;
 }
 .split-buttons > .button[data-tool="selectdate"] {
   vertical-align: bottom;
@@ -961,7 +961,7 @@ td.entry-table-description {
   font-weight: normal;
 }
 .card-layout .actions-row {
-  background-color: #3471af !important;
+  background-color: #007dbe !important;
 }
 .card-layout .list-show-selectors {
   padding-left: 90px;
@@ -1078,7 +1078,7 @@ td.entry-table-description {
 }
 .card-layout .list-item-indicator-content > span {
   margin: 0 3px 0 3px;
-  color: #ffb900;
+  color: #ffb400;
 }
 .card-layout .list-item-indicator-content > span > img {
   width: 24px;
@@ -1142,7 +1142,7 @@ td.entry-table-description {
   padding: 10px;
 }
 .speedsearch-fields span {
-  color: #3471af;
+  color: #007dbe;
   font-weight: bold;
 }
 .card-layout-speed-search-index {
@@ -1183,7 +1183,7 @@ td.entry-table-description {
 .card-layout-search-expression,
 .chart-hash {
   padding: 10px 0 10px 5px;
-  border-left: 5px solid #3471af;
+  border-left: 5px solid #007dbe;
   margin: 2px 0 0 2px;
   font-size: 16px;
   font-weight: bold;
