@@ -136,7 +136,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'Type',
             'AccountId',
             'AccountName',
-            'ConatactId',
+            'ContactId',
             'ContactName',
             'PhoneNumber',
             'LeadId',
