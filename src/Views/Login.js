@@ -65,10 +65,6 @@ define('Mobile/SalesLogix/Views/Login', [
                     scope: this
                 });
             }
-
-            window.setTimeout(lang.hitch(this, function() {
-                this.fields.username.inputNode.focus();
-            }), 100);
         },
         createToolLayout: function() {
             return this.tools || (this.tools = {
@@ -84,7 +80,8 @@ define('Mobile/SalesLogix/Views/Login', [
                 {
                     name: 'username',
                     label: this.userText,
-                    type: 'text'
+                    type: 'text',
+                    autoFocus: true
                 },
                 {
                     name: 'password',
