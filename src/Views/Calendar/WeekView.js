@@ -82,7 +82,7 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
             '<button data-tool="today" data-action="getThisWeekActivities" class="button">{%: $.todayText %}</button>',
             '<button data-tool="selectdate" data-action="selectDate" class="button fa fa-calendar"><span></span></button>',
             '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
-            '<button data-tool="week" class="button">{%: $.weekText %}</button>',
+            '<button data-tool="week" class="button current">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
             '</div>',
             '<div class="nav-bar">',

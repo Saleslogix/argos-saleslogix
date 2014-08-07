@@ -778,6 +778,9 @@ td.entry-table-description {
   line-height: 34px;
   padding: 3px 0 3px 3px;
 }
+.split-buttons > .button.current {
+  text-decoration: overline;
+}
 .split-buttons > .button {
   display: inline-block !important;
   padding-left: 10px;

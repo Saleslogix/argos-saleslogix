@@ -99,7 +99,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             '<button data-tool="selectdate" data-action="selectDate" class="button fa fa-calendar"><span></span></button>',
             '<button data-tool="day" data-action="navigateToDayView" class="button">{%: $.dayText %}</button>',
             '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
-            '<button data-tool="month" class="button">{%: $.monthText %}</button>',
+            '<button data-tool="month" class="button current">{%: $.monthText %}</button>',
             '</div>'
         ]),
         navBarTemplate: new Simplate([

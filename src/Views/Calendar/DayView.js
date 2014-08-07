@@ -129,7 +129,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             '<div class="split-buttons">',
             '<button data-tool="today" data-action="getToday" class="button">{%: $.todayText %}</button>',
             '<button data-tool="selectdate" data-action="selectDate" class="button fa fa-calendar"><span></span></button>',
-            '<button data-tool="day" class="button">{%: $.dayText %}</button>',
+            '<button data-tool="day" class="button current">{%: $.dayText %}</button>',
             '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
             '</div>',
