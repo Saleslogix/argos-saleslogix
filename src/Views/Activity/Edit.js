@@ -995,7 +995,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     orderBy: 'text asc',
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength,
+                    autoFocus: true
                 }, {
                     name: 'Location',
                     property: 'Location',
