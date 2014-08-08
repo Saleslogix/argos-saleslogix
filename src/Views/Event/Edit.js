@@ -142,7 +142,8 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
                         validator.notEmpty
                     ],
                     textRenderer: this.formatTypeText.bindDelegate(this),
-                    data: this.createTypeData()
+                    data: this.createTypeData(),
+                    autoFocus: true
                 },
                 {
                     label: this.descriptionText,

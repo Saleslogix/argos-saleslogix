@@ -462,7 +462,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                         property: 'Text',
                         label: this.longNotesText,
                         cls: 'row-edit-text',
-                        type: 'textarea'
+                        type: 'textarea',
+                        autoFocus: true
                     }]
                 }, {
                     title: this.relatedItemsText,

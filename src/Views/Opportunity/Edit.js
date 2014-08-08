@@ -232,7 +232,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
                         validator: [
                             validator.notEmpty,
                             validator.exceedsMaxTextLength
-                        ]
+                        ],
+                        autoFocus: true
                     },
                     {
                         label: this.accountText,
