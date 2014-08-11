@@ -57,7 +57,7 @@
 }
 @media only screen and (min-width: 768px) {
   #login {
-    background-color: #ebebee;
+    background-color: #ecedef;
   }
   #login .panel-content {
     background-color: #fff;
@@ -103,8 +103,8 @@
   overflow: hidden;
   padding-left: 0px;
   padding-right: 34px;
-  border: 1px solid #dcdcde;
-  background-color: #ebebee;
+  border: 1px solid #dddee0;
+  background-color: #ecedef;
 }
 .note-text-row > label,
 .note-text-row > div > label {
@@ -416,10 +416,10 @@ li[data-ticket-status] .list-item-selector,
 }
 .calendar-day {
   color: #000;
-  background-color: #999b9f;
+  background-color: #9a9ea1;
 }
 .calendar-day.today {
-  background-color: #96b9da;
+  background-color: #7fbede;
 }
 .calendar-day.weekend {
   background-color: #007dbe;
@@ -1077,7 +1077,7 @@ td.entry-table-description {
   text-align: right;
 }
 .card-layout .list-item-indicator-content > span.disabled {
-  color: #b9bcbd;
+  color: #bbbec0;
 }
 .card-layout .list-item-indicator-content > span {
   margin: 0 3px 0 3px;
@@ -1193,16 +1193,16 @@ td.entry-table-description {
 }
 .user-icon {
   position: relative;
-  border: 1px solid #4f5657;
+  border: 1px solid #4b5656;
   height: 28px;
   width: 28px;
   line-height: 28px;
   text-align: center;
-  background: #ebebee;
+  background: #ecedef;
   text-shadow: 0px 1px 0px #fff;
   font-size: 0.8em;
   font-weight: bold;
-  color: #4f5657;
+  color: #4b5656;
 }
 .related-view-widget .note-text-wrap > h4 {
   font-size: 0.85em;
