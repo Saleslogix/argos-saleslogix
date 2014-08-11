@@ -2504,6 +2504,22 @@
     <description/>
     <value>end date</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Vacation]" type="text">
+    <description/>
+    <value>Vacation</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Business Trip]" type="text">
+    <description/>
+    <value>Business Trip</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Conference]" type="text">
+    <description/>
+    <value>Conference</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Holiday]" type="text">
+    <description/>
+    <value>Holiday</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Event.List" property="titleText" type="text">
     <description/>
     <value>Events</value>
