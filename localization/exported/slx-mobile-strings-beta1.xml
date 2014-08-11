@@ -532,6 +532,18 @@
     <description/>
     <value>K</value>
   </data>
+  <data class="Mobile.SalesLogix.Format" property="userActivityFormatText[asUnconfirmed]" type="text">
+    <description/>
+    <value>Unconfirmed</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="userActivityFormatText[asAccepted]" type="text">
+    <description/>
+    <value>Accepted</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="userActivityFormatText[asDeclned]" type="text">
+    <description/>
+    <value>Declined</value>
+  </data>
   <data class="Mobile.SalesLogix.Recurrence" property="neverText" type="text">
     <description/>
     <value>Never</value>

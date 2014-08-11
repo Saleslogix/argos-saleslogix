@@ -247,13 +247,13 @@ define('Mobile/SalesLogix/Format', [
 
             return string.substitute('<a href="mailto:${0}">${0}</a>', [val]);
         },
-        userActivityFormats: {
+        userActivityFormatText: {
             'asUnconfirmed': 'Unconfirmed',
             'asAccepted': 'Accepted',
             'asDeclned': 'Declined'
         },
         userActivityStatus: function(val) {
-            return Mobile.SalesLogix.Format.userActivityFormats[val];
+            return Mobile.SalesLogix.Format.userActivityFormatText[val];
         },
         /**
          * Takes a string input and converts name to First amd Last initials
