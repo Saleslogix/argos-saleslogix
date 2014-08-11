@@ -175,7 +175,7 @@ define('Mobile/SalesLogix/Recurrence', [
 
             for (var recurOption in this.simplifiedOptions) {
                 textOptions[0] = this.getPanel(this.simplifiedOptions[recurOption].RecurPeriod);
-                this.simplifiedOptions[recurOption].RecurIterations = this.defaultIterations[this.simplifiedOptions[recurOption].RecurPeriod];
+                this.simplifiedOptions[recurOption].RecurIterations = this.defaultIterations[this.simplifiedOptions[recurOption].RecurPeriod] || 0;
 
                 if (this[this.simplifiedOptions[recurOption].label]) {
                     list.push({

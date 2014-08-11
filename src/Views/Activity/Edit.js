@@ -1039,7 +1039,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     type: 'date',
                     name: 'EndDate',
                     property: 'EndDate',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     dependsOn: 'StartDate',
                     label: this.repeatsText,
@@ -1064,27 +1064,27 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     type: 'hidden',
                     name: 'RecurPeriod',
                     property: 'RecurPeriod',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     type: 'hidden',
                     name: 'RecurPeriodSpec',
                     property: 'RecurPeriodSpec',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     type: 'hidden',
                     name: 'RecurrenceState',
                     property: 'RecurrenceState',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     type: 'hidden',
                     name: 'Recurring',
                     property: 'Recurring',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     type: 'hidden',
                     name: 'RecurIterations',
                     property: 'RecurIterations',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     label: this.timelessText,
                     name: 'Timeless',
