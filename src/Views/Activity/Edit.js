@@ -178,7 +178,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             'RecurrenceState',
             'RecurPeriod',
             'RecurPeriodSpec',
-            'RecurIterations'
+            'RecurIterations',
+            'AllowAdd',
+            'AllowEdit',
+            'AllowDelete',
+            'AllowComplete'
         ],
         resourceKind: 'activities',
         recurrence: null,
@@ -235,7 +239,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         currentUserCanEdit: function(entry) {
-            return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
+            return (entry && (entry['AllowEdit']));
         },
         currentUserCanSetAlarm: function(entry) {
             return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
