@@ -185,10 +185,16 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             'AllowComplete'
         ],
         resourceKind: 'activities',
-        recurrence: {},
+        recurrence: null,
 
         init: function() {
             this.inherited(arguments);
+
+            this.recurrence = {
+                RecurIterations: "0",
+                RecurPeriod: "-1",
+                RecurPeriodSpec: "0"
+            };
 
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
             this.connect(this.fields['IsLead'], 'onChange', this.onIsLeadChange);
@@ -481,6 +487,10 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onStartDateChange: function(value, field) {
+            if (this._settingValues) {
+                return;
+            }
+
             this.recurrence.StartDate = value;
             // Need recalculate RecurPeriodSpec in case weekday on StartDate changes
             this.recurrence.RecurPeriodSpec = recur.getRecurPeriodSpec(

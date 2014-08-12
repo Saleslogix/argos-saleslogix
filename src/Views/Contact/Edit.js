@@ -86,6 +86,14 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             this.inherited(arguments);
             this.connect(this.fields['Account'], 'onChange', this.onAccountChange);
         },
+        beforeTransitionTo: function() {
+            this.inherited(arguments);
+            if (this.options.insert) {
+                this.fields['Account'].enable();
+            } else {
+                this.fields['Account'].disable();
+            }
+        },
         onAccountChange: function(value, field) {
             if (value && value.text) {
                 this.fields['AccountName'].setValue(value.text);
