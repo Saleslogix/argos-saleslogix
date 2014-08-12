@@ -155,7 +155,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             'Timeless',
             'Type',
             'Recurring',
-            'RecurrenceState'
+            'RecurrenceState',
+            'AllowAdd',
+            'AllowEdit',
+            'AllowDelete',
+            'AllowComplete'
         ],
         resourceKind: 'activities',
         contractName: 'system',

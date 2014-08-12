@@ -133,7 +133,12 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             'RecurPeriod',
             'RecurPeriodSpec',
             'RecurIterations',
-            'RecurrenceState'
+            'RecurrenceState',
+            'AllowAdd',
+            'AllowEdit',
+            'AllowDelete',
+            'AllowComplete'
+
         ],
         resourceKind: 'activities',
         recurringActivityIdSeparator: ';',
@@ -299,7 +304,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         requestRecurrenceFailure: function(xhr, o) {
         },
         checkCanComplete: function(entry) {
-            return !entry || (entry['Leader']['$key'] !== App.context['user']['$key']);
+            return !(entry && (entry['AllowComplete']));
         },
         preProcessEntry: function(entry) {
             if (entry && entry['Leader']['$key']) {
