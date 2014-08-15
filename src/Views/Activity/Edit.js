@@ -216,7 +216,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onPutComplete: function(entry) {
             var view = App.getView(this.detailView),
-                originalKey = this.options.entry['$key'];
+                originalKey = (this.options.entry && this.options.entry['$key']) || entry['$key'];
 
             this.enable();
 
