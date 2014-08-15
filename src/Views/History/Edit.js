@@ -421,6 +421,12 @@ define('Mobile/SalesLogix/Views/History/Edit', [
 
             return values;
         },
+        _lookupApplyTo:function(payload, value) {
+            if (value === null) {
+                payload[this.valueKeyProperty] = null;
+                payload[this.valueTextProperty] = null;
+            }
+       },
         createLayout: function() {
             return this.layout || (this.layout = [{
                     title: this.detailsText,
@@ -487,7 +493,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             type: 'lookup',
                             requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, //'.',
                             valueKeyProperty: 'AccountId',
                             valueTextProperty: 'AccountName',
                             view: 'account_related'
@@ -499,7 +505,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             type: 'lookup',
                             requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, //'.',
                             valueKeyProperty: 'ContactId',
                             valueTextProperty: 'ContactName',
                             view: 'contact_related',
@@ -514,7 +520,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             type: 'lookup',
                             requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, //'.',
                             valueKeyProperty: 'OpportunityId',
                             valueTextProperty: 'OpportunityName',
                             view: 'opportunity_related',
@@ -529,7 +535,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             type: 'lookup',
                             requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, //'.',
                             valueKeyProperty: 'TicketId',
                             valueTextProperty: 'TicketNumber',
                             view: 'ticket_related',
@@ -543,7 +549,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             type: 'lookup',
                             requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, //'.',
                             valueKeyProperty: 'LeadId',
                             valueTextProperty: 'LeadName',
                             view: 'lead_related',
