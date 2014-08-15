@@ -163,6 +163,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 } else {
                     fields[f].dependsOn = null;
                     fields[f].where = 'Account.AccountName ne null';
+                    fields[f].setValue(false);
                 }
             });
         },
@@ -397,9 +398,13 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
         },
         formatDependentQuery: function(dependentValue, format, property) {
+            var propertyValue;
             property = property || '$key';
-
-            return string.substitute(format, [utility.getValue(dependentValue, property)]);
+            propertyValue = utility.getValue(dependentValue, property);
+            if (propertyValue) {
+                return string.substitute(format, [propertyValue]);
+            }
+            return '';
         },
         getValues: function() {
             var values = this.inherited(arguments);
@@ -480,18 +485,19 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Account',
                             property: 'Account',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
                             applyTo: '.',
                             valueKeyProperty: 'AccountId',
                             valueTextProperty: 'AccountName',
-                            view: 'account_related',
-                            validator: validator.exists
+                            view: 'account_related'
                         }, {
                             dependsOn: 'Account',
                             label: this.contactText,
                             name: 'Contact',
                             property: 'Contact',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
                             applyTo: '.',
                             valueKeyProperty: 'ContactId',
@@ -506,6 +512,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Opportunity',
                             property: 'Opportunity',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
                             applyTo: '.',
                             valueKeyProperty: 'OpportunityId',
@@ -520,6 +527,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Ticket',
                             property: 'Ticket',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
                             applyTo: '.',
                             valueKeyProperty: 'TicketId',
@@ -533,6 +541,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Lead',
                             property: 'Lead',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
                             applyTo: '.',
                             valueKeyProperty: 'LeadId',
