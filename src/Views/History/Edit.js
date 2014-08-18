@@ -163,6 +163,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 } else {
                     fields[f].dependsOn = null;
                     fields[f].where = 'Account.AccountName ne null';
+                    fields[f].setValue(false);
                 }
             });
         },
@@ -397,9 +398,13 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
         },
         formatDependentQuery: function(dependentValue, format, property) {
+            var propertyValue;
             property = property || '$key';
-
-            return string.substitute(format, [utility.getValue(dependentValue, property)]);
+            propertyValue = utility.getValue(dependentValue, property);
+            if (propertyValue) {
+                return string.substitute(format, [propertyValue]);
+            }
+            return '';
         },
         getValues: function() {
             var values = this.inherited(arguments);
@@ -416,6 +421,12 @@ define('Mobile/SalesLogix/Views/History/Edit', [
 
             return values;
         },
+        _lookupApplyTo:function(payload, value) {
+            if (value === null) {
+                payload[this.valueKeyProperty] = null;
+                payload[this.valueTextProperty] = null;
+            }
+       },
         createLayout: function() {
             return this.layout || (this.layout = [{
                     title: this.detailsText,
@@ -480,20 +491,21 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Account',
                             property: 'Account',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo,
                             valueKeyProperty: 'AccountId',
                             valueTextProperty: 'AccountName',
-                            view: 'account_related',
-                            validator: validator.exists
+                            view: 'account_related'
                         }, {
                             dependsOn: 'Account',
                             label: this.contactText,
                             name: 'Contact',
                             property: 'Contact',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, 
                             valueKeyProperty: 'ContactId',
                             valueTextProperty: 'ContactName',
                             view: 'contact_related',
@@ -506,8 +518,9 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Opportunity',
                             property: 'Opportunity',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, 
                             valueKeyProperty: 'OpportunityId',
                             valueTextProperty: 'OpportunityName',
                             view: 'opportunity_related',
@@ -520,8 +533,9 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Ticket',
                             property: 'Ticket',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, 
                             valueKeyProperty: 'TicketId',
                             valueTextProperty: 'TicketNumber',
                             view: 'ticket_related',
@@ -533,8 +547,9 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Lead',
                             property: 'Lead',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, 
                             valueKeyProperty: 'LeadId',
                             valueTextProperty: 'LeadName',
                             view: 'lead_related',
