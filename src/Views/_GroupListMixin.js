@@ -172,6 +172,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
 
             this._startGroupMode();
+            this._clearResolvedEntryCache();
 
             // Set the toolbar title to the current group displayName
             title = this.getGroupTitle(group);
@@ -458,6 +459,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             });
 
             return def.promise;
+        },
+        _clearResolvedEntryCache: function() {
+             this._resolvedEntryCache = {};
         },
         _getResolvedEntry: function(entryKey) {
             if (!this._resolvedEntryCache) {
