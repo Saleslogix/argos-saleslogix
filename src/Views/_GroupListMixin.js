@@ -269,11 +269,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             var template, jsonString;
             jsonString = json.stringify(item);
 
-            if (item.index === 0) {
-                template = ["<h4><strong>", item.caption, " : {%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}", "</strong></h4>"].join('');
-            } else {
-                template = ["<h4>", item.caption, " : {%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}", "</h4>"].join('');
-            }
+            template = ["<h4><span class=\"group-label\">", item.caption, "</span> {%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}", "</h4>"].join('');
 
             return template;
 

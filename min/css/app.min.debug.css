@@ -928,6 +928,10 @@ td.entry-table-description {
 .attachment-viewer-not-supported {
   margin: 10px !important;
 }
+.card-layout .group-label {
+  font-weight: bold;
+  color: #007dbe;
+}
 .card-layout .list-content {
   margin: 0;
   padding: 0;
