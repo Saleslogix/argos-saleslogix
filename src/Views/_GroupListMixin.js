@@ -375,8 +375,33 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.set('listContent', this.currentGoupNotFoundTemplate.apply(this));
 
         },
-        _invokeAction: function(action, selection, resolved) {
-            if (this.groupsEnabled && this.groupsMode && !resolved) {
+        activateEntry: function(params) {
+            if (this.groupsEnabled && this.groupsMode && !params.resolved) {
+                this._groupActivateEntry(params);
+            } else {
+                this.inherited(arguments);
+            }
+        },
+        _groupActivateEntry: function(params) {
+            var resolvedEntry, self = this;
+
+            if (params.key) {
+                resolvedEntry = this._getResolvedEntry(params.key);
+                if (!resolvedEntry) {
+                    this._fetchResolvedEntry(params.key).then(function(resolvedEntry) {
+                        params.descriptor = resolvedEntry.$descriptor;
+                        params.resolved = true;
+                        self.activateEntry(params);
+                    });
+                } else {
+                    params.descriptor = resolvedEntry.$descriptor;
+                    params.resolved = true;
+                    this.activateEntry(params);
+                }
+            }
+        },
+        _invokeAction: function(action, selection) {
+            if (this.groupsEnabled && this.groupsMode && !selection.resolved) {
                 this._groupInvokeAction(action, selection);
             } else {
                 this.inherited(arguments);
@@ -387,10 +412,16 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             resolvedEntry = this._getResolvedEntry(selection.data.$key);
             if (!resolvedEntry) {
                 this._fetchResolvedEntry(selection.data.$key).then(function(resolvedEntry) {
-                    self._invokeAction(action, { data: resolvedEntry }, true);
+                    self._invokeAction(action, {
+                        data: resolvedEntry,
+                        resolved:true
+                    });
                 });
             } else {
-                this._invokeAction(action, { data: resolvedEntry }, true);
+                this._invokeAction(action, {
+                    data: resolvedEntry,
+                    resolved: true
+                });
             }
 
         },
