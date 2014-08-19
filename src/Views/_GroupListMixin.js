@@ -16,12 +16,17 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     'dojo/json',
     'dojo/dom-style',
     'dojo/dom-class',
+    'dojo/query',
+    'dojo/dom-attr',
+    'dojo/dom-construct',
     'Sage/Platform/Mobile/Format',
     'Sage/Platform/Mobile/Utility',
     'Mobile/SalesLogix/GroupUtility',
     'dojo/when',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/Store/SData'
+    'Sage/Platform/Mobile/Store/SData',
+    'dojo/Deferred',
+
 ], function(
     declare,
     array,
@@ -29,12 +34,16 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     json,
     domStyle,
     domClass,
+    query,
+    domAttr,
+    domConstruct,
     format,
     utility,
     GroupUtility,
     when,
     lang,
-    SDataStore
+    SDataStore,
+    Deferred
 ) {
     var mixinName = 'Mobile.SalesLogix.Views._GroupListMixin';
 
@@ -163,6 +172,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
 
             this._startGroupMode();
+            this._clearResolvedEntryCache();
 
             // Set the toolbar title to the current group displayName
             title = this.getGroupTitle(group);
@@ -344,22 +354,158 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.inherited(arguments);
         },
         _onQueryError: function(queryOptions, error) {
-                if (this.groupsEnabled && this.groupsMode) {
-                    if (error.status === 404) {
-                        try{
-                            this._onGroupNotFound();
-                            return;
-                        } catch (e) {
-                            console.error(e);
-                        }
+            if (this.groupsEnabled && this.groupsMode) {
+                if (error.status === 404) {
+                    try{
+                        this._onGroupNotFound();
+                        return;
+                    } catch (e) {
+                        console.error(e);
                     }
                 }
-                this.inherited(arguments);
+            }
+            this.inherited(arguments);
         },
         _onGroupNotFound: function() {
             domClass.remove(this.domNode, 'list-loading');
             this.set('listContent', this.currentGoupNotFoundTemplate.apply(this));
 
+        },
+        activateEntry: function(params) {
+            if (this.groupsEnabled && this.groupsMode && !params.resolved) {
+                this._groupActivateEntry(params);
+            } else {
+                this.inherited(arguments);
+            }
+        },
+        _groupActivateEntry: function(params) {
+            var resolvedEntry, self = this;
+
+            if (params.key) {
+                resolvedEntry = this._getResolvedEntry(params.key);
+                if (!resolvedEntry) {
+                    this._fetchResolvedEntry(params.key).then(function(resolvedEntry) {
+                        params.descriptor = resolvedEntry.$descriptor;
+                        params.resolved = true;
+                        self.activateEntry(params);
+                    });
+                } else {
+                    params.descriptor = resolvedEntry.$descriptor;
+                    params.resolved = true;
+                    this.activateEntry(params);
+                }
+            }
+        },
+        _invokeAction: function(action, selection) {
+            if (this.groupsEnabled && this.groupsMode && !selection.resolved) {
+                this._groupInvokeAction(action, selection);
+            } else {
+                this.inherited(arguments);
+            }
+        },
+        _groupInvokeAction: function(action, selection) {
+            var resolvedEntry, self = this;
+            resolvedEntry = this._getResolvedEntry(selection.data.$key);
+            if (!resolvedEntry) {
+                this._fetchResolvedEntry(selection.data.$key).then(function(resolvedEntry) {
+                    self._invokeAction(action, {
+                        data: resolvedEntry,
+                        resolved:true
+                    });
+                });
+            } else {
+                this._invokeAction(action, {
+                    data: resolvedEntry,
+                    resolved: true
+                });
+            }
+
+        },
+        showActionPanel: function(rowNode) {
+            if (this.groupsEnabled && this.groupsMode) {
+                this._groupShowActionPanel(rowNode);
+            } else {
+                this.inherited(arguments);
+            }
+        },
+        _groupShowActionPanel: function(rowNode) {
+            var selection, self, resolvedEntry;
+            selection = this._getCurrentSelection();
+            self = this;
+            resolvedEntry = this._getResolvedEntry(selection.data.$key);
+            if (!resolvedEntry) {
+                this._fetchResolvedEntry(selection.data.$key).then(function(resolvedEntry) {
+                    self._groupCheckActionState(resolvedEntry);
+                    self._groupApplyActionPanel(rowNode);
+                });
+            } else {
+                this._groupCheckActionState(resolvedEntry);
+                this._groupApplyActionPanel(rowNode);
+            }
+            
+        },
+        _groupApplyActionPanel: function(rowNode) {
+            domClass.add(rowNode, 'list-action-selected');
+            this.onApplyRowActionPanel(this.actionsNode, rowNode);
+            domConstruct.place(this.actionsNode, rowNode, 'after');
+        },
+        _getCurrentSelection:function(){
+            var selection, selectedItems, key;
+            selectedItems = this.get('selectionModel').getSelections();
+            for (key in selectedItems) {
+                selection = selectedItems[key];
+                selection.data['$key'] = key; 
+                break;
+            }
+            return selection;
+        },
+        _fetchResolvedEntry: function(entryKey) {
+            var self, store, queryOptions, queryResults, def = new Deferred();
+            self = this;
+            store = new SDataStore({
+                service: App.services['crm'],
+                resourceKind: this.resourceKind,
+                contractName: this.contractName,
+                scope: this
+            });
+
+            queryOptions = {
+                select: this._originalProps.querySelect,
+                where: "Id eq '" + entryKey + "'",
+            };
+
+            queryResults = store.query(null, queryOptions);
+
+            when(queryResults, function(feed) {
+                var entry = feed[0];
+                entry[self.idProperty] = entry.$key; // we need this because the group key is different, and it used later on when invoking an action;
+                self._addResolvedEntry(entry);
+                def.resolve(entry);
+            }, function(err) {
+                def.reject(err);
+            });
+
+            return def.promise;
+        },
+        _clearResolvedEntryCache: function() {
+             this._resolvedEntryCache = {};
+        },
+        _getResolvedEntry: function(entryKey) {
+            if (!this._resolvedEntryCache) {
+                this._resolvedEntryCache = {};
+            }
+            return this._resolvedEntryCache[entryKey];
+        },
+        _addResolvedEntry:function(entry){
+           this._resolvedEntryCache[entry.$key] = entry;
+        },
+        _groupCheckActionState: function(resolvedEntry) {
+            var resolvedSelection, key;
+
+            resolvedSelection = {
+                data: resolvedEntry
+            };
+            this._applyStateToActions(resolvedSelection);
         }
     });
 });
