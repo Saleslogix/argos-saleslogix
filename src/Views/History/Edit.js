@@ -49,7 +49,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         relatedItemsText: 'Related Items',
         yesText: 'YES',
         noText: 'NO',
-
+        validationText: "The field '${2}' must have a value",
+        validationCanEditText: 'You are not allowed to edit',
         //View Properties
         id: 'history_edit',
         fieldsForLeads: ['AccountName', 'Lead'],
@@ -81,7 +82,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             'LeadName',
             'Timeless',
             'Type',
-            'UserName'
+            'UserName',
+            'UserId'
         ],
         existsRE: /^[\w]{12}$/,
         init: function() {
@@ -361,7 +363,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
         },
         setValues: function(values) {
-            var isLeadField, field, value, leadCompany, longNotes, insert;
+            var isLeadField, field, value, leadCompany, longNotes, insert, denyEdit;
 
             this.inherited(arguments);
             isLeadField = this.fields['IsLead'];
@@ -396,6 +398,37 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 };
                 lookup[this.context.resourceKind].call(this, this.context);
             }
+            this.enableFields();
+            denyEdit = !this.currentUserCanEdit();
+            if (denyEdit) {
+               this.disableFields();
+            }
+            
+        },
+        disableFields: function(predicate) {
+            for (var name in this.fields) {
+                if (!predicate || predicate(this.fields[name])) {
+                    this.fields[name].disable();
+                }
+            }
+        },
+        enableFields: function(predicate) {
+            for (var name in this.fields) {
+                if (!predicate || predicate(this.fields[name])) {
+                    this.fields[name].enable();
+                }
+            }
+        },
+        currentUserCanEdit: function() {
+            var entry = this.options.entry || this.entry,
+            insert = this.options && this.options.insert;
+            if (!insert) {
+                if (App.context['user']['$key'] === 'ADMIN') {
+                    return true;
+                }
+                return entry && (entry['UserId'] === App.context['user']['$key']);
+            }
+            return true;
         },
         formatDependentQuery: function(dependentValue, format, property) {
             var propertyValue;
@@ -496,7 +529,17 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             applyTo: this._lookupApplyTo,
                             valueKeyProperty: 'AccountId',
                             valueTextProperty: 'AccountName',
-                            view: 'account_related'
+                            view: 'account_related',
+                            validator: {
+                                fn: (function(value, field) {
+                                    var insert = field.owner.options && field.owner.options.insert;
+                                    if ((insert) && (!value)) {
+                                        return true;
+                                    }
+                                    return false;
+                                }).bindDelegate(this),
+                                message: this.validationText 
+                            }
                         }, {
                             dependsOn: 'Account',
                             label: this.contactText,
@@ -559,6 +602,22 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'AccountName',
                             property: 'AccountName',
                             type: 'text'
+                        }, {
+                            label: 'UserId',
+                            name: 'UserId',
+                            property: 'UserId',
+                            type: 'hidden',
+                            validator: {
+                                fn: (function(value, field) {
+                                    var canEdit;
+                                    canEdit = field.owner.currentUserCanEdit();
+                                    if (!canEdit) {
+                                        return true;
+                                    }
+                                    return false;
+                                }).bindDelegate(this),
+                                message: this.validationCanEditText
+                            }
                         }]
                 }]);
         }
