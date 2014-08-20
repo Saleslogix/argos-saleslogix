@@ -186,6 +186,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         ],
         resourceKind: 'activities',
         recurrence: null,
+        _previousRecurrence: null,
 
         init: function() {
             this.inherited(arguments);
@@ -503,13 +504,17 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.fields['RecurrenceUI'].setValue(recur.getPanel(repeats && this.recurrence.RecurPeriod));
         },
         onRecurrenceUIChange: function(value, field) {
-            var opt = recur.simplifiedOptions[field.currentValue.key];
+            var opt, key;
+
+            key = field.currentValue && field.currentValue.key;
+            opt = recur.simplifiedOptions[key];
             // preserve #iterations (and EndDate) if matching recurrence
-            if (opt.RecurPeriodSpec == this.recurrence.RecurPeriodSpec) {
+            if (this._previousRecurrence === key) {
                 opt.RecurIterations = this.recurrence.RecurIterations;
             }
 
             this.resetRecurrence(opt);
+            this._previousRecurrence = key;
         },
         onRecurrenceChange: function(value, field) {
             // did the StartDate change on the recurrence_edit screen?
