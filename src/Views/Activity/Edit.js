@@ -487,10 +487,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onStartDateChange: function(value, field) {
-            if (this._settingValues) {
-                return;
-            }
-
             this.recurrence.StartDate = value;
             // Need recalculate RecurPeriodSpec in case weekday on StartDate changes
             this.recurrence.RecurPeriodSpec = recur.getRecurPeriodSpec(
@@ -798,7 +794,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         setValues: function(values) {
-            this._settingValues = true;
             if (values['StartDate'] && values['AlarmTime']) {
                 var startTime = (this.isDateTimeless(values['StartDate']))
                     ? moment(values['StartDate']).add({minutes: values['StartDate'].getTimezoneOffset()}).toDate().getTime()
@@ -856,7 +851,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (this.isActivityRecurring) {
                 this.fields['EndDate'].hide();
             }
-            this._settingValues = false;
         },
         isDateTimeless: function(date) {
             if (!date) {
