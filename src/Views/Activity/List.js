@@ -270,22 +270,19 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.isImportant(entry);
                     }
-                }, {
-                    id: 'overdue',
-                    cls: 'indicator_Important',
-                    label: this.overdueText,
-                    valueText: this.overdueText,
-                    showIcon: false,
-                    location: 'top',
-                    onApply: function(entry, parent) {
-                        this.isEnabled = parent.isOverdue(entry);
-                    }
-                }, {
+                },  {
                     id: 'recurring',
                     cls: 'fa fa-refresh fa-lg',
                     label: this.recurringText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.isRecurring(entry, this);
+                    }
+                }, {
+                    id: 'overdue',
+                    cls: 'fa fa-exclamation-circle fa-lg',
+                    label: this.overdueText,
+                    onApply: function(entry, parent) {
+                        this.isEnabled = parent.isOverdue(entry);
                     }
                 }
             ]);
