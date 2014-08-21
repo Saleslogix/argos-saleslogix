@@ -164,6 +164,10 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 this._onApplyGroup(group);
             }
         },
+        clear: function() {
+            this.inherited(arguments);
+            this._clearResolvedEntryCache();
+        },
         _onApplyGroup: function(group) {
             var template = [], layout, selectColumns, title;
 
