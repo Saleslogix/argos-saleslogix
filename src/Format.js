@@ -310,7 +310,7 @@ define('Mobile/SalesLogix/Format', [
 
             if (results) {
                 // Replace the "en" decimal separator with the current culture's
-                results = v.toString().replace('.', Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
+                results = results.toString().replace('.', Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
             }
 
             return results;
