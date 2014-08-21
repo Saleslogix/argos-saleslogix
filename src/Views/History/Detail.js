@@ -104,7 +104,8 @@ define('Mobile/SalesLogix/Views/History/Detail', [
             'LeadName',
             'Timeless',
             'Type',
-            'UserName'
+            'UserName',
+            'UserId'
         ],
 
         formatActivityType: function(val) {
