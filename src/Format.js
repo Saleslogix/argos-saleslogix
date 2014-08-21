@@ -302,7 +302,19 @@ define('Mobile/SalesLogix/Format', [
                 firstLast = [name];
             }
             return firstLast;
-        }
+        },
+        fixedLocale: function(val, d) {
+            var results;
+
+            results = format.fixed(val, d);
+
+            if (results) {
+                // Replace the "en" decimal separator with the current culture's
+                results = results.toString().replace('.', Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
+            }
+
+            return results;
+        },
     }));
 });
 

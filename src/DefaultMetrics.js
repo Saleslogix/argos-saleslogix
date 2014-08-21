@@ -67,7 +67,7 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                     filterDisplayName: "Type",
                     chartType: "pie",
                     aggregate: "avg",
-                    formatter: "fixed",
+                    formatter: "fixedLocale",
                     enabled: false
                 }, {
                     title: this.accountsText.total,
@@ -138,7 +138,7 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                     filterDisplayName: "Assigned To",
                     chartType: "bar",
                     aggregate: "avg",
-                    formatter: "fixed",
+                    formatter: "fixedLocale",
                     enabled: false
                 }]
             }, {

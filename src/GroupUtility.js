@@ -114,7 +114,7 @@ define('Mobile/SalesLogix/GroupUtility', [
                     return layoutItem.format === 'Fixed';
                 },
                 formatter: function(value) {
-                    return format.fixed(value);
+                    return format.fixedLocale(value);
                 }
             },
             {
