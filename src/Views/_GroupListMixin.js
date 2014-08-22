@@ -283,7 +283,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             var template, jsonString;
             jsonString = json.stringify(item);
 
-            template = ["<h4><span class=\"group-label\">", item.caption, "</span> {%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}", "</h4>"].join('');
+            template = ["<h4><span class=\"group-label\">", item.caption, "</span> <span class=\"group-entry\">{%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}</span>", "</h4>"].join('');
 
             return template;
 
@@ -446,7 +446,6 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 this._groupCheckActionState(resolvedEntry);
                 this._groupApplyActionPanel(rowNode);
             }
-            
         },
         _groupApplyActionPanel: function(rowNode) {
             domClass.add(rowNode, 'list-action-selected');
@@ -458,7 +457,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             selectedItems = this.get('selectionModel').getSelections();
             for (key in selectedItems) {
                 selection = selectedItems[key];
-                selection.data['$key'] = key; 
+                selection.data['$key'] = key;
                 break;
             }
             return selection;

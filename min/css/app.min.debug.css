@@ -929,8 +929,10 @@ td.entry-table-description {
   margin: 10px !important;
 }
 .card-layout .group-label {
-  font-weight: bold;
   color: #007dbe;
+}
+.card-layout .group-entry {
+  font-weight: bold;
 }
 .card-layout .list-content {
   margin: 0;
