@@ -124,7 +124,6 @@ define('Mobile/SalesLogix/Application', [
                 request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
                 original.apply(this, arguments);
             };
-           
         },
         initConnects: function() {
             this.inherited(arguments);
@@ -197,7 +196,7 @@ define('Mobile/SalesLogix/Application', [
             }
 
             /*if (this.context &&
-                this.context['systemOptions'] && 
+                this.context['systemOptions'] &&
                 this.context['systemOptions']['MultiCurrency'] === 'True') {
                 return true;
             }*/

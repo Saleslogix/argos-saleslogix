@@ -371,6 +371,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.inherited(arguments);
         },
         _onGroupNotFound: function() {
+            GroupUtility.removeGroupPreferences(this.currentGroupId, this.entityName);
+            this.refreshRightDrawer();
             domClass.remove(this.domNode, 'list-loading');
             this.set('listContent', this.currentGoupNotFoundTemplate.apply(this));
 

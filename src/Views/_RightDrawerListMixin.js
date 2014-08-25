@@ -60,6 +60,15 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 this._finishSetup(drawer);
             }
         },
+        refreshRightDrawer: function() {
+            var drawer = App.getView('right_drawer');
+            if (drawer) {
+                drawer.clear();
+                drawer.layout = null;
+                drawer.setLayout(this.createRightDrawerLayout());
+                drawer.refresh();
+            }
+        },
         _finishSetup: function(drawer) {
             lang.mixin(drawer, this._createActions());
             drawer.setLayout(this.createRightDrawerLayout());

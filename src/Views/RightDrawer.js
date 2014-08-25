@@ -102,6 +102,10 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
             store = new Memory({data: list});
             return store;
         },
+        clear: function() {
+            this.inherited(arguments);
+            this.store = null;
+        },
         /**
          * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
          */
