@@ -272,7 +272,6 @@ define('Mobile/SalesLogix/GroupUtility', [
                 App.preferences['groups-' + entityName] = groupList;
                 App.persistPreferences();
             }
-        
         },
         getGroupPreferences: function(entityName){
             var groupList = App.preferences['groups-' + entityName];

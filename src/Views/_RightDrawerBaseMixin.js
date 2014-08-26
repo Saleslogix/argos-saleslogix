@@ -45,7 +45,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
             this.setupRightDrawer();
             var drawer = App.getView('right_drawer');
             if (drawer) {
-                drawer.store = null;
                 drawer.refresh();
                 this.drawerLoaded = true;
             }
