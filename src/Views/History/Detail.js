@@ -179,6 +179,17 @@ define('Mobile/SalesLogix/Views/History/Detail', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
+                    title: this.notesText,
+                    name: 'NotesSection',
+                    children: [{
+                        name: 'LongNotes',
+                        property: 'LongNotes',
+                        encode: false,
+                        label: this.longNotesText,
+                        provider: this.provideText.bindDelegate(this),
+                        use: template.noteDetailProperty
+                    }]
+                }, {
                     title: this.detailsText,
                     name: 'DetailsSection',
                     children: [{
@@ -210,22 +221,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
                             value: this.loadingText,
                             cls: 'content-loading',
                             onCreate: this.requestCodeData.bindDelegate(this)
-                        }]
-                }, {
-                    title: this.notesText,
-                    name: 'NotesSection',
-                    children: [{
-                        name: 'LongNotes',
-                        property: 'LongNotes',
-                        encode: false,
-                        label: this.longNotesText,
-                        provider: this.provideText.bindDelegate(this),
-                        use: template.noteDetailProperty
-                    }]
-                }, {
-                    title: this.relatedItemsText,
-                    name: 'RelatedItemsSection',
-                    children: [{
+                        }, {
                             name: 'AccountName',
                             property: 'AccountName',
                             exclude: this.isHistoryForLead,
