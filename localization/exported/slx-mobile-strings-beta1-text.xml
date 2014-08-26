@@ -368,6 +368,10 @@
     <description/>
     <value>Validation Summary</value>
   </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="concurrencySummaryText" type="text">
+    <description/>
+    <value>Concurrency Error(s)</value>
+  </data>
   <data class="Sage.Platform.Mobile._EditBase" property="detailsText" type="text">
     <description/>
     <value>Details</value>
@@ -379,6 +383,10 @@
   <data class="Sage.Platform.Mobile._EditBase" property="requestErrorText" type="text">
     <description/>
     <value>A server error occured while requesting data.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="concurrencyErrorText" type="text">
+    <description/>
+    <value>Another user has updated this field.</value>
   </data>
   <data class="Sage.Platform.Mobile._ListBase" property="moreText" type="text">
     <description/>
@@ -2740,6 +2748,14 @@
     <description/>
     <value>NO</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="validationText" type="text">
+    <description/>
+    <value>The field '${2}' must have a value</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="validationCanEditText" type="text">
+    <description/>
+    <value>You are not allowed to edit</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atToDo]" type="text">
     <description/>
     <value>To-Do</value>
@@ -3199,6 +3215,10 @@
   <data class="Mobile.SalesLogix.Views.LogOff" property="messageText" type="text">
     <description/>
     <value>You have been logged out. Please close your browser window.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LogOff" property="loginText" type="text">
+    <description/>
+    <value>Click here to log back in.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.LogOff" property="titleText" type="text">
     <description/>
