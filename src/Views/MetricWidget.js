@@ -61,6 +61,13 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
         /**
          * @property {Simplate}
+         */
+        errorTemplate: new Simplate([
+            '<div class="metric-title">{%: $$.errorText %}</div>'
+        ]),
+
+        /**
+         * @property {Simplate}
          * HTML markup for the loading text and icon
         */
         loadingTemplate: new Simplate([
@@ -72,6 +79,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         // Localization
         title: '',
         loadingText: 'loading...',
+        errorText: 'Error loading widget.',
 
         // Store Options
         querySelect: null,
@@ -211,6 +219,10 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
 
                 value = this.valueFn.call(this, data);
                 domConstruct.place(this.itemTemplate.apply({value: value}, this), this.metricDetailNode, 'replace');
+            }), lang.hitch(this, function(err) {
+                // Error
+                console.error(err);
+                domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
             }));
         },
         navToReportView: function() {
@@ -262,7 +274,8 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         _processItem: function(item) {
             this._data.push(item);
         },
-        _onQueryError: function(queryOptions, error) {
+        _onQueryError: function(error) {
+            this.requestDataDeferred.reject(error);
         },
         createStore: function() {
             var store = new SDataStore({
