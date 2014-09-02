@@ -239,6 +239,39 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.onUpdateCompleted(entry);
             }
         },
+        convertEntry: function() {
+            var entry = this.inherited(arguments);
+            if (!this.options.entry) {
+                if (entry && entry['Leader']['$key']) {
+                    this.requestLeader(entry['Leader']['$key']);
+                }
+            }
+
+            return entry;
+        },
+        requestLeader: function(userId) {
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
+                .setResourceKind('users')
+                .setResourceSelector(string.substitute("'${0}'", [userId]))
+                .setQueryArg('select', [
+                    'UserInfo/FirstName',
+                    'UserInfo/LastName'
+                ].join(','));
+
+            request.read({
+                success: this.processLeader,
+                failure: this.requestLeaderFailure,
+                scope: this
+            });
+        },
+        requestLeaderFailure: function(xhr, o) {
+        },
+        processLeader: function(leader) {
+            if (leader) {
+                this.entry['Leader'] = leader;
+                this.fields['Leader'].setValue(leader);
+            }
+        },
         currentUserCanEdit: function(entry) {
             return (entry && (entry['AllowEdit']));
         },
