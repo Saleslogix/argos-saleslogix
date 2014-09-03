@@ -97,6 +97,19 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             this.connect(this.fields['Area'], 'onChange', this.onAreaChange);
             this.connect(this.fields['Category'], 'onChange', this.onCategoryChange);
         },
+        convertEntry: function() {
+            var entry = this.inherited(arguments);
+
+            if (!this.options.entry) {
+                if (entry['StatusCode']) {
+                    this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode']);
+                }
+
+                if (entry['ViaCode']) {
+                    this.requestCodeData('name eq "Source"', entry['ViaCode'], this.fields['ViaCode']);
+                }
+            }
+        },
         processTemplateEntry: function(entry) {
             this.inherited(arguments);
 
