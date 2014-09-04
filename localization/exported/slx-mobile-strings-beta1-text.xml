@@ -1844,6 +1844,10 @@
     <description/>
     <value>web</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="phoneText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="workText" type="text">
     <description/>
     <value>work phone</value>
@@ -3311,6 +3315,10 @@
   <data class="Mobile.SalesLogix.Views.MetricWidget" property="loadingText" type="text">
     <description/>
     <value>loading...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricWidget" property="errorText" type="text">
+    <description/>
+    <value>Error loading widget.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="titleText" type="text">
     <description/>
