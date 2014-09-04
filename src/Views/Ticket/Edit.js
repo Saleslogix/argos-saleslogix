@@ -109,6 +109,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
                     this.requestCodeData('name eq "Source"', entry['ViaCode'], this.fields['ViaCode']);
                 }
             }
+
+            return entry;
         },
         processTemplateEntry: function(entry) {
             this.inherited(arguments);
