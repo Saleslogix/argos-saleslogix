@@ -24,6 +24,7 @@ define('configuration/production', ['Mobile/SalesLogix/ApplicationModule'], func
         multiCurrency: false,
         enableGroups: true,
         enableHashTags: true,
-        maxUploadFileSize: 40000000
+        maxUploadFileSize: 40000000,
+        skipConcurrencyCheck: true
     };
 });
