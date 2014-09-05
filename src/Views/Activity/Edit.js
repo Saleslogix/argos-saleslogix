@@ -252,11 +252,15 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return (/rstMaster/).test(this.fields['RecurrenceState'].getValue());
         },
         isInLeadContext: function() {
-            var insert = this.options && this.options.insert,
+            var isLeadContext, insert = this.options && this.options.insert,
                 entry = this.options && this.options.entry,
-                lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) {
-                    return c.key;
-                })) || this.isActivityForLead(entry);
+                context = this._getNavContext();
+            isLeadContext = false;
+            if (context.resourceKind === 'leads') {
+                isLeadContext = true;
+            }
+
+            lead = (insert && isLeadContext )|| this.isActivityForLead(entry);
 
             return !!lead;
         },
@@ -619,23 +623,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.onLeaderChange(user, leaderField);
             }
 
-            var found = App.queryNavigationContext(function(o) {
-                var context = (o.options && o.options.source) || o;
-
-                if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
-                    return true;
-                }
-
-                if (/^(useractivities)$/.test(context.resourceKind)) {
-                    return true;
-                }
-
-                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate']) {
-                    return true;
-                }
-
-                return false;
-            });
+            var found = this._getNavContext();
 
             var accountField = this.fields['Account'];
             this.onAccountChange(accountField.getValue(), accountField);
@@ -654,6 +642,26 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (context && lookup[context.resourceKind]) {
                 lookup[context.resourceKind].call(this, context);
             }
+        },
+        _getNavContext: function() {
+            var navContext = App.queryNavigationContext(function(o) {
+                var context = (o.options && o.options.source) || o;
+
+                if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
+                    return true;
+                }
+
+                if (/^(useractivities)$/.test(context.resourceKind)) {
+                    return true;
+                }
+
+                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate']) {
+                    return true;
+                }
+
+                return false;
+            });
+            return navContext;
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
