@@ -72,6 +72,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
             'LastName',
             'MiddleName',
             'Mobile',
+            'Name',
             'NameLF',
             'Owner/OwnerDescription',
             'Prefix',
