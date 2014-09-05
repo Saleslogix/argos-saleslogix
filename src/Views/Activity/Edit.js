@@ -252,7 +252,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return (/rstMaster/).test(this.fields['RecurrenceState'].getValue());
         },
         isInLeadContext: function() {
-            var isLeadContext, insert = this.options && this.options.insert,
+            var lead, isLeadContext,
+                insert = this.options && this.options.insert,
                 entry = this.options && this.options.entry,
                 context = this._getNavContext();
             isLeadContext = false;
