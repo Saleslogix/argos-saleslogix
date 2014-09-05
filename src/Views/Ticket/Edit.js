@@ -70,21 +70,27 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
         updateSecurity: 'Entities/Ticket/Edit',
         querySelect: [
             'Account/AccountName',
+            'Account/MainPhone',
             'Area',
             'AssignedDate',
             'AssignedTo/OwnerDescription',
             'Category',
             'Contact/NameLF',
+            'Contact/WorkPhone',
+            'Contract/ReferenceNumber',
             'Issue',
             'NeededByDate',
             'Notes',
             'ViaCode',
             'StatusCode',
+            'UrgencyCode',
             'Subject',
             'TicketNumber',
             'TicketProblem/Notes',
             'TicketSolution/Notes',
-            'UrgencyCode'
+            'Urgency/Description',
+            'Urgency/UrgencyCode',
+            'CompletedBy/OwnerDescription'
         ],
         resourceKind: 'tickets',
 
@@ -102,11 +108,11 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
 
             if (!this.options.entry) {
                 if (entry['StatusCode']) {
-                    this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode']);
+                    this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode'], entry, 'Status');
                 }
 
                 if (entry['ViaCode']) {
-                    this.requestCodeData('name eq "Source"', entry['ViaCode'], this.fields['ViaCode']);
+                    this.requestCodeData('name eq "Source"', entry['ViaCode'], this.fields['ViaCode'], entry, 'SourceText');
                 }
             }
 
@@ -116,7 +122,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             this.inherited(arguments);
 
             if (entry['StatusCode']) {
-                this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode']);
+                this.requestCodeData('name eq "Ticket Status"', entry['StatusCode'], this.fields['StatusCode'], entry, 'Status');
             }
         },
         createPicklistRequest: function(name) {
@@ -131,16 +137,17 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             request.allowCacheUse = true;
             return request;
         },
-        requestCodeData: function(picklistName, code, field) {
+        requestCodeData: function(picklistName, code, field, entry, name) {
             var request = this.createPicklistRequest(picklistName);
             request.read({
-                success: lang.hitch(this, this.onRequestCodeDataSuccess, code, field),
+                success: lang.hitch(this, this.onRequestCodeDataSuccess, code, field, entry, name),
                 failure: this.onRequestCodeDataFailure,
                 scope: this
             });
         },
-        onRequestCodeDataSuccess: function(code, field, feed) {
+        onRequestCodeDataSuccess: function(code, field, entry, name,feed) {
             var value = this.processCodeDataFeed(feed, code);
+            entry[name] = value;
             field.setValue(code);
             field.setText(value);
         },
