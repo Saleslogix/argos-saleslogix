@@ -177,7 +177,7 @@ define('Mobile/SalesLogix/Views/Contact/List', [
             );
         },
         formatSearchQuery: function(searchQuery) {
-            return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+            return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or NameLF like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
 });
