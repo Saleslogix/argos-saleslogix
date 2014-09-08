@@ -67,6 +67,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
                 this._addTools(tools);
                 this.toolsAdded = true;
             }
+            this.inherited(arguments);
         },
         _addTools: function(tools) {
             if (tools) {
