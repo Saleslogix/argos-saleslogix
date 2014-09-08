@@ -523,12 +523,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
                 };
                 if (tools['tbar']) {
-                    tools['tbar'].push(refreshTool)
+                    tools['tbar'].push(refreshTool);
                     this._refreshAdded = true;
-
-                } else {
-                    tools['tbar']= {'tbar': [refreshTool]};
-                    this._refreshAdded = false;
                 }
             }
             this.inherited(arguments);
