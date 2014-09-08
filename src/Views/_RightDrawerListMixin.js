@@ -72,18 +72,18 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         _finishSetup: function(drawer) {
             lang.mixin(drawer, this._createActions());
             drawer.setLayout(this.createRightDrawerLayout());
-            drawer.getGroupForEntry = lang.hitch(this, function(entry) {
+            drawer.getGroupForEntry = function(entry) {
                 return this.getGroupForRightDrawerEntry(entry);
-            });
+            }.bind(this);
 
             if (this.rebuildWidgets) {
-                App.snapper.on('close', lang.hitch(this, function() {
+                App.snapper.on('close', function() {
                     if (this._hasChangedKPIPrefs) {
                         this.destroyWidgets();
                         this.rebuildWidgets();
                         this._hasChangedKPIPrefs = false;
                     }
-                }));
+                }.bind(this));
             }
         },
         unloadRightDrawer: function() {
@@ -105,7 +105,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
             var actions = {
-                hashTagClicked: lang.hitch(this, function(params) {
+                hashTagClicked: function(params) {
                     if (this.groupsMode) {
                         this._clearGroupMode();
                     }
@@ -115,8 +115,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                         this.search();
                         this.toggleRightDrawer();
                     }
-                }),
-                kpiClicked: lang.hitch(this, function(params) {
+                }.bind(this),
+                kpiClicked: function(params) {
                     var results, enabled, metrics;
 
                     metrics = App.getMetricsByResourceKind(this.resourceKind);
@@ -135,12 +135,12 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
 
                         domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
                     }
-                }),
-                groupConfigureClicked: lang.hitch(this, function() {
+                }.bind(this),
+                groupConfigureClicked: function() {
                     this._selectGroups();
                     this.toggleRightDrawer();
-                }),
-                groupClicked: lang.hitch(this, function(params) {
+                }.bind(this),
+                groupClicked: function(params) {
                     var group,
                         groupList,
                         template = [],
@@ -162,7 +162,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     this.setCurrentGroup(group);
                     this.refresh();
                     this.toggleRightDrawer();
-                })
+                }.bind(this)
             };
 
             return actions;
@@ -184,13 +184,14 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 })
             });
 
-            handle = aspect.after(field, 'complete', lang.hitch(field, function() {
+            handle = aspect.after(field, 'complete', function() {
                 var field = this,
                     list = this.owner,
                     groupId,
                     entry,
                     currentGroup,
-                    items = [];
+                    items = [],
+                    transitionHandle;
 
                 // We will get an object back where the property names are the keys (groupId's)
                 // Extract them out, and save the entry, which is the data property on the extracted object
@@ -210,10 +211,17 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     list.setCurrentGroup(currentGroup);
                     list.refresh();
                 }
+
                 handle.remove();
                 field.destroy();
 
-            }));
+                // We will transition back to the list, pop back open the right drawer so the user is back where they started
+                transitionHandle = aspect.after(list, 'processData', function() {
+                    this.toggleRightDrawer();
+                    transitionHandle.remove();
+                }.bind(list));
+
+            }.bind(field));
 
             field.navigateToListView();
         },
