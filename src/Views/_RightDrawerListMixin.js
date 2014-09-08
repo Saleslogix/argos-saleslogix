@@ -140,23 +140,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     this._selectGroups();
                     this.toggleRightDrawer();
                 }.bind(this),
-                groupRefreshClicked: function() {
-                    if (this.groupsEnabled && this.groupList) {
-                        this.groupList.forEach(function(group) {
-                            this._requestGroup(group.name, function(results) {
-                                var group = results[0];
-                                if (group) {
-                                    GroupUtility.addToGroupPreferences([group], this.entityName);
-                                }
-                            });
-                        }, this);
-
-                        this.clear();
-                        this.refreshRequired = true;
-                        this.refresh();
-                        this.toggleRightDrawer();
-                    }
-                }.bind(this),
                 groupClicked: function(params) {
                     var group,
                         groupList,
@@ -251,7 +234,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 };
             }
 
-            if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked' || entry.action === 'groupRefreshClicked') && this.groupsEnabled) {
+            if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked' ) && this.groupsEnabled) {
                 return {
                     tag: 'group',
                     title: this.groupsSectionText
@@ -278,12 +261,6 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     'name': 'configureGroups',
                     'action': 'groupConfigureClicked',
                     'title': this.configureGroupsText
-                });
-
-                groupsSection.children.push({
-                    'name': 'refreshGroups',
-                    'action': 'groupRefreshClicked',
-                    'title': this.refreshGroupsText
                 });
 
                 if (this.groupList && this.groupList.length > 0) {

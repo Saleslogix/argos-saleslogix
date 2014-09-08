@@ -11,7 +11,6 @@
  */
 define('Mobile/SalesLogix/Views/_GroupListMixin', [
     'dojo/_base/declare',
-    'dojo/_base/array',
     'dojo/string',
     'dojo/json',
     'dojo/dom-style',
@@ -29,7 +28,6 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
 ], function(
     declare,
-    array,
     string,
     json,
     domStyle,
@@ -190,7 +188,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.layout = GroupUtility.getLayout(group);
             this.selectColumns = GroupUtility.getColumnNames(this.layout);
 
-            template = array.map(this.layout, this.getItemLayoutTemplate);
+            template = this.layout.map( this.getItemLayoutTemplate);
             this.itemTemplate = new Simplate(template);
 
             // Create a custom request that the store will use to execute the group query
@@ -232,13 +230,13 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
                 (function(context, queryResults) {
                     try {
-                        when(queryResults, lang.hitch(context, function(groupFeed) {
+                        when(queryResults, function(groupFeed) {
                             if (typeof onSuccess === 'function') {
                                 onSuccess.apply(this, arguments);
                             } else {
                                 this._onGroupRequestSuccess(groupFeed);
                             }
-                        }));
+                        }.bind(context));
                     }
                     catch (error) {
                         console.log('Error fetching group data:' + error);
@@ -511,7 +509,42 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 data: resolvedEntry
             };
             this._applyStateToActions(resolvedSelection);
-        }
+        },
+        onToolLayoutCreated: function(tools) {
+            var refreshTool;
+
+            if (tools && !this._refreshAdded) {
+                refreshTool = {
+                    id: 'refresh',
+                    cls: 'fa fa-refresh fa-fw fa-lg',
+                    action: '_refreshList'
+
+                };
+                if (tools['tbar']) {
+                    tools['tbar'].push(refreshTool);
+                    this._refreshAdded = true;
+                }
+            }
+            this.inherited(arguments);
+        },
+        _refreshList: function() {
+            var self = this;
+            if (this.groupsEnabled && this.groupList && this._currentGroup) {
+                this._requestGroup(this._currentGroup.name, function(results) {
+                    var group = results[0];
+                    if (group) {
+                        GroupUtility.addToGroupPreferences([group], this.entityName);
+                    }
+                    self.clear();
+                    self.refreshRequired = true;
+                    self.refresh();
+                });
+            } else {
+                this.clear();
+                this.refreshRequired = true;
+                this.refresh();
+            }
+        },
     });
 });
 
