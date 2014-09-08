@@ -511,7 +511,44 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 data: resolvedEntry
             };
             this._applyStateToActions(resolvedSelection);
-        }
+        },
+        onToolLayoutCreated: function(tools) {
+            var refreshTool;
+
+            if (tools && !this._refreshAdded) {
+                refreshTool = {
+                    id: 'refresh',
+                    cls: 'fa fa-refresh fa-fw fa-lg',
+                    action: '_refreshList'
+
+                };
+                if (tools['tbar']) {
+                    tools['tbar'].push(refreshTool)
+                    this._refreshAdded = true;
+
+                } else {
+                    tools['tbar']= {'tbar': [refreshTool]};
+                    this._refreshAdded = false;
+                }
+            }
+            this.inherited(arguments);
+        },
+        _refreshList: function() {
+            if (this.groupsEnabled && this.groupList) {
+                this.groupList.forEach(function(group) {
+                    this._requestGroup(group.name, function(results) {
+                        var group = results[0];
+                        if (group) {
+                            GroupUtility.addToGroupPreferences([group], this.entityName);
+                        }
+                    });
+                }, this);
+
+            }
+            this.clear();
+            this.refreshRequired = true;
+            this.refresh();
+        },
     });
 });
 
