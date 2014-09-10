@@ -3230,7 +3230,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2014 SalesLogix, NA, LLC. All rights reserved.</value>
+    <value>Copyright &amp;copy; 2014 Infor. All rights reserved. www.infor.com</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
