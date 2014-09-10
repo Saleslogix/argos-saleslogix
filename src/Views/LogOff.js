@@ -13,7 +13,7 @@ define('Mobile/SalesLogix/Views/LogOff', [
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
-                '<h2>{%= $.messageText %}</h2>',
+                '<h3>{%= $.messageText %}</h3>',
                 '<a href="" data-action="login">{%: $.loginText %}</a>',
             '</div>'
         ]),

@@ -109,6 +109,9 @@
     right: 25%;
   }
 }
+#logoff {
+  text-align: center;
+}
 /* note view */
 .note-text {
   height: 4.5em;
