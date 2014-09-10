@@ -42,6 +42,22 @@
 /* login view */
 #login
 {
+    .logo
+    {
+        margin: 0;
+
+        > img
+        {
+            padding: 36px 36px 36px 29px;
+        }
+
+        > span
+        {
+            font-size: 32px;
+            display: block;
+        }
+    }
+
     padding: 0px 2px;
 
     .panel-content
@@ -60,7 +76,6 @@
         font-size: 1em;
         background-color: @blue1-darker;
         color: #fff;
-        .border-radius(6px);
         .box-sizing(border-box);
     }
 
@@ -73,6 +88,14 @@
     @media only screen and (min-width: @tablet-portrait)
     {
         background-color: @gray2-lighter;
+
+        .logo
+        {
+            > span
+            {
+                margin-bottom: 18px;
+            }
+        }
 
         .panel-content
         {
@@ -101,6 +124,7 @@
         .button
         {
             margin-left: 35%;
+            width: 30%;
         }
 
         .panel-content
@@ -125,6 +149,7 @@
         .button
         {
             margin-left: 25%;
+            width: 50%;
         }
 
         .panel-content
