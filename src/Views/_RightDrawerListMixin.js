@@ -260,7 +260,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 groupsSection.children.push({
                     'name': 'configureGroups',
                     'action': 'groupConfigureClicked',
-                    'title': this.configureGroupsText
+                    'title': this.configureGroupsText,
+                    'cls': 'group-configuration',
+                    'iconCls': 'fa fa-cog fa-fw '
                 });
 
                 if (this.groupList && this.groupList.length > 0) {
