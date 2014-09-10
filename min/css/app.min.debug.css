@@ -32,6 +32,16 @@
     */
   /* Tablet */
 }
+#login .logo {
+  margin: 0;
+}
+#login .logo > img {
+  padding: 36px 36px 36px 29px;
+}
+#login .logo > span {
+  font-size: 32px;
+  display: block;
+}
 #login .panel-content {
   background-color: transparent;
   border-bottom: none 0px black;
@@ -45,9 +55,6 @@
   font-size: 1em;
   background-color: #007dbe;
   color: #fff;
-  border-radius: 6px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -58,6 +65,9 @@
 @media only screen and (min-width: 768px) {
   #login {
     background-color: #ecedef;
+  }
+  #login .logo > span {
+    margin-bottom: 18px;
   }
   #login .panel-content {
     background-color: #fff;
@@ -75,6 +85,7 @@
   }
   #login .button {
     margin-left: 35%;
+    width: 30%;
   }
   #login .panel-content {
     margin: auto;
@@ -89,6 +100,7 @@
   }
   #login .button {
     margin-left: 25%;
+    width: 50%;
   }
   #login .panel-content {
     margin: auto;
