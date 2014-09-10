@@ -39,7 +39,7 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
             '{% if ($$._hasIcon($)) { %}',
                 '<div class="list-item-static-selector {%: $.iconCls %} ">',
                     '{% if ($.icon) { %}',
-                       '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                        '<img src="{%: $.icon %}" alt="icon" class="icon" />',
                     '{% } %}',
                 '</div>',
             '{% } %}',
