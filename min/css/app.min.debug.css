@@ -1218,3 +1218,12 @@ td.entry-table-description {
   margin-top: 0;
   white-space: normal;
 }
+.group-configuration {
+  background-color: #4b5656 !important;
+  border-width: 1px 0px 1px 0px;
+  border-color: #878e8e;
+  border-style: solid;
+}
+.group-configuration > .list-item-content {
+  padding-left: 22px !important;
+}
