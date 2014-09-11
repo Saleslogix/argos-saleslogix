@@ -101,7 +101,7 @@ define('Mobile/SalesLogix/Application', [
             'minor': 1,
             'revision': 0
         },
-        versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
+        versionInfoText: 'Mobile v${0}.${1}.${2}',
         homeViewId: 'myactivity_list',
         loginViewId: 'login',
         logOffViewId: 'logoff',
