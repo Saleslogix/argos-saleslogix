@@ -71,7 +71,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: Mobile.SalesLogix.Format.userActivityStatus($.Status) %}) {% } %}</span>',
             '</h3>',
             '<h4>',
-                '<strong>{%! $$.activityTimeTemplate %}</strong>',
+                '{%! $$.activityTimeTemplate %}',
             '</h4>',
             '<h4>{%! $$.nameTemplate %}</h4>',
             '<h4>',
