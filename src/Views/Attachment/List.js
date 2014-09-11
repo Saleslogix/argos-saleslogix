@@ -27,6 +27,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     'dojo/string',
     'dojo/has',
     'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Utility',
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/_LegacySDataListMixin',
     'Sage/Platform/Mobile/Convert',
@@ -38,6 +39,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     string,
     has,
     format,
+    utility,
     List,
     _LegacySDataListMixin,
     convert,
@@ -113,7 +115,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             'url': 'url',
             'binary': 'binary'
         },
-
         createToolLayout: function() {
             if (!has('html5-file-api')) {
                 this.insertView = null;
@@ -143,7 +144,40 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
                 }
             }
         },
-        itemIconClass: 'fa fa-paperclip fa-4x',
+        itemIconClass: 'fa-file-o',
+        fileIconByType: {
+            'xls': 'fa-file-excel-o',
+            'xlsx': 'fa-file-excel-o',
+            'doc': 'fa-file-word-o',
+            'docx': 'fa-file-word-o',
+            'ppt': 'fa-file-powerpoint-o',
+            'pptx': 'fa-file-powerpoint-o',
+            'txt': 'fa-file-text-o',
+            'rtf': 'fa-file-text-o',
+            'csv': 'fa-file-text-o',
+            'pdf': 'fa-file-pdf-o',
+            'zip': 'fa-file-zip-o',
+            'png': 'fa-file-image-o',
+            'jpg': 'fa-file-image-o',
+            'gif': 'fa-file-image-o',
+            'bmp': 'fa-file-image-o'
+        },        
+        getItemIconClass: function(entry) {
+            var cls, typeCls, type, fileName = entry && entry.fileName;
+            type = utility.getFileExtension(fileName);
+            cls = this.itemIconClass;
+            if (type) {
+                type = type.substr(1); //Remove the '.' from the ext.
+                typeCls = this.fileIconByType[type];
+                if (typeCls) {
+                    cls = typeCls;
+                }
+            }
+            if (cls) {
+                cls = 'fa ' + cls + ' fa-2x';
+            }
+            return cls;
+        },
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'touched',
