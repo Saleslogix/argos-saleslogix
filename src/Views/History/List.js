@@ -156,7 +156,7 @@ define('Mobile/SalesLogix/Views/History/List', [
         activityIndicatorIconByType: {
             'atToDo': 'fa fa-list-ul fa-lg',
             'atPhoneCall': 'fa fa-phone fa-lg',
-            'atAppointment': 'fa fa-users fa-lg',
+            'atAppointment': 'fa fa-calendar-o fa-lg',
             'atLiterature': 'fa fa-book fa-lg',
             'atPersonal': 'fa fa-check-square-o fa-lg',
             'atQuestion': 'fa fa-question-circle fa-lg',

@@ -229,11 +229,11 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         activityIconByType: {
             'atToDo': 'fa fa-list-ul',
             'atPhoneCall': 'fa fa-phone',
-            'atAppointment': 'fa fa-users',
-            'atLiterature': 'fa fa-users',
+            'atAppointment': 'fa fa-calendar-o',
+            'atLiterature': 'fa fa-calendar-o',
             'atPersonal': 'fa fa-check-square-o',
             'atQuestion': 'fa fa-question',
-            'atNote': 'fa fa-users',
+            'atNote': 'fa fa-calendar-o',
             'atEMail': 'fa fa-envelope'
         },
         eventIcon: 'fa fa-calendar-o',

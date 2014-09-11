@@ -101,7 +101,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         activityIndicatorIconByType: {
             'atToDo': 'fa fa-list-ul',
             'atPhoneCall': 'fa fa-phone',
-            'atAppointment': 'fa fa-users',
+            'atAppointment': 'fa fa-calendar-o',
             'atLiterature': 'fa fa-book',
             'atPersonal': 'fa fa-check-square-o',
             'atQuestion': 'fa fa-question-circle',

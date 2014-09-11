@@ -56,8 +56,8 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
         activityTypeIcons: {
             'atToDo': 'fa fa-list-ul',
             'atPhoneCall': 'fa fa-phone',
-            'atAppointment': 'fa fa-users',
-            'atLiterature': 'fa fa-users',
+            'atAppointment': 'fa fa-calendar-o',
+            'atLiterature': 'fa fa-calendar-o',
             'atPersonal': 'fa fa-check-square-o',
             'event': 'fa fa-calendar-o'
         },
