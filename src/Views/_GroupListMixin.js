@@ -121,12 +121,10 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         },
         setCurrentGroup: function(group) {
             if (group) {
-                if (this.currentGroupId !== group.$key) {
-                    this._groupInitalized = false;
-                    this._currentGroup = group;
-                    this.currentGroupId = group.$key;
-                    GroupUtility.setDefaultGroupPreference(this.entityName, group.name);
-                }
+                this._groupInitalized = false;
+                this._currentGroup = group;
+                this.currentGroupId = group.$key;
+                GroupUtility.setDefaultGroupPreference(this.entityName, group.name);
             }
         },
         getDefaultGroup: function() {
@@ -534,7 +532,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                     var group = results[0];
                     if (group) {
                         GroupUtility.addToGroupPreferences([group], this.entityName);
+                        self.setCurrentGroup(group);
                     }
+                   
                     self.clear();
                     self.refreshRequired = true;
                     self.refresh();
