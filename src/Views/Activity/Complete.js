@@ -430,6 +430,14 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                             maxTextLength: 64,
                             validator: validator.exceedsMaxTextLength
                         }, {
+                            label: this.longNotesText,
+                            noteProperty: false,
+                            name: 'LongNotes',
+                            property: 'LongNotes',
+                            title: this.longNotesTitleText,
+                            type: 'note',
+                            view: 'text_edit'
+                        }, {
                             label: this.startingText,
                             name: 'StartDate',
                             property: 'StartDate',
@@ -523,14 +531,6 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                             name: 'CarryOverNotes',
                             property: 'CarryOverNotes',
                             type: 'boolean'
-                        }, {
-                            label: this.longNotesText,
-                            noteProperty: false,
-                            name: 'LongNotes',
-                            property: 'LongNotes',
-                            title: this.longNotesTitleText,
-                            type: 'note',
-                            view: 'text_edit'
                         }]
                 }, {
                     title: this.otherInfoText,

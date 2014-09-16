@@ -1053,6 +1053,14 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     validator: validator.exceedsMaxTextLength,
                     autoFocus: true
                 }, {
+                    label: this.longNotesText,
+                    noteProperty: false,
+                    name: 'LongNotes',
+                    property: 'LongNotes',
+                    title: this.longNotesTitleText,
+                    type: 'note',
+                    view: 'text_edit'
+                }, {
                     name: 'Location',
                     property: 'Location',
                     label: this.locationText,
@@ -1184,14 +1192,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     type: 'lookup',
                     requireSelection: true,
                     view: 'calendar_access_list'
-                }, {
-                    label: this.longNotesText,
-                    noteProperty: false,
-                    name: 'LongNotes',
-                    property: 'LongNotes',
-                    title: this.longNotesTitleText,
-                    type: 'note',
-                    view: 'text_edit'
                 }, {
                     label: this.isLeadText,
                     name: 'IsLead',
