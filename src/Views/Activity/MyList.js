@@ -214,6 +214,31 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'this-week': 'this-week',
             'yesterday': 'yesterday'
         },
+        createToolLayout: function(tools) {
+            this.inherited(arguments);
+            if (this.tools && this.tools.tbar && !this._refreshAdded) {
+                this.tools.tbar.push({
+                    id: 'refresh',
+                    cls: 'fa fa-refresh fa-fw fa-lg',
+                    action: '_refreshClicked'
+                });
+
+                this._refreshAdded = true;
+            }
+
+            return this.tools;
+        },
+        _refreshAdded: false,
+        _refreshClicked: function() {
+            this.clear();
+            this.refreshRequired = true;
+            this.refresh();
+
+            // Hook for customizers
+            this.onRefreshClicked();
+        },
+        onRefreshClicked: function() {
+        },
         _callPhone: function(params) {
             this.invokeActionItemBy(function(action) {
                 return action.id === 'call';
