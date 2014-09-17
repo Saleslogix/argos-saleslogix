@@ -170,7 +170,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             if (!group) {
                 throw new Error("Group not found.");
             }
-
+            this._fieldFormatters = {};
             this._startGroupMode();
             this._clearResolvedEntryCache();
 
@@ -279,13 +279,26 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             var template, jsonString;
             jsonString = json.stringify(item);
 
-            template = ["<h4><span class=\"group-label\">", item.caption, "</span> <span class=\"group-entry\">{%= $$.getFormatterByLayout(" + jsonString + ")($[$$.getFieldNameByLayout(" + jsonString + ")]) %}</span>", "</h4>"].join('');
+            template = ["<h4><span class=\"group-label\">", item.caption, "</span> <span class=\"group-entry\">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(" + jsonString + ")]," + jsonString + ",$$.getFormatterByLayout(" + jsonString + ")) %}</span>", "</h4>"].join('');
 
             return template;
 
         },
         getFormatterByLayout: function(layoutItem) {
-            return GroupUtility.getFormatterByLayout(layoutItem);
+            var formatter, path;
+            if (!this._fieldFormatters) {
+                this._fieldFormatters = {};
+            }
+            path = layoutItem.propertyPath + '_' + layoutItem.index;
+            formatter = this._fieldFormatters[path];
+            if (!formatter) {
+                formatter = GroupUtility.getFormatterByLayout(layoutItem);
+                this._fieldFormatters[path] = formatter;
+            }
+            return formatter;
+        },
+        groupTransformValue: function(value, layout, formatter) {
+            return formatter(value);
         },
         getFieldNameByLayout: function(layoutItem) {
             return GroupUtility.getFieldNameByLayout(layoutItem);
