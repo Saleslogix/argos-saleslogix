@@ -152,7 +152,7 @@ define('Mobile/SalesLogix/GroupUtility', [
                 formatter: function(value) {
                     if (typeof value === 'string') {
                         return moment(value).format(this.groupDateFormatText);
-                     }
+                    }
 
                     return value;
                 }
