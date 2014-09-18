@@ -314,7 +314,7 @@ define('Mobile/SalesLogix/Format', [
             }
             if (d > 0 ) {
                 p = Math.pow(10, d);
-                v = val.toFixed(d), // only d decimal places
+                v = val.toFixed(d); // only d decimal places
                 f = Math.floor((p * (v - Math.floor(v))).toPrecision(d)); // for fractional part, only need d significant digits
                 if (f === 0) {
                     f = (p + "").slice(1);
