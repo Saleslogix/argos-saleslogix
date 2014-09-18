@@ -327,7 +327,7 @@ define('Mobile/SalesLogix/Format', [
             num = Math.floor(v).toString();
             num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace("\\.", '.'));
             if (d > 0) {
-                frac = (f.toString().length < d) ? '' : f.toString()
+                frac = (f.toString().length < d) ? '' : f.toString();
                 fVal = string.substitute(
                     '${0}'
                         + Mobile.CultureInfo.numberFormat.numberDecimalSeparator
