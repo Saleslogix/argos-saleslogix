@@ -304,17 +304,39 @@ define('Mobile/SalesLogix/Format', [
             return firstLast;
         },
         fixedLocale: function(val, d) {
-            var results;
-
-            results = format.fixed(val, d);
-
-            if (results) {
-                // Replace the "en" decimal separator with the current culture's
-                results = results.toString().replace('.', Mobile.CultureInfo.numberFormat.numberDecimalSeparator);
+            var num, frac, p, v, f, fVal;
+            if (isNaN(val) || val === null) {
+                return val;
             }
 
-            return results;
-        },
+            if (typeof d !== 'number') {
+                d = 2;
+            }
+            if (d > 0 ) {
+                p = Math.pow(10, d);
+                v = val.toFixed(d), // only d decimal places
+                f = Math.floor((p * (v - Math.floor(v))).toPrecision(d)); // for fractional part, only need d significant digits
+                if (f === 0) {
+                    f = (p + "").slice(1);
+                }
+            } else {  //zero decimal palces
+               p = Math.pow(10, 0);
+               v = (Math.round(val * p) / p);
+               f = 0;
+            }
+            num = Math.floor(v).toString();
+            num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace("\\.", '.'));
+            if (d > 0) {
+                frac = (f.toString().length < d) ? '' : f.toString()
+                fVal = string.substitute(
+                    '${0}'
+                        + Mobile.CultureInfo.numberFormat.numberDecimalSeparator
+                        + '${1}', [num, frac]); 
+            } else {
+                fVal = num;
+            }
+            return fVal.replace(/ /g, '\u00A0'); //keep numbers from breaking
+        }
     }));
 });
 

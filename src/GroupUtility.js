@@ -91,7 +91,7 @@ define('Mobile/SalesLogix/GroupUtility', [
         ],
         groupFormatters: [
             {
-                name: 'NoFormat',
+                name: 'None',
                 test: function(layoutItem) {
                     return layoutItem.format === 'None';
                 },
@@ -114,7 +114,34 @@ define('Mobile/SalesLogix/GroupUtility', [
                     return layoutItem.format === 'Fixed';
                 },
                 formatter: function(value) {
-                    return format.fixedLocale(value);
+                    return format.fixedLocale(value, 2);
+                }
+            },
+            {
+                name: 'Percent',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'Percent';
+                },
+                formatter: function(value) {
+                    return format.percent(value, 0);
+                }
+            },
+            {
+                name: 'Integer',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'Integer';
+                },
+                formatter: function(value) {
+                    return format.fixedLocale(value, 0);
+                }
+            },
+            {
+                name: 'Currency',
+                test: function(layoutItem) {
+                    return layoutItem.format === 'Currency';
+                },
+                formatter: function(value) {
+                    return format.currency(value);
                 }
             },
             {
@@ -148,19 +175,53 @@ define('Mobile/SalesLogix/GroupUtility', [
                 }
             }
         ],
+        formatTypeByField: {
+            'DateTime': { name: 'DateTime'},
+            'Date': { name: 'DateTime'},
+            'Time': { name: 'DateTime'},
+            'Boolean': {name:'Boolean'},
+            'BCD': { name: 'Currency'},
+            'Fixed': { name: 'Fixed' },
+            'Float': { name: 'Fixed' },
+            'Integer': { name: 'Integer' },
+            'Smallint': { name: 'Integer' },
+            'Largeint': { name: 'Integer' }
+        },
         getFormatterByLayout: function(layoutItem) {
-            var results = array.filter(this.groupFormatters, function(formatter) {
-                return formatter.test(layoutItem);
-            });
+            var fieldFormatter, fieldFormatType, results;
 
+            if ((layoutItem.format)&&(layoutItem.format !== 'None')) {
+                results = array.filter(this.groupFormatters, function(formatter) {
+                    return (formatter.name === layoutItem.format);
+                });
+                if (results.length === 0) {
+                    results = array.filter(this.groupFormatters, function(formatter) {
+                        return (formatter.name === 'None');
+                    });
+                }
+            }
+            else {
+                fieldFormatType = this.formatTypeByField[layoutItem.fieldType];
+                if (!fieldFormatType) {
+                    fieldFormatType = { name: 'None', formatString: '' };
+                }
+                results = array.filter(this.groupFormatters, function(formatter) {
+                    return (formatter.name === fieldFormatType.name);
+                });
+            }
+            //this means there are no formatters defined.
             if (results.length === 0) {
                 results.push({
+                    name: 'NoFormat',
+                    formatString: '',
                     formatter: function(value) {
                         return value;
-                    }});
+                    }
+                });
             }
 
-            return lang.hitch(this, results[0].formatter);
+            fieldFormatter = results[0];
+            return fieldFormatter.formatter.bind(this);
         },
         getLayout: function(group) {
             var layout;
