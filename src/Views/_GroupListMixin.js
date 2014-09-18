@@ -46,10 +46,10 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     var mixinName = 'Mobile.SalesLogix.Views._GroupListMixin';
 
     return declare('Mobile.SalesLogix.Views._GroupListMixin', null, {
-        noDefaultGroupText: 'No default group set. Open the right menu and press configure under the groups section to setup groups.',
+        noDefaultGroupText: 'No default group set. Click here to configure groups.',
         currentGroupNotFoundText: 'The current group was not found.',
         noDefaultGroupTemplate: new Simplate([
-            '<li class="no-data">',
+            '<li class="no-data" data-action="openConfigure">',
             '<h3>{%= $$._getNoDefaultGroupMessage() %}</h3>',
             '</li>'
         ]),
@@ -68,6 +68,11 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             var mixin = lang.getObject(mixinName);
             if (mixin) {
                 return mixin.prototype.currentGroupNotFoundText;
+            }
+        },
+        openConfigure: function() {
+            if (this._selectGroups) {
+                this._selectGroups();
             }
         },
         groupsModeText: 'You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.',

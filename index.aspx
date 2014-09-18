@@ -105,9 +105,10 @@
     <script type="text/javascript">
     (function() {
         var application = 'Mobile/SalesLogix/Application',
-            configuration = [
-                'configuration/production'
-            ];
+            configuration = <%= Serialize(
+                Enumerate("configuration", (file) => file.Name == "production.js")
+                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+            ) %>;
         require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization, bootstrap, fallBackLocalization, completed = false;
             bootstrap = function(requires) {

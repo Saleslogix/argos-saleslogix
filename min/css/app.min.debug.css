@@ -194,6 +194,9 @@
   margin: -8px 0 -8px -10px;
   padding: 8px 32px 8px 36px;
 }
+#configure .list-content > li h3 {
+  font-size: .75em;
+}
 #configure .list-content > li h3 > span:first-child {
   float: left;
 }
@@ -943,7 +946,7 @@ td.entry-table-description {
   margin: 10px !important;
 }
 .card-layout .group-label {
-  color: #007dbe;
+  color: #4b5656;
 }
 .card-layout .group-entry {
   font-weight: bold;

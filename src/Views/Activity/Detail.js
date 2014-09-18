@@ -369,6 +369,10 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             property: 'Description',
                             label: this.regardingText
                         }, {
+                            name: 'LongNotes',
+                            property: 'LongNotes',
+                            label: this.longNotesText
+                        }, {
                             name: 'Category',
                             property: 'Category',
                             label: this.categoryText
@@ -380,10 +384,6 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'Priority',
                             property: 'Priority',
                             label: this.priorityText
-                        }, {
-                            name: 'LongNotes',
-                            property: 'LongNotes',
-                            label: this.longNotesText
                         }, {
                             name: 'PhoneNumber',
                             property: 'PhoneNumber',

@@ -108,7 +108,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                             groupId: this.currentGroupId,
                             queryArgs: options.queryArgs
                         });
-                        options.currentSearchExpression = this._currentGroup && this._currentGroup.name;
+                        options.currentSearchExpression = this._currentGroup && this._currentGroup.displayName;
                     } else {
                         options.request = null;
                         options.parentResourceKind = this.resourceKind;
