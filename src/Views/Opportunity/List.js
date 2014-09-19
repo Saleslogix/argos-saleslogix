@@ -132,7 +132,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'edit',
-                cls: 'fa fa-pencil fa-lg',
+                cls: 'fa fa-pencil fa-2x',
                 label: this.editActionText,
                 action: 'navigateToEditView'
             }, {
