@@ -212,7 +212,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this._groupInitalized = true;
             this.requestData();
         },
-        _requestGroup: function(groupName, onSuccess) {
+        _requestGroup: function(groupName, groupId, onSuccess) {
             var store = null, queryResults;
 
             if (typeof groupName === 'string' && groupName !== '') {
@@ -220,7 +220,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                     service: App.services.crm,
                     resourceKind: 'groups',
                     contractName: 'system',
-                    where: "((upper(family) eq '" + this.entityName.toUpperCase() + "') and (upper(Name) eq '" + groupName.toUpperCase() + "'))",
+                    where: "((upper(family) eq '" + this.entityName.toUpperCase() + "') and (upper(Name) eq '" + groupName.toUpperCase() + "') or PluginId eq '" + groupId + "')",
                     include: ['layout', 'tableAliases'],
                     idProperty: '$key',
                     applicationName: 'slx',
@@ -546,11 +546,12 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         _refreshList: function() {
             var self = this;
             if (this.groupsEnabled && this.groupList && this._currentGroup) {
-                this._requestGroup(this._currentGroup.name, function(results) {
+                this._requestGroup(this._currentGroup.name, this._currentGroup.$key, function(results) {
                     var group = results[0];
                     if (group) {
                         GroupUtility.addToGroupPreferences([group], this.entityName);
                         self.setCurrentGroup(group);
+                        this.refreshRightDrawer();
                     }
                    
                     self.clear();
