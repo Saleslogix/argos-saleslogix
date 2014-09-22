@@ -179,7 +179,9 @@ define('Mobile/SalesLogix/Format', [
             if (isNaN(val) || val === null) {
                 return val;
             }
-
+            if (typeof val === 'string') {
+                val = parseFloat(val);
+            }
             var v = val.toFixed(2), // only 2 decimal places
                 f = Math.floor((100 * (v - Math.floor(v))).toPrecision(2)); // for fractional part, only need 2 significant digits
 
@@ -308,7 +310,9 @@ define('Mobile/SalesLogix/Format', [
             if (isNaN(val) || val === null) {
                 return val;
             }
-
+            if (typeof val === 'string') {
+                val = parseFloat(val);
+            }
             if (typeof d !== 'number') {
                 d = 2;
             }

@@ -149,11 +149,14 @@ define('Mobile/SalesLogix/GroupUtility', [
                 test: function(layoutItem) {
                     return layoutItem.format === 'DateTime';
                 },
-                formatter: function(value) {
+                formatter: function(value, formatString) {
+                    var dateValue;
                     if (typeof value === 'string') {
-                        return moment(value).format(this.groupDateFormatText);
+                        dateValue = moment(value);
+                        if (dateValue.isValid()) {
+                            return dateValue.format(formatString);
+                        }
                     }
-
                     return value;
                 }
             },
@@ -175,6 +178,18 @@ define('Mobile/SalesLogix/GroupUtility', [
                 }
             }
         ],
+        transformDateFormatString: function(groupFormat, defaultFormat){
+            if (groupFormat) {
+                groupFormat = groupFormat.replace("MM", "M");
+                groupFormat = groupFormat.replace("mm", "M");
+                groupFormat = groupFormat.replace("DD", "D");
+                groupFormat = groupFormat.replace("dd", "D");
+                groupFormat = groupFormat.replace("yyyy", "YYYY");
+                groupFormat = groupFormat.replace("yy", "YYYY");
+                return groupFormat;
+            }
+            return defaultFormat;
+        },
         formatTypeByField: {
             'DateTime': { name: 'DateTime'},
             'Date': { name: 'DateTime'},
@@ -220,8 +235,17 @@ define('Mobile/SalesLogix/GroupUtility', [
                 });
             }
 
-            fieldFormatter = results[0];
-            return fieldFormatter.formatter.bind(this);
+            fieldFormatter = {
+                name: results[0]['name'],
+                formatter: results[0]['formatter'].bind(this)
+            };
+
+            if (fieldFormatter.name === "DateTime") {
+                fieldFormatter.formatString = this.transformDateFormatString(layoutItem.formatString, this.groupDateFormatText);
+            } else {
+                fieldFormatter.formatString = layoutItem.formatString;
+            }
+            return fieldFormatter;
         },
         getLayout: function(group) {
             var layout;

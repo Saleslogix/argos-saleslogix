@@ -297,13 +297,27 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             path = layoutItem.propertyPath + '_' + layoutItem.index;
             formatter = this._fieldFormatters[path];
             if (!formatter) {
-                formatter = GroupUtility.getFormatterByLayout(layoutItem);
+                formatter = this.getGroupFieldFormatter(layoutItem);
                 this._fieldFormatters[path] = formatter;
             }
             return formatter;
         },
+        getGroupFieldFormatter: function(layoutItem){
+            var formatter;
+            if (this.groupFieldFormatter) {
+                formatter = this.groupFieldFormatter[layoutItem.propertyPath];
+            }
+            if (!formatter) {
+                formatter = GroupUtility.getFormatterByLayout(layoutItem);
+            }
+            return formatter;
+        },
         groupTransformValue: function(value, layout, formatter) {
-            return formatter(value);
+            try{
+                return formatter.formatter(value, formatter.formatString);
+            } catch (e) {
+                return value
+            }
         },
         getFieldNameByLayout: function(layoutItem) {
             return GroupUtility.getFieldNameByLayout(layoutItem);
