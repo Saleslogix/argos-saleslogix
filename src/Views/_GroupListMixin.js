@@ -316,7 +316,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             try{
                 return formatter.formatter(value, formatter.formatString);
             } catch (e) {
-                return value
+                return value;
             }
         },
         getFieldNameByLayout: function(layoutItem) {
