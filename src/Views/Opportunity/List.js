@@ -173,7 +173,17 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
 
         formatSearchQuery: function(searchQuery) {
             return string.substitute('(upper(Description) like "${0}%" or Account.AccountNameUpper like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        groupFieldFormatter: {
+            'CloseProbability':
+                {
+                    name: 'CloseProbability',
+                    formatter: function(value) {
+                        return format.fixedLocale(value, 0) + '%';
+                    }.bind(this)
+                }
         }
+
     });
 });
 
