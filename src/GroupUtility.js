@@ -14,11 +14,13 @@ define('Mobile/SalesLogix/GroupUtility', [
     'dojo/_base/lang',
     'dojo/_base/array',
     './Format',
+    'Sage/Platform/Mobile/Format',
     'moment'
 ], function(
     lang,
     array,
     format,
+    sdkFormat,
     moment
 ) {
     var _createGroupRequest = function(options) {
@@ -171,7 +173,7 @@ define('Mobile/SalesLogix/GroupUtility', [
                         '+'
                     ];
 
-                    return array.indexOf(truthy, value) === -1 ? format.noText : format.yesText;
+                    return array.indexOf(truthy, value) === -1 ? sdkFormat.noText : sdkFormat.yesText;
                 }
             }
         ],
