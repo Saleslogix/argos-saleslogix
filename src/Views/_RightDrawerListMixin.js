@@ -208,8 +208,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 GroupUtility.addToGroupPreferences(items, list.entityName, true);
                 currentGroup = GroupUtility.getDefaultGroup(list.entityName);
                 if (currentGroup) {
-                    list.setCurrentGroup(currentGroup);
-                    list.refresh();
+                   list.setCurrentGroup(currentGroup);
                 }
 
                 handle.remove();
