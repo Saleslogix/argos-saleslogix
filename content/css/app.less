@@ -743,8 +743,15 @@ body.transition > .viewContainer > .footer-toolbar
     color: #888;
 }
 
+.viewContainer > #calendar_monthlist > .month-content,
+.viewContainer > #calendar_monthlist > .day-content
+{
+    width: 100%;
+    float: none;
+}
+
 /* Excludes iphone <= 3 */
-@media only screen and (min-width: 570px), only screen and (-webkit-min-device-pixel-ratio: 2) {
+@media only screen and (min-width: 568px){
     .viewContainer > #calendar_monthlist > .month-content,
     .viewContainer > #calendar_monthlist > .day-content
     {
@@ -766,25 +773,25 @@ body.transition > .viewContainer > .footer-toolbar
 }
 
 @media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
-    .viewContainer > #calendar_yearlist > .year-content > .year-table
+    body.landscape > .viewContainer > #calendar_yearlist > .year-content > .year-table
     {
         float:left;
         width: 240px;
         height:210px;
         margin: 6px;
     }
-    .viewContainer > #calendar_yearlist td.calendar-day
+    body.landscape > .viewContainer > #calendar_yearlist td.calendar-day
     {
         padding: 6px 0px 6px 0px !important;
         width: 34px;
         font-size:.7em;
     }
-    .viewContainer > #calendar_yearlist tr.calendar-week-header
+    body.landscape > .viewContainer > #calendar_yearlist tr.calendar-week-header
     {
         padding: 3px 0 0 0 !important;
         font-size: 0.7em;
     }
-    .viewContainer > #calendar_yearlist .activity-count
+    body.landscape > .viewContainer > #calendar_yearlist .activity-count
     {
         top: 8px;
         right: 0px !important;
