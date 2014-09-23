@@ -98,6 +98,12 @@
         "name": "argos-saleslogix",
         "groups": [
             {
+                "name": "Configuration",
+                "classes": [
+                    "configuration.production"
+                ]
+            },
+            {
                 "name": "Base",
                 "classes": [
                     "Mobile.SalesLogix.Action",
