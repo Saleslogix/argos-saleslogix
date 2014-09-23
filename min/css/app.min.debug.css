@@ -529,20 +529,16 @@ body.transition > .viewContainer > .footer-toolbar {
   color: #888;
 }
 /* Excludes iphone <= 3 */
-@media only screen and (min-width: 500px), only screen and (-webkit-min-device-pixel-ratio: 2) {
-  body.landscape > .viewContainer > #calendar_monthlist > .month-content,
-  body.landscape > .viewContainer > #calendar_monthlist > .day-content {
+@media only screen and (min-width: 570px), only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .viewContainer > #calendar_monthlist > .month-content,
+  .viewContainer > #calendar_monthlist > .day-content {
     width: 50%;
     float: left;
   }
-  body.landscape > .viewContainer > #calendar_monthlist > .day-content > h2 {
+  .viewContainer > #calendar_monthlist > .day-content > h2 {
     margin-top: 0;
     border-top: none;
     border-bottom: 1px solid #212721;
-    /*border-left: 1px solid #000000;*/
-  }
-  body.landscape > .viewContainer > #calendar_monthlist > .day-content > div > h2 {
-    /* border-left: 1px solid #000000;*/
   }
 }
 /* Tablets */
@@ -552,22 +548,22 @@ body.transition > .viewContainer > .footer-toolbar {
   }
 }
 @media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
-  body.landscape > .viewContainer > #calendar_yearlist > .year-content > .year-table {
+  .viewContainer > #calendar_yearlist > .year-content > .year-table {
     float: left;
     width: 240px;
     height: 210px;
     margin: 6px;
   }
-  body.landscape > .viewContainer > #calendar_yearlist td.calendar-day {
+  .viewContainer > #calendar_yearlist td.calendar-day {
     padding: 6px 0px 6px 0px !important;
     width: 34px;
     font-size: .7em;
   }
-  body.landscape > .viewContainer > #calendar_yearlist tr.calendar-week-header {
+  .viewContainer > #calendar_yearlist tr.calendar-week-header {
     padding: 3px 0 0 0 !important;
     font-size: 0.7em;
   }
-  body.landscape > .viewContainer > #calendar_yearlist .activity-count {
+  .viewContainer > #calendar_yearlist .activity-count {
     top: 8px;
     right: 0px !important;
     padding: 0px 2px 2px 2px;
