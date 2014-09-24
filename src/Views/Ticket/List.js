@@ -93,7 +93,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
 
         //View Properties
         detailView: 'ticket_detail',
-        iconClass: 'fa fa-ticket fa-lg',
+        itemIconClass: 'fa fa-clipboard fa-2x',
         id: 'ticket_list',
         security: 'Entities/Ticket/View',
         insertView: 'ticket_edit',

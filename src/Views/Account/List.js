@@ -88,7 +88,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
 
         //View Properties
         detailView: 'account_detail',
-        iconClass: 'fa fa-building-o fa-lg',
+        itemIconClass: 'fa fa-building-o fa-2x',
         id: 'account_list',
         security: 'Entities/Account/View',
         insertView: 'account_edit',

@@ -96,7 +96,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         //View Properties
         id: 'opportunity_list',
         security: 'Entities/Opportunity/View',
-        iconClass: 'fa fa-bar-chart-o fa-lg',
+        itemIconClass: 'fa fa-money fa-2x',
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
         queryOrderBy: 'EstimatedClose desc',
