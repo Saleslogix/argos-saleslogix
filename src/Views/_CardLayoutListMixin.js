@@ -36,6 +36,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     moment
 ) {
 
+    var mixinName = 'Mobile.SalesLogix.Views._CardLayoutListMixin';
+
     return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
         itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText:'Contact',
@@ -217,8 +219,9 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return false;
         },
         requestData: function(){
+            var mixin = lang.getObject(mixinName);
             if (this.searchWidget) {
-                this.currentSearchExpression = this.searchWidget.getSearchExpression() || this.allRecordsText;
+                this.currentSearchExpression = this.searchWidget.getSearchExpression() || mixin.prototype.allRecordsText;
             }
 
             this.inherited(arguments);
