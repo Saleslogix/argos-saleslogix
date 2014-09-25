@@ -66,6 +66,15 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
         countMoreText: 'View More',
         activityHeaderText: 'Activities',
         toggleCollapseText: 'toggle collapse',
+        weekDaysShortText: [
+            'Sun',
+            'Mon',
+            'Tue',
+            'Wed',
+            'Thu',
+            'Fri',
+            'Sat'
+        ],
 
         //Templates
         widgetTemplate: new Simplate([
@@ -741,7 +750,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
 
             calHTML.push(this.calendarWeekHeaderStartTemplate);
             for (i = 0; i <= 6; i++ ) {
-                calHTML.push(string.substitute(this.calendarWeekHeaderTemplate, [moment.langData().weekdaysShort(moment().day(i))]));
+                calHTML.push(string.substitute(this.calendarWeekHeaderTemplate, [this.weekDaysShortText[i]]));
             }
             calHTML.push(this.calendarWeekHeaderEndTemplate);
 

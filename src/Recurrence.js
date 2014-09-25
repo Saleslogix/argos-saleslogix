@@ -53,7 +53,15 @@ define('Mobile/SalesLogix/Recurrence', [
         monthAndDayFormatText: 'MM/DD',
         weekdayFormatText: 'dddd',
         endDateFormatText: 'M/D/YYYY',
-
+        weekDaysText: [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday'
+        ],
         ordText: [
             'day',
             'first',
@@ -227,11 +235,7 @@ define('Mobile/SalesLogix/Recurrence', [
             for (var i = 0; i < this._weekDayValues.length; i++) {
                 if (names) {
                     if (rps & this._weekDayValues[i]) {
-                        if (moment().lang()._abbr === 'ru') {
-                            weekdays.push(moment().lang()._weekdaysShort[i]);
-                        } else {
-                            weekdays.push(moment().lang()._weekdays[i]);
-                        }
+                        weekdays.push(this.weekDaysText[i]);
                     }
 
                 } else {
