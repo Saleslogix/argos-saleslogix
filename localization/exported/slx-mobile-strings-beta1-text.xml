@@ -12,6 +12,54 @@
     <description/>
     <value>PM</value>
   </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[0]" type="text">
+    <description/>
+    <value>Jan</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[1]" type="text">
+    <description/>
+    <value>Feb</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[2]" type="text">
+    <description/>
+    <value>Mar</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[3]" type="text">
+    <description/>
+    <value>Apr</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[4]" type="text">
+    <description/>
+    <value>May</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[5]" type="text">
+    <description/>
+    <value>Jun</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[6]" type="text">
+    <description/>
+    <value>Jul</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[7]" type="text">
+    <description/>
+    <value>Aug</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[8]" type="text">
+    <description/>
+    <value>Sep</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[9]" type="text">
+    <description/>
+    <value>Oct</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[10]" type="text">
+    <description/>
+    <value>Nov</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[11]" type="text">
+    <description/>
+    <value>Dec</value>
+  </data>
   <data class="Sage.Platform.Mobile.ErrorManager" property="abortedText" type="text">
     <description/>
     <value>Aborted</value>
