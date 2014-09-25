@@ -154,7 +154,7 @@
                         return;
                     }
 
-                    var culture = '<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.Name.ToLower() %>';
+                    var culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
                     moment.lang(culture);
                     configuration.currentCulture = culture;
                     window.moment = moment;
@@ -270,7 +270,7 @@
 
     protected IEnumerable<FileItem> EnumerateLocalizations(string root, string path, string culture)
     {
-        var currentCulture = System.Globalization.CultureInfo.CurrentUICulture;
+        var currentCulture = System.Globalization.CultureInfo.CurrentCulture;
         var rootDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(Request.PhysicalPath), root));
         var includeDirectory = new DirectoryInfo(Path.Combine(rootDirectory.FullName, path));
         

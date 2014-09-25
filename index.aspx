@@ -117,7 +117,7 @@
                         return;
                     }
 
-                    var culture = '<%= System.Globalization.CultureInfo.CurrentUICulture.Parent.Name.ToLower() %>';
+                    var culture = '<%= System.Globalization.CultureInfo.CurrentCulture.Parent.Name.ToLower() %>';
                     moment.lang(culture);
                     configuration.currentCulture = culture;
                     window.moment = moment;
