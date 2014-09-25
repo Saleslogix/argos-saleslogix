@@ -85,6 +85,15 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             'Opportunity': 'Opportunity',
             'Ticket': 'Ticket'
         },
+        itemIconByType: {
+            'Contact': 'fa-user',
+            'Account': 'fa-building-o',
+            'Opportunity': 'fa-money',
+            'Ticket': 'fa-clipboard',
+            'Lead': 'fa-filter',
+            'Activity': 'fa-calendar-o',
+            'History': 'fa-history'
+        },
         currentPage: null,
 
         clear: function() {
@@ -93,6 +102,20 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
         },
         _formatFieldName: function(fieldName) {
 
+        },
+        getItemIconClass: function(entry) {
+            var cls, typeCls, type = entry && entry.type;
+            cls = this.itemIconClass;
+            typeCls = this.itemIconByType[type];
+            if (typeCls) {
+                cls = typeCls;
+            }
+
+            if (cls) {
+                cls = 'fa ' + cls + ' fa-2x';
+            }
+
+            return cls;
         },
         extractTypeFromItem: function(item) {
             for (var i = 0; i < this.types.length; i++) {
