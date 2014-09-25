@@ -90,7 +90,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         timelessDateFormatText: 'M/D/YYYY',
         alarmDateFormatText: 'M/D/YYYY h:mm:ss A',
         recurrenceText: 'recurrence',
-        confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',
+        confirmEditRecurrenceText: 'Edit all Occurrences? Cancel to edit single Occurrence.',
         relatedAttachmentText: 'Attachments',
         relatedAttachmentTitleText: 'Activity Attachments',
         relatedItemsText:'Related Items',
