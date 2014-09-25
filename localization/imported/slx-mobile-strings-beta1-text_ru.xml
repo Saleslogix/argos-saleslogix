@@ -11,62 +11,6 @@
     <description/>
     <value>п. п.</value>
   </data>
-  <data class="Sage.Platform.Mobile.Detail" property="editText" type="text">
-    <description/>
-    <value>Изменить</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="titleText" type="text">
-    <description/>
-    <value>Детали</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="detailsText" type="text">
-    <description/>
-    <value>Детали</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="toggleCollapseText" type="text">
-    <description/>
-    <value>показать/скрыть</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="loadingText" type="text">
-    <description/>
-    <value>Загрузка...</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="requestErrorText" type="text">
-    <description/>
-    <value>При запросе данных возникла ошибка сервера.</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="notAvailableText" type="text">
-    <description/>
-    <value>Запрошенная запись недоступна.</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="saveText" type="text">
-    <description/>
-    <value>Сохранить</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="titleText" type="text">
-    <description/>
-    <value>Изменить</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="toggleCollapseText" type="text">
-    <description/>
-    <value>показать/скрыть</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="validationSummaryText" type="text">
-    <description/>
-    <value>Сводка проверки</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="detailsText" type="text">
-    <description/>
-    <value>Детали</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="loadingText" type="text">
-    <description/>
-    <value>Загрузка...</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="requestErrorText" type="text">
-    <description/>
-    <value>При запросе данных возникла ошибка сервера.</value>
-  </data>
   <data class="Sage.Platform.Mobile.ErrorManager" property="abortedText" type="text">
     <description/>
     <value>Прервано</value>
@@ -77,11 +21,11 @@
   </data>
   <data class="Sage.Platform.Mobile.Fields.BooleanField" property="onText" type="text">
     <description/>
-    <value>Да</value>
+    <value>на</value>
   </data>
   <data class="Sage.Platform.Mobile.Fields.BooleanField" property="offText" type="text">
     <description/>
-    <value>Нет</value>
+    <value>Выкл.</value>
   </data>
   <data class="Sage.Platform.Mobile.Fields.DateField" property="emptyText" type="text">
     <description/>
@@ -295,46 +239,6 @@
     <description/>
     <value>Раздел групп по значению</value>
   </data>
-  <data class="Sage.Platform.Mobile.List" property="moreText" type="text">
-    <description/>
-    <value>Получить больше записей</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="emptySelectionText" type="text">
-    <description/>
-    <value>Нет</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="titleText" type="text">
-    <description/>
-    <value>Список</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="errorRenderText" type="text">
-    <description/>
-    <value>Ошибка при визуализации шаблона строки.</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="remainingText" type="text">
-    <description/>
-    <value>Осталось записей: ${0}</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="cancelText" type="text">
-    <description/>
-    <value>Отмена</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="insertText" type="text">
-    <description/>
-    <value>Создать</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="noDataText" type="text">
-    <description/>
-    <value>Нет записей</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="loadingText" type="text">
-    <description/>
-    <value>Загрузка...</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="requestErrorText" type="text">
-    <description/>
-    <value>При запросе данных возникла ошибка сервера.</value>
-  </data>
   <data class="Sage.Platform.Mobile.MainToolbar" property="titleText" type="text">
     <description/>
     <value>Мобильный тел.</value>
@@ -345,7 +249,7 @@
   </data>
   <data class="Sage.Platform.Mobile.RelatedViewWidget" property="selectMoreDataText" type="text">
     <description/>
-    <value>показать еще ${0} для ${1} ... </value>
+    <value>показать еще ${0} ${1} ... </value>
   </data>
   <data class="Sage.Platform.Mobile.RelatedViewWidget" property="navToListText" type="text">
     <description/>
@@ -366,6 +270,10 @@
   <data class="Sage.Platform.Mobile.RelatedViewWidget" property="totalCountText" type="text">
     <description/>
     <value> (${0})</value>
+  </data>
+  <data class="Sage.Platform.Mobile.RelatedViewWidget" property="titleText" type="text">
+    <description/>
+    <value>Связанное представление</value>
   </data>
   <data class="Sage.Platform.Mobile.SearchWidget" property="searchText" type="text">
     <description/>
@@ -413,7 +321,7 @@
   </data>
   <data class="Sage.Platform.Mobile.Views.Signature" property="titleText" type="text">
     <description/>
-    <value>Подпись</value>
+    <value>подпись</value>
   </data>
   <data class="Sage.Platform.Mobile.Views.Signature" property="clearCanvasText" type="text">
     <description/>
@@ -422,6 +330,102 @@
   <data class="Sage.Platform.Mobile.Views.Signature" property="undoText" type="text">
     <description/>
     <value>Отменить ввод</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="editText" type="text">
+    <description/>
+    <value>Изменить</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="titleText" type="text">
+    <description/>
+    <value>Детали</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="detailsText" type="text">
+    <description/>
+    <value>Детали</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="loadingText" type="text">
+    <description/>
+    <value>Загрузка...</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="requestErrorText" type="text">
+    <description/>
+    <value>При запросе данных возникла ошибка сервера.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="notAvailableText" type="text">
+    <description/>
+    <value>Запрошенные данные недоступны.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="saveText" type="text">
+    <description/>
+    <value>Сохранить</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="titleText" type="text">
+    <description/>
+    <value>Изменить</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="validationSummaryText" type="text">
+    <description/>
+    <value>Сводка проверки</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="concurrencySummaryText" type="text">
+    <description/>
+    <value>Ошибки при совместном доступе</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="detailsText" type="text">
+    <description/>
+    <value>Детали</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="loadingText" type="text">
+    <description/>
+    <value>Загрузка...</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="requestErrorText" type="text">
+    <description/>
+    <value>При запросе данных возникла ошибка сервера.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="concurrencyErrorText" type="text">
+    <description/>
+    <value>Другой пользователь обновил это поле.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="moreText" type="text">
+    <description/>
+    <value>Получить больше записей</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="emptySelectionText" type="text">
+    <description/>
+    <value>Нет</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="titleText" type="text">
+    <description/>
+    <value>Список</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="errorRenderText" type="text">
+    <description/>
+    <value>Ошибка при визуализации шаблона строки.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="remainingText" type="text">
+    <description/>
+    <value>Осталось записей: ${0}</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="cancelText" type="text">
+    <description/>
+    <value>Отмена</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="insertText" type="text">
+    <description/>
+    <value>Создать</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="noDataText" type="text">
+    <description/>
+    <value>Нет записей</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="loadingText" type="text">
+    <description/>
+    <value>Загрузка...</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="requestErrorText" type="text">
+    <description/>
+    <value>При запросе данных возникла ошибка сервера.</value>
   </data>
   <data class="Mobile.SalesLogix.Action" property="calledText" type="text">
     <description/>
@@ -433,7 +437,7 @@
   </data>
   <data class="Mobile.SalesLogix.Application" property="versionInfoText" type="text">
     <description/>
-    <value>Мобильная v${0}.${1}.${2} / платформа Saleslogix v${3}</value>
+    <value>Mobile v${0}.${1}.${2} / платформа Saleslogix v${3}</value>
   </data>
   <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="text">
     <description/>
@@ -441,7 +445,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="accountsText[totalRevenue]" type="text">
     <description/>
-    <value>Общий доход</value>
+    <value>Сумарный доход</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="accountsText[averageTime]" type="text">
     <description/>
@@ -457,7 +461,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[potential]" type="text">
     <description/>
-    <value>Потенциал продаж</value>
+    <value>План</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="ticketsText[total]" type="text">
     <description/>
@@ -473,7 +477,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="leadsText[total]" type="text">
     <description/>
-    <value>Всего идей</value>
+    <value>Всего наводок</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="historyText[total]" type="text">
     <description/>
@@ -481,7 +485,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="historyText[duration]" type="text">
     <description/>
-    <value>Общая продолжительность</value>
+    <value>Общая длительность</value>
   </data>
   <data class="Mobile.SalesLogix.Fields.AddressField" property="lookupLabelText" type="text">
     <description/>
@@ -517,7 +521,7 @@
   </data>
   <data class="Mobile.SalesLogix.FileManager" property="largeFileWarningText" type="text">
     <description/>
-    <value>Внимание! Сбой отправки. Запрос превышает ограничение, установленное администратором.</value>
+    <value>Предупреждение: запрос не смог быть загружен так как он превышает ограничение на размер установленное администратором.</value>
   </data>
   <data class="Mobile.SalesLogix.FileManager" property="percentCompleteText" type="text">
     <description/>
@@ -534,6 +538,18 @@
   <data class="Mobile.SalesLogix.Format" property="bigNumberAbbrText[thousand]" type="text">
     <description/>
     <value>тыс.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="userActivityFormatText[asUnconfirmed]" type="text">
+    <description/>
+    <value>Неподтверженный</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="userActivityFormatText[asAccepted]" type="text">
+    <description/>
+    <value>Принят</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="userActivityFormatText[asDeclned]" type="text">
+    <description/>
+    <value>Отклонено</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="neverText" type="text">
     <description/>
@@ -569,7 +585,7 @@
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="monthlyOnDayText" type="text">
     <description/>
-    <value>Ежемесячно (${1})</value>
+    <value>Ежемесячно (${1}-го числа)</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="monthlyOnText" type="text">
     <description/>
@@ -609,7 +625,7 @@
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[1]" type="text">
     <description/>
-    <value>Имя</value>
+    <value>Первый</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[2]" type="text">
     <description/>
@@ -681,7 +697,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="acctMgrText" type="text">
     <description/>
-    <value>Менеджер учетной записи</value>
+    <value>Менеджер</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="addressText" type="text">
     <description/>
@@ -769,7 +785,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedAttachmentTitleText" type="text">
     <description/>
-    <value>Вложения учетной записи</value>
+    <value>Вложения субъекта</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="statusText" type="text">
     <description/>
@@ -791,10 +807,6 @@
     <description/>
     <value>Веб-адрес</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Account.Detail" property="callMainNumberText" type="text">
-    <description/>
-    <value>Вызов по основному номеру</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="scheduleActivityText" type="text">
     <description/>
     <value>Планировать дело</value>
@@ -802,10 +814,6 @@
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="addNoteText" type="text">
     <description/>
     <value>Добавить заметку</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.Detail" property="viewAddressText" type="text">
-    <description/>
-    <value>Просмотр адреса</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -817,11 +825,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="accountStatusTitleText" type="text">
     <description/>
-    <value>Статус учетной записи</value>
+    <value>Статус субъекта</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="accountSubTypeTitleText" type="text">
     <description/>
-    <value>Подтип учетной записи</value>
+    <value>Подтип субъекта</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="accountText" type="text">
     <description/>
@@ -833,7 +841,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="acctMgrText" type="text">
     <description/>
-    <value>Менеджер учетной записи</value>
+    <value>Менеджер</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="businessDescriptionText" type="text">
     <description/>
@@ -943,90 +951,6 @@
     <description/>
     <value>Факс: </value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[active]" type="text">
-    <description/>
-    <value>Активн.</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[inactive]" type="text">
-    <description/>
-    <value>Отказ от сделки</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[suspect]" type="text">
-    <description/>
-    <value>Подозрительный</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[lead]" type="text">
-    <description/>
-    <value>Наводка</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[prospect]" type="text">
-    <description/>
-    <value>Потенциальный клиент</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[customer]" type="text">
-    <description/>
-    <value>Клиент</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[partner]" type="text">
-    <description/>
-    <value>Партнер</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[vendor]" type="text">
-    <description/>
-    <value>Поставщик</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[influencer]" type="text">
-    <description/>
-    <value>Влиятель</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[competitor]" type="text">
-    <description/>
-    <value>Конкурент</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[my-accounts]" type="text">
-    <description/>
-    <value>мои-учетные-записи</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[active]" type="text">
-    <description/>
-    <value>Активн.</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[inactive]" type="text">
-    <description/>
-    <value>Отказ-от-сделки</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[suspect]" type="text">
-    <description/>
-    <value>подозрительный</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[lead]" type="text">
-    <description/>
-    <value>Наводка</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[prospect]" type="text">
-    <description/>
-    <value>Потенциальный-клиент</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[customer]" type="text">
-    <description/>
-    <value>Клиент</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[partner]" type="text">
-    <description/>
-    <value>Партнер</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[vendor]" type="text">
-    <description/>
-    <value>Поставщик</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[influencer]" type="text">
-    <description/>
-    <value>Влиятель</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[competitor]" type="text">
-    <description/>
-    <value>Конкурент</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="activityInfoText" type="text">
     <description/>
     <value>Информация о действии</value>
@@ -1097,7 +1021,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="leaderText" type="text">
     <description/>
-    <value>Куратор</value>
+    <value>Руководитель</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="longNotesText" type="text">
     <description/>
@@ -1141,7 +1065,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="timelessText" type="text">
     <description/>
-    <value>Без-времени</value>
+    <value>В течение дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[0]" type="text">
     <description/>
@@ -1181,7 +1105,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followupValueText[atToDo]" type="text">
     <description/>
-    <value>Выполнить</value>
+    <value>Дело</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followupValueText[atPersonal]" type="text">
     <description/>
@@ -1189,7 +1113,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="activityTypeText[atToDo]" type="text">
     <description/>
-    <value>Выполнить</value>
+    <value>Дело</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="activityTypeText[atPhoneCall]" type="text">
     <description/>
@@ -1245,7 +1169,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="leaderText" type="text">
     <description/>
-    <value>Куратор</value>
+    <value>Руководитель</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="longNotesText" type="text">
     <description/>
@@ -1273,7 +1197,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="timelessText" type="text">
     <description/>
-    <value>Без-времени</value>
+    <value>В течение дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="titleText" type="text">
     <description/>
@@ -1390,7 +1314,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="leaderText" type="text">
     <description/>
-    <value>Куратор</value>
+    <value>Руководитель</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="longNotesText" type="text">
     <description/>
@@ -1422,11 +1346,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="repeatsText" type="text">
     <description/>
-    <value>повтор</value>
+    <value>Повтор</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="recurringText" type="text">
     <description/>
-    <value>повторяется</value>
+    <value>Повторяется</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="recurringTitleText" type="text">
     <description/>
@@ -1434,7 +1358,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="timelessText" type="text">
     <description/>
-    <value>Без-времени</value>
+    <value>В течение дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="titleText" type="text">
     <description/>
@@ -1574,15 +1498,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="recurringText" type="text">
     <description/>
-    <value>повторяется</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityText" type="text">
-    <description/>
-    <value>Дело</value>
+    <value>Повторяется</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
     <description/>
-    <value>Выполнить</value>
+    <value>Дело</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atPhoneCall]" type="text">
     <description/>
@@ -1622,11 +1542,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[recurring]" type="text">
     <description/>
-    <value>повторяется</value>
+    <value>Повторяется</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>Без-времени</value>
+    <value>В_течение_дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[today]" type="text">
     <description/>
@@ -1686,23 +1606,23 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[status-unconfirmed]" type="text">
     <description/>
-    <value>статус-нет-подтверждения</value>
+    <value>Неподтвержденные</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[status-accepted]" type="text">
     <description/>
-    <value>статус-утверждено</value>
+    <value>Подтвержденные</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[status-declined]" type="text">
     <description/>
-    <value>статус-отмена</value>
+    <value>Отмененные</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[recurring]" type="text">
     <description/>
-    <value>повторяется</value>
+    <value>Повторяется</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>Без-времени</value>
+    <value>В_течение_дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[today]" type="text">
     <description/>
@@ -1726,7 +1646,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="repeatsText" type="text">
     <description/>
-    <value>повтор</value>
+    <value>Повтор</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="everyText" type="text">
     <description/>
@@ -1754,7 +1674,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="onText" type="text">
     <description/>
-    <value>да</value>
+    <value>на</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="occurrencesText" type="text">
     <description/>
@@ -1794,7 +1714,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="titleText" type="text">
     <description/>
-    <value>Периодичность</value>
+    <value>периодичность</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="titleText" type="text">
     <description/>
@@ -1802,7 +1722,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="activityTypeText[atToDo]" type="text">
     <description/>
-    <value>Выполнить</value>
+    <value>Дело</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.TypesList" property="activityTypeText[atPhoneCall]" type="text">
     <description/>
@@ -1830,11 +1750,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="accountStatusTitleText" type="text">
     <description/>
-    <value>Состояние учетной записи</value>
+    <value>Статус субъекта</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="accountSubTypeTitleText" type="text">
     <description/>
-    <value>Подтип учетной записи</value>
+    <value>Подтип субъекта</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="accountText" type="text">
     <description/>
@@ -1846,7 +1766,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="acctMgrText" type="text">
     <description/>
-    <value>Менеджер учетной записи</value>
+    <value>Менеджер</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="addressText" type="text">
     <description/>
@@ -1862,7 +1782,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="detailsAccountText" type="text">
     <description/>
-    <value>Данные учетной записи</value>
+    <value>Данные субъекта</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="detailsContactText" type="text">
     <description/>
@@ -1870,7 +1790,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="detailsText" type="text">
     <description/>
-    <value>Данные контакта и учетной записи</value>
+    <value>Данные контакта и субъекта</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="emailText" type="text">
     <description/>
@@ -1894,7 +1814,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="lastNameText" type="text">
     <description/>
-    <value>Фамилия</value>
+    <value>Последний</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="mobileText" type="text">
     <description/>
@@ -1914,7 +1834,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="titleText" type="text">
     <description/>
-    <value>Добавить контакт/учетную запись</value>
+    <value>Добавить контакт/субъект</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="typeText" type="text">
     <description/>
@@ -1923,6 +1843,10 @@
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="webText" type="text">
     <description/>
     <value>Веб-адрес</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="phoneText" type="text">
+    <description/>
+    <value>Телефон</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="workText" type="text">
     <description/>
@@ -1978,7 +1902,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="postalCodeText" type="text">
     <description/>
-    <value>Индекс</value>
+    <value>Почтовый</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="salutationText" type="text">
     <description/>
@@ -1986,11 +1910,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="stateText" type="text">
     <description/>
-    <value>Штат</value>
+    <value>Регион/Область</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="stateTitleText" type="text">
     <description/>
-    <value>Штат</value>
+    <value>Регион/Область</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="titleText" type="text">
     <description/>
@@ -2051,10 +1975,6 @@
   <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="userText" type="text">
     <description/>
     <value>Пользователь</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="newWindowText" type="text">
-    <description/>
-    <value>Открыть в новом окне</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="attachmentNotSupportedText" type="text">
     <description/>
@@ -2174,7 +2094,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="allDayText" type="text">
     <description/>
-    <value>Круглосуточн.</value>
+    <value>Дата начала</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="eventHeaderText" type="text">
     <description/>
@@ -2226,7 +2146,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="acctMgrText" type="text">
     <description/>
-    <value>Менеджер учетной записи</value>
+    <value>Менеджер</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="addressText" type="text">
     <description/>
@@ -2234,7 +2154,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="contactTitleText" type="text">
     <description/>
-    <value>должность</value>
+    <value>Должность</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="createDateText" type="text">
     <description/>
@@ -2322,7 +2242,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="cuisinePreferenceText" type="text">
     <description/>
-    <value>Предпочтения в еде</value>
+    <value>Предпочтения в кухне</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="callMobileNumberText" type="text">
     <description/>
@@ -2382,7 +2302,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="acctMgrText" type="text">
     <description/>
-    <value>Менеджер учетной записи</value>
+    <value>Менеджер</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="accountNameText" type="text">
     <description/>
@@ -2402,7 +2322,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="contactTitleText" type="text">
     <description/>
-    <value>должность</value>
+    <value>Должность</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="titleTitleText" type="text">
     <description/>
@@ -2418,11 +2338,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="cuisinePreferenceText" type="text">
     <description/>
-    <value>Предпочтения в еде</value>
+    <value>Предпочтения в кухне</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="cuisinePreferenceTitleText" type="text">
     <description/>
-    <value>Предпочтения в еде</value>
+    <value>Предпочтения в кухне</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.List" property="titleText" type="text">
     <description/>
@@ -2484,38 +2404,6 @@
     <description/>
     <value>Мобильный тел.: </value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[my-contacts]" type="text">
-    <description/>
-    <value>мои-контакты</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[primary]" type="text">
-    <description/>
-    <value>Основной</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[not-primary]" type="text">
-    <description/>
-    <value>неосновной</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-email]" type="text">
-    <description/>
-    <value>есть-эл.-почта</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-phone]" type="text">
-    <description/>
-    <value>есть-телефон</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-fax]" type="text">
-    <description/>
-    <value>есть-факс</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-mail]" type="text">
-    <description/>
-    <value>есть-почта</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-solicit]" type="text">
-    <description/>
-    <value>есть-запрос</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Contract.List" property="titleText" type="text">
     <description/>
     <value>Контракты</value>
@@ -2544,14 +2432,6 @@
     <description/>
     <value>Подробнее</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="severityText" type="text">
-    <description/>
-    <value>Важность</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="statusCodeText" type="text">
-    <description/>
-    <value>Код статуса</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="errorText" type="text">
     <description/>
     <value>Ошибка</value>
@@ -2570,7 +2450,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Event.Detail" property="eventTypeText[atToDo]" type="text">
     <description/>
-    <value>Выполнить</value>
+    <value>Дело</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Event.Detail" property="eventTypeText[atPhoneCall]" type="text">
     <description/>
@@ -2636,6 +2516,22 @@
     <description/>
     <value>Дата окончания</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Vacation]" type="text">
+    <description/>
+    <value>Вакансия</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Business Trip]" type="text">
+    <description/>
+    <value>Командировка</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Conference]" type="text">
+    <description/>
+    <value>Конференция</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Holiday]" type="text">
+    <description/>
+    <value>Праздник</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Event.List" property="titleText" type="text">
     <description/>
     <value>События</value>
@@ -2651,6 +2547,10 @@
   <data class="Mobile.SalesLogix.Views.FooterToolbar" property="copyrightText" type="text">
     <description/>
     <value>&amp;copy; 2014 SalesLogix, NA, LLC. Все права защищены.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Groups.Selector" property="titleText" type="text">
+    <description/>
+    <value>Просмотр групп</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Help" property="titleText" type="text">
     <description/>
@@ -2678,7 +2578,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="leaderText" type="text">
     <description/>
-    <value>Куратор</value>
+    <value>Руководитель</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="longNotesText" type="text">
     <description/>
@@ -2706,7 +2606,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="timelessText" type="text">
     <description/>
-    <value>Без-времени</value>
+    <value>В течение дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="companyText" type="text">
     <description/>
@@ -2762,7 +2662,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="activityTypeText[atToDo]" type="text">
     <description/>
-    <value>Выполнить</value>
+    <value>Дело</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="activityTypeText[atPhoneCall]" type="text">
     <description/>
@@ -2852,9 +2752,17 @@
     <description/>
     <value>Нет</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="validationText" type="text">
+    <description/>
+    <value>Поле "${2}" должно иметь значение.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="validationCanEditText" type="text">
+    <description/>
+    <value>У вас нет прав для редактирования</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atToDo]" type="text">
     <description/>
-    <value>Выполнить</value>
+    <value>Дело</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atPhoneCall]" type="text">
     <description/>
@@ -2882,7 +2790,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[my-history]" type="text">
     <description/>
-    <value>мой-журнал</value>
+    <value>моя-история</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[note]" type="text">
     <description/>
@@ -2946,7 +2854,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Home" property="addAccountContactText" type="text">
     <description/>
-    <value>Добавить контакт/учетную запись</value>
+    <value>Добавить контакт/субъект</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Home" property="titleText" type="text">
     <description/>
@@ -3006,7 +2914,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="leadTitleText" type="text">
     <description/>
-    <value>должность</value>
+    <value>Должность</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="nameText" type="text">
     <description/>
@@ -3058,7 +2966,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="mobileText" type="text">
     <description/>
-    <value>мобильный телефон</value>
+    <value>Мобильный телефон</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="webText" type="text">
     <description/>
@@ -3126,7 +3034,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="contactTitleText" type="text">
     <description/>
-    <value>должность</value>
+    <value>Должность</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="emailText" type="text">
     <description/>
@@ -3198,7 +3106,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="mobileText" type="text">
     <description/>
-    <value>мобильный телефон</value>
+    <value>Мобильный телефон</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.List" property="titleText" type="text">
     <description/>
@@ -3264,30 +3172,6 @@
     <description/>
     <value>Справочный тел.: </value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[my-leads]" type="text">
-    <description/>
-    <value>мои-интересы</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-email]" type="text">
-    <description/>
-    <value>есть-эл.-почта</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-phone]" type="text">
-    <description/>
-    <value>есть-телефон</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-fax]" type="text">
-    <description/>
-    <value>есть-факс</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-mail]" type="text">
-    <description/>
-    <value>есть-почта</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-solicit]" type="text">
-    <description/>
-    <value>есть-запрос</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.LeadSource.List" property="titleText" type="text">
     <description/>
     <value>Источники наводки</value>
@@ -3298,7 +3182,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.LeftDrawer" property="addAccountContactText" type="text">
     <description/>
-    <value>Добавить контакт/учетную запись</value>
+    <value>Добавить контакт/субъект</value>
   </data>
   <data class="Mobile.SalesLogix.Views.LeftDrawer" property="titleText" type="text">
     <description/>
@@ -3332,13 +3216,25 @@
     <description/>
     <value>Уверены, что хотите выйти?</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.LogOff" property="messageText" type="text">
+    <description/>
+    <value>Вы вышли из системы. Закройте окно браузера.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LogOff" property="loginText" type="text">
+    <description/>
+    <value>Нажмите здесь, чтобы вернуться в систему.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LogOff" property="titleText" type="text">
+    <description/>
+    <value>Выполнен выход</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2014 SalesLogix, NA, LLC. Все права защищены.</value>
+    <value>&amp;copy; Infor, 2014 г. Все права защищены. www.infor.com</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
-    <value>Войти в систему Saleslogix</value>
+    <value>Вход</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="passText" type="text">
     <description/>
@@ -3346,7 +3242,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="rememberText" type="text">
     <description/>
-    <value>запомнить</value>
+    <value>Запомнить</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="titleText" type="text">
     <description/>
@@ -3374,7 +3270,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.MainToolbar" property="titleText" type="text">
     <description/>
-    <value>Saleslogix</value>
+    <value>SalesLogix</value>
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="titleText" type="text">
     <description/>
@@ -3382,7 +3278,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="metricTitleText" type="text">
     <description/>
-    <value>должность</value>
+    <value>Должность</value>
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="metricFilterText" type="text">
     <description/>
@@ -3420,13 +3316,17 @@
     <description/>
     <value>Загрузка...</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.MetricWidget" property="errorText" type="text">
+    <description/>
+    <value>Ошибка при загрузке виджета.</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="titleText" type="text">
     <description/>
     <value>Изменить имя</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="firstNameText" type="text">
     <description/>
-    <value>Имя</value>
+    <value>Первый</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="middleNameText" type="text">
     <description/>
@@ -3434,7 +3334,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="lastNameText" type="text">
     <description/>
-    <value>Фамилия</value>
+    <value>Последний</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="prefixText" type="text">
     <description/>
@@ -3454,11 +3354,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="accountText" type="text">
     <description/>
-    <value>учетная запись</value>
+    <value>Субъект</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="acctMgrText" type="text">
     <description/>
-    <value>Менеджер учетной записи</value>
+    <value>Менеджер</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="estCloseText" type="text">
     <description/>
@@ -3510,7 +3410,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="probabilityText" type="text">
     <description/>
-    <value>вероятность закрытия</value>
+    <value>Вероятность закрытия</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="relatedActivitiesText" type="text">
     <description/>
@@ -3594,11 +3494,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="accountText" type="text">
     <description/>
-    <value>учетная запись</value>
+    <value>Субъект</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="acctMgrText" type="text">
     <description/>
-    <value>Менеджер учетной записи</value>
+    <value>Менеджер</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="estCloseText" type="text">
     <description/>
@@ -3634,7 +3534,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="probabilityText" type="text">
     <description/>
-    <value>вероятность закрытия</value>
+    <value>Вероятность закрытия</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="probabilityTitleText" type="text">
     <description/>
@@ -3732,46 +3632,6 @@
     <description/>
     <value>План. закрытие </value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[my-opportunities]" type="text">
-    <description/>
-    <value>мои-сделки</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[open]" type="text">
-    <description/>
-    <value>Открытая</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[closed]" type="text">
-    <description/>
-    <value>Закрыта</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[won]" type="text">
-    <description/>
-    <value>успех</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[lost]" type="text">
-    <description/>
-    <value>неудача</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[inactive]" type="text">
-    <description/>
-    <value>Отказ-от-сделки</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[open]" type="text">
-    <description/>
-    <value>Открытая</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[won]" type="text">
-    <description/>
-    <value>Закрыта и выиграна</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[lost]" type="text">
-    <description/>
-    <value>Закрыта и проиграна</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[inactive]" type="text">
-    <description/>
-    <value>Отказ от сделки</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="titleText" type="text">
     <description/>
     <value>Контакт по сделке</value>
@@ -3782,7 +3642,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="contactTitleText" type="text">
     <description/>
-    <value>должность</value>
+    <value>Должность</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="nameText" type="text">
     <description/>
@@ -3802,7 +3662,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="personalBenefitsText" type="text">
     <description/>
-    <value>личная выгода</value>
+    <value>Личные достоинства</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="standingText" type="text">
     <description/>
@@ -3814,7 +3674,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="competitorNameText" type="text">
     <description/>
-    <value>конкурент</value>
+    <value>Конкурент</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="removeContactTitleText" type="text">
     <description/>
@@ -3830,7 +3690,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="titleText" type="text">
     <description/>
-    <value>Редактировать потенциальный контакт</value>
+    <value>Редактировать контакт</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="nameText" type="text">
     <description/>
@@ -3842,7 +3702,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="contactTitleText" type="text">
     <description/>
-    <value>должность</value>
+    <value>Должность</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="salesRoleText" type="text">
     <description/>
@@ -3854,7 +3714,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="personalBenefitsText" type="text">
     <description/>
-    <value>личная выгода</value>
+    <value>Личные достоинства</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="strategyText" type="text">
     <description/>
@@ -3878,7 +3738,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Edit" property="competitorPrefText" type="text">
     <description/>
-    <value>конкурент</value>
+    <value>Конкурент</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.List" property="titleText" type="text">
     <description/>
@@ -3958,7 +3818,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="adjustedPriceText" type="text">
     <description/>
-    <value>скорректированная цена</value>
+    <value>Скорректированная цена</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="myAdjustedPriceText" type="text">
     <description/>
@@ -4010,7 +3870,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="adjustedPriceText" type="text">
     <description/>
-    <value>скорректированная цена</value>
+    <value>Скорректированная цена</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="myAdjustedPriceText" type="text">
     <description/>
@@ -4234,7 +4094,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="accountText" type="text">
     <description/>
-    <value>учетная запись</value>
+    <value>Субъект</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="areaText" type="text">
     <description/>
@@ -4412,14 +4272,6 @@
     <description/>
     <value>Необход.  </value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Ticket.List" property="hashTagQueriesText[assigned-to-me]" type="text">
-    <description/>
-    <value>поручено-мне</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Ticket.List" property="hashTagQueriesText[completed-by-me]" type="text">
-    <description/>
-    <value>выполнено-мной</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Ticket.UrgencyLookup" property="titleText" type="text">
     <description/>
     <value>Срочность заявки</value>
@@ -4442,7 +4294,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="publicAccessText" type="text">
     <description/>
-    <value>публичный доступ</value>
+    <value>Общий доступ</value>
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="assignedDateText" type="text">
     <description/>
@@ -4466,7 +4318,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="rateTypeDescriptionText" type="text">
     <description/>
-    <value>тип оплаты</value>
+    <value>Тип ставки</value>
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="rateText" type="text">
     <description/>
@@ -4526,11 +4378,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="publicAccessText" type="text">
     <description/>
-    <value>публичный доступ</value>
+    <value>Общий доступ</value>
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="publicAccessTitleText" type="text">
     <description/>
-    <value>Публичный доступ</value>
+    <value>Общий доступ</value>
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="userText" type="text">
     <description/>
@@ -4588,6 +4440,10 @@
     <description/>
     <value>Доступно обновление. Нажмите для перезагрузки.</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.User.CalendarAccessList" property="titleText" type="text">
+    <description/>
+    <value>Ресурсы действия</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.User.List" property="titleText" type="text">
     <description/>
     <value>Пользователи</value>
@@ -4600,20 +4456,40 @@
     <description/>
     <value>поиск не выполнен</value>
   </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
+    <description/>
+    <value>Группа по умолчанию не установлена. Откройте меню справа и нажмите кнопку "Настроить" в разделе "Группы" для настройки групп.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
+    <description/>
+    <value>Текущая группа не найдена.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupsModeText" type="text">
+    <description/>
+    <value>В настоящий момент вы находитесь в режиме групп. Выполните поиск или выберите хэштег для выхода из режима групп.</value>
+  </data>
   <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="hashTagsSectionText" type="text">
     <description/>
-    <value>Хэш-теги</value>
+    <value>Группы</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="groupsSectionText" type="text">
+    <description/>
+    <value>Группы</value>
   </data>
   <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="kpiSectionText" type="text">
     <description/>
-    <value>КПЭ</value>
+    <value>KPI</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="configureGroupsText" type="text">
+    <description/>
+    <value>Конфигурировать</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="refreshGroupsText" type="text">
+    <description/>
+    <value>Обновить</value>
   </data>
   <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
     <description/>
     <value>Индексы</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="configureText" type="text">
-    <description/>
-    <value>Конфигурировать</value>
   </data>
 </localization>

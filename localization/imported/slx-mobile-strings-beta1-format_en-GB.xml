@@ -15,6 +15,10 @@
     <description/>
     <value>${0}${1}</value>
   </data>
+  <data class="Mobile.SalesLogix.GroupUtility" property="groupDateFormatText" type="format">
+    <description/>
+    <value>D/M/YYYY h:mm:ss A</value>
+  </data>
   <data class="Mobile.SalesLogix.Recurrence" property="dayFormatText" type="format">
     <description/>
     <value>DD</value>
@@ -66,14 +70,6 @@
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="startingTimelessFormatText" type="format">
     <description/>
     <value>D/M/YYYY</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Activity.List" property="startDateFormatText" type="format">
-    <description/>
-    <value>ddd D/M/YYYY</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Activity.List" property="startTimeFormatText" type="format">
-    <description/>
-    <value>h:mm A</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Attachment.List" property="attachmentDateFormatText" type="format">
     <description/>

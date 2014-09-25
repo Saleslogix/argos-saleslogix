@@ -356,6 +356,10 @@
     <description/>
     <value>The requested data is not available.</value>
   </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="toggleCollapseText" type="text">
+    <description/>
+    <value>toggle collapse</value>
+  </data>
   <data class="Sage.Platform.Mobile._EditBase" property="saveText" type="text">
     <description/>
     <value>Save</value>
@@ -438,7 +442,7 @@
   </data>
   <data class="Mobile.SalesLogix.Application" property="versionInfoText" type="text">
     <description/>
-    <value>Mobile v${0}.${1}.${2} / Saleslogix v${3} platform</value>
+    <value>Mobile v${0}.${1}.${2}</value>
   </data>
   <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="text">
     <description/>
@@ -3268,9 +3272,9 @@
     <description/>
     <value>The request was aborted.</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.MainToolbar" property="titleText" type="text">
+  <data class="Mobile.SalesLogix.Views.Login" property="logoText" type="text">
     <description/>
-    <value>Saleslogix</value>
+    <value>Infor CRM</value>
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="titleText" type="text">
     <description/>
@@ -4458,7 +4462,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
     <description/>
-    <value>No default group set. Open the right menu and press configure under the groups section to setup groups.</value>
+    <value>No default group set. Click here to configure groups.</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
     <description/>

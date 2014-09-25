@@ -11,62 +11,6 @@
     <description/>
     <value>PM</value>
   </data>
-  <data class="Sage.Platform.Mobile.Detail" property="editText" type="text">
-    <description/>
-    <value>Edit</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="titleText" type="text">
-    <description/>
-    <value>Detail</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="detailsText" type="text">
-    <description/>
-    <value>Details</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="toggleCollapseText" type="text">
-    <description/>
-    <value>toggle collapse</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="loadingText" type="text">
-    <description/>
-    <value>loading...</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="requestErrorText" type="text">
-    <description/>
-    <value>A server error occurred while requesting data.</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Detail" property="notAvailableText" type="text">
-    <description/>
-    <value>The requested entry is not available.</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="saveText" type="text">
-    <description/>
-    <value>Save</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="titleText" type="text">
-    <description/>
-    <value>Edit</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="toggleCollapseText" type="text">
-    <description/>
-    <value>toggle collapse</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="validationSummaryText" type="text">
-    <description/>
-    <value>Validation Summary</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="detailsText" type="text">
-    <description/>
-    <value>Details</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="loadingText" type="text">
-    <description/>
-    <value>loading...</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Edit" property="requestErrorText" type="text">
-    <description/>
-    <value>A server error occured while requesting data.</value>
-  </data>
   <data class="Sage.Platform.Mobile.ErrorManager" property="abortedText" type="text">
     <description/>
     <value>Aborted</value>
@@ -295,46 +239,6 @@
     <description/>
     <value>Group By Value Section</value>
   </data>
-  <data class="Sage.Platform.Mobile.List" property="moreText" type="text">
-    <description/>
-    <value>Retrieve More Records</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="emptySelectionText" type="text">
-    <description/>
-    <value>None</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="titleText" type="text">
-    <description/>
-    <value>List</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="errorRenderText" type="text">
-    <description/>
-    <value>Error rendering row template.</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="remainingText" type="text">
-    <description/>
-    <value>${0} records remaining</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="cancelText" type="text">
-    <description/>
-    <value>Cancel</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="insertText" type="text">
-    <description/>
-    <value>New</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="noDataText" type="text">
-    <description/>
-    <value>no records</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="loadingText" type="text">
-    <description/>
-    <value>loading...</value>
-  </data>
-  <data class="Sage.Platform.Mobile.List" property="requestErrorText" type="text">
-    <description/>
-    <value>A server error occurred while requesting data.</value>
-  </data>
   <data class="Sage.Platform.Mobile.MainToolbar" property="titleText" type="text">
     <description/>
     <value>Mobile</value>
@@ -366,6 +270,10 @@
   <data class="Sage.Platform.Mobile.RelatedViewWidget" property="totalCountText" type="text">
     <description/>
     <value> (${0})</value>
+  </data>
+  <data class="Sage.Platform.Mobile.RelatedViewWidget" property="titleText" type="text">
+    <description/>
+    <value>Related View</value>
   </data>
   <data class="Sage.Platform.Mobile.SearchWidget" property="searchText" type="text">
     <description/>
@@ -422,6 +330,102 @@
   <data class="Sage.Platform.Mobile.Views.Signature" property="undoText" type="text">
     <description/>
     <value>Undo</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="editText" type="text">
+    <description/>
+    <value>Edit</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="titleText" type="text">
+    <description/>
+    <value>Detail</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="loadingText" type="text">
+    <description/>
+    <value>loading...</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="requestErrorText" type="text">
+    <description/>
+    <value>A server error occurred while requesting data.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="notAvailableText" type="text">
+    <description/>
+    <value>The requested data is not available.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="saveText" type="text">
+    <description/>
+    <value>Save</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="titleText" type="text">
+    <description/>
+    <value>Edit</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="validationSummaryText" type="text">
+    <description/>
+    <value>Validation Summary</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="concurrencySummaryText" type="text">
+    <description/>
+    <value>Concurrency Error(s)</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="loadingText" type="text">
+    <description/>
+    <value>loading...</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="requestErrorText" type="text">
+    <description/>
+    <value>A server error occured while requesting data.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._EditBase" property="concurrencyErrorText" type="text">
+    <description/>
+    <value>Another user has updated this field.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="moreText" type="text">
+    <description/>
+    <value>Retrieve More Records</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="emptySelectionText" type="text">
+    <description/>
+    <value>None</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="titleText" type="text">
+    <description/>
+    <value>List</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="errorRenderText" type="text">
+    <description/>
+    <value>Error rendering row template.</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="remainingText" type="text">
+    <description/>
+    <value>${0} records remaining</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="cancelText" type="text">
+    <description/>
+    <value>Cancel</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="insertText" type="text">
+    <description/>
+    <value>New</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="noDataText" type="text">
+    <description/>
+    <value>no records</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="loadingText" type="text">
+    <description/>
+    <value>loading...</value>
+  </data>
+  <data class="Sage.Platform.Mobile._ListBase" property="requestErrorText" type="text">
+    <description/>
+    <value>A server error occurred while requesting data.</value>
   </data>
   <data class="Mobile.SalesLogix.Action" property="calledText" type="text">
     <description/>
@@ -534,6 +538,18 @@
   <data class="Mobile.SalesLogix.Format" property="bigNumberAbbrText[thousand]" type="text">
     <description/>
     <value>K</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="userActivityFormatText[asUnconfirmed]" type="text">
+    <description/>
+    <value>Unconfirmed</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="userActivityFormatText[asAccepted]" type="text">
+    <description/>
+    <value>Accepted</value>
+  </data>
+  <data class="Mobile.SalesLogix.Format" property="userActivityFormatText[asDeclned]" type="text">
+    <description/>
+    <value>Declined</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="neverText" type="text">
     <description/>
@@ -791,10 +807,6 @@
     <description/>
     <value>web</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Account.Detail" property="callMainNumberText" type="text">
-    <description/>
-    <value>Call main number</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="scheduleActivityText" type="text">
     <description/>
     <value>Schedule activity</value>
@@ -802,10 +814,6 @@
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="addNoteText" type="text">
     <description/>
     <value>Add note</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.Detail" property="viewAddressText" type="text">
-    <description/>
-    <value>View address</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="moreDetailsText" type="text">
     <description/>
@@ -942,90 +950,6 @@
   <data class="Mobile.SalesLogix.Views.Account.List" property="faxAbbreviationText" type="text">
     <description/>
     <value>Fax: </value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[active]" type="text">
-    <description/>
-    <value>Active</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[inactive]" type="text">
-    <description/>
-    <value>Inactive</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[suspect]" type="text">
-    <description/>
-    <value>Suspect</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[lead]" type="text">
-    <description/>
-    <value>Lead</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[prospect]" type="text">
-    <description/>
-    <value>Prospect</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[customer]" type="text">
-    <description/>
-    <value>Customer</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[partner]" type="text">
-    <description/>
-    <value>Partner</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[vendor]" type="text">
-    <description/>
-    <value>Vendor</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[influencer]" type="text">
-    <description/>
-    <value>Influencer</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagExpressionText[competitor]" type="text">
-    <description/>
-    <value>Competitor</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[my-accounts]" type="text">
-    <description/>
-    <value>my-accounts</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[active]" type="text">
-    <description/>
-    <value>active</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[inactive]" type="text">
-    <description/>
-    <value>inactive</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[suspect]" type="text">
-    <description/>
-    <value>suspect</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[lead]" type="text">
-    <description/>
-    <value>lead</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[prospect]" type="text">
-    <description/>
-    <value>prospect</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[customer]" type="text">
-    <description/>
-    <value>customer</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[partner]" type="text">
-    <description/>
-    <value>partner</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[vendor]" type="text">
-    <description/>
-    <value>vendor</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[influencer]" type="text">
-    <description/>
-    <value>influencer</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Account.List" property="hashTagQueriesText[competitor]" type="text">
-    <description/>
-    <value>competitor</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="activityInfoText" type="text">
     <description/>
@@ -1321,7 +1245,8 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
     <description/>
-    <value>Edit all Occurrences?\nCancel to edit single Occurrence.</value>
+    <value>Edit all Occurrences?
+Cancel to edit single Occurrence.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -1574,10 +1499,6 @@
   <data class="Mobile.SalesLogix.Views.Activity.List" property="recurringText" type="text">
     <description/>
     <value>recurring</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Activity.List" property="activityText" type="text">
-    <description/>
-    <value>activity</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
     <description/>
@@ -1923,6 +1844,10 @@
     <description/>
     <value>web</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="phoneText" type="text">
+    <description/>
+    <value>phone</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="workText" type="text">
     <description/>
     <value>work phone</value>
@@ -2050,10 +1975,6 @@
   <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="userText" type="text">
     <description/>
     <value>user</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="newWindowText" type="text">
-    <description/>
-    <value>Open in new window</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Attachment.ViewAttachment" property="attachmentNotSupportedText" type="text">
     <description/>
@@ -2483,38 +2404,6 @@
     <description/>
     <value>Mobile: </value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[my-contacts]" type="text">
-    <description/>
-    <value>my-contacts</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[primary]" type="text">
-    <description/>
-    <value>primary</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[not-primary]" type="text">
-    <description/>
-    <value>not-primary</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-email]" type="text">
-    <description/>
-    <value>can-email</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-phone]" type="text">
-    <description/>
-    <value>can-phone</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-fax]" type="text">
-    <description/>
-    <value>can-fax</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-mail]" type="text">
-    <description/>
-    <value>can-mail</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Contact.List" property="hashTagQueriesText[can-solicit]" type="text">
-    <description/>
-    <value>can-solicit</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Contract.List" property="titleText" type="text">
     <description/>
     <value>Contracts</value>
@@ -2542,14 +2431,6 @@
   <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="moreDetailsText" type="text">
     <description/>
     <value>More Details</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="severityText" type="text">
-    <description/>
-    <value>severity</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="statusCodeText" type="text">
-    <description/>
-    <value>status code</value>
   </data>
   <data class="Mobile.SalesLogix.Views.ErrorLog.Detail" property="errorText" type="text">
     <description/>
@@ -2635,6 +2516,22 @@
     <description/>
     <value>end date</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Vacation]" type="text">
+    <description/>
+    <value>Vacation</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Business Trip]" type="text">
+    <description/>
+    <value>Business Trip</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Conference]" type="text">
+    <description/>
+    <value>Conference</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Event.Edit" property="eventTypesText[Holiday]" type="text">
+    <description/>
+    <value>Holiday</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Event.List" property="titleText" type="text">
     <description/>
     <value>Events</value>
@@ -2650,6 +2547,10 @@
   <data class="Mobile.SalesLogix.Views.FooterToolbar" property="copyrightText" type="text">
     <description/>
     <value>&amp;copy; 2014 SalesLogix, NA, LLC. All rights reserved.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Groups.Selector" property="titleText" type="text">
+    <description/>
+    <value>Groups Lookup</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Help" property="titleText" type="text">
     <description/>
@@ -2850,6 +2751,14 @@
   <data class="Mobile.SalesLogix.Views.History.Edit" property="noText" type="text">
     <description/>
     <value>NO</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="validationText" type="text">
+    <description/>
+    <value>The field '${2}' must have a value</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.History.Edit" property="validationCanEditText" type="text">
+    <description/>
+    <value>You are not allowed to edit</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="activityTypeText[atToDo]" type="text">
     <description/>
@@ -3263,30 +3172,6 @@
     <description/>
     <value>Toll Free: </value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[my-leads]" type="text">
-    <description/>
-    <value>my-leads</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-email]" type="text">
-    <description/>
-    <value>can-email</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-phone]" type="text">
-    <description/>
-    <value>can-phone</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-fax]" type="text">
-    <description/>
-    <value>can-fax</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-mail]" type="text">
-    <description/>
-    <value>can-mail</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Lead.List" property="hashTagQueriesText[can-solicit]" type="text">
-    <description/>
-    <value>can-solicit</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.LeadSource.List" property="titleText" type="text">
     <description/>
     <value>Lead Sources</value>
@@ -3331,13 +3216,25 @@
     <description/>
     <value>Are you sure you want to log out?</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.LogOff" property="messageText" type="text">
+    <description/>
+    <value>You have been logged out. Please close your browser window.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LogOff" property="loginText" type="text">
+    <description/>
+    <value>Click here to log back in.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.LogOff" property="titleText" type="text">
+    <description/>
+    <value>Logged Out</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2014 SalesLogix, NA, LLC. All rights reserved.</value>
+    <value>Copyright &amp;copy; 2014 Infor. All rights reserved. www.infor.com</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
-    <value>Log on to Saleslogix</value>
+    <value>Log On</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="passText" type="text">
     <description/>
@@ -3418,6 +3315,10 @@
   <data class="Mobile.SalesLogix.Views.MetricWidget" property="loadingText" type="text">
     <description/>
     <value>loading...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricWidget" property="errorText" type="text">
+    <description/>
+    <value>Error loading widget.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="titleText" type="text">
     <description/>
@@ -3730,46 +3631,6 @@
   <data class="Mobile.SalesLogix.Views.Opportunity.List" property="estimatedCloseText" type="text">
     <description/>
     <value>Estimated close </value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[my-opportunities]" type="text">
-    <description/>
-    <value>my-opportunities</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[open]" type="text">
-    <description/>
-    <value>open</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[closed]" type="text">
-    <description/>
-    <value>closed</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[won]" type="text">
-    <description/>
-    <value>won</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[lost]" type="text">
-    <description/>
-    <value>lost</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagQueriesText[inactive]" type="text">
-    <description/>
-    <value>inactive</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[open]" type="text">
-    <description/>
-    <value>Open</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[won]" type="text">
-    <description/>
-    <value>Closed - Won</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[lost]" type="text">
-    <description/>
-    <value>Closed - Lost</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Opportunity.List" property="hashTagExpressionText[inactive]" type="text">
-    <description/>
-    <value>Inactive</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityContact.Detail" property="titleText" type="text">
     <description/>
@@ -4411,14 +4272,6 @@
     <description/>
     <value>Needed  </value>
   </data>
-  <data class="Mobile.SalesLogix.Views.Ticket.List" property="hashTagQueriesText[assigned-to-me]" type="text">
-    <description/>
-    <value>assigned-to-me</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views.Ticket.List" property="hashTagQueriesText[completed-by-me]" type="text">
-    <description/>
-    <value>completed-by-me</value>
-  </data>
   <data class="Mobile.SalesLogix.Views.Ticket.UrgencyLookup" property="titleText" type="text">
     <description/>
     <value>Ticket Urgency</value>
@@ -4473,7 +4326,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalLaborText" type="text">
     <description/>
-    <value>total labor</value>
+    <value>total labour</value>
   </data>
   <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalPartsText" type="text">
     <description/>
@@ -4587,6 +4440,10 @@
     <description/>
     <value>An update is available.  Click to reload.</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.User.CalendarAccessList" property="titleText" type="text">
+    <description/>
+    <value>Activity Resources</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.User.List" property="titleText" type="text">
     <description/>
     <value>Users</value>
@@ -4599,20 +4456,40 @@
     <description/>
     <value>no search applied</value>
   </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
+    <description/>
+    <value>No default group set. Open the right menu and press configure under the groups section to setup groups.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
+    <description/>
+    <value>The current group was not found.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupsModeText" type="text">
+    <description/>
+    <value>You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.</value>
+  </data>
   <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="hashTagsSectionText" type="text">
     <description/>
     <value>Hash Tags</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="groupsSectionText" type="text">
+    <description/>
+    <value>Groups</value>
   </data>
   <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="kpiSectionText" type="text">
     <description/>
     <value>KPI</value>
   </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="configureGroupsText" type="text">
+    <description/>
+    <value>Configure</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="refreshGroupsText" type="text">
+    <description/>
+    <value>Refresh</value>
+  </data>
   <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
     <description/>
     <value>Indexes</value>
-  </data>
-  <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="configureText" type="text">
-    <description/>
-    <value>Configure</value>
   </data>
 </localization>
