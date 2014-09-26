@@ -4,7 +4,21 @@ localize("Sage.Platform.Mobile.Calendar", {
   "timeFormatText": "H:mm",
   "titleText": "Agenda",
   "amText": "AM",
-  "pmText": "PM"
+  "pmText": "PM",
+  "monthsShortText": {
+    "0": "Jan",
+    "1": "Fév",
+    "2": "Mar",
+    "3": "Avr",
+    "4": "Mai",
+    "5": "Juin",
+    "6": "Juil",
+    "7": "Aoû",
+    "8": "Sep",
+    "9": "Oct",
+    "10": "Nov",
+    "11": "Déc"
+  }
 });
 
 localize("Sage.Platform.Mobile.Fields.DateField", {
@@ -54,6 +68,15 @@ localize("Mobile.SalesLogix.Recurrence", {
   "everyText": "chaque ${0} ${1}",
   "afterCompletionText": "après la fin",
   "untilEndDateText": "${0} jusqu'à ${1}",
+  "weekDaysText": {
+    "0": "Dimanche",
+    "1": "Lundi",
+    "2": "Mardi",
+    "3": "Mercredi",
+    "4": "Jeudi",
+    "5": "Vendredi",
+    "6": "Samedi"
+  },
   "ordText": {
     "0": "Jour",
     "1": "Prénom",
@@ -96,7 +119,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Résultat",
   "resultTitleText": "Résultat",
   "startingText": "Date de début",
-  "timelessText": "Heure_indéfinie",
+  "timelessText": "Heure indéfinie",
   "durationValueText": {
     "0": "Aucun",
     "15": "15 minutes",
@@ -141,7 +164,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "rolloverText": "report automatique",
   "startTimeText": "Heure de début",
   "allDayText": "toute la journée",
-  "timelessText": "Heure_indéfinie",
+  "timelessText": "Heure indéfinie",
   "titleText": "Activité",
   "typeText": "Type",
   "companyText": "Société",
@@ -153,7 +176,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "whenText": "Quand",
   "whoText": "Qui",
   "recurrenceText": "récurrence",
-  "confirmEditRecurrenceText": "Modifier toutes les occurrences ?\\n Annuler pour modifier une seule occurrence.",
+  "confirmEditRecurrenceText": "Modifier toutes les occurrences ?  Annuler pour modifier une seule occurrence.",
   "relatedAttachmentText": "Pièces jointes",
   "relatedAttachmentTitleText": "Pièces jointes de l'activité",
   "relatedItemsText": "Eléments associés",
@@ -186,7 +209,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "repeatsText": "répétitions",
   "recurringText": "Périodicité",
   "recurringTitleText": "Périodicité",
-  "timelessText": "Heure_indéfinie",
+  "timelessText": "Heure indéfinie",
   "titleText": "Activité",
   "typeText": "Type",
   "accountText": "Compte",
@@ -272,7 +295,16 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "eventHeaderText": "Evénements",
   "countMoreText": "Voir plus",
   "activityHeaderText": "Activités",
-  "toggleCollapseText": "développer/réduire"
+  "toggleCollapseText": "développer/réduire",
+  "weekDaysShortText": {
+    "0": "Dim",
+    "1": "Lun",
+    "2": "Mar",
+    "3": "Merc",
+    "4": "Jeu",
+    "5": "Ven",
+    "6": "Sam"
+  }
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
@@ -362,7 +394,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   "regardingText": "Objet",
   "completedByText": "Terminé par",
   "scheduledText": "Planifié",
-  "timelessText": "Heure_indéfinie",
+  "timelessText": "Heure indéfinie",
   "companyText": "Société",
   "leadText": "Lead",
   "titleText": "Historique",
@@ -642,7 +674,8 @@ localize("Sage.Platform.Mobile._DetailBase", {
   "detailsText": "Détails",
   "loadingText": "Chargement ...",
   "requestErrorText": "Une erreur s'est produite sur le serveur pendant la demande de données.",
-  "notAvailableText": "Les données demandées ne sont pas disponibles."
+  "notAvailableText": "Les données demandées ne sont pas disponibles.",
+  "toggleCollapseText": "développer/réduire"
 });
 
 localize("Sage.Platform.Mobile._EditBase", {
@@ -675,7 +708,7 @@ localize("Mobile.SalesLogix.Action", {
 });
 
 localize("Mobile.SalesLogix.Application", {
-  "versionInfoText": "Plate-forme Mobile v${0}.${1}.${2} / Saleslogix v${3}"
+  "versionInfoText": "Mobile v${0}.${1}.${2}"
 });
 
 localize("Mobile.SalesLogix.ApplicationModule", {
@@ -926,6 +959,29 @@ localize("Mobile.SalesLogix.Views.Activity.Recurring", {
   "onText": "sur",
   "occurrencesText": "occurrences",
   "summaryText": "Résumé",
+  "weekDaysText": {
+    "0": "Dimanche",
+    "1": "Lundi",
+    "2": "Mardi",
+    "3": "Mercredi",
+    "4": "Jeudi",
+    "5": "Vendredi",
+    "6": "Samedi"
+  },
+  "monthsText": {
+    "0": "Janvier",
+    "1": "Février",
+    "2": "Mars",
+    "3": "Avril",
+    "4": "Mai",
+    "5": "Juin",
+    "6": "Juillet",
+    "7": "Août",
+    "8": "Septembre",
+    "9": "Octobre",
+    "10": "Novembre",
+    "11": "Décembre"
+  },
   "frequencyOptionsText": {
     "0": "Jours",
     "1": "semaines",
@@ -1269,11 +1325,8 @@ localize("Mobile.SalesLogix.Views.Login", {
   "invalidUserText": "Le nom d'utilisateur ou mot de passe n'est pas valide. ",
   "missingUserText": "La fiche utilisateur est introuvable. ",
   "serverProblemText": "Un problème est survenu sur le serveur.",
-  "requestAbortedText": "La requête a été abandonnée."
-});
-
-localize("Mobile.SalesLogix.Views.MainToolbar", {
-  "titleText": "SalesLogix"
+  "requestAbortedText": "La requête a été abandonnée.",
+  "logoText": "Infor CRM"
 });
 
 localize("Mobile.SalesLogix.Views.MetricConfigure", {
@@ -1595,7 +1648,7 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 });
 
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
-  "noDefaultGroupText": "Aucun groupe par défaut défini. Ouvrez le menu de droite et appuyez sur  Configurer dans la section des groupes afin de définir des groupes.",
+  "noDefaultGroupText": "No default group set. Click here to configure groups.",
   "currentGroupNotFoundText": "Le groupe actuel n'a pas été trouvé.",
   "groupsModeText": "Vous êtes actuellement en mode Groupes. Effectuez une recherche ou cliquez sur un mot clé pour sortir du mode Groupes."
 });

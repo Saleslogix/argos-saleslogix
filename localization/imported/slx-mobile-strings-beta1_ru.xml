@@ -11,6 +11,54 @@
     <description/>
     <value>п. п.</value>
   </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[0]" type="text">
+    <description/>
+    <value>Янв</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[1]" type="text">
+    <description/>
+    <value>Фев</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[2]" type="text">
+    <description/>
+    <value>Мар</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[3]" type="text">
+    <description/>
+    <value>Апр</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[4]" type="text">
+    <description/>
+    <value>Май</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[5]" type="text">
+    <description/>
+    <value>Июнь</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[6]" type="text">
+    <description/>
+    <value>Июль</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[7]" type="text">
+    <description/>
+    <value>Авг</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[8]" type="text">
+    <description/>
+    <value>Сен</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[9]" type="text">
+    <description/>
+    <value>Окт</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[10]" type="text">
+    <description/>
+    <value>Ноя</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[11]" type="text">
+    <description/>
+    <value>Дек</value>
+  </data>
   <data class="Sage.Platform.Mobile.ErrorManager" property="abortedText" type="text">
     <description/>
     <value>Прервано</value>
@@ -355,6 +403,10 @@
     <description/>
     <value>Запрошенные данные недоступны.</value>
   </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="toggleCollapseText" type="text">
+    <description/>
+    <value>показать/скрыть</value>
+  </data>
   <data class="Sage.Platform.Mobile._EditBase" property="saveText" type="text">
     <description/>
     <value>Сохранить</value>
@@ -437,7 +489,7 @@
   </data>
   <data class="Mobile.SalesLogix.Application" property="versionInfoText" type="text">
     <description/>
-    <value>Mobile v${0}.${1}.${2} / платформа Saleslogix v${3}</value>
+    <value>Мобильный тел. v${0}.${1}.${2}</value>
   </data>
   <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="text">
     <description/>
@@ -618,6 +670,34 @@
   <data class="Mobile.SalesLogix.Recurrence" property="untilEndDateText" type="text">
     <description/>
     <value>${0} вплоть до ${1}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[0]" type="text">
+    <description/>
+    <value>Воскресенье</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[1]" type="text">
+    <description/>
+    <value>Понедельник</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[2]" type="text">
+    <description/>
+    <value>Вторник</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[3]" type="text">
+    <description/>
+    <value>Среда</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[4]" type="text">
+    <description/>
+    <value>Четверг</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[5]" type="text">
+    <description/>
+    <value>Пятница</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[6]" type="text">
+    <description/>
+    <value>Суббота</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[0]" type="text">
     <description/>
@@ -1245,8 +1325,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
     <description/>
-    <value>Изменить все повторения?
-Отмена для изменения одного повторения.</value>
+    <value>Изменить все повторения? Отмена для изменения одного повторения.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -1546,7 +1625,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>В течение дня</value>
+    <value>В_течение_дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[today]" type="text">
     <description/>
@@ -1683,6 +1762,82 @@
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="summaryText" type="text">
     <description/>
     <value>Сводно</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[0]" type="text">
+    <description/>
+    <value>Воскресенье</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[1]" type="text">
+    <description/>
+    <value>Понедельник</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[2]" type="text">
+    <description/>
+    <value>Вторник</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[3]" type="text">
+    <description/>
+    <value>Среда</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[4]" type="text">
+    <description/>
+    <value>Четверг</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[5]" type="text">
+    <description/>
+    <value>Пятница</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[6]" type="text">
+    <description/>
+    <value>Суббота</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[0]" type="text">
+    <description/>
+    <value>Январь</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[1]" type="text">
+    <description/>
+    <value>Февраль</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[2]" type="text">
+    <description/>
+    <value>Март</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[3]" type="text">
+    <description/>
+    <value>Апрель</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[4]" type="text">
+    <description/>
+    <value>Май</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[5]" type="text">
+    <description/>
+    <value>Июнь</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[6]" type="text">
+    <description/>
+    <value>Июль</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[7]" type="text">
+    <description/>
+    <value>Август</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[8]" type="text">
+    <description/>
+    <value>Сентябрь</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[9]" type="text">
+    <description/>
+    <value>Октябрь</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[10]" type="text">
+    <description/>
+    <value>Ноябрь</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[11]" type="text">
+    <description/>
+    <value>Декабрь</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="frequencyOptionsText[0]" type="text">
     <description/>
@@ -1843,6 +1998,10 @@
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="webText" type="text">
     <description/>
     <value>Веб-адрес</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="phoneText" type="text">
+    <description/>
+    <value>Телефон</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="workText" type="text">
     <description/>
@@ -2067,6 +2226,34 @@
   <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="toggleCollapseText" type="text">
     <description/>
     <value>показать/скрыть</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[0]" type="text">
+    <description/>
+    <value>Вс</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[1]" type="text">
+    <description/>
+    <value>Пн</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[2]" type="text">
+    <description/>
+    <value>Вт</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[3]" type="text">
+    <description/>
+    <value>Ср</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[4]" type="text">
+    <description/>
+    <value>Чт</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[5]" type="text">
+    <description/>
+    <value>Пт</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[6]" type="text">
+    <description/>
+    <value>Сб</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="titleText" type="text">
     <description/>
@@ -3226,7 +3413,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2014 SalesLogix, NA, LLC. Все права защищены.</value>
+    <value>&amp;copy; Infor, 2014 г. Все права защищены. www.infor.com</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
@@ -3264,9 +3451,9 @@
     <description/>
     <value>Запрос не выполнен.</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.MainToolbar" property="titleText" type="text">
+  <data class="Mobile.SalesLogix.Views.Login" property="logoText" type="text">
     <description/>
-    <value>SalesLogix</value>
+    <value>Infor CRM</value>
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="titleText" type="text">
     <description/>
@@ -3311,6 +3498,10 @@
   <data class="Mobile.SalesLogix.Views.MetricWidget" property="loadingText" type="text">
     <description/>
     <value>Загрузка...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricWidget" property="errorText" type="text">
+    <description/>
+    <value>Ошибка при загрузке виджета.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="titleText" type="text">
     <description/>
@@ -4450,7 +4641,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
     <description/>
-    <value>Группа по умолчанию не установлена. Откройте меню справа и нажмите кнопку "Настроить" в разделе "Группы" для настройки групп.</value>
+    <value>No default group set. Click here to configure groups.</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
     <description/>

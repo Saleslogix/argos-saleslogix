@@ -11,6 +11,54 @@
     <description/>
     <value>PM</value>
   </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[0]" type="text">
+    <description/>
+    <value>Gen</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[1]" type="text">
+    <description/>
+    <value>Feb</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[2]" type="text">
+    <description/>
+    <value>Mar</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[3]" type="text">
+    <description/>
+    <value>Apr</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[4]" type="text">
+    <description/>
+    <value>Maggio</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[5]" type="text">
+    <description/>
+    <value>Giu</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[6]" type="text">
+    <description/>
+    <value>Lug</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[7]" type="text">
+    <description/>
+    <value>Ago</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[8]" type="text">
+    <description/>
+    <value>Set</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[9]" type="text">
+    <description/>
+    <value>Ott</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[10]" type="text">
+    <description/>
+    <value>Nov</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[11]" type="text">
+    <description/>
+    <value>Dic</value>
+  </data>
   <data class="Sage.Platform.Mobile.ErrorManager" property="abortedText" type="text">
     <description/>
     <value>Interrotto</value>
@@ -355,6 +403,10 @@
     <description/>
     <value>I dati richiesti non sono disponibili.</value>
   </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="toggleCollapseText" type="text">
+    <description/>
+    <value>espandi comprimi</value>
+  </data>
   <data class="Sage.Platform.Mobile._EditBase" property="saveText" type="text">
     <description/>
     <value>Salva</value>
@@ -437,7 +489,7 @@
   </data>
   <data class="Mobile.SalesLogix.Application" property="versionInfoText" type="text">
     <description/>
-    <value>Piattaforma Mobile v${0}.${1}.${2} / Saleslogix v${3}</value>
+    <value>Cellulare v${0}.${1}.${2}</value>
   </data>
   <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="text">
     <description/>
@@ -618,6 +670,34 @@
   <data class="Mobile.SalesLogix.Recurrence" property="untilEndDateText" type="text">
     <description/>
     <value>${0} fino al ${1}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[0]" type="text">
+    <description/>
+    <value>Domenica</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[1]" type="text">
+    <description/>
+    <value>Lunedì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[2]" type="text">
+    <description/>
+    <value>Martedì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[3]" type="text">
+    <description/>
+    <value>Mercoledì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[4]" type="text">
+    <description/>
+    <value>Giovedì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[5]" type="text">
+    <description/>
+    <value>Venerdì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[6]" type="text">
+    <description/>
+    <value>Sabato</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[0]" type="text">
     <description/>
@@ -1245,7 +1325,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
     <description/>
-    <value>Modificare tutte le occorrenze?\nAnnulla per modificare una singola occorrenza.</value>
+    <value>Modificare tutte le occorrenze? Annulla per modificare una singola occorrenza.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -1683,6 +1763,82 @@
     <description/>
     <value>Sommario</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[0]" type="text">
+    <description/>
+    <value>Domenica</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[1]" type="text">
+    <description/>
+    <value>Lunedì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[2]" type="text">
+    <description/>
+    <value>Martedì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[3]" type="text">
+    <description/>
+    <value>Mercoledì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[4]" type="text">
+    <description/>
+    <value>Giovedì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[5]" type="text">
+    <description/>
+    <value>Venerdì</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[6]" type="text">
+    <description/>
+    <value>Sabato</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[0]" type="text">
+    <description/>
+    <value>Gennaio</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[1]" type="text">
+    <description/>
+    <value>Febbraio</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[2]" type="text">
+    <description/>
+    <value>Marzo</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[3]" type="text">
+    <description/>
+    <value>Aprile</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[4]" type="text">
+    <description/>
+    <value>Maggio</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[5]" type="text">
+    <description/>
+    <value>Giugno</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[6]" type="text">
+    <description/>
+    <value>Luglio</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[7]" type="text">
+    <description/>
+    <value>Agosto</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[8]" type="text">
+    <description/>
+    <value>Settembre</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[9]" type="text">
+    <description/>
+    <value>Ottobre</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[10]" type="text">
+    <description/>
+    <value>Novembre</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[11]" type="text">
+    <description/>
+    <value>Dicembre</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="frequencyOptionsText[0]" type="text">
     <description/>
     <value>Giorni</value>
@@ -2070,6 +2226,34 @@
   <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="toggleCollapseText" type="text">
     <description/>
     <value>espandi comprimi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[0]" type="text">
+    <description/>
+    <value>Dom</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[1]" type="text">
+    <description/>
+    <value>Lun</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[2]" type="text">
+    <description/>
+    <value>Mar</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[3]" type="text">
+    <description/>
+    <value>Mer</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[4]" type="text">
+    <description/>
+    <value>Gio</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[5]" type="text">
+    <description/>
+    <value>Ven</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[6]" type="text">
+    <description/>
+    <value>Sab</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="titleText" type="text">
     <description/>
@@ -3267,9 +3451,9 @@
     <description/>
     <value>Richiesta annullata.</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.MainToolbar" property="titleText" type="text">
+  <data class="Mobile.SalesLogix.Views.Login" property="logoText" type="text">
     <description/>
-    <value>SalesLogix</value>
+    <value>Infor CRM</value>
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="titleText" type="text">
     <description/>
@@ -4457,7 +4641,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
     <description/>
-    <value>Gruppo predefinito non impostato. Per impostare i gruppi, aprire il menu a destra e premere configura nella sezione dei gruppi.</value>
+    <value>No default group set. Click here to configure groups.</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
     <description/>

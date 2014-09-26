@@ -11,6 +11,54 @@
     <description/>
     <value>PM</value>
   </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[0]" type="Texte">
+    <description/>
+    <value>Jan</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[1]" type="Texte">
+    <description/>
+    <value>Fév</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[2]" type="Texte">
+    <description/>
+    <value>Mar</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[3]" type="Texte">
+    <description/>
+    <value>Avr</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[4]" type="Texte">
+    <description/>
+    <value>Mai</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[5]" type="Texte">
+    <description/>
+    <value>Juin</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[6]" type="Texte">
+    <description/>
+    <value>Juil</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[7]" type="Texte">
+    <description/>
+    <value>Aoû</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[8]" type="Texte">
+    <description/>
+    <value>Sep</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[9]" type="Texte">
+    <description/>
+    <value>Oct</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[10]" type="Texte">
+    <description/>
+    <value>Nov</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[11]" type="Texte">
+    <description/>
+    <value>Déc</value>
+  </data>
   <data class="Sage.Platform.Mobile.ErrorManager" property="abortedText" type="Texte">
     <description/>
     <value>Abandonné</value>
@@ -355,6 +403,10 @@
     <description/>
     <value>Les données demandées ne sont pas disponibles.</value>
   </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="toggleCollapseText" type="Texte">
+    <description/>
+    <value>développer/réduire</value>
+  </data>
   <data class="Sage.Platform.Mobile._EditBase" property="saveText" type="Texte">
     <description/>
     <value>Enregistrer</value>
@@ -437,7 +489,7 @@
   </data>
   <data class="Mobile.SalesLogix.Application" property="versionInfoText" type="Texte">
     <description/>
-    <value>Plate-forme Mobile v${0}.${1}.${2} / Saleslogix v${3}</value>
+    <value>Mobile v${0}.${1}.${2}</value>
   </data>
   <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="Texte">
     <description/>
@@ -618,6 +670,34 @@
   <data class="Mobile.SalesLogix.Recurrence" property="untilEndDateText" type="Texte">
     <description/>
     <value>${0} jusqu'à ${1}</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[0]" type="Texte">
+    <description/>
+    <value>Dimanche</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[1]" type="Texte">
+    <description/>
+    <value>Lundi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[2]" type="Texte">
+    <description/>
+    <value>Mardi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[3]" type="Texte">
+    <description/>
+    <value>Mercredi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[4]" type="Texte">
+    <description/>
+    <value>Jeudi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[5]" type="Texte">
+    <description/>
+    <value>Vendredi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[6]" type="Texte">
+    <description/>
+    <value>Samedi</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[0]" type="Texte">
     <description/>
@@ -1065,7 +1145,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="timelessText" type="Texte">
     <description/>
-    <value>Heure_indéfinie</value>
+    <value>Heure indéfinie</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[0]" type="Texte">
     <description/>
@@ -1197,7 +1277,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="timelessText" type="Texte">
     <description/>
-    <value>Heure_indéfinie</value>
+    <value>Heure indéfinie</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="titleText" type="Texte">
     <description/>
@@ -1245,7 +1325,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="Texte">
     <description/>
-    <value>Modifier toutes les occurrences ?\n Annuler pour modifier une seule occurrence.</value>
+    <value>Modifier toutes les occurrences ?  Annuler pour modifier une seule occurrence.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="Texte">
     <description/>
@@ -1357,7 +1437,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="timelessText" type="Texte">
     <description/>
-    <value>Heure_indéfinie</value>
+    <value>Heure indéfinie</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="titleText" type="Texte">
     <description/>
@@ -1683,6 +1763,82 @@
     <description/>
     <value>Résumé</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[0]" type="Texte">
+    <description/>
+    <value>Dimanche</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[1]" type="Texte">
+    <description/>
+    <value>Lundi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[2]" type="Texte">
+    <description/>
+    <value>Mardi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[3]" type="Texte">
+    <description/>
+    <value>Mercredi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[4]" type="Texte">
+    <description/>
+    <value>Jeudi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[5]" type="Texte">
+    <description/>
+    <value>Vendredi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[6]" type="Texte">
+    <description/>
+    <value>Samedi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[0]" type="Texte">
+    <description/>
+    <value>Janvier</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[1]" type="Texte">
+    <description/>
+    <value>Février</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[2]" type="Texte">
+    <description/>
+    <value>Mars</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[3]" type="Texte">
+    <description/>
+    <value>Avril</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[4]" type="Texte">
+    <description/>
+    <value>Mai</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[5]" type="Texte">
+    <description/>
+    <value>Juin</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[6]" type="Texte">
+    <description/>
+    <value>Juillet</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[7]" type="Texte">
+    <description/>
+    <value>Août</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[8]" type="Texte">
+    <description/>
+    <value>Septembre</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[9]" type="Texte">
+    <description/>
+    <value>Octobre</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[10]" type="Texte">
+    <description/>
+    <value>Novembre</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[11]" type="Texte">
+    <description/>
+    <value>Décembre</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="frequencyOptionsText[0]" type="Texte">
     <description/>
     <value>Jours</value>
@@ -1842,6 +1998,10 @@
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="webText" type="Texte">
     <description/>
     <value>Web</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="phoneText" type="Texte">
+    <description/>
+    <value>Téléphone</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="workText" type="Texte">
     <description/>
@@ -2066,6 +2226,34 @@
   <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="toggleCollapseText" type="Texte">
     <description/>
     <value>développer/réduire</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[0]" type="Texte">
+    <description/>
+    <value>Dim</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[1]" type="Texte">
+    <description/>
+    <value>Lun</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[2]" type="Texte">
+    <description/>
+    <value>Mar</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[3]" type="Texte">
+    <description/>
+    <value>Merc</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[4]" type="Texte">
+    <description/>
+    <value>Jeu</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[5]" type="Texte">
+    <description/>
+    <value>Ven</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[6]" type="Texte">
+    <description/>
+    <value>Sam</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="titleText" type="Texte">
     <description/>
@@ -2601,7 +2789,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="timelessText" type="Texte">
     <description/>
-    <value>Heure_indéfinie</value>
+    <value>Heure indéfinie</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="companyText" type="Texte">
     <description/>
@@ -3225,7 +3413,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="Texte">
     <description/>
-    <value>&amp;copy; 2014 SalesLogix, NA, LLC. Tous droits réservés.</value>
+    <value>Copyright &amp;copy; 2014 Infor. Tous droits réservés. www.infor.com</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="Texte">
     <description/>
@@ -3263,9 +3451,9 @@
     <description/>
     <value>La requête a été abandonnée.</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.MainToolbar" property="titleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.Login" property="logoText" type="Texte">
     <description/>
-    <value>SalesLogix</value>
+    <value>Infor CRM</value>
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="titleText" type="Texte">
     <description/>
@@ -3310,6 +3498,10 @@
   <data class="Mobile.SalesLogix.Views.MetricWidget" property="loadingText" type="Texte">
     <description/>
     <value>Chargement ...</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.MetricWidget" property="errorText" type="Texte">
+    <description/>
+    <value>Erreur de chargement du widget.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="titleText" type="Texte">
     <description/>
@@ -4291,195 +4483,195 @@
     <description/>
     <value>Date de début</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="completedDateText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="completedDateText" type="text">
     <description/>
     <value>Date de fin</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="followUpText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="followUpText" type="text">
     <description/>
     <value>Suivi</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="unitsText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="unitsText" type="text">
     <description/>
     <value>Unités de temps</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="elapsedUnitsText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="elapsedUnitsText" type="text">
     <description/>
     <value>Heures écoulées</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="rateTypeDescriptionText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="rateTypeDescriptionText" type="text">
     <description/>
     <value>type de frais</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="rateText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="rateText" type="text">
     <description/>
     <value>Taux</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalLaborText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalLaborText" type="text">
     <description/>
     <value>Main d'œuvre totale</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalPartsText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalPartsText" type="text">
     <description/>
     <value>Total de pièces</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalFeeText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="totalFeeText" type="text">
     <description/>
     <value>Frais totaux</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="activityDescriptionText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="activityDescriptionText" type="text">
     <description/>
     <value>Commentaires</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="ticketNumberText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="ticketNumberText" type="text">
     <description/>
     <value>Numéro de ticket</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="userText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="userText" type="text">
     <description/>
     <value>Utilisateur</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="completeTicketText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="completeTicketText" type="text">
     <description/>
     <value>Terminer l'activité du ticket</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="moreDetailsText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="moreDetailsText" type="text">
     <description/>
     <value>Plus de détails</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedItemsText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedItemsText" type="text">
     <description/>
     <value>Eléments associés</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Detail" property="relatedTicketActivityItemText" type="text">
     <description/>
     <value>Parties de l'activité du ticket</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="titleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="titleText" type="text">
     <description/>
     <value>Modifier l'activité du ticket</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeText" type="text">
     <description/>
     <value>Type</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeTitleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="activityTypeTitleText" type="text">
     <description/>
     <value>Type</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="publicAccessText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="publicAccessText" type="text">
     <description/>
     <value>Accès public</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="publicAccessTitleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="publicAccessTitleText" type="text">
     <description/>
     <value>Accès public</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="userText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="userText" type="text">
     <description/>
     <value>Utilisateur</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="startDateText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="startDateText" type="text">
     <description/>
     <value>Date de début</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="endDateText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="endDateText" type="text">
     <description/>
     <value>Date de fin</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="commentsText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.Edit" property="commentsText" type="text">
     <description/>
     <value>Commentaires</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.List" property="titleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.List" property="titleText" type="text">
     <description/>
     <value>Activités du ticket</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivity.RateLookup" property="titleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivity.RateLookup" property="titleText" type="text">
     <description/>
     <value>Taux</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="titleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="titleText" type="text">
     <description/>
     <value>Pièce de l'activité de ticket</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="productNameText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="productNameText" type="text">
     <description/>
     <value>Produit</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="skuText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="skuText" type="text">
     <description/>
     <value>Code Article</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="serialNumberText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="serialNumberText" type="text">
     <description/>
     <value>N° de série</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="itemAmountText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="itemAmountText" type="text">
     <description/>
     <value>Prix</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="itemDescriptionText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.Detail" property="itemDescriptionText" type="text">
     <description/>
     <value>Description</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.TicketActivityItem.List" property="titleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.TicketActivityItem.List" property="titleText" type="text">
     <description/>
     <value>Parties de l'activité du ticket</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.UpdateToolbar" property="updateText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.UpdateToolbar" property="updateText" type="text">
     <description/>
     <value>Une mise à jour est disponible. Cliquez pour recharger.</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.User.CalendarAccessList" property="titleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.User.CalendarAccessList" property="titleText" type="text">
     <description/>
     <value>Ressources d'activité</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.User.List" property="titleText" type="Texte">
+  <data class="Mobile.SalesLogix.Views.User.List" property="titleText" type="text">
     <description/>
     <value>Utilisateurs</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="itemIconAltText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="itemIconAltText" type="text">
     <description/>
     <value>Contact</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="allRecordsText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._CardLayoutListMixin" property="allRecordsText" type="text">
     <description/>
     <value>aucune recherche appliquée</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
     <description/>
-    <value>Aucun groupe par défaut défini. Ouvrez le menu de droite et appuyez sur  Configurer dans la section des groupes afin de définir des groupes.</value>
+    <value>No default group set. Click here to configure groups.</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
     <description/>
     <value>Le groupe actuel n'a pas été trouvé.</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupsModeText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupsModeText" type="text">
     <description/>
     <value>Vous êtes actuellement en mode Groupes. Effectuez une recherche ou cliquez sur un mot clé pour sortir du mode Groupes.</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="hashTagsSectionText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="hashTagsSectionText" type="text">
     <description/>
     <value>Hashtags</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="groupsSectionText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="groupsSectionText" type="text">
     <description/>
     <value>Groupes</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="kpiSectionText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="kpiSectionText" type="text">
     <description/>
     <value>ICP</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="configureGroupsText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="configureGroupsText" type="text">
     <description/>
     <value>Configurer</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="refreshGroupsText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="refreshGroupsText" type="text">
     <description/>
     <value>Actualiser</value>
   </data>
-  <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="Texte">
+  <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
     <description/>
     <value>Index</value>
   </data>

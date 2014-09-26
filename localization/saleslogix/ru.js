@@ -4,7 +4,21 @@ localize("Sage.Platform.Mobile.Calendar", {
   "timeFormatText": "H:mm",
   "titleText": "Календарь",
   "amText": "д. п.",
-  "pmText": "п. п."
+  "pmText": "п. п.",
+  "monthsShortText": {
+    "0": "Янв",
+    "1": "Фев",
+    "2": "Мар",
+    "3": "Апр",
+    "4": "Май",
+    "5": "Июнь",
+    "6": "Июль",
+    "7": "Авг",
+    "8": "Сен",
+    "9": "Окт",
+    "10": "Ноя",
+    "11": "Дек"
+  }
 });
 
 localize("Sage.Platform.Mobile.Fields.DateField", {
@@ -54,6 +68,15 @@ localize("Mobile.SalesLogix.Recurrence", {
   "everyText": "каждые ${0} ${1}",
   "afterCompletionText": "по завершении",
   "untilEndDateText": "${0} вплоть до ${1}",
+  "weekDaysText": {
+    "0": "Воскресенье",
+    "1": "Понедельник",
+    "2": "Вторник",
+    "3": "Среда",
+    "4": "Четверг",
+    "5": "Пятница",
+    "6": "Суббота"
+  },
   "ordText": {
     "0": "День",
     "1": "Первый",
@@ -153,7 +176,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "whenText": "Когда",
   "whoText": "Кто",
   "recurrenceText": "периодичность",
-  "confirmEditRecurrenceText": "Изменить все повторения?\nОтмена для изменения одного повторения.",
+  "confirmEditRecurrenceText": "Изменить все повторения? Отмена для изменения одного повторения.",
   "relatedAttachmentText": "Вложения",
   "relatedAttachmentTitleText": "Вложения действия",
   "relatedItemsText": "Связанные элементы",
@@ -272,7 +295,16 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "eventHeaderText": "События",
   "countMoreText": "Показать больше",
   "activityHeaderText": "Дела",
-  "toggleCollapseText": "показать/скрыть"
+  "toggleCollapseText": "показать/скрыть",
+  "weekDaysShortText": {
+    "0": "Вс",
+    "1": "Пн",
+    "2": "Вт",
+    "3": "Ср",
+    "4": "Чт",
+    "5": "Пт",
+    "6": "Сб"
+  }
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
@@ -642,7 +674,8 @@ localize("Sage.Platform.Mobile._DetailBase", {
   "detailsText": "Детали",
   "loadingText": "Загрузка...",
   "requestErrorText": "При запросе данных возникла ошибка сервера.",
-  "notAvailableText": "Запрошенные данные недоступны."
+  "notAvailableText": "Запрошенные данные недоступны.",
+  "toggleCollapseText": "показать/скрыть"
 });
 
 localize("Sage.Platform.Mobile._EditBase", {
@@ -675,7 +708,7 @@ localize("Mobile.SalesLogix.Action", {
 });
 
 localize("Mobile.SalesLogix.Application", {
-  "versionInfoText": "Mobile v${0}.${1}.${2} / платформа Saleslogix v${3}"
+  "versionInfoText": "Мобильный тел. v${0}.${1}.${2}"
 });
 
 localize("Mobile.SalesLogix.ApplicationModule", {
@@ -926,6 +959,29 @@ localize("Mobile.SalesLogix.Views.Activity.Recurring", {
   "onText": "на",
   "occurrencesText": "вхождения",
   "summaryText": "Сводно",
+  "weekDaysText": {
+    "0": "Воскресенье",
+    "1": "Понедельник",
+    "2": "Вторник",
+    "3": "Среда",
+    "4": "Четверг",
+    "5": "Пятница",
+    "6": "Суббота"
+  },
+  "monthsText": {
+    "0": "Январь",
+    "1": "Февраль",
+    "2": "Март",
+    "3": "Апрель",
+    "4": "Май",
+    "5": "Июнь",
+    "6": "Июль",
+    "7": "Август",
+    "8": "Сентябрь",
+    "9": "Октябрь",
+    "10": "Ноябрь",
+    "11": "Декабрь"
+  },
   "frequencyOptionsText": {
     "0": "Дней",
     "1": "недель",
@@ -1269,11 +1325,8 @@ localize("Mobile.SalesLogix.Views.Login", {
   "invalidUserText": "Неверное имя пользователя или пароль.",
   "missingUserText": "Запись пользователя не найдена.",
   "serverProblemText": "Возникла ошибка сервера.",
-  "requestAbortedText": "Запрос не выполнен."
-});
-
-localize("Mobile.SalesLogix.Views.MainToolbar", {
-  "titleText": "SalesLogix"
+  "requestAbortedText": "Запрос не выполнен.",
+  "logoText": "Infor CRM"
 });
 
 localize("Mobile.SalesLogix.Views.MetricConfigure", {
@@ -1595,7 +1648,7 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 });
 
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
-  "noDefaultGroupText": "Группа по умолчанию не установлена. Откройте меню справа и нажмите кнопку \"Настроить\" в разделе \"Группы\" для настройки групп.",
+  "noDefaultGroupText": "No default group set. Click here to configure groups.",
   "currentGroupNotFoundText": "Текущая группа не найдена.",
   "groupsModeText": "В настоящий момент вы находитесь в режиме групп. Выполните поиск или выберите хэштег для выхода из режима групп."
 });

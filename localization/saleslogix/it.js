@@ -4,7 +4,21 @@ localize("Sage.Platform.Mobile.Calendar", {
   "timeFormatText": "H:mm",
   "titleText": "Calendario",
   "amText": "AM",
-  "pmText": "PM"
+  "pmText": "PM",
+  "monthsShortText": {
+    "0": "Gen",
+    "1": "Feb",
+    "2": "Mar",
+    "3": "Apr",
+    "4": "Maggio",
+    "5": "Giu",
+    "6": "Lug",
+    "7": "Ago",
+    "8": "Set",
+    "9": "Ott",
+    "10": "Nov",
+    "11": "Dic"
+  }
 });
 
 localize("Sage.Platform.Mobile.Fields.DateField", {
@@ -54,6 +68,15 @@ localize("Mobile.SalesLogix.Recurrence", {
   "everyText": "ogni ${0} ${1}",
   "afterCompletionText": "Dopo completamento",
   "untilEndDateText": "${0} fino al ${1}",
+  "weekDaysText": {
+    "0": "Domenica",
+    "1": "Lunedì",
+    "2": "Martedì",
+    "3": "Mercoledì",
+    "4": "Giovedì",
+    "5": "Venerdì",
+    "6": "Sabato"
+  },
   "ordText": {
     "0": "Giorno",
     "1": "Nome",
@@ -153,7 +176,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "whenText": "Quando",
   "whoText": "Chi",
   "recurrenceText": "ricorrenza",
-  "confirmEditRecurrenceText": "Modificare tutte le occorrenze?\\nAnnulla per modificare una singola occorrenza.",
+  "confirmEditRecurrenceText": "Modificare tutte le occorrenze? Annulla per modificare una singola occorrenza.",
   "relatedAttachmentText": "Allegati",
   "relatedAttachmentTitleText": "Allegati attività",
   "relatedItemsText": "Elementi correlati",
@@ -272,7 +295,16 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "eventHeaderText": "Eventi",
   "countMoreText": "Visualizza altro",
   "activityHeaderText": "Attività",
-  "toggleCollapseText": "espandi comprimi"
+  "toggleCollapseText": "espandi comprimi",
+  "weekDaysShortText": {
+    "0": "Dom",
+    "1": "Lun",
+    "2": "Mar",
+    "3": "Mer",
+    "4": "Gio",
+    "5": "Ven",
+    "6": "Sab"
+  }
 });
 
 localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
@@ -642,7 +674,8 @@ localize("Sage.Platform.Mobile._DetailBase", {
   "detailsText": "Dettagli",
   "loadingText": "Caricamento...",
   "requestErrorText": "Si è verificato un errore del server durante la richiesta di dati.",
-  "notAvailableText": "I dati richiesti non sono disponibili."
+  "notAvailableText": "I dati richiesti non sono disponibili.",
+  "toggleCollapseText": "espandi comprimi"
 });
 
 localize("Sage.Platform.Mobile._EditBase", {
@@ -675,7 +708,7 @@ localize("Mobile.SalesLogix.Action", {
 });
 
 localize("Mobile.SalesLogix.Application", {
-  "versionInfoText": "Piattaforma Mobile v${0}.${1}.${2} / Saleslogix v${3}"
+  "versionInfoText": "Cellulare v${0}.${1}.${2}"
 });
 
 localize("Mobile.SalesLogix.ApplicationModule", {
@@ -926,6 +959,29 @@ localize("Mobile.SalesLogix.Views.Activity.Recurring", {
   "onText": "su",
   "occurrencesText": "occorrenze",
   "summaryText": "Sommario",
+  "weekDaysText": {
+    "0": "Domenica",
+    "1": "Lunedì",
+    "2": "Martedì",
+    "3": "Mercoledì",
+    "4": "Giovedì",
+    "5": "Venerdì",
+    "6": "Sabato"
+  },
+  "monthsText": {
+    "0": "Gennaio",
+    "1": "Febbraio",
+    "2": "Marzo",
+    "3": "Aprile",
+    "4": "Maggio",
+    "5": "Giugno",
+    "6": "Luglio",
+    "7": "Agosto",
+    "8": "Settembre",
+    "9": "Ottobre",
+    "10": "Novembre",
+    "11": "Dicembre"
+  },
   "frequencyOptionsText": {
     "0": "Giorni",
     "1": "settimane",
@@ -1269,11 +1325,8 @@ localize("Mobile.SalesLogix.Views.Login", {
   "invalidUserText": "Nome utente o password non validi.",
   "missingUserText": "Record utente non trovato.",
   "serverProblemText": "Si è verificato un problema sul server.",
-  "requestAbortedText": "Richiesta annullata."
-});
-
-localize("Mobile.SalesLogix.Views.MainToolbar", {
-  "titleText": "SalesLogix"
+  "requestAbortedText": "Richiesta annullata.",
+  "logoText": "Infor CRM"
 });
 
 localize("Mobile.SalesLogix.Views.MetricConfigure", {
@@ -1595,7 +1648,7 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 });
 
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
-  "noDefaultGroupText": "Gruppo predefinito non impostato. Per impostare i gruppi, aprire il menu a destra e premere configura nella sezione dei gruppi.",
+  "noDefaultGroupText": "No default group set. Click here to configure groups.",
   "currentGroupNotFoundText": "Gruppo corrente non trovato.",
   "groupsModeText": "Attualmente si è in modalità gruppi. Eseguire una ricerca o fare clic su un hashtag per uscire dalla modalità gruppi."
 });

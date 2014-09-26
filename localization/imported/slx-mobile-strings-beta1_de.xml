@@ -11,6 +11,54 @@
     <description/>
     <value>PM</value>
   </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[0]" type="text">
+    <description/>
+    <value>Jan.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[1]" type="text">
+    <description/>
+    <value>Feb.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[2]" type="text">
+    <description/>
+    <value>März</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[3]" type="text">
+    <description/>
+    <value>Apr.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[4]" type="text">
+    <description/>
+    <value>Mai</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[5]" type="text">
+    <description/>
+    <value>Jun.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[6]" type="text">
+    <description/>
+    <value>Jul.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[7]" type="text">
+    <description/>
+    <value>Aug</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[8]" type="text">
+    <description/>
+    <value>Sept.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[9]" type="text">
+    <description/>
+    <value>Okt.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[10]" type="text">
+    <description/>
+    <value>Nov.</value>
+  </data>
+  <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[11]" type="text">
+    <description/>
+    <value>Dez.</value>
+  </data>
   <data class="Sage.Platform.Mobile.ErrorManager" property="abortedText" type="text">
     <description/>
     <value>Abgebrochen</value>
@@ -21,7 +69,7 @@
   </data>
   <data class="Sage.Platform.Mobile.Fields.BooleanField" property="onText" type="text">
     <description/>
-    <value>am</value>
+    <value>An</value>
   </data>
   <data class="Sage.Platform.Mobile.Fields.BooleanField" property="offText" type="text">
     <description/>
@@ -355,6 +403,10 @@
     <description/>
     <value>Die angeforderten Daten sind nicht verfügbar.</value>
   </data>
+  <data class="Sage.Platform.Mobile._DetailBase" property="toggleCollapseText" type="text">
+    <description/>
+    <value>Ein-/ausblenden</value>
+  </data>
   <data class="Sage.Platform.Mobile._EditBase" property="saveText" type="text">
     <description/>
     <value>Speichern</value>
@@ -393,7 +445,7 @@
   </data>
   <data class="Sage.Platform.Mobile._ListBase" property="emptySelectionText" type="text">
     <description/>
-    <value>Keine</value>
+    <value>Unbegrenzt</value>
   </data>
   <data class="Sage.Platform.Mobile._ListBase" property="titleText" type="text">
     <description/>
@@ -437,7 +489,7 @@
   </data>
   <data class="Mobile.SalesLogix.Application" property="versionInfoText" type="text">
     <description/>
-    <value>Mobile v${0}.${1}.${2} / Saleslogix v${3} plattform</value>
+    <value>Mobil v${0}.${1}.${2}</value>
   </data>
   <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="text">
     <description/>
@@ -461,7 +513,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[potential]" type="text">
     <description/>
-    <value>Forecast</value>
+    <value>Verkaufspotenzial</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="ticketsText[total]" type="text">
     <description/>
@@ -485,7 +537,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="historyText[duration]" type="text">
     <description/>
-    <value>Gesamtdauer</value>
+    <value>Dauer - gesamt</value>
   </data>
   <data class="Mobile.SalesLogix.Fields.AddressField" property="lookupLabelText" type="text">
     <description/>
@@ -553,7 +605,7 @@
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="neverText" type="text">
     <description/>
-    <value>Nie</value>
+    <value>Niemals</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="daysText" type="text">
     <description/>
@@ -573,7 +625,7 @@
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="weeklyOnText" type="text">
     <description/>
-    <value>Wöchentlich am ${3}</value>
+    <value>Wöchentlich jeden ${3}</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="monthsText" type="text">
     <description/>
@@ -619,6 +671,34 @@
     <description/>
     <value>${0} bis ${1}</value>
   </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[0]" type="text">
+    <description/>
+    <value>Sonntag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[1]" type="text">
+    <description/>
+    <value>Montag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[2]" type="text">
+    <description/>
+    <value>Dienstag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[3]" type="text">
+    <description/>
+    <value>Mittwoch</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[4]" type="text">
+    <description/>
+    <value>Donnerstag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[5]" type="text">
+    <description/>
+    <value>Freitag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Recurrence" property="weekDaysText[6]" type="text">
+    <description/>
+    <value>Samstag</value>
+  </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[0]" type="text">
     <description/>
     <value>Tag</value>
@@ -629,7 +709,7 @@
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[2]" type="text">
     <description/>
-    <value>zweiten</value>
+    <value>Zweiten</value>
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[3]" type="text">
     <description/>
@@ -745,7 +825,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="actionsText" type="text">
     <description/>
-    <value>Schnellaktionen</value>
+    <value>Express-Optionen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="relatedActivitiesText" type="text">
     <description/>
@@ -1069,7 +1149,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[0]" type="text">
     <description/>
-    <value>Keine</value>
+    <value>unbegrenzt</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[15]" type="text">
     <description/>
@@ -1093,7 +1173,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followupValueText[none]" type="text">
     <description/>
-    <value>Keine</value>
+    <value>Unbegrenzt</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="followupValueText[atPhoneCall]" type="text">
     <description/>
@@ -1133,7 +1213,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="actionsText" type="text">
     <description/>
-    <value>Schnellaktionen</value>
+    <value>Express-Optionen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="completeActivityText" type="text">
     <description/>
@@ -1245,7 +1325,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="confirmEditRecurrenceText" type="text">
     <description/>
-    <value>Alle Vorkommen bearbeiten?\nAbbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
+    <value>Alle Vorkommen bearbeiten? Abbrechen, um einzelnes Vorkommen zu bearbeiten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -1413,7 +1493,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderValueText[0]" type="text">
     <description/>
-    <value>Keine</value>
+    <value>unbegrenzt</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderValueText[5]" type="text">
     <description/>
@@ -1437,7 +1517,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[0]" type="text">
     <description/>
-    <value>Keine</value>
+    <value>unbegrenzt</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[15]" type="text">
     <description/>
@@ -1673,7 +1753,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="onText" type="text">
     <description/>
-    <value>am</value>
+    <value>an</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="occurrencesText" type="text">
     <description/>
@@ -1682,6 +1762,82 @@
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="summaryText" type="text">
     <description/>
     <value>Zusammenfassung</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[0]" type="text">
+    <description/>
+    <value>Sonntag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[1]" type="text">
+    <description/>
+    <value>Montag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[2]" type="text">
+    <description/>
+    <value>Dienstag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[3]" type="text">
+    <description/>
+    <value>Mittwoch</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[4]" type="text">
+    <description/>
+    <value>Donnerstag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[5]" type="text">
+    <description/>
+    <value>Freitag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[6]" type="text">
+    <description/>
+    <value>Samstag</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[0]" type="text">
+    <description/>
+    <value>Januar</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[1]" type="text">
+    <description/>
+    <value>Februar</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[2]" type="text">
+    <description/>
+    <value>März</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[3]" type="text">
+    <description/>
+    <value>April</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[4]" type="text">
+    <description/>
+    <value>Mai</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[5]" type="text">
+    <description/>
+    <value>Juni</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[6]" type="text">
+    <description/>
+    <value>Juli</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[7]" type="text">
+    <description/>
+    <value>August</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[8]" type="text">
+    <description/>
+    <value>September</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[9]" type="text">
+    <description/>
+    <value>Oktober</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[10]" type="text">
+    <description/>
+    <value>November</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="monthsText[11]" type="text">
+    <description/>
+    <value>Dezember</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="frequencyOptionsText[0]" type="text">
     <description/>
@@ -1781,7 +1937,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="detailsAccountText" type="text">
     <description/>
-    <value>Kontoinformationen</value>
+    <value>Firmeninformationen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="detailsContactText" type="text">
     <description/>
@@ -1801,7 +1957,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="homePhoneText" type="text">
     <description/>
-    <value>Private Telefonnummer</value>
+    <value>Privat</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="industryText" type="text">
     <description/>
@@ -1813,7 +1969,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="lastNameText" type="text">
     <description/>
-    <value>Letzte</value>
+    <value>Nachname</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="mobileText" type="text">
     <description/>
@@ -1842,6 +1998,10 @@
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="webText" type="text">
     <description/>
     <value>Web</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.AddAccountContact" property="phoneText" type="text">
+    <description/>
+    <value>Telefon</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="workText" type="text">
     <description/>
@@ -2067,6 +2227,34 @@
     <description/>
     <value>Ein-/ausblenden</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[0]" type="text">
+    <description/>
+    <value>So</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[1]" type="text">
+    <description/>
+    <value>Mo</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[2]" type="text">
+    <description/>
+    <value>Di</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[3]" type="text">
+    <description/>
+    <value>Mi</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[4]" type="text">
+    <description/>
+    <value>Do</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[5]" type="text">
+    <description/>
+    <value>Fr</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="weekDaysShortText[6]" type="text">
+    <description/>
+    <value>Sa</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="titleText" type="text">
     <description/>
     <value>Kalender</value>
@@ -2169,7 +2357,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="homeText" type="text">
     <description/>
-    <value>Private Telefonnummer</value>
+    <value>Privat</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="nameText" type="text">
     <description/>
@@ -2181,7 +2369,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="actionsText" type="text">
     <description/>
-    <value>Schnellaktionen</value>
+    <value>Express-Optionen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="relatedAccountsText" type="text">
     <description/>
@@ -2305,7 +2493,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="homePhoneText" type="text">
     <description/>
-    <value>Private Telefonnummer</value>
+    <value>Privat</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="faxText" type="text">
     <description/>
@@ -2465,7 +2653,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Event.Detail" property="actionsText" type="text">
     <description/>
-    <value>Schnellaktionen</value>
+    <value>Express-Optionen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Event.Detail" property="startTimeText" type="text">
     <description/>
@@ -2645,7 +2833,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="relatedAttachmentTitleText" type="text">
     <description/>
-    <value>Annlagen mit Historien</value>
+    <value>Anlagen mit Historien</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="modifiedText" type="text">
     <description/>
@@ -2857,7 +3045,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Home" property="actionsText" type="text">
     <description/>
-    <value>Schnellaktionen</value>
+    <value>Express-Optionen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Home" property="viewsText" type="text">
     <description/>
@@ -2973,7 +3161,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="actionsText" type="text">
     <description/>
-    <value>Schnellaktionen</value>
+    <value>Express-Optionen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Detail" property="callWorkNumberText" type="text">
     <description/>
@@ -3185,7 +3373,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.LeftDrawer" property="actionsText" type="text">
     <description/>
-    <value>Schnellaktionen</value>
+    <value>Express-Optionen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.LeftDrawer" property="viewsText" type="text">
     <description/>
@@ -3225,7 +3413,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="copyrightText" type="text">
     <description/>
-    <value>&amp;copy; 2014 SalesLogix, NA, LLC. Alle Rechte vorbehalten.</value>
+    <value>Copyright &amp;copy; 2014 Infor. Alle Rechte vorbehalten. www.infor.com</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
@@ -3263,9 +3451,9 @@
     <description/>
     <value>Die Anfrage wurde abgebrochen.</value>
   </data>
-  <data class="Mobile.SalesLogix.Views.MainToolbar" property="titleText" type="text">
+  <data class="Mobile.SalesLogix.Views.Login" property="logoText" type="text">
     <description/>
-    <value>SalesLogix</value>
+    <value>Infor CRM</value>
   </data>
   <data class="Mobile.SalesLogix.Views.MetricConfigure" property="titleText" type="text">
     <description/>
@@ -3311,6 +3499,10 @@
     <description/>
     <value>Wird geladen...</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.MetricWidget" property="errorText" type="text">
+    <description/>
+    <value>Fehler beim Laden des Widget.</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="titleText" type="text">
     <description/>
     <value>Name bearbeiten</value>
@@ -3325,7 +3517,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="lastNameText" type="text">
     <description/>
-    <value>Letzte</value>
+    <value>Nachname</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="prefixText" type="text">
     <description/>
@@ -3345,7 +3537,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="accountText" type="text">
     <description/>
-    <value>firma</value>
+    <value>Firma</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="acctMgrText" type="text">
     <description/>
@@ -3381,11 +3573,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="actionsText" type="text">
     <description/>
-    <value>Schnellaktionen</value>
+    <value>Express-Optionen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="potentialText" type="text">
     <description/>
-    <value>Forecast</value>
+    <value>Verkaufspotenzial</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="potentialBaseText" type="text">
     <description/>
@@ -3485,7 +3677,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="accountText" type="text">
     <description/>
-    <value>firma</value>
+    <value>Firma</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="acctMgrText" type="text">
     <description/>
@@ -3521,7 +3713,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="potentialText" type="text">
     <description/>
-    <value>Forecast</value>
+    <value>Verkaufspotenzial</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="probabilityText" type="text">
     <description/>
@@ -4021,7 +4213,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="actionsText" type="text">
     <description/>
-    <value>Schnellaktionen</value>
+    <value>Express-Optionen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="relatedAttachmentText" type="text">
     <description/>
@@ -4085,7 +4277,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="accountText" type="text">
     <description/>
-    <value>firma</value>
+    <value>Firma</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="areaText" type="text">
     <description/>
@@ -4449,7 +4641,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
     <description/>
-    <value>Keine Standardgruppe eingestellt. Öffnen Sie das Menü rechts und wählen Sie unter dem Gruppenbereich "Konfigurieren", um die Gruppen einzurichten.</value>
+    <value>No default group set. Click here to configure groups.</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
     <description/>
