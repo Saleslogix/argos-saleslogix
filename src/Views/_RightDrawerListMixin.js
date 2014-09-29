@@ -236,7 +236,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             if ((entry.action === 'groupClicked' || entry.action === 'groupConfigureClicked' ) && this.groupsEnabled) {
                 return {
                     tag: 'group',
-                    title: this.groupsSectionText
+                    title: mixin.prototype.groupsSectionText
                 };
             }
 
@@ -246,7 +246,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len;
+            var groupsSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len, mixin = lang.getObject(mixinName);
 
             layout = [];
 
@@ -259,7 +259,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 groupsSection.children.push({
                     'name': 'configureGroups',
                     'action': 'groupConfigureClicked',
-                    'title': this.configureGroupsText,
+                    'title': mixin.prototype.configureGroupsText,
                     'cls': 'group-configuration',
                     'iconCls': 'fa fa-cog fa-fw '
                 });
