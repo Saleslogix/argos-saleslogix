@@ -4641,7 +4641,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
     <description/>
-    <value>No default group set. Click here to configure groups.</value>
+    <value>Keine Standardgruppe eingestellt. Öffnen Sie das Menü rechts und wählen Sie unter dem Gruppenbereich "Konfigurieren", um die Gruppen einzurichten.</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
     <description/>

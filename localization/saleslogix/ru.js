@@ -1648,7 +1648,7 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 });
 
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
-  "noDefaultGroupText": "No default group set. Click here to configure groups.",
+  "noDefaultGroupText": "Группа по умолчанию не установлена. Откройте меню справа и нажмите кнопку \"Настроить\" в разделе \"Группы\" для настройки групп.",
   "currentGroupNotFoundText": "Текущая группа не найдена.",
   "groupsModeText": "В настоящий момент вы находитесь в режиме групп. Выполните поиск или выберите хэштег для выхода из режима групп."
 });

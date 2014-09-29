@@ -1648,7 +1648,7 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 });
 
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
-  "noDefaultGroupText": "No default group set. Click here to configure groups.",
+  "noDefaultGroupText": "Gruppo predefinito non impostato. Per impostare i gruppi, aprire il menu a destra e premere configura nella sezione dei gruppi.",
   "currentGroupNotFoundText": "Gruppo corrente non trovato.",
   "groupsModeText": "Attualmente si è in modalità gruppi. Eseguire una ricerca o fare clic su un hashtag per uscire dalla modalità gruppi."
 });
