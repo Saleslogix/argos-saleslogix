@@ -1429,7 +1429,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="recurringText" type="text">
     <description/>
-    <value>Sich_wiederholende_Aktivität</value>
+    <value>Sich wiederholende Aktivität</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="recurringTitleText" type="text">
     <description/>
@@ -1577,7 +1577,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="recurringText" type="text">
     <description/>
-    <value>Sich_wiederholende_Aktivität</value>
+    <value>Sich wiederholende Aktivität</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
     <description/>
@@ -1621,7 +1621,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[recurring]" type="text">
     <description/>
-    <value>Sich wiederholende Aktivität</value>
+    <value>Sich_wiederholende_Aktivität</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[timeless]" type="text">
     <description/>
@@ -1697,7 +1697,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[recurring]" type="text">
     <description/>
-    <value>Sich wiederholende Aktivität</value>
+    <value>Sich_wiederholende_Aktivität</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[timeless]" type="text">
     <description/>
