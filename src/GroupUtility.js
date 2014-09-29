@@ -184,8 +184,10 @@ define('Mobile/SalesLogix/GroupUtility', [
             if (groupFormat) {
                 groupFormat = groupFormat.replace("MM", "M");
                 groupFormat = groupFormat.replace("mm", "M");
+                groupFormat = groupFormat.replace("m", "M");
                 groupFormat = groupFormat.replace("DD", "D");
                 groupFormat = groupFormat.replace("dd", "D");
+                groupFormat = groupFormat.replace("d", "D");
                 groupFormat = groupFormat.replace("yyyy", "YYYY");
                 groupFormat = groupFormat.replace("yy", "YYYY");
                 return groupFormat;
