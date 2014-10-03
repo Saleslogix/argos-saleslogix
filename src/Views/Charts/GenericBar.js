@@ -43,7 +43,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
         legend: null,
         MAX_ITEMS: 5,
         MIN_ITEMS: 1,
-        barColor: '#007dbe',
+        barColor: '#13a3f7',
 
         formatter: function(val) {
             return val;

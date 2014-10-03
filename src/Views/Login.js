@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/Login', [
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
-            '<p class="logo"><img src="content/images/logo.png"></img><span>{%: $.logoText %}<span></p>',
+            '<p class="logo"><img src="content/images/logo-64.png" /><span>{%: $.logoText %}<span></p>',
             '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress" data-dojo-attach-point="contentNode"></div>',
             '<button class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
             '<span class="copyright">{%= $.copyrightText %}</span>',
@@ -35,11 +35,11 @@ define('Mobile/SalesLogix/Views/Login', [
         id: 'login',
         busy: false,
         copyrightText: 'Copyright &copy; 2014 Infor. All rights reserved. www.infor.com',
-        logOnText: 'Log On',
-        passText: 'password',
-        rememberText: 'remember',
-        titleText: 'Log On',
-        userText: 'user name',
+        logOnText: 'Sign in',
+        passText: 'Password',
+        rememberText: 'Remember me',
+        titleText: 'Sign in',
+        userText: 'User ID',
         invalidUserText: 'The user name or password is invalid.',
         missingUserText: 'The user record was not found.',
         serverProblemText: 'A problem occured on the server.',
@@ -80,13 +80,13 @@ define('Mobile/SalesLogix/Views/Login', [
             return this.layout || (this.layout = [
                 {
                     name: 'username',
-                    label: this.userText,
+                    placeHolderText: this.userText,
                     type: 'text',
                     autoFocus: true
                 },
                 {
                     name: 'password',
-                    label: this.passText,
+                    placeHolderText: this.passText,
                     type: 'text',
                     inputType: 'password'
                 },
