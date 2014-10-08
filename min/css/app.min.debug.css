@@ -40,6 +40,8 @@
 }
 #login .logo > span {
   font-size: 32px;
+  margin: 0;
+  padding-bottom: 20px;
   display: block;
 }
 #login .panel-content {
@@ -52,9 +54,6 @@
   height: 40px;
   line-height: 40px;
   cursor: pointer;
-  font-size: 1em;
-  background-color: #007dbe;
-  color: #fff;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -65,9 +64,6 @@
 @media only screen and (min-width: 768px) {
   #login {
     background-color: #ecedef;
-  }
-  #login .logo > span {
-    margin-bottom: 18px;
   }
   #login .panel-content {
     background-color: #fff;
@@ -127,7 +123,6 @@
 }
 .note-text-row > pre {
   font-family: inherit;
-  font-size: inherit;
   margin: 0;
   padding: 0;
   white-space: pre-wrap;
@@ -142,7 +137,6 @@
   overflow: hidden;
 }
 .note-text-wrap {
-  font-size: 0.8em;
   font-weight: normal;
   line-height: 1.25em;
   margin-top: 0;
@@ -168,7 +162,6 @@
   background-color: transparent;
 }
 #context_dialog .list-content > li {
-  font-size: 20px;
   font-weight: bold;
   list-style: none outside none;
   margin: 0;
@@ -180,7 +173,6 @@
   position: static;
   display: block;
   text-align: center;
-  font-size: 20px;
   line-height: 40px;
   height: auto;
   padding: 0 3px;
@@ -193,9 +185,6 @@
   display: block;
   margin: -8px 0 -8px -10px;
   padding: 8px 32px 8px 36px;
-}
-#configure .list-content > li h3 {
-  font-size: .75em;
 }
 #configure .list-content > li h3 > span:first-child {
   float: left;
@@ -254,12 +243,6 @@
 #help_search > li > h3 {
   font-weight: bold;
 }
-#help_search > li > h4 {
-  font-size: 1em;
-}
-#help_search > li > ul {
-  font-size: .75em;
-}
 #activity_edit div[data-field="Alarm"] {
   border-bottom: none 0px black;
 }
@@ -271,7 +254,6 @@
   font-weight: bold;
 }
 #ticket_list > .list-content > li > h3 {
-  font-size: 0.75em;
   font-weight: bold;
 }
 #ticket_list > .list-content > li > h3 > .p-ticket-subject {
@@ -300,9 +282,6 @@
     */
   z-index: 500;
 }
-.p-meridiem {
-  font-size: 0.75em;
-}
 .metric-widget,
 .metric-detail {
   display: inline-block;
@@ -314,8 +293,11 @@
   border-color: #000;
   border-width: 0px;
   width: 100%;
-  background-color: #007dbe;
+  background-color: #2db329;
   color: #fff;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
 }
 .metric-widget {
   width: 32.7%;
@@ -328,14 +310,13 @@
 }
 .groups-notice {
   width: 100%;
-  border-left: 5px solid #007dbe;
+  border-left: 5px solid #005ce6;
   padding: 10px;
   margin: 0 0 6px 0;
   font-weight: bold;
   display: none;
 }
 .metric-title {
-  font-size: 10pt;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -344,7 +325,6 @@
   padding: 0;
 }
 .metric-value {
-  font-size: 14pt;
   font-weight: bold;
   padding-top: 5px;
 }
@@ -436,14 +416,14 @@ li[data-ticket-status] .list-item-selector,
   background-color: #9a9ea1;
 }
 .calendar-day.today {
-  background-color: #7fbede;
+  background-color: #61c5ff;
 }
 .calendar-day.weekend {
-  background-color: #007dbe;
+  background-color: #005ce6;
 }
 .calendar-day.selected {
   color: #fff;
-  background-color: #64003c;
+  background-color: #005ce6;
 }
 /* in Month view .activeDay indicates individual events */
 td.calendar-day {
@@ -466,7 +446,6 @@ td.calendar-day {
     border-top-color: transparent;
     border-left-color: transparent; */
   color: #ffffff;
-  font-size: 80%;
   font-weight: normal;
 }
 .calendar-day.today.activeDay span.activity-count,
@@ -525,7 +504,6 @@ body.transition > .viewContainer > .footer-toolbar {
   display: block;
   text-align: center;
   clear: both;
-  font-size: .6em;
   color: #888;
 }
 .viewContainer > #calendar_monthlist > .month-content,
@@ -562,11 +540,9 @@ body.transition > .viewContainer > .footer-toolbar {
   body.landscape > .viewContainer > #calendar_yearlist td.calendar-day {
     padding: 6px 0px 6px 0px !important;
     width: 34px;
-    font-size: .7em;
   }
   body.landscape > .viewContainer > #calendar_yearlist tr.calendar-week-header {
     padding: 3px 0 0 0 !important;
-    font-size: 0.7em;
   }
   body.landscape > .viewContainer > #calendar_yearlist .activity-count {
     top: 8px;
@@ -576,7 +552,6 @@ body.transition > .viewContainer > .footer-toolbar {
     border: 1px #AAB28B solid;
     border-bottom: none;
     border-right: none;
-    font-size: 70%;
   }
 }
 .month-content,
@@ -614,7 +589,6 @@ body.transition > .viewContainer > .footer-toolbar {
   border-right: none;
 }
 #calendar_yearlist > .year-content > .year-table h2 {
-  font-size: 0.95em;
   margin: 0;
   padding: 3px 0 0 0;
   text-align: center;
@@ -636,7 +610,6 @@ body.transition > .viewContainer > .footer-toolbar {
   height: 32px;
   line-height: 32px;
   padding: 0 0 0 6px;
-  font-size: 1em;
   z-index: 5;
   position: relative;
   -webkit-user-select: none;
@@ -652,7 +625,6 @@ body.transition > .viewContainer > .footer-toolbar {
   display: block;
   margin: 0;
   padding: 0;
-  font-size: 1em;
   line-height: 34px;
   font-weight: bold;
   text-align: center;
@@ -689,7 +661,7 @@ body.transition > .viewContainer > .footer-toolbar {
 }
 #calendar_weeklist > div > h2.currentDate {
   background-color: #444444;
-  border-left: 8px solid #007dbe;
+  border-left: 8px solid #005ce6;
   color: #fff;
 }
 #calendar_monthlist,
@@ -734,7 +706,6 @@ body.transition > .viewContainer > .footer-toolbar {
   float: left;
   width: 101px;
   text-align: right;
-  font-size: .9em;
 }
 #calendar_daylist table.calendar-entry-table,
 #calendar_weeklist table.calendar-entry-table,
@@ -757,12 +728,6 @@ td.entry-table-icon .list-item-selector {
 #calendar_weeklist .p-meridiem,
 #calendar_monthlist .p-meridiem {
   color: #4D4D4D;
-  font-size: 0.6em;
-}
-#calendar_daylist .p-time,
-#calendar_weeklist .p-time,
-#calendar_monthlist .p-time {
-  font-size: .8em;
 }
 #calendar_daylist .collapsed-event > ul,
 #calendar_weeklist .collapsed-event > ul,
@@ -783,7 +748,7 @@ td.entry-table-description {
   padding-left: 3px;
 }
 .nav-bar > .button {
-  background-color: #007dbe;
+  background-color: #005ce6;
   height: 34px;
   width: 40px;
 }
@@ -822,7 +787,7 @@ td.entry-table-description {
 .activities-for-year > .split-buttons > .button[data-tool="year"],
 .activities-for-week > .split-buttons > .button[data-tool="week"] {
   color: #fff;
-  background-color: #007dbe;
+  background-color: #005ce6;
 }
 .split-buttons > .button[data-tool="selectdate"] {
   vertical-align: bottom;
@@ -849,7 +814,7 @@ td.entry-table-description {
   border-width: 0 0 1px 0;
   border-style: solid;
   border-color: #0f1e1e;
-  background-color: #fe5000;
+  background-color: #ff6400;
   background-clip: padding-box;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
@@ -859,7 +824,6 @@ td.entry-table-description {
   display: block;
   margin: 0;
   padding: 0;
-  font-size: 1em;
   line-height: 34px;
   font-weight: normal;
   text-align: center;
@@ -962,7 +926,6 @@ td.entry-table-description {
 }
 .card-layout .list-content > li {
   min-height: 55px;
-  font-size: 1.25em;
   font-weight: bold;
   list-style: none;
   padding: 8px 0px 8px 10px;
@@ -988,7 +951,7 @@ td.entry-table-description {
   font-weight: normal;
 }
 .card-layout .actions-row {
-  background-color: #007dbe !important;
+  background-color: #005ce6 !important;
 }
 .card-layout .list-show-selectors {
   padding-left: 90px;
@@ -1085,7 +1048,6 @@ td.entry-table-description {
   margin: 0;
 }
 .card-layout .list-item-tab {
-  font-size: .50em;
   font-weight: normal;
   overflow: hidden;
   height: 100px;
@@ -1105,7 +1067,7 @@ td.entry-table-description {
 }
 .card-layout .list-item-indicator-content > span {
   margin: 0 3px 0 3px;
-  color: #ffb400;
+  color: #ffd500;
 }
 .card-layout .list-item-indicator-content > span > img {
   width: 24px;
@@ -1157,7 +1119,6 @@ td.entry-table-description {
 }
 .card-layout-search-expression {
   display: block;
-  font-size: 0.75em;
   line-height: inherit;
   padding: 2px;
   text-overflow: ellipsis;
@@ -1169,12 +1130,11 @@ td.entry-table-description {
   padding: 10px;
 }
 .speedsearch-fields span {
-  color: #007dbe;
+  color: #4b5656;
   font-weight: bold;
 }
 .card-layout-speed-search-index {
   display: block;
-  font-size: 1.5em;
   min-height: 1em;
   line-height: inherit;
   padding: 4px 6px 4px 4px;
@@ -1189,30 +1149,21 @@ td.entry-table-description {
 }
 .card-layout-speed-search-index-selected {
   background-color: #404040 !important;
-  color: #fff!important;
+  color: #fff !important;
 }
 .card-layout-speed-search-synopsis > span[style="font-weight: bold; background-color : yellow;"] {
-  background-color: #fe5000 !important;
+  background-color: #ff6400 !important;
   color: white;
 }
 .indicator_Important {
   background-color: #FFFFFF !important;
-  color: red!important;
-}
-.row > .toggle,
-.row > div > .toggle {
-  width: 100px;
-  height: 28px;
-  margin: 3px 0px 3px 0px;
-  position: relative;
-  right: auto;
+  color: red !important;
 }
 .card-layout-search-expression,
 .chart-hash {
   padding: 10px 0 10px 5px;
-  border-left: 5px solid #007dbe;
+  border-left: 5px solid #13a3f7;
   margin: 2px 0 0 2px;
-  font-size: 16px;
   font-weight: bold;
 }
 .user-icon {
@@ -1224,12 +1175,10 @@ td.entry-table-description {
   text-align: center;
   background: #ecedef;
   text-shadow: 0px 1px 0px #fff;
-  font-size: 0.8em;
   font-weight: bold;
   color: #4b5656;
 }
 .related-view-widget .note-text-wrap > h4 {
-  font-size: 0.85em;
   font-weight: normal;
   font-style: normal;
   line-height: 1.25em;
@@ -1244,4 +1193,9 @@ td.entry-table-description {
 }
 .group-configuration > .list-item-content {
   padding-left: 22px !important;
+}
+.group-content > h2 > button {
+  float: right;
+  border: none;
+  height: 32px;
 }

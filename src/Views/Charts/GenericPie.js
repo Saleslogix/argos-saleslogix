@@ -41,12 +41,12 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         expose: false,
         chart: null,
         MAX_ITEMS: 5,
-        pieColor: '#007dbe',
+        pieColor: '#13a3f7',
         seriesColors: [
-            '#007dbe',
-            '#409ece'
+            '#13a3f7',
+            '#61c5ff'
         ],
-        otherColor: '#bfdeef',
+        otherColor: '#005ce6',
 
         formatter: function(val) {
             return val;

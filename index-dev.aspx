@@ -76,7 +76,7 @@
           rel="apple-touch-startup-image">
 
     <!-- less files -->
-    <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/swiftpage.less" />
+    <link rel="stylesheet/less" type="text/css" href="../../argos-sdk/content/css/themes/crm.less" />
     <link rel="stylesheet/less" type="text/css" href="content/css/app.less" />
 
     <!-- less -->
