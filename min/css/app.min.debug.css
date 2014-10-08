@@ -293,8 +293,11 @@
   border-color: #000;
   border-width: 0px;
   width: 100%;
-  background-color: #005ce6;
+  background-color: #2db329;
   color: #fff;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
 }
 .metric-widget {
   width: 32.7%;
@@ -1127,7 +1130,7 @@ td.entry-table-description {
   padding: 10px;
 }
 .speedsearch-fields span {
-  color: #005ce6;
+  color: #4b5656;
   font-weight: bold;
 }
 .card-layout-speed-search-index {
@@ -1156,18 +1159,10 @@ td.entry-table-description {
   background-color: #FFFFFF !important;
   color: red !important;
 }
-.row > .toggle,
-.row > div > .toggle {
-  width: 100px;
-  height: 28px;
-  margin: 3px 0px 3px 0px;
-  position: relative;
-  right: auto;
-}
 .card-layout-search-expression,
 .chart-hash {
   padding: 10px 0 10px 5px;
-  border-left: 5px solid #005ce6;
+  border-left: 5px solid #13a3f7;
   margin: 2px 0 0 2px;
   font-weight: bold;
 }
@@ -1204,4 +1199,3 @@ td.entry-table-description {
   border: none;
   height: 32px;
 }
-/*# sourceMappingURL=app.min.debug.css.map */
