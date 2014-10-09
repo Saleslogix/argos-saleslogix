@@ -62,9 +62,6 @@ define('spec/Views/Account/List.spec', [
 
     describe('Mobile/SalesLogix/Views/Account/List', function() {
         beforeEach(function() {
-            this.store = new MemoryStore({ data: data});
-            this.list = new AccountList();
-            this.list.set('store', this.store);
             window.App = {
                 history: [],
                 getCurrentPage: function() {
@@ -75,8 +72,13 @@ define('spec/Views/Account/List.spec', [
                     return [];
                 },
                 getCustomizationsFor: function() {
-                }
+                },
+                enableGroups: true
             };
+            this.store = new MemoryStore({ data: data});
+            this.list = new AccountList();
+            this.list.groupsMode = false;
+            this.list.set('store', this.store);
         });
 
         afterEach(function() {

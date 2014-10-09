@@ -28,7 +28,6 @@ define('Mobile/SalesLogix/Views/LeadSource/List', [
         titleText: 'Lead Sources',
 
         //View Properties
-        icon: 'content/images/Accounts_24x24.gif',
         id: 'leadsource_list',
         security: 'Entities/LeadSource/View',
         queryOrderBy: 'Description',

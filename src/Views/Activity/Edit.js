@@ -178,13 +178,24 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             'RecurrenceState',
             'RecurPeriod',
             'RecurPeriodSpec',
-            'RecurIterations'
+            'RecurIterations',
+            'AllowAdd',
+            'AllowEdit',
+            'AllowDelete',
+            'AllowComplete'
         ],
         resourceKind: 'activities',
-        recurrence: {},
+        recurrence: null,
+        _previousRecurrence: null,
 
         init: function() {
             this.inherited(arguments);
+
+            this.recurrence = {
+                RecurIterations: "0",
+                RecurPeriod: "-1",
+                RecurPeriodSpec: "0"
+            };
 
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
             this.connect(this.fields['IsLead'], 'onChange', this.onIsLeadChange);
@@ -206,7 +217,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onPutComplete: function(entry) {
             var view = App.getView(this.detailView),
-                originalKey = this.options.entry['$key'];
+                originalKey = (this.options.entry && this.options.entry['$key']) || entry['$key'];
 
             this.enable();
 
@@ -228,8 +239,41 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.onUpdateCompleted(entry);
             }
         },
+        convertEntry: function() {
+            var entry = this.inherited(arguments);
+            if (!this.options.entry) {
+                if (entry && entry['Leader']['$key']) {
+                    this.requestLeader(entry['Leader']['$key']);
+                }
+            }
+
+            return entry;
+        },
+        requestLeader: function(userId) {
+            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getConnection())
+                .setResourceKind('users')
+                .setResourceSelector(string.substitute("'${0}'", [userId]))
+                .setQueryArg('select', [
+                    'UserInfo/FirstName',
+                    'UserInfo/LastName'
+                ].join(','));
+
+            request.read({
+                success: this.processLeader,
+                failure: this.requestLeaderFailure,
+                scope: this
+            });
+        },
+        requestLeaderFailure: function(xhr, o) {
+        },
+        processLeader: function(leader) {
+            if (leader) {
+                this.entry['Leader'] = leader;
+                this.fields['Leader'].setValue(leader);
+            }
+        },
         currentUserCanEdit: function(entry) {
-            return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
+            return (entry && (entry['AllowEdit']));
         },
         currentUserCanSetAlarm: function(entry) {
             return !!entry && (entry['Leader']['$key'] === App.context['user']['$key']);
@@ -241,11 +285,16 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             return (/rstMaster/).test(this.fields['RecurrenceState'].getValue());
         },
         isInLeadContext: function() {
-            var insert = this.options && this.options.insert,
+            var lead, isLeadContext,
+                insert = this.options && this.options.insert,
                 entry = this.options && this.options.entry,
-                lead = (insert && App.isNavigationFromResourceKind('leads', function(o, c) {
-                    return c.key;
-                })) || this.isActivityForLead(entry);
+                context = this._getNavContext();
+            isLeadContext = false;
+            if (context.resourceKind === 'leads') {
+                isLeadContext = true;
+            }
+
+            lead = (insert && isLeadContext )|| this.isActivityForLead(entry);
 
             return !!lead;
         },
@@ -374,8 +423,29 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         onLeaderChange: function(value, field) {
-            var userId = field.getValue();
-            this.fields['UserId'].setValue(userId && userId['$key']);
+            var user = field.getValue(),
+                key,
+                resourceId = '';
+
+            key = user['$key'];
+
+            // The key is a composite key on activityresourceviews endpoint.
+            // The format is 'ResourceId-AccessId'.
+            // The feed does include these as seperate fields, but we need to keep the $key/$descriptor format for doing
+            // the PUT to the activities endpoint. We will convert the composite key to something the activities endpoint will understand.
+            if (key) {
+                key = key.split('-');
+                resourceId = key[0];
+                if (resourceId) {
+                    this.fields['UserId'].setValue(resourceId);
+
+                    // Set back to a single $key so the PUT request payload is not messed up
+                    this.fields['Leader'].setValue({
+                        '$key': resourceId,
+                        '$descriptor': user['$descriptor']
+                    });
+                }
+            }
         },
         onAccountChange: function(value, field) {
             var fields, entry, phoneField;
@@ -472,13 +542,17 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             this.fields['RecurrenceUI'].setValue(recur.getPanel(repeats && this.recurrence.RecurPeriod));
         },
         onRecurrenceUIChange: function(value, field) {
-            var opt = recur.simplifiedOptions[field.currentValue.key];
+            var opt, key;
+
+            key = field.currentValue && field.currentValue.key;
+            opt = recur.simplifiedOptions[key];
             // preserve #iterations (and EndDate) if matching recurrence
-            if (opt.RecurPeriodSpec == this.recurrence.RecurPeriodSpec) {
+            if (this._previousRecurrence === key) {
                 opt.RecurIterations = this.recurrence.RecurIterations;
             }
 
             this.resetRecurrence(opt);
+            this._previousRecurrence = key;
         },
         onRecurrenceChange: function(value, field) {
             // did the StartDate change on the recurrence_edit screen?
@@ -583,23 +657,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 this.onLeaderChange(user, leaderField);
             }
 
-            var found = App.queryNavigationContext(function(o) {
-                var context = (o.options && o.options.source) || o;
-
-                if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
-                    return true;
-                }
-
-                if (/^(useractivities)$/.test(context.resourceKind)) {
-                    return true;
-                }
-
-                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate']) {
-                    return true;
-                }
-
-                return false;
-            });
+            var found = this._getNavContext();
 
             var accountField = this.fields['Account'];
             this.onAccountChange(accountField.getValue(), accountField);
@@ -618,6 +676,26 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (context && lookup[context.resourceKind]) {
                 lookup[context.resourceKind].call(this, context);
             }
+        },
+        _getNavContext: function() {
+            var navContext = App.queryNavigationContext(function(o) {
+                var context = (o.options && o.options.source) || o;
+
+                if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
+                    return true;
+                }
+
+                if (/^(useractivities)$/.test(context.resourceKind)) {
+                    return true;
+                }
+
+                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate']) {
+                    return true;
+                }
+
+                return false;
+            });
+            return navContext;
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
@@ -763,7 +841,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             }
         },
         setValues: function(values) {
-            this._settingValues = true;
             if (values['StartDate'] && values['AlarmTime']) {
                 var startTime = (this.isDateTimeless(values['StartDate']))
                     ? moment(values['StartDate']).add({minutes: values['StartDate'].getTimezoneOffset()}).toDate().getTime()
@@ -821,7 +898,6 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
             if (this.isActivityRecurring) {
                 this.fields['EndDate'].hide();
             }
-            this._settingValues = false;
         },
         isDateTimeless: function(date) {
             if (!date) {
@@ -974,7 +1050,16 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     orderBy: 'text asc',
                     type: 'picklist',
                     maxTextLength: 64,
-                    validator: validator.exceedsMaxTextLength
+                    validator: validator.exceedsMaxTextLength,
+                    autoFocus: true
+                }, {
+                    label: this.longNotesText,
+                    noteProperty: false,
+                    name: 'LongNotes',
+                    property: 'LongNotes',
+                    title: this.longNotesTitleText,
+                    type: 'note',
+                    view: 'text_edit'
                 }, {
                     name: 'Location',
                     property: 'Location',
@@ -1017,7 +1102,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     type: 'date',
                     name: 'EndDate',
                     property: 'EndDate',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     dependsOn: 'StartDate',
                     label: this.repeatsText,
@@ -1042,27 +1127,27 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     type: 'hidden',
                     name: 'RecurPeriod',
                     property: 'RecurPeriod',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     type: 'hidden',
                     name: 'RecurPeriodSpec',
                     property: 'RecurPeriodSpec',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     type: 'hidden',
                     name: 'RecurrenceState',
                     property: 'RecurrenceState',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     type: 'hidden',
                     name: 'Recurring',
                     property: 'Recurring',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     type: 'hidden',
                     name: 'RecurIterations',
                     property: 'RecurIterations',
-                    include: this.isActivityRecurring
+                    include: true
                 }, {
                     label: this.timelessText,
                     name: 'Timeless',
@@ -1105,19 +1190,8 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                     property: 'Leader',
                     include: true,
                     type: 'lookup',
-                    textProperty: 'UserInfo',
-                    textTemplate: template.nameLF,
                     requireSelection: true,
-                    view: 'user_list',
-                    where: 'Type ne "Template" and Type ne "Retired"'
-                }, {
-                    label: this.longNotesText,
-                    noteProperty: false,
-                    name: 'LongNotes',
-                    property: 'LongNotes',
-                    title: this.longNotesTitleText,
-                    type: 'note',
-                    view: 'text_edit'
+                    view: 'calendar_access_list'
                 }, {
                     label: this.isLeadText,
                     name: 'IsLead',

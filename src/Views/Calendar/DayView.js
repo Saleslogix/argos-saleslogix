@@ -77,8 +77,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.Description %}" data-activity-type="{%: $.Type %}">',
             '<table class="calendar-entry-table"><tr>',
             '<td class="entry-table-icon">',
-            '<button data-action="selectEntry" class="list-item-selector button">',
-            '<img src="{%= $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
+            '<button data-action="selectEntry" class="list-item-selector button {%= $$.activityIconByType[$.Type] %}">',
             '</button>',
             '</td>',
             '<td class="entry-table-time">{%! $$.timeTemplate %}</td>',
@@ -90,8 +89,8 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="Event">',
             '<table class="calendar-entry-table"><tr>',
             '<td class="entry-table-icon">',
-            '<button data-action="selectEntry" class="list-item-selector button">',
-            '<img src="{%= $$.eventIcon %}" class="icon" /></button>',
+            '<button data-action="selectEntry" class="list-item-selector button {%= $$.eventIcon %}">',
+            '</button>',
             '</td>',
             '<td class="entry-table-description">{%! $$.eventItemTemplate %}</td>',
             '</tr></table>',
@@ -129,14 +128,14 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         navigationTemplate: new Simplate([
             '<div class="split-buttons">',
             '<button data-tool="today" data-action="getToday" class="button">{%: $.todayText %}</button>',
-            '<button data-tool="selectdate" data-action="selectDate" class="button"><span></span></button>',
-            '<button data-tool="day" class="button">{%: $.dayText %}</button>',
+            '<button data-tool="selectdate" data-action="selectDate" class="button fa fa-calendar"><span></span></button>',
+            '<button data-tool="day" class="button current">{%: $.dayText %}</button>',
             '<button data-tool="week" data-action="navigateToWeekView" class="button">{%: $.weekText %}</button>',
             '<button data-tool="month" data-action="navigateToMonthView" class="button">{%: $.monthText %}</button>',
             '</div>',
             '<div class="nav-bar">',
-            '<button data-tool="next" data-action="getNextDay" class="button button-next"><span></span></button>',
-            '<button data-tool="prev" data-action="getPrevDay" class="button button-prev"><span></span></button>',
+            '<button data-tool="next" data-action="getNextDay" class="button button-next fa fa-arrow-right fa-lg"><span></span></button>',
+            '<button data-tool="prev" data-action="getPrevDay" class="button button-prev fa fa-arrow-left fa-lg"><span></span></button>',
             '<h3 class="date-text" data-dojo-attach-point="dateNode"></h3>',
             '</div>'
         ]),
@@ -173,7 +172,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         //View Properties
         id: 'calendar_daylist',
         cls: 'activities-for-day',
-        icon: 'content/images/icons/Calendar_24x24.png',
         iconClass: 'fa fa-calendar fa-lg',
 
         datePickerView: 'generic_calendar',
@@ -207,16 +205,16 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
             'Type'
         ],
         activityIconByType: {
-            'atToDo': 'content/images/icons/To_Do_24x24.png',
-            'atPhoneCall': 'content/images/icons/Call_24x24.png',
-            'atAppointment': 'content/images/icons/Meeting_24x24.png',
-            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'content/images/icons/Personal_24x24.png',
-            'atQuestion': 'content/images/icons/help_24.png',
-            'atNote': 'content/images/icons/note_24.png',
-            'atEMail': 'content/images/icons/letters_24.png'
+            'atToDo': 'fa fa-list-ul',
+            'atPhoneCall': 'fa fa-phone',
+            'atAppointment': 'fa fa-calendar-o',
+            'atLiterature': 'fa fa-book',
+            'atPersonal': 'fa fa-check-square-o',
+            'atQuestion': 'fa fa-question-circle',
+            'atNote': 'fa fa-file-text-o',
+            'atEMail': 'fa fa-envelope'
         },
-        eventIcon: 'content/images/icons/Holiday_schemes_24.png',
+        eventIcon: 'fa fa-calendar-o',
         resourceKind: 'activities',
         pageSize: 1000,
 
@@ -266,7 +264,6 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         },
         onRequestEventDataAborted: function(response, o) {
             this.options = false; // force a refresh
-            ErrorManager.addError(response, o, this.options, 'aborted');
         },
         onRequestEventDataSuccess: function(feed) {
             this.processEventFeed(feed);
@@ -451,11 +448,13 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
                 tools: {
                     tbar: [{
                             id: 'complete',
+                            cls: 'fa fa-check fa-fw fa-lg',
                             fn: this.selectDateSuccess,
                             scope: this
                         }, {
                             id: 'cancel',
                             side: 'left',
+                            cls: 'fa fa-ban fa-fw fa-lg',
                             fn: ReUI.back,
                             scope: ReUI
                         }]

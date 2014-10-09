@@ -50,6 +50,8 @@ define('Mobile/SalesLogix/Application', [
         rememberNavigationState: true,
         enableUpdateNotification: false,
         multiCurrency: false,
+        enableGroups: true,
+        enableHashTags: true,
         speedSearch: {
             includeStemming: true,
             includePhonic: true,
@@ -60,6 +62,11 @@ define('Mobile/SalesLogix/Application', [
         enableCaching: true,
         userDetailsQuerySelect: ['UserName', 'UserInfo/UserName', 'UserInfo/FirstName', 'UserInfo/LastName', 'DefaultOwner/OwnerDescription'],
         userOptionsToRequest: [
+            'DefaultGroup;ACCOUNT',
+            'DefaultGroup;CONTACT',
+            'DefaultGroup;OPPORTUNITY',
+            'DefaultGroup;LEAD',
+            'DefaultGroup;TICKET',
             'General;InsertSecCodeID',
             'General;Currency',
             'Calendar;DayStartTime',
@@ -91,12 +98,14 @@ define('Mobile/SalesLogix/Application', [
         },
         mobileVersion: {
             'major': 3,
-            'minor': 1,
+            'minor': 2,
             'revision': 0
         },
-        versionInfoText: 'Mobile v${0}.${1}.${2} / Saleslogix v${3} platform',
+        versionInfoText: 'Mobile v${0}.${1}.${2}',
         homeViewId: 'myactivity_list',
         loginViewId: 'login',
+        logOffViewId: 'logoff',
+
         init: function() {
             var original,
                 app = this;
@@ -130,9 +139,9 @@ define('Mobile/SalesLogix/Application', [
             current = history[length - 1];
             previous = history[length - 2];
 
-            if (current && current.page === 'login') {
+            if ((current && current.page === this.loginViewId) || (current && current.page === this.logOffViewId)) {
                 isOnFirstView = true;
-            } else if (previous && previous.page === 'login') {
+            } else if (previous && previous.page === this.loginViewId) {
                 isOnFirstView = true;
             } else if (length === 1) {
                 isOnFirstView = true;
@@ -148,6 +157,9 @@ define('Mobile/SalesLogix/Application', [
         _viewTransitionTo: function(view) {
             this.inherited(arguments);
             this._checkSaveNavigationState();
+            if (App.snapper) {
+                App.snapper.close();
+            }
         },
         _checkSaveNavigationState: function() {
             if (this.rememberNavigationState !== false) {
@@ -184,7 +196,7 @@ define('Mobile/SalesLogix/Application', [
             }
 
             /*if (this.context &&
-                this.context['systemOptions'] && 
+                this.context['systemOptions'] &&
                 this.context['systemOptions']['MultiCurrency'] === 'True') {
                 return true;
             }*/
@@ -370,14 +382,19 @@ define('Mobile/SalesLogix/Application', [
             this.removeCredentials();
             this._clearNavigationState();
 
-            var service = this.getService();
+            var service = this.getService(),
+                view;
             if (service) {
                 service
                     .setUserName(false)
                     .setPassword(false);
             }
 
-            this.reload();
+            view = this.getView(this.logOffViewId);
+
+            if (view) {
+                view.show();
+            }
         },
         getCredentials: function() {
             var stored, encoded, credentials;
@@ -448,6 +465,7 @@ define('Mobile/SalesLogix/Application', [
                     this.preferences = json.parse(window.localStorage.getItem('preferences'));
                 }
             } catch(e) {
+                console.error(e);
             }
 
             //Probably, the first time, its being accessed, or user cleared
@@ -567,6 +585,7 @@ define('Mobile/SalesLogix/Application', [
 
             currentLang = moment.lang();
             moment.lang(currentLang, custom);
+            this.moment = moment().lang(currentLang, custom);
         },
         /*
          * Builds an object that will get passed into moment.lang()
@@ -683,6 +702,7 @@ define('Mobile/SalesLogix/Application', [
                     window.localStorage.setItem('preferences', json.stringify(App.preferences));
                 }
             } catch(e) {
+                console.error(e);
             }
         },
         getDefaultViews: function() {
@@ -814,7 +834,7 @@ define('Mobile/SalesLogix/Application', [
 
             if (this.redirectHash) {
                 split = this.redirectHash.split(';');
-                if (split.length > 1) {
+                if (split.length > 0) {
                     viewId = split[0];
                     key = split[1];
                     view = this.getView(viewId);

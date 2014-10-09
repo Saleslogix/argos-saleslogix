@@ -20,7 +20,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     'dojox/charting/plot2d/Pie',
     'dojox/charting/axis2d/Default',
     'dojox/charting/widget/Legend',
-    'dojox/charting/themes/Julie',
     'Sage/Platform/Mobile/View',
     './_ChartMixin'
 ], function(
@@ -32,7 +31,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     PlotType,
     Default,
     Legend,
-    JulieTheme,
     View,
     _ChartMixin
 ) {
@@ -43,6 +41,12 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         expose: false,
         chart: null,
         MAX_ITEMS: 5,
+        pieColor: '#13a3f7',
+        seriesColors: [
+            '#13a3f7',
+            '#61c5ff'
+        ],
+        otherColor: '#005ce6',
 
         formatter: function(val) {
             return val;
@@ -75,17 +79,16 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             box.h = box.h - searchExpressionHeight;
 
             this.chart = new Chart(this.contentNode);
-            this.chart.setTheme(JulieTheme);
             this.chart.addPlot('default', {
                 type: PlotType,
                 fontColor: 'black',
                 labelOffset: 50,
-                radius: box.w >= box.h /* check lanscape or portrait mode */ ? 
+                radius: box.w >= box.h /* check lanscape or portrait mode */ ?
                     Math.floor(box.h / 2) - 10 :
                     Math.floor(box.w / 2) - 10
             });
 
-            this.chart.addSeries('default', labels);
+            this.chart.addSeries('default', labels, {stroke :{color: this.pieColor}, fill: this.pieColor});
             this.chart.render();
             this.chart.resize(box.w, box.h);
         },
@@ -96,14 +99,16 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
                     data.push({
                         y: item.value,
                         text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
-                        value: index
+                        value: index,
+                        color: this.seriesColors[index % 2]
                     });
                 } else {
                     otherY = otherY + item.value;
                     otherText = this.otherText + ' (' + this.formatter(otherY) + ')';
                     data[this.MAX_ITEMS] = {
                         y: otherY,
-                        text: otherText
+                        text: otherText,
+                        color: this.otherColor
                     };
                 }
             }, this);

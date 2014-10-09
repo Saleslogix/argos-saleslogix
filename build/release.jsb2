@@ -237,6 +237,10 @@
           "path": "../src/Views"
         },
         {
+          "text": "LogOff.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "Settings.js",
           "path": "../src/Views"
         },
@@ -290,6 +294,10 @@
         },
         {
           "text": "_SpeedSearchRightDrawerListMixin.js",
+          "path": "../src/Views"
+        }, 
+		{
+          "text": "_GroupListMixin.js",
           "path": "../src/Views"
         },
         {
@@ -558,6 +566,10 @@
         },
         {
           "text": "List.js",
+          "path": "../src/Views/User"
+        },
+        {
+          "text": "CalendarAccessList.js",
           "path": "../src/Views/User"
         },
         {

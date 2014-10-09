@@ -50,7 +50,6 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
         security: 'Entities/Opportunity/View',
         detailView: 'opportunityproduct_detail',
         insertView: 'opportunityproduct_edit',
-        icon: 'content/images/icons/product_24.png',
         queryOrderBy: 'Sort',
         querySelect: [
             'Product/Name',

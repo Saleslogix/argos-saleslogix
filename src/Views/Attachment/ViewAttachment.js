@@ -72,7 +72,6 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
         querySelect: ['description', 'user', 'attachDate', 'fileSize', 'fileName', 'url', 'fileExists', 'remoteStatus', 'dataType'],
         resourceKind: 'attachments',
         contractName: 'system',
-        icon: 'content/images/icons/Scale_24.png',
         orginalImageSize: { width: 0, height: 0 },
         queryInclude: ['$descriptors'],
         dataURL: null,

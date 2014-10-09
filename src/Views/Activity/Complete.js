@@ -155,7 +155,11 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             'Timeless',
             'Type',
             'Recurring',
-            'RecurrenceState'
+            'RecurrenceState',
+            'AllowAdd',
+            'AllowEdit',
+            'AllowDelete',
+            'AllowComplete'
         ],
         resourceKind: 'activities',
         contractName: 'system',
@@ -350,6 +354,10 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                 });
         },
         completeActivity: function(entry, callback) {
+            if (!entry['$key']) {
+                return;
+            }
+
             var leader = this.fields['Leader'].getValue();
             var completeActivityEntry = {
                 "$name": "ActivityComplete",
@@ -386,9 +394,13 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
             });
         },
         onUpdateCompleted: function(entry) {
-            var followup = this.fields['Followup'].getValue() !== 'none'
-                ? this.navigateToFollowUpView
-                : this.getInherited(arguments);
+            if (!entry) {
+                return;
+            }
+
+            var followup = this.fields['Followup'].getValue() === 'none'
+                ? this.getInherited(arguments)
+                : this.navigateToFollowUpView;
 
             this.completeActivity(entry, followup);
         },
@@ -417,6 +429,14 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                             type: 'picklist',
                             maxTextLength: 64,
                             validator: validator.exceedsMaxTextLength
+                        }, {
+                            label: this.longNotesText,
+                            noteProperty: false,
+                            name: 'LongNotes',
+                            property: 'LongNotes',
+                            title: this.longNotesTitleText,
+                            type: 'note',
+                            view: 'text_edit'
                         }, {
                             label: this.startingText,
                             name: 'StartDate',
@@ -511,14 +531,6 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                             name: 'CarryOverNotes',
                             property: 'CarryOverNotes',
                             type: 'boolean'
-                        }, {
-                            label: this.longNotesText,
-                            noteProperty: false,
-                            name: 'LongNotes',
-                            property: 'LongNotes',
-                            title: this.longNotesTitleText,
-                            type: 'note',
-                            view: 'text_edit'
                         }]
                 }, {
                     title: this.otherInfoText,

@@ -55,10 +55,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
 ) {
 
     return declare('Mobile.SalesLogix.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
-       
         // Localization
-        startDateFormatText: 'ddd M/D/YYYY',
-        startTimeFormatText: 'h:mm',
         allDayText: 'All-Day',
         completeActivityText: 'Complete',
         callText: 'Call',
@@ -69,25 +66,15 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         touchedText: 'touched',
         importantText: 'important',
         recurringText: 'recurring',
-        activityText: 'activity',
 
-        //Card View 
+        //Card View
         itemIcon: 'content/images/icons/man_1.png',
-        itemColorClass: 'color-activity',
+
         //Templates
-        //Card View 
+        //Card View
         itemRowContainerTemplate: new Simplate([
-       '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
-           '{%! $$.itemRowContentTemplate %}',
-       '</li>'
-        ]),
-        //Used if Card View is not mixed in
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}" data-activity-type="{%: $.Type %}">',
-                '<div class="list-item-static-selector">',
-                    '<img src="{%= $$.activityIconByType[$.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
-                '</div>',
-                '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
+            '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Type %}">',
+               '{%! $$.itemRowContentTemplate %}',
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
@@ -98,7 +85,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                 '<span class="p-description">{%: $.Description %}</span>',
             '</h3>',
             '<h4>',
-                '<strong>{%! $$.activityTimeTemplate %}</strong>',
+                '{%! $$.activityTimeTemplate %}',
             '</h4>',
             '<h4>{%! $$.nameTemplate %}</h4>'
         ]),
@@ -111,25 +98,15 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '{%: $.LeadName %}',
             '{% } %}'
         ]),
-        activityIconByType: {
-            'atToDo': 'content/images/icons/To_Do_24x24.png',
-            'atPhoneCall': 'content/images/icons/Call_24x24.png',
-            'atAppointment': 'content/images/icons/Meeting_24x24.png',
-            'atLiterature': 'content/images/icons/Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'content/images/icons/Personal_24x24.png',
-            'atQuestion': 'content/images/icons/help_24.png',
-            'atNote': 'content/images/icons/note_24.png',
-            'atEMail': 'content/images/icons/letters_24.png'
-        },
         activityIndicatorIconByType: {
-            'atToDo': 'To_Do_24x24.png',
-            'atPhoneCall': 'Call_24x24.png',
-            'atAppointment': 'Meeting_24x24.png',
-            'atLiterature': 'Schedule_Literature_Request_24x24.gif',
-            'atPersonal': 'Personal_24x24.png',
-            'atQuestion': 'help_24.png',
-            'atNote': 'note_24.png',
-            'atEMail': 'letters_24.png'
+            'atToDo': 'fa fa-list-ul',
+            'atPhoneCall': 'fa fa-phone',
+            'atAppointment': 'fa fa-calendar-o',
+            'atLiterature': 'fa fa-book',
+            'atPersonal': 'fa fa-check-square-o',
+            'atQuestion': 'fa fa-question-circle',
+            'atNote': 'fa fa-file-text-o',
+            'atEMail': 'fa fa-envelope'
         },
         activityTypeText: {
             'atToDo': 'To-Do',
@@ -141,23 +118,12 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'atNote': 'Note',
             'atEMail': 'Email'
         },
-        activityColorClassByType: {
-            'atToDo': 'color-ToDo',
-            'atPhoneCall': 'color-PhoneCall',
-            'atAppointment': 'color-Meeting',
-            'atLiterature': 'color-LitRequest',
-            'atPersonal': 'color-Personal',
-            'atQuestion': 'color-Question',
-            'atNote': 'color-Note',
-            'atEMail': 'color-Email'
-        },
         //Localization
         titleText: 'Activities',
 
         //View Properties
         id: 'activity_list',
         security: null, //'Entities/Activity/View',
-        icon: 'content/images/icons/To_Do_24x24.png',
         iconClass: 'fa fa-check-square-o fa-lg',
         detailView: 'activity_detail',
         insertView: 'activity_types_list',
@@ -170,7 +136,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'Type',
             'AccountId',
             'AccountName',
-            'ConatactId',
+            'ContactId',
             'ContactName',
             'PhoneNumber',
             'LeadId',
@@ -264,7 +230,11 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             'yesterday': 'yesterday'
         },
         defaultSearchTerm: function() {
-            return '#' + this.hashTagQueriesText['this-week'];
+            if (App.enableHashTags) {
+                return '#' + this.hashTagQueriesText['this-week'];
+            }
+
+            return '';
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
@@ -278,82 +248,44 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         getItemDescriptor: function(entry) {
             return entry.$descriptor;
         },
-        getItemTabValue: function(entry){
-            var value = '';
-            if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
-                value = format.date(entry.StartDate, this.startTimeFormatText) + " " + format.date(entry.StartDate, "A");
-                } else {
-                    value = format.date(entry.StartDate, this.startDateFormatText, entry.Timeless);
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'alarm',
+                cls: 'fa fa-bell-o fa-lg',
+                label: this.alarmText,
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasAlarm(entry);
                 }
-                return value;
-            },
-            getItemColorClass: function(entry) {
-                return  this.activityColorClassByType[entry.Type] || this.itemColorClass;
-            },
-            getItemIconSource: function(entry) {
-                return this.itemIcon || this.activityIconByType[entry.Type] || this.icon || this.selectIcon;
-            },        
-            createIndicatorLayout: function() {
-                return this.itemIndicators || (this.itemIndicators = [{
-                    id: 'alarm',
-                    icon: 'AlarmClock_24x24.png',
-                    label: this.alarmText,
-                    onApply: function(entry, parent) {
-                        this.isEnabled = parent.hasAlarm(entry);
-                    }
                 }, {
                     id: 'touched',
-                    icon: 'Touched_24x24.png',
+                    cls: 'fa fa-hand-o-up fa-lg',
                     label: this.touchedText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.hasBeenTouched(entry);
                     }
                 }, {
                     id: 'important',
-                    icon: 'Bang_24x24.png',
+                    cls: 'fa fa-exclamation fa-lg',
                     label: this.importantText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.isImportant(entry);
                     }
-                }, {
-                    id: 'overdue',
-                    cls: 'indicator_Important',
-                    label: this.overdueText,
-                    valueText: this.overdueText,
-                    showIcon: false,
-                    location: 'top',
-                    onApply: function(entry, parent) {
-                        this.isEnabled = parent.isOverdue(entry);
-                    }
-                }, {
+                },  {
                     id: 'recurring',
-                    icon: 'Recurring_24x24.png',
+                    cls: 'fa fa-refresh fa-lg',
                     label: this.recurringText,
                     onApply: function(entry, parent) {
                         this.isEnabled = parent.isRecurring(entry, this);
                     }
                 }, {
-                    id: 'activityType',
-                    icon: '',
-                    label: this.activityText,
+                    id: 'overdue',
+                    cls: 'fa fa-exclamation-circle fa-lg',
+                    label: this.overdueText,
                     onApply: function(entry, parent) {
-                        parent.applyActivityIndicator(entry, this);
+                        this.isEnabled = parent.isOverdue(entry);
                     }
-                }]
-            );
-        },
-        onApplyRowActionPanel: function(actionsNode, rowNode) {
-            var colorRowCls, colorCls;
-
-            colorRowCls = query(rowNode).closest('[data-color-class]')[0];
-            colorCls = colorRowCls ? colorRowCls.getAttribute('data-color-class') : false;
-
-            for (var colorKey in this.activityColorClassByType) {
-                domClass.remove(actionsNode, this.activityColorClassByType[colorKey]);
-            }           
-            if (colorCls) {
-                domClass.add(actionsNode, colorCls);
-            }
+                }
+            ]);
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;
@@ -399,26 +331,25 @@ define('Mobile/SalesLogix/Views/Activity/List', [
         hasAlarm: function(entry) {
             if (entry['Alarm'] === true) {
                 return true;
-            }            
+            }
             return false;
         },
-       applyActivityIndicator: function(entry, indicator) {
-           this._applyActivityIndicator(entry['Type'], indicator);
-       },
-       _applyActivityIndicator: function(type, indicator) {
-            indicator.isEnabled = false;
-            indicator.showIcon = false;
-            if (type) {
-                indicator.icon = this.activityIndicatorIconByType[type];
-                indicator.label = this.activityTypeText[type];
-                indicator.isEnabled = true;
-                indicator.showIcon = true;
+        getItemIconClass: function(entry) {
+            var type = entry && entry.Type;
+            return this._getItemIconClass(type);
+        },
+        _getItemIconClass: function(type) {
+            var cls = this.activityIndicatorIconByType[type];
+            if (cls) {
+                cls = cls + ' fa-2x';
             }
-       },
-       createActionLayout: function() {
+
+            return cls;
+        },
+        createActionLayout: function() {
            return this.actions || (this.actions = [{
                id: 'complete',
-               icon: 'content/images/icons/Clear_Activity_24x24.png',
+               cls: 'fa fa-check-square fa-2x',
                label: this.completeActivityText,
                enabled: function(action, selection) {
                    var recur, entry = selection && selection.data;
@@ -446,7 +377,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                }).bindDelegate(this)
            }, {
                id: 'call',
-               icon: 'content/images/icons/Dial_24x24.png',
+               cls: 'fa fa-phone-square fa-2x',
                label: this.callText,
                enabled: function(action, selection) {
                    var entry;
@@ -465,13 +396,13 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                }.bindDelegate(this)
            }, {
                id: 'addAttachment',
-               icon: 'content/images/icons/Attachment_24.png',
+               cls: 'fa fa-paperclip fa-2x',
                label: this.addAttachmentActionText,
                fn: action.addAttachment.bindDelegate(this)
            }]
            );
-       },
-       recordCallToHistory: function(complete, entry) {
+        },
+        recordCallToHistory: function(complete, entry) {
            var tempEntry = {
                '$name': 'History',
                'Type': 'atPhoneCall',
@@ -487,8 +418,8 @@ define('Mobile/SalesLogix/Views/Activity/List', [
            };
 
            this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
-       },
-       navigateToHistoryInsert: function(type, entry, complete) {
+        },
+        navigateToHistoryInsert: function(type, entry, complete) {
            var view = App.getView(this.historyEditView);
            if (view) {
                environment.refreshActivityLists();
@@ -501,8 +432,8 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                    complete: complete
                });
            }
-       },
-       completeActivity: function(entry) {
+        },
+        completeActivity: function(entry) {
            var completeActivity, request, completeActivityEntry;
 
            completeActivityEntry = {
@@ -533,10 +464,10 @@ define('Mobile/SalesLogix/Views/Activity/List', [
                failure: this.onRequestFailure,
                scope: this
            });
-       },
-       onRequestFailure: function(response, o) {
+        },
+        onRequestFailure: function(response, o) {
            ErrorManager.addError(response, o, {}, 'failure');
-       }
+        }
     });
 });
 

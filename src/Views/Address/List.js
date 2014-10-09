@@ -42,7 +42,6 @@ define('Mobile/SalesLogix/Views/Address/List', [
 
         //View Properties
         detailView: null,
-        icon: 'content/images/icons/Map_24.png',
         id: 'address_list',
         security: null, //'Entities/Address/View',
         insertSecurity: 'Entities/Address/Add',

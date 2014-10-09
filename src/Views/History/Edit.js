@@ -49,7 +49,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         relatedItemsText: 'Related Items',
         yesText: 'YES',
         noText: 'NO',
-
+        validationText: "The field '${2}' must have a value",
+        validationCanEditText: 'You are not allowed to edit',
         //View Properties
         id: 'history_edit',
         fieldsForLeads: ['AccountName', 'Lead'],
@@ -61,19 +62,28 @@ define('Mobile/SalesLogix/Views/History/Edit', [
         querySelect: [
             'AccountId',
             'AccountName',
+            'Category',
+            'ModifyDate',
+            'CompletedDate',
             'ContactId',
             'ContactName',
+            'CompletedUser',
             'Description',
-            'LongNotes',
+            'Duration',
             'Notes',
+            'LongNotes',
             'OpportunityId',
             'OpportunityName',
+            'Priority',
+            'StartDate',
             'TicketId',
             'TicketNumber',
-            'Type',
             'LeadId',
             'LeadName',
-            'StartDate'
+            'Timeless',
+            'Type',
+            'UserName',
+            'UserId'
         ],
         existsRE: /^[\w]{12}$/,
         init: function() {
@@ -91,16 +101,15 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             return entry &&  this.existsRE.test(entry['LeadId']);
         },
         isInLeadContext: function() {
-            var insert, entry, isLeadContext, lead;
+            var insert, entry, isLeadContext, lead, context;
             insert = this.options && this.options.insert;
             entry = this.options && this.options.entry;
-            isLeadContext = App.isNavigationFromResourceKind('leads', function(o, c) {
-                    var result = false;
-                    if (c.resourceKind === 'leads'){
-                        result = true;
-                    }
-                    return result;
-                });
+            isLeadContext = false;
+            context = this._getNavContext();
+            if (context && context.resourceKind === 'leads') {
+                isLeadContext = true;
+            }
+
             lead = (insert && isLeadContext) || this.isHistoryForLead(entry);
             return !!lead;
         },
@@ -155,6 +164,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 } else {
                     fields[f].dependsOn = null;
                     fields[f].where = 'Account.AccountName ne null';
+                    fields[f].setValue(false);
                 }
             });
         },
@@ -200,12 +210,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.inherited(arguments);
         },
         applyContext: function() {
-            var found = App.queryNavigationContext(function(o) {
-                var context = (o.options && o.options.source) || o;
-                return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
-            });
-
-            found = (found && found.options && found.options.source) || found;
+            var found ; 
+            found = this._getNavContext();
 
             var lookup = {
                 'accounts': this.applyAccountContext,
@@ -219,8 +225,6 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 lookup[found.resourceKind].call(this, found);
             }
 
-            this.context = found;
-
             var user = App.context && App.context.user;
 
             this.fields['Type'].setValue('atNote');
@@ -228,6 +232,15 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             this.fields['UserName'].setValue(user && user['$descriptor']);
             this.fields['StartDate'].setValue(new Date());
             this.fields['Text'].setValue('');
+        },
+        _getNavContext: function() {
+            var found;
+                found = App.queryNavigationContext(function(o) {
+                    var context = (o.options && o.options.source) || o;
+                    return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
+                });
+             found = (found && found.options && found.options.source) || found;
+            return found;
         },
         applyAccountContext: function(context) {
             var accountField = this.fields['Account'],
@@ -352,7 +365,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
         },
         setValues: function(values) {
-            var isLeadField, field, value, leadCompany, longNotes, insert;
+            var isLeadField, field, value, leadCompany, longNotes, insert, denyEdit;
 
             this.inherited(arguments);
             isLeadField = this.fields['IsLead'];
@@ -376,6 +389,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
             }
 
             insert = this.options && this.options.insert;
+            this.context = this._getNavContext();
             // entry may have been passed as full entry, reapply context logic to extract properties
             if (insert && this.context && this.context.resourceKind) {
                 var lookup = {
@@ -387,11 +401,46 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 };
                 lookup[this.context.resourceKind].call(this, this.context);
             }
+            this.enableFields();
+            denyEdit = !this.currentUserCanEdit();
+            if (denyEdit) {
+               this.disableFields();
+            }
+            
+        },
+        disableFields: function(predicate) {
+            for (var name in this.fields) {
+                if (!predicate || predicate(this.fields[name])) {
+                    this.fields[name].disable();
+                }
+            }
+        },
+        enableFields: function(predicate) {
+            for (var name in this.fields) {
+                if (!predicate || predicate(this.fields[name])) {
+                    this.fields[name].enable();
+                }
+            }
+        },
+        currentUserCanEdit: function() {
+            var entry = this.options.entry || this.entry,
+            insert = this.options && this.options.insert;
+            if (!insert) {
+                if (App.context['user']['$key'] === 'ADMIN') {
+                    return true;
+                }
+                return entry && (entry['UserId'] === App.context['user']['$key']);
+            }
+            return true;
         },
         formatDependentQuery: function(dependentValue, format, property) {
+            var propertyValue;
             property = property || '$key';
-
-            return string.substitute(format, [utility.getValue(dependentValue, property)]);
+            propertyValue = utility.getValue(dependentValue, property);
+            if (propertyValue) {
+                return string.substitute(format, [propertyValue]);
+            }
+            return '';
         },
         getValues: function() {
             var values = this.inherited(arguments);
@@ -408,6 +457,12 @@ define('Mobile/SalesLogix/Views/History/Edit', [
 
             return values;
         },
+        _lookupApplyTo:function(payload, value) {
+            if (value === null) {
+                payload[this.valueKeyProperty] = null;
+                payload[this.valueTextProperty] = null;
+            }
+       },
         createLayout: function() {
             return this.layout || (this.layout = [{
                     title: this.detailsText,
@@ -454,7 +509,8 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                         property: 'Text',
                         label: this.longNotesText,
                         cls: 'row-edit-text',
-                        type: 'textarea'
+                        type: 'textarea',
+                        autoFocus: true
                     }]
                 }, {
                     title: this.relatedItemsText,
@@ -471,19 +527,31 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Account',
                             property: 'Account',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo,
                             valueKeyProperty: 'AccountId',
                             valueTextProperty: 'AccountName',
-                            view: 'account_related'
+                            view: 'account_related',
+                            validator: {
+                                fn: (function(value, field) {
+                                    var insert = field.owner.options && field.owner.options.insert;
+                                    if ((insert) && (!value)) {
+                                        return true;
+                                    }
+                                    return false;
+                                }).bindDelegate(this),
+                                message: this.validationText 
+                            }
                         }, {
                             dependsOn: 'Account',
                             label: this.contactText,
                             name: 'Contact',
                             property: 'Contact',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, 
                             valueKeyProperty: 'ContactId',
                             valueTextProperty: 'ContactName',
                             view: 'contact_related',
@@ -496,8 +564,9 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Opportunity',
                             property: 'Opportunity',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, 
                             valueKeyProperty: 'OpportunityId',
                             valueTextProperty: 'OpportunityName',
                             view: 'opportunity_related',
@@ -510,8 +579,9 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Ticket',
                             property: 'Ticket',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, 
                             valueKeyProperty: 'TicketId',
                             valueTextProperty: 'TicketNumber',
                             view: 'ticket_related',
@@ -523,8 +593,9 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'Lead',
                             property: 'Lead',
                             type: 'lookup',
+                            requireSelection: false,
                             emptyText: '',
-                            applyTo: '.',
+                            applyTo: this._lookupApplyTo, 
                             valueKeyProperty: 'LeadId',
                             valueTextProperty: 'LeadName',
                             view: 'lead_related',
@@ -534,6 +605,22 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                             name: 'AccountName',
                             property: 'AccountName',
                             type: 'text'
+                        }, {
+                            label: 'UserId',
+                            name: 'UserId',
+                            property: 'UserId',
+                            type: 'hidden',
+                            validator: {
+                                fn: (function(value, field) {
+                                    var canEdit;
+                                    canEdit = field.owner.currentUserCanEdit();
+                                    if (!canEdit) {
+                                        return true;
+                                    }
+                                    return false;
+                                }).bindDelegate(this),
+                                message: this.validationCanEditText
+                            }
                         }]
                 }]);
         }

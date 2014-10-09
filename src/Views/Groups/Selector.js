@@ -24,14 +24,14 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
     return declare('Mobile.SalesLogix.Views.Groups.Selector', [List], {
         id: 'groups_configure',
         expose: false,
-        enableSearch: true,
+        enableSearch: false,
         icon: '',
 
         listViewId: 'groups_list',
         family: '',
 
         //Localization
-        titleText: 'Groups',
+        titleText: 'Groups Lookup',
 
         itemTemplate: new Simplate([
             '<h3>{%: $[$$.labelProperty] %}</h3>'
@@ -71,6 +71,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
                     resourceKind: 'groups',
                     contractName: 'system',
                     where: "upper(family) eq '" + entityName.toUpperCase() + "'",
+                    orderBy: "name asc",
                     include: ['layout', 'tableAliases'],
                     idProperty: '$key',
                     applicationName: 'slx',

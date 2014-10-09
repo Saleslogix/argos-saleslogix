@@ -55,7 +55,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
         ]),
         copyButtonTemplate: new Simplate([
             '<div class="copyButton button toolButton toolButton-right">',
-            '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="40" height="36" id="errorlog-detail-copy">',
+            '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="40" height="36" id="errorlog-detail-copy" class="fa fa-clipboard fa-lg">',
             '<param name="movie" value="content/clippy.swf"/>',
             '<param name="allowScriptAccess" value="always" />',
             '<param name="quality" value="high" />',
@@ -91,7 +91,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
                 tools.tbar.push({
                     id: 'generateEmail',
                     action: 'constructReport',
-                    icon: 'content/images/icons/Send_Write_email_24x24.png',
+                    cls: 'fa fa-envelope fa-lg',
                     title: 'Generate Email Report'
                 });
             }
@@ -160,7 +160,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/Detail', [
 
         requestData: function() {
             var errorItem = ErrorManager.getError('$key', this.options.key);
-            this.processData(errorItem);
+            this.processEntry(errorItem);
         },
 
         createLayout: function() {

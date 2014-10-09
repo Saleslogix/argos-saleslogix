@@ -59,18 +59,9 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         //Templates
         //Card View
        itemRowContainerTemplate: new Simplate([
-           '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
+           '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}" data-activity-type="{%: $.Activity.Type %}">',
             '{%! $$.itemRowContentTemplate %}',
           '</li>'
-        ]),
-        //Used if Card View is not mixed in
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-my-activity-key="{%= $.$key %}" data-key="{%= $.Activity.$key %}" data-descriptor="{%: $.Activity.$descriptor %}" data-activity-type="{%: $.Activity.Type %}">',
-            '<div data-action="selectEntry" class="list-item-static-selector">',
-            '<img src="{%= $$.activityIconByType[$.Activity.Type] || $$.icon || $$.selectIcon %}" class="icon" />',
-            '</div>',
-            '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
         ]),
         activityTimeTemplate: new Simplate([
             '{%: Mobile.SalesLogix.Format.relativeDate($.Activity.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
@@ -80,7 +71,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: Mobile.SalesLogix.Format.userActivityStatus($.Status) %}) {% } %}</span>',
             '</h3>',
             '<h4>',
-                '<strong>{%! $$.activityTimeTemplate %}</strong>',
+                '{%! $$.activityTimeTemplate %}',
             '</h4>',
             '<h4>{%! $$.nameTemplate %}</h4>',
             '<h4>',
@@ -223,18 +214,46 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             'this-week': 'this-week',
             'yesterday': 'yesterday'
         },
+        createToolLayout: function(tools) {
+            this.inherited(arguments);
+            if (this.tools && this.tools.tbar && !this._refreshAdded) {
+                this.tools.tbar.push({
+                    id: 'refresh',
+                    cls: 'fa fa-refresh fa-fw fa-lg',
+                    action: '_refreshClicked'
+                });
+
+                this._refreshAdded = true;
+            }
+
+            return this.tools;
+        },
+        _refreshAdded: false,
+        _refreshClicked: function() {
+            this.clear();
+            this.refreshRequired = true;
+            this.refresh();
+
+            // Hook for customizers
+            this.onRefreshClicked();
+        },
+        onRefreshClicked: function() {
+        },
         _callPhone: function(params) {
             this.invokeActionItemBy(function(action) {
                 return action.id === 'call';
             }, params.key);
         },
         defaultSearchTerm: function() {
-            return '#' + this.hashTagQueriesText['this-week'];
+            if (App.enableHashTags) {
+                return '#' + this.hashTagQueriesText['this-week'];
+            }
+
+            return '';
         },
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'viewAccount',
-                icon: 'content/images/icons/Company_24.png',
                 label: this.viewAccountActionText,
                 enabled: function(action, selection) {
                     var entry = selection && selection.data;
@@ -262,7 +281,6 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }
             }, {
                 id: 'viewOpportunity',
-                icon: 'content/images/icons/opportunity_24.png',
                 label: this.viewOpportunityActionText,
                 enabled: function(action, selection) {
                     var entry = selection && selection.data;
@@ -273,7 +291,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                         return true;
                     }
                     return false;
-                }, 
+                },
                 fn: function(action, selection) {
                     var viewId, options, view;
 
@@ -289,13 +307,12 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }
             }, {
                 id: 'viewContact',
-                icon: 'content/images/icons/Contacts_24x24.png',
                 label: this.viewContactActionText,
                 action: 'navigateToContactOrLead',
                 enabled: this.hasContactOrLead
             }, {
                 id: 'complete',
-                icon: 'content/images/icons/Clear_Activity_24x24.png',
+                cls: 'fa fa-check-square fa-2x',
                 label: this.completeActivityText,
                 enabled: function(action, selection) {
                     var recur, entry = selection && selection.data;
@@ -321,7 +338,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }).bindDelegate(this)
             }, {
                 id: 'accept',
-                icon: 'content/images/icons/OK_24.png',
+                cls: 'fa fa-check fa-2x',
                 label: this.acceptActivityText,
                 enabled: function(action, selection) {
                     var entry = selection && selection.data;
@@ -341,7 +358,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }).bindDelegate(this)
             }, {
                 id: 'decline',
-                icon: 'content/images/icons/cancl_24.png',
+                cls: 'fa fa-ban fa-2x',
                 label: this.declineActivityText,
                 enabled: function(action, selection) {
                     var entry = selection && selection.data;
@@ -360,7 +377,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }).bindDelegate(this)
             }, {
                 id: 'call',
-                icon: 'content/images/icons/Dial_24x24.png',
+                cls: 'fa fa-phone-square fa-2x',
                 label: this.callText,
                 enabled: function(action, selection) {
                     var entry;
@@ -379,7 +396,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 }.bindDelegate(this)
             }, {
                 id: 'addAttachment',
-                icon: 'content/images/icons/Attachment_24.png',
+                cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
             }]
@@ -518,6 +535,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;
+
             if (entry['Activity']['ModifyDate']) {
                 modifiedDate = moment(convert.toDateFromString(entry['Activity']['ModifyDate']));
                 currentDate = moment().endOf('day');
@@ -526,6 +544,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 return modifiedDate.isAfter(weekAgo) &&
                     modifiedDate.isBefore(currentDate);
             }
+
             return false;
         },
         isImportant: function(entry) {
@@ -533,7 +552,8 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 if (entry["Activity"]['Priority'] === 'High') {
                     return true;
                 }
-            }           
+            }
+
             return false;
         },
         isOverdue: function(entry) {
@@ -555,29 +575,15 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             }
             return false;
         },
-        applyActivityIndicator: function(entry, indicator) {
-            this._applyActivityIndicator(entry['Activity']['Type'], indicator);
+        getItemIconClass: function(entry) {
+            var type = entry && entry.Activity && entry.Activity.Type;
+            return this._getItemIconClass(type);
         },
         getItemActionKey: function(entry) {
             return entry.Activity.$key;
         },
         getItemDescriptor: function(entry) {
             return entry.Activity.$descriptor;
-        },
-        getItemTabValue: function(entry) {
-            var value = '';
-            if ((entry['$groupTag'] === 'Today') || (entry['$groupTag'] === 'Tomorrow') || (entry['$groupTag'] === 'Yesterday')) {
-                value = format.date(entry.Activity.StartDate, this.startTimeFormatText, entry.Activity.Timeless) + " " + format.date(entry.Activity.StartDate, "A", entry.Activity.Timeless);
-            } else {
-                value = format.date(entry.Activity.StartDate, this.startDateFormatText, entry.Activity.Timeless);
-            }
-            return value;
-        },
-        getItemColorClass: function(entry) {
-            return this.activityColorClassByType[entry.Activity.Type] || this.itemColorClass;
-        },
-        getItemIconSource: function(entry) {
-            return this.itemIcon || this.activityIconByType[entry.Activity.Type] || this.icon || this.selectIcon;
         },
         hasContactOrLead: function(action, selection) {
             return (selection.data['Activity']['ContactId']) || (selection.data['Activity']['LeadId']);

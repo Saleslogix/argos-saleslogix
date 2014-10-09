@@ -52,6 +52,29 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         onText: 'on',
         occurrencesText: 'occurrences',
         summaryText: 'summary',
+        weekDaysText: [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday'
+        ],
+        monthsText: [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ],
         frequencyOptionsText: [
             'days',
             'weeks',
@@ -344,7 +367,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             for (var key in selections) {
                 if (selections[key]) {
-                    values.push(moment().lang()._weekdaysShort[key]);
+                    values.push(this.weekDaysText[key]);
                     weekdays[key] = 1;
                 }
             }
@@ -363,20 +386,19 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
                 return selection['$descriptor'];
             }
 
-            return moment().lang()._weekdays[parseInt(selection, 10)];
+            return this.weekDaysText[parseInt(selection, 10)];
         },
         formatMonth: function(selection) {
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
 
-            return moment().lang()._months[parseInt(selection, 10) - 1];
+            return this.monthsText[parseInt(selection, 10) - 1];
         },
         formatOrd: function(selection) {
             if (selection['$descriptor']) {
                 return selection['$descriptor'];
             }
-
             return recur.ordText[parseInt(selection, 10)];
         },
         preselectWeekdays: function() {
@@ -402,20 +424,22 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
         },
         createWeekdaysData: function() {
             var list = [];
-            array.forEach(moment().lang()._weekdays, function(name, idx) {
+
+            array.forEach(this.weekDaysText, function(name, idx) {
                 list.push({
                     '$key': idx,
                     '$descriptor': name
                 });
             });
+
             return {'$resources': list};
         },
         createMonthsData: function() {
             var list = [];
-            array.forEach(moment.months, function(name, idx) {
+            array.forEach(this.monthsText, function(name, idx) {
                 list.push({
                     '$key': idx,
-                    '$descriptor': name 
+                    '$descriptor': name
                 });
             });
             return {'$resources': list};

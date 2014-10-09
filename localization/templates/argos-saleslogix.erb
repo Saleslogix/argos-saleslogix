@@ -1,0 +1,6 @@
+define('localization/saleslogix/<%= culture %>', ['localization/<%= culture %>', 'Mobile/SalesLogix/ApplicationModule'], function() {
+<% localized.each do |name, object| %>
+
+localize("<%= name %>", <%= JSON.pretty_generate(object) %>);
+<% end %>
+});

@@ -178,13 +178,13 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         name: 'ScheduleActivityAction',
                         property: 'Description',
                         label: this.scheduleActivityText,
-                        icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                        iconClass: 'fa fa-calendar fa-lg',
                         action: 'scheduleActivity'
                     }, {
                         name: 'AddNoteAction',
                         property: 'Description',
                         label: this.addNoteText,
-                        icon: 'content/images/icons/New_Note_24x24.png',
+                        iconClass: 'fa fa-edit fa-lg',
                         action: 'addNote'
                     }]
             };
@@ -286,19 +286,16 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                 name: 'RelatedItemsSection',
                 children: [{
                         name: 'OpportunityRelated',
-                        icon: 'content/images/icons/product_24.png',
                         label: this.relatedProductsText,
                         view: 'opportunityproduct_related',
                         where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"')
                     }, {
                         name: 'ActivityRelated',
-                        icon: 'content/images/icons/To_Do_24x24.png',
                         label: this.relatedActivitiesText,
                         view: 'activity_related',
                         where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}"')
                     }, {
                         name: 'ContactRelated',
-                        icon: 'content/images/icons/Contacts_24x24.png',
                         label: this.relatedContactsText,
                         options: {
                             prefilter: this.formatAccountRelatedQuery.bindDelegate(this, 'Account.Id eq "${0}"')
@@ -307,13 +304,11 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         where: this.formatRelatedQuery.bindDelegate(this, 'Opportunity.Id eq "${0}"')
                     }, {
                         name: 'HistoryRelated',
-                        icon: 'content/images/icons/journal_24.png',
                         label: this.relatedHistoriesText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'OpportunityId eq "${0}" and Type ne "atDatabaseChange"'),
                         view: 'history_related'
                     }, {
                         name: 'AttachmentRelated',
-                        icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'opportunityId eq "${0}"'),// must be lower case because of feed
                         view: 'opportunity_attachment_related',

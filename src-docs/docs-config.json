@@ -21,6 +21,7 @@
     "-o": "../docs-output",
     "--images": "images",
     "--": [
+        "../configuration",
         "../src",
         "../../../argos-sdk/src",
         "../../../argos-sdk/libraries/Simplate.js",

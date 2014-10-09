@@ -90,7 +90,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         timelessDateFormatText: 'M/D/YYYY',
         alarmDateFormatText: 'M/D/YYYY h:mm:ss A',
         recurrenceText: 'recurrence',
-        confirmEditRecurrenceText: 'Edit all Occurrences?\nCancel to edit single Occurrence.',
+        confirmEditRecurrenceText: 'Edit all Occurrences? Cancel to edit single Occurrence.',
         relatedAttachmentText: 'Attachments',
         relatedAttachmentTitleText: 'Activity Attachments',
         relatedItemsText:'Related Items',
@@ -133,7 +133,12 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
             'RecurPeriod',
             'RecurPeriodSpec',
             'RecurIterations',
-            'RecurrenceState'
+            'RecurrenceState',
+            'AllowAdd',
+            'AllowEdit',
+            'AllowDelete',
+            'AllowComplete'
+
         ],
         resourceKind: 'activities',
         recurringActivityIdSeparator: ';',
@@ -299,7 +304,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         requestRecurrenceFailure: function(xhr, o) {
         },
         checkCanComplete: function(entry) {
-            return !entry || (entry['Leader']['$key'] !== App.context['user']['$key']);
+            return !(entry && (entry['AllowComplete']));
         },
         preProcessEntry: function(entry) {
             if (entry && entry['Leader']['$key']) {
@@ -329,7 +334,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'CompleteActivityAction',
                             property: 'Description',
                             label: this.completeActivityText,
-                            icon: 'content/images/icons/Clear_Activity_24x24.png',
+                            iconClass: 'fa fa-check-square fa-lg',
                             action: 'completeActivity',
                             disabled: this.checkCanComplete,
                             exclude: this.isActivityRecurringSeries
@@ -337,7 +342,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'completeOccurrenceAction',
                             property: 'StartDate',
                             label: this.completeOccurrenceText,
-                            icon: 'content/images/icons/Clear_Activity_24x24.png',
+                            iconClass: 'fa fa-check-square fa-lg',
                             action: 'completeOccurrence',
                             disabled: this.checkCanComplete,
                             renderer: format.date.bindDelegate(this, this.startDateFormatText, false),
@@ -346,7 +351,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'completeSeriesAction',
                             property: 'Description',
                             label: this.completeSeriesText,
-                            icon: 'content/images/icons/Clear_Activity_24x24.png',
+                            iconClass: 'fa fa-check-square fa-lg',
                             action: 'completeSeries',
                             disabled: this.checkCanComplete,
                             include: this.isActivityRecurringSeries
@@ -364,6 +369,10 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             property: 'Description',
                             label: this.regardingText
                         }, {
+                            name: 'LongNotes',
+                            property: 'LongNotes',
+                            label: this.longNotesText
+                        }, {
                             name: 'Category',
                             property: 'Category',
                             label: this.categoryText
@@ -375,10 +384,6 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             name: 'Priority',
                             property: 'Priority',
                             label: this.priorityText
-                        }, {
-                            name: 'LongNotes',
-                            property: 'LongNotes',
-                            label: this.longNotesText
                         }, {
                             name: 'PhoneNumber',
                             property: 'PhoneNumber',
@@ -499,7 +504,6 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                     name: 'RelatedItemsSection',
                     children: [{
                         name: 'AttachmentRelated',
-                        icon: 'content/images/icons/Attachment_24.png',
                         label: this.relatedAttachmentText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'activityId eq "${0}"', 'activityId'),// must be lower case because of feed
                         view: 'activity_attachment_related',

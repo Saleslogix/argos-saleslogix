@@ -20,7 +20,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     'dojox/charting/Chart',
     'dojox/charting/plot2d/Bars',
     'dojox/charting/axis2d/Default',
-    'dojox/charting/themes/Julie',
     'Sage/Platform/Mobile/View',
     './_ChartMixin'
 ], function(
@@ -32,7 +31,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     Chart,
     PlotType,
     Default,
-    JulieTheme,
     View,
     _ChartMixin
 ) {
@@ -45,6 +43,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
         legend: null,
         MAX_ITEMS: 5,
         MIN_ITEMS: 1,
+        barColor: '#13a3f7',
 
         formatter: function(val) {
             return val;
@@ -78,7 +77,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             labels = this._labels(feedData);
 
             this.chart = new Chart(this.contentNode);
-            this.chart.setTheme(JulieTheme);
             this.chart.addPlot('default', {
                 type: PlotType,
                 markers: false,
@@ -107,7 +105,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
                 titleOrientation: 'away'
             });
 
-            this.chart.addSeries('default', labels);
+            this.chart.addSeries('default', labels, {stroke: { color: this.barColor}, fill: this.barColor});
             this.chart.render();
             this.chart.resize(box.w, box.h);
         },

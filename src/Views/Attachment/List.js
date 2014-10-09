@@ -27,6 +27,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     'dojo/string',
     'dojo/has',
     'Mobile/SalesLogix/Format',
+    'Mobile/SalesLogix/Utility',
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/_LegacySDataListMixin',
     'Sage/Platform/Mobile/Convert',
@@ -38,6 +39,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     string,
     has,
     format,
+    utility,
     List,
     _LegacySDataListMixin,
     convert,
@@ -48,16 +50,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
 
     return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
         //Templates
-
-        //used when card layout is no used used.
-        rowTemplate: new Simplate([
-            '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
-                '<button data-action="selectEntry" class="list-item-selector button">',
-                    '<img src="{%= $$.icon || $$.selectIcon %}" class="icon" />',
-                '</button>',
-                '<div class="list-item-content">{%! $$.itemTemplate %}</div>',
-            '</li>'
-        ]),
         itemTemplate: new Simplate([
            '{% if ($.dataType === "R") { %}',
                '{%! $$.fileTemplate %}',
@@ -96,8 +88,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         enableActions: true,
         detailView: 'view_attachment',
         insertView: 'attachment_Add',
-        icon: 'content/images/icons/Attachment_24.png',
-        iconurl: 'content/images/icons/Attachment_URL_24.png',
         iconClass: 'fa fa-paperclip fa-lg',
         queryOrderBy: 'attachDate desc',
         querySelect:  [
@@ -125,7 +115,6 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
             'url': 'url',
             'binary': 'binary'
         },
-
         createToolLayout: function() {
             if (!has('html5-file-api')) {
                 this.insertView = null;
@@ -155,39 +144,50 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
                 }
             }
         },
-        getItemIconSource: function(entry) {
-              return "content/images/icons/Attachment_48x48.png";
+        itemIconClass: 'fa-file-o',
+        fileIconByType: {
+            'xls': 'fa-file-excel-o',
+            'xlsx': 'fa-file-excel-o',
+            'doc': 'fa-file-word-o',
+            'docx': 'fa-file-word-o',
+            'ppt': 'fa-file-powerpoint-o',
+            'pptx': 'fa-file-powerpoint-o',
+            'txt': 'fa-file-text-o',
+            'rtf': 'fa-file-text-o',
+            'csv': 'fa-file-text-o',
+            'pdf': 'fa-file-pdf-o',
+            'zip': 'fa-file-zip-o',
+            'png': 'fa-file-image-o',
+            'jpg': 'fa-file-image-o',
+            'gif': 'fa-file-image-o',
+            'bmp': 'fa-file-image-o'
+        },        
+        getItemIconClass: function(entry) {
+            var cls, typeCls, type, fileName = entry && entry.fileName;
+            type = utility.getFileExtension(fileName);
+            cls = this.itemIconClass;
+            if (type) {
+                type = type.substr(1); //Remove the '.' from the ext.
+                typeCls = this.fileIconByType[type];
+                if (typeCls) {
+                    cls = typeCls;
+                }
+            }
+            if (cls) {
+                cls = 'fa ' + cls + ' fa-2x';
+            }
+            return cls;
         },
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'touched',
-                icon: 'Touched_24x24.png',
+                cls: 'fa fa-hand-o-up',
                 label: 'Touched',
                 onApply: function(entry, parent) {
                     this.isEnabled = parent.hasBeenTouched(entry);
                 }
-            }, {
-                id: 'attachmentIcon',
-                icon: '',
-                label: 'Activity',
-                onApply: function(entry, parent) {
-                    parent.applyActivityIndicator(entry, this);
-                }
             }]
             );
-        },
-        applyActivityIndicator: function(entry, indicator) {
-            var dataType = entry['dataType'];
-            indicator.isEnabled = true;
-            indicator.showIcon = true;
-            if (dataType === 'R') {
-                indicator.icon = "Attachment_24.png";
-                indicator.label = "file";
-                
-            } else {
-                indicator.icon = "Attachment_URL_24.png";
-                indicator.label = "url";
-            }
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;

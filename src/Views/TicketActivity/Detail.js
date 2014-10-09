@@ -19,7 +19,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     'dojo/query',
     'dojo/dom-class',
     'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/ErrorManager',
     'Sage/Platform/Mobile/Detail',
@@ -30,7 +29,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     query,
     domClass,
     format,
-    pltFormat,
     template,
     ErrorManager,
     Detail
@@ -215,7 +213,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
                             label: this.elapsedUnitsText,
                             name: 'ElapsedUnits',
                             property: 'ElapsedUnits',
-                            renderer: pltFormat.fixed
+                            renderer: format.fixedLocale
                         }, {
                             label: this.rateTypeDescriptionText,
                             name: 'RateTypeDescription.RateTypeCode',
@@ -247,7 +245,6 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
                     name: 'RelatedItemsSection',
                     children: [{
                         name: 'TicketActivityItemRelated',
-                        icon: 'content/images/icons/product_24.png',
                         label: this.relatedTicketActivityItemText,
                         where: this.formatRelatedQuery.bindDelegate(this, 'TicketActivity.Id eq "${0}"'),
                         view: 'ticketactivityitem_related'

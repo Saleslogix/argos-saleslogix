@@ -36,7 +36,6 @@ define('Mobile/SalesLogix/Views/Product/List', [
         //View Properties       
         id: 'product_list',
         security: 'Entities/Product/View',
-        icon: 'content/images/icons/product_24.png',
         queryOrderBy: 'Name',
         querySelect: [
             'Description',

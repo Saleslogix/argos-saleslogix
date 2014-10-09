@@ -94,10 +94,11 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
                 'tbar': [{
                         id: 'edit',
                         action: 'navigateToEditView',
+                        cls: 'fa fa-pencil fa-fw fa-lg',
                         security: App.getViewSecurity(this.editView, 'update')
                     }, {
                         id: 'removeContact',
-                        icon: 'content/images/icons/del_24.png',
+                        cls: 'fa fa-times-circle fa-lg',
                         action: 'removeContact',
                         title: this.removeContactTitleText
                     }]

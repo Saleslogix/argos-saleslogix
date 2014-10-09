@@ -39,8 +39,8 @@ define('Mobile/SalesLogix/Views/Configure', [
         itemTemplate: new Simplate([
             '<h3>',
             '<span>{%: $.$descriptor %}</span>',
-            '<span data-action="moveUp"></span>',
-            '<span data-action="moveDown"></span>',
+            '<span data-action="moveUp" class="fa fa-arrow-up"></span>',
+            '<span data-action="moveDown" class="fa fa-arrow-down"></span>',
             '</h3>'
         ]),
 
@@ -62,10 +62,12 @@ define('Mobile/SalesLogix/Views/Configure', [
             return this.tools || (this.tools = {
                 tbar: [{
                         id: 'save',
+                        cls: 'fa fa-check fa-fw fa-lg',
                         fn: this.savePreferences,
                         scope: this
                     }, {
                         id: 'cancel',
+                        cls: 'fa fa-ban fa-fw fa-lg',
                         side: 'left',
                         fn: ReUI.back,
                         scope: ReUI

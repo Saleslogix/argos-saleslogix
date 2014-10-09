@@ -36,40 +36,32 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     moment
 ) {
 
+    var mixinName = 'Mobile.SalesLogix.Views._CardLayoutListMixin';
+
     return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
-        itemColorClass: 'color-default',
         itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText:'Contact',
+        itemIconClass: '',
         allRecordsText: 'no search applied',
         itemIndicators:null,
         itemExts: null,
-        itemTabValueProperty: '$descriptor',
-        itemTabShowValue: false,
-        itemTabShowGroupValue: false,
         itemIndicatorIconPath: 'content/images/icons/',
         itemIndicatorShowDisabled: true,
         currentSearchExpression: '',
         itemIndicatorTemplate: new Simplate([
-           '<span class="{%= $.cls %}" >',
+           '<span{% if ($.iconCls) { %} class="{%= $.iconCls %}" {% } %}>',
                 '{% if ($.showIcon === false) { %}',
-                     '{%: $.valueText %}',
-                '{% } else { %}',
-                      '<img src="{%= $.indicatorIcon %}" alt="{%= $.label %}" />',
-                 '{% } %}',
+                    '{%: $.valueText %}',
+                '{% } else if ($.indicatorIcon && !$.iconCls) { %}',
+                    '<img src="{%= $.indicatorIcon %}" alt="{%= $.label %}" />',
+                '{% } %}',
            '</span>'
         ]),
         itemExtTemplate: new Simplate([
             '<li data-dojo-attach-point="itemExtNode" class="card-item-ext-row"></li>'
         ]),
-        itemTabTemplate: new Simplate([
-            '<div class="{%: $$.getItemColorClass($) %} list-item-content-tab ">',
-            '<table><tr><td>',
-            '<div><span>{%: $$.getItemTabValue($) %}</span></div>',
-            '</td></tr></table>',
-           ' </div>'
-        ]),
         itemRowContainerTemplate: new Simplate([
-        '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}"  data-color-class="{%: $$.getItemColorClass($) %}" >',
+        '<li data-action="activateEntry" data-key="{%= $$.getItemActionKey($) %}" data-descriptor="{%: $$.getItemDescriptor($) %}">',
             '{%! $$.itemRowContentTemplate %}',
         '</li>'
         ]),
@@ -79,11 +71,14 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         ]),
         itemIconTemplate: new Simplate([
             '<button data-action="selectEntry" class="list-item-selector button">',
-            '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
+            '{% if ($$.getItemIconClass($)) { %}',
+                '<span class="{%= $$.getItemIconClass($) %}"></span>',
+            '{% } else { %}',
+                '<img id="list-item-image_{%: $.$key %}" src="{%: $$.getItemIconSource($) %}" alt="{%: $$.getItemIconAlt($) %}" class="icon" />',
+            '{% } %}',
             '</button>'
         ]),
         itemRowContentTemplate: new Simplate([
-           '{%! $$.itemTabTemplate %}',
            '<div id="top_item_indicators" class="list-item-indicator-content"></div>',
            '{%! $$.itemIconTemplate %}',
            '<div class="list-item-content" data-snap-ignore="true">{%! $$.itemTemplate %}</div>',
@@ -96,9 +91,6 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             this.cls = ' card-layout';
             this.rowTemplate = new Simplate([
              '{%! $$.itemRowContainerTemplate %}'
-            ]);
-            this.listActionTemplate = new Simplate([
-                '<li data-dojo-attach-point="actionsNode" class="card-layout actions-row  {%: $$.itemColorClass %}"></li>'
             ]);
             this.createIndicatorLayout();
         },
@@ -123,21 +115,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
         getItemDescriptor: function(entry) {
             return entry.$descriptor || entry[this.labelProperty];
         },
-        getItemTabValue: function(entry) {
-            var value = '';
-
-            if (this.itemTabShowValue) {
-                if (this.itemTabShowGroupValue) {
-                    value = entry["$groupTitle"];
-                } else {
-                     value = entry[this.itemTabValueProperty];
-                }
-            }
-            return value;
-
-        },
-        getItemColorClass: function(entry) {
-            return this.itemColorClass;
+        getItemIconClass: function(entry, owner) {
+            return this.itemIconClass;
         },
         getItemIconSource: function(entry) {
             return this.itemIcon || this.icon || this.selectIcon;
@@ -146,52 +125,64 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return this.itemIconAltText;
         },
         createIndicators: function(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
-            var indicatorTemplate, indicator, options, indicatorHTML, i, iconPath;
+            var indicatorTemplate, indicator, options, indicatorHTML, i, iconPath, self = this;
             for (i = 0; i < indicators.length; i++) {
-                indicator = indicators[i];
+                (function(indicator) {
+                    iconPath = indicator.iconPath || self.itemIndicatorIconPath;
 
-                iconPath = indicators[i].iconPath || this.itemIndicatorIconPath;
-
-                if (indicator.onApply) {
-                    try{
-                        indicator.onApply(entry, this);
-                    }catch(err){
-                        indicator.isEnabled = false;
-                    }
-                }
-                options = {
-                    indicatorIndex: i,
-                    indicatorIcon: iconPath + indicator.icon
-                };
-                indicatorTemplate = indicator.template || this.itemIndicatorTemplate;
-
-                lang.mixin(indicator, options);
-
-                if (indicator.isEnabled === false) {
-                    indicator.indicatorIcon = iconPath + 'disabled_' + indicator.icon;
-                    indicator.label = '';
-                } else {
-                    indicator.indicatorIcon = iconPath + indicator.icon;
-                }
-                
-                if (indicator.isEnabled === false && indicator.showIcon === false) {
-                    continue;
-                }
-                
-                if (this.itemIndicatorShowDisabled || indicator.isEnabled) {
-
-                    if (indicator.isEnabled === false && indicator.showIcon === false) {
-                        continue;
-                    } else {
-
-                        indicatorHTML = indicatorTemplate.apply(indicator, indicator.id);
-                        if (indicator.location === 'top') {
-                            domConstruct.place(indicatorHTML, topIndicatorsNode, 'last');
-                        } else {
-                            domConstruct.place(indicatorHTML, bottomIndicatorsNode, 'last');
+                    if (indicator.onApply) {
+                        try{
+                            indicator.onApply(entry, self);
+                        }catch(err){
+                            indicator.isEnabled = false;
                         }
                     }
-                }
+                    options = {
+                        indicatorIndex: i,
+                        indicatorIcon: indicator.icon
+                            ? iconPath + indicator.icon
+                            : '',
+                        iconCls: indicator.cls || ''
+                    };
+
+                    indicatorTemplate = indicator.template || self.itemIndicatorTemplate;
+
+                    lang.mixin(indicator, options);
+
+                    if (indicator.isEnabled === false) {
+                        indicator.label = '';
+                        if (indicator.cls) {
+                            indicator.iconCls = indicator.cls + ' disabled';
+                        } else {
+                            indicator.indicatorIcon = indicator.icon
+                                ? iconPath + 'disabled_' + indicator.icon
+                                : '';
+                        }
+                    } else {
+                        indicator.indicatorIcon = indicator.icon
+                            ? iconPath + indicator.icon 
+                            : '';
+                    }
+
+                    if (indicator.isEnabled === false && indicator.showIcon === false) {
+                        return;
+                    }
+
+                    if (self.itemIndicatorShowDisabled || indicator.isEnabled) {
+
+                        if (indicator.isEnabled === false && indicator.showIcon === false) {
+                            return;
+                        } else {
+
+                            indicatorHTML = indicatorTemplate.apply(indicator, indicator.id);
+                            if (indicator.location === 'top') {
+                                domConstruct.place(indicatorHTML, topIndicatorsNode, 'last');
+                            } else {
+                                domConstruct.place(indicatorHTML, bottomIndicatorsNode, 'last');
+                            }
+                        }
+                    }
+                })(indicators[i]);
             }
         },
         onApplyRowTemplate: function(entry, rowNode) {
@@ -213,15 +204,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
         },
         createIndicatorLayout: function() {
-            return this.itemIndicators || (this.itemIndicators = [{
-                id: 'touched',
-                icon: 'Touched_24x24.png',
-                label: 'Touched',
-                onApply: function(entry, parent) {
-                    this.isEnabled = parent.hasBeenTouched(entry);
-                }
-            }]
-            );
+            return this.itemIndicators || (this.itemIndicators = []);
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;
@@ -236,6 +219,11 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return false;
         },
         requestData: function(){
+            var mixin = lang.getObject(mixinName);
+            if (this.searchWidget) {
+                this.currentSearchExpression = this.searchWidget.getSearchExpression() || mixin.prototype.allRecordsText;
+            }
+
             this.inherited(arguments);
         }
     });

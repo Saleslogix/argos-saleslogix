@@ -114,7 +114,6 @@ define('Mobile/SalesLogix/Views/Home', [
                     children: [{
                         'name': 'AddAccountContactAction',
                         'action': 'addAccountContact',
-                        'icon': 'content/images/icons/New_Contact_24x24.png',
                         'title': this.addAccountContactText
                     }]
                 }];

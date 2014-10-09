@@ -48,7 +48,6 @@ define('Mobile/SalesLogix/Views/Help', [
         //View Properties
         id: 'help',
         url: 'help/help.html',
-        icon: 'content/images/icons/help_24.png',
         expose: false,
 
         createToolLayout: function() {

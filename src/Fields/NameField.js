@@ -16,9 +16,12 @@ define('Mobile/SalesLogix/Fields/NameField', [
 
         widgetTemplate: new Simplate([
             '<label for="{%= $.name %}">{%: $.label %}</label>',
-            '<button class="button simpleSubHeaderButton" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
+            '<button class="button simpleSubHeaderButton {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
             '<input data-dojo-attach-point="inputNode" readonly="readonly" type="text" />'
         ]),
+
+        iconClass: 'fa fa-pencil fa-lg',
+
         createNavigationOptions: function() {
             var options = this.inherited(arguments);
             //Name does not have an entity.

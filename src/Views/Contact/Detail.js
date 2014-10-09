@@ -193,30 +193,30 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             name: 'CallWorkPhoneAction',
                             property: 'WorkPhone',
                             label: this.callWorkNumberText,
-                            icon: 'content/images/icons/Dial_24x24.png',
                             action: 'callWorkPhone',
+                            iconClass: 'fa fa-phone-square fa-lg',
                             disabled: this.checkValueExists,
                             renderer: format.phone.bindDelegate(this, false)
                         }, {
                             name: 'CallMobilePhoneAction',
                             property: 'Mobile',
                             label: this.callMobileNumberText,
-                            icon: 'content/images/icons/mobile_24.png',
                             action: 'callMobilePhone',
+                            iconClass: 'fa fa-mobile fa-2x',
                             disabled: this.checkValueExists,
                             renderer: format.phone.bindDelegate(this, false)
                         }, {
                             name: 'SendEmailAction',
                             property: 'Email',
                             label: this.sendEmailText,
-                            icon: 'content/images/icons/Send_Write_email_24x24.png',
                             action: 'sendEmail',
+                            iconClass: 'fa fa-envelope fa-lg',
                             disabled: this.checkValueExists
                         }, {
                             name: 'ScheduleActivityAction',
                             label: this.scheduleActivityText,
-                            icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                             action: 'scheduleActivity',
+                            iconClass: 'fa fa-calendar fa-lg',
                             tpl: new Simplate([
                                 '{%: $.AccountName %} / {%: $.NameLF %}'
                             ])
@@ -224,14 +224,14 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             name: 'AddNoteAction',
                             property: 'NameLF',
                             label: this.addNoteText,
-                            icon: 'content/images/icons/New_Note_24x24.png',
-                            action: 'addNote'
+                            action: 'addNote',
+                            iconClass: 'fa fa-edit fa-lg'
                         }, {
                             name: 'ViewAddressAction',
                             property: 'Address',
                             label: this.viewAddressText,
-                            icon: 'content/images/icons/Map_24.png',
                             action: 'viewAddress',
+                            iconClass: 'fa fa-map-marker fa-lg',
                             disabled: this.checkAddress,
                             renderer: format.address.bindDelegate(this, true, ' ')
                         }]
@@ -293,37 +293,31 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                     list: true,
                     children: [{
                             name: 'ActivityRelated',
-                            icon: 'content/images/icons/To_Do_24x24.png',
                             label: this.relatedActivitiesText,
                             view: 'activity_related',
                             where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}"')
                         }, {
                             name: 'OpportunityRelated',
-                            icon: 'content/images/icons/opportunity_24.png',
                             label: this.relatedOpportunitiesText,
                             view: 'opportunity_related',
                             where: this.formatRelatedQuery.bindDelegate(this, 'Contacts.Contact.Id eq "${0}"')
                         }, {
                             name: 'TicketRelated',
-                            icon: 'content/images/icons/Ticket_24x24.png',
                             label: this.relatedTicketsText,
                             view: 'ticket_related',
                             where: this.formatRelatedQuery.bindDelegate(this, 'Contact.Id eq "${0}"')
                         }, {
                             name: 'HistoryRelated',
-                            icon: 'content/images/icons/journal_24.png',
                             label: this.relatedHistoriesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'ContactId eq "${0}" and Type ne "atDatabaseChange"'),
                             view: 'history_related'
                         }, {
                             name: 'AddressesRelated',
-                            icon: 'content/images/icons/Map_24.png',
                             label: this.relatedAddressesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
                             view: 'address_related'
                         }, {
                             name: 'AttachmentRelated',
-                            icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'contactId eq "${0}"'),// must be lower case because of feed
                             view: 'contact_attachment_related',

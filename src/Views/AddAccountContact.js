@@ -56,6 +56,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
         titleText: 'Add Account / Contact',
         typeText: 'type',
         webText: 'web',
+        phoneText: 'phone',
         workText: 'work phone',
         industryTitleText: 'Industry',
 
@@ -176,7 +177,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                     validator: validator.exceedsMaxTextLength
                 },
                 {
-                    label: this.workText,
+                    label: this.phoneText,
                     name: 'MainPhone',
                     property: 'MainPhone',
                     type: 'phone',
@@ -207,6 +208,14 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
                             name: 'Contacts.$resources[0].Mobile',
                             property: 'Contacts.$resources[0].Mobile',
                             label: this.mobileText,
+                            type: 'phone',
+                            maxTextLength: 32,
+                            validator: validator.exceedsMaxTextLength
+                        },
+                        {
+                            name: 'Contacts.$resources[0].WorkPhone',
+                            property: 'Contacts.$resources[0].WorkPhone',
+                            label: this.workText,
                             type: 'phone',
                             maxTextLength: 32,
                             validator: validator.exceedsMaxTextLength

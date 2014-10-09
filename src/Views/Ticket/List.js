@@ -8,11 +8,11 @@
  * @extends Sage.Platform.Mobile.List
  * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
  * @mixins Mobile.SalesLogix.Views._MetricListMixin
+ * @mixins Mobile.SalesLogix.Views._GroupListMixin
  * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
  *
  * @requires Mobile.SalesLogix.Action
  * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Views.History.RelatedView
  */
 define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/declare',
@@ -20,8 +20,8 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     'dojo/_base/array',
     'Mobile/SalesLogix/Action',
     'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Views/History/RelatedView',
     'Sage/Platform/Mobile/List',
+    '../_GroupListMixin',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin'
@@ -31,19 +31,22 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
     array,
     action,
     format,
-    HistoryRelatedView,
     List,
+    _GroupListMixin,
     _MetricListMixin,
     _RightDrawerListMixin,
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    return declare('Mobile.SalesLogix.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',
             '<h4>{%: $.Subject %}</h3>',
-            '{% if($.Account) { %}',
+            '{% if(($.Account) && (!$.Contact)) { %}',
+                '<h4>{%: $$.viewContactActionText + ": " + $.Account.AccountName %}</h4>',
+            '{% } %}',
+            '{% if(($.Account) && ($.Contact)) { %}',
                 '<h4>{%: $$.viewContactActionText + ": " + $.Contact.NameLF + " | " + $.Account.AccountName %}</h4>',
             '{% } %}',
             '<h4> {%: $.AssignedTo ? ($$.assignedToText + $.AssignedTo.OwnerDescription) : this.notAssignedText %}</h4>',
@@ -90,8 +93,7 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
 
         //View Properties
         detailView: 'ticket_detail',
-        icon: 'content/images/icons/Ticket_24x24.png',
-        iconClass: 'fa fa-ticket fa-lg',
+        itemIconClass: 'fa fa-clipboard fa-2x',
         id: 'ticket_list',
         security: 'Entities/Ticket/View',
         insertView: 'ticket_edit',
@@ -117,30 +119,18 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
         ],
         resourceKind: 'tickets',
         entityName: 'Ticket',
+        groupsEnabled: true,
         allowSelection: true,
         enableActions: true,
-        hashTagQueries: {
-            'assigned-to-me': function() {
-                return 'AssignedTo.OwnerDescription eq "' + App.context.user.$descriptor + '"';
-            },
-            'completed-by-me': function() {
-                return 'CompletedBy.OwnerDescription eq "' + App.context.user.$descriptor + '"';
-            }
-        },
-        hashTagQueriesText: {
-            'assigned-to-me': 'assigned-to-me',
-            'completed-by-me': 'completed-by-me'
-        },
 
         createActionLayout: function() {
             return this.actions || (this.actions = [{
                 id: 'edit',
-                icon: 'content/images/icons/edit_24.png',
+                cls: 'fa fa-pencil fa-2x',
                 label: this.editActionText,
                 action: 'navigateToEditView'
             }, {
                 id: 'viewAccount',
-                icon: 'content/images/icons/Company_24.png',
                 label: this.viewAccountActionText,
                 enabled: action.hasProperty.bindDelegate(this, 'Account.$key'),
                 fn: action.navigateToEntity.bindDelegate(this, {
@@ -150,7 +140,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
                 })
             }, {
                 id: 'viewContact',
-                icon: 'content/images/icons/Contacts_24x24.png',
                 label: this.viewContactActionText,
                 enabled: action.hasProperty.bindDelegate(this, 'Contact.$key'),
                 fn: action.navigateToEntity.bindDelegate(this, {
@@ -160,17 +149,17 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
                 })
             }, {
                 id: 'addNote',
-                icon: 'content/images/icons/New_Note_24x24.png',
+                cls: 'fa fa-edit fa-2x',
                 label: this.addNoteActionText,
                 fn: action.addNote.bindDelegate(this)
             }, {
                 id: 'addActivity',
-                icon: 'content/images/icons/Schedule_ToDo_24x24.png',
+                cls: 'fa fa-calendar fa-2x',
                 label: this.addActivityActionText,
                 fn: action.addActivity.bindDelegate(this)
             }, {
                 id: 'addAttachment',
-                icon: 'content/images/icons/Attachment_24.png',
+                cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
             }]
@@ -182,16 +171,6 @@ define('Mobile/SalesLogix/Views/Ticket/List', [
                 'TicketNumber like "${0}%" or AlternateKeySuffix like "${0}%" or upper(Subject) like "${0}%" or Account.AccountNameUpper like "${0}%"',
                 [this.escapeSearchQuery(searchQuery.toUpperCase())]
             );
-        },
-        createRelatedViewLayout: function() {
-            return this.relatedViews || (this.relatedViews = [{
-                widgetType: HistoryRelatedView,
-                id: 'ticket_relatedNotes',
-                autoLoad:true,
-                enabled: true,
-                relatedProperty: 'TicketId',
-                where: function(entry) { return "TicketId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
-            }]);
         }
     });
 });

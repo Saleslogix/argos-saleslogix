@@ -187,37 +187,37 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                             name: 'CallWorkPhoneAction',
                             property: 'WorkPhone',
                             label: this.callWorkNumberText,
-                            icon: 'content/images/icons/Dial_24x24.png',
                             action: 'callWorkPhone',
+                            iconClass: 'fa fa-phone-square fa-lg',
                             disabled: this.checkWorkPhone,
                             renderer: format.phone.bindDelegate(this, false)
                         }, {
                             name: 'CheckEmailAction',
                             property: 'Email',
                             label: this.sendEmailText,
-                            icon: 'content/images/icons/Send_Write_email_24x24.png',
                             action: 'sendEmail',
+                            iconClass: 'fa fa-envelope fa-lg',
                             disabled: this.checkEmail
                         }, {
                             name: 'ScheduleActivityAction',
                             label: this.scheduleActivityText,
-                            icon: 'content/images/icons/Schedule_ToDo_24x24.png',
                             action: 'scheduleActivity',
+                            iconClass: 'fa fa-calendar fa-lg',
                             tpl: new Simplate([
                                 '{%: $.Company %} / {%: $.LeadNameLastFirst %}'
                             ])
                         }, {
                             name: 'AddNoteAction',
                             property: 'LeadNameLastFirst',
+                            iconClass: 'fa fa-edit fa-lg',
                             label: this.addNoteText,
-                            icon: 'content/images/icons/New_Note_24x24.png',
                             action: 'addNote'
                         }, {
                             name: 'ViewAddressAction',
                             property: 'Address',
                             label: this.viewAddressText,
-                            icon: 'content/images/icons/Map_24.png',
                             action: 'viewAddress',
+                            iconClass: 'fa fa-map-marker fa-lg',
                             disabled: this.checkAddress,
                             renderer: format.address.bindDelegate(this, [true, ' '])
                         }]
@@ -296,20 +296,17 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                     name: 'RelatedItemsSection',
                     children: [{
                             name: 'ActivityRelated',
-                            icon: 'content/images/icons/To_Do_24x24.png',
                             label: this.relatedActivitiesText,
                             view: 'activity_related',
                             where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}"')
                         },
                         {
                             name: 'HistoryRelated',
-                            icon: 'content/images/icons/journal_24.png',
                             label: this.relatedHistoriesText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'LeadId eq "${0}" and Type ne "atDatabaseChange"'),
                             view: 'history_related'
                         }, {
                             name: 'AttachmentRelated',
-                            icon: 'content/images/icons/Attachment_24.png',
                             label: this.relatedAttachmentText,
                             where: this.formatRelatedQuery.bindDelegate(this, 'leadId eq "${0}"'),// must be lower case because of feed
                             view: 'lead_attachment_related',

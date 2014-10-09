@@ -13,10 +13,22 @@ localize("Sage.Platform.Mobile.Format", {
   "percentFormatText": "${0}${1}"
 });
 
+localize("Mobile.SalesLogix.GroupUtility", {
+  "groupDateFormatText": "D/M/YYYY h:mm:ss A"
+});
+
+localize("Mobile.SalesLogix.Recurrence", {
+  "dayFormatText": "DD",
+  "monthFormatText": "MM",
+  "monthAndDayFormatText": "DD/MM",
+  "weekdayFormatText": "dddd",
+  "endDateFormatText": "D/M/YYYY"
+});
+
 localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "completedFormatText": "D/M/YYYY h:mm A",
   "startingFormatText": "D/M/YYYY h:mm A",
-  "startingFormatTimelessText": "D/M/YYYY"
+  "startingTimelessFormatText": "D/M/YYYY"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Detail", {
@@ -27,12 +39,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "startingFormatText": "D/M/YYYY h:mm A",
-  "startingFormatTimelessText": "D/M/YYYY"
-});
-
-localize("Mobile.SalesLogix.Views.Activity.List", {
-  "startDateFormatText": "ddd D/M/YYYY",
-  "startTimeFormatText": "h:mm A"
+  "startingTimelessFormatText": "D/M/YYYY"
 });
 
 localize("Mobile.SalesLogix.Views.Attachment.List", {
@@ -111,6 +118,6 @@ localize("Mobile.SalesLogix.Views.TicketActivity.Edit", {
 });
 
 localize("Mobile.SalesLogix.Views.TicketActivity.List", {
-  "startDateFormatText": "DD/MM/YYYY h:mmA"
+  "startDateFormatText": "DD/MM/YYYY h:mm A"
 });
 });

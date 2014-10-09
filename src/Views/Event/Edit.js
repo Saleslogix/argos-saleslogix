@@ -47,7 +47,7 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
         ],
         resourceKind: 'events',
 
-        eventTypes: {
+        eventTypesText: {
             "Vacation": "Vacation",
             "Business Trip": "Business Trip",
             "Conference": "Conference",
@@ -66,15 +66,15 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
             }
         },
         formatTypeText: function(val, key, text) {
-            return this.eventTypes[key] || text;
+            return this.eventTypesText[key] || text;
         },
         createTypeData: function() {
             var list = [];
 
-            for (var type in this.eventTypes) {
+            for (var type in this.eventTypesText) {
                 list.push({
                     '$key': type,
-                    '$descriptor': this.eventTypes[type]
+                    '$descriptor': this.eventTypesText[type]
                 });
             }
 
@@ -142,7 +142,8 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
                         validator.notEmpty
                     ],
                     textRenderer: this.formatTypeText.bindDelegate(this),
-                    data: this.createTypeData()
+                    data: this.createTypeData(),
+                    autoFocus: true
                 },
                 {
                     label: this.descriptionText,

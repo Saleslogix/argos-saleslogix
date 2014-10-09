@@ -266,6 +266,11 @@ define('Mobile/SalesLogix/Views/LeftDrawer', [
             this.clear();
             this.requestData();
         },
+        clear: function() {
+            this.inherited(arguments);
+            this.layout = null;
+            this.store = null;
+        },
         show: function() {
             if (this.onShow(this) === false){
                 return;

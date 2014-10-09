@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
         //Templates
         cls: ' contextualContent',
         rowTemplate: new Simplate([
-            '<li data-action="{%= $.action %}"',
+            '<li class="{%: $.cls %}" data-action="{%= $.action %}"',
             '{% if($.dataProps) { %}',
                 '{% for(var prop in $.dataProps) { %}',
                     ' data-{%= prop %}="{%= $.dataProps[prop] %}"',
@@ -37,9 +37,9 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
             '{% } %}',
             '>',
             '{% if ($$._hasIcon($)) { %}',
-                '<div class="list-item-static-selector">',
+                '<div class="list-item-static-selector {%: $.iconCls %} ">',
                     '{% if ($.icon) { %}',
-                    '<img src="{%: $.icon %}" alt="icon" class="icon" />',
+                        '<img src="{%: $.icon %}" alt="icon" class="icon" />',
                     '{% } %}',
                 '</div>',
             '{% } %}',
@@ -47,7 +47,7 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
             '</li>'
         ]),
         _hasIcon: function(entry) {
-            return entry.iconTemplate || entry.cls || entry.icon;
+            return entry.iconTemplate || entry.cls || entry.icon || entry.iconCls;
         },
         itemTemplate: new Simplate([
             '<h3>{%: $.title %}</h3>'
@@ -101,6 +101,10 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
 
             store = new Memory({data: list});
             return store;
+        },
+        clear: function() {
+            this.inherited(arguments);
+            this.store = null;
         },
         /**
          * Override the List refresh to also clear the view (something the beforeTransitionTo handles, but we are not using)
