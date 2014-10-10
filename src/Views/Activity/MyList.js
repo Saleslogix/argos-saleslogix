@@ -411,7 +411,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
                 key = row ? row.getAttribute('data-my-activity-key') : false;
 
             if (this._selectionModel && key) {
-                this._selectionModel.toggle(key, this.entries.get(key).toJS(), row);
+                this._selectionModel.toggle(key, this.entries[key], row);
             }
 
             if (this.options.singleSelect && this.options.singleSelectAction && !this.enableActions) {
