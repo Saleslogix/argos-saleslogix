@@ -506,16 +506,16 @@ li[data-ticket-status] .list-item-selector,
 }
 
 .calendar-day.today {
-    background-color: @color-light-azure;
+    background-color: @color-deep-emerald;
 }
 
 .calendar-day.weekend {
-    background-color: @color-deep-azure;
+    background-color: @color-azure;
 }
 
 .calendar-day.selected {
     color: #fff;
-    background-color: @color-deep-azure;
+    background-color: @color-emerald;
 }
 
 /* in Month view .activeDay indicates individual events */
@@ -895,7 +895,6 @@ td.entry-table-description {
 }
 
 .nav-bar > .button {
-    background-color: @button-bg-color;
     height: 34px;
     width: 40px;
 }
@@ -909,10 +908,6 @@ td.entry-table-description {
 .split-buttons {
     line-height: 34px;
     padding: 3px 0 3px 3px;
-}
-
-.split-buttons > .button.current {
-    text-decoration: overline;
 }
 
 .split-buttons > .button {
@@ -943,6 +938,7 @@ td.entry-table-description {
 .activities-for-week > .split-buttons > .button[data-tool="week"] {
     color: #fff;
     background-color: @color-deep-azure;
+    border: none;
 }
 
 .split-buttons > .button[data-tool="selectdate"] {
