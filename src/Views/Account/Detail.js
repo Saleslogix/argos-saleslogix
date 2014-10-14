@@ -20,7 +20,8 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
-    '../_MetricDetailMixin'
+    '../_MetricDetailMixin',
+    'Sage/Platform/Mobile/Store/PouchDB'
 ], function(
     declare,
     string,
@@ -28,7 +29,8 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     format,
     template,
     Detail,
-    _MetricDetailMixin
+    _MetricDetailMixin,
+    PouchStore
 ) {
 
     return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail], {
@@ -146,6 +148,42 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                 });
             }
         },
+        saveOffline: function() {
+            // TODO: This is prototype and will most likely be moved to the SDK or a mixin
+            var store, doc;
+
+            store = new PouchStore({
+                databaseName: 'crm-offline'
+            });
+
+            // TODO: Set form to busy
+            // Try to fetch the previously cached doc/entity
+            store.get(this.entry.$key).then(function(results) {
+
+                // Refresh the offline store with the latest info
+                results.entity = this.entry;
+                results.modifyDate = moment().toDate();
+
+                store.put(results).then(function() {
+                    // TODO: Set form not-busy
+                    console.log('Done updating.');
+                }, function(err) {
+                    console.error(err);
+                });
+
+            }.bind(this), function() {
+                // Fetching the doc/entity failed, so we will insert a new doc instead.
+                doc = {
+                    entity: this.entry,
+                    createDate: moment().toDate()
+                };
+
+                store.add(doc).then(function(){
+                    console.log('Saved new doc for offline')
+                    // TODO: Set form not-busy
+                }, function(err) { console.error(err);});
+            });
+        },
         createLayout: function() {
             return this.layout || (this.layout = [{
                     title: this.actionsText,
@@ -164,7 +202,14 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             label: this.addNoteText,
                             iconClass: 'fa fa-edit fa-lg',
                             action: 'addNote'
-                        }]
+                        }, {
+                            name: 'SaveOffline',
+                            label: 'Take Offline',
+                            action: 'saveOffline',
+                            renderer: function() { return "Save or update data for offline viewing" },
+                            enabled: App.enableOfflineSupport === true
+                        }
+                    ]
                 }, {
                     title: this.detailsText,
                     name: 'DetailsSection',

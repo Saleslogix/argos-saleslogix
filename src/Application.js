@@ -52,6 +52,7 @@ define('Mobile/SalesLogix/Application', [
         multiCurrency: false,
         enableGroups: true,
         enableHashTags: true,
+        enableOfflineSupport: true,
         speedSearch: {
             includeStemming: true,
             includePhonic: true,

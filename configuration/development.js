@@ -20,7 +20,8 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
         enableGroups: true,
         enableHashTags: true,
         maxUploadFileSize: 40000000,
-        enableConcurrencyCheck: false
+        enableConcurrencyCheck: false,
+        enableOfflineSupport: true
     };
 
 });
