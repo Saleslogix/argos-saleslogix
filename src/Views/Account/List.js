@@ -85,6 +85,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
         addAttachmentActionText: 'Add Attachment',
         phoneAbbreviationText: 'Phone: ',
         faxAbbreviationText: 'Fax: ',
+        offlineText: 'Offline',
 
         //View Properties
         detailView: 'account_detail',
@@ -155,6 +156,20 @@ define('Mobile/SalesLogix/Views/Account/List', [
             }]
 
             );
+        },
+        createIndicatorLayout: function() {
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'alarm',
+                cls: 'fa fa-star fa-lg',
+                label: this.offlineText,
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.isOffline(entry);
+                }
+            }
+            ]);
+        },
+        isOffline: function(entry) {
+            return true;
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
