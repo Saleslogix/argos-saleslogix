@@ -117,6 +117,9 @@
     <!-- Deep Diff -->
     <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
 
+    <!-- Bluebird -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/bluebird.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">

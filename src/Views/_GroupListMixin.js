@@ -23,9 +23,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     'Mobile/SalesLogix/GroupUtility',
     'dojo/when',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/Store/SData',
-    'dojo/Deferred',
-
+    'Sage/Platform/Mobile/Store/SData'
 ], function(
     declare,
     string,
@@ -40,8 +38,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     GroupUtility,
     when,
     lang,
-    SDataStore,
-    Deferred
+    SDataStore
 ) {
     var mixinName = 'Mobile.SalesLogix.Views._GroupListMixin';
 
@@ -133,7 +130,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
         },
         getDefaultGroup: function() {
-            var defaultGroup = null,
+            var defaultGroup,
                 defaultGroupName = null;
 
             defaultGroup = GroupUtility.getDefaultGroup(this.entityName);
@@ -170,7 +167,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this._clearResolvedEntryCache();
         },
         _onApplyGroup: function(group) {
-            var template = [], layout, selectColumns, title;
+            var template, title;
 
             if (!group) {
                 throw new Error("Group not found.");
@@ -493,32 +490,32 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             return selection;
         },
         _fetchResolvedEntry: function(entryKey) {
-            var self, store, queryOptions, queryResults, def = new Deferred();
-            self = this;
-            store = new SDataStore({
-                service: App.services['crm'],
-                resourceKind: this.resourceKind,
-                contractName: this.contractName,
-                scope: this
-            });
+            return new Promise(function(resolve, reject) {
+                var self, store, queryOptions, queryResults;
+                self = this;
+                store = new SDataStore({
+                    service: App.services['crm'],
+                    resourceKind: this.resourceKind,
+                    contractName: this.contractName,
+                    scope: this
+                });
 
-            queryOptions = {
-                select: this._originalProps.querySelect,
-                where: "Id eq '" + entryKey + "'",
-            };
+                queryOptions = {
+                    select: this._originalProps.querySelect,
+                    where: "Id eq '" + entryKey + "'",
+                };
 
-            queryResults = store.query(null, queryOptions);
+                queryResults = store.query(null, queryOptions);
 
-            when(queryResults, function(feed) {
-                var entry = feed[0];
-                entry[self.idProperty] = entry.$key; // we need this because the group key is different, and it used later on when invoking an action;
-                self._addResolvedEntry(entry);
-                def.resolve(entry);
-            }, function(err) {
-                def.reject(err);
-            });
-
-            return def.promise;
+                Promise.resolve(queryResults).then(function(feed) {
+                    var entry = feed[0];
+                    entry[self.idProperty] = entry.$key; // we need this because the group key is different, and it used later on when invoking an action;
+                    self._addResolvedEntry(entry);
+                    resolve(entry);
+                }, function(err) {
+                    reject(err);
+                });
+            }.bind(this));
         },
         _clearResolvedEntryCache: function() {
              this._resolvedEntryCache = {};

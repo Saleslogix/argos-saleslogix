@@ -161,6 +161,10 @@
           "path": "../src"
         },
         {
+          "text": "OfflineManager.js",
+          "path": "../src"
+        },
+        {
           "text": "AttachmentManager.js",
           "path": "../src"
         },
