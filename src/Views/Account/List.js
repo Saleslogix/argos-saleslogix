@@ -177,14 +177,11 @@ define('Mobile/SalesLogix/Views/Account/List', [
             ]);
         },
         isOffline: function(entry) {
+            // TODO: There could be a timing issue here, this.offlineIds is populated asynchronously on transition to.
             if (this.offlineIds) {
                 return array.some(this.offlineIds, function(row) {
-                    console.log('Row: ');
-                    console.dir(row);
-                    console.log('Entry: ');
-                    console.dir(entry);
-                    return row.id === entry.$key; // TODO: Don't hard-code $key
-                });
+                    return row.id === entry[this.idProperty];
+                }.bind(this));
             }
 
             return false;

@@ -502,7 +502,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
                 queryOptions = {
                     select: this._originalProps.querySelect,
-                    where: "Id eq '" + entryKey + "'",
+                    where: "Id eq '" + entryKey + "'"
                 };
 
                 queryResults = store.query(null, queryOptions);
@@ -574,7 +574,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 this.refreshRequired = true;
                 this.refresh();
             }
-        },
+        }
     });
 });
 
