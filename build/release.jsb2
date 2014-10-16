@@ -233,6 +233,14 @@
           "path": "../src/Views"
         },
         {
+          "text": "List.js",
+          "path": "../src/Views/Offline"
+        },
+        {
+          "text": "Detail.js",
+          "path": "../src/Views/Offline"
+        },
+        {
           "text": "Home.js",
           "path": "../src/Views"
         },
