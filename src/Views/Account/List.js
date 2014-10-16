@@ -30,7 +30,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     '../_GroupListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
-    '../_RightDrawerListMixin'
+    '../_RightDrawerListMixin',
+    '../../OfflineManager'
 ], function(
     declare,
     array,
@@ -43,7 +44,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
     _GroupListMixin,
     _MetricListMixin,
     _CardLayoutListMixin,
-    _RightDrawerListMixin
+    _RightDrawerListMixin,
+    OfflineManager
 ) {
 
     return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
@@ -117,6 +119,12 @@ define('Mobile/SalesLogix/Views/Account/List', [
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
+        offlineIds: null,
+        onTransitionTo: function() {
+            OfflineManager.getAllIds().then(function(results) {
+                this.offlineIds = results.rows;
+            }.bind(this));
+        },
         callMain: function(params) {
             this.invokeActionItemBy(function(action) {
                 return action.id === 'callMain';
@@ -169,7 +177,17 @@ define('Mobile/SalesLogix/Views/Account/List', [
             ]);
         },
         isOffline: function(entry) {
-            return true;
+            if (this.offlineIds) {
+                return array.some(this.offlineIds, function(row) {
+                    console.log('Row: ');
+                    console.dir(row);
+                    console.log('Entry: ');
+                    console.dir(entry);
+                    return row.id === entry.$key; // TODO: Don't hard-code $key
+                });
+            }
+
+            return false;
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);

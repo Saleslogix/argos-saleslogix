@@ -3,13 +3,19 @@
  *
  */
 define('Mobile/SalesLogix/OfflineManager', [
-    'dojo/_base/declare',
-    'Sage/Platform/Mobile/Stores/PouchDB'
+    'Sage/Platform/Mobile/Store/PouchDB'
 ], function(
-    declare,
     Store
     ) {
-    return declare('Mobile.SalesLogix.OfflineManager', null, {
+    var store;
 
-    });
+    store = new Store({databaseName: 'crm-offline'});
+
+    return {
+        getAllIds: function() {
+            return store.query(function(doc, emit){
+                emit(doc._id);
+            });
+        }
+    };
 });

@@ -125,7 +125,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             return this.itemIconAltText;
         },
         createIndicators: function(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
-            var indicatorTemplate, indicator, options, indicatorHTML, i, iconPath, self = this;
+            // TODO: Handle either createIndicators or onApply async
+            var indicatorTemplate, options, indicatorHTML, i, iconPath, self = this;
             for (i = 0; i < indicators.length; i++) {
                 (function(indicator) {
                     iconPath = indicator.iconPath || self.itemIndicatorIconPath;

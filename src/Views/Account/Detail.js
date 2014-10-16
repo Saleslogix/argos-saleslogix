@@ -150,7 +150,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         },
         saveOffline: function() {
             // TODO: This is prototype and will most likely be moved to the SDK or a mixin
-            var store, doc;
+            var store, doc, id = this.entry.$key;
 
             store = new PouchStore({
                 databaseName: 'crm-offline'
@@ -158,9 +158,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
 
             // TODO: Set form to busy
             // Try to fetch the previously cached doc/entity
-            store.get(this.entry.$key).then(function(results) {
+            store.get(id).then(function(results) {
 
                 // Refresh the offline store with the latest info
+                results._id = id;
                 results.entity = this.entry;
                 results.modifyDate = moment().toDate();
 
@@ -174,6 +175,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
             }.bind(this), function() {
                 // Fetching the doc/entity failed, so we will insert a new doc instead.
                 doc = {
+                    _id: id,
                     entity: this.entry,
                     createDate: moment().toDate()
                 };
@@ -182,7 +184,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     console.log('Saved new doc for offline')
                     // TODO: Set form not-busy
                 }, function(err) { console.error(err);});
-            });
+            }.bind(this));
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
