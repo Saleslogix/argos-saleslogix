@@ -38,6 +38,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/UpdateToolbar',
     'Mobile/SalesLogix/Views/LeftDrawer',
     'Mobile/SalesLogix/Views/RightDrawer',
+    'Mobile/SalesLogix/Views/Offline/Detail',
+    'Mobile/SalesLogix/Views/Offline/List',
     'Mobile/SalesLogix/Views/Login',
     'Mobile/SalesLogix/Views/LogOff',
     'Mobile/SalesLogix/Views/Settings',
@@ -150,6 +152,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     UpdateToolbar,
     LeftDrawer,
     RightDrawer,
+    OfflineDetail,
+    OfflineList,
     Login,
     LogOff,
     Settings,
@@ -245,6 +249,11 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             this.registerView(new LeftDrawer(), query('.left-drawer')[0]);
             this.registerView(new RightDrawer(), query('.right-drawer')[0]);
+
+            this.registerView(new OfflineDetail());
+            this.registerView(new OfflineList({
+                expose: true
+            }));
 
             this.registerView(new Help());
             this.registerView(new Settings());

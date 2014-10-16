@@ -8,13 +8,15 @@
  */
 define('Mobile/SalesLogix/Views/Offline/Detail', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/_DetailBase'
 ], function(
     declare,
-    Detail
+    _DetailBase
     ) {
 
-    return declare('Mobile.SalesLogix.Views.Offline.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Offline.Detail', [_DetailBase], {
+        id: 'offline_detail',
+        titleText: 'Offline Detail'
     });
 });
 

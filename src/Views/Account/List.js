@@ -122,7 +122,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
         offlineIds: null,
         onTransitionTo: function() {
             OfflineManager.getAllIds().then(function(results) {
-                this.offlineIds = results.rows;
+                this.offlineIds = results;
             }.bind(this));
         },
         callMain: function(params) {
