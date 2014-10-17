@@ -132,6 +132,7 @@
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
             { name: 'Immutable', location: '../../argos-sdk/libraries', main: 'Immutable.min' },
+            { name: 'PouchDB', location: '../../argos-sdk/libraries/PouchDB', main: 'pouchdb-3.0.6.min' },
             { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
             { name: 'Mobile/SalesLogix', location: 'src' },
             { name: 'configuration', location: 'configuration' },
