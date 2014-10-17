@@ -164,6 +164,8 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                 results._id = id;
                 results.entity = this.entry;
                 results.modifyDate = moment().toDate();
+                results.resourceKind = this.resourceKind;
+                results.storedBy = this.id;
 
                 store.put(results).then(function() {
                     // TODO: Set form not-busy
@@ -177,7 +179,9 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                 doc = {
                     _id: id,
                     entity: this.entry,
-                    createDate: moment().toDate()
+                    createDate: moment().toDate(),
+                    resourceKind: this.resourceKind,
+                    storedBy: this.id
                 };
 
                 store.add(doc).then(function(){
