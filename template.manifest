@@ -4,7 +4,7 @@ CACHE MANIFEST
 
 CACHE:
 # css
-content/css/themes/swiftpage/sdk.min.swiftpage.css
+content/css/themes/crm/sdk.min.crm.css
 content/css/app.min.css
 
 # fonts
