@@ -22,7 +22,6 @@ content/css/themes/fonts/fontawesome-webfont.woff?v=4.1.0
 
 # application
 @include 'content/javascript', /.*(?<!-debug)\.js$/i
-@include 'content/PouchDB', /.*(?<!-debug)\.js$/i
 @include 'content/javascript', /.*(?<!-debug)\.txt$/i
 
 # environment
