@@ -96,7 +96,7 @@
                                 //resource
         };
     </script>
-    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.7.0.min.js"></script>
+    <script type="text/javascript" src="../../argos-sdk/libraries/less/less-1.7.5.min.js"></script>
 
     <!-- JSON -->
     <script type="text/javascript" src="../../argos-sdk/libraries/json2.js"></script>
@@ -117,8 +117,8 @@
     <!-- Deep Diff -->
     <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
 
-    <!-- Bluebird -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/bluebird.js"></script>
+     <!-- PouchDB -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/PouchDB/pouchdb-3.0.6.min.js"></script>
 
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
@@ -131,8 +131,6 @@
             { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
-            { name: 'Immutable', location: '../../argos-sdk/libraries', main: 'Immutable.min' },
-            { name: 'PouchDB', location: '../../argos-sdk/libraries/PouchDB', main: 'pouchdb-3.0.6.min' },
             { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },
             { name: 'Mobile/SalesLogix', location: 'src' },
             { name: 'configuration', location: 'configuration' },
@@ -151,10 +149,8 @@
             configuration = [
                 'configuration/development'
             ];
-        require(['moment', 'Immutable', application].concat(configuration), function(moment, Immutable, application, configuration) {
+        require(['moment', application].concat(configuration), function(moment, application, configuration) {
             var localization, bootstrap, fallBackLocalization, completed = false;
-
-            window.Immutable = Immutable;
 
             bootstrap = function(requires) {
                 require(requires.concat('dojo/domReady!'), function() {
