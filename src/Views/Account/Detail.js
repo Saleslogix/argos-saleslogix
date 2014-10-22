@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
     '../_MetricDetailMixin',
-    'Sage/Platform/Mobile/Store/PouchDB'
+    'Mobile/SalesLogix/OfflineManager'
 ], function(
     declare,
     string,
@@ -30,7 +30,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     template,
     Detail,
     _MetricDetailMixin,
-    PouchStore
+    OfflineManager
 ) {
 
     return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail], {
@@ -149,46 +149,11 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
             }
         },
         saveOffline: function() {
-            // TODO: This is prototype and will most likely be moved to the SDK or a mixin
-            var store, doc, id = this.entry.$key;
-
-            store = new PouchStore({
-                databaseName: 'crm-offline'
+            OfflineManager.saveOffline(this).then(function success(){
+                alert('Entry saved for offline use.');
+            }, function err(err) {
+                console.error(err);
             });
-
-            // TODO: Set form to busy
-            // Try to fetch the previously cached doc/entity
-            store.get(id).then(function(results) {
-
-                // Refresh the offline store with the latest info
-                results._id = id;
-                results.entity = this.entry;
-                results.modifyDate = moment().toDate();
-                results.resourceKind = this.resourceKind;
-                results.storedBy = this.id;
-
-                store.put(results).then(function() {
-                    // TODO: Set form not-busy
-                    console.log('Done updating.');
-                }, function(err) {
-                    console.error(err);
-                });
-
-            }.bind(this), function() {
-                // Fetching the doc/entity failed, so we will insert a new doc instead.
-                doc = {
-                    _id: id,
-                    entity: this.entry,
-                    createDate: moment().toDate(),
-                    resourceKind: this.resourceKind,
-                    storedBy: this.id
-                };
-
-                store.add(doc).then(function(){
-                    console.log('Saved new doc for offline')
-                    // TODO: Set form not-busy
-                }, function(err) { console.error(err);});
-            }.bind(this));
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
