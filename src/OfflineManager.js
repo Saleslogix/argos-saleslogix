@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/OfflineManager', [
                 return Promise.reject("A detail view must be specified.");
             }
 
-            var store, doc, id = detailView.entry.$key;
+            var store, doc, id = detailView.entry[detailView.idProperty || '$key'];
 
             store = new Store({
                 databaseName: 'crm-offline'
@@ -57,6 +57,24 @@ define('Mobile/SalesLogix/OfflineManager', [
 
                 return store.add(doc);
             });
+        },
+        /**
+         *
+         * @param detailView
+         * @returns {window.Promise}
+         */
+        removeOffline: function(detailView) {
+            if (!detailView) {
+                return Promise.reject("A detail view must be specified.");
+            }
+
+            var store, id = detailView.entry[detailView.idProperty || '$key'];
+
+            store = new Store({
+                databaseName: 'crm-offline'
+            });
+
+            return store.remove(id);
         }
     };
 });

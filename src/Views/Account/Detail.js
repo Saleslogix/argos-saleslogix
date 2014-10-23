@@ -155,6 +155,13 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                 console.error(err);
             });
         },
+        removeOffline: function() {
+            OfflineManager.removeOffline(this).then(function success() {
+                alert('You are no longer following ' + this.entry.AccountName);
+            }.bind(this), function err(err){
+                console.error(err);
+            });
+        },
         createLayout: function() {
             return this.layout || (this.layout = [{
                     title: this.actionsText,
@@ -181,6 +188,13 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                                 return "Follow " + (entry && entry.AccountName);
                             },
                             enabled: App.enableOfflineSupport === true
+                        }, {
+                            name: 'RemoveOffline',
+                            label: 'Stop Following',
+                            action: 'removeOffline',
+                            renderer: function(entry) {
+                                return "Stop following " + (entry && entry.AccountName);
+                            }
                         }
                     ]
                 }, {
