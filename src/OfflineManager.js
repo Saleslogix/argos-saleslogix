@@ -13,6 +13,9 @@ define('Mobile/SalesLogix/OfflineManager', [
 
     return {
         getAllIds: function() {
+            // The results from this query should just get cached/updated/stored
+            // globally when the application goes offline. This will
+            // prevent some timing issues with calling this async on list loads.
             return store.query(function(doc, emit){
                 emit(doc._id);
             });
