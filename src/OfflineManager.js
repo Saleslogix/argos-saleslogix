@@ -27,11 +27,7 @@ define('Mobile/SalesLogix/OfflineManager', [
                 return Promise.reject("A detail view must be specified.");
             }
 
-            var store, doc, id = detailView.entry[detailView.idProperty || '$key'];
-
-            store = new Store({
-                databaseName: 'crm-offline'
-            });
+            var doc, id = detailView.entry[detailView.idProperty || '$key'];
 
             // Try to fetch the previously cached doc/entity
             return store.get(id).then(function(results) {
@@ -68,11 +64,7 @@ define('Mobile/SalesLogix/OfflineManager', [
                 return Promise.reject("A detail view must be specified.");
             }
 
-            var store, id = detailView.entry[detailView.idProperty || '$key'];
-
-            store = new Store({
-                databaseName: 'crm-offline'
-            });
+            var id = detailView.entry[detailView.idProperty || '$key'];
 
             return store.remove(id);
         }

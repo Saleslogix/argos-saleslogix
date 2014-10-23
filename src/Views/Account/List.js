@@ -124,6 +124,8 @@ define('Mobile/SalesLogix/Views/Account/List', [
             OfflineManager.getAllIds().then(function(results) {
                 this.offlineIds = results;
             }.bind(this));
+
+            this.inherited(arguments);
         },
         callMain: function(params) {
             this.invokeActionItemBy(function(action) {
