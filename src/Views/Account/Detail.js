@@ -150,8 +150,8 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         },
         saveOffline: function() {
             OfflineManager.saveOffline(this).then(function success(){
-                alert('Entry saved for offline use.');
-            }, function err(err) {
+                alert('You are now following ' + this.entry.AccountName);
+            }.bind(this), function err(err) {
                 console.error(err);
             });
         },
@@ -175,9 +175,11 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             action: 'addNote'
                         }, {
                             name: 'SaveOffline',
-                            label: 'Take Offline',
+                            label: 'Follow',
                             action: 'saveOffline',
-                            renderer: function() { return "Save or update data for offline viewing" },
+                            renderer: function(entry) {
+                                return "Follow " + (entry && entry.AccountName);
+                            },
                             enabled: App.enableOfflineSupport === true
                         }
                     ]

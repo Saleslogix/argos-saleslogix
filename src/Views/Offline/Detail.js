@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Offline/Detail', [
 
     return declare('Mobile.SalesLogix.Views.Offline.Detail', [_DetailBase], {
         id: 'offline_detail',
-        titleText: 'Offline Detail',
+        titleText: 'Following Detail',
 
         idProperty: 'id',
 

@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/Offline/List', [
         idProperty: 'id',
         detailView: 'offline_detail',
 
-        titleText: 'Offline List',
+        titleText: 'Following',
 
         OFFLINE_DB_NAME: 'crm-offline',
 
