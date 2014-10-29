@@ -112,10 +112,8 @@
 .note-text {
   height: 4.5em;
   overflow: hidden;
-  padding-left: 0px;
-  padding-right: 34px;
-  border: 1px solid #dddee0;
-  background-color: #ecedef;
+  padding: 0 34px 0 0;
+  border: 1px solid #b3b3b3;
 }
 .note-text-row > label,
 .note-text-row > div > label {
@@ -414,6 +412,7 @@ li[data-ticket-status] .list-item-selector,
 .calendar-day {
   color: #000;
   background-color: #9a9ea1;
+  border: 1px solid #b3b3b3;
 }
 .calendar-day.today {
   background-color: #00733a;
