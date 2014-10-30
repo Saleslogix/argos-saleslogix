@@ -29,7 +29,7 @@
   </data>
   <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[4]" type="text">
     <description/>
-    <value>Maggio</value>
+    <value>Mag</value>
   </data>
   <data class="Sage.Platform.Mobile.Calendar" property="monthsShortText[5]" type="text">
     <description/>
@@ -69,7 +69,7 @@
   </data>
   <data class="Sage.Platform.Mobile.Fields.BooleanField" property="onText" type="text">
     <description/>
-    <value>su</value>
+    <value>Attivo</value>
   </data>
   <data class="Sage.Platform.Mobile.Fields.BooleanField" property="offText" type="text">
     <description/>
@@ -489,7 +489,7 @@
   </data>
   <data class="Mobile.SalesLogix.Application" property="versionInfoText" type="text">
     <description/>
-    <value>Cellulare v${0}.${1}.${2}</value>
+    <value>Mobile v${0}.${1}.${2}</value>
   </data>
   <data class="Mobile.SalesLogix.ApplicationModule" property="searchText" type="text">
     <description/>
@@ -505,11 +505,11 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="accountsText[total]" type="text">
     <description/>
-    <value>Account totali</value>
+    <value>Numero aziende</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[total]" type="text">
     <description/>
-    <value>Opportunità totali</value>
+    <value>Numero Opportunità</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="opportunitiesText[potential]" type="text">
     <description/>
@@ -517,23 +517,23 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="ticketsText[total]" type="text">
     <description/>
-    <value>Ticket totali</value>
+    <value>Numero Ticket</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="ticketsText[averageOpen]" type="text">
     <description/>
-    <value>Tempo medio aperti</value>
+    <value>Tempo medio di apertura</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="contactsText[total]" type="text">
     <description/>
-    <value>Contatti totali</value>
+    <value>Numero Contatti</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="leadsText[total]" type="text">
     <description/>
-    <value>Prospect totali</value>
+    <value>Numero Nominativi</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="historyText[total]" type="text">
     <description/>
-    <value>Cronologia totale</value>
+    <value>Numero Cronologie</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="historyText[duration]" type="text">
     <description/>
@@ -797,7 +797,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="faxText" type="text">
     <description/>
-    <value>Corretto nella Versione:</value>
+    <value>Fax</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Detail" property="importSourceText" type="text">
     <description/>
@@ -933,11 +933,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="descriptionText" type="text">
     <description/>
-    <value>Disc</value>
+    <value>Descr</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="faxText" type="text">
     <description/>
-    <value>Corretto nella Versione:</value>
+    <value>Fax</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="fullAddressText" type="text">
     <description/>
@@ -1953,7 +1953,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="faxText" type="text">
     <description/>
-    <value>Corretto nella Versione:</value>
+    <value>Fax</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="homePhoneText" type="text">
     <description/>
@@ -1969,7 +1969,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="lastNameText" type="text">
     <description/>
-    <value>Ultimo</value>
+    <value>Cognome</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="mobileText" type="text">
     <description/>
@@ -2065,11 +2065,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="stateText" type="text">
     <description/>
-    <value>Status</value>
+    <value>Stato/Provincia</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="stateTitleText" type="text">
     <description/>
-    <value>Status</value>
+    <value>Stato/Provincia</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="titleText" type="text">
     <description/>
@@ -2313,7 +2313,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Configure" property="titleText" type="text">
     <description/>
-    <value>Configure</value>
+    <value>Configura</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="activityTypeText[atPhoneCall]" type="text">
     <description/>
@@ -2353,7 +2353,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="faxText" type="text">
     <description/>
-    <value>Corretto nella Versione:</value>
+    <value>Fax</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="homeText" type="text">
     <description/>
@@ -2497,7 +2497,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="faxText" type="text">
     <description/>
-    <value>Corretto nella Versione:</value>
+    <value>Fax</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="addressText" type="text">
     <description/>
@@ -3033,7 +3033,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Home" property="configureText" type="text">
     <description/>
-    <value>Configure</value>
+    <value>Configura</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Home" property="addAccountContactText" type="text">
     <description/>
@@ -3225,7 +3225,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="faxText" type="text">
     <description/>
-    <value>Corretto nella Versione:</value>
+    <value>Fax</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Lead.Edit" property="importSourceText" type="text">
     <description/>
@@ -3397,7 +3397,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.LeftDrawer" property="logOutConfirmText" type="text">
     <description/>
-    <value>Vuoi uscire da Saleslogix?</value>
+    <value>Vuoi uscire da Mobile?</value>
   </data>
   <data class="Mobile.SalesLogix.Views.LogOff" property="messageText" type="text">
     <description/>
@@ -3425,7 +3425,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="rememberText" type="text">
     <description/>
-    <value>Ricorda</value>
+    <value>Ricorda Password</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="titleText" type="text">
     <description/>
@@ -3517,7 +3517,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="lastNameText" type="text">
     <description/>
-    <value>Ultimo</value>
+    <value>Cognome</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="prefixText" type="text">
     <description/>
@@ -4193,7 +4193,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="descriptionText" type="text">
     <description/>
-    <value>Disc</value>
+    <value>Descr</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="issueText" type="text">
     <description/>
@@ -4305,7 +4305,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="descriptionText" type="text">
     <description/>
-    <value>Disc</value>
+    <value>Descr</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="descriptionTitleText" type="text">
     <description/>
@@ -4665,7 +4665,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="configureGroupsText" type="text">
     <description/>
-    <value>Configure</value>
+    <value>Configura</value>
   </data>
   <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="refreshGroupsText" type="text">
     <description/>
