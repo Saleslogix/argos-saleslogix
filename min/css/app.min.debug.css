@@ -920,6 +920,9 @@ td.entry-table-description {
 .card-layout .list-content li.list-loading-indicator {
   min-height: inherit;
 }
+.card-layout .list-content > li.actions-row {
+  background-color: #2db329;
+}
 .card-layout .list-content > li {
   min-height: 55px;
   font-weight: bold;
@@ -945,9 +948,6 @@ td.entry-table-description {
   padding: 8px 6px 8px 6px;
   background-color: #fff;
   font-weight: normal;
-}
-.card-layout .actions-row {
-  background-color: #005ce6 !important;
 }
 .card-layout .list-show-selectors {
   padding-left: 90px;
