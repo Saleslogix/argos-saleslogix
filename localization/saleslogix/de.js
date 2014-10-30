@@ -860,7 +860,7 @@ localize("Mobile.SalesLogix.Views.Account.Edit", {
   "acctMgrText": "Acct. Mgr.",
   "businessDescriptionText": "Unternehmensbeschreibung",
   "businessDescriptionTitleText": "Unternehmensbeschreibung",
-  "descriptionText": "Abst.",
+  "descriptionText": "Beschreibung",
   "faxText": "Fax",
   "fullAddressText": "Adresse",
   "importSourceText": "Interessentenquelle",
@@ -898,7 +898,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "addAttachmentActionText": "Anlage hinzufügen",
   "overdueText": "Überfällig",
   "alarmText": "Alarm",
-  "touchedText": "angefasst",
+  "touchedText": "Zuletzt bearbeitet von",
   "importantText": "wichtig",
   "recurringText": "Sich wiederholende Aktivität",
   "activityTypeText": {
@@ -1038,7 +1038,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
 });
 
 localize("Mobile.SalesLogix.Views.Address.Edit", {
-  "address1Text": "Zahlungsmittelsreferenz",
+  "address1Text": "Adresse 1",
   "address2Text": "Adresse 2",
   "address3Text": "Adresse 3",
   "cityText": "Stadt",
@@ -1047,8 +1047,8 @@ localize("Mobile.SalesLogix.Views.Address.Edit", {
   "countryTitleText": "Land",
   "descriptionText": "Beschreibung",
   "descriptionTitleText": "Beschreibung",
-  "isMailingText": "Lieferung",
-  "isPrimaryText": "Haupt",
+  "isMailingText": "Lieferadresse",
+  "isPrimaryText": "Hauptadresse",
   "postalCodeText": "PLZ",
   "salutationText": "Zu Händen von",
   "stateText": "Bundesland/Kanton",
@@ -1352,8 +1352,8 @@ localize("Mobile.SalesLogix.Views.MetricWidget", {
 
 localize("Mobile.SalesLogix.Views.NameEdit", {
   "titleText": "Name bearbeiten",
-  "firstNameText": "Ersten",
-  "middleNameText": "Zweiter Name",
+  "firstNameText": "Vorname",
+  "middleNameText": "2. Vorname",
   "lastNameText": "Nachname",
   "prefixText": "Präfix",
   "prefixTitleText": "Namenspräfix",
@@ -1431,9 +1431,9 @@ localize("Mobile.SalesLogix.Views.OpportunityProduct.Detail", {
   "baseExtendedPriceText": "Basis",
   "extendedPriceText": "Erweiterter Preis",
   "extendedPriceSectionText": "Erweiterter Preis",
-  "adjustedPriceSectionText": "Angepasster Preis",
+  "adjustedPriceSectionText": "Angebotener Preis",
   "baseAdjustedPriceText": "Basis",
-  "adjustedPriceText": "Angepasster Preis",
+  "adjustedPriceText": "Angebotener Preis",
   "myAdjustedPriceText": "Benutzer",
   "confirmDeleteText": "${0} von den Produkten mit Verkaufschancen entfernen?",
   "removeOppProductTitleText": "Produkt mit Verkaufschancen entfernen"
@@ -1449,14 +1449,14 @@ localize("Mobile.SalesLogix.Views.OpportunityProduct.Edit", {
   "priceText": "Preis",
   "basePriceText": "Basispreis",
   "discountText": "Rabatt %",
-  "adjustedPriceText": "Angepasster Preis",
+  "adjustedPriceText": "Angebotener Preis",
   "myAdjustedPriceText": "Benutzer",
   "baseAdjustedPriceText": "Basis",
   "quantityText": "Menge",
   "baseExtendedPriceText": "Basis",
   "extendedPriceText": "Erweiterter Preis",
   "extendedPriceSectionText": "Erweiterter Preis",
-  "adjustedPriceSectionText": "Angepasster Preis"
+  "adjustedPriceSectionText": "Angebotener Preis"
 });
 
 localize("Mobile.SalesLogix.Views.OpportunityProduct.List", {
@@ -1510,7 +1510,7 @@ localize("Mobile.SalesLogix.Views.Ticket.Detail", {
   "categoryText": "Kategorie",
   "contactText": "Kontakt",
   "contractText": "Vertrag",
-  "descriptionText": "Abst.",
+  "descriptionText": "Beschreibung",
   "issueText": "Problem",
   "needByText": "Fälligkeitsdatum",
   "notesText": "Kommentare",
@@ -1541,7 +1541,7 @@ localize("Mobile.SalesLogix.Views.Ticket.Edit", {
   "categoryText": "Kategorie",
   "contactText": "Kontakt",
   "contractText": "Vertrag",
-  "descriptionText": "Abst.",
+  "descriptionText": "Beschreibung",
   "descriptionTitleText": "Beschreibung",
   "issueText": "Problem",
   "needByText": "Fälligkeitsdatum",

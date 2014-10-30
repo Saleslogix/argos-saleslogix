@@ -933,7 +933,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="descriptionText" type="text">
     <description/>
-    <value>Abst.</value>
+    <value>Beschreibung</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Account.Edit" property="faxText" type="text">
     <description/>
@@ -1569,7 +1569,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="touchedText" type="text">
     <description/>
-    <value>angefasst</value>
+    <value>Zuletzt bearbeitet von</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="importantText" type="text">
     <description/>
@@ -2013,7 +2013,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="address1Text" type="text">
     <description/>
-    <value>Zahlungsmittelsreferenz</value>
+    <value>Adresse 1</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="address2Text" type="text">
     <description/>
@@ -2049,11 +2049,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="isMailingText" type="text">
     <description/>
-    <value>Lieferung</value>
+    <value>Lieferadresse</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="isPrimaryText" type="text">
     <description/>
-    <value>Haupt</value>
+    <value>Hauptadresse</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Address.Edit" property="postalCodeText" type="text">
     <description/>
@@ -3509,11 +3509,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="firstNameText" type="text">
     <description/>
-    <value>Ersten</value>
+    <value>Vorname</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="middleNameText" type="text">
     <description/>
-    <value>Zweiter Name</value>
+    <value>2. Vorname</value>
   </data>
   <data class="Mobile.SalesLogix.Views.NameEdit" property="lastNameText" type="text">
     <description/>
@@ -3993,7 +3993,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="adjustedPriceSectionText" type="text">
     <description/>
-    <value>Angepasster Preis</value>
+    <value>Angebotener Preis</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="baseAdjustedPriceText" type="text">
     <description/>
@@ -4001,7 +4001,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="adjustedPriceText" type="text">
     <description/>
-    <value>Angepasster Preis</value>
+    <value>Angebotener Preis</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Detail" property="myAdjustedPriceText" type="text">
     <description/>
@@ -4053,7 +4053,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="adjustedPriceText" type="text">
     <description/>
-    <value>Angepasster Preis</value>
+    <value>Angebotener Preis</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="myAdjustedPriceText" type="text">
     <description/>
@@ -4081,7 +4081,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.Edit" property="adjustedPriceSectionText" type="text">
     <description/>
-    <value>Angepasster Preis</value>
+    <value>Angebotener Preis</value>
   </data>
   <data class="Mobile.SalesLogix.Views.OpportunityProduct.List" property="titleText" type="text">
     <description/>
@@ -4193,7 +4193,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="descriptionText" type="text">
     <description/>
-    <value>Abst.</value>
+    <value>Beschreibung</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Detail" property="issueText" type="text">
     <description/>
@@ -4305,7 +4305,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="descriptionText" type="text">
     <description/>
-    <value>Abst.</value>
+    <value>Beschreibung</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Ticket.Edit" property="descriptionTitleText" type="text">
     <description/>
