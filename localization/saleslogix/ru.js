@@ -207,8 +207,8 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "rolloverText": "Автопродление",
   "startingText": "Время начала",
   "repeatsText": "Повтор",
-  "recurringText": "Повторяется",
-  "recurringTitleText": "Повторяется",
+  "recurringText": "Повторяющиеся",
+  "recurringTitleText": "Повторяющиеся",
   "timelessText": "В течение дня",
   "titleText": "Дело",
   "typeText": "Тип",
@@ -269,7 +269,7 @@ localize("Mobile.SalesLogix.Views.Calendar.DayView", {
   "dateHeaderFormatText": "dddd, D.M.YYYY",
   "startTimeFormatText": "H:mm",
   "titleText": "Календарь",
-  "todayText": "Сегодня",
+  "todayText": "Сегодняшние",
   "dayText": "День",
   "weekText": "Неделя",
   "monthText": "Месяц",
@@ -286,7 +286,7 @@ localize("Mobile.SalesLogix.Views.Calendar.MonthView", {
   "eventDateFormatText": "D.M.YYYY",
   "startTimeFormatText": "H:mm",
   "titleText": "Календарь",
-  "todayText": "Сегодня",
+  "todayText": "Сегодняшние",
   "dayText": "День",
   "weekText": "Неделя",
   "monthText": "Месяц",
@@ -314,7 +314,7 @@ localize("Mobile.SalesLogix.Views.Calendar.WeekView", {
   "eventDateFormatText": "D.M.YYYY",
   "startTimeFormatText": "H:mm",
   "titleText": "Календарь",
-  "todayText": "Сегодня",
+  "todayText": "Сегодняшние",
   "dayText": "День",
   "weekText": "Неделя",
   "monthText": "Месяц",
@@ -456,7 +456,7 @@ localize("Mobile.SalesLogix.Views.History.List", {
   "hashTagQueriesText": {
     "my-history": "моя-история",
     "note": "Заметка",
-    "phonecall": "звонок",
+    "phonecall": "Звонок",
     "meeting": "Встреча",
     "personal": "Личное",
     "email": "Эл.почта"
@@ -473,7 +473,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Detail", {
   "exchangeRateDateFormatText": "D.M.YYYY H:mm",
   "accountText": "Субъект",
   "acctMgrText": "Менеджер",
-  "estCloseText": "закрыта",
+  "estCloseText": "Закрыта",
   "detailsText": "Детали",
   "fbarHomeTitleText": "Домой",
   "fbarScheduleTitleText": "Планировать",
@@ -512,7 +512,7 @@ localize("Mobile.SalesLogix.Views.Opportunity.Edit", {
   "exchangeRateDateFormatText": "D.M.YYYY H:mm",
   "accountText": "Субъект",
   "acctMgrText": "Менеджер",
-  "estCloseText": "закрыта",
+  "estCloseText": "Закрыта",
   "importSourceText": "Источник наводки",
   "detailsText": "Детали",
   "opportunityStatusTitleText": "Статус Сделки",
@@ -600,7 +600,7 @@ localize("Sage.Platform.Mobile.GroupedList", {
 
 localize("Sage.Platform.Mobile.Groups.DateTimeSection", {
   "displayNameText": "Выбор даты/времени",
-  "todayText": "Сегодня",
+  "todayText": "Сегодняшние",
   "tomorrowText": "Завтра",
   "laterThisWeekText": "Позднее на этой неделе",
   "earlierThisWeekText": "Ранее на этой неделе",
@@ -608,7 +608,7 @@ localize("Sage.Platform.Mobile.Groups.DateTimeSection", {
   "thisEarlierMonthText": "Ранее в этом месяце",
   "thisYearEarlierText": "Ранее в этом году",
   "thisYearLaterText": "Позднее в этом году",
-  "yesterdayText": "Вчера",
+  "yesterdayText": "Вчерашние",
   "lastWeekText": "Последняя неделя",
   "lastMonthText": "Прошлый месяц",
   "pastYearText": "В прошлом году",
@@ -726,14 +726,14 @@ localize("Mobile.SalesLogix.DefaultMetrics", {
     "potential": "Потенциал продаж"
   },
   "ticketsText": {
-    "total": "Всего квитанций",
-    "averageOpen": "Средняя продолжительность использования"
+    "total": "Кол-во заявок",
+    "averageOpen": "Ср. время открытия"
   },
   "contactsText": {
     "total": "Кол-во контактов"
   },
   "leadsText": {
-    "total": "Всего наводок"
+    "total": "Кол-во наводок"
   },
   "historyText": {
     "total": "Общая история",
@@ -751,7 +751,7 @@ localize("Mobile.SalesLogix.Fields.NameField", {
 });
 
 localize("Mobile.SalesLogix.Fields.RecurrencesField", {
-  "titleText": "Повторяется",
+  "titleText": "Повторяющиеся",
   "emptyText": ""
 });
 
@@ -900,7 +900,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "alarmText": "С оповещением",
   "touchedText": "затронуто",
   "importantText": "важно",
-  "recurringText": "Повторяется",
+  "recurringText": "Повторяющиеся",
   "activityTypeText": {
     "atToDo": "Дело",
     "atPhoneCall": "Звонок",
@@ -914,11 +914,11 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "titleText": "Дела",
   "hashTagQueriesText": {
     "alarm": "С_оповещением",
-    "recurring": "Повторяется",
+    "recurring": "Повторяющиеся",
     "timeless": "В_течение_дня",
-    "today": "Сегодня",
+    "today": "Сегодняшние",
     "this-week": "на-этой-неделе",
-    "yesterday": "Вчера"
+    "yesterday": "Вчерашние"
   }
 });
 
@@ -938,11 +938,11 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
     "status-unconfirmed": "Неподтвержденные",
     "status-accepted": "Подтвержденные",
     "status-declined": "Отмененные",
-    "recurring": "Повторяется",
+    "recurring": "Повторяющиеся",
     "timeless": "В_течение_дня",
-    "today": "Сегодня",
+    "today": "Сегодняшние",
     "this-week": "на-этой-неделе",
-    "yesterday": "Вчера"
+    "yesterday": "Вчерашние"
   }
 });
 

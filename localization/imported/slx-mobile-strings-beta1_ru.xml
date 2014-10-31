@@ -201,7 +201,7 @@
   </data>
   <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="todayText" type="text">
     <description/>
-    <value>Сегодня</value>
+    <value>Сегодняшние</value>
   </data>
   <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="tomorrowText" type="text">
     <description/>
@@ -233,7 +233,7 @@
   </data>
   <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="yesterdayText" type="text">
     <description/>
-    <value>Вчера</value>
+    <value>Вчерашние</value>
   </data>
   <data class="Sage.Platform.Mobile.Groups.DateTimeSection" property="lastWeekText" type="text">
     <description/>
@@ -517,11 +517,11 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="ticketsText[total]" type="text">
     <description/>
-    <value>Всего квитанций</value>
+    <value>Кол-во заявок</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="ticketsText[averageOpen]" type="text">
     <description/>
-    <value>Средняя продолжительность использования</value>
+    <value>Ср. время открытия</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="contactsText[total]" type="text">
     <description/>
@@ -529,7 +529,7 @@
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="leadsText[total]" type="text">
     <description/>
-    <value>Всего наводок</value>
+    <value>Кол-во наводок</value>
   </data>
   <data class="Mobile.SalesLogix.DefaultMetrics" property="historyText[total]" type="text">
     <description/>
@@ -553,7 +553,7 @@
   </data>
   <data class="Mobile.SalesLogix.Fields.RecurrencesField" property="titleText" type="text">
     <description/>
-    <value>Повторяется</value>
+    <value>Повторяющиеся</value>
   </data>
   <data class="Mobile.SalesLogix.Fields.RecurrencesField" property="emptyText" type="text">
     <description/>
@@ -1429,11 +1429,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="recurringText" type="text">
     <description/>
-    <value>Повторяется</value>
+    <value>Повторяющиеся</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="recurringTitleText" type="text">
     <description/>
-    <value>Повторяется</value>
+    <value>Повторяющиеся</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="timelessText" type="text">
     <description/>
@@ -1577,7 +1577,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="recurringText" type="text">
     <description/>
-    <value>Повторяется</value>
+    <value>Повторяющиеся</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
     <description/>
@@ -1621,7 +1621,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[recurring]" type="text">
     <description/>
-    <value>Повторяется</value>
+    <value>Повторяющиеся</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[timeless]" type="text">
     <description/>
@@ -1629,7 +1629,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[today]" type="text">
     <description/>
-    <value>Сегодня</value>
+    <value>Сегодняшние</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[this-week]" type="text">
     <description/>
@@ -1637,7 +1637,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[yesterday]" type="text">
     <description/>
-    <value>Вчера</value>
+    <value>Вчерашние</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="titleText" type="text">
     <description/>
@@ -1697,7 +1697,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[recurring]" type="text">
     <description/>
-    <value>Повторяется</value>
+    <value>Повторяющиеся</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[timeless]" type="text">
     <description/>
@@ -1705,7 +1705,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[today]" type="text">
     <description/>
-    <value>Сегодня</value>
+    <value>Сегодняшние</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[this-week]" type="text">
     <description/>
@@ -1713,7 +1713,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[yesterday]" type="text">
     <description/>
-    <value>Вчера</value>
+    <value>Вчерашние</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="startingText" type="text">
     <description/>
@@ -2149,7 +2149,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="todayText" type="text">
     <description/>
-    <value>Сегодня</value>
+    <value>Сегодняшние</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.DayView" property="dayText" type="text">
     <description/>
@@ -2189,7 +2189,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="todayText" type="text">
     <description/>
-    <value>Сегодня</value>
+    <value>Сегодняшние</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.MonthView" property="dayText" type="text">
     <description/>
@@ -2261,7 +2261,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="todayText" type="text">
     <description/>
-    <value>Сегодня</value>
+    <value>Сегодняшние</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Calendar.WeekView" property="dayText" type="text">
     <description/>
@@ -2981,7 +2981,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[phonecall]" type="text">
     <description/>
-    <value>звонок</value>
+    <value>Звонок</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.List" property="hashTagQueriesText[meeting]" type="text">
     <description/>
@@ -3545,7 +3545,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="estCloseText" type="text">
     <description/>
-    <value>закрыта</value>
+    <value>Закрыта</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Detail" property="detailsText" type="text">
     <description/>
@@ -3685,7 +3685,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="estCloseText" type="text">
     <description/>
-    <value>закрыта</value>
+    <value>Закрыта</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Opportunity.Edit" property="importSourceText" type="text">
     <description/>
