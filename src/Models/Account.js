@@ -1,7 +1,8 @@
 define('Mobile/SalesLogix/Models/Account', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/_ModelBase'
-], function (declare, _ModelBase) {
+    'Sage/Platform/Mobile/_ModelBase',
+    'Sage/Platform/Mobile/Store/SData'
+], function (declare, _ModelBase, SDataStore) {
     return declare('Mobile.SalesLogix.Models.Account', [_ModelBase], {
         id: null,
         AccountManager: null,
@@ -25,6 +26,7 @@ define('Mobile/SalesLogix/Models/Account', [
         Type: null,
         WebAddress: null,
 
+        app: null,
         metadata: {
             sdata: {
                 security: 'Entities/Account/View',
@@ -50,8 +52,49 @@ define('Mobile/SalesLogix/Models/Account', [
                     'Type',
                     'WebAddress'
                 ],
-                resourceKind: 'accounts'
+                resourceKind: 'accounts',
+                getOptions: function(options) {
+                    var getOptions = {};
+                    if (options) {
+                        if (options.select) getOptions.select = options.select;
+                        if (options.include) getOptions.include = options.include;
+                        if (options.contractName) getOptions.contractName = options.contractName;
+                        if (options.resourceKind) getOptions.resourceKind = options.resourceKind;
+                        if (options.resourceProperty) getOptions.resourceProperty = options.resourceProperty;
+                        if (options.resourcePredicate) getOptions.resourcePredicate = options.resourcePredicate;
+                    }
+
+                    return getOptions;
+                },
+                getId: function(options) {
+                    return options && (options.id || options.key);
+                }
             }
+        },
+        _appGetter: function() {
+            return this.app || window.App;
+        },
+        _appSetter: function(value) {
+            this.app = value;
+        },
+        createStore: function() {
+            var m = this.metadata && this.metadata.sdata,
+                app = this.get('app');
+            return new SDataStore({
+                service: app.getService(false),
+                contractName: m.contractName,
+                resourceKind: m.resourceKind,
+                resourceProperty: m.resourceProperty,
+                resourcePredicate: m.resourcePredicate,
+                include: m.queryInclude,
+                select: m.querySelect,
+                itemsProperty: m.itemsProperty,
+                idProperty: m.idProperty,
+                labelProperty: m.labelProperty,
+                entityProperty: m.entityProperty,
+                versionProperty: m.versionProperty,
+                scope: this
+            });
         },
         getStore: function () {
             return this._store;
@@ -62,8 +105,11 @@ define('Mobile/SalesLogix/Models/Account', [
         getEntries: function (query) {
             return {};
         },
-        getEntry: function (id) {
-            return {};
+        getEntry: function (options) {
+            var store = this.createStore(),
+                m = this.metadata && this.metadata.sdata;
+
+            return store.get(m.getId(options), m.getOptions(options));
         },
         insertEntry: function (entry, options) {
             var store = this.getStore();

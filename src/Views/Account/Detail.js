@@ -17,20 +17,24 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/lang',
+    'dojo/dom-class',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
     '../_MetricDetailMixin',
-    'Mobile/SalesLogix/OfflineManager'
+    'Mobile/SalesLogix/OfflineManager',
+    '../../Models/Account'
 ], function(
     declare,
     string,
     lang,
+    domClass,
     format,
     template,
     Detail,
     _MetricDetailMixin,
-    OfflineManager
+    OfflineManager,
+    AccountModel
 ) {
 
     return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail], {
@@ -77,30 +81,22 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         editView: 'account_edit',
         historyEditView: 'history_edit',
         noteEditView: 'history_edit',
-        security: 'Entities/Account/View',
-        querySelect: [
-            'AccountManager/UserInfo/FirstName',
-            'AccountManager/UserInfo/LastName',
-            'AccountName',
-            'Address/*',
-            'BusinessDescription',
-            'CreateDate',
-            'CreateUser',
-            'Description',
-            'Fax',
-            'GlobalSyncID',
-            'ImportSource',
-            'Industry',
-            'LeadSource/Description',
-            'MainPhone',
-            'Notes',
-            'Owner/OwnerDescription',
-            'Status',
-            'SubType',
-            'Type',
-            'WebAddress'
-        ],
-        resourceKind: 'accounts',
+
+        getModel: function() {
+            return new AccountModel();
+        },
+
+        requestData: function() {
+            domClass.add(this.domNode, 'panel-loading');
+
+            var model = this.getModel();
+
+            model.getEntry(this.options).then(function fulfilled(data) {
+                this.processEntry(data);
+                domClass.remove(this.domNode, 'panel-loading');
+                this.onContentChange();
+            }.bind(this));
+        },
 
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
