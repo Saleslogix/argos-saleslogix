@@ -82,20 +82,58 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         historyEditView: 'history_edit',
         noteEditView: 'history_edit',
 
-        getModel: function() {
-            return new AccountModel();
+        mixinSDataProps: function(model) {
+            var resourceKind, querySelect, queryInclude, resourceProperty, resourcePredicate, m;
+            resourceKind = this.resourceKind;
+            querySelect = this.querySelect;
+            queryInclude = this.queryInclude;
+            resourceProperty = this.resourceProperty;
+            resourcePredicate = this.resourcePredicate;
+            m = model.get('metadata');
+            m = m && m.sdata;
+
+            if (!m) {
+                throw new Error('Missing sdata metadata from model.');
+            }
+
+            if (resourceKind) {
+                m.resourceKind = resourceKind;
+            }
+
+            if (querySelect) {
+                if (!m.querySelect) {
+                    m.querySelect = [];
+                }
+
+                m.querySelect.concat(querySelect);
+            }
+
+            if (queryInclude) {
+                if (!m.queryInclude) {
+                    m.queryInclude = [];
+                }
+
+                m.queryInclude.concat(queryInclude);
+            }
+
+            if (resourceProperty) {
+                m.resourceProperty = resourceProperty;
+            }
+
+            if (resourcePredicate) {
+                m.resourcePredicate = resourcePredicate;
+            }
+
+            return model;
         },
 
-        requestData: function() {
-            domClass.add(this.domNode, 'panel-loading');
+        getModel: function() {
+            var model;
+            model = new AccountModel();
 
-            var model = this.getModel();
+            model = this.mixinSDataProps(model);
 
-            model.getEntry(this.options).then(function fulfilled(data) {
-                this.processEntry(data);
-                domClass.remove(this.domNode, 'panel-loading');
-                this.onContentChange();
-            }.bind(this));
+            return model;
         },
 
         navigateToHistoryInsert: function(type, entry, complete) {

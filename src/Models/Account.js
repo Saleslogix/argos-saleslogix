@@ -4,28 +4,6 @@ define('Mobile/SalesLogix/Models/Account', [
     'Sage/Platform/Mobile/Store/SData'
 ], function (declare, _ModelBase, SDataStore) {
     return declare('Mobile.SalesLogix.Models.Account', [_ModelBase], {
-        id: null,
-        AccountManager: null,
-        AccountName: null,
-        BusinessDescription: null,
-        CreateDate: null,
-        CreateUser: null,
-
-        Description: null,
-        Fax: null,
-        GlobalSyncID: null,
-        ImportSource: null,
-        Industry: null,
-        LeadSource: null,
-        MainPhone: null,
-        Notes: null,
-        Owner: null,
-        Status: null,
-        SubType: null,
-
-        Type: null,
-        WebAddress: null,
-
         app: null,
         metadata: {
             sdata: {
