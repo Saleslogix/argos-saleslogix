@@ -82,56 +82,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
         historyEditView: 'history_edit',
         noteEditView: 'history_edit',
 
-        mixinSDataProps: function(model) {
-            var resourceKind, querySelect, queryInclude, resourceProperty, resourcePredicate, m;
-            resourceKind = this.resourceKind;
-            querySelect = this.querySelect;
-            queryInclude = this.queryInclude;
-            resourceProperty = this.resourceProperty;
-            resourcePredicate = this.resourcePredicate;
-            m = model.get('metadata');
-            m = m && m.sdata;
-
-            if (!m) {
-                throw new Error('Missing sdata metadata from model.');
-            }
-
-            if (resourceKind) {
-                m.resourceKind = resourceKind;
-            }
-
-            if (querySelect) {
-                if (!m.querySelect) {
-                    m.querySelect = [];
-                }
-
-                m.querySelect.concat(querySelect);
-            }
-
-            if (queryInclude) {
-                if (!m.queryInclude) {
-                    m.queryInclude = [];
-                }
-
-                m.queryInclude.concat(queryInclude);
-            }
-
-            if (resourceProperty) {
-                m.resourceProperty = resourceProperty;
-            }
-
-            if (resourcePredicate) {
-                m.resourcePredicate = resourcePredicate;
-            }
-
-            return model;
-        },
-
         getModel: function() {
-            var model;
-            model = new AccountModel();
+            var model = new AccountModel();
 
-            model = this.mixinSDataProps(model);
+            model = this.setSDataModelProperties(model);
 
             return model;
         },
