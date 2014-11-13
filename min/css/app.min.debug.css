@@ -112,10 +112,8 @@
 .note-text {
   height: 4.5em;
   overflow: hidden;
-  padding-left: 0px;
-  padding-right: 34px;
-  border: 1px solid #dddee0;
-  background-color: #ecedef;
+  padding: 0 34px 0 0;
+  border: 1px solid #b3b3b3;
 }
 .note-text-row > label,
 .note-text-row > div > label {
@@ -414,6 +412,7 @@ li[data-ticket-status] .list-item-selector,
 .calendar-day {
   color: #000;
   background-color: #9a9ea1;
+  border: 1px solid #b3b3b3;
 }
 .calendar-day.today {
   background-color: #00733a;
@@ -921,6 +920,9 @@ td.entry-table-description {
 .card-layout .list-content li.list-loading-indicator {
   min-height: inherit;
 }
+.card-layout .list-content > li.actions-row {
+  background-color: #2db329;
+}
 .card-layout .list-content > li {
   min-height: 55px;
   font-weight: bold;
@@ -946,9 +948,6 @@ td.entry-table-description {
   padding: 8px 6px 8px 6px;
   background-color: #fff;
   font-weight: normal;
-}
-.card-layout .actions-row {
-  background-color: #005ce6 !important;
 }
 .card-layout .list-show-selectors {
   padding-left: 90px;
