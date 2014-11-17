@@ -361,6 +361,8 @@ li[data-ticket-status] .list-item-selector,
   position: absolute;
   right: 5px;
   display: block;
+  width: 40px;
+  height: 30px;
 }
 .row-edit[data-field-type="recurrences"] > div > input {
   padding: 8px 34px 8px 0px !important;
