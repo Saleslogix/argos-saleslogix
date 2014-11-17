@@ -53,7 +53,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         locationText: 'location',
         activityTypeTitleText: 'Activity Type',
         alarmText: 'alarm',
-        reminderText: '',
+        reminderText: 'reminder',
         categoryText: 'category',
         durationText: 'duration',
         durationTitleText: 'Duration',
