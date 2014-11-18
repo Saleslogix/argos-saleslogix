@@ -35,6 +35,11 @@
 
 /* login view */
 #login {
+    /* hide the toolbar on the login page */
+    &[selected="true"] + .toolbar {
+        display: none;
+    }
+
     .logo {
         margin: 0;
 
@@ -51,6 +56,7 @@
     }
 
     padding: 0px 2px;
+    top: 0px;
 
     .panel-content {
         background-color: transparent;
@@ -964,34 +970,22 @@ td.entry-table-description {
 
     .box-sizing(border-box);
 
-    height: 45px;
     width: 100%;
-    padding: 4px 4px;
+    padding: 0px 0px 10px 0px;
 
     z-index: 10;
 
-    border-width: 0 0 1px 0;
-    border-style: solid;
-    border-color: @black-darker;
-
-    background-color: @color-deep-amber;
-
-    background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
+    background-color: @color-emerald;
 }
 
 .update-toolbar > h1 {
-    overflow: hidden;
-    display: block;
     margin: 0;
     padding: 0;
-    line-height: 34px;
     font-weight: normal;
     text-align: center;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #000;
+    white-space: normal;
+    color: #fff;
 
     position: absolute;
     z-index: 0;
