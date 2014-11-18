@@ -46,6 +46,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     var mixinName = 'Mobile.SalesLogix.Views._GroupListMixin';
 
     return declare('Mobile.SalesLogix.Views._GroupListMixin', null, {
+       
         noDefaultGroupText: 'No default group set. Click here to configure groups.',
         currentGroupNotFoundText: 'The current group was not found.',
         noDefaultGroupTemplate: new Simplate([
@@ -57,7 +58,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
            '<li class="no-data">',
            '<h3>{%= $$._getCurrentGroupNotFoundMessage() %}</h3>',
            '</li>'
-        ]),
+        ]),      
+       
         _getNoDefaultGroupMessage: function() {
             var mixin = lang.getObject(mixinName);
             if (mixin) {
@@ -84,6 +86,11 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         _currentGroup: null,
         _groupInitalized: false,
         _originalProps: null,
+        overrideGroupLayoutName:'@MobileLayout',
+        _overrideLayoutInitalized: false,
+        _overrideGroupLayout: null,
+        enableGroupByIndexTemplate: true,
+        enableOverrideLayout: true,
 
         selectedColumns: null,
         layout: null,
@@ -152,8 +159,20 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
             return null;
         },
+        initOverrideGroupLayout: function () {
+           this._requestOverrideGroupLayout().then(function (result) {
+                this._overrideLayoutInitalized = true;
+                this._overrideGroupLayout = (result && (result.length > 0))?result[0].layout: null;                
+                this.initGroup();
+            }.bind(this));
+        },
         initGroup: function() {
-            var group;
+            var group, defaultLayout;
+
+            if (this.enableOverrideLayout && !this._overrideLayoutInitalized && !this._overrideGroupLayout) {
+                    this.initOverrideGroupLayout();
+                    return;
+            }
             group = this.getCurrentGroup();
 
             if (!group) {
@@ -190,9 +209,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
             this.layout = GroupUtility.getLayout(group);
             this.selectColumns = GroupUtility.getColumnNames(this.layout);
-
-            template = this.layout.map( this.getItemLayoutTemplate);
-            this.itemTemplate = new Simplate(template);
+            this.itemTemplate = this.getItemTemplate(); // new Simplate(template);
 
             // Create a custom request that the store will use to execute the group query
             this.request = GroupUtility.createGroupRequest({
@@ -211,6 +228,31 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             this.refreshRequired = true;
             this._groupInitalized = true;
             this.requestData();
+        },
+        _requestOverrideGroupLayout: function () {
+            var store = null, queryResults, groupName, def = new Deferred();
+            groupName = this.overrideGroupLayoutName;
+            store = new SDataStore({
+                    service: App.services.crm,
+                    resourceKind: 'groups',
+                    contractName: 'system',
+                    where: "((upper(family) eq '" + this.entityName.toUpperCase() + "') and (upper(Name) eq '" + groupName.toUpperCase() + "'))",
+                    include: ['layout', 'tableAliases'],
+                    idProperty: '$key',
+                    applicationName: 'slx',
+                    scope: this
+                });
+            
+
+            if (store) {
+                queryResults = store.query();
+                when(queryResults, function (relatedFeed) {
+                    def.resolve(relatedFeed);
+                }, function (err) {
+                    def.resolve(null);
+                });
+            }
+            return def.promise;
         },
         _requestGroup: function(groupName, groupId, onSuccess) {
             var store = null, queryResults;
@@ -277,17 +319,59 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             if (group && typeof group.displayName === 'string') {
                 title = group.displayName;
             }
-
             return group.displayName;
+        },
+        getItemTemplate: function () {
+            var layout, template;
+            layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
+
+            if (this.enableGroupByIndexTemplate) {
+                return this.getGroupLayoutByIndexTemplate(layout);
+            }
+            else if (this.enableGroupItemTemplate) {
+                template = this.getGroupItemTemplate();
+            } else {
+                template = layout.map(this.getItemLayoutTemplate);
+            }
+            return new Simplate(template);
         },
         getItemLayoutTemplate: function(item) {
             var template, jsonString;
             jsonString = json.stringify(item);
-
             template = ["<h4><span class=\"group-label\">", item.caption, "</span> <span class=\"group-entry\">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(" + jsonString + ")]," + jsonString + ",$$.getFormatterByLayout(" + jsonString + ")) %}</span>", "</h4>"].join('');
 
             return template;
 
+        },
+        groupLayoutByIndexTemplate: new Simplate([
+          '<div style="float:left; ">',
+          '<h3><span class="group-label" style="color:blue">{%= $$.getGroupFieldLabel($,0) %} </span><span class="group-entry"><b>{%= $$.getGroupFieldValue($,0) %}</b></span></h2>',
+          '<h4><span class="group-label">{%= $$.getGroupFieldLabel($,1) %} </span><span class="group-entry">{%= $$.getGroupFieldValue($, 1) %}</span></h4>',
+          '</div><div style="float:left">',
+          '<h4><span class="group-label">{%= $$.getGroupFieldLabel($,2) %} </span><span class="group-entry">{%= $$.getGroupFieldValue($, 2) %}</span></h4>',
+          '<h4><span class="group-label">{%= $$.getGroupFieldLabel($,3) %} </span><span class="group-entry">{%= $$.getGroupFieldValue($, 3) %}</span></h4>',
+          '</div>',
+        ]),
+        getGroupLayoutByIndexTemplate: function (layout) {
+               return  this.groupLayoutByIndexTemplate;
+        },
+        getGroupFieldLabel:function(entry, layoutIndex){
+            var layout = layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
+            if (layout[layoutIndex]) {
+                return layout[layoutIndex].caption;
+            }
+            return '';
+        },
+        getGroupFieldValue: function (entry, layoutIndex) {
+            var value, formatter, layout, fieldName;
+            value = null;
+            layout = layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
+            if (layout[layoutIndex]) {
+                fieldName = this.getFieldNameByLayout(layout[layoutIndex]);
+                formatter = this.getFormatterByLayout(layout[layoutIndex]);
+                value = this.groupTransformValue(entry[fieldName],layout, formatter);
+            }
+            return value;
         },
         getFormatterByLayout: function(layoutItem) {
             var formatter, path;
