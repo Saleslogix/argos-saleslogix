@@ -360,15 +360,13 @@
 .metric-detail {
     display: inline-block;
     padding: 0px;
-    margin: 0 0 0 2px;
 }
 
 .metric-widget > button {
     padding: 5px 2px 5px 2px;
-    border-color: #000;
-    border-width: 0px;
+    border: 0px #000;
     width: 100%;
-    background-color: @color-emerald;
+    background-color: @color-deep-azure;
     color: #fff;
     .border-radius(3px);
 }
@@ -380,6 +378,7 @@
 .metric-list {
     width: 100%;
     .box-sizing(border-box);
+    background-color: @color-deep-azure;
 }
 
 .groups-notice {
@@ -638,13 +637,6 @@ body.transition > .viewContainer > .footer-toolbar {
         margin-top: 0;
         border-top: none;
         border-bottom: 1px solid #212721;
-    }
-}
-
-/* Tablets */
-@media only screen and (min-width: 768px) {
-    .metric-widget {
-        width: 24.7%;
     }
 }
 
@@ -1101,7 +1093,7 @@ td.entry-table-description {
         }
 
         > li.actions-row {
-            background-color: @color-emerald;
+            background-color: @color-deep-azure;
         }
 
         > li {

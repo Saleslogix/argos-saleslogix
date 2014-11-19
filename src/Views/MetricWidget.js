@@ -55,8 +55,8 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
          * HTML markup for the metric detail (name/value)
         */
         itemTemplate: new Simplate([
-            '<div class="metric-title">{%: $$.title %}</div>',
-            '<div class="metric-value">{%: $$.formatter($.value) %}</div>'
+            '<h1 class="metric-value">{%: $$.formatter($.value) %}</h1>',
+            '<span class="metric-title">{%: $$.title %}</span>'
         ]),
 
         /**
