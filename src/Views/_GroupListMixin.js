@@ -89,9 +89,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         overrideGroupLayoutName:'@MobileLayout',
         _overrideLayoutInitalized: false,
         _overrideGroupLayout: null,
-        enableGroupByIndexTemplate: true,
+        enableDynamicGroupLayout: false,
         enableOverrideLayout: true,
-
+        
         selectedColumns: null,
         layout: null,
 
@@ -324,16 +324,12 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         getItemTemplate: function () {
             var layout, template;
             layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
-
-            if (this.enableGroupByIndexTemplate) {
-                return this.getGroupLayoutByIndexTemplate(layout);
-            }
-            else if (this.enableGroupItemTemplate) {
-                template = this.getGroupItemTemplate();
-            } else {
+            if (this.enableDynamicGroupLayout) {
+                layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
                 template = layout.map(this.getItemLayoutTemplate);
+                return new Simplate(template);
             }
-            return new Simplate(template);
+            return this.groupLayoutItemTemplate;
         },
         getItemLayoutTemplate: function(item) {
             var template, jsonString;
@@ -343,33 +339,62 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             return template;
 
         },
-        groupLayoutByIndexTemplate: new Simplate([
+        groupLayoutItemTemplate: new Simplate([
           '<div style="float:left; ">',
-          '<h3><span class="group-label" style="color:blue">{%= $$.getGroupFieldLabel($,0) %} </span><span class="group-entry"><b>{%= $$.getGroupFieldValue($,0) %}</b></span></h2>',
-          '<h4><span class="group-label">{%= $$.getGroupFieldLabel($,1) %} </span><span class="group-entry">{%= $$.getGroupFieldValue($, 1) %}</span></h4>',
-          '</div><div style="float:left">',
-          '<h4><span class="group-label">{%= $$.getGroupFieldLabel($,2) %} </span><span class="group-entry">{%= $$.getGroupFieldValue($, 2) %}</span></h4>',
-          '<h4><span class="group-label">{%= $$.getGroupFieldLabel($,3) %} </span><span class="group-entry">{%= $$.getGroupFieldValue($, 3) %}</span></h4>',
+          '<h3><span class="group-label" style="color:blue">{%= $$.getGroupFieldLabelByIndex($,0) %} </span><span class="group-entry"><b>{%= $$.getGroupFieldValueByIndex($,0) %}</b></span></h2>',
+          '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1) %}</span></h4>',
+          '</div><div style="float:left;">',
+          '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2) %}</span></h4>',
+          '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,3) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 3) %}</span></h4>',
           '</div>',
         ]),
-        getGroupLayoutByIndexTemplate: function (layout) {
-               return  this.groupLayoutByIndexTemplate;
+        getGroupFieldLabelByName: function (entry, name) {
+            var layoutItem, layout;
+            layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
+            layoutItem = null;
+            layout.forEach(function (item) {
+                if (item.propertyPath === name) {
+                    layoutItem = item;
+                }
+            });
+            if (layoutItem) {
+                return layoutItem.caption;
+            }
+            return '';
         },
-        getGroupFieldLabel:function(entry, layoutIndex){
-            var layout = layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
+        getGroupFieldValueByName: function (entry, name) {
+            var value, formatter, fieldName, layout, layoutItem;
+            value = null;
+            layout = this.layout;
+            layoutItem = null;
+            layout.forEach(function(item){
+                if (item.propertyPath === name) {
+                    layoutItem = item;
+                }
+            });            
+            if (layoutItem) {
+                fieldName = this.getFieldNameByLayout(layoutItem);
+                formatter = this.getFormatterByLayout(layoutItem);
+                value = this.groupTransformValue(entry[fieldName], layoutItem, formatter);
+            }
+            return value;
+        },
+        getGroupFieldLabelByIndex:function(entry, layoutIndex){
+            var layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             if (layout[layoutIndex]) {
                 return layout[layoutIndex].caption;
             }
             return '';
         },
-        getGroupFieldValue: function (entry, layoutIndex) {
-            var value, formatter, layout, fieldName;
+        getGroupFieldValueByIndex: function (entry, layoutIndex) {
+            var value, formatter,layoutItem, layout, fieldName;
             value = null;
             layout = layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
-            if (layout[layoutIndex]) {
-                fieldName = this.getFieldNameByLayout(layout[layoutIndex]);
-                formatter = this.getFormatterByLayout(layout[layoutIndex]);
-                value = this.groupTransformValue(entry[fieldName],layout, formatter);
+            layoutItem = layout[layoutIndex];
+            if (layoutItem) {
+                fieldName = this.getFieldNameByLayout(layoutItem);
+                formatter = this.getFormatterByLayout(layoutItem);
+                value = this.groupTransformValue(entry[fieldName], layoutItem, formatter);
             }
             return value;
         },
