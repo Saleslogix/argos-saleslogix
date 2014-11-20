@@ -25,12 +25,17 @@
 }
 /* login view */
 #login {
+  /* hide the toolbar on the login page */
   padding: 0px 2px;
+  top: 0px;
   /* larger than typical phone, put styles that apply to tablet AND desktop here */
   /*
         desktop style only
     */
   /* Tablet */
+}
+#login[selected="true"] + .toolbar {
+  display: none;
 }
 #login .logo {
   margin: 0;
@@ -284,14 +289,12 @@
 .metric-detail {
   display: inline-block;
   padding: 0px;
-  margin: 0 0 0 2px;
 }
 .metric-widget > button {
   padding: 5px 2px 5px 2px;
-  border-color: #000;
-  border-width: 0px;
+  border: 0px #000;
   width: 100%;
-  background-color: #2db329;
+  background-color: #005ce6;
   color: #fff;
   border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -305,6 +308,7 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  background-color: #005ce6;
 }
 .groups-notice {
   width: 100%;
@@ -361,6 +365,8 @@ li[data-ticket-status] .list-item-selector,
   position: absolute;
   right: 5px;
   display: block;
+  width: 40px;
+  height: 30px;
 }
 .row-edit[data-field-type="recurrences"] > div > input {
   padding: 8px 34px 8px 0px !important;
@@ -521,12 +527,6 @@ body.transition > .viewContainer > .footer-toolbar {
     margin-top: 0;
     border-top: none;
     border-bottom: 1px solid #212721;
-  }
-}
-/* Tablets */
-@media only screen and (min-width: 768px) {
-  .metric-widget {
-    width: 24.7%;
   }
 }
 @media only screen and (min-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) {
@@ -765,6 +765,9 @@ td.entry-table-description {
   padding-right: 10px;
   height: 34px;
   outline: none;
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
 }
 .split-buttons > .button[data-tool="day"],
 .split-buttons > .button[data-tool="today"] {
@@ -803,29 +806,19 @@ td.entry-table-description {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  height: 45px;
   width: 100%;
-  padding: 4px 4px;
+  padding: 0px 0px 10px 0px;
   z-index: 10;
-  border-width: 0 0 1px 0;
-  border-style: solid;
-  border-color: #0f1e1e;
-  background-color: #ff6400;
-  background-clip: padding-box;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
+  background-color: #2db329;
 }
 .update-toolbar > h1 {
-  overflow: hidden;
-  display: block;
   margin: 0;
   padding: 0;
-  line-height: 34px;
   font-weight: normal;
   text-align: center;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #000;
+  white-space: normal;
+  color: #fff;
   position: absolute;
   z-index: 0;
 }
@@ -921,7 +914,7 @@ td.entry-table-description {
   min-height: inherit;
 }
 .card-layout .list-content > li.actions-row {
-  background-color: #2db329;
+  background-color: #005ce6;
 }
 .card-layout .list-content > li {
   min-height: 55px;

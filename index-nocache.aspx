@@ -136,16 +136,17 @@
                     .Select(item => item.Path.Substring(0, item.Path.Length - 3))
             ) %>;
 
+            fallBackLocalization = <%= Serialize(
+                EnumerateLocalizations(string.Empty, "localization", "en")
+                    .Select(item => item.Path.Substring(0, item.Path.Length - 3))
+            ) %>;
+
             require.on('error', function(error) {
                 console.log('Error loading localization, falling back to "en"');
                 bootstrap(fallBackLocalization);
             });
 
             if (localization.length === 0) {
-                fallBackLocalization = <%= Serialize(
-                        EnumerateLocalizations(string.Empty, "localization", "en")
-                            .Select(item => item.Path.Substring(0, item.Path.Length - 3))
-                    ) %>;
                 bootstrap(fallBackLocalization);
             } else {
                 bootstrap(localization);
