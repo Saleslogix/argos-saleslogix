@@ -901,9 +901,23 @@ td.entry-table-description {
 }
 .card-layout .group-label {
   color: #4b5656;
+  font-weight: bold;
 }
 .card-layout .group-entry {
   font-weight: bold;
+}
+.card-layout .group-entry-header {
+  font-weight: bold;
+  font-size: 14px;
+}
+.card-layout .group-currency {
+  color: #2db329;
+}
+.card-layout .group-column {
+  overflow: hidden;
+  display: inline-block;
+  padding-right: 5px;
+  width: 200px;
 }
 .card-layout .list-content {
   margin: 0;
