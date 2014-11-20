@@ -329,7 +329,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 template = layout.map(this.getItemLayoutTemplate);
                 return new Simplate(template);
             }
-            return this.groupLayoutItemTemplate;
+            return this.getGroupLayoutItemTemplate(layout);
         },
         getItemLayoutTemplate: function(item) {
             var template, jsonString;
@@ -348,6 +348,84 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
           '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,3) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 3) %}</span></h4>',
           '</div>',
         ]),
+        getSelectedGroupLayoutTemplated: function(){
+            var template = new Simplate([
+           '{% for (var i = 0; i < $.length; i++)  { %}',
+              '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1) %}</span></h4>',
+           '{% { %}',          
+          '</div>',
+            ]);
+            return template;
+        },
+        getGroupLayoutItemTemplate2: function (layout) {
+            var template, layoutTemplate;
+           
+              layoutTemplate = this.getSelectedGroupLayoutTemplate(); 
+              if (!layoutTemplate) {
+                  return groupLayoutItemTemplate;
+              }
+              template = [];
+              template.push('<div class="dynamic-group-layout">');
+              template.push(layoutTemplate.apply(layout, this));
+              template.push('</div>');
+              return new Simplate(template);
+        },        
+        getGroupLayoutItemTemplate: function (layout) {
+            var template, column, row,item, formatCSS;
+            var layoutConfig = {
+                showLabels: true,
+                columns: 3,
+                rows: 3,
+                fields: -1,
+                overflow: true
+            };
+            if ((!layoutConfig.columns) || (layoutConfig.columns < 1)) {
+                layoutConfig.columns = 1;
+            }
+            if ((!layoutConfig.rows) || (layoutConfig.rows < 1)) {
+                layoutConfig.rows = layout.length;
+            }
+            template = [];
+            template.push('<div class="group-item">');
+            column = 1;
+            row = 1;
+            template.push('<div class="group-item-header">');
+            template.push('<h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($,' + 0 + ') %}</span></h2>');
+            template.push('</div>');
+            for (var i = 0; i < layout.length; i++) {
+                if ((column <= layoutConfig.columns)&&(i !== 0)) {
+                    if (row === 1 ) {
+                        template.push('<div class="group-column">');
+                    }
+                    item = layout[i];
+                    if (item && (layoutConfig.rows > 0)) {
+                        if (i === 0) {
+                            //template.push('<h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($,' + (i) + ') %}</span></h2>');
+                        } else {
+                            template.push('<h3>');
+                            if (layoutConfig.showLabels) {
+                                template.push('<span class="group-label">{%= $$.getGroupFieldLabelByIndex($,' + i + ') %} </span>');
+                            }
+                            formatCSS = (item.format === "Currency") ? 'group-currency' : '';
+                            template.push('<span class="group-entry ' + formatCSS + '">{%= $$.getGroupFieldValueByIndex($,' + (i) + ') %}</span>');
+                            template.push('</h3>');
+                        }
+                    }
+                    row++;
+                    if (row === layoutConfig.rows+1) {
+                        row = 1;
+                        column++;
+                        template.push('</div>');
+                    }
+
+                }
+            }
+            if (row !== 1) {
+                template.push('</div>');
+            }
+            template.push('</div>');
+            return new Simplate(template);
+        },
         getGroupFieldLabelByName: function (entry, name) {
             var layoutItem, layout;
             layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
