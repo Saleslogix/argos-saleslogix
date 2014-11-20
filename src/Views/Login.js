@@ -12,10 +12,12 @@
 define('Mobile/SalesLogix/Views/Login', [
     'dojo/_base/declare',
     'dojo/_base/lang',
+    'dojo/dom-class',
     'Sage/Platform/Mobile/Edit'
 ], function(
     declare,
     lang,
+    domClass,
     Edit
 ) {
 
@@ -24,7 +26,7 @@ define('Mobile/SalesLogix/Views/Login', [
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
             '<p class="logo"><img src="content/images/logo-64.png" /><span>{%: $.logoText %}<span></p>',
-            '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress" data-dojo-attach-point="contentNode"></div>',
+            '<div class="panel-content" data-dojo-attach-event="onkeypress: _onKeyPress, onkeyup: _onKeyUp" data-dojo-attach-point="contentNode"></div>',
             '<button class="button actionButton" data-action="authenticate"><span class="indicator fa fa-spinner fa-spin"></span><span>{%: $.logOnText %}</span></button>',
             '<span class="copyright">{%= $.copyrightText %}</span>',
             '<span class="copyright">{%= App.getVersionInfo() %}</span>',
@@ -42,7 +44,7 @@ define('Mobile/SalesLogix/Views/Login', [
         userText: 'User ID',
         invalidUserText: 'The user name or password is invalid.',
         missingUserText: 'The user record was not found.',
-        serverProblemText: 'A problem occured on the server.',
+        serverProblemText: 'A problem occurred on the server.',
         requestAbortedText: 'The request was aborted.',
         logoText: 'Infor CRM',
 
@@ -51,6 +53,14 @@ define('Mobile/SalesLogix/Views/Login', [
         _onKeyPress: function(evt) {
             if (evt.charOrCode === this.ENTER_KEY) {
                 this.authenticate();
+            }
+        },
+        _onKeyUp: function(evt) {
+            var username = this.fields.username.getValue();
+            if (username && username.length > 0) {
+                domClass.add(this.domNode, 'login-active');
+            } else {
+                domClass.remove(this.domNode, 'login-active');
             }
         },
         onShow: function() {
