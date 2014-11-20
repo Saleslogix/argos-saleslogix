@@ -362,7 +362,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
            
               layoutTemplate = this.getSelectedGroupLayoutTemplate(); 
               if (!layoutTemplate) {
-                  return groupLayoutItemTemplate;
+                  return this.groupLayoutItemTemplate;
               }
               template = [];
               template.push('<div class="dynamic-group-layout">');
