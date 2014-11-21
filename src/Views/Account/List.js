@@ -67,7 +67,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 '</h4>',
             '{% } %}'
         ]),
-        enableDynamicGroupLayout: false,
+        enableDynamicGroupLayout: true,
         groupLayoutItemTemplate: new Simplate([
          '<div style="float:left; ">',
          '<h3><span class="group-label">{%= $$.getGroupFieldLabelByName($,"AccountName") %} </span><span class="group-entry"><strong>{%= $$.getGroupFieldValueByName($,"AccountName") %}</strong></span></h2>',

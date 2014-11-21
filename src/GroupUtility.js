@@ -403,6 +403,14 @@ define('Mobile/SalesLogix/GroupUtility', [
             }
 
             return results[0].fieldName(layoutItem);
+        },
+        getSelectedGroupLayoutTemplate: function (entityName) {
+            return App.preferences['groups-selected-template-name' + entityName];
+        },
+        setSelectedGroupLayoutTemplate: function (entityName, name) {
+
+            App.preferences['groups-selected-template-name' + entityName] = name;
+            App.persistPreferences();
         }
     });
 });
