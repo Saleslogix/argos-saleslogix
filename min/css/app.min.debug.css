@@ -26,6 +26,7 @@
 /* login view */
 #login {
   /* hide the toolbar on the login page */
+  background-color: #ecedef;
   padding: 0px 2px;
   top: 0px;
   /* larger than typical phone, put styles that apply to tablet AND desktop here */
@@ -36,6 +37,11 @@
 }
 #login[selected="true"] + .toolbar {
   display: none;
+}
+#login.login-active > .button {
+  background-color: #13a3f7;
+  color: #fff;
+  border: none;
 }
 #login .logo {
   margin: 0;
@@ -49,6 +55,17 @@
   padding-bottom: 20px;
   display: block;
 }
+#login input[name="username"],
+#login input[name="password"] {
+  background: #ffffff no-repeat 10px center;
+  padding-left: 40px;
+}
+#login input[name="username"] {
+  background-image: url('../images/icons/username.png');
+}
+#login input[name="password"] {
+  background-image: url('../images/icons/password.png');
+}
 #login .panel-content {
   background-color: transparent;
   border-bottom: none 0px black;
@@ -56,8 +73,8 @@
 #login .button {
   width: 100%;
   margin: 12px 0 12px 0;
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
   cursor: pointer;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -67,13 +84,6 @@
   display: none;
 }
 @media only screen and (min-width: 768px) {
-  #login {
-    background-color: #ecedef;
-  }
-  #login .panel-content {
-    background-color: #fff;
-    padding: 25px;
-  }
   #login .button {
     margin-left: 25%;
     width: auto;
@@ -82,32 +92,32 @@
 }
 @media only screen and (min-width: 1280px) {
   #login .panel-content {
-    width: 30%;
+    width: 20%;
   }
   #login .button {
-    margin-left: 35%;
-    width: 30%;
+    margin-left: 40%;
+    width: 20%;
   }
   #login .panel-content {
     margin: auto;
   }
   #login .clear-button {
-    right: 35%;
+    right: 40%;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 1280px) {
   #login .panel-content {
-    width: 50%;
+    width: 20%;
   }
   #login .button {
-    margin-left: 25%;
-    width: 50%;
+    margin-left: 40%;
+    width: 20%;
   }
   #login .panel-content {
     margin: auto;
   }
   #login .clear-button {
-    right: 25%;
+    right: 40%;
   }
 }
 #logoff {
@@ -1201,4 +1211,7 @@ td.entry-table-description {
   float: right;
   border: none;
   height: 32px;
+}
+#left_drawer .search-widget > .table-layout > div {
+  padding: 5px;
 }
