@@ -938,7 +938,7 @@ td.entry-table-description {
   min-height: inherit;
 }
 .card-layout .list-content > li.actions-row {
-  background-color: #005ce6;
+  background-color: #13a3f7;
 }
 .card-layout .list-content > li {
   min-height: 55px;
@@ -1043,6 +1043,7 @@ td.entry-table-description {
   position: relative;
   text-align: center;
   width: 64px;
+  border-radius: 3px;
 }
 .card-layout .list-action-selected + .actions-row {
   display: block !important;
