@@ -910,8 +910,8 @@ td.entry-table-description {
   margin: 10px !important;
 }
 .card-layout .group-label {
-  color: #4b5656;
-  font-weight: bold;
+  color: #9a9ea1;
+  font-weight: normal;
 }
 .card-layout .group-entry {
   font-weight: bold;
@@ -926,8 +926,8 @@ td.entry-table-description {
 .card-layout .group-column {
   overflow: hidden;
   display: inline-block;
-  padding-right: 5px;
-  width: 200px;
+  padding-right: 2px;
+  min-width: 180px;
 }
 .card-layout .list-content {
   margin: 0;
@@ -938,7 +938,7 @@ td.entry-table-description {
   min-height: inherit;
 }
 .card-layout .list-content > li.actions-row {
-  background-color: #005ce6;
+  background-color: #13a3f7;
 }
 .card-layout .list-content > li {
   min-height: 55px;
@@ -947,6 +947,8 @@ td.entry-table-description {
   padding: 8px 0px 8px 10px;
   position: relative;
   cursor: pointer;
+  border-radius: 5px;
+  margin: 3px;
 }
 .card-layout .list-content > li > img.icon,
 .card-layout .list-content > li * > img.icon {
@@ -1041,6 +1043,7 @@ td.entry-table-description {
   position: relative;
   text-align: center;
   width: 64px;
+  border-radius: 3px;
 }
 .card-layout .list-action-selected + .actions-row {
   display: block !important;
@@ -1143,7 +1146,7 @@ td.entry-table-description {
   padding: 10px;
 }
 .speedsearch-fields span {
-  color: #4b5656;
+  color: #9a9ea1;
   font-weight: bold;
 }
 .card-layout-speed-search-index {

@@ -112,6 +112,9 @@ define('Mobile/SalesLogix/GroupUtility', [
             },
             {
                 name: 'Fixed',
+                options: {
+                    clss: 'group-fixed',
+                },
                 test: function(layoutItem) {
                     return layoutItem.format === 'Fixed';
                 },
@@ -121,6 +124,9 @@ define('Mobile/SalesLogix/GroupUtility', [
             },
             {
                 name: 'Percent',
+                options: {
+                    clss: 'group-percent',
+                },
                 test: function(layoutItem) {
                     return layoutItem.format === 'Percent';
                 },
@@ -142,20 +148,29 @@ define('Mobile/SalesLogix/GroupUtility', [
                 test: function(layoutItem) {
                     return layoutItem.format === 'Currency';
                 },
+                options: {
+                    clss: 'group-currency',
+                },
                 formatter: function(value) {
                     return format.currency(value);
                 }
             },
             {
                 name: 'DateTime',
+                options: {
+                    useRelative: true
+                },
                 test: function(layoutItem) {
                     return layoutItem.format === 'DateTime';
                 },
-                formatter: function(value, formatString) {
+                formatter: function(value, formatString, formatOptions) {
                     var dateValue;
                     if (typeof value === 'string') {
                         dateValue = moment(value);
                         if (dateValue.isValid()) {
+                            if ((formatOptions)&&(formatOptions.useRelative)) {
+                                return format.relativeDate(dateValue);
+                            }
                             return dateValue.format(formatString);
                         }
                     }
@@ -241,6 +256,7 @@ define('Mobile/SalesLogix/GroupUtility', [
 
             fieldFormatter = {
                 name: results[0]['name'],
+                options: results[0]['options'],
                 formatter: results[0]['formatter'].bind(this)
             };
 
@@ -403,6 +419,14 @@ define('Mobile/SalesLogix/GroupUtility', [
             }
 
             return results[0].fieldName(layoutItem);
+        },
+        getSelectedGroupLayoutTemplate: function (entityName) {
+            return App.preferences['groups-selected-template-name' + entityName];
+        },
+        setSelectedGroupLayoutTemplate: function (entityName, name) {
+
+            App.preferences['groups-selected-template-name' + entityName] = name;
+            App.persistPreferences();
         }
     });
 });
