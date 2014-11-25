@@ -910,8 +910,8 @@ td.entry-table-description {
   margin: 10px !important;
 }
 .card-layout .group-label {
-  color: #4b5656;
-  font-weight: bold;
+  color: #9a9ea1;
+  font-weight: normal;
 }
 .card-layout .group-entry {
   font-weight: bold;
@@ -1145,7 +1145,7 @@ td.entry-table-description {
   padding: 10px;
 }
 .speedsearch-fields span {
-  color: #4b5656;
+  color: #9a9ea1;
   font-weight: bold;
 }
 .card-layout-speed-search-index {
