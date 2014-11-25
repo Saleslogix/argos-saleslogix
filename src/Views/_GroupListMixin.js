@@ -349,9 +349,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
         },
         defaultGroupLayoutItemTemplate: new Simplate([
-           '<div><h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($,0) %}</span></h2></div>',
-           '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1) %}</span></h4>',
-           '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2) %}</span></h4>'          
+           '<div><h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($, 0, true) %}</span></h2></div>',
+           '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1, true) %}</span></h4>',
+           '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>'          
         ]),
         createGroupTemplateLayouts: function(){
             this.groupTemplateLayouts = [{
@@ -387,13 +387,16 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         getSelectedGroupLayoutTemplate:function(){
             var layoutTemplate, name;
             name = GroupUtility.getSelectedGroupLayoutTemplate(this.entityName);
-            name = (name) ? name : 'Dynamic';
+            name = (name) ? name : '';
             layoutTemplate = null;
             this.groupTemplateLayouts.forEach(function(item){
                 if (item.name === name) {
                     layoutTemplate = item;
                 }
             });
+            if (!layoutTemplate) {
+                layoutTemplate = this.groupTemplateLayouts[0];
+            }
             return layoutTemplate;
         },
         createGroupTemplates: function(){
@@ -537,6 +540,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                     value = entry[fieldName];
                 }
             } else {
+                fieldName = this.getFieldNameByLayout(layoutItem);
                 value = entry[fieldName];
             }
             return value;
