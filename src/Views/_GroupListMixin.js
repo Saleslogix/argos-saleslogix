@@ -327,14 +327,14 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             if (this.enableDynamicGroupLayout) {
                 layoutTemplate = this.getSelectedGroupLayoutTemplate();
                 if(layoutTemplate){
-                    if (layoutTemplate.name === 'Dynamic') {
+                    if (layoutTemplate.type === 'Dynamic') {
                         return this.getDynamicLayoutItemTemplate(layout, layoutTemplate.options);
                     }
                     if (layoutTemplate.template) {
                         return new Simplate(layoutTemplate.template);
                     }
                 }
-                return this.groupLayoutItemTemplate;
+                return this.defaultGroupLayoutItemTemplate;
             }
             template = layout.map(this.getItemLayoutTemplate);
             return new Simplate(template);
@@ -348,49 +348,40 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             return template;
 
         },
-        groupLayoutItemTemplate: new Simplate([
-          '<div style="float:left; ">',
-          '<h3><span class="group-label" >{%= $$.getGroupFieldLabelByIndex($,0) %} </span><span class="group-entry"><b>{%= $$.getGroupFieldValueByIndex($,0) %}</b></span></h2>',
-          '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1) %}</span></h4>',
-          '</div><div style="float:left;">',
-          '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2) %}</span></h4>',
-          '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,3) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 3) %}</span></h4>',
-          '</div>',
+        defaultGroupLayoutItemTemplate: new Simplate([
+           '<div><h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($,0) %}</span></h2></div>',
+           '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1) %}</span></h4>',
+           '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2) %}</span></h4>'          
         ]),
         createGroupTemplateLayouts: function(){
             this.groupTemplateLayouts = [{
-                name: 'Dynamic',
-                displayName: 'Dynamic',
-                options: {
-                    showLabels: true,
-                    columns: 3,
-                    rows:3
-                }
-            }, {
                 name: 'Summary',
                 displayName: 'Summary',
-                template: [
-                       '<div><h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($,0) %}</span></h2></div>',
-                       '<div class="group-column">',
-                       '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1) %}</span></h4>',
-                       '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2) %}</span></h4>',
-                       '</div>'
-                ]
+                type: 'Dynamic',
+                options: {
+                    columns: [{
+                        id: 'col1',
+                        rows: 3,
+                    }]                    
+                }
             }, {
                 name: 'Detail',
                 displayName: 'Detail',
-                template: [
-                       '<div><h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($,0) %}</span></h2></div>',
-                       '<div class="group-column">',
-                       '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1) %}</span></h4>',
-                        '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2) %}</span></h4>',
-                        '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,3) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 3) %}</span></h4>',
-                       '</div><div class="group-column">',
-                       '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,4) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 4) %}</span></h4>',
-                       '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,5) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 5) %}</span></h4>',
-                       '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex($,6) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 6) %}</span></h4>',
-                       '</div>'
-                ]
+                type: 'Dynamic',
+                options: {
+                    columns: [{
+                        id: 'col1',
+                        rows:3
+                    },
+                    {
+                        id: 'col2',
+                        rows: 3
+                    }, {
+                        id: 'col3',
+                        rows: 3
+                    }]
+
+                }
             }];
         },
         getSelectedGroupLayoutTemplate:function(){
@@ -408,47 +399,66 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         createGroupTemplates: function(){
             this._createCustomizedLayout(this.createGroupTemplateLayouts(), 'group-templates');
         },
-        getDynamicLayoutItemTemplate: function (layout, _options) {
-            var template, column, row, item, options, formatCSS;
-            options = this.getDynamicLayoutOptions();
-            lang.mixin(options, _options);
-            if ((!options.columns) || (options.columns < 1)) {
-                options.columns = 1;
-            }
-            if ((!options.rows) || (options.rows < 1)) {
-                options.rows = layout.length;
-            }
-            template = [];
-            template.push('<div class="group-item">');
+        getDynamicLayoutItemTemplate: function (layout, options) {
+            var template,
+                column,
+                row,
+                rows,
+                columns,
+                columnItem,
+                columnWidth,
+                columnStyle,
+                columnClass,
+                item,
+                layoutOptions,
+                jsonString,
+                formatClss,
+                formatOptions;
+
+            layoutOptions = this.applyDynamicLayoutOptions(options);
+            rows = 0;
+            columns = 1;
             column = 1;
             row = 1;
+            columns = layoutOptions.columns.length;
+            layoutOptions.columns.forEach(function (item) {
+                rows = rows + item.rows;
+            });
+            columnWidth = utility.roundNumberTo((100 / columns), 0);
+
+            template = [];
+            template.push('<div class="group-item">');
             template.push('<div class="group-item-header">');
-            template.push('<h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($,' + 0 + ') %}</span></h2>');
-            template.push('</div>');
+            template.push('<h2><span class="group-entry-header">{%= $$.getGroupFieldValueByName($,"' + layout[0].propertyPath + '", true) %}</span></h2>');
+            template.push('</div">');
             for (var i = 0; i < layout.length; i++) {
-                if ((column <= options.columns) && (i !== 0)) {
-                    if (row === 1 ) {
-                        template.push('<div class="group-column">');
+                columnItem = layoutOptions.columns[column - 1];
+                if ((columnItem) && (column <= columns) && (i !== 0)) {
+                    if (row === 1) {
+                        columnStyle = columnItem.style || 'width:' + columnWidth + '%;';
+                        columnClass = columnItem.clss || '';
+                        template.push('<div class="group-column '+ columnClass + '"  style="' + columnStyle + '">');
                     }
                     item = layout[i];
-                    if (item && (options.rows > 0)) {
+                    if (item && (columnItem.rows > 0)) {
                         if (i !== 0) {
                             template.push('<h3>');
-                            if (options.showLabels) {
-                                template.push('<span class="group-label">{%= $$.getGroupFieldLabelByIndex($,' + i + ') %} </span>');
+                            if (!columnItem.hideLabels) {
+                                template.push('<span class="group-label">' + this.getGroupFieldLabelByName(item.propertyPath) +' </span>');
                             }
-                            formatCSS = (item.format === "Currency") ? 'group-currency' : '';
-                            template.push('<span class="group-entry ' + formatCSS + '">{%= $$.getGroupFieldValueByIndex($,' + (i) + ') %}</span>');
+                            formatOptions = this.getGroupFieldFormatOptions(item);
+                            formatClss = formatOptions.clss || '';
+                            jsonString = json.stringify(formatOptions);
+                            template.push('<span class="group-entry ' + formatClss + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
                             template.push('</h3>');
                         }
                     }
                     row++;
-                    if (row === options.rows + 1) {
+                    if (row === columnItem.rows + 1) {
                         row = 1;
                         column++;
                         template.push('</div>');
                     }
-
                 }
             }
             if (row !== 1) {
@@ -457,16 +467,24 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             template.push('</div>');
             return new Simplate(template);
         },
-
-        getDynamicLayoutOptions:function(){
-            var options = {
-                showLabels: true,
-                columns: 3,
-                rows: 3
+         applyDynamicLayoutOptions:function(options){
+            var layoutOptions = {
+                columns: [{rows:3}]
             };
-            return options;
-        },
-        getGroupFieldLabelByName: function (entry, name) {
+            lang.mixin(layoutOptions, options);
+            return layoutOptions;
+         },
+         getGroupFieldFormatOptions: function (layoutItem) {
+             var options, formatter = this.getFormatterByLayout(layoutItem);
+             options = {
+                 formatString: (formatter && formatter.formatString) ? formatter.formatString : null,
+             };
+             if ((formatter && formatter.options)) {
+                 lang.mixin(options, formatter.options);
+             }
+             return options;
+         },
+        getGroupFieldLabelByName: function (name) {
             var layoutItem, layout;
             layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             layoutItem = null;
@@ -480,39 +498,46 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
             return '';
         },
-        getGroupFieldValueByName: function (entry, name) {
-            var value, formatter, fieldName, layout, layoutItem;
-            value = null;
-            layout = this.layout;
+        getGroupFieldValueByName: function (entry, name, applyFormat, formatOptions) {
+            var layout, layoutItem;
+            layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             layoutItem = null;
             layout.forEach(function(item){
                 if (item.propertyPath === name) {
                     layoutItem = item;
                 }
             });            
-            if (layoutItem) {
-                fieldName = this.getFieldNameByLayout(layoutItem);
-                formatter = this.getFormatterByLayout(layoutItem);
-                value = this.groupTransformValue(entry[fieldName], layoutItem, formatter);
-            }
-            return value;
+            return this.getGroupFieldValue(entry, layoutItem, applyFormat, formatOptions);
         },
-        getGroupFieldLabelByIndex:function(entry, layoutIndex){
+        getGroupFieldLabelByIndex:function(layoutIndex){
             var layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             if (layout[layoutIndex]) {
                 return layout[layoutIndex].caption;
             }
             return '';
         },
-        getGroupFieldValueByIndex: function (entry, layoutIndex) {
-            var value, formatter,layoutItem, layout, fieldName;
-            value = null;
-            layout = layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
+        getGroupFieldValueByIndex: function (entry, layoutIndex, applyFormat, formatOptions) {
+            var layoutItem, layout;
+            layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             layoutItem = layout[layoutIndex];
-            if (layoutItem) {
+            return this.getGroupFieldValue(entry, layoutItem, applyFormat, formatOptions);
+        },
+        getGroupFieldValue: function (entry, layoutItem, applyFormat, formatOptions) {
+            var value, formatter, fieldName;
+            value = null;
+            formatter = null;
+            
+            if ((layoutItem) && (applyFormat)) {
                 fieldName = this.getFieldNameByLayout(layoutItem);
-                formatter = this.getFormatterByLayout(layoutItem);
-                value = this.groupTransformValue(entry[fieldName], layoutItem, formatter);
+                if (applyFormat) {
+                    formatter = this.getFormatterByLayout(layoutItem);
+                } if (formatter) {
+                    value = this.groupTransformValue(entry[fieldName], layoutItem, formatter, formatOptions);
+                } else {
+                    value = entry[fieldName];
+                }
+            } else {
+                value = entry[fieldName];
             }
             return value;
         },
@@ -539,9 +564,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             }
             return formatter;
         },
-        groupTransformValue: function(value, layout, formatter) {
+        groupTransformValue: function (value, layout, formatter, formatOptions) {
             try{
-                return formatter.formatter(value, formatter.formatString);
+                return formatter.formatter(value, formatter.formatString, formatOptions);
             } catch (e) {
                 return value;
             }

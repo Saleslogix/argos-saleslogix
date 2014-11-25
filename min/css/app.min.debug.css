@@ -926,8 +926,8 @@ td.entry-table-description {
 .card-layout .group-column {
   overflow: hidden;
   display: inline-block;
-  padding-right: 5px;
-  width: 200px;
+  padding-right: 2px;
+  min-width: 180px;
 }
 .card-layout .list-content {
   margin: 0;
