@@ -29,11 +29,6 @@
   background-color: #ecedef;
   padding: 0px 2px;
   top: 0px;
-  /* larger than typical phone, put styles that apply to tablet AND desktop here */
-  /*
-        desktop style only
-    */
-  /* Tablet */
 }
 #login[selected="true"] + .toolbar {
   display: none;
@@ -67,12 +62,15 @@
   background-image: url('../images/icons/password.png');
 }
 #login .panel-content {
+  width: 200px;
+  margin: auto;
   background-color: transparent;
   border-bottom: none 0px black;
 }
 #login .button {
-  width: 100%;
-  margin: 12px 0 12px 0;
+  width: 192px;
+  margin: 10px auto;
+  display: block;
   height: 30px;
   line-height: 30px;
   cursor: pointer;
@@ -82,43 +80,6 @@
 }
 #login h2 {
   display: none;
-}
-@media only screen and (min-width: 768px) {
-  #login .button {
-    margin-left: 25%;
-    width: auto;
-    padding: 0 50px 0 50px;
-  }
-}
-@media only screen and (min-width: 1280px) {
-  #login .panel-content {
-    width: 20%;
-  }
-  #login .button {
-    margin-left: 40%;
-    width: 20%;
-  }
-  #login .panel-content {
-    margin: auto;
-  }
-  #login .clear-button {
-    right: 40%;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 1280px) {
-  #login .panel-content {
-    width: 20%;
-  }
-  #login .button {
-    margin-left: 40%;
-    width: 20%;
-  }
-  #login .panel-content {
-    margin: auto;
-  }
-  #login .clear-button {
-    right: 40%;
-  }
 }
 #logoff {
   text-align: center;
