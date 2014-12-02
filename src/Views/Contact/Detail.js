@@ -54,10 +54,10 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
         relatedAttachmentTitleText: 'Contact Attachments',
         titleText: 'Contact',
         webText: 'web',
-        workText: 'phone',
+        workText: 'work phone',
         cuisinePreferenceText: 'cuisine',
         callMobileNumberText: 'Call mobile',
-        callWorkNumberText: 'Call main number',
+        callWorkNumberText: 'Call work',
         calledText: 'Called',
         scheduleActivityText: 'Schedule activity',
         addNoteText: 'Add note',
@@ -206,13 +206,6 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             disabled: this.checkValueExists,
                             renderer: format.phone.bindDelegate(this, false)
                         }, {
-                            name: 'SendEmailAction',
-                            property: 'Email',
-                            label: this.sendEmailText,
-                            action: 'sendEmail',
-                            iconClass: 'fa fa-envelope fa-lg',
-                            disabled: this.checkValueExists
-                        }, {
                             name: 'ScheduleActivityAction',
                             label: this.scheduleActivityText,
                             action: 'scheduleActivity',
@@ -226,6 +219,13 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             label: this.addNoteText,
                             action: 'addNote',
                             iconClass: 'fa fa-edit fa-lg'
+                        }, {
+                            name: 'SendEmailAction',
+                            property: 'Email',
+                            label: this.sendEmailText,
+                            action: 'sendEmail',
+                            iconClass: 'fa fa-envelope fa-lg',
+                            disabled: this.checkValueExists
                         }, {
                             name: 'ViewAddressAction',
                             property: 'Address',
@@ -250,14 +250,15 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             view: 'account_detail',
                             key: 'Account.$key'
                         }, {
-                            name: 'WebAddress',
-                            property: 'WebAddress',
-                            label: this.webText,
-                            renderer: format.link
+                            name: 'WorkPhone',
+                            property: 'WorkPhone',
+                            label: this.workText,
+                            renderer: format.phone
                         }, {
-                            name: 'Title',
-                            property: 'Title',
-                            label: this.contactTitleText
+                            name: 'AccountManager.UserInfo',
+                            property: 'AccountManager.UserInfo',
+                            label: this.acctMgrText,
+                            tpl: template.nameLF
                         }]
                 }, {
                     title: this.moreDetailsText,
@@ -269,15 +270,19 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             label: this.homeText,
                             renderer: format.phone
                         }, {
+                            name: 'WebAddress',
+                            property: 'WebAddress',
+                            label: this.webText,
+                            renderer: format.link
+                        }, {
+                            name: 'Title',
+                            property: 'Title',
+                            label: this.contactTitleText
+                        }, {
                             name: 'Fax',
                             property: 'Fax',
                             label: this.faxText,
                             renderer: format.phone
-                        }, {
-                            name: 'AccountManager.UserInfo',
-                            property: 'AccountManager.UserInfo',
-                            label: this.acctMgrText,
-                            tpl: template.nameLF
                         }, {
                             name: 'Owner.OwnerDescription',
                             property: 'Owner.OwnerDescription',
