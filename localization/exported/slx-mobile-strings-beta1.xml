@@ -68,14 +68,6 @@
     <description/>
     <value>Scope is not saved in error report</value>
   </data>
-  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="onText" type="text">
-    <description/>
-    <value>ON</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="offText" type="text">
-    <description/>
-    <value>OFF</value>
-  </data>
   <data class="Sage.Platform.Mobile.Fields.DateField" property="emptyText" type="text">
     <description/>
     <value/>
@@ -1344,6 +1336,10 @@
     <description/>
     <value>phone</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>More Details</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="activityCategoryTitleText" type="text">
     <description/>
     <value>Activity Category</value>
@@ -1366,7 +1362,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderText" type="text">
     <description/>
-    <value/>
+    <value>reminder</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="categoryText" type="text">
     <description/>
@@ -2422,7 +2418,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="workText" type="text">
     <description/>
-    <value>phone</value>
+    <value>work phone</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="cuisinePreferenceText" type="text">
     <description/>
@@ -2434,7 +2430,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="callWorkNumberText" type="text">
     <description/>
-    <value>Call main number</value>
+    <value>Call work</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="calledText" type="text">
     <description/>
@@ -2470,11 +2466,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="workText" type="text">
     <description/>
-    <value>phone</value>
+    <value>work phone</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="mobileText" type="text">
     <description/>
-    <value>mobile</value>
+    <value>mobile phone</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="emailText" type="text">
     <description/>
@@ -3418,23 +3414,23 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="logOnText" type="text">
     <description/>
-    <value>Log On</value>
+    <value>Sign in</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="passText" type="text">
     <description/>
-    <value>password</value>
+    <value>Password</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="rememberText" type="text">
     <description/>
-    <value>remember</value>
+    <value>Remember me</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="titleText" type="text">
     <description/>
-    <value>Log On</value>
+    <value>Sign in</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="userText" type="text">
     <description/>
-    <value>user name</value>
+    <value>User ID</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="invalidUserText" type="text">
     <description/>
@@ -3446,7 +3442,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="serverProblemText" type="text">
     <description/>
-    <value>A problem occured on the server.</value>
+    <value>A problem occurred on the server.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="requestAbortedText" type="text">
     <description/>
