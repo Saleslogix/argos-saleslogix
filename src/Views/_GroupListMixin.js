@@ -90,7 +90,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         _overrideLayoutInitalized: false,
         _overrideGroupLayout: null,
         enableDynamicGroupLayout: true,
-        enableOverrideLayout: false,
+        enableOverrideLayout: true,
         
         selectedColumns: null,
         layout: null,
