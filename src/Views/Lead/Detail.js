@@ -233,15 +233,15 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                             name: 'Company',
                             property: 'Company'
                         }, {
-                            label: this.webText,
-                            name: 'WebAddress',
-                            property: 'WebAddress',
-                            renderer: format.link
-                        }, {
                             label: this.leadTitleText,
                             name: 'Title',
                             property: 'Title'
-                        }, {
+                        }]
+                }, {
+                    title: this.moreDetailsText,
+                    name: 'MoreDetailsSection',
+                    collapsed: true,
+                    children: [{
                             label: this.workText,
                             name: 'WorkPhone',
                             property: 'WorkPhone',
@@ -260,12 +260,12 @@ define('Mobile/SalesLogix/Views/Lead/Detail', [
                             label: this.leadSourceText,
                             name: 'LeadSource.Description',
                             property: 'LeadSource.Description'
-                        }]
-                }, {
-                    title: this.moreDetailsText,
-                    name: 'MoreDetailsSection',
-                    collapsed: true,
-                    children: [{
+                        }, {
+                            label: this.webText,
+                            name: 'WebAddress',
+                            property: 'WebAddress',
+                            renderer: format.link
+                        }, {
                             label: this.interestsText,
                             name: 'Interests',
                             property: 'Interests'
