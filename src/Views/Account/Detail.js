@@ -173,16 +173,30 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             property: 'AccountName',
                             label: this.accountText
                         }, {
-                            name: 'WebAddress',
-                            property: 'WebAddress',
-                            label: this.webText,
-                            renderer: format.link
-                        }, {
                             name: 'MainPhone',
                             property: 'MainPhone',
                             label: this.phoneText,
                             renderer: format.phone.bindDelegate(this, false),
                             action: 'callMainPhone'
+                        }, {
+                            name: 'Status',
+                            property: 'Status',
+                            label: this.statusText
+                        }, {
+                            name: 'AccountManager.UserInfo',
+                            property: 'AccountManager.UserInfo',
+                            label: this.acctMgrText,
+                            tpl: template.nameLF
+                        }]
+                }, {
+                    title: this.moreDetailsText,
+                    name: 'MoreDetailsSection',
+                    collapsed: true,
+                    children: [{
+                            name: 'WebAddress',
+                            property: 'WebAddress',
+                            label: this.webText,
+                            renderer: format.link
                         }, {
                             name: 'Address',
                             property: 'Address',
@@ -202,10 +216,6 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             property: 'SubType',
                             label: this.subTypeText
                         }, {
-                            name: 'Status',
-                            property: 'Status',
-                            label: this.statusText
-                        }, {
                             name: 'Industry',
                             property: 'Industry',
                             label: this.industryText,
@@ -216,18 +226,13 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             label: this.businessDescriptionText,
                             type: 'text'
                         }, {
-                            name: 'AccountManager.UserInfo',
-                            property: 'AccountManager.UserInfo',
-                            label: this.acctMgrText,
-                            tpl: template.nameLF
+                            name: 'LeadSource.Description',
+                            property: 'LeadSource.Description',
+                            label: this.importSourceText
                         }, {
                             name: 'Owner.OwnerDescription',
                             property: 'Owner.OwnerDescription',
                             label: this.ownerText
-                        }, {
-                            name: 'LeadSource.Description',
-                            property: 'LeadSource.Description',
-                            label: this.importSourceText
                         }]
                 }, {
                     title: this.relatedItemsText,
