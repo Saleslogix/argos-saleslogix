@@ -95,6 +95,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         relatedAttachmentTitleText: 'Activity Attachments',
         relatedItemsText:'Related Items',
         phoneText: 'phone',
+        moreDetailsText: 'More Details',
 
         //View Properties
         id: 'activity_detail',
@@ -369,26 +370,14 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             property: 'Description',
                             label: this.regardingText
                         }, {
-                            name: 'LongNotes',
-                            property: 'LongNotes',
-                            label: this.longNotesText
-                        }, {
-                            name: 'Category',
-                            property: 'Category',
-                            label: this.categoryText
-                        }, {
-                            name: 'Location',
-                            property: 'Location',
-                            label: this.locationText
-                        }, {
-                            name: 'Priority',
-                            property: 'Priority',
-                            label: this.priorityText
-                        }, {
                             name: 'PhoneNumber',
                             property: 'PhoneNumber',
                             label: this.phoneText,
                             renderer: format.phone.bindDelegate(this, false)
+                        }, {
+                            name: 'LongNotes',
+                            property: 'LongNotes',
+                            label: this.longNotesText
                         }]
                 }, {
                     title: this.whenText,
@@ -498,7 +487,24 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
                             include: this.isActivityForLead,
                             label: this.companyText
                         }]
-                },{
+                }, {
+                    title: this.moreDetailsText,
+                    name: 'MoreDetailsSection',
+                    collapsed: true,
+                    children: [{
+                            name: 'Category',
+                            property: 'Category',
+                            label: this.categoryText
+                        }, {
+                            name: 'Location',
+                            property: 'Location',
+                            label: this.locationText
+                        }, {
+                            name: 'Priority',
+                            property: 'Priority',
+                            label: this.priorityText
+                        }]
+                }, {
                     title: this.relatedItemsText,
                     list: true,
                     name: 'RelatedItemsSection',
