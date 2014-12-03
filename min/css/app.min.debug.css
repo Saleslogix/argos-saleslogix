@@ -6,7 +6,7 @@
   background-color: #ebebeb;
 }
 .viewContainer > .panel {
-  background-color: #ffffff;
+  background-color: #f8f8f8;
 }
 .row > div > label,
 .row > label {
@@ -26,7 +26,6 @@
 /* login view */
 #login {
   /* hide the toolbar on the login page */
-  background-color: #ecedef;
   padding: 0px 2px;
   top: 0px;
 }
@@ -69,7 +68,7 @@
 }
 #login .button {
   width: 192px;
-  margin: 10px auto;
+  margin: 0 auto 10px;
   display: block;
   height: 30px;
   line-height: 30px;
