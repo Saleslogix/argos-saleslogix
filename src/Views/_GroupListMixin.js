@@ -49,6 +49,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
        
         noDefaultGroupText: 'No default group set. Click here to configure groups.',
         currentGroupNotFoundText: 'The current group was not found.',
+        groupTemplateSummaryText: 'Summary',
+        groupTemplateDetailText: 'Detail',
         noDefaultGroupTemplate: new Simplate([
             '<li class="no-data" data-action="openConfigure">',
             '<h3>{%= $$._getNoDefaultGroupMessage() %}</h3>',
@@ -104,10 +106,12 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             if (this.groupsEnabled) {
                 this.groupsMode = true;
             }
+            this.inherited(arguments);
+        },
+        startup: function () {
             this.createGroupTemplates();
             this.inherited(arguments);
         },
-
         requestData: function() {
             try {
                 if (!this._groupInitalized && this.groupsMode) {
@@ -356,7 +360,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         createGroupTemplateLayouts: function(){
             this.groupTemplateLayouts = [{
                 name: 'Summary',
-                displayName: 'Summary',
+                displayName: this.groupTemplateSummaryText,
                 type: 'Dynamic',
                 options: {
                     columns: [{
@@ -366,7 +370,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 }
             }, {
                 name: 'Detail',
-                displayName: 'Detail',
+                displayName: this.groupTemplateDetailText,
                 type: 'Dynamic',
                 options: {
                     columns: [{
@@ -383,6 +387,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
 
                 }
             }];
+            return this.groupTemplateLayouts;
         },
         getSelectedGroupLayoutTemplate:function(){
             var layoutTemplate, name;
@@ -400,7 +405,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             return layoutTemplate;
         },
         createGroupTemplates: function(){
-            this._createCustomizedLayout(this.createGroupTemplateLayouts(), 'group-templates');
+            this.groupTemplateLayouts = this._createCustomizedLayout(this.createGroupTemplateLayouts(), 'group-templates');
         },
         getDynamicLayoutItemTemplate: function (layout, options) {
             var template,
@@ -539,10 +544,13 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 } else {
                     value = entry[fieldName];
                 }
-            } else {
+            } else if (layoutItem) {
                 fieldName = this.getFieldNameByLayout(layoutItem);
                 value = entry[fieldName];
+            } else {
+                value = null;
             }
+
             return value;
         },
         getFormatterByLayout: function(layoutItem) {
