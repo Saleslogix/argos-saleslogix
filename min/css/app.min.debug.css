@@ -35,7 +35,6 @@
 #login.login-active > .button {
   background-color: #13a3f7;
   color: #fff;
-  border: none;
 }
 #login .logo {
   margin: 0;
@@ -70,9 +69,8 @@
   width: 192px;
   margin: 0 auto 10px;
   display: block;
-  height: 30px;
-  line-height: 30px;
   cursor: pointer;
+  border: none;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -335,8 +333,8 @@ li[data-ticket-status] .list-item-selector,
   position: absolute;
   right: 5px;
   display: block;
-  width: 40px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
 }
 .row-edit[data-field-type="recurrences"] > div > input {
   padding: 8px 34px 8px 0px !important;
