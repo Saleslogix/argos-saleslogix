@@ -1043,15 +1043,16 @@ td.entry-table-description {
 .card-layout {
     .group-label {
         color: @form-label-color;
-        font-weight: normal;
+        font-weight: @form-label-font-weight;
     }
 
     .group-entry {
-        font-weight: bold;
+        color: @form-value-color;
+        font-weight: @form-value-font-weight;
     }
     .group-entry-header {
-        font-weight: bold;
-        font-size: 14px;
+        font-weight: normal;
+        font-size: 16px;
     }
     .group-currency {
         color: @color-emerald;
@@ -1122,14 +1123,18 @@ td.entry-table-description {
 
     .list-item-selector {
         visibility: hidden;
-        width: 61px;
-        height: 61px;
+        width: 48px;
+        height: 48px;
         position: absolute;
         top: 6px;
         z-index: 10;
         background: none;
         border: 0 none #000;
-        padding: 0 2px 0 0px;
+       // padding: 0 2px 0 0px;
+        padding: 5px 1px 1px 1px;
+        border-radius: 48px;
+        background-color: @gray1-light;
+        font-size: 14px;
     }
 
     .list-show-actions {
@@ -1220,17 +1225,21 @@ td.entry-table-description {
 
         > .list-item-selector {
             border-color: #AAAAAA;
-            background-color: #AAAAAA !important;
+            //background-color: #AAAAAA !important;
             background-image: none !important;
             border-bottom: 0px none #AAAAAA !important;
             bottom: -1px;
-            height: 62px !important;
+            //height: 62px !important;
+            height: 48px !important;
             .box-shadow(none) !important;
 
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             .box-sizing(border-box);
             margin: 0;
+            background-color: @color-azure;
+            color:#fff;
+
         }
     }
 
