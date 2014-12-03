@@ -405,7 +405,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             return layoutTemplate;
         },
         createGroupTemplates: function(){
-            this.groupTemplateLayouts =  this._createCustomizedLayout(this.createGroupTemplateLayouts(), 'group-templates');
+            this.groupTemplateLayouts = this._createCustomizedLayout(this.createGroupTemplateLayouts(), 'group-templates');
         },
         getDynamicLayoutItemTemplate: function (layout, options) {
             var template,
