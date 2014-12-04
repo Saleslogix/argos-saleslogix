@@ -287,15 +287,13 @@
   display: none;
 }
 .metric-title {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  white-space: normal;
 }
 .metric-title > .list-loading-indicator {
   padding: 0;
 }
 .metric-value {
-  font-weight: bold;
+  font-weight: normal;
   padding-top: 5px;
 }
 li[data-activity-type] .list-item-selector,
