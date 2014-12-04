@@ -25,6 +25,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     'dojo/_base/lang',
     'Sage/Platform/Mobile/Store/SData',
     'dojo/Deferred',
+    'Mobile/SalesLogix/Action',
 
 ], function(
     declare,
@@ -41,7 +42,8 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     when,
     lang,
     SDataStore,
-    Deferred
+    Deferred,
+    action
 ) {
     var mixinName = 'Mobile.SalesLogix.Views._GroupListMixin';
 
@@ -457,7 +459,13 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                             formatOptions = this.getGroupFieldFormatOptions(item);
                             formatClss = formatOptions.clss || '';
                             jsonString = json.stringify(formatOptions);
-                            template.push('<span class="group-entry ' + formatClss + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+                            if (item.format === 'Phone') {
+                                template.push('<span class="href" data-action="groupCallPhone" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+                            } else if (item.propertyPath === 'Email') {
+                                template.push('<span class="href" data-action="groupSendEmail" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+                            } else {
+                                template.push('<span class="group-entry ' + formatClss + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+                            }
                             template.push('</h3>');
                         }
                     }
@@ -481,6 +489,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             };
             lang.mixin(layoutOptions, options);
             return layoutOptions;
+         },
+         getGroupItemKey:function(groupEntry){
+             return groupEntry[this.idProperty];
          },
          getGroupFieldFormatOptions: function (layoutItem) {
              var options, formatter = this.getFormatterByLayout(layoutItem);
@@ -718,7 +729,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 });
             }
 
-        },
+        },       
         showActionPanel: function(rowNode) {
             if (this.groupsEnabled && this.groupsMode) {
                 this._groupShowActionPanel(rowNode);
@@ -841,6 +852,55 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 this.refreshRequired = true;
                 this.refresh();
             }
+        },
+        groupCallPhone: function (params) {
+            this._groupInvokeCall(params.key, params.propertyname);
+        },
+        groupSendEmail: function (params) {
+            this._groupInvokeEmail(params.key, params.propertyname);
+        },
+        _groupInvokeCall: function (groupItemKey, property) {
+            var resolvedEntry, fn, selection, self = this;
+            resolvedEntry = this._getResolvedEntry(groupItemKey);
+            if (!resolvedEntry) {
+                this._fetchResolvedEntry(groupItemKey).then(function (resolvedEntry) {
+                    var fn, selection = {
+                        data: resolvedEntry
+                    }
+
+                    fn = action.callPhone.bindDelegate(self, property)
+                    fn(null, selection, property);
+                });
+            } else {
+                selection = {
+                    data: resolvedEntry
+                }
+                fn = action.callPhone.bindDelegate(self, property)
+                fn(null, selection, property);
+
+            }
+
+        },
+        _groupInvokeEmail: function (groupItemKey, property) {
+            var resolvedEntry, fn, selection, self = this;
+            resolvedEntry = this._getResolvedEntry(groupItemKey);
+            if (!resolvedEntry) {
+                this._fetchResolvedEntry(groupItemKey).then(function (resolvedEntry) {
+                    var fn, selection = {
+                        data: resolvedEntry
+                    }
+                    fn = action.sendEmail.bindDelegate(self, property)
+                    fn(null, selection, property);
+                });
+            } else {
+                selection = {
+                    data: resolvedEntry
+                }
+                fn = action.sendEmail.bindDelegate(self, property)
+                fn(null, selection, property);
+
+            }
+
         },
     });
 });
