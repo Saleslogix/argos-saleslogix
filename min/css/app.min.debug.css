@@ -885,7 +885,7 @@ td.entry-table-description {
   overflow: hidden;
   display: inline-block;
   padding-right: 2px;
-  min-width: 200px;
+  min-width: 250px;
   vertical-align: top;
 }
 .card-layout .list-content {

@@ -460,9 +460,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                             formatClss = formatOptions.clss || '';
                             jsonString = json.stringify(formatOptions);
                             if (item.format === 'Phone') {
-                                template.push('<span class="href" data-action="groupCallPhone" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+                                template.push('<span class="href" data-action="groupInvokeListAction" data-name="callPhone" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
                             } else if (item.propertyPath === 'Email') {
-                                template.push('<span class="href" data-action="groupSendEmail" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
+                                template.push('<span class="href" data-action="groupInvokeListAction" data-name="sendEmail" data-key="{%:$$.getGroupItemKey($)%}" data-propertyname="' + item.propertyPath + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
                             } else {
                                 template.push('<span class="group-entry ' + formatClss + '">{%= $$.getGroupFieldValueByName($,"' + item.propertyPath + '", true,' + jsonString + ') %}</span>');
                             }
@@ -483,26 +483,26 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             template.push('</div>');
             return new Simplate(template);
         },
-         applyDynamicLayoutOptions:function(options){
+        applyDynamicLayoutOptions:function(options){
             var layoutOptions = {
                 columns: [{rows:3}]
             };
             lang.mixin(layoutOptions, options);
             return layoutOptions;
-         },
-         getGroupItemKey:function(groupEntry){
-             return groupEntry[this.idProperty];
-         },
-         getGroupFieldFormatOptions: function (layoutItem) {
-             var options, formatter = this.getFormatterByLayout(layoutItem);
-             options = {
-                 formatString: (formatter && formatter.formatString) ? formatter.formatString : null,
-             };
-             if ((formatter && formatter.options)) {
-                 lang.mixin(options, formatter.options);
-             }
-             return options;
-         },
+        },
+        getGroupItemKey:function(groupEntry){
+            return groupEntry[this.idProperty];
+        },
+        getGroupFieldFormatOptions: function (layoutItem) {
+            var options, formatter = this.getFormatterByLayout(layoutItem);
+            options = {
+                formatString: (formatter && formatter.formatString) ? formatter.formatString : null,
+            };
+            if ((formatter && formatter.options)) {
+                lang.mixin(options, formatter.options);
+            }
+            return options;
+        },
         getGroupFieldLabelByName: function (name) {
             var layoutItem, layout;
             layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
@@ -796,7 +796,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             return def.promise;
         },
         _clearResolvedEntryCache: function() {
-             this._resolvedEntryCache = {};
+            this._resolvedEntryCache = {};
         },
         _getResolvedEntry: function(entryKey) {
             if (!this._resolvedEntryCache) {
@@ -805,7 +805,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             return this._resolvedEntryCache[entryKey];
         },
         _addResolvedEntry:function(entry){
-           this._resolvedEntryCache[entry.$key] = entry;
+            this._resolvedEntryCache[entry.$key] = entry;
         },
         _groupCheckActionState: function(resolvedEntry) {
             var resolvedSelection, key;
@@ -853,52 +853,49 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 this.refresh();
             }
         },
-        groupCallPhone: function (params) {
-            this._groupInvokeCall(params.key, params.propertyname);
-        },
-        groupSendEmail: function (params) {
-            this._groupInvokeEmail(params.key, params.propertyname);
-        },
-        _groupInvokeCall: function (groupItemKey, property) {
-            var resolvedEntry, fn, selection, self = this;
-            resolvedEntry = this._getResolvedEntry(groupItemKey);
+        groupInvokeListAction: function(params){
+            var resolvedEntry, selection, propertyName, actionName, key, options;
+            key = params.key;
+            propertyName = params.propertyname;
+            actionName = params.name;
+            resolvedEntry = this._getResolvedEntry(key);
             if (!resolvedEntry) {
-                this._fetchResolvedEntry(groupItemKey).then(function (resolvedEntry) {
-                    var fn, selection = {
-                        data: resolvedEntry
+                this._fetchResolvedEntry(key).then(function (resolvedEntry) {
+                    options = {
+                        selection: {
+                            data: resolvedEntry
+                        },
+                        propertyName: propertyName
                     };
-                    fn = action.callPhone.bindDelegate(self, property);
-                    fn(null, selection, property);
-                });
+                    this.groupInvokeActionByName(actionName, options);
+                }.bind(this));
             } else {
-                selection = {
-                    data: resolvedEntry
+                options = {
+                    selection: {
+                        data: resolvedEntry
+                    },
+                    propertyName: propertyName
                 };
-                fn = action.callPhone.bindDelegate(self, property);
-                fn(null, selection, property);
+                this.groupInvokeActionByName(actionName, options);
             }
 
-        },
-        _groupInvokeEmail: function (groupItemKey, property) {
-            var resolvedEntry, fn, selection, self = this;
-            resolvedEntry = this._getResolvedEntry(groupItemKey);
-            if (!resolvedEntry) {
-                this._fetchResolvedEntry(groupItemKey).then(function (resolvedEntry) {
-                    var fn, selection = {
-                        data: resolvedEntry
-                    };
-                    fn = action.sendEmail.bindDelegate(self, property);
-                    fn(null, selection, property);
-                });
-            } else {
-                selection = {
-                    data: resolvedEntry
-                };
-                fn = action.sendEmail.bindDelegate(self, property);
-                fn(null, selection, property);
+       },
+        groupInvokeActionByName: function (actionName, options) {
+            if (!options) {
+                options = {};
+            }
+            switch (actionName) {
+                case 'callPhone':
+                    action.callPhone.call(this, null, options.selection, options.propertyName);
+                    break;
+                case 'sendEmail':
+                    action.sendEmail.call(this, null, options.selection, options.propertyName);
+                    break;
+                default:
+                    break;
             }
 
-        },
+        }
     });
 });
 
