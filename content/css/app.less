@@ -135,6 +135,7 @@
 
 .note-text-wrap {
     font-weight: normal;
+    font-size: 14px;
     line-height: 1.25em;
     margin-top: 0;
     font-style: italic;
@@ -1037,11 +1038,11 @@ td.entry-table-description {
 }
 
 .card-layout {
+
     .group-label {
         color: @form-label-color;
         font-weight: @form-label-font-weight;
     }
-
     .group-entry {
         color: @form-value-color;
         font-weight: @form-value-font-weight;
@@ -1057,9 +1058,10 @@ td.entry-table-description {
         overflow: hidden;
         display: inline-block;
         padding-right: 2px;
-        min-width: 180px;
-        vertical-align:top;
+        min-width: 250px;
+        vertical-align: top;
     }
+
     .list-content {
         margin: 0;
         padding: 0;
@@ -1069,7 +1071,7 @@ td.entry-table-description {
         }
 
         > li.actions-row {
-            background-color:@color-azure;
+            background-color: @color-azure;
         }
 
         > li {
@@ -1110,11 +1112,20 @@ td.entry-table-description {
         padding-left: 90px;
     }
 
-    .list-show-selectors .list-item-content,
-    .list-item-static-selector + .list-item-content,
-    .list-item-content,
-    .actions-enabled + .list-item-content {
-        padding-left: 70px;
+        .list-show-selectors .list-item-content,
+        .list-item-static-selector + .list-item-content,
+        .list-item-content,
+        .actions-enabled + .list-item-content {
+            padding-left: 70px;
+        }
+
+    .list-item-content {
+        > h4 {
+          font-weight:normal;
+        }
+        > h4 > span {
+          font-weight:normal;
+        }
     }
 
     .list-item-selector {
@@ -1126,7 +1137,7 @@ td.entry-table-description {
         z-index: 10;
         background: none;
         border: 0 none #000;
-       // padding: 0 2px 0 0px;
+        // padding: 0 2px 0 0px;
         padding: 5px 1px 1px 1px;
         border-radius: 48px;
         background-color: @gray1-light;
@@ -1139,23 +1150,14 @@ td.entry-table-description {
             width: 62px;
             height: 50px;
             left: 6px;
-
             line-height: 30px;
             padding: 0 2px 0 2px;
-
             color: #000;
             text-shadow: #fff 0px 1px 0px;
             border: 1px solid #ececec;
-
             background-color: #ffffff;
             background-image: linear-gradient(to bottom, #fcfcfc, #dfdfdf);
-            background-image: -webkit-gradient(
-                    linear,
-                    left top,
-                    left bottom,
-                    color-stop(0, #ffffff),
-                    color-stop(1, #ececec)
-            );
+            background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ececec) );
             background-image: -moz-linear-gradient(top, #ffffff, #ececec);
 
             > img {
@@ -1210,7 +1212,6 @@ td.entry-table-description {
             text-align: center;
             width: 64px;
             border-radius: 3px;
-            
         }
     }
 
@@ -1228,14 +1229,12 @@ td.entry-table-description {
             //height: 62px !important;
             height: 48px !important;
             .box-shadow(none) !important;
-
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             .box-sizing(border-box);
             margin: 0;
             background-color: @color-azure;
-            color:#fff;
-
+            color: #fff;
         }
     }
 

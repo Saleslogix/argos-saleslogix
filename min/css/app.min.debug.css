@@ -109,6 +109,7 @@
 }
 .note-text-wrap {
   font-weight: normal;
+  font-size: 14px;
   line-height: 1.25em;
   margin-top: 0;
   font-style: italic;
@@ -884,7 +885,7 @@ td.entry-table-description {
   overflow: hidden;
   display: inline-block;
   padding-right: 2px;
-  min-width: 180px;
+  min-width: 250px;
   vertical-align: top;
 }
 .card-layout .list-content {
@@ -934,6 +935,12 @@ td.entry-table-description {
 .card-layout .list-item-content,
 .card-layout .actions-enabled + .list-item-content {
   padding-left: 70px;
+}
+.card-layout .list-item-content > h4 {
+  font-weight: normal;
+}
+.card-layout .list-item-content > h4 > span {
+  font-weight: normal;
 }
 .card-layout .list-item-selector {
   visibility: hidden;
