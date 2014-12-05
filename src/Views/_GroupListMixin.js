@@ -866,18 +866,16 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 this._fetchResolvedEntry(groupItemKey).then(function (resolvedEntry) {
                     var fn, selection = {
                         data: resolvedEntry
-                    }
-
-                    fn = action.callPhone.bindDelegate(self, property)
+                    };
+                    fn = action.callPhone.bindDelegate(self, property);
                     fn(null, selection, property);
                 });
             } else {
                 selection = {
                     data: resolvedEntry
-                }
-                fn = action.callPhone.bindDelegate(self, property)
+                };
+                fn = action.callPhone.bindDelegate(self, property);
                 fn(null, selection, property);
-
             }
 
         },
@@ -888,17 +886,16 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 this._fetchResolvedEntry(groupItemKey).then(function (resolvedEntry) {
                     var fn, selection = {
                         data: resolvedEntry
-                    }
-                    fn = action.sendEmail.bindDelegate(self, property)
+                    };
+                    fn = action.sendEmail.bindDelegate(self, property);
                     fn(null, selection, property);
                 });
             } else {
                 selection = {
                     data: resolvedEntry
-                }
-                fn = action.sendEmail.bindDelegate(self, property)
+                };
+                fn = action.sendEmail.bindDelegate(self, property);
                 fn(null, selection, property);
-
             }
 
         },
