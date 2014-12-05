@@ -729,7 +729,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 });
             }
 
-        },       
+        },
         showActionPanel: function(rowNode) {
             if (this.groupsEnabled && this.groupsMode) {
                 this._groupShowActionPanel(rowNode);
