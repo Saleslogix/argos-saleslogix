@@ -41,12 +41,16 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         expose: false,
         chart: null,
         MAX_ITEMS: 5,
-        pieColor: '#13a3f7',
+        pieColor: '#0896e9',
+        stroke: '#ffffff',
         seriesColors: [
-            '#13a3f7',
-            '#61c5ff'
+            '#4fb521',
+            '#0896e9',
+            '#1c9a18',
+            '#0c7ad8',
+            '#157a13'
         ],
-        otherColor: '#005ce6',
+        otherColor: '#005bb8',
 
         formatter: function(val) {
             return val;
@@ -81,6 +85,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             this.chart = new Chart(this.contentNode);
             this.chart.addPlot('default', {
                 type: PlotType,
+                font: this.font,
+                fontColor: this.fontColor,
                 fontColor: 'black',
                 labelOffset: 50,
                 radius: box.w >= box.h /* check lanscape or portrait mode */ ?
@@ -88,7 +94,14 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
                     Math.floor(box.w / 2) - 10
             });
 
-            this.chart.addSeries('default', labels, {stroke :{color: this.pieColor}, fill: this.pieColor});
+            this.chart.addSeries('default', labels, {
+                stroke: {
+                    color: this.stroke
+                },
+                fill: this.pieColor,
+                font: this.font,
+                fontColor: this.fontColor
+            });
             this.chart.render();
             this.chart.resize(box.w, box.h);
         },
@@ -100,7 +113,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
                         y: item.value,
                         text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
                         value: index,
-                        color: this.seriesColors[index % 2]
+                        color: this.seriesColors[index] || this.pieColor
                     });
                 } else {
                     otherY = otherY + item.value;

@@ -25,6 +25,8 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
     return declare('Mobile.SalesLogix.Views.Charts._ChartMixin', null, {
         _handle: null,
         _feedData: null,
+        font: 'normal normal normal 16px Helvetica',
+        fontColor: '#1a1a1a',
 
         onTransitionTo: function() {
             this._handle = connect.subscribe('/app/setOrientation', this, function(value) {

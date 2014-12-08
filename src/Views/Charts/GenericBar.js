@@ -43,7 +43,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
         legend: null,
         MAX_ITEMS: 5,
         MIN_ITEMS: 1,
-        barColor: '#13a3f7',
+        barColor: '#0896e9',
+        otherColor: '#005bb8',
 
         formatter: function(val) {
             return val;
@@ -79,6 +80,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             this.chart = new Chart(this.contentNode);
             this.chart.addPlot('default', {
                 type: PlotType,
+                font: this.font,
+                fontColor: this.fontColor,
                 markers: false,
                 gap: 5,
                 majorLabels: true,
@@ -88,6 +91,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             });
 
             this.chart.addAxis('x', {
+                font: this.font,
+                fontColor: this.fontColor,
                 vertical: true,
                 title: '',
                 minorTicks: false,
@@ -105,7 +110,13 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
                 titleOrientation: 'away'
             });
 
-            this.chart.addSeries('default', labels, {stroke: { color: this.barColor}, fill: this.barColor});
+            this.chart.addSeries('default', labels, {
+                font: this.font,
+                fontColor: this.fontColor,
+                stroke: { color: this.barColor},
+                fill: this.barColor
+            });
+
             this.chart.render();
             this.chart.resize(box.w, box.h);
         },
@@ -117,7 +128,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
                     data.push({
                         y: item.value,
                         text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
-                        value: index
+                        value: index,
+                        color: this.barColor,
+                        stroke: this.barColor
                     });
                 } else {
                     otherY = otherY + item.value;
@@ -151,7 +164,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             data[index] = {
                 y: value,
                 text: otherText,
-                value: index
+                value: index,
+                color: this.otherColor,
+                stroke: this.otherColor
             };
         }
     });
