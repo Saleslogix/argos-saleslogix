@@ -204,7 +204,14 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             }
         },
         createIndicatorLayout: function() {
-            return this.itemIndicators || (this.itemIndicators = []);
+            return this.itemIndicators || (this.itemIndicators = [{
+                id: 'touched',
+                cls: 'fa fa-hand-o-up fa-lg',
+                onApply: function(entry, parent) {
+                    this.isEnabled = parent.hasBeenTouched(entry);
+                }
+            }]
+            );
         },
         hasBeenTouched: function(entry) {
             var modifiedDate, currentDate, weekAgo;
