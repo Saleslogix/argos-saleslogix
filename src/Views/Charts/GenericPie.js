@@ -87,7 +87,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
                 type: PlotType,
                 font: this.font,
                 fontColor: this.fontColor,
-                fontColor: 'black',
                 labelOffset: 50,
                 radius: box.w >= box.h /* check lanscape or portrait mode */ ?
                     Math.floor(box.h / 2) - 10 :
