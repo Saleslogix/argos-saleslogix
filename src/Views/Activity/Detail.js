@@ -211,6 +211,9 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
         },
         processOccurance: function(feed) {
             if (feed && feed.$resources && feed.$resources.length > 0) {
+                if (this.entry.Leader) {
+                    feed.$resources[0].Leader = this.entry.Leader;
+                }
                 this.entry = feed.$resources[0];
                 this.navigateToCompleteView(this.completeOccurrenceText);
             }
