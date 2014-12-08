@@ -44,13 +44,13 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         pieColor: '#0896e9',
         stroke: '#ffffff',
         seriesColors: [
-            '#4fb521',
-            '#0896e9',
             '#1c9a18',
-            '#0c7ad8',
-            '#157a13'
+            '#6ec90d',
+            '#bff485',
+            '#bce8fc',
+            '#47b2f0'
         ],
-        otherColor: '#005bb8',
+        otherColor: '#0c7ad8',
 
         formatter: function(val) {
             return val;
