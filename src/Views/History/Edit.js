@@ -463,166 +463,166 @@ define('Mobile/SalesLogix/Views/History/Edit', [
                 payload[this.valueTextProperty] = null;
             }
        },
-        createLayout: function() {
+        createLayout: function () {
             return this.layout || (this.layout = [{
-                    title: this.detailsText,
-                    name: 'DetailsSection',
-                    children: [{
-                            name: 'Type',
-                            property: 'Type',
-                            type: 'hidden'
-                        }, {
-                            name: 'UserId',
-                            property: 'UserId',
-                            type: 'hidden'
-                        }, {
-                            name: 'UserName',
-                            property: 'UserName',
-                            type: 'hidden'
-                        }, {
-                            label: this.startingText,
-                            name: 'StartDate',
-                            property: 'StartDate',
-                            type: 'date',
-                            showTimePicker: true,
-                            dateFormatText: this.startingFormatText,
-                            minValue: (new Date(1900, 0, 1)),
-                            validator: [
-                                validator.exists,
-                                validator.isDateInRange
-                            ]
-                        }, {
-                            dependsOn: 'Type',
-                            label: this.regardingText,
-                            name: 'Description',
-                            property: 'Description',
-                            picklist: 'Note Regarding',
-                            orderBy: 'text asc',
-                            title: this.noteDescriptionTitleText,
-                            type: 'picklist'
-                        }]
+                title: this.longNotesTitleText,
+                name: 'NotesSection',
+                children: [{
+                    name: 'Text',
+                    property: 'Text',
+                    label: this.longNotesText,
+                    cls: 'row-edit-text',
+                    type: 'textarea',
+                    autoFocus: true
+                }]
+            }, {
+                title: this.detailsText,
+                name: 'DetailsSection',
+                children: [{
+                    name: 'Type',
+                    property: 'Type',
+                    type: 'hidden'
                 }, {
-                    title: this.longNotesTitleText,
-                    name: 'NotesSection',
-                    children: [{
-                        name: 'Text',
-                        property: 'Text',
-                        label: this.longNotesText,
-                        cls: 'row-edit-text',
-                        type: 'textarea',
-                        autoFocus: true
-                    }]
+                    name: 'UserId',
+                    property: 'UserId',
+                    type: 'hidden'
                 }, {
-                    title: this.relatedItemsText,
-                    name: 'RelatedItemsSection',
-                    children: [{
-                            label: this.isLeadText,
-                            name: 'IsLead',
-                            include: false,
-                            type: 'boolean',
-                            onText: this.yesText,
-                            offText: this.noText
-                        }, {
-                            label: this.accountText,
-                            name: 'Account',
-                            property: 'Account',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo,
-                            valueKeyProperty: 'AccountId',
-                            valueTextProperty: 'AccountName',
-                            view: 'account_related',
-                            validator: {
-                                fn: (function(value, field) {
-                                    var insert = field.owner.options && field.owner.options.insert;
-                                    if ((insert) && (!value)) {
-                                        return true;
-                                    }
-                                    return false;
-                                }).bindDelegate(this),
-                                message: this.validationText 
+                    name: 'UserName',
+                    property: 'UserName',
+                    type: 'hidden'
+                }, {
+                    label: this.startingText,
+                    name: 'StartDate',
+                    property: 'StartDate',
+                    type: 'date',
+                    showTimePicker: true,
+                    dateFormatText: this.startingFormatText,
+                    minValue: (new Date(1900, 0, 1)),
+                    validator: [
+                        validator.exists,
+                        validator.isDateInRange
+                    ]
+                }, {
+                    dependsOn: 'Type',
+                    label: this.regardingText,
+                    name: 'Description',
+                    property: 'Description',
+                    picklist: 'Note Regarding',
+                    orderBy: 'text asc',
+                    title: this.noteDescriptionTitleText,
+                    type: 'picklist'
+                }]
+            }, {
+                title: this.relatedItemsText,
+                name: 'RelatedItemsSection',
+                children: [{
+                    label: this.isLeadText,
+                    name: 'IsLead',
+                    include: false,
+                    type: 'boolean',
+                    onText: this.yesText,
+                    offText: this.noText
+                }, {
+                    label: this.accountText,
+                    name: 'Account',
+                    property: 'Account',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'AccountId',
+                    valueTextProperty: 'AccountName',
+                    view: 'account_related',
+                    validator: {
+                        fn: (function (value, field) {
+                            var insert = field.owner.options && field.owner.options.insert;
+                            if ((insert) && (!value)) {
+                                return true;
                             }
-                        }, {
-                            dependsOn: 'Account',
-                            label: this.contactText,
-                            name: 'Contact',
-                            property: 'Contact',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo, 
-                            valueKeyProperty: 'ContactId',
-                            valueTextProperty: 'ContactName',
-                            view: 'contact_related',
-                            where: this.formatDependentQuery.bindDelegate(
-                                this, 'Account.Id eq "${0}"', 'AccountId'
-                            )
-                        }, {
-                            dependsOn: 'Account',
-                            label: this.opportunityText,
-                            name: 'Opportunity',
-                            property: 'Opportunity',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo, 
-                            valueKeyProperty: 'OpportunityId',
-                            valueTextProperty: 'OpportunityName',
-                            view: 'opportunity_related',
-                            where: this.formatDependentQuery.bindDelegate(
-                                this, 'Account.Id eq "${0}"', 'AccountId'
-                            )
-                        }, {
-                            dependsOn: 'Account',
-                            label: this.ticketNumberText,
-                            name: 'Ticket',
-                            property: 'Ticket',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo, 
-                            valueKeyProperty: 'TicketId',
-                            valueTextProperty: 'TicketNumber',
-                            view: 'ticket_related',
-                            where: this.formatDependentQuery.bindDelegate(
-                                this, 'Account.Id eq "${0}"', 'AccountId'
-                            )
-                        }, {
-                            label: this.leadText,
-                            name: 'Lead',
-                            property: 'Lead',
-                            type: 'lookup',
-                            requireSelection: false,
-                            emptyText: '',
-                            applyTo: this._lookupApplyTo, 
-                            valueKeyProperty: 'LeadId',
-                            valueTextProperty: 'LeadName',
-                            view: 'lead_related',
-                            validator: validator.exists
-                        }, {
-                            label: this.companyText,
-                            name: 'AccountName',
-                            property: 'AccountName',
-                            type: 'text'
-                        }, {
-                            label: 'UserId',
-                            name: 'UserId',
-                            property: 'UserId',
-                            type: 'hidden',
-                            validator: {
-                                fn: (function(value, field) {
-                                    var canEdit;
-                                    canEdit = field.owner.currentUserCanEdit();
-                                    if (!canEdit) {
-                                        return true;
-                                    }
-                                    return false;
-                                }).bindDelegate(this),
-                                message: this.validationCanEditText
+                            return false;
+                        }).bindDelegate(this),
+                        message: this.validationText
+                    }
+                }, {
+                    dependsOn: 'Account',
+                    label: this.contactText,
+                    name: 'Contact',
+                    property: 'Contact',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'ContactId',
+                    valueTextProperty: 'ContactName',
+                    view: 'contact_related',
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
+                    )
+                }, {
+                    dependsOn: 'Account',
+                    label: this.opportunityText,
+                    name: 'Opportunity',
+                    property: 'Opportunity',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'OpportunityId',
+                    valueTextProperty: 'OpportunityName',
+                    view: 'opportunity_related',
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
+                    )
+                }, {
+                    dependsOn: 'Account',
+                    label: this.ticketNumberText,
+                    name: 'Ticket',
+                    property: 'Ticket',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'TicketId',
+                    valueTextProperty: 'TicketNumber',
+                    view: 'ticket_related',
+                    where: this.formatDependentQuery.bindDelegate(
+                        this, 'Account.Id eq "${0}"', 'AccountId'
+                    )
+                }, {
+                    label: this.leadText,
+                    name: 'Lead',
+                    property: 'Lead',
+                    type: 'lookup',
+                    requireSelection: false,
+                    emptyText: '',
+                    applyTo: this._lookupApplyTo,
+                    valueKeyProperty: 'LeadId',
+                    valueTextProperty: 'LeadName',
+                    view: 'lead_related',
+                    validator: validator.exists
+                }, {
+                    label: this.companyText,
+                    name: 'AccountName',
+                    property: 'AccountName',
+                    type: 'text'
+                }, {
+                    label: 'UserId',
+                    name: 'UserId',
+                    property: 'UserId',
+                    type: 'hidden',
+                    validator: {
+                        fn: (function (value, field) {
+                            var canEdit;
+                            canEdit = field.owner.currentUserCanEdit();
+                            if (!canEdit) {
+                                return true;
                             }
-                        }]
-                }]);
+                            return false;
+                        }).bindDelegate(this),
+                        message: this.validationCanEditText
+                    }
+                }]
+            }]);
         }
     });
 });
