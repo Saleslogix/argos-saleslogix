@@ -69,7 +69,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         createChart: function (feedData) {
             this.inherited(arguments);
 
-            var labels, box, searchExpressionHeight;
+            var labels, box, searchExpressionHeight, radius, landscape;
 
             if (this.chart) {
                 this.chart.destroy(true);
@@ -82,15 +82,21 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             box = domGeo.getMarginBox(this.domNode);
             box.h = box.h - searchExpressionHeight;
 
+            landscape = box.w >= box.h ? true : false;
+
+            if (landscape) {
+                radius = Math.floor(box.h / 2) - 5;
+            } else {
+                radius = Math.floor(box.w / 2) - 50;
+            }
+
             this.chart = new Chart(this.contentNode);
             this.chart.addPlot('default', {
                 type: PlotType,
                 font: this.font,
                 fontColor: this.fontColor,
-                labelOffset: 50,
-                radius: box.w >= box.h /* check lanscape or portrait mode */ ?
-                    Math.floor(box.h / 2) - 10 :
-                    Math.floor(box.w / 2) - 10
+                labelOffset: radius / 8,
+                radius: radius
             });
 
             this.chart.addSeries('default', labels, {
