@@ -181,7 +181,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         createIndicatorLayout: function() {
             return this.itemIndicators || (this.itemIndicators = [{
                 id: 'touched',
-                cls: 'fa fa-hand-o-up',
+                cls: 'fa fa-hand-o-up fa-lg',
                 label: 'Touched',
                 onApply: function(entry, parent) {
                     this.isEnabled = parent.hasBeenTouched(entry);
