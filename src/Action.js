@@ -48,6 +48,9 @@ define('Mobile/SalesLogix/Action', [
         },
         callPhone: function(action, selection, phoneProperty) {
             var value;
+            if (!selection || !selection.data) {
+                return;
+            }
             this.setSource({
                 entry: selection.data,
                 descriptor: selection.data['$descriptor'],
@@ -65,6 +68,9 @@ define('Mobile/SalesLogix/Action', [
         },
         sendEmail: function(action, selection, emailProperty) {
             var value;
+            if (!selection || !selection.data) {
+                return;
+            }
             lang.mixin(selection.data, {
                 'Type': 'atEmail',
                 'Description': string.substitute(Mobile.SalesLogix.Action.emailedText, [selection.data['$descriptor']])
