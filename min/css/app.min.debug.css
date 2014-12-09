@@ -1010,9 +1010,15 @@ td.entry-table-description {
   padding: 0 !important;
   position: relative;
   text-align: center;
-  width: 98px;
+  width: 68px;
   border-radius: 5px;
   color: #fff;
+}
+.card-layout .actions-row > button > span {
+  font-size: 25px;
+}
+.card-layout .actions-row > button > label {
+  font-size: 10px;
 }
 .card-layout .list-action-selected + .actions-row {
   display: block !important;
