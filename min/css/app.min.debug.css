@@ -913,8 +913,10 @@ td.entry-table-description {
 .card-layout .list-content > li * > img.icon {
   border: none 0 black;
   margin: 0 .5em 0 0;
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
+  left: 8px;
+  top: 6px;
   float: left;
 }
 .card-layout .list-content > li > input.list-selector {
