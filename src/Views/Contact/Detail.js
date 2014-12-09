@@ -202,7 +202,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                             property: 'Mobile',
                             label: this.callMobileNumberText,
                             action: 'callMobilePhone',
-                            iconClass: 'fa fa-mobile fa-2x',
+                            iconClass: 'fa fa-mobile fa-lg',
                             disabled: this.checkValueExists,
                             renderer: format.phone.bindDelegate(this, false)
                         }, {
