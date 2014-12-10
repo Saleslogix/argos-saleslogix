@@ -207,9 +207,10 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         name: 'Status',
                         property: 'Status'
                     }, {
-                        label: this.probabilityText,
-                        name: 'CloseProbability',
-                        property: 'CloseProbability'
+                        label: this.estCloseText,
+                        name: 'EstimatedClose',
+                        property: 'EstimatedClose',
+                        renderer: format.date.bindDelegate(this, null, true)
                     }, {
                         label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
                         name: 'SalesPotential',
@@ -264,10 +265,9 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         property: 'Reseller.AccountName',
                         view: 'account_detail'
                     }, {
-                        label: this.estCloseText,
-                        name: 'EstimatedClose',
-                        property: 'EstimatedClose',
-                        renderer: format.date.bindDelegate(this, null, true)
+                        label: this.probabilityText,
+                        name: 'CloseProbability',
+                        property: 'CloseProbability'
                     }, {
                         label: this.acctMgrText,
                         name: 'AccountManager.UserInfo',
