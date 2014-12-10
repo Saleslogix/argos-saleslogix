@@ -348,6 +348,7 @@ li[data-ticket-status] .list-item-selector,
 .row-edit[data-field-type="address"] > div > div {
   padding: 8px 44px 8px 8px;
   border: 1px solid #b3b3b3;
+  min-height: 44px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
