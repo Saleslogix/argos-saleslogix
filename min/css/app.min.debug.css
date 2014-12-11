@@ -941,7 +941,9 @@ td.entry-table-description {
   padding: 8px 0px 8px 10px;
   position: relative;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   margin: 3px;
 }
 .card-layout .list-content > li > img.icon,
@@ -981,16 +983,16 @@ td.entry-table-description {
 }
 .card-layout .list-item-selector {
   visibility: hidden;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px !important;
+  /* todo: remove !important in the SDK */
   position: absolute;
   top: 6px;
   z-index: 10;
-  background: none;
   border: 0 none #000;
   padding: 5px 1px 1px 1px;
   border-radius: 48px;
-  background-color: #bbbec0;
+  background: #bbbec0 none;
   font-size: 14px;
 }
 .card-layout .list-show-actions .list-item-selector {
@@ -1062,11 +1064,12 @@ td.entry-table-description {
   display: block !important;
 }
 .card-layout .list-action-selected > .list-item-selector {
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-color: #AAAAAA;
   background-image: none !important;
   border-bottom: 0px none #AAAAAA !important;
-  bottom: -1px;
-  height: 48px !important;
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
