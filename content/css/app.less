@@ -312,11 +312,6 @@
 
     width: 45px;
     height: 36px;
-    /*
-    position:absolute;
-    top:3px;
-    right:3px;
-    */
     z-index: 500;
 }
 
@@ -1166,15 +1161,19 @@ td.entry-table-description {
     .list-item-selector {
         visibility: hidden;
         width: 44px;
-        height: 44px !important; /* todo: remove !important in the SDK */
+        /* todo: remove !important in the SDK */
+        height: 44px !important;
         position: absolute;
         top: 6px;
         z-index: 10;
         border: 0 none #000;
-        padding: 5px 1px 1px 1px;
         border-radius: 48px;
         background: @gray1-light none;
-        font-size: 14px;
+        font-size: 10px;
+
+        > span {
+            line-height: 44px;
+        }
     }
 
     .list-show-actions {
@@ -1262,17 +1261,19 @@ td.entry-table-description {
         }
 
         > .list-item-selector {
-            .border-radius(3px);
+
             border-color: #AAAAAA;
             background-image: none !important;
-            border-bottom: 0px none #AAAAAA !important;
-            .box-shadow(none) !important;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
-            .box-sizing(border-box);
+
             margin: 0;
             background-color: @color-azure;
             color: #fff;
+            text-shadow: none;
+            .border-radius(22px);
+            .box-sizing(border-box);
+            .box-shadow(none) !important;
         }
     }
 

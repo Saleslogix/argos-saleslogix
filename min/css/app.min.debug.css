@@ -247,11 +247,6 @@
 #errorlog_detail > div.copyButton {
   width: 45px;
   height: 36px;
-  /*
-    position:absolute;
-    top:3px;
-    right:3px;
-    */
   z-index: 500;
 }
 .metric-widget,
@@ -985,16 +980,18 @@ td.entry-table-description {
 .card-layout .list-item-selector {
   visibility: hidden;
   width: 44px;
-  height: 44px !important;
   /* todo: remove !important in the SDK */
+  height: 44px !important;
   position: absolute;
   top: 6px;
   z-index: 10;
   border: 0 none #000;
-  padding: 5px 1px 1px 1px;
   border-radius: 48px;
   background: #bbbec0 none;
-  font-size: 14px;
+  font-size: 10px;
+}
+.card-layout .list-item-selector > span {
+  line-height: 44px;
 }
 .card-layout .list-show-actions .list-item-selector {
   visibility: visible !important;
@@ -1065,21 +1062,21 @@ td.entry-table-description {
   display: block !important;
 }
 .card-layout .list-action-selected > .list-item-selector {
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
   border-color: #AAAAAA;
   background-image: none !important;
-  border-bottom: 0px none #AAAAAA !important;
-  box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   margin: 0;
   background-color: #13a3f7;
   color: #fff;
+  text-shadow: none;
+  border-radius: 22px;
+  -webkit-border-radius: 22px;
+  -moz-border-radius: 22px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
 }
 .card-layout .list-item-tab {
   font-weight: normal;
