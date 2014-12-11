@@ -41,6 +41,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         expose: false,
         chart: null,
         MAX_ITEMS: 5,
+        MIN_HEIGHT: 300,
         pieColor: '#0896e9',
         stroke: '#ffffff',
         seriesColors: [
@@ -83,6 +84,11 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             box.h = box.h - searchExpressionHeight;
 
             landscape = box.w >= box.h ? true : false;
+
+            if (landscape && box.h < this.MIN_HEIGHT) {
+                box.h = this.MIN_HEIGHT;
+                domGeo.setMarginBox(this.domNode, {h: this.MIN_HEIGHT}, box);
+            }
 
             if (landscape) {
                 radius = Math.floor(box.h / 2) - 5;

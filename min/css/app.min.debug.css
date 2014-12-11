@@ -265,12 +265,35 @@
   width: 100%;
   background-color: #005ce6;
   color: #fff;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
 }
 .metric-widget {
-  width: 32.7%;
+  width: 100px;
+  margin: 0 2px;
+  /*
+    These styles are optimized for 3 KPI widgets on the top.
+    The total margin for 3 widgets will be 12px.
+    The ideal width for each widget will be slightly less than: (minWidth - 12px) / 3
+    */
+}
+@media (min-width: 480px) {
+  .metric-widget {
+    width: 155px;
+  }
+}
+@media (min-width: 768px) {
+  .metric-widget {
+    width: 250px;
+  }
+}
+@media (min-width: 1024px) {
+  .metric-widget {
+    width: 335px;
+  }
+}
+@media (min-width: 1280px) {
+  .metric-widget {
+    width: 420px;
+  }
 }
 .metric-list {
   width: 100%;
@@ -289,6 +312,10 @@
 }
 .metric-title {
   white-space: normal;
+}
+.metric-wrapper {
+  display: table;
+  margin: auto;
 }
 .metric-title > .list-loading-indicator {
   padding: 0;
@@ -317,6 +344,14 @@ li[data-ticket-status] .list-item-selector,
 .row-edit[data-field-type="date"] > div > .button span {
   visibility: hidden;
   display: none;
+}
+.row-edit[data-field-type="address"] > div > div {
+  padding: 8px 44px 8px 8px;
+  border: 1px solid #b3b3b3;
+  min-height: 44px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .row-edit[data-field-type="name"] > div > .button span,
 .row-edit[data-field-type="address"] > div > .button span,
