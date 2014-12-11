@@ -1196,9 +1196,6 @@ td.entry-table-description {
   margin: 2px 0 0 2px;
   font-weight: bold;
 }
-.chart-list {
-  overflow: auto;
-}
 .user-icon {
   position: relative;
   border: 1px solid #4b5656;
