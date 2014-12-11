@@ -84,6 +84,16 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
 
             landscape = box.w >= box.h ? true : false;
 
+            if (landscape && box.h < 300) {
+                box.h = 300;
+                domGeo.setMarginBox(this.domNode, {h: 300}, box);
+            }
+
+            if (!landscape && box.w < 500) {
+                box.w = 500;
+                domGeo.setMarginBox(this.domNode, { w: 500 }, box);
+            }
+
             if (landscape) {
                 radius = Math.floor(box.h / 2) - 5;
             } else {
