@@ -55,7 +55,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
         },
 
         widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list chart-list {%= $.cls %}">',
                 '<div class="chart-hash" data-dojo-attach-point="searchExpressionNode"></div>',
                 '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
                 '<div class="chart-legend" data-dojo-attach-point="legendNode"></div>',
