@@ -265,6 +265,7 @@
   width: 100%;
   background-color: #005ce6;
   color: #fff;
+  vertical-align: top;
 }
 .metric-widget {
   width: 100px;
