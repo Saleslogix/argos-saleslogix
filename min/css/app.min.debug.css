@@ -1234,3 +1234,6 @@ td.entry-table-description {
 #left_drawer .search-widget > .table-layout > div {
   padding: 5px;
 }
+.card-layout .list-item-selector.visible {
+  visibility: visible;
+}
