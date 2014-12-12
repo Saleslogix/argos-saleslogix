@@ -4644,6 +4644,14 @@
     <description/>
     <value>The current group was not found.</value>
   </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateSummaryText" type="text">
+    <description/>
+    <value>Summary</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateDetailText" type="text">
+    <description/>
+    <value>Detail</value>
+  </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupsModeText" type="text">
     <description/>
     <value>You are currently in groups mode. Perform a search or click a hashtag to exit groups mode.</value>
