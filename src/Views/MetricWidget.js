@@ -105,7 +105,8 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         chartType: null,
         chartTypeMapping: {
             'pie': 'chart_generic_pie',
-            'bar': 'chart_generic_bar'
+            'bar': 'chart_generic_bar',
+            'line': 'chart_generic_line'
         },
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD

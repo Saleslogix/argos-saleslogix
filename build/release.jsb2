@@ -321,6 +321,10 @@
           "path": "../src/Views/Charts"
         },
         {
+          "text": "GenericLine.js",
+          "path": "../src/Views/Charts"
+        },
+        {
           "text": "GenericPie.js",
           "path": "../src/Views/Charts"
         },

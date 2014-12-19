@@ -18,7 +18,8 @@ define('Mobile/SalesLogix/DefaultMetrics', [
         },
         opportunitiesText: {
             total: 'Total Opportunities',
-            potential: 'Sales Potential'
+            potential: 'Sales Potential',
+            montlyPotential: 'Estimated Sales Potential'
         },
         ticketsText: {
             total: 'Total Tickets',
@@ -111,7 +112,21 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                     aggregate: "sum",
                     formatter: "bigNumber",
                     enabled: false
-                }]
+                }, {
+                    title: this.opportunitiesText.montlyPotential,
+                    queryName: "executeMetric",
+                    queryArgs: {
+                        _filterName: "EstimatedClose",
+                        _metricName: "SumSalesPotential"
+                    },
+                    metricDisplayName: "Sum Sales Potential",
+                    filterDisplayName: "Estimated Close",
+                    chartType: "line",
+                    aggregate: "sum",
+                    formatter: "bigNumber",
+                    enabled: false
+                }
+                ]
             }, {
                 resourceKind: 'tickets',
                 children: [{

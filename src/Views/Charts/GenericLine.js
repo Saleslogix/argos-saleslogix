@@ -1,9 +1,5 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
- */
-
 /**
- * @class Mobile.SalesLogix.Views.Charts.GenericBar
+ * @class Mobile.SalesLogix.Views.Charts.GenericLine
  *
  * @extends Sage.Platform.Mobile.View
  * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
@@ -11,7 +7,7 @@
  * @requires Sage.Platform.Mobile.View
  *
  */
-define('Mobile/SalesLogix/Views/Charts/GenericBar', [
+define('Mobile/SalesLogix/Views/Charts/GenericLine', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
@@ -34,16 +30,13 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     View,
     _ChartMixin
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericBar', [View, _ChartMixin], {
-        id: 'chart_generic_bar',
+    return declare('Mobile.SalesLogix.Views.Charts.GenericLine', [View, _ChartMixin], {
+        id: 'chart_generic_line',
         titleText: '',
         expose: false,
         chart: null,
-        barColor: '#0896e9',
-
-        formatter: function(val) {
-            return val;
-        },
+        lineColor: '#0896e9',
+        pointColor: '#0896e9',
 
         attributeMap: {
             chartContent: {node: 'contentNode', type: 'innerHTML'}
@@ -77,7 +70,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
                 datasets: [
                     {
                         label: 'Default',
-                        fillColor: this.barColor,
+                        strokeColor: this.lineColor,
+                        pointColor: this.pointColor,
                         data: seriesData
                     }
                 ]
@@ -92,8 +86,13 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
 
             ctx = this.contentNode.getContext('2d');
 
-            this.chart = new window.Chart(ctx).Bar(data, {
-                barShowStroke: false
+            this.chart = new window.Chart(ctx).Line(data, {
+                scaleShowGridLines: false,
+                bezierCurve: true,
+                bezierCurveTension: 0.4,
+                pointDot: true,
+                pointDotRadius: 4,
+                datasetFill: false
             });
         }
     });

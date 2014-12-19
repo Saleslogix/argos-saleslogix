@@ -30,6 +30,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     return declare('Mobile.SalesLogix.Views.Charts.GenericPie', [View, _ChartMixin], {
         id: 'chart_generic_pie',
         titleText: '',
+        expose: false,
         chart: null,
         seriesColors: [
             '#1c9a18',
@@ -84,8 +85,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
 
             ctx = this.contentNode.getContext('2d');
 
-            this.chart = new window.Chart(ctx).Doughnut(data, {
-                segmentShowStroke: true,
+            this.chart = new window.Chart(ctx).Pie(data, {
+                segmentShowStroke: false,
                 segmentStrokeColor: '#EBEBEB',
                 segmentStrokeWidth: 5,
                 animateScale: false
