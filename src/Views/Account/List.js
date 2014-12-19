@@ -67,6 +67,17 @@ define('Mobile/SalesLogix/Views/Account/List', [
                 '</h4>',
             '{% } %}'
         ]),
+        enableDynamicGroupLayout: true,
+        groupLayoutItemTemplate: new Simplate([
+         '<div style="float:left; ">',
+         '<h3><span class="group-label">{%= $$.getGroupFieldLabelByName($,"AccountName") %} </span><span class="group-entry"><strong>{%= $$.getGroupFieldValueByName($,"AccountName") %}</strong></span></h2>',
+         '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"MainPhone") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "MainPhone") %}</span></h4>',
+         '</div><div style="float:left;">',
+         '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Status") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Status") %}</span></h4>',
+         '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Type") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Type") %}</span></h4>',
+         '</div>',
+        ]),
+
 
         joinFields: function(sep, fields) {
             return utility.joinFields(sep, fields);

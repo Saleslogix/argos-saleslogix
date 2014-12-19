@@ -115,7 +115,7 @@ define('Mobile/SalesLogix/Views/History/List', [
 
         //View Properties
         detailView: 'history_detail',
-        iconClass: 'fa fa-archive fa-lg',
+        itemIconClass: 'fa fa-archive fa-2x',
         id: 'history_list',
         security: null, //'Entities/History/View',
         existsRE: /^[\w]{12}$/,
@@ -154,14 +154,14 @@ define('Mobile/SalesLogix/Views/History/List', [
             'email': 'Type eq "atEMail"'
         },
         activityIndicatorIconByType: {
-            'atToDo': 'fa fa-list-ul fa-lg',
-            'atPhoneCall': 'fa fa-phone fa-lg',
-            'atAppointment': 'fa fa-calendar-o fa-lg',
-            'atLiterature': 'fa fa-book fa-lg',
-            'atPersonal': 'fa fa-check-square-o fa-lg',
-            'atQuestion': 'fa fa-question-circle fa-lg',
-            'atNote': 'fa fa-file-text-o fa-lg',
-            'atEMail': 'fa fa-envelope fa-lg'
+            'atToDo': 'fa fa-list-ul fa-2x',
+            'atPhoneCall': 'fa fa-phone fa-2x',
+            'atAppointment': 'fa fa-calendar-o fa-2x',
+            'atLiterature': 'fa fa-book fa-2x',
+            'atPersonal': 'fa fa-check-square-o fa-2x',
+            'atQuestion': 'fa fa-question-circle fa-2x',
+            'atNote': 'fa fa-file-text-o fa-2x',
+            'atEMail': 'fa fa-envelope fa-2x'
         },
         allowSelection: true,
         enableActions: true,
@@ -271,8 +271,8 @@ define('Mobile/SalesLogix/Views/History/List', [
         },
         _getItemIconClass: function(type) {
             var cls = this.activityIndicatorIconByType[type];
-            if (cls) {
-                cls = cls + ' fa-2x';
+            if (!cls) {
+                cls = this.itemIconClass;
             }
 
             return cls;

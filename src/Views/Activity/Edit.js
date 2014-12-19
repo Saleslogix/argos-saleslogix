@@ -568,11 +568,26 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         resetRecurrence: function(o) {
             this.recurrence.StartDate = this.fields['StartDate'].getValue();
 
-            this.recurrence.Recurring = o.Recurring;
-            this.recurrence.RecurrenceState = o.RecurrenceState;
-            this.recurrence.RecurPeriod = o.RecurPeriod;
-            this.recurrence.RecurPeriodSpec = o.RecurPeriodSpec;
-            this.recurrence.RecurIterations = o.RecurIterations;
+            if (typeof o.Recurring !== 'undefined' && o.Recurring !== null) {
+                this.recurrence.Recurring = o.Recurring;
+            }
+
+            if (typeof o.RecurrenceState !== 'undefined' && o.RecurrenceState !== null) {
+                this.recurrence.RecurrenceState = o.RecurrenceState;
+            }
+
+            if (typeof o.RecurPeriod !== 'undefined' && o.RecurPeriod !== null) {
+                this.recurrence.RecurPeriod = o.RecurPeriod;
+            }
+
+            if (typeof o.RecurPeriodSpec !== 'undefined' && o.RecurPeriodSpec !== null) {
+                this.recurrence.RecurPeriodSpec = o.RecurPeriodSpec;
+            }
+
+            if (typeof o.RecurIterations !== 'undefined' && o.RecurIterations !== null) {
+                this.recurrence.RecurIterations = o.RecurIterations;
+            }
+
             this.recurrence.EndDate = recur.calcEndDate(this.recurrence.StartDate, this.recurrence);
 
             this.fields['RecurrenceUI'].setValue(recur.getPanel(this.recurrence.RecurPeriod));

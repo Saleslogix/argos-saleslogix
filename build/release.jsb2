@@ -197,6 +197,10 @@
           "path": "../src"
         },
         {
+          "text": "_CardLayoutListMixin.js",
+          "path": "../src/Views"
+        },
+        {
           "text": "AddAccountContact.js",
           "path": "../src/Views"
         },
@@ -254,10 +258,6 @@
         },
         {
           "text": "NameEdit.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "_CardLayoutListMixin.js",
           "path": "../src/Views"
         },
         {

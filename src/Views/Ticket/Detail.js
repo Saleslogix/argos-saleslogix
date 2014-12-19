@@ -179,6 +179,24 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                             view: 'contact_detail',
                             key: 'Contact.$key'
                         }, {
+                            label: this.assignedToText,
+                            name: 'AssignedTo.OwnerDescription',
+                            property: 'AssignedTo.OwnerDescription'
+                        }, {
+                            label: this.urgencyText,
+                            name: 'Urgency.Description',
+                            property: 'Urgency.Description'
+                        }, {
+                            label: this.needByText,
+                            name: 'NeededByDate',
+                            property: 'NeededByDate',
+                            renderer: format.date
+                        }]
+                }, {
+                    title: this.moreDetailsText,
+                    name: 'MoreDetailsSection',
+                    collapsed: true,
+                    children: [{
                             label: this.areaText,
                             name: 'Area',
                             property: 'Area'
@@ -206,28 +224,10 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                             property: 'StatusCode',
                             onCreate: this.requestCodeData.bindDelegate(this, 'name eq "Ticket Status"')
                         }, {
-                            label: this.urgencyText,
-                            name: 'Urgency.Description',
-                            property: 'Urgency.Description'
-                        }, {
-                            label: this.needByText,
-                            name: 'NeededByDate',
-                            property: 'NeededByDate',
-                            renderer: format.date
-                        }, {
-                            label: this.assignedToText,
-                            name: 'AssignedTo.OwnerDescription',
-                            property: 'AssignedTo.OwnerDescription'
-                        }, {
                             label: this.completedByText,
                             name: 'CompletedBy.OwnerDescription',
                             property: 'CompletedBy.OwnerDescription'
-                        }]
-                }, {
-                    title: this.moreDetailsText,
-                    name: 'MoreDetailsSection',
-                    collapsed: true,
-                    children: [{
+                        }, {
                             label: this.contractText,
                             name: 'Contract.ReferenceNumber',
                             property: 'Contract.ReferenceNumber'

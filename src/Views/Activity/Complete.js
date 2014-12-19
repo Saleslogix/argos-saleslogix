@@ -339,7 +339,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
                     'LongNotes': (this.fields['CarryOverNotes'].getValue() && entry['LongNotes']) || '',
                     'OpportunityId': entry.OpportunityId,
                     'OpportunityName': entry.OpportunityName,
-                    'StartDate': Date.now(),
+                    'StartDate': moment().toDate(),
                     'TicketId': entry.TicketId,
                     'TicketNumber': entry.TicketNumber
                 };

@@ -203,28 +203,14 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                         property: 'Account.AccountName',
                         view: 'account_detail'
                     }, {
-                        label: this.resellerText,
-                        key: 'Reseller.$key',
-                        name: 'Reseller.AccountName',
-                        property: 'Reseller.AccountName',
-                        view: 'account_detail'
+                        label: this.statusText,
+                        name: 'Status',
+                        property: 'Status'
                     }, {
                         label: this.estCloseText,
                         name: 'EstimatedClose',
                         property: 'EstimatedClose',
                         renderer: format.date.bindDelegate(this, null, true)
-                    }, {
-                        label: this.statusText,
-                        name: 'Status',
-                        property: 'Status'
-                    }, {
-                        label: this.typeText,
-                        name: 'Type',
-                        property: 'Type'
-                    }, {
-                        label: this.probabilityText,
-                        name: 'CloseProbability',
-                        property: 'CloseProbability'
                     }, {
                         label: App.hasMultiCurrency() ? this.potentialBaseText : this.potentialText,
                         name: 'SalesPotential',
@@ -269,6 +255,20 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                 name: 'MoreDetailsSection',
                 collapsed: true,
                 children: [{
+                        label: this.typeText,
+                        name: 'Type',
+                        property: 'Type'
+                    }, {
+                        label: this.resellerText,
+                        key: 'Reseller.$key',
+                        name: 'Reseller.AccountName',
+                        property: 'Reseller.AccountName',
+                        view: 'account_detail'
+                    }, {
+                        label: this.probabilityText,
+                        name: 'CloseProbability',
+                        property: 'CloseProbability'
+                    }, {
                         label: this.acctMgrText,
                         name: 'AccountManager.UserInfo',
                         property: 'AccountManager.UserInfo',

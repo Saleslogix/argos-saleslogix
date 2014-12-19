@@ -35,8 +35,8 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
         //Localization
         titleText: 'Contact',
         nameText: 'name',
-        workText: 'phone',
-        mobileText: 'mobile',
+        workText: 'work phone',
+        mobileText: 'mobile phone',
         emailText: 'email',
         webText: 'web',
         acctMgrText: 'acct mgr',

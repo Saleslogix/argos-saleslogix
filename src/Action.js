@@ -47,6 +47,10 @@ define('Mobile/SalesLogix/Action', [
             this.navigateToHistoryInsert(entry, complete);
         },
         callPhone: function(action, selection, phoneProperty) {
+            var value;
+            if (!selection || !selection.data) {
+                return;
+            }
             this.setSource({
                 entry: selection.data,
                 descriptor: selection.data['$descriptor'],
@@ -57,19 +61,23 @@ define('Mobile/SalesLogix/Action', [
                 'Type': 'atPhoneCall',
                 'Description': string.substitute(Mobile.SalesLogix.Action.calledText, [selection.data['$descriptor']])
             });
-
+            value = utility.getValue(selection.data, phoneProperty, '');
             Mobile.SalesLogix.Action.recordToHistory(function() {
-                App.initiateCall(selection.data[phoneProperty]);
+                App.initiateCall(value);
             }.bindDelegate(this), selection.data);
         },
         sendEmail: function(action, selection, emailProperty) {
+            var value;
+            if (!selection || !selection.data) {
+                return;
+            }
             lang.mixin(selection.data, {
                 'Type': 'atEmail',
                 'Description': string.substitute(Mobile.SalesLogix.Action.emailedText, [selection.data['$descriptor']])
             });
-
+            value = utility.getValue(selection.data, emailProperty, '');
             Mobile.SalesLogix.Action.recordToHistory(function() {
-                App.initiateEmail(selection.data[emailProperty]);
+                App.initiateEmail(value);
             }.bindDelegate(this), selection.data);
         },
 

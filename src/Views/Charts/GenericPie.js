@@ -154,12 +154,16 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         expose: false,
         chart: null,
         MAX_ITEMS: 5,
-        pieColor: '#13a3f7',
+        pieColor: '#0896e9',
+        stroke: '#ffffff',
         seriesColors: [
-            '#13a3f7',
-            '#61c5ff'
+            '#1c9a18',
+            '#6ec90d',
+            '#bff485',
+            '#bce8fc',
+            '#47b2f0'
         ],
-        otherColor: '#005ce6',
+        otherColor: '#0c7ad8',
 
         formatter: function(val) {
             return val;
@@ -206,58 +210,5 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
                 animateScale: true
             });
         }
-        /*createChart: function (feedData) {
-            this.inherited(arguments);
-
-            var labels, box, searchExpressionHeight;
-
-            if (this.chart) {
-                this.chart.destroy(true);
-            }
-
-            this.showSearchExpression();
-            searchExpressionHeight = this.getSearchExpressionHeight();
-
-            labels = this._labels(feedData);
-            box = domGeo.getMarginBox(this.domNode);
-            box.h = box.h - searchExpressionHeight;
-
-            this.chart = new Chart(this.contentNode);
-            this.chart.addPlot('default', {
-                type: PlotType,
-                fontColor: 'black',
-                labelOffset: 50,
-                radius: box.w >= box.h *//* check lanscape or portrait mode *//* ?
-                    Math.floor(box.h / 2) - 10 :
-                    Math.floor(box.w / 2) - 10
-            });
-
-            this.chart.addSeries('default', labels, {stroke :{color: this.pieColor}, fill: this.pieColor});
-            this.chart.render();
-            this.chart.resize(box.w, box.h);
-        },
-        _labels: function(feedData) {
-            var data = [], otherY = 0, otherText;
-            array.forEach(feedData, function(item, index) {
-                if (index < this.MAX_ITEMS) {
-                    data.push({
-                        y: item.value,
-                        text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
-                        value: index,
-                        color: this.seriesColors[index % 2]
-                    });
-                } else {
-                    otherY = otherY + item.value;
-                    otherText = this.otherText + ' (' + this.formatter(otherY) + ')';
-                    data[this.MAX_ITEMS] = {
-                        y: otherY,
-                        text: otherText,
-                        color: this.otherColor
-                    };
-                }
-            }, this);
-
-            return data;
-        }*/
     });
 });
