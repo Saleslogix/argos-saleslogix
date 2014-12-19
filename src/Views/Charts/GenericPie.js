@@ -180,13 +180,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             '</div>'
         ]),
         createChart: function(rawData) {
+            this.inherited(arguments);
+
             var ctx, box, searchExpressionHeight;
-
-            ctx = this.contentNode.getContext('2d');
-
-            if (this.chart) {
-                this.chart.destroy();
-            }
 
             this.showSearchExpression();
             searchExpressionHeight = this.getSearchExpressionHeight();
@@ -203,6 +199,15 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
 
                 };
             }.bind(this));
+
+            if (this.chart) {
+                this.chart.destroy();
+            }
+
+            this.contentNode.width = box.w;
+            this.contentNode.height = box.h;
+
+            ctx = this.contentNode.getContext('2d');
 
             this.chart = new window.Chart(ctx).Pie(data, {
                 segmentShowStroke: false,
