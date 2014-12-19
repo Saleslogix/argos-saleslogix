@@ -96,7 +96,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         tooltipFillColor: "rgba(0,0,0,0.8)",
 
         // String - Tooltip label font declaration for the scale label
-        tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+        tooltipFontFamily: "'Helvetica', 'Arial', Sans-serif",
 
         // Number - Tooltip label font size in pixels
         tooltipFontSize: 14,
@@ -161,9 +161,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             '#6ec90d',
             '#bff485',
             '#bce8fc',
-            '#47b2f0'
+            '#47b2f0',
+            '#0c7ad8'
         ],
-        otherColor: '#0c7ad8',
 
         formatter: function(val) {
             return val;
@@ -196,8 +196,8 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
 
             var data = array.map(rawData, function(item, idx) {
                 return {
-                    value: item.value,
-                    color: this.seriesColors[idx % 2],
+                    value: Math.round(item.value),
+                    color: this._getItemColor(idx),
                     highlight: '',
                     label: item.name
 
@@ -205,10 +205,22 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             }.bind(this));
 
             this.chart = new window.Chart(ctx).Pie(data, {
-                segmentShowStroke: true,
-                segmentStrokeColor: this.pieColor,
+                segmentShowStroke: false,
                 animateScale: true
             });
+        },
+        _getItemColor: function(index) {
+            var len, n;
+            len = this.seriesColors.length;
+            n = Math.floor(index / len);
+
+            // if n is 0, the index will fall within the seriesColor array,
+            // otherwise we will need to re-scale the index to fall within that array.
+            if (n > 0) {
+                index = index - (len * n);
+            }
+
+            return this.seriesColors[index];
         }
     });
 });
