@@ -119,7 +119,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Résultat",
   "resultTitleText": "Résultat",
   "startingText": "Date de début",
-  "timelessText": "Heure indéfinie",
+  "timelessText": "Heure-indéfinie",
   "durationValueText": {
     "0": "Aucun",
     "15": "15 minutes",
@@ -164,7 +164,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "rolloverText": "report automatique",
   "startTimeText": "Heure de début",
   "allDayText": "toute la journée",
-  "timelessText": "Heure indéfinie",
+  "timelessText": "Heure-indéfinie",
   "titleText": "Activité",
   "typeText": "Type",
   "companyText": "Société",
@@ -180,7 +180,8 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "relatedAttachmentText": "Pièces jointes",
   "relatedAttachmentTitleText": "Pièces jointes de l'activité",
   "relatedItemsText": "Eléments associés",
-  "phoneText": "Téléphone"
+  "phoneText": "Téléphone",
+  "moreDetailsText": "Plus de détails"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
@@ -191,7 +192,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "locationText": "Emplacement",
   "activityTypeTitleText": "Type d'activité",
   "alarmText": "Alarme",
-  "reminderText": "",
+  "reminderText": "Rappel",
   "categoryText": "Catégorie",
   "durationText": "Durée",
   "durationTitleText": "Durée",
@@ -557,11 +558,6 @@ localize("Sage.Platform.Mobile.ErrorManager", {
   "scopeSaveText": "La portée n'est pas enregistrée dans le rapport d'erreur."
 });
 
-localize("Sage.Platform.Mobile.Fields.BooleanField", {
-  "onText": "sur",
-  "offText": "Désactivé"
-});
-
 localize("Sage.Platform.Mobile.Fields.DurationField", {
   "emptyText": "",
   "invalidDurationErrorText": "La durée du champ \"${0}\" n'est pas valide.",
@@ -915,7 +911,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "hashTagQueriesText": {
     "alarm": "Alarme",
     "recurring": "Périodicité",
-    "timeless": "Heure_indéfinie",
+    "timeless": "Heure-indéfinie",
     "today": "Aujourd'hui",
     "this-week": "cette-semaine",
     "yesterday": "Hier"
@@ -939,7 +935,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
     "status-accepted": "statut-accepté",
     "status-declined": "statut-refusé",
     "recurring": "Périodicité",
-    "timeless": "Heure_indéfinie",
+    "timeless": "Heure-indéfinie",
     "today": "Aujourd'hui",
     "this-week": "cette-semaine",
     "yesterday": "Hier"
@@ -1119,10 +1115,10 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
   "relatedAttachmentTitleText": "Pièces jointes des contacts",
   "titleText": "Contact",
   "webText": "Web",
-  "workText": "Téléphone",
+  "workText": "Téléphone professionnel",
   "cuisinePreferenceText": "Cuisine",
   "callMobileNumberText": "Appeler le portable",
-  "callWorkNumberText": "Appeler le numéro principal",
+  "callWorkNumberText": "Appeler bureau",
   "calledText": "Appelé",
   "scheduleActivityText": "Planifier l'activité",
   "addNoteText": "Ajouter une note",
@@ -1134,8 +1130,8 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
 localize("Mobile.SalesLogix.Views.Contact.Edit", {
   "titleText": "Contact",
   "nameText": "Nom",
-  "workText": "Téléphone",
-  "mobileText": "Mobile",
+  "workText": "Téléphone professionnel",
+  "mobileText": "téléphone portable",
   "emailText": "E-mail",
   "webText": "Web",
   "acctMgrText": "resp cpte",
@@ -1319,9 +1315,9 @@ localize("Mobile.SalesLogix.Views.Login", {
   "copyrightText": "Copyright &copy; 2014 Infor. Tous droits réservés. www.infor.com",
   "logOnText": "Connexion",
   "passText": "Mot de passe",
-  "rememberText": "se rappeler",
+  "rememberText": "Mémoriser",
   "titleText": "Connexion",
-  "userText": "Nom d'utilisateur",
+  "userText": "ID d'utilisateur",
   "invalidUserText": "Le nom d'utilisateur ou mot de passe n'est pas valide. ",
   "missingUserText": "La fiche utilisateur est introuvable. ",
   "serverProblemText": "Un problème est survenu sur le serveur.",
@@ -1648,8 +1644,10 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 });
 
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
-  "noDefaultGroupText": "Aucun groupe par défaut défini. Ouvrez le menu de droite et appuyez sur  Configurer dans la section des groupes afin de définir des groupes.",
+  "noDefaultGroupText": "Aucun groupe par défaut défini. Cliquez ici pour configurer des groupes.",
   "currentGroupNotFoundText": "Le groupe actuel n'a pas été trouvé.",
+  "groupTemplateSummaryText": "Résumé",
+  "groupTemplateDetailText": "Détail",
   "groupsModeText": "Vous êtes actuellement en mode Groupes. Effectuez une recherche ou cliquez sur un mot clé pour sortir du mode Groupes."
 });
 

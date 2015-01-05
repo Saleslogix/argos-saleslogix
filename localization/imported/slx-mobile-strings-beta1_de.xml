@@ -67,14 +67,6 @@
     <description/>
     <value>Umfang wird nicht in Fehlerbericht gespeichert.</value>
   </data>
-  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="onText" type="text">
-    <description/>
-    <value>An</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="offText" type="text">
-    <description/>
-    <value>Aus</value>
-  </data>
   <data class="Sage.Platform.Mobile.Fields.DateField" property="emptyText" type="text">
     <description/>
     <value/>
@@ -721,7 +713,7 @@
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[5]" type="text">
     <description/>
-    <value>Letzte</value>
+    <value>Nachname</value>
   </data>
   <data class="Mobile.SalesLogix.SpeedSearchWidget" property="searchText" type="text">
     <description/>
@@ -1145,7 +1137,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="timelessText" type="text">
     <description/>
-    <value>Ohne Zeitangabe</value>
+    <value>Ohne_Zeitangabe</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[0]" type="text">
     <description/>
@@ -1343,6 +1335,10 @@
     <description/>
     <value>Telefon</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>Weitere Informationen</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="activityCategoryTitleText" type="text">
     <description/>
     <value>Tätigkeitskategorie</value>
@@ -1365,7 +1361,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderText" type="text">
     <description/>
-    <value/>
+    <value>Erinnerung</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="categoryText" type="text">
     <description/>
@@ -1437,7 +1433,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="timelessText" type="text">
     <description/>
-    <value>Ohne Zeitangabe</value>
+    <value>Ohne_Zeitangabe</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="titleText" type="text">
     <description/>
@@ -1577,7 +1573,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="recurringText" type="text">
     <description/>
-    <value>Sich wiederholende Aktivität</value>
+    <value>Sich_wiederholende_Aktivität</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="activityTypeText[atToDo]" type="text">
     <description/>
@@ -1625,7 +1621,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>Ohne_Zeitangabe</value>
+    <value>Ohne-Zeitangabe</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="hashTagQueriesText[today]" type="text">
     <description/>
@@ -1701,7 +1697,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[timeless]" type="text">
     <description/>
-    <value>Ohne_Zeitangabe</value>
+    <value>Ohne-Zeitangabe</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.MyList" property="hashTagQueriesText[today]" type="text">
     <description/>
@@ -1969,7 +1965,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="lastNameText" type="text">
     <description/>
-    <value>Nachname</value>
+    <value>Letzte</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="mobileText" type="text">
     <description/>
@@ -2421,7 +2417,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="workText" type="text">
     <description/>
-    <value>Telefon</value>
+    <value>Geschäftliche Telefonnummer</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="cuisinePreferenceText" type="text">
     <description/>
@@ -2433,7 +2429,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="callWorkNumberText" type="text">
     <description/>
-    <value>Hauptnr. anrufen</value>
+    <value>Geschäftsnr. anrufen</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="calledText" type="text">
     <description/>
@@ -2469,11 +2465,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="workText" type="text">
     <description/>
-    <value>Telefon</value>
+    <value>Geschäftliche Telefonnummer</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="mobileText" type="text">
     <description/>
-    <value>Mobil</value>
+    <value>Mobiltelefon</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="emailText" type="text">
     <description/>
@@ -3425,7 +3421,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="rememberText" type="text">
     <description/>
-    <value>speichern</value>
+    <value>Speichern</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="titleText" type="text">
     <description/>
@@ -3433,7 +3429,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="userText" type="text">
     <description/>
-    <value>Benutzername</value>
+    <value>Benutzer-ID</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="invalidUserText" type="text">
     <description/>
@@ -4641,11 +4637,19 @@
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
     <description/>
-    <value>Keine Standardgruppe eingestellt. Öffnen Sie das Menü rechts und wählen Sie unter dem Gruppenbereich "Konfigurieren", um die Gruppen einzurichten.</value>
+    <value>Keine Standardgruppe eingerichtet. Klicken Sie hier, um Gruppen zu konfigurieren.</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
     <description/>
     <value>Die aktuelle Gruppe wurde nicht gefunden.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateSummaryText" type="text">
+    <description/>
+    <value>Zusammenfassung</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateDetailText" type="text">
+    <description/>
+    <value>Detail</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupsModeText" type="text">
     <description/>

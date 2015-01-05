@@ -67,14 +67,6 @@
     <description/>
     <value>Область не сохраняется в отчете об ошибках</value>
   </data>
-  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="onText" type="text">
-    <description/>
-    <value>Вкл.</value>
-  </data>
-  <data class="Sage.Platform.Mobile.Fields.BooleanField" property="offText" type="text">
-    <description/>
-    <value>Выкл.</value>
-  </data>
   <data class="Sage.Platform.Mobile.Fields.DateField" property="emptyText" type="text">
     <description/>
     <value/>
@@ -721,7 +713,7 @@
   </data>
   <data class="Mobile.SalesLogix.Recurrence" property="ordText[5]" type="text">
     <description/>
-    <value>Последний</value>
+    <value>Фамилия</value>
   </data>
   <data class="Mobile.SalesLogix.SpeedSearchWidget" property="searchText" type="text">
     <description/>
@@ -1145,7 +1137,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="timelessText" type="text">
     <description/>
-    <value>В течение дня</value>
+    <value>В_течение_дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[0]" type="text">
     <description/>
@@ -1233,11 +1225,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="alarmText" type="text">
     <description/>
-    <value>С оповещением</value>
+    <value>С_оповещением</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="alarmTimeText" type="text">
     <description/>
-    <value>С оповещением</value>
+    <value>С_оповещением</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="categoryText" type="text">
     <description/>
@@ -1277,7 +1269,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="timelessText" type="text">
     <description/>
-    <value>В течение дня</value>
+    <value>В_течение_дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Detail" property="titleText" type="text">
     <description/>
@@ -1343,6 +1335,10 @@
     <description/>
     <value>Телефон</value>
   </data>
+  <data class="Mobile.SalesLogix.Views.Activity.Detail" property="moreDetailsText" type="text">
+    <description/>
+    <value>Подробнее</value>
+  </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="activityCategoryTitleText" type="text">
     <description/>
     <value>Категория действия</value>
@@ -1361,11 +1357,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="alarmText" type="text">
     <description/>
-    <value>С оповещением</value>
+    <value>С_оповещением</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="reminderText" type="text">
     <description/>
-    <value/>
+    <value>Напоминание</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="categoryText" type="text">
     <description/>
@@ -1437,7 +1433,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="timelessText" type="text">
     <description/>
-    <value>В течение дня</value>
+    <value>В_течение_дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="titleText" type="text">
     <description/>
@@ -1565,7 +1561,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="alarmText" type="text">
     <description/>
-    <value>С оповещением</value>
+    <value>С_оповещением</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.List" property="touchedText" type="text">
     <description/>
@@ -1969,7 +1965,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="lastNameText" type="text">
     <description/>
-    <value>Фамилия</value>
+    <value>Последний</value>
   </data>
   <data class="Mobile.SalesLogix.Views.AddAccountContact" property="mobileText" type="text">
     <description/>
@@ -2421,7 +2417,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="workText" type="text">
     <description/>
-    <value>Телефон</value>
+    <value>Рабочий телефон</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="cuisinePreferenceText" type="text">
     <description/>
@@ -2433,7 +2429,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="callWorkNumberText" type="text">
     <description/>
-    <value>Вызов по основному номеру</value>
+    <value>Вызов по рабочему номеру</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Detail" property="calledText" type="text">
     <description/>
@@ -2469,11 +2465,11 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="workText" type="text">
     <description/>
-    <value>Телефон</value>
+    <value>Рабочий телефон</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="mobileText" type="text">
     <description/>
-    <value>Мобильный тел.</value>
+    <value>Мобильный телефон</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Contact.Edit" property="emailText" type="text">
     <description/>
@@ -2789,7 +2785,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="timelessText" type="text">
     <description/>
-    <value>В течение дня</value>
+    <value>В_течение_дня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.History.Detail" property="companyText" type="text">
     <description/>
@@ -3425,7 +3421,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="rememberText" type="text">
     <description/>
-    <value>Запомнить</value>
+    <value>Запомнить меня</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="titleText" type="text">
     <description/>
@@ -3433,7 +3429,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="userText" type="text">
     <description/>
-    <value>Имя Пользователя</value>
+    <value>ИД пользователя</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="invalidUserText" type="text">
     <description/>
@@ -3445,7 +3441,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="serverProblemText" type="text">
     <description/>
-    <value>Возникла ошибка сервера.</value>
+    <value>Сбой на сервере.</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Login" property="requestAbortedText" type="text">
     <description/>
@@ -4641,11 +4637,19 @@
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="noDefaultGroupText" type="text">
     <description/>
-    <value>Группа по умолчанию не установлена. Откройте меню справа и нажмите кнопку "Настроить" в разделе "Группы" для настройки групп.</value>
+    <value>Не задана группа по умолчанию. Щелкните здесь, чтобы настроить группы. </value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="currentGroupNotFoundText" type="text">
     <description/>
     <value>Текущая группа не найдена.</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateSummaryText" type="text">
+    <description/>
+    <value>Сводно</value>
+  </data>
+  <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateDetailText" type="text">
+    <description/>
+    <value>Детали</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupsModeText" type="text">
     <description/>
