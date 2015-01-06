@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/DefaultMetrics', [
         opportunitiesText: {
             total: 'Total Opportunities',
             potential: 'Sales Potential',
-            montlyPotential: 'Estimated Sales Potential'
+            montlyPotential: 'Average Monthly Sales Potential'
         },
         ticketsText: {
             total: 'Total Tickets',
@@ -122,7 +122,7 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                     metricDisplayName: "Sum Sales Potential",
                     filterDisplayName: "Estimated Close",
                     chartType: "line",
-                    aggregate: "sum",
+                    aggregate: "avg",
                     formatter: "bigNumber",
                     enabled: false
                 }

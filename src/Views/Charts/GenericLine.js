@@ -37,6 +37,10 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
         chart: null,
         lineColor: '#0896e9',
         pointColor: '#0896e9',
+        fillColor: 'rgba(8,150,233, 0.2)',
+
+        overlayColor: 'rgba(179, 179, 179, 1)',
+        overlayFillColor: 'rgba(179, 179, 179, 0.2)',
 
         attributeMap: {
             chartContent: {node: 'contentNode', type: 'innerHTML'}
@@ -51,7 +55,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
         createChart: function (rawData) {
             this.inherited(arguments);
 
-            var ctx, box, searchExpressionHeight, data, labels, seriesData;
+            var ctx, box, searchExpressionHeight, data, labels, seriesData, overlayData;
 
             this.showSearchExpression();
             searchExpressionHeight = this.getSearchExpressionHeight();
@@ -65,13 +69,25 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
                 return Math.round(item.value);
             }.bind(this));
 
+            overlayData = array.map(rawData, function() {
+                return Math.round(this.parent.value);
+            }.bind(this));
+
             data = {
                 labels: labels,
                 datasets: [
                     {
+                        label: 'Aggregate',
+                        strokeColor: this.overlayColor,
+                        pointColor: this.overlayColor,
+                        fillColor: this.overlayFillColor,
+                        data: overlayData
+                    },
+                    {
                         label: 'Default',
                         strokeColor: this.lineColor,
                         pointColor: this.pointColor,
+                        fillColor: this.fillColor,
                         data: seriesData
                     }
                 ]
@@ -92,7 +108,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
                 bezierCurveTension: 0.4,
                 pointDot: true,
                 pointDotRadius: 4,
-                datasetFill: false
+                datasetFill: true
             });
         }
     });

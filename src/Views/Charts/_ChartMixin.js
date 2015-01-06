@@ -147,6 +147,12 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
     return declare('Mobile.SalesLogix.Views.Charts._ChartMixin', null, {
         _handle: null,
         _feedData: null,
+
+        /**
+         * @property parent Object Reference to the metric widget that opened this view.
+        */
+        parent: null,
+
         font: 'normal normal normal 16px Helvetica',
         fontColor: '#1a1a1a',
         MIN_HEIGHT: 300,
