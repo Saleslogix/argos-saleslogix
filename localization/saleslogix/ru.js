@@ -1312,7 +1312,7 @@ localize("Mobile.SalesLogix.Views.LogOff", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "&copy; Infor, 2014 г. Все права защищены. www.infor.com",
+  "copyrightText": "&copy; Infor, 2015 г. Все права защищены. www.infor.com",
   "logOnText": "Вход",
   "passText": "Пароль",
   "rememberText": "Запомнить меня",
