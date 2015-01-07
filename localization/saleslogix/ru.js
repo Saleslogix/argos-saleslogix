@@ -83,7 +83,7 @@ localize("Mobile.SalesLogix.Recurrence", {
     "2": "втор.",
     "3": "трет.",
     "4": "четверт.",
-    "5": "Последний"
+    "5": "Фамилия"
   }
 });
 
@@ -119,7 +119,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Результат",
   "resultTitleText": "Результат",
   "startingText": "Дата начала",
-  "timelessText": "В течение дня",
+  "timelessText": "В_течение_дня",
   "durationValueText": {
     "0": "Нет",
     "15": "15 минут",
@@ -153,7 +153,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "completeOccurrenceText": "Выполнить повторение",
   "completeSeriesText": "Выполнить серию",
   "locationText": "Размещение",
-  "alarmText": "С оповещением",
+  "alarmText": "С_оповещением",
   "alarmTimeText": "С оповещением",
   "categoryText": "Категория",
   "durationText": "Длительность",
@@ -164,7 +164,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "rolloverText": "Автопродление",
   "startTimeText": "Время начала",
   "allDayText": "Дата начала",
-  "timelessText": "В течение дня",
+  "timelessText": "В_течение_дня",
   "titleText": "Дело",
   "typeText": "Тип",
   "companyText": "Компания",
@@ -180,7 +180,8 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "relatedAttachmentText": "Вложения",
   "relatedAttachmentTitleText": "Вложения действия",
   "relatedItemsText": "Связанные элементы",
-  "phoneText": "Телефон"
+  "phoneText": "Телефон",
+  "moreDetailsText": "Подробнее"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
@@ -191,7 +192,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "locationText": "Размещение",
   "activityTypeTitleText": "Тип дела",
   "alarmText": "С оповещением",
-  "reminderText": "",
+  "reminderText": "Напоминание",
   "categoryText": "Категория",
   "durationText": "Длительность",
   "durationTitleText": "Длительность",
@@ -394,7 +395,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   "regardingText": "Тема",
   "completedByText": "Завершено",
   "scheduledText": "Запланировано",
-  "timelessText": "В течение дня",
+  "timelessText": "В_течение_дня",
   "companyText": "Компания",
   "leadText": "Наводка",
   "titleText": "История",
@@ -555,11 +556,6 @@ localize("Mobile.SalesLogix.Views.TicketActivity.List", {
 localize("Sage.Platform.Mobile.ErrorManager", {
   "abortedText": "Прервано",
   "scopeSaveText": "Область не сохраняется в отчете об ошибках"
-});
-
-localize("Sage.Platform.Mobile.Fields.BooleanField", {
-  "onText": "Вкл.",
-  "offText": "Выкл."
 });
 
 localize("Sage.Platform.Mobile.Fields.DurationField", {
@@ -897,7 +893,7 @@ localize("Mobile.SalesLogix.Views.Activity.List", {
   "calledText": "Выз.",
   "addAttachmentActionText": "Добавить Вложение",
   "overdueText": "Просроченные",
-  "alarmText": "С оповещением",
+  "alarmText": "С_оповещением",
   "touchedText": "затронуто",
   "importantText": "важно",
   "recurringText": "Повторяющиеся",
@@ -1024,7 +1020,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "homePhoneText": "Домашний тел.",
   "industryText": "Отрасль",
   "ownerText": "Доступ",
-  "lastNameText": "Фамилия",
+  "lastNameText": "Последний",
   "mobileText": "Мобильный тел.",
   "nameText": "Имя",
   "statusText": "Статус",
@@ -1119,10 +1115,10 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
   "relatedAttachmentTitleText": "Вложения контакта",
   "titleText": "Контакт",
   "webText": "Веб-адрес",
-  "workText": "Телефон",
+  "workText": "Рабочий телефон",
   "cuisinePreferenceText": "Предпочтения в кухне",
   "callMobileNumberText": "Вызов на мобильный",
-  "callWorkNumberText": "Вызов по основному номеру",
+  "callWorkNumberText": "Вызов по рабочему номеру",
   "calledText": "Выз.",
   "scheduleActivityText": "Планировать дело",
   "addNoteText": "Добавить заметку",
@@ -1134,8 +1130,8 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
 localize("Mobile.SalesLogix.Views.Contact.Edit", {
   "titleText": "Контакт",
   "nameText": "Имя",
-  "workText": "Телефон",
-  "mobileText": "Мобильный тел.",
+  "workText": "Рабочий телефон",
+  "mobileText": "Мобильный клиент",
   "emailText": "Эл.почта",
   "webText": "Веб-адрес",
   "acctMgrText": "Менеджер",
@@ -1232,7 +1228,7 @@ localize("Mobile.SalesLogix.Views.Lead.Detail", {
   "sicCodeText": "Код доступа",
   "titleText": "Наводка",
   "tollFreeText": "Справочный тел.",
-  "mobileText": "Мобильный клиент",
+  "mobileText": "Мобильный телефон",
   "webText": "Веб-адрес",
   "workText": "Рабочий телефон",
   "actionsText": "Быстрые действия",
@@ -1316,15 +1312,15 @@ localize("Mobile.SalesLogix.Views.LogOff", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "&copy; Infor, 2014 г. Все права защищены. www.infor.com",
+  "copyrightText": "&copy; Infor, 2015 г. Все права защищены. www.infor.com",
   "logOnText": "Вход",
   "passText": "Пароль",
-  "rememberText": "Запомнить",
+  "rememberText": "Запомнить меня",
   "titleText": "Вход",
-  "userText": "Имя Пользователя",
+  "userText": "ИД пользователя",
   "invalidUserText": "Неверное имя пользователя или пароль.",
   "missingUserText": "Запись пользователя не найдена.",
-  "serverProblemText": "Возникла ошибка сервера.",
+  "serverProblemText": "Сбой на сервере.",
   "requestAbortedText": "Запрос не выполнен.",
   "logoText": "Infor CRM"
 });
@@ -1648,8 +1644,10 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 });
 
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
-  "noDefaultGroupText": "Группа по умолчанию не установлена. Откройте меню справа и нажмите кнопку \"Настроить\" в разделе \"Группы\" для настройки групп.",
+  "noDefaultGroupText": "Не задана группа по умолчанию. Щелкните здесь, чтобы настроить группы. ",
   "currentGroupNotFoundText": "Текущая группа не найдена.",
+  "groupTemplateSummaryText": "Сводно",
+  "groupTemplateDetailText": "Детали",
   "groupsModeText": "В настоящий момент вы находитесь в режиме групп. Выполните поиск или выберите хэштег для выхода из режима групп."
 });
 
