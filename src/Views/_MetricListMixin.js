@@ -41,6 +41,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
             this.widgetTemplate =  new Simplate([
                 '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',
                     '<div data-dojo-attach-point="searchNode"></div>',
+                    '<div class="pull-to-refresh">{%= $.pullRefreshText %}</div>',
                     '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
                         '<div class="metric-list">',
                             '<div data-dojo-attach-point="metricNode" class="metric-wrapper"></div>',
