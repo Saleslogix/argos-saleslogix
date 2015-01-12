@@ -46,6 +46,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
         kpiSectionText: 'KPI',
         configureGroupsText: 'Configure',
         refreshGroupsText: 'Refresh',
+        layoutsText: 'Layouts',
 
         _hasChangedKPIPrefs: false,// Dirty flag so we know when to reload the widgets
         groupList: null,
@@ -250,7 +251,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             if ((entry.action === 'layoutSelectedClicked') && this.groupsEnabled) {
                 return {
                     tag: 'layoutTemplates',
-                    title: 'Layouts'
+                    title:  mixin.prototype.layoutsText
                 };
             }
             return {
