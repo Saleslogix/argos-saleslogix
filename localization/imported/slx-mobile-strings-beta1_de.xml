@@ -4675,6 +4675,10 @@
     <description/>
     <value>Aktualisieren</value>
   </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="layoutsText" type="text">
+    <description/>
+    <value>Layouts</value>
+  </data>
   <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
     <description/>
     <value>Indexe</value>

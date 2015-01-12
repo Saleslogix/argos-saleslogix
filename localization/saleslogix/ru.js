@@ -1656,7 +1656,8 @@ localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
   "groupsSectionText": "Группы",
   "kpiSectionText": "KPI",
   "configureGroupsText": "Конфигурировать",
-  "refreshGroupsText": "Обновить"
+  "refreshGroupsText": "Обновить",
+  "layoutsText": "Макеты"
 });
 
 localize("Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin", {

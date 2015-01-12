@@ -4675,6 +4675,10 @@
     <description/>
     <value>Обновить</value>
   </data>
+  <data class="Mobile.SalesLogix.Views._RightDrawerListMixin" property="layoutsText" type="text">
+    <description/>
+    <value>Макеты</value>
+  </data>
   <data class="Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin" property="indexSectionText" type="text">
     <description/>
     <value>Индексы</value>
