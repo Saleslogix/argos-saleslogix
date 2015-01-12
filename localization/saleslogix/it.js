@@ -1312,7 +1312,7 @@ localize("Mobile.SalesLogix.Views.LogOff", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "Copyright &copy; 2014 Infor. Tutti i diritti riservati. www.infor.com",
+  "copyrightText": "Copyright &copy; 2015 Infor. Tutti i diritti riservati. www.infor.com",
   "logOnText": "Connetti",
   "passText": "Password",
   "rememberText": "Ricorda",
