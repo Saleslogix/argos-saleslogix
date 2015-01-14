@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" instanceId="e7c7b2a5-2064-40aa-8681-a881a3930a6c" formatVersion="8.0.0.1003">
+  <modelTypeNames>
+    <modelTypeName>
+      <ModelTypeAssemblyQualifiedName>Sage.Platform.WebPortal.Design.PortalModel, Sage.Platform.WebPortal.Design</ModelTypeAssemblyQualifiedName>
+    </modelTypeName>
+  </modelTypeNames>
+</projectInfo>
