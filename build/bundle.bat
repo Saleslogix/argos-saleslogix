@@ -21,4 +21,4 @@ xcopy *.* %SDK%\deploy\temp /E /Y /exclude:build\bundleExcludes.txt
 xcopy %SDK%\deploy\temp\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix /E /Y
 rmdir %SDK%\deploy\temp /S /Q
 
-%SDK%\tools\bundler\Bundler.exe /ProjectPath:"%CD%\deploy\bundle\model" /BundleFileName:"%CD%\deploy\bundle.zip" /BundleMethod:All /ConfigFileName:"%CD%\build\bundle.config"
+%SDK%\tools\bundler\Bundler.exe /ProjectPath:"%CD%\deploy\bundle\model" /BundleFileName:"%CD%\deploy\Infor Mobile v3.3.0 for 8.0 and 8.1 VFS.zip" /BundleMethod:All /ConfigFileName:"%CD%\build\bundle.config"
