@@ -1656,7 +1656,8 @@ localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
   "groupsSectionText": "Groupes",
   "kpiSectionText": "ICP",
   "configureGroupsText": "Configurer",
-  "refreshGroupsText": "Actualiser"
+  "refreshGroupsText": "Actualiser",
+  "layoutsText": "Présentations"
 });
 
 localize("Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin", {

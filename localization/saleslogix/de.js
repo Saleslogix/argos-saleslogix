@@ -1656,7 +1656,8 @@ localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
   "groupsSectionText": "Gruppen",
   "kpiSectionText": "KPI",
   "configureGroupsText": "Konfigurieren",
-  "refreshGroupsText": "Aktualisieren"
+  "refreshGroupsText": "Aktualisieren",
+  "layoutsText": "Layouts"
 });
 
 localize("Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin", {
