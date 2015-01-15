@@ -1,5 +1,6 @@
-@echo off
 SET SDK=%CD%\..\..\argos-sdk
+SET VERSION=%~1
+SET BUNDLE_NAME=Infor Mobile v%VERSION% for 8.0 and 8.1 VFS.zip
 
 rmdir /S /Q deploy
 rmdir /S /Q %SDK%\deploy
@@ -21,4 +22,4 @@ xcopy *.* %SDK%\deploy\temp /E /Y /exclude:build\bundleExcludes.txt
 xcopy %SDK%\deploy\temp\*.* deploy\bundle\model\Portal\SlxMobile\SourceFiles\products\argos-saleslogix /E /Y
 rmdir %SDK%\deploy\temp /S /Q
 
-%SDK%\tools\bundler\Bundler.exe /ProjectPath:"%CD%\deploy\bundle\model" /BundleFileName:"%CD%\deploy\Infor Mobile v3.3.0 for 8.0 and 8.1 VFS.zip" /BundleMethod:All /ConfigFileName:"%CD%\build\bundle.config"
+%SDK%\tools\bundler\Bundler.exe /ProjectPath:"%CD%\deploy\bundle\model" /BundleFileName:"%CD%\deploy\%BUNDLE_NAME%" /BundleMethod:All /ConfigFileName:"%CD%\build\bundle.config"
