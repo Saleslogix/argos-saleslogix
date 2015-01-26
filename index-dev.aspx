@@ -108,9 +108,6 @@
     <!-- Simplate -->
     <script type="text/javascript" src="../../argos-sdk/libraries/Simplate.js"></script>
 
-    <!-- Overthrow -->
-    <script type="text/javascript" src="../../argos-sdk/libraries/overthrow/overthrow.js"></script>
-
     <!-- canvas2image for when HTMLCanvasElement.prototype.toDataURL isn't available -->
     <script type="text/javascript" src="../../argos-sdk/libraries/canvas2image.js"></script>
 

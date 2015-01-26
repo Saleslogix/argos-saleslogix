@@ -819,7 +819,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         onToolLayoutCreated: function(tools) {
             var refreshTool;
 
-            if (tools && !this._refreshAdded) {
+            if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
                 refreshTool = {
                     id: 'refresh',
                     cls: 'fa fa-refresh fa-fw fa-lg',

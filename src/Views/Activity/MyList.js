@@ -216,7 +216,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
         },
         createToolLayout: function(tools) {
             this.inherited(arguments);
-            if (this.tools && this.tools.tbar && !this._refreshAdded) {
+            if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
                 this.tools.tbar.push({
                     id: 'refresh',
                     cls: 'fa fa-refresh fa-fw fa-lg',
