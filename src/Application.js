@@ -98,8 +98,8 @@ define('Mobile/SalesLogix/Application', [
         },
         mobileVersion: {
             'major': 3,
-            'minor': 2,
-            'revision': 1
+            'minor': 3,
+            'revision': 0
         },
         versionInfoText: 'Mobile v${0}.${1}.${2}',
         homeViewId: 'myactivity_list',
