@@ -83,7 +83,7 @@ localize("Mobile.SalesLogix.Recurrence", {
     "2": "secondo",
     "3": "terzo",
     "4": "quarto",
-    "5": "Ultimo"
+    "5": "Cognome"
   }
 });
 
@@ -119,7 +119,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
   "resultText": "Risultato",
   "resultTitleText": "Risultato",
   "startingText": "Data iniziale",
-  "timelessText": "Senza orario",
+  "timelessText": "Senza_orario",
   "durationValueText": {
     "0": "Nessuno",
     "15": "15 minuti",
@@ -164,7 +164,7 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "rolloverText": "Riporta Automaticamente",
   "startTimeText": "Ora iniziale",
   "allDayText": "Tutto il giorno",
-  "timelessText": "Senza orario",
+  "timelessText": "Senza_orario",
   "titleText": "Attività",
   "typeText": "Tipo",
   "companyText": "Società",
@@ -180,7 +180,8 @@ localize("Mobile.SalesLogix.Views.Activity.Detail", {
   "relatedAttachmentText": "Allegati",
   "relatedAttachmentTitleText": "Allegati attività",
   "relatedItemsText": "Elementi correlati",
-  "phoneText": "Telefono"
+  "phoneText": "Telefono",
+  "moreDetailsText": "Altri dettagli"
 });
 
 localize("Mobile.SalesLogix.Views.Activity.Edit", {
@@ -191,7 +192,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
   "locationText": "Posizione",
   "activityTypeTitleText": "Tipo di Attività",
   "alarmText": "Allarme",
-  "reminderText": "",
+  "reminderText": "Promemoria",
   "categoryText": "Categoria",
   "durationText": "Durata",
   "durationTitleText": "Durata",
@@ -394,7 +395,7 @@ localize("Mobile.SalesLogix.Views.History.Detail", {
   "regardingText": "Argomento",
   "completedByText": "Completato Da",
   "scheduledText": "Pianificato",
-  "timelessText": "Senza orario",
+  "timelessText": "Senza-orario",
   "companyText": "Società",
   "leadText": "Nominativo",
   "titleText": "Cronologia",
@@ -555,11 +556,6 @@ localize("Mobile.SalesLogix.Views.TicketActivity.List", {
 localize("Sage.Platform.Mobile.ErrorManager", {
   "abortedText": "Interrotto",
   "scopeSaveText": "Scope non salvato nel report degli errori"
-});
-
-localize("Sage.Platform.Mobile.Fields.BooleanField", {
-  "onText": "Attivo",
-  "offText": "Disattivo"
 });
 
 localize("Sage.Platform.Mobile.Fields.DurationField", {
@@ -939,7 +935,7 @@ localize("Mobile.SalesLogix.Views.Activity.MyList", {
     "status-accepted": "status-accettato",
     "status-declined": "status-rifiutato",
     "recurring": "Ricorrente",
-    "timeless": "Senza_orario",
+    "timeless": "Senza-orario",
     "today": "Oggi",
     "this-week": "questa-settimana",
     "yesterday": "Ieri"
@@ -1024,7 +1020,7 @@ localize("Mobile.SalesLogix.Views.AddAccountContact", {
   "homePhoneText": "Tel.abitazione",
   "industryText": "Settore",
   "ownerText": "Proprietario",
-  "lastNameText": "Cognome",
+  "lastNameText": "Ultimo",
   "mobileText": "Cellulare",
   "nameText": "Nome",
   "statusText": "Status",
@@ -1119,10 +1115,10 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
   "relatedAttachmentTitleText": "Allegati contatto",
   "titleText": "Contatto",
   "webText": "Web",
-  "workText": "Telefono",
+  "workText": "Telefono Ufficio",
   "cuisinePreferenceText": "Pref. culinarie",
   "callMobileNumberText": "Chiama cellulare",
-  "callWorkNumberText": "Chiama numero principale",
+  "callWorkNumberText": "Chiama ufficio",
   "calledText": "Chiamati",
   "scheduleActivityText": "Pianifica Attività",
   "addNoteText": "Aggiungi Nota",
@@ -1134,7 +1130,7 @@ localize("Mobile.SalesLogix.Views.Contact.Detail", {
 localize("Mobile.SalesLogix.Views.Contact.Edit", {
   "titleText": "Contatto",
   "nameText": "Nome",
-  "workText": "Telefono",
+  "workText": "Telefono Ufficio",
   "mobileText": "Cellulare",
   "emailText": "E-Mail",
   "webText": "Web",
@@ -1316,12 +1312,12 @@ localize("Mobile.SalesLogix.Views.LogOff", {
 });
 
 localize("Mobile.SalesLogix.Views.Login", {
-  "copyrightText": "Copyright &copy; 2014 Infor. Tutti i diritti riservati. www.infor.com",
+  "copyrightText": "Copyright &copy; 2015 Infor. Tutti i diritti riservati. www.infor.com",
   "logOnText": "Connetti",
   "passText": "Password",
-  "rememberText": "Ricorda Password",
+  "rememberText": "Ricorda",
   "titleText": "Connetti",
-  "userText": "Nome Utente",
+  "userText": "ID Utente",
   "invalidUserText": "Nome utente o password non validi.",
   "missingUserText": "Record utente non trovato.",
   "serverProblemText": "Si è verificato un problema sul server.",
@@ -1648,8 +1644,10 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 });
 
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
-  "noDefaultGroupText": "Gruppo predefinito non impostato. Per impostare i gruppi, aprire il menu a destra e premere configura nella sezione dei gruppi.",
+  "noDefaultGroupText": "Nessun gruppo predefinito impostato. fare clic qui per configurare i gruppi.",
   "currentGroupNotFoundText": "Gruppo corrente non trovato.",
+  "groupTemplateSummaryText": "Sommario",
+  "groupTemplateDetailText": "Dettaglio",
   "groupsModeText": "Attualmente si è in modalità gruppi. Eseguire una ricerca o fare clic su un hashtag per uscire dalla modalità gruppi."
 });
 
@@ -1658,7 +1656,8 @@ localize("Mobile.SalesLogix.Views._RightDrawerListMixin", {
   "groupsSectionText": "Gruppi",
   "kpiSectionText": "KPI",
   "configureGroupsText": "Configura",
-  "refreshGroupsText": "Aggiorna"
+  "refreshGroupsText": "Aggiorna",
+  "layoutsText": "Layouts"
 });
 
 localize("Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin", {
