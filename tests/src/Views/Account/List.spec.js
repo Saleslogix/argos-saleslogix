@@ -61,6 +61,7 @@ define('spec/Views/Account/List.spec', [
     }];
 
     describe('Mobile/SalesLogix/Views/Account/List', function() {
+        var _app = window.App;
         beforeEach(function() {
             window.App = {
                 history: [],
@@ -73,7 +74,9 @@ define('spec/Views/Account/List.spec', [
                 },
                 getCustomizationsFor: function() {
                 },
-                enableGroups: true
+                enableGroups: true,
+                supportsTouch: function() {
+                }
             };
             this.store = new MemoryStore({ data: data});
             this.list = new AccountList();
@@ -86,7 +89,7 @@ define('spec/Views/Account/List.spec', [
 
             this.list = null;
             this.store = null;
-            window.App = null;
+            window.App = _app;
         });
 
 
