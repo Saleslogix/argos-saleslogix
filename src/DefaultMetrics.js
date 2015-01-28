@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/DefaultMetrics', [
         },
         opportunitiesText: {
             total: 'Total Opportunities',
-            potential: 'Sales Potential',
+            potential: 'Total Sales Potential',
             montlyPotential: 'Average Monthly Sales Potential'
         },
         ticketsText: {
