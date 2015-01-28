@@ -125,7 +125,7 @@ localize("Mobile.SalesLogix.Views.Activity.Complete", {
     "15": "15 минут",
     "30": "30 минут",
     "60": "1 час",
-    "90": "1.5 часа",
+    "90": "1,5 часа",
     "120": "2 часа"
   },
   "followupValueText": {
@@ -237,7 +237,7 @@ localize("Mobile.SalesLogix.Views.Activity.Edit", {
     "15": "15 минут",
     "30": "30 минут",
     "60": "1 час",
-    "90": "1.5 часа",
+    "90": "1,5 часа",
     "120": "2 часа"
   }
 });

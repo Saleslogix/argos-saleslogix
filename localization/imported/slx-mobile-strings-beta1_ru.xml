@@ -1157,7 +1157,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[90]" type="text">
     <description/>
-    <value>1.5 часа</value>
+    <value>1,5 часа</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Complete" property="durationValueText[120]" type="text">
     <description/>
@@ -1529,7 +1529,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[90]" type="text">
     <description/>
-    <value>1.5 часа</value>
+    <value>1,5 часа</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Edit" property="durationValueText[120]" type="text">
     <description/>
