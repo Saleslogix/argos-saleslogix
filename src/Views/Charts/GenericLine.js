@@ -13,9 +13,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
     'dojo/_base/array',
     'dojo/dom-geometry',
     'dojo/dom-attr',
-    'dojox/charting/Chart',
-    'dojox/charting/plot2d/Bars',
-    'dojox/charting/axis2d/Default',
     'Sage/Platform/Mobile/View',
     './_ChartMixin'
 ], function(
@@ -24,9 +21,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
     array,
     domGeo,
     domAttr,
-    Chart,
-    PlotType,
-    Default,
     View,
     _ChartMixin
 ) {
