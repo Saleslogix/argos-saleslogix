@@ -39,9 +39,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
         pointColor: '#0896e9',
         fillColor: 'rgba(8,150,233, 0.2)',
 
-        overlayColor: 'rgba(179, 179, 179, 1)',
-        overlayFillColor: 'rgba(179, 179, 179, 0.2)',
-
         attributeMap: {
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
@@ -55,7 +52,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
         createChart: function (rawData) {
             this.inherited(arguments);
 
-            var ctx, box, searchExpressionHeight, data, labels, seriesData, overlayData;
+            var ctx, box, searchExpressionHeight, data, labels, seriesData;
 
             this.showSearchExpression();
             searchExpressionHeight = this.getSearchExpressionHeight();
@@ -69,20 +66,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
                 return Math.round(item.value);
             }.bind(this));
 
-            overlayData = array.map(rawData, function() {
-                return Math.round(this.parent.value);
-            }.bind(this));
-
             data = {
                 labels: labels,
                 datasets: [
-                    {
-                        label: 'Aggregate',
-                        strokeColor: this.overlayColor,
-                        pointColor: this.overlayColor,
-                        fillColor: this.overlayFillColor,
-                        data: overlayData
-                    },
                     {
                         label: 'Default',
                         strokeColor: this.lineColor,
