@@ -33,6 +33,7 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
         pageSize: 200,
         expose: false,
         enableSearch: false,
+        enablePullToRefresh: false,
         id: 'areacategoryissue_lookup',
         queryOrderBy: 'Area,Category,Issue',
         querySelect: [

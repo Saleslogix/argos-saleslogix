@@ -51,6 +51,7 @@ define('Mobile/SalesLogix/Views/Configure', [
         id: 'configure',
         expose: false,
         enableSearch: false,
+        enablePullToRefresh: false,
         selectionOnly: true,
         allowSelection: true,
         autoClearSelection: false,
