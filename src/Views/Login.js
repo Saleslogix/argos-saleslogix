@@ -91,8 +91,7 @@ define('Mobile/SalesLogix/Views/Login', [
                 {
                     name: 'username',
                     placeHolderText: this.userText,
-                    type: 'text',
-                    autoFocus: true
+                    type: 'text'
                 },
                 {
                     name: 'password',
