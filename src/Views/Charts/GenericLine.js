@@ -33,6 +33,15 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
         pointColor: '#0896e9',
         fillColor: 'rgba(8,150,233, 0.2)',
 
+        chartOptions: {
+            scaleShowGridLines: false,
+            bezierCurve: true,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            datasetFill: true
+        },
+
         attributeMap: {
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
@@ -82,14 +91,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
 
             ctx = this.contentNode.getContext('2d');
 
-            this.chart = new window.Chart(ctx).Line(data, {
-                scaleShowGridLines: false,
-                bezierCurve: true,
-                bezierCurveTension: 0.4,
-                pointDot: true,
-                pointDotRadius: 4,
-                datasetFill: true
-            });
+            this.chart = new window.Chart(ctx).Line(data, this.chartOptions);
         }
     });
 });

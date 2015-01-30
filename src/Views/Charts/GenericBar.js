@@ -35,6 +35,10 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
         chart: null,
         barColor: '#0896e9',
 
+        chartOptions: {
+            barShowStroke: false
+        },
+
         formatter: function(val) {
             return val;
         },
@@ -86,9 +90,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
 
             ctx = this.contentNode.getContext('2d');
 
-            this.chart = new window.Chart(ctx).Bar(data, {
-                barShowStroke: false
-            });
+            this.chart = new window.Chart(ctx).Bar(data, this.chartOptions);
         }
     });
 });

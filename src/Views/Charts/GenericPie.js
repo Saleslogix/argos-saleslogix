@@ -32,6 +32,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         titleText: '',
         expose: false,
         chart: null,
+
         seriesColors: [
             '#1c9a18',
             '#6ec90d',
@@ -40,6 +41,13 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             '#47b2f0',
             '#0c7ad8'
         ],
+
+        chartOptions: {
+            segmentShowStroke: false,
+            segmentStrokeColor: '#EBEBEB',
+            segmentStrokeWidth: 5,
+            animateScale: false
+        },
 
         formatter: function(val) {
             return val;
@@ -85,12 +93,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
 
             ctx = this.contentNode.getContext('2d');
 
-            this.chart = new window.Chart(ctx).Pie(data, {
-                segmentShowStroke: false,
-                segmentStrokeColor: '#EBEBEB',
-                segmentStrokeWidth: 5,
-                animateScale: false
-            });
+            this.chart = new window.Chart(ctx).Pie(data, this.chartOptions);
         },
         _getItemColor: function(index) {
             var len, n;
