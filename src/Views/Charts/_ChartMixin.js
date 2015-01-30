@@ -153,10 +153,6 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
         */
         parent: null,
 
-        font: 'normal normal normal 16px Helvetica',
-        fontColor: '#1a1a1a',
-        MIN_HEIGHT: 300,
-
         onTransitionTo: function() {
             this._handle = connect.subscribe('/app/setOrientation', this, function(value) {
                 if (this._feedData) {
@@ -167,6 +163,10 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
         onTransitionAway: function() {
             connect.unsubscribe(this._handle);
             this._feedData = null;
+
+            if (this.chart && this.chart.destroy) {
+                this.chart.destroy();
+            }
         },
         createChart: function(feedData) {
             this._feedData = feedData;
