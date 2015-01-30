@@ -78,6 +78,9 @@
     <link type="text/css" rel="stylesheet" href="content/css/themes/crm/sdk.min.crm.css" />
     <link type="text/css" rel="stylesheet" href="content/css/app.min.css" />
 
+    <!-- Global (window) dependencies. Load these before the AMD loader -->
+    <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
@@ -92,7 +95,7 @@
     });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
-    <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
+    <script type="text/javascript" src="content/javascript/argos-amd-dependencies.js"></script>
     <script type="text/javascript" src="content/javascript/argos-sdk.js"></script>
 
     <!-- Application -->
