@@ -115,6 +115,9 @@
     <!-- Deep Diff -->
     <script type="text/javascript" src="../../argos-sdk/libraries/deep-diff/deep-diff-0.2.0.min.js"></script>
 
+    <!-- Chart.js -->
+    <script type="text/javascript" src="../../argos-sdk/libraries/Chart.min.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="../../argos-sdk/libraries/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
@@ -123,7 +126,6 @@
         packages: [
             { name: 'dojo', location: '../../argos-sdk/libraries/dojo/dojo' },
             { name: 'dijit', location: '../../argos-sdk/libraries/dojo/dijit' },
-            { name: 'dojox', location: '../../argos-sdk/libraries/dojo/dojox' },
             { name: 'snap', location: '../../argos-sdk/libraries/snap', main: 'snap' },
             { name: 'moment', location: '../../argos-sdk/libraries/moment', main: 'moment-with-langs.min' },
             { name: 'Sage/Platform/Mobile', location: '../../argos-sdk/src' },

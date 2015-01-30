@@ -13,6 +13,7 @@
         "Sage": false,
         "ReUI": false,
         "Mobile": false,
-        "Base64": false
+        "Base64": false,
+        "Chart": false
     }
 }

@@ -13,13 +13,11 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
     'dojo/_base/declare',
     'dojo/dom-style',
     'dojo/has',
-    'dojox/mobile/sniff',
     'Sage/Platform/Mobile/MainToolbar'
 ], function(
     declare,
     domStyle,
     has,
-    mobileSniff,
     MainToolbar
 ) {
 

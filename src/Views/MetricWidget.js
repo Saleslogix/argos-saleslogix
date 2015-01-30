@@ -97,6 +97,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         store: null,
 
         _data: null,
+        value: null,
         requestDataDeferred: null,
         metricDetailNode: null,
         currentSearchExpression: '',
@@ -105,7 +106,8 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         chartType: null,
         chartTypeMapping: {
             'pie': 'chart_generic_pie',
-            'bar': 'chart_generic_bar'
+            'bar': 'chart_generic_bar',
+            'line': 'chart_generic_line'
         },
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
@@ -217,7 +219,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
                     this.formatter = formatterFn;
                 }
 
-                value = this.valueFn.call(this, data);
+                value = this.value = this.valueFn.call(this, data);
                 domConstruct.place(this.itemTemplate.apply({value: value}, this), this.metricDetailNode, 'replace');
             }), lang.hitch(this, function(err) {
                 // Error
@@ -230,6 +232,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             view = App.getView(this.chartTypeMapping[this.chartType]);
 
             if (view) {
+                view.parent = this;
                 view.formatter = this.formatter;
                 signal = aspect.after(view, 'show', lang.hitch(this, function() {
                     setTimeout(lang.hitch(this, function() {

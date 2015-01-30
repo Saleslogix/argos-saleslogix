@@ -67,6 +67,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Views/Calendar/MonthView',
 
     'Mobile/SalesLogix/Views/Charts/GenericBar',
+    'Mobile/SalesLogix/Views/Charts/GenericLine',
     'Mobile/SalesLogix/Views/Charts/GenericPie',
 
     'Mobile/SalesLogix/Views/Competitor/List',
@@ -178,6 +179,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     CalendarWeekView,
     CalendarMonthView,
     GenericBar,
+    GenericLine,
     GenericPie,
     CompetitorList,
     ContactList,
@@ -288,6 +290,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
             // Charts
             this.registerView(new GenericBar({ expose: false }));
+            this.registerView(new GenericLine({ expose: false }));
             this.registerView(new GenericPie({ expose: false }));
 
             this.registerView(new CompetitorList({

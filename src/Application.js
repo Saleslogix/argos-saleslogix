@@ -25,7 +25,6 @@ define('Mobile/SalesLogix/Application', [
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
     'dojo/sniff',
-    'dojox/mobile/sniff',
     'moment'
 ], function(
     win,
@@ -41,7 +40,6 @@ define('Mobile/SalesLogix/Application', [
     environment,
     Application,
     sniff,
-    mobileSniff,
     moment
 ) {
 
