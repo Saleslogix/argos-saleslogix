@@ -592,6 +592,90 @@
           "text": "RecurrencesField.js",
           "path": "../src/Fields"
         },
+		{
+          "text": "QuickFormModel.js",
+          "path": "../src/Models"
+        },
+		{
+          "text": "EntityModel.js",
+          "path": "../src/Models"
+        },
+		{
+          "text": "_BaseControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "AddressControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "BooleanControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "CurrencyControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "DateControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "EmailControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "LookupControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "NameControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "NumericControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "OwnerControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "PhoneControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "PicklistControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "TextControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "UrlControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "UserControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+		{
+          "text": "QuickFormDetailWidget.js",
+          "path": "../src/Views"
+        },
+		{
+          "text": "_ModelBaseService.js",
+          "path": "../src/Services"
+        },
+		{
+          "text": "EntityService.js",
+          "path": "../src/Services"
+        },
+		{
+          "text": "QuickFormService.js",
+          "path": "../src/Services"
+        },
         {
           "text": "ApplicationModule.js",
           "path": "../src"

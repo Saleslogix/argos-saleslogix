@@ -25,6 +25,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Sage/Platform/Mobile/Calendar',
     'Sage/Platform/Mobile/RelatedViewManager',
     'Sage/Platform/Mobile/RelatedViewWidget',
+   
 
     'Sage/Platform/Mobile/List',
     'Sage/Platform/Mobile/Views/Signature',
@@ -128,7 +129,9 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Validator',
     'Mobile/SalesLogix/Environment',
-    'Mobile/SalesLogix/Utility'
+    'Mobile/SalesLogix/Utility',
+
+    'Mobile/SalesLogix/Views/QuickFormDetailWidget'
     
 ], function(
     declare,

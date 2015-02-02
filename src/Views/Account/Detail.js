@@ -96,7 +96,12 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
             'Status',
             'SubType',
             'Type',
-            'WebAddress'
+            'WebAddress',
+            'ModifyDate',
+            'Revenue',
+            'AccountUpper',
+            'ERPTradingAccount/*'
+
         ],
         resourceKind: 'accounts',
 
@@ -165,7 +170,78 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             iconClass: 'fa fa-edit fa-lg',
                             action: 'addNote'
                         }]
-                }, {
+            }, {
+                title: 'Qucik Form  View',
+                list: true,
+                name: 'QuickFormViews',
+                children: [{
+                    name: 'AccountDetail',
+                    relatedView: {
+                        widgetType: 'quickFormDetail',
+                        id: 'account_detail_quickform',
+                        quickFormName: 'AccountMobileDetail'
+                    }
+                }]
+            }, {
+                title: 'Card View',
+                list: true,
+                name: 'CardViews',
+                children: [{
+                    name: 'CardSummary',
+                    relatedView: {
+                        widgetType: 'detail',
+                        id: 'account_detail_summary',
+                        layout: [{
+                            name: 'Account',
+                            label: this.accountText,
+                            property:'AccountName'
+                        }, {
+                            name: 'MainPhone',
+                            property: 'MainPhone',
+                            label: this.phoneText,
+                            renderer: format.phone.bindDelegate(this, false),
+                            action: 'callMainPhone',
+                            allowEdit: true,
+                            type: 'phone',
+                            maxTextLength: 32,
+
+                           // validator: validator.exceedsMaxTextLength
+                        },{
+                            name: 'Status',
+                            property: 'Status',
+                            label: this.statusText
+                        }, {
+                            name: 'AccountManager.UserInfo',
+                            property: 'AccountManager.UserInfo',
+                            label: this.acctMgrText,
+                            tpl: template.nameLF
+                        }, {
+                            name: 'Address',
+                            property: 'Address',
+                            label: this.addressText,
+                            renderer: format.address.bindDelegate(this, false)
+                        }, {
+                            name: 'Fax',
+                            property: 'Fax',
+                            label: this.faxText,
+                            renderer: format.phone.bindDelegate(this, true)
+                        }, {
+                            name: 'Type',
+                            property: 'Type',
+                            label: this.typeText
+                        }, {
+                            name: 'SubType',
+                            property: 'SubType',
+                            label: this.subTypeText
+                        }, {
+                            name: 'Industry',
+                            property: 'Industry',
+                            label: this.industryText,
+                            type: 'text'
+                        }, ]
+                   }
+                }]
+            },{
                     title: this.detailsText,
                     name: 'DetailsSection',
                     children: [{

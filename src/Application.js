@@ -26,7 +26,11 @@ define('Mobile/SalesLogix/Application', [
     'Sage/Platform/Mobile/Application',
     'dojo/sniff',
     'dojox/mobile/sniff',
-    'moment'
+    'moment',
+    
+    'Mobile/SalesLogix/Services/QuickFormService',
+    'Mobile/SalesLogix/Services/EntityService'
+
 ], function(
     win,
     declare,
@@ -105,7 +109,7 @@ define('Mobile/SalesLogix/Application', [
         homeViewId: 'myactivity_list',
         loginViewId: 'login',
         logOffViewId: 'logoff',
-
+        ModelManager: null,
         init: function() {
             var original,
                 app = this;
@@ -124,6 +128,7 @@ define('Mobile/SalesLogix/Application', [
                 request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
                 original.apply(this, arguments);
             };
+           
         },
         initConnects: function() {
             this.inherited(arguments);
