@@ -100,6 +100,7 @@ define('Mobile/SalesLogix/Application', [
             'revision': 0
         },
         versionInfoText: 'Mobile v${0}.${1}.${2}',
+        authText: 'Authenticating',
         homeViewId: 'myactivity_list',
         loginViewId: 'login',
         logOffViewId: 'logoff',
@@ -421,6 +422,7 @@ define('Mobile/SalesLogix/Application', [
             credentials = this.getCredentials();
 
             if (credentials) {
+                this.setPrimaryTitle(this.authText);
                 this.authenticateUser(credentials, {
                     success: function(result) {
                         this.requestUserDetails();
