@@ -1757,7 +1757,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="summaryText" type="text">
     <description/>
-    <value>Sommario</value>
+    <value>Riepilogo</value>
   </data>
   <data class="Mobile.SalesLogix.Views.Activity.Recurring" property="weekDaysText[0]" type="text">
     <description/>
@@ -4645,7 +4645,7 @@
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateSummaryText" type="text">
     <description/>
-    <value>Sommario</value>
+    <value>Riepilogo</value>
   </data>
   <data class="Mobile.SalesLogix.Views._GroupListMixin" property="groupTemplateDetailText" type="text">
     <description/>

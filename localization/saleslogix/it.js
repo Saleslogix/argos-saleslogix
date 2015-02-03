@@ -954,7 +954,7 @@ localize("Mobile.SalesLogix.Views.Activity.Recurring", {
   "monthText": "Mese",
   "onText": "su",
   "occurrencesText": "occorrenze",
-  "summaryText": "Sommario",
+  "summaryText": "Riepilogo",
   "weekDaysText": {
     "0": "Domenica",
     "1": "Lunedì",
@@ -1646,7 +1646,7 @@ localize("Mobile.SalesLogix.Views._CardLayoutListMixin", {
 localize("Mobile.SalesLogix.Views._GroupListMixin", {
   "noDefaultGroupText": "Nessun gruppo predefinito impostato. fare clic qui per configurare i gruppi.",
   "currentGroupNotFoundText": "Gruppo corrente non trovato.",
-  "groupTemplateSummaryText": "Sommario",
+  "groupTemplateSummaryText": "Riepilogo",
   "groupTemplateDetailText": "Dettaglio",
   "groupsModeText": "Attualmente si è in modalità gruppi. Eseguire una ricerca o fare clic su un hashtag per uscire dalla modalità gruppi."
 });
