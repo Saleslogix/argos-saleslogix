@@ -63,6 +63,12 @@ define('configuration/production', ['Mobile/SalesLogix/ApplicationModule'], func
          * Turns on concurrency checks if two users modify the same record. A validation error will show for the second user that clicks save, explaining the error and forcing them to re-save.
          * If this option is false, the last person to save "wins" if they happen to edit the same field.
          */
-        enableConcurrencyCheck: false
+        enableConcurrencyCheck: false,
+        /**
+         * @property {Boolean} enableQuickFormDetail
+         * Turns on loading a quickform for detail views that are including the _QuickFromDeteilMixin Mixin and hides all sections except for quick actions and related items.
+         * If this option is false, the last layout falls back to the orginal layout no quick form is loaded. 
+         */
+        enableQuickFormDetail: true
     };
 });

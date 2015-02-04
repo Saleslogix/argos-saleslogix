@@ -10,7 +10,7 @@
  * @requires Sage.Platform.Mobile.Detail
  * @requires Mobile.SalesLogix.Format
  * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix._MetricDetailMixin
+ * @requires Mobile.SalesLogix._QuickFormDetailMixin'
  *
  */
 define('Mobile/SalesLogix/Views/Account/Detail', [
@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
     'Sage/Platform/Mobile/Detail',
-    '../_MetricDetailMixin'
+    '../_QuickFormDetailMixin'
 ], function(
     declare,
     string,
@@ -28,10 +28,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     format,
     template,
     Detail,
-    _MetricDetailMixin
+    _QuickFormDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail, _QuickFormDetailMixin], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
@@ -171,81 +171,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             iconClass: 'fa fa-edit fa-lg',
                             action: 'addNote'
                         }]
-            }, {
-                title: 'Qucik Form  View',
-                list: true,
-                name: 'QuickFormViews',
-                children: [{
-                    name: 'AccountDetail',
-                    relatedView: {
-                        widgetType: 'quickFormDetail',
-                        id: 'account_detail_quickform',
-                        xquickFormName: 'AccountMobileDetail'
-                    }
-                }]
-            }, {
-                title: 'Card View',
-                list: true,
-                name: 'CardViews',
-                children: [{
-                    name: 'CardSummary',
-                    relatedView: {
-                        widgetType: 'detail',
-                        id: 'account_detail_summary',
-                        layout: [{
-                            name: 'Account',
-                            label: this.accountText,
-                            property:'AccountName'
-                        }, {
-                            name: 'MainPhone',
-                            property: 'MainPhone',
-                            label: this.phoneText,
-                            renderer: format.phone.bindDelegate(this, false),
-                            action: 'callMainPhone',
-                            allowEdit: true,
-                            type: 'phone',
-                            maxTextLength: 32,
-
-                           // validator: validator.exceedsMaxTextLength
-                        },{
-                            name: 'Status',
-                            property: 'Status',
-                            label: this.statusText
-                        }, {
-                            name: 'AccountManager.UserInfo',
-                            property: 'AccountManager.UserInfo',
-                            label: this.acctMgrText,
-                            tpl: template.nameLF
-                        }, {
-                            name: 'Address',
-                            property: 'Address',
-                            label: this.addressText,
-                            renderer: format.address.bindDelegate(this, false)
-                        }, {
-                            name: 'Fax',
-                            property: 'Fax',
-                            label: this.faxText,
-                            renderer: format.phone.bindDelegate(this, true)
-                        }, {
-                            name: 'Type',
-                            property: 'Type',
-                            label: this.typeText
-                        }, {
-                            name: 'SubType',
-                            property: 'SubType',
-                            label: this.subTypeText
-                        }, {
-                            name: 'Industry',
-                            property: 'Industry',
-                            label: this.industryText,
-                            type: 'text'
-                        }, ]
-                   }
-                }]
             },{
                     title: this.detailsText,
                     name: 'DetailsSection',
-                    children: [{
+                      children: [{
                             name: 'AccountName',
                             property: 'AccountName',
                             label: this.accountText
@@ -353,7 +282,8 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             title:  this.relatedAttachmentTitleText
                         }]
                 }]);
-        }
+        },
+        
     });
 });
 

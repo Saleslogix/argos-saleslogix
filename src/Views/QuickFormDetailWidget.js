@@ -82,6 +82,13 @@ define('Mobile/SalesLogix/Views/QuickFormDetailWidget', [
         },
         onLoad: function () {
             var promise;
+
+            if (!this.loadingNode) {
+                this.loadingNode = domConstruct.toDom(this.loadingTemplate.apply(this));
+                domConstruct.place(this.loadingNode, this.contentNode, 'last', this);
+            }
+            domClass.toggle(this.loadingNode, 'loading');
+
             if (this.quickFormService) {
                 if ((!this.quickFormName) && (this.owner.entityName)) {
                     this.quickFormName = this.owner.entityName + "MobileDetail";
@@ -90,7 +97,9 @@ define('Mobile/SalesLogix/Views/QuickFormDetailWidget', [
                     promise = this.quickFormService.getModel(this.quickFormName);
                     promise.then(function (formModel) {
                         if (formModel) {
+                            domClass.toggle(this.loadingNode, 'loading');
                             this.processFormModel(formModel);
+                            //domClass.toggle(this.loadingNode, 'loading');
                         }
                     }.bind(this));
                 }
@@ -115,6 +124,7 @@ define('Mobile/SalesLogix/Views/QuickFormDetailWidget', [
                 promise.then(function (entity) {
                     this.entry = entity;
                     if (entity) {
+                        domClass.toggle(this.loadingNode, 'loading');
                         this.processEntry(entity);
                     }
                 }.bind(this));

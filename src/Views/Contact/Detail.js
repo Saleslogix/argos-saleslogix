@@ -15,16 +15,18 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
     'dojo/string',
     'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail'
+    'Sage/Platform/Mobile/Detail',
+    '../_QuickFormDetailMixin'
 ], function(
     declare,
     string,
     format,
     template,
-    Detail
+    Detail,
+    _QuickFormDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.Detail', [Detail], {
+    return declare('Mobile.SalesLogix.Views.Contact.Detail', [Detail, _QuickFormDetailMixin], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
