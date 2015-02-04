@@ -131,6 +131,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
     'Mobile/SalesLogix/Environment',
     'Mobile/SalesLogix/Utility',
 
+    'Mobile/SalesLogix/Services/QuickFormService',
+    'Mobile/SalesLogix/Services/EntityService',
     'Mobile/SalesLogix/Views/QuickFormDetailWidget'
     
 ], function(

@@ -56,7 +56,7 @@ define('Mobile/SalesLogix/Services/EntityService', [
             lang.mixin(this, o);
 
         },
-        getEntity: function (entityName, entityId, queryOptions) {
+        getEntityById: function (entityName, entityId, queryOptions) {
             var promise, entityStore, request, queryResults, deferred, model;
             deferred = new Deferred();
             promise = this.getModel(entityName);         

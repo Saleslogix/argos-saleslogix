@@ -39,6 +39,16 @@ define('Mobile/SalesLogix/Models/QuickFormControls/AddressControl', [
             }
             return property;
         },
+        getDataBindDataPath: function () {
+            var dataPath = null;
+            if (!this.valueProperty) {
+                this.valueProperty = this.getDataBindProperty();
+            }
+            if (this.valueProperty) {
+                dataPath = this.valueProperty.replace('.', '/') + '/*';
+            }
+            return dataPath;
+        },
         getRenderer: function () {
              return format.address.bindDelegate(this, false);
         }

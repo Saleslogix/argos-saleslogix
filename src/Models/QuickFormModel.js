@@ -74,6 +74,7 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
         entityType: null,
         resourceKind: null,
         select: [],
+        include: [],
         layout: [],
         controlMaps:[
             { name: 'text', type: 'Sage.Platform.QuickForms.Controls.QFTextBox, Sage.Platform.QuickForms', ctor: TextControl},
@@ -117,7 +118,8 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
                             name: controlModel.getControlId(),
                             label: controlModel.getCaption(),
                             type: controlModel.type,
-                            property: controlModel.getDataBindProperty(),
+                            property: controlModel.valueProperty, //getDataBindProperty(),
+                            valueDataPath: controlModel.valueDataPath, //getDataBindSelectPath(),
                             //valueProperties: controlModel.getValueProperties(), 
                             renderer: controlModel.getRenderer(),
                             column: control.Column,
@@ -136,7 +138,7 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
             this.select = [];
             if (this.layout) {
                 this.layout.forEach(function (item) {
-                    this.select.push(item.property);
+                    this.select.push(item.valueDataPath);
                 }.bind(this));
             }
         },
@@ -164,6 +166,12 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
         },
         getMainEntityName: function () {
             return this.entityType.substring(1);
+        },
+        getSelects:function(){
+            return this.select;
+        },
+        getIncludes:function(){
+            return null;
         },
         _getResourceKind:function(){
                

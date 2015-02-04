@@ -11,13 +11,23 @@ define('Mobile/SalesLogix/Models/QuickFormControls/_BaseControl', [
     var control = declare('Mobile.SalesLogix.Models.QucikFormControls._BaseControl', null, {
         type:'text',
         valueBindingProperty: 'Text',
-        controlData:{},
+        controlData: {},
+        caption: null,
+        valueProperty: null,
+        valueDataPath: null,
+
         constructor: function (o) {
             var data = { controlData: o };
             lang.mixin(this, data);
+            this.init();
         },
         getControlId: function () {
             return this.controlData.ControlId;
+        },
+        init: function () {
+            this.caption = this.getCaption();
+            this.valueProperty = this.getDataBindProperty();
+            this.valueDataPath = this.getDataBindDataPath();
         },
         getCaption: function () {
             return this.controlData.Caption;
@@ -32,6 +42,16 @@ define('Mobile/SalesLogix/Models/QuickFormControls/_BaseControl', [
 
             }.bind(this));
             return property;
+        },
+        getDataBindDataPath: function () {
+            var dataPath = null;
+            if(!this.valueProperty){
+                this.valueProperty = this.getDataBindProperty();
+            } 
+            if (this.valueProperty) {
+               dataPath = this.valueProperty.replace('.', '/');
+            }
+            return dataPath;
         },
         getRenderer: function () {
             return null;

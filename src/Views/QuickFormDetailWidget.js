@@ -83,22 +83,35 @@ define('Mobile/SalesLogix/Views/QuickFormDetailWidget', [
         onLoad: function () {
             var promise;
             if (this.quickFormService) {
-
-                promise = this.quickFormService.getModel(this.quickFormName);
-                promise.then(function (formModel) {
-                    if (formModel) {
-                        this.processFormModel(formModel);
-                    }
-                }.bind(this));
+                if ((!this.quickFormName) && (this.owner.entityName)) {
+                    this.quickFormName = this.owner.entityName + "MobileDetail";
+                }
+                if (this.quickFormName) {
+                    promise = this.quickFormService.getModel(this.quickFormName);
+                    promise.then(function (formModel) {
+                        if (formModel) {
+                            this.processFormModel(formModel);
+                        }
+                    }.bind(this));
+                }
             }
             
         },
         processFormModel: function(formModel){
-            var promise;
+            var promise, queryOptions;
             this.quickFormModel = formModel;
             this.layout = formModel.layout;
+            this.formModel = formModel;
+            if (!this.entityName) {
+                this.entityName = formModel.getMainEntityName();
+            }
+            queryOptions = {
+                select: formModel.getSelects(),
+                include: formModel.getIncludes()
+            };
+
             if (this.owner.entry) {
-                promise = this.entityService.getEntity(formModel.getMainEntityName(), this.owner.entry.$key);
+                promise = this.entityService.getEntityById(this.entityName, this.owner.entry.$key, queryOptions);
                 promise.then(function (entity) {
                     this.entry = entity;
                     if (entity) {

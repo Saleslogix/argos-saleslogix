@@ -26,10 +26,7 @@ define('Mobile/SalesLogix/Application', [
     'Sage/Platform/Mobile/Application',
     'dojo/sniff',
     'dojox/mobile/sniff',
-    'moment',
-    
-    'Mobile/SalesLogix/Services/QuickFormService',
-    'Mobile/SalesLogix/Services/EntityService'
+    'moment'
 
 ], function(
     win,
@@ -534,8 +531,13 @@ define('Mobile/SalesLogix/Application', [
             this.requestUserOptions();
             this.requestSystemOptions();
             this.setDefaultMetricPreferences();
+            this.initQuickFormServices();
         },
         onRequestUserDetailsFailure: function(response, o) {
+        },
+        initQuickFormServices: function () {
+            var qfs = App.serviceManager.get('quickFormService');
+            qfs.initModelData();
         },
         requestUserOptions: function() {
             var batch = new Sage.SData.Client.SDataBatchRequest(this.getService())

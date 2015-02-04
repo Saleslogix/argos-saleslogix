@@ -50,6 +50,7 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
         name: 'modelServiceBase',
         service: null,
         Model: _ModelBase,
+        nameProperty: 'Name',
         resourceKind: null,
         contractName:'metadata',
         constructor: function(o) {
@@ -61,24 +62,23 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
         },
         initModelData: function () {
             var dataPromise;
-            dataPromise = this._featchData();
-            dataPromise.then(function (modelData) {
-                if (modelData) {
-                    this.processData(modelData);
+            dataPromise = this.getModels();
+            dataPromise.then(function (models) {
+                if (models) {
+                    
                 }
             });
 
         },
-        getModel: function (name) {
+        getModel: function (name, refresh) {
             var request, queryResults, deferred, model;
             deferred = new Deferred();
             model = this.store[name];
-            if (!model) {
-                request = this.getRequest(name);
+            if ((!model) || refresh) {
+                request = this.getModelRequest(name);
                 queryResults = request.read({
-                    success: function (result) {
-                        model = this.createModel(result);
-                        this.store[name] = model;
+                    success: function (modelData) {
+                        model = this.addModelData(name, modelData);
                         deferred.resolve(model);
                     }.bind(this),
                     failure: function (err) {
@@ -91,13 +91,65 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
             }
             return deferred.promise;
         },
-        getRequest: function (name) {
+        getModels: function (queryOptions, refresh) {
+            var request, queryResults, deferred, models;
+            deferred = new Deferred();
+            models = [];
+            if (refresh) {
+                this.store = {};
+            }
+            for (var name in this.store) {
+               models.push(this.store[name]);
+            }
+            if ((models.length < 1)||refresh) {
+                request = this.getModelsRequest(queryOptions);
+                queryResults = request.read({
+                    success: function (result) {
+                        var model, modelData;
+                        if(result.$resources){
+                            result.$resources.forEach(function(modelData){
+                                model = this.addModelData(modelData.entity[this.nameProperty], modelData);
+                                models.push(model);
+                            }.bind(this));
+                        }
+                        deferred.resolve(models);
+                    }.bind(this),
+                    failure: function (err) {
+                        deferred.reject(err);
+                    }.bind(this)
+                });
+
+            } else {
+                deferred.resolve(models);
+            }
+            return deferred.promise;
+        },
+        addModelData:function(name, modelData){
+            var model = this.createModel(modelData);
+            this.store[name] = model;
+            return model
+        },
+        getModelRequest: function (name) {
             var request;
             request = new Sage.SData.Client.SDataSingleResourceRequest(this.service)
                      .setResourceKind(this.resourceKind)
                      .setContractName(this.contractName)
                      .setResourceSelector(string.substitute('"${0}"', [name]))
-                     .setQueryArg('language', this.currentCulture != 'iv' ? this.currentCulture : '');
+                     .setQueryArg('language', App.currentCulture != 'iv' ? App.currentCulture : '')
+                     .setQueryArg('_indented', 'true');
+            return request;
+
+        },
+        getModelsRequest: function (queryOptions) {
+            var request;
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.service)
+            request.setResourceKind(this.resourceKind);
+            request.setContractName(this.contractName);
+            request.setQueryArg('_indented', 'true');
+            request.setQueryArg('language', App.currentCulture != 'iv' ? App.currentCulture : '');
+            if ((queryOptions)&&(queryOptions.where)) {
+                request.setQueryArg('where', queryOptions.where);
+            }
             return request;
 
         },

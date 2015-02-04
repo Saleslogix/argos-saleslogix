@@ -104,6 +104,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
 
         ],
         resourceKind: 'accounts',
+        entityName:'Account',
 
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
@@ -179,7 +180,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                     relatedView: {
                         widgetType: 'quickFormDetail',
                         id: 'account_detail_quickform',
-                        quickFormName: 'AccountMobileDetail'
+                        xquickFormName: 'AccountMobileDetail'
                     }
                 }]
             }, {
