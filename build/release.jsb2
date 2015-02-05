@@ -284,6 +284,10 @@
           "text": "_MetricDetailMixin.js",
           "path": "../src/Views"
         },
+		{
+          "text": "_QuickFormDetailMixin.js",
+          "path": "../src/Views"
+        },
         {
           "text": "_RightDrawerBaseMixin.js",
           "path": "../src/Views"
