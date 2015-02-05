@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
 
     window.Chart.defaults.global = {
         // Boolean - Whether to animate the chart
-        animation: true,
+        animation: false,
 
         // Number - Number of animation steps
         animationSteps: 60,
@@ -147,6 +147,7 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
     return declare('Mobile.SalesLogix.Views.Charts._ChartMixin', null, {
         _handle: null,
         _feedData: null,
+        RENDER_DELAY: 100,
 
         /**
          * @property parent Object Reference to the metric widget that opened this view.
@@ -155,9 +156,11 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
 
         onTransitionTo: function() {
             this._handle = connect.subscribe('/app/setOrientation', this, function(value) {
-                if (this._feedData) {
-                    this.createChart(this._feedData);
-                }
+                setTimeout(function() {
+                    if (this._feedData) {
+                        this.createChart(this._feedData);
+                    }
+                }.bind(this), this.RENDER_DELAY);
             });
         },
         onTransitionAway: function() {
