@@ -73,6 +73,7 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
         ],
         expose: false,
         enableSearch: false,
+        enablePullToRefresh: false,
         id: 'activity_types_list',
         editView: 'activity_edit',
         eventEditView: 'event_edit',

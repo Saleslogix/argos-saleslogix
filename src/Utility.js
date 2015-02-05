@@ -14,16 +14,10 @@
 define('Mobile/SalesLogix/Utility', [
     'dojo/_base/lang',
     'dojo/string',
-    'dojo/has',
-    'dojo/_base/sniff',
-    'dojox/mobile/sniff',
     'Sage/Platform/Mobile/Utility'
 ], function(
     lang,
     string,
-    has,
-    baseSniff,
-    mobileSniff,
     Utility
 ) {
     return lang.setObject('Mobile.SalesLogix.Utility', lang.mixin({}, Utility, {

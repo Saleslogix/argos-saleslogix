@@ -28,6 +28,7 @@ define('Mobile/SalesLogix/Views/SelectList', [
         //View Properties
         id: 'select_list',
         expose: false,
+        enablePullToRefresh: false,
 
         refreshRequiredFor: function(options) {
             if (this.options) {

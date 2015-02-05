@@ -36,7 +36,7 @@ define('Mobile/SalesLogix/Views/Login', [
         //Localization
         id: 'login',
         busy: false,
-        copyrightText: 'Copyright &copy; 2014 Infor. All rights reserved. www.infor.com',
+        copyrightText: 'Copyright &copy; 2015 Infor. All rights reserved. www.infor.com',
         logOnText: 'Sign in',
         passText: 'Password',
         rememberText: 'Remember me',
@@ -91,8 +91,7 @@ define('Mobile/SalesLogix/Views/Login', [
                 {
                     name: 'username',
                     placeHolderText: this.userText,
-                    type: 'text',
-                    autoFocus: true
+                    type: 'text'
                 },
                 {
                     name: 'password',

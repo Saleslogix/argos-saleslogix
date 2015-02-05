@@ -955,6 +955,11 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 timeless = this.fields['Timeless'].getValue(),
                 alarmTime;
 
+            // Fix timeless if necessary (The date picker won't add 5 seconds)
+            if (timeless) {
+                values['StartDate'] = startDate = this._getNewStartDate(startDate, true);
+            }
+
             // if StartDate is dirty, always update AlarmTime
             if (startDate && (isStartDateDirty || isReminderDirty)) {
                 values = values || {};

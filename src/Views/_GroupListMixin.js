@@ -360,9 +360,10 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
            '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>'          
         ]),
         createGroupTemplateLayouts: function(){
+            var mixin = lang.getObject(mixinName);
             this.groupTemplateLayouts = [{
                 name: 'Summary',
-                displayName: this.groupTemplateSummaryText,
+                displayName: mixin ? mixin.prototype.groupTemplateSummaryText : this.groupTemplateSummaryText,
                 type: 'Dynamic',
                 options: {
                     columns: [{
@@ -372,7 +373,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 }
             }, {
                 name: 'Detail',
-                displayName: this.groupTemplateDetailText,
+                displayName: mixin ? mixin.prototype.groupTemplateDetailText : this.groupTemplateDetailText,
                 type: 'Dynamic',
                 options: {
                     columns: [{
@@ -818,7 +819,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         onToolLayoutCreated: function(tools) {
             var refreshTool;
 
-            if (tools && !this._refreshAdded) {
+            if ((tools && !this._refreshAdded) && !window.App.supportsTouch()) {
                 refreshTool = {
                     id: 'refresh',
                     cls: 'fa fa-refresh fa-fw fa-lg',

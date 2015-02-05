@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
 
     <title>Infor CRM</title>
 
@@ -73,7 +74,10 @@
 
     <!-- PhoneGap -->
     <script type="text/javascript" src="cordova-2.3.0.js"></script>
-    
+
+    <!-- Global (window) dependencies. Load these before the AMD loader -->
+    <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
+
     <!-- Dojo -->
     <script type="text/javascript" src="content/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:false, async:true, blankGif:'content/images/blank.gif'"></script>
     <script type="text/javascript">
@@ -82,14 +86,13 @@
         packages: [
             { name: 'dojo', location: 'content/dojo/dojo' },
             { name: 'dijit', location: 'content/dojo/dijit' },
-            { name: 'dojox', location: 'content/dojo/dojox' },
             { name: 'configuration', location: 'configuration' },
             { name: 'localization', location: 'localization' }
         ]
     });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>
-    <script type="text/javascript" src="content/javascript/argos-dependencies.js"></script>
+    <script type="text/javascript" src="content/javascript/argos-amd-dependencies.js"></script>
     <script type="text/javascript" src="content/javascript/argos-sdk.js"></script>
 
     <!-- Application -->

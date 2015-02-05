@@ -40,6 +40,7 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
         //View Properties
         id: 'errorlog_list',
         enableSearch: false,
+        enablePullToRefresh: false,
         hideSearch: true,
         expose: false,
         detailView: 'errorlog_detail',

@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
@@ -93,6 +94,26 @@ module.exports = function(grunt) {
                     spawn: false
                 }
             }
+        },
+        shell: {
+            bundle: {
+                command: function (version) {
+                    var cmd = 'build\\bundle';
+                    if (version) {
+                        return [cmd, ' ', version].join('');
+                    }
+
+                    return cmd;
+                },
+                options: {
+                    stderr: true,
+                    stdout: true,
+                    stdin: true,
+                    execOptions: {
+                        cwd: '.'
+                    }
+                }
+            }
         }
     });
 
@@ -102,8 +123,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-shell');
 
     grunt.registerTask('test', ['connect', 'jasmine:coverage']);
     grunt.registerTask('server', ['connect:server:keepalive']);
+    grunt.registerTask('bundle', ['shell:bundle:<%= pkg.version %>']);
     grunt.registerTask('default', ['test']);
 };

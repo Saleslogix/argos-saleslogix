@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<MobileApplicationPortal xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="8b4b9ec4-73da-4394-882c-714219f73ba6">
+  <PortalAlias>SlxMobile</PortalAlias>
+  <PortalReferences />
+    <DeploymentActions>
+    <ActionType TypeName="Sage.SalesLogix.Web.AdminModule.SLXClientConnectionStringDeploymentAction, Sage.SalesLogix.Web.AdminModule">
+      <Properties />
+    </ActionType>
+    <ActionType TypeName="Sage.Platform.Mobile.AdminModule.MobileDeploymentAction, Sage.Platform.Mobile.AdminModule">
+      <Properties />
+    </ActionType>
+  </DeploymentActions>
+</MobileApplicationPortal>

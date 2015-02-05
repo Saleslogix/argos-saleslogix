@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<BundleData>
+  <bundleItemsData>
+    <bundleItemData itemId="8b4b9ec4-73da-4394-882c-714219f73ba6" dataTypeName="Sage.Platform.Projects.Localization.ResourcePackageCollection, Sage.Platform.Projects">
+      <ArrayOfResourcePackage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <string>\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.de.resx</string>
+        <string>\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.fr.resx</string>
+        <string>\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.it.resx</string>
+        <string>\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.resx</string>
+        <string>\Portal\SlxMobile\SlxMobile.mobapp.ptl.xml.ru.resx</string>
+      </ArrayOfString>
+    </bundleItemData>
+  </bundleItemsData>
+  <bundleActionsData />
+  <deletedItemData />
+</BundleData>

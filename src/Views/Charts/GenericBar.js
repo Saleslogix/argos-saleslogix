@@ -17,9 +17,6 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     'dojo/_base/array',
     'dojo/dom-geometry',
     'dojo/dom-attr',
-    'dojox/charting/Chart',
-    'dojox/charting/plot2d/Bars',
-    'dojox/charting/axis2d/Default',
     'Sage/Platform/Mobile/View',
     './_ChartMixin'
 ], function(
@@ -28,23 +25,19 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     array,
     domGeo,
     domAttr,
-    Chart,
-    PlotType,
-    Default,
     View,
     _ChartMixin
 ) {
     return declare('Mobile.SalesLogix.Views.Charts.GenericBar', [View, _ChartMixin], {
         id: 'chart_generic_bar',
         titleText: '',
-        otherText: 'Other',
         expose: false,
         chart: null,
-        legend: null,
-        MAX_ITEMS: 5,
-        MIN_ITEMS: 1,
         barColor: '#0896e9',
-        otherColor: '#005bb8',
+
+        chartOptions: {
+            barShowStroke: false
+        },
 
         formatter: function(val) {
             return val;
@@ -57,124 +50,47 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
                 '<div class="chart-hash" data-dojo-attach-point="searchExpressionNode"></div>',
-                '<div class="chart-content" data-dojo-attach-point="contentNode"></div>',
-                '<div class="chart-legend" data-dojo-attach-point="legendNode"></div>',
+                '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
             '</div>'
         ]),
-        createChart: function (feedData) {
+        createChart: function (rawData) {
             this.inherited(arguments);
 
-            if (this.chart) {
-                this.chart.destroy(true);
-            }
-
-            var labels, box, searchExpressionHeight, landscape;
+            var ctx, box, searchExpressionHeight, data, labels, seriesData;
 
             this.showSearchExpression();
             searchExpressionHeight = this.getSearchExpressionHeight();
 
             box = domGeo.getMarginBox(this.domNode);
             box.h = box.h - searchExpressionHeight;
-            labels = this._labels(feedData);
 
-            landscape = box.w >= box.h ? true : false;
+            labels = [];
+            seriesData = array.map(rawData, function(item, idx) {
+                labels.push(item.$descriptor);
+                return Math.round(item.value);
+            }.bind(this));
 
-            if (landscape && box.h < this.MIN_HEIGHT) {
-                box.h = this.MIN_HEIGHT;
-                domGeo.setMarginBox(this.domNode, {h: this.MIN_HEIGHT}, box);
-            }
-
-            this.chart = new Chart(this.contentNode);
-            this.chart.addPlot('default', {
-                type: PlotType,
-                font: this.font,
-                fontColor: this.fontColor,
-                markers: false,
-                gap: 5,
-                majorLabels: true,
-                minorTicks: false,
-                minorLabels: false,
-                microTicks: false
-            });
-
-            this.chart.addAxis('x', {
-                font: this.font,
-                fontColor: this.fontColor,
-                vertical: true,
-                title: '',
-                minorTicks: false,
-                minorLabels: false,
-                microTicks: false,
+            data = {
                 labels: labels,
-                labelFunc: function(formattedValue, rawValue) {
-                    var item = labels[rawValue - 1];
-                    return item && item.text;
-                }
-            });
+                datasets: [
+                    {
+                        label: 'Default',
+                        fillColor: this.barColor,
+                        data: seriesData
+                    }
+                ]
+            };
 
-            this.chart.addAxis('y', {
-                title: '',
-                titleOrientation: 'away'
-            });
-
-            this.chart.addSeries('default', labels, {
-                font: this.font,
-                fontColor: this.fontColor,
-                stroke: { color: this.barColor},
-                fill: this.barColor
-            });
-
-            this.chart.render();
-            this.chart.resize(box.w, box.h);
-        },
-        _labels: function(feedData) {
-            var data = [], otherY = 0, otherText;
-
-            array.forEach(feedData, function(item, index) {
-                if (index < this.MAX_ITEMS) {
-                    data.push({
-                        y: item.value,
-                        text: item.$descriptor + ' (' + this.formatter(item.value) + ')',
-                        value: index,
-                        color: this.barColor,
-                        stroke: this.barColor
-                    });
-                } else {
-                    otherY = otherY + item.value;
-                    this._insertOther(data, this.MAX_ITEMS, otherY);
-
-                }
-            }, this);
-
-            // Dojo won't draw a single bar, insert a Other group with a 0 value
-            if (feedData.length === this.MIN_ITEMS) {
-                this._insertOther(data, this.MIN_ITEMS, 0);
+            if (this.chart) {
+                this.chart.destroy();
             }
 
-            // Reverse sort to show larger number up top
-            data.sort(function(a, b) {
-                if (a.y > b.y) {
-                    return 1;
-                }
+            this.contentNode.width = box.w;
+            this.contentNode.height = box.h;
 
-                if (b.y > a.y) {
-                    return -1;
-                }
+            ctx = this.contentNode.getContext('2d');
 
-                return 0;
-            });
-
-            return data;
-        },
-        _insertOther: function(data, index, value) {
-            var otherText = this.otherText + ' (' + this.formatter(value) + ')';
-            data[index] = {
-                y: value,
-                text: otherText,
-                value: index,
-                color: this.otherColor,
-                stroke: this.otherColor
-            };
+            this.chart = new window.Chart(ctx).Bar(data, this.chartOptions);
         }
     });
 });
