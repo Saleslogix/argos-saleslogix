@@ -40,7 +40,7 @@ define('Mobile/SalesLogix/Views/_QuickFormDetailMixin', [
             }
         },
         quickFormCreateLayout: function () {
-            var quickFormSection, curentLayout, newLayout = [];
+            var quickFormSection, currentLayout, newLayout = [];
             currentLayout = this.o_createLayout(arguments);
 
             //add Quick Form related view  widget
@@ -49,14 +49,14 @@ define('Mobile/SalesLogix/Views/_QuickFormDetailMixin', [
                 list: true,
                 name: 'QuickFormViews',
                 children: [{
-                    name:  this.entityName + '_quickFormDetail',
+                    name: this.entityName + '_quickFormDetail',
                     relatedView: {
                         widgetType: 'quickFormDetail',
                         id: this.entityName + '_quickFormDetail'
                         //quickFormName:  this.entityName + 'MobileDetail'
                     }
                 }]
-            }
+            };
             this.layout.forEach(function (section) {
                 if (this.enabledSections[section.name]) {
                     newLayout.push(section);

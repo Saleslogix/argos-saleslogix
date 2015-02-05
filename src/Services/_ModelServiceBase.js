@@ -127,7 +127,7 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
         addModelData:function(name, modelData){
             var model = this.createModel(modelData);
             this.store[name] = model;
-            return model
+            return model;
         },
         getModelRequest: function (name) {
             var request;
@@ -142,7 +142,7 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
         },
         getModelsRequest: function (queryOptions) {
             var request;
-            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.service)
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.service);
             request.setResourceKind(this.resourceKind);
             request.setContractName(this.contractName);
             request.setQueryArg('_indented', 'true');
