@@ -65,10 +65,8 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
             dataPromise = this.getModels();
             dataPromise.then(function (models) {
                 if (models) {
-                    
                 }
             });
-
         },
         getModel: function (name, refresh) {
             var request, queryResults, deferred, model;
