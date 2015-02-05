@@ -13,14 +13,18 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
     'dojo/_base/array',
     'dojo/_base/connect',
     'dojo/dom-geometry',
-    'dojo/dom-attr'
+    'dojo/dom-attr',
+    'dojo/has',
+    'dojo/sniff'
 ], function(
     declare,
     lang,
     array,
     connect,
     domGeo,
-    domAttr
+    domAttr,
+    has,
+    sniff
 ) {
 
     window.Chart.defaults.global = {
@@ -147,7 +151,7 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
     return declare('Mobile.SalesLogix.Views.Charts._ChartMixin', null, {
         _handle: null,
         _feedData: null,
-        RENDER_DELAY: 100,
+        RENDER_DELAY: has('ios') < 8 ? 500 : 1, // Work around IOS7 orientation change issues
 
         /**
          * @property parent Object Reference to the metric widget that opened this view.
