@@ -1,21 +1,22 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+/* 
+ * See copyright file.
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/UserControl', [
     'dojo/_base/declare',
      'Mobile/SalesLogix/Template',
      'Mobile/SalesLogix/Format',
     'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-
+    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
 ], function(
     declare,
     template,
     format,
-    _BaseControl
+    _BaseControl,
+    ControlManager
 ) {
     var control = declare('Mobile.SalesLogix.Models.QuickFormControls.UserControl', [_BaseControl], {
         name: 'user',
-        type: 'user',
+        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUser, Sage.SalesLogix.QuickForms.QFControls',
         valueBindingProperty: 'LookupResultValue',
         textBindingProperty: 'text',
         getDataBindProperty: function () {
@@ -45,5 +46,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/UserControl', [
        
     });
 
+    ControlManager.register('user', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUser, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
     return control;
 });

@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 1997-2015, SalesLogix, NA., LLC. All rights reserved.
+/* 
+ * See copyright file.
  */
 
 /**

@@ -26,7 +26,6 @@ define('Mobile/SalesLogix/Application', [
     'Sage/Platform/Mobile/Application',
     'dojo/sniff',
     'moment'
-
 ], function(
     win,
     declare,
@@ -105,7 +104,6 @@ define('Mobile/SalesLogix/Application', [
         homeViewId: 'myactivity_list',
         loginViewId: 'login',
         logOffViewId: 'logoff',
-        ModelManager: null,
         init: function() {
             var original,
                 app = this;
@@ -124,7 +122,6 @@ define('Mobile/SalesLogix/Application', [
                 request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
                 original.apply(this, arguments);
             };
-           
         },
         initConnects: function() {
             this.inherited(arguments);
@@ -537,7 +534,9 @@ define('Mobile/SalesLogix/Application', [
         },
         initQuickFormServices: function () {
             var qfs = App.serviceManager.get('quickFormService');
-            qfs.initModelData();
+            if (qfs) {
+                qfs.initModelData();
+            }
         },
         requestUserOptions: function() {
             var batch = new Sage.SData.Client.SDataBatchRequest(this.getService())

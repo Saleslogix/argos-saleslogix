@@ -1,16 +1,5 @@
-/* Copyright (c) 2014, SalesLogix, Inc. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/* 
+ * See copyright file.
  */
 
 /**
@@ -38,7 +27,8 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
     'Mobile/SalesLogix/Models/QuickFormControls/PicklistControl',
     'Mobile/SalesLogix/Models/QuickFormControls/LookupControl',
     'Mobile/SalesLogix/Models/QuickFormControls/NumericControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl'
+    'Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl',
+    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
 
 ], function(
     declare,
@@ -57,12 +47,11 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
     PicklistControl,
     LookupControl,
     NumericControl,
-    CurrencyControl
+    CurrencyControl,
+    controlManager
 ) {
 
     return declare('Mobile.SalesLogix.Models.QuickFormModel', [_ModelBase], {
-        
-        
         /**
          * @property {String}
          * The unique (within the current form) name of the model
@@ -77,7 +66,7 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
         include: [],
         layout: [],
         controlMaps:[
-            { name: 'text', type: 'Sage.Platform.QuickForms.Controls.QFTextBox, Sage.Platform.QuickForms', ctor: TextControl},
+            {name: 'text', type: 'Sage.Platform.QuickForms.Controls.QFTextBox, Sage.Platform.QuickForms', ctor: TextControl},
             {name:'phone', type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXPhone, Sage.SalesLogix.QuickForms.QFControls', ctor: PhoneControl},
             {name:'email', type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXEmail, Sage.SalesLogix.QuickForms.QFControls', ctor: EmailControl},
             {name:'name', type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXPersonName, Sage.SalesLogix.QuickForms.QFControls', ctor: NameControl},
@@ -89,13 +78,12 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
             {name:'user',type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXUser, Sage.SalesLogix.QuickForms.QFControls', ctor:UserControl},
             {name:'picklist',type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXPickList, Sage.SalesLogix.QuickForms.QFControls', ctor:PicklistControl},
             {name:'lookup',type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXLookup, Sage.SalesLogix.QuickForms.QFControls',ctor: LookupControl },
-            { name: 'numeric', type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXNumeric, Sage.SalesLogix.QuickForms.QFControls', ctor: NumericControl },
-            {name:'currency',type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXCurrency, Sage.SalesLogix.QuickForms.QFControls',ctor: CurrencyControl }
+            {name:'numeric', type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXNumeric, Sage.SalesLogix.QuickForms.QFControls', ctor: NumericControl},
+            {name:'currency',type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXCurrency, Sage.SalesLogix.QuickForms.QFControls',ctor: CurrencyControl}
         ],
         constructor: function(o) {
             this.layout = [];
             lang.mixin(this, o);
-            
         },
         init: function(){
             this.initModelData();
@@ -107,7 +95,7 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
             this.initLayout();
             this.initSelect();
         },
-        initLayout: function(){     
+        initLayout: function(){
             this.layout = [];
             if (this.modelData) {
                 this.modelData.entity.Controls.forEach(function (control) {
@@ -118,9 +106,8 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
                             name: controlModel.getControlId(),
                             label: controlModel.getCaption(),
                             type: controlModel.type,
-                            property: controlModel.valueProperty, //getDataBindProperty(),
-                            valueDataPath: controlModel.valueDataPath, //getDataBindSelectPath(),
-                            //valueProperties: controlModel.getValueProperties(), 
+                            property: controlModel.valueProperty, 
+                            valueDataPath: controlModel.valueDataPath,
                             renderer: controlModel.getRenderer(),
                             column: control.Column,
                             row: control.Row,
@@ -131,8 +118,8 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
                             this.layout.push(layout);
                         }
                     }
-                }.bind(this));               
-            }           
+                }.bind(this));
+            }
         },
         initSelect: function () {
             this.select = [];
@@ -154,13 +141,15 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
         },
         getControlMap: function(control){
             var selMap;
-            this.controlMaps.forEach(function (map) {
-                if (map.type === control.$type) {
-                    selMap = map;
-                }
-            });
+            selMap = controlManager.getByType(control.$type);
+
+            //this.controlMaps.forEach(function (map) {
+            //    if (map.type === control.$type) {
+            //        selMap = map;
+            //    }
+            //});
             if (!selMap) {
-                selMap = this.controlMaps[0];
+                selMap = {type:'', ctor:TextControl};
             }
             return selMap;
         },
@@ -176,9 +165,7 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
         _getResourceKind:function(){
                
             return 'unknown';
-
-        },
-       
+        }
     });
 });
 

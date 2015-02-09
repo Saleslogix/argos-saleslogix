@@ -1,20 +1,23 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+/* 
+ * See copyright file.
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/UrlControl', [
     'dojo/_base/declare',
     'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
+    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
 
 ], function(
     declare,
-    _BaseControl
+    _BaseControl,
+    ControlManager
 ) {
     var control = declare('Mobile.SalesLogix.Models.QuickFormControls.UrlControl', [_BaseControl], {
         name:'url',
-        type: 'url',
+        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUrl, Sage.SalesLogix.QuickForms.QFControls',
         valueBindingProperty: 'Text',
 
     });
 
+    ControlManager.register('url', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUrl, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
     return control;
 });

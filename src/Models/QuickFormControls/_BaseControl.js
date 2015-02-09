@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
+/* 
+ * See copyright file.
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/_BaseControl', [
     'dojo/_base/declare',
