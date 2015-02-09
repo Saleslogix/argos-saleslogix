@@ -46,7 +46,7 @@ define('Mobile/SalesLogix/Environment', [
 
             href = string.substitute("http://maps.google.com/maps?q=${0}", [address]);
 
-            if (has('ie')) {
+            if (has('ie') || has('ff')) {
                 window.open(href, windowName);
             } else {
                 hiddenLink = domConstruct.create('a', {
