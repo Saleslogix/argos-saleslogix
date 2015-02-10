@@ -62,6 +62,8 @@ define('Mobile/SalesLogix/Views/Calendar/WeekView', [
         eventMoreText: 'View ${0} More Event(s)',
         toggleCollapseText: 'toggle collapse',
 
+        enablePullToRefresh: false,
+
         // Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',

@@ -76,6 +76,8 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             'Sat'
         ],
 
+        enablePullToRefresh: false,
+
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}" {% if ($.resourceKind) { %}data-resource-kind="{%= $.resourceKind %}"{% } %}>',

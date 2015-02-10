@@ -56,6 +56,7 @@ define('Mobile/SalesLogix/Views/Calendar/DayView', [
         activityHeaderText: 'Activities',
         eventMoreText: 'View More Event(s)',
         toggleCollapseText: 'toggle collapse',
+        enablePullToRefresh: false,
 
         // Templates
         widgetTemplate: new Simplate([
