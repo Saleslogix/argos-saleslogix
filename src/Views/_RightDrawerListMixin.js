@@ -200,7 +200,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     entry,
                     currentGroup,
                     items = [],
-                    transitionHandle;
+                    transitionHandle,
+                    hasDefaultGroup;
 
                 // We will get an object back where the property names are the keys (groupId's)
                 // Extract them out, and save the entry, which is the data property on the extracted object
@@ -213,7 +214,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }
                 }
 
-
+                hasDefaultGroup = list.hasDefaultGroup;
                 GroupUtility.addToGroupPreferences(items, list.entityName, true);
                 currentGroup = GroupUtility.getDefaultGroup(list.entityName);
                 if (currentGroup) {
@@ -223,11 +224,21 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 handle.remove();
                 field.destroy();
 
-                // We will transition back to the list, pop back open the right drawer so the user is back where they started
-                transitionHandle = aspect.after(list, 'processData', function() {
-                    this.toggleRightDrawer();
-                    transitionHandle.remove();
-                }.bind(list));
+                if (hasDefaultGroup) {
+                    // We will transition back to the list, pop back open the right drawer so the user is back where they started
+                    transitionHandle = aspect.after(list, 'processData', function() {
+                        this.toggleRightDrawer();
+                        transitionHandle.remove();
+                    }.bind(list));
+                } else {
+                    // Since there was no previous default group, just refresh the list (no need to toggle the right drawer)
+                    transitionHandle = aspect.after(list, 'onTransitionTo', function() {
+                        this.refreshRequired = true;
+                        this.clear();
+                        this.refresh();
+                        transitionHandle.remove();
+                    }.bind(list));
+                }
 
             }.bind(field));
 

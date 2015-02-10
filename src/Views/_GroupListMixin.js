@@ -53,6 +53,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         currentGroupNotFoundText: 'The current group was not found.',
         groupTemplateSummaryText: 'Summary',
         groupTemplateDetailText: 'Detail',
+        hasDefaultGroup: true,
         noDefaultGroupTemplate: new Simplate([
             '<li class="no-data" data-action="openConfigure">',
             '<h3>{%= $$._getNoDefaultGroupMessage() %}</h3>',
@@ -118,7 +119,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
             try {
                 if (!this._groupInitalized && this.groupsMode) {
                     domClass.add(this.domNode, 'list-loading');
-                    this.listLoading = true;
+                    this._setLoading();
                     this.initGroup();
                 } else {
                     this.inherited(arguments);
@@ -139,6 +140,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
         },
         setCurrentGroup: function(group) {
             if (group) {
+                this.hasDefaultGroup = true;
                 this._groupInitalized = false;
                 this._currentGroup = group;
                 this.currentGroupId = group.$key;
@@ -160,6 +162,7 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
                 } else {
                     // No default group preference
                     this.set('listContent', this.noDefaultGroupTemplate.apply(this));
+                    this.hasDefaultGroup = false;
                 }
             }
 
