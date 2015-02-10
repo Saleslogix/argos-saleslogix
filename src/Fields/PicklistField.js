@@ -35,7 +35,6 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
 
     var control = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {
         picklist: false,
-        orderBy: 'text asc',
         storageMode: 'text',
         requireSelection: false,
         valueKeyProperty: false,
