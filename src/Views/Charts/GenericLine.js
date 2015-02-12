@@ -1,10 +1,10 @@
 /**
  * @class Mobile.SalesLogix.Views.Charts.GenericLine
  *
- * @extends Sage.Platform.Mobile.View
+ * @extends Sage.Platform.Mobile._ListBase
  * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
  *
- * @requires Sage.Platform.Mobile.View
+ * @requires Sage.Platform.Mobile._ListBase
  *
  */
 define('Mobile/SalesLogix/Views/Charts/GenericLine', [
@@ -13,7 +13,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
     'dojo/_base/array',
     'dojo/dom-geometry',
     'dojo/dom-attr',
-    'Sage/Platform/Mobile/View',
+    'Sage/Platform/Mobile/_ListBase',
     './_ChartMixin'
 ], function(
     declare,
@@ -21,10 +21,10 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
     array,
     domGeo,
     domAttr,
-    View,
+    _ListBase,
     _ChartMixin
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericLine', [View, _ChartMixin], {
+    return declare('Mobile.SalesLogix.Views.Charts.GenericLine', [_ListBase, _ChartMixin], {
         id: 'chart_generic_line',
         titleText: '',
         expose: false,
@@ -39,29 +39,22 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
             bezierCurveTension: 0.4,
             pointDot: true,
             pointDotRadius: 4,
-            datasetFill: true
+            datasetFill: true,
+            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+
         },
 
         attributeMap: {
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
 
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
-                '<div class="chart-hash" data-dojo-attach-point="searchExpressionNode"></div>',
-                '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
-            '</div>'
-        ]),
         createChart: function (rawData) {
             this.inherited(arguments);
 
-            var ctx, box, searchExpressionHeight, data, labels, seriesData;
+            var ctx, box, data, labels, seriesData;
 
             this.showSearchExpression();
-            searchExpressionHeight = this.getSearchExpressionHeight();
 
-            box = domGeo.getMarginBox(this.domNode);
-            box.h = box.h - searchExpressionHeight;
 
             labels = [];
             seriesData = array.map(rawData, function(item, idx) {
@@ -86,6 +79,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
                 this.chart.destroy();
             }
 
+            box = domGeo.getMarginBox(this.domNode);
             this.contentNode.width = box.w;
             this.contentNode.height = box.h;
 

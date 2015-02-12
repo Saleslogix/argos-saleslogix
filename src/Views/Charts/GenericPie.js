@@ -5,10 +5,10 @@
 /**
  * @class Mobile.SalesLogix.Views.Charts.GenericPie
  *
- * @extends Sage.Platform.Mobile.View
+ * @extends Sage.Platform.Mobile._ListBase
  * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
  *
- * @requires Sage.Platform.Mobile.View
+ * @requires Sage.Platform.Mobile._ListBase
  *
  */
 define('Mobile/SalesLogix/Views/Charts/GenericPie', [
@@ -16,18 +16,18 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/dom-geometry',
-    'Sage/Platform/Mobile/View',
+    'Sage/Platform/Mobile/_ListBase',
     './_ChartMixin'
 ], function(
     declare,
     lang,
     array,
     domGeo,
-    View,
+    _ListBase,
     _ChartMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Charts.GenericPie', [View, _ChartMixin], {
+    return declare('Mobile.SalesLogix.Views.Charts.GenericPie', [_ListBase, _ChartMixin], {
         id: 'chart_generic_pie',
         titleText: '',
         expose: false,
@@ -46,33 +46,20 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             segmentShowStroke: false,
             segmentStrokeColor: '#EBEBEB',
             segmentStrokeWidth: 5,
-            animateScale: false
+            animateScale: false,
+            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
         },
 
         formatter: function(val) {
             return val;
         },
 
-        attributeMap: {
-            chartContent: {node: 'contentNode', type: 'innerHTML'}
-        },
-
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
-                '<div class="chart-hash" data-dojo-attach-point="searchExpressionNode"></div>',
-                '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
-            '</div>'
-        ]),
         createChart: function(rawData) {
             this.inherited(arguments);
 
-            var ctx, box, searchExpressionHeight, data;
+            var ctx, box, data;
 
             this.showSearchExpression();
-            searchExpressionHeight = this.getSearchExpressionHeight();
-
-            box = domGeo.getMarginBox(this.domNode);
-            box.h = box.h - searchExpressionHeight;
 
             data = array.map(rawData, function(item, idx) {
                 return {
@@ -88,12 +75,14 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
                 this.chart.destroy();
             }
 
+            box = domGeo.getMarginBox(this.domNode);
             this.contentNode.width = box.w;
             this.contentNode.height = box.h;
 
             ctx = this.contentNode.getContext('2d');
 
             this.chart = new window.Chart(ctx).Pie(data, this.chartOptions);
+            this.showLegend();
         },
         _getItemColor: function(index) {
             var len, n;

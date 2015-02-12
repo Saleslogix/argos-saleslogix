@@ -228,19 +228,12 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             }));
         },
         navToReportView: function() {
-            var view, signal;
+            var view;
             view = App.getView(this.chartTypeMapping[this.chartType]);
 
             if (view) {
                 view.parent = this;
                 view.formatter = this.formatter;
-                signal = aspect.after(view, 'show', lang.hitch(this, function() {
-                    setTimeout(lang.hitch(this, function() {
-                        view.createChart(this._data);
-                        signal.remove();
-                    }), 100);
-                }));
-
                 view.show({ returnTo: this.returnToId, currentSearchExpression: this.currentSearchExpression, title: this.title});
             }
         },

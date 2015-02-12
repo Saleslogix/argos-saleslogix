@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-/** 
+/**
  * @class Mobile.SalesLogix.Views.Charts._ChartMixin
  *
  * Base mixin for creating chart views.
@@ -151,12 +151,38 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
     return declare('Mobile.SalesLogix.Views.Charts._ChartMixin', null, {
         _handle: null,
         _feedData: null,
+
+        /**
+         * @property {Number} RENDER_DELAY
+         * Number The re-render delay in milliseconds when the user changes device orientation.
+         */
         RENDER_DELAY: has('ios') < 8 ? 500 : 1, // Work around IOS7 orientation change issues
 
         /**
-         * @property parent Object Reference to the metric widget that opened this view.
+         * @property {Object} parent
+         * Reference to the metric widget that opened this view.
         */
         parent: null,
+
+        /**
+         * @property {Boolean} enableSearch Must be set to false due to the removal of the search node in the overriden widgetTemplate.
+         * @readonly
+         */
+        enableSearch: false,
+
+        /**
+         * Overrides the _ListBase widgetTemplate with a new legendNode attach point and removing the search node.
+         * enableSearch must be set to false due to this.
+         */
+        widgetTemplate: new Simplate([
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}">',
+                '<div class="pull-to-refresh" data-dojo-attach-point="pullRefreshBanner">{%! $.pullRefreshTemplate %}</div>',
+                '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
+                    '<div data-dojo-attach-point="legendNode"></div>',
+                    '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
+                '</div>',
+            '</div>'
+        ]),
 
         onTransitionTo: function() {
             this._handle = connect.subscribe('/app/setOrientation', this, function(value) {
@@ -187,14 +213,68 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
         },
 
         showSearchExpression: function() {
-            var html;
-            html = '<div>' + this.getSearchExpression() + '</div>';
-            domAttr.set(this.searchExpressionNode, { innerHTML: html });
+            var app;
+            app = this.app || window.App;
+            app.setPrimaryTitle([this.title, this.getSearchExpression()].join(': '));
         },
 
+        /**
+         * Render a legend from the chart into the legendNode attach point.
+         * @since 3.3
+         */
+        showLegend: function() {
+            var html;
+
+            if (!this.chart || !this.chart.generateLegend || !this.legendNode) {
+                return;
+            }
+
+            html = this.chart.generateLegend();
+            domAttr.set(this.legendNode, { innerHTML: html });
+        },
+
+        /**
+         * @deprecated 3.3
+         * Charts in 3.3 no longer use the search expression node.
+         */
         getSearchExpressionHeight: function() {
             var box = domGeo.getMarginBox(this.searchExpressionNode);
             return box.h;
+        },
+
+        /**
+         * Return a store that is consumed by requestData.
+         * @since 3.3
+         */
+        createStore: function() {
+            var store;
+            store = this.parent && this.parent.store;
+            return store;
+        },
+
+        /**
+         * Overrides _ListBase requestData to re-render the chart on pull to refresh.
+         * @since 3.3
+         */
+        requestData: function() {
+            var store;
+            store = this.get('store');
+
+            if (store) {
+                if (this.chart && this.chart.destroy) {
+                    this.chart.destroy();
+                }
+
+                this._setLoading();
+                store.get().then(function success(data) {
+                    if (data.$resources && data.$resources.length > 0) {
+                        this.createChart(data.$resources);
+                    }
+                    this._clearLoading();
+                }.bind(this), function failure() {
+                    this._clearLoading();
+                }.bind(this));
+            }
         }
     });
 });
