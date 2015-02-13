@@ -51,8 +51,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         _filterName: "AccountManager",
                         _metricName: "TotalRevenue"
                     },
-                    metricDisplayName: "Total Revenue",
-                    filterDisplayName: "Account Manager",
                     chartType: "bar",
                     aggregate: "sum",
                     formatter: "bigNumber",
@@ -64,8 +62,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         _filterName: "Type",
                         _metricName: "AverageTimeAsCustomer"
                     },
-                    metricDisplayName: "Average Time as Customer",
-                    filterDisplayName: "Type",
                     chartType: "pie",
                     aggregate: "avg",
                     formatter: "fixedLocale",
@@ -77,8 +73,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         "_filterName": "AccountManager",
                         "_metricName": "CountAccounts"
                     },
-                    metricDisplayName: "Count Accounts",
-                    filterDisplayName: "Account Manager",
                     chartType: "bar",
                     aggregate: "sum",
                     formatter: "bigNumber",
@@ -93,8 +87,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         _filterName: "AccountManager",
                         _metricName: "CountOpportunities"
                     },
-                    metricDisplayName: "Count Opportunities",
-                    filterDisplayName: "Account Manager",
                     chartType: "bar",
                     aggregate: "sum",
                     formatter: "bigNumber",
@@ -106,8 +98,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         _filterName: "AccountManager",
                         _metricName: "SumSalesPotential"
                     },
-                    metricDisplayName: "Sum Sales Potential",
-                    filterDisplayName: "Account Manager",
                     chartType: "bar",
                     aggregate: "sum",
                     formatter: "bigNumber",
@@ -119,8 +109,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         _filterName: "EstimatedClose",
                         _metricName: "SumSalesPotential"
                     },
-                    metricDisplayName: "Sum Sales Potential",
-                    filterDisplayName: "Estimated Close",
                     chartType: "line",
                     aggregate: "avg",
                     formatter: "bigNumber",
@@ -136,8 +124,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         _filterName: "Category",
                         _metricName: "TicketCount"
                     },
-                    metricDisplayName: "Ticket Count",
-                    filterDisplayName: "Category",
                     chartType: "bar",
                     aggregate: "sum",
                     formatter: "bigNumber",
@@ -149,8 +135,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         _filterName: "AssignedTo",
                         _metricName: "OpenTicketAgingAverage"
                     },
-                    metricDisplayName: "Open Ticket Aging Average",
-                    filterDisplayName: "Assigned To",
                     chartType: "bar",
                     aggregate: "avg",
                     formatter: "fixedLocale",
@@ -165,8 +149,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         _filterName: "AccountManager",
                         _metricName: "CountContacts"
                     },
-                    metricDisplayName: "Count Contacts",
-                    filterDisplayName: "Account Manager",
                     chartType: "bar",
                     aggregate: "sum",
                     formatter: "bigNumber",
@@ -181,8 +163,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                             _filterName: "Owner",
                             _metricName: "CountLeads"
                         },
-                        metricDisplayName: "Count Leads",
-                        filterDisplayName: "Owner",
                         chartType: "bar",
                         aggregate: "sum",
                         formatter: "bigNumber",
@@ -197,8 +177,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                             _filterName: "Type",
                             _metricName: "CountHistory"
                         },
-                        metricDisplayName: "Count History",
-                        filterDisplayName: "Type",
                         chartType: "bar",
                         aggregate: "sum",
                         formatter: "bigNumber",
@@ -210,8 +188,6 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                             _filterName: "Type",
                             _metricName: "TotalDuration"
                         },
-                        metricDisplayName: "Total Duration",
-                        filterDisplayName: "Type",
                         chartType: "bar",
                         aggregate: "sum",
                         formatter: "bigNumber",
