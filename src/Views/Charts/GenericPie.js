@@ -81,7 +81,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
 
             ctx = this.contentNode.getContext('2d');
 
-            this.chart = new window.Chart(ctx).Pie(data, this.chartOptions);
+            this.chart = new window.Chart(ctx).Doughnut(data, this.chartOptions);
             this.showLegend();
         },
         _getItemColor: function(index) {
