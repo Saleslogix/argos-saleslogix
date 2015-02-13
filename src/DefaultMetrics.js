@@ -152,7 +152,7 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                     chartType: "bar",
                     aggregate: "sum",
                     formatter: "bigNumber",
-                    enabled: true
+                    enabled: false
                 }]
             }, {
                 resourceKind: 'leads',
@@ -180,7 +180,7 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         chartType: "bar",
                         aggregate: "sum",
                         formatter: "bigNumber",
-                        enabled: true
+                        enabled: false
                     }, {
                         title: this.historyText.duration,
                         queryName: "executeMetric",
@@ -191,7 +191,7 @@ define('Mobile/SalesLogix/DefaultMetrics', [
                         chartType: "bar",
                         aggregate: "sum",
                         formatter: "bigNumber",
-                        enabled: true
+                        enabled: false
                 }]
             }];
         }
