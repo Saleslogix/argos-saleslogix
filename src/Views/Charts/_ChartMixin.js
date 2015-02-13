@@ -178,7 +178,7 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}">',
                 '<div class="pull-to-refresh" data-dojo-attach-point="pullRefreshBanner">{%! $.pullRefreshTemplate %}</div>',
                 '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
-                    '<div data-dojo-attach-point="legendNode"></div>',
+                    '<div class="legend" data-dojo-attach-point="legendNode"></div>',
                     '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
                 '</div>',
             '</div>'

@@ -1474,19 +1474,34 @@ td.entry-table-description {
     visibility: visible;
 }
 
-.pie-legend, .doughnut-legend {
-    background-color: #fff;
-    .border-radius(6px);
-    .box-sizing(border-box);
-    padding: 3px;
-    margin: 3px;
-    list-style: none;
-    border: 1px solid @black-light;
+.legend {
+    position: absolute;
+    .pie-legend, .doughnut-legend {
+        background-color: #fff;
+        .border-radius(6px);
+        .box-sizing(border-box);
+        padding: 3px;
+        margin: 3px;
+        list-style: none;
+        border: 1px solid @black-light;
 
-    > li > span {
-        width: 10px;
-        height: 10px;
-        margin: 0 2px;
-        display: inline-block;
+        > li {
+            display: inline-block;
+            > span {
+                width: 10px;
+                height: 10px;
+                margin: 0 2px;
+                display: inline-block;
+            }
+        }
+
+    }
+
+    @media (min-width: @mobile-landscape) {
+        .pie-legend, .doughnut-legend {
+            > li {
+                display: block;
+            }
+        }
     }
 }
