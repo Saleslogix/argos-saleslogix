@@ -3,17 +3,18 @@
  */
 
 /**
- * @class Sage.Platform.Mobile.Models._ModelBase
- * Model is the base class for all data models.
+ * @class Mobile.SalesLogix.Models.QuickFormModel
+ * QuickFormModel wraps the Quick Form Model MetaData .
  *
  * 
- * @alternateClassName _ModelBase
-
+ * @alternateClassName QuickFormModel
+ * @extends Sage.Platform.Models._ModelBase
  */
 define('Mobile/SalesLogix/Models/QuickFormModel', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'Sage/Platform/Mobile/Models/_ModelBase',
+    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager',
     'Mobile/SalesLogix/Models/QuickFormControls/TextControl',
     'Mobile/SalesLogix/Models/QuickFormControls/AddressControl',
     'Mobile/SalesLogix/Models/QuickFormControls/EmailControl',
@@ -27,13 +28,13 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
     'Mobile/SalesLogix/Models/QuickFormControls/PicklistControl',
     'Mobile/SalesLogix/Models/QuickFormControls/LookupControl',
     'Mobile/SalesLogix/Models/QuickFormControls/NumericControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    'Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl'
 
 ], function(
     declare,
     lang,
     _ModelBase,
+    controlManager,
     TextControl,
     AddressControl,
     EmailControl,
@@ -47,50 +48,63 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
     PicklistControl,
     LookupControl,
     NumericControl,
-    CurrencyControl,
-    controlManager
+    CurrencyControl
+
 ) {
 
     return declare('Mobile.SalesLogix.Models.QuickFormModel', [_ModelBase], {
         /**
          * @property {String}
-         * The unique (within the current form) name of the model
+         * The unique type of model.
          */
-        name: 'QuickFormModel',
-        dispalyName: 'Quick Form Model',
-        displayNamePlural: 'Quick Form Models',
-        modelData: {},
-        entityType: null,
+        type: 'QuickFormModel',
+        /**
+        * @property {String}
+        * The unique (within the current form) name of the quick form model.
+        */
+        name: null,
+        /**
+         * @property {String}
+         * The entity type name that the form was bound to, 
+         * for example "IAccount" or "IContact" 
+         */
+        entityTypeName: null,
+        /**
+        * @property {String}
+        * The resourceKind that is related to the entity type that form is bound to,
+        * for example "accounts" or "contacts".
+        */
         resourceKind: null,
-        select: [],
-        include: [],
-        layout: [],
-        controlMaps:[
-            {name: 'text', type: 'Sage.Platform.QuickForms.Controls.QFTextBox, Sage.Platform.QuickForms', ctor: TextControl},
-            {name:'phone', type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXPhone, Sage.SalesLogix.QuickForms.QFControls', ctor: PhoneControl},
-            {name:'email', type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXEmail, Sage.SalesLogix.QuickForms.QFControls', ctor: EmailControl},
-            {name:'name', type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXPersonName, Sage.SalesLogix.QuickForms.QFControls', ctor: NameControl},
-            {name:'date', type:'Sage.SalesLogix.QuickForms.QFControls.QFDateTimePicker, Sage.SalesLogix.QuickForms.QFControls', ctor: DateControl},
-            {name:'address', type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXAddress, Sage.SalesLogix.QuickForms.QFControls', ctor: AddressControl},
-            {name:'boolean', type:'Sage.Platform.QuickForms.QFControls.QFCheckBox, Sage.Platform.QuickForms.QFControls', ctor:BooleanControl},
-            {name:'url', type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXUrl, Sage.SalesLogix.QuickForms.QFControls', ctor:UrlControl},
-            {name:'owner', type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXOwner, Sage.SalesLogix.QuickForms.QFControls', ctor:OwnerControl},
-            {name:'user',type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXUser, Sage.SalesLogix.QuickForms.QFControls', ctor:UserControl},
-            {name:'picklist',type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXPickList, Sage.SalesLogix.QuickForms.QFControls', ctor:PicklistControl},
-            {name:'lookup',type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXLookup, Sage.SalesLogix.QuickForms.QFControls',ctor: LookupControl },
-            {name:'numeric', type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXNumeric, Sage.SalesLogix.QuickForms.QFControls', ctor: NumericControl},
-            {name:'currency',type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXCurrency, Sage.SalesLogix.QuickForms.QFControls',ctor: CurrencyControl}
-        ],
+        /**
+        * @property {Array}
+        * An array of the properties that is created from the quick form metadata 
+        * and its bindings durring initialization.
+        */
+        select: null,
+        /**
+        * @property {Array}
+        * An array of layouts that is created from the quick form metada data
+        * and its control bindings durring initialization.
+        */
+        layout:null,
         constructor: function(o) {
             this.layout = [];
+            this.select = [];
+            this.modelData = {};
             lang.mixin(this, o);
         },
+        /**
+         * Called from QuickFormService when after an instance is created.
+         * Titem using the currently selected row as context by passing the action instance the selected row to the
+         * action items `enabled` property.
+         * @param {Object} selection 
+         */
         init: function(){
             this.initModelData();
         },      
         initModelData: function () {
             this.resourceKind = this._getResourceKind();
-            this.entityType = this.modelData.entity.EntityTypeName;
+            this.entityTypeName = this.modelData.entity.EntityTypeName;
             this.name = this.modelData.entity.Name;
             this.initLayout();
             this.initSelect();
@@ -101,7 +115,7 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
                 this.modelData.entity.Controls.forEach(function (control) {
                     var layout, controlModel;
                     controlModel = this.getControlModel(control);
-                    if (controlModel) {
+                    if ((controlModel) && (controlModel.controlData.Visible)) {
                         layout = {
                             name: controlModel.getControlId(),
                             label: controlModel.getCaption(),
@@ -142,19 +156,13 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
         getControlMap: function(control){
             var selMap;
             selMap = controlManager.getByType(control.$type);
-
-            //this.controlMaps.forEach(function (map) {
-            //    if (map.type === control.$type) {
-            //        selMap = map;
-            //    }
-            //});
             if (!selMap) {
                 selMap = {type:'', ctor:TextControl};
             }
             return selMap;
         },
         getMainEntityName: function () {
-            return this.entityType.substring(1);
+            return this.entityTypeName.substring(1);
         },
         getSelects:function(){
             return this.select;

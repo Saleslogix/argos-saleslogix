@@ -48,15 +48,15 @@ define('Mobile/SalesLogix/Services/EntityService', [
         getEntityById: function (entityName, entityId, queryOptions) {
             var promise, entityStore, request, queryResults, deferred, model;
             deferred = new Deferred();
-            promise = this.getModel(entityName);         
+            promise = this.getModel(entityName);
             promise.then(function (model) {
                 if (model) {
                     entityStore = this.getEntityStore(model);
                     queryResults = entityStore.get(entityId, queryOptions);
                     when(queryResults, function (entityFeed) {
                         var entity, odef = deferred;
-                        entity = queryResults.results[0];                        
-                        deferred.resolve(entity);                        
+                        entity = queryResults.results[0];
+                        deferred.resolve(entity);
                     }.bind(this), function (err) {
                         deferred.reject(err);
                     }.bind(this));
@@ -71,13 +71,13 @@ define('Mobile/SalesLogix/Services/EntityService', [
                 service: this.service,
                 contractName: entityModel.contractName,
                 resourceKind: entityModel.resourceKind,
-                resourceProperty: entityModel.resourceProperty,
-                resourcePredicate: entityModel.resourcePredicate,
-                select: entityModel.querySelect,
-                idProperty: entityModel.primaryKey,
-                labelProperty: entityModel.labelProperty,
-                entityProperty: entityModel.entityProperty,
-                versionProperty: entityModel.versionProperty,
+                //resourceProperty: entityModel.resourceProperty,
+                //resourcePredicate: entityModel.resourcePredicate,
+                //select: entityModel.querySelect,
+                //idProperty: entityModel.primaryKey,
+                //labelProperty: entityModel.labelProperty,
+                //entityProperty: entityModel.entityProperty,
+                //versionProperty: entityModel.versionProperty,
                 scope: this
             };
             modelOptions = lang.mixin(modelOptions, queryOptions);

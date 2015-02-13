@@ -65,7 +65,7 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
                 request = this.getModelRequest(name);
                 queryResults = request.read({
                     success: function (modelData) {
-                        model = this.addModelData(name, modelData);
+                        model = this.addModel(name, modelData);
                         deferred.resolve(model);
                     }.bind(this),
                     failure: function (err) {
@@ -95,7 +95,7 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
                         var model, modelData;
                         if(result.$resources){
                             result.$resources.forEach(function(modelData){
-                                model = this.addModelData(modelData.entity[this.nameProperty], modelData);
+                                model = this.addModel(modelData.entity[this.nameProperty], modelData);
                                 models.push(model);
                             }.bind(this));
                         }
@@ -111,8 +111,9 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
             }
             return deferred.promise;
         },
-        addModelData:function(name, modelData){
+        addModel:function(name, modelData){
             var model = this.createModel(modelData);
+            console.log('Loaded ' + model.type + ' model: ' + model.name);
             this.store[name] = model;
             return model;
         },

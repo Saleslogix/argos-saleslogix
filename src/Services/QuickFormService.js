@@ -47,13 +47,14 @@ define('Mobile/SalesLogix/Services/QuickFormService', [
             queryOptions = {
                 where: "DefinitionType eq 'Sage.Platform.QuickForms.MobileQuickFormMainDetailViewDefinition, Sage.Platform.QuickForms'"
             };
-
+            console.log('Started initializing quickforms');
             dataPromise = this.getModels(queryOptions);
             dataPromise.then(function (models) {
                 if (models) {
-
-                }
-            });
+                    console.log('Finished loading: (' + models.length + ') quickforms');
+                } 
+                console.log('Finished initializing quickforms');
+           });
         }
     });
     ServiceManager.register('quickFormService', service);
