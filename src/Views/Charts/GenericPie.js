@@ -50,6 +50,12 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
         },
 
+        /**
+         * @property {String}
+         * The type of chart that should be rendered. Can either be Pie or Doughnut. A bad or unknown value will result in a default of Doughnut.
+         */
+        renderAs: 'Doughnut',
+
         formatter: function(val) {
             return val;
         },
@@ -57,7 +63,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
         createChart: function(rawData) {
             this.inherited(arguments);
 
-            var ctx, box, data;
+            var ctx, box, data, chart, defaultRenderAs;
+
+            defaultRenderAs = 'Doughnut';
 
             this.showSearchExpression();
 
@@ -81,7 +89,12 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
 
             ctx = this.contentNode.getContext('2d');
 
-            this.chart = new window.Chart(ctx).Doughnut(data, this.chartOptions);
+            chart = new window.Chart(ctx);
+
+            // Ensure the chart has the ability to render this type
+            this.renderAs = window.Chart.types.hasOwnProperty(this.renderAs) ? this.renderAs : defaultRenderAs;
+
+            this.chart = chart[this.renderAs](data, this.chartOptions);
             this.showLegend();
         },
         _getItemColor: function(index) {
