@@ -1240,3 +1240,37 @@ td.entry-table-description {
 .card-layout .list-item-selector.visible {
   visibility: visible;
 }
+.legend {
+  position: absolute;
+}
+.legend .pie-legend,
+.legend .doughnut-legend {
+  background-color: #fff;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 3px;
+  margin: 3px;
+  list-style: none;
+  border: 1px solid #878e8e;
+}
+.legend .pie-legend > li,
+.legend .doughnut-legend > li {
+  display: inline-block;
+}
+.legend .pie-legend > li > span,
+.legend .doughnut-legend > li > span {
+  width: 14px;
+  height: 14px;
+  margin: 0 2px;
+  display: inline-block;
+}
+@media (min-width: 480px) {
+  .legend .pie-legend > li,
+  .legend .doughnut-legend > li {
+    display: block;
+  }
+}
