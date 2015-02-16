@@ -176,7 +176,6 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
          */
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}">',
-                '<div class="pull-to-refresh" data-dojo-attach-point="pullRefreshBanner">{%! $.pullRefreshTemplate %}</div>',
                 '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
                     '<div class="legend" data-dojo-attach-point="legendNode" data-dojo-attach-event="click: onLegendClick"></div>',
                     '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
@@ -241,7 +240,7 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
             src = evt.srcElement.tagName === 'SPAN' ? evt.srcElement.parentElement : evt.srcElement;
             segment = parseInt(src.dataset.segment, 10);
             if (segment >= 0 && this.chart.showTooltip && this.chart.segments) {
-                this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false);
+                this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false /* re-draw flag */);
             }
         },
 
