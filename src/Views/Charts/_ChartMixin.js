@@ -91,7 +91,7 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
         showTooltips: true,
 
         // Array - Array of string names to attach tooltip events
-        tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+        tooltipEvents: ["touchstart"],
 
         // String - Tooltip background colour
         tooltipFillColor: "rgba(0,0,0,0.8)",
@@ -178,7 +178,7 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}">',
                 '<div class="pull-to-refresh" data-dojo-attach-point="pullRefreshBanner">{%! $.pullRefreshTemplate %}</div>',
                 '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
-                    '<div class="legend" data-dojo-attach-point="legendNode"></div>',
+                    '<div class="legend" data-dojo-attach-point="legendNode" data-dojo-attach-event="click: onLegendClick"></div>',
                     '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
                 '</div>',
             '</div>'
@@ -216,6 +216,33 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
             var app;
             app = this.app || window.App;
             app.setPrimaryTitle([this.title, this.getSearchExpression()].join(': '));
+        },
+
+        /**
+         * Handles click events for the legend node. Handles opening the tooltips on the chart
+         * when the item in the legend is clicked. The current legend format is as follows:
+         * @since 3.3
+         *
+         *    @example
+         *    `<div class="legend" data-dojo-attach-point="legendNode">
+         *        <ul class="doughnut-legend">
+         *            <li data-segment="0"><span style="background-color: someColor"></span>
+         *                Tooltip Label
+         *            </li>
+         *        </ul>
+         *    </div>`
+         */
+        onLegendClick: function(evt) {
+            if (!evt || !evt.srcElement || evt.srcElement === this.legendNode || !this.chart) {
+                return;
+            }
+
+            var src, segment;
+            src = evt.srcElement.tagName === 'SPAN' ? evt.srcElement.parentElement : evt.srcElement;
+            segment = parseInt(src.dataset.segment, 10);
+            if (segment >= 0 && this.chart.showTooltip && this.chart.segments) {
+                this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false);
+            }
         },
 
         /**
