@@ -47,6 +47,7 @@
                 "classes": [
                     "Sage.Platform.Mobile._ActionMixin",
                     "Sage.Platform.Mobile._CustomizationMixin",
+                    "Sage.Platform.Mobile._PullToRefreshMixin",
                     "Sage.Platform.Mobile._ServiceMixin",
                     "Sage.Platform.Mobile._Templated",
                     "Sage.Platform.Mobile._SDataListMixin",
