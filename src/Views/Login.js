@@ -3,17 +3,17 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Login
+ * @class crm.Views.Login
  *
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
  */
-define('Mobile/SalesLogix/Views/Login', [
+define('crm/Views/Login', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/Edit'
+    'argos/Edit'
 ], function(
     declare,
     lang,
@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/Login', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Login', [Edit], {
+    return declare('crm.Views.Login', [Edit], {
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',

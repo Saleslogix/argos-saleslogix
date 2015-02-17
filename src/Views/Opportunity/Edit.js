@@ -3,23 +3,23 @@
  */
 
 /** 
- * @class Mobile.SalesLogix.Views.Opportunity.Edit
+ * @class crm.Views.Opportunity.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Validator
- * @requires Mobile.SalesLogix.Template
+ * @requires crm.Validator
+ * @requires crm.Template
  */
-define('Mobile/SalesLogix/Views/Opportunity/Edit', [
+define('crm/Views/Opportunity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    'crm/Validator',
+    'crm/Template',
+    'argos/Utility',
+    'argos/Edit'
 ], function(
     declare,
     lang,
@@ -30,7 +30,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Edit', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Edit', [Edit], {
+    return declare('crm.Views.Opportunity.Edit', [Edit], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',

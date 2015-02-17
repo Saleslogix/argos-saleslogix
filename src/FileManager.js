@@ -3,10 +3,10 @@
  */
 
 /**
- * @class Mobile.SalesLogix.FileManager
+ * @class crm.FileManager
  *
  */
-define('Mobile/SalesLogix/FileManager', [
+define('crm/FileManager', [
     'dojo/_base/lang',
     'dojo/_base/declare',
     'dojo/number',
@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/FileManager', [
     has,
     sniff
 ) {
-    return declare('Mobile.SalesLogix.FileManager', null, {
+    return declare('crm.FileManager', null, {
         unableToUploadText: 'This browser does not support HTML5 File API.',
         unknownSizeText: 'unknown',
         unknownErrorText: 'Warning: An error occured and the file failed to upload.',
@@ -50,7 +50,7 @@ define('Mobile/SalesLogix/FileManager', [
             return results;
         },
         /**
-         * Checks the {@link Mobile.SalesLogix.Application}'s maxFileSize to determine
+         * Checks the {@link crm.Application}'s maxFileSize to determine
          * if the file size being added exeeds this limit.
          * @param {Array}
          * @returns {Boolean}

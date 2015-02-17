@@ -3,22 +3,22 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Action
+ * @class crm.Action
  *
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  *
  */
-define('Mobile/SalesLogix/Action', [
+define('crm/Action', [
     'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/Utility'
+    'argos/Utility'
 ], function(
     lang,
     string,
     utility
 ) {
-    return lang.setObject('Mobile.SalesLogix.Action', {
+    return lang.setObject('crm.Action', {
         calledText: 'Called ${0}',
         emailedText: 'E-mailed ${0}',
 
@@ -59,10 +59,10 @@ define('Mobile/SalesLogix/Action', [
 
             lang.mixin(selection.data, {
                 'Type': 'atPhoneCall',
-                'Description': string.substitute(Mobile.SalesLogix.Action.calledText, [selection.data['$descriptor']])
+                'Description': string.substitute(crm.Action.calledText, [selection.data['$descriptor']])
             });
             value = utility.getValue(selection.data, phoneProperty, '');
-            Mobile.SalesLogix.Action.recordToHistory(function() {
+            crm.Action.recordToHistory(function() {
                 App.initiateCall(value);
             }.bindDelegate(this), selection.data);
         },
@@ -73,10 +73,10 @@ define('Mobile/SalesLogix/Action', [
             }
             lang.mixin(selection.data, {
                 'Type': 'atEmail',
-                'Description': string.substitute(Mobile.SalesLogix.Action.emailedText, [selection.data['$descriptor']])
+                'Description': string.substitute(crm.Action.emailedText, [selection.data['$descriptor']])
             });
             value = utility.getValue(selection.data, emailProperty, '');
-            Mobile.SalesLogix.Action.recordToHistory(function() {
+            crm.Action.recordToHistory(function() {
                 App.initiateEmail(value);
             }.bindDelegate(this), selection.data);
         },

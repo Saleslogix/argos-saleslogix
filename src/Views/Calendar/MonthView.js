@@ -3,23 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Calendar.MonthView
+ * @class crm.Views.Calendar.MonthView
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @extends argos.List
+ * @mixins argos.List
+ * @mixins argos._LegacySDataListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile._LegacySDataListMixin
- * @requires Sage.Platform.Mobile.Convert
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.List
+ * @requires argos._LegacySDataListMixin
+ * @requires argos.Convert
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Calendar/MonthView', [
+define('crm/Views/Calendar/MonthView', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/string',
@@ -27,11 +27,11 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/dom-construct',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin',
+    'crm/Format',
+    'argos/ErrorManager',
+    'argos/Convert',
+    'argos/List',
+    'argos/_LegacySDataListMixin',
     'moment'
 ], function(
     declare,
@@ -49,7 +49,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
+    return declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
         // Localization
         titleText: 'Calendar',
         todayText: 'Today',
@@ -147,7 +147,7 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             '{% if ($.Timeless) { %}',
             '<span class="p-time">{%= $$.allDayText %}</span>',
             '{% } else { %}',
-            '<span class="p-time">{%: Mobile.SalesLogix.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
+            '<span class="p-time">{%: crm.Format.date($.StartDate, $$.startTimeFormatText) %}</span>',
             '{% } %}'
         ]),
         activityItemTemplate: new Simplate([
@@ -168,9 +168,9 @@ define('Mobile/SalesLogix/Views/Calendar/MonthView', [
             '{% } %}'
         ]),
         eventNameTemplate: new Simplate([
-            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+            '{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}',
             '&nbsp;-&nbsp;',
-            '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}'
+            '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}'
         ]),
         activityMoreTemplate: new Simplate([
             '<div class="list-more" data-dojo-attach-point="activityMoreNode">',

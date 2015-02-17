@@ -3,31 +3,31 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.Complete
+ * @class crm.Views.Activity.Complete
  *
- * @extends Sage.Platform.Mobile.Edit
- * @mixins Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
+ * @mixins argos.Edit
  *
- * @requires Sage.Platform.Mobile.Edit
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Edit
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Validator
- * @requires Mobile.SalesLogix.Template
+ * @requires crm.Environment
+ * @requires crm.Validator
+ * @requires crm.Template
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Activity/Complete', [
+define('crm/Views/Activity/Complete', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/connect',
     'dojo/string',
-    'Mobile/SalesLogix/Environment',
-    'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
+    'crm/Environment',
+    'crm/Validator',
+    'crm/Template',
+    'argos/Utility',
+    'argos/Edit',
     'moment'
 ], function(
     declare,
@@ -42,7 +42,7 @@ define('Mobile/SalesLogix/Views/Activity/Complete', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.Complete', [Edit], {
+    return declare('crm.Views.Activity.Complete', [Edit], {
         //Localization
         activityInfoText: 'Activity Info',
         accountText: 'account',

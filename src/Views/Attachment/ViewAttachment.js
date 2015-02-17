@@ -3,37 +3,37 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Attachment.ViewAttachment
+ * @class crm.Views.Attachment.ViewAttachment
  *
  *
- * @extends Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ * @extends argos.Detail
+ * @mixins argos.Detail
+ * @mixins argos._LegacySDataDetailMixin
  *
- * @requires Sage.Platform.Mobile.Detail
- * @requires Sage.Platform.Mobile._LegacySDataDetailMixin
+ * @requires argos.Detail
+ * @requires argos._LegacySDataDetailMixin
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.AttachmentManager
- * @requires Mobile.SalesLogix.Utility
+ * @requires crm.Format
+ * @requires crm.AttachmentManager
+ * @requires crm.Utility
  *
  */
-define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
+define('crm/Views/Attachment/ViewAttachment', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/connect',
     'dojo/_base/array',
-    'Mobile/SalesLogix/Format',
+    'crm/Format',
     'dojo/dom-construct',
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/has',
     'dojo/dom',
     'dojo/dom-geometry',
-    'Mobile/SalesLogix/AttachmentManager',
-    'Mobile/SalesLogix/Utility',
-    'Sage/Platform/Mobile/Detail',
-    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
+    'crm/AttachmentManager',
+    'crm/Utility',
+    'argos/Detail',
+    'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
     string,
@@ -52,7 +52,7 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
     _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
+    return declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
         //Localization
         detailsText: 'Attachment Details',
         descriptionText: 'description',
@@ -115,9 +115,9 @@ define('Mobile/SalesLogix/Views/Attachment/ViewAttachment', [
                 '</div>',
                 '<div class="attachment-viewer-not-supported">',
                 '<h3><span>{%: $.description %}&nbsp;</span></h3>',
-                '<h4><span>({%: Mobile.SalesLogix.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
-                '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
-                '<h4><span>{%: Mobile.SalesLogix.Utility.getFileExtension($.fileName) %} </span></h4>',
+                '<h4><span>({%: crm.Format.date($.attachDate, $$.attachmentDateFormatText) %})&nbsp;</span>',
+                '<span>{%: crm.Format.fileSize($.fileSize) %} </span></h4>',
+                '<h4><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></h4>',
                 '{% if($.user) { %}',
                     '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
                '{% } %}',

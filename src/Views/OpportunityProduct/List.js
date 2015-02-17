@@ -3,17 +3,17 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.OpportunityProduct.List
+ * @class crm.Views.OpportunityProduct.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
+define('crm/Views/OpportunityProduct/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'crm/Format',
+    'argos/List'
 ], function(
     declare,
     string,
@@ -21,22 +21,22 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityProduct.List', [List], {
+    return declare('crm.Views.OpportunityProduct.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
             '<h4>',
                 '{% if ($.Product) { %} {%: $.Product.Family %} | {% } %}',
-                '{%: $.Program %} | {%: Mobile.SalesLogix.Format.currency($.Price) %}',
+                '{%: $.Program %} | {%: crm.Format.currency($.Price) %}',
             '</h4>',
             '<h4>',
-                '{%: $.Quantity %} x {%: Mobile.SalesLogix.Format.currency($.CalculatedPrice) %} ',
-                '({%: Mobile.SalesLogix.Format.percent($.Discount) %}) = ',
+                '{%: $.Quantity %} x {%: crm.Format.currency($.CalculatedPrice) %} ',
+                '({%: crm.Format.percent($.Discount) %}) = ',
                 '<strong>',
                     '{% if (App.hasMultiCurrency()) { %}',
-                        '{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice, App.getBaseExchangeRate().code) %}',
+                        '{%: crm.Format.multiCurrency($.ExtendedPrice, App.getBaseExchangeRate().code) %}',
                     '{% } else { %}',
-                        '{%: Mobile.SalesLogix.Format.currency($.ExtendedPrice) %}',
+                        '{%: crm.Format.currency($.ExtendedPrice) %}',
                     '{% } %}',
                 '</strong>',
             '</h4>'

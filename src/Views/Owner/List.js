@@ -3,15 +3,15 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Owner.List
+ * @class crm.Views.Owner.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/Owner/List', [
+define('crm/Views/Owner/List', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/array',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,
@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Views/Owner/List', [
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Owner.List', [List], {
+    return declare('crm.Views.Owner.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.OwnerDescription %}</h3>'

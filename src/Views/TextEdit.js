@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.TextEdit
+ * @class crm.Views.TextEdit
  *
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
  */
-define('Mobile/SalesLogix/Views/TextEdit', [
+define('crm/Views/TextEdit', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/Edit'
+    'argos/Edit'
 ], function(
     declare,
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TextEdit', [Edit], {
+    return declare('crm.Views.TextEdit', [Edit], {
         //View Properties
         id: 'text_edit',
         titleText: 'Edit Text',

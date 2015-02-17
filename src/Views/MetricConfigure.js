@@ -3,24 +3,24 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.MetricConfigure
+ * @class crm.Views.MetricConfigure
  *
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
  */
-define('Mobile/SalesLogix/Views/MetricConfigure', [
+define('crm/Views/MetricConfigure', [
        'dojo/_base/declare',
        'dojo/_base/lang',
        'dojo/_base/array',
-       'Sage/Platform/Mobile/Edit'
+       'argos/Edit'
 ],function(
     declare,
     lang,
     array,
     Edit
 ) {
-    return declare('Mobile.SalesLogix.Views.MetricConfigure', [Edit], {
+    return declare('crm.Views.MetricConfigure', [Edit], {
         titleText: 'Configure Metric',
         id: 'metric_configure',
         expose: false,
@@ -39,7 +39,7 @@ define('Mobile/SalesLogix/Views/MetricConfigure', [
         metricsSupported: 10,
 
         // Default advanced options
-        defaultFormatType: 'Mobile/SalesLogix/Format',
+        defaultFormatType: 'crm/Format',
         defaultFormatFunc: 'bigNumber',
         defaultValueFunc: 'sum',
 

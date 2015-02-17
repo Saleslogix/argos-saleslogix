@@ -3,24 +3,24 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Contact.Edit
+ * @class crm.Views.Contact.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Format
+ * @requires crm.Template
+ * @requires crm.Validator
  */
-define('Mobile/SalesLogix/Views/Contact/Edit', [
+define('crm/Views/Contact/Edit', [
     'dojo/_base/declare',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/Utility'
+    'crm/Format',
+    'crm/Template',
+    'crm/Validator',
+    'argos/Edit',
+    'argos/Utility'
 ], function(
     declare,
     dString,
@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Views/Contact/Edit', [
     utility
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.Edit', [Edit], {
+    return declare('crm.Views.Contact.Edit', [Edit], {
         //Localization
         titleText: 'Contact',
         nameText: 'name',

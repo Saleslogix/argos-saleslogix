@@ -3,17 +3,17 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.OpportunityContact.Detail
+ * @class crm.Views.OpportunityContact.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ * @extends argos.Detail
+ * @mixins argos._LegacySDataDetailMixin
  */
-define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
+define('crm/Views/OpportunityContact/Detail', [
     'dojo/_base/declare',
     'dojo/_base/connect',
     'dojo/string',
-    'Sage/Platform/Mobile/Detail',
-    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
+    'argos/Detail',
+    'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
     connect,
@@ -22,7 +22,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Detail', [
     _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
+    return declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
         //Localization
         titleText: 'Opportunity Contact',
         accountText: 'account',

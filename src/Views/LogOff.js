@@ -1,15 +1,15 @@
 /*
  * Copyright (c) 1997-2014, SalesLogix, NA., LLC. All rights reserved.
  */
-define('Mobile/SalesLogix/Views/LogOff', [
+define('crm/Views/LogOff', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/View'
+    'argos/View'
 ], function(
     declare,
     View
 ) {
 
-    return declare('Mobile.SalesLogix.Views.LogOff', [View], {
+    return declare('crm.Views.LogOff', [View], {
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',

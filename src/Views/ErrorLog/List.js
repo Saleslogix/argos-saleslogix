@@ -3,20 +3,20 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.ErrorLog.List
+ * @class crm.Views.ErrorLog.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires crm.Format
+ * @requires argos.ErrorManager
  */
-define('Mobile/SalesLogix/Views/ErrorLog/List', [
+define('crm/Views/ErrorLog/List', [
     'dojo/_base/declare',
     'dojo/store/Memory',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/List'
+    'crm/Format',
+    'argos/Convert',
+    'argos/ErrorManager',
+    'argos/List'
 ], function(
     declare,
     Memory,
@@ -26,14 +26,14 @@ define('Mobile/SalesLogix/Views/ErrorLog/List', [
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.ErrorLog.List', [List], {
+    return declare('crm.Views.ErrorLog.List', [List], {
         //Localization
         titleText: 'Error Logs',
         errorDateFormatText: 'MM/DD/YYYY hh:mm A',
 
         //Templates
         itemTemplate: new Simplate([
-            '<h3>{%: Mobile.SalesLogix.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
+            '<h3>{%: crm.Format.date($.Date, $$.errorDateFormatText) %}</h3>',
             '<h4>{%: $.Description %}</h4>'
         ]),
 

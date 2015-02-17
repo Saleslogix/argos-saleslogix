@@ -3,34 +3,34 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Attachments.List
+ * @class crm.Views.Attachments.List
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @extends argos.List
+ * @mixins argos.List
+ * @mixins crm.Views._RightDrawerListMixin
+ * @mixins crm.Views._CardLayoutListMixin
+ * @mixins argos._LegacySDataListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile._LegacySDataListMixin
- * @requires Sage.Platform.Mobile.Convert
+ * @requires argos.List
+ * @requires argos._LegacySDataListMixin
+ * @requires argos.Convert
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
- * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @requires crm.Format
+ * @requires crm.Views._RightDrawerListMixin
+ * @requires crm.Views._CardLayoutListMixin
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Attachment/List', [
+define('crm/Views/Attachment/List', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/has',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Utility',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin',
-    'Sage/Platform/Mobile/Convert',
+    'crm/Format',
+    'crm/Utility',
+    'argos/List',
+    'argos/_LegacySDataListMixin',
+    'argos/Convert',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin',
     'moment'
@@ -48,7 +48,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
+    return declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
            '{% if ($.dataType === "R") { %}',
@@ -59,9 +59,9 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         ]),
         fileTemplate: new Simplate([
              '<h3><span>{%: $.description %}&nbsp;</span></h3>',
-             '<h4><span>({%: $$.uploadedOnText %} {%: Mobile.SalesLogix.Format.relativeDate($.attachDate) %})&nbsp;</span>',
-            '<span>{%: Mobile.SalesLogix.Format.fileSize($.fileSize) %} </span></h4>',
-            '<h4><span>{%: Mobile.SalesLogix.Utility.getFileExtension($.fileName) %} </span></h4>',
+             '<h4><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span>',
+            '<span>{%: crm.Format.fileSize($.fileSize) %} </span></h4>',
+            '<h4><span>{%: crm.Utility.getFileExtension($.fileName) %} </span></h4>',
             '{% if($.user) { %}',
                 '<h4><span>{%: $.user.$descriptor  %}</span></h4>',
             '{% } %}'
@@ -69,7 +69,7 @@ define('Mobile/SalesLogix/Views/Attachment/List', [
         urlTemplate: new Simplate([
             '<h3><span>{%: $.description %} &nbsp;</span></h3>',
             '{% if ($.attachDate) { %}',
-                '<h4><span>({%: $$.uploadedOnText %} {%: Mobile.SalesLogix.Format.relativeDate($.attachDate) %})&nbsp;</span></h4>',
+                '<h4><span>({%: $$.uploadedOnText %} {%: crm.Format.relativeDate($.attachDate) %})&nbsp;</span></h4>',
             '{% } %}',
             '<h4><span>{%: $.url %}&nbsp;</span></h4>',
             '{% if($.user) { %}',

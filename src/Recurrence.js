@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Recurrence
+ * @class crm.Recurrence
  *
- * @requires Sage.Platform.Mobile._ActionMixin
- * @requires Sage.Platform.Mobile._CustomizationMixin
- * @requires Sage.Platform.Mobile._Templated
+ * @requires argos._ActionMixin
+ * @requires argos._CustomizationMixin
+ * @requires argos._Templated
  *
  */
-define('Mobile/SalesLogix/Recurrence', [
+define('crm/Recurrence', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
     'dijit/_Widget',
-    'Sage/Platform/Mobile/_ActionMixin',
-    'Sage/Platform/Mobile/_CustomizationMixin',
-    'Sage/Platform/Mobile/_Templated',
+    'argos/_ActionMixin',
+    'argos/_CustomizationMixin',
+    'argos/_Templated',
     'moment'
 ], function(
     declare,
@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Recurrence', [
     _Templated,
     moment
 ) {
-    return lang.setObject('Mobile.SalesLogix.Recurrence', {
+    return lang.setObject('crm.Recurrence', {
         // Localization
         neverText: 'Never',
         daysText: 'days',
@@ -343,7 +343,7 @@ define('Mobile/SalesLogix/Recurrence', [
                 text = (1 < interval)
                     ? string.substitute(this.everyText, [interval, this.getPanel(rp, true)])
                     : ((true === dependsOnPanel) ? '' : this.getPanel(rp)),
-                currentDate = Sage.Platform.Mobile.Convert.toDateFromString(entry['StartDate']),
+                currentDate = argos.Convert.toDateFromString(entry['StartDate']),
                 day = currentDate.getDate(),
                 weekday = moment(currentDate).format(this.weekdayFormatText),
                 textOptions = [

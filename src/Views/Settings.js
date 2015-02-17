@@ -3,17 +3,17 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Settings
+ * @class crm.Views.Settings
  *
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
  */
-define('Mobile/SalesLogix/Views/Settings', [
+define('crm/Views/Settings', [
     'dojo/_base/declare',
     'dojo/_base/connect',
     './_CardLayoutListMixin',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     connect,
@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/Settings', [
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Settings', [List, _CardLayoutListMixin], {
+    return declare('crm.Views.Settings', [List, _CardLayoutListMixin], {
         //Templates
         itemIconTemplate: new Simplate([
             '<button data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %} class="list-item-selector button visible">',

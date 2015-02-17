@@ -3,23 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.PickList
+ * @class crm.Views.PickList
  *
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
  */
-define('Mobile/SalesLogix/Views/PickList', [
+define('crm/Views/PickList', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.PickList', [List], {
+    return declare('crm.Views.PickList', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.text %}</h3>'

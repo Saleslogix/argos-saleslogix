@@ -3,24 +3,24 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Competitor.List
+ * @class crm.Views.Competitor.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Sage.Platform.Mobile.List
+ * @requires argos.List
  *
  */
-define('Mobile/SalesLogix/Views/Competitor/List', [
+define('crm/Views/Competitor/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Competitor.List', [List], {
+    return declare('crm.Views.Competitor.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%= $.CompetitorName %}</h3>',

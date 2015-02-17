@@ -3,17 +3,17 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.OpportunityContact.Edit
+ * @class crm.Views.OpportunityContact.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  */
-define('Mobile/SalesLogix/Views/OpportunityContact/Edit', [
+define('crm/Views/OpportunityContact/Edit', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    'crm/Format',
+    'argos/Utility',
+    'argos/Edit'
 ], function(
     declare,
     format,
@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/OpportunityContact/Edit', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityContact.Edit', [Edit], {
+    return declare('crm.Views.OpportunityContact.Edit', [Edit], {
         //Localization
         titleText: 'Edit Opp. Contact',
         nameText: 'name',

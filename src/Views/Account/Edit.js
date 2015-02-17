@@ -3,23 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Account.Edit
+ * @class crm.Views.Account.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Edit
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
- * @requires Mobile.SalesLogix.Template
+ * @requires argos.Edit
+ * @requires crm.Format
+ * @requires crm.Validator
+ * @requires crm.Template
  *
  */
-define('Mobile/SalesLogix/Views/Account/Edit', [
+define('crm/Views/Account/Edit', [
     'dojo/_base/declare',
     'dojo/string',
-    'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Edit'
+    'crm/Validator',
+    'crm/Format',
+    'crm/Template',
+    'argos/Edit'
 ], function(
     declare,
     string,
@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.Edit', [Edit], {
+    return declare('crm.Views.Account.Edit', [Edit], {
         //Localization
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account Subtype',

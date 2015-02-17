@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-define('Mobile/SalesLogix/Fields/PicklistField', [
+define('crm/Fields/PicklistField', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/Fields/LookupField',
-    'Mobile/SalesLogix/Views/PickList',
-    'Sage/Platform/Mobile/FieldManager'
+    'argos/Fields/LookupField',
+    'crm/Views/PickList',
+    'argos/FieldManager'
 ], function(
     declare,
     string,
@@ -33,7 +33,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         return App.getView(view.id);
     };
 
-    var control = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {
+    var control = declare('crm.Fields.PicklistField', [LookupField], {
         picklist: false,
         storageMode: 'text',
         requireSelection: false,

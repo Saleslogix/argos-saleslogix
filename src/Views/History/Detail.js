@@ -3,25 +3,25 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.History.Detail
+ * @class crm.Views.History.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
+ * @requires crm.Format
+ * @requires crm.Template
  */
-define('Mobile/SalesLogix/Views/History/Detail', [
+define('crm/Views/History/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail',
+    'crm/Format',
+    'argos/ErrorManager',
+    'crm/Template',
+    'argos/Detail',
     'dojo/NodeList-manipulate'
 ], function(
     declare,
@@ -36,7 +36,7 @@ define('Mobile/SalesLogix/Views/History/Detail', [
     NodeList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.Detail', [Detail], {
+    return declare('crm.Views.History.Detail', [Detail], {
         //Templates
         createUserTemplate: template.nameLF,
 

@@ -3,30 +3,30 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Account.List
+ * @class crm.Views.Account.List
  *
- * @extends Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.Format
- * @requires Sage.Platform.Mobile.Utility
- * @requires Sage.Platform.Mobile.Convert
+ * @extends argos.List
+ * @requires argos.List
+ * @requires argos.Format
+ * @requires argos.Utility
+ * @requires argos.Convert
  *
- * @requires Mobile.SalesLogix.Action
- * @requires Mobile.SalesLogix.Views._GroupListMixin
- * @requires Mobile.SalesLogix.Views._MetricListMixin
- * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
- * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @requires crm.Action
+ * @requires crm.Views._GroupListMixin
+ * @requires crm.Views._MetricListMixin
+ * @requires crm.Views._CardLayoutListMixin
+ * @requires crm.Views._RightDrawerListMixin
  *
  */
-define('Mobile/SalesLogix/Views/Account/List', [
+define('crm/Views/Account/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/string',
-    'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/Format',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/List',
+    'crm/Action',
+    'argos/Format',
+    'argos/Utility',
+    'argos/Convert',
+    'argos/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
@@ -46,7 +46,7 @@ define('Mobile/SalesLogix/Views/Account/List', [
     _RightDrawerListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    return declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -58,12 +58,12 @@ define('Mobile/SalesLogix/Views/Account/List', [
             '<h4>{%: $.WebAddress %}</h4>',
             '{% if ($.MainPhone) { %}',
                 '<h4>',
-                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callMain" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.MainPhone) %}</span>',
+                    '{%: $$.phoneAbbreviationText %} <span class="href" data-action="callMain" data-key="{%: $.$key %}">{%: argos.Format.phone($.MainPhone) %}</span>',
                 '</h4>',
             '{% } %}',
             '{% if ($.Fax) { %}',
                 '<h4>',
-                    '{%: $$.faxAbbreviationText + Sage.Platform.Mobile.Format.phone($.Fax) %}',
+                    '{%: $$.faxAbbreviationText + argos.Format.phone($.Fax) %}',
                 '</h4>',
             '{% } %}'
         ]),

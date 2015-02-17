@@ -3,33 +3,33 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.Edit
+ * @class crm.Views.Activity.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Edit
- * @requires Sage.Platform.Mobile.Utility
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Recurrence
+ * @requires argos.Edit
+ * @requires argos.Utility
+ * @requires crm.Format
+ * @requires crm.Validator
+ * @requires crm.Template
+ * @requires crm.Environment
+ * @requires crm.Recurrence
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Activity/Edit', [
+define('crm/Views/Activity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/connect',
     'dojo/_base/array',
     'dojo/string',
-    'Mobile/SalesLogix/Environment',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
-    'Mobile/SalesLogix/Recurrence',
-    'Sage/Platform/Mobile/Format',
+    'crm/Environment',
+    'crm/Template',
+    'crm/Validator',
+    'argos/Utility',
+    'argos/Edit',
+    'crm/Recurrence',
+    'argos/Format',
     'moment'
 ], function(
     declare,
@@ -46,7 +46,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.Edit', [Edit], {
+    return declare('crm.Views.Activity.Edit', [Edit], {
         //Localization
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',
@@ -556,7 +556,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
         },
         onRecurrenceChange: function(value, field) {
             // did the StartDate change on the recurrence_edit screen?
-            var startDate = Sage.Platform.Mobile.Convert.toDateFromString(value['StartDate']),
+            var startDate = argos.Convert.toDateFromString(value['StartDate']),
                 currentDate = this.fields['StartDate'].getValue();
 
             if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth()) {
@@ -907,7 +907,7 @@ define('Mobile/SalesLogix/Views/Activity/Edit', [
                 });
             }
 
-            this.recurrence.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values.StartDate);
+            this.recurrence.StartDate = argos.Convert.toDateFromString(values.StartDate);
             this.resetRecurrence(values);
             this.onStartDateChange(this.fields['StartDate'].getValue(), this.fields['StartDate']);
             if (this.isActivityRecurring) {

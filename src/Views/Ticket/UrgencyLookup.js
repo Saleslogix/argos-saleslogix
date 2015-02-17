@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Ticket.UrgencyLookup
+ * @class crm.Views.Ticket.UrgencyLookup
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/Ticket/UrgencyLookup', [
+define('crm/Views/Ticket/UrgencyLookup', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', [List], {
+    return declare('crm.Views.Ticket.UrgencyLookup', [List], {
         //Localization
         titleText: 'Ticket Urgency',
 

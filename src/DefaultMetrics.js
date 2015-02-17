@@ -2,14 +2,14 @@
  * Copyright (c) 1997-2014, SalesLogix, NA., LLC. All rights reserved.
  */
 
-define('Mobile/SalesLogix/DefaultMetrics', [
+define('crm/DefaultMetrics', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/_CustomizationMixin'
+    'argos/_CustomizationMixin'
 ], function(
     declare,
     _CustomizationMixin
 ) {
-    return declare('Mobile.SalesLogix.DefaultMetrics', [_CustomizationMixin], {
+    return declare('crm.DefaultMetrics', [_CustomizationMixin], {
         // Localiztion
         accountsText: {
             totalRevenue: 'Total Revenue',

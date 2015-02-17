@@ -2,12 +2,12 @@
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
 /** 
- * @class Mobile.SalesLogix.Views.Charts._ChartMixin
+ * @class crm.Views.Charts._ChartMixin
  *
  * Base mixin for creating chart views.
  *
  */
-define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
+define('crm/Views/Charts/_ChartMixin', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
@@ -148,7 +148,7 @@ define('Mobile/SalesLogix/Views/Charts/_ChartMixin', [
         onAnimationComplete: function(){}
     };
 
-    return declare('Mobile.SalesLogix.Views.Charts._ChartMixin', null, {
+    return declare('crm.Views.Charts._ChartMixin', null, {
         _handle: null,
         _feedData: null,
         RENDER_DELAY: has('ios') < 8 ? 500 : 1, // Work around IOS7 orientation change issues

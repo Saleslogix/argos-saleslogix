@@ -3,18 +3,18 @@
  */
 
 /**
- * @class Mobile.SalesLogix.SpeedSearchWidget
+ * @class crm.SpeedSearchWidget
  *
- * @mixins Sage.Platform.Mobile._Templated
+ * @mixins argos._Templated
  *
  */
-define('Mobile/SalesLogix/SpeedSearchWidget', [
+define('crm/SpeedSearchWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/event',
     'dojo/dom-class',
     'dijit/_Widget',
-    'Sage/Platform/Mobile/_Templated'
+    'argos/_Templated'
 ], function(
     declare,
     lang,
@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/SpeedSearchWidget', [
     _Widget,
     _Templated
 ) {
-    return declare('Mobile.SalesLogix.SpeedSearchWidget', [_Widget, _Templated], {
+    return declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
         /**
          * @property {Object} attributeMap
          */

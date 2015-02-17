@@ -3,17 +3,17 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.ProductProgram.List
+ * @class crm.Views.ProductProgram.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/ProductProgram/List', [
+define('crm/Views/ProductProgram/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'crm/Format',
+    'argos/List'
 ], function(
     declare,
     string,
@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/ProductProgram/List', [
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.ProductProgram.List', [List], {
+    return declare('crm.Views.ProductProgram.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Program %}</h3>',

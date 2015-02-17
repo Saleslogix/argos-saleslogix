@@ -3,23 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.TicketActivityItem.Detail
+ * @class crm.Views.TicketActivityItem.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/TicketActivityItem/Detail', [
+define('crm/Views/TicketActivityItem/Detail', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail'
+    'crm/Format',
+    'argos/Detail'
 ], function(
     declare,
     format,
     Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivityItem.Detail', [Detail], {
+    return declare('crm.Views.TicketActivityItem.Detail', [Detail], {
         //Localization
         titleText: 'Ticket Activity Part',
         productNameText: 'product',

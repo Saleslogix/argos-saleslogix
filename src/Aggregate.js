@@ -3,26 +3,26 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Aggregate
+ * @class crm.Aggregate
  *
  * Aggregate functions. Currently used in metric widgets.
  *
  */
-define('Mobile/SalesLogix/Aggregate', [
+define('crm/Aggregate', [
     'dojo/_base/lang',
     'dojo/_base/array'
 ], function(
     lang,
     array
 ) {
-    var results = lang.setObject('Mobile.SalesLogix.Aggregate', {
+    var results = lang.setObject('crm.Aggregate', {
         /**
          * Average
          * @param {Array} data Array of objects that contain a value property
          * @return {Number}
          */
         avg: function(data) {
-            var aggr = Mobile.SalesLogix.Aggregate, results;
+            var aggr = crm.Aggregate, results;
             results = aggr.sum(data) / aggr.count(data);
             return isNaN(results) ? 0 : results;
         },

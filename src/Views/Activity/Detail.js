@@ -3,35 +3,35 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.Detail
+ * @class crm.Views.Activity.Detail
  *
  *
- * @extends Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
+ * @mixins argos.Detail
  *
- * @requires Sage.Platform.Mobile.Detail
- * @requires Sage.Platform.Mobile.Utility
- * @requires Sage.Platform.Mobile.Convert
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Recurrence
- * @requires Mobile.SalesLogix.Utility
+ * @requires argos.Detail
+ * @requires argos.Utility
+ * @requires argos.Convert
+ * @requires crm.Format
+ * @requires crm.Template
+ * @requires crm.Environment
+ * @requires crm.Recurrence
+ * @requires crm.Utility
  *
  */
-define('Mobile/SalesLogix/Views/Activity/Detail', [
+define('crm/Views/Activity/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Environment',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/Detail',
-    'Mobile/SalesLogix/Recurrence',
-    'Mobile/SalesLogix/Utility',
-    'Sage/Platform/Mobile/Utility'
+    'crm/Template',
+    'crm/Format',
+    'crm/Environment',
+    'argos/Convert',
+    'argos/Detail',
+    'crm/Recurrence',
+    'crm/Utility',
+    'argos/Utility'
 ], function(
     declare,
     string,
@@ -47,7 +47,7 @@ define('Mobile/SalesLogix/Views/Activity/Detail', [
     platformUtility
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.Detail', [Detail], {
+    return declare('crm.Views.Activity.Detail', [Detail], {
         //Templates
         leaderTemplate: template.nameLF,
 

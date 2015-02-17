@@ -3,40 +3,40 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.MyList
+ * @class crm.Views.Activity.MyList
  *
- * @extends Mobile.SalesLogix.Views.Activity.List
- * @mixins Mobile.SalesLogix.Views.Activity.List
+ * @extends crm.Views.Activity.List
+ * @mixins crm.Views.Activity.List
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.Format
- * @requires Sage.Platform.Mobile.Utility
- * @requires Sage.Platform.Mobile.Convert
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.List
+ * @requires argos.Format
+ * @requires argos.Utility
+ * @requires argos.Convert
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Views.Activity.List
- * @requires Mobile.SalesLogix.Action
+ * @requires crm.Format
+ * @requires crm.Environment
+ * @requires crm.Views.Activity.List
+ * @requires crm.Action
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Activity/MyList', [
+define('crm/Views/Activity/MyList', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/query',
     'dojo/_base/connect',
-    'Sage/Platform/Mobile/List',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Environment',
-    'Sage/Platform/Mobile/Format',
-    'Mobile/SalesLogix/Views/Activity/List',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Convert',
-    'Sage/Platform/Mobile/ErrorManager',
+    'argos/List',
+    'crm/Format',
+    'crm/Environment',
+    'argos/Format',
+    'crm/Views/Activity/List',
+    'argos/Utility',
+    'argos/Convert',
+    'argos/ErrorManager',
     'moment',
-    'Mobile/SalesLogix/Action'
+    'crm/Action'
 ], function(
     declare,
     string,
@@ -54,7 +54,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
     action
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.MyList', [ActivityList], {
+    return declare('crm.Views.Activity.MyList', [ActivityList], {
 
         //Templates
         //Card View
@@ -64,11 +64,11 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
           '</li>'
         ]),
         activityTimeTemplate: new Simplate([
-            '{%: Mobile.SalesLogix.Format.relativeDate($.Activity.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Activity.Timeless)) %}'
+            '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
-                '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: Mobile.SalesLogix.Format.userActivityStatus($.Status) %}) {% } %}</span>',
+                '<span class="p-description">{%: $.Activity.Description %}{% if ($.Status === "asUnconfirmed") { %} ({%: crm.Format.userActivityStatus($.Status) %}) {% } %}</span>',
             '</h3>',
             '<h4>',
                 '{%! $$.activityTimeTemplate %}',
@@ -76,7 +76,7 @@ define('Mobile/SalesLogix/Views/Activity/MyList', [
             '<h4>{%! $$.nameTemplate %}</h4>',
             '<h4>',
                 '{% if ($.Activity.PhoneNumber) { %}',
-                    '<span class="href" data-action="_callPhone" data-key="{%: $.$key %}">{%: Sage.Platform.Mobile.Format.phone($.Activity.PhoneNumber) %}</span>',
+                    '<span class="href" data-action="_callPhone" data-key="{%: $.$key %}">{%: argos.Format.phone($.Activity.PhoneNumber) %}</span>',
                 '{% } %}',
             '</h4>'
         ]),

@@ -3,23 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.History.Edit
+ * @class crm.Views.History.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Environment
+ * @requires crm.Validator
  */
-define('Mobile/SalesLogix/Views/History/Edit', [
+define('crm/Views/History/Edit', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/string',
-    'Mobile/SalesLogix/Environment',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    'crm/Environment',
+    'crm/Validator',
+    'argos/Utility',
+    'argos/Edit'
 ], function(
     declare,
     array,
@@ -30,7 +30,7 @@ define('Mobile/SalesLogix/Views/History/Edit', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.Edit', [Edit], {
+    return declare('crm.Views.History.Edit', [Edit], {
         //Localization
         accountText: 'account',
         noteDescriptionTitleText: 'Note Description',

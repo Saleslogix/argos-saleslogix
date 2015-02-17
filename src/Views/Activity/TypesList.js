@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.TypesList
+ * @class crm.Views.Activity.TypesList
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins argos._LegacySDataListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile._LegacySDataListMixin
+ * @requires argos.List
+ * @requires argos._LegacySDataListMixin
  *
- * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @requires crm.Views._CardLayoutListMixin
  *
  */
-define('Mobile/SalesLogix/Views/Activity/TypesList', [
+define('crm/Views/Activity/TypesList', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/List',
+    'argos/List',
     'dojo/store/Memory',
 ], function(
     declare,
@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/Activity/TypesList', [
     MemoryStore
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.TypesList', [List], {
+    return declare('crm.Views.Activity.TypesList', [List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',

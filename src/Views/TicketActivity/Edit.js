@@ -3,22 +3,22 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.TicketActivity.Edit
+ * @class crm.Views.TicketActivity.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Template
+ * @requires crm.Validator
  */
-define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
+define('crm/Views/TicketActivity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Edit'
+    'crm/Template',
+    'crm/Validator',
+    'argos/ErrorManager',
+    'argos/Edit'
 ], function(
     declare,
     lang,
@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Edit', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.Edit', [Edit], {
+    return declare('crm.Views.TicketActivity.Edit', [Edit], {
         //Localization
         titleText: 'Edit Ticket Activity',
         activityTypeText: 'type',

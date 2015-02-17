@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.LeadSource.List
+ * @class crm.Views.LeadSource.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/LeadSource/List', [
+define('crm/Views/LeadSource/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.LeadSource.List', [List], {
+    return declare('crm.Views.LeadSource.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Description %}</h3>',

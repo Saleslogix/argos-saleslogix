@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Charts.GenericBar
+ * @class crm.Views.Charts.GenericBar
  *
- * @extends Sage.Platform.Mobile.View
- * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
+ * @extends argos.View
+ * @mixins crm.Views.Charts._ChartMixin
  *
- * @requires Sage.Platform.Mobile.View
+ * @requires argos.View
  *
  */
-define('Mobile/SalesLogix/Views/Charts/GenericBar', [
+define('crm/Views/Charts/GenericBar', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/dom-geometry',
     'dojo/dom-attr',
-    'Sage/Platform/Mobile/View',
+    'argos/View',
     './_ChartMixin'
 ], function(
     declare,
@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     View,
     _ChartMixin
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericBar', [View, _ChartMixin], {
+    return declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
         id: 'chart_generic_bar',
         titleText: '',
         expose: false,

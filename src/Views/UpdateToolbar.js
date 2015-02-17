@@ -3,24 +3,24 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.UpdateToolbar
+ * @class crm.Views.UpdateToolbar
  *
  *
- * @extends Sage.Platform.Mobile.MainToolbar
+ * @extends argos.MainToolbar
  *
  */
-define('Mobile/SalesLogix/Views/UpdateToolbar', [
+define('crm/Views/UpdateToolbar', [
     'dojo/_base/declare',
     'dojo/_base/window',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/MainToolbar'
+    'argos/MainToolbar'
 ], function(
     declare,
     win,
     domClass,
     MainToolbar
 ) {
-    return declare('Mobile.SalesLogix.Views.UpdateToolbar', [MainToolbar], {
+    return declare('crm.Views.UpdateToolbar', [MainToolbar], {
         widgetTemplate: new Simplate([
             '<div class="update-toolbar">',
             '<h1 data-action="reload">{%= $.updateText %}</h1>',

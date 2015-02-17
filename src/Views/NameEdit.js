@@ -3,17 +3,17 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.NameEdit
+ * @class crm.Views.NameEdit
  *
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
  */
-define('Mobile/SalesLogix/Views/NameEdit', [
+define('crm/Views/NameEdit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit'
+    'crm/Validator',
+    'argos/Edit'
 ], function(
     declare,
     lang,
@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/NameEdit', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.NameEdit', [Edit], {
+    return declare('crm.Views.NameEdit', [Edit], {
         //Localization
         titleText: 'Edit Name',
         firstNameText: 'first',

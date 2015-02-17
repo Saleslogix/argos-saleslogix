@@ -1,7 +1,7 @@
 /* Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.*/
 
 /**
- * @class Mobile.SalesLogix.Views._GroupListMixin
+ * @class crm.Views._GroupListMixin
  *
  * Mixin for slx group list layouts.
  *
@@ -9,7 +9,7 @@
  *
  *
  */
-define('Mobile/SalesLogix/Views/_GroupListMixin', [
+define('crm/Views/_GroupListMixin', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/json',
@@ -18,14 +18,14 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     'dojo/query',
     'dojo/dom-attr',
     'dojo/dom-construct',
-    'Sage/Platform/Mobile/Format',
-    'Sage/Platform/Mobile/Utility',
-    'Mobile/SalesLogix/GroupUtility',
+    'argos/Format',
+    'argos/Utility',
+    'crm/GroupUtility',
     'dojo/when',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/Store/SData',
+    'argos/Store/SData',
     'dojo/Deferred',
-    'Mobile/SalesLogix/Action',
+    'crm/Action',
 
 ], function(
     declare,
@@ -45,9 +45,9 @@ define('Mobile/SalesLogix/Views/_GroupListMixin', [
     Deferred,
     action
 ) {
-    var mixinName = 'Mobile.SalesLogix.Views._GroupListMixin';
+    var mixinName = 'crm.Views._GroupListMixin';
 
-    return declare('Mobile.SalesLogix.Views._GroupListMixin', null, {
+    return declare('crm.Views._GroupListMixin', null, {
        
         noDefaultGroupText: 'No default group set. Click here to configure groups.',
         currentGroupNotFoundText: 'The current group was not found.',

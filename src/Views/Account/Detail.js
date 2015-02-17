@@ -3,23 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Account.Detail
+ * @class crm.Views.Account.Detail
  *
  *
- * @extends Sage.Platform.Mobile.Detail
- * @requires Sage.Platform.Mobile.Detail
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix._MetricDetailMixin
+ * @extends argos.Detail
+ * @requires argos.Detail
+ * @requires crm.Format
+ * @requires crm.Template
+ * @requires crm._MetricDetailMixin
  *
  */
-define('Mobile/SalesLogix/Views/Account/Detail', [
+define('crm/Views/Account/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail',
+    'crm/Format',
+    'crm/Template',
+    'argos/Detail',
     '../_MetricDetailMixin'
 ], function(
     declare,
@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail], {
+    return declare('crm.Views.Account.Detail', [Detail], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',

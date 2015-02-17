@@ -3,22 +3,22 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Help
+ * @class crm.Views.Help
  *
  *
- * @extends Sage.Platform.Mobile.Detail
- * @mixins Sage.Platform.Mobile._LegacySDataDetailMixin
+ * @extends argos.Detail
+ * @mixins argos._LegacySDataDetailMixin
  *
  */
-define('Mobile/SalesLogix/Views/Help', [
+define('crm/Views/Help', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/dom-class',
     'dojo/dom-construct',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Detail',
+    'argos/ErrorManager',
+    'argos/Detail',
     'dojo/NodeList-manipulate',
-    'Sage/Platform/Mobile/_LegacySDataDetailMixin'
+    'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
     string,
@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/Help', [
     _LegacySDataDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Help', [Detail, _LegacySDataDetailMixin], {
+    return declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
         //Templates
         errorTemplate: new Simplate([
             '<div data-dojo-attach-point="errorNode" class="panel-validation-summary">',

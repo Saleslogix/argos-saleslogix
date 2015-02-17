@@ -3,17 +3,17 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Groups.Selector
+ * @class crm.Views.Groups.Selector
  *
- * @extends Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.List
+ * @extends argos.List
+ * @requires argos.List
  *
  */
-define('Mobile/SalesLogix/Views/Groups/Selector', [
+define('crm/Views/Groups/Selector', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/Store/SData'
+    'argos/List',
+    'argos/Store/SData'
 ], function(
     declare,
     string,
@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Views/Groups/Selector', [
     SDataStore
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Groups.Selector', [List], {
+    return declare('crm.Views.Groups.Selector', [List], {
         id: 'groups_configure',
         expose: false,
         enableSearch: false,

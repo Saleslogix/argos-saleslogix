@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Contract.List
+ * @class crm.Views.Contract.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/Contract/List', [
+define('crm/Views/Contract/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contract.List', [List], {
+    return declare('crm.Views.Contract.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',

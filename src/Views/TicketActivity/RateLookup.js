@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.TicketActivity.RateLookup
+ * @class crm.Views.TicketActivity.RateLookup
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/TicketActivity/RateLookup', [
+define('crm/Views/TicketActivity/RateLookup', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.RateLookup', [List], {
+    return declare('crm.Views.TicketActivity.RateLookup', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.RateTypeCode %} - {%: $.Amount %}</h3>',

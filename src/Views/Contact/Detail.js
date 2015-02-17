@@ -3,19 +3,19 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Contact.Detail
+ * @class crm.Views.Contact.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
+ * @requires crm.Format
+ * @requires crm.Template
  */
-define('Mobile/SalesLogix/Views/Contact/Detail', [
+define('crm/Views/Contact/Detail', [
     'dojo/_base/declare',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail'
+    'crm/Format',
+    'crm/Template',
+    'argos/Detail'
 ], function(
     declare,
     string,
@@ -24,7 +24,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
     Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.Detail', [Detail], {
+    return declare('crm.Views.Contact.Detail', [Detail], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',

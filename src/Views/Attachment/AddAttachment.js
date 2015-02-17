@@ -3,25 +3,25 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Attachment.AddAttachment
+ * @class crm.Views.Attachment.AddAttachment
  *
- * @extends Sage.Platform.Mobile.Views.FileSelect
+ * @extends argos.Views.FileSelect
  *
- * @requires Sage.Platform.Mobile.Views.FileSelect
- * @requires Sage.Platform.Mobile.Format
+ * @requires argos.Views.FileSelect
+ * @requires argos.Format
  *
- * @requires Mobile.SalesLogix.AttachmentManager
- * @requires Mobile.SalesLogix.Environment
+ * @requires crm.AttachmentManager
+ * @requires crm.Environment
  *
  */
-define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
+define('crm/Views/Attachment/AddAttachment', [
     'dojo/_base/declare',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Format',
-    'Sage/Platform/Mobile/Views/FileSelect',
-    'Mobile/SalesLogix/AttachmentManager',
-    'Mobile/SalesLogix/Environment'
+    'crm/Format',
+    'argos/Format',
+    'argos/Views/FileSelect',
+    'crm/AttachmentManager',
+    'crm/Environment'
 ], function(
     declare,
     string,
@@ -32,7 +32,7 @@ define('Mobile/SalesLogix/Views/Attachment/AddAttachment', [
     Environment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.AddAttachment', [FileSelect], {
+    return declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
         //Localization
         titleText: 'Add Attachments',
 

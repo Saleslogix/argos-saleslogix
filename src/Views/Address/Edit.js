@@ -3,22 +3,22 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Address.Edit
+ * @class crm.Views.Address.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Edit
+ * @requires argos.Edit
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Format
+ * @requires crm.Validator
  *
  */
-define('Mobile/SalesLogix/Views/Address/Edit', [
+define('crm/Views/Address/Edit', [
     'dojo/_base/declare',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit'
+    'crm/Format',
+    'crm/Validator',
+    'argos/Edit'
 ], function(
     declare,
     string,
@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/Address/Edit', [
     validator,
     Edit
 ) {
-    return declare('Mobile.SalesLogix.Views.Address.Edit', [Edit], {
+    return declare('crm.Views.Address.Edit', [Edit], {
         //Localization
         address1Text: 'address 1',
         address2Text: 'address 2',

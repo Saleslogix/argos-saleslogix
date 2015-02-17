@@ -3,18 +3,18 @@
  */
 
 /**
- * @class Mobile.SalesLogix.GroupUtility
+ * @class crm.GroupUtility
  *
  * Saleslogix group based utils
  *
  * @singleton
  *
  */
-define('Mobile/SalesLogix/GroupUtility', [
+define('crm/GroupUtility', [
     'dojo/_base/lang',
     'dojo/_base/array',
     './Format',
-    'Sage/Platform/Mobile/Format',
+    'argos/Format',
     'moment'
 ], function(
     lang,
@@ -50,7 +50,7 @@ define('Mobile/SalesLogix/GroupUtility', [
         return request;
     };
 
-    return lang.setObject('Mobile.SalesLogix.GroupUtility', {
+    return lang.setObject('crm.GroupUtility', {
         groupDateFormatText: 'M/D/YYYY h:mm:ss a',
         /**
          * Returns an SDataNamedQueryRequest setup for groups

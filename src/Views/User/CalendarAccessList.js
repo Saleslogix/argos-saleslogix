@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.User.CalendarAccessList
+ * @class crm.Views.User.CalendarAccessList
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/User/CalendarAccessList', [
+define('crm/Views/User/CalendarAccessList', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.User.CalendarAccessList', [List], {
+    return declare('crm.Views.User.CalendarAccessList', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Name %}</h3>',

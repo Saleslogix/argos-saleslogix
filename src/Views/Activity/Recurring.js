@@ -3,29 +3,29 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.Recurring
+ * @class crm.Views.Activity.Recurring
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Edit
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Edit
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
- * @requires Mobile.SalesLogix.Recurrence
+ * @requires crm.Format
+ * @requires crm.Validator
+ * @requires crm.Recurrence
  *
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Views/Activity/Recurring', [
+define('crm/Views/Activity/Recurring', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
-    'Mobile/SalesLogix/Recurrence',
+    'crm/Format',
+    'crm/Validator',
+    'argos/Utility',
+    'argos/Edit',
+    'crm/Recurrence',
     'moment'
 ], function(
     declare,
@@ -38,7 +38,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
     recur,
     moment
 ) {
-    return declare('Mobile.SalesLogix.Views.Activity.Recurring', [Edit], {
+    return declare('crm.Views.Activity.Recurring', [Edit], {
         //Localization
         startingText: 'start date',
         endingText: 'end date',
@@ -460,7 +460,7 @@ define('Mobile/SalesLogix/Views/Activity/Recurring', [
 
             // calculate some values from the ones provided
             this.entry = values;
-            this.entry.StartDate = Sage.Platform.Mobile.Convert.toDateFromString(values['StartDate']);
+            this.entry.StartDate = argos.Convert.toDateFromString(values['StartDate']);
             this.entry.EndDate = recur.calcEndDate(values.StartDate, values).toDate();
             this.entry.Recurring = (typeof values.Recurring === 'string') ? /^true$/i.test(values.Recurring) : values.Recurring;
             ord = recur.getOrd(this.entry);

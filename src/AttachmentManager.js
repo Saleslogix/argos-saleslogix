@@ -3,20 +3,20 @@
  */
 
 /**
- * @class Mobile.SalesLogix.AttachmentManager
+ * @class crm.AttachmentManager
  *
- * @requires Sage.Platform.Mobile.Convert
- * @requires Mobile.SalesLogix.Utility
- * @requires Mobile.SalesLogix.FileManager
+ * @requires argos.Convert
+ * @requires crm.Utility
+ * @requires crm.FileManager
  */
-define('Mobile/SalesLogix/AttachmentManager', [
-    'Mobile/SalesLogix/FileManager',
+define('crm/AttachmentManager', [
+    'crm/FileManager',
     'dojo/_base/lang',
     'dojo/_base/declare',
     'dojo/string',
     'dojo/number',
-    'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Utility'
+    'argos/Convert',
+    'crm/Utility'
 
 ], function(
     FileManager,
@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/AttachmentManager', [
     convert,
     utility
 ) {
-    return declare('Mobile.SalesLogix.AttachmentManager', null, {
+    return declare('crm.AttachmentManager', null, {
         _fileManager: null,
         _entityContext: null,
         _uploadUrl: '',

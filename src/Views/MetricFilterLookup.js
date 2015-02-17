@@ -3,23 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.MetricFilterLookup
+ * @class crm.Views.MetricFilterLookup
  *
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
  */
-define('Mobile/SalesLogix/Views/MetricFilterLookup', [
+define('crm/Views/MetricFilterLookup', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     lang,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.MetricFilterLookup', [List], {
+    return declare('crm.Views.MetricFilterLookup', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'

@@ -3,17 +3,17 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.TicketActivityItem.List
+ * @class crm.Views.TicketActivityItem.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/TicketActivityItem/List', [
+define('crm/Views/TicketActivityItem/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'crm/Format',
+    'argos/List'
 ], function(
     declare,
     string,
@@ -21,11 +21,11 @@ define('Mobile/SalesLogix/Views/TicketActivityItem/List', [
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivityItem.List', [List], {
+    return declare('crm.Views.TicketActivityItem.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
-            '<h4>{%: $.Product.ActualId %} - {%: Mobile.SalesLogix.Format.currency($.ItemAmount) %}</h4>',
+            '<h4>{%: $.Product.ActualId %} - {%: crm.Format.currency($.ItemAmount) %}</h4>',
             '<h4>{%: $.ItemDescription %}</h4>'
         ]),
 

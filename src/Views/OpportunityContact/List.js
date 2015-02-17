@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.OpportunityContact.List
+ * @class crm.Views.OpportunityContact.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  */
-define('Mobile/SalesLogix/Views/OpportunityContact/List', [
+define('crm/Views/OpportunityContact/List', [
     'dojo/_base/declare',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityContact.List', [List], {
+    return declare('crm.Views.OpportunityContact.List', [List], {
         //Template
         itemTemplate: new Simplate([
             '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',

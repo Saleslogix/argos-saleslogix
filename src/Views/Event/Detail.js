@@ -3,23 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Event.Detail
+ * @class crm.Views.Event.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/Event/Detail', [
+define('crm/Views/Event/Detail', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Detail'
+    'crm/Format',
+    'argos/Detail'
 ], function(
     declare,
     format,
     Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Event.Detail', [Detail], {
+    return declare('crm.Views.Event.Detail', [Detail], {
         //Localization
         eventTypeText: {
             'atToDo': 'To-Do',

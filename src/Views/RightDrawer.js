@@ -3,19 +3,19 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.RightDrawer
+ * @class crm.Views.RightDrawer
  *
  *
- * @extends Sage.Platform.Mobile.GroupedList
+ * @extends argos.GroupedList
  *
  */
-define('Mobile/SalesLogix/Views/RightDrawer', [
+define('crm/Views/RightDrawer', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/store/Memory',
-    'Mobile/SalesLogix/SpeedSearchWidget',
-    'Sage/Platform/Mobile/GroupedList'
+    'crm/SpeedSearchWidget',
+    'argos/GroupedList'
 ], function(
     declare,
     array,
@@ -25,7 +25,7 @@ define('Mobile/SalesLogix/Views/RightDrawer', [
     GroupedList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.RightDrawer', [GroupedList],  {
+    return declare('crm.Views.RightDrawer', [GroupedList],  {
         //Templates
         cls: ' contextualContent',
         rowTemplate: new Simplate([
