@@ -42,5 +42,9 @@ Thumbs.db
 # build output
 deploy/
 
+node_modules/
+docs-output/
+coverage/
+
 # module development shells
 index-dev-*.html
