@@ -18,7 +18,7 @@ define('crm/Action', [
     string,
     utility
 ) {
-    return lang.setObject('crm.Action', {
+    var __class = lang.setObject('crm.Action', {
         calledText: 'Called ${0}',
         emailedText: 'E-mailed ${0}',
 
@@ -136,5 +136,8 @@ define('crm/Action', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Action', __class);
+    return __class;
 });
 

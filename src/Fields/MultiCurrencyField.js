@@ -3,10 +3,12 @@
  */
 define('crm/Fields/MultiCurrencyField', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'argos/Fields/DecimalField',
     'argos/FieldManager'
 ], function(
     declare,
+    lang,
     DecimalField,
     FieldManager
 ) {
@@ -36,5 +38,6 @@ define('crm/Fields/MultiCurrencyField', [
         }
     });
 
+    lang.setObject('Mobile.SalesLogix.Fields.MultiCurrencyField', control);
     return FieldManager.register('multiCurrency', control);
 });

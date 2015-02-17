@@ -21,6 +21,7 @@
  */
 define('crm/Views/Calendar/WeekView', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/query',
     'dojo/string',
     'dojo/dom-construct',
@@ -33,6 +34,7 @@ define('crm/Views/Calendar/WeekView', [
     'moment'
 ], function(
     declare,
+    lang,
     query,
     string,
     domConstruct,
@@ -45,7 +47,7 @@ define('crm/Views/Calendar/WeekView', [
     moment
 ) {
 
-    return declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.Calendar.WeekView', [List, _LegacySDataListMixin], {
         //Localization
         titleText: 'Calendar',
         weekTitleFormatText: 'MMM D, YYYY',
@@ -609,5 +611,8 @@ define('crm/Views/Calendar/WeekView', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Calendar.WeekView', __class);
+    return __class;
 });
 

@@ -11,13 +11,15 @@
  */
 define('crm/Views/FooterToolbar', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'argos/MainToolbar'
 ], function(
     declare,
+    lang,
     MainToolbar
 ) {
 
-    return declare('crm.Views.FooterToolbar', [MainToolbar], {
+    var __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
         // Localization
         copyrightText: '&copy; 2014 SalesLogix, NA, LLC. All rights reserved.',
 
@@ -62,5 +64,8 @@ define('crm/Views/FooterToolbar', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.FooterToolbar', __class);
+    return __class;
 });
 

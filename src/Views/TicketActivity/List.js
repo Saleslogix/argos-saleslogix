@@ -18,7 +18,7 @@ define('crm/Views/TicketActivity/List', [
     'dojo/query',
     'dojo/topic',
     'dojo/_base/lang',
-    'crm/Format',
+    '../../Format',
     'argos/List'
 ], function(
     declare,
@@ -33,7 +33,7 @@ define('crm/Views/TicketActivity/List', [
     List
 ) {
 
-    return declare('crm.Views.TicketActivity.List', [List], {
+    var __class = declare('crm.Views.TicketActivity.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Ticket.TicketNumber %}</h3>',
@@ -50,7 +50,7 @@ define('crm/Views/TicketActivity/List', [
         titleText: 'Ticket Activities',
         startDateFormatText: 'MM/DD/YYYY h:mm A',
 
-        //View Properties       
+        //View Properties
         id: 'ticketactivity_list',
         security: 'Entities/TicketActivity/View',
         expose: false,
@@ -107,5 +107,8 @@ define('crm/Views/TicketActivity/List', [
             );
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.List', __class);
+    return __class;
 });
 

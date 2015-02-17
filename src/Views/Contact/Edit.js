@@ -15,6 +15,7 @@
  */
 define('crm/Views/Contact/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'crm/Format',
     'crm/Template',
@@ -23,6 +24,7 @@ define('crm/Views/Contact/Edit', [
     'argos/Utility'
 ], function(
     declare,
+    lang,
     dString,
     format,
     template,
@@ -31,7 +33,7 @@ define('crm/Views/Contact/Edit', [
     utility
 ) {
 
-    return declare('crm.Views.Contact.Edit', [Edit], {
+    var __class = declare('crm.Views.Contact.Edit', [Edit], {
         //Localization
         titleText: 'Contact',
         nameText: 'name',
@@ -357,5 +359,8 @@ define('crm/Views/Contact/Edit', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Contact.Edit', __class);
+    return __class;
 });
 

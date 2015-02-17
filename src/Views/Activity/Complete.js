@@ -20,17 +20,19 @@
  */
 define('crm/Views/Activity/Complete', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/_base/connect',
     'dojo/string',
-    'crm/Environment',
-    'crm/Validator',
-    'crm/Template',
+    '../../Environment',
+    '../../Validator',
+    '../../Template',
     'argos/Utility',
     'argos/Edit',
     'moment'
 ], function(
     declare,
+    lang,
     array,
     connect,
     string,
@@ -42,7 +44,7 @@ define('crm/Views/Activity/Complete', [
     moment
 ) {
 
-    return declare('crm.Views.Activity.Complete', [Edit], {
+    var __class = declare('crm.Views.Activity.Complete', [Edit], {
         //Localization
         activityInfoText: 'Activity Info',
         accountText: 'account',
@@ -635,5 +637,8 @@ define('crm/Views/Activity/Complete', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.Complete', __class);
+    return __class;
 });
 

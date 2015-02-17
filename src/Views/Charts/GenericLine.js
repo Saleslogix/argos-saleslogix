@@ -24,7 +24,7 @@ define('crm/Views/Charts/GenericLine', [
     View,
     _ChartMixin
 ) {
-    return declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], {
         id: 'chart_generic_line',
         titleText: '',
         expose: false,
@@ -94,4 +94,7 @@ define('crm/Views/Charts/GenericLine', [
             this.chart = new window.Chart(ctx).Line(data, this.chartOptions);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericLine', __class);
+    return __class;
 });

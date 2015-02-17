@@ -3,10 +3,12 @@
  */
 define('crm/Fields/AddressField', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'argos/Fields/EditorField',
     'argos/FieldManager'
 ], function(
     declare,
+    lang,
     EditorField,
     FieldManager
 ) {
@@ -38,5 +40,6 @@ define('crm/Fields/AddressField', [
         }
     });
 
+    lang.setObject('Mobile.SalesLogix.Fields.AddressField', control);
     return FieldManager.register('address', control);
 });

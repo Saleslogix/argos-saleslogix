@@ -3,12 +3,14 @@
  */
 define('crm/Fields/PicklistField', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'argos/Fields/LookupField',
-    'crm/Views/PickList',
+    '../Views/PickList',
     'argos/FieldManager'
 ], function(
     declare,
+    lang,
     string,
     LookupField,
     PickList,
@@ -165,5 +167,6 @@ define('crm/Fields/PicklistField', [
         }
     });
 
+    lang.setObject('Mobile.SalesLogix.Fields.PickListField', control);
     return FieldManager.register('picklist', control);
 });

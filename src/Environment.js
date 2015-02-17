@@ -24,7 +24,7 @@ define('crm/Environment', [
     string,
     domConstruct
 ) {
-    return lang.setObject('crm.Environment', {
+    var __class = lang.setObject('crm.Environment', {
         // todo: open a new browser window for these when on a mobile device?
         // on a mobile device, launching an external handler can impact a view transition, and cause issues, which the timeout takes care of.
         // not the best way, perhaps a post-transition callback should be used for launching these? check transitioning, then queue if needed?
@@ -115,5 +115,8 @@ define('crm/Environment', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Environment', __class);
+    return __class;
 });
 

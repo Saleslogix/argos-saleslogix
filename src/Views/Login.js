@@ -21,7 +21,7 @@ define('crm/Views/Login', [
     Edit
 ) {
 
-    return declare('crm.Views.Login', [Edit], {
+    var __class = declare('crm.Views.Login', [Edit], {
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
@@ -149,5 +149,8 @@ define('crm/Views/Login', [
             });
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Login', __class);
+    return __class;
 });
 

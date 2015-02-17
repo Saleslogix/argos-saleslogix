@@ -35,7 +35,7 @@ define('crm/Views/MetricWidget', [
     _Templated,
     SDataStore
 ) {
-    return declare('crm.Views.MetricWidget', [_Widget, _Templated], {
+    var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
         /**
          * @property {Simplate}
          * Simple that defines the HTML Markup
@@ -302,4 +302,7 @@ define('crm/Views/MetricWidget', [
             return this.store || (this.store = this.createStore());
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.MetricWidget', __class);
+    return __class;
 });

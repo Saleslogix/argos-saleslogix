@@ -23,7 +23,7 @@ define('crm/SpeedSearchWidget', [
     _Widget,
     _Templated
 ) {
-    return declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
+    var __class = declare('crm.SpeedSearchWidget', [_Widget, _Templated], {
         /**
          * @property {Object} attributeMap
          */
@@ -116,5 +116,8 @@ define('crm/SpeedSearchWidget', [
         onSearchExpression: function(expression, widget) {
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.SpeedSearchWidget', __class);
+    return __class;
 });
 

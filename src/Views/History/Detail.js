@@ -18,9 +18,9 @@ define('crm/Views/History/Detail', [
     'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
-    'crm/Format',
+    '../../Format',
     'argos/ErrorManager',
-    'crm/Template',
+    '../../Template',
     'argos/Detail',
     'dojo/NodeList-manipulate'
 ], function(
@@ -36,7 +36,7 @@ define('crm/Views/History/Detail', [
     NodeList
 ) {
 
-    return declare('crm.Views.History.Detail', [Detail], {
+    var __class = declare('crm.Views.History.Detail', [Detail], {
         //Templates
         createUserTemplate: template.nameLF,
 
@@ -281,5 +281,8 @@ define('crm/Views/History/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.History.Detail', __class);
+    return __class;
 });
 

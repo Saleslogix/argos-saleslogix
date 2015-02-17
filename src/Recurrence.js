@@ -29,7 +29,7 @@ define('crm/Recurrence', [
     _Templated,
     moment
 ) {
-    return lang.setObject('crm.Recurrence', {
+    var __class = lang.setObject('crm.Recurrence', {
         // Localization
         neverText: 'Never',
         daysText: 'days',
@@ -494,5 +494,8 @@ define('crm/Recurrence', [
             return Math.floor((result / interval) + 1);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Recurrence', __class);
+    return __class;
 });
 

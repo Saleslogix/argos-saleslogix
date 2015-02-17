@@ -13,9 +13,9 @@ define('crm/Views/AddAccountContact', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
-    'crm/Format',
-    'crm/Validator',
-    'crm/Template',
+    '../Format',
+    '../Validator',
+    '../Template',
     'argos/Utility',
     'argos/Edit'
 ], function(
@@ -29,7 +29,7 @@ define('crm/Views/AddAccountContact', [
     Edit
 ) {
 
-    return declare('crm.Views.AddAccountContact', [Edit], {
+    var __class = declare('crm.Views.AddAccountContact', [Edit], {
         //Localization
         accountNameText: 'account',
         accountStatusTitleText: 'Account Status',
@@ -324,5 +324,8 @@ define('crm/Views/AddAccountContact', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.AddAccountContact', __class);
+    return __class;
 });
 

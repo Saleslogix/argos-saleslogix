@@ -14,14 +14,16 @@
  */
 define('crm/Views/History/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
-    'crm/Environment',
-    'crm/Validator',
+    '../../Environment',
+    '../../Validator',
     'argos/Utility',
     'argos/Edit'
 ], function(
     declare,
+    lang,
     array,
     string,
     environment,
@@ -30,7 +32,7 @@ define('crm/Views/History/Edit', [
     Edit
 ) {
 
-    return declare('crm.Views.History.Edit', [Edit], {
+    var __class = declare('crm.Views.History.Edit', [Edit], {
         //Localization
         accountText: 'account',
         noteDescriptionTitleText: 'Note Description',
@@ -625,5 +627,8 @@ define('crm/Views/History/Edit', [
             }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.History.Edit', __class);
+    return __class;
 });
 

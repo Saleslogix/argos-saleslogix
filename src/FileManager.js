@@ -19,7 +19,7 @@ define('crm/FileManager', [
     has,
     sniff
 ) {
-    return declare('crm.FileManager', null, {
+    var __class = declare('crm.FileManager', null, {
         unableToUploadText: 'This browser does not support HTML5 File API.',
         unknownSizeText: 'unknown',
         unknownErrorText: 'Warning: An error occured and the file failed to upload.',
@@ -277,4 +277,7 @@ define('crm/FileManager', [
             request.send(null);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.FileManager', __class);
+    return __class;
 });

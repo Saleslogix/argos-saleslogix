@@ -12,17 +12,19 @@
  */
 define('crm/Views/Lead/Edit', [
     'dojo/_base/declare',
-    'crm/Format',
-    'crm/Validator',
+    'dojo/_base/lang',
+    '../../Format',
+    '../../Validator',
     'argos/Edit'
 ], function(
     declare,
+    lang,
     format,
     validator,
     Edit
 ) {
 
-    return declare('crm.Views.Lead.Edit', [Edit], {
+    var __class = declare('crm.Views.Lead.Edit', [Edit], {
         //Localization
         accountText: 'account',
         addressText: 'address',
@@ -222,5 +224,8 @@ define('crm/Views/Lead/Edit', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Lead.Edit', __class);
+    return __class;
 });
 

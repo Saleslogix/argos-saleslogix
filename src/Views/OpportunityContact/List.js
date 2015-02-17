@@ -9,15 +9,17 @@
  */
 define('crm/Views/OpportunityContact/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     List
 ) {
 
-    return declare('crm.Views.OpportunityContact.List', [List], {
+    var __class = declare('crm.Views.OpportunityContact.List', [List], {
         //Template
         itemTemplate: new Simplate([
             '<h3 class="{% if ($.IsPrimary) { %} primary {% } %}">{%: $.Contact.NameLF %}</h3>',
@@ -140,5 +142,8 @@ define('crm/Views/OpportunityContact/List', [
             return string.substitute('(upper(Contact.NameLF) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.List', __class);
+    return __class;
 });
 

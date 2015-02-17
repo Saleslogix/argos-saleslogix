@@ -18,8 +18,8 @@ define('crm/Views/TicketActivity/Detail', [
     'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
-    'crm/Format',
-    'crm/Template',
+    '../../Format',
+    '../../Template',
     'argos/ErrorManager',
     'argos/Detail',
     'dojo/NodeList-manipulate'
@@ -34,7 +34,7 @@ define('crm/Views/TicketActivity/Detail', [
     Detail
 ) {
 
-    return declare('crm.Views.TicketActivity.Detail', [Detail], {
+    var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
         //Localization
         titleText: 'Ticket Activity',
 
@@ -252,5 +252,8 @@ define('crm/Views/TicketActivity/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Detail', __class);
+    return __class;
 });
 

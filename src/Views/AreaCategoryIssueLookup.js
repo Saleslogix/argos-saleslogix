@@ -12,15 +12,17 @@
  */
 define('crm/Views/AreaCategoryIssueLookup', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'argos/List',
     'argos/_LegacySDataListMixin'
 ], function(
     declare,
+    lang,
     List,
     _LegacySDataListMixin
 ) {
 
-    return declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'
@@ -109,5 +111,8 @@ define('crm/Views/AreaCategoryIssueLookup', [
         formatSearchQuery: function(searchQuery) {
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);
+    return __class;
 });
 

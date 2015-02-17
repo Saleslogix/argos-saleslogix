@@ -12,15 +12,17 @@
  */
 define('crm/Views/ExchangeRateLookup', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'argos/List',
     'argos/_LegacySDataListMixin'
 ], function(
     declare,
+    lang,
     List,
     _LegacySDataListMixin
 ) {
 
-    return declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.ExchangeRateLookup', [List, _LegacySDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$key %} ({%: $.Rate %})</h3>'
@@ -67,5 +69,8 @@ define('crm/Views/ExchangeRateLookup', [
         formatSearchQuery: function(searchQuery) {
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.ExchangeRateLookup', __class);
+    return __class;
 });
 

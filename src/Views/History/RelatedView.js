@@ -16,18 +16,20 @@
 
 define('crm/Views/History/RelatedView', [
     'dojo/_base/declare',
-    'crm/Format',
+    'dojo/_base/lang',
+    '../../Format',
     'argos/Convert',
     'argos/RelatedViewWidget',
     'moment'
 ], function(
     declare,
+    lang,
     format,
     convert,
     RelatedViewWidget,
     moment
 ) {
-    return declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
+    var __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
         regardingText: 'Regarding',
         byText: 'wrote ',
         id: 'relatedNotes',
@@ -64,4 +66,7 @@ define('crm/Views/History/RelatedView', [
             return (entry.Description)? entry.Description : entry.$descriptor;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.History.RelatedView', __class);
+    return __class;
 });

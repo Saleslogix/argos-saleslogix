@@ -9,15 +9,17 @@
  */
 define('crm/Views/Ticket/UrgencyLookup', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     List
 ) {
 
-    return declare('crm.Views.Ticket.UrgencyLookup', [List], {
+    var __class = declare('crm.Views.Ticket.UrgencyLookup', [List], {
         //Localization
         titleText: 'Ticket Urgency',
 
@@ -39,5 +41,8 @@ define('crm/Views/Ticket/UrgencyLookup', [
             return string.substitute('upper(Description) like "%${0}%"', this.escapeSearchQuery(searchQuery.toUpperCase()));
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', __class);
+    return __class;
 });
 

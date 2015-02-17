@@ -22,6 +22,7 @@
  */
 define('crm/Views/Contact/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/array',
     'crm/Action',
@@ -34,6 +35,7 @@ define('crm/Views/Contact/List', [
     '../_RightDrawerListMixin'
 ], function(
     declare,
+    lang,
     string,
     array,
     action,
@@ -46,7 +48,7 @@ define('crm/Views/Contact/List', [
     _RightDrawerListMixin
 ) {
 
-    return declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    var __class = declare('crm.Views.Contact.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Template
         //Card Layout
         itemIconClass: 'fa fa-user fa-2x',
@@ -180,5 +182,8 @@ define('crm/Views/Contact/List', [
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or upper(NameLF) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Contact.List', __class);
+    return __class;
 });
 

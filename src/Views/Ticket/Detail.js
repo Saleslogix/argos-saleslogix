@@ -16,7 +16,7 @@ define('crm/Views/Ticket/Detail', [
     'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
-    'crm/Format',
+    '../../Format',
     'argos/ErrorManager',
     'argos/Detail',
     'dojo/NodeList-manipulate'
@@ -31,7 +31,7 @@ define('crm/Views/Ticket/Detail', [
     NodeList
 ) {
 
-    return declare('crm.Views.Ticket.Detail', [Detail], {
+    var __class = declare('crm.Views.Ticket.Detail', [Detail], {
         //Localization
         accountText: 'account',
         areaText: 'area',
@@ -276,5 +276,8 @@ define('crm/Views/Ticket/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.Detail', __class);
+    return __class;
 });
 

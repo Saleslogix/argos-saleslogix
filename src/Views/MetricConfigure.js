@@ -20,7 +20,7 @@ define('crm/Views/MetricConfigure', [
     array,
     Edit
 ) {
-    return declare('crm.Views.MetricConfigure', [Edit], {
+    var __class = declare('crm.Views.MetricConfigure', [Edit], {
         titleText: 'Configure Metric',
         id: 'metric_configure',
         expose: false,
@@ -230,4 +230,7 @@ define('crm/Views/MetricConfigure', [
             ReUI.back();
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.MetricConfigure', __class);
+    return __class;
 });

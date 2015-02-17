@@ -20,9 +20,10 @@
  */
 define('crm/Views/Account/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
-    'crm/Action',
+    '../../Action',
     'argos/Format',
     'argos/Utility',
     'argos/Convert',
@@ -33,6 +34,7 @@ define('crm/Views/Account/List', [
     '../_RightDrawerListMixin'
 ], function(
     declare,
+    lang,
     array,
     string,
     action,
@@ -46,7 +48,7 @@ define('crm/Views/Account/List', [
     _RightDrawerListMixin
 ) {
 
-    return declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    var __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.AccountName %}</h3>',
@@ -171,5 +173,8 @@ define('crm/Views/Account/List', [
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Account.List', __class);
+    return __class;
 });
 

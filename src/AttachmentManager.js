@@ -10,13 +10,13 @@
  * @requires crm.FileManager
  */
 define('crm/AttachmentManager', [
-    'crm/FileManager',
+    './FileManager',
     'dojo/_base/lang',
     'dojo/_base/declare',
     'dojo/string',
     'dojo/number',
     'argos/Convert',
-    'crm/Utility'
+    './Utility'
 
 ], function(
     FileManager,
@@ -27,7 +27,7 @@ define('crm/AttachmentManager', [
     convert,
     utility
 ) {
-    return declare('crm.AttachmentManager', null, {
+    var __class = declare('crm.AttachmentManager', null, {
         _fileManager: null,
         _entityContext: null,
         _uploadUrl: '',
@@ -315,4 +315,7 @@ define('crm/AttachmentManager', [
              fm = this._fileManager.getFile(url, responseType, onSuccsess);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.AttachmentManager', __class);
+    return __class;
 });

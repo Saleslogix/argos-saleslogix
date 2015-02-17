@@ -20,15 +20,16 @@
  */
 define('crm/Views/History/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
     'dojo/dom-style',
     'dojo/dom-geometry',
     'dojo/query',
     'dojo/dom-class',
-    'crm/Format',
+    '../../Format',
     'argos/Convert',
-    'crm/Action',
+    '../../Action',
     'argos/List',
     '../_RightDrawerListMixin',
     '../_MetricListMixin',
@@ -36,6 +37,7 @@ define('crm/Views/History/List', [
     'moment'
 ], function(
     declare,
+    lang,
     array,
     string,
     domStyle,
@@ -52,7 +54,7 @@ define('crm/Views/History/List', [
     moment
 ) {
 
-    return declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>',
@@ -278,5 +280,8 @@ define('crm/Views/History/List', [
             return cls;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.History.List', __class);
+    return __class;
 });
 

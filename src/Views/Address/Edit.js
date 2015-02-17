@@ -15,18 +15,20 @@
  */
 define('crm/Views/Address/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'crm/Format',
-    'crm/Validator',
+    '../../Format',
+    '../../Validator',
     'argos/Edit'
 ], function(
     declare,
+    lang,
     string,
     format,
     validator,
     Edit
 ) {
-    return declare('crm.Views.Address.Edit', [Edit], {
+    var __class = declare('crm.Views.Address.Edit', [Edit], {
         //Localization
         address1Text: 'address 1',
         address2Text: 'address 2',
@@ -187,5 +189,8 @@ define('crm/Views/Address/Edit', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Address.Edit', __class);
+    return __class;
 });
 

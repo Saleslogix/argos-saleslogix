@@ -16,14 +16,16 @@
  */
 define('crm/Views/Attachment/AddAttachment', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'crm/Format',
+    '../../Format',
     'argos/Format',
     'argos/Views/FileSelect',
-    'crm/AttachmentManager',
-    'crm/Environment'
+    '../../AttachmentManager',
+    '../../Environment'
 ], function(
     declare,
+    lang,
     string,
     format,
     sdkFormat,
@@ -32,7 +34,7 @@ define('crm/Views/Attachment/AddAttachment', [
     Environment
 ) {
 
-    return declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
+    var __class = declare('crm.Views.Attachment.AddAttachment', [FileSelect], {
         //Localization
         titleText: 'Add Attachments',
 
@@ -70,5 +72,8 @@ define('crm/Views/Attachment/AddAttachment', [
             ReUI.back();
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.AddAttachment', __class);
+    return __class;
 });
 

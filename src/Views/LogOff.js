@@ -3,13 +3,15 @@
  */
 define('crm/Views/LogOff', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'argos/View'
 ], function(
     declare,
+    lang,
     View
 ) {
 
-    return declare('crm.Views.LogOff', [View], {
+    var __class = declare('crm.Views.LogOff', [View], {
         //Templates
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%: $.titleText %}" class="panel {%= $.cls %}" hideBackButton="true">',
@@ -36,5 +38,8 @@ define('crm/Views/LogOff', [
             });
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.LogOff', __class);
+    return __class;
 });
 

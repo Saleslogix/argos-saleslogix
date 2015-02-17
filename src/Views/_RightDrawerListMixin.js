@@ -20,8 +20,8 @@ define('crm/Views/_RightDrawerListMixin', [
     'dojo/dom-attr',
     'dojo/dom-style',
     'dojo/aspect',
-    'crm/GroupUtility',
-    'crm/Views/_RightDrawerBaseMixin',
+    '../GroupUtility',
+    './_RightDrawerBaseMixin',
     'argos/Fields/LookupField'
 ], function(
     declare,
@@ -39,7 +39,7 @@ define('crm/Views/_RightDrawerListMixin', [
 
     var mixinName = 'crm.Views._RightDrawerListMixin';
 
-    return declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+    var __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
         groupsSectionText: 'Groups',
@@ -383,5 +383,8 @@ define('crm/Views/_RightDrawerListMixin', [
             return this.searchWidget && this.searchWidget.hashTagQueries && this.searchWidget.hashTagQueries.length > 0;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._RightDrawerListMixin', __class);
+    return __class;
 });
 

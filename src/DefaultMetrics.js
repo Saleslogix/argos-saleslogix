@@ -4,12 +4,14 @@
 
 define('crm/DefaultMetrics', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'argos/_CustomizationMixin'
 ], function(
     declare,
+    lang,
     _CustomizationMixin
 ) {
-    return declare('crm.DefaultMetrics', [_CustomizationMixin], {
+    var __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
         // Localiztion
         accountsText: {
             totalRevenue: 'Total Revenue',
@@ -220,5 +222,8 @@ define('crm/DefaultMetrics', [
             }];
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.DefaultMetrics', __class);
+    return __class;
 
 });

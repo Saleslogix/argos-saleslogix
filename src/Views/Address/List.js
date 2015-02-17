@@ -14,14 +14,16 @@
  */
 define('crm/Views/Address/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/dom-attr',
     'dojo/query',
-    'crm/Format',
+    '../../Format',
     'argos/List',
     'dojo/NodeList-traverse'
 ], function(
     declare,
+    lang,
     string,
     domAttr,
     query,
@@ -30,7 +32,7 @@ define('crm/Views/Address/List', [
     NodeListTraverse
 ) {
 
-    return declare('crm.Views.Address.List', [List], {
+    var __class = declare('crm.Views.Address.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>',
@@ -68,5 +70,8 @@ define('crm/Views/Address/List', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Address.List', __class);
+    return __class;
 });
 

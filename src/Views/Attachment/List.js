@@ -24,10 +24,11 @@
  */
 define('crm/Views/Attachment/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/has',
-    'crm/Format',
-    'crm/Utility',
+    '../../Format',
+    '../../Utility',
     'argos/List',
     'argos/_LegacySDataListMixin',
     'argos/Convert',
@@ -36,6 +37,7 @@ define('crm/Views/Attachment/List', [
     'moment'
 ], function(
     declare,
+    lang,
     string,
     has,
     format,
@@ -48,7 +50,7 @@ define('crm/Views/Attachment/List', [
     moment
 ) {
 
-    return declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.Attachment.List', [List, _RightDrawerListMixin, _CardLayoutListMixin, _LegacySDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
            '{% if ($.dataType === "R") { %}',
@@ -202,5 +204,8 @@ define('crm/Views/Attachment/List', [
             return false;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.List', __class);
+    return __class;
 });
 

@@ -12,19 +12,21 @@
  */
 define('crm/Views/Contact/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'crm/Format',
-    'crm/Template',
+    '../../Format',
+    '../../Template',
     'argos/Detail'
 ], function(
     declare,
+    lang,
     string,
     format,
     template,
     Detail
 ) {
 
-    return declare('crm.Views.Contact.Detail', [Detail], {
+    var __class = declare('crm.Views.Contact.Detail', [Detail], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
@@ -331,5 +333,8 @@ define('crm/Views/Contact/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Contact.Detail', __class);
+    return __class;
 });
 

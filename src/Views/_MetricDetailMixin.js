@@ -5,11 +5,11 @@
 /**
  * @class crm.Views._MetricDetailMixin
  *
- * Mixin for adding KPI widgets to detail views. 
+ * Mixin for adding KPI widgets to detail views.
  *
  * @since 3.0
  *
- * @requires crm.Views.MetricWidget 
+ * @requires crm.Views.MetricWidget
  *
  */
 define('crm/Views/_MetricDetailMixin', [
@@ -25,7 +25,7 @@ define('crm/Views/_MetricDetailMixin', [
     aspect,
     MetricWidget
 ) {
-    return declare('crm.Views._MetricDetailMixin', null, {
+    var __class = declare('crm.Views._MetricDetailMixin', null, {
         // Metrics
         metricNode: null,
         metricWidgets: null,
@@ -77,5 +77,8 @@ define('crm/Views/_MetricDetailMixin', [
                 && options.queryArgs._metricName;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._MetricDetailMixin', __class);
+    return __class;
 });
 

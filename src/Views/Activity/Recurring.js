@@ -19,16 +19,18 @@
  */
 define('crm/Views/Activity/Recurring', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
-    'crm/Format',
-    'crm/Validator',
+    '../../Format',
+    '../../Validator',
     'argos/Utility',
     'argos/Edit',
-    'crm/Recurrence',
+    '../../Recurrence',
     'moment'
 ], function(
     declare,
+    lang,
     array,
     string,
     format,
@@ -38,7 +40,7 @@ define('crm/Views/Activity/Recurring', [
     recur,
     moment
 ) {
-    return declare('crm.Views.Activity.Recurring', [Edit], {
+    var __class = declare('crm.Views.Activity.Recurring', [Edit], {
         //Localization
         startingText: 'start date',
         endingText: 'end date',
@@ -639,5 +641,8 @@ define('crm/Views/Activity/Recurring', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.Recurring', __class);
+    return __class;
 });
 

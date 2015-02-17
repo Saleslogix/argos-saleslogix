@@ -11,17 +11,19 @@
  */
 define('crm/Views/OpportunityContact/Edit', [
     'dojo/_base/declare',
-    'crm/Format',
+    'dojo/_base/lang',
+    '../../Format',
     'argos/Utility',
     'argos/Edit'
 ], function(
     declare,
+    lang,
     format,
     utility,
     Edit
 ) {
 
-    return declare('crm.Views.OpportunityContact.Edit', [Edit], {
+    var __class = declare('crm.Views.OpportunityContact.Edit', [Edit], {
         //Localization
         titleText: 'Edit Opp. Contact',
         nameText: 'name',
@@ -138,5 +140,8 @@ define('crm/Views/OpportunityContact/Edit', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Edit', __class);
+    return __class;
 });
 

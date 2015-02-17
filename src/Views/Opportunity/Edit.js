@@ -16,8 +16,8 @@ define('crm/Views/Opportunity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
-    'crm/Validator',
-    'crm/Template',
+    '../../Validator',
+    '../../Template',
     'argos/Utility',
     'argos/Edit'
 ], function(
@@ -30,7 +30,7 @@ define('crm/Views/Opportunity/Edit', [
     Edit
 ) {
 
-    return declare('crm.Views.Opportunity.Edit', [Edit], {
+    var __class = declare('crm.Views.Opportunity.Edit', [Edit], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -394,5 +394,8 @@ define('crm/Views/Opportunity/Edit', [
             return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Opportunity.Edit', __class);
+    return __class;
 });
 

@@ -11,17 +11,19 @@
  */
 define('crm/Views/Product/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'crm/Format',
+    '../../Format',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     format,
     List
 ) {
 
-    return declare('crm.Views.Product.List', [List], {
+    var __class = declare('crm.Views.Product.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Name %} | {%: $.Description %}</h3>',
@@ -33,7 +35,7 @@ define('crm/Views/Product/List', [
         //Localization
         titleText: 'Products',
 
-        //View Properties       
+        //View Properties
         id: 'product_list',
         security: 'Entities/Product/View',
         queryOrderBy: 'Name',
@@ -51,5 +53,8 @@ define('crm/Views/Product/List', [
             return string.substitute('(upper(Name) like "${0}%" or upper(Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Product.List', __class);
+    return __class;
 });
 

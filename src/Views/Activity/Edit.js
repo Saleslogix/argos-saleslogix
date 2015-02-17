@@ -20,19 +20,21 @@
  */
 define('crm/Views/Activity/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/connect',
     'dojo/_base/array',
     'dojo/string',
-    'crm/Environment',
-    'crm/Template',
-    'crm/Validator',
+    '../../Environment',
+    '../../Template',
+    '../../Validator',
     'argos/Utility',
     'argos/Edit',
-    'crm/Recurrence',
+    '../../Recurrence',
     'argos/Format',
     'moment'
 ], function(
     declare,
+    lang,
     connect,
     array,
     string,
@@ -46,7 +48,7 @@ define('crm/Views/Activity/Edit', [
     moment
 ) {
 
-    return declare('crm.Views.Activity.Edit', [Edit], {
+    var __class = declare('crm.Views.Activity.Edit', [Edit], {
         //Localization
         activityCategoryTitleText: 'Activity Category',
         activityDescriptionTitleText: 'Activity Description',
@@ -1313,5 +1315,8 @@ define('crm/Views/Activity/Edit', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.Edit', __class);
+    return __class;
 });
 

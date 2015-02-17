@@ -148,7 +148,7 @@ define('crm/Views/Charts/_ChartMixin', [
         onAnimationComplete: function(){}
     };
 
-    return declare('crm.Views.Charts._ChartMixin', null, {
+    var __class = declare('crm.Views.Charts._ChartMixin', null, {
         _handle: null,
         _feedData: null,
         RENDER_DELAY: has('ios') < 8 ? 500 : 1, // Work around IOS7 orientation change issues
@@ -197,5 +197,8 @@ define('crm/Views/Charts/_ChartMixin', [
             return box.h;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Charts._ChartMixin', __class);
+    return __class;
 });
 

@@ -28,7 +28,7 @@ define('crm/Views/Charts/GenericBar', [
     View,
     _ChartMixin
 ) {
-    return declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
         id: 'chart_generic_bar',
         titleText: '',
         expose: false,
@@ -93,4 +93,7 @@ define('crm/Views/Charts/GenericBar', [
             this.chart = new window.Chart(ctx).Bar(data, this.chartOptions);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericBar', __class);
+    return __class;
 });

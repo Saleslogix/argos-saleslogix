@@ -16,10 +16,11 @@
  */
 define('crm/Views/Ticket/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/array',
-    'crm/Action',
-    'crm/Format',
+    '../../Action',
+    '../../Format',
     'argos/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
@@ -27,6 +28,7 @@ define('crm/Views/Ticket/List', [
     '../_CardLayoutListMixin'
 ], function(
     declare,
+    lang,
     string,
     array,
     action,
@@ -38,7 +40,7 @@ define('crm/Views/Ticket/List', [
     _CardLayoutListMixin
 ) {
 
-    return declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    var __class = declare('crm.Views.Ticket.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.TicketNumber %}</h3>',
@@ -173,5 +175,8 @@ define('crm/Views/Ticket/List', [
             );
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.List', __class);
+    return __class;
 });
 

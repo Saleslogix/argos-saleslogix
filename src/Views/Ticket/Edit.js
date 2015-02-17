@@ -16,8 +16,8 @@ define('crm/Views/Ticket/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
-    'crm/Format',
-    'crm/Validator',
+    '../../Format',
+    '../../Validator',
     'argos/ErrorManager',
     'argos/Edit'
 ], function(
@@ -30,7 +30,7 @@ define('crm/Views/Ticket/Edit', [
     Edit
 ) {
 
-    return declare('crm.Views.Ticket.Edit', [Edit], {
+    var __class = declare('crm.Views.Ticket.Edit', [Edit], {
         //Localization
         accountText: 'acct',
         areaText: 'area',
@@ -451,5 +451,8 @@ define('crm/Views/Ticket/Edit', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.Edit', __class);
+    return __class;
 });
 

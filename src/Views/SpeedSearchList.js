@@ -20,11 +20,11 @@ define('crm/Views/SpeedSearchList', [
     'dojo/string',
     'dojo/query',
     'dojo/dom-attr',
-    'crm/SpeedSearchWidget',
+    '../SpeedSearchWidget',
     'argos/List',
     'argos/_LegacySDataListMixin',
-    'crm/Views/_SpeedSearchRightDrawerListMixin',
-    'crm/Views/_CardLayoutListMixin'
+    './_SpeedSearchRightDrawerListMixin',
+    './_CardLayoutListMixin'
 ], function(
     declare,
     lang,
@@ -41,7 +41,7 @@ define('crm/Views/SpeedSearchList', [
     _CardLayoutListMixin
 ) {
 
-    return declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
+    var __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
           '<h4><strong>{%: $.$heading %}</strong></h4>',
@@ -343,5 +343,8 @@ define('crm/Views/SpeedSearchList', [
             return activated;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.SpeedSearchList', __class);
+    return __class;
 });
 

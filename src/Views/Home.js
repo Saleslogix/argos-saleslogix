@@ -13,7 +13,7 @@ define('crm/Views/Home', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
-    'crm/SpeedSearchWidget',
+    '../SpeedSearchWidget',
     'argos/GroupedList'
 ], function(
     declare,
@@ -23,7 +23,7 @@ define('crm/Views/Home', [
     GroupedList
 ) {
 
-    return declare('crm.Views.Home', [GroupedList], {
+    var __class = declare('crm.Views.Home', [GroupedList], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
@@ -198,5 +198,8 @@ define('crm/Views/Home', [
             return this.inherited(arguments);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Home', __class);
+    return __class;
 });
 

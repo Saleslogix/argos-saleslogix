@@ -16,7 +16,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
     'dojo/_base/lang',
     'dojo/dom-construct',
     'dojo/dom-attr',
-    'crm/Views/_RightDrawerBaseMixin'
+    './_RightDrawerBaseMixin'
 ], function(
     declare,
     array,
@@ -28,7 +28,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
 
     var mixinName = 'crm.Views._SpeedSearchRightDrawerListMixin';
 
-    return declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
+    var __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         indexSectionText: 'Indexes',
 
@@ -152,5 +152,8 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
            return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', __class);
+    return __class;
 });
 

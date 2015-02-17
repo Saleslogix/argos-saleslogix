@@ -14,15 +14,17 @@
  */
 define('crm/Views/OpportunityProduct/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
-    'crm/Validator',
-    'crm/Template',
+    '../../Validator',
+    '../../Template',
     'argos/Utility',
     'argos/Edit',
     'argos/Utility'
 ], function(
     declare,
+    lang,
     array,
     string,
     validator,
@@ -32,7 +34,7 @@ define('crm/Views/OpportunityProduct/Edit', [
     Utility
 ) {
 
-    return declare('crm.Views.OpportunityProduct.Edit', [Edit], {
+    var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
         //Localization
         titleText: 'Opportunity Product',
         detailsText: 'Details',
@@ -434,5 +436,8 @@ define('crm/Views/OpportunityProduct/Edit', [
             return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Edit', __class);
+    return __class;
 });
 

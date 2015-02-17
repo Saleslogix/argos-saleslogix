@@ -33,7 +33,7 @@ define('crm/Views/Configure', [
     NodeList
 ) {
 
-    return declare('crm.Views.Configure', [List], {
+    var __class = declare('crm.Views.Configure', [List], {
         //Templates
         emptyTemplate: new Simplate(['']),
         itemTemplate: new Simplate([
@@ -177,5 +177,8 @@ define('crm/Views/Configure', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Configure', __class);
+    return __class;
 });
 

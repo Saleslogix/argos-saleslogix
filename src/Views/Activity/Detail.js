@@ -21,19 +21,21 @@
  */
 define('crm/Views/Activity/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
-    'crm/Template',
-    'crm/Format',
-    'crm/Environment',
+    '../../Template',
+    '../../Format',
+    '../../Environment',
     'argos/Convert',
     'argos/Detail',
-    'crm/Recurrence',
-    'crm/Utility',
+    '../../Recurrence',
+    '../../Utility',
     'argos/Utility'
 ], function(
     declare,
+    lang,
     string,
     query,
     domClass,
@@ -47,7 +49,7 @@ define('crm/Views/Activity/Detail', [
     platformUtility
 ) {
 
-    return declare('crm.Views.Activity.Detail', [Detail], {
+    var __class = declare('crm.Views.Activity.Detail', [Detail], {
         //Templates
         leaderTemplate: template.nameLF,
 
@@ -521,5 +523,8 @@ define('crm/Views/Activity/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.Detail', __class);
+    return __class;
 });
 

@@ -20,12 +20,12 @@ define('crm/Views/_GroupListMixin', [
     'dojo/dom-construct',
     'argos/Format',
     'argos/Utility',
-    'crm/GroupUtility',
+    '../GroupUtility',
     'dojo/when',
     'dojo/_base/lang',
     'argos/Store/SData',
     'dojo/Deferred',
-    'crm/Action',
+    '../Action',
 
 ], function(
     declare,
@@ -47,8 +47,8 @@ define('crm/Views/_GroupListMixin', [
 ) {
     var mixinName = 'crm.Views._GroupListMixin';
 
-    return declare('crm.Views._GroupListMixin', null, {
-       
+    var __class = declare('crm.Views._GroupListMixin', null, {
+
         noDefaultGroupText: 'No default group set. Click here to configure groups.',
         currentGroupNotFoundText: 'The current group was not found.',
         groupTemplateSummaryText: 'Summary',
@@ -63,8 +63,8 @@ define('crm/Views/_GroupListMixin', [
            '<li class="no-data">',
            '<h3>{%= $$._getCurrentGroupNotFoundMessage() %}</h3>',
            '</li>'
-        ]),      
-       
+        ]),
+
         _getNoDefaultGroupMessage: function() {
             var mixin = lang.getObject(mixinName);
             if (mixin) {
@@ -901,5 +901,8 @@ define('crm/Views/_GroupListMixin', [
 
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._GroupListMixin', __class);
+    return __class;
 });
 

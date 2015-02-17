@@ -20,7 +20,7 @@ define('crm/Utility', [
     string,
     Utility
 ) {
-    return lang.setObject('crm.Utility', lang.mixin({}, Utility, {
+    var __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
         base64ArrayBuffer: function (arrayBuffer) {
             var base64    = '';
             var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -102,5 +102,8 @@ define('crm/Utility', [
             return Id;
         }
     }));
+
+    lang.setObject('Mobile.SalesLogix.Utility', __class);
+    return __class;
 });
 

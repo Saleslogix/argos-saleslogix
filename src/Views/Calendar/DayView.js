@@ -19,6 +19,7 @@
  */
 define('crm/Views/Calendar/DayView', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
@@ -30,6 +31,7 @@ define('crm/Views/Calendar/DayView', [
     'moment'
 ], function(
     declare,
+    lang,
     string,
     query,
     domClass,
@@ -41,7 +43,7 @@ define('crm/Views/Calendar/DayView', [
     moment
 ) {
 
-    return declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.Calendar.DayView', [List, _LegacySDataListMixin], {
         // Localization
         titleText: 'Calendar',
         eventDateFormatText: 'M/D/YYYY',
@@ -510,5 +512,8 @@ define('crm/Views/Calendar/DayView', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Calendar.DayView', __class);
+    return __class;
 });
 

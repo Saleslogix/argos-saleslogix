@@ -12,7 +12,7 @@
 define('crm/Views/NameEdit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'crm/Validator',
+    '../Validator',
     'argos/Edit'
 ], function(
     declare,
@@ -21,7 +21,7 @@ define('crm/Views/NameEdit', [
     Edit
 ) {
 
-    return declare('crm.Views.NameEdit', [Edit], {
+    var __class = declare('crm.Views.NameEdit', [Edit], {
         //Localization
         titleText: 'Edit Name',
         firstNameText: 'first',
@@ -84,5 +84,8 @@ define('crm/Views/NameEdit', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.NameEdit', __class);
+    return __class;
 });
 

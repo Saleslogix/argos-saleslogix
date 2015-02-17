@@ -22,22 +22,24 @@
  */
 define('crm/Views/Activity/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/connect',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
-    'crm/Views/_RightDrawerListMixin',
+    '../_RightDrawerListMixin',
     'argos/List',
-    'crm/Views/_CardLayoutListMixin',
-    'crm/Format',
+    '../_CardLayoutListMixin',
+    '../../Format',
     'argos/Utility',
     'argos/Convert',
-    'crm/Action',
-    'crm/Environment',
+    '../../Action',
+    '../../Environment',
     'argos/ErrorManager',
     'moment'
 ], function(
     declare,
+    lang,
     connect,
     string,
     query,
@@ -54,7 +56,7 @@ define('crm/Views/Activity/List', [
     moment
 ) {
 
-    return declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
+    var __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
         // Localization
         allDayText: 'All-Day',
         completeActivityText: 'Complete',
@@ -469,5 +471,8 @@ define('crm/Views/Activity/List', [
            ErrorManager.addError(response, o, {}, 'failure');
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.List', __class);
+    return __class;
 });
 

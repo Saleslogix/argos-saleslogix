@@ -50,7 +50,7 @@ define('crm/GroupUtility', [
         return request;
     };
 
-    return lang.setObject('crm.GroupUtility', {
+    var __class = lang.setObject('crm.GroupUtility', {
         groupDateFormatText: 'M/D/YYYY h:mm:ss a',
         /**
          * Returns an SDataNamedQueryRequest setup for groups
@@ -429,5 +429,8 @@ define('crm/GroupUtility', [
             App.persistPreferences();
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.GroupUtility', __class);
+    return __class;
 });
 

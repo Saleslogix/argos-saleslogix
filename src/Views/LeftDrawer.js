@@ -14,7 +14,7 @@ define('crm/Views/LeftDrawer', [
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/store/Memory',
-    'crm/SpeedSearchWidget',
+    '../SpeedSearchWidget',
     'argos/GroupedList'
 ], function(
     declare,
@@ -25,7 +25,7 @@ define('crm/Views/LeftDrawer', [
     GroupedList
 ) {
 
-    return declare('crm.Views.LeftDrawer', [GroupedList], {
+    var __class = declare('crm.Views.LeftDrawer', [GroupedList], {
         //Templates
         cls: ' contextualContent',
         rowTemplate: new Simplate([
@@ -323,5 +323,8 @@ define('crm/Views/LeftDrawer', [
             App.snapper.close();
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.LeftDrawer', __class);
+    return __class;
 });
 

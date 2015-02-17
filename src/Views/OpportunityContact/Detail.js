@@ -10,19 +10,21 @@
  */
 define('crm/Views/OpportunityContact/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/connect',
     'dojo/string',
     'argos/Detail',
     'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
+    lang,
     connect,
     string,
     Detail,
     _LegacySDataDetailMixin
 ) {
 
-    return declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
+    var __class = declare('crm.Views.OpportunityContact.Detail', [Detail, _LegacySDataDetailMixin], {
         //Localization
         titleText: 'Opportunity Contact',
         accountText: 'account',
@@ -159,5 +161,8 @@ define('crm/Views/OpportunityContact/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Detail', __class);
+    return __class;
 });
 

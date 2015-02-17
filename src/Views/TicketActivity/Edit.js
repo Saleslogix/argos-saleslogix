@@ -15,20 +15,20 @@
 define('crm/Views/TicketActivity/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'crm/Template',
-    'crm/Validator',
+    '../../Template',
+    '../../Validator',
     'argos/ErrorManager',
     'argos/Edit'
 ], function(
     declare,
     lang,
     template,
-	validator,
+    validator,
     ErrorManager,
     Edit
 ) {
 
-    return declare('crm.Views.TicketActivity.Edit', [Edit], {
+    var __class = declare('crm.Views.TicketActivity.Edit', [Edit], {
         //Localization
         titleText: 'Edit Ticket Activity',
         activityTypeText: 'type',
@@ -187,5 +187,8 @@ define('crm/Views/TicketActivity/Edit', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Edit', __class);
+    return __class;
 });
 

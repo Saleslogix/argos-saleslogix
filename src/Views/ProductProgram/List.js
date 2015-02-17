@@ -11,17 +11,19 @@
  */
 define('crm/Views/ProductProgram/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'crm/Format',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     format,
     List
 ) {
 
-    return declare('crm.Views.ProductProgram.List', [List], {
+    var __class = declare('crm.Views.ProductProgram.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Program %}</h3>',
@@ -48,5 +50,8 @@ define('crm/Views/ProductProgram/List', [
             return string.substitute('(upper(Program) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.ProductProgram.List', __class);
+    return __class;
 });
 

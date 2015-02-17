@@ -11,17 +11,19 @@
  */
 define('crm/Views/OpportunityProduct/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'crm/Format',
+    '../../Format',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     format,
     List
 ) {
 
-    return declare('crm.Views.OpportunityProduct.List', [List], {
+    var __class = declare('crm.Views.OpportunityProduct.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
@@ -69,5 +71,8 @@ define('crm/Views/OpportunityProduct/List', [
             return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.List', __class);
+    return __class;
 });
 

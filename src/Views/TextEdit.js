@@ -11,13 +11,15 @@
  */
 define('crm/Views/TextEdit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'argos/Edit'
 ], function(
     declare,
+    lang,
     Edit
 ) {
 
-    return declare('crm.Views.TextEdit', [Edit], {
+    var __class = declare('crm.Views.TextEdit', [Edit], {
         //View Properties
         id: 'text_edit',
         titleText: 'Edit Text',
@@ -31,5 +33,8 @@ define('crm/Views/TextEdit', [
             }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TextEdit', __class);
+    return __class;
 });
 

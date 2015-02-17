@@ -93,6 +93,7 @@ define('crm/Aggregate', [
         }
     });
 
+    lang.setObject('Mobile.SalesLogix.Aggregate', results);
     return results;
 });
 

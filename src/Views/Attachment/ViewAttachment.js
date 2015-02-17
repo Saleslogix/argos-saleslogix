@@ -20,22 +20,24 @@
  */
 define('crm/Views/Attachment/ViewAttachment', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/connect',
     'dojo/_base/array',
-    'crm/Format',
+    '../../Format',
     'dojo/dom-construct',
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/has',
     'dojo/dom',
     'dojo/dom-geometry',
-    'crm/AttachmentManager',
-    'crm/Utility',
+    '../../AttachmentManager',
+    '../../Utility',
     'argos/Detail',
     'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
+    lang,
     string,
     connect,
     array,
@@ -52,7 +54,7 @@ define('crm/Views/Attachment/ViewAttachment', [
     _LegacySDataDetailMixin
 ) {
 
-    return declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
+    var __class = declare('crm.Views.Attachment.ViewAttachment', [Detail, _LegacySDataDetailMixin], {
         //Localization
         detailsText: 'Attachment Details',
         descriptionText: 'description',
@@ -358,5 +360,8 @@ define('crm/Views/Attachment/ViewAttachment', [
 
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.ViewAttachment', __class);
+    return __class;
 });
 

@@ -9,17 +9,19 @@
  */
 define('crm/Views/Owner/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/array',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     array,
     List
 ) {
 
-    return declare('crm.Views.Owner.List', [List], {
+    var __class = declare('crm.Views.Owner.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.OwnerDescription %}</h3>'
@@ -71,5 +73,8 @@ define('crm/Views/Owner/List', [
             return item.User.Type !== 3 && item.User.Type !== 5 && item.User.Type !== 6 && item.User.Type !== 7;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Owner.List', __class);
+    return __class;
 });
 

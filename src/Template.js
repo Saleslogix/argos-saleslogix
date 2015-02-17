@@ -17,7 +17,7 @@ define('crm/Template', [
     lang,
     format
 ) {
-    return lang.setObject('crm.Template', {
+    var __class = lang.setObject('crm.Template', {
         /**
          * @property {Simplate} nameLF
          * Template for lastname, firstname
@@ -34,7 +34,7 @@ define('crm/Template', [
 
         /**
          * @property {Simplate} alternateKeyPrefixSuffix
-         * Template for alternate key, takes a prefix and suffix 
+         * Template for alternate key, takes a prefix and suffix
          */
         alternateKeyPrefixSuffix: new Simplate([
             '{%= $.AlternateKeyPrefix %}-{%= $.AlternateKeySuffix %}'
@@ -70,5 +70,8 @@ define('crm/Template', [
             '</div>'
         ])
     });
+
+    lang.setObject('Mobile.SalesLogix.Template', __class);
+    return __class;
 });
 

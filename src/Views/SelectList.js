@@ -11,15 +11,17 @@
  */
 define('crm/Views/SelectList', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/store/Memory',
     'argos/List'
 ], function(
     declare,
+    lang,
     Memory,
     List
 ) {
 
-    return declare('crm.Views.SelectList', [List], {
+    var __class = declare('crm.Views.SelectList', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'
@@ -52,5 +54,8 @@ define('crm/Views/SelectList', [
             return store;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.SelectList', __class);
+    return __class;
 });
 

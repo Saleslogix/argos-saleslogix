@@ -43,7 +43,7 @@ define('crm/Application', [
     moment
 ) {
 
-    var _app = declare('crm.Application', [Application], {
+    var __class = declare('crm.Application', [Application], {
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
@@ -889,7 +889,6 @@ define('crm/Application', [
         }
     });
 
-    // Backwards compatibility for custom modules still referencing the old declare global
-    lang.setObject('crm.Application', _app);
-    return _app;
+    lang.setObject('Mobile.SalesLogix.Application', __class);
+    return __class;
 });

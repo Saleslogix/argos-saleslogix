@@ -18,10 +18,11 @@
  */
 define('crm/Views/Opportunity/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/array',
-    'crm/Action',
-    'crm/Format',
+    '../../Action',
+    '../../Format',
     'argos/Format',
     'argos/List',
     '../_GroupListMixin',
@@ -30,6 +31,7 @@ define('crm/Views/Opportunity/List', [
     '../_CardLayoutListMixin'
 ], function(
     declare,
+    lang,
     string,
     array,
     action,
@@ -42,7 +44,7 @@ define('crm/Views/Opportunity/List', [
     _CardLayoutListMixin
 ) {
 
-    return declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    var __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         //TODO: Support ExchangeRateCode with proper symbol
         itemTemplate: new Simplate([
@@ -185,5 +187,8 @@ define('crm/Views/Opportunity/List', [
         }
 
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Opportunity.List', __class);
+    return __class;
 });
 

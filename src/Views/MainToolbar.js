@@ -11,17 +11,19 @@
  */
 define('crm/Views/MainToolbar', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/dom-style',
     'dojo/has',
     'argos/MainToolbar'
 ], function(
     declare,
+    lang,
     domStyle,
     has,
     MainToolbar
 ) {
 
-    return declare('crm.Views.MainToolbar', [MainToolbar], {
+    var __class = declare('crm.Views.MainToolbar', [MainToolbar], {
         showTools: function(tools) {
             var hasLeftDrawer, isOnFirstView, isOnEdit;
 
@@ -109,5 +111,8 @@ define('crm/Views/MainToolbar', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.MainToolbar', __class);
+    return __class;
 });
 

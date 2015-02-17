@@ -9,15 +9,17 @@
  */
 define('crm/Views/Contract/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     List
 ) {
 
-    return declare('crm.Views.Contract.List', [List], {
+    var __class = declare('crm.Views.Contract.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%= $.Account ? $.Account.AccountName : "" %}</h3>',
@@ -45,5 +47,8 @@ define('crm/Views/Contract/List', [
             return string.substitute('(ReferenceNumber like "%${0}%")', [this.escapeSearchQuery(searchQuery)]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Contract.List', __class);
+    return __class;
 });
 

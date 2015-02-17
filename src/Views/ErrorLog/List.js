@@ -12,6 +12,7 @@
  */
 define('crm/Views/ErrorLog/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/store/Memory',
     'crm/Format',
     'argos/Convert',
@@ -19,6 +20,7 @@ define('crm/Views/ErrorLog/List', [
     'argos/List'
 ], function(
     declare,
+    lang,
     Memory,
     format,
     convert,
@@ -26,7 +28,7 @@ define('crm/Views/ErrorLog/List', [
     List
 ) {
 
-    return declare('crm.Views.ErrorLog.List', [List], {
+    var __class = declare('crm.Views.ErrorLog.List', [List], {
         //Localization
         titleText: 'Error Logs',
         errorDateFormatText: 'MM/DD/YYYY hh:mm A',
@@ -73,5 +75,8 @@ define('crm/Views/ErrorLog/List', [
             });
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.ErrorLog.List', __class);
+    return __class;
 });
 

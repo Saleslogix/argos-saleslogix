@@ -12,19 +12,21 @@
  */
 define('crm/Views/Event/Edit', [
     'dojo/_base/declare',
-    'crm/Format',
-    'crm/Validator',
+    'dojo/_base/lang',
+    '../../Format',
+    '../../Validator',
     'argos/Edit',
     'moment'
 ], function(
     declare,
+    lang,
     format,
     validator,
     Edit,
     moment
 ) {
 
-    return declare('crm.Views.Event.Edit', [Edit], {
+    var __class = declare('crm.Views.Event.Edit', [Edit], {
         //Localization
         titleText: 'Event',
         typeText: 'type',
@@ -186,5 +188,8 @@ define('crm/Views/Event/Edit', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Event.Edit', __class);
+    return __class;
 });
 

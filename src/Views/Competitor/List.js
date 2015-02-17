@@ -12,15 +12,17 @@
  */
 define('crm/Views/Competitor/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     List
 ) {
 
-    return declare('crm.Views.Competitor.List', [List], {
+    var __class = declare('crm.Views.Competitor.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%= $.CompetitorName %}</h3>',
@@ -46,5 +48,8 @@ define('crm/Views/Competitor/List', [
             return string.substitute('(CompetitorName like "%${0}%")', [this.escapeSearchQuery(searchQuery)]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Competitor.List', __class);
+    return __class;
 });
 

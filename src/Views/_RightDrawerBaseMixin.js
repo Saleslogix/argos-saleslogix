@@ -31,7 +31,7 @@ define('crm/Views/_RightDrawerBaseMixin', [
     // -- Unloading of the right menu --
     // 1. onBeforeTransitionAway
     // 2. unloadRightDrawer
-    return declare('crm.Views._RightDrawerBaseMixin', null, {
+    var __class = declare('crm.Views._RightDrawerBaseMixin', null, {
         drawerLoaded: false,
         toolsAdded: false,
 
@@ -105,5 +105,8 @@ define('crm/Views/_RightDrawerBaseMixin', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._RightDrawerBaseMixin', __class);
+    return __class;
 });
 

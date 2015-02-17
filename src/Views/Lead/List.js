@@ -18,8 +18,9 @@
  */
 define('crm/Views/Lead/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'crm/Action',
+    '../../Action',
     'argos/Format',
     'argos/Utility',
     'argos/List',
@@ -29,6 +30,7 @@ define('crm/Views/Lead/List', [
     '../_CardLayoutListMixin'
 ], function(
     declare,
+    lang,
     string,
     action,
     format,
@@ -40,7 +42,7 @@ define('crm/Views/Lead/List', [
     _CardLayoutListMixin
 ) {
 
-    return declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    var __class = declare('crm.Views.Lead.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.LeadNameLastFirst %}</h3>',
@@ -183,5 +185,8 @@ define('crm/Views/Lead/List', [
             return string.substitute('(LastNameUpper like "${0}%" or upper(FirstName) like "${0}%" or CompanyUpper like "${0}%" or upper(LeadNameLastFirst) like "%${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Lead.List', __class);
+    return __class;
 });
 

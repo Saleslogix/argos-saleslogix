@@ -12,6 +12,7 @@
  */
 define('crm/Views/Help', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/dom-class',
     'dojo/dom-construct',
@@ -21,6 +22,7 @@ define('crm/Views/Help', [
     'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
+    lang,
     string,
     domClass,
     domConstruct,
@@ -29,7 +31,7 @@ define('crm/Views/Help', [
     _LegacySDataDetailMixin
 ) {
 
-    return declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
+    var __class = declare('crm.Views.Help', [Detail, _LegacySDataDetailMixin], {
         //Templates
         errorTemplate: new Simplate([
             '<div data-dojo-attach-point="errorNode" class="panel-validation-summary">',
@@ -106,5 +108,8 @@ define('crm/Views/Help', [
             domConstruct.place(xhr.responseText, this.contentNode, 'last');
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Help', __class);
+    return __class;
 });
 

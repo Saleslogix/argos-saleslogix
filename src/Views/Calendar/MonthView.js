@@ -21,6 +21,7 @@
  */
 define('crm/Views/Calendar/MonthView', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
     'dojo/query',
@@ -35,6 +36,7 @@ define('crm/Views/Calendar/MonthView', [
     'moment'
 ], function(
     declare,
+    lang,
     array,
     string,
     query,
@@ -49,7 +51,7 @@ define('crm/Views/Calendar/MonthView', [
     moment
 ) {
 
-    return declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.Calendar.MonthView', [List, _LegacySDataListMixin], {
         // Localization
         titleText: 'Calendar',
         todayText: 'Today',
@@ -898,5 +900,8 @@ define('crm/Views/Calendar/MonthView', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Calendar.MonthView', __class);
+    return __class;
 });
 

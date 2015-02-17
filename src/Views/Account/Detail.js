@@ -17,8 +17,8 @@ define('crm/Views/Account/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/lang',
-    'crm/Format',
-    'crm/Template',
+    '../../Format',
+    '../../Template',
     'argos/Detail',
     '../_MetricDetailMixin'
 ], function(
@@ -31,7 +31,7 @@ define('crm/Views/Account/Detail', [
     _MetricDetailMixin
 ) {
 
-    return declare('crm.Views.Account.Detail', [Detail], {
+    var __class = declare('crm.Views.Account.Detail', [Detail], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
@@ -278,5 +278,8 @@ define('crm/Views/Account/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Account.Detail', __class);
+    return __class;
 });
 

@@ -11,17 +11,19 @@
  */
 define('crm/Views/Event/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'crm/Format',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     format,
     List
 ) {
 
-    return declare('crm.Views.Event.List', [List], {
+    var __class = declare('crm.Views.Event.List', [List], {
         // Localization
         titleText: 'Events',
         eventDateFormatText: 'M/D/YYYY',
@@ -57,5 +59,8 @@ define('crm/Views/Event/List', [
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Event.List', __class);
+    return __class;
 });
 

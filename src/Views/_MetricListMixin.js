@@ -18,7 +18,7 @@ define('crm/Views/_MetricListMixin', [
     'dojo/_base/lang',
     'dojo/aspect',
     './MetricWidget',
-    'crm/GroupUtility'
+    '../GroupUtility'
 ], function(
     declare,
     array,
@@ -27,7 +27,7 @@ define('crm/Views/_MetricListMixin', [
     MetricWidget,
     GroupUtility
 ) {
-    return declare('crm.Views._MetricListMixin', null, {
+    var __class = declare('crm.Views._MetricListMixin', null, {
         // Metrics
         metricNode: null,
         metricWidgets: null,
@@ -144,5 +144,8 @@ define('crm/Views/_MetricListMixin', [
                 && options.queryArgs._metricName;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._MetricListMixin', __class);
+    return __class;
 });
 

@@ -11,15 +11,17 @@
  */
 define('crm/Views/TicketActivityItem/Detail', [
     'dojo/_base/declare',
-    'crm/Format',
+    'dojo/_base/lang',
+    '../../Format',
     'argos/Detail'
 ], function(
     declare,
+    lang,
     format,
     Detail
 ) {
 
-    return declare('crm.Views.TicketActivityItem.Detail', [Detail], {
+    var __class = declare('crm.Views.TicketActivityItem.Detail', [Detail], {
         //Localization
         titleText: 'Ticket Activity Part',
         productNameText: 'product',
@@ -76,5 +78,8 @@ define('crm/Views/TicketActivityItem/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivityItem.Detail', __class);
+    return __class;
 });
 

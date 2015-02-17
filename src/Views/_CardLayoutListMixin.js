@@ -38,7 +38,7 @@ define('crm/Views/_CardLayoutListMixin', [
 
     var mixinName = 'crm.Views._CardLayoutListMixin';
 
-    return declare('crm.Views._CardLayoutListMixin', null, {
+    var __class = declare('crm.Views._CardLayoutListMixin', null, {
         itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText:'Contact',
         itemIconClass: '',
@@ -234,5 +234,8 @@ define('crm/Views/_CardLayoutListMixin', [
             this.inherited(arguments);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._CardLayoutListMixin', __class);
+    return __class;
 });
 

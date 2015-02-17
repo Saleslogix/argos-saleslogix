@@ -11,14 +11,16 @@
  */
 define('crm/Views/Opportunity/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/dom-construct',
     'dojo/query',
     'dojo/string',
     'argos/Detail',
-    'crm/Format',
+    '../../Format',
     '../_MetricDetailMixin'
 ], function(
     declare,
+    lang,
     domConstruct,
     query,
     string,
@@ -27,7 +29,7 @@ define('crm/Views/Opportunity/Detail', [
     _MetricDetailMixin
 ) {
 
-    return declare('crm.Views.Opportunity.Detail', [Detail], {
+    var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -361,5 +363,8 @@ define('crm/Views/Opportunity/Detail', [
             return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Opportunity.Detail', __class);
+    return __class;
 });
 

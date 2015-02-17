@@ -12,14 +12,16 @@
  */
 define('crm/Views/OpportunityProduct/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/connect',
     'dojo/_base/array',
-    'crm/Format',
+    '../../Format',
     'argos/Detail',
     'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
+    lang,
     string,
     connect,
     array,
@@ -28,7 +30,7 @@ define('crm/Views/OpportunityProduct/Detail', [
     _LegacySDataDetailMixin
 ) {
 
-    return declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacySDataDetailMixin], {
+    var __class = declare('crm.Views.OpportunityProduct.Detail', [Detail, _LegacySDataDetailMixin], {
         //Localization
         detailsText: 'Details',
         opportunityText: 'opportunity',
@@ -276,5 +278,8 @@ define('crm/Views/OpportunityProduct/Detail', [
             return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Detail', __class);
+    return __class;
 });
 

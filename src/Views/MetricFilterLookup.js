@@ -19,7 +19,7 @@ define('crm/Views/MetricFilterLookup', [
     List
 ) {
 
-    return declare('crm.Views.MetricFilterLookup', [List], {
+    var __class = declare('crm.Views.MetricFilterLookup', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'
@@ -48,4 +48,7 @@ define('crm/Views/MetricFilterLookup', [
             this.inherited(arguments);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.MetricFilterLookup', __class);
+    return __class;
 });

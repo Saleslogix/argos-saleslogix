@@ -13,17 +13,19 @@
  */
 define('crm/Views/Attachment/MyAttachmentList', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'crm/Format',
-    'crm/Views/Attachment/List'
+    '../../Format',
+    './List'
 ], function(
     declare,
+    lang,
     string,
     format,
     AttachmentList
 ) {
 
-    return declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
+    var __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
         id: 'myattachment_list',
         titleText: 'My Attachments',
         queryWhere: function() {
@@ -36,5 +38,8 @@ define('crm/Views/Attachment/MyAttachmentList', [
             return userKey;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.MyAttachmentList', __class);
+    return __class;
 });
 

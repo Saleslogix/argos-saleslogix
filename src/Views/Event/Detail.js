@@ -11,15 +11,17 @@
  */
 define('crm/Views/Event/Detail', [
     'dojo/_base/declare',
-    'crm/Format',
+    'dojo/_base/lang',
+    '../../Format',
     'argos/Detail'
 ], function(
     declare,
+    lang,
     format,
     Detail
 ) {
 
-    return declare('crm.Views.Event.Detail', [Detail], {
+    var __class = declare('crm.Views.Event.Detail', [Detail], {
         //Localization
         eventTypeText: {
             'atToDo': 'To-Do',
@@ -90,5 +92,8 @@ define('crm/Views/Event/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Event.Detail', __class);
+    return __class;
 });
 

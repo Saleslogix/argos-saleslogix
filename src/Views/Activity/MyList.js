@@ -24,21 +24,23 @@
  */
 define('crm/Views/Activity/MyList', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/query',
     'dojo/_base/connect',
     'argos/List',
-    'crm/Format',
-    'crm/Environment',
+    '../../Format',
+    '../../Environment',
     'argos/Format',
-    'crm/Views/Activity/List',
+    './List',
     'argos/Utility',
     'argos/Convert',
     'argos/ErrorManager',
     'moment',
-    'crm/Action'
+    '../../Action'
 ], function(
     declare,
+    lang,
     string,
     query,
     connect,
@@ -54,7 +56,7 @@ define('crm/Views/Activity/MyList', [
     action
 ) {
 
-    return declare('crm.Views.Activity.MyList', [ActivityList], {
+    var __class = declare('crm.Views.Activity.MyList', [ActivityList], {
 
         //Templates
         //Card View
@@ -662,5 +664,8 @@ define('crm/Views/Activity/MyList', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.MyList', __class);
+    return __class;
 });
 

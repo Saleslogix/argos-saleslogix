@@ -17,15 +17,17 @@
  */
 define('crm/Views/Activity/TypesList', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'argos/List',
     'dojo/store/Memory',
 ], function(
     declare,
+    lang,
     List,
     MemoryStore
 ) {
 
-    return declare('crm.Views.Activity.TypesList', [List], {
+    var __class = declare('crm.Views.Activity.TypesList', [List], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="activateEntry" data-key="{%= $.$key %}" data-descriptor="{%: $.$descriptor %}">',
@@ -143,5 +145,8 @@ define('crm/Views/Activity/TypesList', [
             });
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.TypesList', __class);
+    return __class;
 });
 

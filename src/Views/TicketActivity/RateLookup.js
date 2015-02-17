@@ -9,15 +9,17 @@
  */
 define('crm/Views/TicketActivity/RateLookup', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'argos/List'
 ], function(
     declare,
+    lang,
     string,
     List
 ) {
 
-    return declare('crm.Views.TicketActivity.RateLookup', [List], {
+    var __class = declare('crm.Views.TicketActivity.RateLookup', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.RateTypeCode %} - {%: $.Amount %}</h3>',
@@ -42,5 +44,8 @@ define('crm/Views/TicketActivity/RateLookup', [
             return string.substitute('upper(RateTypeCode) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.RateLookup', __class);
+    return __class;
 });
 

@@ -15,13 +15,15 @@
  */
 define('crm/Views/Account/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'crm/Validator',
-    'crm/Format',
-    'crm/Template',
+    '../../Validator',
+    '../../Format',
+    '../../Template',
     'argos/Edit'
 ], function(
     declare,
+    lang,
     string,
     validator,
     format,
@@ -29,7 +31,7 @@ define('crm/Views/Account/Edit', [
     Edit
 ) {
 
-    return declare('crm.Views.Account.Edit', [Edit], {
+    var __class = declare('crm.Views.Account.Edit', [Edit], {
         //Localization
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account Subtype',
@@ -201,5 +203,8 @@ define('crm/Views/Account/Edit', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Account.Edit', __class);
+    return __class;
 });
 

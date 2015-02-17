@@ -14,7 +14,7 @@ define('crm/Format', [
     'dojo/_base/array',
     'dojo/string',
     'dojo/number',
-    'crm/Template',
+    './Template',
     'argos/Format',
     'moment'
 ], function(
@@ -26,7 +26,7 @@ define('crm/Format', [
     format,
     moment
 ) {
-    return lang.setObject('crm.Format', lang.mixin({}, format, {
+    var __class = lang.setObject('crm.Format', lang.mixin({}, format, {
         /**
          * Address Culture Formats as defined by crm.Format.address
          * http://msdn.microsoft.com/en-us/library/cc195167.aspx
@@ -342,5 +342,8 @@ define('crm/Format', [
             return fVal.replace(/ /g, '\u00A0'); //keep numbers from breaking
         }
     }));
+
+    lang.setObject('Mobile.SalesLogix.Format', __class);
+    return __class;
 });
 

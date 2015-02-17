@@ -27,7 +27,7 @@ define('crm/Views/Charts/GenericPie', [
     _ChartMixin
 ) {
 
-    return declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
         id: 'chart_generic_pie',
         titleText: '',
         expose: false,
@@ -109,4 +109,7 @@ define('crm/Views/Charts/GenericPie', [
             return this.seriesColors[index];
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericPie', __class);
+    return __class;
 });

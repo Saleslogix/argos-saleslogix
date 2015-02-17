@@ -33,7 +33,7 @@ define('crm/Validator', [
     lang,
     string
 ) {
-    return lang.setObject('crm.Validator', {
+    var __class = lang.setObject('crm.Validator', {
         /**
          * @property {Object} exists
          * Validator that ensures the field contains a value.
@@ -175,5 +175,8 @@ define('crm/Validator', [
         isPhoneNumber: {
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Validator', __class);
+    return __class;
 });
 
