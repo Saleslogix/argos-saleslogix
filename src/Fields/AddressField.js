@@ -1,16 +1,18 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-define('Mobile/SalesLogix/Fields/AddressField', [
+define('crm/Fields/AddressField', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/Fields/EditorField',
-    'Sage/Platform/Mobile/FieldManager'
+    'dojo/_base/lang',
+    'argos/Fields/EditorField',
+    'argos/FieldManager'
 ], function(
     declare,
+    lang,
     EditorField,
     FieldManager
 ) {
-    var control = declare('Mobile.SalesLogix.Fields.AddressField', [EditorField], {
+    var control = declare('crm.Fields.AddressField', [EditorField], {
         widgetTemplate: new Simplate([
             '<label for="{%= $.name %}">{%: $.label %}</label>',
             '<button class="button simpleSubHeaderButton {% if ($$.iconClass) { %} {%: $$.iconClass %} {% } %}" aria-label="{%: $.lookupLabelText %}"><span>{%: $.lookupText %}</span></button>',
@@ -38,5 +40,6 @@ define('Mobile/SalesLogix/Fields/AddressField', [
         }
     });
 
+    lang.setObject('Mobile.SalesLogix.Fields.AddressField', control);
     return FieldManager.register('address', control);
 });

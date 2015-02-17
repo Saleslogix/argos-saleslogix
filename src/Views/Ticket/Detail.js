@@ -3,22 +3,22 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Ticket.Detail
+ * @class crm.Views.Ticket.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/Ticket/Detail', [
+define('crm/Views/Ticket/Detail', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Detail',
+    '../../Format',
+    'argos/ErrorManager',
+    'argos/Detail',
     'dojo/NodeList-manipulate'
 ], function(
     declare,
@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
     NodeList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.Detail', [Detail], {
+    var __class = declare('crm.Views.Ticket.Detail', [Detail], {
         //Localization
         accountText: 'account',
         areaText: 'area',
@@ -276,5 +276,8 @@ define('Mobile/SalesLogix/Views/Ticket/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.Detail', __class);
+    return __class;
 });
 

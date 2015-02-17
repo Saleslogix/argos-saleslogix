@@ -1,16 +1,18 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-define('Mobile/SalesLogix/Fields/NameField', [
+define('crm/Fields/NameField', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/Fields/EditorField',
-    'Sage/Platform/Mobile/FieldManager'
+    'dojo/_base/lang',
+    'argos/Fields/EditorField',
+    'argos/FieldManager'
 ], function(
     declare,
+    lang,
     EditorField,
     FieldManager
 ) {
-    var control = declare('Mobile.SalesLogix.Fields.NameField', [EditorField], {
+    var control = declare('crm.Fields.NameField', [EditorField], {
         // Localization
         emptyText: '',
 
@@ -31,5 +33,6 @@ define('Mobile/SalesLogix/Fields/NameField', [
         }
     });
 
+    lang.setObject('Mobile.SalesLogix.Fields.NameField', control);
     return FieldManager.register('name', control);
 });

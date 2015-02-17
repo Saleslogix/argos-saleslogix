@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Charts.GenericBar
+ * @class crm.Views.Charts.GenericBar
  *
- * @extends Sage.Platform.Mobile._ListBase
- * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
+ * @extends argos._ListBase
+ * @mixins crm.Views.Charts._ChartMixin
  *
- * @requires Sage.Platform.Mobile._ListBase
+ * @requires argos._ListBase
  *
  */
-define('Mobile/SalesLogix/Views/Charts/GenericBar', [
+define('crm/Views/Charts/GenericBar', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/dom-geometry',
     'dojo/dom-attr',
-    'Sage/Platform/Mobile/_ListBase',
+    'argos/_ListBase',
     './_ChartMixin'
 ], function(
     declare,
@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     _ListBase,
     _ChartMixin
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericBar', [_ListBase, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericBar', [_ListBase, _ChartMixin], {
         id: 'chart_generic_bar',
         titleText: '',
         expose: false,
@@ -85,4 +85,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             this.chart = new window.Chart(ctx).Bar(data, this.chartOptions);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericBar', __class);
+    return __class;
 });

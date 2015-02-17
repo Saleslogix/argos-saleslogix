@@ -1,14 +1,16 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-define('Mobile/SalesLogix/Fields/PicklistField', [
+define('crm/Fields/PicklistField', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/Fields/LookupField',
-    'Mobile/SalesLogix/Views/PickList',
-    'Sage/Platform/Mobile/FieldManager'
+    'argos/Fields/LookupField',
+    '../Views/PickList',
+    'argos/FieldManager'
 ], function(
     declare,
+    lang,
     string,
     LookupField,
     PickList,
@@ -33,7 +35,7 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         return App.getView(view.id);
     };
 
-    var control = declare('Mobile.SalesLogix.Fields.PicklistField', [LookupField], {
+    var control = declare('crm.Fields.PicklistField', [LookupField], {
         picklist: false,
         storageMode: 'text',
         requireSelection: false,
@@ -165,5 +167,6 @@ define('Mobile/SalesLogix/Fields/PicklistField', [
         }
     });
 
+    lang.setObject('Mobile.SalesLogix.Fields.PickListField', control);
     return FieldManager.register('picklist', control);
 });

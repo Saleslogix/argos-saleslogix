@@ -3,20 +3,20 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Charts.GenericPie
+ * @class crm.Views.Charts.GenericPie
  *
- * @extends Sage.Platform.Mobile._ListBase
- * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
+ * @extends argos._ListBase
+ * @mixins crm.Views.Charts._ChartMixin
  *
- * @requires Sage.Platform.Mobile._ListBase
+ * @requires argos._ListBase
  *
  */
-define('Mobile/SalesLogix/Views/Charts/GenericPie', [
+define('crm/Views/Charts/GenericPie', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/dom-geometry',
-    'Sage/Platform/Mobile/_ListBase',
+    'argos/_ListBase',
     './_ChartMixin'
 ], function(
     declare,
@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
     _ChartMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Charts.GenericPie', [_ListBase, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericPie', [_ListBase, _ChartMixin], {
         id: 'chart_generic_pie',
         titleText: '',
         expose: false,
@@ -111,4 +111,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericPie', [
             return this.seriesColors[index];
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericPie', __class);
+    return __class;
 });

@@ -3,134 +3,133 @@
  */
 
 /**
- * @class Mobile.SalesLogix.ApplicationModule
+ * @class crm.ApplicationModule
  *
- * @extends Sage.Platform.Mobile.ApplicationModule
- * @requires Sage.Platform.Mobile.Calendar
- * @requires Sage.Platform.Mobile.RelatedViewManager
- * @requires Sage.Platform.Mobile.RelatedViewWidget
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.Views.Signature
- * @requires Sage.Platform.Mobile.Views.FileSelect
- * @requires Sage.Platform.Mobile.SearchWidget
+ * @extends argos.ApplicationModule
+ * @requires argos.Calendar
+ * @requires argos.RelatedViewManager
+ * @requires argos.RelatedViewWidget
+ * @requires argos.List
+ * @requires argos.Views.Signature
+ * @requires argos.Views.FileSelect
+ * @requires argos.SearchWidget
  *
  */
-define('Mobile/SalesLogix/ApplicationModule', [
+define('crm/ApplicationModule', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/query',
     'dojo/_base/window',
 
-    'Sage/Platform/Mobile/ApplicationModule',
-    'Sage/Platform/Mobile/Calendar',
-    'Sage/Platform/Mobile/RelatedViewManager',
-    'Sage/Platform/Mobile/RelatedViewWidget',
+    'argos/ApplicationModule',
+    'argos/Calendar',
+    'argos/RelatedViewManager',
+    'argos/RelatedViewWidget',
 
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/Views/Signature',
-    'Sage/Platform/Mobile/SearchWidget',
-    'Sage/Platform/Mobile/Views/FileSelect',
+    'argos/List',
+    'argos/Views/Signature',
+    'argos/SearchWidget',
+    'argos/Views/FileSelect',
 
-    'Mobile/SalesLogix/Views/AddAccountContact',
-    'Mobile/SalesLogix/Views/AreaCategoryIssueLookup',
-    'Mobile/SalesLogix/Views/ExchangeRateLookup',
-    'Mobile/SalesLogix/Views/MainToolbar',
-    'Mobile/SalesLogix/Views/UpdateToolbar',
-    'Mobile/SalesLogix/Views/LeftDrawer',
-    'Mobile/SalesLogix/Views/RightDrawer',
-    'Mobile/SalesLogix/Views/Login',
-    'Mobile/SalesLogix/Views/LogOff',
-    'Mobile/SalesLogix/Views/Settings',
-    'Mobile/SalesLogix/Views/Configure',
-    'Mobile/SalesLogix/Views/MetricConfigure',
-    'Mobile/SalesLogix/Views/MetricFilterLookup',
-    'Mobile/SalesLogix/Views/Help',
-    'Mobile/SalesLogix/Views/NameEdit',
-    'Mobile/SalesLogix/Views/PickList',
-    'Mobile/SalesLogix/Views/SelectList',
-    'Mobile/SalesLogix/Views/SpeedSearchList',
-    'Mobile/SalesLogix/Views/TextEdit',
-    'Mobile/SalesLogix/Views/Account/List',
-    'Mobile/SalesLogix/Views/Account/Detail',
-    'Mobile/SalesLogix/Views/Account/Edit',
-    'Mobile/SalesLogix/Views/Address/List',
-    'Mobile/SalesLogix/Views/Address/Edit',
-    'Mobile/SalesLogix/Views/Activity/List',
-    'Mobile/SalesLogix/Views/Activity/MyList',
-    'Mobile/SalesLogix/Views/Activity/Detail',
-    'Mobile/SalesLogix/Views/Activity/Edit',
-    'Mobile/SalesLogix/Views/Activity/Complete',
-    'Mobile/SalesLogix/Views/Activity/TypesList',
-    'Mobile/SalesLogix/Views/Activity/Recurring',
-    'Mobile/SalesLogix/Views/Calendar/DayView',
-    'Mobile/SalesLogix/Views/Calendar/WeekView',
-    'Mobile/SalesLogix/Views/Calendar/MonthView',
+    './Views/AddAccountContact',
+    './Views/AreaCategoryIssueLookup',
+    './Views/ExchangeRateLookup',
+    './Views/MainToolbar',
+    './Views/UpdateToolbar',
+    './Views/LeftDrawer',
+    './Views/RightDrawer',
+    './Views/Login',
+    './Views/LogOff',
+    './Views/Settings',
+    './Views/Configure',
+    './Views/MetricConfigure',
+    './Views/MetricFilterLookup',
+    './Views/Help',
+    './Views/NameEdit',
+    './Views/PickList',
+    './Views/SelectList',
+    './Views/SpeedSearchList',
+    './Views/TextEdit',
+    './Views/Account/List',
+    './Views/Account/Detail',
+    './Views/Account/Edit',
+    './Views/Address/List',
+    './Views/Address/Edit',
+    './Views/Activity/List',
+    './Views/Activity/MyList',
+    './Views/Activity/Detail',
+    './Views/Activity/Edit',
+    './Views/Activity/Complete',
+    './Views/Activity/TypesList',
+    './Views/Activity/Recurring',
+    './Views/Calendar/DayView',
+    './Views/Calendar/WeekView',
+    './Views/Calendar/MonthView',
 
-    'Mobile/SalesLogix/Views/Charts/GenericBar',
-    'Mobile/SalesLogix/Views/Charts/GenericLine',
-    'Mobile/SalesLogix/Views/Charts/GenericPie',
+    './Views/Charts/GenericBar',
+    './Views/Charts/GenericLine',
+    './Views/Charts/GenericPie',
 
-    'Mobile/SalesLogix/Views/Competitor/List',
-    'Mobile/SalesLogix/Views/Contact/List',
-    'Mobile/SalesLogix/Views/Contact/Detail',
-    'Mobile/SalesLogix/Views/Contact/Edit',
-    'Mobile/SalesLogix/Views/Contract/List',
-    'Mobile/SalesLogix/Views/ErrorLog/List',
-    'Mobile/SalesLogix/Views/ErrorLog/Detail',
-    'Mobile/SalesLogix/Views/Event/List',
-    'Mobile/SalesLogix/Views/Event/Detail',
-    'Mobile/SalesLogix/Views/Event/Edit',
-    'Mobile/SalesLogix/Views/Groups/Selector',
-    'Mobile/SalesLogix/Views/Lead/List',
-    'Mobile/SalesLogix/Views/Lead/Detail',
-    'Mobile/SalesLogix/Views/Lead/Edit',
-    'Mobile/SalesLogix/Views/LeadSource/List',
-    'Mobile/SalesLogix/Views/Opportunity/List',
-    'Mobile/SalesLogix/Views/Opportunity/Detail',
-    'Mobile/SalesLogix/Views/Opportunity/Edit',
-    'Mobile/SalesLogix/Views/OpportunityContact/List',
-    'Mobile/SalesLogix/Views/OpportunityContact/Detail',
-    'Mobile/SalesLogix/Views/OpportunityContact/Edit',
-    'Mobile/SalesLogix/Views/OpportunityProduct/List',
-    'Mobile/SalesLogix/Views/OpportunityProduct/Detail',
-    'Mobile/SalesLogix/Views/OpportunityProduct/Edit',
-    'Mobile/SalesLogix/Views/Owner/List',
-    'Mobile/SalesLogix/Views/Product/List',
-    'Mobile/SalesLogix/Views/ProductProgram/List',
-    'Mobile/SalesLogix/Views/Ticket/List',
-    'Mobile/SalesLogix/Views/Ticket/Detail',
-    'Mobile/SalesLogix/Views/Ticket/Edit',
-    'Mobile/SalesLogix/Views/Ticket/UrgencyLookup',
-    'Mobile/SalesLogix/Views/TicketActivity/List',
-    'Mobile/SalesLogix/Views/TicketActivity/Detail',
-    'Mobile/SalesLogix/Views/TicketActivity/Edit',
-    'Mobile/SalesLogix/Views/TicketActivity/RateLookup',
-    'Mobile/SalesLogix/Views/TicketActivityItem/List',
-    'Mobile/SalesLogix/Views/TicketActivityItem/Detail',
-    'Mobile/SalesLogix/Views/History/List',
-    'Mobile/SalesLogix/Views/History/Detail',
-    'Mobile/SalesLogix/Views/History/Edit',
-    'Mobile/SalesLogix/Views/History/RelatedView',
-    'Mobile/SalesLogix/Views/User/CalendarAccessList',
-    'Mobile/SalesLogix/Views/User/List',
-    'Mobile/SalesLogix/Views/Attachment/ViewAttachment',
-    'Mobile/SalesLogix/Views/Attachment/List',
-    'Mobile/SalesLogix/Views/Attachment/AddAttachment',
-    'Mobile/SalesLogix/Views/Attachment/MyAttachmentList',
+    './Views/Competitor/List',
+    './Views/Contact/List',
+    './Views/Contact/Detail',
+    './Views/Contact/Edit',
+    './Views/Contract/List',
+    './Views/ErrorLog/List',
+    './Views/ErrorLog/Detail',
+    './Views/Event/List',
+    './Views/Event/Detail',
+    './Views/Event/Edit',
+    './Views/Groups/Selector',
+    './Views/Lead/List',
+    './Views/Lead/Detail',
+    './Views/Lead/Edit',
+    './Views/LeadSource/List',
+    './Views/Opportunity/List',
+    './Views/Opportunity/Detail',
+    './Views/Opportunity/Edit',
+    './Views/OpportunityContact/List',
+    './Views/OpportunityContact/Detail',
+    './Views/OpportunityContact/Edit',
+    './Views/OpportunityProduct/List',
+    './Views/OpportunityProduct/Detail',
+    './Views/OpportunityProduct/Edit',
+    './Views/Owner/List',
+    './Views/Product/List',
+    './Views/ProductProgram/List',
+    './Views/Ticket/List',
+    './Views/Ticket/Detail',
+    './Views/Ticket/Edit',
+    './Views/Ticket/UrgencyLookup',
+    './Views/TicketActivity/List',
+    './Views/TicketActivity/Detail',
+    './Views/TicketActivity/Edit',
+    './Views/TicketActivity/RateLookup',
+    './Views/TicketActivityItem/List',
+    './Views/TicketActivityItem/Detail',
+    './Views/History/List',
+    './Views/History/Detail',
+    './Views/History/Edit',
+    './Views/History/RelatedView',
+    './Views/User/CalendarAccessList',
+    './Views/User/List',
+    './Views/Attachment/ViewAttachment',
+    './Views/Attachment/List',
+    './Views/Attachment/AddAttachment',
+    './Views/Attachment/MyAttachmentList',
 
-    'Mobile/SalesLogix/Fields/AddressField',
-    'Mobile/SalesLogix/Fields/MultiCurrencyField',
-    'Mobile/SalesLogix/Fields/NameField',
-    'Mobile/SalesLogix/Fields/PicklistField',
-    'Mobile/SalesLogix/Fields/RecurrencesField',
+    './Fields/AddressField',
+    './Fields/MultiCurrencyField',
+    './Fields/NameField',
+    './Fields/PicklistField',
+    './Fields/RecurrencesField',
 
-    'Mobile/SalesLogix/Action',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Environment',
-    'Mobile/SalesLogix/Utility'
-    
+    './Action',
+    './Format',
+    './Template',
+    './Validator',
+    './Environment',
+    './Utility'
 ], function(
     declare,
     lang,
@@ -229,7 +228,7 @@ define('Mobile/SalesLogix/ApplicationModule', [
     AddAttachment,
     MyAttachmentList
 ) {
-    return declare('Mobile.SalesLogix.ApplicationModule', [ApplicationModule], {
+    var __class = declare('crm.ApplicationModule', [ApplicationModule], {
         searchText: 'Lookup',
         loadViews: function() {
             this.inherited(arguments);
@@ -567,5 +566,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
             });
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.ApplicationModule', __class);
+    return __class;
 });
 

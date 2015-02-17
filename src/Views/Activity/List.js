@@ -3,41 +3,43 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Activity.List
+ * @class crm.Views.Activity.List
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins crm.Views._RightDrawerListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
- * @requires Sage.Platform.Mobile.List
- * @requires Sage.Platform.Mobile.Utility
- * @requires Sage.Platform.Mobile.Convert
- * @requires Sage.Platform.Mobile.ErrorManager
- * @requires Mobile.SalesLogix.Action
- * @requires Mobile.SalesLogix.Environment
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Views._CardLayoutListMixin
- * @requires Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @requires argos.List
+ * @requires argos.Utility
+ * @requires argos.Convert
+ * @requires argos.ErrorManager
+ * @requires crm.Action
+ * @requires crm.Environment
+ * @requires crm.Format
+ * @requires crm.Views._CardLayoutListMixin
+ * @requires crm.Views._RightDrawerListMixin
  *
  */
-define('Mobile/SalesLogix/Views/Activity/List', [
+define('crm/Views/Activity/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/connect',
     'dojo/string',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Views/_RightDrawerListMixin',
-    'Sage/Platform/Mobile/List',
-    'Mobile/SalesLogix/Views/_CardLayoutListMixin',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Action',
-    'Mobile/SalesLogix/Environment',
-    'Sage/Platform/Mobile/ErrorManager',
+    '../_RightDrawerListMixin',
+    'argos/List',
+    '../_CardLayoutListMixin',
+    '../../Format',
+    'argos/Utility',
+    'argos/Convert',
+    '../../Action',
+    '../../Environment',
+    'argos/ErrorManager',
     'moment'
 ], function(
     declare,
+    lang,
     connect,
     string,
     query,
@@ -54,7 +56,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
+    var __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
         // Localization
         allDayText: 'All-Day',
         completeActivityText: 'Complete',
@@ -78,7 +80,7 @@ define('Mobile/SalesLogix/Views/Activity/List', [
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
-            '{%: Mobile.SalesLogix.Format.relativeDate($.StartDate, Sage.Platform.Mobile.Convert.toBoolean($.Timeless)) %}'
+            '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
@@ -469,5 +471,8 @@ define('Mobile/SalesLogix/Views/Activity/List', [
            ErrorManager.addError(response, o, {}, 'failure');
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Activity.List', __class);
+    return __class;
 });
 

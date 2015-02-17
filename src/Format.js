@@ -3,19 +3,19 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Format
+ * @class crm.Format
  *
- * @extends Sage.Platform.Mobile.Format
- * @requires Mobile.SalesLogix.Template
+ * @extends argos.Format
+ * @requires crm.Template
  *
  */
-define('Mobile/SalesLogix/Format', [
+define('crm/Format', [
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
     'dojo/number',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Format',
+    './Template',
+    'argos/Format',
     'moment'
 ], function(
     lang,
@@ -26,9 +26,9 @@ define('Mobile/SalesLogix/Format', [
     format,
     moment
 ) {
-    return lang.setObject('Mobile.SalesLogix.Format', lang.mixin({}, format, {
+    var __class = lang.setObject('crm.Format', lang.mixin({}, format, {
         /**
-         * Address Culture Formats as defined by Mobile.SalesLogix.Format.address
+         * Address Culture Formats as defined by crm.Format.address
          * http://msdn.microsoft.com/en-us/library/cc195167.aspx
          */
         addressCultureFormats: {
@@ -97,7 +97,7 @@ define('Mobile/SalesLogix/Format', [
                 var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));//'
                 return filterSymbols === '';
             },
-                _this = Mobile.SalesLogix.Format;
+                _this = crm.Format;
 
             if (!fmt) {
                 var culture = _this.resolveAddressCulture(o);
@@ -130,7 +130,7 @@ define('Mobile/SalesLogix/Format', [
             return lang.trim(text.replace(/\s+/g, ' '));
         },
         resolveAddressCulture: function(o) {
-            return Mobile.SalesLogix.Format.countryCultures[o.Country] || Mobile.CultureInfo.name;
+            return crm.Format.countryCultures[o.Country] || Mobile.CultureInfo.name;
         },
         replaceAddressPart: function(fmt, o) {
             return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g,
@@ -201,7 +201,7 @@ define('Mobile/SalesLogix/Format', [
         },
         bigNumber: function(val) {
             var numParse = isNaN(val) ? parseFloat(val) : val,
-                text = Mobile.SalesLogix.Format.bigNumberAbbrText;
+                text = crm.Format.bigNumberAbbrText;
 
             if (numParse && numParse >= 1000000000) {
                 numParse = numParse / 1000000000;
@@ -220,7 +220,7 @@ define('Mobile/SalesLogix/Format', [
             var now;
             date = moment(date);
             if (!date || !date.isValid()) {
-                throw new Error('Invalid date passed into Mobile.SalesLogix.Format.relativeDate');
+                throw new Error('Invalid date passed into crm.Format.relativeDate');
             }
 
             if (timeless) {
@@ -231,7 +231,7 @@ define('Mobile/SalesLogix/Format', [
             return date.fromNow();
         },
         multiCurrency: function(val, code) {
-            return string.substitute('${0} ${1}', [Mobile.SalesLogix.Format.currency(val), code]);
+            return string.substitute('${0} ${1}', [crm.Format.currency(val), code]);
         },
         nameLF: function(val) {
             if (!val) {
@@ -255,7 +255,7 @@ define('Mobile/SalesLogix/Format', [
             'asDeclned': 'Declined'
         },
         userActivityStatus: function(val) {
-            return Mobile.SalesLogix.Format.userActivityFormatText[val];
+            return crm.Format.userActivityFormatText[val];
         },
         /**
          * Takes a string input and converts name to First amd Last initials
@@ -342,5 +342,8 @@ define('Mobile/SalesLogix/Format', [
             return fVal.replace(/ /g, '\u00A0'); //keep numbers from breaking
         }
     }));
+
+    lang.setObject('Mobile.SalesLogix.Format', __class);
+    return __class;
 });
 

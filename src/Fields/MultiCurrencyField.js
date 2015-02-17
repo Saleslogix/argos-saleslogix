@@ -1,16 +1,18 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-define('Mobile/SalesLogix/Fields/MultiCurrencyField', [
+define('crm/Fields/MultiCurrencyField', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/Fields/DecimalField',
-    'Sage/Platform/Mobile/FieldManager'
+    'dojo/_base/lang',
+    'argos/Fields/DecimalField',
+    'argos/FieldManager'
 ], function(
     declare,
+    lang,
     DecimalField,
     FieldManager
 ) {
-    var control = declare('Mobile.SalesLogix.Fields.MultiCurrencyField', [DecimalField], {
+    var control = declare('crm.Fields.MultiCurrencyField', [DecimalField], {
         attributeMap: {
             inputValue: {
                 node: 'inputNode',
@@ -36,5 +38,6 @@ define('Mobile/SalesLogix/Fields/MultiCurrencyField', [
         }
     });
 
+    lang.setObject('Mobile.SalesLogix.Fields.MultiCurrencyField', control);
     return FieldManager.register('multiCurrency', control);
 });

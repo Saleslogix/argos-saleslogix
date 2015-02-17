@@ -3,28 +3,30 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Event.Edit
+ * @class crm.Views.Event.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Format
+ * @requires crm.Validator
  */
-define('Mobile/SalesLogix/Views/Event/Edit', [
+define('crm/Views/Event/Edit', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/Edit',
+    'dojo/_base/lang',
+    '../../Format',
+    '../../Validator',
+    'argos/Edit',
     'moment'
 ], function(
     declare,
+    lang,
     format,
     validator,
     Edit,
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Event.Edit', [Edit], {
+    var __class = declare('crm.Views.Event.Edit', [Edit], {
         //Localization
         titleText: 'Event',
         typeText: 'type',
@@ -186,5 +188,8 @@ define('Mobile/SalesLogix/Views/Event/Edit', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Event.Edit', __class);
+    return __class;
 });
 

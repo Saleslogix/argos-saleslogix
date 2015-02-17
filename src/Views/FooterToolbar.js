@@ -3,21 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.FooterToolbar
+ * @class crm.Views.FooterToolbar
  *
  *
- * @extends Sage.Platform.Mobile.MainToolbar
+ * @extends argos.MainToolbar
  *
  */
-define('Mobile/SalesLogix/Views/FooterToolbar', [
+define('crm/Views/FooterToolbar', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/MainToolbar'
+    'dojo/_base/lang',
+    'argos/MainToolbar'
 ], function(
     declare,
+    lang,
     MainToolbar
 ) {
 
-    return declare('Mobile.SalesLogix.Views.FooterToolbar', [MainToolbar], {
+    var __class = declare('crm.Views.FooterToolbar', [MainToolbar], {
         // Localization
         copyrightText: '&copy; 2014 SalesLogix, NA, LLC. All rights reserved.',
 
@@ -52,7 +54,7 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
             }
 
             // skip parent implementation
-            Sage.Platform.Mobile.MainToolbar.superclass.showTools.apply(this, arguments);
+            argos.MainToolbar.superclass.showTools.apply(this, arguments);
 
             if (tools) {
                 for (var i = 0; i < tools.length; i++) {
@@ -62,5 +64,8 @@ define('Mobile/SalesLogix/Views/FooterToolbar', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.FooterToolbar', __class);
+    return __class;
 });
 

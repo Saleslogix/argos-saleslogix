@@ -3,27 +3,29 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Attachments.MyAttachmentList
+ * @class crm.Views.Attachments.MyAttachmentList
  *
- * @extends Mobile.SalesLogix.Views.Attachments.List
+ * @extends crm.Views.Attachments.List
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Views.Attachments.List
+ * @requires crm.Format
+ * @requires crm.Views.Attachments.List
  *
  */
-define('Mobile/SalesLogix/Views/Attachment/MyAttachmentList', [
+define('crm/Views/Attachment/MyAttachmentList', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Views/Attachment/List'
+    '../../Format',
+    './List'
 ], function(
     declare,
+    lang,
     string,
     format,
     AttachmentList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Attachment.MyAttachmentList', [AttachmentList], {
+    var __class = declare('crm.Views.Attachment.MyAttachmentList', [AttachmentList], {
         id: 'myattachment_list',
         titleText: 'My Attachments',
         queryWhere: function() {
@@ -36,5 +38,8 @@ define('Mobile/SalesLogix/Views/Attachment/MyAttachmentList', [
             return userKey;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.MyAttachmentList', __class);
+    return __class;
 });
 

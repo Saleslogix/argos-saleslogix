@@ -3,22 +3,22 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views._MetricListMixin
+ * @class crm.Views._MetricListMixin
  *
  * Mixin for adding KPI widgets to list views.
  *
  * @since 3.0
  *
- * @requires Mobile.SalesLogix.Views.MetricWidget
+ * @requires crm.Views.MetricWidget
  *
  */
-define('Mobile/SalesLogix/Views/_MetricListMixin', [
+define('crm/Views/_MetricListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/aspect',
     './MetricWidget',
-    'Mobile/SalesLogix/GroupUtility'
+    '../GroupUtility'
 ], function(
     declare,
     array,
@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
     MetricWidget,
     GroupUtility
 ) {
-    return declare('Mobile.SalesLogix.Views._MetricListMixin', null, {
+    var __class = declare('crm.Views._MetricListMixin', null, {
         // Metrics
         metricNode: null,
         metricWidgets: null,
@@ -143,5 +143,8 @@ define('Mobile/SalesLogix/Views/_MetricListMixin', [
                 && options.queryArgs._metricName;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._MetricListMixin', __class);
+    return __class;
 });
 

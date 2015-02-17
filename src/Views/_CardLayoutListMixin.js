@@ -1,16 +1,16 @@
 /* Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.*/
 
 /**
- * @class Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @class crm.Views._CardLayoutListMixin
  *
  * Mixin for card list layouts.
  *
  * @since 3.0
  *
- * @requires Sage.Platform.Mobile.Convert
+ * @requires argos.Convert
  *
  */
-define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
+define('crm/Views/_CardLayoutListMixin', [
     'dojo/_base/array',
     'dojo/_base/declare',
     'dojo/_base/event',
@@ -20,7 +20,7 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     'dojo/dom-construct',
     'dojo/query',
     'dojo/dom-class',
-    'Sage/Platform/Mobile/Convert',
+    'argos/Convert',
     'moment'
 ], function(
     array,
@@ -36,9 +36,9 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
     moment
 ) {
 
-    var mixinName = 'Mobile.SalesLogix.Views._CardLayoutListMixin';
+    var mixinName = 'crm.Views._CardLayoutListMixin';
 
-    return declare('Mobile.SalesLogix.Views._CardLayoutListMixin', null, {
+    var __class = declare('crm.Views._CardLayoutListMixin', null, {
         itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText:'Contact',
         itemIconClass: '',
@@ -234,5 +234,8 @@ define('Mobile/SalesLogix/Views/_CardLayoutListMixin', [
             this.inherited(arguments);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._CardLayoutListMixin', __class);
+    return __class;
 });
 

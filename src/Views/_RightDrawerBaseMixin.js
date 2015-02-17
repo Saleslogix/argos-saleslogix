@@ -3,14 +3,14 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views._RightDrawerBaseMixin
+ * @class crm.Views._RightDrawerBaseMixin
  *
  * The base mixin for the right drawer.
  *
  * @since 3.0
  *
  */
-define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
+define('crm/Views/_RightDrawerBaseMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang'
@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
     // -- Unloading of the right menu --
     // 1. onBeforeTransitionAway
     // 2. unloadRightDrawer
-    return declare('Mobile.SalesLogix.Views._RightDrawerBaseMixin', null, {
+    var __class = declare('crm.Views._RightDrawerBaseMixin', null, {
         drawerLoaded: false,
         toolsAdded: false,
 
@@ -105,5 +105,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerBaseMixin', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._RightDrawerBaseMixin', __class);
+    return __class;
 });
 

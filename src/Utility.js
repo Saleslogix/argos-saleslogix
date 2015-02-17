@@ -3,24 +3,24 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Utility
+ * @class crm.Utility
  *
- * Utility provides functions that are more javascript enhancers than application related code. Mixes in Sage.Platform.Mobile.Utility.
+ * Utility provides functions that are more javascript enhancers than application related code. Mixes in argos.Utility.
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  * @singleton
  *
  */
-define('Mobile/SalesLogix/Utility', [
+define('crm/Utility', [
     'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/Utility'
+    'argos/Utility'
 ], function(
     lang,
     string,
     Utility
 ) {
-    return lang.setObject('Mobile.SalesLogix.Utility', lang.mixin({}, Utility, {
+    var __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
         base64ArrayBuffer: function (arrayBuffer) {
             var base64    = '';
             var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -102,5 +102,8 @@ define('Mobile/SalesLogix/Utility', [
             return Id;
         }
     }));
+
+    lang.setObject('Mobile.SalesLogix.Utility', __class);
+    return __class;
 });
 
