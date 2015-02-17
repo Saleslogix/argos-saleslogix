@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.AddAccountContact
+ * @class crm.Views.AddAccountContact
  *
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
  */
-define('Mobile/SalesLogix/Views/AddAccountContact', [
+define('crm/Views/AddAccountContact', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit'
+    '../Format',
+    '../Validator',
+    '../Template',
+    'argos/Utility',
+    'argos/Edit'
 ], function(
     declare,
     lang,
@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.AddAccountContact', [Edit], {
+    var __class = declare('crm.Views.AddAccountContact', [Edit], {
         //Localization
         accountNameText: 'account',
         accountStatusTitleText: 'Account Status',
@@ -324,5 +324,8 @@ define('Mobile/SalesLogix/Views/AddAccountContact', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.AddAccountContact', __class);
+    return __class;
 });
 

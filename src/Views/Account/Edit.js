@@ -3,25 +3,27 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Account.Edit
+ * @class crm.Views.Account.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Edit
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
- * @requires Mobile.SalesLogix.Template
+ * @requires argos.Edit
+ * @requires crm.Format
+ * @requires crm.Validator
+ * @requires crm.Template
  *
  */
-define('Mobile/SalesLogix/Views/Account/Edit', [
+define('crm/Views/Account/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Edit'
+    '../../Validator',
+    '../../Format',
+    '../../Template',
+    'argos/Edit'
 ], function(
     declare,
+    lang,
     string,
     validator,
     format,
@@ -29,7 +31,7 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.Edit', [Edit], {
+    var __class = declare('crm.Views.Account.Edit', [Edit], {
         //Localization
         accountStatusTitleText: 'Account Status',
         accountSubTypeTitleText: 'Account Subtype',
@@ -201,5 +203,8 @@ define('Mobile/SalesLogix/Views/Account/Edit', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Account.Edit', __class);
+    return __class;
 });
 

@@ -3,18 +3,18 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Home
+ * @class crm.Views.Home
  *
  *
- * @extends Sage.Platform.Mobile.GroupedList
+ * @extends argos.GroupedList
  *
  */
-define('Mobile/SalesLogix/Views/Home', [
+define('crm/Views/Home', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/SpeedSearchWidget',
-    'Sage/Platform/Mobile/GroupedList'
+    '../SpeedSearchWidget',
+    'argos/GroupedList'
 ], function(
     declare,
     array,
@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/Home', [
     GroupedList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Home', [GroupedList], {
+    var __class = declare('crm.Views.Home', [GroupedList], {
         //Templates
         rowTemplate: new Simplate([
             '<li data-action="{%= $.action %}" {% if ($.view) { %}data-view="{%= $.view %}"{% } %}>',
@@ -198,5 +198,8 @@ define('Mobile/SalesLogix/Views/Home', [
             return this.inherited(arguments);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Home', __class);
+    return __class;
 });
 

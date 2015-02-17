@@ -3,22 +3,24 @@
  */
 
 /** 
- * @class Mobile.SalesLogix.Views.Opportunity.Detail
+ * @class crm.Views.Opportunity.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/Opportunity/Detail', [
+define('crm/Views/Opportunity/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/dom-construct',
     'dojo/query',
     'dojo/string',
-    'Sage/Platform/Mobile/Detail',
-    'Mobile/SalesLogix/Format',
+    'argos/Detail',
+    '../../Format',
     '../_MetricDetailMixin'
 ], function(
     declare,
+    lang,
     domConstruct,
     query,
     string,
@@ -27,7 +29,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
     _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.Detail', [Detail], {
+    var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -147,7 +149,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     queryName: 'executeMetric',
                     resourceKind: 'opportunities',
                     aggregate: 'sum',
-                    valueType: 'Mobile/SalesLogix/Aggregate'
+                    valueType: 'crm/Aggregate'
                 }, {
                     chartType: 'bar',
                     filterDisplayName: 'Stage',
@@ -162,7 +164,7 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
                     queryName: 'executeMetric',
                     resourceKind: 'opportunities',
                     aggregate: 'sum',
-                    valueType: 'Mobile/SalesLogix/Aggregate'
+                    valueType: 'crm/Aggregate'
                 }
             ];*/
         },
@@ -361,5 +363,8 @@ define('Mobile/SalesLogix/Views/Opportunity/Detail', [
             return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Opportunity.Detail', __class);
+    return __class;
 });
 

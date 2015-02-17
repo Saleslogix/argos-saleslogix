@@ -3,23 +3,25 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.SelectList
+ * @class crm.Views.SelectList
  *
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
  */
-define('Mobile/SalesLogix/Views/SelectList', [
+define('crm/Views/SelectList', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/store/Memory',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
+    lang,
     Memory,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.SelectList', [List], {
+    var __class = declare('crm.Views.SelectList', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'
@@ -52,5 +54,8 @@ define('Mobile/SalesLogix/Views/SelectList', [
             return store;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.SelectList', __class);
+    return __class;
 });
 

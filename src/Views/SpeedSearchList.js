@@ -3,15 +3,15 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.SpeedSearchList
+ * @class crm.Views.SpeedSearchList
  *
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins crm.Views._SpeedSearchRightDrawerListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
  */
-define('Mobile/SalesLogix/Views/SpeedSearchList', [
+define('crm/Views/SpeedSearchList', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
@@ -20,11 +20,11 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     'dojo/string',
     'dojo/query',
     'dojo/dom-attr',
-    'Mobile/SalesLogix/SpeedSearchWidget',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin',
-    'Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin',
-    'Mobile/SalesLogix/Views/_CardLayoutListMixin'
+    '../SpeedSearchWidget',
+    'argos/List',
+    'argos/_LegacySDataListMixin',
+    './_SpeedSearchRightDrawerListMixin',
+    './_CardLayoutListMixin'
 ], function(
     declare,
     lang,
@@ -41,7 +41,7 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
+    var __class = declare('crm.Views.SpeedSearchList', [List, _LegacySDataListMixin, _SpeedSearchRightDrawerListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
           '<h4><strong>{%: $.$heading %}</strong></h4>',
@@ -343,5 +343,8 @@ define('Mobile/SalesLogix/Views/SpeedSearchList', [
             return activated;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.SpeedSearchList', __class);
+    return __class;
 });
 

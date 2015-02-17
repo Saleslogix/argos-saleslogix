@@ -3,23 +3,25 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.PickList
+ * @class crm.Views.PickList
  *
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
  */
-define('Mobile/SalesLogix/Views/PickList', [
+define('crm/Views/PickList', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Sage/Platform/Mobile/List'
+    'argos/List'
 ], function(
     declare,
+    lang,
     string,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.PickList', [List], {
+    var __class = declare('crm.Views.PickList', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.text %}</h3>'
@@ -57,5 +59,8 @@ define('Mobile/SalesLogix/Views/PickList', [
             return string.substitute('upper(text) like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.PickList', __class);
+    return __class;
 });
 

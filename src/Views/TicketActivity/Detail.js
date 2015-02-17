@@ -3,25 +3,25 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.TicketActivity.Detail
+ * @class crm.Views.TicketActivity.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Sage.Platform.Mobile.ErrorManager
- * @requires Sage.Platform.Mobile.Format
+ * @requires argos.ErrorManager
+ * @requires argos.Format
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
+ * @requires crm.Format
+ * @requires crm.Template
  */
-define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
+define('crm/Views/TicketActivity/Detail', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Detail',
+    '../../Format',
+    '../../Template',
+    'argos/ErrorManager',
+    'argos/Detail',
     'dojo/NodeList-manipulate'
 ], function(
     declare,
@@ -34,7 +34,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
     Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.Detail', [Detail], {
+    var __class = declare('crm.Views.TicketActivity.Detail', [Detail], {
         //Localization
         titleText: 'Ticket Activity',
 
@@ -252,5 +252,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Detail', __class);
+    return __class;
 });
 

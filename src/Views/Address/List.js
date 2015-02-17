@@ -3,25 +3,27 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Address.List
+ * @class crm.Views.Address.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Sage.Platform.Mobile.List
+ * @requires argos.List
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  *
  */
-define('Mobile/SalesLogix/Views/Address/List', [
+define('crm/Views/Address/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/dom-attr',
     'dojo/query',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List',
+    '../../Format',
+    'argos/List',
     'dojo/NodeList-traverse'
 ], function(
     declare,
+    lang,
     string,
     domAttr,
     query,
@@ -30,11 +32,11 @@ define('Mobile/SalesLogix/Views/Address/List', [
     NodeListTraverse
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Address.List', [List], {
+    var __class = declare('crm.Views.Address.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>',
-            '<h4>{%= Mobile.SalesLogix.Format.address($, true) %}</h4>'
+            '<h4>{%= crm.Format.address($, true) %}</h4>'
         ]),
 
         //Localization
@@ -68,5 +70,8 @@ define('Mobile/SalesLogix/Views/Address/List', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Address.List', __class);
+    return __class;
 });
 

@@ -3,10 +3,10 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Environment
+ * @class crm.Environment
  *
  */
-define('Mobile/SalesLogix/Environment', [
+define('crm/Environment', [
     'dojo/_base/lang',
     'dojo/_base/window',
     'dojo/_base/array',
@@ -24,7 +24,7 @@ define('Mobile/SalesLogix/Environment', [
     string,
     domConstruct
 ) {
-    return lang.setObject('Mobile.SalesLogix.Environment', {
+    var __class = lang.setObject('crm.Environment', {
         // todo: open a new browser window for these when on a mobile device?
         // on a mobile device, launching an external handler can impact a view transition, and cause issues, which the timeout takes care of.
         // not the best way, perhaps a post-transition callback should be used for launching these? check transitioning, then queue if needed?
@@ -93,16 +93,16 @@ define('Mobile/SalesLogix/Environment', [
         refreshStaleDetailViews: function() {
             // List of detail views that will need refreshed when a note is added or an activity is completed (possibly others??).
             // Otherwise the etag will change and the server will give a 412: Preconditioned failed when we attempt to edit/save.
-            var views = Mobile.SalesLogix.Environment.detailViewsToRefreshOnUpdate || [];
-            Mobile.SalesLogix.Environment.refreshViews(views);
+            var views = crm.Environment.detailViewsToRefreshOnUpdate || [];
+            crm.Environment.refreshViews(views);
         },
         refreshActivityLists: function() {
-            var views = Mobile.SalesLogix.Environment.activityViewsToRefresh || [];
-            Mobile.SalesLogix.Environment.refreshViews(views);
+            var views = crm.Environment.activityViewsToRefresh || [];
+            crm.Environment.refreshViews(views);
         },
         refreshAttachmentViews: function() {
-            var views = Mobile.SalesLogix.Environment.attachmentViewsToRefresh || [];
-            Mobile.SalesLogix.Environment.refreshViews(views);
+            var views = crm.Environment.attachmentViewsToRefresh || [];
+            crm.Environment.refreshViews(views);
         },
         refreshViews: function(views) {
             if (views && views.length > 0) {
@@ -115,5 +115,8 @@ define('Mobile/SalesLogix/Environment', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Environment', __class);
+    return __class;
 });
 

@@ -3,28 +3,30 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Contact.Detail
+ * @class crm.Views.Contact.Detail
  *
- * @extends Sage.Platform.Mobile.Detail
+ * @extends argos.Detail
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
+ * @requires crm.Format
+ * @requires crm.Template
  */
-define('Mobile/SalesLogix/Views/Contact/Detail', [
+define('crm/Views/Contact/Detail', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail'
+    '../../Format',
+    '../../Template',
+    'argos/Detail'
 ], function(
     declare,
+    lang,
     string,
     format,
     template,
     Detail
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Contact.Detail', [Detail], {
+    var __class = declare('crm.Views.Contact.Detail', [Detail], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
@@ -331,5 +333,8 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
                 }]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Contact.Detail', __class);
+    return __class;
 });
 

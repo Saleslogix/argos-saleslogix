@@ -14,6 +14,8 @@
         "ReUI": false,
         "Mobile": false,
         "Base64": false,
-        "Chart": false
+        "Chart": false,
+        "argos": false,
+        "crm": false
     }
 }

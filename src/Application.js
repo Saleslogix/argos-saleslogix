@@ -3,15 +3,15 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Application
+ * @class crm.Application
  *
- * @extends Sage.Platform.Mobile.Application
- * @requires Sage.Platform.Mobile.ErrorManager
- * @requires Mobile.SalesLogix.Environment
+ * @extends argos.Application
+ * @requires argos.ErrorManager
+ * @requires crm.Environment
  * @requires moment
  *
  */
-define('Mobile/SalesLogix/Application', [
+define('crm/Application', [
     'dojo/_base/window',
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -20,10 +20,10 @@ define('Mobile/SalesLogix/Application', [
     'dojo/_base/lang',
     'dojo/has',
     'dojo/string',
-    'Mobile/SalesLogix/DefaultMetrics',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Mobile/SalesLogix/Environment',
-    'Sage/Platform/Mobile/Application',
+    './DefaultMetrics',
+    'argos/ErrorManager',
+    './Environment',
+    'argos/Application',
     'dojo/sniff',
     'moment'
 ], function(
@@ -43,7 +43,7 @@ define('Mobile/SalesLogix/Application', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Application', [Application], {
+    var __class = declare('crm.Application', [Application], {
         navigationState: null,
         rememberNavigationState: true,
         enableUpdateNotification: false,
@@ -888,4 +888,7 @@ define('Mobile/SalesLogix/Application', [
             return info;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Application', __class);
+    return __class;
 });

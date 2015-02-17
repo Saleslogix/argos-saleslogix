@@ -3,25 +3,27 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.MainToolbar
+ * @class crm.Views.MainToolbar
  *
  *
- * @extends Sage.Platform.Mobile.MainToolbar
+ * @extends argos.MainToolbar
  *
  */
-define('Mobile/SalesLogix/Views/MainToolbar', [
+define('crm/Views/MainToolbar', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/dom-style',
     'dojo/has',
-    'Sage/Platform/Mobile/MainToolbar'
+    'argos/MainToolbar'
 ], function(
     declare,
+    lang,
     domStyle,
     has,
     MainToolbar
 ) {
 
-    return declare('Mobile.SalesLogix.Views.MainToolbar', [MainToolbar], {
+    var __class = declare('crm.Views.MainToolbar', [MainToolbar], {
         showTools: function(tools) {
             var hasLeftDrawer, isOnFirstView, isOnEdit;
 
@@ -109,5 +111,8 @@ define('Mobile/SalesLogix/Views/MainToolbar', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.MainToolbar', __class);
+    return __class;
 });
 

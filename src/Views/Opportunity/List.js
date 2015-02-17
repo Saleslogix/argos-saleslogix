@@ -3,33 +3,35 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Opportunity.List
+ * @class crm.Views.Opportunity.List
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._MetricListMixin
- * @mixins Mobile.SalesLogix.Views._GroupListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins crm.Views._RightDrawerListMixin
+ * @mixins crm.Views._MetricListMixin
+ * @mixins crm.Views._GroupListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
- * @requires Sage.Platform.Mobile.Format
+ * @requires argos.Format
  *
- * @requires Mobile.SalesLogix.Action
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Action
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/Opportunity/List', [
+define('crm/Views/Opportunity/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
     'dojo/_base/array',
-    'Mobile/SalesLogix/Action',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Format',
-    'Sage/Platform/Mobile/List',
+    '../../Action',
+    '../../Format',
+    'argos/Format',
+    'argos/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
     '../_RightDrawerListMixin',
     '../_CardLayoutListMixin'
 ], function(
     declare,
+    lang,
     string,
     array,
     action,
@@ -42,7 +44,7 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
     _CardLayoutListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
+    var __class = declare('crm.Views.Opportunity.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
         //Templates
         //TODO: Support ExchangeRateCode with proper symbol
         itemTemplate: new Simplate([
@@ -69,9 +71,9 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
             '{% if ($.SalesPotential) { %}',
                 '<h4><strong>',
                 '{% if (App.hasMultiCurrency()) { %}',
-                    '{%: Mobile.SalesLogix.Format.multiCurrency($.SalesPotential * $.ExchangeRate, $.ExchangeRateCode) %}',
+                    '{%: crm.Format.multiCurrency($.SalesPotential * $.ExchangeRate, $.ExchangeRateCode) %}',
                 '{% } else { %}',
-                    '{%: Mobile.SalesLogix.Format.multiCurrency($.SalesPotential, App.getBaseExchangeRate().code) %}',
+                    '{%: crm.Format.multiCurrency($.SalesPotential, App.getBaseExchangeRate().code) %}',
                 '{% } %}',
                 '</strong></h4>',
             '{% } %}',
@@ -185,5 +187,8 @@ define('Mobile/SalesLogix/Views/Opportunity/List', [
         }
 
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Opportunity.List', __class);
+    return __class;
 });
 

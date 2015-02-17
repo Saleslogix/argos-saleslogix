@@ -3,39 +3,41 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.History.List
+ * @class crm.Views.History.List
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Mobile.SalesLogix.Views._RightDrawerListMixin
- * @mixins Mobile.SalesLogix.Views._MetricListMixin
- * @mixins Mobile.SalesLogix.Views._GroupListMixin
- * @mixins Mobile.SalesLogix.Views._CardLayoutListMixin
+ * @extends argos.List
+ * @mixins crm.Views._RightDrawerListMixin
+ * @mixins crm.Views._MetricListMixin
+ * @mixins crm.Views._GroupListMixin
+ * @mixins crm.Views._CardLayoutListMixin
  *
- * @requires Sage.Platform.Mobile.Convert
+ * @requires argos.Convert
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Action
+ * @requires crm.Format
+ * @requires crm.Action
  *
  * @requires moment
  */
-define('Mobile/SalesLogix/Views/History/List', [
+define('crm/Views/History/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
     'dojo/dom-style',
     'dojo/dom-geometry',
     'dojo/query',
     'dojo/dom-class',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/Convert',
-    'Mobile/SalesLogix/Action',
-    'Sage/Platform/Mobile/List',
+    '../../Format',
+    'argos/Convert',
+    '../../Action',
+    'argos/List',
     '../_RightDrawerListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
     'moment'
 ], function(
     declare,
+    lang,
     array,
     string,
     domStyle,
@@ -52,7 +54,7 @@ define('Mobile/SalesLogix/Views/History/List', [
     moment
 ) {
 
-    return declare('Mobile.SalesLogix.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
+    var __class = declare('crm.Views.History.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>',
@@ -278,5 +280,8 @@ define('Mobile/SalesLogix/Views/History/List', [
             return cls;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.History.List', __class);
+    return __class;
 });
 

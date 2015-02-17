@@ -1,19 +1,19 @@
 /**
- * @class Mobile.SalesLogix.Views.Charts.GenericLine
+ * @class crm.Views.Charts.GenericLine
  *
- * @extends Sage.Platform.Mobile.View
- * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
+ * @extends argos.View
+ * @mixins crm.Views.Charts._ChartMixin
  *
- * @requires Sage.Platform.Mobile.View
+ * @requires argos.View
  *
  */
-define('Mobile/SalesLogix/Views/Charts/GenericLine', [
+define('crm/Views/Charts/GenericLine', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/dom-geometry',
     'dojo/dom-attr',
-    'Sage/Platform/Mobile/View',
+    'argos/View',
     './_ChartMixin'
 ], function(
     declare,
@@ -24,7 +24,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
     View,
     _ChartMixin
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericLine', [View, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], {
         id: 'chart_generic_line',
         titleText: '',
         expose: false,
@@ -94,4 +94,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericLine', [
             this.chart = new window.Chart(ctx).Line(data, this.chartOptions);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericLine', __class);
+    return __class;
 });

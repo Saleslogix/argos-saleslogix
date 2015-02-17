@@ -3,25 +3,27 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Event.List
+ * @class crm.Views.Event.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/Event/List', [
+define('crm/Views/Event/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    'crm/Format',
+    'argos/List'
 ], function(
     declare,
+    lang,
     string,
     format,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Event.List', [List], {
+    var __class = declare('crm.Views.Event.List', [List], {
         // Localization
         titleText: 'Events',
         eventDateFormatText: 'M/D/YYYY',
@@ -31,9 +33,9 @@ define('Mobile/SalesLogix/Views/Event/List', [
         itemTemplate: new Simplate([
             '<h3>{%= $.Description %}</h3>',
             '<h4>',
-            '{%: Mobile.SalesLogix.Format.date($.StartDate, $$.eventDateFormatText) %}',
+            '{%: crm.Format.date($.StartDate, $$.eventDateFormatText) %}',
             '&nbsp;-&nbsp;',
-            '{%: Mobile.SalesLogix.Format.date($.EndDate, $$.eventDateFormatText) %}',
+            '{%: crm.Format.date($.EndDate, $$.eventDateFormatText) %}',
             '</h4>'
         ]),
 
@@ -57,5 +59,8 @@ define('Mobile/SalesLogix/Views/Event/List', [
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Event.List', __class);
+    return __class;
 });
 
