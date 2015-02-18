@@ -17,7 +17,7 @@ define('crm/Views/Charts/GenericBar', [
     'dojo/_base/array',
     'dojo/dom-geometry',
     'dojo/dom-attr',
-    'argos/_ListBase',
+    'argos/View',
     './_ChartMixin'
 ], function(
     declare,
@@ -25,10 +25,10 @@ define('crm/Views/Charts/GenericBar', [
     array,
     domGeo,
     domAttr,
-    _ListBase,
+    View,
     _ChartMixin
 ) {
-    var __class = declare('crm.Views.Charts.GenericBar', [_ListBase, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
         id: 'chart_generic_bar',
         titleText: '',
         expose: false,

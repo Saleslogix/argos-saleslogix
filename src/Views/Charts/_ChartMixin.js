@@ -16,7 +16,8 @@ define('crm/Views/Charts/_ChartMixin', [
     'dojo/dom-geometry',
     'dojo/dom-attr',
     'dojo/has',
-    'dojo/sniff'
+    'dojo/sniff',
+    'argos/_PullToRefreshMixin'
 ], function(
     declare,
     lang,
@@ -25,7 +26,8 @@ define('crm/Views/Charts/_ChartMixin', [
     domGeo,
     domAttr,
     has,
-    sniff
+    sniff,
+    _PullToRefreshMixin
 ) {
 
     window.Chart.defaults.global = {
@@ -149,7 +151,7 @@ define('crm/Views/Charts/_ChartMixin', [
         onAnimationComplete: function(){}
     };
 
-    var __class = declare('crm.Views.Charts._ChartMixin', null, {
+    var __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
         _handle: null,
         _feedData: null,
 
@@ -166,17 +168,11 @@ define('crm/Views/Charts/_ChartMixin', [
         parent: null,
 
         /**
-         * @property {Boolean} enableSearch Must be set to false due to the removal of the search node in the overriden widgetTemplate.
-         * @readonly
-         */
-        enableSearch: false,
-
-        /**
          * Overrides the _ListBase widgetTemplate with a new legendNode attach point and removing the search node.
          * enableSearch must be set to false due to this.
          */
         widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="overthrow list {%= $.cls %}">',
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',
                 '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
                     '<div class="legend" data-dojo-attach-point="legendNode" data-dojo-attach-event="click: onLegendClick"></div>',
                     '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
@@ -184,6 +180,9 @@ define('crm/Views/Charts/_ChartMixin', [
             '</div>'
         ]),
 
+        postCreate: function() {
+            this.initPullToRefresh(this.scrollerNode);
+        },
         onTransitionTo: function() {
             this._handle = connect.subscribe('/app/setOrientation', this, function(value) {
                 setTimeout(function() {
@@ -269,6 +268,15 @@ define('crm/Views/Charts/_ChartMixin', [
             return box.h;
         },
 
+        onPullToRefreshComplete: function() {
+            this.requestData();
+        },
+        refresh: function() {
+            this.requestData();
+        },
+        _getStoreAttr: function() {
+            return this.store || (this.store = this.createStore());
+        },
         /**
          * Return a store that is consumed by requestData.
          * @since 3.3
@@ -292,14 +300,12 @@ define('crm/Views/Charts/_ChartMixin', [
                     this.chart.destroy();
                 }
 
-                this._setLoading();
                 store.get().then(function success(data) {
                     if (data.$resources && data.$resources.length > 0) {
                         this.createChart(data.$resources);
                     }
-                    this._clearLoading();
-                }.bind(this), function failure() {
-                    this._clearLoading();
+                }.bind(this), function failure(e) {
+                    console.error(e);
                 }.bind(this));
             }
         }

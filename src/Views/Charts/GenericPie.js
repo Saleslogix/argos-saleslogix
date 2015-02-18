@@ -16,18 +16,18 @@ define('crm/Views/Charts/GenericPie', [
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/dom-geometry',
-    'argos/_ListBase',
+    'argos/View',
     './_ChartMixin'
 ], function(
     declare,
     lang,
     array,
     domGeo,
-    _ListBase,
+    View,
     _ChartMixin
 ) {
 
-    var __class = declare('crm.Views.Charts.GenericPie', [_ListBase, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericPie', [View, _ChartMixin], {
         id: 'chart_generic_pie',
         titleText: '',
         expose: false,

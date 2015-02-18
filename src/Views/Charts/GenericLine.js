@@ -13,7 +13,7 @@ define('crm/Views/Charts/GenericLine', [
     'dojo/_base/array',
     'dojo/dom-geometry',
     'dojo/dom-attr',
-    'argos/_ListBase',
+    'argos/View',
     './_ChartMixin'
 ], function(
     declare,
@@ -21,10 +21,10 @@ define('crm/Views/Charts/GenericLine', [
     array,
     domGeo,
     domAttr,
-    _ListBase,
+    View,
     _ChartMixin
 ) {
-    var __class = declare('crm.Views.Charts.GenericLine', [_ListBase, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericLine', [View, _ChartMixin], {
         id: 'chart_generic_line',
         titleText: '',
         expose: false,
