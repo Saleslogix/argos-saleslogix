@@ -5,6 +5,9 @@
 /**
  * @class crm.Views.Charts._ChartMixin
  *
+ * @mixins argos._PullToRefreshMixin
+ * @requires argos._PullToRefreshMixin
+ *
  * Base mixin for creating chart views.
  *
  */
@@ -168,8 +171,7 @@ define('crm/Views/Charts/_ChartMixin', [
         parent: null,
 
         /**
-         * Overrides the _ListBase widgetTemplate with a new legendNode attach point and removing the search node.
-         * enableSearch must be set to false due to this.
+         * Overrides View widgetTemplate
          */
         widgetTemplate: new Simplate([
             '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',

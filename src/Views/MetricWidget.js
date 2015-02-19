@@ -18,7 +18,6 @@ define('crm/Views/MetricWidget', [
     'dojo/when',
     'dojo/promise/all',
     'dojo/dom-construct',
-    'dojo/aspect',
     'dijit/_Widget',
     'argos/_Templated',
     'argos/Store/SData'
@@ -30,7 +29,6 @@ define('crm/Views/MetricWidget', [
     when,
     all,
     domConstruct,
-    aspect,
     _Widget,
     _Templated,
     SDataStore

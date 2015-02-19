@@ -1,10 +1,10 @@
 /**
  * @class crm.Views.Charts.GenericLine
  *
- * @extends argos._ListBase
+ * @extends argos.View
  * @mixins crm.Views.Charts._ChartMixin
  *
- * @requires argos._ListBase
+ * @requires argos.View
  *
  */
 define('crm/Views/Charts/GenericLine', [
