@@ -97,7 +97,7 @@ define('crm/Views/Charts/_ChartMixin', [
         showTooltips: true,
 
         // Array - Array of string names to attach tooltip events
-        tooltipEvents: ["touchstart"],
+        tooltipEvents: ["touchstart", "click"],
 
         // String - Tooltip background colour
         tooltipFillColor: "rgba(0,0,0,0.8)",
