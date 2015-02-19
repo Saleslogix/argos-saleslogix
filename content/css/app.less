@@ -1473,3 +1473,35 @@ td.entry-table-description {
 .card-layout .list-item-selector.visible {
     visibility: visible;
 }
+
+.legend {
+    position: absolute;
+    .pie-legend, .doughnut-legend {
+        background-color: #fff;
+        .border-radius(6px);
+        .box-sizing(border-box);
+        padding: 3px;
+        margin: 3px;
+        list-style: none;
+        border: 1px solid @black-light;
+
+        > li {
+            display: inline-block;
+            > span {
+                width: 14px;
+                height: 14px;
+                margin: 0 2px;
+                display: inline-block;
+            }
+        }
+
+    }
+
+    @media (min-width: @mobile-landscape) {
+        .pie-legend, .doughnut-legend {
+            > li {
+                display: block;
+            }
+        }
+    }
+}

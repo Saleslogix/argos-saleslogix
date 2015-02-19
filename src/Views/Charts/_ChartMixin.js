@@ -1,8 +1,12 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-/** 
+
+/**
  * @class crm.Views.Charts._ChartMixin
+ *
+ * @mixins argos._PullToRefreshMixin
+ * @requires argos._PullToRefreshMixin
  *
  * Base mixin for creating chart views.
  *
@@ -15,7 +19,8 @@ define('crm/Views/Charts/_ChartMixin', [
     'dojo/dom-geometry',
     'dojo/dom-attr',
     'dojo/has',
-    'dojo/sniff'
+    'dojo/sniff',
+    'argos/_PullToRefreshMixin'
 ], function(
     declare,
     lang,
@@ -24,7 +29,8 @@ define('crm/Views/Charts/_ChartMixin', [
     domGeo,
     domAttr,
     has,
-    sniff
+    sniff,
+    _PullToRefreshMixin
 ) {
 
     window.Chart.defaults.global = {
@@ -91,7 +97,7 @@ define('crm/Views/Charts/_ChartMixin', [
         showTooltips: true,
 
         // Array - Array of string names to attach tooltip events
-        tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+        tooltipEvents: ["touchstart"],
 
         // String - Tooltip background colour
         tooltipFillColor: "rgba(0,0,0,0.8)",
@@ -148,16 +154,37 @@ define('crm/Views/Charts/_ChartMixin', [
         onAnimationComplete: function(){}
     };
 
-    var __class = declare('crm.Views.Charts._ChartMixin', null, {
+    var __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
         _handle: null,
         _feedData: null,
+
+        /**
+         * @property {Number} RENDER_DELAY
+         * Number The re-render delay in milliseconds when the user changes device orientation.
+         */
         RENDER_DELAY: has('ios') < 8 ? 500 : 1, // Work around IOS7 orientation change issues
 
         /**
-         * @property parent Object Reference to the metric widget that opened this view.
+         * @property {Object} parent
+         * Reference to the metric widget that opened this view.
         */
         parent: null,
 
+        /**
+         * Overrides View widgetTemplate
+         */
+        widgetTemplate: new Simplate([
+            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list list-hide-search {%= $.cls %}">',
+                '<div class="overthrow scroller" data-dojo-attach-point="scrollerNode">',
+                    '<div class="legend" data-dojo-attach-point="legendNode" data-dojo-attach-event="click: onLegendClick"></div>',
+                    '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
+                '</div>',
+            '</div>'
+        ]),
+
+        postCreate: function() {
+            this.initPullToRefresh(this.scrollerNode);
+        },
         onTransitionTo: function() {
             this._handle = connect.subscribe('/app/setOrientation', this, function(value) {
                 setTimeout(function() {
@@ -187,14 +214,102 @@ define('crm/Views/Charts/_ChartMixin', [
         },
 
         showSearchExpression: function() {
-            var html;
-            html = '<div>' + this.getSearchExpression() + '</div>';
-            domAttr.set(this.searchExpressionNode, { innerHTML: html });
+            var app;
+            app = this.app || window.App;
+            app.setPrimaryTitle([this.title, this.getSearchExpression()].join(': '));
         },
 
+        /**
+         * Handles click events for the legend node. Handles opening the tooltips on the chart
+         * when the item in the legend is clicked. The current legend format is as follows:
+         * @since 3.3
+         *
+         *    @example
+         *    `<div class="legend" data-dojo-attach-point="legendNode">
+         *        <ul class="doughnut-legend">
+         *            <li data-segment="0"><span style="background-color: someColor"></span>
+         *                Tooltip Label
+         *            </li>
+         *        </ul>
+         *    </div>`
+         */
+        onLegendClick: function(evt) {
+            if (!evt || !evt.srcElement || evt.srcElement === this.legendNode || !this.chart) {
+                return;
+            }
+
+            var src, segment;
+            src = evt.srcElement.tagName === 'SPAN' ? evt.srcElement.parentElement : evt.srcElement;
+            segment = parseInt(src.dataset.segment, 10);
+            if (segment >= 0 && this.chart.showTooltip && this.chart.segments) {
+                this.chart.showTooltip(this.chart.segments.slice(segment, segment + 1), false /* re-draw flag */);
+            }
+        },
+
+        /**
+         * Render a legend from the chart into the legendNode attach point.
+         * @since 3.3
+         */
+        showLegend: function() {
+            var html;
+
+            if (!this.chart || !this.chart.generateLegend || !this.legendNode) {
+                return;
+            }
+
+            html = this.chart.generateLegend();
+            domAttr.set(this.legendNode, { innerHTML: html });
+        },
+
+        /**
+         * @deprecated 3.3
+         * Charts in 3.3 no longer use the search expression node.
+         */
         getSearchExpressionHeight: function() {
             var box = domGeo.getMarginBox(this.searchExpressionNode);
             return box.h;
+        },
+
+        onPullToRefreshComplete: function() {
+            this.requestData();
+        },
+        refresh: function() {
+            this.requestData();
+        },
+        _getStoreAttr: function() {
+            return this.store || (this.store = this.createStore());
+        },
+        /**
+         * Return a store that is consumed by requestData.
+         * @since 3.3
+         */
+        createStore: function() {
+            var store;
+            store = this.parent && this.parent.store;
+            return store;
+        },
+
+        /**
+         * Overrides _ListBase requestData to re-render the chart on pull to refresh.
+         * @since 3.3
+         */
+        requestData: function() {
+            var store;
+            store = this.get('store');
+
+            if (store) {
+                if (this.chart && this.chart.destroy) {
+                    this.chart.destroy();
+                }
+
+                store.get().then(function success(data) {
+                    if (data.$resources && data.$resources.length > 0) {
+                        this.createChart(data.$resources);
+                    }
+                }.bind(this), function failure(e) {
+                    console.error(e);
+                }.bind(this));
+            }
         }
     });
 

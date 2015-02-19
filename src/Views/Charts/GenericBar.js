@@ -36,7 +36,8 @@ define('crm/Views/Charts/GenericBar', [
         barColor: '#0896e9',
 
         chartOptions: {
-            barShowStroke: false
+            barShowStroke: false,
+            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
         },
 
         formatter: function(val) {
@@ -47,22 +48,12 @@ define('crm/Views/Charts/GenericBar', [
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
 
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
-                '<div class="chart-hash" data-dojo-attach-point="searchExpressionNode"></div>',
-                '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
-            '</div>'
-        ]),
         createChart: function (rawData) {
             this.inherited(arguments);
 
-            var ctx, box, searchExpressionHeight, data, labels, seriesData;
+            var ctx, box, data, labels, seriesData;
 
             this.showSearchExpression();
-            searchExpressionHeight = this.getSearchExpressionHeight();
-
-            box = domGeo.getMarginBox(this.domNode);
-            box.h = box.h - searchExpressionHeight;
 
             labels = [];
             seriesData = array.map(rawData, function(item, idx) {
@@ -85,6 +76,7 @@ define('crm/Views/Charts/GenericBar', [
                 this.chart.destroy();
             }
 
+            box = domGeo.getMarginBox(this.domNode);
             this.contentNode.width = box.w;
             this.contentNode.height = box.h;
 
