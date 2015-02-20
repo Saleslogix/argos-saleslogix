@@ -18,6 +18,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/BooleanControl', [
         valueBindingProperty: 'Checked',
         getRenderer: function () {
             return format.yesNo.bindDelegate(this, false);
+        },
+        getFieldControlType: function () {
+            return 'boolean';
         }
     });
 

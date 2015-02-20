@@ -16,8 +16,8 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
     'dojo/when',
     'dojo/_base/Deferred',
     'dojo/string',
-    'Sage/Platform/Mobile/Models/_ModelBase',
-    'Sage/Platform/Mobile/Services/_ServiceBase'
+    'Mobile/SalesLogix/Models/_ModelBase',
+    'Mobile/SalesLogix/Services/_ServiceBase'
 
 ], function(
     declare,
@@ -47,7 +47,7 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
             lang.mixin(this, o);
         },
         init: function () {
-            //this.initModelData();
+            this.initModelData();
         },
         initModelData: function () {
             var dataPromise;

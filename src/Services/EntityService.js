@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Services/EntityService', [
     'Sage/Platform/Mobile/Store/SData',
     'Mobile/SalesLogix/Models/EntityModel',
     'Mobile/SalesLogix/Services/_ModelServiceBase',
-    'Sage/Platform/Mobile/Services/ServiceManager'
+    'Mobile/SalesLogix/Services/ServiceManager'
 
 ], function(
     declare,

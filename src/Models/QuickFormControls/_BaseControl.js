@@ -14,7 +14,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/_BaseControl', [
         controlData: {},
         caption: null,
         valueProperty: null,
-        valueDataPath: null,
+        dataPropertyPath: null,
 
         constructor: function (o) {
             var data = { controlData: o };
@@ -27,7 +27,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/_BaseControl', [
         init: function () {
             this.caption = this.getCaption();
             this.valueProperty = this.getDataBindProperty();
-            this.valueDataPath = this.getDataBindDataPath();
+            this.dataPropertyPath = this.getDataBindDataPath();
         },
         getCaption: function () {
             return this.controlData.Caption;
@@ -53,11 +53,40 @@ define('Mobile/SalesLogix/Models/QuickFormControls/_BaseControl', [
             }
             return dataPath;
         },
+        getParentProperty: function () {
+            var dataPath = null;
+            if (!this.valueProperty) {
+                this.valueProperty = this.getDataBindProperty();
+            }
+            if (this.valueProperty) {
+                dataPath = this.valueProperty.split('.');
+            }
+            return dataPath[0];
+
+        },
+        getSelectPropertyPath: function () {
+            return this.getDataBindDataPath();
+        },
+        getValuePropertyPath: function () {
+            return this.getDataBindProperty();
+        },
         getRenderer: function () {
             return null;
         },
         getTemplate: function () {
             return null;
+        },
+        getFieldControlType: function () {
+            return 'text';
+        },
+        getFieldControlOptions: function () {
+            return {};           
+        },
+        getValidator: function () {
+            return null;
+        },
+        getReadOnly: function () {
+            return this.controlData ? this.controlData.IsReadOnly : false;
         }
     });
 

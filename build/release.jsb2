@@ -601,6 +601,22 @@
           "path": "../src/Fields"
         },
         {
+          "text": "_ServiceMixin.js",
+          "path": "../src"
+        },
+        {
+          "text": "_ModelBase.js",
+          "path": "../src/Models"
+        },
+        {
+          "text": "_ServiceBase.js",
+          "path": "../src/Services"
+        },
+        {
+          "text": "ServiceManager.js",
+          "path": "../src/Services"
+        },
+        {
           "text": "QuickFormModel.js",
           "path": "../src/Models"
         },
@@ -687,6 +703,14 @@
         {
           "text": "QuickFormService.js",
           "path": "../src/Services"
+        },
+        {
+          "text": "QuickFormDetailWidget.js",
+          "path": "../src/views"
+        },
+        {
+          "text": "QuickFormEditWidget.js",
+          "path": "../src/views"
         },
         {
           "text": "ApplicationModule.js",

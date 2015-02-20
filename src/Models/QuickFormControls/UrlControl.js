@@ -15,7 +15,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/UrlControl', [
         name:'url',
         type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUrl, Sage.SalesLogix.QuickForms.QFControls',
         valueBindingProperty: 'Text',
-
+        getFieldControlType: function () {
+            return 'url';
+        }
     });
 
     ControlManager.register('url', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUrl, Sage.SalesLogix.QuickForms.QFControls', ctor: control });

@@ -14,7 +14,10 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
         name:'picklist',
         type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPickList, Sage.SalesLogix.QuickForms.QFControls',
         valueBindingProperty: 'PickListValue',
-        textBindingProperty: 'Text'
+        textBindingProperty: 'Text',
+        getFieldControlType: function () {
+            return 'picklist';
+        }
 
     });
 

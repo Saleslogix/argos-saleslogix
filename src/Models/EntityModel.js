@@ -13,7 +13,7 @@
 define('Mobile/SalesLogix/Models/EntityModel', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/Models/_ModelBase'
+    'Mobile/SalesLogix/Models/_ModelBase'
 ], function(
     declare,
     lang,
@@ -66,13 +66,7 @@ define('Mobile/SalesLogix/Models/EntityModel', [
         * For Example 'dynamic' or 'system'
         */
         resourceKind: null,
-        //resourceProperty: null,
-        //resourcePredicate: null,
-        //queryselect:null,
-        //idProperty: null,
-        //labelProperty: null,
-        //entityProperty: null,
-        //versionProperty: null,
+
         constructor: function(o) {
             lang.mixin(this, o);
 

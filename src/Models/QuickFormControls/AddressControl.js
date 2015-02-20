@@ -52,6 +52,14 @@ define('Mobile/SalesLogix/Models/QuickFormControls/AddressControl', [
         },
         getRenderer: function () {
              return format.address.bindDelegate(this, false);
+        },
+        getFieldControlType: function () {
+            return 'address';
+        },
+        getFieldControlOptions: function () {
+            return {
+                view: 'address_list'
+            };
         }
 
     });

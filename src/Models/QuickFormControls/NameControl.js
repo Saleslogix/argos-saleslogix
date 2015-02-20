@@ -35,6 +35,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NameControl', [
         },
         getRenderer: function () {
             return format.nameLF.bindDelegate(this, false);
+        },
+        getFieldControlType: function () {
+            return 'name';
         }
     });
 

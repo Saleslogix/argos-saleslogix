@@ -8,12 +8,12 @@
  *
  * 
  * @alternateClassName QuickFormModel
- * @extends Sage.Platform.Models._ModelBase
+ * @extends Mobile.SalesLogix.Models._ModelBase
  */
 define('Mobile/SalesLogix/Models/QuickFormModel', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Sage/Platform/Mobile/Models/_ModelBase',
+    'Mobile/SalesLogix/Models/_ModelBase',
     'Mobile/SalesLogix/Models/QuickFormControls/ControlManager',
     'Mobile/SalesLogix/Models/QuickFormControls/TextControl',
     'Mobile/SalesLogix/Models/QuickFormControls/AddressControl',
@@ -113,21 +113,29 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
             this.layout = [];
             if (this.modelData) {
                 this.modelData.entity.Controls.forEach(function (control) {
-                    var layout, controlModel;
+                    var layout, controlModel, fieldControlOptions;
+
                     controlModel = this.getControlModel(control);
                     if ((controlModel) && (controlModel.controlData.Visible)) {
                         layout = {
                             name: controlModel.getControlId(),
                             label: controlModel.getCaption(),
-                            type: controlModel.type,
-                            property: controlModel.valueProperty, 
-                            valueDataPath: controlModel.valueDataPath,
+                            type: controlModel.getFieldControlType(),
+                            property: controlModel.getParentProperty(),
+                            valuePropertyPath:controlModel.getValuePropertyPath(),
+                            selectPropertyPath:controlModel.getSelectPropertyPath(),
                             renderer: controlModel.getRenderer(),
                             column: control.Column,
                             row: control.Row,
                             tpl: controlModel.getTemplate(),
+                            readonly: controlModel.getReadOnly(),
                             controlModel: controlModel
                         };
+                        if (!layout.readonly) {
+                            fieldControlOptions = controlModel.getFieldControlOptions();
+                            lang.mixin(layout, fieldControlOptions);
+                        }
+
                         if (layout.property) {
                             this.layout.push(layout);
                         }
@@ -139,7 +147,7 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
             this.select = [];
             if (this.layout) {
                 this.layout.forEach(function (item) {
-                    this.select.push(item.valueDataPath);
+                    this.select.push(item.selectPropertyPath);
                 }.bind(this));
             }
         },
@@ -164,10 +172,10 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
         getMainEntityName: function () {
             return this.entityTypeName.substring(1);
         },
-        getSelects:function(){
+        getSelect:function(){
             return this.select;
         },
-        getIncludes:function(){
+        getInclude:function(){
             return null;
         },
         _getResourceKind:function(){

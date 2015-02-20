@@ -25,7 +25,8 @@ define('Mobile/SalesLogix/Application', [
     'Mobile/SalesLogix/Environment',
     'Sage/Platform/Mobile/Application',
     'dojo/sniff',
-    'moment'
+    'moment',
+    'Mobile/SalesLogix/Services/ServiceManager'
 ], function(
     win,
     declare,
@@ -40,7 +41,8 @@ define('Mobile/SalesLogix/Application', [
     environment,
     Application,
     sniff,
-    moment
+    moment,
+    ServiceManager
 ) {
 
     return declare('Mobile.SalesLogix.Application', [Application], {
@@ -104,6 +106,11 @@ define('Mobile/SalesLogix/Application', [
         homeViewId: 'myactivity_list',
         loginViewId: 'login',
         logOffViewId: 'logoff',
+        /**
+         * The singelton Manager that stores refrence to other service instance
+         * @property {Object}
+        */
+        serviceManager: ServiceManager,
         init: function() {
             var original,
                 app = this;
@@ -535,7 +542,7 @@ define('Mobile/SalesLogix/Application', [
         initQuickFormServices: function () {
             var qfs = App.serviceManager.get('quickFormService');
             if (qfs) {
-                qfs.initModelData();
+                qfs.init();
             }
         },
         requestUserOptions: function() {

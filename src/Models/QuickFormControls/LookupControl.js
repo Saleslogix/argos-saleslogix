@@ -14,8 +14,16 @@ define('Mobile/SalesLogix/Models/QuickFormControls/LookupControl', [
         name:'lookup',
         type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXLookup, Sage.SalesLogix.QuickForms.QFControls',
         valueBindingProperty: 'LookupResultValue',
-        textBindingProperty: 'text'
-
+        textBindingProperty: 'text',
+        getFieldControlType: function () {
+            return 'lookup';
+        },
+        getFieldControlOptions: function () {
+            return {
+                view: 'lookup_list',
+                textProperty: this.getValueProperty(),
+            };
+        }
     });
 
     ControlManager.register('lookup', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXLookup, Sage.SalesLogix.QuickForms.QFControls', ctor: control });

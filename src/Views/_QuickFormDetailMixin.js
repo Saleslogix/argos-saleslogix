@@ -26,7 +26,7 @@ define('Mobile/SalesLogix/Views/_QuickFormDetailMixin', [
     return declare('Mobile.SalesLogix.Views._QuickFormDetailMixin', null, {
        
         entityName: null,
-        o_createLayout: null,
+        originalCreateLayout: null,
         enabledSections: {
             'QuickActionsSection':true,
             'DetailsSection': false,
@@ -35,19 +35,19 @@ define('Mobile/SalesLogix/Views/_QuickFormDetailMixin', [
         },
         postMixInProperties: function () {
             if (App.enableQuickFormDetail) {
-                this.o_createLayout = this.createLayout;
+                this.originalCreateLayout = this.createLayout;
                 this.createLayout = this.quickFormCreateLayout;
             }
         },
         quickFormCreateLayout: function () {
-            var quickFormSection, currentLayout, newLayout = [];
-            currentLayout = this.o_createLayout(arguments);
+            var quickFormDetailSection, quickFormEditSection, currentLayout, newLayout = [];
+            currentLayout = this.originalCreateLayout(arguments);
 
             //add Quick Form related view  widget
-            quickFormSection = {
-                title: '',
+            quickFormDetailSection = {
+                title: 'Detail',
                 list: true,
-                name: 'QuickFormViews',
+                name: 'QuickFormDetailViews',
                 children: [{
                     name: this.entityName + '_quickFormDetail',
                     relatedView: {
@@ -57,11 +57,25 @@ define('Mobile/SalesLogix/Views/_QuickFormDetailMixin', [
                     }
                 }]
             };
+            quickFormEditSection = {
+                title: 'Quick Edit',
+                list: true,
+                name: 'QuickFormEditViews',
+                children: [{
+                    name: this.entityName + '_quickFormEdit',
+                    relatedView: {
+                        widgetType: 'quickFormEdit',
+                        id: this.entityName + '_quickFormEdit'
+                        //quickFormName:  this.entityName + 'MobileDetail'
+                    }
+                }]
+            };
             this.layout.forEach(function (section) {
                 if (this.enabledSections[section.name]) {
                     newLayout.push(section);
                     if (section.name === 'QuickActionsSection') {
-                        newLayout.push(quickFormSection);
+                        newLayout.push(quickFormDetailSection);
+                        newLayout.push(quickFormEditSection);
                     }
                 }
             }.bind(this));

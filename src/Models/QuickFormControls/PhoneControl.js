@@ -18,6 +18,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PhoneControl', [
         valueBindingProperty: 'Text',
         getRenderer: function () {
             return format.phone.bindDelegate(this, false);
+        },
+        getFieldControlType: function () {
+            return 'phone';
         }
 
     });

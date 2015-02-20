@@ -134,7 +134,8 @@ define('Mobile/SalesLogix/ApplicationModule', [
 
     'Mobile/SalesLogix/Services/QuickFormService',
     'Mobile/SalesLogix/Services/EntityService',
-    'Mobile/SalesLogix/Views/QuickFormDetailWidget'
+    'Mobile/SalesLogix/Views/QuickFormDetailWidget',
+    'Mobile/SalesLogix/Views/QuickFormEditWidget'
     
 ], function(
     declare,

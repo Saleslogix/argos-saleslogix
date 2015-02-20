@@ -3,12 +3,16 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/OwnerControl', [
     'dojo/_base/declare',
+    'Mobile/SalesLogix/Template',
     'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager',
+    'Mobile/SalesLogix/Validator'
 ], function(
     declare,
+    template,
     _BaseControl,
-    ControlManager
+    ControlManager,
+    validator
 ) {
     var control = declare('Mobile.SalesLogix.Models.QuickFormControls.QwnerControl', [_BaseControl], {
         name: 'owner',
@@ -27,6 +31,16 @@ define('Mobile/SalesLogix/Models/QuickFormControls/OwnerControl', [
                
             }.bind(this));
             return property;
+        },
+        getFieldControlType: function () {
+            return 'lookup';
+        },
+        getFieldControlOptions: function () {
+            return {
+                view: 'owner_list',
+                textProperty: 'OwnerDescription',
+                textTemplate: template.nameLF
+            };
         }
     });
 

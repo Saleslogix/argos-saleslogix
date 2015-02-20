@@ -18,6 +18,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NumericControl', [
         valueBindingProperty: 'Text',
         getRenderer: function () {
             return format.bigNumber.bindDelegate(this, false);
+        },
+        getFieldControlType: function () {
+            return 'number';
         }
     });
 

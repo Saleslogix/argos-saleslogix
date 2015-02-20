@@ -11,7 +11,7 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
             'crm': {
                 isDefault: true,
                 offline: true,
-                url: 'http://localhost/sdata/slx/dynamic/-/',
+                url: 'http://localhost:3334/sdata_82/slx/dynamic/-/',
                 json: true
             }
         },

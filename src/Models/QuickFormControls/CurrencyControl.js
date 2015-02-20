@@ -19,6 +19,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl', [
         valueBindingProperty: 'Text',
         getRenderer: function () {
             return format.bigNumber.bindDelegate(this, false);
+        },
+        getFieldControlType: function () {
+            return 'currency';
         }
     });
 

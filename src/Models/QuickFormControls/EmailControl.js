@@ -15,7 +15,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/EmailControl', [
         name:'email',
         type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXEmail, Sage.SalesLogix.QuickForms.QFControls',
         valueBindingProperty: 'Text',
-
+        getFieldControlType: function () {
+            return 'email';
+        }
     });
 
     ControlManager.register('email', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXEmail, Sage.SalesLogix.QuickForms.QFControls', ctor: control });

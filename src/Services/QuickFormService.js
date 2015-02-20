@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Services/QuickFormService', [
     'dojo/string',
     'Mobile/SalesLogix/Models/QuickFormModel',
     'Mobile/SalesLogix/Services/_ModelServiceBase',
-    'Sage/Platform/Mobile/Services/ServiceManager'
+    'Mobile/SalesLogix/Services/ServiceManager'
 
 ], function(
     declare,
