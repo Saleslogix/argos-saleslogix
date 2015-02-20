@@ -1475,7 +1475,6 @@ td.entry-table-description {
 }
 
 .legend {
-    position: absolute;
     .pie-legend, .doughnut-legend {
         background-color: #fff;
         .border-radius(6px);
@@ -1498,6 +1497,7 @@ td.entry-table-description {
     }
 
     @media (min-width: @mobile-landscape) {
+        position: absolute;
         .pie-legend, .doughnut-legend {
             > li {
                 display: block;

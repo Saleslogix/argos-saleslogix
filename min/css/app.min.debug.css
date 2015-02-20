@@ -1240,9 +1240,6 @@ td.entry-table-description {
 .card-layout .list-item-selector.visible {
   visibility: visible;
 }
-.legend {
-  position: absolute;
-}
 .legend .pie-legend,
 .legend .doughnut-legend {
   background-color: #fff;
@@ -1269,6 +1266,9 @@ td.entry-table-description {
   display: inline-block;
 }
 @media (min-width: 480px) {
+  .legend {
+    position: absolute;
+  }
   .legend .pie-legend > li,
   .legend .doughnut-legend > li {
     display: block;
