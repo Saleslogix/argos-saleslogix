@@ -170,6 +170,8 @@ define('crm/Views/Charts/_ChartMixin', [
         */
         parent: null,
 
+        PAGE_SIZE: 100,
+
         /**
          * Overrides View widgetTemplate
          */
@@ -197,6 +199,7 @@ define('crm/Views/Charts/_ChartMixin', [
         onTransitionAway: function() {
             connect.unsubscribe(this._handle);
             this._feedData = null;
+            this.parent = null;
 
             if (this.chart && this.chart.destroy) {
                 this.chart.destroy();
@@ -302,10 +305,8 @@ define('crm/Views/Charts/_ChartMixin', [
                     this.chart.destroy();
                 }
 
-                store.get().then(function success(data) {
-                    if (data.$resources && data.$resources.length > 0) {
-                        this.createChart(data.$resources);
-                    }
+                store.query(null, {start: 0, count: this.PAGE_SIZE}).then(function success(data) {
+                    this.createChart(data);
                 }.bind(this), function failure(e) {
                     console.error(e);
                 }.bind(this));

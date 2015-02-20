@@ -113,7 +113,6 @@ define('crm/Views/_MetricListMixin', [
                         options.currentSearchExpression = this._currentGroup && this._currentGroup.displayName;
                     } else {
                         options.request = null;
-                        options.parentResourceKind = this.resourceKind;
                         options.resourceKind = this.resourceKind;
                         options.currentSearchExpression = this.currentSearchExpression;
                         options.queryArgs._activeFilter = this._getCurrentQuery();
