@@ -277,7 +277,7 @@ define('crm/Views/Charts/_ChartMixin', [
             this.requestData();
         },
         _getStoreAttr: function() {
-            return this.store || (this.store = this.createStore());
+            return this.createStore();
         },
         /**
          * Return a store that is consumed by requestData.
