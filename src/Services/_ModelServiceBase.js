@@ -145,6 +145,12 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
             var model = new this.Model({ modelData: modelData });
             model.init();
             return model;
+        },
+        isModelLoaded: function (name) {
+            if (this.store[name]) {
+                return true;
+            }
+            return false;
         }
         
         

@@ -116,7 +116,7 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
                     var layout, controlModel, fieldControlOptions;
 
                     controlModel = this.getControlModel(control);
-                    if ((controlModel) && (controlModel.controlData.Visible)) {
+                    if (controlModel && controlModel.controlData.Visible && controlModel.controlData.Enabled) {
                         layout = {
                             name: controlModel.getControlId(),
                             label: controlModel.getCaption(),
@@ -131,10 +131,11 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
                             readonly: controlModel.getReadOnly(),
                             controlModel: controlModel
                         };
-                        if (!layout.readonly) {
-                            fieldControlOptions = controlModel.getFieldControlOptions();
+                        fieldControlOptions = controlModel.getFieldControlOptions();
+                        if (fieldControlOptions) {
                             lang.mixin(layout, fieldControlOptions);
                         }
+
 
                         if (layout.property) {
                             this.layout.push(layout);
@@ -147,7 +148,14 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
             this.select = [];
             if (this.layout) {
                 this.layout.forEach(function (item) {
-                    this.select.push(item.selectPropertyPath);
+                    if (typeof item.selectPropertyPath === 'array') {
+                        item.selectPropertyPath.forEach(function (item) {
+                            this.select.push(item);
+                        });
+                    } else {
+                        this.select.push(item.selectPropertyPath);
+                    }
+
                 }.bind(this));
             }
         },

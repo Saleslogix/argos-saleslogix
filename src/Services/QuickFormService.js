@@ -55,7 +55,11 @@ define('Mobile/SalesLogix/Services/QuickFormService', [
                 } 
                 console.log('Finished initializing quickforms');
            });
+        },
+        isFormLoaded: function (formName) {
+          return  this.isModelLoaded(formName);
         }
+        
     });
     ServiceManager.register('quickFormService', service);
     return service;

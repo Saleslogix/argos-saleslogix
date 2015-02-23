@@ -40,10 +40,18 @@ define('Mobile/SalesLogix/Views/_QuickFormDetailMixin', [
             }
         },
         quickFormCreateLayout: function () {
-            var quickFormDetailSection, quickFormEditSection, currentLayout, newLayout = [];
+            var formLoaded, qfService, quickFormDetailSection, quickFormEditSection, currentLayout, newLayout = [];
             currentLayout = this.originalCreateLayout(arguments);
 
-            //add Quick Form related view  widget
+            formLoaded = false;
+            qfService = App.serviceManager.get('quickFormService');
+            if (qfService) {
+                formLoaded = qfService.isFormLoaded(this.entityName + 'MobileDetail');
+            }
+            if (!formLoaded) {
+                return currentLayout;
+            }
+            //add Quick Form related view widget
             quickFormDetailSection = {
                 title: 'Detail',
                 list: true,
@@ -60,6 +68,7 @@ define('Mobile/SalesLogix/Views/_QuickFormDetailMixin', [
             quickFormEditSection = {
                 title: 'Quick Edit',
                 list: true,
+                collapsed: true,
                 name: 'QuickFormEditViews',
                 children: [{
                     name: this.entityName + '_quickFormEdit',

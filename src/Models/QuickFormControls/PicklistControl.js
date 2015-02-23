@@ -17,8 +17,41 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
         textBindingProperty: 'Text',
         getFieldControlType: function () {
             return 'picklist';
+        },
+        getFieldControlOptions: function () {
+                    
+            return {
+                maxTextLength: this.getMaxLength(),
+                picklist: this.getPicklistName(),
+                singleSelect: this.isSingleSelect(),
+                title: this.getPicklistTitle()
+            };
+        },
+        getMaxLength: function () {
+            if (this.controlData) {
+                return this.controlData.MaxLength;
+            }
+        },
+        getValidator: function () {
+            return [validator.exceedsMaxTextLength, validator.notEmpty];
+        },
+        getPicklistName: function () {
+            if (this.controlData) {
+                return this.controlData.PickListName;
+            }
+        },
+        getPicklistTitle: function () {
+            if (this.controlData) {
+                return this.controlData.Caption;
+            }
+        },
+        isSingleSelect: function () {
+            if (this.controlData && this.controlData.AllowMulltiples) {
+                return true;
+            }
+            return false;
         }
-
+        
     });
 
     ControlManager.register('picklist', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPickList, Sage.SalesLogix.QuickForms.QFControls', ctor: control });

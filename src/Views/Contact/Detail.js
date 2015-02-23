@@ -99,7 +99,7 @@ define('Mobile/SalesLogix/Views/Contact/Detail', [
             'WorkPhone'
         ],
         resourceKind: 'contacts',
-
+        entityName:'Contact',
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view) {

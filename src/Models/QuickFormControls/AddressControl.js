@@ -50,6 +50,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/AddressControl', [
             }
             return dataPath;
         },
+        getParentProperty: function () {
+            return this.getDataBindProperty();
+        },
         getRenderer: function () {
              return format.address.bindDelegate(this, false);
         },
@@ -58,7 +61,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/AddressControl', [
         },
         getFieldControlOptions: function () {
             return {
-                view: 'address_list'
+                view: 'address_edit'
             };
         }
 

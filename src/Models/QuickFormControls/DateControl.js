@@ -34,7 +34,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/DateControl', [
             return 'date';
         },
         getFieldControlOptions: function () {
-            var max, validator, timeless;
+            var validator, timeless;
             validator = this.getValidator();
             timeless = this.getIsTimeless();
             return {

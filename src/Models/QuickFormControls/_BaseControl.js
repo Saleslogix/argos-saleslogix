@@ -61,7 +61,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/_BaseControl', [
             if (this.valueProperty) {
                 dataPath = this.valueProperty.split('.');
             }
-            return dataPath[0];
+            if (dataPath) {
+                return dataPath[0];
+            }
 
         },
         getSelectPropertyPath: function () {
