@@ -38,7 +38,10 @@ define('crm/Views/Ticket/UrgencyLookup', [
         resourceKind: 'urgencies',
 
         formatSearchQuery: function(searchQuery) {
-            return string.substitute('upper(Description) like "%${0}%"', this.escapeSearchQuery(searchQuery.toUpperCase()));
+            var escaped, toUpper;
+            toUpper = searchQuery && searchQuery.toUpperCase() || '';
+            escaped = this.escapeSearchQuery(toUpper);
+            return string.substitute('upper(Description) like "%${0}%"', [escaped]);
         }
     });
 
