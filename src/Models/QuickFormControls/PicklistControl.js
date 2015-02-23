@@ -24,6 +24,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
                 maxTextLength: this.getMaxLength(),
                 picklist: this.getPicklistName(),
                 singleSelect: this.isSingleSelect(),
+                requireSelection: this.isRequired(),
                 title: this.getPicklistTitle()
             };
         },
@@ -47,6 +48,12 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
         },
         isSingleSelect: function () {
             if (this.controlData && this.controlData.AllowMulltiples) {
+                return false;
+            }
+            return true;
+        },
+        isRequired: function () {
+            if (this.controlData && this.controlData.Required) {
                 return true;
             }
             return false;

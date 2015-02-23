@@ -42,6 +42,12 @@ define('Mobile/SalesLogix/Models/QuickFormControls/UserControl', [
             }
             return dataPath;
         },
+        getParentProperty: function () {
+            var property = this.getDataBindProperty();
+            if (property) {
+                return property.split('.')[0];
+            }
+        },
         getRenderer: function () {
             return format.nameLF.bindDelegate(this, false);
         },

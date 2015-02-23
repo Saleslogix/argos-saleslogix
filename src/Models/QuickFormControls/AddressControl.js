@@ -61,6 +61,8 @@ define('Mobile/SalesLogix/Models/QuickFormControls/AddressControl', [
         },
         getFieldControlOptions: function () {
             return {
+                emptyText: '',
+                formatValue: format.address.bindDelegate(this, [true], true),
                 view: 'address_edit'
             };
         }

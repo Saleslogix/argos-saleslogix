@@ -62,6 +62,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NameControl', [
             validator = this.getValidator();
             return {
                 applyTo: '.',
+                formatValue: format.nameLF,
                 view: 'name_edit',
                 validator: validator
             };

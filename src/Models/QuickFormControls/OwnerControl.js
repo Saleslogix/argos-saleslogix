@@ -35,11 +35,17 @@ define('Mobile/SalesLogix/Models/QuickFormControls/OwnerControl', [
         getFieldControlType: function () {
             return 'lookup';
         },
+        getParentProperty: function () {
+            var property = this.getDataBindProperty();
+            if (property) {
+                return property.split('.')[0];
+            }
+        },
         getFieldControlOptions: function () {
             return {
                 view: 'owner_list',
-                textProperty: 'OwnerDescription',
-                textTemplate: template.nameLF
+                textProperty: 'OwnerDescription'
+                //textTemplate: template.nameLF
             };
         }
     });
