@@ -3,7 +3,7 @@
  */
 
 
-define('Mobile/SalesLogix/Views/QuickFormDetailWidget', [
+define('crm/Views/QuickFormDetailWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/event',
@@ -17,27 +17,27 @@ define('Mobile/SalesLogix/Views/QuickFormDetailWidget', [
     'dojo/dom-attr',
     'dojo/_base/connect',
     'dojo/_base/array',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Format',
+    'argos/Utility',
+    'argos/Format',
     'dijit/_Widget',
-    'Sage/Platform/Mobile/_Templated',
-    'Sage/Platform/Mobile/RelatedViewManager',
-    'Sage/Platform/Mobile/RelatedViewDetailWidget',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/FieldManager',
+    'argos/_Templated',
+    'argos/RelatedViewManager',
+    'argos/RelatedViewDetailWidget',
+    'argos/ErrorManager',
+    'argos/FieldManager',
 
-    'Sage/Platform/Mobile/Fields/BooleanField',
-    'Sage/Platform/Mobile/Fields/DateField',
-    'Sage/Platform/Mobile/Fields/DecimalField',
-    'Sage/Platform/Mobile/Fields/DurationField',
-    'Sage/Platform/Mobile/Fields/HiddenField',
-    'Sage/Platform/Mobile/Fields/LookupField',
-    'Sage/Platform/Mobile/Fields/NoteField',
-    'Sage/Platform/Mobile/Fields/PhoneField',
-    'Sage/Platform/Mobile/Fields/SelectField',
-    'Sage/Platform/Mobile/Fields/SignatureField',
-    'Sage/Platform/Mobile/Fields/TextAreaField',
-    'Sage/Platform/Mobile/Fields/TextField'
+    'argos/Fields/BooleanField',
+    'argos/Fields/DateField',
+    'argose/Fields/DecimalField',
+    'argos/Fields/DurationField',
+    'argose/Fields/HiddenField',
+    'argos/Fields/LookupField',
+    'argos/Fields/NoteField',
+    'argos/Fields/PhoneField',
+    'argos/Fields/SelectField',
+    'argos/Fields/SignatureField',
+    'argos/Fields/TextAreaField',
+    'argos/Fields/TextField'
 
 
 ], function(
@@ -63,7 +63,7 @@ define('Mobile/SalesLogix/Views/QuickFormDetailWidget', [
     ErrorManager,
     FieldManager
 ) {
-    var quickFormView = declare('Mobile.SalesLogix.Views.QuickFormDetailWidget', [RelatedViewDetailWidget], {
+    var quickFormView = declare('crm.Views.QuickFormDetailWidget', [RelatedViewDetailWidget], {
         owner: null,
         id: 'quickform-related-detail-view',
         icon: 'content/images/icons/ContactProfile_48x48.png',

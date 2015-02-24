@@ -1,20 +1,21 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/BooleanControl', [
+define('crm/Models/QuickFormControls/BooleanControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-        'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    '../../Format',
+    './_BaseControl',
+    './ControlManager'
 ], function(
     declare,
     format,
     _BaseControl,
     ControlManager
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.BooleanControl', [_BaseControl], {
+    var _type = 'Sage.Platform.QuickForms.QFControls.QFCheckBox, Sage.Platform.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.BooleanControl', [_BaseControl], {
         name:'boolean',
-        type: 'Sage.Platform.QuickForms.QFControls.QFCheckBox, Sage.Platform.QuickForms.QFControls',
+        type: _type,
         valueBindingProperty: 'Checked',
         getRenderer: function () {
             return format.yesNo.bindDelegate(this, false);
@@ -24,6 +25,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/BooleanControl', [
         }
     });
 
-    ControlManager.register('boolean', { type: 'Sage.Platform.QuickForms.QFControls.QFCheckBox, Sage.Platform.QuickForms.QFControls', ctor: control });
+    ControlManager.register('boolean', { type: _type, ctor: control });
     return control;
 });

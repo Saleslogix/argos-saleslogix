@@ -10,15 +10,15 @@
  * @alternateClassName QuickFormService
 
  */
-define('Mobile/SalesLogix/Services/QuickFormService', [
+define('crm/Services/QuickFormService', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/when',
     'dojo/_base/Deferred',
     'dojo/string',
-    'Mobile/SalesLogix/Models/QuickFormModel',
-    'Mobile/SalesLogix/Services/_ModelServiceBase',
-    'Mobile/SalesLogix/Services/ServiceManager'
+    '../Models/QuickFormModel',
+    './_ModelServiceBase',
+    './ServiceManager'
 
 ], function(
     declare,
@@ -31,7 +31,7 @@ define('Mobile/SalesLogix/Services/QuickFormService', [
     ServiceManager
 ) {
 
-    var service = declare('Mobile.SalesLogix.Services.QuickFormService', [_ModelServiceBase], {
+    var service = declare('crm.Services.QuickFormService', [_ModelServiceBase], {
         /**
          * @property {String}
          * The unique (within the current form) name of the model

@@ -1,12 +1,12 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/DateControl', [
+define('crm/Models/QuickFormControls/DateControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager',
-    'Mobile/SalesLogix/Validator'
+    '../../Format',
+    './_BaseControl',
+    './ControlManager',
+    '../../Validator'
 
 ], function(
     declare,
@@ -15,9 +15,10 @@ define('Mobile/SalesLogix/Models/QuickFormControls/DateControl', [
     ControlManager,
     validator
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.DateControl', [_BaseControl], {
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFDateTimePicker, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.DateControl', [_BaseControl], {
         name:'date',
-        type: 'Sage.SalesLogix.QuickForms.QFControls.QFDateTimePicker, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valueBindingProperty: 'DateTimeValue',
         dateBindingProperty: 'DisplayDate',
         timeBindingProperty: 'DisplayTime',
@@ -62,6 +63,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/DateControl', [
         }
     });
 
-    ControlManager.register('date', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFDateTimePicker, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('date', { type: _type, ctor: control });
     return control;
 });

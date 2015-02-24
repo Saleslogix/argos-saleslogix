@@ -3,19 +3,19 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Models.QuickFormControls.ControlManager
+ * @class crm.Models.QuickFormControls.ControlManager
  * Control Manager is a registry for Quickform control types that enables the QuickFormModel to render the quickform control metadata
  * simply define `type: 'myControlType'`.
  * @alternateClassName ControlManager
  * @singleton
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/ControlManager', [
+define('crm/Models/QuickFormControls/ControlManager', [
     'dojo/_base/lang'
 ], function(
     lang
 ) {
     var store = {};
-    return lang.setObject('Mobile.SalesLogix.Models.QuickFormControls.ControlManager', {
+    return lang.setObject('crm.Models.QuickFormControls.ControlManager', {
         /**
          * @property {Object}
          * The type map that translates string type names to constructor functions

@@ -3,13 +3,13 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Model._ModelBase
+ * @class crm.Model._ModelBase
  * Model is the base class for all data models. It describes all the functions a model should support giving no implementation itself, merely a shell. The one function that `_Field` does provide that most fields leave untouched is `validate`.
  *
  * 
  * @alternateClassName _ModelBase
  */
-define('Mobile/SalesLogix/Models/_ModelBase', [
+define('crm/Models/_ModelBase', [
     'dojo/_base/declare',
     'dojo/_base/lang'
 
@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Models/_ModelBase', [
     lang
 ) {
 
-    return declare('Mobile.SalesLogix.Models._ModelBase', null, {
+    return declare('crm.Models._ModelBase', null, {
         /**
          * @property {String}
          * The unique type of the model.

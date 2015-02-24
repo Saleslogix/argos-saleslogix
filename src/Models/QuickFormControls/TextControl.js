@@ -3,18 +3,19 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/TextControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager',
-    'Mobile/SalesLogix/Validator'
+    './_BaseControl',
+    './ControlManager',
+    '../../Validator'
 ], function(
     declare,
     _BaseControl,
     ControlManager,
     validator
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.TextControl', [_BaseControl], {
+    var _type = 'Sage.Platform.QuickForms.Controls.QFTextBox, Sage.Platform.QuickForms';
+    var control = declare('crm.Models.QuickFormControls.TextControl', [_BaseControl], {
         name:'text',
-        type: 'Sage.Platform.QuickForms.Controls.QFTextBox, Sage.Platform.QuickForms',
+        type: _type,
         valueBindingProperty: 'Text',
         getFieldControlType: function () {
             return 'text';
@@ -35,6 +36,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/TextControl', [
             return [validator.exceedsMaxTextLength, validator.notEmpty];
         }
     });
-    ControlManager.register('text', { type: 'Sage.Platform.QuickForms.Controls.QFTextBox, Sage.Platform.QuickForms', ctor: control });
+    ControlManager.register('text', { type: _type, ctor: control });
     return control;
 });

@@ -20,7 +20,7 @@ define('crm/Views/Account/Detail', [
     '../../Format',
     '../../Template',
     'argos/Detail',
-    '../_MetricDetailMixin'
+    '../_QuickFormDetailMixin'
 ], function(
     declare,
     string,
@@ -28,10 +28,10 @@ define('crm/Views/Account/Detail', [
     format,
     template,
     Detail,
-    _MetricDetailMixin
+    _QuickFormDetailMixin
 ) {
 
-    var __class = declare('crm.Views.Account.Detail', [Detail], {
+    var __class = declare('crm.Views.Account.Detail', [Detail,_QuickFormDetailMixin], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
@@ -99,6 +99,7 @@ define('crm/Views/Account/Detail', [
             'WebAddress'
         ],
         resourceKind: 'accounts',
+        entityName: 'Account',
 
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);

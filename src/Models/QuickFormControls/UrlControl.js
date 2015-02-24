@@ -3,23 +3,24 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/UrlControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    './_BaseControl',
+    './ControlManager'
 
 ], function(
     declare,
     _BaseControl,
     ControlManager
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.UrlControl', [_BaseControl], {
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUrl, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.UrlControl', [_BaseControl], {
         name:'url',
-        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUrl, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valueBindingProperty: 'Text',
         getFieldControlType: function () {
             return 'url';
         }
     });
 
-    ControlManager.register('url', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUrl, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('url', { type: _type, ctor: control });
     return control;
 });

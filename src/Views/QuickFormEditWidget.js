@@ -3,7 +3,7 @@
  */
 
 
-define('Mobile/SalesLogix/Views/QuickFormEditWidget', [
+define('crm/Views/QuickFormEditWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/event',
@@ -17,13 +17,13 @@ define('Mobile/SalesLogix/Views/QuickFormEditWidget', [
     'dojo/dom-attr',
     'dojo/_base/connect',
     'dojo/_base/array',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Format',
+    'argos/Utility',
+    'argos/Format',
     'dijit/_Widget',
-    'Sage/Platform/Mobile/_Templated',
-    'Sage/Platform/Mobile/RelatedViewManager',
-    'Sage/Platform/Mobile/RelatedViewDetailWidget',
-    'Sage/Platform/Mobile/Edit'
+    'argos/_Templated',
+    'argos/RelatedViewManager',
+    'argos/RelatedViewDetailWidget',
+    'argos/Edit'
 
 ], function(
     declare,
@@ -47,7 +47,7 @@ define('Mobile/SalesLogix/Views/QuickFormEditWidget', [
     RelatedViewDetailWidget,
     Edit
     ) {
-    var quickFormEdit = declare('Mobile.SalesLogix.Views.QuickFormEditWidget', [RelatedViewDetailWidget], {
+    var quickFormEdit = declare('crm.Views.QuickFormEditWidget', [RelatedViewDetailWidget], {
         owner: null,
         id: 'quickform-related-edit-view',
         icon: 'content/images/icons/ContactProfile_48x48.png',

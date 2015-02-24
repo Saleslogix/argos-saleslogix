@@ -26,7 +26,7 @@ define('crm/Application', [
     'argos/Application',
     'dojo/sniff',
     'moment',
-    'Mobile/SalesLogix/Services/ServiceManager'
+    './Services/ServiceManager'
 ], function(
     win,
     declare,

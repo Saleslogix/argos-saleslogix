@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Services._ModelServiceBase
+ * @class crm.Services._ModelServiceBase
  * The base class for all services.
  *
  * 
  * @alternateClassName _ModelServiceBase
 
  */
-define('Mobile/SalesLogix/Services/_ModelServiceBase', [
+define('crm/Services/_ModelServiceBase', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/when',
     'dojo/_base/Deferred',
     'dojo/string',
-    'Mobile/SalesLogix/Models/_ModelBase',
-    'Mobile/SalesLogix/Services/_ServiceBase'
+    '../Models/_ModelBase',
+    './_ServiceBase'
 
 ], function(
     declare,
@@ -29,7 +29,7 @@ define('Mobile/SalesLogix/Services/_ModelServiceBase', [
     _ServiceBase
 ) {
 
-    return declare('Mobile.SalesLogix.Services._ModelServiceBase', [_ServiceBase], {
+    return declare('crm.Services._ModelServiceBase', [_ServiceBase], {
         
         
         /**

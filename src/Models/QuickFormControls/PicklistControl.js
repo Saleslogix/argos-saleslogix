@@ -3,16 +3,17 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    './_BaseControl',
+    './ControlManager'
 ], function(
     declare,
     _BaseControl,
     ControlManager
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.PicklistControl', [_BaseControl], {
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPickList, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.PicklistControl', [_BaseControl], {
         name:'picklist',
-        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPickList, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valueBindingProperty: 'PickListValue',
         textBindingProperty: 'Text',
         getFieldControlType: function () {
@@ -61,6 +62,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
         
     });
 
-    ControlManager.register('picklist', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPickList, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('picklist', { type: _type, ctor: control });
     return control;
 });

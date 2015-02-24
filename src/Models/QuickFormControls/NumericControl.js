@@ -3,18 +3,19 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/NumericControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    '../../Format',
+    './_BaseControl',
+    './ControlManager'
 ], function(
     declare,
     format,
     _BaseControl,
     ControlManager
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.NumericControl', [_BaseControl], {
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXNumeric, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.NumericControl', [_BaseControl], {
         name: 'numeric',
-        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXNumeric, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valueBindingProperty: 'Text',
         getRenderer: function () {
             return format.bigNumber.bindDelegate(this, false);
@@ -24,6 +25,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NumericControl', [
         }
     });
 
-    ControlManager.register('numeric', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXNumeric, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('numeric', { type: _type, ctor: control });
     return control;
 });

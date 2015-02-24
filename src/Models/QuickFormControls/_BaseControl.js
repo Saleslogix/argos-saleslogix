@@ -1,14 +1,14 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/_BaseControl', [
+define('crm/Models/QuickFormControls/_BaseControl', [
     'dojo/_base/declare',
     'dojo/_base/lang'
 ], function(
     declare,
     lang
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QucikFormControls._BaseControl', null, {
+    var control = declare('crm.Models.QucikFormControls._BaseControl', null, {
         type:'text',
         valueBindingProperty: 'Text',
         controlData: {},

@@ -3,10 +3,10 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/NameControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager',
-    'Mobile/SalesLogix/Validator'
+    '../../Format',
+    './_BaseControl',
+    './ControlManager',
+    '../../Validator'
 ], function(
     declare,
     format,
@@ -14,9 +14,11 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NameControl', [
     ControlManager,
     validator
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.NameControl', [_BaseControl], {
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPersonName, Sage.SalesLogix.QuickForms.QFControls';
+    valuePropertyBindings: {
+    var control = declare('crm.Models.QuickFormControls.NameControl', [_BaseControl], {
         name: 'name',
-        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPersonName, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valuePropertyBindings: {
             'NameFirst': true,
             'NameLast': true,
@@ -72,6 +74,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NameControl', [
         }
     });
 
-    ControlManager.register('name', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPersonName, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('name', { type: _type, ctor: control });
     return control;
 });

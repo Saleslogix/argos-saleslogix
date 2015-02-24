@@ -3,24 +3,24 @@
  */
 
 /**
- * @class Sage.Platform.Mobile.Models._ModelBase
+ * @class crm.Models._ModelBase
  * Model is the base class for all data models.
  *
  * 
  * @alternateClassName _ModelBase
 
  */
-define('Mobile/SalesLogix/Models/EntityModel', [
+define('crm/Models/EntityModel', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/Models/_ModelBase'
+    './_ModelBase'
 ], function(
     declare,
     lang,
     _ModelBase
     ) {
 
-    return declare('Mobile.SalesLogix.Models.EntityModel', [_ModelBase], {
+    return declare('crm.Models.EntityModel', [_ModelBase], {
 
         /**
          * @property {String}

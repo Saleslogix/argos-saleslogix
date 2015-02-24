@@ -3,16 +3,17 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/LookupControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    './_BaseControl',
+    './ControlManager'
 ], function(
     declare,
     _BaseControl,
     ControlManager
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.LookupControl', [_BaseControl], {
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXLookup, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.LookupControl', [_BaseControl], {
         name:'lookup',
-        type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXLookup, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valueBindingProperty: 'LookupResultValue',
         textBindingProperty: 'text',
         getDataBindProperty: function () {
@@ -61,7 +62,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/LookupControl', [
             return this.getParentProperty();
         }
     });
-
-    ControlManager.register('lookup', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXLookup, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    
+    ControlManager.register('lookup', { type: _type, ctor: control });
     return control;
 });

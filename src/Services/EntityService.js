@@ -10,16 +10,16 @@
  * @alternateClassName EntityService
 
  */
-define('Mobile/SalesLogix/Services/EntityService', [
+define('crm/Services/EntityService', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/when',
     'dojo/_base/Deferred',
     'dojo/string',
-    'Sage/Platform/Mobile/Store/SData',
-    'Mobile/SalesLogix/Models/EntityModel',
-    'Mobile/SalesLogix/Services/_ModelServiceBase',
-    'Mobile/SalesLogix/Services/ServiceManager'
+    'argos/Store/SData',
+    '../Models/EntityModel',
+    './_ModelServiceBase',
+    './ServiceManager'
 
 ], function(
     declare,
@@ -32,7 +32,7 @@ define('Mobile/SalesLogix/Services/EntityService', [
     _ModelServiceBase,
     ServiceManager
 ) {
-    var service = declare('Mobile.SalesLogix.Services.EntityService', [_ModelServiceBase], {
+    var service = declare('crm.Services.EntityService', [_ModelServiceBase], {
                     
         /**
          * @property {String}

@@ -3,14 +3,14 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Services.ServiceManager
+ * @class crm.Services.ServiceManager
  * Service Manager is a registry for all services types that are used in the application
  * @alternateClassName ServiceManager
  * @singleton
  */
-define('Mobile/SalesLogix/Services/ServiceManager', [
+define('crm/Services/ServiceManager', [
     'dojo/_base/lang',
-     'dojo/promise/all',
+    'dojo/promise/all',
     'dojo/when',
     'dojo/_base/Deferred'
 
@@ -21,7 +21,7 @@ define('Mobile/SalesLogix/Services/ServiceManager', [
     Deferred
 ) {
     var store = {};
-    return lang.setObject('Mobile.SalesLogix.Services.ServiceManager', {
+    return lang.setObject('crm.Services.ServiceManager', {
         /**
          * @property {Object}
          * The type map that translates string type names to constructor functions

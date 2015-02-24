@@ -3,11 +3,11 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/UserControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager',
-    'Mobile/SalesLogix/Validator'
+    '../../Template',
+    '../../Format',
+    './_BaseControl',
+    './ControlManager',
+    '../../Validator'
 ], function(
     declare,
     template,
@@ -16,14 +16,14 @@ define('Mobile/SalesLogix/Models/QuickFormControls/UserControl', [
     ControlManager,
     validator
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.UserControl', [_BaseControl], {
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUser, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.UserControl', [_BaseControl], {
         name: 'user',
-        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUser, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valueBindingProperty: 'LookupResultValue',
         textBindingProperty: 'text',
         getDataBindProperty: function () {
             var property;
-            //this.valueProperties = [];
             this.controlData.DataBindings.forEach(function (binding) {
                 if ((binding.BindingType === 'Property') && (this.valueBindingProperty === binding.ControlItemName)) {
                     property = binding.DataItemName + '.UserInfo';
@@ -63,6 +63,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/UserControl', [
         }
     });
 
-    ControlManager.register('user', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXUser, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('user', { type: _type, ctor: control });
     return control;
 });

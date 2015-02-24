@@ -10,7 +10,7 @@
  * @alternateClassName _ServiceBase
 
  */
-define('Mobile/SalesLogix/Services/_ServiceBase', [
+define('crm/Services/_ServiceBase', [
     'dojo/_base/declare',
     'dojo/_base/lang'
 
@@ -19,7 +19,7 @@ define('Mobile/SalesLogix/Services/_ServiceBase', [
     lang
 ) {
     var store = {};
-    return declare('Mobile.SalesLogix.Services._ServiceBase', null, {
+    return declare('crm.Services._ServiceBase', null, {
         
         store: store,
         

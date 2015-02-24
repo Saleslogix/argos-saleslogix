@@ -3,18 +3,19 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/PhoneControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    '../../Format',
+    './_BaseControl',
+    './ControlManager'
 ], function(
     declare,
     format,
     _BaseControl,
     ControlManager
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.PhoneControl', [_BaseControl], {
-        name:'phone',
-        type:'Sage.SalesLogix.QuickForms.QFControls.QFSLXPhone, Sage.SalesLogix.QuickForms.QFControls',
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPhone, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.PhoneControl', [_BaseControl], {
+        name: 'phone',
+        type: _type,
         valueBindingProperty: 'Text',
         getRenderer: function () {
             return format.phone.bindDelegate(this, false);
@@ -25,6 +26,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PhoneControl', [
 
     });
 
-    ControlManager.register('phone', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPhone, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('phone', { type: _type, ctor: control });
     return control;
 });

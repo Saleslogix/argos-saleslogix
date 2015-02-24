@@ -1,20 +1,21 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/AddressControl', [
+define('crm/Models/QuickFormControls/AddressControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    '../../Format',
+    './_BaseControl',
+    './ControlManager'
 ], function(
     declare,
     format,
     _BaseControl,
     ControlManager
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.AddressControl', [_BaseControl], {
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXAddress, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.AddressControl', [_BaseControl], {
         name: 'address',
-        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXAddress, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valuePropertyBindings: {
             'AddressDesc1': true,
             'AddressDesc2': true,
@@ -69,6 +70,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/AddressControl', [
 
     });
 
-    ControlManager.register('address', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXAddress, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('address', { type: _type, ctor: control });
     return control;
 });

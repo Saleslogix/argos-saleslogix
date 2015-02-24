@@ -3,10 +3,10 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/OwnerControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Template',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager',
-    'Mobile/SalesLogix/Validator'
+    '../../Template',
+    './_BaseControl',
+    './ControlManager',
+    '../../Validator'
 ], function(
     declare,
     template,
@@ -14,12 +14,12 @@ define('Mobile/SalesLogix/Models/QuickFormControls/OwnerControl', [
     ControlManager,
     validator
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.QwnerControl', [_BaseControl], {
+    var _type =  'Sage.SalesLogix.QuickForms.QFControls.QFSLXOwner, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.QwnerControl', [_BaseControl], {
         name: 'owner',
-        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXOwner, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valueBindingProperty: 'LookupResultValue',
         textBindingProperty: 'Text',
-        //Owner.OwnerDescription
         getDataBindProperty: function () {
             var property;
             this.controlData.DataBindings.forEach(function (binding) {
@@ -45,11 +45,10 @@ define('Mobile/SalesLogix/Models/QuickFormControls/OwnerControl', [
             return {
                 view: 'owner_list',
                 textProperty: 'OwnerDescription'
-                //textTemplate: template.nameLF
             };
         }
     });
 
-    ControlManager.register('owner', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXOwner, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('owner', { type: _type, ctor: control });
     return control;
 });

@@ -3,7 +3,7 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views._QuickFormDetailMixin
+ * @class crm.Views._QuickFormDetailMixin
  *
  * Mixin for adding QuickForm widgets to detail views. 
  *
@@ -11,7 +11,7 @@
  *
  *
  */
-define('Mobile/SalesLogix/Views/_QuickFormDetailMixin', [
+define('crm/Views/_QuickFormDetailMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
@@ -23,7 +23,7 @@ define('Mobile/SalesLogix/Views/_QuickFormDetailMixin', [
     aspect
    
 ) {
-    return declare('Mobile.SalesLogix.Views._QuickFormDetailMixin', null, {
+    return declare('crm.Views._QuickFormDetailMixin', null, {
        
         entityName: null,
         originalCreateLayout: null,

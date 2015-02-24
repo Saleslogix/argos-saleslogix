@@ -3,32 +3,32 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Models.QuickFormModel
+ * @class crm.Models.QuickFormModel
  * QuickFormModel wraps the Quick Form Model MetaData .
  *
  * 
  * @alternateClassName QuickFormModel
- * @extends Mobile.SalesLogix.Models._ModelBase
+ * @extends crm.Models._ModelBase
  */
-define('Mobile/SalesLogix/Models/QuickFormModel', [
+define('crm/Models/QuickFormModel', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/Models/_ModelBase',
-    'Mobile/SalesLogix/Models/QuickFormControls/ControlManager',
-    'Mobile/SalesLogix/Models/QuickFormControls/TextControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/AddressControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/EmailControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/PhoneControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/NameControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/DateControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/BooleanControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/UrlControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/OwnerControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/UserControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/PicklistControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/LookupControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/NumericControl',
-    'Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl'
+    './_ModelBase',
+    './QuickFormControls/ControlManager',
+    './QuickFormControls/TextControl',
+    './QuickFormControls/AddressControl',
+    './QuickFormControls/EmailControl',
+    './QuickFormControls/PhoneControl',
+    './QuickFormControls/NameControl',
+    './QuickFormControls/DateControl',
+    './QuickFormControls/BooleanControl',
+    './QuickFormControls/UrlControl',
+    './QuickFormControls/OwnerControl',
+    './QuickFormControls/UserControl',
+    './QuickFormControls/PicklistControl',
+    './QuickFormControls/LookupControl',
+    './QuickFormControls/NumericControl',
+    './QuickFormControls/CurrencyControl'
 
 ], function(
     declare,
@@ -52,7 +52,7 @@ define('Mobile/SalesLogix/Models/QuickFormModel', [
 
 ) {
 
-    return declare('Mobile.SalesLogix.Models.QuickFormModel', [_ModelBase], {
+    return declare('crm.Models.QuickFormModel', [_ModelBase], {
         /**
          * @property {String}
          * The unique type of model.

@@ -3,9 +3,9 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl', [
     'dojo/_base/declare',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Models/QuickFormControls/_BaseControl',
-        'Mobile/SalesLogix/Models/QuickFormControls/ControlManager'
+    '../../Format',
+    './_BaseControl',
+    './ControlManager'
 
 ], function(
     declare,
@@ -13,9 +13,10 @@ define('Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl', [
     _BaseControl,
     ControlManager
 ) {
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.CurrencyControl', [_BaseControl], {
+    var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXCurrency, Sage.SalesLogix.QuickForms.QFControls';
+    var control = declare('crm.Models.QuickFormControls.CurrencyControl', [_BaseControl], {
         name: 'currency',
-        type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXCurrency, Sage.SalesLogix.QuickForms.QFControls',
+        type: _type,
         valueBindingProperty: 'Text',
         getRenderer: function () {
             return format.bigNumber.bindDelegate(this, false);
@@ -25,6 +26,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl', [
         }
     });
 
-    ControlManager.register('currency', { type: 'Sage.SalesLogix.QuickForms.QFControls.QFSLXCurrency, Sage.SalesLogix.QuickForms.QFControls', ctor: control });
+    ControlManager.register('currency', { type:_type, ctor: control });
     return control;
 });
