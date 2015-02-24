@@ -3,13 +3,13 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.TicketActivity.List
+ * @class crm.Views.TicketActivity.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/TicketActivity/List', [
+define('crm/Views/TicketActivity/List', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/string',
@@ -18,8 +18,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     'dojo/query',
     'dojo/topic',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    '../../Format',
+    'argos/List'
 ], function(
     declare,
     array,
@@ -33,11 +33,11 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.TicketActivity.List', [List], {
+    var __class = declare('crm.Views.TicketActivity.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Ticket.TicketNumber %}</h3>',
-            '<h4>{%: Mobile.SalesLogix.Format.date($.AssignedDate, $$.startDateFormatText) %}</h4>',
+            '<h4>{%: crm.Format.date($.AssignedDate, $$.startDateFormatText) %}</h4>',
             '<div class="note-text-item">',
             '<div class="note-text-wrap">',
             '{%: $.ActivityDescription %}',
@@ -50,7 +50,7 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
         titleText: 'Ticket Activities',
         startDateFormatText: 'MM/DD/YYYY h:mm A',
 
-        //View Properties       
+        //View Properties
         id: 'ticketactivity_list',
         security: 'Entities/TicketActivity/View',
         expose: false,
@@ -107,5 +107,8 @@ define('Mobile/SalesLogix/Views/TicketActivity/List', [
             );
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.List', __class);
+    return __class;
 });
 

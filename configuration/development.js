@@ -11,7 +11,8 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
             'crm': {
                 isDefault: true,
                 offline: true,
-                url: 'http://localhost:3334/sdata_82/slx/dynamic/-/',
+                url: 'http://localhost/sdata/slx/dynamic/-/',
+                timeout: 30000,
                 json: true
             }
         },
@@ -20,8 +21,7 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
         enableGroups: true,
         enableHashTags: true,
         maxUploadFileSize: 40000000,
-        enableConcurrencyCheck: false,
-        enableQuickFormDetail: true
+        enableConcurrencyCheck: false
     };
 
 });

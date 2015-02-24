@@ -3,23 +3,23 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Ticket.Edit
+ * @class crm.Views.Ticket.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.ErrorManager
+ * @requires argos.ErrorManager
  *
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Validator
+ * @requires crm.Format
+ * @requires crm.Validator
  */
-define('Mobile/SalesLogix/Views/Ticket/Edit', [
+define('crm/Views/Ticket/Edit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Validator',
-    'Sage/Platform/Mobile/ErrorManager',
-    'Sage/Platform/Mobile/Edit'
+    '../../Format',
+    '../../Validator',
+    'argos/ErrorManager',
+    'argos/Edit'
 ], function(
     declare,
     lang,
@@ -30,7 +30,7 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
     Edit
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Ticket.Edit', [Edit], {
+    var __class = declare('crm.Views.Ticket.Edit', [Edit], {
         //Localization
         accountText: 'acct',
         areaText: 'area',
@@ -451,5 +451,8 @@ define('Mobile/SalesLogix/Views/Ticket/Edit', [
             ]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.Edit', __class);
+    return __class;
 });
 

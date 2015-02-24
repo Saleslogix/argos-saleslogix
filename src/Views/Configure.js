@@ -3,13 +3,13 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Configure
+ * @class crm.Views.Configure
  *
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
  */
-define('Mobile/SalesLogix/Views/Configure', [
+define('crm/Views/Configure', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
@@ -18,7 +18,7 @@ define('Mobile/SalesLogix/Views/Configure', [
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/store/Memory',
-    'Sage/Platform/Mobile/List',
+    'argos/List',
     'dojo/NodeList-traverse'
 ], function(
     declare,
@@ -33,7 +33,7 @@ define('Mobile/SalesLogix/Views/Configure', [
     NodeList
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Configure', [List], {
+    var __class = declare('crm.Views.Configure', [List], {
         //Templates
         emptyTemplate: new Simplate(['']),
         itemTemplate: new Simplate([
@@ -177,5 +177,8 @@ define('Mobile/SalesLogix/Views/Configure', [
             }
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Configure', __class);
+    return __class;
 });
 

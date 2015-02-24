@@ -3,14 +3,14 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.MetricWidget
+ * @class crm.Views.MetricWidget
  *
  *
- * @requires Sage.Platform.Mobile._Templated
- * @requires Sage.Platform.Mobile.Store.SData
+ * @requires argos._Templated
+ * @requires argos.Store.SData
  *
  */
-define('Mobile/SalesLogix/Views/MetricWidget', [
+define('crm/Views/MetricWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
@@ -18,10 +18,9 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
     'dojo/when',
     'dojo/promise/all',
     'dojo/dom-construct',
-    'dojo/aspect',
     'dijit/_Widget',
-    'Sage/Platform/Mobile/_Templated',
-    'Sage/Platform/Mobile/Store/SData'
+    'argos/_Templated',
+    'argos/Store/SData'
 ], function(
     declare,
     lang,
@@ -30,12 +29,11 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
     when,
     all,
     domConstruct,
-    aspect,
     _Widget,
     _Templated,
     SDataStore
 ) {
-    return declare('Mobile.SalesLogix.Views.MetricWidget', [_Widget, _Templated], {
+    var __class = declare('crm.Views.MetricWidget', [_Widget, _Templated], {
         /**
          * @property {Simplate}
          * Simple that defines the HTML Markup
@@ -111,7 +109,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         },
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
-        formatModule: 'Mobile/SalesLogix/Format',// AMD Module
+        formatModule: 'crm/Format',// AMD Module
         formatter: 'bigNumber',// Function of formatModule module
 
         /**
@@ -144,7 +142,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
         },
 
         // Functions can't be stored in localstorage, save the module/fn strings and load them later via AMD
-        aggregateModule: 'Mobile/SalesLogix/Aggregate',
+        aggregateModule: 'crm/Aggregate',
         aggregate: null,//'valueFn',
 
         /**
@@ -228,19 +226,12 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             }));
         },
         navToReportView: function() {
-            var view, signal;
+            var view;
             view = App.getView(this.chartTypeMapping[this.chartType]);
 
             if (view) {
                 view.parent = this;
                 view.formatter = this.formatter;
-                signal = aspect.after(view, 'show', lang.hitch(this, function() {
-                    setTimeout(lang.hitch(this, function() {
-                        view.createChart(this._data);
-                        signal.remove();
-                    }), 100);
-                }));
-
                 view.show({ returnTo: this.returnToId, currentSearchExpression: this.currentSearchExpression, title: this.title});
             }
         },
@@ -302,4 +293,7 @@ define('Mobile/SalesLogix/Views/MetricWidget', [
             return this.store || (this.store = this.createStore());
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.MetricWidget', __class);
+    return __class;
 });

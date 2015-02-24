@@ -3,20 +3,20 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin
+ * @class crm.Views._SpeedSearchRightDrawerListMixin
  *
  * Speedsearch specific mixin for right drawer functionality.
  *
- * @mixins Mobile.SalesLogix.Views._RightDrawerBaseMixin
+ * @mixins crm.Views._RightDrawerBaseMixin
  *
  */
-define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
+define('crm/Views/_SpeedSearchRightDrawerListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/dom-construct',
     'dojo/dom-attr',
-    'Mobile/SalesLogix/Views/_RightDrawerBaseMixin'
+    './_RightDrawerBaseMixin'
 ], function(
     declare,
     array,
@@ -26,9 +26,9 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
     _RightDrawerBaseMixin
 ) {
 
-    var mixinName = 'Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin';
+    var mixinName = 'crm.Views._SpeedSearchRightDrawerListMixin';
 
-    return declare('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
+    var __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         indexSectionText: 'Indexes',
 
@@ -152,5 +152,8 @@ define('Mobile/SalesLogix/Views/_SpeedSearchRightDrawerListMixin', [
            return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', __class);
+    return __class;
 });
 

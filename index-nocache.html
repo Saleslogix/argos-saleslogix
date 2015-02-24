@@ -85,7 +85,13 @@
             { name: 'dijit', location: 'content/dojo/dijit' },
             { name: 'configuration', location: 'configuration' },
             { name: 'localization', location: 'localization' }
-        ]
+        ],
+        map: {
+            '*': {
+                'Sage/Platform/Mobile': 'argos',
+                'Mobile/SalesLogix': 'crm'
+            }
+        }
     });
     </script>
     <script type="text/javascript" src="content/dojo/dojo-dependencies.js"></script>

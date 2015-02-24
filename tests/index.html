@@ -39,10 +39,14 @@
             { name: 'configuration', location: '../configuration' }
         ],
         paths: {
-            'Mobile/SalesLogix': '../src',
-            'Sage/Platform/Mobile': '../../../argos-sdk/src',
             'configuration': '../configuration',
             'localization': '../localization'
+        },
+        map: {
+            '*': {
+                'Sage/Platform/Mobile': 'argos',
+                'Mobile/SalesLogix': 'crm'
+            }
         }
     });
     </script>

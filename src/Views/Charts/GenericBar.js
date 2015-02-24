@@ -3,21 +3,21 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Charts.GenericBar
+ * @class crm.Views.Charts.GenericBar
  *
- * @extends Sage.Platform.Mobile.View
- * @mixins Mobile.SalesLogix.Views.Charts._ChartMixin
+ * @extends argos.View
+ * @mixins crm.Views.Charts._ChartMixin
  *
- * @requires Sage.Platform.Mobile.View
+ * @requires argos.View
  *
  */
-define('Mobile/SalesLogix/Views/Charts/GenericBar', [
+define('crm/Views/Charts/GenericBar', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/dom-geometry',
     'dojo/dom-attr',
-    'Sage/Platform/Mobile/View',
+    'argos/View',
     './_ChartMixin'
 ], function(
     declare,
@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
     View,
     _ChartMixin
 ) {
-    return declare('Mobile.SalesLogix.Views.Charts.GenericBar', [View, _ChartMixin], {
+    var __class = declare('crm.Views.Charts.GenericBar', [View, _ChartMixin], {
         id: 'chart_generic_bar',
         titleText: '',
         expose: false,
@@ -36,7 +36,9 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
         barColor: '#0896e9',
 
         chartOptions: {
-            barShowStroke: false
+            scaleBeginAtZero: false,
+            barShowStroke: false,
+            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
         },
 
         formatter: function(val) {
@@ -47,22 +49,12 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
 
-        widgetTemplate: new Simplate([
-            '<div id="{%= $.id %}" title="{%= $.titleText %}" class="list {%= $.cls %}">',
-                '<div class="chart-hash" data-dojo-attach-point="searchExpressionNode"></div>',
-                '<canvas class="chart-content" data-dojo-attach-point="contentNode"></canvas>',
-            '</div>'
-        ]),
         createChart: function (rawData) {
             this.inherited(arguments);
 
-            var ctx, box, searchExpressionHeight, data, labels, seriesData;
+            var ctx, box, data, labels, seriesData;
 
             this.showSearchExpression();
-            searchExpressionHeight = this.getSearchExpressionHeight();
-
-            box = domGeo.getMarginBox(this.domNode);
-            box.h = box.h - searchExpressionHeight;
 
             labels = [];
             seriesData = array.map(rawData, function(item, idx) {
@@ -85,6 +77,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
                 this.chart.destroy();
             }
 
+            box = domGeo.getMarginBox(this.domNode);
             this.contentNode.width = box.w;
             this.contentNode.height = box.h;
 
@@ -93,4 +86,7 @@ define('Mobile/SalesLogix/Views/Charts/GenericBar', [
             this.chart = new window.Chart(ctx).Bar(data, this.chartOptions);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericBar', __class);
+    return __class;
 });

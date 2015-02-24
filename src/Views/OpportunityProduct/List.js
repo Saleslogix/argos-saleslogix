@@ -3,40 +3,42 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.OpportunityProduct.List
+ * @class crm.Views.OpportunityProduct.List
  *
- * @extends Sage.Platform.Mobile.List
+ * @extends argos.List
  *
- * @requires Mobile.SalesLogix.Format
+ * @requires crm.Format
  */
-define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
+define('crm/Views/OpportunityProduct/List', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/string',
-    'Mobile/SalesLogix/Format',
-    'Sage/Platform/Mobile/List'
+    '../../Format',
+    'argos/List'
 ], function(
     declare,
+    lang,
     string,
     format,
     List
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityProduct.List', [List], {
+    var __class = declare('crm.Views.OpportunityProduct.List', [List], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.Product.Name %}</h3>',
             '<h4>',
                 '{% if ($.Product) { %} {%: $.Product.Family %} | {% } %}',
-                '{%: $.Program %} | {%: Mobile.SalesLogix.Format.currency($.Price) %}',
+                '{%: $.Program %} | {%: crm.Format.currency($.Price) %}',
             '</h4>',
             '<h4>',
-                '{%: $.Quantity %} x {%: Mobile.SalesLogix.Format.currency($.CalculatedPrice) %} ',
-                '({%: Mobile.SalesLogix.Format.percent($.Discount) %}) = ',
+                '{%: $.Quantity %} x {%: crm.Format.currency($.CalculatedPrice) %} ',
+                '({%: crm.Format.percent($.Discount) %}) = ',
                 '<strong>',
                     '{% if (App.hasMultiCurrency()) { %}',
-                        '{%: Mobile.SalesLogix.Format.multiCurrency($.ExtendedPrice, App.getBaseExchangeRate().code) %}',
+                        '{%: crm.Format.multiCurrency($.ExtendedPrice, App.getBaseExchangeRate().code) %}',
                     '{% } else { %}',
-                        '{%: Mobile.SalesLogix.Format.currency($.ExtendedPrice) %}',
+                        '{%: crm.Format.currency($.ExtendedPrice) %}',
                     '{% } %}',
                 '</strong>',
             '</h4>'
@@ -69,5 +71,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/List', [
             return string.substitute('(upper(Product.Name) like "${0}%" or upper(Product.Family) like "${0}%")', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.List', __class);
+    return __class;
 });
 

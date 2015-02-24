@@ -3,24 +3,24 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.Account.Detail
+ * @class crm.Views.Account.Detail
  *
  *
- * @extends Sage.Platform.Mobile.Detail
- * @requires Sage.Platform.Mobile.Detail
- * @requires Mobile.SalesLogix.Format
- * @requires Mobile.SalesLogix.Template
- * @requires Mobile.SalesLogix._QuickFormDetailMixin'
+ * @extends argos.Detail
+ * @requires argos.Detail
+ * @requires crm.Format
+ * @requires crm.Template
+ * @requires crm._MetricDetailMixin
  *
  */
-define('Mobile/SalesLogix/Views/Account/Detail', [
+define('crm/Views/Account/Detail', [
     'dojo/_base/declare',
     'dojo/string',
     'dojo/_base/lang',
-    'Mobile/SalesLogix/Format',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Detail',
-    '../_QuickFormDetailMixin'
+    '../../Format',
+    '../../Template',
+    'argos/Detail',
+    '../_MetricDetailMixin'
 ], function(
     declare,
     string,
@@ -28,10 +28,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
     format,
     template,
     Detail,
-    _QuickFormDetailMixin
+    _MetricDetailMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.Account.Detail', [Detail, _QuickFormDetailMixin], {
+    var __class = declare('crm.Views.Account.Detail', [Detail], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',
@@ -96,15 +96,9 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
             'Status',
             'SubType',
             'Type',
-            'WebAddress',
-            'ModifyDate',
-            'Revenue',
-            'AccountUpper',
-            'ERPTradingAccount/*'
-
+            'WebAddress'
         ],
         resourceKind: 'accounts',
-        entityName:'Account',
 
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
@@ -171,10 +165,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             iconClass: 'fa fa-edit fa-lg',
                             action: 'addNote'
                         }]
-            },{
+                }, {
                     title: this.detailsText,
                     name: 'DetailsSection',
-                      children: [{
+                    children: [{
                             name: 'AccountName',
                             property: 'AccountName',
                             label: this.accountText
@@ -282,8 +276,10 @@ define('Mobile/SalesLogix/Views/Account/Detail', [
                             title:  this.relatedAttachmentTitleText
                         }]
                 }]);
-        },
-        
+        }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.Account.Detail', __class);
+    return __class;
 });
 

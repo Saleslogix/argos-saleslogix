@@ -3,24 +3,26 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.AreaCategoryIssueLookup
+ * @class crm.Views.AreaCategoryIssueLookup
  *
  *
- * @extends Sage.Platform.Mobile.List
- * @mixins Sage.Platform.Mobile._LegacySDataListMixin
+ * @extends argos.List
+ * @mixins argos._LegacySDataListMixin
  *
  */
-define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
+define('crm/Views/AreaCategoryIssueLookup', [
     'dojo/_base/declare',
-    'Sage/Platform/Mobile/List',
-    'Sage/Platform/Mobile/_LegacySDataListMixin'
+    'dojo/_base/lang',
+    'argos/List',
+    'argos/_LegacySDataListMixin'
 ], function(
     declare,
+    lang,
     List,
     _LegacySDataListMixin
 ) {
 
-    return declare('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
+    var __class = declare('crm.Views.AreaCategoryIssueLookup', [List, _LegacySDataListMixin], {
         //Templates
         itemTemplate: new Simplate([
             '<h3>{%: $.$descriptor %}</h3>'
@@ -109,5 +111,8 @@ define('Mobile/SalesLogix/Views/AreaCategoryIssueLookup', [
         formatSearchQuery: function(searchQuery) {
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);
+    return __class;
 });
 

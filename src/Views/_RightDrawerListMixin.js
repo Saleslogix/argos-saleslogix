@@ -3,15 +3,15 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views._RightDrawerListMixin
+ * @class crm.Views._RightDrawerListMixin
  *
  * List mixin for right drawers.
  *
  * @since 3.0
- * @mixins Mobile.SalesLogix.Views._RightDrawerBaseMixin
+ * @mixins crm.Views._RightDrawerBaseMixin
  *
  */
-define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
+define('crm/Views/_RightDrawerListMixin', [
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
@@ -20,9 +20,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     'dojo/dom-attr',
     'dojo/dom-style',
     'dojo/aspect',
-    'Mobile/SalesLogix/GroupUtility',
-    'Mobile/SalesLogix/Views/_RightDrawerBaseMixin',
-    'Sage/Platform/Mobile/Fields/LookupField'
+    '../GroupUtility',
+    './_RightDrawerBaseMixin',
+    'argos/Fields/LookupField'
 ], function(
     declare,
     array,
@@ -37,9 +37,9 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
     LookupField
 ) {
 
-    var mixinName = 'Mobile.SalesLogix.Views._RightDrawerListMixin';
+    var mixinName = 'crm.Views._RightDrawerListMixin';
 
-    return declare('Mobile.SalesLogix.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+    var __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
         groupsSectionText: 'Groups',
@@ -200,7 +200,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     entry,
                     currentGroup,
                     items = [],
-                    transitionHandle;
+                    transitionHandle,
+                    hasDefaultGroup;
 
                 // We will get an object back where the property names are the keys (groupId's)
                 // Extract them out, and save the entry, which is the data property on the extracted object
@@ -213,7 +214,7 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                     }
                 }
 
-
+                hasDefaultGroup = list.hasDefaultGroup;
                 GroupUtility.addToGroupPreferences(items, list.entityName, true);
                 currentGroup = GroupUtility.getDefaultGroup(list.entityName);
                 if (currentGroup) {
@@ -223,11 +224,21 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
                 handle.remove();
                 field.destroy();
 
-                // We will transition back to the list, pop back open the right drawer so the user is back where they started
-                transitionHandle = aspect.after(list, 'processData', function() {
-                    this.toggleRightDrawer();
-                    transitionHandle.remove();
-                }.bind(list));
+                if (hasDefaultGroup) {
+                    // We will transition back to the list, pop back open the right drawer so the user is back where they started
+                    transitionHandle = aspect.after(list, 'processData', function() {
+                        this.toggleRightDrawer();
+                        transitionHandle.remove();
+                    }.bind(list));
+                } else {
+                    // Since there was no previous default group, just refresh the list (no need to toggle the right drawer)
+                    transitionHandle = aspect.after(list, 'onTransitionTo', function() {
+                        this.refreshRequired = true;
+                        this.clear();
+                        this.refresh();
+                        transitionHandle.remove();
+                    }.bind(list));
+                }
 
             }.bind(field));
 
@@ -372,5 +383,8 @@ define('Mobile/SalesLogix/Views/_RightDrawerListMixin', [
             return this.searchWidget && this.searchWidget.hashTagQueries && this.searchWidget.hashTagQueries.length > 0;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views._RightDrawerListMixin', __class);
+    return __class;
 });
 

@@ -3,26 +3,28 @@
  */
 
 /**
- * @class Mobile.SalesLogix.Views.OpportunityProduct.Edit
+ * @class crm.Views.OpportunityProduct.Edit
  *
- * @extends Sage.Platform.Mobile.Edit
+ * @extends argos.Edit
  *
- * @requires Sage.Platform.Mobile.Utility
+ * @requires argos.Utility
  *
- * @requires Mobile.SalesLogix.Validator
- * @requires Mobile.SalesLogix.Template
+ * @requires crm.Validator
+ * @requires crm.Template
  */
-define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
+define('crm/Views/OpportunityProduct/Edit', [
     'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/string',
-    'Mobile/SalesLogix/Validator',
-    'Mobile/SalesLogix/Template',
-    'Sage/Platform/Mobile/Utility',
-    'Sage/Platform/Mobile/Edit',
-    'Sage/Platform/Mobile/Utility'
+    '../../Validator',
+    '../../Template',
+    'argos/Utility',
+    'argos/Edit',
+    'argos/Utility'
 ], function(
     declare,
+    lang,
     array,
     string,
     validator,
@@ -32,7 +34,7 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
     Utility
 ) {
 
-    return declare('Mobile.SalesLogix.Views.OpportunityProduct.Edit', [Edit], {
+    var __class = declare('crm.Views.OpportunityProduct.Edit', [Edit], {
         //Localization
         titleText: 'Opportunity Product',
         detailsText: 'Details',
@@ -434,5 +436,8 @@ define('Mobile/SalesLogix/Views/OpportunityProduct/Edit', [
             return layout;
         }
     });
+
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Edit', __class);
+    return __class;
 });
 
