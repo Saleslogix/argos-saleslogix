@@ -17,7 +17,7 @@ define('crm/Views/Opportunity/Detail', [
     'dojo/string',
     'argos/Detail',
     '../../Format',
-    '../_MetricDetailMixin'
+    '../_QuickFormDetailMixin'
 ], function(
     declare,
     lang,
@@ -26,10 +26,10 @@ define('crm/Views/Opportunity/Detail', [
     string,
     Detail,
     format,
-    _MetricDetailMixin
+    _QuickFormDetailMixin
 ) {
 
-    var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
+    var __class = declare('crm.Views.Opportunity.Detail', [Detail, _QuickFormDetailMixin], {
         //Localization
         accountText: 'acct',
         acctMgrText: 'acct mgr',
@@ -98,6 +98,7 @@ define('crm/Views/Opportunity/Detail', [
             'Weighted'
         ],
         resourceKind: 'opportunities',
+        entityName: 'Opportunity',
 
         scheduleActivity: function() {
             App.navigateToActivityInsertView();

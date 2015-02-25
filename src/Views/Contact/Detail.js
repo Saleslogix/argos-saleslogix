@@ -16,17 +16,19 @@ define('crm/Views/Contact/Detail', [
     'dojo/string',
     '../../Format',
     '../../Template',
-    'argos/Detail'
+    'argos/Detail',
+    '../_QuickFormDetailMixin'
 ], function(
     declare,
     lang,
     string,
     format,
     template,
-    Detail
+    Detail,
+    _QuickFormDetailMixin
 ) {
 
-    var __class = declare('crm.Views.Contact.Detail', [Detail], {
+    var __class = declare('crm.Views.Contact.Detail', [Detail, _QuickFormDetailMixin], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
@@ -99,7 +101,7 @@ define('crm/Views/Contact/Detail', [
             'WorkPhone'
         ],
         resourceKind: 'contacts',
-
+        entityName: 'Contact',
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view) {
