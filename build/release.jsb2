@@ -601,10 +601,6 @@
           "path": "../src/Fields"
         },
         {
-          "text": "_ServiceMixin.js",
-          "path": "../src"
-        },
-        {
           "text": "_ModelBase.js",
           "path": "../src/Models"
         },
@@ -687,14 +683,6 @@
         {
           "text": "ControlManager.js",
           "path": "../src/Models/QuickFormControls"
-        },
-        {
-          "text": "QuickFormDetailWidget.js",
-          "path": "../src/Views"
-        },
-        {
-          "text": "QuickFormEditlWidget.js",
-          "path": "../src/Views"
         },
         {
           "text": "_ModelServiceBase.js",
