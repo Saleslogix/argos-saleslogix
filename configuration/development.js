@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
-define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], function(ApplicationModule) {
+define('configuration/development', ['crm/ApplicationModule'], function(ApplicationModule) {
 
     return {
         modules: [
@@ -21,7 +21,8 @@ define('configuration/development', ['Mobile/SalesLogix/ApplicationModule'], fun
         enableGroups: true,
         enableHashTags: true,
         maxUploadFileSize: 40000000,
-        enableConcurrencyCheck: false
+        enableConcurrencyCheck: false,
+        enableQuickFormDetail: true
     };
 
 });

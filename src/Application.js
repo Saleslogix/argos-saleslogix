@@ -541,7 +541,7 @@ define('crm/Application', [
         },
         initQuickFormServices: function () {
             var qfs = App.serviceManager.get('quickFormService');
-            if (qfs) {
+            if (qfs && App.enableQuickFormDetail) {
                 qfs.init();
             }
         },

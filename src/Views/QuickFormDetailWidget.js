@@ -24,20 +24,8 @@ define('crm/Views/QuickFormDetailWidget', [
     'argos/RelatedViewManager',
     'argos/RelatedViewDetailWidget',
     'argos/ErrorManager',
-    'argos/FieldManager',
+    'argos/FieldManager'
 
-    'argos/Fields/BooleanField',
-    'argos/Fields/DateField',
-    'argose/Fields/DecimalField',
-    'argos/Fields/DurationField',
-    'argose/Fields/HiddenField',
-    'argos/Fields/LookupField',
-    'argos/Fields/NoteField',
-    'argos/Fields/PhoneField',
-    'argos/Fields/SelectField',
-    'argos/Fields/SignatureField',
-    'argos/Fields/TextAreaField',
-    'argos/Fields/TextField'
 
 
 ], function(
