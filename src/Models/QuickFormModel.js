@@ -148,7 +148,7 @@ define('crm/Models/QuickFormModel', [
             this.select = [];
             if (this.layout) {
                 this.layout.forEach(function (item) {
-                    if (typeof item.selectPropertyPath === 'array') {
+                    if (Object.prototype.toString.call(item.selectPropertyPath) === '[object Array]') {
                         item.selectPropertyPath.forEach(function (item) {
                             this.select.push(item);
                         });

@@ -15,7 +15,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NameControl', [
     validator
 ) {
     var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPersonName, Sage.SalesLogix.QuickForms.QFControls';
-    valuePropertyBindings: {
     var control = declare('crm.Models.QuickFormControls.NameControl', [_BaseControl], {
         name: 'name',
         type: _type,

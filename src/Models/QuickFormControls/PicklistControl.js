@@ -4,11 +4,13 @@
 define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
     'dojo/_base/declare',
     './_BaseControl',
-    './ControlManager'
+    './ControlManager',
+    '../../Validator'
 ], function(
     declare,
     _BaseControl,
-    ControlManager
+    ControlManager,
+    validator
 ) {
     var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPickList, Sage.SalesLogix.QuickForms.QFControls';
     var control = declare('crm.Models.QuickFormControls.PicklistControl', [_BaseControl], {
