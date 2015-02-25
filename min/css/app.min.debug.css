@@ -1274,7 +1274,8 @@ td.entry-table-description {
     display: block;
   }
 }
-canvas {
+canvas,
+.legend {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   /* ios */
   -webkit-tap-highlight-color: transparent;
