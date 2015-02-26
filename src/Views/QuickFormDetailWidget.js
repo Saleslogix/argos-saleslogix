@@ -220,8 +220,21 @@ define('crm/Views/QuickFormDetailWidget', [
 
         },
         getValue: function(layoutItem, entry){
-            var value = '', rendered;
-            value = utility.getValue(entry, layoutItem.valuePropertyPath, '');
+            var value = '', values, rendered;
+            if (Array.isArray(layoutItem.valuePropertyPath)) {
+                if (layoutItem.applyTo === '.') {
+                    value = {};
+                    //values = {};
+                    layoutItem.valuePropertyPath.forEach(function (path) {
+                        value[path] = utility.getValue(entry, path, '');
+                    }.bind(this));
+                } else {
+                    value = utility.getValue(entry, layoutItem.parentPropertyPath, '');
+                }
+                
+            } else {
+                value = utility.getValue(entry, layoutItem.valuePropertyPath, '');
+            }
             if (layoutItem['renderer'] && typeof layoutItem['renderer'] === 'function') {
                 rendered = layoutItem['renderer'].call(this, value);
                 value = layoutItem['encode'] === true
@@ -256,7 +269,7 @@ define('crm/Views/QuickFormDetailWidget', [
         processFormModel: function(formModel){
             var promise, queryOptions;
             this.quickFormModel = formModel;
-            this.layout = formModel.layout;
+            this.layout = formModel.getLayout();
             this.formModel = formModel;
             if (!this.entityName) {
                 this.entityName = formModel.getMainEntityName();

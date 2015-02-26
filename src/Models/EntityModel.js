@@ -66,7 +66,6 @@ define('crm/Models/EntityModel', [
         * For Example 'dynamic' or 'system'
         */
         resourceKind: null,
-
         constructor: function(o) {
             lang.mixin(this, o);
 

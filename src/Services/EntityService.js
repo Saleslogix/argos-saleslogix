@@ -71,7 +71,7 @@ define('crm/Services/EntityService', [
                 service: this.service,
                 contractName: entityModel.contractName,
                 resourceKind: entityModel.resourceKind,
-                //resourceProperty: entityModel.resourceProperty,
+               // resourceProperty: entityModel.resourceProperty,
                 //resourcePredicate: entityModel.resourcePredicate,
                 //select: entityModel.querySelect,
                 //idProperty: entityModel.primaryKey,

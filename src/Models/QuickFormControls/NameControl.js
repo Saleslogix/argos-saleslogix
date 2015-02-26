@@ -25,32 +25,41 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NameControl', [
             'NamePrefix': true,
             'NameSuffix': true
         },
-        getDataBindProperty: function () {
-            var property;
-            this.valueProperties = [];
-            this.controlData.DataBindings.forEach(function (binding) {
-                if ((binding.BindingType === 'Property') && (this.valuePropertyBindings[binding.ControlItemName])) {
-                    this.valueProperties.push(binding.DataItemName);
-                }
+        getValuePropertyPath: function () {
+            var valuePath;
+            if (!this._valuePropertyPath) {
+                valuePath = [];
+                this.controlData.DataBindings.forEach(function (binding) {
+                    if ((binding.BindingType === 'Property') && (this.valuePropertyBindings[binding.ControlItemName])) {
+                        valuePath.push(binding.DataItemName);
+                    }
 
-            }.bind(this));
-            if (this.valueProperties.length > 0) {
-                property = this.valueProperties;//[0].split('.')[0];
+                }.bind(this));
+                if (valuePath.length > 0) {
+                    this._valuePropertyPath = valuePath;
+                }
             }
-            return property;
+            return this._valuePropertyPath;
         },
-        getDataBindDataPath: function () {
-            var dataPath = null;
-            if (!this.valueProperty) {
-                this.valueProperty = this.getDataBindProperty();
+        getSelectPropertyPath: function () {
+            var valuePath = null;
+            if (!this._selectPropertyPath) {
+                valuePath = this.getValuePropertyPath();
+                if (valuePath) {
+                    this._selectPropertyPath = valuePath;
+                }
             }
-            if (this.valueProperty) {
-                dataPath = this.valueProperty;//.replace('.', '/');
+            return this._selectPropertyPath;
+        },
+        getParentPropertyPath: function () {
+            var valuePath;
+            if (!this._parentPropertyPath) {
+                this._parentPropertyPath = '$ContactName';
             }
-            return dataPath;
+            return this._parentPropertyPath;
         },
         getParentProperty: function () {
-            return 'ContactName';
+            return this.getParentPropertyPath();
         },
         getRenderer: function () {
             return format.nameLF.bindDelegate(this, false);

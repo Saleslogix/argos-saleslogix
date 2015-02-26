@@ -80,16 +80,16 @@ define('crm/Models/QuickFormModel', [
         * An array of the properties that is created from the quick form metadata 
         * and its bindings durring initialization.
         */
-        select: null,
+        _select: null,
         /**
         * @property {Array}
         * An array of layouts that is created from the quick form metada data
         * and its control bindings durring initialization.
         */
-        layout:null,
+        _layout:null,
         constructor: function(o) {
-            this.layout = [];
-            this.select = [];
+            //this._layout = [];
+            //this._select = [];
             this.modelData = {};
             lang.mixin(this, o);
         },
@@ -106,24 +106,23 @@ define('crm/Models/QuickFormModel', [
             this.resourceKind = this._getResourceKind();
             this.entityTypeName = this.modelData.entity.EntityTypeName;
             this.name = this.modelData.entity.Name;
-            this.initLayout();
-            this.initSelect();
         },
-        initLayout: function(){
-            this.layout = [];
+        createLayout: function(){
+            this._layout = [];
             if (this.modelData) {
                 this.modelData.entity.Controls.forEach(function (control) {
-                    var layout, controlModel, fieldControlOptions;
+                    var layoutItem, controlModel, fieldControlOptions;
 
                     controlModel = this.getControlModel(control);
                     if (controlModel && controlModel.controlData.Visible && controlModel.controlData.Enabled) {
-                        layout = {
+                        layoutItem = {
                             name: controlModel.getControlId(),
                             label: controlModel.getCaption(),
                             type: controlModel.getFieldControlType(),
                             property: controlModel.getParentProperty(),
-                            valuePropertyPath:controlModel.getValuePropertyPath(),
-                            selectPropertyPath:controlModel.getSelectPropertyPath(),
+                            parentPropertyPath: controlModel.getParentPropertyPath(),
+                            valuePropertyPath: controlModel.getValuePropertyPath(),
+                            selectPropertyPath: controlModel.getSelectPropertyPath(),
                             renderer: controlModel.getRenderer(),
                             column: control.Column,
                             row: control.Row,
@@ -132,32 +131,48 @@ define('crm/Models/QuickFormModel', [
                             controlModel: controlModel
                         };
                         fieldControlOptions = controlModel.getFieldControlOptions();
+
                         if (fieldControlOptions) {
-                            lang.mixin(layout, fieldControlOptions);
+                            lang.mixin(layoutItem, fieldControlOptions);
                         }
 
-
-                        if (layout.property) {
-                            this.layout.push(layout);
+                        if (layoutItem.property) {
+                            this._layout.push(layoutItem);
                         }
                     }
                 }.bind(this));
             }
+            return this._layout;
         },
-        initSelect: function () {
-            this.select = [];
-            if (this.layout) {
-                this.layout.forEach(function (item) {
-                    if (Object.prototype.toString.call(item.selectPropertyPath) === '[object Array]') {
+        createSelect: function () {
+            var layout;
+            this._select = [];
+            layout = this.getLayout();
+            if (layout) {
+                layout.forEach(function (item) {
+                    if (Array.isArray(item.selectPropertyPath)) {
                         item.selectPropertyPath.forEach(function (path) {
-                            this.select.push(path);
+                            this._select.push(path);
                         }.bind(this));
                     } else {
-                        this.select.push(item.selectPropertyPath);
+                        this._select.push(item.selectPropertyPath);
                     }
 
                 }.bind(this));
             }
+            return this._select;
+        },
+        getLayout: function () {
+            if (!this._layout) {
+               this._layout = this.createLayout();
+            }
+            return this._layout;
+        },
+        getSelect: function () {
+            if(!this._select){
+               this._select = this.createSelect();
+            }
+            return this._select;
         },
         getControlModel: function (control) {
             var controlMap, controlModel;
@@ -180,14 +195,10 @@ define('crm/Models/QuickFormModel', [
         getMainEntityName: function () {
             return this.entityTypeName.substring(1);
         },
-        getSelect:function(){
-            return this.select;
-        },
         getInclude:function(){
             return null;
         },
         _getResourceKind:function(){
-               
             return 'unknown';
         }
     });

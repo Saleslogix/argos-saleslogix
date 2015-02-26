@@ -13,9 +13,10 @@ define('crm/Models/QuickFormControls/_BaseControl', [
         valueBindingProperty: 'Text',
         controlData: {},
         caption: null,
-        valueProperty: null,
-        dataPropertyPath: null,
-
+        _valuePropertyPath: null,
+        _selectPropertyPath: null,
+        _parentPropertyPath: null,
+        _parentProperty: null,
         constructor: function (o) {
             var data = { controlData: o };
             lang.mixin(this, data);
@@ -26,51 +27,52 @@ define('crm/Models/QuickFormControls/_BaseControl', [
         },
         init: function () {
             this.caption = this.getCaption();
-            this.valueProperty = this.getDataBindProperty();
-            this.dataPropertyPath = this.getDataBindDataPath();
         },
         getCaption: function () {
             return this.controlData.Caption;
         },
-        getDataBindProperty: function () {
-            var property;
-            this.controlData.DataBindings.forEach(function (binding) {
-                var subentity;
-                if ((binding.BindingType === 'Property') && (binding.ControlItemName === this.valueBindingProperty)) {
-                    property = binding.DataItemName;
-                }      
+        getValuePropertyPath: function () {
+            if (!this._valuePropertyPath) {
+                this.controlData.DataBindings.forEach(function (binding) {
+                    if ((binding.BindingType === 'Property') && (binding.ControlItemName === this.valueBindingProperty)) {
+                        this._valuePropertyPath = binding.DataItemName;
+                    }
 
-            }.bind(this));
-            return property;
-        },
-        getDataBindDataPath: function () {
-            var dataPath = null;
-            if(!this.valueProperty){
-                this.valueProperty = this.getDataBindProperty();
-            } 
-            if (this.valueProperty) {
-               dataPath = this.valueProperty.replace('.', '/');
+                }.bind(this));
             }
-            return dataPath;
+
+            return this._valuePropertyPath;
         },
         getParentProperty: function () {
-            var dataPath = null;
-            if (!this.valueProperty) {
-                this.valueProperty = this.getDataBindProperty();
+            return this.getParentPropertyPath();
+        },
+        getParentPropertyPath: function () {
+            var valuePath;
+            if (!this._parentPropertyPath) {
+                valuePath = this.getValuePropertyPath();
+                if (valuePath) {
+                    this._parentPropertyPath = valuePath.split('.')[0];
+                }
             }
-            if (this.valueProperty) {
-                dataPath = this.valueProperty.split('.');
-            }
-            if (dataPath) {
-                return dataPath[0];
-            }
-
+            return this._parentPropertyPath;
         },
         getSelectPropertyPath: function () {
-            return this.getDataBindDataPath();
-        },
-        getValuePropertyPath: function () {
-            return this.getDataBindProperty();
+            var valuePath = null;
+            if (!this._selectPropertyPath) {
+                valuePath = this.getValuePropertyPath();
+                if (valuePath) {
+                    if (Array.isArray(valuePath)) {
+                        this._selectPropertyPath = [];
+                        valuePath.forEach(function (path) {
+                            this._selectPropertyPath.push(path.replace(/\./g, '/'));
+                        }.bind(this));
+                       
+                    } else {
+                        this._selectPropertyPath = valuePath.replace(/\./g, '/');
+                    }
+                }
+            }
+            return this._selectPropertyPath;
         },
         getRenderer: function () {
             return null;

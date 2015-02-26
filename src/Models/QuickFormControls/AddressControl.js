@@ -26,33 +26,35 @@ define('crm/Models/QuickFormControls/AddressControl', [
             'AddressZip': true,
             'AddressCountry': true
         },
-        valueProperties:[],
-        getDataBindProperty: function () {
-            var property;
-            this.valueProperties = [];
-            this.controlData.DataBindings.forEach(function (binding) {
-                if ((binding.BindingType === 'Property') && (this.valuePropertyBindings[binding.ControlItemName])) {
-                    this.valueProperties.push(binding.DataItemName);
-                }
 
-            }.bind(this));
-            if (this.valueProperties.length > 0) {
-                property = this.valueProperties[0].split('.')[0];
+        getValuePropertyPath: function () {
+            var valuePath;
+            if (!this._valuePropertyPath) {
+                valuePath = [];
+                this.controlData.DataBindings.forEach(function (binding) {
+                    if ((binding.BindingType === 'Property') && (this.valuePropertyBindings[binding.ControlItemName])) {
+                        valuePath.push(binding.DataItemName);
+                    }
+
+                }.bind(this));
+                if (valuePath.length > 0) {
+                    this._valuePropertyPath = valuePath[0].split('.')[0];
+                }
             }
-            return property;
+            return this._valuePropertyPath;
         },
-        getDataBindDataPath: function () {
-            var dataPath = null;
-            if (!this.valueProperty) {
-                this.valueProperty = this.getDataBindProperty();
+        getSelectPropertyPath: function () {
+            var valuePath = null;
+            if (!this._selectPropertyPath) {
+                valuePath = this.getValuePropertyPath();
+                if (valuePath) {
+                    this._selectPropertyPath = valuePath.replace('.', '/') + '/*';
+                }
             }
-            if (this.valueProperty) {
-                dataPath = this.valueProperty.replace('.', '/') + '/*';
-            }
-            return dataPath;
+            return this._selectPropertyPath;
         },
         getParentProperty: function () {
-            return this.getDataBindProperty();
+            return this.getValuePropertyPath();
         },
         getRenderer: function () {
              return format.address.bindDelegate(this, false);

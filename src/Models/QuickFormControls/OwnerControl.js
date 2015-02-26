@@ -20,26 +20,27 @@ define('Mobile/SalesLogix/Models/QuickFormControls/OwnerControl', [
         type: _type,
         valueBindingProperty: 'LookupResultValue',
         textBindingProperty: 'Text',
-        getDataBindProperty: function () {
-            var property;
-            this.controlData.DataBindings.forEach(function (binding) {
-                var subentity;
-                if ((binding.BindingType === 'Property') && (binding.ControlItemName === this.valueBindingProperty)) {
-                    property =  binding.DataItemName +'.OwnerDescription';
-
-                }
-               
-            }.bind(this));
-            return property;
+        getValuePropertyPath: function () {
+            var valuePath;
+            if (!this._valuePropertyPath) {
+                this.controlData.DataBindings.forEach(function (binding) {
+                    if ((binding.BindingType === 'Property') && (binding.ControlItemName === this.valueBindingProperty)) {
+                        this._valuePropertyPath = binding.DataItemName + '.OwnerDescription';
+                    }
+                }.bind(this));
+            }
+            return this._valuePropertyPath;
         },
         getFieldControlType: function () {
             return 'lookup';
         },
-        getParentProperty: function () {
-            var property = this.getDataBindProperty();
-            if (property) {
-                return property.split('.')[0];
+        getParentPropertyPath: function () {
+            var valuePath;
+            if (!this._parentPropertyPath) {
+                valuePath = this.getValuePropertyPath();
+                this._parentPropertyPath = valuePath.split('.')[0];
             }
+            return this._parentPropertyPath;
         },
         getFieldControlOptions: function () {
             return {

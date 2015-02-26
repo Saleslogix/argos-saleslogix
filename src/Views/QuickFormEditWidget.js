@@ -131,7 +131,7 @@ define('crm/Views/QuickFormEditWidget', [
         processFormModel: function(formModel){
             var promise, queryOptions;
             this.quickFormModel = formModel;
-            this.layout = formModel.layout;
+            this.layout = formModel.getLayout();
             this.formModel = formModel;
             
             if (!this.entityName) {

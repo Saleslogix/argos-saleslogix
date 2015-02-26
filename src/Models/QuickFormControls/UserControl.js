@@ -22,31 +22,34 @@ define('Mobile/SalesLogix/Models/QuickFormControls/UserControl', [
         type: _type,
         valueBindingProperty: 'LookupResultValue',
         textBindingProperty: 'text',
-        getDataBindProperty: function () {
-            var property;
-            this.controlData.DataBindings.forEach(function (binding) {
-                if ((binding.BindingType === 'Property') && (this.valueBindingProperty === binding.ControlItemName)) {
-                    property = binding.DataItemName + '.UserInfo';
-                }
+        getValuePropertyPath: function () {
+            if( !this._valuePropertyPath){
+                this._valuePropertyPath = [];
+                this.controlData.DataBindings.forEach(function (binding) {
+                    if ((binding.BindingType === 'Property') && (this.valueBindingProperty === binding.ControlItemName)) {
+                        this._parentPropertyPath = binding.DataItemName + '.UserInfo';
+                        this._valuePropertyPath.push(binding.DataItemName + '.UserInfo.FirstName');
+                        this._valuePropertyPath.push(binding.DataItemName + '.UserInfo.LastName');
+                    }
 
-            }.bind(this));
-            return property;
-        },
-        getDataBindDataPath: function () {
-            var dataPath = null;
-            if (!this.valueProperty) {
-                this.valueProperty = this.getDataBindProperty();
+                }.bind(this));
             }
-            if (this.valueProperty) {
-                dataPath = this.valueProperty.replace('.', '/') + '/*';
-            }
-            return dataPath;
+            return this._valuePropertyPath;
         },
+       
         getParentProperty: function () {
-            var property = this.getDataBindProperty();
-            if (property) {
-                return property.split('.')[0];
+            var property = this.getValuePropertyPath();
+            if (property && (property.length > 0)) {
+                 return property[0].split('.')[0];
             }
+        },
+        getParentPropertyPath: function () {
+            var valuePath;
+            if (!this._parentPropertyPath) {
+                valuePath = this.getValuePropertyPath();
+                //this._parentPropertyPath = '';
+            }
+            return this._parentPropertyPath;
         },
         getRenderer: function () {
             return format.nameLF.bindDelegate(this, false);
