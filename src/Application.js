@@ -133,7 +133,7 @@ define('crm/Application', [
         },
         isOnFirstView: function() {
             var history, isOnFirstView = false, length, current, previous;
-            history = ReUI.context.history;
+            history = this.context.history;
             length = history.length;
             current = history[length - 1];
             previous = history[length - 2];
