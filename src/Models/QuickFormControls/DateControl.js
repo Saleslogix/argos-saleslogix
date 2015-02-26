@@ -37,7 +37,7 @@ define('crm/Models/QuickFormControls/DateControl', [
         getFieldControlOptions: function () {
             var validator, timeless;
             validator = this.getValidator();
-            timeless = this.getIsTimeless();
+            timeless = this.getIsIimeless();
             return {
                 timeless: timeless,
                 showTimePicker: !timeless,

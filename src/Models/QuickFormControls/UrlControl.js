@@ -17,7 +17,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/UrlControl', [
         type: _type,
         valueBindingProperty: 'Text',
         getFieldControlType: function () {
-            return 'url';
+            return 'text';
         }
     });
 

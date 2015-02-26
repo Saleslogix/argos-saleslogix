@@ -22,7 +22,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl', [
             return format.bigNumber.bindDelegate(this, false);
         },
         getFieldControlType: function () {
-            return 'currency';
+            return 'multiCurrency';
         }
     });
 

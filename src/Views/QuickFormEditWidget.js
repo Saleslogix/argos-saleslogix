@@ -104,7 +104,7 @@ define('crm/Views/QuickFormEditWidget', [
                 editView.sectionBeginTemplate = new Simplate([
                      '<fieldset class="{%= ($.cls || $.options.cls) %}">'
                 ]);
-                editView.layout = this.layout;
+                editView.layout = this.getEditLayout();
                 editView.resourceKind = this.resourceKind;
                 editView.entry = entry;
                 editView.init();
@@ -157,6 +157,17 @@ define('crm/Views/QuickFormEditWidget', [
             this.editViewInstance.save();
             event.stop(evt);
 
+        },
+        getEditLayout:function(){
+            var editLayout = [];
+            if (this.layout) {
+                this.layout.forEach(function (item) {
+                    if (!item.readonly) {
+                         editLayout.push(item);
+                    }
+                }.bind(this));
+            }
+            return editLayout;
         },
         destroy: function () {
             array.forEach(this._subscribes, function (handle) {
