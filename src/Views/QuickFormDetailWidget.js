@@ -138,41 +138,46 @@ define('crm/Views/QuickFormDetailWidget', [
             
         },
         processEntry:function(entry){
-            var docFrag, itemsFrag, contentNode, colNode, 
-                rowFrag, rowNode, rowCount,
-                lastrow, headerValue, 
-                itemsNode, layout, 
-                item,  
-                rowData, rowHTML, rowValueTpl;
-            layout = this.layout;
-            docFrag = document.createDocumentFragment();
-            if (layout.length > 0) {
-                headerValue = this.getValue(layout[0], entry);
+    
+            this.buildView(entry, this.layout);
+        },
+        buildView: function (entry, layout) {
+            var contentNode,
+                contentFrag,
+                columns,
+                colFrag,
+                colNode,
+                rowNode,
+                rowFrag,
+                rowData,
+                rowHtml,
+                rowValueTpl,
+                headerValue,
+                index;
+
+            contentFrag = document.createDocumentFragment();
+            columns = this.getColumnLayout(layout);
+            if (columns.length > 0) {
+                headerValue = this.getValue(columns[0].rows[0], entry);
             }
             contentNode = domConstruct.toDom(this.itemContentTemplate.apply({ HeaderValue: headerValue }, this));
-            docFrag.appendChild(contentNode);
+            contentFrag.appendChild(contentNode);
+
             itemsFrag = document.createDocumentFragment();
             itemsNode = domConstruct.toDom('<div class="content-items"></div>');
-            rowCount = 0;
-            lastrow = false;
             rowValueTpl = this.itemValueTemplate;
-
-            for (var i = 0; i < layout.length; i++) {
-                item = layout[i];
-                if (layout[0].name != item.name) {
-                    if (rowCount === 0) {
+            index = 0
+            columns.forEach(function (column) {
+                index++;
+                colNode = domConstruct.toDom('<div class="column"></div>');
+                if (column.rows) {
+                    column.rows.forEach(function (item) {
                         rowFrag = document.createDocumentFragment();
-                        colNode = domConstruct.toDom('<div class="column"></div>');
-                        lastrow = false;
-                    }
-
-                    if (rowCount <= this.rows - 1)  {
                         rowData = {
-                            $index: i,
+                            $index: index,
                             $layout: item,
                             $value: this.getValue(item, entry)
                         };
-
                         if (item.renderer) {
                             this.itemValueTemplate = new Simplate([rowData.$value]);
                         } else if (item.tpl) {
@@ -180,44 +185,66 @@ define('crm/Views/QuickFormDetailWidget', [
                             if (!rowData) {
                                 rowData = {};
                             }
-
                             rowData.$layout = item;
-                            rowData.$index = i;
+                            rowData.$index = index;
                             this.itemValueTemplate = item.tpl;
                         } else {
                             this.itemValueTemplate = rowValueTpl;
                         }
-
                         rowNode = domConstruct.toDom(this.itemRowTemplate.apply(rowData, this));
                         rowFrag.appendChild(rowNode);
-                        if ((rowCount === this.rows-1)||(layout.length === i+1)) {
-                            lastrow = true;
-                        } else {
-                            rowCount++;
-                        }
-
-                    }
-
-                    if (lastrow) {
                         domConstruct.place(rowFrag, colNode, 'last');
-                        itemsFrag.appendChild(colNode);
-                        rowCount = 0;
-                        lastrow = false;
-                    }
-
+                    }.bind(this));
+                    itemsFrag.appendChild(colNode);
                 }
-            }
+            }.bind(this));
 
             if (itemsFrag.childNodes.length > 0) {
                 domConstruct.place(itemsFrag, itemsNode, 'last');
-                docFrag.appendChild(itemsNode);
-
+                contentFrag.appendChild(itemsNode);
             }
 
-            if (docFrag.childNodes.length > 0) {
-                domConstruct.place(docFrag, this.contentNode, 'last');
+            if (contentFrag.childNodes.length > 0) {
+                domConstruct.place(contentFrag, this.contentNode, 'last');
             }
 
+        },
+        getColumnLayout:function(layout){
+            var column, colIndex, columns = [];
+            if (layout) {
+                layout.sort(function (itemA, itemB) {
+                    var aIndex, bIndex;
+                    aIndex = itemA.column ? itemA.column: 0;
+                    bIndex = itemB.column ? itemB.column: 0;
+                    return aIndex - bIndex;
+                });
+                colIndex = 0;
+                layout.forEach(function (item) {
+                    if (!item.column) {
+                        item.column = 0;
+                    }
+                    if(colIndex !== item.column){
+                        colIndex++;
+                        column = null;
+                    }
+                    if (!column) {
+                        column = { id: item.column, rows: [] };
+                        columns.push(column);
+                    }
+                    column.rows.push(item);
+                 }.bind(this));
+            }
+            columns.forEach(function (column) {
+                if (column.rows) {
+                    column.rows.sort(function (itemA, itemB) {
+                        var aIndex, bIndex;
+                        aIndex = itemA.row ? itemA.row : 0;
+                        bIndex = itemB.row ? itemB.row : 0;
+                        return aIndex - bIndex;
+                    });
+                }
+             });
+             return columns;
         },
         getValue: function(layoutItem, entry){
             var value = '', values, rendered;
