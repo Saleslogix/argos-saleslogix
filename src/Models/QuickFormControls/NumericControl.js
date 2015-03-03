@@ -17,11 +17,16 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NumericControl', [
         name: 'numeric',
         type: _type,
         valueBindingProperty: 'Text',
-        getRenderer: function () {
-            return format.bigNumber.bindDelegate(this, false);
-        },
         getFieldControlType: function () {
             return 'number';
+        },
+        getTemplate: function () {
+            return null;
+        },
+        renderer: function(value, propertyName) {
+            var result = format.bigNumber(scope, value);
+            return string.substitute(
+                '<div class ="qfcontrol number">${0}</div>', [result]);
         }
     });
 

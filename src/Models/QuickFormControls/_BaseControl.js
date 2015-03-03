@@ -3,10 +3,12 @@
  */
 define('crm/Models/QuickFormControls/_BaseControl', [
     'dojo/_base/declare',
-    'dojo/_base/lang'
+    'dojo/_base/lang',
+    '../../Validator'
 ], function(
     declare,
-    lang
+    lang,
+    validator
 ) {
     var control = declare('crm.Models.QucikFormControls._BaseControl', null, {
         type:'text',
@@ -17,6 +19,7 @@ define('crm/Models/QuickFormControls/_BaseControl', [
         _selectPropertyPath: null,
         _parentPropertyPath: null,
         _parentProperty: null,
+        renderer: null,
         constructor: function (o) {
             var data = { controlData: o };
             lang.mixin(this, data);
@@ -75,7 +78,7 @@ define('crm/Models/QuickFormControls/_BaseControl', [
             return this._selectPropertyPath;
         },
         getRenderer: function () {
-            return null;
+            return this.renderer;
         },
         getTemplate: function () {
             return null;
@@ -84,10 +87,28 @@ define('crm/Models/QuickFormControls/_BaseControl', [
             return 'text';
         },
         getFieldControlOptions: function () {
-            return {};           
+            return {
+                 validator: this.getValidator()
+            };
         },
         getValidator: function () {
-            return null;
+            var validators = [];
+            if (this.controlData) {
+                if (this.controlData.Required) {
+                    validators.push(validator.notEmpty);
+                }
+                if (this.getMaxLength() > -1) {
+                    validators.push(validator.exceedsMaxTextLength);
+                }
+            }
+            return validators;
+        },
+        getMaxLength: function () {
+            var max = (this.controlData)? this.controlData.MaxLength: null;
+            if (max < 0) {
+                max = 0;
+            }
+            return max;
         },
         getReadOnly: function () {
             return this.controlData ? this.controlData.IsReadOnly : false;

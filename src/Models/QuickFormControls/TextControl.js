@@ -23,18 +23,15 @@ define('Mobile/SalesLogix/Models/QuickFormControls/TextControl', [
         getFieldControlOptions: function () {
             var max, validator;
             validator = this.getValidator();
-            max = this.getMaxTextLength();
+            max = this.getMaxLength();
             return {
                 maxTextLength: max,
                 validator: validator
             };
         },
-        getMaxTextLength: function () {
-            return 64;
-        },
-        getValidator: function () {
-            return [validator.exceedsMaxTextLength, validator.notEmpty];
-        }
+        //getMaxLength: function () {
+        //    return 64;
+        //}
     });
     ControlManager.register('text', { type: _type, ctor: control });
     return control;

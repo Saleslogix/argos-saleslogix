@@ -23,10 +23,8 @@ define('crm/Views/QuickFormDetailWidget', [
     'argos/_Templated',
     'argos/RelatedViewManager',
     'argos/RelatedViewDetailWidget',
-    'argos/ErrorManager',
-    'argos/FieldManager'
-
-
+    '../Action',
+    'argos/_ActionMixin',
 
 ], function(
     declare,
@@ -48,10 +46,11 @@ define('crm/Views/QuickFormDetailWidget', [
     _Templated,
     RelatedViewManager,
     RelatedViewDetailWidget,
-    ErrorManager,
-    FieldManager
+    action,
+    _ActionMixin
+
 ) {
-    var quickFormView = declare('crm.Views.QuickFormDetailWidget', [RelatedViewDetailWidget], {
+    var quickFormView = declare('crm.Views.QuickFormDetailWidget', [RelatedViewDetailWidget, _ActionMixin], {
         owner: null,
         id: 'quickform-related-detail-view',
         icon: 'content/images/icons/ContactProfile_48x48.png',
@@ -172,6 +171,9 @@ define('crm/Views/QuickFormDetailWidget', [
                 colNode = domConstruct.toDom('<div class="column"></div>');
                 if (column.rows) {
                     column.rows.forEach(function (item) {
+                        if ((item.column === 0) && (item.row === 0)) {
+                            return;
+                        }
                         rowFrag = document.createDocumentFragment();
                         rowData = {
                             $index: index,
@@ -263,7 +265,7 @@ define('crm/Views/QuickFormDetailWidget', [
                 value = utility.getValue(entry, layoutItem.valuePropertyPath, '');
             }
             if (layoutItem['renderer'] && typeof layoutItem['renderer'] === 'function') {
-                rendered = layoutItem['renderer'].call(this, value);
+                rendered = layoutItem['renderer'].call(this, value, layoutItem.valuePropertyPath);
                 value = layoutItem['encode'] === true
                     ? format.encode(rendered)
                     : rendered;
@@ -316,6 +318,39 @@ define('crm/Views/QuickFormDetailWidget', [
                     }
                 }.bind(this));
             }
+        },
+        invokeAction: function (action, params, evt, el) {
+            var resolvedEntry, selection, propertyName, actionName, options;
+            propertyName = params.propertyname;
+            actionName = params.name;
+           if (this.entry) {
+                options = {
+                    selection: {
+                        data: this.entry
+                    },
+                    propertyName: propertyName
+                };
+                this._invokeActionByName(actionName, options);
+            }
+
+        },
+        _invokeActionByName: function (actionName, options) {
+            if (!options) {
+                options = {};
+            }
+            switch (actionName) {
+                case 'callPhone':
+                    action.callPhone.call(this, null, options.selection, options.propertyName);
+                    break;
+                case 'sendEmail':
+                    action.sendEmail.call(this, null, options.selection, options.propertyName);
+                    break;
+                default:
+                    break;
+            }
+
+        },
+        setSource:function(){
         }
     });
     var rvm = new RelatedViewManager();

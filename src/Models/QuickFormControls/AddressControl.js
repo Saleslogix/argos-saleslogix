@@ -3,11 +3,13 @@
  */
 define('crm/Models/QuickFormControls/AddressControl', [
     'dojo/_base/declare',
+    'dojo/string',
     '../../Format',
     './_BaseControl',
     './ControlManager'
 ], function(
     declare,
+    string,
     format,
     _BaseControl,
     ControlManager
@@ -56,9 +58,6 @@ define('crm/Models/QuickFormControls/AddressControl', [
         getParentProperty: function () {
             return this.getValuePropertyPath();
         },
-        getRenderer: function () {
-             return format.address.bindDelegate(this, false);
-        },
         getFieldControlType: function () {
             return 'address';
         },
@@ -68,7 +67,12 @@ define('crm/Models/QuickFormControls/AddressControl', [
                 formatValue: format.address.bindDelegate(this, [true], true),
                 view: 'address_edit'
             };
-        }
+        },
+        renderer: function (value, propertyName) {
+            var result = format.address(value);
+            return string.substitute(
+            '<div class ="address">${0}</div>', [result]);
+    }
 
     });
 

@@ -87,6 +87,8 @@ define('crm/Views/QuickFormEditWidget', [
                         if (formModel) {
                             domClass.toggle(this.loadingNode, 'loading');
                             this.processFormModel(formModel);
+                            this.processEntry(this.owner.entry);
+                            domClass.toggle(this.loadingNode, 'loading');
                         }
                     }.bind(this));
                 }
@@ -109,6 +111,7 @@ define('crm/Views/QuickFormEditWidget', [
                 editView.entry = entry;
                 editView.init();
                 editView._started = true;
+                editView.onUpdateCompleted = this.onUpdateCompleted.bind(this);
             }
             //Add the toolbar for save
             toolBarNode = domConstruct.toDom(this.toolBarTemplate.apply(entry, this));
@@ -119,39 +122,41 @@ define('crm/Views/QuickFormEditWidget', [
             editView.placeAt(this.contentNode, 'last');
 
             options = {
-                entry: entry,
+                select: this.getEditSelect(),
+                //entry: entry,
                 key: entry.$key
             };
             editView.options = options;
             editView.activate();
             editView.requestData();
+            
             this.editViewInstance = editView;
 
         },
         processFormModel: function(formModel){
             var promise, queryOptions;
-            this.quickFormModel = formModel;
             this.layout = formModel.getLayout();
             this.formModel = formModel;
             
-            if (!this.entityName) {
-                this.entityName = formModel.getMainEntityName();
-            }
-            queryOptions = {
-                select: formModel.getSelect(),
-                include: formModel.getInclude()
-            };
+           // if (!this.entityName) {
+           //     this.entityName = formModel.getMainEntityName();
+           // }
+           // queryOptions = {
+           //     select: formModel.getSelect(),
+           //     include: formModel.getInclude()
+           // };
 
-            if (this.owner.entry) {
-                promise = this.entityService.getEntityById(this.entityName, this.parentKey, queryOptions);
-                promise.then(function (entity) {
-                    this.entry = entity;
-                    if (entity) {
-                        domClass.toggle(this.loadingNode, 'loading');
-                        this.processEntry(entity);
-                    }
-                }.bind(this));
-            }
+          //  if (this.owner.entry) {
+               // promise = this.entityService.getEntityById(this.entityName, this.parentKey, queryOptions);
+               // promise.then(function (entity) {
+               //     this.entry = entity;
+               //     if (entity) {
+               //         domClass.toggle(this.loadingNode, 'loading');
+               //         this.processEntry(entity);
+               //     }
+               // }.bind(this));
+                //}
+
         },
         onInvokeToolBarAction: function (evt) {
             this.editViewInstance.save();
@@ -168,6 +173,18 @@ define('crm/Views/QuickFormEditWidget', [
                 }.bind(this));
             }
             return editLayout;
+        },
+        getEditSelect: function () {
+            var select = null;
+            if (this.formModel) {
+                select = this.formModel.getEditSelect();
+            }
+            return select;
+        },
+        onUpdateCompleted: function (entry) {
+            if ((this.owner) && (this.owner._refreshClicked)) {
+                this.owner._refreshClicked();
+            }
         },
         destroy: function () {
             array.forEach(this._subscribes, function (handle) {

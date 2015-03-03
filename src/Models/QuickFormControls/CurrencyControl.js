@@ -5,24 +5,28 @@ define('Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl', [
     'dojo/_base/declare',
     '../../Format',
     './_BaseControl',
-    './ControlManager'
+    './ControlManager',
+    'dojo/string'
 
 ], function(
     declare,
     format,
     _BaseControl,
-    ControlManager
+    ControlManager,
+    string
 ) {
     var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXCurrency, Sage.SalesLogix.QuickForms.QFControls';
     var control = declare('crm.Models.QuickFormControls.CurrencyControl', [_BaseControl], {
         name: 'currency',
         type: _type,
         valueBindingProperty: 'Text',
-        getRenderer: function () {
-            return format.bigNumber.bindDelegate(this, false);
-        },
         getFieldControlType: function () {
             return 'multiCurrency';
+        },
+        renderer: function (value, propertyName) {
+            var result = format.bigNumber(value);
+            return string.substitute(
+                '<div class ="currency">${0}</div>', [result]);
         }
     });
 

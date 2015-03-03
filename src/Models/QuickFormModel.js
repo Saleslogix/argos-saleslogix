@@ -144,23 +144,26 @@ define('crm/Models/QuickFormModel', [
             }
             return this._layout;
         },
-        createSelect: function () {
+        createSelect: function (forEdit) {
             var layout;
-            this._select = [];
+            select = [];
             layout = this.getLayout();
             if (layout) {
                 layout.forEach(function (item) {
-                    if (Array.isArray(item.selectPropertyPath)) {
-                        item.selectPropertyPath.forEach(function (path) {
-                            this._select.push(path);
-                        }.bind(this));
-                    } else {
-                        this._select.push(item.selectPropertyPath);
+                    var include = (forEdit)? !(item.readonly): true;
+                    if (include) {
+                        if (Array.isArray(item.selectPropertyPath)) {
+                            item.selectPropertyPath.forEach(function (path) {
+                                select.push(path);
+                            }.bind(this));
+                        } else {
+                            select.push(item.selectPropertyPath);
+                        }
                     }
 
                 }.bind(this));
             }
-            return this._select;
+            return select;
         },
         getLayout: function () {
             if (!this._layout) {
@@ -173,6 +176,12 @@ define('crm/Models/QuickFormModel', [
                this._select = this.createSelect();
             }
             return this._select;
+        },
+        getEditSelect: function () {
+            if (!this._editSelect) {
+                this._editSelect = this.createSelect(true);
+            }
+            return this._editSelect;
         },
         getControlModel: function (control) {
             var controlMap, controlModel;

@@ -3,11 +3,13 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/PhoneControl', [
     'dojo/_base/declare',
+    'dojo/string',
     '../../Format',
     './_BaseControl',
     './ControlManager'
 ], function(
     declare,
+    string,
     format,
     _BaseControl,
     ControlManager
@@ -17,13 +19,14 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PhoneControl', [
         name: 'phone',
         type: _type,
         valueBindingProperty: 'Text',
-        getRenderer: function () {
-            return format.phone.bindDelegate(this, false);
-        },
         getFieldControlType: function () {
             return 'phone';
+        },
+        renderer: function (value, propertyName) {
+            var result = format.phone(value);
+            return string.substitute(
+                '<div class ="phone" data-action="invokeAction" data-name="callPhone" data-propertyname="' + propertyName + '">${0}</div>', [result]);
         }
-
     });
 
     ControlManager.register('phone', { type: _type, ctor: control });

@@ -3,11 +3,13 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/EmailControl', [
     'dojo/_base/declare',
+    'dojo/string',
     './_BaseControl',
     './ControlManager'
 
 ], function(
     declare,
+    string,
     _BaseControl,
     ControlManager
 ) {
@@ -18,7 +20,11 @@ define('Mobile/SalesLogix/Models/QuickFormControls/EmailControl', [
         valueBindingProperty: 'Text',
         getFieldControlType: function () {
             return 'text';
-        }
+        },
+        renderer: function (value, propertyName) {
+        return string.substitute(
+            '<div class ="email" data-action="invokeAction" data-name="sendEmail" data-propertyname="' + propertyName + '">${0}</div>', [value]);
+    }
     });
 
     ControlManager.register('email', { type: _type, ctor: control });
