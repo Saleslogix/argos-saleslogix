@@ -127,8 +127,13 @@ define('crm/Views/TicketActivity/Edit', [
                     name: 'TicketId',
                     property: 'Ticket.$key',
                     type: 'hidden'
-                },
-                {
+                }, {
+                    label: this.commentsText,
+                    name: 'ActivityDescription',
+                    property: 'ActivityDescription',
+                    rows: 6,
+                    type: 'textarea'
+                }, {
                     label: this.activityTypeText,
                     name: 'ActivityTypeCode',
                     property: 'ActivityTypeCode',
@@ -177,12 +182,6 @@ define('crm/Views/TicketActivity/Edit', [
                         validator.exists,
                         validator.isDateInRange
                     ]
-                }, {
-                    label: this.commentsText,
-                    name: 'ActivityDescription',
-                    property: 'ActivityDescription',
-                    rows: 6,
-                    type: 'textarea'
                 }
             ]);
         }

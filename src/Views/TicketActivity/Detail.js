@@ -147,12 +147,16 @@ define('crm/Views/TicketActivity/Detail', [
                     title: this.detailsText,
                     name: 'DetailsSection',
                     children: [{
+                            label: this.activityDescriptionText,
+                            name: 'ActivityDescription',
+                            property: 'ActivityDescription'
+                        }, {
                             label: this.ticketNumberText,
                             name: 'Ticket.TicketNumber',
                             property: 'Ticket.TicketNumber',
                             view: 'ticket_detail',
                             key: 'Ticket.$key'
-                        }, {
+                        },  {
                             name: 'Ticket.Account.AccountName',
                             property: 'Ticket.Account.AccountName',
                             descriptor: 'Ticket.Account.AccountName',
@@ -196,10 +200,6 @@ define('crm/Views/TicketActivity/Detail', [
                             name: 'FollowUp',
                             property: 'FollowUp',
                             renderer: format.yesNo
-                        }, {
-                            label: this.activityDescriptionText,
-                            name: 'ActivityDescription',
-                            property: 'ActivityDescription'
                         }]
                 }, {
                     title: this.moreDetailsText,
