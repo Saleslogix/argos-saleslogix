@@ -883,7 +883,8 @@ define('crm/Views/Calendar/MonthView', [
                 view.show({
                     negateHistory: true,
                     returnTo: this.id,
-                    insert: true
+                    insert: true,
+                    currentDate: this.options.currentDate.valueOf()
                 });
             }
         },

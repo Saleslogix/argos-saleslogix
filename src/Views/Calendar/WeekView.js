@@ -592,7 +592,8 @@ define('crm/Views/Calendar/WeekView', [
                 view.show({
                     negateHistory: true,
                     returnTo: this.id,
-                    insert: true
+                    insert: true,
+                    currentDate: this.options.currentDate.valueOf()
                 });
             }
         },
