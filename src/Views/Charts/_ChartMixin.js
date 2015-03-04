@@ -141,9 +141,19 @@ define('crm/Views/Charts/_ChartMixin', [
         // Number - Pixel offset from point x to tooltip edge
         tooltipXOffset: 10,
 
-        // String - Template string for single tooltips
-        tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+        // tooltipTemplate can be a function as well (not in the docs, see Chart.Core.js in their repo)
+        tooltipTemplate: function(valuesObject) {
+            // Use the formatter on the chart view, otherwise default to label: value
+            var view, results;
+            view = App.getPrimaryActiveView();
+            if (view && view.formatter) {
+                results = view.formatter(valuesObject.value);
+            } else {
+                results = valuesObject.value;
+            }
 
+            return [valuesObject.label, results].join(': ');
+        },
         // String - Template string for single tooltips
         multiTooltipTemplate: "<%= value %>",
 
@@ -169,6 +179,10 @@ define('crm/Views/Charts/_ChartMixin', [
          * Reference to the metric widget that opened this view.
         */
         parent: null,
+
+        formatter: function(val) {
+            return val;
+        },
 
         PAGE_SIZE: 100,
 
