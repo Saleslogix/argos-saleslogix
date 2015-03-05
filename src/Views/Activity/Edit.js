@@ -627,7 +627,7 @@ define('crm/Views/Activity/Edit', [
                 startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
                 startDate;
 
-            if (startTime && (currentDate.valueOf() == moment().startOf('day').valueOf())) {
+            if (startTime && (currentDate.valueOf() === moment().startOf('day').valueOf())) {
                 startDate = currentDate.clone()
                     .hours(startTime.hours())
                     .minutes(startTime.minutes());
@@ -637,7 +637,7 @@ define('crm/Views/Activity/Edit', [
                     .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
             }
 
-            this.fields['StartDate'].setValue(startDate.toDate());
+            return startDate;
         },
         applyContext: function() {
             this.inherited(arguments);
@@ -653,8 +653,7 @@ define('crm/Views/Activity/Edit', [
                 alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
 
             if (this.options && this.options.currentDate) {
-                startDate = moment(this.options.currentDate);
-                this.applyUserActivityContext(startDate);
+                startDate = this.applyUserActivityContext(moment(this.options.currentDate));
             }
 
             this.fields['StartDate'].setValue(startDate.toDate());
