@@ -133,6 +133,8 @@ define('crm/Services/_ModelServiceBase', [
             request = new Sage.SData.Client.SDataResourceCollectionRequest(this.service);
             request.setResourceKind(this.resourceKind);
             request.setContractName(this.contractName);
+            request.setQueryArg('start', 0);
+            request.setQueryArg('count', 100);
             request.setQueryArg('_indented', 'true');
             request.setQueryArg('language', App.currentCulture != 'iv' ? App.currentCulture : '');
             if ((queryOptions)&&(queryOptions.where)) {

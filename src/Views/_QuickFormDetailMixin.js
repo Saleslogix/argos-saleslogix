@@ -74,24 +74,33 @@ define('crm/Views/_QuickFormDetailMixin', [
                             id: this.entityName + '_quickFormDetail',
                             quickFormName: this.entityName + 'MobileDetail'
                         }
-                    }]
+                    }
+                    //,{
+                    //           name: this.entityName + '_quickFormDetailQEdit',
+                    //             relatedView: {
+                    //             widgetType: 'quickFormEdit',
+                    //             id: this.entityName + '_quickFormDetailQEdit',
+                    //             quickFormName: this.entityName + 'MobileDetail'
+                    //     }
+                    // }
+                    ]
                 };
-                if (!editLoaded) {
-                    quickFormEditSection = {
-                        title: 'Quick Edit',
-                        list: true,
-                        collapsed: true,
-                        name: 'QuickFormEditViews',
-                        children: [{
-                            name: this.entityName + '_quickFormDetailQEdit',
-                            relatedView: {
-                                widgetType: 'quickFormEdit',
-                                id: this.entityName + '_quickFormDetailQEdit',
-                                quickFormName: this.entityName + 'MobileDetail'
-                            }
-                        }]
-                    };
-                }
+               // if (!editLoaded) {
+               //     quickFormEditSection = {
+               //         title: 'Quick Edit',
+               //         list: true,
+               //         collapsed: true,
+               //         name: 'QuickFormEditViews',
+               //         children: [{
+               //             name: this.entityName + '_quickFormDetailQEdit',
+               //             relatedView: {
+               //                 widgetType: 'quickFormEdit',
+               //                 id: this.entityName + '_quickFormDetailQEdit',
+               //                 quickFormName: this.entityName + 'MobileDetail'
+                //            }
+                //        }]
+                //    };
+               // }
             }
             if (moreLoaded) {
                 quickFormMoreSection = {

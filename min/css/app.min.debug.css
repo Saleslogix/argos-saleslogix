@@ -1274,3 +1274,18 @@ td.entry-table-description {
     display: block;
   }
 }
+.related-view-detail-widget .content-panel .content-items .row .value .currency {
+  color: #2db329;
+}
+.related-view-detail-widget .content-panel .content-items .row .value .phone {
+  color: #005ce6;
+}
+.related-view-detail-widget .content-panel .content-items .row .value .url {
+  color: #005ce6;
+}
+.related-view-detail-widget .content-panel .content-items .row .value .address {
+  color: #005ce6;
+}
+.related-view-detail-widget .content-panel .content-items .row .value .email {
+  color: #005ce6;
+}

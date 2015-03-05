@@ -24,6 +24,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PhoneControl', [
         },
         renderer: function (value, propertyName) {
             var result = format.phone(value);
+            if (!result) {
+                result = '';
+            }
             return string.substitute(
                 '<div class ="phone" data-action="invokeAction" data-name="callPhone" data-propertyname="' + propertyName + '">${0}</div>', [result]);
         }

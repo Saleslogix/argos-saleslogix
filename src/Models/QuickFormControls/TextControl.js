@@ -17,7 +17,21 @@ define('Mobile/SalesLogix/Models/QuickFormControls/TextControl', [
         name:'text',
         type: _type,
         valueBindingProperty: 'Text',
+        getParentPropertyPath: function () {
+            var valuePath;
+            if (!this._parentPropertyPath) {
+                valuePath = this.getValuePropertyPath();
+                if (valuePath) {
+                    this._parentPropertyPath = valuePath;
+                }
+            }
+            return this._parentPropertyPath;
+        },
         getFieldControlType: function () {
+            if ((this.controlData.Lines) && (this.controlData.Lines > 1)) {
+                return 'note';
+            }
+
             return 'text';
         },
         getFieldControlOptions: function () {
@@ -26,12 +40,11 @@ define('Mobile/SalesLogix/Models/QuickFormControls/TextControl', [
             max = this.getMaxLength();
             return {
                 maxTextLength: max,
-                validator: validator
+                validator: validator,
+                title: this.getCaption(),
+                view: 'text_edit'
             };
-        },
-        //getMaxLength: function () {
-        //    return 64;
-        //}
+        }
     });
     ControlManager.register('text', { type: _type, ctor: control });
     return control;

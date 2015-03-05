@@ -43,7 +43,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
             }
         },
         isSingleSelect: function () {
-            if (this.controlData && this.controlData.AllowMulltiples) {
+            if (this.controlData && this.controlData.AllowMultiples) {
                 return false;
             }
             return true;

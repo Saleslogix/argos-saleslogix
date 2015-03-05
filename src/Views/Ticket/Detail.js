@@ -19,7 +19,8 @@ define('crm/Views/Ticket/Detail', [
     '../../Format',
     'argos/ErrorManager',
     'argos/Detail',
-    'dojo/NodeList-manipulate'
+    'dojo/NodeList-manipulate',
+    '../_QuickFormDetailMixin'
 ], function(
     declare,
     lang,
@@ -28,10 +29,11 @@ define('crm/Views/Ticket/Detail', [
     format,
     ErrorManager,
     Detail,
-    NodeList
+    NodeList,
+    _QuickFormDetailMixin
 ) {
 
-    var __class = declare('crm.Views.Ticket.Detail', [Detail], {
+    var __class = declare('crm.Views.Ticket.Detail', [Detail, _QuickFormDetailMixin], {
         //Localization
         accountText: 'account',
         areaText: 'area',
@@ -92,7 +94,7 @@ define('crm/Views/Ticket/Detail', [
             'CompletedBy/OwnerDescription'
         ],
         resourceKind: 'tickets',
-
+        entityName:'Ticket',
         scheduleActivity: function() {
             App.navigateToActivityInsertView();
         },
