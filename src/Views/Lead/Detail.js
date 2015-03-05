@@ -99,7 +99,7 @@ define('crm/Views/Lead/Detail', [
             'WorkPhone'
         ],
         resourceKind: 'leads',
-        enityName:'Lead',
+        entityName:'Lead',
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view) {
@@ -186,7 +186,7 @@ define('crm/Views/Lead/Detail', [
                     list: true,
                     title: this.actionsText,
                     cls: 'action-list',
-                    name: 'QuickActionSection',
+                    name: 'QuickActionsSection',
                     children: [{
                             name: 'CallWorkPhoneAction',
                             property: 'WorkPhone',

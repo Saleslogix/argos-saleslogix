@@ -59,6 +59,7 @@ define('crm/Views/QuickFormDetailWidget', [
         quickFormName: null,
         quickFormModel: null,
         quickFormService: null,
+        showHeader: true,
         itemContentTemplate: new Simplate([
           '{%! $$.itemHeaderTemplate %}'
         ]),
@@ -152,26 +153,29 @@ define('crm/Views/QuickFormDetailWidget', [
                 rowHtml,
                 rowValueTpl,
                 headerValue,
-                index;
+                index,
+                itemsFrag, 
+                itemsNode;
 
             contentFrag = document.createDocumentFragment();
             columns = this.getColumnLayout(layout);
-            if (columns.length > 0) {
-                headerValue = this.getValue(columns[0].rows[0], entry);
+            if (this.showHeader) {
+                if (columns.length > 0) {
+                    headerValue = this.getValue(columns[0].rows[0], entry);
+                }
+                contentNode = domConstruct.toDom(this.itemContentTemplate.apply({ HeaderValue: headerValue }, this));
+                contentFrag.appendChild(contentNode);
             }
-            contentNode = domConstruct.toDom(this.itemContentTemplate.apply({ HeaderValue: headerValue }, this));
-            contentFrag.appendChild(contentNode);
-
             itemsFrag = document.createDocumentFragment();
             itemsNode = domConstruct.toDom('<div class="content-items"></div>');
             rowValueTpl = this.itemValueTemplate;
-            index = 0
+            index = 0;
             columns.forEach(function (column) {
                 index++;
                 colNode = domConstruct.toDom('<div class="column"></div>');
                 if (column.rows) {
                     column.rows.forEach(function (item) {
-                        if ((item.column === 0) && (item.row === 0)) {
+                        if ((item.column === 0) && (item.row === 0)&& (this.showHeader)) {
                             return;
                         }
                         rowFrag = document.createDocumentFragment();

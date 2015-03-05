@@ -33,6 +33,7 @@ define('crm/Views/_QuickFormDetailMixin', [
             'MoreDetailsSection': false,
             'RelatedItemsSection':true
         },
+
         postMixInProperties: function () {
             if (App.enableQuickFormDetail) {
                 this.originalCreateLayout = this.createLayout;
@@ -40,51 +41,98 @@ define('crm/Views/_QuickFormDetailMixin', [
             }
         },
         quickFormCreateLayout: function () {
-            var formLoaded, qfService, quickFormDetailSection, quickFormEditSection, currentLayout, newLayout = [];
+            var detailLoaded,
+                moreLoaded,
+                editLoaded,
+                qfService,
+                quickFormDetailSection,
+                quickFormEditSection,
+                quickFormMoreSection,
+                currentLayout,
+                newLayout = [];
             currentLayout = this.originalCreateLayout(arguments);
 
-            formLoaded = false;
             qfService = App.serviceManager.get('quickFormService');
             if (qfService) {
-                formLoaded = qfService.isFormLoaded(this.entityName + 'MobileDetail');
+                detailLoaded = qfService.isFormLoaded(this.entityName + 'MobileDetail');
+                moreLoaded = qfService.isFormLoaded(this.entityName + 'MobileDetailMore');
+                editLoaded = qfService.isFormLoaded(this.entityName + 'MobileDetailEdit');
             }
-            if (!formLoaded) {
+            if (!detailLoaded) {
                 return currentLayout;
             }
             //add Quick Form related view widget
-            quickFormDetailSection = {
-                title: 'Detail',
-                list: true,
-                name: 'QuickFormDetailViews',
-                children: [{
-                    name: this.entityName + '_quickFormDetail',
-                    relatedView: {
-                        widgetType: 'quickFormDetail',
-                        id: this.entityName + '_quickFormDetail'
-                        //quickFormName:  this.entityName + 'MobileDetail'
-                    }
-                }]
-            };
-            quickFormEditSection = {
-                title: 'Quick Edit',
-                list: true,
-                collapsed: true,
-                name: 'QuickFormEditViews',
-                children: [{
-                    name: this.entityName + '_quickFormEdit',
-                    relatedView: {
-                        widgetType: 'quickFormEdit',
-                        id: this.entityName + '_quickFormEdit'
-                        //quickFormName:  this.entityName + 'MobileDetail'
-                    }
-                }]
-            };
+            if (detailLoaded) {
+                quickFormDetailSection = {
+                    title: 'Detail',
+                    list: true,
+                    name: 'QuickFormDetailViews',
+                    children: [{
+                        name: this.entityName + '_quickFormDetail',
+                        relatedView: {
+                            widgetType: 'quickFormDetail',
+                            id: this.entityName + '_quickFormDetail',
+                            quickFormName: this.entityName + 'MobileDetail'
+                        }
+                    }]
+                };
+                if (!editLoaded) {
+                    quickFormEditSection = {
+                        title: 'Quick Edit',
+                        list: true,
+                        collapsed: true,
+                        name: 'QuickFormEditViews',
+                        children: [{
+                            name: this.entityName + '_quickFormDetailQEdit',
+                            relatedView: {
+                                widgetType: 'quickFormEdit',
+                                id: this.entityName + '_quickFormDetailQEdit',
+                                quickFormName: this.entityName + 'MobileDetail'
+                            }
+                        }]
+                    };
+                }
+            }
+            if (moreLoaded) {
+                quickFormMoreSection = {
+                    title: 'More Detail',
+                    list: true,
+                    name: 'QuickFormMoreDetailViews',
+                    children: [{
+                        name: this.entityName + '_quickFormDetailMore',
+                        relatedView: {
+                            widgetType: 'quickFormDetail',
+                            id: this.entityName + '_quickFormDetailMore',
+                            showHeader: false,
+                            quickFormName: this.entityName + 'MobileDetailMore'
+                        }
+                    }]
+                };
+                
+            }
+            if (editLoaded) {
+                quickFormEditSection = {
+                    title: 'Edit',
+                    list: true,
+                    name: 'QuickFormDetailEditViews',
+                    children: [{
+                        name: this.entityName + '_quickFormDetailEdit',
+                        relatedView: {
+                            widgetType: 'quickFormEdit',
+                            id: this.entityName + '_quickFormDetailEdit',
+                            quickFormName: this.entityName + 'MobileDetailEdit'
+
+                        }
+                    }]
+                };
+            }
             this.layout.forEach(function (section) {
                 if (this.enabledSections[section.name]) {
                     newLayout.push(section);
                     if (section.name === 'QuickActionsSection') {
-                        newLayout.push(quickFormDetailSection);
-                        newLayout.push(quickFormEditSection);
+                        if (quickFormDetailSection) {newLayout.push(quickFormDetailSection); }
+                        if (quickFormMoreSection) { newLayout.push(quickFormMoreSection); }
+                        if (quickFormEditSection) { newLayout.push(quickFormEditSection); }
                     }
                 }
             }.bind(this));

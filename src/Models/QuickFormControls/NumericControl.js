@@ -3,11 +3,13 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/NumericControl', [
     'dojo/_base/declare',
+    'dojo/string',
     '../../Format',
     './_BaseControl',
     './ControlManager'
 ], function(
     declare,
+    string,
     format,
     _BaseControl,
     ControlManager
@@ -24,9 +26,12 @@ define('Mobile/SalesLogix/Models/QuickFormControls/NumericControl', [
             return null;
         },
         renderer: function(value, propertyName) {
-            var result = format.bigNumber(scope, value);
+            var result = format.bigNumber(value);
+            if (!result) {
+                result = '0';
+            }
             return string.substitute(
-                '<div class ="qfcontrol number">${0}</div>', [result]);
+                '<div class ="number">${0}</div>', [result]);
         }
     });
 

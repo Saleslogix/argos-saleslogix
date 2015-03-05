@@ -145,8 +145,8 @@ define('crm/Models/QuickFormModel', [
             return this._layout;
         },
         createSelect: function (forEdit) {
-            var layout;
-            select = [];
+            var layout,
+                select = [];
             layout = this.getLayout();
             if (layout) {
                 layout.forEach(function (item) {

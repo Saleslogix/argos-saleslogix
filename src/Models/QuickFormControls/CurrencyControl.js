@@ -25,6 +25,9 @@ define('Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl', [
         },
         renderer: function (value, propertyName) {
             var result = format.bigNumber(value);
+            if (!result) {
+                result = '0';
+            }
             return string.substitute(
                 '<div class ="currency">${0}</div>', [result]);
         }

@@ -3,6 +3,7 @@
  */
 define('crm/Models/QuickFormControls/DateControl', [
     'dojo/_base/declare',
+    'dojo/string',
     '../../Format',
     './_BaseControl',
     './ControlManager',
@@ -10,6 +11,7 @@ define('crm/Models/QuickFormControls/DateControl', [
 
 ], function(
     declare,
+    string,
     format,
     _BaseControl,
     ControlManager,
@@ -24,7 +26,7 @@ define('crm/Models/QuickFormControls/DateControl', [
         timeBindingProperty: 'DisplayTime',
         dateFormatTimelessText: 'MM/DD/YYYY',
         dateFormatText: 'M/D/YYYY h:mm A',
-        getRenderer: function () {
+        xgetRenderer: function () {
             if ((this.dataFormatText) && (this.dataFormatText !=='')) {
                 return format.date.bindDelegate(this, this.dateFormatText, null, true);
             }
@@ -60,6 +62,22 @@ define('crm/Models/QuickFormControls/DateControl', [
                 return this.dateFormatTimelessText;
             }
             return  this.dateFormatText;
+        },
+        renderer: function (value, propertyName) {
+            var result, formatter, timeless;
+            timeless = true;
+            if ((this.dataFormatText) && (this.dataFormatText !== '')) {
+                formatter = format.date.bindDelegate(this, this.dateFormatText, null, true);
+            } else {
+                formatter = format.relativeDate.bind(this);
+            }
+            if (value) {
+                result = formatter.call(this, value, timeless);
+            }
+            if (!result) {
+                result = '';
+            }
+            return string.substitute('<div class ="date">${0}</div>', [result]);
         }
     });
 
