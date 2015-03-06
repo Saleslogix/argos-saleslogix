@@ -17,6 +17,22 @@ module.exports = function(grunt) {
                     cwd: '.'
                 }
             }
+        },
+        argosRelease: {
+            command: 'build\\release.cmd',
+            options: {
+                execOptions: {
+                    cwd: '<%= argos.basePath %>'
+                }
+            }
+        },
+        crmRelease: {
+            command: 'build\\release.cmd',
+            options: {
+                execOptions: {
+                    cwd: '<%= crm.basePath %>'
+                }
+            }
         }
     });
 

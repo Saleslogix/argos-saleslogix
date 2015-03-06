@@ -949,6 +949,8 @@ td.entry-table-description {
 }
 
 .update-toolbar {
+    @height: 44px;
+
     display: none;
     position: absolute;
     top: 0;
@@ -964,26 +966,30 @@ td.entry-table-description {
     z-index: 10;
 
     background-color: @color-emerald;
-}
 
-.update-toolbar > h1 {
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: normal;
-    color: #fff;
+    height: @height;
 
-    position: absolute;
-    z-index: 0;
-}
+    > h1 {
+        width: 100%;
+        line-height: @height;
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: normal;
+        color: #fff;
 
-.update-toolbar > .toolButton {
-    background: transparent;
-    border: none 0 black;
+        position: absolute;
+        z-index: 0;
+    }
 
-    .box-shadow(none);
+    > .toolButton {
+        background: transparent;
+        border: none 0 black;
+
+        .box-shadow(none);
+    }
 }
 
 .update-available /* body */

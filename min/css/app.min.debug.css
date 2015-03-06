@@ -811,8 +811,11 @@ td.entry-table-description {
   padding: 0px 0px 10px 0px;
   z-index: 10;
   background-color: #2db329;
+  height: 44px;
 }
 .update-toolbar > h1 {
+  width: 100%;
+  line-height: 44px;
   margin: 0;
   padding: 0;
   font-weight: normal;
