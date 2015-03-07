@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.config('manifest', {
         deploy: {
             options: {
-                basePath: '<%= crm.deployPath %>',
+                basePath: '<%= products["argos-saleslogix"].basePath + "/deploy" %>',
                 exclude: ['web.config', 'manifest.appcache'],
                 network: ['../sdata/'],
                 timestamp: true,

@@ -1,8 +1,8 @@
 module.exports = function(grunt) {
     grunt.config('copy', {
-        argosDeploy: {
+        deploy: {
             files: [
-                {expand: true, cwd: '<%= argos.deployPath %>', src:['**'], dest: '<%= crm.deployPath %>' }
+                {expand: true, cwd: '', src:['**'], dest: '' }
             ]
         },
         manifest: {
