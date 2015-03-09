@@ -66,7 +66,11 @@ define('crm/Views/Activity/MyList', [
           '</li>'
         ]),
         activityTimeTemplate: new Simplate([
-            '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}'
+            '{% if ($$.isTimelessToday($)) { %}',
+                '{%: $$.allDayText %}',
+            '{% } else { %}',
+                '{%: crm.Format.relativeDate($.Activity.StartDate, argos.Convert.toBoolean($.Activity.Timeless)) %}',
+            '{% } %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
@@ -570,6 +574,14 @@ define('crm/Views/Activity/MyList', [
                 }
             }
             return false;
+        },
+        isTimelessToday: function(entry) {
+            if (!entry || !entry.Activity || !entry.Activity.Timeless) {
+                return false;
+            }
+
+            var start = moment(entry.Activity.StartDate);
+            return this._isTimelessToday(start);
         },
         isRecurring: function(entry) {
             if (entry['Activity']['Recurring']) {
