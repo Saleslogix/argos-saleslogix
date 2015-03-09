@@ -1,0 +1,38 @@
+CACHE MANIFEST
+@version
+@culture
+
+CACHE:
+# css
+content/css/themes/crm/sdk.min.crm.css
+content/css/app.min.css
+
+# fonts
+content/css/themes/fonts/FontAwesome.otf?v=4.1.0
+content/css/themes/fonts/fontawesome-webfont.eot?v=4.1.0
+content/css/themes/fonts/fontawesome-webfont.svg?v=4.1.0
+content/css/themes/fonts/fontawesome-webfont.ttf?v=4.1.0
+content/css/themes/fonts/fontawesome-webfont.woff?v=4.1.0
+
+# images
+@include 'content/images'
+
+# dojo
+@include 'content/dojo', /.*(?<!uncompressed|-debug)\.js$/i
+
+# application
+@include 'content/javascript', /.*(?<!-debug)\.js$/i
+@include 'content/javascript', /.*(?<!-debug)\.txt$/i
+
+# environment
+@include 'configuration', /^production.js$/i
+
+# localization
+@localize 'localization', '{0}.js'
+
+# help
+@localize 'help', 'help_{0}.html'
+help/help.html
+
+NETWORK:
+../sdata/
