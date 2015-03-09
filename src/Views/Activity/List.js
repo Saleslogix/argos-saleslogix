@@ -58,7 +58,7 @@ define('crm/Views/Activity/List', [
 
     var __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
         // Localization
-        allDayText: 'All day',
+        allDayText: 'Timeless',
         completeActivityText: 'Complete',
         callText: 'Call',
         calledText: 'Called',
