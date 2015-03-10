@@ -107,6 +107,12 @@ define('crm/Views/Activity/Edit', [
             120: '2 hours'
         },
 
+        /**
+         * @property {Number}
+         * The number of minutes that should be rounded to as a default start when creating a new activity
+         */
+        ROUND_MINUTES: 15,
+
         //View Properties
         id: 'activity_edit',
         detailView: 'activity_detail',
@@ -620,32 +626,34 @@ define('crm/Views/Activity/Edit', [
 
             return recur.toString(recurrence, true);
         },
-        applyUserActivityContext: function(optionsDate) {
-            var currentDate = optionsDate.startOf('day'),
-                userOptions = App.context['userOptions'],
-                startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
+        _getCalculatedStartTime: function(selectedDate) {
+            var now = moment(),
                 startDate;
 
-            if (startTime && (currentDate.valueOf() === moment().startOf('day').valueOf())) {
-                startDate = currentDate.clone()
-                    .hours(startTime.hours())
-                    .minutes(startTime.minutes());
-            } else {
-                startTime = moment();
-                startDate = currentDate.startOf('day').hours(startTime.hours())
-                    .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
+            if (!moment.isMoment(selectedDate)) {
+                selectedDate = moment(selectedDate);
             }
 
+            // Take the start of the selected date, add the *current* time to it,
+            // and round it up to the nearest ROUND_MINUTES
+            // Examples:
+            // 11:24 -> 11:30
+            // 11:12 -> 11:15
+            // 11:31 -> 11:45
+            startDate = selectedDate.startOf('day').hours(now.hours())
+                .add({'minutes': (Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES) + this.ROUND_MINUTES});
+
             return startDate;
+
+        },
+        applyUserActivityContext: function(optionsDate) {
+            return this._getCalculatedStartTime(optionsDate);
         },
         applyContext: function() {
             this.inherited(arguments);
 
             var startTime = moment(),
-                startDate = moment().startOf('day').hours(startTime.hours()).add({
-                    'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
-                }),
+                startDate = this._getCalculatedStartTime(moment()),
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
                 activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15,
