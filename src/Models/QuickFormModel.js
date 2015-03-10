@@ -99,7 +99,7 @@ define('crm/Models/QuickFormModel', [
          * action items `enabled` property.
          * @param {Object} selection 
          */
-        init: function(){
+        xinit: function(){
             this.initModelData();
         },      
         initModelData: function () {
@@ -206,6 +206,17 @@ define('crm/Models/QuickFormModel', [
         },
         getInclude:function(){
             return null;
+        },
+        getPicklistNames: function () {
+            var names = [];
+            this.modelData.entity.Controls.forEach(function (control) {
+                if (control.$type === 'Sage.SalesLogix.QuickForms.QFControls.QFSLXPickList, Sage.SalesLogix.QuickForms.QFControls') {
+                    if (control.PickListName) {
+                        names.push(control.PickListName);
+                    }
+                }
+            }.bind(this));
+            return names;
         },
         _getResourceKind:function(){
             return 'unknown';

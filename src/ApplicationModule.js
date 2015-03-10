@@ -126,6 +126,7 @@ define('crm/ApplicationModule', [
 
     './Services/QuickFormService',
     './Services/EntityService',
+    './Services/PicklistService',
     './Views/QuickFormDetailWidget',
     './Views/QuickFormEditWidget',
 

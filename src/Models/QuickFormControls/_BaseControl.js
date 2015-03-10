@@ -78,7 +78,10 @@ define('crm/Models/QuickFormControls/_BaseControl', [
             return this._selectPropertyPath;
         },
         getRenderer: function () {
-            return this.renderer;
+            if (this.renderer) {
+               return  this.renderer.bind(this);
+            }
+            return null;
         },
         getTemplate: function () {
             return null;

@@ -16,6 +16,7 @@ define('crm/Services/_ModelServiceBase', [
     'dojo/when',
     'dojo/_base/Deferred',
     'dojo/string',
+    'argos/Store/SData',
     '../Models/_ModelBase',
     './_ServiceBase'
 
@@ -25,10 +26,11 @@ define('crm/Services/_ModelServiceBase', [
     when,
     Deferred,
     string,
+    SData,
     _ModelBase,
     _ServiceBase
 ) {
-
+    var _modelRequests = [];
     return declare('crm.Services._ModelServiceBase', [_ServiceBase], {
         
         
@@ -40,14 +42,63 @@ define('crm/Services/_ModelServiceBase', [
         service: null,
         Model: _ModelBase,
         nameProperty: 'Name',
-        resourceKind: null,
-        contractName:'metadata',
+        service: null,
+        contractName: 'metadata',
+        /**
+        * @cfg {String} resourceKind
+        * The SData resource kind the view is responsible for.  This will be used as the default resource kind
+        * for all SData requests.
+        */
+        resourceKind: '',
+        /**
+         * @cfg {String[]}
+         * A list of fields to be selected in an SData request.
+         */
+        querySelect: null,
+        /**
+         * @cfg {String[]?}
+         * A list of child properties to be included in an SData request.
+         */
+        queryInclude: null,
+        /**
+         * @cfg {String}
+         * A where claus to filter the  SData request.
+         */
+        queryWhere: '',
+        /**
+         * @cfg {String}
+         * A orderBy clause to sort the  SData request.
+         */
+        queryOrderBy: '',
+        /**
+         * @cfg {String?/Function?}
+         * The default resource property for an SData request.
+         */
+        resourceProperty: null,
+        /**
+         * @cfg {String?/Function?}
+         * The default resource predicate for an SData request.
+         */
+        resourcePredicate: null,
+
+        itemsProperty: '$resources',
+        idProperty: '$key',
+        labelProperty: '$descriptor',
+        entityProperty: '$name',
+        versionProperty: '$etag',
+        maxItems: 500,
+        queryStore: null,
+        _isInitalized: false,
+        _modelRequests: _modelRequests,
         constructor: function(o) {
             this.service = App.getService(false);
             lang.mixin(this, o);
         },
         init: function () {
-            this.initModelData();
+            if (!this._isInitalized) {
+                this.initModelData();
+            }
+            this._isInitalized = true;
         },
         initModelData: function () {
             var dataPromise;
@@ -58,20 +109,37 @@ define('crm/Services/_ModelServiceBase', [
             });
         },
         getModel: function (name, refresh) {
-            var request, queryResults, deferred, model;
+            var request,
+                queryResults,
+                deferred,
+                model,
+                models,
+                querStore,
+                queryOptions;
             deferred = new Deferred();
             model = this.store[name];
             if ((!model) || refresh) {
-                request = this.getModelRequest(name);
-                queryResults = request.read({
-                    success: function (modelData) {
-                        model = this.addModel(name, modelData);
-                        deferred.resolve(model);
-                    }.bind(this),
-                    failure: function (err) {
-                        deferred.reject(err);
-                    }.bind(this)
-                });
+                models = [];
+                queryStore = this.getQueryStore();
+                queryOptions = {
+                    where: string.substitute(this.nameProperty + ' eq "${0}"', [name]),
+                },
+                queryResults = queryStore.query(null, queryOptions);
+                when(queryResults, function (modelFeed) {
+                    if (modelFeed) {
+                        modelFeed.forEach(function (modelData) {
+                            if (modelData.entity) {
+                                model = this.addModel(modelData.entity[this.nameProperty], modelData);
+                            } else {
+                                model = this.addModel(modelData[this.nameProperty], modelData);
+                            }
+                            models.push(model);
+                        }.bind(this));
+                    }
+                    deferred.resolve(models[0]);
+                }.bind(this), function (err) {
+                    deferred.reject(err);
+                }.bind(this));
 
             } else {
                 deferred.resolve(model);
@@ -79,7 +147,11 @@ define('crm/Services/_ModelServiceBase', [
             return deferred.promise;
         },
         getModels: function (queryOptions, refresh) {
-            var request, queryResults, deferred, models;
+            var request,
+                queryResults,
+                deferred,
+                models,
+               queryStore;
             deferred = new Deferred();
             models = [];
             if (refresh) {
@@ -88,60 +160,68 @@ define('crm/Services/_ModelServiceBase', [
             for (var name in this.store) {
                models.push(this.store[name]);
             }
-            if ((models.length < 1)||refresh) {
-                request = this.getModelsRequest(queryOptions);
-                queryResults = request.read({
-                    success: function (result) {
-                        var model, modelData;
-                        if(result.$resources){
-                            result.$resources.forEach(function(modelData){
+            if ((models.length < 1) || refresh) {
+                queryOptions = {start:0, count:this.maxItems};
+                queryStore = this.getQueryStore();
+                queryResults = queryStore.query(null,queryOptions);
+                when(queryResults, function (modelFeed) {
+                    if (modelFeed) {
+                        modelFeed.forEach(function (modelData) {
+                            if (modelData.entity) {
                                 model = this.addModel(modelData.entity[this.nameProperty], modelData);
-                                models.push(model);
-                            }.bind(this));
-                        }
-                        deferred.resolve(models);
-                    }.bind(this),
-                    failure: function (err) {
-                        deferred.reject(err);
-                    }.bind(this)
-                });
+                            } else {
+                                model = this.addModel(modelData[this.nameProperty], modelData);
+                            }
+                            models.push(model);
+                        }.bind(this));
+                    }
+                    deferred.resolve(models);
+                }.bind(this), function (err) {
+                    deferred.reject(err);
+                }.bind(this));
 
             } else {
                 deferred.resolve(models);
             }
             return deferred.promise;
         },
+        getLoadedModel: function (name) {
+            return this.store[name];
+        },
         addModel:function(name, modelData){
             var model = this.createModel(modelData);
-            console.log('Loaded ' + model.type + ' model: ' + model.name);
+            console.log('Loaded ' + model.type + ':' + name);
             this.store[name] = model;
             return model;
         },
-        getModelRequest: function (name) {
-            var request;
-            request = new Sage.SData.Client.SDataSingleResourceRequest(this.service)
-                     .setResourceKind(this.resourceKind)
-                     .setContractName(this.contractName)
-                     .setResourceSelector(string.substitute('"${0}"', [name]))
-                     .setQueryArg('language', App.currentCulture != 'iv' ? App.currentCulture : '')
-                     .setQueryArg('_indented', 'true');
-            return request;
-
+        getQueryOptions: function () {
+            var options = {
+                service: this.service,
+                contractName: this.contractName,
+                resourceKind: this.resourceKind,
+                resourceProperty: this.resourceProperty,
+                resourcePredicate: this.resourcePredicate,
+                include: this.queryInclude,
+                select: this.querySelect,
+                orderBy: this.queryOrderBy,
+                where: this.queryWhere,
+                itemsProperty: this.itemsProperty,
+                idProperty: this.idProperty,
+                labelProperty: this.labelProperty,
+                entityProperty: this.entityProperty,
+                versionProperty: this.versionProperty,
+                start: 0,
+                count: this.maxItems,
+                scope: this
+            };
+            return options;
         },
-        getModelsRequest: function (queryOptions) {
-            var request;
-            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.service);
-            request.setResourceKind(this.resourceKind);
-            request.setContractName(this.contractName);
-            request.setQueryArg('start', 0);
-            request.setQueryArg('count', 100);
-            request.setQueryArg('_indented', 'true');
-            request.setQueryArg('language', App.currentCulture != 'iv' ? App.currentCulture : '');
-            if ((queryOptions)&&(queryOptions.where)) {
-                request.setQueryArg('where', queryOptions.where);
+        getQueryStore: function () {
+            if (!this.queryStore) {
+                var  options  = this.getQueryOptions();
+                this.queryStore = new SData(options);
             }
-            return request;
-
+            return this.queryStore;
         },
         createModel: function (modelData) {
             var model = new this.Model({ modelData: modelData });
@@ -153,8 +233,17 @@ define('crm/Services/_ModelServiceBase', [
                 return true;
             }
             return false;
-        }
-        
+        },
+        addRequest: function (name) {
+            this._modelRequests.push(name);
+        },
+        loadRequests: function(){
+            
+            this._modelRequests.forEach(function (name) {
+                this.getModel(name);
+            }.bind(this));
+
+        },
         
     });
 });

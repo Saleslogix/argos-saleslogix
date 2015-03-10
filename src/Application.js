@@ -535,14 +535,20 @@ define('crm/Application', [
             this.requestUserOptions();
             this.requestSystemOptions();
             this.setDefaultMetricPreferences();
-            this.initQuickFormServices();
+            this.initSalesLogixServices();
         },
         onRequestUserDetailsFailure: function(response, o) {
         },
-        initQuickFormServices: function () {
-            var qfs = App.serviceManager.get('quickFormService');
-            if (qfs && App.enableQuickFormDetail) {
-                qfs.init();
+        initSalesLogixServices: function () {
+            var qfs = App.serviceManager.get('quickFormService'),
+                pkls = App.serviceManager.get('picklistService');
+            if (App.enableQuickFormDetail) {
+                if (qfs) {
+                    qfs.init();
+                }
+                if (pkls) {
+                  //  pkls.init();
+                }
             }
         },
         requestUserOptions: function() {

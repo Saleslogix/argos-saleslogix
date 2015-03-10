@@ -18,11 +18,10 @@ define('crm/Services/_ServiceBase', [
     declare,
     lang
 ) {
-    var store = {};
+    //var _store = {};
     return declare('crm.Services._ServiceBase', null, {
         
-        store: store,
-        
+        store: null,
         /**
          * @property {String}
          * The unique (within the current form) name of the service
@@ -30,11 +29,11 @@ define('crm/Services/_ServiceBase', [
         name: 'baseService',
         
         constructor: function(o) {
+            this.store = {};
             lang.mixin(this, o);
         },
         init: function () {
             
-        }       
-        
+        }
     });
 });

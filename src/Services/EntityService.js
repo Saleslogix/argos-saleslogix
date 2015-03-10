@@ -40,6 +40,7 @@ define('crm/Services/EntityService', [
          */
         name: 'EntityService',
         resourceKind: 'entities',
+        nameProperty: 'name',
         Model: EntityModel,
         constructor: function (o) {
             lang.mixin(this, o);
@@ -83,7 +84,17 @@ define('crm/Services/EntityService', [
             modelOptions = lang.mixin(modelOptions, queryOptions);
             store = new SData(modelOptions);
             return store;
-        }
+        },
+        getModelByNameRequest: function (name) {
+            var request;
+            request = new Sage.SData.Client.SDataSingleResourceRequest(this.service)
+                     .setResourceKind(this.resourceKind)
+                     .setContractName(this.contractName)
+                     .setResourceSelector(string.substitute('"${0}"', [name]))
+                     .setQueryArg('_indented', 'true');
+            return request;
+
+        },
        
     });
     ServiceManager.register('entityService', service);

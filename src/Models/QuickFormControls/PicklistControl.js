@@ -3,11 +3,15 @@
  */
 define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
     'dojo/_base/declare',
+    'dojo/string',
+    '../../Format',
     './_BaseControl',
     './ControlManager',
     '../../Validator'
 ], function(
     declare,
+    string,
+    format,
     _BaseControl,
     ControlManager,
     validator
@@ -53,7 +57,54 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
                 return true;
             }
             return false;
+        },
+        getMode:function(){
+            if (this.controlData.StorageMode) {
+                return this.controlData.StorageMode;
+            }
+            return 'Text';
+        },
+        getValue: function (value) {
+            var result, mode = this.getMode();
+            if (mode === 'Code') {
+                return this.getValueByCode(value);
+            }
+            if(mode === 'ID'){
+                return this.getValueById(value);
+            }
+            return value;
+        },
+        getValueByCode: function(value){
+            result = value;
+            if (pklModel) {
+                result = pklModel.getValueByCode(value);
+            }
+            return result;
+        },
+        getValueById:function(value){
+            var result, pklModel = this.getPicklistModel();
+            result = value;
+            if (pklModel) {
+                result = pklModel.getValueById(value);
+            }
+            return result;
+        },
+        renderer: function (value, propertyName) {
+            var result = this.getValue(value);
+            if (!result) {
+                result = '';
+            }
+            return result;
+        },
+        getPicklistModel: function () {
+            var model, pkls;
+            pkls = App.serviceManager.get('picklistService');
+            if (pkls) {
+                model = pkls.getLoadedModel(this.getPicklistName());
+            }
+            return model;
         }
+
         
     });
 

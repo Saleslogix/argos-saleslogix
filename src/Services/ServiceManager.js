@@ -48,7 +48,7 @@ define('crm/Services/ServiceManager', [
             if (service) {
                 if (!service.instance) {
                     service.instance = new service.ctor();
-                    service.instance.init();
+                    //service.instance.init();
                 } 
                 instance = service.instance;
             }            

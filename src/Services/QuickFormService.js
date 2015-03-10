@@ -38,21 +38,33 @@ define('crm/Services/QuickFormService', [
          */
         name: 'QuickFormService',
         resourceKind: 'forms',
+        queryWhere: "DefinitionType eq 'Sage.Platform.QuickForms.MobileQuickFormMainDetailViewDefinition, Sage.Platform.QuickForms'",
+        queryOrderBy: 'name asc',
         Model: QuickFormModel,
         constructor: function(o) {
             lang.mixin(this, o);
         },
         initModelData: function () {
             var dataPromise, queryOptions;
-            queryOptions = {
-                where: "DefinitionType eq 'Sage.Platform.QuickForms.MobileQuickFormMainDetailViewDefinition, Sage.Platform.QuickForms'"
-            };
             console.log('Started initializing quickforms');
             dataPromise = this.getModels(queryOptions);
             dataPromise.then(function (models) {
                 if (models) {
                     console.log('Finished loading: (' + models.length + ') quickforms');
-                } 
+                }
+
+                var pkls = App.serviceManager.get('picklistService');
+                if (pkls) {
+                    models.forEach(function (model) {
+                        var picklists = model.getPicklistNames();
+                        if (picklists) {
+                            picklists.forEach(function (name) {
+                                pkls.addRequest(name);
+                            }.bind(this));
+                        }
+                    }.bind(this));
+                    pkls.loadRequests();
+                }
                 console.log('Finished initializing quickforms');
            });
         },

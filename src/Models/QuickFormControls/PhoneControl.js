@@ -28,7 +28,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PhoneControl', [
                 result = '';
             }
             return string.substitute(
-                '<div class ="phone" data-action="invokeAction" data-name="callPhone" data-propertyname="' + propertyName + '">${0}</div>', [result]);
+                '<div class ="href" data-action="invokeAction" data-name="callPhone" data-propertyname="' + propertyName + '">${0}</div>', [result]);
         }
     });
 

@@ -87,25 +87,17 @@ define('crm/Views/QuickFormDetailWidget', [
             '</div>',
             '<div id="value" class="valueCell">',
                '<div class="value">',
-                   '<h4>{%! $$.itemValueTemplate %}</h4>',
+                   '{%! $$.itemValueTemplate %}',
                 '</div>',
             '</div>'
         ]),
         itemLabelTemplate: new Simplate([
-            '{% if ($.$layout.readonly) { %}',
-                 '<div class="label"><h4>{%: $.$layout.label %}</h4></div>',
-            '{% } else { %}',
-                '<div class="label edit"><h4>{%: $.$layout.label %}</h4></div>',
-            '{% } %}'
+            '<div class="label">{%: $.$layout.label %}</div>'
         ]),
         itemValueTemplate: new Simplate([
                 '{%: $.$value %}',
         ]),
-        itemEditRowTemplate: new Simplate([
-            '<div class="label"><h4>{%: $.label %}</h4></div>',
-            '<div class="editCell {%: $$.editCls %}" data-edit-field="{%: $.name %}" data-rowindex="{%: $.$index %}" data-field-type="{%: $.type %}">',
-           '</div>'
-        ]),
+        
         onInit: function(options) {
             this._isInitLoad = true;
             this.quickFormService = App.serviceManager.get('quickFormService');
@@ -306,6 +298,9 @@ define('crm/Views/QuickFormDetailWidget', [
             this.formModel = formModel;
             if (!this.entityName) {
                 this.entityName = formModel.getMainEntityName();
+            }
+            if (this.formModel.modelData.entity.ImagePath) {
+                this.iconClass = this.formModel.modelData.entity.ImagePath;
             }
             queryOptions = {
                 select: formModel.getSelect(),
