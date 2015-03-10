@@ -74,18 +74,20 @@ define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
             }
             return value;
         },
-        getValueByCode: function(value){
-            result = value;
+        getValueByCode: function(code){
+            var value = code,
+                pklModel = this.getPicklistModel();
             if (pklModel) {
-                result = pklModel.getValueByCode(value);
+                value = pklModel.getValueByCode(code);
             }
-            return result;
+            return value;
         },
-        getValueById:function(value){
-            var result, pklModel = this.getPicklistModel();
-            result = value;
+        getValueById:function(Id){
+            var result,
+                pklModel = this.getPicklistModel();
+            result = Id;
             if (pklModel) {
-                result = pklModel.getValueById(value);
+                result = pklModel.getValueById(Id);
             }
             return result;
         },

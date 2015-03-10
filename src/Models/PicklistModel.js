@@ -75,9 +75,6 @@ define('crm/Models/PicklistModel', [
             this.initModelData();
         },
         initModelData: function () {
-            if (this.modelData) {
-                //this.
-            }
         },
         getValueByCode: function (code) {
             var value = '<Not Found>',
@@ -104,7 +101,7 @@ define('crm/Models/PicklistModel', [
             if (this.modelData && this.modelData.items && this.modelData.items.$resources) {
                 items = this.modelData.items.$resources;
             }
-            return items
+            return items;
         }
     });
 });

@@ -39,7 +39,6 @@ define('crm/Services/_ModelServiceBase', [
          * The unique (within the current form) name of the service
          */
         name: 'modelServiceBase',
-        service: null,
         Model: _ModelBase,
         nameProperty: 'Name',
         service: null,
@@ -114,8 +113,9 @@ define('crm/Services/_ModelServiceBase', [
                 deferred,
                 model,
                 models,
-                querStore,
+                queryStore,
                 queryOptions;
+
             deferred = new Deferred();
             model = this.store[name];
             if ((!model) || refresh) {
@@ -123,7 +123,7 @@ define('crm/Services/_ModelServiceBase', [
                 queryStore = this.getQueryStore();
                 queryOptions = {
                     where: string.substitute(this.nameProperty + ' eq "${0}"', [name]),
-                },
+                };
                 queryResults = queryStore.query(null, queryOptions);
                 when(queryResults, function (modelFeed) {
                     if (modelFeed) {
@@ -150,8 +150,10 @@ define('crm/Services/_ModelServiceBase', [
             var request,
                 queryResults,
                 deferred,
+                model,
                 models,
-               queryStore;
+                queryStore;
+
             deferred = new Deferred();
             models = [];
             if (refresh) {
