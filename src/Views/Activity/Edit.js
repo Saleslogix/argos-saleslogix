@@ -107,6 +107,12 @@ define('crm/Views/Activity/Edit', [
             120: '2 hours'
         },
 
+        /**
+         * @property {Number}
+         * The number of minutes that should be rounded to as a default start when creating a new activity
+         */
+        ROUND_MINUTES: 15,
+
         //View Properties
         id: 'activity_edit',
         detailView: 'activity_detail',
@@ -620,44 +626,43 @@ define('crm/Views/Activity/Edit', [
 
             return recur.toString(recurrence, true);
         },
-        applyUserActivityContext: function(context) {
-            var view = App.getView(context.id);
-            if (view && view.currentDate)
-            {
-                var currentDate = view.currentDate.startOf('day'),
-                    userOptions = App.context['userOptions'],
-                    startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
-                    startDate;
+        _getCalculatedStartTime: function(selectedDate) {
+            var now = moment(),
+                startDate;
 
-                if (startTime && (currentDate.valueOf() == moment().startOf('day').valueOf()))
-                {
-                    startDate = currentDate.clone()
-                        .hours(startTime.hours())
-                        .minutes(startTime.minutes());
-                }
-                else
-                {
-                    startTime = moment();
-                    startDate = currentDate.startOf('day').hours(startTime.hours())
-                        .add({'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15});
-                }
-
-                this.fields['StartDate'].setValue(startDate.toDate());
+            if (!moment.isMoment(selectedDate)) {
+                selectedDate = moment(selectedDate);
             }
+
+            // Take the start of the selected date, add the *current* time to it,
+            // and round it up to the nearest ROUND_MINUTES
+            // Examples:
+            // 11:24 -> 11:30
+            // 11:12 -> 11:15
+            // 11:31 -> 11:45
+            startDate = selectedDate.startOf('day').hours(now.hours())
+                .add({'minutes': (Math.floor(now.minutes() / this.ROUND_MINUTES) * this.ROUND_MINUTES) + this.ROUND_MINUTES});
+
+            return startDate;
+
+        },
+        applyUserActivityContext: function(optionsDate) {
+            return this._getCalculatedStartTime(optionsDate);
         },
         applyContext: function() {
             this.inherited(arguments);
 
             var startTime = moment(),
-                startDate = moment().startOf('day').hours(startTime.hours()).add({
-                    'minutes': (Math.floor(startTime.minutes() / 15) * 15) + 15
-                }),
+                startDate = this._getCalculatedStartTime(moment()),
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
                 activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15,
                 alarmEnabled = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmEnabled'] || true,
                 alarmDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':AlarmLead'] || 15;
+
+            if (this.options && this.options.currentDate) {
+                startDate = this.applyUserActivityContext(moment(this.options.currentDate));
+            }
 
             this.fields['StartDate'].setValue(startDate.toDate());
             this.fields['Type'].setValue(activityType);
@@ -685,9 +690,7 @@ define('crm/Views/Activity/Edit', [
                     'contacts': this.applyContactContext,
                     'opportunities': this.applyOpportunityContext,
                     'tickets': this.applyTicketContext,
-                    'leads': this.applyLeadContext,
-                    'useractivities': this.applyUserActivityContext,
-                    'activities': this.applyUserActivityContext
+                    'leads': this.applyLeadContext
                 };
 
             if (context && lookup[context.resourceKind]) {
@@ -699,14 +702,6 @@ define('crm/Views/Activity/Edit', [
                 var context = (o.options && o.options.source) || o;
 
                 if (/^(accounts|contacts|opportunities|tickets|leads)$/.test(context.resourceKind) && context.key) {
-                    return true;
-                }
-
-                if (/^(useractivities)$/.test(context.resourceKind)) {
-                    return true;
-                }
-
-                if (/^(activities)$/.test(context.resourceKind) && context.options['currentDate']) {
                     return true;
                 }
 

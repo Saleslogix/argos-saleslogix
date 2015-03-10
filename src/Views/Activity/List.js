@@ -58,7 +58,7 @@ define('crm/Views/Activity/List', [
 
     var __class = declare('crm.Views.Activity.List', [List, _RightDrawerListMixin, _CardLayoutListMixin], {
         // Localization
-        allDayText: 'All-Day',
+        allDayText: 'Timeless',
         completeActivityText: 'Complete',
         callText: 'Call',
         calledText: 'Called',
@@ -80,7 +80,11 @@ define('crm/Views/Activity/List', [
             '</li>'
         ]),
         activityTimeTemplate: new Simplate([
-            '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}'
+            '{% if ($$.isTimelessToday($)) { %}',
+                '{%: $$.allDayText %}',
+            '{% } else { %}',
+                '{%: crm.Format.relativeDate($.StartDate, argos.Convert.toBoolean($.Timeless)) %}',
+            '{% } %}'
         ]),
         itemTemplate: new Simplate([
             '<h3>',
@@ -321,6 +325,19 @@ define('crm/Views/Activity/List', [
                 }
             }
             return false;
+        },
+        isTimelessToday: function(entry) {
+            if (!entry || !entry.Timeless) {
+                return false;
+            }
+
+            var start = moment(entry.StartDate);
+            return this._isTimelessToday(start);
+        },
+        _isTimelessToday: function(start) {
+            // Start is UTC, convert it to local time so we can compare it against "now"
+            start.add({ minutes: start.zone() });
+            return start.isAfter(moment().startOf('day')) && start.isBefore(moment().endOf('day'));
         },
         isRecurring: function(entry) {
             if (entry['RecurrenceState']) {

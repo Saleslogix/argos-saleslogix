@@ -92,7 +92,8 @@ define('crm/Views/Activity/TypesList', [
                             source: source,
                             activityType: params.key,
                             title: this.activityTypeText[params.key],
-                            returnTo: this.options && this.options.returnTo
+                            returnTo: this.options && this.options.returnTo,
+                            currentDate: this.options && this.options.currentDate
                         },{
                             returnTo: -1
                     });

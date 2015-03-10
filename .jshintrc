@@ -16,6 +16,7 @@
         "Base64": false,
         "Chart": false,
         "argos": false,
-        "crm": false
+        "crm": false,
+        "module": false
     }
 }

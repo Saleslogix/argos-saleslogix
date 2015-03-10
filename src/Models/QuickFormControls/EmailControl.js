@@ -22,7 +22,10 @@ define('Mobile/SalesLogix/Models/QuickFormControls/EmailControl', [
             return 'text';
         },
         renderer: function (value, propertyName) {
-        return string.substitute(
+            if (!value) {
+                value = '';
+            }
+            return string.substitute(
             '<div class ="href" data-action="invokeAction" data-name="sendEmail" data-propertyname="' + propertyName + '">${0}</div>', [value]);
     }
     });

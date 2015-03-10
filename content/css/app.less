@@ -949,6 +949,8 @@ td.entry-table-description {
 }
 
 .update-toolbar {
+    @height: 44px;
+
     display: none;
     position: absolute;
     top: 0;
@@ -964,26 +966,30 @@ td.entry-table-description {
     z-index: 10;
 
     background-color: @color-emerald;
-}
 
-.update-toolbar > h1 {
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: normal;
-    color: #fff;
+    height: @height;
 
-    position: absolute;
-    z-index: 0;
-}
+    > h1 {
+        width: 100%;
+        line-height: @height;
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: normal;
+        color: #fff;
 
-.update-toolbar > .toolButton {
-    background: transparent;
-    border: none 0 black;
+        position: absolute;
+        z-index: 0;
+    }
 
-    .box-shadow(none);
+    > .toolButton {
+        background: transparent;
+        border: none 0 black;
+
+        .box-shadow(none);
+    }
 }
 
 .update-available /* body */
@@ -1506,6 +1512,11 @@ td.entry-table-description {
     }
 
 }
+canvas,
+.legend {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* ios */
+    -webkit-tap-highlight-color: transparent; /* android */
+}
 .related-view-detail-content {
     background-color: @background-light;
 }
@@ -1550,13 +1561,10 @@ td.entry-table-description {
             position: relative;
             .border-radius(4px);
             margin: 3px;
-            // background-color: @color-azure;
-            // color: #ffffff;
             min-width: 44px;
             min-height: 44px;
 
             .button {
-                // background-color: transparent;
                 color: black;
                 outline: none;
                 border: none;
@@ -1568,7 +1576,6 @@ td.entry-table-description {
             line-height: 1.2em;
             font-size: 14px;
             margin: 2px 0px 0px 45px;
-            //line-height: inherit;
             .column {
                 overflow: hidden;
                 display: inline-block;
@@ -1628,4 +1635,6 @@ td.entry-table-description {
         }
     }
 }
+
+
 

@@ -151,13 +151,8 @@ define('crm/Views/OpportunityProduct/Edit', [
             return o;
         },
         applyContext: function(templateEntry) {
-            var context, view, entry;
-            context = App.queryNavigationContext(function(o) {
-                return (/^(opportunities)$/).test(o.resourceKind) && o.key;
-            });
+            var entry = this.options && this.options.selectedEntry;
 
-            view = App.getView(context && context.id);
-            entry = view && view.entry;
             if (entry) {
                 this.fields['Opportunity'].setValue(entry);
             }
