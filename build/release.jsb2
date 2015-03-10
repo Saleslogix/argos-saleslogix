@@ -621,6 +621,10 @@
           "path": "../src/Models"
         },
         {
+          "text": "PicklistModel.js",
+          "path": "../src/Models"
+        },
+        {
           "text": "_BaseControl.js",
           "path": "../src/Models/QuickFormControls"
         },
@@ -694,6 +698,10 @@
         },
         {
           "text": "QuickFormService.js",
+          "path": "../src/Services"
+        },
+        {
+          "text": "PicklistService.js",
           "path": "../src/Services"
         },
         {
