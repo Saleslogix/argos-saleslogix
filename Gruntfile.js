@@ -15,11 +15,11 @@ module.exports = function(grunt) {
             },
             'argos-sdk':{
                 basePath: '../../argos-sdk'
-            }/*,
-            'argos-sample': {
-                basePath: '../argos-sample'
-            }*/
-        }
+            }
+        },
+        // modules.json is the same format as the productions configuration above.
+        // Use grunt release:all or grunt release:modules to include them in a release build.
+        modules: grunt.file.readJSON('modules.json')
     });
 
     // Load per-task config from separate files

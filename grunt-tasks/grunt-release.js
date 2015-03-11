@@ -1,6 +1,8 @@
 module.exports = function(grunt) {
-    grunt.registerTask('release', 'Full release build for all products in the configuration', function() {
-        var product, products, options;
+    grunt.registerTask('release:all', ['release:modules']);
+
+    grunt.registerTask('release', 'Full release build for all products in the configuration', function(arg1) {
+        var product, modules, options;
 
         grunt.config.requires('products');
         grunt.config.requires('products.argos-sdk');
@@ -8,16 +10,18 @@ module.exports = function(grunt) {
         grunt.config.requires('products.argos-saleslogix');
         grunt.config.requires('products.argos-saleslogix.basePath');
 
-        products = grunt.config.get('products');
+        modules = grunt.config.get('modules');
 
         // Run argos-saleslogix first, so cleaning it's deploy folder won't mess up
         // other modules that might run before it
         grunt.task.run('release:product:argos-saleslogix');
-        delete products['argos-saleslogix'];
+        grunt.task.run('release:product:argos-sdk');
 
-        // Build the rest (argos-sdk is included as a product, even though it isn't in the "products" folder)
-        for (product in products) {
-            grunt.task.run('release:product:' + product);
+        // Build any included modules if this task was run as release:all
+        if (arg1 === 'modules') {
+            Object.keys(modules).forEach(function(module) {
+                grunt.task.run('release:product:' + module);
+            });
         }
 
         grunt.task.run('manifest:deploy');
@@ -25,7 +29,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('release:product', 'Release for a individual product', function() {
-        var targets, product, products, options, defaultConfig;
+        var targets, product, products, modules, options, defaultConfig;
 
         targets = Array.prototype.slice.call(arguments);
 
@@ -35,7 +39,12 @@ module.exports = function(grunt) {
 
         product = targets[0];
         products = grunt.config.get('products');
-        options = products[product];
+        modules = grunt.config.get('modules');
+        options = products[product] || modules[product];
+
+        if (!options) {
+            grunt.fail.fatal('invalid product or module specified');
+        }
 
         defaultConfig = grunt.config.get('clean.deploys');
         defaultConfig.src = options.basePath + '/deploy';
