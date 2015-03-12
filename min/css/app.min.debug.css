@@ -1284,3 +1284,106 @@ canvas,
   -webkit-tap-highlight-color: transparent;
   /* android */
 }
+.related-view-detail-content {
+  background-color: #f3f3f3;
+}
+.related-view-detail-widget .content-panel {
+  list-style: none;
+  padding: 8px 0px 8px 8px;
+  position: relative;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  margin: 3px;
+  background-color: #fff;
+}
+.related-view-detail-widget .content-panel .loading {
+  display: none;
+  padding: 0;
+}
+.related-view-detail-widget .content-panel .header {
+  float: left;
+  width: 80%;
+}
+.related-view-detail-widget .content-panel .selector {
+  background-color: #c7cbce;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin: 0px 8px 0px 0px;
+}
+.related-view-detail-widget .content-panel .icon {
+  margin: 8px 0px 0px 10px;
+  font-size: 1.5em;
+  text-align: center;
+}
+.related-view-detail-widget .content-panel .toolBar {
+  padding: 2px 2px 2px 2px;
+  position: relative;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  margin: 3px;
+  min-width: 44px;
+  min-height: 44px;
+}
+.related-view-detail-widget .content-panel .toolBar .button {
+  color: black;
+  outline: none;
+  border: none;
+  font-size: 1.5em;
+}
+.related-view-detail-widget .content-panel .content-items {
+  line-height: 1.2em;
+  font-size: 14px;
+  margin: 2px 0px 0px 45px;
+}
+.related-view-detail-widget .content-panel .content-items .column {
+  overflow: hidden;
+  display: inline-block;
+  padding-right: 4px;
+  min-width: 225px;
+  vertical-align: top;
+  width: 30%;
+}
+.related-view-detail-widget .content-panel .content-items .row {
+  padding: 2px;
+  height: 1em;
+}
+.related-view-detail-widget .content-panel .content-items .row .labelCell {
+  float: left;
+  color: #9a9a9a;
+  font-weight: normal;
+}
+.related-view-detail-widget .content-panel .content-items .row .label {
+  color: #9a9a9a;
+  font-weight: normal;
+  margin-right: 4px;
+}
+.related-view-detail-widget .content-panel .content-items .row .valueCell {
+  float: left;
+  color: #4d4d4d;
+  font-weight: normal;
+}
+.related-view-detail-widget .content-panel .content-items .row .value {
+  color: #4d4d4d;
+  font-weight: normal;
+}
+.related-view-detail-widget .content-panel .content-items .row .value .currency {
+  color: #2db329;
+}
+.related-view-detail-widget .content-panel .content-items .row .value .phone {
+  color: #005ce6;
+}
+.related-view-detail-widget .content-panel .content-items .row .value .url {
+  color: #005ce6;
+}
+.related-view-detail-widget .content-panel .content-items .row .value .address {
+  color: #005ce6;
+}
+.related-view-detail-widget .content-panel .content-items .row .value .email {
+  color: #005ce6;
+}

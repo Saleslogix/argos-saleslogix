@@ -1510,10 +1510,131 @@ td.entry-table-description {
             }
         }
     }
-}
 
+}
 canvas,
 .legend {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* ios */
     -webkit-tap-highlight-color: transparent; /* android */
 }
+.related-view-detail-content {
+    background-color: @background-light;
+}
+
+.related-view-detail-widget {
+
+    .content-panel {
+        list-style: none;
+        padding: 8px 0px 8px 8px;
+        position: relative;
+        .border-radius(8px);
+        margin: 3px;
+        background-color: #fff;
+
+        .loading {
+            display: none;
+            padding: 0;
+        }
+
+        .header {
+            float: left;
+            width: 80%;
+        }
+
+        .selector {
+            background-color: @gray2-dark;
+            .border-radius(40px);
+            width: 40px;
+            height: 40px;
+            float: left;
+            margin: 0px 8px 0px 0px;
+        }
+
+        .icon {
+            margin: 8px 0px 0px 10px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .toolBar {
+            padding: 2px 2px 2px 2px;
+            position: relative;
+            .border-radius(4px);
+            margin: 3px;
+            min-width: 44px;
+            min-height: 44px;
+
+            .button {
+                color: black;
+                outline: none;
+                border: none;
+                font-size: 1.5em;
+            }
+        }
+
+        .content-items {
+            line-height: 1.2em;
+            font-size: 14px;
+            margin: 2px 0px 0px 45px;
+            .column {
+                overflow: hidden;
+                display: inline-block;
+                padding-right: 4px;
+                min-width: 225px;
+                vertical-align: top;
+                width: 30%;
+            }
+
+            .row {
+                padding: 2px;
+                height: 1em;
+
+                .labelCell {
+                    float: left;
+                    color: @form-label-color;
+                    font-weight: @form-label-font-weight;
+                }
+
+                .label {
+                    color: @form-label-color;
+                    font-weight: @form-label-font-weight;
+                    margin-right: 4px;
+                }
+
+                .valueCell {
+                    float: left;
+                    color: @form-value-color;
+                    font-weight: @form-value-font-weight;
+                }
+
+                .value {
+                    color: @form-value-color;
+                    font-weight: @form-value-font-weight;
+                    .currency {
+                            color: @color-emerald;
+                        }
+
+                        .phone {
+                            color: @color-deep-azure;
+                        }
+
+                        .url {
+                            color: @color-deep-azure;
+                        }
+
+                        .address {
+                            color: @color-deep-azure;
+                        }
+
+                        .email {
+                            color: @color-deep-azure;
+                        }
+
+                }
+            }
+        }
+    }
+}
+
+
+

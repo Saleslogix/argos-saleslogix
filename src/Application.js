@@ -25,7 +25,8 @@ define('crm/Application', [
     './Environment',
     'argos/Application',
     'dojo/sniff',
-    'moment'
+    'moment',
+    './Services/ServiceManager'
 ], function(
     win,
     declare,
@@ -40,7 +41,8 @@ define('crm/Application', [
     environment,
     Application,
     sniff,
-    moment
+    moment,
+    ServiceManager
 ) {
 
     var __class = declare('crm.Application', [Application], {
@@ -104,7 +106,11 @@ define('crm/Application', [
         homeViewId: 'myactivity_list',
         loginViewId: 'login',
         logOffViewId: 'logoff',
-
+        /**
+         * The singelton Manager that stores refrence to other service instance
+         * @property {Object}
+        */
+        serviceManager: ServiceManager,
         init: function() {
             var original,
                 app = this;
@@ -529,8 +535,21 @@ define('crm/Application', [
             this.requestUserOptions();
             this.requestSystemOptions();
             this.setDefaultMetricPreferences();
+            this.initSalesLogixServices();
         },
         onRequestUserDetailsFailure: function(response, o) {
+        },
+        initSalesLogixServices: function () {
+            var qfs = App.serviceManager.get('quickFormService'),
+                pkls = App.serviceManager.get('picklistService');
+            if (App.enableQuickFormDetail) {
+                if (qfs) {
+                    qfs.init();
+                }
+                if (pkls) {
+                  //  pkls.init();
+                }
+            }
         },
         requestUserOptions: function() {
             var batch = new Sage.SData.Client.SDataBatchRequest(this.getService())

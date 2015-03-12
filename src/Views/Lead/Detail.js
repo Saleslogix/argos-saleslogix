@@ -14,16 +14,18 @@ define('crm/Views/Lead/Detail', [
     'dojo/_base/lang',
     'dojo/string',
     '../../Format',
-    'argos/Detail'
+    'argos/Detail',
+    '../_QuickFormDetailMixin'
 ], function(
     declare,
     lang,
     string,
     format,
-    Detail
+    Detail,
+    _QuickFormDetailMixin
 ) {
 
-    var __class = declare('crm.Views.Lead.Detail', [Detail], {
+    var __class = declare('crm.Views.Lead.Detail', [Detail, _QuickFormDetailMixin], {
         //Localization
         activityTypeText: {
             'atPhoneCall': 'Phone Call',
@@ -97,7 +99,7 @@ define('crm/Views/Lead/Detail', [
             'WorkPhone'
         ],
         resourceKind: 'leads',
-
+        entityName:'Lead',
         navigateToHistoryInsert: function(type, entry, complete) {
             var view = App.getView(this.historyEditView);
             if (view) {
@@ -184,7 +186,7 @@ define('crm/Views/Lead/Detail', [
                     list: true,
                     title: this.actionsText,
                     cls: 'action-list',
-                    name: 'QuickActionSection',
+                    name: 'QuickActionsSection',
                     children: [{
                             name: 'CallWorkPhoneAction',
                             property: 'WorkPhone',

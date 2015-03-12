@@ -124,6 +124,12 @@ define('crm/ApplicationModule', [
     './Fields/PicklistField',
     './Fields/RecurrencesField',
 
+    './Services/QuickFormService',
+    './Services/EntityService',
+    './Services/PicklistService',
+    './Views/QuickFormDetailWidget',
+    './Views/QuickFormEditWidget',
+
     './Action',
     './Format',
     './Template',
