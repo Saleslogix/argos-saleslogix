@@ -28,7 +28,8 @@ define('crm/Models/QuickFormModel', [
     './QuickFormControls/PicklistControl',
     './QuickFormControls/LookupControl',
     './QuickFormControls/NumericControl',
-    './QuickFormControls/CurrencyControl'
+    './QuickFormControls/CurrencyControl',
+    './QuickFormControls/LinkControl'
 
 ], function(
     declare,
@@ -48,7 +49,8 @@ define('crm/Models/QuickFormModel', [
     PicklistControl,
     LookupControl,
     NumericControl,
-    CurrencyControl
+    CurrencyControl,
+    LinkControl
 
 ) {
 
@@ -99,7 +101,7 @@ define('crm/Models/QuickFormModel', [
          * action items `enabled` property.
          * @param {Object} selection 
          */
-        xinit: function(){
+        init: function(){
             this.initModelData();
         },      
         initModelData: function () {
@@ -114,7 +116,7 @@ define('crm/Models/QuickFormModel', [
                     var layoutItem, controlModel, fieldControlOptions;
 
                     controlModel = this.getControlModel(control);
-                    if (controlModel && controlModel.controlData.Visible && controlModel.controlData.Enabled) {
+                    if (controlModel && controlModel.controlData.Visible) {
                         layoutItem = {
                             name: controlModel.getControlId(),
                             label: controlModel.getCaption(),

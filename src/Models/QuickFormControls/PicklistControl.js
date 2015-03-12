@@ -1,7 +1,7 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/PicklistControl', [
+define('crm/Models/QuickFormControls/PicklistControl', [
     'dojo/_base/declare',
     'dojo/string',
     '../../Format',

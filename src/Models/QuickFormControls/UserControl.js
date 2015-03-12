@@ -1,7 +1,7 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/UserControl', [
+define('crm/Models/QuickFormControls/UserControl', [
     'dojo/_base/declare',
     '../../Template',
     '../../Format',
@@ -47,7 +47,6 @@ define('Mobile/SalesLogix/Models/QuickFormControls/UserControl', [
             var valuePath;
             if (!this._parentPropertyPath) {
                 valuePath = this.getValuePropertyPath();
-                //this._parentPropertyPath = '';
             }
             return this._parentPropertyPath;
         },

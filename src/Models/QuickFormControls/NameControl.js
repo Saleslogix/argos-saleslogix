@@ -1,7 +1,7 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/NameControl', [
+define('crm/Models/QuickFormControls/NameControl', [
     'dojo/_base/declare',
     '../../Format',
     './_BaseControl',

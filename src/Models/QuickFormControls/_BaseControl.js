@@ -36,12 +36,23 @@ define('crm/Models/QuickFormControls/_BaseControl', [
         },
         getValuePropertyPath: function () {
             if (!this._valuePropertyPath) {
-                this.controlData.DataBindings.forEach(function (binding) {
-                    if ((binding.BindingType === 'Property') && (binding.ControlItemName === this.valueBindingProperty)) {
-                        this._valuePropertyPath = binding.DataItemName;
-                    }
+                if (this.valueBindingProperty && typeof this.valueBindingProperty === "object") {
+                    this._valuePropertyPath = [];
+                    this.controlData.DataBindings.forEach(function (binding) {
+                        if ((binding.BindingType === 'Property') && (this.valueBindingProperty[binding.ControlItemName])) {
+                            this._valuePropertyPath.push(binding.DataItemName);
+                        }
 
-                }.bind(this));
+                    }.bind(this));
+
+                } else {
+                    this.controlData.DataBindings.forEach(function (binding) {
+                        if ((binding.BindingType === 'Property') && (binding.ControlItemName === this.valueBindingProperty)) {
+                            this._valuePropertyPath = binding.DataItemName;
+                        }
+
+                    }.bind(this));
+                }
             }
 
             return this._valuePropertyPath;
@@ -54,7 +65,11 @@ define('crm/Models/QuickFormControls/_BaseControl', [
             if (!this._parentPropertyPath) {
                 valuePath = this.getValuePropertyPath();
                 if (valuePath) {
-                    this._parentPropertyPath = valuePath.split('.')[0];
+                    if (Array.isArray(valuePath)) {
+                        this._parentPropertyPath = valuePath[0].split('.')[0];
+                    } else {
+                        this._parentPropertyPath = valuePath.split('.')[0];
+                    }
                 }
             }
             return this._parentPropertyPath;

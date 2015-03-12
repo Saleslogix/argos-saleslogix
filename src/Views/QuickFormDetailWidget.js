@@ -249,12 +249,11 @@ define('crm/Views/QuickFormDetailWidget', [
             if (Array.isArray(layoutItem.valuePropertyPath)) {
                 if (layoutItem.applyTo === '.') {
                     value = {};
-                    //values = {};
                     layoutItem.valuePropertyPath.forEach(function (path) {
                         value[path] = utility.getValue(entry, path, '');
                     }.bind(this));
                 } else {
-                    value = utility.getValue(entry, layoutItem.parentPropertyPath, '');
+                    value = entry; //utility.getValue(entry, layoutItem.parentPropertyPath, '');
                 }
                 
             } else {
@@ -320,34 +319,71 @@ define('crm/Views/QuickFormDetailWidget', [
         },
         invokeAction: function (action, params, evt, el) {
             var resolvedEntry, selection, propertyName, actionName, options;
-            propertyName = params.propertyname;
             actionName = params.name;
            if (this.entry) {
-                options = {
-                    selection: {
-                        data: this.entry
-                    },
-                    propertyName: propertyName
-                };
-                this._invokeActionByName(actionName, options);
+               this._invokeActionByName(actionName, params);
             }
 
         },
-        _invokeActionByName: function (actionName, options) {
-            if (!options) {
-                options = {};
-            }
+        _invokeActionByName: function (actionName, params) {
+            var options;
             switch (actionName) {
                 case 'callPhone':
+                    options = {
+                        selection: {
+                            data: this.entry
+                        },
+                        propertyName: params.propertyName
+                    };
                     action.callPhone.call(this, null, options.selection, options.propertyName);
                     break;
                 case 'sendEmail':
+                    options = {
+                        selection: {
+                            data: this.entry
+                        },
+                        propertyName: params.propertyName
+                    };
                     action.sendEmail.call(this, null, options.selection, options.propertyName);
+                    break;
+                case 'goTo':
+                    this.goToView(params);
                     break;
                 default:
                     break;
             }
 
+        },
+        goToView:function(params){
+            var textProperty,
+                keyProperty,
+                entityName,
+                entityId,
+                viewId,
+                options,
+                view;
+
+            if (params) {
+                textProperty = params.textproperty;
+                keyProperty = params.keyproperty;
+                entityName = params.entityname;
+                entityId = params.entityid;
+                viewId = params.viewid;
+                
+                if (!viewId) {
+                    viewId = viewId = (entityName) ? entityName.toLowerCase() + "_detail" : '';
+                }
+
+                options = {
+                    key: utility.getValue(this.entry, keyProperty),
+                    descriptor: utility.getValue(this.entry, textProperty)
+                };
+                view = App.getView(viewId);
+
+                if (view && options.key) {
+                    view.show(options);
+                }
+            }
         },
         setSource:function(){
         }

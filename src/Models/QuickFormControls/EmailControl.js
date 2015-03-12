@@ -1,7 +1,7 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/EmailControl', [
+define('crm/Models/QuickFormControls/EmailControl', [
     'dojo/_base/declare',
     'dojo/string',
     './_BaseControl',
@@ -14,7 +14,7 @@ define('Mobile/SalesLogix/Models/QuickFormControls/EmailControl', [
     ControlManager
 ) {
     var _type = 'Sage.SalesLogix.QuickForms.QFControls.QFSLXEmail, Sage.SalesLogix.QuickForms.QFControls';
-    var control = declare('Mobile.SalesLogix.Models.QuickFormControls.EmailControl', [_BaseControl], {
+    var control = declare('crm.Models.QuickFormControls.EmailControl', [_BaseControl], {
         name:'email',
         type: _type,
         valueBindingProperty: 'Text',

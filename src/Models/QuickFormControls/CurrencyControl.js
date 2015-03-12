@@ -1,7 +1,7 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/CurrencyControl', [
+define('crm/Models/QuickFormControls/CurrencyControl', [
     'dojo/_base/declare',
     '../../Format',
     './_BaseControl',

@@ -1,7 +1,7 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/NumericControl', [
+define('crm/Models/QuickFormControls/NumericControl', [
     'dojo/_base/declare',
     'dojo/string',
     '../../Format',

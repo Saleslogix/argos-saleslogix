@@ -1,7 +1,7 @@
 /* 
  * See copyright file.
  */
-define('Mobile/SalesLogix/Models/QuickFormControls/OwnerControl', [
+define('crm/Models/QuickFormControls/OwnerControl', [
     'dojo/_base/declare',
     '../../Template',
     './_BaseControl',

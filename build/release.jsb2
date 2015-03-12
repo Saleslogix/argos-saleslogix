@@ -685,6 +685,10 @@
           "path": "../src/Models/QuickFormControls"
         },
         {
+          "text": "LinkControl.js",
+          "path": "../src/Models/QuickFormControls"
+        },
+        {
           "text": "ControlManager.js",
           "path": "../src/Models/QuickFormControls"
         },
