@@ -47,6 +47,7 @@
                 "classes": [
                     "argos._ActionMixin",
                     "argos._CustomizationMixin",
+                    "argos._ErrorHandleMixin",
                     "argos._PullToRefreshMixin",
                     "argos._ServiceMixin",
                     "argos._Templated",

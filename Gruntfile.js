@@ -1,14 +1,6 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        argos: {
-            basePath: '../../argos-sdk',
-            deployPath: '<%=argos.basePath%>/deploy'
-        },
-        crm: {
-            basePath: '.',
-            deployPath: '<%=crm.basePath%>/deploy'
-        },
         products: {
             'argos-saleslogix': {
                 basePath: '.'

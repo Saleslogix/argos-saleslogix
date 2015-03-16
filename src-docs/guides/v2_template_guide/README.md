@@ -59,7 +59,6 @@ To set up the service that all calls will use we will point to a public provider
 1\. Open `argos-template/configuration/development.js`
 
     define('configuration/development', ['Mobile/Template/ApplicationModule'], function(ApplicationModule) {
-
         return {
             modules: [
                 new ApplicationModule()
@@ -124,7 +123,7 @@ For our entity choice we will be making a List (and Detail, Edit) View of the en
     define('Mobile/Template/Views/Account/List', [
         'dojo/_base/declare',
         'dojo/string',
-        'Sage/Platform/Mobile/List'
+        'argos/List'
     ], function(
         declare,
         string,
@@ -294,7 +293,7 @@ Creating a Detail View is very similar to creating a List in that you need to do
     define('Mobile/Template/Views/Account/Detail', [
         'dojo/_base/declare',
         'dojo/string',
-        'Sage/Platform/Mobile/Detail'
+        'argos/Detail'
     ], function(
         declare,
         string,
@@ -465,7 +464,7 @@ Each row in a detail layout has the `renderer` property available which is used 
 Currently on our Detail View we have: an unclickable url and a name as `[Object object]`.
 
 ###Step 1: URLs
-Argos-SDK provides a number of built-in formatters available via `Sage.Platform.Mobile.Format` which has a `link` formatter.
+Argos-SDK provides a number of built-in formatters available via `argos.Format` which has a `link` formatter.
 
 
 1\. Open `argos-template/src/Detail/Account/Detail.js`.
@@ -475,8 +474,8 @@ Argos-SDK provides a number of built-in formatters available via `Sage.Platform.
     define('Mobile/Template/Views/Account/Detail', [
         'dojo/_base/declare',
         'dojo/string',
-        'Sage/Platform/Mobile/Format',
-        'Sage/Platform/Mobile/Detail'
+        'argos/Format',
+        'argos/Detail'
     ], function(
         declare,
         string,
@@ -563,7 +562,7 @@ Edit Views take a few extra steps to get up and running:
     define('Mobile/Template/Views/Account/Edit', [
         'dojo/_base/declare',
         'dojo/string',
-        'Sage/Platform/Mobile/Edit'
+        'argos/Edit'
     ], function(
         declare,
         string,
