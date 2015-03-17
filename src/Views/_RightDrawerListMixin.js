@@ -91,7 +91,7 @@ define('crm/Views/_RightDrawerListMixin', [
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 drawer.setLayout([]);
-                drawer.getGroupForEntry = function(entry) {};
+                drawer.getGroupForEntry = function() {};
                 App.snapper.off('close');
             }
         },
@@ -106,7 +106,7 @@ define('crm/Views/_RightDrawerListMixin', [
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
             var actions = {
-                hashTagClicked: function (params) {
+                hashTagClicked: function(params) {
                     if (this.groupsMode) {
                         this._clearGroupMode();
                     }
@@ -117,13 +117,13 @@ define('crm/Views/_RightDrawerListMixin', [
                         this.toggleRightDrawer();
                     }
                 }.bind(this),
-                kpiClicked: function (params) {
+                kpiClicked: function(params) {
                     var results, enabled, metrics;
 
                     metrics = App.getMetricsByResourceKind(this.resourceKind);
 
                     if (metrics.length > 0) {
-                        results = array.filter(metrics, function (metric) {
+                        results = array.filter(metrics, function(metric) {
                             return metric.title === params.title;
                         });
                     }
@@ -137,23 +137,18 @@ define('crm/Views/_RightDrawerListMixin', [
                         domAttr.set(params.$source, 'data-enabled', (!enabled).toString());
                     }
                 }.bind(this),
-                groupConfigureClicked: function () {
+                groupConfigureClicked: function() {
                     this._selectGroups();
                     this.toggleRightDrawer();
                 }.bind(this),
-                groupClicked: function (params) {
+                groupClicked: function(params) {
                     var group,
-                        groupList,
-                        template = [],
-                        selectColumns,
-                        extraSelectColumns = [],
-                        original = this._originalProps,
                         groupId;
 
                     this._startGroupMode();
                     groupId = params.$key;
 
-                    group = array.filter(this.groupList, function (item) {
+                    group = array.filter(this.groupList, function(item) {
                         return item.$key === groupId;
                     })[0];
 
@@ -164,7 +159,7 @@ define('crm/Views/_RightDrawerListMixin', [
                     this.refresh();
                     this.toggleRightDrawer();
                 }.bind(this),
-                layoutSelectedClicked: function (params) {
+                layoutSelectedClicked: function(params) {
                     var name = params.name;
                     GroupUtility.setSelectedGroupLayoutTemplate(this.entityName, name);
                     this._groupInitalized = false;
@@ -308,7 +303,7 @@ define('crm/Views/_RightDrawerListMixin', [
                     children: []
                 };
                 if (this.groupTemplateLayouts && this.groupTemplateLayouts.length > 0) {
-                    array.forEach(this.groupTemplateLayouts, function (layout) {
+                    array.forEach(this.groupTemplateLayouts, function(layout) {
 
                         layoutSection.children.push({
                             'name': layout.name,
@@ -321,7 +316,7 @@ define('crm/Views/_RightDrawerListMixin', [
                         });
                     });
                 }
-                
+
                 if (this.entityName) {
                     layout.push(groupsSection);
                     layout.push(layoutSection);

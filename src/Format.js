@@ -217,7 +217,6 @@ define('crm/Format', [
             return val;
         },
         relativeDate: function(date, timeless) {
-            var now;
             date = moment(date);
             if (!date || !date.isValid()) {
                 throw new Error('Invalid date passed into crm.Format.relativeDate');
@@ -321,12 +320,12 @@ define('crm/Format', [
                 v = val.toFixed(d); // only d decimal places
                 f = Math.floor((p * (v - Math.floor(v))).toPrecision(d)); // for fractional part, only need d significant digits
                 if (f === 0) {
-                    f = (p + "").slice(1);
+                    f = (String(p)).slice(1);
                 }
             } else {  //zero decimal palces
-               p = Math.pow(10, 0);
-               v = (Math.round(val * p) / p);
-               f = 0;
+                p = Math.pow(10, 0);
+                v = (Math.round(val * p) / p);
+                f = 0;
             }
             num = Math.floor(v).toString();
             num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace("\\.", '.'));
@@ -335,7 +334,7 @@ define('crm/Format', [
                 fVal = string.substitute(
                     '${0}'
                         + Mobile.CultureInfo.numberFormat.numberDecimalSeparator
-                        + '${1}', [num, frac]); 
+                        + '${1}', [num, frac]);
             } else {
                 fVal = num;
             }

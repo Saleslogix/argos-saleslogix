@@ -245,7 +245,7 @@ define('crm/Views/Activity/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('upper(Description) like "%${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        formatDateTime: function(dateTime) {
+        formatDateTime: function() {
             return 'StartTime';
         },
         getItemActionKey: function(entry) {
@@ -314,7 +314,7 @@ define('crm/Views/Activity/List', [
             return false;
         },
         isOverdue: function(entry) {
-            var startDate, currentDate, seconds, mins, days;
+            var startDate, currentDate, seconds, mins;
             if (entry['StartDate']) {
                 startDate = convert.toDateFromString(entry['StartDate']);
                 currentDate = new Date();
@@ -366,126 +366,125 @@ define('crm/Views/Activity/List', [
             return cls;
         },
         createActionLayout: function() {
-           return this.actions || (this.actions = [{
-               id: 'complete',
-               cls: 'fa fa-check-square fa-2x',
-               label: this.completeActivityText,
-               enabled: function(action, selection) {
-                   var recur, entry = selection && selection.data;
-                   if (!entry) {
-                       return false;
-                   }
-                   recur = false;
-                   if (entry['RecurrenceState'] === 'rstOccurrence') {
-                       recur = true;
-                   }
+            return this.actions || (this.actions = [{
+                id: 'complete',
+                cls: 'fa fa-check-square fa-2x',
+                label: this.completeActivityText,
+                enabled: function(action, selection) {
+                    var recur, entry = selection && selection.data;
+                    if (!entry) {
+                        return false;
+                    }
+                    recur = false;
+                    if (entry['RecurrenceState'] === 'rstOccurrence') {
+                        recur = true;
+                    }
 
-                   return entry['Leader']['$key'] === App.context['user']['$key'] && !recur;
-               },
-               fn: (function(action, selection) {
-                   var entry;
+                    return entry['Leader']['$key'] === App.context['user']['$key'] && !recur;
+                },
+                fn: (function(action, selection) {
+                    var entry;
 
-                   entry = selection && selection.data && selection.data;
+                    entry = selection && selection.data && selection.data;
 
-                   entry['CompletedDate'] = new Date();
-                   entry['Result'] = 'Complete';
+                    entry['CompletedDate'] = new Date();
+                    entry['Result'] = 'Complete';
 
-                   environment.refreshActivityLists();
-                   this.completeActivity(entry);
+                    environment.refreshActivityLists();
+                    this.completeActivity(entry);
 
-               }).bindDelegate(this)
-           }, {
-               id: 'call',
-               cls: 'fa fa-phone-square fa-2x',
-               label: this.callText,
-               enabled: function(action, selection) {
-                   var entry;
-                   entry = selection && selection.data;
-                   return entry && entry.PhoneNumber;
-               },
-               fn: function(action, selection) {
-                   var entry, phone;
-                   entry = selection && selection.data;
-                   phone = entry && entry.PhoneNumber;
-                   if (phone) {
-                       this.recordCallToHistory(function() {
-                           App.initiateCall(phone);
-                       }.bindDelegate(this), entry);
-                   }
-               }.bindDelegate(this)
-           }, {
-               id: 'addAttachment',
-               cls: 'fa fa-paperclip fa-2x',
-               label: this.addAttachmentActionText,
-               fn: action.addAttachment.bindDelegate(this)
-           }]
-           );
+                }).bindDelegate(this)
+            }, {
+                id: 'call',
+                cls: 'fa fa-phone-square fa-2x',
+                label: this.callText,
+                enabled: function(action, selection) {
+                    var entry;
+                    entry = selection && selection.data;
+                    return entry && entry.PhoneNumber;
+                },
+                fn: function(action, selection) {
+                    var entry, phone;
+                    entry = selection && selection.data;
+                    phone = entry && entry.PhoneNumber;
+                    if (phone) {
+                        this.recordCallToHistory(function() {
+                            App.initiateCall(phone);
+                        }.bindDelegate(this), entry);
+                    }
+                }.bindDelegate(this)
+            }, {
+                id: 'addAttachment',
+                cls: 'fa fa-paperclip fa-2x',
+                label: this.addAttachmentActionText,
+                fn: action.addAttachment.bindDelegate(this)
+            }]);
         },
         recordCallToHistory: function(complete, entry) {
-           var tempEntry = {
-               '$name': 'History',
-               'Type': 'atPhoneCall',
-               'ContactName': entry['ContactName'],
-               'ContactId': entry['ContactId'],
-               'AccountName': entry['AccountName'],
-               'AccountId': entry['AccountId'],
-               'Description': string.substitute("${0} ${1}", [this.calledText, (entry['ContactName'] || '')]),
-               'UserId': App.context && App.context.user['$key'],
-               'UserName': App.context && App.context.user['UserName'],
-               'Duration': 15,
-               'CompletedDate': (new Date())
-           };
+            var tempEntry = {
+                '$name': 'History',
+                'Type': 'atPhoneCall',
+                'ContactName': entry['ContactName'],
+                'ContactId': entry['ContactId'],
+                'AccountName': entry['AccountName'],
+                'AccountId': entry['AccountId'],
+                'Description': string.substitute("${0} ${1}", [this.calledText, (entry['ContactName'] || '')]),
+                'UserId': App.context && App.context.user['$key'],
+                'UserName': App.context && App.context.user['UserName'],
+                'Duration': 15,
+                'CompletedDate': (new Date())
+            };
 
-           this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
+            this.navigateToHistoryInsert('atPhoneCall', tempEntry, complete);
         },
         navigateToHistoryInsert: function(type, entry, complete) {
-           var view = App.getView(this.historyEditView);
-           if (view) {
-               environment.refreshActivityLists();
-               view.show({
-                   title: this.activityTypeText[type],
-                   template: {},
-                   entry: entry,
-                   insert: true
-               }, {
-                   complete: complete
-               });
-           }
+            var view = App.getView(this.historyEditView);
+            if (view) {
+                environment.refreshActivityLists();
+                view.show({
+                    title: this.activityTypeText[type],
+                    template: {},
+                    entry: entry,
+                    insert: true
+                }, {
+                    complete: complete
+                });
+            }
         },
         completeActivity: function(entry) {
-           var completeActivity, request, completeActivityEntry;
+            var request, completeActivityEntry;
 
-           completeActivityEntry = {
-               "$name": "ActivityComplete",
-               "request": {
-                   "entity": { '$key': entry['$key'] },
-                   "ActivityId": entry['$key'],
-                   "userId": entry['Leader']['$key'],
-                   "result": entry['Result'],
-                   "completeDate": entry['CompletedDate']
-               }
-           };
+            completeActivityEntry = {
+                "$name": "ActivityComplete",
+                "request": {
+                    "entity": { '$key': entry['$key'] },
+                    "ActivityId": entry['$key'],
+                    "userId": entry['Leader']['$key'],
+                    "result": entry['Result'],
+                    "completeDate": entry['CompletedDate']
+                }
+            };
 
-           request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
-               .setResourceKind('activities')
-               .setContractName('system')
-               .setOperationName('Complete');
+            request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
+                .setResourceKind('activities')
+                .setContractName('system')
+                .setOperationName('Complete');
 
-           request.execute(completeActivityEntry, {
-               success: function() {
-                   connect.publish('/app/refresh', [{
-                       resourceKind: 'history'
-                   }]);
+            request.execute(completeActivityEntry, {
+                success: function() {
+                    connect.publish('/app/refresh', [{
+                        resourceKind: 'history'
+                    }]);
 
-                   this.clear();
-                   this.refresh();
-               },
-               failure: this.onRequestFailure,
-               scope: this
-           });
+                    this.clear();
+                    this.refresh();
+                },
+                failure: this.onRequestFailure,
+                scope: this
+            });
         },
         onRequestFailure: function(response, o) {
-           ErrorManager.addError(response, o, {}, 'failure');
+            ErrorManager.addError(response, o, {}, 'failure');
         }
     });
 

@@ -334,8 +334,7 @@ define('crm/Views/Calendar/MonthView', [
         },
         toggleGroup: function(params) {
             var node = params.$source;
-            if (node && node.parentNode)
-            {
+            if (node && node.parentNode) {
                 domClass.toggle(node, 'collapsed');
                 domClass.toggle(node.parentNode, 'collapsed-event');
             }
@@ -359,8 +358,7 @@ define('crm/Views/Calendar/MonthView', [
         },
         getTodayMonthActivities: function() {
             var today = moment().startOf('day');
-            if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM'))
-            {
+            if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM')) {
                 this.currentDate = today;
                 this.highlightCurrentDate();
                 this.getSelectedDate();
@@ -370,8 +368,8 @@ define('crm/Views/Calendar/MonthView', [
             }
         },
         goToNextMonth: function() {
-             this.currentDate.add({months: 1});
-             this.refresh();
+            this.currentDate.add({months: 1});
+            this.refresh();
         },
         goToPreviousMonth: function() {
             this.currentDate.subtract({months: 1});
@@ -430,7 +428,7 @@ define('crm/Views/Calendar/MonthView', [
             alert(string.substitute(this.requestErrorText, [response, o]));
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onRequestEventDataAborted: function(response, o) {
+        onRequestEventDataAborted: function() {
             this.options = false; // force a refresh
         },
         onRequestEventDataSuccess: function(feed) {
@@ -489,8 +487,9 @@ define('crm/Views/Calendar/MonthView', [
                 this.entries[row.$key] = row;
 
                 startDay = moment(convert.toDateFromString(row.StartDate));
-                if (r[i].Timeless)
+                if (r[i].Timeless) {
                     startDay.add({minutes: startDay.zone()});
+                }
 
                 dateIndex = startDay.format('YYYY-MM-DD');
                 this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
@@ -526,8 +525,7 @@ define('crm/Views/Calendar/MonthView', [
                 startDay = moment(convert.toDateFromString(row.StartDate));
                 endDay = convert.toDateFromString(row.EndDate);
 
-                while(startDay.valueOf() <= endDay.valueOf())
-                {
+                while (startDay.valueOf() <= endDay.valueOf()) {
                     dateIndex = startDay.format('YYYY-MM-DD');
                     this.dateCounts[dateIndex] = (this.dateCounts[dateIndex])
                         ? this.dateCounts[dateIndex] + 1
@@ -583,9 +581,9 @@ define('crm/Views/Calendar/MonthView', [
             if (!requests) {
                 return;
             }
+
             array.forEach(requests, function(xhr) {
-                if (xhr) // if request was fulfilled by offline storage, xhr will be undefined
-                {
+                if (xhr) {// if request was fulfilled by offline storage, xhr will be undefined
                     xhr.abort();
                 }
             });
@@ -762,12 +760,10 @@ define('crm/Views/Calendar/MonthView', [
             for (i = 0; i <= 6; i++) {
                 calHTML.push(this.calendarWeekStartTemplate);
                 //Days
-                for (var j = 0; j <= 6; j++)
-                {
-                    if (day <= monthLength && (i > 0 || j >= startingDay))
-                    {
+                for (var j = 0; j <= 6; j++) {
+                    if (day <= monthLength && (i > 0 || j >= startingDay)) {
                         dayDate.date(day);
-                        dayClass = (dayDate.valueOf() == today.valueOf()) ? 'today' : '';
+                        dayClass = (dayDate.valueOf() === today.valueOf()) ? 'today' : '';
                         weekendClass = (weekEnds.indexOf(j) !== -1) ? ' weekend' : '';
                         calHTML.push(string.substitute(this.calendarDayTemplate,
                                                     [
@@ -776,9 +772,7 @@ define('crm/Views/Calendar/MonthView', [
                                                         dayDate.format('YYYY-MM-DD')
                                                     ]));
                         day++;
-                    }
-                    else
-                    {
+                    } else {
                         calHTML.push(this.calendarEmptyDayTemplate);
                     }
 
@@ -808,8 +802,7 @@ define('crm/Views/Calendar/MonthView', [
             }
         },
         processShowOptions: function(options) {
-            if (options.currentDate)
-            {
+            if (options.currentDate) {
                 this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
                 this.refreshRequired = true;
             }
@@ -875,7 +868,7 @@ define('crm/Views/Calendar/MonthView', [
                 options = {currentDate: this.currentDate.valueOf() || moment().startOf('day')};
             view.show(options);
         },
-        navigateToInsertView: function(el) {
+        navigateToInsertView: function() {
             var view = App.getView(this.insertView || this.editView);
 
             this.options.currentDate = this.currentDate.toString('yyyy-MM-dd') || Date.today();

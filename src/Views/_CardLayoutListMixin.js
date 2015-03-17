@@ -104,7 +104,7 @@ define('crm/Views/_CardLayoutListMixin', [
             }
             this.inherited(arguments);
         },
-        _intFooter: function(){
+        _intFooter: function() {
             if (!this.actions.length) {
                 this.itemFooterTemplate = new Simplate(['']);
             }
@@ -115,25 +115,24 @@ define('crm/Views/_CardLayoutListMixin', [
         getItemDescriptor: function(entry) {
             return entry.$descriptor || entry[this.labelProperty];
         },
-        getItemIconClass: function(entry, owner) {
+        getItemIconClass: function() {
             return this.itemIconClass;
         },
-        getItemIconSource: function(entry) {
+        getItemIconSource: function() {
             return this.itemIcon || this.icon || this.selectIcon;
         },
-        getItemIconAlt: function(entry) {
+        getItemIconAlt: function() {
             return this.itemIconAltText;
         },
         createIndicators: function(topIndicatorsNode, bottomIndicatorsNode, indicators, entry) {
-            var indicatorTemplate, indicator, options, indicatorHTML, i, iconPath, self = this;
+            var indicatorTemplate, options, indicatorHTML, i, iconPath, self = this;
             for (i = 0; i < indicators.length; i++) {
                 (function(indicator) {
                     iconPath = indicator.iconPath || self.itemIndicatorIconPath;
-
                     if (indicator.onApply) {
-                        try{
+                        try {
                             indicator.onApply(entry, self);
-                        }catch(err){
+                        } catch(err) {
                             indicator.isEnabled = false;
                         }
                     }
@@ -160,7 +159,7 @@ define('crm/Views/_CardLayoutListMixin', [
                         }
                     } else {
                         indicator.indicatorIcon = indicator.icon
-                            ? iconPath + indicator.icon 
+                            ? iconPath + indicator.icon
                             : '';
                     }
 
@@ -187,11 +186,12 @@ define('crm/Views/_CardLayoutListMixin', [
         },
         onApplyRowTemplate: function(entry, rowNode) {
             if (this.options && this.options.simpleMode && ( this.options.simpleMode === true)) {
-               return;
+                return;
             }
+
             this.applyRowIndicators(entry, rowNode);
         },
-        applyRowIndicators:function(entry, rowNode){
+        applyRowIndicators: function(entry, rowNode) {
             var topIndicatorsNode, bottomIndicatorsNode;
             if (this.itemIndicators && this.itemIndicators.length > 0) {
                 topIndicatorsNode = query('> #top_item_indicators', rowNode);
@@ -225,7 +225,7 @@ define('crm/Views/_CardLayoutListMixin', [
             }
             return false;
         },
-        requestData: function(){
+        requestData: function() {
             var mixin = lang.getObject(mixinName);
             if (this.searchWidget) {
                 this.currentSearchExpression = this.searchWidget.getSearchExpression() || mixin.prototype.allRecordsText;

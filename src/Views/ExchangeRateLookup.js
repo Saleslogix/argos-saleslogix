@@ -63,10 +63,10 @@ define('crm/Views/ExchangeRateLookup', [
         hasMoreData: function() {
             return false;
         },
-        refreshRequiredFor: function(options) {
+        refreshRequiredFor: function() {
             return true;
         },
-        formatSearchQuery: function(searchQuery) {
+        formatSearchQuery: function() {
         }
     });
 

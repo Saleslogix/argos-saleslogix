@@ -92,8 +92,7 @@ define('crm/Action', [
                 key: key
             });
 
-            var view = App.getView('history_edit'),
-                route;
+            var view = App.getView('history_edit');
 
             if (view) {
                 view.show({insert: true});

@@ -265,7 +265,7 @@ define('crm/Views/Calendar/DayView', [
             alert(string.substitute(this.requestErrorText, [response, o]));
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onRequestEventDataAborted: function(response, o) {
+        onRequestEventDataAborted: function() {
             this.options = false; // force a refresh
         },
         onRequestEventDataSuccess: function(feed) {
@@ -343,7 +343,7 @@ define('crm/Views/Calendar/DayView', [
         processFeed: function(feed) {
             var r = feed['$resources'],
                 feedLength = r.length,
-                o = [], remaining;
+                o = [];
 
             this.feed = feed;
             for (var i = 0; i < feedLength; i++) {
@@ -386,8 +386,7 @@ define('crm/Views/Calendar/DayView', [
             this.inherited(arguments, [options]);
         },
         processShowOptions: function(options) {
-            if (options.currentDate)
-            {
+            if (options.currentDate) {
                 this.currentDate = moment(options.currentDate).startOf('day') || moment().startOf('day');
                 this.refreshRequired = true;
             }
@@ -404,8 +403,13 @@ define('crm/Views/Calendar/DayView', [
             this.refresh();
         },
         getToday: function() {
-            if (this.isLoading()) return;
-            if (this.currentDate == moment().startOf('day')) return;
+            if (this.isLoading()) {
+                return;
+            }
+
+            if (this.currentDate === moment().startOf('day')) {
+                return;
+            }
 
             this.currentDate = moment().startOf('day');
             this.refresh();
@@ -486,7 +490,7 @@ define('crm/Views/Calendar/DayView', [
                 options = {currentDate: navDate.valueOf()};
             view.show(options);
         },
-        navigateToInsertView: function(el) {
+        navigateToInsertView: function() {
             var view = App.getView(this.insertView || this.editView);
 
             this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();

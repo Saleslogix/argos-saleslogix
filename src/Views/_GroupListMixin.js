@@ -25,8 +25,7 @@ define('crm/Views/_GroupListMixin', [
     'dojo/_base/lang',
     'argos/Store/SData',
     'dojo/Deferred',
-    '../Action',
-
+    '../Action'
 ], function(
     declare,
     string,
@@ -48,7 +47,6 @@ define('crm/Views/_GroupListMixin', [
     var mixinName = 'crm.Views._GroupListMixin';
 
     var __class = declare('crm.Views._GroupListMixin', null, {
-
         noDefaultGroupText: 'No default group set. Click here to configure groups.',
         currentGroupNotFoundText: 'The current group was not found.',
         groupTemplateSummaryText: 'Summary',
@@ -96,7 +94,7 @@ define('crm/Views/_GroupListMixin', [
         _overrideGroupLayout: null,
         enableDynamicGroupLayout: true,
         enableOverrideLayout: false,
-        
+
         selectedColumns: null,
         layout: null,
 
@@ -111,7 +109,7 @@ define('crm/Views/_GroupListMixin', [
             }
             this.inherited(arguments);
         },
-        startup: function () {
+        startup: function() {
             this.createGroupTemplates();
             this.inherited(arguments);
         },
@@ -124,7 +122,7 @@ define('crm/Views/_GroupListMixin', [
                 } else {
                     this.inherited(arguments);
                 }
-            } catch (e) {
+            } catch(e) {
                 console.error(e);
             }
         },
@@ -168,15 +166,15 @@ define('crm/Views/_GroupListMixin', [
 
             return null;
         },
-        initOverrideGroupLayout: function () {
-            this._requestOverrideGroupLayout().then(function (result) {
+        initOverrideGroupLayout: function() {
+            this._requestOverrideGroupLayout().then(function(result) {
                 this._overrideLayoutInitalized = true;
-                this._overrideGroupLayout = (result && (result.length > 0))?result[0].layout: null;                
+                this._overrideGroupLayout = (result && (result.length > 0))?result[0].layout: null;
                 this.initGroup();
             }.bind(this));
         },
         initGroup: function() {
-            var group, defaultLayout;
+            var group;
 
             if (this.enableOverrideLayout && !this._overrideLayoutInitalized && !this._overrideGroupLayout) {
                 this.initOverrideGroupLayout();
@@ -198,7 +196,7 @@ define('crm/Views/_GroupListMixin', [
             this._clearResolvedEntryCache();
         },
         _onApplyGroup: function(group) {
-            var template = [], layout, selectColumns, title;
+            var title;
 
             if (!group) {
                 throw new Error("Group not found.");
@@ -218,7 +216,7 @@ define('crm/Views/_GroupListMixin', [
 
             this.layout = GroupUtility.getLayout(group);
             this.selectColumns = GroupUtility.getColumnNames(this.layout);
-            this.itemTemplate = this.getItemTemplate(); // new Simplate(template);
+            this.itemTemplate = this.getItemTemplate();
 
             // Create a custom request that the store will use to execute the group query
             this.request = GroupUtility.createGroupRequest({
@@ -238,7 +236,7 @@ define('crm/Views/_GroupListMixin', [
             this._groupInitalized = true;
             this.requestData();
         },
-        _requestOverrideGroupLayout: function () {
+        _requestOverrideGroupLayout: function() {
             var store = null, queryResults, groupName, def = new Deferred();
             groupName = this.overrideGroupLayoutName;
             store = new SDataStore({
@@ -251,13 +249,12 @@ define('crm/Views/_GroupListMixin', [
                 applicationName: 'slx',
                 scope: this
             });
-            
 
             if (store) {
                 queryResults = store.query();
-                when(queryResults, function (relatedFeed) {
+                when(queryResults, function(relatedFeed) {
                     def.resolve(relatedFeed);
-                }, function (err) {
+                }, function() {
                     def.resolve(null);
                 });
             }
@@ -292,7 +289,7 @@ define('crm/Views/_GroupListMixin', [
                             }
                         }.bind(context));
                     }
-                    catch (error) {
+                    catch(error) {
                         console.log('Error fetching group data:' + error);
                     }
                 })(this, queryResults);
@@ -320,7 +317,7 @@ define('crm/Views/_GroupListMixin', [
             domClass.remove(this.domNode, 'list-loading');
             this.listLoading = false;
         },
-        _onGroupRequestFaild: function(result) {
+        _onGroupRequestFaild: function() {
 
         },
         getGroupTitle: function(group) {
@@ -330,12 +327,12 @@ define('crm/Views/_GroupListMixin', [
             }
             return group.displayName;
         },
-        getItemTemplate: function () {
+        getItemTemplate: function() {
             var layout, template, layoutTemplate ;
             layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             if (this.enableDynamicGroupLayout) {
                 layoutTemplate = this.getSelectedGroupLayoutTemplate();
-                if(layoutTemplate){
+                if (layoutTemplate) {
                     if (layoutTemplate.type === 'Dynamic') {
                         return this.getDynamicLayoutItemTemplate(layout, layoutTemplate.options);
                     }
@@ -360,9 +357,9 @@ define('crm/Views/_GroupListMixin', [
         defaultGroupLayoutItemTemplate: new Simplate([
            '<div><h2><span class="group-entry-header">{%= $$.getGroupFieldValueByIndex($, 0, true) %}</span></h2></div>',
            '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(1) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 1, true) %}</span></h4>',
-           '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>'          
+           '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>'
         ]),
-        createGroupTemplateLayouts: function(){
+        createGroupTemplateLayouts: function() {
             var mixin = lang.getObject(mixinName);
             this.groupTemplateLayouts = [{
                 name: 'Summary',
@@ -371,8 +368,8 @@ define('crm/Views/_GroupListMixin', [
                 options: {
                     columns: [{
                         id: 'col1',
-                        rows: 3,
-                    }]                    
+                        rows: 3
+                    }]
                 }
             }, {
                 name: 'Detail',
@@ -393,14 +390,15 @@ define('crm/Views/_GroupListMixin', [
 
                 }
             }];
+
             return this.groupTemplateLayouts;
         },
-        getSelectedGroupLayoutTemplate:function(){
+        getSelectedGroupLayoutTemplate:function() {
             var layoutTemplate, name;
             name = GroupUtility.getSelectedGroupLayoutTemplate(this.entityName);
             name = (name) ? name : '';
             layoutTemplate = null;
-            this.groupTemplateLayouts.forEach(function(item){
+            this.groupTemplateLayouts.forEach(function(item) {
                 if (item.name === name) {
                     layoutTemplate = item;
                 }
@@ -410,10 +408,10 @@ define('crm/Views/_GroupListMixin', [
             }
             return layoutTemplate;
         },
-        createGroupTemplates: function(){
+        createGroupTemplates: function() {
             this.groupTemplateLayouts = this._createCustomizedLayout(this.createGroupTemplateLayouts(), 'group-templates');
         },
-        getDynamicLayoutItemTemplate: function (layout, options) {
+        getDynamicLayoutItemTemplate: function(layout, options) {
             var template,
                 column,
                 row,
@@ -435,7 +433,7 @@ define('crm/Views/_GroupListMixin', [
             column = 1;
             row = 1;
             columns = layoutOptions.columns.length;
-            layoutOptions.columns.forEach(function (item) {
+            layoutOptions.columns.forEach(function(item) {
                 rows = rows + item.rows;
             });
             columnWidth = utility.roundNumberTo((100 / columns), 0);
@@ -487,31 +485,32 @@ define('crm/Views/_GroupListMixin', [
             template.push('</div>');
             return new Simplate(template);
         },
-        applyDynamicLayoutOptions:function(options){
+        applyDynamicLayoutOptions:function(options) {
             var layoutOptions = {
                 columns: [{rows:3}]
             };
             lang.mixin(layoutOptions, options);
             return layoutOptions;
         },
-        getGroupItemKey:function(groupEntry){
+        getGroupItemKey:function(groupEntry) {
             return groupEntry[this.idProperty];
         },
-        getGroupFieldFormatOptions: function (layoutItem) {
+        getGroupFieldFormatOptions: function(layoutItem) {
             var options, formatter = this.getFormatterByLayout(layoutItem);
             options = {
-                formatString: (formatter && formatter.formatString) ? formatter.formatString : null,
+                formatString: (formatter && formatter.formatString) ? formatter.formatString : null
             };
+
             if ((formatter && formatter.options)) {
                 lang.mixin(options, formatter.options);
             }
             return options;
         },
-        getGroupFieldLabelByName: function (name) {
+        getGroupFieldLabelByName: function(name) {
             var layoutItem, layout;
             layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             layoutItem = null;
-            layout.forEach(function (item) {
+            layout.forEach(function(item) {
                 if (item.propertyPath === name) {
                     layoutItem = item;
                 }
@@ -521,35 +520,35 @@ define('crm/Views/_GroupListMixin', [
             }
             return '';
         },
-        getGroupFieldValueByName: function (entry, name, applyFormat, formatOptions) {
+        getGroupFieldValueByName: function(entry, name, applyFormat, formatOptions) {
             var layout, layoutItem;
             layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             layoutItem = null;
-            layout.forEach(function(item){
+            layout.forEach(function(item) {
                 if (item.propertyPath === name) {
                     layoutItem = item;
                 }
-            });            
+            });
             return this.getGroupFieldValue(entry, layoutItem, applyFormat, formatOptions);
         },
-        getGroupFieldLabelByIndex:function(layoutIndex){
+        getGroupFieldLabelByIndex:function(layoutIndex) {
             var layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             if (layout[layoutIndex]) {
                 return layout[layoutIndex].caption;
             }
             return '';
         },
-        getGroupFieldValueByIndex: function (entry, layoutIndex, applyFormat, formatOptions) {
+        getGroupFieldValueByIndex: function(entry, layoutIndex, applyFormat, formatOptions) {
             var layoutItem, layout;
             layout = (this.enableOverrideLayout && this._overrideGroupLayout) ? this._overrideGroupLayout : this.layout;
             layoutItem = layout[layoutIndex];
             return this.getGroupFieldValue(entry, layoutItem, applyFormat, formatOptions);
         },
-        getGroupFieldValue: function (entry, layoutItem, applyFormat, formatOptions) {
+        getGroupFieldValue: function(entry, layoutItem, applyFormat, formatOptions) {
             var value, formatter, fieldName;
             value = null;
             formatter = null;
-            
+
             if ((layoutItem) && (applyFormat)) {
                 fieldName = this.getFieldNameByLayout(layoutItem);
                 if (applyFormat) {
@@ -581,7 +580,7 @@ define('crm/Views/_GroupListMixin', [
             }
             return formatter;
         },
-        getGroupFieldFormatter: function(layoutItem){
+        getGroupFieldFormatter: function(layoutItem) {
             var formatter;
             if (this.groupFieldFormatter) {
                 formatter = this.groupFieldFormatter[layoutItem.propertyPath];
@@ -591,10 +590,10 @@ define('crm/Views/_GroupListMixin', [
             }
             return formatter;
         },
-        groupTransformValue: function (value, layout, formatter, formatOptions) {
-            try{
+        groupTransformValue: function(value, layout, formatter, formatOptions) {
+            try {
                 return formatter.formatter(value, formatter.formatString, formatOptions);
-            } catch (e) {
+            } catch(e) {
                 return value;
             }
         },
@@ -657,7 +656,7 @@ define('crm/Views/_GroupListMixin', [
             this.clear();
             this.refreshRequired = true;
         },
-        onProcessRelatedViews: function(entry, rowNode, entries) {
+        onProcessRelatedViews: function() {
             if (this.groupsEnabled) {
                 return;
             }
@@ -667,10 +666,10 @@ define('crm/Views/_GroupListMixin', [
         _onQueryError: function(queryOptions, error) {
             if (this.groupsEnabled && this.groupsMode) {
                 if (error.status === 404) {
-                    try{
+                    try {
                         this._onGroupNotFound();
                         return;
-                    } catch (e) {
+                    } catch(e) {
                         console.error(e);
                     }
                 }
@@ -761,13 +760,15 @@ define('crm/Views/_GroupListMixin', [
             this.onApplyRowActionPanel(this.actionsNode, rowNode);
             domConstruct.place(this.actionsNode, rowNode, 'after');
         },
-        _getCurrentSelection:function(){
+        _getCurrentSelection:function() {
             var selection, selectedItems, key;
             selectedItems = this.get('selectionModel').getSelections();
             for (key in selectedItems) {
-                selection = selectedItems[key];
-                selection.data['$key'] = key;
-                break;
+                if (selectedItems.hasOwnProperty(key)) {
+                    selection = selectedItems[key];
+                    selection.data['$key'] = key;
+                    break;
+                }
             }
             return selection;
         },
@@ -783,7 +784,7 @@ define('crm/Views/_GroupListMixin', [
 
             queryOptions = {
                 select: this._originalProps.querySelect,
-                where: "Id eq '" + entryKey + "'",
+                where: "Id eq '" + entryKey + "'"
             };
 
             queryResults = store.query(null, queryOptions);
@@ -808,11 +809,11 @@ define('crm/Views/_GroupListMixin', [
             }
             return this._resolvedEntryCache[entryKey];
         },
-        _addResolvedEntry:function(entry){
+        _addResolvedEntry:function(entry) {
             this._resolvedEntryCache[entry.$key] = entry;
         },
         _groupCheckActionState: function(resolvedEntry) {
-            var resolvedSelection, key;
+            var resolvedSelection;
 
             resolvedSelection = {
                 data: resolvedEntry
@@ -846,7 +847,7 @@ define('crm/Views/_GroupListMixin', [
                         self.setCurrentGroup(group);
                         this.refreshRightDrawer();
                     }
-                   
+
                     self.clear();
                     self.refreshRequired = true;
                     self.refresh();
@@ -857,14 +858,14 @@ define('crm/Views/_GroupListMixin', [
                 this.refresh();
             }
         },
-        groupInvokeListAction: function(params){
-            var resolvedEntry, selection, propertyName, actionName, key, options;
+        groupInvokeListAction: function(params) {
+            var resolvedEntry, propertyName, actionName, key, options;
             key = params.key;
             propertyName = params.propertyname;
             actionName = params.name;
             resolvedEntry = this._getResolvedEntry(key);
             if (!resolvedEntry) {
-                this._fetchResolvedEntry(key).then(function (resolvedEntry) {
+                this._fetchResolvedEntry(key).then(function(resolvedEntry) {
                     options = {
                         selection: {
                             data: resolvedEntry
@@ -883,8 +884,8 @@ define('crm/Views/_GroupListMixin', [
                 this.groupInvokeActionByName(actionName, options);
             }
 
-       },
-        groupInvokeActionByName: function (actionName, options) {
+        },
+        groupInvokeActionByName: function(actionName, options) {
             if (!options) {
                 options = {};
             }

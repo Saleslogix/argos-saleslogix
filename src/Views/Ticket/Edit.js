@@ -145,7 +145,7 @@ define('crm/Views/Ticket/Edit', [
                 scope: this
             });
         },
-        onRequestCodeDataSuccess: function(code, field, entry, name,feed) {
+        onRequestCodeDataSuccess: function(code, field, entry, name, feed) {
             var value = this.processCodeDataFeed(feed, code);
             entry[name] = value;
             field.setValue(code);
@@ -219,11 +219,11 @@ define('crm/Views/Ticket/Edit', [
                 });
             }
         },
-        onAreaChange: function(value, field) {
+        onAreaChange: function() {
             this.fields['Issue'].clearValue();
             this.fields['Category'].clearValue();
         },
-        onCategoryChange: function(value, field) {
+        onCategoryChange: function() {
             this.fields['Issue'].clearValue();
         },
         formatAccountQuery: function() {

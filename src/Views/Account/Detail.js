@@ -10,7 +10,6 @@
  * @requires argos.Detail
  * @requires crm.Format
  * @requires crm.Template
- * @requires crm._MetricDetailMixin
  *
  */
 define('crm/Views/Account/Detail', [
@@ -19,16 +18,14 @@ define('crm/Views/Account/Detail', [
     'dojo/_base/lang',
     '../../Format',
     '../../Template',
-    'argos/Detail',
-    '../_MetricDetailMixin'
+    'argos/Detail'
 ], function(
     declare,
     string,
     lang,
     format,
     template,
-    Detail,
-    _MetricDetailMixin
+    Detail
 ) {
 
     var __class = declare('crm.Views.Account.Detail', [Detail], {

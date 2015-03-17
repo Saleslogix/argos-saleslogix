@@ -79,11 +79,13 @@ define('crm/Fields/PicklistField', [
 
             values = [];
             for (key in value) {
-                data = value[key].data;
-                if (data && data.text) {
-                    values.push(data.text);
-                } else if (typeof data === 'string') {
-                    values.push(data);
+                if (value.hasOwnProperty(key)) {
+                    data = value[key].data;
+                    if (data && data.text) {
+                        values.push(data.text);
+                    } else if (typeof data === 'string') {
+                        values.push(data);
+                    }
                 }
             }
 

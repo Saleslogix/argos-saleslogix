@@ -38,7 +38,7 @@ define('crm/Views/Charts/GenericBar', [
         chartOptions: {
             scaleBeginAtZero: false,
             barShowStroke: false,
-            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
         },
 
         formatter: function(val) {
@@ -49,7 +49,7 @@ define('crm/Views/Charts/GenericBar', [
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
 
-        createChart: function (rawData) {
+        createChart: function(rawData) {
             this.inherited(arguments);
 
             var ctx, box, data, labels, seriesData;
@@ -57,7 +57,7 @@ define('crm/Views/Charts/GenericBar', [
             this.showSearchExpression();
 
             labels = [];
-            seriesData = array.map(rawData, function(item, idx) {
+            seriesData = array.map(rawData, function(item) {
                 labels.push(item.$descriptor);
                 return Math.round(item.value);
             }.bind(this));

@@ -330,7 +330,6 @@ define('crm/Views/Calendar/WeekView', [
                 i,
                 currentEntry,
                 entryOrderLength,
-                remaining,
                 startDate;
 
             // If we fetched a page that has no data due to un-reliable counts,
@@ -369,7 +368,9 @@ define('crm/Views/Calendar/WeekView', [
                 }
 
                 for (var entryGroup in entryGroups) {
-                    entryOrder.push(moment(entryGroup, dateCompareString));
+                    if (entryGroups.hasOwnProperty(entryGroup)) {
+                        entryOrder.push(moment(entryGroup, dateCompareString));
+                    }
                 }
 
                 entryOrder.sort(function(a, b) {
@@ -431,7 +432,7 @@ define('crm/Views/Calendar/WeekView', [
             alert(string.substitute(this.requestErrorText, [response, o]));
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onRequestEventDataAborted: function(response, o) {
+        onRequestEventDataAborted: function() {
             this.options = false; // force a refresh
         },
         onRequestEventDataSuccess: function(feed) {
@@ -497,7 +498,7 @@ define('crm/Views/Calendar/WeekView', [
                 domConstruct.empty(this.eventRemainingContentNode);
             }
 
-             this.set('eventListContent', o.join(''));
+            this.set('eventListContent', o.join(''));
         },
         refresh: function() {
             var startDate = this.currentDate.clone();
@@ -584,7 +585,7 @@ define('crm/Views/Calendar/WeekView', [
                 options = {currentDate: this.currentDate.toDate().valueOf() || moment().startOf('day').valueOf()};
             view.show(options);
         },
-        navigateToInsertView: function(el) {
+        navigateToInsertView: function() {
             var view = App.getView(this.insertView || this.editView);
 
             this.options.currentDate = this.currentDate.format('YYYY-MM-DD') || Date.today();

@@ -44,7 +44,9 @@ define('crm/GroupUtility', [
         request.getUri().setCollectionPredicate("'" + options.groupId + "'");
 
         for (arg in options.queryArgs) {
-            request.setQueryArg(arg, options.queryArgs[arg]);
+            if (options.queryArgs.hasOwnProperty(arg)) {
+                request.setQueryArg(arg, options.queryArgs[arg]);
+            }
         }
 
         return request;
@@ -60,7 +62,7 @@ define('crm/GroupUtility', [
          * @param {Object} [options.connection] SData connection. Defaults to use App.getService(false)
          *
          */
-        createGroupRequest: function (options) {
+        createGroupRequest: function(options) {
             var defaults = {
                 queryName: 'execute'
             };
@@ -76,7 +78,7 @@ define('crm/GroupUtility', [
          * @param {Object} [options.connection] SData connection. Defaults to use App.getService(false)
          *
          */
-        createGroupMetricRequest: function (options) {
+        createGroupMetricRequest: function(options) {
             var defaults = {
                 queryName: 'executeMetric'
             };
@@ -113,7 +115,7 @@ define('crm/GroupUtility', [
             {
                 name: 'Fixed',
                 options: {
-                    clss: 'group-fixed',
+                    clss: 'group-fixed'
                 },
                 test: function(layoutItem) {
                     return layoutItem.format === 'Fixed';
@@ -125,7 +127,7 @@ define('crm/GroupUtility', [
             {
                 name: 'Percent',
                 options: {
-                    clss: 'group-percent',
+                    clss: 'group-percent'
                 },
                 test: function(layoutItem) {
                     return layoutItem.format === 'Percent';
@@ -149,7 +151,7 @@ define('crm/GroupUtility', [
                     return layoutItem.format === 'Currency';
                 },
                 options: {
-                    clss: 'group-currency',
+                    clss: 'group-currency'
                 },
                 formatter: function(value) {
                     return format.currency(value);
@@ -195,7 +197,7 @@ define('crm/GroupUtility', [
                 }
             }
         ],
-        transformDateFormatString: function(groupFormat, defaultFormat){
+        transformDateFormatString: function(groupFormat, defaultFormat) {
             if (groupFormat) {
                 groupFormat = groupFormat.replace("MM", "M");
                 groupFormat = groupFormat.replace("mm", "M");
@@ -294,19 +296,19 @@ define('crm/GroupUtility', [
             });
             return columns.concat(extraSelectColumns);
         },
-        setDefaultGroupPreference: function(entityName, groupName){
+        setDefaultGroupPreference: function(entityName, groupName) {
             App.preferences['default-group-' + entityName] = groupName;
             App.persistPreferences();
         },
-        getDefaultGroupPreference: function(entityName){
+        getDefaultGroupPreference: function(entityName) {
             var defaultGroupName =  App.preferences['default-group-' + entityName];
             if (!defaultGroupName) {
                 defaultGroupName = this.getDefaultGroupUserPreference(entityName);
             }
             return defaultGroupName;
         },
-        getDefaultGroupUserPreference: function(entityName){
-           var defaultGroupName = App.context.userOptions['DefaultGroup:' + entityName.toUpperCase()];
+        getDefaultGroupUserPreference: function(entityName) {
+            var defaultGroupName = App.context.userOptions['DefaultGroup:' + entityName.toUpperCase()];
             if (defaultGroupName) {
                 defaultGroupName = defaultGroupName.split(':')[1];
             }
@@ -336,29 +338,28 @@ define('crm/GroupUtility', [
             var found, groupList;
             groupList = this.getGroupPreferences(entityName);
             if (!overwrite && groupList && groupList.length > 0) {
-                 if (items && items.length > 0) {
-                     array.forEach(items, function(item) {
-                         found = -1;
-                         array.forEach(groupList, function(group, i) {
-                              if (group.$key === item.$key) {
-                                  found = i;
-                              }
+                if (items && items.length > 0) {
+                    array.forEach(items, function(item) {
+                        found = -1;
+                        array.forEach(groupList, function(group, i) {
+                            if (group.$key === item.$key) {
+                                found = i;
+                            }
+                        });
 
-                         });
+                        if (found > -1) {
+                            groupList[found] = item;
+                        } else {
+                            groupList.push(item);
+                        }
+                    });
+                }
+            } else {
+                groupList = items;
+            }
 
-                         if (found > -1) {
-                             groupList[found] = item;
-                         } else {
-                             groupList.push(item);
-                         }
-                     });
-                 }
-             }
-             else{
-                 groupList = items;
-             }
-             App.preferences['groups-' + entityName] = groupList;
-             App.persistPreferences();
+            App.preferences['groups-' + entityName] = groupList;
+            App.persistPreferences();
         },
         removeGroupPreferences: function(itemKey, entityName) {
             var found, groupList;
@@ -378,7 +379,7 @@ define('crm/GroupUtility', [
                 App.persistPreferences();
             }
         },
-        getGroupPreferences: function(entityName){
+        getGroupPreferences: function(entityName) {
             var groupList = App.preferences['groups-' + entityName];
             return groupList;
         },
@@ -420,10 +421,10 @@ define('crm/GroupUtility', [
 
             return results[0].fieldName(layoutItem);
         },
-        getSelectedGroupLayoutTemplate: function (entityName) {
+        getSelectedGroupLayoutTemplate: function(entityName) {
             return App.preferences['groups-selected-template-name' + entityName];
         },
-        setSelectedGroupLayoutTemplate: function (entityName, name) {
+        setSelectedGroupLayoutTemplate: function(entityName, name) {
 
             App.preferences['groups-selected-template-name' + entityName] = name;
             App.persistPreferences();

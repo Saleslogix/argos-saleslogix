@@ -18,8 +18,7 @@ define('crm/Views/Ticket/Detail', [
     'dojo/dom-class',
     '../../Format',
     'argos/ErrorManager',
-    'argos/Detail',
-    'dojo/NodeList-manipulate'
+    'argos/Detail'
 ], function(
     declare,
     lang,
@@ -27,8 +26,7 @@ define('crm/Views/Ticket/Detail', [
     domClass,
     format,
     ErrorManager,
-    Detail,
-    NodeList
+    Detail
 ) {
 
     var __class = declare('crm.Views.Ticket.Detail', [Detail], {

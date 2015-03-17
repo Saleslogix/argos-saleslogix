@@ -179,7 +179,7 @@ define('crm/Views/Activity/Recurring', [
             this.fields['Summary'].setValue(recur.toString(this.getRecurrence()));
             this.fields['Scale'].setValue(recur.getPanel(parseInt(this.fields['RecurPeriod'].getValue(), 10), true));
         },
-        onAfterCompletionChange: function(value, field) {
+        onAfterCompletionChange: function(value) {
             var rp = parseInt(this.fields['RecurPeriod'].getValue(), 10);
 
             if (value) {
@@ -209,13 +209,13 @@ define('crm/Views/Activity/Recurring', [
 
             this.summarize();
         },
-        onRecurIterationsChange: function(value, field) {
+        onRecurIterationsChange: function(value) {
             value = parseInt(value, 10);
             if (value && 0 < value) {
                 this.entry.RecurIterations = value;
                 var newEndDate = recur.calcEndDate(this.fields['StartDate'].getValue(), this.getRecurrence()).toDate();
 
-                if (newEndDate != this.fields['EndDate'].getValue()) {
+                if (newEndDate !== this.fields['EndDate'].getValue()) {
                     this.fields['EndDate'].setValue(newEndDate);
                 }
 
@@ -226,7 +226,7 @@ define('crm/Views/Activity/Recurring', [
 
             this.summarize();
         },
-        onEndDateChange: function(value, field) {
+        onEndDateChange: function(value) {
             if (value > this.fields['StartDate'].getValue()) {
                 var iterations = recur.calcRecurIterations(
                     value,
@@ -289,11 +289,11 @@ define('crm/Views/Activity/Recurring', [
                 case 'OrdWeek':
                     if (value) {
                         ordWeek = value;
-                        if (panel == 4 || panel == 7) {
+                        if (panel === 4 || panel === 7) {
                             this.fields['RecurPeriod'].setValue(panel + 1);
                             this.resetUI();
                         }
-                    } else if (panel == 5 || panel == 8) {
+                    } else if (panel === 5 || panel === 8) {
                         this.fields['RecurPeriod'].setValue(panel - 1);
                         this.resetUI();
                     }
@@ -314,7 +314,7 @@ define('crm/Views/Activity/Recurring', [
 
             this.summarize();
         },
-        onScaleChange: function(value, field) {
+        onScaleChange: function(value) {
             var startDate = this.fields['StartDate'].getValue(),
                 afterCompletion = this.fields['AfterCompletion'].getValue() ? 1 : 0,
                 interval = parseInt(this.fields['Interval'].getValue(), 10),
@@ -415,13 +415,16 @@ define('crm/Views/Activity/Recurring', [
             return previousSelections;
         },
         createScaleData: function() {
-            var list = [];
-            for (var opt in this.frequencyOptionsText) {
-                list.push({
-                    '$key': opt,
-                    '$descriptor': this.frequencyOptionsText[opt]
-                });
+            var list = [], opt;
+            for (opt in this.frequencyOptionsText) {
+                if (this.frequencyOptionsText.hasOwnProperty(opt)) {
+                    list.push({
+                        '$key': opt,
+                        '$descriptor': this.frequencyOptionsText[opt]
+                    });
+                }
             }
+
             return {'$resources': list};
         },
         createWeekdaysData: function() {
@@ -447,16 +450,19 @@ define('crm/Views/Activity/Recurring', [
             return {'$resources': list};
         },
         createOrdData: function() {
-            var list = [];
-            for (var ord in recur.ordText) {
-                list.push({
-                    '$key': ord,
-                    '$descriptor': recur.ordText[ord]
-                });
+            var list = [], ord;
+            for (ord in recur.ordText) {
+                if (recur.ordText.hasOwnProperty(ord)) {
+                    list.push({
+                        '$key': ord,
+                        '$descriptor': recur.ordText[ord]
+                    });
+                }
             }
+
             return {'$resources': list};
         },
-        setValues: function(values, initial) {
+        setValues: function(values) {
             this.inherited(arguments);
             var field, ord;
 
@@ -476,16 +482,18 @@ define('crm/Views/Activity/Recurring', [
 
             // Even hidden and falsy fields need their values set (not from parent)
             for (var name in this.fields) {
-                field = this.fields[name];
-                // 0 (Daily panel) or false (AfterCompletion) are legitimate values!
-                if (undefined !== this.entry[name]) {
-                    field.setValue(this.entry[name]);
+                if (this.fields.hasOwnProperty(name)) {
+                    field = this.fields[name];
+                    // 0 (Daily panel) or false (AfterCompletion) are legitimate values!
+                    if (undefined !== this.entry[name]) {
+                        field.setValue(this.entry[name]);
+                    }
                 }
             }
 
             this.resetUI();
         },
-        getValues: function(all) {
+        getValues: function() {
             var o = this.getRecurrence();
 
             o['Recurring'] = (0 <= o['RecurPeriod']);

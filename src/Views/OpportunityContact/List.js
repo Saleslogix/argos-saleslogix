@@ -70,10 +70,12 @@ define('crm/Views/OpportunityContact/List', [
             var context = App.isNavigationFromResourceKind(['opportunities']),
                 selections = selectionModel.getSelections();
             for (var selectionKey in selections) {
-                entry = {
-                    'Opportunity': {'$key': context.key},
-                    'Contact': view.entries[selectionKey]
-                };
+                if (selections.hasOwnProperty(selectionKey)) {
+                    entry = {
+                        'Opportunity': {'$key': context.key},
+                        'Contact': view.entries[selectionKey]
+                    };
+                }
             }
 
             if (entry) {

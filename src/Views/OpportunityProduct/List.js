@@ -47,7 +47,7 @@ define('crm/Views/OpportunityProduct/List', [
         //Localization
         titleText: 'Products',
 
-        //View Properties       
+        //View Properties
         id: 'opportunityproduct_list',
         security: 'Entities/Opportunity/View',
         detailView: 'opportunityproduct_detail',

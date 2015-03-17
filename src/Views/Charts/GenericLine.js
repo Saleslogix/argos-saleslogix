@@ -40,15 +40,14 @@ define('crm/Views/Charts/GenericLine', [
             pointDot: true,
             pointDotRadius: 4,
             datasetFill: true,
-            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
         },
 
         attributeMap: {
             chartContent: {node: 'contentNode', type: 'innerHTML'}
         },
 
-        createChart: function (rawData) {
+        createChart: function(rawData) {
             this.inherited(arguments);
 
             var ctx, box, data, labels, seriesData;
@@ -57,7 +56,7 @@ define('crm/Views/Charts/GenericLine', [
 
 
             labels = [];
-            seriesData = array.map(rawData, function(item, idx) {
+            seriesData = array.map(rawData, function(item) {
                 labels.push(item.$descriptor);
                 return Math.round(item.value);
             }.bind(this));

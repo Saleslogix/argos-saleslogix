@@ -2,7 +2,7 @@
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
 
-/** 
+/**
  * @class crm.Views.Opportunity.Edit
  *
  * @extends argos.Edit
@@ -130,7 +130,6 @@ define('crm/Views/Opportunity/Edit', [
         },
         setValues: function(values) {
             this.inherited(arguments);
-            var nodes;
             if (App.hasMultiCurrency()) {
 
                 if (values && values.ExchangeRateCode) {
@@ -162,7 +161,7 @@ define('crm/Views/Opportunity/Edit', [
 
             return values;
         },
-        applyDefaultContext: function(templateEntry) {
+        applyDefaultContext: function() {
             this.fields['AccountManager'].setValue(App.context.user);
             this.fields['Owner'].setValue(App.context['defaultOwner']);
         },
@@ -190,7 +189,7 @@ define('crm/Views/Opportunity/Edit', [
                 this.fields['ExchangeRateDate'].setValue(new Date(Date.now()));
             }
         },
-        onExchangeRateLockedChange: function(value, field) {
+        onExchangeRateLockedChange: function(value) {
             if (value === true) {
                 this.fields['ExchangeRate'].disable();
                 this.fields['ExchangeRateCode'].disable();

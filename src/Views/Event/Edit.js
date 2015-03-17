@@ -71,13 +71,15 @@ define('crm/Views/Event/Edit', [
             return this.eventTypesText[key] || text;
         },
         createTypeData: function() {
-            var list = [];
+            var list = [], type;
 
-            for (var type in this.eventTypesText) {
-                list.push({
-                    '$key': type,
-                    '$descriptor': this.eventTypesText[type]
-                });
+            for (type in this.eventTypesText) {
+                if (this.eventTypesText.hasOwnProperty(type)) {
+                    list.push({
+                        '$key': type,
+                        '$descriptor': this.eventTypesText[type]
+                    });
+                }
             }
 
             return {'$resources': list};
@@ -91,13 +93,10 @@ define('crm/Views/Event/Edit', [
                     startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
                     startDate = currentDate.clone();
 
-                if (startTime && (!moment(currentDate).isSame(moment())))
-                {
+                if (startTime && (!moment(currentDate).isSame(moment()))) {
                     startDate.hours(startTime.hours());
                     startDate.minutes(startTime.minutes());
-                }
-                else
-                {
+                } else {
                     startTime = moment();
                     startDate.hours(startTime.hours());
                     startDate.add({

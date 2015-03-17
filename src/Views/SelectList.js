@@ -34,7 +34,7 @@ define('crm/Views/SelectList', [
 
         refreshRequiredFor: function(options) {
             if (this.options) {
-                return options ? (this.options.data != options.data) : false;
+                return options ? (this.options.data !== options.data) : false;
             } else {
                 return true;
             }

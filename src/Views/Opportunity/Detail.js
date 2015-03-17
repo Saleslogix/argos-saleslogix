@@ -2,7 +2,7 @@
  * Copyright (c) 1997-2013, SalesLogix, NA., LLC. All rights reserved.
  */
 
-/** 
+/**
  * @class crm.Views.Opportunity.Detail
  *
  * @extends argos.Detail
@@ -16,8 +16,7 @@ define('crm/Views/Opportunity/Detail', [
     'dojo/query',
     'dojo/string',
     'argos/Detail',
-    '../../Format',
-    '../_MetricDetailMixin'
+    '../../Format'
 ], function(
     declare,
     lang,
@@ -25,8 +24,7 @@ define('crm/Views/Opportunity/Detail', [
     query,
     string,
     Detail,
-    format,
-    _MetricDetailMixin
+    format
 ) {
 
     var __class = declare('crm.Views.Opportunity.Detail', [Detail], {
@@ -133,40 +131,6 @@ define('crm/Views/Opportunity/Detail', [
         },
         formatAccountRelatedQuery: function(fmt) {
             return string.substitute(fmt, [this.entry['Account']['$key']]);
-        },
-        createMetricWidgetsLayout: function (entry) {
-            /*return [{
-                    chartType: 'bar',
-                    filterDisplayName: 'Account Manager',
-                    formatter: 'bigNumber',
-                    metricDisplayName: 'Sum Sales Potential',
-                    title: 'Sales potential for ' + entry.Account.AccountName,
-                    queryArgs: {
-                        _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
-                        _filterName: 'AccountManager',
-                        _metricName: 'SumSalesPotential'
-                    },
-                    queryName: 'executeMetric',
-                    resourceKind: 'opportunities',
-                    aggregate: 'sum',
-                    valueType: 'crm/Aggregate'
-                }, {
-                    chartType: 'bar',
-                    filterDisplayName: 'Stage',
-                    formatter: 'bigNumber',
-                    metricDisplayName: 'Sum Sales Potential',
-                    title: 'Total opportunties for ' + entry.Account.AccountName,
-                    queryArgs: {
-                        _activeFilter: 'Account.Id eq "' + entry.Account.$key + '"',
-                        _filterName: 'Stage',
-                        _metricName: 'CountOpportunities'
-                    },
-                    queryName: 'executeMetric',
-                    resourceKind: 'opportunities',
-                    aggregate: 'sum',
-                    valueType: 'crm/Aggregate'
-                }
-            ];*/
         },
         createLayout: function() {
             var layout, quickActions, details, moreDetails, multiCurrency, relatedItems;

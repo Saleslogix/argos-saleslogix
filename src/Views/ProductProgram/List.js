@@ -35,7 +35,7 @@ define('crm/Views/ProductProgram/List', [
         //Localization
         titleText: 'Product Programs',
 
-        //View Properties       
+        //View Properties
         id: 'productprogram_list',
         security: 'Entities/ProductProgram/View',
         queryOrderBy: 'Program',

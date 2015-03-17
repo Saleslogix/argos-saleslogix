@@ -56,7 +56,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
             return defaults;
         },
         setupRightDrawer: function() {
-            var drawer = App.getView('right_drawer'), handle;
+            var drawer = App.getView('right_drawer');
             if (drawer) {
                 lang.mixin(drawer, this._createActions());
                 drawer.setLayout(this.createRightDrawerLayout());
@@ -78,7 +78,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 drawer.setLayout([]);
-                drawer.getGroupForEntry = function(entry) {};
+                drawer.getGroupForEntry = function() {};
                 App.snapper.off('close');
             }
         },
@@ -119,7 +119,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
             }
         },
         createRightDrawerLayout: function() {
-            var indexSection, index, indexName, layout, prefs, indexPref, i;
+            var indexSection, index, layout, prefs, indexPref, i;
             layout = [];
 
             indexSection = {
@@ -129,27 +129,29 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
             prefs = App.preferences && App.preferences.speedSearchIndexes;
             if (this.indexes) {
                 for (i in this.indexes) {
-                    index = this.indexes[i];
-                    indexPref = array.filter(prefs, function(pref) {
-                        return pref.indexName === index.indexName; 
+                    if (this.index.hasOwnProperty(i)) {
+                        index = this.indexes[i];
+                        indexPref = array.filter(prefs, function(pref) {
+                            return pref.indexName === index.indexName;
                         });
-                    index = this.indexes[i];
-                    if (index.hasOwnProperty("indexName")) {
-                        indexSection.children.push({
-                            'name': index.indexName,
-                            'action': 'indexClicked', 
-                            'title': this.indexesText[index.indexName] || index.indexName,
-                            'dataProps': {
-                                'indexname': index.indexName,
-                                'enabled':!!indexPref[0].enabled
-                            }
-                        });
+                        index = this.indexes[i];
+                        if (index.hasOwnProperty("indexName")) {
+                            indexSection.children.push({
+                                'name': index.indexName,
+                                'action': 'indexClicked',
+                                'title': this.indexesText[index.indexName] || index.indexName,
+                                'dataProps': {
+                                    'indexname': index.indexName,
+                                    'enabled':!!indexPref[0].enabled
+                                }
+                            });
+                        }
                     }
                 }
             }
 
             layout.push(indexSection);
-           return layout;
+            return layout;
         }
     });
 

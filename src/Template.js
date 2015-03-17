@@ -14,8 +14,7 @@ define('crm/Template', [
     'dojo/_base/lang',
     'argos/Format'
 ], function(
-    lang,
-    format
+    lang
 ) {
     var __class = lang.setObject('crm.Template', {
         /**

@@ -11,7 +11,6 @@
  *
  * @requires crm.Format
  *
- * @requires moment
  */
 
 define('crm/Views/History/RelatedView', [
@@ -19,15 +18,13 @@ define('crm/Views/History/RelatedView', [
     'dojo/_base/lang',
     '../../Format',
     'argos/Convert',
-    'argos/RelatedViewWidget',
-    'moment'
+    'argos/RelatedViewWidget'
 ], function(
     declare,
     lang,
     format,
     convert,
-    RelatedViewWidget,
-    moment
+    RelatedViewWidget
 ) {
     var __class = declare('crm.Views.History.RelatedView', [RelatedViewWidget], {
         regardingText: 'Regarding',

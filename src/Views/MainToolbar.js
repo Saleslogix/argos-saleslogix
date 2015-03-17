@@ -31,11 +31,11 @@ define('crm/Views/MainToolbar', [
 
             if (tools) {
                 for (var i = 0; i < tools.length; i++) {
-                    if (tools[i].id == 'toggleLeftDrawer') {
+                    if (tools[i].id === 'toggleLeftDrawer') {
                         hasLeftDrawer = true;
                     }
 
-                    if (tools[i].id == 'back') {
+                    if (tools[i].id === 'back') {
                         hasLeftDrawer = true;
                     }
 

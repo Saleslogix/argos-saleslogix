@@ -61,7 +61,7 @@ define('crm/Views/Help', [
 
             ErrorManager.addError(response, o, this.options, 'failure');
         },
-        onLocalizedRequestFirstFailure: function(response, o) {
+        onLocalizedRequestFirstFailure: function() {
             Sage.SData.Client.Ajax.request({
                 url: this.resolveGenericLocalizedUrl(),
                 cache: true,
@@ -70,7 +70,7 @@ define('crm/Views/Help', [
                 scope: this
             });
         },
-        onLocalizedRequestSecondFailure: function(response, o) {
+        onLocalizedRequestSecondFailure: function() {
             Sage.SData.Client.Ajax.request({
                 url: this.url,
                 cache: true,
@@ -104,7 +104,7 @@ define('crm/Views/Help', [
                 scope: this
             });
         },
-        processContent: function(xhr, o) {
+        processContent: function(xhr) {
             domConstruct.place(xhr.responseText, this.contentNode, 'last');
         }
     });

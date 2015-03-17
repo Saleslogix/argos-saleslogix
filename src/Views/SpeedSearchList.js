@@ -100,8 +100,7 @@ define('crm/Views/SpeedSearchList', [
             this.inherited(arguments);
             this.currentPage = 0;
         },
-        _formatFieldName: function(fieldName) {
-
+        _formatFieldName: function() {
         },
         getItemIconClass: function(entry) {
             var cls, typeCls, type = entry && entry.type;
@@ -176,7 +175,6 @@ define('crm/Views/SpeedSearchList', [
                 for (var i = 0; i < feed.items.length; i++) {
                     var entry = feed.items[i];
                     var rowNode;
-                    var synopNode;
                     entry.type = this.extractTypeFromItem(entry);
                     entry.$descriptor = entry.$descriptor || entry.uiDisplayName;
                     entry.$key = this.extractKeyFromItem(entry);
@@ -286,7 +284,6 @@ define('crm/Views/SpeedSearchList', [
             );
         },
         applyActivityIndicator: function(entry, indicator) {
-            var dataType = entry['type'];
             indicator.isEnabled = true;
             indicator.showIcon = false;
             indicator.label = this.indexesText[entry.type];
@@ -301,8 +298,7 @@ define('crm/Views/SpeedSearchList', [
                 domConstruct.place(html, listNode[0], 'first');
             }
         },
-        _isIndexActive:function(indexName)
-        {
+        _isIndexActive:function(indexName) {
             var indexFound = false;
             if (this.activeIndexes.indexOf(indexName) > -1) {
                 indexFound = true;
@@ -311,7 +307,7 @@ define('crm/Views/SpeedSearchList', [
         },
         selectIndex: function(e) {
             var button = e.$source,
-            indexName = domAttr.get(button, 'data-index'), 
+            indexName = domAttr.get(button, 'data-index'),
             activated = this.activateIndex(indexName);
             if (activated) {
                 domClass.add(button, 'card-layout-speed-search-index-selected');

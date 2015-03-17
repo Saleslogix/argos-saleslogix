@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.registerTask('release:all', ['release:modules']);
 
     grunt.registerTask('release', 'Full release build for all products in the configuration', function(arg1) {
-        var product, modules, options;
+        var modules;
 
         grunt.config.requires('products');
         grunt.config.requires('products.argos-sdk');

@@ -84,7 +84,7 @@ define('crm/Views/Attachment/List', [
         attachmentDateFormatText: 'ddd M/D/YYYY hh:mm:ss',
         uploadedOnText: 'Uploaded ',// Uploaded 10 days ago
 
-        //View Properties       
+        //View Properties
         id: 'attachment_list',
         security: null,
         enableActions: true,
@@ -163,7 +163,7 @@ define('crm/Views/Attachment/List', [
             'jpg': 'fa-file-image-o',
             'gif': 'fa-file-image-o',
             'bmp': 'fa-file-image-o'
-        },        
+        },
         getItemIconClass: function(entry) {
             var cls, typeCls, type, fileName = entry && entry.fileName;
             type = utility.getFileExtension(fileName);

@@ -102,7 +102,7 @@ define('crm/SpeedSearchWidget', [
             }.bind(this), 50);
         },
         _onKeyPress: function(evt) {
-            if (evt.keyCode == 13 || evt.keyCode == 10) {
+            if (evt.keyCode === 13 || evt.keyCode === 10) {
                 event.stop(evt);
                 this.queryNode.blur();
                 this.search();
@@ -113,7 +113,7 @@ define('crm/SpeedSearchWidget', [
          * @param {String} expression
          * @param {Object} widget
          */
-        onSearchExpression: function(expression, widget) {
+        onSearchExpression: function() {
         }
     });
 

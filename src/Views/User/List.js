@@ -33,7 +33,7 @@ define('crm/Views/User/List', [
         id: 'user_list',
         queryOrderBy: 'UserInfo.LastName asc, UserInfo.FirstName asc',
 
-        // Excluded types for the queryWhere 
+        // Excluded types for the queryWhere
         // Type:
         // 3 - WebViewer
         // 5 - Retired

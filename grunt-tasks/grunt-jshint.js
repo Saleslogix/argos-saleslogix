@@ -3,7 +3,7 @@ module.exports = function(grunt) {
         options: {
             jshintrc: '.jshintrc'
         },
-        all: ['src/**/*.js']
+        all: ['src/**/*.js', 'grunt-tasks/**/*.js', 'configuration/**/*.js']
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');

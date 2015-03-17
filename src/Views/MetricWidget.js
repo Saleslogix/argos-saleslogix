@@ -173,7 +173,7 @@ define('crm/Views/MetricWidget', [
                         def.resolve(mod[fn]);
                     }
                 }));
-            } catch (err) {
+            } catch(err) {
                 def.reject(err);
             }
 
@@ -247,7 +247,7 @@ define('crm/Views/MetricWidget', [
 
             when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
         },
-        _onQuerySuccess: function(queryResults, items) {
+        _onQuerySuccess: function(queryResults) {
             var total = queryResults.total;
 
             queryResults.forEach(lang.hitch(this, this._processItem));

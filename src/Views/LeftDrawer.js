@@ -82,7 +82,7 @@ define('crm/Views/LeftDrawer', [
                 App.logOut();
             }
         },
-        loadAndNavigateToView: function (params) {
+        loadAndNavigateToView: function(params) {
             var view = App.getView(params && params.view);
             this.navigateToView(view);
         },
@@ -92,7 +92,7 @@ define('crm/Views/LeftDrawer', [
                 view.show();
             }
         },
-        addAccountContact: function(params) {
+        addAccountContact: function() {
             App.snapper.close();
             var view = App.getView('add_account_contact');
             if (view) {
@@ -272,22 +272,22 @@ define('crm/Views/LeftDrawer', [
             this.store = null;
         },
         show: function() {
-            if (this.onShow(this) === false){
+            if (this.onShow(this) === false) {
                 return;
             }
 
             this.refresh();
         },
-        refreshRequiredFor: function(options) {
+        refreshRequiredFor: function() {
             var visible = lang.getObject('preferences.home.visible', false, App) || [],
                 shown = this.feed && this.feed['$resources'];
 
-            if (!visible || !shown || (visible.length != shown.length)) {
+            if (!visible || !shown || (visible.length !== shown.length)) {
                 return true;
             }
 
             for (var i = 0; i < visible.length; i++) {
-                if (visible[i] != shown[i]['$key']) {
+                if (visible[i] !== shown[i]['$key']) {
                     return true;
                 }
             }
@@ -297,7 +297,7 @@ define('crm/Views/LeftDrawer', [
         _onRegistered: function() {
             this.refreshRequired = true;
         },
-        _onSearchExpression: function(expression, widget) {
+        _onSearchExpression: function(expression) {
             var view, current;
             view = App.getView(this.searchView);
             current = App.getPrimaryActiveView();

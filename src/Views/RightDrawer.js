@@ -61,7 +61,7 @@ define('crm/Views/RightDrawer', [
         hasMoreData: function() {
             return false;
         },
-        getGroupForEntry: function(entry) {
+        getGroupForEntry: function() {
         },
         init: function() {
             this.inherited(arguments);
@@ -79,7 +79,7 @@ define('crm/Views/RightDrawer', [
                 store,
                 section,
                 row,
-                i, 
+                i,
                 j;
 
             for (i = 0; i < layout.length; i++) {
@@ -112,7 +112,7 @@ define('crm/Views/RightDrawer', [
             this.requestData();
         },
         show: function() {
-            if (this.onShow(this) === false){
+            if (this.onShow(this) === false) {
                 return;
             }
 

@@ -217,7 +217,7 @@ define('crm/Views/Activity/Complete', [
                 field.enable();
             }
         },
-        onTimelessChange: function(value, field) {
+        onTimelessChange: function(value) {
             this.toggleSelectField(this.fields['Duration'], value);
 
             var startDateField = this.fields['StartDate'],
@@ -257,7 +257,7 @@ define('crm/Views/Activity/Complete', [
 
             return true;
         },
-        onAsScheduledChange: function(scheduled, field) {
+        onAsScheduledChange: function(scheduled) {
             var duration, startDate, completedDate;
             if (scheduled) {
                 duration = this.fields['Duration'].getValue();
@@ -271,7 +271,7 @@ define('crm/Views/Activity/Complete', [
                 this.fields['CompletedDate'].setValue(new Date());
             }
         },
-        onFollowupChange: function(value, field) {
+        onFollowupChange: function(value) {
             var disable = (value === 'none' || (value && value.key === 'none'));
             this.toggleSelectField(this.fields['CarryOverNotes'], disable);
         },
@@ -285,7 +285,7 @@ define('crm/Views/Activity/Complete', [
         formatPicklistForType: function(type, which) {
             return this.picklistsByType[type] && this.picklistsByType[type][which];
         },
-        setValues: function(values) {
+        setValues: function() {
             this.inherited(arguments);
             this.fields['CarryOverNotes'].setValue(true);
             this.fields['CompletedDate'].setValue(new Date());
@@ -304,25 +304,29 @@ define('crm/Views/Activity/Complete', [
             return this.followupValueText[key] || text;
         },
         createDurationData: function() {
-            var list = [];
+            var list = [], duration;
 
-            for (var duration in this.durationValueText) {
-                list.push({
-                    '$key': duration,
-                    '$descriptor': this.durationValueText[duration]
-                });
+            for (duration in this.durationValueText) {
+                if (this.durationValueText.hasOwnProperty(duration)) {
+                    list.push({
+                        '$key': duration,
+                        '$descriptor': this.durationValueText[duration]
+                    });
+                }
             }
 
             return {'$resources': list};
         },
         createFollowupData: function() {
-            var list = [];
+            var list = [], followup;
 
-            for (var followup in this.followupValueText) {
-                list.push({
-                    '$key': followup,
-                    '$descriptor': this.followupValueText[followup]
-                });
+            for (followup in this.followupValueText) {
+                if (this.followupValueText.hasOwnProperty(followup)) {
+                    list.push({
+                        '$key': followup,
+                        '$descriptor': this.followupValueText[followup]
+                    });
+                }
             }
 
             return {'$resources': list};

@@ -18,7 +18,8 @@ module.exports = function(grunt) {
     grunt.loadTasks('grunt-tasks');
 
     // Register alias tasks
-    grunt.registerTask('test', ['jshint', 'connect', 'jasmine:coverage']);
+    grunt.registerTask('check', ['jshint', 'jscs']);
+    grunt.registerTask('test', ['jshint', 'jscs', 'connect', 'jasmine:coverage']);
     grunt.registerTask('server', ['connect:server:keepalive']);
     grunt.registerTask('bundle', ['shell:bundle:<%= pkg.version %>']);
     grunt.registerTask('default', ['test']);

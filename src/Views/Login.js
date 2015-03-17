@@ -55,7 +55,7 @@ define('crm/Views/Login', [
                 this.authenticate();
             }
         },
-        _onKeyUp: function(evt) {
+        _onKeyUp: function() {
             var username = this.fields.username.getValue();
             if (username && username.length > 0) {
                 domClass.add(this.domNode, 'login-active');
@@ -69,7 +69,7 @@ define('crm/Views/Login', [
 
             if (credentials) {
                 App.authenticateUser(credentials, {
-                    success: function(result) {
+                    success: function() {
                         App.requestUserDetails();
                         App.navigateToInitialView();
                     },
@@ -122,7 +122,7 @@ define('crm/Views/Login', [
             this.disable();
 
             App.authenticateUser(credentials, {
-                success: function(result) {
+                success: function success() {
                     this.enable();
                     App.requestUserDetails();
                     App.navigateToInitialView();
@@ -131,7 +131,7 @@ define('crm/Views/Login', [
                     this.enable();
 
                     if (result.response) {
-                        if (result.response.status == 403) {
+                        if (result.response.status === 403) {
                             alert(this.invalidUserText);
                         } else {
                             alert(this.serverProblemText);
@@ -140,7 +140,7 @@ define('crm/Views/Login', [
                         alert(this.missingUserText);
                     }
                 },
-                aborted: function(result) {
+                aborted: function() {
                     this.enable();
 
                     alert(this.requestAbortedText);

@@ -130,9 +130,11 @@ define('crm/Views/ErrorLog/Detail', [
         },
 
         constructFlashVars: function(options) {
-            var flashVars = [];
-            for (var key in options) {
-                flashVars.push(string.substitute('${0}=${1}', [key, options[key]]));
+            var flashVars = [], key;
+            for (key in options) {
+                if (options.hasOwnProperty(key)) {
+                    flashVars.push(string.substitute('${0}=${1}', [key, options[key]]));
+                }
             }
 
             return flashVars.join('&');

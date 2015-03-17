@@ -158,10 +158,12 @@ define('crm/Views/Charts/_ChartMixin', [
         multiTooltipTemplate: "<%= value %>",
 
         // Function - Will fire on animation progression.
-        onAnimationProgress: function(){},
+        onAnimationProgress: function() {
+        },
 
         // Function - Will fire on animation completion.
-        onAnimationComplete: function(){}
+        onAnimationComplete: function() {
+        }
     };
 
     var __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
@@ -202,7 +204,7 @@ define('crm/Views/Charts/_ChartMixin', [
             this.initPullToRefresh(this.scrollerNode);
         },
         onTransitionTo: function() {
-            this._handle = connect.subscribe('/app/setOrientation', this, function(value) {
+            this._handle = connect.subscribe('/app/setOrientation', this, function() {
                 setTimeout(function() {
                     if (this._feedData) {
                         this.createChart(this._feedData);
@@ -319,9 +321,9 @@ define('crm/Views/Charts/_ChartMixin', [
                     this.chart.destroy();
                 }
 
-                store.query(null, {start: 0, count: this.PAGE_SIZE}).then(function success(data) {
+                store.query(null, {start: 0, count: this.PAGE_SIZE}).then(function(data) {
                     this.createChart(data);
-                }.bind(this), function failure(e) {
+                }.bind(this), function(e) {
                     console.error(e);
                 }.bind(this));
             }

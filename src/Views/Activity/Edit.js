@@ -219,7 +219,7 @@ define('crm/Views/Activity/Edit', [
             this.connect(this.fields['RecurrenceUI'], 'onChange', this.onRecurrenceUIChange);
             this.connect(this.fields['Recurrence'], 'onChange', this.onRecurrenceChange);
         },
-        onAddComplete: function(entry) {
+        onAddComplete: function() {
             environment.refreshActivityLists();
             this.inherited(arguments);
         },
@@ -236,7 +236,7 @@ define('crm/Views/Activity/Edit', [
                 data: entry
             }]);
 
-            if (entry['$key'] != originalKey && view) {
+            if (entry['$key'] !== originalKey && view) {
                 // Editing single occurrence results in new $key/record
                 view.show({
                     key: entry['$key']
@@ -272,7 +272,7 @@ define('crm/Views/Activity/Edit', [
                 scope: this
             });
         },
-        requestLeaderFailure: function(xhr, o) {
+        requestLeaderFailure: function() {
         },
         processLeader: function(leader) {
             if (leader) {
@@ -289,7 +289,7 @@ define('crm/Views/Activity/Edit', [
         isActivityForLead: function(entry) {
             return entry && /^[\w]{12}$/.test(entry['LeadId']);
         },
-        isActivityRecurring: function(entry) {
+        isActivityRecurring: function() {
             return (/rstMaster/).test(this.fields['RecurrenceState'].getValue());
         },
         isInLeadContext: function() {
@@ -337,7 +337,7 @@ define('crm/Views/Activity/Edit', [
                 }
             }
         },
-        onIsLeadChange: function(value, field) {
+        onIsLeadChange: function(value) {
             this.options.isForLead = value;
 
             if (this.options.isForLead) {
@@ -379,7 +379,7 @@ define('crm/Views/Activity/Edit', [
                 field.enable();
             }
         },
-        onTimelessChange: function(value, field) {
+        onTimelessChange: function(value) {
             this.toggleSelectField(this.fields['Duration'], value);
             var startDate, startDateField;
 
@@ -465,7 +465,7 @@ define('crm/Views/Activity/Edit', [
                     fields[f].where = string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
 
                     if (fields[f].currentSelection &&
-                        fields[f].currentSelection['Account']['$key'] != (value['AccountId'] || value['key'])) {
+                        fields[f].currentSelection['Account']['$key'] !== (value['AccountId'] || value['key'])) {
 
                         fields[f].setValue(false);
                     }
@@ -533,7 +533,7 @@ define('crm/Views/Activity/Edit', [
                 this.onAccountChange(accountField.getValue(), accountField);
             }
         },
-        onStartDateChange: function(value, field) {
+        onStartDateChange: function(value) {
             this.recurrence.StartDate = value;
             // Need recalculate RecurPeriodSpec in case weekday on StartDate changes
             this.recurrence.RecurPeriodSpec = recur.getRecurPeriodSpec(
@@ -546,7 +546,7 @@ define('crm/Views/Activity/Edit', [
 
             recur.createSimplifiedOptions(value);
 
-            var repeats = ('rstMaster' == this.recurrence.RecurrenceState);
+            var repeats = ('rstMaster' === this.recurrence.RecurrenceState);
             this.fields['RecurrenceUI'].setValue(recur.getPanel(repeats && this.recurrence.RecurPeriod));
         },
         onRecurrenceUIChange: function(value, field) {
@@ -562,12 +562,12 @@ define('crm/Views/Activity/Edit', [
             this.resetRecurrence(opt);
             this._previousRecurrence = key;
         },
-        onRecurrenceChange: function(value, field) {
+        onRecurrenceChange: function(value) {
             // did the StartDate change on the recurrence_edit screen?
             var startDate = argos.Convert.toDateFromString(value['StartDate']),
                 currentDate = this.fields['StartDate'].getValue();
 
-            if (startDate.getDate() != currentDate.getDate() || startDate.getMonth() != currentDate.getMonth()) {
+            if (startDate.getDate() !== currentDate.getDate() || startDate.getMonth() !== currentDate.getMonth()) {
                 this.fields['StartDate'].setValue(startDate);
             }
 
@@ -652,8 +652,7 @@ define('crm/Views/Activity/Edit', [
         applyContext: function() {
             this.inherited(arguments);
 
-            var startTime = moment(),
-                startDate = this._getCalculatedStartTime(moment()),
+            var startDate = this._getCalculatedStartTime(moment()),
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
                 activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15,
@@ -844,7 +843,7 @@ define('crm/Views/Activity/Edit', [
             this.fields['AccountName'].setValue(entry['Company']);
 
             var isLeadField = this.fields['IsLead'];
-            isLeadField.setValue(context.resourceKind == 'leads');
+            isLeadField.setValue(context.resourceKind === 'leads');
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
 
             if (entry.WorkPhone) {
@@ -967,25 +966,29 @@ define('crm/Views/Activity/Edit', [
             return values;
         },
         createReminderData: function() {
-            var list = [];
+            var list = [], duration;
 
-            for (var duration in this.reminderValueText) {
-                list.push({
-                    '$key': duration,
-                    '$descriptor': this.reminderValueText[duration]
-                });
+            for (duration in this.reminderValueText) {
+                if (this.reminderValueText.hasOwnProperty(duration)) {
+                    list.push({
+                        '$key': duration,
+                        '$descriptor': this.reminderValueText[duration]
+                    });
+                }
             }
 
             return {'$resources': list};
         },
         createDurationData: function() {
-            var list = [];
+            var list = [], duration;
 
-            for (var duration in this.durationValueText) {
-                list.push({
-                    '$key': duration,
-                    '$descriptor': this.durationValueText[duration]
-                });
+            for (duration in this.durationValueText) {
+                if (this.durationValueText.hasOwnProperty(duration)) {
+                    list.push({
+                        '$key': duration,
+                        '$descriptor': this.durationValueText[duration]
+                    });
+                }
             }
 
             return {'$resources': list};
@@ -996,37 +999,37 @@ define('crm/Views/Activity/Edit', [
         formatDependentQuery: function(dependentValue, format, property) {
             return string.substitute(format, [utility.getValue(dependentValue, property || '$key')]);
         },
-        _getNewStartDate: function (orginalStartDate, timeless){
+        _getNewStartDate: function(orginalStartDate, timeless) {
             var startDate,
                 currentTime,
                 wrapped,
                 isTimeLessDate;
 
-                if (!orginalStartDate) {
-                    return null;
-                }
+            if (!orginalStartDate) {
+                return null;
+            }
 
-                startDate = orginalStartDate;
-                isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
+            startDate = orginalStartDate;
+            isTimeLessDate = this.isDateTimeless(startDate) || this.isDateTimelessLocal(startDate);
 
-                if (timeless) {
-                    if (!isTimeLessDate) {
-                        wrapped = moment(startDate);
-                        wrapped = moment.utc(wrapped.format('YYYY-MM-DD'), 'YYYY-MM-DD');
-                        wrapped.add('seconds', 5);
-                        startDate = wrapped.toDate();
-                    }
-                } else {
-                    if (isTimeLessDate) {
-                        currentTime = moment();
-                        wrapped = moment(startDate);
-                        wrapped.add({ minutes: wrapped.zone() });
-                        wrapped.hours(currentTime.hours());
-                        wrapped.minutes(currentTime.minutes());
-                        wrapped.seconds(0);
-                        startDate = wrapped.toDate();
-                    }
+            if (timeless) {
+                if (!isTimeLessDate) {
+                    wrapped = moment(startDate);
+                    wrapped = moment.utc(wrapped.format('YYYY-MM-DD'), 'YYYY-MM-DD');
+                    wrapped.add('seconds', 5);
+                    startDate = wrapped.toDate();
                 }
+            } else {
+                if (isTimeLessDate) {
+                    currentTime = moment();
+                    wrapped = moment(startDate);
+                    wrapped.add({ minutes: wrapped.zone() });
+                    wrapped.hours(currentTime.hours());
+                    wrapped.minutes(currentTime.minutes());
+                    wrapped.seconds(0);
+                    startDate = wrapped.toDate();
+                }
+            }
 
             return startDate;
         },

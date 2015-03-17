@@ -98,7 +98,7 @@ define('crm/Validator', [
          * Validator that ensures a field is valid currency.
          */
         isCurrency: {
-            fn: function(value, field) {
+            fn: function(value) {
                 return !(new RegExp(string.substitute('^[\\d]+(\\.\\d{1,${0}})?$', [
                     Mobile.CultureInfo.numberFormat.currencyDecimalDigits || '2'])).test(value));
             },
@@ -110,7 +110,7 @@ define('crm/Validator', [
          * Validator that ensures a field is a valid Int32.
          */
         isInt32: {
-            fn: function(value, field) {
+            fn: function(value) {
                 if (value && (!/^\d{1,10}$/.test(value) || parseInt(value, 10) > 2147483647)) {
                     return true;
                 }

@@ -44,7 +44,7 @@ define('crm/Views/History/Edit', [
         regardingText: 'regarding',
         isLeadText: 'for lead',
         startingText: 'time',
-        startingFormatText : 'M/D/YYYY h:mm A',
+        startingFormatText: 'M/D/YYYY h:mm A',
         titleText: 'Note',
         companyText: 'company',
         leadText: 'lead',
@@ -134,7 +134,7 @@ define('crm/Views/History/Edit', [
                 this.showFieldsForStandard();
             }
         },
-        onIsLeadChange: function(value, field) {
+        onIsLeadChange: function(value) {
             this.options.isForLead = value;
 
             if (this.options.isForLead) {
@@ -150,7 +150,7 @@ define('crm/Views/History/Edit', [
                 this.fields['AccountName'].setValue(utility.getValue(selection, 'Company'));
             }
         },
-        onAccountChange: function(value, field) {
+        onAccountChange: function(value) {
             var fields = this.fields;
             array.forEach(['Contact', 'Opportunity', 'Ticket'], function(f) {
                 if (value) {
@@ -158,7 +158,7 @@ define('crm/Views/History/Edit', [
                     fields[f].where = string.substitute('Account.Id eq "${0}"', [value['AccountId'] || value['key']]);
 
                     if (fields[f].currentSelection &&
-                        fields[f].currentSelection.Account['$key'] != (value['AccountId'] || value['key'])) {
+                        fields[f].currentSelection.Account['$key'] !== (value['AccountId'] || value['key'])) {
 
                         fields[f].setValue(false);
                     }
@@ -212,7 +212,7 @@ define('crm/Views/History/Edit', [
             this.inherited(arguments);
         },
         applyContext: function() {
-            var found ; 
+            var found;
             found = this._getNavContext();
 
             var lookup = {
@@ -237,11 +237,11 @@ define('crm/Views/History/Edit', [
         },
         _getNavContext: function() {
             var found;
-                found = App.queryNavigationContext(function(o) {
-                    var context = (o.options && o.options.source) || o;
-                    return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
-                });
-             found = (found && found.options && found.options.source) || found;
+            found = App.queryNavigationContext(function(o) {
+                var context = (o.options && o.options.source) || o;
+                return (/^(accounts|contacts|opportunities|leads|tickets)$/).test(context.resourceKind) && context.key;
+            });
+            found = (found && found.options && found.options.source) || found;
             return found;
         },
         applyAccountContext: function(context) {
@@ -272,7 +272,7 @@ define('crm/Views/History/Edit', [
             this.fields['AccountName'].setValue(entry['Company']);
 
             var isLeadField = this.fields['IsLead'];
-            isLeadField.setValue(context.resourceKind == 'leads');
+            isLeadField.setValue(context.resourceKind === 'leads');
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
         },
         applyOpportunityContext: function(context) {
@@ -406,9 +406,8 @@ define('crm/Views/History/Edit', [
             this.enableFields();
             denyEdit = !this.currentUserCanEdit();
             if (denyEdit) {
-               this.disableFields();
+                this.disableFields();
             }
-            
         },
         disableFields: function(predicate) {
             for (var name in this.fields) {
@@ -464,8 +463,8 @@ define('crm/Views/History/Edit', [
                 payload[this.valueKeyProperty] = null;
                 payload[this.valueTextProperty] = null;
             }
-       },
-        createLayout: function () {
+        },
+        createLayout: function() {
             return this.layout || (this.layout = [{
                 title: this.longNotesTitleText,
                 name: 'NotesSection',
@@ -536,7 +535,7 @@ define('crm/Views/History/Edit', [
                     valueTextProperty: 'AccountName',
                     view: 'account_related',
                     validator: {
-                        fn: (function (value, field) {
+                        fn: (function(value, field) {
                             var insert = field.owner.options && field.owner.options.insert;
                             if ((insert) && (!value)) {
                                 return true;
@@ -613,7 +612,7 @@ define('crm/Views/History/Edit', [
                     property: 'UserId',
                     type: 'hidden',
                     validator: {
-                        fn: (function (value, field) {
+                        fn: (function(value, field) {
                             var canEdit;
                             canEdit = field.owner.currentUserCanEdit();
                             if (!canEdit) {

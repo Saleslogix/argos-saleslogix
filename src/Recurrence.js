@@ -182,15 +182,17 @@ define('crm/Recurrence', [
                 ];
 
             for (var recurOption in this.simplifiedOptions) {
-                textOptions[0] = this.getPanel(this.simplifiedOptions[recurOption].RecurPeriod);
-                this.simplifiedOptions[recurOption].RecurIterations = this.defaultIterations[this.simplifiedOptions[recurOption].RecurPeriod] || 0;
+                if (this.simplifiedOptions.hasOwnProperty(recurOption)) {
+                    textOptions[0] = this.getPanel(this.simplifiedOptions[recurOption].RecurPeriod);
+                    this.simplifiedOptions[recurOption].RecurIterations = this.defaultIterations[this.simplifiedOptions[recurOption].RecurPeriod] || 0;
 
-                if (this[this.simplifiedOptions[recurOption].label]) {
-                    list.push({
-                        '$key': recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
-                        '$descriptor': string.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
-                        'recurrence': this.simplifiedOptions[recurOption]
-                    });
+                    if (this[this.simplifiedOptions[recurOption].label]) {
+                        list.push({
+                            '$key': recurOption, // this.simplifiedOptions[recurOption].RecurPeriod,
+                            '$descriptor': string.substitute(this[this.simplifiedOptions[recurOption].label], textOptions),
+                            'recurrence': this.simplifiedOptions[recurOption]
+                        });
+                    }
                 }
             }
 
@@ -222,12 +224,14 @@ define('crm/Recurrence', [
         recalculateSimplifiedPeriodSpec: function(startDate) {
             var opt;
             for (var recurOption in this.simplifiedOptions) {
-                opt = this.simplifiedOptions[recurOption];
-                this.simplifiedOptions[recurOption].RecurPeriodSpec = this.getRecurPeriodSpec(
-                    opt.RecurPeriod,
-                    startDate,
-                    opt.weekdays
-                );
+                if (this.simplifiedOptions.hasOwnProperty(recurOption)) {
+                    opt = this.simplifiedOptions[recurOption];
+                    this.simplifiedOptions[recurOption].RecurPeriodSpec = this.getRecurPeriodSpec(
+                        opt.RecurPeriod,
+                        startDate,
+                        opt.weekdays
+                    );
+                }
             }
         },
         getWeekdays: function(rps, names) { // pass a RecurPeriodSpec (as long as RecurPeriod corresponds to a Spec with weekdays)
@@ -252,7 +256,7 @@ define('crm/Recurrence', [
                 ordBits = entry.RecurPeriodSpec % 524288,
                 monthBits = entry.RecurPeriodSpec % 4194304 - ordBits;
 
-            if (entry && (5 == entry.RecurPeriod || 8 == entry.RecurPeriod)) {
+            if (entry && (5 === entry.RecurPeriod || 8 === entry.RecurPeriod)) {
                 nthWeek = parseInt(ordBits / 65536, 10) + 1;
                 weekday = parseInt(monthBits / 524288, 10) - 1;
                 monthNum = parseInt((entry.RecurPeriodSpec - monthBits - ordBits) / 4194304, 10);
@@ -333,7 +337,7 @@ define('crm/Recurrence', [
         },
 
         toString: function(entry, dependsOnPanel) {
-            if (entry.RecurrenceState != 'rstMaster' || !entry.StartDate) {
+            if (entry.RecurrenceState !== 'rstMaster' || !entry.StartDate) {
                 return '';
             }
 
@@ -401,7 +405,7 @@ define('crm/Recurrence', [
         },
         calcEndDate: function(date, entry) {
             var interval = entry['RecurPeriodSpec'] % 65536,
-                tempDate = moment.isMoment(date) ? 
+                tempDate = moment.isMoment(date) ?
                     date.clone() :
                     new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
 

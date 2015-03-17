@@ -21,13 +21,13 @@ define('crm/Views/_RightDrawerBaseMixin', [
 ) {
 
     // Base Mixin for the right drawer/menu. This is responsible for creating the toggle button on the toolbar and managing the state of the right menu (loaded/unloaded).
-    // 
+    //
     // Lifecycles:
     // -- Loading of the right menu --
     // 1. Toggle button clicked
     // 2. setupRightDrawer
     // 3. loadRightDrawer
-    // 
+    //
     // -- Unloading of the right menu --
     // 1. onBeforeTransitionAway
     // 2. unloadRightDrawer

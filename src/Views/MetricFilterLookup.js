@@ -40,7 +40,7 @@ define('crm/Views/MetricFilterLookup', [
         resourcePredicate: '',// this should be the entity name
         resourceProperty: 'filters',
 
-        show: function(options, transitionOptions) {
+        show: function(options) {
             if (options.resourcePredicate) {
                 this.resourcePredicate = options.resourcePredicate;
             }

@@ -44,7 +44,7 @@ define('crm/Views/Groups/Selector', [
         },
 
         activateEntry: function(params) {
-            var key, descriptor, entry, view;
+            var key;
 
             key = params.key;
 

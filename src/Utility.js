@@ -21,7 +21,7 @@ define('crm/Utility', [
     Utility
 ) {
     var __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
-        base64ArrayBuffer: function (arrayBuffer) {
+        base64ArrayBuffer: function(arrayBuffer) {
             var base64    = '';
             var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
@@ -49,7 +49,7 @@ define('crm/Utility', [
             }
 
             // Deal with the remaining bytes and padding
-            if (byteRemainder == 1) {
+            if (byteRemainder === 1) {
                 chunk = bytes[mainLength];
 
                 a = (chunk & 252) >> 2; // 252 = (2^6 - 1) << 2
@@ -58,7 +58,7 @@ define('crm/Utility', [
                 b = (chunk & 3)   << 4; // 3   = 2^2 - 1
 
                 base64 += encodings[a] + encodings[b] + '==';
-            } else if (byteRemainder == 2) {
+            } else if (byteRemainder === 2) {
                 chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
 
                 a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
@@ -80,7 +80,7 @@ define('crm/Utility', [
          * Returns the file extension, if fileName is null or undefined, returns the string '.'
          */
         getFileExtension: function(fileName) {
-            if (!fileName){
+            if (!fileName) {
                 return '.';
             }
             return fileName.substr(fileName.lastIndexOf('.'));

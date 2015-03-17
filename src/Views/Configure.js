@@ -18,8 +18,7 @@ define('crm/Views/Configure', [
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/store/Memory',
-    'argos/List',
-    'dojo/NodeList-traverse'
+    'argos/List'
 ], function(
     declare,
     array,
@@ -29,8 +28,7 @@ define('crm/Views/Configure', [
     domAttr,
     domClass,
     Memory,
-    List,
-    NodeList
+    List
 ) {
 
     var __class = declare('crm.Views.Configure', [List], {
@@ -144,7 +142,9 @@ define('crm/Views/Configure', [
             }
 
             for (n in lookup) {
-                order.push(n);
+                if (lookup.hasOwnProperty(n)) {
+                    order.push(n);
+                }
             }
 
             for (i = 0; i < order.length; i++) {
@@ -163,7 +163,7 @@ define('crm/Views/Configure', [
 
             return Memory({data: list});
         },
-        processData: function(entries) {
+        processData: function() {
             this.inherited(arguments);
 
             var visible = (App.preferences.home && App.preferences.home.visible) || [];

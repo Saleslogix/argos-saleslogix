@@ -46,7 +46,7 @@ define('crm/Views/UpdateToolbar', [
             this.inherited(arguments);
         },
 
-        showTools: function(tools) {
+        showTools: function() {
             this.inherited(arguments);
         },
 

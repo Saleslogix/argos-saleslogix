@@ -134,7 +134,7 @@ define('crm/Views/OpportunityProduct/Detail', [
             });
         },
         createLayout: function() {
-            var layout, details, multiCurrency, extendedPrice, adjustedPrice;
+            var layout, details, extendedPrice, adjustedPrice;
             layout = this.layout || (this.layout = []);
 
             if (layout.length > 0) {

@@ -10,14 +10,12 @@ define('crm/FileManager', [
     'dojo/_base/lang',
     'dojo/_base/declare',
     'dojo/number',
-    'dojo/has',
-    'dojo/_base/sniff'
+    'dojo/has'
 ], function(
     lang,
     declare,
     dNumber,
-    has,
-    sniff
+    has
 ) {
     var __class = declare('crm.FileManager', null, {
         unableToUploadText: 'This browser does not support HTML5 File API.',
@@ -45,7 +43,7 @@ define('crm/FileManager', [
          * Checks if the HTML5 file api is supported.
          * @returns {Boolean}
          */
-        isHTML5Supported:function(){
+        isHTML5Supported: function() {
             var results = has('html5-file-api');
             return results;
         },
@@ -87,7 +85,7 @@ define('crm/FileManager', [
          * @param {Function} error.errorText
          * @param {Object} scope
          * @param {Boolean} asPut
-         */ 
+         */
         uploadFile: function(file, url, progress, complete, error, scope, asPut) {
             this.uploadFileHTML5(file, url, progress, complete, error, scope, asPut);
         },
@@ -103,9 +101,9 @@ define('crm/FileManager', [
             }
         },
         _uploadFileHTML5_asBinary: function(file, url, progress, complete, error, scope, asPut) {
-            window.BlobBuilder = window.BlobBuilder || 
-                         window.WebKitBlobBuilder || 
-                         window.MozBlobBuilder || 
+            window.BlobBuilder = window.BlobBuilder ||
+                         window.WebKitBlobBuilder ||
+                         window.MozBlobBuilder ||
                          window.MSBlobBuilder;
             if (!url) {
                 //assume Attachment SData url
@@ -127,9 +125,9 @@ define('crm/FileManager', [
                 var binary, boundary, dashdash, crlf, bb, unknownErrorText, usingBlobBuilder, blobReader, blobData;
                 unknownErrorText = this.unknownErrorText;
                 blobReader = new FileReader();// read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
-                
+
                 try {
-                    new Blob();// This will throw an exception if it is no supported (android)
+                    Blob();// This will throw an exception if it is not supported (android)
                     bb = [];
                 } catch(e) {
                     bb = new window.BlobBuilder();
@@ -234,7 +232,7 @@ define('crm/FileManager', [
          * @param {Function} onSuccess
          * @param {Object} onSuccess.responseInfo
          */
-        getFile: function(fileUrl, responseType , onSuccess) {
+        getFile: function(fileUrl, responseType, onSuccess) {
             var request, service, self;
 
             request = new XMLHttpRequest();
@@ -281,3 +279,4 @@ define('crm/FileManager', [
     lang.setObject('Mobile.SalesLogix.FileManager', __class);
     return __class;
 });
+

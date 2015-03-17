@@ -21,8 +21,7 @@ define('crm/Views/History/Detail', [
     '../../Format',
     'argos/ErrorManager',
     '../../Template',
-    'argos/Detail',
-    'dojo/NodeList-manipulate'
+    'argos/Detail'
 ], function(
     declare,
     string,
@@ -32,8 +31,7 @@ define('crm/Views/History/Detail', [
     format,
     ErrorManager,
     template,
-    Detail,
-    NodeList
+    Detail
 ) {
 
     var __class = declare('crm.Views.History.Detail', [Detail], {
@@ -141,7 +139,7 @@ define('crm/Views/History/Detail', [
                 return request;
             }
         },
-        requestCodeData: function(row, node, value, entry, predicate) {
+        requestCodeData: function(row, node, value, entry) {
             var request = this.requestCompletedUser(entry);
             if (request) {
                 request.read({
@@ -150,7 +148,7 @@ define('crm/Views/History/Detail', [
                     scope: this
                 });
             } else {
-               this.onCodeDataNull();
+                this.onCodeDataNull();
             }
         },
         onRequestCodeDataSuccess: function(row, node, value, entry, data) {

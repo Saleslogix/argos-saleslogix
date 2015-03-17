@@ -97,7 +97,7 @@ define('crm/Views/Contact/Edit', [
                 this.fields['Account'].disable();
             }
         },
-        onAccountChange: function(value, field) {
+        onAccountChange: function(value) {
             if (value && value.text) {
                 this.fields['AccountName'].setValue(value.text);
             }
@@ -150,7 +150,7 @@ define('crm/Views/Contact/Edit', [
                 scope: this
             });
         },
-        requestAccountFailure: function(xhr, o) {
+        requestAccountFailure: function() {
         },
         processAccount: function(entry) {
             var account = entry,
@@ -225,11 +225,14 @@ define('crm/Views/Contact/Edit', [
                         'ModifyUser': true,
                         'CreateDate': true,
                         'CreateUser': true
-                    };
+                    },
+                    name;
 
-                for (var name in address) {
-                    if (!skip[name]) {
-                        clean[name] = address[name];
+                for (name in address) {
+                    if (address.hasOwnProperty(name)) {
+                        if (!skip[name]) {
+                            clean[name] = address[name];
+                        }
                     }
                 }
 

@@ -52,7 +52,7 @@ define('crm/Views/_MetricDetailMixin', [
             this.inherited(arguments);
             this.rebuildWidgets(entry);
         },
-        createMetricWidgetsLayout: function(entry) {
+        createMetricWidgetsLayout: function() {
         },
         rebuildWidgets: function(entry) {
             this.destroyWidgets();
@@ -71,9 +71,9 @@ define('crm/Views/_MetricDetailMixin', [
             }, this);
         },
         hasValidOptions: function(options) {
-            return options 
-                && options.queryArgs 
-                && options.queryArgs._filterName 
+            return options
+                && options.queryArgs
+                && options.queryArgs._filterName
                 && options.queryArgs._metricName;
         }
     });

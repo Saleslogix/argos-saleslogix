@@ -82,7 +82,7 @@ define('crm/Views/Settings', [
                 }
             };
         },
-        getItemIconClass: function(entry, owner) {
+        getItemIconClass: function(entry) {
             return entry.cls;
         },
         createIndicatorLayout: function() {

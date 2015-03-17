@@ -150,7 +150,7 @@ define('crm/Views/Activity/Detail', [
         formatActivityType: function(val) {
             return this.activityTypeText[val] || val;
         },
-        navigateToEditView: function(el) {
+        navigateToEditView: function() {
             var view = App.getView(this.editView);
 
             if (view) {
@@ -224,7 +224,7 @@ define('crm/Views/Activity/Detail', [
             this.navigateToCompleteView(this.completeSeriesText, true);
         },
         isActivityRecurring: function(entry) {
-            return entry && (entry['Recurring'] || entry['RecurrenceState'] == 'rstOccurrence');
+            return entry && (entry['Recurring'] || entry['RecurrenceState'] === 'rstOccurrence');
         },
         isActivityRecurringSeries: function(entry) {
             return this.isActivityRecurring(entry) && !recur.isAfterCompletion(entry['RecurPeriod']);
@@ -253,7 +253,7 @@ define('crm/Views/Activity/Detail', [
                 scope: this
             });
         },
-        requestLeaderFailure: function(xhr, o) {
+        requestLeaderFailure: function() {
         },
         processLeader: function(leader) {
             if (leader) {
@@ -307,7 +307,7 @@ define('crm/Views/Activity/Detail', [
                 }
             }
         },
-        requestRecurrenceFailure: function(xhr, o) {
+        requestRecurrenceFailure: function() {
         },
         checkCanComplete: function(entry) {
             return !(entry && (entry['AllowComplete']));
@@ -324,7 +324,7 @@ define('crm/Views/Activity/Detail', [
         },
         formatRelatedQuery: function(entry, fmt, property) {
             if (property === 'activityId') {
-                  return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
+                return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
             } else {
                 property = property || '$key';
                 return string.substitute(fmt, [platformUtility.getValue(entry, property, "")]);

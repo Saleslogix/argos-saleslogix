@@ -118,7 +118,7 @@ define('crm/Application', [
 
             original = Sage.SData.Client.SDataService.prototype.executeRequest;
 
-            Sage.SData.Client.SDataService.prototype.executeRequest = function(request, options, ajax) {
+            Sage.SData.Client.SDataService.prototype.executeRequest = function(request) {
                 request.setRequestHeader('X-Application-Name', app.appName);
                 request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
                 original.apply(this, arguments);
@@ -148,12 +148,12 @@ define('crm/Application', [
 
             return isOnFirstView;
         },
-        onSetOrientation: function(value) {
+        onSetOrientation: function() {
             if (App.snapper) {
                 App.snapper.close();
             }
         },
-        _viewTransitionTo: function(view) {
+        _viewTransitionTo: function() {
             this.inherited(arguments);
             this._checkSaveNavigationState();
             if (App.snapper) {
@@ -237,7 +237,7 @@ define('crm/Application', [
             return results;
         },
         getBaseExchangeRate: function() {
-            var baseCode, baseRate, convertedValue, results = {code: '', rate: 1};
+            var baseCode, baseRate, results = {code: '', rate: 1};
 
             if (this.hasMultiCurrency() &&
                 this.context &&
@@ -326,7 +326,7 @@ define('crm/Application', [
             }
 
         },
-        onAuthenticateUserFailure: function(callback, scope, response, ajax) {
+        onAuthenticateUserFailure: function(callback, scope, response) {
             var service = this.getService();
             if (service) {
                 service
@@ -424,15 +424,15 @@ define('crm/Application', [
             if (credentials) {
                 this.setPrimaryTitle(this.authText);
                 this.authenticateUser(credentials, {
-                    success: function(result) {
+                    success: function() {
                         this.requestUserDetails();
                         this.navigateToInitialView();
                     },
-                    failure: function(result) {
+                    failure: function() {
                         this.navigateToLoginView();
                         this.removeCredentials();
                     },
-                    aborted: function(result) {
+                    aborted: function() {
                         this.navigateToLoginView();
                     },
                     scope: this
@@ -530,7 +530,7 @@ define('crm/Application', [
             this.requestSystemOptions();
             this.setDefaultMetricPreferences();
         },
-        onRequestUserDetailsFailure: function(response, o) {
+        onRequestUserDetailsFailure: function() {
         },
         requestUserOptions: function() {
             var batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
@@ -570,7 +570,7 @@ define('crm/Application', [
             var insertSecCode = userOptions['General:InsertSecCodeID'],
                 currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];
 
-            if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner != insertSecCode))) {
+            if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner !== insertSecCode))) {
                 this.requestOwnerDescription(insertSecCode);
             }
 
@@ -719,17 +719,19 @@ define('crm/Application', [
             ];
         },
         getExposedViews: function() {
-            var exposed = [];
+            var exposed = [], id, view;
 
-            for (var id in this.views) {
-                var view = App.getView(id);
+            for (id in this.views) {
+                if (this.views.hasOwnProperty(id)) {
+                    view = App.getView(id);
 
-                if (view.id == 'home') {
-                    continue;
-                }
+                    if (view.id === 'home') {
+                        continue;
+                    }
 
-                if (view.expose) {
-                    exposed.push(id);
+                    if (view.expose) {
+                        exposed.push(id);
+                    }
                 }
             }
 
@@ -789,7 +791,7 @@ define('crm/Application', [
         },
         setupRedirectHash: function() {
             var split;
-            if (this._hasValidRedirect(this.redirectHash)) {
+            if (this._hasValidRedirect()) {
                 // Split by "/redirectTo/"
                 split = this.redirectHash.split(/\/redirectTo\//gi);
                 if (split.length === 2) {
@@ -808,7 +810,7 @@ define('crm/Application', [
             }
 
         },
-        _hasValidRedirect: function(redirect) {
+        _hasValidRedirect: function() {
             return this.redirectHash !== '' && this.redirectHash.indexOf('/redirectTo/') > 0;
         },
         showLeftDrawer: function() {

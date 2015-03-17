@@ -248,8 +248,9 @@ define('crm/Views/History/List', [
                 nextDate = startDate.clone().add({hours: 24}),
                 fmt = this.dateFormatText;
 
-            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf())
+            if (startDate.valueOf() < nextDate.valueOf() && startDate.valueOf() > moment().startOf('day').valueOf()) {
                 fmt = this.hourMinuteFormatText;
+            }
 
             return format.date(startDate.toDate(), fmt);
         },

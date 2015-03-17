@@ -220,7 +220,7 @@ define('crm/Views/Activity/MyList', [
             'this-week': 'this-week',
             'yesterday': 'yesterday'
         },
-        createToolLayout: function(tools) {
+        createToolLayout: function() {
             this.inherited(arguments);
             if (this.tools && this.tools.tbar && !this._refreshAdded && !window.App.supportsTouch()) {
                 this.tools.tbar.push({
@@ -498,7 +498,7 @@ define('crm/Views/Activity/MyList', [
             });
         },
         completeActivity: function(entry) {
-            var completeActivity, request, completeActivityEntry;
+            var request, completeActivityEntry;
 
             completeActivityEntry = {
                 "$name": "ActivityComplete",
@@ -563,7 +563,7 @@ define('crm/Views/Activity/MyList', [
             return false;
         },
         isOverdue: function(entry) {
-            var startDate, currentDate, seconds, mins, days;
+            var startDate, currentDate, seconds, mins;
             if (entry['Activity']['StartDate']) {
                 startDate = convert.toDateFromString(entry['Activity']['StartDate']);
                 currentDate = new Date();
@@ -585,8 +585,9 @@ define('crm/Views/Activity/MyList', [
         },
         isRecurring: function(entry) {
             if (entry['Activity']['Recurring']) {
-                   return true;
+                return true;
             }
+
             return false;
         },
         getItemIconClass: function(entry) {

@@ -62,7 +62,7 @@ define('crm/Views/Home', [
                 view.show();
             }
         },
-        addAccountContact: function(params) {
+        addAccountContact: function() {
             var view = App.getView(this.addAccountContactView);
             if (view) {
                 view.show({
@@ -162,7 +162,7 @@ define('crm/Views/Home', [
             this.processData(list);
         },
 
-        _onSearchExpression: function(expression, widget) {
+        _onSearchExpression: function(expression) {
             var view = App.getView(this.searchView);
 
             if (view) {
@@ -181,16 +181,16 @@ define('crm/Views/Home', [
         _onRegistered: function() {
             this.refreshRequired = true;
         },
-        refreshRequiredFor: function(options) {
+        refreshRequiredFor: function() {
             var visible = lang.getObject('preferences.home.visible', false, App) || [],
                 shown = this.feed && this.feed['$resources'];
 
-            if (!visible || !shown || (visible.length != shown.length)) {
+            if (!visible || !shown || (visible.length !== shown.length)) {
                 return true;
             }
 
             for (var i = 0; i < visible.length; i++) {
-                if (visible[i] != shown[i]['$key']) {
+                if (visible[i] !== shown[i]['$key']) {
                     return true;
                 }
             }

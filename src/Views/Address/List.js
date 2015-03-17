@@ -19,8 +19,7 @@ define('crm/Views/Address/List', [
     'dojo/dom-attr',
     'dojo/query',
     '../../Format',
-    'argos/List',
-    'dojo/NodeList-traverse'
+    'argos/List'
 ], function(
     declare,
     lang,
@@ -28,8 +27,7 @@ define('crm/Views/Address/List', [
     domAttr,
     query,
     format,
-    List,
-    NodeListTraverse
+    List
 ) {
 
     var __class = declare('crm.Views.Address.List', [List], {

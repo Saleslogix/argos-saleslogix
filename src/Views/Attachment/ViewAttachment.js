@@ -165,7 +165,7 @@ define('crm/Views/Attachment/ViewAttachment', [
             return this.tools;
         },
         createLayout: function() {
-             return this.tools || (this.tools = []);
+            return this.tools || (this.tools = []);
         },
         _loadAttachmentView: function(entry) {
             var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self, iframe;
@@ -202,7 +202,7 @@ define('crm/Views/Attachment/ViewAttachment', [
                         attachmentid = entry.$key;
                         //dataurl
                         am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                            var rData, url, a, image, loadHandler, loaded;
+                            var rData, image, loadHandler, loaded;
 
                             rData = Utility.base64ArrayBuffer(responseInfo.response);
                             self.dataURL = 'data:' + responseInfo.contentType + ';base64,' + rData;
@@ -239,7 +239,7 @@ define('crm/Views/Attachment/ViewAttachment', [
                             self = this;
                             attachmentid = entry.$key;
                             am.getAttachmentFile(attachmentid, 'arraybuffer', function(responseInfo) {
-                                var rData, url, a, dataUrl, iframe;
+                                var rData, dataUrl, iframe;
 
                                 rData = Utility.base64ArrayBuffer(responseInfo.response);
                                 dataUrl = 'data:' + responseInfo.contentType + ';base64,' + rData;
@@ -274,17 +274,17 @@ define('crm/Views/Attachment/ViewAttachment', [
             }
 
         },
-        _isfileTypeImage: function(fileType){
+        _isfileTypeImage: function(fileType) {
             var imageTypes;
 
             fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
             if (App.imageFileTypes) {
-                  imageTypes = App.imageFileTypes;
+                imageTypes = App.imageFileTypes;
             } else {
-                  imageTypes = { jpg: true, gif: true, png: true, bmp: true, tif: true };
+                imageTypes = { jpg: true, gif: true, png: true, bmp: true, tif: true };
             }
 
-            if(imageTypes[fileType]){
+            if (imageTypes[fileType]) {
                 return true;
             }
 
@@ -295,9 +295,9 @@ define('crm/Views/Attachment/ViewAttachment', [
 
             fileType = fileType.substr(fileType.lastIndexOf('.') + 1).toLowerCase();
             if (App.nonViewableFileTypes) {
-                 fileTypes = App.nonViewableFileTypes;
+                fileTypes = App.nonViewableFileTypes;
             } else {
-                   fileTypes = { exe: true, dll: true };
+                fileTypes = { exe: true, dll: true };
             }
 
             if (fileTypes[fileType]) {
@@ -305,13 +305,13 @@ define('crm/Views/Attachment/ViewAttachment', [
             }
             return true;
         },
-        _viewImageOnly: function(){
+        _viewImageOnly: function() {
             return false;
         },
-        _sizeImage: function (containerNode,image) {
+        _sizeImage: function(containerNode, image) {
             var wH, wW, iH, iW, contentBox, scale;
 
-           contentBox = domGeom.getContentBox(containerNode);
+            contentBox = domGeom.getContentBox(containerNode);
             wH = contentBox.h;
             wW = contentBox.w;
             iH = image.height;
@@ -319,34 +319,33 @@ define('crm/Views/Attachment/ViewAttachment', [
             scale = 1;
 
             if (wH > 200) {
-
                 wH = wH - 50;
             }
-            if (wW> 200) {
 
+            if (wW> 200) {
                 wW = wW - 50;
             }
-            if (wH < 50) {
 
+            if (wH < 50) {
                 wH = 100;
             }
-            if (wW < 50) {
 
+            if (wW < 50) {
                 wW = 100;
             }
+
             // if the image is larger than the window
-            if(iW>wW && iH>wH){
+            if (iW > wW && iH > wH) {
                 // if the window height is lager than the width
                 if (wH < wW) {
-                    scale = 1-((iH - wH) / iH);
+                    scale = 1 - ((iH - wH) / iH);
                 } else { // if the window width is lager than the height
-                    scale = 1-((iW - wW) / iW);
+                    scale = 1 - ((iW - wW) / iW);
                 }
             } else if (iW > wW) {// if the image  width is lager than the height
-                scale =1-((iW - wW) / iW);
-            }
-            else if (iH > wH) {// if the image  height is lager than the width 
-                 scale = 1-((iH - wH) / iH);
+                scale = 1 - ((iW - wW) / iW);
+            } else if (iH > wH) {// if the image  height is lager than the width
+                scale = 1-((iH - wH) / iH);
             } else {
                //Image is samller than view
                 if (wH / iH > wW / iW) {

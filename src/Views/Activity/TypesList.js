@@ -19,7 +19,7 @@ define('crm/Views/Activity/TypesList', [
     'dojo/_base/declare',
     'dojo/_base/lang',
     'argos/List',
-    'dojo/store/Memory',
+    'dojo/store/Memory'
 ], function(
     declare,
     lang,

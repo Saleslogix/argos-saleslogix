@@ -112,12 +112,12 @@ define('crm/Views/Contact/List', [
         entityName: 'Contact',
         groupsEnabled: true,
         enableActions: true,
-        callWork: function(params, evt, el) {
+        callWork: function(params) {
             this.invokeActionItemBy(function(action) {
                 return action.id === 'callWork';
             }, params.key);
         },
-        callMobile: function(params, evt, el) {
+        callMobile: function(params) {
             this.invokeActionItemBy(function(action) {
                 return action.id === 'callMobile';
             }, params.key);

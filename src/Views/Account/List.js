@@ -77,7 +77,7 @@ define('crm/Views/Account/List', [
          '</div><div style="float:left;">',
          '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Status") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Status") %}</span></h4>',
          '<h4><span class="group-label">{%= $$.getGroupFieldLabelByName($,"Type") %} </span><span class="group-entry">{%= $$.getGroupFieldValueByName($, "Type") %}</span></h4>',
-         '</div>',
+         '</div>'
         ]),
 
 

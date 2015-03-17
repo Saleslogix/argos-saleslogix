@@ -91,13 +91,15 @@ define('crm/Views/AreaCategoryIssueLookup', [
             }
         },
         buildFeedFrom: function(segment) {
-            var list = [];
+            var list = [], n;
 
-            for (var n in segment) {
-                list.push({
-                    '$key': n,
-                    '$descriptor': n
-                });
+            for (n in segment) {
+                if (segment.hasOwnProperty(n)) {
+                    list.push({
+                        '$key': n,
+                        '$descriptor': n
+                    });
+                }
             }
 
             return {'$resources': list};
@@ -105,10 +107,10 @@ define('crm/Views/AreaCategoryIssueLookup', [
         hasMoreData: function() {
             return false; // todo: implement paging?
         },
-        refreshRequiredFor: function(options) {
+        refreshRequiredFor: function() {
             return true; // todo: implement refresh detection?
         },
-        formatSearchQuery: function(searchQuery) {
+        formatSearchQuery: function() {
         }
     });
 

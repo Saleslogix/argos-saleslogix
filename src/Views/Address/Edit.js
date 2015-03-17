@@ -66,7 +66,7 @@ define('crm/Views/Address/Edit', [
             this.inherited(arguments);
             this.connect(this.fields['Country'], 'onChange', this.onCountryChange);
         },
-        onCountryChange: function(value, field) {
+        onCountryChange: function(value) {
             var locale = format.countryCultures[value] || 'en-US';
             this.hideFieldsForLocale(locale);
         },

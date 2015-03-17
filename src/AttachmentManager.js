@@ -58,8 +58,10 @@ define('crm/AttachmentManager', [
             this._uploadUrl = this._baseUrl + '/attachments/file';
             service.setContractName(oldContractName);
         },
-        createAttachments: function(files) {
-
+        /**
+         * @param {Array} files
+         */
+        createAttachments: function() {
         },
         createAttachment: function(file, mixin) {
             if (!mixin.hasOwnProperty('description')) {
@@ -67,7 +69,7 @@ define('crm/AttachmentManager', [
             }
             this._files.push(file);
             this._fileDescriptions.push({
-                fileName:file.name, 
+                fileName:file.name,
                 description: mixin['description']
             });
             this.uploadFiles();
@@ -75,7 +77,10 @@ define('crm/AttachmentManager', [
         _getDefaultDescription: function(filename) {
             return filename.replace(/\.[\w]*/, '');
         },
-        getAttachmentTemplate: function(callback) {
+        /**
+         * @param {Function} callback
+         */
+        getAttachmentTemplate: function() {
             this.requestTemplate(
                 function(template) {
                     this._attachmentTemplate = template;
@@ -110,7 +115,7 @@ define('crm/AttachmentManager', [
             }
             return description;
         },
-        _getAttachmentContextMixin: function(fileName) {
+        _getAttachmentContextMixin: function() {
             var contextMixin;
             contextMixin = this._getAttachmentContext();
             return contextMixin;
@@ -180,15 +185,15 @@ define('crm/AttachmentManager', [
         },
         requestTemplate: function(onSucess, onFailure) {
             var request = this.createTemplateRequest();
-            if (request)
+            if (request) {
                 request.read({
                     success: onSucess,
                     failure: onFailure,
                     scope: this
                 });
+            }
         },
-        onRequestTemplateFailure: function(response, o) {
-
+        onRequestTemplateFailure: function() {
         },
         onRequestTemplateSuccess: function(entry) {
             this.processTemplateEntry(entry);
@@ -206,15 +211,19 @@ define('crm/AttachmentManager', [
         },
         requestData: function(attachmnetId, onSucess, onFailure) {
             var request = this.createDataRequest(attachmnetId);
-            if (request)
+            if (request) {
                 request.read({
                     success: onSucess,
                     failure: onFailure,
                     scope: this
                 });
+            }
         },
-        onRequestDataFailure: function(response, o) {
-
+        /**
+         * @param response
+         * @param o
+         */
+        onRequestDataFailure: function() {
         },
         uploadFiles: function() {
             var file;
@@ -250,7 +259,7 @@ define('crm/AttachmentManager', [
                         attachment.description = this._getFileDescription(attachment.fileName);
                         attachment = lang.mixin(attachment, mixin);
                         request = this.createDataRequest(id);
-                        if (request){
+                        if (request) {
                             request.update(attachment, {
                                 success: this.onSuccessUpdate,
                                 failure: this.onFailedUpdate,
@@ -270,13 +279,18 @@ define('crm/AttachmentManager', [
         _onFailedAdd: function(resp) {
             console.warn('Attachment failed to save %o', resp);
         },
-        onSuccessUpdate: function(attachment) {
+        /**
+         * @param attachment
+         */
+        onSuccessUpdate: function() {
         },
         onFailedUpdate: function(resp) {
             console.warn('Attachment failed to update %o', resp);
         },
-        onUpdateProgress: function(pecent) {
-
+        /**
+         * @param percent
+         */
+        onUpdateProgress: function() {
         },
         _updateProgress: function(curFileProgress) {
             var pct, filePercent;
@@ -310,9 +324,9 @@ define('crm/AttachmentManager', [
             this._totalProgress = 0;
         },
         getAttachmentFile: function(attachmentId, responseType, onSuccsess) {
-             var url, fm;
-             url = this.getAttachmentUrl(attachmentId);
-             fm = this._fileManager.getFile(url, responseType, onSuccsess);
+            var url, fm;
+            url = this.getAttachmentUrl(attachmentId);
+            fm = this._fileManager.getFile(url, responseType, onSuccsess);
         }
     });
 
