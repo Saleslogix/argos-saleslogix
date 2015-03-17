@@ -129,7 +129,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
             prefs = App.preferences && App.preferences.speedSearchIndexes;
             if (this.indexes) {
                 for (i in this.indexes) {
-                    if (this.index.hasOwnProperty(i)) {
+                    if (this.indexes.hasOwnProperty(i)) {
                         index = this.indexes[i];
                         indexPref = array.filter(prefs, function(pref) {
                             return pref.indexName === index.indexName;
