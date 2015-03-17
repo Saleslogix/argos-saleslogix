@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             command: 'build\\release.cmd',
             options: {
                 execOptions: {
-                    cwd: '<%= argos.basePath %>'
+                    cwd: ''
                 }
             }
         }
