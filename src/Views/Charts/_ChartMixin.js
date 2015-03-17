@@ -166,7 +166,11 @@ define('crm/Views/Charts/_ChartMixin', [
         }
     };
 
-    var __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
+    var mixinName, __class;
+
+    mixinName = 'crm.Views.Charts._ChartMixin';
+
+    __class = declare('crm.Views.Charts._ChartMixin', [_PullToRefreshMixin], {
         _handle: null,
         _feedData: null,
 
@@ -187,6 +191,18 @@ define('crm/Views/Charts/_ChartMixin', [
         },
 
         PAGE_SIZE: 100,
+
+        /**
+         * @property {String}
+         * The loading text font style
+         */
+        loadingFont: '#000',
+
+        /**
+         * @property {String}
+         * Loading message
+         */
+        loadingText: 'loading...',
 
         /**
          * Overrides View widgetTemplate
@@ -220,6 +236,43 @@ define('crm/Views/Charts/_ChartMixin', [
             if (this.chart && this.chart.destroy) {
                 this.chart.destroy();
             }
+        },
+        _setCanvasWidth: function() {
+            var box;
+
+            box = domGeo.getMarginBox(this.domNode);
+            if (this.contentNode) {
+                this.contentNode.width = box.w;
+            }
+        },
+        _drawLoading: function() {
+            var node, context, globalConfig, offset, text, mixin, x, y;
+
+            node = this.contentNode;
+            globalConfig = window.Chart.defaults.global;
+            context = node && node.getContext && node.getContext('2d');
+
+            if (!context) {
+                return;
+            }
+
+            context.clearRect(0, 0, node.width, node.height);
+
+            mixin = lang.getObject(mixinName);
+            if (mixin) {
+                text = mixin.prototype.loadingText;
+            } else {
+                text = this.loadingText;
+            }
+
+            context.fillStyle = this.loadingFont;
+            context.font = globalConfig.tooltipFontSize + 'px ' + globalConfig.tooltipFontFamily;
+
+            // Center the text
+            offset = Math.floor(context.measureText(text).width / 2);
+            x = Math.floor(node.width / 2) - offset;
+            y = 20; // padding
+            context.fillText(text, x, y, node.width);
         },
         createChart: function(feedData) {
             this._feedData = feedData;
@@ -315,12 +368,14 @@ define('crm/Views/Charts/_ChartMixin', [
         requestData: function() {
             var store;
             store = this.get('store');
+            if (this.chart && this.chart.destroy) {
+                this.chart.destroy();
+            }
+
+            this._setCanvasWidth();
+            this._drawLoading();
 
             if (store) {
-                if (this.chart && this.chart.destroy) {
-                    this.chart.destroy();
-                }
-
                 store.query(null, {start: 0, count: this.PAGE_SIZE}).then(function(data) {
                     this.createChart(data);
                 }.bind(this), function(e) {
