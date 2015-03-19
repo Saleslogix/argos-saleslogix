@@ -112,7 +112,8 @@ define('crm/Views/Activity/Recurring', [
             var rp = parseInt(this.fields['RecurPeriod'].getValue(), 10),
                 startDate = this.fields['StartDate'].getValue(),
                 interval = this.fields['RecurPeriodSpec'].getValue() % 65536,
-                showthese = 'Interval,AfterCompletion,';
+                showthese = 'Interval,AfterCompletion,',
+                i;
 
             if (!recur.isAfterCompletion(rp)) {
                 showthese += 'RecurIterations,EndDate,';
@@ -156,7 +157,7 @@ define('crm/Views/Activity/Recurring', [
                     showthese = '';
             }
 
-            for (var i in this.fields) {
+            for (i in this.fields) {
                 if (0 <= showthese.indexOf(i)) {
                     this.fields[i].show();
                 } else {
@@ -270,13 +271,14 @@ define('crm/Views/Activity/Recurring', [
                 weekday = startDate.getDay(),
                 weekdays = recur.getWeekdays(parseInt(this.fields['RecurPeriodSpec'].getValue(), 10)),
                 ordWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1,
-                panel = parseInt(this.fields['RecurPeriod'].getValue(), 10);
+                panel = parseInt(this.fields['RecurPeriod'].getValue(), 10),
+                wd;
 
             value = parseInt(value.key || value, 10);
             switch (field.name) {
                 case 'Weekdays':
                     // only change StartDate if original weekday not included
-                    for (var wd = 0; wd < 7; wd++) {
+                    for (wd = 0; wd < 7; wd++) {
                         if (weekdays[wd] && !weekdays[weekday]) {
                             weekday = wd;
                         }
@@ -365,9 +367,10 @@ define('crm/Views/Activity/Recurring', [
 
         formatWeekdays: function(selections) {
             var values = [],
+                key,
                 weekdays = [0, 0, 0, 0, 0, 0, 0];
 
-            for (var key in selections) {
+            for (key in selections) {
                 if (selections[key]) {
                     values.push(this.weekDaysText[key]);
                     weekdays[key] = 1;
@@ -405,9 +408,10 @@ define('crm/Views/Activity/Recurring', [
         },
         preselectWeekdays: function() {
             var previousSelections = [],
+                i,
                 weekdays = recur.getWeekdays(this.fields['RecurPeriodSpec'].getValue());
 
-            for (var i = 0; i < weekdays.length; i++) {
+            for (i = 0; i < weekdays.length; i++) {
                 if (weekdays[i]) {
                     previousSelections.push(i);
                 }
@@ -464,7 +468,9 @@ define('crm/Views/Activity/Recurring', [
         },
         setValues: function(values) {
             this.inherited(arguments);
-            var field, ord;
+            var field,
+                name,
+                ord;
 
             // calculate some values from the ones provided
             this.entry = values;
@@ -481,11 +487,11 @@ define('crm/Views/Activity/Recurring', [
             this.entry.OrdMonth = ord.month;
 
             // Even hidden and falsy fields need their values set (not from parent)
-            for (var name in this.fields) {
+            for (name in this.fields) {
                 if (this.fields.hasOwnProperty(name)) {
                     field = this.fields[name];
                     // 0 (Daily panel) or false (AfterCompletion) are legitimate values!
-                    if (undefined !== this.entry[name]) {
+                    if (typeof this.entry[name] !== 'undefined') {
                         field.setValue(this.entry[name]);
                     }
                 }

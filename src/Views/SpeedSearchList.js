@@ -75,7 +75,7 @@ define('crm/Views/SpeedSearchList', [
             {indexName: 'Opportunity', indexType: 1, isSecure: true},
             {indexName: 'Ticket', indexType: 1, isSecure: false}
         ],
-        types: ['Account', 'Activity','Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
+        types: ['Account', 'Activity', 'Contact', 'History', 'Lead', 'Opportunity', 'Ticket'],
         indexesText: {
             'Account': 'Account',
             'Activity': 'Activity',
@@ -160,6 +160,12 @@ define('crm/Views/SpeedSearchList', [
             return count < total;
         },
         processFeed: function(feed) {
+            var i,
+                entry,
+                docfrag,
+                remaining,
+                rowNode;
+
             if (!this.feed) {
                 this.set('listContent', '');
             }
@@ -169,12 +175,10 @@ define('crm/Views/SpeedSearchList', [
             if (feed.totalCount === 0) {
                 this.set('listContent', this.noDataTemplate.apply(this));
             } else if (feed.items) {
+                docfrag = document.createDocumentFragment();
 
-                var docfrag = document.createDocumentFragment();
-
-                for (var i = 0; i < feed.items.length; i++) {
-                    var entry = feed.items[i];
-                    var rowNode;
+                for (i = 0; i < feed.items.length; i++) {
+                    entry = feed.items[i];
                     entry.type = this.extractTypeFromItem(entry);
                     entry.$descriptor = entry.$descriptor || entry.uiDisplayName;
                     entry.$key = this.extractKeyFromItem(entry);
@@ -196,7 +200,7 @@ define('crm/Views/SpeedSearchList', [
             }
 
             if (typeof feed.totalCount !== 'undefined') {
-                var remaining = this.feed.totalCount - ((this.currentPage + 1) * this.pageSize);
+                remaining = this.feed.totalCount - ((this.currentPage + 1) * this.pageSize);
                 this.set('remainingContent', string.substitute(this.remainingText, [remaining]));
             }
 

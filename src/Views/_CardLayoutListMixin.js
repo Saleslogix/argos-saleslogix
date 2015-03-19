@@ -36,9 +36,12 @@ define('crm/Views/_CardLayoutListMixin', [
     moment
 ) {
 
-    var mixinName = 'crm.Views._CardLayoutListMixin';
+    var mixinName,
+        __class;
 
-    var __class = declare('crm.Views._CardLayoutListMixin', null, {
+    mixinName = 'crm.Views._CardLayoutListMixin';
+
+    __class = declare('crm.Views._CardLayoutListMixin', null, {
         itemIcon: 'content/images/icons/man_1.png',
         itemIconAltText:'Contact',
         itemIconClass: '',

@@ -23,7 +23,10 @@ define('crm/GroupUtility', [
     sdkFormat,
     moment
 ) {
-    var _createGroupRequest = function(options) {
+    var _createGroupRequest,
+        __class;
+
+    _createGroupRequest = function(options) {
         var request, defaultOptions, arg;
 
         defaultOptions = {
@@ -52,7 +55,7 @@ define('crm/GroupUtility', [
         return request;
     };
 
-    var __class = lang.setObject('crm.GroupUtility', {
+    __class = lang.setObject('crm.GroupUtility', {
         groupDateFormatText: 'M/D/YYYY h:mm:ss a',
         /**
          * Returns an SDataNamedQueryRequest setup for groups
@@ -167,15 +170,18 @@ define('crm/GroupUtility', [
                 },
                 formatter: function(value, formatString, formatOptions) {
                     var dateValue;
+
                     if (typeof value === 'string') {
                         dateValue = moment(value);
                         if (dateValue.isValid()) {
-                            if ((formatOptions)&&(formatOptions.useRelative)) {
+                            if (formatOptions && formatOptions.useRelative) {
                                 return format.relativeDate(dateValue);
                             }
+
                             return dateValue.format(formatString);
                         }
                     }
+
                     return value;
                 }
             },
@@ -199,14 +205,14 @@ define('crm/GroupUtility', [
         ],
         transformDateFormatString: function(groupFormat, defaultFormat) {
             if (groupFormat) {
-                groupFormat = groupFormat.replace("MM", "M");
-                groupFormat = groupFormat.replace("mm", "M");
-                groupFormat = groupFormat.replace("m", "M");
-                groupFormat = groupFormat.replace("DD", "D");
-                groupFormat = groupFormat.replace("dd", "D");
-                groupFormat = groupFormat.replace("d", "D");
-                groupFormat = groupFormat.replace("yyyy", "YYYY");
-                groupFormat = groupFormat.replace("yy", "YYYY");
+                groupFormat = groupFormat.replace('MM', 'M');
+                groupFormat = groupFormat.replace('mm', 'M');
+                groupFormat = groupFormat.replace('m', 'M');
+                groupFormat = groupFormat.replace('DD', 'D');
+                groupFormat = groupFormat.replace('dd', 'D');
+                groupFormat = groupFormat.replace('d', 'D');
+                groupFormat = groupFormat.replace('yyyy', 'YYYY');
+                groupFormat = groupFormat.replace('yy', 'YYYY');
                 return groupFormat;
             }
             return defaultFormat;
@@ -226,7 +232,7 @@ define('crm/GroupUtility', [
         getFormatterByLayout: function(layoutItem) {
             var fieldFormatter, fieldFormatType, results;
 
-            if ((layoutItem.format)&&(layoutItem.format !== 'None')) {
+            if (layoutItem.format && layoutItem.format !== 'None') {
                 results = array.filter(this.groupFormatters, function(formatter) {
                     return (formatter.name === layoutItem.format);
                 });
@@ -262,7 +268,7 @@ define('crm/GroupUtility', [
                 formatter: results[0]['formatter'].bind(this)
             };
 
-            if (fieldFormatter.name === "DateTime") {
+            if (fieldFormatter.name === 'DateTime') {
                 fieldFormatter.formatString = this.transformDateFormatString(layoutItem.formatString, this.groupDateFormatText);
             } else {
                 fieldFormatter.formatString = layoutItem.formatString;
@@ -270,8 +276,10 @@ define('crm/GroupUtility', [
             return fieldFormatter;
         },
         getLayout: function(group) {
-            var layout;
-            var i = 0;
+            var layout,
+                i;
+
+            i = 0;
             layout = array.filter(group.layout, function(item) {
                 item.index = i++;
                 return array.every(this.groupFilters, function(filter) {
@@ -315,9 +323,13 @@ define('crm/GroupUtility', [
             return defaultGroupName;
         },
         getDefaultGroup: function(entityName) {
-            var groupList = App.preferences['groups-' + entityName];
-            var defaultGroup = null;
-            var defaultGroupName = null;
+            var groupList,
+                defaultGroup,
+                defaultGroupName;
+
+            groupList = App.preferences['groups-' + entityName];
+            defaultGroup = null;
+            defaultGroupName = null;
 
             defaultGroupName = this.getDefaultGroupPreference(entityName);
 

@@ -200,9 +200,9 @@ define('crm/Views/Activity/Edit', [
             this.inherited(arguments);
 
             this.recurrence = {
-                RecurIterations: "0",
-                RecurPeriod: "-1",
-                RecurPeriodSpec: "0"
+                RecurIterations: '0',
+                RecurPeriod: '-1',
+                RecurPeriodSpec: '0'
             };
 
             this.connect(this.fields['Lead'], 'onChange', this.onLeadChange);
@@ -302,7 +302,7 @@ define('crm/Views/Activity/Edit', [
                 isLeadContext = true;
             }
 
-            lead = (insert && isLeadContext )|| this.isActivityForLead(entry);
+            lead = (insert && isLeadContext ) || this.isActivityForLead(entry);
 
             return !!lead;
         },
@@ -653,6 +653,12 @@ define('crm/Views/Activity/Edit', [
             this.inherited(arguments);
 
             var startDate = this._getCalculatedStartTime(moment()),
+                user,
+                found,
+                accountField,
+                leaderField,
+                context,
+                lookup,
                 activityType = this.options && this.options.activityType,
                 activityGroup = this.groupOptionsByType[activityType] || '',
                 activityDuration = App.context.userOptions && App.context.userOptions[activityGroup + ':Duration'] || 15,
@@ -669,28 +675,28 @@ define('crm/Views/Activity/Edit', [
             this.fields['Alarm'].setValue(alarmEnabled);
             this.fields['Reminder'].setValue(alarmDuration);
 
-            var user = App.context['user'];
+            user = App.context['user'];
             if (user) {
                 this.fields['UserId'].setValue(user['$key']);
 
-                var leaderField = this.fields['Leader'];
+                leaderField = this.fields['Leader'];
                 leaderField.setValue(user);
                 this.onLeaderChange(user, leaderField);
             }
 
-            var found = this._getNavContext();
+            found = this._getNavContext();
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             this.onAccountChange(accountField.getValue(), accountField);
 
-            var context = (found && found.options && found.options.source) || found,
-                lookup = {
+            context = (found && found.options && found.options.source) || found;
+            lookup = {
                     'accounts': this.applyAccountContext,
                     'contacts': this.applyContactContext,
                     'opportunities': this.applyOpportunityContext,
                     'tickets': this.applyTicketContext,
                     'leads': this.applyLeadContext
-                };
+            };
 
             if (context && lookup[context.resourceKind]) {
                 lookup[context.resourceKind].call(this, context);
@@ -710,13 +716,14 @@ define('crm/Views/Activity/Edit', [
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
+                accountField,
                 entry = context.entry || (view && view.entry) || context;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             accountField.setSelection(entry);
             accountField.setValue({
                 'AccountId': entry['$key'],
@@ -798,21 +805,24 @@ define('crm/Views/Activity/Edit', [
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry),
+                opportunityField,
+                accountField,
                 phoneField;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var opportunityField = this.fields['Opportunity'];
+            opportunityField = this.fields['Opportunity'];
             opportunityField.setSelection(entry);
             opportunityField.setValue({
                 'OpportunityId': entry['$key'],
                 'OpportunityName': entry['$descriptor']
             });
+
             this.onAccountDependentChange(opportunityField.getValue(), opportunityField);
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             accountField.setValue({
                 'AccountId': utility.getValue(entry, 'Account.$key'),
                 'AccountName': utility.getValue(entry, 'Account.AccountName')
@@ -826,13 +836,15 @@ define('crm/Views/Activity/Edit', [
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
                 entry = context.entry || (view && view.entry),
+                leadField,
+                isLeadField,
                 phoneField;
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var leadField = this.fields['Lead'];
+            leadField = this.fields['Lead'];
             leadField.setSelection(entry);
             leadField.setValue({
                 'LeadId': entry['$key'],
@@ -842,7 +854,7 @@ define('crm/Views/Activity/Edit', [
 
             this.fields['AccountName'].setValue(entry['Company']);
 
-            var isLeadField = this.fields['IsLead'];
+            isLeadField = this.fields['IsLead'];
             isLeadField.setValue(context.resourceKind === 'leads');
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
 
@@ -852,15 +864,23 @@ define('crm/Views/Activity/Edit', [
             }
         },
         setValues: function(values) {
+            var startTime,
+                span,
+                isLeadField,
+                entry,
+                denyEdit,
+                allowSetAlarm,
+                reminder;
+
             if (values['StartDate'] && values['AlarmTime']) {
-                var startTime = (this.isDateTimeless(values['StartDate']))
+                startTime = (this.isDateTimeless(values['StartDate']))
                     ? moment(values['StartDate']).add({minutes: values['StartDate'].getTimezoneOffset()}).toDate().getTime()
                     : values['StartDate'].getTime();
 
-                var span = startTime - values['AlarmTime'].getTime(), // ms
-                    reminder = span / (1000 * 60);
+                span = startTime - values['AlarmTime'].getTime(); // ms
+                reminder = span / (1000 * 60);
 
-                values['Reminder'] = format.fixed(reminder,0);
+                values['Reminder'] = format.fixed(reminder, 0);
             }
 
             this.inherited(arguments);
@@ -882,16 +902,16 @@ define('crm/Views/Activity/Edit', [
             }
 
             if (this.isInLeadContext()) {
-                var isLeadField = this.fields['IsLead'];
+                isLeadField = this.fields['IsLead'];
                 isLeadField.setValue(true);
                 this.onIsLeadChange(isLeadField.getValue(), isLeadField);
                 this.fields['Lead'].setValue(values, true);
                 this.fields['AccountName'].setValue(values['AccountName']);
             }
 
-            var entry = this.options.entry || this.entry,
-                denyEdit = !this.options.insert && !this.currentUserCanEdit(entry),
-                allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
+            entry = this.options.entry || this.entry;
+            denyEdit = !this.options.insert && !this.currentUserCanEdit(entry);
+            allowSetAlarm = !denyEdit || this.currentUserCanSetAlarm(entry);
 
             if (denyEdit) {
                 this.disableFields();

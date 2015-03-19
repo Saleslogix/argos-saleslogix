@@ -466,7 +466,7 @@ define('crm/Views/Activity/MyList', [
             this._postUserNotifications(notification, 'Accept');
         },
         _postUserNotifications: function(notification, operation) {
-            if (!notification || typeof operation !== "string") {
+            if (!notification || typeof operation !== 'string') {
                 return;
             }
 
@@ -477,10 +477,10 @@ define('crm/Views/Activity/MyList', [
              * http://localhost:6666/SlxClient/slxdata.ashx/slx/dynamic/-/userNotifications/$service/accept/$template?format=json
             */
             payload = {
-                "$name": operation,
-                "request": {
-                    "entity": notification,
-                    "UserNotificationId": notification['$key']
+                '$name': operation,
+                'request': {
+                    'entity': notification,
+                    'UserNotificationId': notification['$key']
                 }
             };
 
@@ -501,13 +501,13 @@ define('crm/Views/Activity/MyList', [
             var request, completeActivityEntry;
 
             completeActivityEntry = {
-                "$name": "ActivityComplete",
-                "request": {
-                    "entity": {'$key': entry['$key']},
-                    "ActivityId": entry['$key'],
-                    "userId": entry['Leader']['$key'],
-                    "result": entry['Result'],
-                    "completeDate": entry['CompletedDate']
+                '$name': 'ActivityComplete',
+                'request': {
+                    'entity': {'$key': entry['$key']},
+                    'ActivityId': entry['$key'],
+                    'userId': entry['Leader']['$key'],
+                    'result': entry['Result'],
+                    'completeDate': entry['CompletedDate']
                 }
             };
 
@@ -554,8 +554,8 @@ define('crm/Views/Activity/MyList', [
             return false;
         },
         isImportant: function(entry) {
-            if (entry["Activity"]['Priority']) {
-                if (entry["Activity"]['Priority'] === 'High') {
+            if (entry['Activity']['Priority']) {
+                if (entry['Activity']['Priority'] === 'High') {
                     return true;
                 }
             }
@@ -604,9 +604,10 @@ define('crm/Views/Activity/MyList', [
             return (selection.data['Activity']['ContactId']) || (selection.data['Activity']['LeadId']);
         },
         navigateToContactOrLead: function(action, selection) {
-            var entry = selection.data["Activity"],
+            var entry = selection.data['Activity'],
                 entity = this.resolveContactOrLeadEntity(entry),
                 viewId,
+                view,
                 options;
 
             switch (entity) {
@@ -626,7 +627,7 @@ define('crm/Views/Activity/MyList', [
                     break;
             }
 
-            var view = App.getView(viewId);
+            view = App.getView(viewId);
 
             if (view && options) {
                 view.show(options);
@@ -652,7 +653,7 @@ define('crm/Views/Activity/MyList', [
                 'ContactId': entry['Activity']['ContactId'],
                 'AccountName': entry['Activity']['AccountName'],
                 'AccountId': entry['Activity']['AccountId'],
-                'Description': string.substitute("${0} ${1}", [this.calledText, (entry['Activity']['ContactName'] || '')]),
+                'Description': string.substitute('${0} ${1}', [this.calledText, (entry['Activity']['ContactName'] || '')]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,

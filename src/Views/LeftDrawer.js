@@ -157,7 +157,14 @@ define('crm/Views/LeftDrawer', [
                 return this.layout;
             }
 
-            var quickActions, goTo, footer, layout, configured;
+            var quickActions,
+                goTo,
+                footer,
+                layout,
+                configured,
+                view,
+                i;
+
             layout = [];
 
             quickActions = {
@@ -180,8 +187,8 @@ define('crm/Views/LeftDrawer', [
             };
 
             configured = lang.getObject('preferences.home.visible', false, window.App);
-            for (var i = 0; i < configured.length; i++) {
-                var view = App.getView(configured[i]);
+            for (i = 0; i < configured.length; i++) {
+                view = App.getView(configured[i]);
                 if (view) {
                     goTo.children.push({
                         'action': 'loadAndNavigateToView',
@@ -280,13 +287,14 @@ define('crm/Views/LeftDrawer', [
         },
         refreshRequiredFor: function() {
             var visible = lang.getObject('preferences.home.visible', false, App) || [],
+                i,
                 shown = this.feed && this.feed['$resources'];
 
             if (!visible || !shown || (visible.length !== shown.length)) {
                 return true;
             }
 
-            for (var i = 0; i < visible.length; i++) {
+            for (i = 0; i < visible.length; i++) {
                 if (visible[i] !== shown[i]['$key']) {
                     return true;
                 }

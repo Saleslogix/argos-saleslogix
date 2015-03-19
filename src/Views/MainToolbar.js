@@ -25,12 +25,15 @@ define('crm/Views/MainToolbar', [
 
     var __class = declare('crm.Views.MainToolbar', [MainToolbar], {
         showTools: function(tools) {
-            var hasLeftDrawer, isOnFirstView, isOnEdit;
+            var hasLeftDrawer,
+                isOnFirstView,
+                i,
+                isOnEdit;
 
             isOnFirstView = App.isOnFirstView();
 
             if (tools) {
-                for (var i = 0; i < tools.length; i++) {
+                for (i = 0; i < tools.length; i++) {
                     if (tools[i].id === 'toggleLeftDrawer') {
                         hasLeftDrawer = true;
                     }

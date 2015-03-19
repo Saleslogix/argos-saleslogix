@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.config('esformatter', {
             options: {
                 indent: {
-                    value: "    "
+                    value: '    '
                 },
                 whiteSpace: {
                     before: {
@@ -30,9 +30,9 @@ module.exports = function(grunt) {
                     }
                 },
                 plugins: [
-                    "esformatter-braces",
-                    "esformatter-parseint",
-                    "esformatter-semicolons"
+                    'esformatter-braces',
+                    'esformatter-parseint',
+                    'esformatter-semicolons'
                 ]
             },
             src: 'src/**/*.js'

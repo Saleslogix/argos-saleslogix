@@ -54,12 +54,12 @@ define('crm/FileManager', [
          * @returns {Boolean}
          */
         isFileSizeAllowed: function(files) {
-            var len = 0, maxfileSize, title, msg;
+            var len = 0, maxfileSize, title, msg, i;
             maxfileSize = this.fileUploadOptions.maxFileSize;
             title = this.largeFileWarningTitle;
             msg = this.largeFileWarningText;
 
-            for (var i = 0; i < files.length; i++) {
+            for (i = 0; i < files.length; i++) {
                 if (files[i].size === 0) {
                     // do nothing.
                 } else {
@@ -135,7 +135,7 @@ define('crm/FileManager', [
                 }
 
                 binary = evt.target.result;
-                boundary = "---------------------------" + (new Date()).getTime();
+                boundary = '---------------------------' + (new Date()).getTime();
                 dashdash = '--';
                 crlf = '\r\n';
 
@@ -156,7 +156,7 @@ define('crm/FileManager', [
                             if (Math.floor(request.status / 100) !== 2) {
                                 if (error) {
                                     error.call(scope || this, unknownErrorText);
-                                    console.warn(unknownErrorText + " "+ request.responseText);
+                                    console.warn(unknownErrorText + ' ' + request.responseText);
                                 }
                             } else {
                                 complete.call(scope || this, request);
@@ -239,7 +239,7 @@ define('crm/FileManager', [
             service = App.getService();
             self = this;
 
-            request.open("GET", fileUrl, true);
+            request.open('GET', fileUrl, true);
 
             if (responseType) {
                 request.responseType = responseType;
@@ -252,12 +252,12 @@ define('crm/FileManager', [
                 request.setRequestHeader('X-Authorization-Mode', 'no-challenge');
             }
 
-            request.addEventListener("load", function() {
+            request.addEventListener('load', function() {
                 var data, contentType, contentInfo, responseInfo, fileName;
 
                 data = this.response;
-                contentType = this.getResponseHeader("Content-Type");
-                contentInfo = this.getResponseHeader("Content-Disposition");
+                contentType = this.getResponseHeader('Content-Type');
+                contentInfo = this.getResponseHeader('Content-Disposition');
                 responseInfo = {};
                 fileName = contentInfo.split('=')[1];
 

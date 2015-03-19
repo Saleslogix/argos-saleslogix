@@ -85,7 +85,10 @@ define('crm/Views/ErrorLog/Detail', [
         },
 
         createToolLayout: function() {
-            var tools = {
+            var tools,
+                flashVars;
+
+            tools = {
                 'tbar': []
             };
 
@@ -99,10 +102,10 @@ define('crm/Views/ErrorLog/Detail', [
             }
 
             if (this.sendType === 'copy') {
-                var flashVars = this.constructFlashVars({
-                    "retrieveFunction": "App.views." + this.id + ".constructReport",
-                    "callbackFunction": "App.views." + this.id + ".onCopySuccess",
-                    "labelVisible": "0"
+                flashVars = this.constructFlashVars({
+                    'retrieveFunction': 'App.views.' + this.id + '.constructReport',
+                    'callbackFunction': 'App.views.' + this.id + '.onCopySuccess',
+                    'labelVisible': '0'
                 });
 
                 tools.tbar.push({

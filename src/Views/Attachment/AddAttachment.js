@@ -42,12 +42,15 @@ define('crm/Views/Attachment/AddAttachment', [
         id: 'attachment_Add',
 
         onUploadFiles: function() {
-            var fileItems, self;
+            var fileItems,
+                am,
+                self;
+
             self = this;
             if (this._files && this._files.length > 0) {
                 this.inherited(arguments);
                 fileItems = this.getFileItems();
-                var am = new AttachmentManager();
+                am = new AttachmentManager();
 
                 am.onSuccessUpdate = function() {
                     Environment.refreshAttachmentViews();

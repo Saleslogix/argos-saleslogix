@@ -37,9 +37,12 @@ define('crm/Views/_RightDrawerListMixin', [
     LookupField
 ) {
 
-    var mixinName = 'crm.Views._RightDrawerListMixin';
+    var mixinName,
+        __class;
 
-    var __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
+    mixinName = 'crm.Views._RightDrawerListMixin';
+
+    __class = declare('crm.Views._RightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         hashTagsSectionText: 'Hash Tags',
         groupsSectionText: 'Groups',
@@ -153,7 +156,7 @@ define('crm/Views/_RightDrawerListMixin', [
                     })[0];
 
                     if (!group) {
-                        throw new Error("Expected a group.");
+                        throw new Error('Expected a group.');
                     }
                     this.setCurrentGroup(group);
                     this.refresh();
@@ -189,7 +192,7 @@ define('crm/Views/_RightDrawerListMixin', [
             });
 
             handle = aspect.after(field, 'complete', function() {
-                var field = this,
+                var self = this,
                     list = this.owner,
                     groupId,
                     entry,
@@ -200,9 +203,9 @@ define('crm/Views/_RightDrawerListMixin', [
 
                 // We will get an object back where the property names are the keys (groupId's)
                 // Extract them out, and save the entry, which is the data property on the extracted object
-                for (groupId in field.currentValue) {
-                    if (field.currentValue.hasOwnProperty(groupId)) {
-                        entry = field.currentValue[groupId].data;
+                for (groupId in self.currentValue) {
+                    if (self.currentValue.hasOwnProperty(groupId)) {
+                        entry = self.currentValue[groupId].data;
                         if (entry) {
                             items.push(entry);
                         }
@@ -217,7 +220,7 @@ define('crm/Views/_RightDrawerListMixin', [
                 }
 
                 handle.remove();
-                field.destroy();
+                self.destroy();
 
                 if (hasDefaultGroup) {
                     // We will transition back to the list, pop back open the right drawer so the user is back where they started
@@ -266,7 +269,16 @@ define('crm/Views/_RightDrawerListMixin', [
             };
         },
         createRightDrawerLayout: function() {
-            var groupsSection,layoutSection, hashTagsSection, hashTag, kpiSection, layout, metrics, i, len, mixin = lang.getObject(mixinName);
+            var groupsSection,
+                layoutSection,
+                hashTagsSection,
+                hashTag,
+                kpiSection,
+                layout,
+                metrics,
+                i,
+                len,
+                mixin = lang.getObject(mixinName);
 
             layout = [];
 

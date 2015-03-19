@@ -326,10 +326,10 @@ define('crm/Views/Calendar/MonthView', [
             this.navigateToDayView();
         },
         activateEventMore: function() {
-            var view = App.getView("event_related"),
+            var view = App.getView('event_related'),
                 where = this.getSelectedDateEventQuery();
             if (view) {
-                view.show({"where": where});
+                view.show({'where': where});
             }
         },
         toggleGroup: function(params) {
@@ -388,10 +388,13 @@ define('crm/Views/Calendar/MonthView', [
             this.cancelRequests(this.monthRequests);
             this.monthRequests = [];
 
-            var request = this.createRequest();
+            var request,
+                xhr;
+
+            request = this.createRequest();
             request.setContractName(this.contractName || 'system');
 
-            var xhr = request.read({
+            xhr = request.read({
                 success: this.onRequestDataSuccess,
                 failure: this.onRequestDataFailure,
                 aborted: this.onRequestDataAborted,
@@ -415,8 +418,11 @@ define('crm/Views/Calendar/MonthView', [
             this.cancelRequests(this.monthEventRequests);
             this.monthEventRequests = [];
 
-            var request = this.createEventRequest();
-            var xhr = request.read({
+            var request,
+                xhr;
+
+            request = this.createEventRequest();
+            xhr = request.read({
                 success: this.onRequestEventDataSuccess,
                 failure: this.onRequestEventDataFailure,
                 aborted: this.onRequestEventDataAborted,
@@ -539,16 +545,19 @@ define('crm/Views/Calendar/MonthView', [
 
         highlightActivities: function() {
             query('.calendar-day').forEach(function(node) {
-                var dataDate = domAttr.get(node, 'data-date');
+                var dataDate,
+                    countMarkup,
+                    existingCount;
+
+                dataDate = domAttr.get(node, 'data-date');
                 if (!this.dateCounts[dataDate]) {
                     return;
                 }
 
-                domClass.add(node, "activeDay");
+                domClass.add(node, 'activeDay');
 
-                var countMarkup = string.substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
-
-                var existingCount = query(node).children('div');
+                countMarkup = string.substitute(this.calendarActivityCountTemplate, [this.dateCounts[dataDate]]);
+                existingCount = query(node).children('div');
 
                 if (existingCount.length > 0) {
                     domConstruct.place(countMarkup, existingCount[0], 'only');
@@ -592,14 +601,18 @@ define('crm/Views/Calendar/MonthView', [
             this.cancelRequests(this.selectedDateRequests);
             this.selectedDateRequests = [];
 
-            var request = this.createSelectedDateRequest({
+            var request,
+                xhr;
+
+            request = this.createSelectedDateRequest({
                 pageSize: this.activityPageSize,
                 resourceKind: 'activities',
                 contractName: 'system',
                 querySelect: this.activityQuerySelect,
                 queryWhere: this.getSelectedDateActivityQuery()
             });
-            var xhr = request.read({
+
+            xhr = request.read({
                 success: this.onRequestSelectedDateActivityDataSuccess,
                 failure: this.onRequestDataFailure,
                 aborted: this.onRequestDataAborted,
@@ -611,14 +624,18 @@ define('crm/Views/Calendar/MonthView', [
             this.cancelRequests(this.selectedDateEventRequests);
             this.selectedDateEventRequests = [];
 
-            var request = this.createSelectedDateRequest({
+            var request,
+                xhr;
+
+            request = this.createSelectedDateRequest({
                 pageSize: this.eventPageSize,
                 resourceKind: 'events',
                 contractName: 'dynamic',
                 querySelect: this.eventQuerySelect,
                 queryWhere: this.getSelectedDateEventQuery()
             });
-            var xhr = request.read({
+
+            xhr = request.read({
                 success: this.onRequestSelectedDateEventDataSuccess,
                 failure: this.onRequestDataFailure,
                 aborted: this.onRequestDataAborted,
@@ -677,10 +694,12 @@ define('crm/Views/Calendar/MonthView', [
 
             var r = feed['$resources'],
                 feedLength = r.length,
+                row,
+                i,
                 o = [];
 
-            for (var i = 0; i < feedLength; i++) {
-                var row = r[i];
+            for (i = 0; i < feedLength; i++) {
+                row = r[i];
                 row.isEvent = false;
                 this.entries[row.$key] = row;
                 o.push(this.activityRowTemplate.apply(row, this));
@@ -708,7 +727,10 @@ define('crm/Views/Calendar/MonthView', [
 
             var r = feed['$resources'],
                 feedLength = r.length,
+                i,
+                row,
                 o = [];
+
             this.eventFeed = feed;
 
             if (feedLength === 0) {
@@ -718,8 +740,8 @@ define('crm/Views/Calendar/MonthView', [
                 this.showEventList();
             }
 
-            for (var i = 0; i < feedLength; i++) {
-                var row = r[i];
+            for (i = 0; i < feedLength; i++) {
+                row = r[i];
                 row.isEvent = true;
                 this.entries[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
@@ -745,8 +767,9 @@ define('crm/Views/Calendar/MonthView', [
                 dayDate = this.currentDate.clone().startOf('month'),
                 today = moment().startOf('day'),
                 monthLength = this.currentDate.daysInMonth(),
-                weekEnds = [0,6],
-                i;
+                weekEnds = [0, 6],
+                i,
+                j;
 
             calHTML.push(this.calendarStartTemplate);
 
@@ -760,7 +783,7 @@ define('crm/Views/Calendar/MonthView', [
             for (i = 0; i <= 6; i++) {
                 calHTML.push(this.calendarWeekStartTemplate);
                 //Days
-                for (var j = 0; j <= 6; j++) {
+                for (j = 0; j <= 6; j++) {
                     if (day <= monthLength && (i > 0 || j >= startingDay)) {
                         dayDate.date(day);
                         dayClass = (dayDate.valueOf() === today.valueOf()) ? 'today' : '';

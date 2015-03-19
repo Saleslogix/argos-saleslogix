@@ -108,23 +108,29 @@ define('crm/Views/Home', [
         },
         createLayout: function() {
             // don't need to cache as it is only re-rendered when there is a change
-            var configured = lang.getObject('preferences.home.visible', false, App) || [],
-                layout = [{
+            var configured,
+                layout,
+                visible,
+                i,
+                view;
+
+            configured = lang.getObject('preferences.home.visible', false, App) || [];
+            layout = [{
                     id: 'actions',
                     children: [{
                         'name': 'AddAccountContactAction',
                         'action': 'addAccountContact',
                         'title': this.addAccountContactText
                     }]
-                }];
+            }];
 
-            var visible = {
+            visible = {
                 id: 'views',
                 children: []
             };
 
-            for (var i = 0; i < configured.length; i++) {
-                var view = App.getView(configured[i]);
+            for (i = 0; i < configured.length; i++) {
+                view = App.getView(configured[i]);
                 if (view) {
                     visible.children.push({
                         'action': 'navigateToView',
@@ -142,13 +148,17 @@ define('crm/Views/Home', [
         },
         requestData: function() {
             var layout = this._createCustomizedLayout(this.createLayout()),
+                i,
+                j,
+                row,
+                section,
                 list = [];
 
-            for (var i = 0; i < layout.length; i++) {
-                var section = layout[i].children;
+            for (i = 0; i < layout.length; i++) {
+                section = layout[i].children;
 
-                for (var j = 0; j < section.length; j++) {
-                    var row = section[j];
+                for (j = 0; j < section.length; j++) {
+                    row = section[j];
 
                     if (row['security'] && !App.hasAccessTo(row['security'])) {
                         continue;
@@ -183,13 +193,14 @@ define('crm/Views/Home', [
         },
         refreshRequiredFor: function() {
             var visible = lang.getObject('preferences.home.visible', false, App) || [],
+                i,
                 shown = this.feed && this.feed['$resources'];
 
             if (!visible || !shown || (visible.length !== shown.length)) {
                 return true;
             }
 
-            for (var i = 0; i < visible.length; i++) {
+            for (i = 0; i < visible.length; i++) {
                 if (visible[i] !== shown[i]['$key']) {
                     return true;
                 }

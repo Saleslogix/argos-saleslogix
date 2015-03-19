@@ -327,7 +327,7 @@ define('crm/Views/Activity/Detail', [
                 return string.substitute(fmt, [utility.getRealActivityId(entry.$key)]);
             } else {
                 property = property || '$key';
-                return string.substitute(fmt, [platformUtility.getValue(entry, property, "")]);
+                return string.substitute(fmt, [platformUtility.getValue(entry, property, '')]);
             }
         },
         createLayout: function() {

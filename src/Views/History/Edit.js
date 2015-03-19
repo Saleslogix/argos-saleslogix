@@ -212,10 +212,13 @@ define('crm/Views/History/Edit', [
             this.inherited(arguments);
         },
         applyContext: function() {
-            var found;
+            var found,
+                user,
+                lookup;
+
             found = this._getNavContext();
 
-            var lookup = {
+            lookup = {
                 'accounts': this.applyAccountContext,
                 'contacts': this.applyContactContext,
                 'opportunities': this.applyOpportunityContext,
@@ -227,7 +230,7 @@ define('crm/Views/History/Edit', [
                 lookup[found.resourceKind].call(this, found);
             }
 
-            var user = App.context && App.context.user;
+            user = App.context && App.context.user;
 
             this.fields['Type'].setValue('atNote');
             this.fields['UserId'].setValue(user && user['$key']);
@@ -255,45 +258,55 @@ define('crm/Views/History/Edit', [
         },
         applyLeadContext: function(context) {
             var view = App.getView(context.id),
+                leadField,
+                leadValue,
+                isLeadField,
                 entry = context.entry || (view && view.entry);
 
             if (!entry || !entry['$key']) {
                 return;
             }
 
-            var leadField = this.fields['Lead'],
-                leadValue = {
+            leadField = this.fields['Lead'];
+            leadValue = {
                     'LeadId': entry['$key'],
                     'LeadName': entry['$descriptor']
-                };
+            };
+
             leadField.setValue(leadValue);
             this.onLeadChange(leadValue, leadField);
 
             this.fields['AccountName'].setValue(entry['Company']);
 
-            var isLeadField = this.fields['IsLead'];
+            isLeadField = this.fields['IsLead'];
             isLeadField.setValue(context.resourceKind === 'leads');
             this.onIsLeadChange(isLeadField.getValue(), isLeadField);
         },
         applyOpportunityContext: function(context) {
-            var opportunityField = this.fields['Opportunity'];
+            var opportunityField,
+                accountEntry,
+                accountField,
+                view,
+                entry;
+
+            opportunityField = this.fields['Opportunity'];
             opportunityField.setValue({
                 'OpportunityId': context.key,
                 'OpportunityName': context.descriptor
             });
+
             this.onAccountDependentChange(opportunityField.getValue, opportunityField);
 
-            var accountEntry;
             if (context.entry && context.entry['Account']) {
                 accountEntry = context.entry['Account'];
             } else {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
+                view = App.getView(context.id);
+                entry = view && view.entry;
                 accountEntry = entry && entry['Account'];
             }
 
             if (accountEntry) {
-                var accountField = this.fields['Account'];
+                accountField = this.fields['Account'];
                 accountField.setValue({
                     'AccountId': accountEntry['$key'],
                     'AccountName': accountEntry['AccountName']
@@ -304,24 +317,30 @@ define('crm/Views/History/Edit', [
             // todo: find a good way to get the primary contact and apply
         },
         applyContactContext: function(context) {
-            var contactField = this.fields['Contact'];
+            var contactField,
+                accountEntry,
+                view,
+                entry,
+                accountField;
+
+            contactField = this.fields['Contact'];
             contactField.setValue({
                 'ContactId': context.key,
                 'ContactName': context.descriptor
             });
+
             this.onAccountDependentChange(contactField.getValue(), contactField);
 
-            var accountEntry;
             if (context.entry && context.entry['Account']) {
                 accountEntry = context.entry['Account'];
             } else {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
+                view = App.getView(context.id);
+                entry = view && view.entry;
                 accountEntry = entry && entry['Account'];
             }
 
             if (accountEntry) {
-                var accountField = this.fields['Account'];
+                accountField = this.fields['Account'];
                 accountField.setValue({
                     'AccountId': accountEntry['$key'],
                     'AccountName': accountEntry['AccountName']
@@ -330,26 +349,33 @@ define('crm/Views/History/Edit', [
             }
         },
         applyTicketContext: function(context) {
-            var ticketField = this.fields['Ticket'];
+            var ticketField,
+                accountEntry,
+                accountField,
+                contactEntry,
+                contactField,
+                view,
+                entry;
+
+            ticketField = this.fields['Ticket'];
             ticketField.setValue({
                 'TicketId': context.key,
                 'TicketNumber': context.descriptor
             });
             this.onAccountDependentChange(ticketField.getValue(), ticketField);
 
-            var accountEntry, contactEntry;
             if (context.entry && context.entry['Account']) {
                 accountEntry = context.entry['Account'];
                 contactEntry = context.entry['Contact'];
             } else {
-                var view = App.getView(context.id),
-                    entry = view && view.entry;
+                view = App.getView(context.id);
+                entry = view && view.entry;
                 accountEntry = entry && entry['Account'];
                 contactEntry = entry && entry['Contact'];
             }
 
             if (accountEntry) {
-                var accountField = this.fields['Account'];
+                accountField = this.fields['Account'];
                 accountField.setValue({
                     'AccountId': accountEntry['$key'],
                     'AccountName': accountEntry['AccountName']
@@ -358,7 +384,7 @@ define('crm/Views/History/Edit', [
             }
 
             if (contactEntry) {
-                var contactField = this.fields['Contact'];
+                contactField = this.fields['Contact'];
                 contactField.setValue({
                     'ContactId': contactEntry['$key'],
                     'ContactName': contactEntry['NameLF']
@@ -367,7 +393,14 @@ define('crm/Views/History/Edit', [
             }
         },
         setValues: function(values) {
-            var isLeadField, field, value, leadCompany, longNotes, insert, denyEdit;
+            var isLeadField,
+                field,
+                value,
+                leadCompany,
+                longNotes,
+                insert,
+                lookup,
+                denyEdit;
 
             this.inherited(arguments);
             isLeadField = this.fields['IsLead'];
@@ -394,7 +427,7 @@ define('crm/Views/History/Edit', [
             this.context = this._getNavContext();
             // entry may have been passed as full entry, reapply context logic to extract properties
             if (insert && this.context && this.context.resourceKind) {
-                var lookup = {
+                lookup = {
                     'accounts': this.applyAccountContext,
                     'contacts': this.applyContactContext,
                     'opportunities': this.applyOpportunityContext,
@@ -444,10 +477,13 @@ define('crm/Views/History/Edit', [
             return '';
         },
         getValues: function() {
-            var values = this.inherited(arguments);
+            var values,
+                text;
+
+            values = this.inherited(arguments);
 
             if (this.fields['Text'].isDirty()) {
-                var text = this.fields['Text'].getValue();
+                text = this.fields['Text'].getValue();
 
                 values = values || {};
                 values['LongNotes'] = text;

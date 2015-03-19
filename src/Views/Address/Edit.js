@@ -51,12 +51,12 @@ define('crm/Views/Address/Edit', [
          * Set to null to skip and leave all fields visible
          */
         localeFieldHidden: {
-            "en-US": null,
-            "en-GB": ['State'],
-            "fr-FR": ['State'],
-            "de-DE": ['State'],
-            "it-IT": null,
-            "ru-RU": ['State']
+            'en-US': null,
+            'en-GB': ['State'],
+            'fr-FR': ['State'],
+            'de-DE': ['State'],
+            'it-IT': null,
+            'ru-RU': ['State']
         },
 
         //View Properties
@@ -76,13 +76,17 @@ define('crm/Views/Address/Edit', [
          * @param locale Localization string (Ex: 'en-US' or 'de-DE')
          */
         hideFieldsForLocale: function(locale) {
-            var fieldsToHide = this.localeFieldHidden[locale];
+            var fieldsToHide,
+                i,
+                field;
+
+            fieldsToHide = this.localeFieldHidden[locale];
             if (!fieldsToHide) {
                 return;
             }
 
-            for (var i = 0; i < fieldsToHide.length; i++) {
-                var field = this.fields[fieldsToHide[i]];
+            for (i = 0; i < fieldsToHide.length; i++) {
+                field = this.fields[fieldsToHide[i]];
                 if (field) {
                     field.hide();
                 }

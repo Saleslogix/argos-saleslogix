@@ -84,6 +84,7 @@ define('crm/Action', [
         addNote: function(action, selection) {
             var entry = selection.data,
                 key = selection.data.$key,
+                view,
                 desc = selection.data.$descriptor;
 
             this.setSource({
@@ -92,7 +93,7 @@ define('crm/Action', [
                 key: key
             });
 
-            var view = App.getView('history_edit');
+            view = App.getView('history_edit');
 
             if (view) {
                 view.show({insert: true});

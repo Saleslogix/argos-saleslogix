@@ -50,10 +50,10 @@ define('crm/Views/Event/Edit', [
         resourceKind: 'events',
 
         eventTypesText: {
-            "Vacation": "Vacation",
-            "Business Trip": "Business Trip",
-            "Conference": "Conference",
-            "Holiday": "Holiday"
+            'Vacation': 'Vacation',
+            'Business Trip': 'Business Trip',
+            'Conference': 'Conference',
+            'Holiday': 'Holiday'
         },
         startup: function() {
             this.inherited(arguments);
@@ -85,13 +85,21 @@ define('crm/Views/Event/Edit', [
             return {'$resources': list};
         },
         applyUserActivityContext: function(context) {
-            var view = App.getView(context.id);
+            var view,
+                currentDate,
+                userOptions,
+                startTimeOption,
+                startTime,
+                startDate,
+                endDate;
+
+            view = App.getView(context.id);
             if (view && view.currentDate) {
-                var currentDate = moment(view.currentDate).clone().startOf('day'),
-                    userOptions = App.context['userOptions'],
-                    startTimeOption = userOptions && userOptions['Calendar:DayStartTime'],
-                    startTime = startTimeOption && moment(startTimeOption, 'h:mma'),
-                    startDate = currentDate.clone();
+                currentDate = moment(view.currentDate).clone().startOf('day');
+                userOptions = App.context['userOptions'];
+                startTimeOption = userOptions && userOptions['Calendar:DayStartTime'];
+                startTime = startTimeOption && moment(startTimeOption, 'h:mma');
+                startDate = currentDate.clone();
 
                 if (startTime && (!moment(currentDate).isSame(moment()))) {
                     startDate.hours(startTime.hours());
@@ -104,7 +112,7 @@ define('crm/Views/Event/Edit', [
                         });
                 }
 
-                var endDate = startDate.clone().add({minutes:15});
+                endDate = startDate.clone().add({minutes:15});
 
                 this.fields['StartDate'].setValue(startDate.toDate());
                 this.fields['EndDate'].setValue(endDate.toDate());
@@ -113,17 +121,21 @@ define('crm/Views/Event/Edit', [
         applyContext: function() {
             this.inherited(arguments);
 
-            var found = App.queryNavigationContext(function(o) {
+            var found,
+                context,
+                lookup;
+
+            found = App.queryNavigationContext(function(o) {
                 var context = (o.options && o.options.source) || o;
 
                 return (/^(useractivities||activities||events)$/.test(context.resourceKind));
             });
 
-            var context = (found && found.options && found.options.source) || found,
-                lookup = {
+            context = (found && found.options && found.options.source) || found;
+            lookup = {
                     'useractivities': this.applyUserActivityContext,
                     'activities': this.applyUserActivityContext
-                };
+            };
 
             if (context && lookup[context.resourceKind]) {
                 lookup[context.resourceKind].call(this, context);

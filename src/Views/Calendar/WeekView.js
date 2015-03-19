@@ -310,7 +310,7 @@ define('crm/Views/Calendar/WeekView', [
             var start = this.getStartDay(this.currentDate),
                 end = this.getEndDay(this.currentDate);
 
-            this.set('dateContent', string.substitute('${0}-${1}',[
+            this.set('dateContent', string.substitute('${0}-${1}', [
                 start.format(this.weekTitleFormatText),
                 end.format(this.weekTitleFormatText)
                 ]));
@@ -330,6 +330,9 @@ define('crm/Views/Calendar/WeekView', [
                 i,
                 currentEntry,
                 entryOrderLength,
+                entryGroup,
+                currentDateCompareKey,
+                currentGroup,
                 startDate;
 
             // If we fetched a page that has no data due to un-reliable counts,
@@ -352,8 +355,8 @@ define('crm/Views/Calendar/WeekView', [
                     currentEntry['isEvent'] = false;
                     this.entries[currentEntry.$key] = currentEntry;
 
-                    var currentDateCompareKey = moment(currentEntry.StartDate).format(dateCompareString);
-                    var currentGroup = entryGroups[currentDateCompareKey];
+                    currentDateCompareKey = moment(currentEntry.StartDate).format(dateCompareString);
+                    currentGroup = entryGroups[currentDateCompareKey];
                     if (currentGroup) {
                         if (currentEntry.Timeless) {
                             currentGroup.splice(1, 0, this.rowTemplate.apply(currentEntry, this));
@@ -367,7 +370,7 @@ define('crm/Views/Calendar/WeekView', [
                     entryGroups[currentDateCompareKey] = currentGroup;
                 }
 
-                for (var entryGroup in entryGroups) {
+                for (entryGroup in entryGroups) {
                     if (entryGroups.hasOwnProperty(entryGroup)) {
                         entryOrder.push(moment(entryGroup, dateCompareString));
                     }
@@ -472,6 +475,8 @@ define('crm/Views/Calendar/WeekView', [
         },
         processEventFeed: function(feed) {
             var o = [],
+                i,
+                event,
                 feedLength = feed['$resources'].length;
 
             if (feedLength === 0) {
@@ -481,8 +486,8 @@ define('crm/Views/Calendar/WeekView', [
                 this.showEventList();
             }
 
-            for (var i = 0; i < feedLength; i++) {
-                var event = feed['$resources'][i];
+            for (i = 0; i < feedLength; i++) {
+                event = feed['$resources'][i];
                 event['isEvent'] = true;
                 event['StartDate'] = moment(convert.toDateFromString(event.StartDate));
                 event['EndDate'] = moment(convert.toDateFromString(event.EndDate));
@@ -526,10 +531,10 @@ define('crm/Views/Calendar/WeekView', [
             }
         },
         activateEventMore: function() {
-            var view = App.getView("event_related"),
+            var view = App.getView('event_related'),
                 where = this.getEventQuery();
             if (view) {
-                view.show({"where": where});
+                view.show({'where': where});
             }
         },
         clear: function() {

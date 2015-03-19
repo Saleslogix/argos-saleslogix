@@ -93,24 +93,31 @@ define('crm/Format', [
          @return {string} Formatted address
         */
         address: function(o, asText, separator, fmt) {
-            var isEmpty = function(line) {
+            var isEmpty,
+                self,
+                lines,
+                address,
+                culture;
+
+            isEmpty = function(line) {
                 var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));//'
                 return filterSymbols === '';
-            },
-                _this = crm.Format;
+            };
+
+            self = crm.Format;
 
             if (!fmt) {
-                var culture = _this.resolveAddressCulture(o);
-                fmt = _this.addressCultureFormats[culture] || _this.addressCultureFormats['en'];
+                culture = self.resolveAddressCulture(o);
+                fmt = self.addressCultureFormats[culture] || self.addressCultureFormats['en'];
             }
 
-            var lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|'),
-                address = [];
+            lines = (fmt.indexOf('|') === -1) ? [fmt] : fmt.split('|');
+            address = [];
 
             array.forEach(lines, function(line) {
-                line = _this.replaceAddressPart(line, o);
+                line = self.replaceAddressPart(line, o);
                 if (!isEmpty(line)) {
-                    this.push(_this.encode(_this.collapseSpace(line)));
+                    this.push(self.encode(self.collapseSpace(line)));
                 }
             }, address);
 
@@ -123,7 +130,7 @@ define('crm/Format', [
 
             return string.substitute(
                 '<a target="_blank" href="http://maps.google.com/maps?q=${1}">${0}</a>',
-                [address.join('<br />'), encodeURIComponent(_this.decode(address.join(' ')))]
+                [address.join('<br />'), encodeURIComponent(self.decode(address.join(' ')))]
             );
         },
         collapseSpace: function(text) {
@@ -136,37 +143,37 @@ define('crm/Format', [
             return fmt.replace(/s|S|a1|a2|a3|a4|m|M|z|Z|r|R|p|P|c|C/g,
                 function(part) {
                     switch (part) {
-                        case "s":
+                        case 's':
                             return o.Salutation || '';
-                        case "S":
+                        case 'S':
                             return (o.Salutation && o.Salutation.toUpperCase()) || '';
-                        case "a1":
+                        case 'a1':
                             return o.Address1 || '';
-                        case "a2":
+                        case 'a2':
                             return o.Address2 || '';
-                        case "a3":
+                        case 'a3':
                             return o.Address3 || '';
-                        case "a4":
+                        case 'a4':
                             return o.Address4 || '';
-                        case "m":
+                        case 'm':
                             return o.City || '';
-                        case "M":
+                        case 'M':
                             return (o.City && o.City.toUpperCase()) || '';
-                        case "z":
+                        case 'z':
                             return o.County || '';
-                        case "Z":
+                        case 'Z':
                             return (o.County && o.County.toUpperCase()) || '';
-                        case "r":
+                        case 'r':
                             return o.State || '';
-                        case "R":
+                        case 'R':
                             return (o.State && o.State.toUpperCase()) || '';
-                        case "p":
+                        case 'p':
                             return o.PostalCode || '';
-                        case "P":
+                        case 'P':
                             return (o.PostalCode && o.PostalCode.toUpperCase()) || '';
-                        case "c":
+                        case 'c':
                             return o.Country || '';
-                        case "C":
+                        case 'C':
                             return (o.Country && o.Country.toUpperCase()) || '';
                     }
                 }
@@ -189,7 +196,7 @@ define('crm/Format', [
                 '${0}'
                     + Mobile.CultureInfo.numberFormat.currencyDecimalSeparator
                     + '${1}', [
-                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace("\\.", '.')),
+                        (Math.floor(v)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.currencyGroupSeparator.replace('\\.', '.')),
                         (f.toString().length < 2) ? '0' + f.toString() : f.toString()
                     ]
             ).replace(/ /g, '\u00A0'); //keep numbers from breaking
@@ -289,9 +296,12 @@ define('crm/Format', [
        * @returns {String}
        */
         resolveFirstLast: function(name) {
-            var firstLast = [];
+            var firstLast,
+                names;
+
+            firstLast = [];
             if (name.indexOf(' ') !== -1) {
-                var names = name.split(' ');
+                names = name.split(' ');
                 if (names[0].indexOf(',') !== -1) {
                     firstLast = [names[1], names[0].slice(0, -1)];
                 }
@@ -328,7 +338,7 @@ define('crm/Format', [
                 f = 0;
             }
             num = Math.floor(v).toString();
-            num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace("\\.", '.'));
+            num = num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + Mobile.CultureInfo.numberFormat.numberGroupSeparator.replace('\\.', '.'));
             if (d > 0) {
                 frac = (f.toString().length < d) ? '' : f.toString();
                 fVal = string.substitute(

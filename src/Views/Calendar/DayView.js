@@ -298,10 +298,10 @@ define('crm/Views/Calendar/DayView', [
             );
         },
         activateEventMore: function() {
-            var view = App.getView("event_related"),
+            var view = App.getView('event_related'),
                 where = this.getEventQuery();
             if (view) {
-                view.show({"where": where});
+                view.show({'where': where});
             }
         },
         hideEventList: function() {
@@ -313,6 +313,8 @@ define('crm/Views/Calendar/DayView', [
         processEventFeed: function(feed) {
             var r = feed['$resources'],
                 feedLength = r.length,
+                i,
+                row,
                 o = [];
             this.eventFeed = feed;
 
@@ -323,8 +325,8 @@ define('crm/Views/Calendar/DayView', [
                 this.showEventList();
             }
 
-            for (var i = 0; i < feedLength; i++) {
-                var row = r[i];
+            for (i = 0; i < feedLength; i++) {
+                row = r[i];
                 row.isEvent = true;
                 this.entries[row.$key] = row;
                 o.push(this.eventRowTemplate.apply(row, this));
@@ -343,11 +345,13 @@ define('crm/Views/Calendar/DayView', [
         processFeed: function(feed) {
             var r = feed['$resources'],
                 feedLength = r.length,
+                i,
+                row,
                 o = [];
 
             this.feed = feed;
-            for (var i = 0; i < feedLength; i++) {
-                var row = r[i];
+            for (i = 0; i < feedLength; i++) {
+                row = r[i];
                 row.isEvent = false;
                 this.entries[row.$key] = row;
                 o.push(this.rowTemplate.apply(row, this));
@@ -423,14 +427,18 @@ define('crm/Views/Calendar/DayView', [
             this.refresh();
         },
         formatQueryForActivities: function() {
-            var queryWhere = [
+            var queryWhere,
+                startDate,
+                endDate;
+
+            queryWhere = [
                 'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
                 '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
                 '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
 
-            var startDate = this.currentDate.clone().startOf('day').toDate(),
-                endDate = this.currentDate.clone().endOf('day').toDate();
+            startDate = this.currentDate.clone().startOf('day').toDate();
+            endDate = this.currentDate.clone().endOf('day').toDate();
 
             return string.substitute(
                 queryWhere,

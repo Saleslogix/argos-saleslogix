@@ -169,6 +169,7 @@ define('crm/Recurrence', [
 
             var list = [],
                 currentDate = startDate || new Date(),
+                recurOption,
                 wrapped = moment(currentDate),
                 day = currentDate.getDate(),
                 ord = this.ordText[parseInt((day - 1) / 7, 10) + 1],
@@ -181,7 +182,7 @@ define('crm/Recurrence', [
                     ord
                 ];
 
-            for (var recurOption in this.simplifiedOptions) {
+            for (recurOption in this.simplifiedOptions) {
                 if (this.simplifiedOptions.hasOwnProperty(recurOption)) {
                     textOptions[0] = this.getPanel(this.simplifiedOptions[recurOption].RecurPeriod);
                     this.simplifiedOptions[recurOption].RecurIterations = this.defaultIterations[this.simplifiedOptions[recurOption].RecurPeriod] || 0;
@@ -222,8 +223,9 @@ define('crm/Recurrence', [
             return 0 <= '1369'.indexOf(panel);
         },
         recalculateSimplifiedPeriodSpec: function(startDate) {
-            var opt;
-            for (var recurOption in this.simplifiedOptions) {
+            var opt,
+                recurOption;
+            for (recurOption in this.simplifiedOptions) {
                 if (this.simplifiedOptions.hasOwnProperty(recurOption)) {
                     opt = this.simplifiedOptions[recurOption];
                     this.simplifiedOptions[recurOption].RecurPeriodSpec = this.getRecurPeriodSpec(
@@ -235,8 +237,11 @@ define('crm/Recurrence', [
             }
         },
         getWeekdays: function(rps, names) { // pass a RecurPeriodSpec (as long as RecurPeriod corresponds to a Spec with weekdays)
-            var weekdays = [];
-            for (var i = 0; i < this._weekDayValues.length; i++) {
+            var weekdays,
+                i;
+
+            weekdays = [];
+            for (i = 0; i < this._weekDayValues.length; i++) {
                 if (names) {
                     if (rps & this._weekDayValues[i]) {
                         weekdays.push(this.weekDaysText[i]);
@@ -269,7 +274,13 @@ define('crm/Recurrence', [
             };
         },
         getRecurPeriodSpec: function(recurPeriod, startDate, weekdays, interval) {
-            var spec = 0;
+            var spec,
+                weekDay,
+                nthWeek,
+                monthNum,
+                i;
+
+            spec = 0;
             interval = interval || this.interval;
 
             if (!startDate) {
@@ -286,7 +297,7 @@ define('crm/Recurrence', [
                     break;
                 case 2:
                     // weekly
-                    for (var i = 0; i < weekdays.length; i++) {
+                    for (i = 0; i < weekdays.length; i++) {
                         spec += (weekdays[i] ? this._weekDayValues[i] : 0);
                     }
                     if (0 === spec) {
@@ -304,8 +315,8 @@ define('crm/Recurrence', [
                     break;
                 case 5:
                     // monthly on #ord #weekday
-                    var weekDay = startDate.getDay() + 1;
-                    var nthWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1;
+                    weekDay = startDate.getDay() + 1;
+                    nthWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1;
                     spec = ((weekDay * 524288) + ((nthWeek - 1) * 65536));
                     break;
                 case 6:
@@ -320,7 +331,7 @@ define('crm/Recurrence', [
                     // yearly on #ord #weekday of #month
                     spec = 18546688;
                     weekDay = startDate.getDay() + 1;
-                    var monthNum = startDate.getMonth() + 1;
+                    monthNum = startDate.getMonth() + 1;
                     nthWeek = parseInt((startDate.getDate() - 1) / 7, 10) + 1;
                     spec = ((monthNum * 4194304) + (weekDay * 524288) + ((nthWeek - 1) * 65536));
                     break;
@@ -396,7 +407,7 @@ define('crm/Recurrence', [
             }
 
             if (this.isAfterCompletion(rp)) {
-                text = string.substitute("${0} ${1}", [text, this.afterCompletionText]);
+                text = string.substitute('${0} ${1}', [text, this.afterCompletionText]);
             } else {
                 text = string.substitute(this.untilEndDateText, [text, this.calcEndDate(currentDate, entry).format(this.endDateFormatText)]);
             }
@@ -405,6 +416,8 @@ define('crm/Recurrence', [
         },
         calcEndDate: function(date, entry) {
             var interval = entry['RecurPeriodSpec'] % 65536,
+                weekDay,
+                nthWeek,
                 tempDate = moment.isMoment(date) ?
                     date.clone() :
                     new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
@@ -421,8 +434,8 @@ define('crm/Recurrence', [
                     tempDate.add((interval * (entry['RecurIterations'] - 1)), 'months');
                     break;
                 case 5:
-                    var weekDay = tempDate.day();
-                    var nthWeek = parseInt(tempDate.date() / 7, 10) + 1;
+                    weekDay = tempDate.day();
+                    nthWeek = parseInt(tempDate.date() / 7, 10) + 1;
                     tempDate.add((interval * (entry['RecurIterations'] - 1)), 'months');
                     tempDate = this.calcDateOfNthWeekday(tempDate.toDate(), weekDay, nthWeek);
                     break;

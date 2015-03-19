@@ -14,7 +14,7 @@ define('crm/Views/MetricConfigure', [
        'dojo/_base/lang',
        'dojo/_base/array',
        'argos/Edit'
-],function(
+], function(
     declare,
     lang,
     array,
@@ -95,7 +95,7 @@ define('crm/Views/MetricConfigure', [
                             name: key + '-title',
                             label: this.metricTitleText,
                             type: 'text'
-                        },{
+                        }, {
                             label: this.metricText,
                             name: key + '-metric',
                             keyProperty: 'filterName',
@@ -105,11 +105,11 @@ define('crm/Views/MetricConfigure', [
                                 return "'" + this.entityName + "'";
                             }),
                             where: "filterType eq 'analyticsMetric'"
-                        },{
+                        }, {
                             name: key + '-filterName',
                             property: key + '-filterName',
                             type: 'hidden'
-                        },{
+                        }, {
                             label: this.metricFilterText,
                             name: key + '-filter',
                             keyProperty: 'filterName',
@@ -119,11 +119,11 @@ define('crm/Views/MetricConfigure', [
                                 return "'" + this.entityName + "'";
                             }),
                             where: "filterType ne 'analyticsMetric'"
-                        },{
+                        }, {
                             name: key + '-metricName',
                             property: key + '-metricName',
                             type: 'hidden'
-                        },{
+                        }, {
                             name: key + '-chartType',
                             label: this.chartTypeText,
                             type: 'select',
@@ -134,7 +134,7 @@ define('crm/Views/MetricConfigure', [
                                     {'$key': 'pie', '$descriptor': 'pie'}
                                 ]
                             }
-                        },{
+                        }, {
                             title: this.metricText + ' ' + (i + 1) + ' ' + this.advancedText,
                             collapsed: false,
                             children: [
@@ -142,11 +142,11 @@ define('crm/Views/MetricConfigure', [
                                     name: key + '-formatter',
                                     label: this.formatterText,
                                     type: 'text'
-                                },{
+                                }, {
                                     name: key + '-aggregate',
                                     label: this.aggregateText,
                                     type: 'text'
-                                },{
+                                }, {
                                     label: this.reportViewText,
                                     type: 'text'
                                 }

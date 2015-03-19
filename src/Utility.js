@@ -22,19 +22,29 @@ define('crm/Utility', [
 ) {
     var __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
         base64ArrayBuffer: function(arrayBuffer) {
-            var base64    = '';
-            var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+            var base64,
+                encodings,
+                bytes,
+                byteLength,
+                mainLength,
+                byteRemainder,
+                a,
+                b,
+                c,
+                d,
+                chunk,
+                i;
 
-            var bytes         = new Uint8Array(arrayBuffer);
-            var byteLength    = bytes.byteLength;
-            var byteRemainder = byteLength % 3;
-            var mainLength    = byteLength - byteRemainder;
+            base64    = '';
+            encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
-            var a, b, c, d;
-            var chunk;
+            bytes = new Uint8Array(arrayBuffer);
+            byteLength = bytes.byteLength;
+            byteRemainder = byteLength % 3;
+            mainLength = byteLength - byteRemainder;
 
             // Main loop deals with bytes in chunks of 3
-            for (var i = 0; i < mainLength; i = i + 3) {
+            for (i = 0; i < mainLength; i = i + 3) {
                 // Combine the three bytes into a single integer
                 chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
 

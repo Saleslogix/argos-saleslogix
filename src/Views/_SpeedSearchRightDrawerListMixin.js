@@ -26,9 +26,12 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
     _RightDrawerBaseMixin
 ) {
 
-    var mixinName = 'crm.Views._SpeedSearchRightDrawerListMixin';
+    var mixinName,
+        __class;
 
-    var __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
+    mixinName = 'crm.Views._SpeedSearchRightDrawerListMixin';
+
+    __class = declare('crm.Views._SpeedSearchRightDrawerListMixin', [_RightDrawerBaseMixin], {
         //Localization
         indexSectionText: 'Indexes',
 
@@ -135,7 +138,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
                             return pref.indexName === index.indexName;
                         });
                         index = this.indexes[i];
-                        if (index.hasOwnProperty("indexName")) {
+                        if (index.hasOwnProperty('indexName')) {
                             indexSection.children.push({
                                 'name': index.indexName,
                                 'action': 'indexClicked',

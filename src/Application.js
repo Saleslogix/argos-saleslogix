@@ -107,7 +107,7 @@ define('crm/Application', [
 
         init: function() {
             var original,
-                app = this;
+                self = this;
             if (has('ie') && has('ie') < 9) {
                 window.location.href = 'unsupported.html';
             }
@@ -119,8 +119,8 @@ define('crm/Application', [
             original = Sage.SData.Client.SDataService.prototype.executeRequest;
 
             Sage.SData.Client.SDataService.prototype.executeRequest = function(request) {
-                request.setRequestHeader('X-Application-Name', app.appName);
-                request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', app.mobileVersion));
+                request.setRequestHeader('X-Application-Name', self.appName);
+                request.setRequestHeader('X-Application-Version', string.substitute('${major}.${minor}.${revision}', self.mobileVersion));
                 original.apply(this, arguments);
             };
         },
@@ -339,11 +339,14 @@ define('crm/Application', [
             }
         },
         authenticateUser: function(credentials, options) {
-            var service = this.getService()
+            var service,
+                request;
+
+            service = this.getService()
                 .setUserName(credentials.username)
                 .setPassword(credentials.password || '');
 
-            var request = new Sage.SData.Client.SDataServiceOperationRequest(service)
+            request = new Sage.SData.Client.SDataServiceOperationRequest(service)
                 .setContractName('system')
                 .setOperationName('getCurrentUser');
 
@@ -556,7 +559,11 @@ define('crm/Application', [
             });
         },
         onRequestUserOptionsSuccess: function(feed) {
-            var userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
+            var userOptions,
+                insertSecCode,
+                currentDefaultOwner;
+
+            userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
 
             array.forEach(feed && feed['$resources'], function(item) {
                 var key = item && item['$descriptor'],
@@ -567,8 +574,8 @@ define('crm/Application', [
                 }
             });
 
-            var insertSecCode = userOptions['General:InsertSecCodeID'],
-                currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];
+            insertSecCode = userOptions['General:InsertSecCodeID'];
+            currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];
 
             if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner !== insertSecCode))) {
                 this.requestOwnerDescription(insertSecCode);
@@ -738,10 +745,14 @@ define('crm/Application', [
             return exposed;
         },
         cleanRestoredHistory: function(restoredHistory) {
-            var result = [],
-                hasRoot = false;
+            var result,
+                hasRoot,
+                i;
 
-            for (var i = restoredHistory.length - 1; i >= 0 && !hasRoot; i--) {
+            result = [];
+            hasRoot = false;
+
+            for (i = restoredHistory.length - 1; i >= 0 && !hasRoot; i--) {
                 if (restoredHistory[i].data.options && restoredHistory[i].data.options.negateHistory) {
                     result = [];
                     continue;
@@ -761,6 +772,10 @@ define('crm/Application', [
 
             try {
                 var restoredState = this.navigationState,
+                    i,
+                    last,
+                    view,
+                    options,
                     restoredHistory = restoredState && json.parse(restoredState),
                     cleanedHistory = this.cleanRestoredHistory(restoredHistory);
 
@@ -770,15 +785,15 @@ define('crm/Application', [
                     ReUI.context.transitioning = true;
                     ReUI.context.history = ReUI.context.history.concat(cleanedHistory.slice(0, cleanedHistory.length - 1));
 
-                    for (var i = 0; i < cleanedHistory.length - 1; i++) {
+                    for (i = 0; i < cleanedHistory.length - 1; i++) {
                         window.location.hash = cleanedHistory[i].hash;
                     }
 
                     ReUI.context.transitioning = false;
 
-                    var last = cleanedHistory[cleanedHistory.length - 1],
-                        view = App.getView(last.page),
-                        options = last.data && last.data.options;
+                    last = cleanedHistory[cleanedHistory.length - 1];
+                    view = App.getView(last.page);
+                    options = last.data && last.data.options;
 
                     view.show(options);
                 } else {

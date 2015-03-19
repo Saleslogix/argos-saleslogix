@@ -48,72 +48,72 @@ define('crm/DefaultMetrics', [
                 resourceKind: 'accounts',
                 children: [{
                     title: this.accountsText.totalRevenue,
-                    queryName: "executeMetric",
+                    queryName: 'executeMetric',
                     queryArgs: {
-                        _filterName: "AccountManager",
-                        _metricName: "TotalRevenue"
+                        _filterName: 'AccountManager',
+                        _metricName: 'TotalRevenue'
                     },
-                    chartType: "bar",
-                    aggregate: "sum",
-                    formatter: "bigNumber",
+                    chartType: 'bar',
+                    aggregate: 'sum',
+                    formatter: 'bigNumber',
                     enabled: false
                 }, {
                     title: this.accountsText.averageTime,
-                    queryName: "executeMetric",
+                    queryName: 'executeMetric',
                     queryArgs: {
-                        _filterName: "Type",
-                        _metricName: "AverageTimeAsCustomer"
+                        _filterName: 'Type',
+                        _metricName: 'AverageTimeAsCustomer'
                     },
-                    chartType: "pie",
-                    aggregate: "avg",
-                    formatter: "fixedLocale",
+                    chartType: 'pie',
+                    aggregate: 'avg',
+                    formatter: 'fixedLocale',
                     enabled: false
                 }, {
                     title: this.accountsText.total,
-                    queryName: "executeMetric",
+                    queryName: 'executeMetric',
                     queryArgs: {
-                        "_filterName": "AccountManager",
-                        "_metricName": "CountAccounts"
+                        '_filterName': 'AccountManager',
+                        '_metricName': 'CountAccounts'
                     },
-                    chartType: "bar",
-                    aggregate: "sum",
-                    formatter: "bigNumber",
+                    chartType: 'bar',
+                    aggregate: 'sum',
+                    formatter: 'bigNumber',
                     enabled: false
                 }]
             }, {
                 resourceKind: 'opportunities',
                 children: [{
                     title: this.opportunitiesText.total,
-                    queryName: "executeMetric",
+                    queryName: 'executeMetric',
                     queryArgs: {
-                        _filterName: "AccountManager",
-                        _metricName: "CountOpportunities"
+                        _filterName: 'AccountManager',
+                        _metricName: 'CountOpportunities'
                     },
-                    chartType: "bar",
-                    aggregate: "sum",
-                    formatter: "bigNumber",
+                    chartType: 'bar',
+                    aggregate: 'sum',
+                    formatter: 'bigNumber',
                     enabled: false
                 }, {
                     title: this.opportunitiesText.potential,
-                    queryName: "executeMetric",
+                    queryName: 'executeMetric',
                     queryArgs: {
-                        _filterName: "AccountManager",
-                        _metricName: "SumSalesPotential"
+                        _filterName: 'AccountManager',
+                        _metricName: 'SumSalesPotential'
                     },
-                    chartType: "bar",
-                    aggregate: "sum",
-                    formatter: "bigNumber",
+                    chartType: 'bar',
+                    aggregate: 'sum',
+                    formatter: 'bigNumber',
                     enabled: false
                 }, {
                     title: this.opportunitiesText.montlyPotential,
-                    queryName: "executeMetric",
+                    queryName: 'executeMetric',
                     queryArgs: {
-                        _filterName: "EstimatedClose",
-                        _metricName: "SumSalesPotential"
+                        _filterName: 'EstimatedClose',
+                        _metricName: 'SumSalesPotential'
                     },
-                    chartType: "line",
-                    aggregate: "avg",
-                    formatter: "bigNumber",
+                    chartType: 'line',
+                    aggregate: 'avg',
+                    formatter: 'bigNumber',
                     enabled: false
                 }
                 ]
@@ -121,78 +121,78 @@ define('crm/DefaultMetrics', [
                 resourceKind: 'tickets',
                 children: [{
                     title: this.ticketsText.total,
-                    queryName: "executeMetric",
+                    queryName: 'executeMetric',
                     queryArgs: {
-                        _filterName: "Category",
-                        _metricName: "TicketCount"
+                        _filterName: 'Category',
+                        _metricName: 'TicketCount'
                     },
-                    chartType: "bar",
-                    aggregate: "sum",
-                    formatter: "bigNumber",
+                    chartType: 'bar',
+                    aggregate: 'sum',
+                    formatter: 'bigNumber',
                     enabled: false
                 }, {
                     title: this.ticketsText.averageOpen,
-                    queryName: "executeMetric",
+                    queryName: 'executeMetric',
                     queryArgs: {
-                        _filterName: "AssignedTo",
-                        _metricName: "OpenTicketAgingAverage"
+                        _filterName: 'AssignedTo',
+                        _metricName: 'OpenTicketAgingAverage'
                     },
-                    chartType: "bar",
-                    aggregate: "avg",
-                    formatter: "fixedLocale",
+                    chartType: 'bar',
+                    aggregate: 'avg',
+                    formatter: 'fixedLocale',
                     enabled: false
                 }]
             }, {
                 resourceKind: 'contacts',
                 children: [{
                     title: this.contactsText.total,
-                    queryName: "executeMetric",
+                    queryName: 'executeMetric',
                     queryArgs: {
-                        _filterName: "AccountManager",
-                        _metricName: "CountContacts"
+                        _filterName: 'AccountManager',
+                        _metricName: 'CountContacts'
                     },
-                    chartType: "bar",
-                    aggregate: "sum",
-                    formatter: "bigNumber",
+                    chartType: 'bar',
+                    aggregate: 'sum',
+                    formatter: 'bigNumber',
                     enabled: false
                 }]
             }, {
                 resourceKind: 'leads',
                 children: [{
                         title: this.leadsText.total,
-                        queryName: "executeMetric",
+                        queryName: 'executeMetric',
                         queryArgs: {
-                            _filterName: "Owner",
-                            _metricName: "CountLeads"
+                            _filterName: 'Owner',
+                            _metricName: 'CountLeads'
                         },
-                        chartType: "bar",
-                        aggregate: "sum",
-                        formatter: "bigNumber",
+                        chartType: 'bar',
+                        aggregate: 'sum',
+                        formatter: 'bigNumber',
                         enabled: false
                 }]
             }, {
                 resourceKind: 'history',
                 children: [{
                         title: this.historyText.total,
-                        queryName: "executeMetric",
+                        queryName: 'executeMetric',
                         queryArgs: {
-                            _filterName: "Type",
-                            _metricName: "CountHistory"
+                            _filterName: 'Type',
+                            _metricName: 'CountHistory'
                         },
-                        chartType: "bar",
-                        aggregate: "sum",
-                        formatter: "bigNumber",
+                        chartType: 'bar',
+                        aggregate: 'sum',
+                        formatter: 'bigNumber',
                         enabled: false
                     }, {
                         title: this.historyText.duration,
-                        queryName: "executeMetric",
+                        queryName: 'executeMetric',
                         queryArgs: {
-                            _filterName: "Type",
-                            _metricName: "TotalDuration"
+                            _filterName: 'Type',
+                            _metricName: 'TotalDuration'
                         },
-                        chartType: "bar",
-                        aggregate: "sum",
-                        formatter: "bigNumber",
+                        chartType: 'bar',
+                        aggregate: 'sum',
+                        formatter: 'bigNumber',
                         enabled: false
                 }]
             }];

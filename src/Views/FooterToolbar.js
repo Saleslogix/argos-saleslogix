@@ -46,7 +46,10 @@ define('crm/Views/FooterToolbar', [
             }
         },
         showTools: function(tools) {
-            var contents = [];
+            var contents,
+                i;
+
+            contents = [];
             if ((tools && tools.length <= 0) || (tools !== false)) {
                 this.show();
             } else if (tools === false) {
@@ -57,7 +60,7 @@ define('crm/Views/FooterToolbar', [
             argos.MainToolbar.superclass.showTools.apply(this, arguments);
 
             if (tools) {
-                for (var i = 0; i < tools.length; i++) {
+                for (i = 0; i < tools.length; i++) {
                     contents.push(this.toolTemplate.apply(tools[i]));
                 }
                 this.set('footerContents', contents.join(''));

@@ -364,20 +364,25 @@ define('crm/Views/Activity/Complete', [
                 return;
             }
 
-            var leader = this.fields['Leader'].getValue();
-            var completeActivityEntry = {
-                "$name": "ActivityComplete",
-                "request": {
-                    "entity": {'$key': entry['$key']},
-                    "ActivityId": entry['$key'],
-                    "userId": leader['$key'],
-                    "result": this.fields['Result'].getValue(),
-                    "resultCode": this.fields['ResultCode'].getValue(),
-                    "completeDate": this.fields['CompletedDate'].getValue()
+            var leader,
+                success,
+                request,
+                completeActivityEntry;
+
+            leader = this.fields['Leader'].getValue();
+            completeActivityEntry = {
+                '$name': 'ActivityComplete',
+                'request': {
+                    'entity': {'$key': entry['$key']},
+                    'ActivityId': entry['$key'],
+                    'userId': leader['$key'],
+                    'result': this.fields['Result'].getValue(),
+                    'resultCode': this.fields['ResultCode'].getValue(),
+                    'completeDate': this.fields['CompletedDate'].getValue()
                 }
             };
 
-            var success = (function(scope, callback, entry) {
+            success = (function(scope, callback, entry) {
                 return function() {
                     environment.refreshStaleDetailViews();
                     connect.publish('/app/refresh', [{
@@ -388,7 +393,7 @@ define('crm/Views/Activity/Complete', [
                 };
             })(this, callback, entry);
 
-            var request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
+            request = new Sage.SData.Client.SDataServiceOperationRequest(this.getService())
                 .setResourceKind('activities')
                 .setContractName('system')
                 .setOperationName('Complete');

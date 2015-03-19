@@ -98,7 +98,7 @@ define('crm/Views/History/List', [
             'atQuestion': 'Question',
             'atEMail': 'E-mail'
         },
-        hourMinuteFormatText: "h:mm A",
+        hourMinuteFormatText: 'h:mm A',
         hashTagQueriesText: {
             'my-history': 'my-history',
             'note': 'note',
@@ -107,7 +107,7 @@ define('crm/Views/History/List', [
             'personal': 'personal',
             'email': 'email'
         },
-        dateFormatText: "M/D/YY",
+        dateFormatText: 'M/D/YY',
         titleText: 'Notes/History',
         viewAccountActionText: 'Account',
         viewOpportunityActionText: 'Opp.',
@@ -206,6 +206,7 @@ define('crm/Views/History/List', [
         navigateToContactOrLead: function(action, selection) {
             var entity = this.resolveContactOrLeadEntity(selection.data),
                 viewId,
+                view,
                 options;
 
             switch (entity) {
@@ -225,7 +226,7 @@ define('crm/Views/History/List', [
                     break;
             }
 
-            var view = App.getView(viewId);
+            view = App.getView(viewId);
 
             if (view && options) {
                 view.show(options);

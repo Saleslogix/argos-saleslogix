@@ -116,10 +116,14 @@ define('crm/Views/Settings', [
             return false;
         },
         requestData: function() {
-            var list = [];
+            var list,
+                i,
+                action;
 
-            for (var i = 0; i < this.actionOrder.length; i++) {
-                var action = this.actions[this.actionOrder[i]];
+            list = [];
+
+            for (i = 0; i < this.actionOrder.length; i++) {
+                action = this.actions[this.actionOrder[i]];
                 if (action) {
                     list.push({
                         action: this.actionOrder[i],

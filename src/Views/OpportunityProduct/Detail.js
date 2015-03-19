@@ -83,14 +83,18 @@ define('crm/Views/OpportunityProduct/Detail', [
             return entry;
         },
         removeOpportunityProduct: function() {
-            var confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
+            var confirmMessage,
+                request,
+                entry;
+
+            confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Product.Name]);
 
             if (!confirm(confirmMessage)) {
                 return;
             }
 
-            var entry = this.createEntryForDelete(this.entry),
-                request = this.createRequest();
+            entry = this.createEntryForDelete(this.entry);
+            request = this.createRequest();
 
             if (request) {
                 request['delete'](entry, {

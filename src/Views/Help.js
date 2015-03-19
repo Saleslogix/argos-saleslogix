@@ -84,13 +84,13 @@ define('crm/Views/Help', [
             domClass.remove(this.domNode, 'panel-loading');
         },
         resolveLocalizedUrl: function() {
-            var localizedUrl = string.substitute("help/help_${0}.html", [Mobile.CultureInfo['name']]);
+            var localizedUrl = string.substitute('help/help_${0}.html', [Mobile.CultureInfo['name']]);
             return localizedUrl;
         },
         resolveGenericLocalizedUrl: function() {
             var languageSpec = Mobile.CultureInfo['name'],
                 languageGen = (languageSpec.indexOf('-') !== -1) ? languageSpec.split('-')[0] : languageSpec,
-                localizedUrl = string.substitute("help/help_${0}.html", [languageGen]);
+                localizedUrl = string.substitute('help/help_${0}.html', [languageGen]);
             return localizedUrl;
         },
         requestData: function() {

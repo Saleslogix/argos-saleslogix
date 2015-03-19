@@ -131,7 +131,7 @@ define('crm/Views/Attachment/ViewAttachment', [
         ]),
         show: function(options) {
             this.inherited(arguments);
-            this.attachmentViewerNode.innerHTML = "";
+            this.attachmentViewerNode.innerHTML = '';
             if (!has('html5-file-api')) {
                 domConstruct.place(this.notSupportedTemplate.apply({}, this), this.domNode, 'only');
                 return;
@@ -168,7 +168,7 @@ define('crm/Views/Attachment/ViewAttachment', [
             return this.tools || (this.tools = []);
         },
         _loadAttachmentView: function(entry) {
-            var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid,fileType, self, iframe;
+            var data, am, isFile, url, viewNode, tpl, dl, description, attachmentid, fileType, self, iframe;
 
             am = new AttachmentManager();
 
@@ -322,7 +322,7 @@ define('crm/Views/Attachment/ViewAttachment', [
                 wH = wH - 50;
             }
 
-            if (wW> 200) {
+            if (wW > 200) {
                 wW = wW - 50;
             }
 
@@ -345,17 +345,17 @@ define('crm/Views/Attachment/ViewAttachment', [
             } else if (iW > wW) {// if the image  width is lager than the height
                 scale = 1 - ((iW - wW) / iW);
             } else if (iH > wH) {// if the image  height is lager than the width
-                scale = 1-((iH - wH) / iH);
+                scale = 1 - ((iH - wH) / iH);
             } else {
                //Image is samller than view
                 if (wH / iH > wW / iW) {
-                    scale = 1+((wH - iH) / wH);
+                    scale = 1 + ((wH - iH) / wH);
                 } else {
-                    scale = 1+((wW - iW) / wW);
+                    scale = 1 + ((wW - iW) / wW);
                 }
             }
-            image.height = 0.90 *scale * iH;
-            image.width = 0.90*scale * iW;
+            image.height = 0.90 * scale * iH;
+            image.width = 0.90 * scale * iW;
 
         }
     });

@@ -248,11 +248,14 @@ define('crm/Views/MetricWidget', [
             when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
         },
         _onQuerySuccess: function(queryResults) {
-            var total = queryResults.total;
+            var total,
+                left;
+
+            total = queryResults.total;
 
             queryResults.forEach(lang.hitch(this, this._processItem));
 
-            var left = -1;
+            left = -1;
             if (total > -1) {
                 left = total - (this.position + this.pageSize);
             }

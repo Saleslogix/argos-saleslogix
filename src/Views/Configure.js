@@ -166,11 +166,14 @@ define('crm/Views/Configure', [
         processData: function() {
             this.inherited(arguments);
 
-            var visible = (App.preferences.home && App.preferences.home.visible) || [];
+            var visible,
+                i,
+                row;
 
-            for (var i = 0; i < visible.length; i++) {
-                var row = query((string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
+            visible = (App.preferences.home && App.preferences.home.visible) || [];
 
+            for (i = 0; i < visible.length; i++) {
+                row = query((string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
                 if (row) {
                     this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
                 }

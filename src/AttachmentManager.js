@@ -104,13 +104,16 @@ define('crm/AttachmentManager', [
             return href;
         },
         _getFileDescription: function(fileName) {
-            var description = this._getDefaultDescription(fileName);
-            for (var i = 0; i < this._fileDescriptions.length; i++) {
+            var description,
+                i;
+
+            description = this._getDefaultDescription(fileName);
+            for (i = 0; i < this._fileDescriptions.length; i++) {
                 if (fileName === this._fileDescriptions[i].fileName) {
                     description = this._fileDescriptions[i].description;
                 }
             }
-            if ((description === null)|| (description === '')) {
+            if ((description === null) || (description === '')) {
                 description = this._getDefaultDescription(fileName);
             }
             return description;

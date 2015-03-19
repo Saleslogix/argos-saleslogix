@@ -428,7 +428,7 @@ define('crm/Views/Activity/List', [
                 'ContactId': entry['ContactId'],
                 'AccountName': entry['AccountName'],
                 'AccountId': entry['AccountId'],
-                'Description': string.substitute("${0} ${1}", [this.calledText, (entry['ContactName'] || '')]),
+                'Description': string.substitute('${0} ${1}', [this.calledText, (entry['ContactName'] || '')]),
                 'UserId': App.context && App.context.user['$key'],
                 'UserName': App.context && App.context.user['UserName'],
                 'Duration': 15,
@@ -455,13 +455,13 @@ define('crm/Views/Activity/List', [
             var request, completeActivityEntry;
 
             completeActivityEntry = {
-                "$name": "ActivityComplete",
-                "request": {
-                    "entity": { '$key': entry['$key'] },
-                    "ActivityId": entry['$key'],
-                    "userId": entry['Leader']['$key'],
-                    "result": entry['Result'],
-                    "completeDate": entry['CompletedDate']
+                '$name': 'ActivityComplete',
+                'request': {
+                    'entity': { '$key': entry['$key'] },
+                    'ActivityId': entry['$key'],
+                    'userId': entry['Leader']['$key'],
+                    'result': entry['Result'],
+                    'completeDate': entry['CompletedDate']
                 }
             };
 

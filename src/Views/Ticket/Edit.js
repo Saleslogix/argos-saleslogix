@@ -126,11 +126,14 @@ define('crm/Views/Ticket/Edit', [
             }
         },
         createPicklistRequest: function(name) {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
+            var request,
+                uri;
+
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(App.getService())
                 .setResourceKind('picklists')
                 .setContractName('system');
 
-            var uri = request.getUri();
+            uri = request.getUri();
             uri.setPathSegment(Sage.SData.Client.SDataUri.ResourcePropertyIndex, 'items');
             uri.setCollectionPredicate(name);
 
@@ -155,10 +158,14 @@ define('crm/Views/Ticket/Edit', [
             ErrorManager.addError(response, o, this.options, 'failure');
         },
         processCodeDataFeed: function(feed, currentValue, options) {
-            var keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
-            var textProperty = options && options.textProperty ? options.textProperty : 'text';
+            var keyProperty,
+                textProperty,
+                i;
 
-            for (var i = 0; i < feed.$resources.length; i++) {
+            keyProperty = options && options.keyProperty ? options.keyProperty : '$key';
+            textProperty = options && options.textProperty ? options.textProperty : 'text';
+
+            for (i = 0; i < feed.$resources.length; i++) {
                 if (feed.$resources[i][keyProperty] === currentValue) {
                     return feed.$resources[i][textProperty];
                 }
@@ -196,10 +203,13 @@ define('crm/Views/Ticket/Edit', [
             }
         },
         onAccountChange: function(value, field) {
-            var selection = field.getSelection();
+            var selection,
+                request;
+
+            selection = field.getSelection();
 
             if (selection && selection['$key']) {
-                var request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
+                request = new Sage.SData.Client.SDataResourcePropertyRequest(this.getService())
                     .setResourceKind('accounts')
                     .setResourceSelector(string.substitute("'${0}'", [selection['$key']]))
                     .setResourceProperty('Contacts')
@@ -233,11 +243,14 @@ define('crm/Views/Ticket/Edit', [
             return key ? string.substitute('Account.id eq "${0}"', [key]) : false;
         },
         applyContext: function() {
-            var found = App.queryNavigationContext(function(o) {
+            var found,
+                lookup;
+
+            found = App.queryNavigationContext(function(o) {
                 return (/^(accounts|contacts)$/).test(o.resourceKind) && o.key;
             });
 
-            var lookup = {
+            lookup = {
                 'accounts': this.applyAccountContext,
                 'contacts': this.applyContactContext
             };
@@ -248,17 +261,19 @@ define('crm/Views/Ticket/Edit', [
         },
         applyAccountContext: function(context) {
             var view = App.getView(context.id),
+                accountField,
                 entry = view && view.entry;
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             accountField.setValue(entry);
             this.onAccountChange(entry, accountField);
         },
         applyContactContext: function(context) {
             var view = App.getView(context.id),
+                accountField,
                 entry = view && view.entry;
 
-            var accountField = this.fields['Account'];
+            accountField = this.fields['Account'];
             accountField.setValue(entry.Account);
             this.onAccountChange(entry.Account, accountField);
 

@@ -40,7 +40,7 @@ define('crm/Views/History/RelatedView', [
         showTotalInTab: false,
         hideWhenNoData: true,
         resourceKind: 'history',
-        select: ['Type','ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],
+        select: ['Type', 'ModifyDate', 'CompleteDate', 'UserName', 'Description', 'Notes', 'AccountName'],
         where:null ,
         sort: 'ModifyDate desc',
         pageSize: 3,

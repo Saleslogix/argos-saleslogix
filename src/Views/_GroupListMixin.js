@@ -44,9 +44,12 @@ define('crm/Views/_GroupListMixin', [
     Deferred,
     action
 ) {
-    var mixinName = 'crm.Views._GroupListMixin';
+    var mixinName,
+        __class;
 
-    var __class = declare('crm.Views._GroupListMixin', null, {
+    mixinName = 'crm.Views._GroupListMixin';
+
+    __class = declare('crm.Views._GroupListMixin', null, {
         noDefaultGroupText: 'No default group set. Click here to configure groups.',
         currentGroupNotFoundText: 'The current group was not found.',
         groupTemplateSummaryText: 'Summary',
@@ -131,7 +134,7 @@ define('crm/Views/_GroupListMixin', [
             return utility.joinFields(sep, fields);
         },
         getDescriptor: function(entity) {
-            return entity.$descriptor || entity.$key || "unknown";
+            return entity.$descriptor || entity.$key || 'unknown';
         },
         getCurrentGroup: function() {
             return this._currentGroup;
@@ -199,7 +202,7 @@ define('crm/Views/_GroupListMixin', [
             var title;
 
             if (!group) {
-                throw new Error("Group not found.");
+                throw new Error('Group not found.');
             }
             this._fieldFormatters = {};
             this._startGroupMode();
@@ -349,7 +352,7 @@ define('crm/Views/_GroupListMixin', [
         getItemLayoutTemplate: function(item) {
             var template, jsonString;
             jsonString = json.stringify(item);
-            template = ["<h4><span class=\"group-label\">", item.caption, "</span> <span class=\"group-entry\">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(" + jsonString + ")]," + jsonString + ",$$.getFormatterByLayout(" + jsonString + ")) %}</span>", "</h4>"].join('');
+            template = ['<h4><span class="group-label">', item.caption, '</span> <span class="group-entry">{%= $$.groupTransformValue($[$$.getFieldNameByLayout(' + jsonString + ')],' + jsonString + ',$$.getFormatterByLayout(' + jsonString + ')) %}</span>', '</h4>'].join('');
 
             return template;
 
@@ -422,6 +425,7 @@ define('crm/Views/_GroupListMixin', [
                 columnStyle,
                 columnClass,
                 item,
+                i,
                 layoutOptions,
                 jsonString,
                 formatClss,
@@ -443,21 +447,22 @@ define('crm/Views/_GroupListMixin', [
             template.push('<div class="group-item-header">');
             template.push('<h2><span class="group-entry-header">{%= $$.getGroupFieldValueByName($,"' + layout[0].propertyPath + '", true) %}</span></h2>');
             template.push('</div">');
-            for (var i = 0; i < layout.length; i++) {
+            for (i = 0; i < layout.length; i++) {
                 columnItem = layoutOptions.columns[column - 1];
                 if ((columnItem) && (column <= columns) && (i !== 0)) {
                     if (row === 1) {
                         columnStyle = columnItem.style || 'width:' + columnWidth + '%;';
                         columnClass = columnItem.clss || '';
-                        template.push('<div class="group-column '+ columnClass + '"  style="' + columnStyle + '">');
+                        template.push('<div class="group-column ' + columnClass + '"  style="' + columnStyle + '">');
                     }
                     item = layout[i];
                     if (item && (columnItem.rows > 0)) {
                         if (i !== 0) {
                             template.push('<h3>');
                             if (!columnItem.hideLabels) {
-                                template.push('<span class="group-label">' + this.getGroupFieldLabelByName(item.propertyPath) +' </span>');
+                                template.push('<span class="group-label">' + this.getGroupFieldLabelByName(item.propertyPath) + ' </span>');
                             }
+
                             formatOptions = this.getGroupFieldFormatOptions(item);
                             formatClss = formatOptions.clss || '';
                             jsonString = json.stringify(formatOptions);

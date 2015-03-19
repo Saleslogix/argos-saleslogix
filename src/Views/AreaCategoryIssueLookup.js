@@ -79,13 +79,19 @@ define('crm/Views/AreaCategoryIssueLookup', [
             this.inherited(arguments, [feed]);
         },
         createCacheFrom: function(feed) {
-            var feedLength = feed['$resources'].length;
+            var feedLength,
+                i,
+                entry,
+                area,
+                category;
+
+            feedLength = feed['$resources'].length;
             this.cache = {};
 
-            for (var i = 0; i < feedLength; i += 1) {
-                var entry = feed['$resources'][i],
-                    area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {}),
-                    category = area[entry['Category']] || (area[entry['Category']] = {});
+            for (i = 0; i < feedLength; i += 1) {
+                entry = feed['$resources'][i];
+                area = this.cache[entry['Area']] || (this.cache[entry['Area']] = {});
+                category = area[entry['Category']] || (area[entry['Category']] = {});
 
                 category[entry['Issue']] = true;
             }

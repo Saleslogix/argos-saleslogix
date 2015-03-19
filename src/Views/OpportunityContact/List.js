@@ -57,6 +57,9 @@ define('crm/Views/OpportunityContact/List', [
 
         complete: function() {
             var view = App.getPrimaryActiveView(),
+                context,
+                selections,
+                selectionKey,
                 selectionModel = view && view.get('selectionModel'),
                 entry;
             if (!selectionModel) {
@@ -67,9 +70,10 @@ define('crm/Views/OpportunityContact/List', [
                 ReUI.back();
             }
 
-            var context = App.isNavigationFromResourceKind(['opportunities']),
-                selections = selectionModel.getSelections();
-            for (var selectionKey in selections) {
+            context = App.isNavigationFromResourceKind(['opportunities']);
+            selections = selectionModel.getSelections();
+
+            for (selectionKey in selections) {
                 if (selections.hasOwnProperty(selectionKey)) {
                     entry = {
                         'Opportunity': {'$key': context.key},

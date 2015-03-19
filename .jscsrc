@@ -1,7 +1,15 @@
 {
+    "safeContextKeyword": "self",
     "validateIndentation": 4,
     "validateParameterSeparator": ", ",
+    "validateQuoteMarks": {
+        "mark": "'",
+        "escape": true
+    },
 
+    "requireSpaceBeforeBinaryOperators": true,
+    "requireSpaceAfterBinaryOperators": true,
+    "requireMultipleVarDecl": "onevar",
     "requireSpaceAfterKeywords": [
         "do",
         "for",

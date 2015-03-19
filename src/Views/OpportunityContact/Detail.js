@@ -70,13 +70,18 @@ define('crm/Views/OpportunityContact/Detail', [
             return entry;
         },
         removeContact: function() {
-            var confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
+            var confirmMessage,
+                entry,
+                request;
+
+            confirmMessage = string.substitute(this.confirmDeleteText, [this.entry.Contact.NameLF]);
             if (!confirm(confirmMessage)) {
                 return;
             }
 
-            var entry = this.createEntryForDelete(),
-                request = this.createRequest();
+            entry = this.createEntryForDelete();
+            request = this.createRequest();
+
             if (request) {
                 request['delete'](entry, {
                     success: this.onDeleteSuccess,

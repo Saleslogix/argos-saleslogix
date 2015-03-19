@@ -17,9 +17,11 @@ define('crm/Fields/PicklistField', [
     FieldManager
 ) {
     var viewsByName = {},
+        getOrCreateViewFor,
+        control,
         viewsByNameCount = 0;
 
-    var getOrCreateViewFor = function(name) {
+    getOrCreateViewFor = function(name) {
         if (viewsByName[name]) {
             return viewsByName[name];
         }
@@ -35,7 +37,7 @@ define('crm/Fields/PicklistField', [
         return App.getView(view.id);
     };
 
-    var control = declare('crm.Fields.PicklistField', [LookupField], {
+    control = declare('crm.Fields.PicklistField', [LookupField], {
         picklist: false,
         storageMode: 'text',
         requireSelection: false,

@@ -30,21 +30,21 @@ define('crm/Environment', [
         // not the best way, perhaps a post-transition callback should be used for launching these? check transitioning, then queue if needed?
         initiateCall: function(number) {
             setTimeout(function() {
-                window.location.href = string.substitute("tel:${0}", [number]);
+                window.location.href = string.substitute('tel:${0}', [number]);
             }, 500);
         },
         initiateEmail: function(email, subject, body) {
             setTimeout(function() {
                 var mailtoUri = (subject)
-                    ? string.substitute("mailto:${0}?subject=${1}&body=${2}", [email, subject, body || ''])
-                    : string.substitute("mailto:${0}", [email]);
+                    ? string.substitute('mailto:${0}?subject=${1}&body=${2}', [email, subject, body || ''])
+                    : string.substitute('mailto:${0}', [email]);
                 window.location.href = mailtoUri;
             }, 1000); // 1 sec delay for iPad iOS5 to actually save nav state to local storage
         },
         showMapForAddress: function(address) {
             var hiddenLink, href, windowName = '_blank';
 
-            href = string.substitute("http://maps.google.com/maps?q=${0}", [address]);
+            href = string.substitute('http://maps.google.com/maps?q=${0}', [address]);
 
             if (has('ie') || has('ff')) {
                 window.open(href, windowName);

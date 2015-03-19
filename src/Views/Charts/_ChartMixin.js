@@ -41,7 +41,7 @@ define('crm/Views/Charts/_ChartMixin', [
         animationSteps: 60,
 
         // String - Animation easing effect
-        animationEasing: "easeOutQuart",
+        animationEasing: 'easeOutQuart',
 
         // Boolean - If we should show the scale at all
         showScale: true,
@@ -58,7 +58,7 @@ define('crm/Views/Charts/_ChartMixin', [
         scaleStartValue: null,
 
         // String - Colour of the scale line
-        scaleLineColor: "rgba(0,0,0,.1)",
+        scaleLineColor: 'rgba(0,0,0,.1)',
 
         // Number - Pixel width of the scale line
         scaleLineWidth: 1,
@@ -67,7 +67,7 @@ define('crm/Views/Charts/_ChartMixin', [
         scaleShowLabels: true,
 
         // Interpolated JS string - can access value
-        scaleLabel: "<%=value%>",
+        scaleLabel: '<%=value%>',
 
         // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
         scaleIntegersOnly: true,
@@ -82,10 +82,10 @@ define('crm/Views/Charts/_ChartMixin', [
         scaleFontSize: 12,
 
         // String - Scale label font weight style
-        scaleFontStyle: "normal",
+        scaleFontStyle: 'normal',
 
         // String - Scale label font colour
-        scaleFontColor: "#666",
+        scaleFontColor: '#666',
 
         // Boolean - whether or not the chart should be responsive and resize when the browser does.
         responsive: true,
@@ -97,10 +97,10 @@ define('crm/Views/Charts/_ChartMixin', [
         showTooltips: true,
 
         // Array - Array of string names to attach tooltip events
-        tooltipEvents: ["touchstart", "click"],
+        tooltipEvents: ['touchstart', 'click'],
 
         // String - Tooltip background colour
-        tooltipFillColor: "rgba(0,0,0,0.8)",
+        tooltipFillColor: 'rgba(0,0,0,0.8)',
 
         // String - Tooltip label font declaration for the scale label
         tooltipFontFamily: "'Helvetica', 'Arial', Sans-serif",
@@ -109,10 +109,10 @@ define('crm/Views/Charts/_ChartMixin', [
         tooltipFontSize: 14,
 
         // String - Tooltip font weight style
-        tooltipFontStyle: "normal",
+        tooltipFontStyle: 'normal',
 
         // String - Tooltip label font colour
-        tooltipFontColor: "#fff",
+        tooltipFontColor: '#fff',
 
         // String - Tooltip title font declaration for the scale label
         tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
@@ -121,10 +121,10 @@ define('crm/Views/Charts/_ChartMixin', [
         tooltipTitleFontSize: 14,
 
         // String - Tooltip title font weight style
-        tooltipTitleFontStyle: "bold",
+        tooltipTitleFontStyle: 'bold',
 
         // String - Tooltip title font colour
-        tooltipTitleFontColor: "#fff",
+        tooltipTitleFontColor: '#fff',
 
         // Number - pixel width of padding around tooltip text
         tooltipYPadding: 6,
@@ -155,7 +155,7 @@ define('crm/Views/Charts/_ChartMixin', [
             return [valuesObject.label, results].join(': ');
         },
         // String - Template string for single tooltips
-        multiTooltipTemplate: "<%= value %>",
+        multiTooltipTemplate: '<%= value %>',
 
         // Function - Will fire on animation progression.
         onAnimationProgress: function() {

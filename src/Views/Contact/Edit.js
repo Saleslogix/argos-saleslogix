@@ -104,12 +104,15 @@ define('crm/Views/Contact/Edit', [
             this.requestAccount(value['key']);
         },
         applyContext: function() {
-            var found = App.queryNavigationContext(function(o) {
+            var found,
+                lookup;
+
+            found = App.queryNavigationContext(function(o) {
                 o = (o.options && o.options.source) || o;
                 return (/^(accounts|opportunities)$/).test(o.resourceKind) && o.key;
             });
 
-            var lookup = {
+            lookup = {
                 'accounts': this.applyAccountContext,
                 'opportunities': this.applyOpportunityContext
             };
@@ -181,9 +184,8 @@ define('crm/Views/Contact/Edit', [
         },
         applyOpportunityContext: function(context) {
             var view = App.getView(context.id),
-                entry = view && view.entry;
-
-            var opportunityId = utility.getValue(entry, '$key'),
+                entry = view && view.entry,
+                opportunityId = utility.getValue(entry, '$key'),
                 account = utility.getValue(entry, 'Account'),
                 accountName = utility.getValue(entry, 'Account.AccountName'),
                 webAddress = utility.getValue(entry, 'Account.WebAddress'),
