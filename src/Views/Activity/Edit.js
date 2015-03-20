@@ -456,6 +456,10 @@ define('crm/Views/Activity/Edit', [
             }
         },
         onAccountChange: function(value, field) {
+            if (value === null || typeof value === 'undefined') {
+                return;
+            }
+
             var fields, entry, phoneField;
 
             fields = this.fields;
