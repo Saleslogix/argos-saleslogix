@@ -33,12 +33,18 @@ define('crm/Views/_RightDrawerBaseMixin', [
     // 2. unloadRightDrawer
     var __class = declare('crm.Views._RightDrawerBaseMixin', null, {
         drawerLoaded: false,
+
+        /**
+         * @property {Boolean}
+         * Add a flag so the view can opt-out of the right drawer if the mixin is used (_related views)
+         */
+        disableRightDrawer: false,
         toolsAdded: false,
 
         setupRightDrawer: function() {
         },
         loadRightDrawer: function() {
-            if (this.drawerLoaded) {
+            if (this.drawerLoaded || this.disableRightDrawer) {
                 return;
             }
 
@@ -70,6 +76,10 @@ define('crm/Views/_RightDrawerBaseMixin', [
             this.inherited(arguments);
         },
         _addTools: function(tools) {
+            if (this.disableRightDrawer) {
+                return;
+            }
+
             if (tools) {
                 tools.tbar.unshift({
                     id: 'toggleRightDrawer',
@@ -94,9 +104,17 @@ define('crm/Views/_RightDrawerBaseMixin', [
         unloadRightDrawer: function() {
         },
         onTransitionTo: function() {
+            if (this.disableRightDrawer) {
+                return;
+            }
+
             this.loadRightDrawer();
         },
         onTransitionAway: function() {
+            if (this.disableRightDrawer) {
+                return;
+            }
+
             var drawer = App.getView('right_drawer');
             if (drawer) {
                 this.unloadRightDrawer();
