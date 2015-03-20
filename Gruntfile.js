@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 
     // Register alias tasks
     grunt.registerTask('check', ['jshint', 'jscs']);
-    grunt.registerTask('test', ['check', 'connect', 'jasmine:coverage']);
+    grunt.registerTask('test', ['connect', 'jasmine:coverage']);
     grunt.registerTask('server', ['connect:server:keepalive']);
     grunt.registerTask('bundle', ['shell:bundle:<%= pkg.version %>']);
     grunt.registerTask('default', ['test']);
