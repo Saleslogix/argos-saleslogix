@@ -63,6 +63,8 @@ define('crm/Views/Calendar/WeekView', [
         eventHeaderText: 'Events',
         eventMoreText: 'View ${0} More Event(s)',
         toggleCollapseText: 'toggle collapse',
+        toggleCollapseClass: 'fa fa-chevron-down',
+        toggleExpandClass: 'fa fa-chevron-right',
 
         enablePullToRefresh: false,
 
@@ -73,7 +75,7 @@ define('crm/Views/Calendar/WeekView', [
                 '{%! $.navigationTemplate %}',
                 '<div style="clear:both"></div>',
                 '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-                    '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
+                    '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>',
                     '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
                     '{%! $.eventMoreTemplate %}',
                 '</div>',
@@ -259,10 +261,20 @@ define('crm/Views/Calendar/WeekView', [
             this.currentDate = this.todayDate.clone();
         },
         toggleGroup: function(params) {
-            var node = query(params.$source);
-            if (node && node.parent()) {
+            var node,
+                button;
+
+            node = params.$source;
+            if (node && node.parentNode) {
                 domClass.toggle(node, 'collapsed');
-                domClass.toggle(node.parent(), 'collapsed-event');
+                domClass.toggle(node.parentNode, 'collapsed-event');
+
+                button = this.collapseButton;
+
+                if (button) {
+                    domClass.toggle(button, this.toggleCollapseClass);
+                    domClass.toggle(button, this.toggleExpandClass);
+                }
             }
         },
         activateDayHeader: function(params) {

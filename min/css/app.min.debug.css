@@ -596,6 +596,18 @@ body.transition > .viewContainer > .footer-toolbar {
   text-shadow: #fff 0px 1px 0px;
   font-weight: bold;
 }
+.event-content > h2 > button {
+  float: right;
+  background-color: transparent;
+  border: none;
+  height: 32px;
+}
+#calendar_daylist,
+#calendar_monthlist,
+#calendar_weeklist {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 #calendar_daylist .event-content > h2,
 #calendar_monthlist .event-content > h2,
 #calendar_monthlist .activity-content > h2,

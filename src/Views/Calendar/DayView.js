@@ -59,6 +59,8 @@ define('crm/Views/Calendar/DayView', [
         eventMoreText: 'View More Event(s)',
         toggleCollapseText: 'toggle collapse',
         enablePullToRefresh: false,
+        toggleCollapseClass: 'fa fa-chevron-down',
+        toggleExpandClass: 'fa fa-chevron-right',
 
         // Templates
         widgetTemplate: new Simplate([
@@ -67,7 +69,7 @@ define('crm/Views/Calendar/DayView', [
                 '{%! $.navigationTemplate %}',
                 '<div style="clear:both"></div>',
                 '<div class="event-content event-hidden" data-dojo-attach-point="eventContainerNode">',
-                '<h2 data-action="toggleGroup">{%= $.eventHeaderText %}<button class="collapsed-indicator" aria-label="{%: $$.toggleCollapseText %}"></button></h2>',
+                '<h2 data-action="toggleGroup"><button data-dojo-attach-point="collapseButton" class="{%= $$.toggleCollapseClass %}" aria-label="{%: $$.toggleCollapseText %}"></button>{%= $.eventHeaderText %}</h2>',
                 '<ul class="list-content" data-dojo-attach-point="eventContentNode"></ul>',
                 '{%! $.eventMoreTemplate %}',
                 '</div>',
@@ -234,10 +236,20 @@ define('crm/Views/Calendar/DayView', [
             this.currentDate = moment().startOf('day');
         },
         toggleGroup: function(params) {
-            var node = params.$source;
+            var node,
+                button;
+
+            node = params.$source;
             if (node && node.parentNode) {
                 domClass.toggle(node, 'collapsed');
                 domClass.toggle(node.parentNode, 'collapsed-event');
+
+                button = this.collapseButton;
+
+                if (button) {
+                    domClass.toggle(button, this.toggleCollapseClass);
+                    domClass.toggle(button, this.toggleExpandClass);
+                }
             }
         },
         refresh: function() {
