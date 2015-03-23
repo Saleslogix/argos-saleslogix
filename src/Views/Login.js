@@ -44,7 +44,6 @@ define('crm/Views/Login', [
         userText: 'User ID',
         invalidUserText: 'The user name or password is invalid.',
         missingUserText: 'The user record was not found.',
-        serverProblemText: 'A problem occurred on the server.',
         requestAbortedText: 'The request was aborted.',
         logoText: 'Infor CRM',
 
@@ -118,6 +117,31 @@ define('crm/Views/Login', [
                 this.validateCredentials(credentials);
             }
         },
+        createErrorHandlers: function() {
+            this.errorText.status[this.HTTP_STATUS.FORBIDDEN] = this.invalidUserText;
+
+            this.errorHandlers = [{
+                name: 'NoResponse',
+                test: function(error) {
+                    return !error.xhr;
+                },
+                handle: function(error, next) {
+                    alert(this.missingUserText);
+                    next();
+                }
+            }, {
+                name: 'GeneralError',
+                test: function(error) {
+                    return typeof error.xhr !== 'undefined' && error.xhr !== null;
+                },
+                handle: function(error, next) {
+                    alert(this.getErrorMessage(error));
+                    next();
+                }
+            }];
+
+            return this.errorHandlers;
+        },
         validateCredentials: function(credentials) {
             this.disable();
 
@@ -128,17 +152,14 @@ define('crm/Views/Login', [
                     App.navigateToInitialView();
                 },
                 failure: function(result) {
+                    var error;
+
                     this.enable();
 
-                    if (result.response) {
-                        if (result.response.status === 403) {
-                            alert(this.invalidUserText);
-                        } else {
-                            alert(this.serverProblemText);
-                        }
-                    } else {
-                        alert(this.missingUserText);
-                    }
+                    error = new Error();
+                    error.status = result && result.response && result.response.status;
+                    error.xhr = result && result.response;
+                    this.handleError(error);
                 },
                 aborted: function() {
                     this.enable();
