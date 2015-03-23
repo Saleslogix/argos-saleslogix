@@ -766,7 +766,7 @@
     {
       "src": "../content",
       "dest": "content",
-      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif)"
+      "filters": ".*(\\.css|\\.jpg|\\.png|\\.gif|\\.swf)"
     },
     {
       "src": "../min",
