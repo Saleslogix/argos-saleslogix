@@ -278,7 +278,6 @@ define('crm/ApplicationModule', [
                 id: 'account_related',
                 expose: false,
                 groupsEnabled: false,
-                disableRightDrawer: true,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -308,7 +307,6 @@ define('crm/ApplicationModule', [
                 id: 'contact_related',
                 expose: false,
                 groupsEnabled: false,
-                disableRightDrawer: true,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -345,7 +343,6 @@ define('crm/ApplicationModule', [
                 id: 'opportunity_related',
                 expose: false,
                 groupsEnabled: false,
-                disableRightDrawer: true,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -387,7 +384,6 @@ define('crm/ApplicationModule', [
                 id: 'lead_related',
                 expose: false,
                 groupsEnabled: false,
-                disableRightDrawer: true,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -400,7 +396,6 @@ define('crm/ApplicationModule', [
                 id: 'ticket_related',
                 expose: false,
                 groupsEnabled: false,
-                disableRightDrawer: true,
                 defaultSearchTerm: function() {
                     return '';
                 }
@@ -450,7 +445,6 @@ define('crm/ApplicationModule', [
                 id: 'history_related',
                 expose: false,
                 groupsEnabled: false,
-                disableRightDrawer: true,
                 defaultSearchTerm: function() {
                     return '';
                 }

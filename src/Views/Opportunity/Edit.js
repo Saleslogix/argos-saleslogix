@@ -244,7 +244,10 @@ define('crm/Views/Opportunity/Edit', [
                         textProperty: 'AccountName',
                         type: 'lookup',
                         validator: validator.exists,
-                        view: 'account_related'
+                        view: 'account_related',
+                        viewMixin: {
+                            disableRightDrawer: true
+                        }
                     },
                     {
                         label: this.acctMgrText,
@@ -264,6 +267,7 @@ define('crm/Views/Opportunity/Edit', [
                         view: 'account_related',
                         where: string.substitute('upper(SubType) eq "${0}"', [this.subTypePickListResellerText]),
                         viewMixin: {
+                            disableRightDrawer: true,
                             onTransitionTo: function(self) {
                                 // Clear the initial where clause, allowing the user to search for others if they want
                                 self.options.where = '';
