@@ -5,6 +5,9 @@
     "type": "git",
     "url": "https://github.com/Saleslogix/argos-saleslogix"
   },
+  "scripts": {
+      "test": "grunt test"
+  },
   "devDependencies": {
     "esformatter": "^0.4.3",
     "esformatter-braces": "^1.0.0",
