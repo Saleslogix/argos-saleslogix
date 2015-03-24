@@ -69,8 +69,9 @@ define('crm/Views/Login', [
             if (credentials) {
                 App.authenticateUser(credentials, {
                     success: function() {
-                        App.requestUserDetails();
-                        App.navigateToInitialView();
+                        App.initState().then(function() {
+                            App.navigateToInitialView();
+                        });
                     },
                     scope: this
                 });
@@ -148,8 +149,16 @@ define('crm/Views/Login', [
             App.authenticateUser(credentials, {
                 success: function success() {
                     this.enable();
-                    App.requestUserDetails();
-                    App.navigateToInitialView();
+
+                    var attr = this.domNode.attributes.getNamedItem('selected');
+                    if (attr) {
+                        attr.value = 'false';
+                    }
+
+                    App.setPrimaryTitle(App.loadingText);
+                    App.initState().then(function() {
+                        App.navigateToInitialView();
+                    });
                 },
                 failure: function(result) {
                     var error;
