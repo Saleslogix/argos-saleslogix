@@ -69,7 +69,7 @@ define('crm/Views/Login', [
             if (credentials) {
                 App.authenticateUser(credentials, {
                     success: function() {
-                        App.initState().then(function() {
+                        App.initAppState().then(function() {
                             App.navigateToInitialView();
                         });
                     },
@@ -156,7 +156,7 @@ define('crm/Views/Login', [
                     }
 
                     App.setPrimaryTitle(App.loadingText);
-                    App.initState().then(function() {
+                    App.initAppState().then(function() {
                         App.navigateToInitialView();
                     });
                 },
