@@ -14,9 +14,12 @@ define('crm/Template', [
     'dojo/_base/lang',
     'argos/Format'
 ], function(
-    lang
+    _lang
 ) {
-    var __class = _lang.setObject('crm.Template', {
+    var __class,
+        lang = _lang;
+
+    __class = lang.setObject('crm.Template', {
         /**
          * @property {Simplate} nameLF
          * Template for lastname, firstname
