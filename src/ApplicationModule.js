@@ -124,6 +124,9 @@ define('crm/ApplicationModule', [
     './Fields/PicklistField',
     './Fields/RecurrencesField',
 
+     './Views/RelatedContextWidget',
+     './Views/RelatedEditWidget',
+
     './Action',
     './Format',
     './Template',

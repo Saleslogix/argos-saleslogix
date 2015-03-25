@@ -31,7 +31,8 @@ define('crm/Views/Account/List', [
     '../_GroupListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
-    '../_RightDrawerListMixin'
+    '../_RightDrawerListMixin',
+    '../History/RelatedView'
 ], function(
     declare,
     lang,
@@ -45,7 +46,8 @@ define('crm/Views/Account/List', [
     _GroupListMixin,
     _MetricListMixin,
     _CardLayoutListMixin,
-    _RightDrawerListMixin
+    _RightDrawerListMixin,
+    HistoryRelatedView
 ) {
 
     var __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
@@ -69,6 +71,7 @@ define('crm/Views/Account/List', [
                 '</h4>',
             '{% } %}'
         ]),
+        groupsEnabled:false,
         enableDynamicGroupLayout: true,
         groupLayoutItemTemplate: new Simplate([
          '<div style="float:left; ">',
@@ -171,6 +174,18 @@ define('crm/Views/Account/List', [
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createRelatedViewLayout: function () {
+            this.groupsEnabled = false;
+            return this.relatedViews || (this.relatedViews = [{
+                widgetType: HistoryRelatedView,
+                id: 'list_account_notes_relate_view',
+                enabled:true,
+                autoLoad: true,
+                expandOnLoad: false,
+                relatedProperty: 'AccountId',
+                where: function (entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
+            }]);
         }
     });
 

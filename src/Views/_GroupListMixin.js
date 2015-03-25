@@ -905,6 +905,19 @@ define('crm/Views/_GroupListMixin', [
                     break;
             }
 
+        },
+        getContextSnapShot: function(key) {
+            var template, entry, snapShot;
+
+            if (this._groupInitalized && this.groupsMode) {
+                entry = this.entries[key];
+                template = this.getItemTemplate();
+                snapShot = template.apply(entry, this);
+                return snapShot;
+            } else {
+               snapShot = this.inherited(arguments);
+            }
+            return snapShot;
         }
     });
 
