@@ -19,7 +19,7 @@ define('crm/Views/Contact/Detail', [
     'argos/Detail'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     format,
     template,
@@ -334,7 +334,7 @@ define('crm/Views/Contact/Detail', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Contact.Detail', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Contact.Detail', __class);
     return __class;
 });
 

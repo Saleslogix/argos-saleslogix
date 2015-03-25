@@ -16,7 +16,7 @@ define('crm/Views/Event/Detail', [
     'argos/Detail'
 ], function(
     declare,
-    lang,
+    _lang,
     format,
     Detail
 ) {
@@ -93,7 +93,7 @@ define('crm/Views/Event/Detail', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Event.Detail', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Event.Detail', __class);
     return __class;
 });
 

@@ -17,7 +17,7 @@ define('crm/Views/MainToolbar', [
     'argos/MainToolbar'
 ], function(
     declare,
-    lang,
+    _lang,
     domStyle,
     has,
     MainToolbar
@@ -115,7 +115,7 @@ define('crm/Views/MainToolbar', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.MainToolbar', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.MainToolbar', __class);
     return __class;
 });
 

@@ -25,7 +25,7 @@ define('crm/Views/Attachment/AddAttachment', [
     '../../Environment'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     format,
     sdkFormat,
@@ -76,7 +76,7 @@ define('crm/Views/Attachment/AddAttachment', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Attachment.AddAttachment', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Attachment.AddAttachment', __class);
     return __class;
 });
 

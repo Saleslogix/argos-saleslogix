@@ -20,7 +20,7 @@ define('crm/Views/Charts/GenericPie', [
     './_ChartMixin'
 ], function(
     declare,
-    lang,
+    _lang,
     array,
     domGeo,
     View,
@@ -112,6 +112,6 @@ define('crm/Views/Charts/GenericPie', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericPie', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Charts.GenericPie', __class);
     return __class;
 });

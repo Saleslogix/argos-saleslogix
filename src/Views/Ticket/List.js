@@ -28,7 +28,7 @@ define('crm/Views/Ticket/List', [
     '../_CardLayoutListMixin'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     array,
     action,
@@ -176,7 +176,7 @@ define('crm/Views/Ticket/List', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Ticket.List', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Ticket.List', __class);
     return __class;
 });
 

@@ -20,7 +20,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
 ], function(
     declare,
     array,
-    lang,
+    _lang,
     domConstruct,
     domAttr,
     _RightDrawerBaseMixin
@@ -61,14 +61,14 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
         setupRightDrawer: function() {
             var drawer = App.getView('right_drawer');
             if (drawer) {
-                lang.mixin(drawer, this._createActions());
+                _lang.mixin(drawer, this._createActions());
                 drawer.setLayout(this.createRightDrawerLayout());
-                drawer.getGroupForEntry = lang.hitch(this, function(entry) {
+                drawer.getGroupForEntry = _lang.hitch(this, function(entry) {
                     return this.getGroupForRightDrawerEntry(entry);
                 });
 
                 if (this.rebuildWidgets) {
-                    App.snapper.on('close', lang.hitch(this, function() {
+                    App.snapper.on('close', _lang.hitch(this, function() {
                         if (this._hasChangedIndexPrefs) {
                             this.rebuildWidgets();
                             this._hasChangedIndexPrefs = false;
@@ -92,7 +92,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
         _createActions: function() {
             // These actions will get mixed into the right drawer view.
             var actions = {
-                indexClicked: lang.hitch(this, function(params) {
+                indexClicked: _lang.hitch(this, function(params) {
                     var prefs, results, enabled;
                     prefs = App.preferences && App.preferences.speedSearchIndexes;
 
@@ -114,7 +114,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
         },
         getGroupForRightDrawerEntry: function(entry) {
             if (entry.dataProps && entry.dataProps.indexname) {
-                var mixin = lang.getObject(mixinName);
+                var mixin = _lang.getObject(mixinName);
                 return {
                     tag: 'view',
                     title: mixin.prototype.indexSectionText
@@ -158,7 +158,7 @@ define('crm/Views/_SpeedSearchRightDrawerListMixin', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', __class);
+    _lang.setObject('Mobile.SalesLogix.Views._SpeedSearchRightDrawerListMixin', __class);
     return __class;
 });
 

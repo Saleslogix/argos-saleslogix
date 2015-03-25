@@ -21,7 +21,7 @@ define('crm/Recurrence', [
     'moment'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     _Widget,
     _ActionMixin,
@@ -29,7 +29,7 @@ define('crm/Recurrence', [
     _Templated,
     moment
 ) {
-    var __class = lang.setObject('crm.Recurrence', {
+    var __class = _lang.setObject('crm.Recurrence', {
         // Localization
         neverText: 'Never',
         daysText: 'days',
@@ -512,7 +512,7 @@ define('crm/Recurrence', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Recurrence', __class);
+    _lang.setObject('Mobile.SalesLogix.Recurrence', __class);
     return __class;
 });
 

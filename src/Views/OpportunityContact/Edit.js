@@ -17,7 +17,7 @@ define('crm/Views/OpportunityContact/Edit', [
     'argos/Edit'
 ], function(
     declare,
-    lang,
+    _lang,
     format,
     utility,
     Edit
@@ -141,7 +141,7 @@ define('crm/Views/OpportunityContact/Edit', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Edit', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.Edit', __class);
     return __class;
 });
 

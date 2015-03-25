@@ -21,7 +21,7 @@ define('crm/Views/ErrorLog/Detail', [
     'argos/Detail'
 ], function(
     declare,
-    lang,
+    _lang,
     json,
     string,
     Memory,
@@ -197,7 +197,7 @@ define('crm/Views/ErrorLog/Detail', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.ErrorLog.Detail', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.ErrorLog.Detail', __class);
     return __class;
 });
 

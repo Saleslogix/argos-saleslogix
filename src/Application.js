@@ -33,7 +33,7 @@ define('crm/Application', [
     array,
     connect,
     json,
-    lang,
+    _lang,
     has,
     string,
     Deferred,
@@ -234,7 +234,7 @@ define('crm/Application', [
 
                 myCode = this.context['userOptions']['General:Currency'];
                 myRate = this.context['exchangeRates'][myCode];
-                lang.mixin(results, {code: myCode, rate: myRate});
+                _lang.mixin(results, {code: myCode, rate: myRate});
             }
 
             return results;
@@ -250,7 +250,7 @@ define('crm/Application', [
 
                 baseCode = this.context['systemOptions']['BaseCurrency'];
                 baseRate = this.context['exchangeRates'][baseCode];
-                lang.mixin(results, {code: baseCode, rate: baseRate});
+                _lang.mixin(results, {code: baseCode, rate: baseRate});
             }
 
             return results;
@@ -267,7 +267,7 @@ define('crm/Application', [
             if (found) {
                 rate = found.ExchangeRate;
                 code = found.ExchangeRateCode;
-                lang.mixin(results, {code: code, rate: rate});
+                _lang.mixin(results, {code: code, rate: rate});
             }
 
             return results;
@@ -289,7 +289,7 @@ define('crm/Application', [
         },
         onAuthenticateUserSuccess: function(credentials, callback, scope, result) {
             var user = {
-                '$key': lang.trim(result['response']['userId']),
+                '$key': _lang.trim(result['response']['userId']),
                 '$descriptor': result['response']['prettyName'],
                 'UserName': result['response']['userName']
             };
@@ -354,9 +354,9 @@ define('crm/Application', [
                 .setOperationName('getCurrentUser');
 
             request.execute({}, {
-                success: lang.hitch(this, this.onAuthenticateUserSuccess, credentials, options.success, options.scope), // this.onAuthenticateUserSuccess.createDelegate(this, [credentials, options.success, options.scope], true),
-                failure: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
-                aborted: lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
+                success: _lang.hitch(this, this.onAuthenticateUserSuccess, credentials, options.success, options.scope), // this.onAuthenticateUserSuccess.createDelegate(this, [credentials, options.success, options.scope], true),
+                failure: _lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope), // this.onAuthenticateUserFailure.createDelegate(this, [options.failure, options.scope], true),
+                aborted: _lang.hitch(this, this.onAuthenticateUserFailure, options.failure, options.scope) // this.onAuthenticateUserFailure.createDelegate(this, [options.aborted, options.scope], true)
             });
         },
         hasAccessTo: function(security) {
@@ -934,6 +934,6 @@ define('crm/Application', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Application', __class);
+    _lang.setObject('Mobile.SalesLogix.Application', __class);
     return __class;
 });

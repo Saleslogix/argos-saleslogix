@@ -28,7 +28,7 @@ define('crm/Views/TicketActivity/List', [
     domGeom,
     query,
     topic,
-    lang,
+    _lang,
     format,
     List
 ) {
@@ -98,7 +98,7 @@ define('crm/Views/TicketActivity/List', [
         },
         postCreate: function() {
             this.inherited(arguments);
-            this.own(topic.subscribe('/app/resize', lang.hitch(this, this._onResize)));
+            this.own(topic.subscribe('/app/resize', _lang.hitch(this, this._onResize)));
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute(
@@ -108,7 +108,7 @@ define('crm/Views/TicketActivity/List', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.List', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.TicketActivity.List', __class);
     return __class;
 });
 

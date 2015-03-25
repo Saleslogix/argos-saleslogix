@@ -22,7 +22,7 @@ define('crm/Views/Help', [
     'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     domClass,
     domConstruct,
@@ -109,7 +109,7 @@ define('crm/Views/Help', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Help', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Help', __class);
     return __class;
 });
 

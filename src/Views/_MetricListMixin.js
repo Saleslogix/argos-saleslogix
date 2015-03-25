@@ -22,7 +22,7 @@ define('crm/Views/_MetricListMixin', [
 ], function(
     declare,
     array,
-    lang,
+    _lang,
     aspect,
     MetricWidget,
     GroupUtility
@@ -65,7 +65,7 @@ define('crm/Views/_MetricListMixin', [
                 });
             }
 
-            return lang.clone(filtered);
+            return _lang.clone(filtered);
         },
         postCreate: function() {
             this.inherited(arguments);
@@ -143,7 +143,7 @@ define('crm/Views/_MetricListMixin', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views._MetricListMixin', __class);
+    _lang.setObject('Mobile.SalesLogix.Views._MetricListMixin', __class);
     return __class;
 });
 

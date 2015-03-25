@@ -31,7 +31,7 @@ define('crm/Views/Calendar/DayView', [
     'moment'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     query,
     domClass,
@@ -538,7 +538,7 @@ define('crm/Views/Calendar/DayView', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Calendar.DayView', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Calendar.DayView', __class);
     return __class;
 });
 

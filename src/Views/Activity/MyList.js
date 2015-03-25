@@ -40,7 +40,7 @@ define('crm/Views/Activity/MyList', [
     '../../Action'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     query,
     connect,
@@ -679,7 +679,7 @@ define('crm/Views/Activity/MyList', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Activity.MyList', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Activity.MyList', __class);
     return __class;
 });
 

@@ -22,7 +22,7 @@ define('crm/Views/Activity/TypesList', [
     'dojo/store/Memory'
 ], function(
     declare,
-    lang,
+    _lang,
     List,
     MemoryStore
 ) {
@@ -147,7 +147,7 @@ define('crm/Views/Activity/TypesList', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Activity.TypesList', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Activity.TypesList', __class);
     return __class;
 });
 

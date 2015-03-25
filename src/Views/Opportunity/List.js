@@ -31,7 +31,7 @@ define('crm/Views/Opportunity/List', [
     '../_CardLayoutListMixin'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     array,
     action,
@@ -188,7 +188,7 @@ define('crm/Views/Opportunity/List', [
 
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Opportunity.List', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Opportunity.List', __class);
     return __class;
 });
 

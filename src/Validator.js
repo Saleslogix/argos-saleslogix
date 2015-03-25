@@ -30,10 +30,10 @@ define('crm/Validator', [
     'dojo/_base/lang',
     'dojo/string'
 ], function(
-    lang,
+    _lang,
     string
 ) {
-    var __class = lang.setObject('crm.Validator', {
+    var __class = _lang.setObject('crm.Validator', {
         /**
          * @property {Object} exists
          * Validator that ensures the field contains a value.
@@ -176,7 +176,7 @@ define('crm/Validator', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Validator', __class);
+    _lang.setObject('Mobile.SalesLogix.Validator', __class);
     return __class;
 });
 

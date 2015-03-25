@@ -23,7 +23,7 @@ define('crm/Views/Charts/_ChartMixin', [
     'argos/_PullToRefreshMixin'
 ], function(
     declare,
-    lang,
+    _lang,
     array,
     connect,
     domGeo,
@@ -258,7 +258,7 @@ define('crm/Views/Charts/_ChartMixin', [
 
             context.clearRect(0, 0, node.width, node.height);
 
-            mixin = lang.getObject(mixinName);
+            mixin = _lang.getObject(mixinName);
             if (mixin) {
                 text = mixin.prototype.loadingText;
             } else {
@@ -385,7 +385,7 @@ define('crm/Views/Charts/_ChartMixin', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Charts._ChartMixin', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Charts._ChartMixin', __class);
     return __class;
 });
 

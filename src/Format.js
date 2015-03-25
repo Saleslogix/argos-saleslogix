@@ -18,7 +18,7 @@ define('crm/Format', [
     'argos/Format',
     'moment'
 ], function(
-    lang,
+    _lang,
     array,
     string,
     dojoNumber,
@@ -26,7 +26,7 @@ define('crm/Format', [
     format,
     moment
 ) {
-    var __class = lang.setObject('crm.Format', lang.mixin({}, format, {
+    var __class = _lang.setObject('crm.Format', _lang.mixin({}, format, {
         /**
          * Address Culture Formats as defined by crm.Format.address
          * http://msdn.microsoft.com/en-us/library/cc195167.aspx
@@ -100,7 +100,7 @@ define('crm/Format', [
                 culture;
 
             isEmpty = function(line) {
-                var filterSymbols = lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));//'
+                var filterSymbols = _lang.trim(line.replace(/,|\(|\)|\.|>|-|<|;|:|'|"|\/|\?|\[|\]|{|}|_|=|\+|\\|\||!|@|#|\$|%|\^|&|\*|`|~/g, ''));//'
                 return filterSymbols === '';
             };
 
@@ -134,7 +134,7 @@ define('crm/Format', [
             );
         },
         collapseSpace: function(text) {
-            return lang.trim(text.replace(/\s+/g, ' '));
+            return _lang.trim(text.replace(/\s+/g, ' '));
         },
         resolveAddressCulture: function(o) {
             return crm.Format.countryCultures[o.Country] || Mobile.CultureInfo.name;
@@ -352,7 +352,7 @@ define('crm/Format', [
         }
     }));
 
-    lang.setObject('Mobile.SalesLogix.Format', __class);
+    _lang.setObject('Mobile.SalesLogix.Format', __class);
     return __class;
 });
 

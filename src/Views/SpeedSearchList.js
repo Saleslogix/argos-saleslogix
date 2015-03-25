@@ -27,7 +27,7 @@ define('crm/Views/SpeedSearchList', [
     './_CardLayoutListMixin'
 ], function(
     declare,
-    lang,
+    _lang,
     array,
     domClass,
     domConstruct,
@@ -252,8 +252,8 @@ define('crm/Views/SpeedSearchList', [
                 entry = this.createSearchEntry();
 
             request.execute(entry, {
-                success: lang.hitch(this, this.onRequestDataSuccess),
-                failture: lang.hitch(this, this.onRequestDataFailure)
+                success: _lang.hitch(this, this.onRequestDataSuccess),
+                failture: _lang.hitch(this, this.onRequestDataFailure)
             });
         },
         navigateToDetailView: function(key, type) {
@@ -344,7 +344,7 @@ define('crm/Views/SpeedSearchList', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.SpeedSearchList', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.SpeedSearchList', __class);
     return __class;
 });
 

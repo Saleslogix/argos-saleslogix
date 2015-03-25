@@ -17,7 +17,7 @@ define('crm/Views/AreaCategoryIssueLookup', [
     'argos/_LegacySDataListMixin'
 ], function(
     declare,
-    lang,
+    _lang,
     List,
     _LegacySDataListMixin
 ) {
@@ -120,7 +120,7 @@ define('crm/Views/AreaCategoryIssueLookup', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.AreaCategoryIssueLookup', __class);
     return __class;
 });
 

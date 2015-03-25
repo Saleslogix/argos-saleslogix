@@ -15,7 +15,7 @@ define('crm/Views/MetricFilterLookup', [
     'argos/List'
 ], function(
     declare,
-    lang,
+    _lang,
     List
 ) {
 
@@ -49,6 +49,6 @@ define('crm/Views/MetricFilterLookup', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.MetricFilterLookup', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.MetricFilterLookup', __class);
     return __class;
 });

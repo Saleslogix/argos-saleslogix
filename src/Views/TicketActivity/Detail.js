@@ -25,7 +25,7 @@ define('crm/Views/TicketActivity/Detail', [
     'dojo/NodeList-manipulate'
 ], function(
     declare,
-    lang,
+    _lang,
     query,
     domClass,
     format,
@@ -109,7 +109,7 @@ define('crm/Views/TicketActivity/Detail', [
         requestCodeData: function(row, node, value, entry, predicate) {
             var request = this.createPicklistRequest(predicate);
             request.read({
-                success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
+                success: _lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
                 failure: this.onRequestCodeDataFailure,
                 scope: this
             });
@@ -260,7 +260,7 @@ define('crm/Views/TicketActivity/Detail', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Detail', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Detail', __class);
     return __class;
 });
 

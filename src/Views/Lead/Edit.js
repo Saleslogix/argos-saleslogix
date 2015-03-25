@@ -18,7 +18,7 @@ define('crm/Views/Lead/Edit', [
     'argos/Edit'
 ], function(
     declare,
-    lang,
+    _lang,
     format,
     validator,
     Edit
@@ -225,7 +225,7 @@ define('crm/Views/Lead/Edit', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Lead.Edit', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Lead.Edit', __class);
     return __class;
 });
 

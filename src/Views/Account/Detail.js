@@ -22,7 +22,7 @@ define('crm/Views/Account/Detail', [
 ], function(
     declare,
     string,
-    lang,
+    _lang,
     format,
     template,
     Detail
@@ -127,7 +127,7 @@ define('crm/Views/Account/Detail', [
             this.navigateToHistoryInsert('atPhoneCall', entry, complete);
         },
         callMainPhone: function() {
-            this.recordCallToHistory(lang.hitch(this, function() {
+            this.recordCallToHistory(_lang.hitch(this, function() {
                 App.initiateCall(this.entry['MainPhone']);
             }));
         },
@@ -276,7 +276,7 @@ define('crm/Views/Account/Detail', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Account.Detail', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Account.Detail', __class);
     return __class;
 });
 

@@ -14,7 +14,7 @@ define('crm/Views/User/CalendarAccessList', [
     'argos/List'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     List
 ) {
@@ -49,7 +49,7 @@ define('crm/Views/User/CalendarAccessList', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.User.CalendarAccessList', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.User.CalendarAccessList', __class);
     return __class;
 });
 

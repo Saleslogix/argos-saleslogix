@@ -16,7 +16,7 @@ define('crm/Views/NameEdit', [
     'argos/Edit'
 ], function(
     declare,
-    lang,
+    _lang,
     validator,
     Edit
 ) {
@@ -85,7 +85,7 @@ define('crm/Views/NameEdit', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.NameEdit', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.NameEdit', __class);
     return __class;
 });
 

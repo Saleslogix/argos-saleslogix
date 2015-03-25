@@ -14,7 +14,7 @@ define('crm/Views/Ticket/UrgencyLookup', [
     'argos/List'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     List
 ) {
@@ -45,7 +45,7 @@ define('crm/Views/Ticket/UrgencyLookup', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Ticket.UrgencyLookup', __class);
     return __class;
 });
 

@@ -18,7 +18,7 @@ define('crm/Views/RightDrawer', [
 ], function(
     declare,
     array,
-    lang,
+    _lang,
     Memory,
     GroupedList
 ) {
@@ -123,7 +123,7 @@ define('crm/Views/RightDrawer', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.RightDrawer', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.RightDrawer', __class);
     return __class;
 });
 

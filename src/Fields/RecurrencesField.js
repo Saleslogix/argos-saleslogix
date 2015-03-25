@@ -8,7 +8,7 @@ define('crm/Fields/RecurrencesField', [
     'argos/FieldManager'
 ], function(
     declare,
-    lang,
+    _lang,
     EditorField,
     FieldManager
 ) {
@@ -35,6 +35,6 @@ define('crm/Fields/RecurrencesField', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Fields.RecurrencesField', control);
+    _lang.setObject('Mobile.SalesLogix.Fields.RecurrencesField', control);
     return FieldManager.register('recurrences', control);
 });

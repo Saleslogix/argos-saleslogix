@@ -17,7 +17,7 @@ define('crm/SpeedSearchWidget', [
     'argos/_Templated'
 ], function(
     declare,
-    lang,
+    _lang,
     event,
     domClass,
     _Widget,
@@ -67,7 +67,7 @@ define('crm/SpeedSearchWidget', [
          */
         search: function() {
             var queryTerm = this.getQuery();
-            if (!lang.trim(queryTerm)) {
+            if (!_lang.trim(queryTerm)) {
                 return;
             }
 
@@ -81,7 +81,7 @@ define('crm/SpeedSearchWidget', [
             return this.queryNode.value;
         },
         configure: function(options) {
-            lang.mixin(this, options);
+            _lang.mixin(this, options);
         },
         _onClearClick: function(evt) {
             event.stop(evt);
@@ -117,7 +117,7 @@ define('crm/SpeedSearchWidget', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.SpeedSearchWidget', __class);
+    _lang.setObject('Mobile.SalesLogix.SpeedSearchWidget', __class);
     return __class;
 });
 

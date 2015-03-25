@@ -8,7 +8,7 @@ define('crm/Fields/NameField', [
     'argos/FieldManager'
 ], function(
     declare,
-    lang,
+    _lang,
     EditorField,
     FieldManager
 ) {
@@ -33,6 +33,6 @@ define('crm/Fields/NameField', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Fields.NameField', control);
+    _lang.setObject('Mobile.SalesLogix.Fields.NameField', control);
     return FieldManager.register('name', control);
 });

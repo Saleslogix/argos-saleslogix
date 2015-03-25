@@ -15,7 +15,7 @@ define('crm/Views/FooterToolbar', [
     'argos/MainToolbar'
 ], function(
     declare,
-    lang,
+    _lang,
     MainToolbar
 ) {
 
@@ -68,7 +68,7 @@ define('crm/Views/FooterToolbar', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.FooterToolbar', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.FooterToolbar', __class);
     return __class;
 });
 

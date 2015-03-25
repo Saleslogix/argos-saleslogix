@@ -32,7 +32,7 @@ define('crm/Views/Activity/Complete', [
     'moment'
 ], function(
     declare,
-    lang,
+    _lang,
     array,
     connect,
     string,
@@ -647,7 +647,7 @@ define('crm/Views/Activity/Complete', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Activity.Complete', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Activity.Complete', __class);
     return __class;
 });
 

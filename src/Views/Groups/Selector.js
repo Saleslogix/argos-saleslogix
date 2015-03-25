@@ -17,7 +17,7 @@ define('crm/Views/Groups/Selector', [
     'argos/Store/SData'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     List,
     SDataStore
@@ -88,7 +88,7 @@ define('crm/Views/Groups/Selector', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Groups.Selector', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Groups.Selector', __class);
     return __class;
 });
 

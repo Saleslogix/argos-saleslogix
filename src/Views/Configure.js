@@ -22,7 +22,7 @@ define('crm/Views/Configure', [
 ], function(
     declare,
     array,
-    lang,
+    _lang,
     query,
     string,
     domAttr,
@@ -126,7 +126,7 @@ define('crm/Views/Configure', [
             var list = [],
                 lookup = {},
                 exposed = App.getExposedViews(),
-                order = lang.getObject('preferences.configure.order', false, App) || [],
+                order = _lang.getObject('preferences.configure.order', false, App) || [],
                 i,
                 n,
                 view;
@@ -181,7 +181,7 @@ define('crm/Views/Configure', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Configure', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Configure', __class);
     return __class;
 });
 

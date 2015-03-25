@@ -34,7 +34,7 @@ define('crm/Views/Account/List', [
     '../_RightDrawerListMixin'
 ], function(
     declare,
-    lang,
+    _lang,
     array,
     string,
     action,
@@ -174,7 +174,7 @@ define('crm/Views/Account/List', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Account.List', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Account.List', __class);
     return __class;
 });
 

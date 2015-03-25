@@ -14,7 +14,7 @@ define('crm/Views/OpportunityContact/List', [
     'argos/List'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     List
 ) {
@@ -149,7 +149,7 @@ define('crm/Views/OpportunityContact/List', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.List', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.OpportunityContact.List', __class);
     return __class;
 });
 

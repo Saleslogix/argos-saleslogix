@@ -124,7 +124,7 @@ define('crm/Views/_RightDrawerBaseMixin', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views._RightDrawerBaseMixin', __class);
+    _lang.setObject('Mobile.SalesLogix.Views._RightDrawerBaseMixin', __class);
     return __class;
 });
 

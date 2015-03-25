@@ -24,7 +24,7 @@ define('crm/Views/Contact/Edit', [
     'argos/Utility'
 ], function(
     declare,
-    lang,
+    _lang,
     dString,
     format,
     template,
@@ -365,7 +365,7 @@ define('crm/Views/Contact/Edit', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Contact.Edit', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Contact.Edit', __class);
     return __class;
 });
 

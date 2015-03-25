@@ -14,7 +14,7 @@ define('crm/Views/LeadSource/List', [
     'argos/List'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     List
 ) {
@@ -44,7 +44,7 @@ define('crm/Views/LeadSource/List', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.LeadSource.List', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.LeadSource.List', __class);
     return __class;
 });
 

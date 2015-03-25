@@ -34,7 +34,7 @@ define('crm/Views/Calendar/WeekView', [
     'moment'
 ], function(
     declare,
-    lang,
+    _lang,
     query,
     string,
     domConstruct,
@@ -631,7 +631,7 @@ define('crm/Views/Calendar/WeekView', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Calendar.WeekView', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Calendar.WeekView', __class);
     return __class;
 });
 

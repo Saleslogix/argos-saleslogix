@@ -17,7 +17,7 @@ define('crm/Views/Lead/Detail', [
     'argos/Detail'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     format,
     Detail
@@ -318,7 +318,7 @@ define('crm/Views/Lead/Detail', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Lead.Detail', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Lead.Detail', __class);
     return __class;
 });
 

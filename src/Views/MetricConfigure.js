@@ -16,7 +16,7 @@ define('crm/Views/MetricConfigure', [
        'argos/Edit'
 ], function(
     declare,
-    lang,
+    _lang,
     array,
     Edit
 ) {
@@ -57,8 +57,8 @@ define('crm/Views/MetricConfigure', [
             var i;
 
             for (i = 0; i < this.metricsSupported; i++) {
-                this.connect(this.fields['metric' + i + '-metric'], 'onChange', lang.hitch(this, this.onMetricChange, i));
-                this.connect(this.fields['metric' + i + '-filter'], 'onChange', lang.hitch(this, this.onFilterChange, i));
+                this.connect(this.fields['metric' + i + '-metric'], 'onChange', _lang.hitch(this, this.onMetricChange, i));
+                this.connect(this.fields['metric' + i + '-filter'], 'onChange', _lang.hitch(this, this.onFilterChange, i));
             }
         },
         onMetricChange: function(index, value, field) {
@@ -101,7 +101,7 @@ define('crm/Views/MetricConfigure', [
                             keyProperty: 'filterName',
                             type: 'lookup',
                             view: 'metric_filter_lookup',
-                            resourcePredicate: lang.hitch(this, function() {
+                            resourcePredicate: _lang.hitch(this, function() {
                                 return "'" + this.entityName + "'";
                             }),
                             where: "filterType eq 'analyticsMetric'"
@@ -115,7 +115,7 @@ define('crm/Views/MetricConfigure', [
                             keyProperty: 'filterName',
                             type: 'lookup',
                             view: 'metric_filter_lookup',
-                            resourcePredicate: lang.hitch(this, function() {
+                            resourcePredicate: _lang.hitch(this, function() {
                                 return "'" + this.entityName + "'";
                             }),
                             where: "filterType ne 'analyticsMetric'"
@@ -230,6 +230,6 @@ define('crm/Views/MetricConfigure', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.MetricConfigure', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.MetricConfigure', __class);
     return __class;
 });

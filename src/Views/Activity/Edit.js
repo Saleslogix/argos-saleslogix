@@ -34,7 +34,7 @@ define('crm/Views/Activity/Edit', [
     'moment'
 ], function(
     declare,
-    lang,
+    _lang,
     connect,
     array,
     string,
@@ -1338,7 +1338,7 @@ define('crm/Views/Activity/Edit', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Activity.Edit', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Activity.Edit', __class);
     return __class;
 });
 

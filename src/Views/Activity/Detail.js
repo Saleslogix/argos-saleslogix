@@ -35,7 +35,7 @@ define('crm/Views/Activity/Detail', [
     'argos/Utility'
 ], function(
     declare,
-    lang,
+    _lang,
     string,
     query,
     domClass,
@@ -524,7 +524,7 @@ define('crm/Views/Activity/Detail', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Activity.Detail', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Activity.Detail', __class);
     return __class;
 });
 

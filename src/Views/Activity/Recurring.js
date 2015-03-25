@@ -30,7 +30,7 @@ define('crm/Views/Activity/Recurring', [
     'moment'
 ], function(
     declare,
-    lang,
+    _lang,
     array,
     string,
     format,
@@ -656,7 +656,7 @@ define('crm/Views/Activity/Recurring', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Activity.Recurring', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Activity.Recurring', __class);
     return __class;
 });
 

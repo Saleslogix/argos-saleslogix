@@ -17,7 +17,7 @@ define('crm/Views/Settings', [
     'argos/List'
 ], function(
     declare,
-    lang,
+    _lang,
     connect,
     _CardLayoutListMixin,
     List
@@ -147,7 +147,7 @@ define('crm/Views/Settings', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views.Settings', __class);
+    _lang.setObject('Mobile.SalesLogix.Views.Settings', __class);
     return __class;
 });
 

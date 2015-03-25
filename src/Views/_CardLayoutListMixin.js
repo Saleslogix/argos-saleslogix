@@ -26,7 +26,7 @@ define('crm/Views/_CardLayoutListMixin', [
     array,
     declare,
     event,
-    lang,
+    _lang,
     domAttr,
     dom,
     domConstruct,
@@ -149,7 +149,7 @@ define('crm/Views/_CardLayoutListMixin', [
 
                     indicatorTemplate = indicator.template || self.itemIndicatorTemplate;
 
-                    lang.mixin(indicator, options);
+                    _lang.mixin(indicator, options);
 
                     if (indicator.isEnabled === false) {
                         indicator.label = '';
@@ -229,7 +229,7 @@ define('crm/Views/_CardLayoutListMixin', [
             return false;
         },
         requestData: function() {
-            var mixin = lang.getObject(mixinName);
+            var mixin = _lang.getObject(mixinName);
             if (this.searchWidget) {
                 this.currentSearchExpression = this.searchWidget.getSearchExpression() || mixin.prototype.allRecordsText;
             }
@@ -238,7 +238,7 @@ define('crm/Views/_CardLayoutListMixin', [
         }
     });
 
-    lang.setObject('Mobile.SalesLogix.Views._CardLayoutListMixin', __class);
+    _lang.setObject('Mobile.SalesLogix.Views._CardLayoutListMixin', __class);
     return __class;
 });
 
