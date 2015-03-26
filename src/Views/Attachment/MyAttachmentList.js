@@ -19,7 +19,7 @@ define('crm/Views/Attachment/MyAttachmentList', [
     './List'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     format,
     AttachmentList
@@ -39,7 +39,7 @@ define('crm/Views/Attachment/MyAttachmentList', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Attachment.MyAttachmentList', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.MyAttachmentList', __class);
     return __class;
 });
 

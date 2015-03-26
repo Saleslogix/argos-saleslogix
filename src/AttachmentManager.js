@@ -20,7 +20,7 @@ define('crm/AttachmentManager', [
 
 ], function(
     FileManager,
-    _lang,
+    lang,
     declare,
     string,
     dNumber,
@@ -260,7 +260,7 @@ define('crm/AttachmentManager', [
                         attachment.attachDate = convert.toIsoStringFromDate(new Date());
                         attachment.dataType = 'R';
                         attachment.description = this._getFileDescription(attachment.fileName);
-                        attachment = _lang.mixin(attachment, mixin);
+                        attachment = lang.mixin(attachment, mixin);
                         request = this.createDataRequest(id);
                         if (request) {
                             request.update(attachment, {
@@ -333,6 +333,6 @@ define('crm/AttachmentManager', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.AttachmentManager', __class);
+    lang.setObject('Mobile.SalesLogix.AttachmentManager', __class);
     return __class;
 });

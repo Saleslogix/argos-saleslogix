@@ -22,7 +22,7 @@ define('crm/Views/Address/Edit', [
     'argos/Edit'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     format,
     validator,
@@ -194,7 +194,7 @@ define('crm/Views/Address/Edit', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Address.Edit', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Address.Edit', __class);
     return __class;
 });
 

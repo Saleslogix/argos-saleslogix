@@ -23,7 +23,7 @@ define('crm/Views/History/Edit', [
     'argos/Edit'
 ], function(
     declare,
-    _lang,
+    lang,
     array,
     string,
     environment,
@@ -663,7 +663,7 @@ define('crm/Views/History/Edit', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.History.Edit', __class);
+    lang.setObject('Mobile.SalesLogix.Views.History.Edit', __class);
     return __class;
 });
 

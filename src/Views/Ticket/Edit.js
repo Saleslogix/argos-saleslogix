@@ -22,7 +22,7 @@ define('crm/Views/Ticket/Edit', [
     'argos/Edit'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     format,
     validator,
@@ -143,7 +143,7 @@ define('crm/Views/Ticket/Edit', [
         requestCodeData: function(picklistName, code, field, entry, name) {
             var request = this.createPicklistRequest(picklistName);
             request.read({
-                success: _lang.hitch(this, this.onRequestCodeDataSuccess, code, field, entry, name),
+                success: lang.hitch(this, this.onRequestCodeDataSuccess, code, field, entry, name),
                 failure: this.onRequestCodeDataFailure,
                 scope: this
             });
@@ -467,7 +467,7 @@ define('crm/Views/Ticket/Edit', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Ticket.Edit', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.Edit', __class);
     return __class;
 });
 

@@ -20,7 +20,7 @@ define('crm/Views/AddAccountContact', [
     'argos/Edit'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     format,
     validator,
@@ -102,7 +102,7 @@ define('crm/Views/AddAccountContact', [
             return values;
         },
         formatDependentPicklist: function(dependentValue, fmt) {
-            if (!_lang.isArray(dependentValue)) {
+            if (!lang.isArray(dependentValue)) {
                 dependentValue = [dependentValue];
             }
             return string.substitute(fmt, [dependentValue]);
@@ -325,7 +325,7 @@ define('crm/Views/AddAccountContact', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.AddAccountContact', __class);
+    lang.setObject('Mobile.SalesLogix.Views.AddAccountContact', __class);
     return __class;
 });
 

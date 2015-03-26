@@ -30,7 +30,7 @@ define('crm/Views/Lead/List', [
     '../_CardLayoutListMixin'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     action,
     format,
@@ -186,7 +186,7 @@ define('crm/Views/Lead/List', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Lead.List', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Lead.List', __class);
     return __class;
 });
 

@@ -39,7 +39,7 @@ define('crm/Views/_GroupListMixin', [
     utility,
     GroupUtility,
     when,
-    _lang,
+    lang,
     SDataStore,
     Deferred,
     action
@@ -67,13 +67,13 @@ define('crm/Views/_GroupListMixin', [
         ]),
 
         _getNoDefaultGroupMessage: function() {
-            var mixin = _lang.getObject(mixinName);
+            var mixin = lang.getObject(mixinName);
             if (mixin) {
                 return mixin.prototype.noDefaultGroupText;
             }
         },
         _getCurrentGroupNotFoundMessage: function() {
-            var mixin = _lang.getObject(mixinName);
+            var mixin = lang.getObject(mixinName);
             if (mixin) {
                 return mixin.prototype.currentGroupNotFoundText;
             }
@@ -363,7 +363,7 @@ define('crm/Views/_GroupListMixin', [
            '<h4><span class="group-label">{%= $$.getGroupFieldLabelByIndex(2) %} </span><span class="group-entry">{%= $$.getGroupFieldValueByIndex($, 2, true) %}</span></h4>'
         ]),
         createGroupTemplateLayouts: function() {
-            var mixin = _lang.getObject(mixinName);
+            var mixin = lang.getObject(mixinName);
             this.groupTemplateLayouts = [{
                 name: 'Summary',
                 displayName: mixin ? mixin.prototype.groupTemplateSummaryText : this.groupTemplateSummaryText,
@@ -494,7 +494,7 @@ define('crm/Views/_GroupListMixin', [
             var layoutOptions = {
                 columns: [{rows:3}]
             };
-            _lang.mixin(layoutOptions, options);
+            lang.mixin(layoutOptions, options);
             return layoutOptions;
         },
         getGroupItemKey:function(groupEntry) {
@@ -507,7 +507,7 @@ define('crm/Views/_GroupListMixin', [
             };
 
             if ((formatter && formatter.options)) {
-                _lang.mixin(options, formatter.options);
+                lang.mixin(options, formatter.options);
             }
             return options;
         },
@@ -908,7 +908,7 @@ define('crm/Views/_GroupListMixin', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views._GroupListMixin', __class);
+    lang.setObject('Mobile.SalesLogix.Views._GroupListMixin', __class);
     return __class;
 });
 

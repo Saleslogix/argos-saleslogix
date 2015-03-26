@@ -16,7 +16,7 @@ define('crm/Views/SelectList', [
     'argos/List'
 ], function(
     declare,
-    _lang,
+    lang,
     Memory,
     List
 ) {
@@ -55,7 +55,7 @@ define('crm/Views/SelectList', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.SelectList', __class);
+    lang.setObject('Mobile.SalesLogix.Views.SelectList', __class);
     return __class;
 });
 

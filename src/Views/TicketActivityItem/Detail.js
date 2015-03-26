@@ -16,7 +16,7 @@ define('crm/Views/TicketActivityItem/Detail', [
     'argos/Detail'
 ], function(
     declare,
-    _lang,
+    lang,
     format,
     Detail
 ) {
@@ -79,7 +79,7 @@ define('crm/Views/TicketActivityItem/Detail', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.TicketActivityItem.Detail', __class);
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivityItem.Detail', __class);
     return __class;
 });
 

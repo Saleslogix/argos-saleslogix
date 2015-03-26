@@ -14,7 +14,7 @@ define('crm/Views/TicketActivity/RateLookup', [
     'argos/List'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     List
 ) {
@@ -45,7 +45,7 @@ define('crm/Views/TicketActivity/RateLookup', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.TicketActivity.RateLookup', __class);
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.RateLookup', __class);
     return __class;
 });
 

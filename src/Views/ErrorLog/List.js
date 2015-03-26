@@ -20,7 +20,7 @@ define('crm/Views/ErrorLog/List', [
     'argos/List'
 ], function(
     declare,
-    _lang,
+    lang,
     Memory,
     format,
     convert,
@@ -76,7 +76,7 @@ define('crm/Views/ErrorLog/List', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.ErrorLog.List', __class);
+    lang.setObject('Mobile.SalesLogix.Views.ErrorLog.List', __class);
     return __class;
 });
 

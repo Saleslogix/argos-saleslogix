@@ -21,7 +21,7 @@ define('crm/Views/Ticket/Detail', [
     'argos/Detail'
 ], function(
     declare,
-    _lang,
+    lang,
     query,
     domClass,
     format,
@@ -115,7 +115,7 @@ define('crm/Views/Ticket/Detail', [
         requestCodeData: function(row, node, value, entry, predicate) {
             var request = this.createPicklistRequest(predicate);
             request.read({
-                success: _lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
+                success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
                 failure: this.onRequestCodeDataFailure,
                 scope: this
             });
@@ -282,7 +282,7 @@ define('crm/Views/Ticket/Detail', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Ticket.Detail', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Ticket.Detail', __class);
     return __class;
 });
 

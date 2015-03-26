@@ -16,7 +16,7 @@ define('crm/Views/Login', [
     'argos/Edit'
 ], function(
     declare,
-    _lang,
+    lang,
     domClass,
     Edit
 ) {
@@ -180,7 +180,7 @@ define('crm/Views/Login', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Login', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Login', __class);
     return __class;
 });
 

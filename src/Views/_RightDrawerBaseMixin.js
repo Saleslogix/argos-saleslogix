@@ -17,7 +17,7 @@ define('crm/Views/_RightDrawerBaseMixin', [
 ], function(
     declare,
     array,
-    _lang
+    lang
 ) {
 
     // Base Mixin for the right drawer/menu. This is responsible for creating the toggle button on the toolbar and managing the state of the right menu (loaded/unloaded).
@@ -124,7 +124,7 @@ define('crm/Views/_RightDrawerBaseMixin', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views._RightDrawerBaseMixin', __class);
+    lang.setObject('Mobile.SalesLogix.Views._RightDrawerBaseMixin', __class);
     return __class;
 });
 

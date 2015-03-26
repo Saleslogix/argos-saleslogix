@@ -12,10 +12,10 @@ define('crm/Aggregate', [
     'dojo/_base/lang',
     'dojo/_base/array'
 ], function(
-    _lang,
+    lang,
     array
 ) {
-    var results = _lang.setObject('crm.Aggregate', {
+    var results = lang.setObject('crm.Aggregate', {
         /**
          * Average
          * @param {Array} data Array of objects that contain a value property
@@ -93,7 +93,7 @@ define('crm/Aggregate', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Aggregate', results);
+    lang.setObject('Mobile.SalesLogix.Aggregate', results);
     return results;
 });
 

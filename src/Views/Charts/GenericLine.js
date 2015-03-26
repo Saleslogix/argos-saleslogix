@@ -17,7 +17,7 @@ define('crm/Views/Charts/GenericLine', [
     './_ChartMixin'
 ], function(
     declare,
-    _lang,
+    lang,
     array,
     domGeo,
     domAttr,
@@ -88,6 +88,6 @@ define('crm/Views/Charts/GenericLine', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Charts.GenericLine', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericLine', __class);
     return __class;
 });

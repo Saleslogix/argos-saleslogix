@@ -15,7 +15,7 @@ define('crm/Views/TextEdit', [
     'argos/Edit'
 ], function(
     declare,
-    _lang,
+    lang,
     Edit
 ) {
 
@@ -34,7 +34,7 @@ define('crm/Views/TextEdit', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.TextEdit', __class);
+    lang.setObject('Mobile.SalesLogix.Views.TextEdit', __class);
     return __class;
 });
 

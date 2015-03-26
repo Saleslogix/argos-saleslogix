@@ -14,11 +14,11 @@ define('crm/Action', [
     'dojo/string',
     'argos/Utility'
 ], function(
-    _lang,
+    lang,
     string,
     utility
 ) {
-    var __class = _lang.setObject('crm.Action', {
+    var __class = lang.setObject('crm.Action', {
         calledText: 'Called ${0}',
         emailedText: 'E-mailed ${0}',
 
@@ -42,7 +42,7 @@ define('crm/Action', [
                 'Duration': 15,
                 'CompletedDate': (new Date())
             };
-            _lang.mixin(entry, o);
+            lang.mixin(entry, o);
 
             this.navigateToHistoryInsert(entry, complete);
         },
@@ -57,7 +57,7 @@ define('crm/Action', [
                 key: selection.data['$key']
             });
 
-            _lang.mixin(selection.data, {
+            lang.mixin(selection.data, {
                 'Type': 'atPhoneCall',
                 'Description': string.substitute(crm.Action.calledText, [selection.data['$descriptor']])
             });
@@ -71,7 +71,7 @@ define('crm/Action', [
             if (!selection || !selection.data) {
                 return;
             }
-            _lang.mixin(selection.data, {
+            lang.mixin(selection.data, {
                 'Type': 'atEmail',
                 'Description': string.substitute(crm.Action.emailedText, [selection.data['$descriptor']])
             });
@@ -137,7 +137,7 @@ define('crm/Action', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Action', __class);
+    lang.setObject('Mobile.SalesLogix.Action', __class);
     return __class;
 });
 

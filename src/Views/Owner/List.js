@@ -15,7 +15,7 @@ define('crm/Views/Owner/List', [
     'argos/List'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     array,
     List
@@ -74,7 +74,7 @@ define('crm/Views/Owner/List', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Owner.List', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Owner.List', __class);
     return __class;
 });
 

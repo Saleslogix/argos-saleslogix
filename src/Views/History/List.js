@@ -37,7 +37,7 @@ define('crm/Views/History/List', [
     'moment'
 ], function(
     declare,
-    _lang,
+    lang,
     array,
     string,
     domStyle,
@@ -283,7 +283,7 @@ define('crm/Views/History/List', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.History.List', __class);
+    lang.setObject('Mobile.SalesLogix.Views.History.List', __class);
     return __class;
 });
 

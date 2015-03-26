@@ -19,7 +19,7 @@ define('crm/Views/Event/Edit', [
     'moment'
 ], function(
     declare,
-    _lang,
+    lang,
     format,
     validator,
     Edit,
@@ -200,7 +200,7 @@ define('crm/Views/Event/Edit', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Event.Edit', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Event.Edit', __class);
     return __class;
 });
 

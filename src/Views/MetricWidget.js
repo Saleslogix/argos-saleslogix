@@ -23,7 +23,7 @@ define('crm/Views/MetricWidget', [
     'argos/Store/SData'
 ], function(
     declare,
-    _lang,
+    lang,
     array,
     Deferred,
     when,
@@ -163,7 +163,7 @@ define('crm/Views/MetricWidget', [
             // Attempt to load the function fn from the AMD module
             var def = new Deferred();
             try {
-                require([module], _lang.hitch(this, function(mod) {
+                require([module], lang.hitch(this, function(mod) {
                     var instance;
                     // Handle if required module is a ctor else object
                     if (typeof mod === 'function') {
@@ -199,7 +199,7 @@ define('crm/Views/MetricWidget', [
             loadFormatter = this.getFormatterFnDeferred();// deferred for loading in our formatter
             loadValueFn = this.getValueFnDeferred();// deferred for loading in value function
 
-            all([loadValueFn, loadFormatter, this.requestDataDeferred]).then(_lang.hitch(this, function(results) {
+            all([loadValueFn, loadFormatter, this.requestDataDeferred]).then(lang.hitch(this, function(results) {
                 var valueFn, formatterFn, data, value;
                 if (!results[0] || !results[1] || !results[2]) {
                     throw new Error('An error occurred loading the KPI widget data.');
@@ -219,7 +219,7 @@ define('crm/Views/MetricWidget', [
 
                 value = this.value = this.valueFn.call(this, data);
                 domConstruct.place(this.itemTemplate.apply({value: value}, this), this.metricDetailNode, 'replace');
-            }), _lang.hitch(this, function(err) {
+            }), lang.hitch(this, function(err) {
                 // Error
                 console.error(err);
                 domConstruct.place(this.errorTemplate.apply({}, this), this.metricDetailNode, 'replace');
@@ -245,7 +245,7 @@ define('crm/Views/MetricWidget', [
             store = this.get('store');
             queryResults = store.query(null, queryOptions);
 
-            when(queryResults, _lang.hitch(this, this._onQuerySuccess, queryResults), _lang.hitch(this, this._onQueryError));
+            when(queryResults, lang.hitch(this, this._onQuerySuccess, queryResults), lang.hitch(this, this._onQueryError));
         },
         _onQuerySuccess: function(queryResults) {
             var total,
@@ -253,7 +253,7 @@ define('crm/Views/MetricWidget', [
 
             total = queryResults.total;
 
-            queryResults.forEach(_lang.hitch(this, this._processItem));
+            queryResults.forEach(lang.hitch(this, this._processItem));
 
             left = -1;
             if (total > -1) {
@@ -297,6 +297,6 @@ define('crm/Views/MetricWidget', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.MetricWidget', __class);
+    lang.setObject('Mobile.SalesLogix.Views.MetricWidget', __class);
     return __class;
 });

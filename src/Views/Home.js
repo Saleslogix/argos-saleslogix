@@ -18,7 +18,7 @@ define('crm/Views/Home', [
 ], function(
     declare,
     array,
-    _lang,
+    lang,
     SpeedSearchWidget,
     GroupedList
 ) {
@@ -114,7 +114,7 @@ define('crm/Views/Home', [
                 i,
                 view;
 
-            configured = _lang.getObject('preferences.home.visible', false, App) || [];
+            configured = lang.getObject('preferences.home.visible', false, App) || [];
             layout = [{
                     id: 'actions',
                     children: [{
@@ -192,7 +192,7 @@ define('crm/Views/Home', [
             this.refreshRequired = true;
         },
         refreshRequiredFor: function() {
-            var visible = _lang.getObject('preferences.home.visible', false, App) || [],
+            var visible = lang.getObject('preferences.home.visible', false, App) || [],
                 i,
                 shown = this.feed && this.feed['$resources'];
 
@@ -210,7 +210,7 @@ define('crm/Views/Home', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Home', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Home', __class);
     return __class;
 });
 

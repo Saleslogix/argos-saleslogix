@@ -36,7 +36,7 @@ define('crm/Views/Calendar/MonthView', [
     'moment'
 ], function(
     declare,
-    _lang,
+    lang,
     array,
     string,
     query,
@@ -951,7 +951,7 @@ define('crm/Views/Calendar/MonthView', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Calendar.MonthView', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Calendar.MonthView', __class);
     return __class;
 });
 

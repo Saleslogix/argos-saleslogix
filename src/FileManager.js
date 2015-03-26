@@ -12,7 +12,7 @@ define('crm/FileManager', [
     'dojo/number',
     'dojo/has'
 ], function(
-    _lang,
+    lang,
     declare,
     dNumber,
     has
@@ -121,7 +121,7 @@ define('crm/FileManager', [
             }
 
             reader = new FileReader();
-            reader.onload = _lang.hitch(this, function(evt) {
+            reader.onload = lang.hitch(this, function(evt) {
                 var binary, boundary, dashdash, crlf, bb, unknownErrorText, usingBlobBuilder, blobReader, blobData;
                 unknownErrorText = this.unknownErrorText;
                 blobReader = new FileReader();// read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
@@ -276,7 +276,7 @@ define('crm/FileManager', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.FileManager', __class);
+    lang.setObject('Mobile.SalesLogix.FileManager', __class);
     return __class;
 });
 

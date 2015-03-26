@@ -39,7 +39,7 @@ define('crm/Views/Activity/List', [
     'moment'
 ], function(
     declare,
-    _lang,
+    lang,
     connect,
     string,
     query,
@@ -488,7 +488,7 @@ define('crm/Views/Activity/List', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Activity.List', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Activity.List', __class);
     return __class;
 });
 

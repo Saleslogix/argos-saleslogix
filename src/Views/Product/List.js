@@ -17,7 +17,7 @@ define('crm/Views/Product/List', [
     'argos/List'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     format,
     List
@@ -54,7 +54,7 @@ define('crm/Views/Product/List', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Product.List', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Product.List', __class);
     return __class;
 });
 

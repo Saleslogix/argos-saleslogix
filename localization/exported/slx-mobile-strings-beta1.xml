@@ -484,6 +484,14 @@
     <description/>
     <value>Release to refresh...</value>
   </data>
+  <data class="crm.Action" property="calledText" type="text">
+    <description/>
+    <value>Called ${0}</value>
+  </data>
+  <data class="crm.Action" property="emailedText" type="text">
+    <description/>
+    <value>E-mailed ${0}</value>
+  </data>
   <data class="crm.Application" property="versionInfoText" type="text">
     <description/>
     <value>Mobile v${0}.${1}.${2}</value>
@@ -588,9 +596,197 @@
     <description/>
     <value>Uploading, please wait...</value>
   </data>
+  <data class="crm.Format" property="bigNumberAbbrText[billion]" type="text">
+    <description/>
+    <value>B</value>
+  </data>
+  <data class="crm.Format" property="bigNumberAbbrText[million]" type="text">
+    <description/>
+    <value>M</value>
+  </data>
+  <data class="crm.Format" property="bigNumberAbbrText[thousand]" type="text">
+    <description/>
+    <value>K</value>
+  </data>
+  <data class="crm.Format" property="userActivityFormatText[asUnconfirmed]" type="text">
+    <description/>
+    <value>Unconfirmed</value>
+  </data>
+  <data class="crm.Format" property="userActivityFormatText[asAccepted]" type="text">
+    <description/>
+    <value>Accepted</value>
+  </data>
+  <data class="crm.Format" property="userActivityFormatText[asDeclned]" type="text">
+    <description/>
+    <value>Declined</value>
+  </data>
+  <data class="crm.Recurrence" property="neverText" type="text">
+    <description/>
+    <value>Never</value>
+  </data>
+  <data class="crm.Recurrence" property="daysText" type="text">
+    <description/>
+    <value>days</value>
+  </data>
+  <data class="crm.Recurrence" property="dailyText" type="text">
+    <description/>
+    <value>Daily</value>
+  </data>
+  <data class="crm.Recurrence" property="weeksText" type="text">
+    <description/>
+    <value>weeks</value>
+  </data>
+  <data class="crm.Recurrence" property="weeklyText" type="text">
+    <description/>
+    <value>Weekly</value>
+  </data>
+  <data class="crm.Recurrence" property="weeklyOnText" type="text">
+    <description/>
+    <value>Weekly on ${3}</value>
+  </data>
+  <data class="crm.Recurrence" property="monthsText" type="text">
+    <description/>
+    <value>months</value>
+  </data>
+  <data class="crm.Recurrence" property="monthlyText" type="text">
+    <description/>
+    <value>Monthly</value>
+  </data>
+  <data class="crm.Recurrence" property="monthlyOnDayText" type="text">
+    <description/>
+    <value>Monthly on day ${1}</value>
+  </data>
+  <data class="crm.Recurrence" property="monthlyOnText" type="text">
+    <description/>
+    <value>Monthly on ${5} ${3}</value>
+  </data>
+  <data class="crm.Recurrence" property="yearsText" type="text">
+    <description/>
+    <value>years</value>
+  </data>
+  <data class="crm.Recurrence" property="yearlyText" type="text">
+    <description/>
+    <value>Yearly</value>
+  </data>
+  <data class="crm.Recurrence" property="yearlyOnText" type="text">
+    <description/>
+    <value>Yearly on ${2}</value>
+  </data>
+  <data class="crm.Recurrence" property="yearlyOnWeekdayText" type="text">
+    <description/>
+    <value>Yearly on ${5} ${3} in ${4}</value>
+  </data>
+  <data class="crm.Recurrence" property="everyText" type="text">
+    <description/>
+    <value>every ${0} ${1}</value>
+  </data>
+  <data class="crm.Recurrence" property="afterCompletionText" type="text">
+    <description/>
+    <value>after completion</value>
+  </data>
+  <data class="crm.Recurrence" property="untilEndDateText" type="text">
+    <description/>
+    <value>${0} until ${1}</value>
+  </data>
+  <data class="crm.Recurrence" property="weekDaysText[0]" type="text">
+    <description/>
+    <value>Sunday</value>
+  </data>
+  <data class="crm.Recurrence" property="weekDaysText[1]" type="text">
+    <description/>
+    <value>Monday</value>
+  </data>
+  <data class="crm.Recurrence" property="weekDaysText[2]" type="text">
+    <description/>
+    <value>Tuesday</value>
+  </data>
+  <data class="crm.Recurrence" property="weekDaysText[3]" type="text">
+    <description/>
+    <value>Wednesday</value>
+  </data>
+  <data class="crm.Recurrence" property="weekDaysText[4]" type="text">
+    <description/>
+    <value>Thursday</value>
+  </data>
+  <data class="crm.Recurrence" property="weekDaysText[5]" type="text">
+    <description/>
+    <value>Friday</value>
+  </data>
+  <data class="crm.Recurrence" property="weekDaysText[6]" type="text">
+    <description/>
+    <value>Saturday</value>
+  </data>
+  <data class="crm.Recurrence" property="ordText[0]" type="text">
+    <description/>
+    <value>day</value>
+  </data>
+  <data class="crm.Recurrence" property="ordText[1]" type="text">
+    <description/>
+    <value>first</value>
+  </data>
+  <data class="crm.Recurrence" property="ordText[2]" type="text">
+    <description/>
+    <value>second</value>
+  </data>
+  <data class="crm.Recurrence" property="ordText[3]" type="text">
+    <description/>
+    <value>third</value>
+  </data>
+  <data class="crm.Recurrence" property="ordText[4]" type="text">
+    <description/>
+    <value>fourth</value>
+  </data>
+  <data class="crm.Recurrence" property="ordText[5]" type="text">
+    <description/>
+    <value>last</value>
+  </data>
   <data class="crm.SpeedSearchWidget" property="searchText" type="text">
     <description/>
     <value>SpeedSearch</value>
+  </data>
+  <data class="crm.Validator" property="exists[message]" type="text">
+    <description/>
+    <value>The field '${2}' must have a value.</value>
+  </data>
+  <data class="crm.Validator" property="name[message]" type="text">
+    <description/>
+    <value>The field '${2}' must have a first and last name specified.</value>
+  </data>
+  <data class="crm.Validator" property="notEmpty[message]" type="text">
+    <description/>
+    <value>The field '${2}' cannot be empty.</value>
+  </data>
+  <data class="crm.Validator" property="hasText[test]" type="text">
+    <description/>
+    <value/>
+  </data>
+  <data class="crm.Validator" property="hasText[message]" type="text">
+    <description/>
+    <value>The field '${2}' must contain some text.</value>
+  </data>
+  <data class="crm.Validator" property="isInteger[message]" type="text">
+    <description/>
+    <value>The value '${0}' is not a valid number.</value>
+  </data>
+  <data class="crm.Validator" property="isDecimal[message]" type="text">
+    <description/>
+    <value>The value '${0}' is not a valid number.</value>
+  </data>
+  <data class="crm.Validator" property="isCurrency[message]" type="text">
+    <description/>
+    <value>The value '${0}' is not a valid currency number.</value>
+  </data>
+  <data class="crm.Validator" property="isInt32[message]" type="text">
+    <description/>
+    <value>The field '${2}' value exceeds the allowed numeric range.</value>
+  </data>
+  <data class="crm.Validator" property="exceedsMaxTextLength[message]" type="text">
+    <description/>
+    <value>The field '${2}' value exceeds the allowed limit in length.</value>
+  </data>
+  <data class="crm.Validator" property="isDateInRange[message]" type="text">
+    <description/>
+    <value>The field '${2}' value is out of allowed date range.</value>
   </data>
   <data class="crm.Views.Account.Detail" property="accountText" type="text">
     <description/>
@@ -4523,6 +4719,30 @@
   <data class="argos.Format" property="percentFormatText" type="format">
     <description/>
     <value>${0}${1}</value>
+  </data>
+  <data class="crm.GroupUtility" property="groupDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY h:mm:ss a</value>
+  </data>
+  <data class="crm.Recurrence" property="dayFormatText" type="format">
+    <description/>
+    <value>DD</value>
+  </data>
+  <data class="crm.Recurrence" property="monthFormatText" type="format">
+    <description/>
+    <value>MM</value>
+  </data>
+  <data class="crm.Recurrence" property="monthAndDayFormatText" type="format">
+    <description/>
+    <value>MM/DD</value>
+  </data>
+  <data class="crm.Recurrence" property="weekdayFormatText" type="format">
+    <description/>
+    <value>dddd</value>
+  </data>
+  <data class="crm.Recurrence" property="endDateFormatText" type="format">
+    <description/>
+    <value>M/D/YYYY</value>
   </data>
   <data class="crm.Views.Activity.Complete" property="completedFormatText" type="format">
     <description/>

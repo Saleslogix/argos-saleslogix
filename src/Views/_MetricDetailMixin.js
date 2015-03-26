@@ -21,7 +21,7 @@ define('crm/Views/_MetricDetailMixin', [
 ], function(
     declare,
     array,
-    _lang,
+    lang,
     aspect,
     MetricWidget
 ) {
@@ -78,7 +78,7 @@ define('crm/Views/_MetricDetailMixin', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views._MetricDetailMixin', __class);
+    lang.setObject('Mobile.SalesLogix.Views._MetricDetailMixin', __class);
     return __class;
 });
 

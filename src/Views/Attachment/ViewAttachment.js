@@ -37,7 +37,7 @@ define('crm/Views/Attachment/ViewAttachment', [
     'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     connect,
     array,
@@ -360,7 +360,7 @@ define('crm/Views/Attachment/ViewAttachment', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Attachment.ViewAttachment', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.ViewAttachment', __class);
     return __class;
 });
 

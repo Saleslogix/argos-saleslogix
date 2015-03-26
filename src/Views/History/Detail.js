@@ -25,7 +25,7 @@ define('crm/Views/History/Detail', [
 ], function(
     declare,
     string,
-    _lang,
+    lang,
     query,
     domClass,
     format,
@@ -143,7 +143,7 @@ define('crm/Views/History/Detail', [
             var request = this.requestCompletedUser(entry);
             if (request) {
                 request.read({
-                    success: _lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
+                    success: lang.hitch(this, this.onRequestCodeDataSuccess, row, node, value, entry),
                     failure: this.onRequestCodeDataFailure,
                     scope: this
                 });
@@ -280,7 +280,7 @@ define('crm/Views/History/Detail', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.History.Detail', __class);
+    lang.setObject('Mobile.SalesLogix.Views.History.Detail', __class);
     return __class;
 });
 

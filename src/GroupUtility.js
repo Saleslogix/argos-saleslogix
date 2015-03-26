@@ -17,7 +17,7 @@ define('crm/GroupUtility', [
     'argos/Format',
     'moment'
 ], function(
-    _lang,
+    lang,
     array,
     format,
     sdkFormat,
@@ -38,7 +38,7 @@ define('crm/GroupUtility', [
             queryArgs: null
         };
 
-        options = _lang.mixin(defaultOptions, options);
+        options = lang.mixin(defaultOptions, options);
 
         request = new Sage.SData.Client.SDataNamedQueryRequest(options.connection);
         request.setQueryName(options.queryName);
@@ -55,7 +55,7 @@ define('crm/GroupUtility', [
         return request;
     };
 
-    __class = _lang.setObject('crm.GroupUtility', {
+    __class = lang.setObject('crm.GroupUtility', {
         groupDateFormatText: 'M/D/YYYY h:mm:ss a',
         /**
          * Returns an SDataNamedQueryRequest setup for groups
@@ -70,7 +70,7 @@ define('crm/GroupUtility', [
                 queryName: 'execute'
             };
 
-            return _createGroupRequest(_lang.mixin(defaults, options));
+            return _createGroupRequest(lang.mixin(defaults, options));
         },
 
         /**
@@ -86,7 +86,7 @@ define('crm/GroupUtility', [
                 queryName: 'executeMetric'
             };
 
-            return _createGroupRequest(_lang.mixin(defaults, options));
+            return _createGroupRequest(lang.mixin(defaults, options));
         },
         /**
          * Array of functions that will filter out group layout
@@ -443,7 +443,7 @@ define('crm/GroupUtility', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.GroupUtility', __class);
+    lang.setObject('Mobile.SalesLogix.GroupUtility', __class);
     return __class;
 });
 

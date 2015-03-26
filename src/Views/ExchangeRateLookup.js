@@ -17,7 +17,7 @@ define('crm/Views/ExchangeRateLookup', [
     'argos/_LegacySDataListMixin'
 ], function(
     declare,
-    _lang,
+    lang,
     List,
     _LegacySDataListMixin
 ) {
@@ -70,7 +70,7 @@ define('crm/Views/ExchangeRateLookup', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.ExchangeRateLookup', __class);
+    lang.setObject('Mobile.SalesLogix.Views.ExchangeRateLookup', __class);
     return __class;
 });
 

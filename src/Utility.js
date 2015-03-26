@@ -16,11 +16,11 @@ define('crm/Utility', [
     'dojo/string',
     'argos/Utility'
 ], function(
-    _lang,
+    lang,
     string,
     Utility
 ) {
-    var __class = _lang.setObject('crm.Utility', _lang.mixin({}, Utility, {
+    var __class = lang.setObject('crm.Utility', lang.mixin({}, Utility, {
         base64ArrayBuffer: function(arrayBuffer) {
             var base64,
                 encodings,
@@ -113,7 +113,7 @@ define('crm/Utility', [
         }
     }));
 
-    _lang.setObject('Mobile.SalesLogix.Utility', __class);
+    lang.setObject('Mobile.SalesLogix.Utility', __class);
     return __class;
 });
 

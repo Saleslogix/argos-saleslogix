@@ -26,7 +26,7 @@ define('crm/Views/_RightDrawerListMixin', [
 ], function(
     declare,
     array,
-    _lang,
+    lang,
     json,
     domConstruct,
     domAttr,
@@ -74,7 +74,7 @@ define('crm/Views/_RightDrawerListMixin', [
             }
         },
         _finishSetup: function(drawer) {
-            _lang.mixin(drawer, this._createActions());
+            lang.mixin(drawer, this._createActions());
             drawer.setLayout(this.createRightDrawerLayout());
             drawer.getGroupForEntry = function(entry) {
                 return this.getGroupForRightDrawerEntry(entry);
@@ -243,7 +243,7 @@ define('crm/Views/_RightDrawerListMixin', [
             field.navigateToListView();
         },
         getGroupForRightDrawerEntry: function(entry) {
-            var mixin = _lang.getObject(mixinName);
+            var mixin = lang.getObject(mixinName);
             if (entry.dataProps && entry.dataProps.hashtag && this._hasHashTags() && App.enableHashTags) {
                 return {
                     tag: 'view',
@@ -278,7 +278,7 @@ define('crm/Views/_RightDrawerListMixin', [
                 metrics,
                 i,
                 len,
-                mixin = _lang.getObject(mixinName);
+                mixin = lang.getObject(mixinName);
 
             layout = [];
 
@@ -391,7 +391,7 @@ define('crm/Views/_RightDrawerListMixin', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views._RightDrawerListMixin', __class);
+    lang.setObject('Mobile.SalesLogix.Views._RightDrawerListMixin', __class);
     return __class;
 });
 

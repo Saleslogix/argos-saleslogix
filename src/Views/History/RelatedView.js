@@ -21,7 +21,7 @@ define('crm/Views/History/RelatedView', [
     'argos/RelatedViewWidget'
 ], function(
     declare,
-    _lang,
+    lang,
     format,
     convert,
     RelatedViewWidget
@@ -64,6 +64,6 @@ define('crm/Views/History/RelatedView', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.History.RelatedView', __class);
+    lang.setObject('Mobile.SalesLogix.Views.History.RelatedView', __class);
     return __class;
 });

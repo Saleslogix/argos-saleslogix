@@ -22,7 +22,7 @@ define('crm/Views/Address/List', [
     'argos/List'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     domAttr,
     query,
@@ -69,7 +69,7 @@ define('crm/Views/Address/List', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Address.List', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Address.List', __class);
     return __class;
 });
 

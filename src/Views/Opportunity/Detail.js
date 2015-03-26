@@ -19,7 +19,7 @@ define('crm/Views/Opportunity/Detail', [
     '../../Format'
 ], function(
     declare,
-    _lang,
+    lang,
     domConstruct,
     query,
     string,
@@ -328,7 +328,7 @@ define('crm/Views/Opportunity/Detail', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Opportunity.Detail', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Opportunity.Detail', __class);
     return __class;
 });
 

@@ -132,7 +132,7 @@ define('crm/ApplicationModule', [
     './Utility'
 ], function(
     declare,
-    _lang,
+    lang,
     query,
     win,
     ApplicationModule,
@@ -554,20 +554,20 @@ define('crm/ApplicationModule', [
             this.loadBaseCustomizations();
         },
         loadBaseCustomizations: function() {
-            _lang.extend(List, {
+            lang.extend(List, {
                 expose: true,
                 getSecurity: function() {
                     return (this.expose && this.security); // only check security on exposed views
                 }
             });
 
-            _lang.extend(SearchWidget, {
+            lang.extend(SearchWidget, {
                 searchText: this.searchText
             });
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.ApplicationModule', __class);
+    lang.setObject('Mobile.SalesLogix.ApplicationModule', __class);
     return __class;
 });
 

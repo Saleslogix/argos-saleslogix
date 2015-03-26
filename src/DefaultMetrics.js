@@ -8,7 +8,7 @@ define('crm/DefaultMetrics', [
     'argos/_CustomizationMixin'
 ], function(
     declare,
-    _lang,
+    lang,
     _CustomizationMixin
 ) {
     var __class = declare('crm.DefaultMetrics', [_CustomizationMixin], {
@@ -199,7 +199,7 @@ define('crm/DefaultMetrics', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.DefaultMetrics', __class);
+    lang.setObject('Mobile.SalesLogix.DefaultMetrics', __class);
     return __class;
 
 });

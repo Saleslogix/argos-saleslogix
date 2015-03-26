@@ -37,7 +37,7 @@ define('crm/Views/Attachment/List', [
     'moment'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     has,
     format,
@@ -205,7 +205,7 @@ define('crm/Views/Attachment/List', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Attachment.List', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Attachment.List', __class);
     return __class;
 });
 

@@ -7,7 +7,7 @@ define('crm/Views/LogOff', [
     'argos/View'
 ], function(
     declare,
-    _lang,
+    lang,
     View
 ) {
 
@@ -39,7 +39,7 @@ define('crm/Views/LogOff', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.LogOff', __class);
+    lang.setObject('Mobile.SalesLogix.Views.LogOff', __class);
     return __class;
 });
 

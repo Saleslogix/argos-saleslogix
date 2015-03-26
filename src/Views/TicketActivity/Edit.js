@@ -21,7 +21,7 @@ define('crm/Views/TicketActivity/Edit', [
     'argos/Edit'
 ], function(
     declare,
-    _lang,
+    lang,
     template,
     validator,
     ErrorManager,
@@ -80,7 +80,7 @@ define('crm/Views/TicketActivity/Edit', [
         requestCodeData: function(picklistName, code, field) {
             var request = this.createPicklistRequest(picklistName);
             request.read({
-                success: _lang.hitch(this, this.onRequestCodeDataSuccess, code, field),
+                success: lang.hitch(this, this.onRequestCodeDataSuccess, code, field),
                 failure: this.onRequestCodeDataFailure,
                 scope: this
             });
@@ -193,7 +193,7 @@ define('crm/Views/TicketActivity/Edit', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Edit', __class);
+    lang.setObject('Mobile.SalesLogix.Views.TicketActivity.Edit', __class);
     return __class;
 });
 

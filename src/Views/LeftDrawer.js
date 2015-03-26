@@ -19,7 +19,7 @@ define('crm/Views/LeftDrawer', [
 ], function(
     declare,
     array,
-    _lang,
+    lang,
     Memory,
     SpeedSearchWidget,
     GroupedList
@@ -186,7 +186,7 @@ define('crm/Views/LeftDrawer', [
                 children: []
             };
 
-            configured = _lang.getObject('preferences.home.visible', false, window.App);
+            configured = lang.getObject('preferences.home.visible', false, window.App);
             for (i = 0; i < configured.length; i++) {
                 view = App.getView(configured[i]);
                 if (view) {
@@ -286,7 +286,7 @@ define('crm/Views/LeftDrawer', [
             this.refresh();
         },
         refreshRequiredFor: function() {
-            var visible = _lang.getObject('preferences.home.visible', false, App) || [],
+            var visible = lang.getObject('preferences.home.visible', false, App) || [],
                 i,
                 shown = this.feed && this.feed['$resources'];
 
@@ -332,7 +332,7 @@ define('crm/Views/LeftDrawer', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.LeftDrawer', __class);
+    lang.setObject('Mobile.SalesLogix.Views.LeftDrawer', __class);
     return __class;
 });
 

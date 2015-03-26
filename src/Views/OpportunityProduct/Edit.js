@@ -24,7 +24,7 @@ define('crm/Views/OpportunityProduct/Edit', [
     'argos/Utility'
 ], function(
     declare,
-    _lang,
+    lang,
     array,
     string,
     validator,
@@ -432,7 +432,7 @@ define('crm/Views/OpportunityProduct/Edit', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Edit', __class);
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Edit', __class);
     return __class;
 });
 

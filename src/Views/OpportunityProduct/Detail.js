@@ -21,7 +21,7 @@ define('crm/Views/OpportunityProduct/Detail', [
     'argos/_LegacySDataDetailMixin'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     connect,
     array,
@@ -283,7 +283,7 @@ define('crm/Views/OpportunityProduct/Detail', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Detail', __class);
+    lang.setObject('Mobile.SalesLogix.Views.OpportunityProduct.Detail', __class);
     return __class;
 });
 

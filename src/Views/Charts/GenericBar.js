@@ -21,7 +21,7 @@ define('crm/Views/Charts/GenericBar', [
     './_ChartMixin'
 ], function(
     declare,
-    _lang,
+    lang,
     array,
     domGeo,
     domAttr,
@@ -87,6 +87,6 @@ define('crm/Views/Charts/GenericBar', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Views.Charts.GenericBar', __class);
+    lang.setObject('Mobile.SalesLogix.Views.Charts.GenericBar', __class);
     return __class;
 });

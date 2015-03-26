@@ -10,7 +10,7 @@ define('crm/Fields/PicklistField', [
     'argos/FieldManager'
 ], function(
     declare,
-    _lang,
+    lang,
     string,
     LookupField,
     PickList,
@@ -171,6 +171,6 @@ define('crm/Fields/PicklistField', [
         }
     });
 
-    _lang.setObject('Mobile.SalesLogix.Fields.PickListField', control);
+    lang.setObject('Mobile.SalesLogix.Fields.PickListField', control);
     return FieldManager.register('picklist', control);
 });
