@@ -19,7 +19,6 @@ define('crm/Views/Account/Detail', [
     '../../Format',
     '../../Template',
     'argos/Detail',
-    'crm/Views/_RelatedWidgetDetailMixin',
     'crm/Views/Account/QuickEdit'
 ], function(
     declare,
@@ -28,11 +27,10 @@ define('crm/Views/Account/Detail', [
     format,
     template,
     Detail,
-    _RelatedWidgetDetailMixin,
     QuickEdit
 ) {
 
-    var __class = declare('crm.Views.Account.Detail', [Detail, _RelatedWidgetDetailMixin], {
+    var __class = declare('crm.Views.Account.Detail', [Detail], {
         //Localization
         accountText: 'account',
         acctMgrText: 'acct mgr',

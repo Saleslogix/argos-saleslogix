@@ -176,7 +176,7 @@ define('crm/Views/Account/List', [
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
         createRelatedViewLayout: function () {
-            this.groupsEnabled = false;
+           // this.groupsEnabled = false;
             return this.relatedViews || (this.relatedViews = [{
                 widgetType: HistoryRelatedView,
                 id: 'list_account_notes_relate_view',

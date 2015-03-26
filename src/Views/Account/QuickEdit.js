@@ -64,6 +64,11 @@ define('crm/Views/Account/QuickEdit', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
+                relatedView: {
+                    widgetType: 'relatedContext',
+                    id: 'account_related_context_quickEdit',
+                }
+            },{
                 label: this.accountText,
                 name: 'AccountName',
                 property: 'AccountName',

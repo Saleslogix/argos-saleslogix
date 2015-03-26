@@ -67,7 +67,7 @@ define('crm/Views/RelatedContextWidget', [
             var ctx, snapShot;
             if ((this.owner) && (this.owner.options) && (this.owner.options.fromContext)) {
                 ctx = this.owner.options.fromContext;
-                snapShot = ctx.getContextSnapShot(this.owner.options.key);
+                snapShot = ctx.getContextSnapShot(this.owner.options);
             }
 
             return snapShot;

@@ -193,6 +193,7 @@ define('crm/Views/_CardLayoutListMixin', [
             }
 
             this.applyRowIndicators(entry, rowNode);
+            this.inherited(arguments);
         },
         applyRowIndicators: function(entry, rowNode) {
             var topIndicatorsNode, bottomIndicatorsNode;
