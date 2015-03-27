@@ -324,10 +324,13 @@ define('crm/Application', [
                 }
             }
 
+            this.registerAppStatePromise(this.requestUserDetails());
+            this.registerAppStatePromise(this.requestUserOptions());
+            this.registerAppStatePromise(this.requestSystemOptions());
+
             if (callback) {
                 callback.call(scope || this, {user: user});
             }
-
         },
         onAuthenticateUserFailure: function(callback, scope, response) {
             var service = this.getService();
@@ -432,9 +435,6 @@ define('crm/Application', [
                 this.authenticateUser(credentials, {
                     success: function() {
                         this.setPrimaryTitle(this.loadingText);
-                        this.registerAppStatePromise(this.requestUserDetails());
-                        this.registerAppStatePromise(this.requestUserOptions());
-                        this.registerAppStatePromise(this.requestSystemOptions());
                         this.initAppState().then(function() {
                             this.navigateToInitialView();
                         }.bind(this));
