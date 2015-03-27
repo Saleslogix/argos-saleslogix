@@ -117,7 +117,7 @@ define('crm/Application', [
 
             this.inherited(arguments);
             this._loadNavigationState();
-            this._loadPreferences();
+            this._saveDefaultPreferences();
 
             original = Sage.SData.Client.SDataService.prototype.executeRequest;
 
@@ -471,29 +471,21 @@ define('crm/Application', [
             } catch(e) {
             }
         },
-        _loadPreferences: function() {
-            try {
-                if (window.localStorage) {
-                    this.preferences = json.parse(window.localStorage.getItem('preferences'));
+        _saveDefaultPreferences: function() {
+            if (this.preferences) {
+                return;
+            }
+
+            var views = this.getDefaultViews();
+
+            this.preferences = {
+                home: {
+                    visible: views
+                },
+                configure: {
+                    order: views.slice(0)
                 }
-            } catch(e) {
-                console.error(e);
-            }
-
-            //Probably, the first time, its being accessed, or user cleared
-            //the data. So lets initialize the object, with default ones.
-            if (!this.preferences) {
-                var views = this.getDefaultViews();
-
-                this.preferences = {
-                    home: {
-                        visible: views
-                    },
-                    configure: {
-                        order: views.slice(0)
-                    }
-                };
-            }
+            };
         },
         getMetricsByResourceKind: function(resourceKind) {
             var prefs,
@@ -730,15 +722,6 @@ define('crm/Application', [
         },
         onRequestOwnerDescriptionFailure: function(response, o) {
             ErrorManager.addError(response, o, {}, 'failure');
-        },
-        persistPreferences: function() {
-            try {
-                if (window.localStorage) {
-                    window.localStorage.setItem('preferences', json.stringify(App.preferences));
-                }
-            } catch(e) {
-                console.error(e);
-            }
         },
         getDefaultViews: function() {
             return [
