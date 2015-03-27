@@ -53,6 +53,7 @@ define('crm/ApplicationModule', [
     './Views/Account/List',
     './Views/Account/Detail',
     './Views/Account/Edit',
+    './Views/Account/QuickEdit',
     './Views/Address/List',
     './Views/Address/Edit',
     './Views/Activity/List',
@@ -168,6 +169,7 @@ define('crm/ApplicationModule', [
     AccountList,
     AccountDetail,
     AccountEdit,
+    AccountQuickEdit,
     AddressList,
     AddressEdit,
     ActivityList,
@@ -277,6 +279,7 @@ define('crm/ApplicationModule', [
             this.registerView(new AccountList());
             this.registerView(new AccountDetail());
             this.registerView(new AccountEdit());
+            this.registerView(new AccountQuickEdit());
             this.registerView(new AccountList({
                 id: 'account_related',
                 expose: false,

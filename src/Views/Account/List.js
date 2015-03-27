@@ -32,7 +32,8 @@ define('crm/Views/Account/List', [
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
     '../_RightDrawerListMixin',
-    '../History/RelatedView'
+    '../History/RelatedView',
+    '../Account/QuickEdit'
 ], function(
     declare,
     lang,
@@ -47,7 +48,8 @@ define('crm/Views/Account/List', [
     _MetricListMixin,
     _CardLayoutListMixin,
     _RightDrawerListMixin,
-    HistoryRelatedView
+    HistoryRelatedView,
+    QuickEdit
 ) {
 
     var __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
@@ -101,9 +103,12 @@ define('crm/Views/Account/List', [
         addAttachmentActionText: 'Add Attachment',
         phoneAbbreviationText: 'Phone: ',
         faxAbbreviationText: 'Fax: ',
+        quickEditActionText: 'quick Edit',
+        invokequickEditActionText: 'invoke quick edit',
 
         //View Properties
         detailView: 'account_detail',
+        quickEditView: 'account_quick_edit',
         itemIconClass: 'fa fa-building-o fa-2x',
         id: 'account_list',
         security: 'Entities/Account/View',
@@ -168,23 +173,58 @@ define('crm/Views/Account/List', [
                 cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
+            }, {
+                id: 'quickEdit',
+                cls: 'fa fa-pencil fa-2x',
+                label: this.quickEditActionText,
+                action: 'navigateToQuickEdit'
+            }, {
+                id: 'invokeQuickEdit',
+                cls: 'fa fa-pencil fa-2x',
+                label: this.quickEditActionText,
+                action: 'invokeRelatedViewAction',
+                relatedView: {
+                    widgetType: 'relatedEdit',
+                    id: 'adHoc_list_account_quick_edit',
+                    editView: QuickEdit
+                }
             }]
-
             );
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
+        navigateToQuickEdit: function(action, selection, additionalOptions) {
+            var view = App.getView(this.quickEditView || this.EditView || this.insertView),
+                key = selection.data[this.idProperty],
+                options = {
+                    key: key,
+                    selectedEntry: selection.data,
+                    fromContext: this
+                };
+
+            if (additionalOptions) {
+                options = lang.mixin(options, additionalOptions);
+            }
+            
+            if (view) {
+                view.show(options);
+            }
+        },
         createRelatedViewLayout: function () {
-           // this.groupsEnabled = false;
             return this.relatedViews || (this.relatedViews = [{
                 widgetType: HistoryRelatedView,
                 id: 'list_account_notes_relate_view',
-                enabled:true,
+                enabled:false,
                 autoLoad: true,
                 expandOnLoad: false,
                 relatedProperty: 'AccountId',
                 where: function (entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
+            }, {
+                widgetType: 'relatedEdit',
+                id: 'list_account_quick_edit',
+                editView: QuickEdit,
+                enabled: false,
             }]);
         }
     });
