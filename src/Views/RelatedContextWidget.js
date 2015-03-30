@@ -44,19 +44,15 @@ define('crm/Views/RelatedContextWidget', [
     action,
     _ActionMixin
 ) {
-    var __class = declare('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBase, _ActionMixin], {
+    var rvm, __class;
+    __class = declare('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBase, _ActionMixin], {
 
         cls: 'related-context-widget',
         contextCls: null,
         contextWrapperTemplate: new Simplate([
-         '<div class="context-snapshot {%: $$.contextCls %}"></div>',
+         '<div class="context-snapshot {%: $$.contextCls %}"></div>'
         ]),
-        onInit: function(options) {
-            this._isInitLoad = true;
-            this.inherited(arguments);
-        },
         onLoad: function() {
-
             var snapShot = this.getContextSnapShot();
             if (snapShot) {
                 this.processSnapShot(snapShot);
@@ -68,7 +64,6 @@ define('crm/Views/RelatedContextWidget', [
                 ctx = this.owner.options.fromContext;
                 snapShot = ctx.getContextSnapShot(this.owner.options);
             }
-
             return snapShot;
         },
         processSnapShot: function(snapShot) {
@@ -80,7 +75,7 @@ define('crm/Views/RelatedContextWidget', [
             }
         }
     });
-    var rvm = new RelatedViewManager();
+    rvm = new RelatedViewManager();
     rvm.registerType('relatedContext', __class);
     return __class;
 });

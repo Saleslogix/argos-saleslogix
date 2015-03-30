@@ -173,7 +173,7 @@ define('crm/Views/Opportunity/List', [
                 cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
-            },{
+            }, {
                 id: 'quickEdit',
                 cls: 'fa fa-pencil fa-2x',
                 label: this.quickEditActionText,
@@ -203,25 +203,7 @@ define('crm/Views/Opportunity/List', [
                         return format.fixedLocale(value, 0) + '%';
                     }.bind(this)
                 }
-        },
-        navigateToQuickEdit: function(action, selection, additionalOptions) {
-            var view = App.getView(this.quickEditView || this.EditView || this.insertView),
-                key = selection.data[this.idProperty],
-                options = {
-                    key: key,
-                    selectedEntry: selection.data,
-                    fromContext: this
-                };
-
-            if (additionalOptions) {
-                options = lang.mixin(options, additionalOptions);
-            }
-
-            if (view) {
-                view.show(options);
-            }
-        },
-
+        }
     });
 
     lang.setObject('Mobile.SalesLogix.Views.Opportunity.List', __class);

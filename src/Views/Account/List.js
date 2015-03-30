@@ -73,7 +73,7 @@ define('crm/Views/Account/List', [
                 '</h4>',
             '{% } %}'
         ]),
-        groupsEnabled:false,
+        groupsEnabled: true,
         enableDynamicGroupLayout: true,
         groupLayoutItemTemplate: new Simplate([
          '<div style="float:left; ">',
@@ -133,7 +133,6 @@ define('crm/Views/Account/List', [
         ],
         resourceKind: 'accounts',
         entityName: 'Account',
-        groupsEnabled: true,
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
@@ -177,11 +176,13 @@ define('crm/Views/Account/List', [
                 id: 'quickEdit',
                 cls: 'fa fa-pencil fa-2x',
                 label: this.quickEditActionText,
+                enabled: true,
                 action: 'navigateToQuickEdit'
             }, {
                 id: 'invokeQuickEdit',
                 cls: 'fa fa-pencil fa-2x',
                 label: this.quickEditActionText,
+                enabled: true,
                 action: 'invokeRelatedViewAction',
                 relatedView: {
                     widgetType: 'relatedEdit',
@@ -194,37 +195,17 @@ define('crm/Views/Account/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        xnavigateToQuickEdit: function(action, selection, additionalOptions) {
-            var view = App.getView(this.quickEditView || this.EditView || this.insertView),
-                key = selection.data[this.idProperty],
-                options = {
-                    key: key,
-                    selectedEntry: selection.data,
-                    fromContext: this
-                };
-
-            if (additionalOptions) {
-                options = lang.mixin(options, additionalOptions);
-            }
-            
-            if (view) {
-                view.show(options);
-            }
-        },
-        createRelatedViewLayout: function () {
+        createRelatedViewLayout: function() {
             return this.relatedViews || (this.relatedViews = [{
                 widgetType: HistoryRelatedView,
                 id: 'list_account_notes_relate_view',
-                enabled:true,
+                enabled: false,
                 autoLoad: true,
                 expandOnLoad: false,
                 relatedProperty: 'AccountId',
-                where: function (entry) { return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'"; }
-            }, {
-                widgetType: 'relatedEdit',
-                id: 'list_account_quick_edit',
-                editView: QuickEdit,
-                enabled: false
+                where: function(entry) {
+                    return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'";
+                }
             }]);
         }
     });

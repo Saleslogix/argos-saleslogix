@@ -96,7 +96,7 @@ define('crm/Views/Account/Edit', [
             return this.layout || (this.layout = [{
                 relatedView: {
                     widgetType: 'relatedContext',
-                    id: 'account_related_context_Edit',
+                    id: 'account_related_context_Edit'
                 }
             }, {
                 label: this.accountText,

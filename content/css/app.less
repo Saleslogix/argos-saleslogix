@@ -1091,7 +1091,7 @@ td.entry-table-description {
 
 }
 
-.card-layout {
+.card-layout, .context-snapshot {
 
     .group-label {
         color: @form-label-color;
@@ -1106,7 +1106,7 @@ td.entry-table-description {
         font-size: 16px;
     }
     .group-currency {
-        color: @color-emerald;
+        color: @currency-color;
     }
     .group-column {
         overflow: hidden;
@@ -1538,15 +1538,19 @@ canvas,
     background-color: #fff;
 }
 .related-context-widget {
-    padding: 5px;
-    border-radius: 3px;
     background-color: #fff;
 
     .context-snapshot {
-         background-color: @background-lighter;
-         border-radius: 3px;
-         padding: 5px;
+        border-radius: 3px;
+        padding: 5px;
+        line-height: initial;
+        > li {
+          display: inherit;
+        }
 
+        .list-item-selector {
+            visibility: visible;
+        }
     }
 }
 

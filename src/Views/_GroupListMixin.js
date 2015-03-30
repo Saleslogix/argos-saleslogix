@@ -904,12 +904,13 @@ define('crm/Views/_GroupListMixin', [
 
             if (this._groupInitalized && this.groupsMode) {
                 entry = this.entries[options.key];
-                template = this.getItemTemplate();
+                template = this.itemRowContainerTemplate; //this.getItemTemplate();
                 snapShot = template.apply(entry, this);
                 return snapShot;
             } else {
-               snapShot = this.inherited(arguments);
+                snapShot = this.inherited(arguments);
             }
+
             return snapShot;
         }
     });

@@ -171,7 +171,7 @@ define('crm/Views/Account/Detail', [
                 children: [{
                     relatedView: {
                         widgetType: 'relatedContext',
-                        id: 'account_related_context_detail',
+                        id: 'account_related_context_detail'
                     }
                 }]
             }, {
@@ -182,7 +182,7 @@ define('crm/Views/Account/Detail', [
                     relatedView: {
                         widgetType: 'relatedEdit',
                         editView: QuickEdit,
-                        id: 'account_related_edit_detail',
+                        id: 'account_related_edit_detail'
                     }
                 }]
             }, {

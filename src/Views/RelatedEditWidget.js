@@ -41,23 +41,17 @@ define('crm/Views/RelatedEditWidget', [
     _RelatedViewWidgetBase,
     Edit
 ) {
-    var __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase], {
-        cls:'related-edit-widget',
+    var rvm, __class;
+    __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase], {
+        cls: 'related-edit-widget',
         owner: null,
         id: 'related-edit-widget',
-        icon: 'content/images/icons/ContactProfile_48x48.png',
-        iconClass: 'fa fa-building-o fa-2x',
-        rows: 3,
         editView: null,
         toolBarTemplate: new Simplate([
            '<div class="toolBar">',
               '<button class="button toolButton toolButton-right  fa fa-save fa-fw fa-lg" data-action="save"></button>',
            '<div>'
         ]),
-        onInit: function(options) {
-            this._isInitLoad = true;
-            this.inherited(arguments);
-        },
         onLoad: function() {
             this.processEntry(this.parentEntry);
         },
@@ -66,8 +60,8 @@ define('crm/Views/RelatedEditWidget', [
                 options,
                 editView,
                 ctor;
-                ctor = (this.editView) ? this.editView : Edit;
-                editView = new ctor({ id: this.id + '_edit' });
+            ctor = (this.editView) ? this.editView : Edit;
+            editView = new ctor({ id: this.id + '_edit' });
             if (editView && !editView._started) {
                 editView.sectionBeginTemplate = new Simplate([
                      '<fieldset class="{%= ($.cls || $.options.cls) %}">'
@@ -86,7 +80,6 @@ define('crm/Views/RelatedEditWidget', [
 
             options = {
                 select: this.getEditSelect(),
-                //entry: entry,
                 key: entry.$key
             };
             editView.options = options;
@@ -116,10 +109,11 @@ define('crm/Views/RelatedEditWidget', [
             }
             return select;
         },
-        onUpdateCompleted: function(entry) {
+        onUpdateCompleted: function() {
             if ((this.owner) && (this.owner._refreshClicked)) {
                 this.owner._refreshClicked();
             }
+            this.inherited(arguments);
         },
         destroy: function() {
             array.forEach(this._subscribes, function(handle) {
@@ -137,7 +131,7 @@ define('crm/Views/RelatedEditWidget', [
             this.inherited(arguments);
         }
     });
-    var rvm = new RelatedViewManager();
+    rvm = new RelatedViewManager();
     rvm.registerType('relatedEdit', __class);
     return __class;
 });

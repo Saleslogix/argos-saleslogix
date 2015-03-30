@@ -236,6 +236,17 @@ define('crm/Views/_CardLayoutListMixin', [
             }
 
             this.inherited(arguments);
+        },
+        /**
+         * Returns a rendered html snap shot of the entry.
+         */
+        getContextSnapShot: function(options) {
+            var snapShot, entry = this.entries[options.key];
+            if (entry) {
+                snapShot = this.itemRowContainerTemplate.apply(entry, this);
+            }
+
+            return snapShot;
         }
     });
 
