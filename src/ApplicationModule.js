@@ -89,6 +89,7 @@ define('crm/ApplicationModule', [
     './Views/Opportunity/List',
     './Views/Opportunity/Detail',
     './Views/Opportunity/Edit',
+    './Views/Opportunity/QuickEdit',
     './Views/OpportunityContact/List',
     './Views/OpportunityContact/Detail',
     './Views/OpportunityContact/Edit',
@@ -203,6 +204,7 @@ define('crm/ApplicationModule', [
     OpportunityList,
     OpportunityDetail,
     OpportunityEdit,
+    OpportunityQuickEdit,
     OpportunityContactList,
     OpportunityContactDetail,
     OpportunityContactEdit,
@@ -343,6 +345,7 @@ define('crm/ApplicationModule', [
             this.registerView(new GroupsSelector());
 
             this.registerView(new OpportunityEdit());
+            this.registerView(new OpportunityQuickEdit());
             this.registerView(new OpportunityList());
             this.registerView(new OpportunityDetail());
             this.registerView(new OpportunityList({

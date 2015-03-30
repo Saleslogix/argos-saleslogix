@@ -24,6 +24,7 @@ define('crm/Views/Opportunity/List', [
     '../../Action',
     '../../Format',
     'argos/Format',
+    './QuickEdit',
     'argos/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
@@ -37,6 +38,7 @@ define('crm/Views/Opportunity/List', [
     action,
     format,
     platformFormat,
+    QuickEdit,
     List,
     _GroupListMixin,
     _MetricListMixin,
@@ -94,6 +96,7 @@ define('crm/Views/Opportunity/List', [
         addAttachmentActionText: 'Add Attachment',
         actualCloseText: 'Closed ',
         estimatedCloseText: 'Estimated close ',
+        quickEditActionText: 'Quick Edit',
 
         //View Properties
         id: 'opportunity_list',
@@ -101,6 +104,7 @@ define('crm/Views/Opportunity/List', [
         itemIconClass: 'fa fa-money fa-2x',
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
+        quickEditView: 'opportunity_quick_edit',
         queryOrderBy: 'EstimatedClose desc',
         querySelect: [
             'Account/AccountName',
@@ -169,6 +173,21 @@ define('crm/Views/Opportunity/List', [
                 cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
+            },{
+                id: 'quickEdit',
+                cls: 'fa fa-pencil fa-2x',
+                label: this.quickEditActionText,
+                action: 'navigateToQuickEdit'
+            }, {
+                id: 'invokeQuickEdit',
+                cls: 'fa fa-pencil fa-2x',
+                label: this.quickEditActionText,
+                action: 'invokeRelatedViewAction',
+                relatedView: {
+                    widgetType: 'relatedEdit',
+                    id: 'list_account_action_quick_edit',
+                    editView: QuickEdit
+                }
             }]
             );
         },
@@ -184,7 +203,24 @@ define('crm/Views/Opportunity/List', [
                         return format.fixedLocale(value, 0) + '%';
                     }.bind(this)
                 }
-        }
+        },
+        navigateToQuickEdit: function(action, selection, additionalOptions) {
+            var view = App.getView(this.quickEditView || this.EditView || this.insertView),
+                key = selection.data[this.idProperty],
+                options = {
+                    key: key,
+                    selectedEntry: selection.data,
+                    fromContext: this
+                };
+
+            if (additionalOptions) {
+                options = lang.mixin(options, additionalOptions);
+            }
+
+            if (view) {
+                view.show(options);
+            }
+        },
 
     });
 

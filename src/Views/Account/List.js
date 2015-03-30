@@ -194,7 +194,7 @@ define('crm/Views/Account/List', [
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
         },
-        navigateToQuickEdit: function(action, selection, additionalOptions) {
+        xnavigateToQuickEdit: function(action, selection, additionalOptions) {
             var view = App.getView(this.quickEditView || this.EditView || this.insertView),
                 key = selection.data[this.idProperty],
                 options = {
@@ -215,7 +215,7 @@ define('crm/Views/Account/List', [
             return this.relatedViews || (this.relatedViews = [{
                 widgetType: HistoryRelatedView,
                 id: 'list_account_notes_relate_view',
-                enabled:false,
+                enabled:true,
                 autoLoad: true,
                 expandOnLoad: false,
                 relatedProperty: 'AccountId',
@@ -224,7 +224,7 @@ define('crm/Views/Account/List', [
                 widgetType: 'relatedEdit',
                 id: 'list_account_quick_edit',
                 editView: QuickEdit,
-                enabled: false,
+                enabled: false
             }]);
         }
     });

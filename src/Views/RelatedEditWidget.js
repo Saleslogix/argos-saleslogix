@@ -42,8 +42,9 @@ define('crm/Views/RelatedEditWidget', [
     Edit
 ) {
     var __class = declare('crm.Views.RelatedEditWidget', [_RelatedViewWidgetBase], {
+        cls:'related-edit-widget',
         owner: null,
-        id: 'related-edit-view',
+        id: 'related-edit-widget',
         icon: 'content/images/icons/ContactProfile_48x48.png',
         iconClass: 'fa fa-building-o fa-2x',
         rows: 3,
@@ -58,14 +59,7 @@ define('crm/Views/RelatedEditWidget', [
             this.inherited(arguments);
         },
         onLoad: function() {
-
-            if (!this.loadingNode) {
-                this.loadingNode = domConstruct.toDom(this.loadingTemplate.apply(this));
-               // domConstruct.place(this.loadingNode, this.containerNode, 'last', this);
-                //domClass.toggle(this.loadingNode, 'loading');
-            }
             this.processEntry(this.parentEntry);
-            domClass.toggle(this.loadingNode, 'loading');
         },
         processEntry: function(entry) {
             var toolBarNode,
@@ -78,9 +72,6 @@ define('crm/Views/RelatedEditWidget', [
                 editView.sectionBeginTemplate = new Simplate([
                      '<fieldset class="{%= ($.cls || $.options.cls) %}">'
                 ]);
-                //editView.layout = this.getEditLayout();
-                //editView.resourceKind = this.resourceKind;
-                //editView.entry = entry;
                 editView.init();
                 editView._started = true;
                 editView.onUpdateCompleted = this.onUpdateCompleted.bind(this);

@@ -45,23 +45,22 @@ define('crm/Views/RelatedContextWidget', [
     _ActionMixin
 ) {
     var __class = declare('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBase, _ActionMixin], {
+
+        cls: 'related-context-widget',
+        contextCls: null,
+        contextWrapperTemplate: new Simplate([
+         '<div class="context-snapshot {%: $$.contextCls %}"></div>',
+        ]),
         onInit: function(options) {
             this._isInitLoad = true;
             this.inherited(arguments);
         },
         onLoad: function() {
 
-            if (!this.loadingNode) {
-                this.loadingNode = domConstruct.toDom(this.loadingTemplate.apply(this));
-                //domConstruct.place(this.loadingNode, this.containerNode, 'last', this);
-            }
-
             var snapShot = this.getContextSnapShot();
             if (snapShot) {
                 this.processSnapShot(snapShot);
             }
-
-           // domClass.toggle(this.loadingNode, 'loading');
         },
         getContextSnapShot: function() {
             var ctx, snapShot;
@@ -73,8 +72,11 @@ define('crm/Views/RelatedContextWidget', [
             return snapShot;
         },
         processSnapShot: function(snapShot) {
+            var wrapper;
             if (snapShot) {
-                domConstruct.place(snapShot, this.containerNode, 'last');
+                wrapper = domConstruct.toDom(this.contextWrapperTemplate.apply(this));
+                domConstruct.place(snapShot, wrapper, 'last');
+                domConstruct.place(wrapper, this.containerNode, 'last');
             }
         }
     });
