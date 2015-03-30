@@ -149,40 +149,6 @@
   height: auto;
   padding: 0 3px;
 }
-#configure .list-content > li {
-  color: #aaa;
-  padding-right: 6px;
-}
-#configure .list-content > li .resource {
-  display: block;
-  margin: -8px 0 -8px -10px;
-  padding: 8px 32px 8px 36px;
-}
-#configure .list-content > li h3 > span:first-child {
-  float: left;
-}
-#configure .list-content > li h3 > [data-action="moveUp"],
-#configure .list-content > li h3 > [data-action="moveDown"] {
-  float: right;
-  display: block;
-  width: 48px;
-  height: 24px;
-  cursor: pointer;
-}
-#configure .list-content > li h3 > .icon {
-  opacity: 0.5;
-  margin-right: .2em;
-}
-#configure .list-content > li:first-child h3 > [data-action="moveUp"],
-#configure .list-content > li:last-child h3 > [data-action="moveDown"] {
-  visibility: hidden;
-}
-#configure .list-content > li.list-item-selected {
-  color: #000;
-}
-#configure .list-content > li.list-item-selected h3 > .icon {
-  opacity: 1.0;
-}
 #note_edit .row label,
 #note_detail .row label {
   display: none;

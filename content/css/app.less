@@ -182,55 +182,6 @@
     }
 }
 
-#configure {
-    .list-content {
-        > li {
-            color: #aaa;
-            padding-right: 6px;
-
-            .resource {
-                display: block;
-                margin: -8px 0 -8px -10px;
-                padding: 8px 32px 8px 36px;
-            }
-
-            h3 {
-                > span {
-                    &:first-child {
-                        float: left;
-                    }
-                }
-
-                > [data-action="moveUp"],
-                > [data-action="moveDown"] {
-                    float: right;
-                    display: block;
-                    width: 48px;
-                    height: 24px;
-                    cursor: pointer;
-                }
-
-                > .icon {
-                    opacity: 0.5;
-                    margin-right: .2em;
-                }
-            }
-
-            &:first-child h3 > [data-action="moveUp"],
-            &:last-child h3 > [data-action="moveDown"] {
-                visibility: hidden;
-            }
-        }
-
-        > li.list-item-selected {
-            color: #000;
-            h3 > .icon {
-                opacity: 1.0;
-            }
-        }
-    }
-}
-
 #note_edit .row label,
 #note_detail .row label {
     display: none
