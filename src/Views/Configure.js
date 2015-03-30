@@ -6,7 +6,7 @@
  * @class crm.Views.Configure
  *
  *
- * @extends argos.List
+ * @extends argos._ConfigureBase
  *
  */
 define('crm/Views/Configure', [
@@ -18,7 +18,7 @@ define('crm/Views/Configure', [
     'dojo/dom-attr',
     'dojo/dom-class',
     'dojo/store/Memory',
-    'argos/List'
+    'argos/_ConfigureBase'
 ], function(
     declare,
     array,
@@ -28,72 +28,26 @@ define('crm/Views/Configure', [
     domAttr,
     domClass,
     Memory,
-    List
+    _ConfigureBase
 ) {
 
-    var __class = declare('crm.Views.Configure', [List], {
-        //Templates
-        emptyTemplate: new Simplate(['']),
-        itemTemplate: new Simplate([
-            '<h3>',
-            '<span>{%: $.$descriptor %}</span>',
-            '<span data-action="moveUp" class="fa fa-arrow-up"></span>',
-            '<span data-action="moveDown" class="fa fa-arrow-down"></span>',
-            '</h3>'
-        ]),
-
+    var __class = declare('crm.Views.Configure', [_ConfigureBase], {
         // Localization
         titleText: 'Configure',
 
         //View Properties
         id: 'configure',
-        expose: false,
-        enableSearch: false,
-        enablePullToRefresh: false,
-        selectionOnly: true,
-        allowSelection: true,
-        autoClearSelection: false,
+        idProperty: '$key',
+        labelProperty: '$descriptor',
 
-        init: function() {
-            this.inherited(arguments);
-        },
-        createToolLayout: function() {
-            return this.tools || (this.tools = {
-                tbar: [{
-                        id: 'save',
-                        cls: 'fa fa-check fa-fw fa-lg',
-                        fn: this.savePreferences,
-                        scope: this
-                    }, {
-                        id: 'cancel',
-                        cls: 'fa fa-ban fa-fw fa-lg',
-                        side: 'left',
-                        fn: ReUI.back,
-                        scope: ReUI
-                    }]
-            });
-        },
-        savePreferences: function() {
-            var visible, order, view;
+        onSave: function() {
+            var view;
 
             App.preferences.home = App.preferences.home || {};
             App.preferences.configure = App.preferences.configure || {};
 
-            // clear existing
-            visible = App.preferences.home.visible = [];
-            order = App.preferences.configure.order = [];
-
-            // since the selection model does not have ordering, use the DOM
-            query('li', this.domNode).forEach(function(node) {
-                var key = domAttr.get(node, 'data-key');
-                if (key) {
-                    order.push(key);
-
-                    if (domClass.contains(node, 'list-item-selected')) {
-                        visible.push(key);
-                    }
-                }
-            });
+            App.preferences.configure.order = this.getOrderedKeys();
+            App.preferences.home.visible = this.getSelectedKeys();
 
             App.persistPreferences();
 
@@ -103,30 +57,11 @@ define('crm/Views/Configure', [
                 view.refresh();
             }
         },
-        moveUp: function(params) {
-            var node = query(params.$source),
-                row = node.parents('li');
-
-            if (row) {
-                row.insertBefore(row.prev('li'));
-            }
-        },
-        moveDown: function(params) {
-            var node = query(params.$source),
-                row = node.parents('li');
-
-            if (row) {
-                row.insertAfter(row.next('li'));
-            }
-        },
-        hasMoreData: function() {
-            return false;
-        },
         createStore: function() {
             var list = [],
                 lookup = {},
                 exposed = App.getExposedViews(),
-                order = lang.getObject('preferences.configure.order', false, App) || [],
+                order = this.getSavedOrderedKeys(),
                 i,
                 n,
                 view;
@@ -163,21 +98,11 @@ define('crm/Views/Configure', [
 
             return Memory({data: list});
         },
-        processData: function() {
-            this.inherited(arguments);
-
-            var visible,
-                i,
-                row;
-
-            visible = (App.preferences.home && App.preferences.home.visible) || [];
-
-            for (i = 0; i < visible.length; i++) {
-                row = query((string.substitute('[data-key="${0}"]', [visible[i]])), this.domNode)[0];
-                if (row) {
-                    this._selectionModel.toggle(visible[i], this.entries[visible[i]], row);
-                }
-            }
+        getSavedOrderedKeys: function() {
+            return (App.preferences.configure && App.preferences.configure.order) || [];
+        },
+        getSavedSelectedKeys: function() {
+            return (App.preferences.home && App.preferences.home.visible) || [];
         }
     });
 
