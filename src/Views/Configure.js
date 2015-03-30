@@ -59,42 +59,35 @@ define('crm/Views/Configure', [
         },
         createStore: function() {
             var list = [],
-                lookup = {},
                 exposed = App.getExposedViews(),
                 order = this.getSavedOrderedKeys(),
-                i,
-                n,
-                view;
+                reduced,
+                all;
 
-            for (i = 0; i < exposed.length; i++) {
-                lookup[exposed[i]] = true;
-            }
-
-            for (i = 0; i < order.length; i++) {
-                if (lookup[order[i]]) {
-                    delete lookup[order[i]];
+            // De-dup id's
+            all = order.concat(exposed);
+            reduced = all.reduce(function(previous, current) {
+                if (previous.indexOf(current) === -1) {
+                    previous.push(current);
                 }
-            }
 
-            for (n in lookup) {
-                if (lookup.hasOwnProperty(n)) {
-                    order.push(n);
-                }
-            }
+                return previous;
+            }, []);
 
-            for (i = 0; i < order.length; i++) {
-                view = App.getView(order[i]);
-                if (view && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(order[i]) >= 0) {
-                    list.push({
-                        '$key': view.id,
-                        '$descriptor': view.titleText,
-                        'icon': view.icon
-                    });
-                } else {
-                    order.splice(i, 1);
-                    i -= 1;
-                }
-            }
+            // The order array could have had stale id's, filter out valid views here
+            reduced = array.filter(reduced, function(key) {
+                var view = App.getView(key);
+                return view && typeof view.getSecurity === 'function' && App.hasAccessTo(view.getSecurity()) && exposed.indexOf(key) !== -1;
+            });
+
+            list = array.map(reduced, function(key) {
+                var view = App.getView(key);
+                return {
+                    '$key': view.id,
+                    '$descriptor': view.titleText,
+                    'icon': view.icon
+                };
+            });
 
             return Memory({data: list});
         },
