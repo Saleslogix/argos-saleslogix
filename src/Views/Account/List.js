@@ -32,8 +32,7 @@ define('crm/Views/Account/List', [
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
     '../_RightDrawerListMixin',
-    '../History/RelatedView',
-    '../Account/QuickEdit'
+    '../History/RelatedView'
 ], function(
     declare,
     lang,
@@ -48,8 +47,7 @@ define('crm/Views/Account/List', [
     _MetricListMixin,
     _CardLayoutListMixin,
     _RightDrawerListMixin,
-    HistoryRelatedView,
-    QuickEdit
+    HistoryRelatedView
 ) {
 
     var __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
@@ -178,17 +176,6 @@ define('crm/Views/Account/List', [
                 editView: 'account_quick_edit',
                 enabled: true,
                 action: 'navigateToQuickEdit'
-            }, {
-                id: 'invokeQuickEdit',
-                cls: 'fa fa-pencil fa-2x',
-                label: this.quickEditActionText,
-                enabled: true,
-                action: 'invokeRelatedViewAction',
-                relatedView: {
-                    widgetType: 'relatedEdit',
-                    id: 'adHoc_list_account_quick_edit',
-                    editView: QuickEdit
-                }
             }]
             );
         },

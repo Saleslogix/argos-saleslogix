@@ -18,16 +18,14 @@ define('crm/Views/Account/Detail', [
     'dojo/_base/lang',
     '../../Format',
     '../../Template',
-    'argos/Detail',
-    'crm/Views/Account/QuickEdit'
+    'argos/Detail'
 ], function(
     declare,
     string,
     lang,
     format,
     template,
-    Detail,
-    QuickEdit
+    Detail
 ) {
 
     var __class = declare('crm.Views.Account.Detail', [Detail], {
@@ -163,27 +161,6 @@ define('crm/Views/Account/Detail', [
                     label: this.addNoteText,
                     iconClass: 'fa fa-edit fa-lg',
                     action: 'addNote'
-                }]
-            }, {
-                title: 'Related Context',
-                list: true,
-                name: 'ContextViews',
-                children: [{
-                    relatedView: {
-                        widgetType: 'relatedContext',
-                        id: 'account_related_context_detail'
-                    }
-                }]
-            }, {
-                title: 'Quick Edit',
-                list: true,
-                name: 'EditViews',
-                children: [ {
-                    relatedView: {
-                        widgetType: 'relatedEdit',
-                        editView: QuickEdit,
-                        id: 'account_related_edit_detail'
-                    }
                 }]
             }, {
                 title: this.detailsText,
