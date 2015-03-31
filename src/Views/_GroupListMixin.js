@@ -904,7 +904,7 @@ define('crm/Views/_GroupListMixin', [
 
             if (this._groupInitalized && this.groupsMode) {
                 entry = this.entries[options.key];
-                template = this.itemRowContainerTemplate; //this.getItemTemplate();
+                template = this.itemRowContainerTemplate;
                 snapShot = template.apply(entry, this);
                 return snapShot;
             } else {
