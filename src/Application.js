@@ -20,6 +20,7 @@ define('crm/Application', [
     'dojo/_base/lang',
     'dojo/has',
     'dojo/string',
+    'dojo/Deferred',
     './DefaultMetrics',
     'argos/ErrorManager',
     './Environment',
@@ -35,6 +36,7 @@ define('crm/Application', [
     lang,
     has,
     string,
+    Deferred,
     DefaultMetrics,
     ErrorManager,
     environment,
@@ -100,6 +102,7 @@ define('crm/Application', [
             'revision': 0
         },
         versionInfoText: 'Mobile v${0}.${1}.${2}',
+        loadingText: 'Loading application state',
         authText: 'Authenticating',
         homeViewId: 'myactivity_list',
         loginViewId: 'login',
@@ -321,10 +324,13 @@ define('crm/Application', [
                 }
             }
 
+            this.registerAppStatePromise(this.requestUserDetails());
+            this.registerAppStatePromise(this.requestUserOptions());
+            this.registerAppStatePromise(this.requestSystemOptions());
+
             if (callback) {
                 callback.call(scope || this, {user: user});
             }
-
         },
         onAuthenticateUserFailure: function(callback, scope, response) {
             var service = this.getService();
@@ -428,8 +434,11 @@ define('crm/Application', [
                 this.setPrimaryTitle(this.authText);
                 this.authenticateUser(credentials, {
                     success: function() {
-                        this.requestUserDetails();
-                        this.navigateToInitialView();
+                        this.setPrimaryTitle(this.loadingText);
+                        this.initAppState().then(function() {
+                            this.navigateToInitialView();
+                        }.bind(this));
+
                     },
                     failure: function() {
                         this.navigateToLoginView();
@@ -513,30 +522,34 @@ define('crm/Application', [
             }
         },
         requestUserDetails: function() {
-            var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
+            var request, def;
+
+            request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())
                 .setResourceKind('users')
                 .setResourceSelector(string.substitute('"${0}"', [this.context['user']['$key']]))
                 .setQueryArg('select', this.userDetailsQuerySelect.join(','));
 
-            request.read({
-                success: this.onRequestUserDetailsSuccess,
-                failure: this.onRequestUserDetailsFailure,
-                scope: this,
-                async: false
-            });
-        },
-        onRequestUserDetailsSuccess: function(entry) {
-            this.context['user'] = entry;
-            this.context['defaultOwner'] = entry && entry['DefaultOwner'];
+            def = new Deferred();
 
-            this.requestUserOptions();
-            this.requestSystemOptions();
-            this.setDefaultMetricPreferences();
-        },
-        onRequestUserDetailsFailure: function() {
+            request.read({
+                success: function(entry) {
+                    this.context['user'] = entry;
+                    this.context['defaultOwner'] = entry && entry['DefaultOwner'];
+                    this.setDefaultMetricPreferences();
+                    def.resolve(entry);
+                },
+                failure: function() {
+                    def.reject();
+                },
+                scope: this
+            });
+
+            return def.promise;
         },
         requestUserOptions: function() {
-            var batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
+            var batch, def;
+
+            batch = new Sage.SData.Client.SDataBatchRequest(this.getService())
                 .setContractName('system')
                 .setResourceKind('useroptions')
                 .setQueryArg('select', 'name,value')
@@ -551,37 +564,42 @@ define('crm/Application', [
                     }, service);
                 }, this);
 
+            def = new Deferred();
             batch.commit({
-                success: this.onRequestUserOptionsSuccess,
-                failure: this.onRequestUserOptionsFailure,
-                scope: this,
-                async: false
+                success:function(feed) {
+                    var userOptions,
+                        insertSecCode,
+                        currentDefaultOwner;
+
+                    userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
+
+                    array.forEach(feed && feed['$resources'], function(item) {
+                        var key = item && item['$descriptor'],
+                            value = item && item['value'];
+
+                        if (value && key) {
+                            userOptions[key] = value;
+                        }
+                    });
+
+                    insertSecCode = userOptions['General:InsertSecCodeID'];
+                    currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];
+
+                    if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner !== insertSecCode))) {
+                        this.requestOwnerDescription(insertSecCode);
+                    }
+
+                    this.loadCustomizedMoment();
+                    def.resolve(feed);
+                },
+                failure:function(response, o) {
+                    def.reject();
+                    ErrorManager.addError(response, o, {}, 'failure');
+                },
+                scope: this
             });
-        },
-        onRequestUserOptionsSuccess: function(feed) {
-            var userOptions,
-                insertSecCode,
-                currentDefaultOwner;
 
-            userOptions = this.context['userOptions'] = this.context['userOptions'] || {};
-
-            array.forEach(feed && feed['$resources'], function(item) {
-                var key = item && item['$descriptor'],
-                    value = item && item['value'];
-
-                if (value && key) {
-                    userOptions[key] = value;
-                }
-            });
-
-            insertSecCode = userOptions['General:InsertSecCodeID'];
-            currentDefaultOwner = this.context['defaultOwner'] && this.context['defaultOwner']['$key'];
-
-            if (insertSecCode && (!currentDefaultOwner || (currentDefaultOwner !== insertSecCode))) {
-                this.requestOwnerDescription(insertSecCode);
-            }
-
-            this.loadCustomizedMoment();
+            return def.promise;
         },
         /*
          * Loads a custom object to pass into the current moment language. The object for the language gets built in buildCustomizedMoment.
@@ -615,73 +633,83 @@ define('crm/Application', [
 
             return results;
         },
-        onRequestUserOptionsFailure: function(response, o) {
-            ErrorManager.addError(response, o, {}, 'failure');
-        },
         requestSystemOptions: function() {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+            var request, def;
+
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
                 .setContractName('system')
                 .setResourceKind('systemoptions')
                 .setQueryArg('select', 'name,value');
 
+            def = new Deferred();
             request.read({
-                success: this.onRequestSystemOptionsSuccess,
-                failure: this.onRequestSystemOptionsFailure,
-                scope: this,
-                async: false
+                success: function(feed) {
+                    var systemOptions, multiCurrency;
+                    systemOptions = this.context['systemOptions'] = this.context['systemOptions'] || {};
+
+                    array.forEach(feed && feed['$resources'], function(item) {
+                        var key = item && item['name'],
+                            value = item && item['value'];
+
+                        if (value && key && array.indexOf(this.systemOptionsToRequest, key) > -1) {
+                            systemOptions[key] = value;
+                        }
+                    }, this);
+
+                    multiCurrency = systemOptions['MultiCurrency'];
+
+                    if (multiCurrency && multiCurrency === 'True') {
+                        this.requestExchangeRates().then(function() {
+                            def.resolve(feed);
+                        }, function() {
+                            def.reject();
+                        });
+                    } else {
+                        def.resolve(feed);
+                    }
+                },
+                failure: function(response, o) {
+                    ErrorManager.addError(response, o, {}, 'failure');
+                    def.reject();
+                },
+                scope: this
             });
-        },
-        onRequestSystemOptionsSuccess: function(feed) {
-            // TODO: Would be nice if the systemoptions feed supported batch operations like useroptions
-            var systemOptions, multiCurrency;
-            systemOptions = this.context['systemOptions'] = this.context['systemOptions'] || {};
 
-            array.forEach(feed && feed['$resources'], function(item) {
-                var key = item && item['name'],
-                    value = item && item['value'];
-
-                if (value && key && array.indexOf(this.systemOptionsToRequest, key) > -1) {
-                    systemOptions[key] = value;
-                }
-            }, this);
-
-            multiCurrency = systemOptions['MultiCurrency'];
-
-            if (multiCurrency && multiCurrency === 'True') {
-                this.requestExchangeRates();
-            }
-        },
-        onRequestSystemOptionsFailure: function(response, o) {
-            ErrorManager.addError(response, o, {}, 'failure');
+            return def.promise;
         },
         requestExchangeRates: function() {
-            var request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
+            var request,
+                def;
+
+            request = new Sage.SData.Client.SDataResourceCollectionRequest(this.getService())
                 .setContractName('dynamic')
                 .setResourceKind('exchangeRates')
                 .setQueryArg('select', 'Rate');
 
+            def = new Deferred();
             request.read({
-                success: this.onRequestExchangeRatesSuccess,
-                failure: this.onRequestExchangeRatesFailure,
-                scope: this,
-                async: false
+                success: function(feed) {
+                    var exchangeRates = this.context['exchangeRates'] = this.context['exchangeRates'] || {};
+
+                    array.forEach(feed && feed['$resources'], function(item) {
+                        var key = item && item['$key'],
+                            value = item && item['Rate'];
+
+                        if (value && key) {
+                            exchangeRates[key] = value;
+                        }
+                    }, this);
+
+                    def.resolve(feed);
+                },
+                failure: function(response, o) {
+                    def.reject();
+                    ErrorManager.addError(response, o, {}, 'failure');
+                },
+                scope: this
             });
-        },
-        onRequestExchangeRatesSuccess: function(feed) {
-            var exchangeRates;
-            exchangeRates = this.context['exchangeRates'] = this.context['exchangeRates'] || {};
 
-            array.forEach(feed && feed['$resources'], function(item) {
-                var key = item && item['$key'],
-                    value = item && item['Rate'];
-
-                if (value && key) {
-                    exchangeRates[key] = value;
-                }
-            }, this);
-        },
-        onRequestExchangeRatesFailure: function(response, o) {
-            ErrorManager.addError(response, o, {}, 'failure');
+            return def.promise;
         },
         requestOwnerDescription: function(key) {
             var request = new Sage.SData.Client.SDataSingleResourceRequest(this.getService())

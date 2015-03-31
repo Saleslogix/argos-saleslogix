@@ -370,6 +370,7 @@ define('crm/Views/Calendar/MonthView', [
         },
         getTodayMonthActivities: function() {
             var today = moment().startOf('day');
+
             if (this.currentDate.format('YYYY-MM') === today.format('YYYY-MM')) {
                 this.currentDate = today;
                 this.highlightCurrentDate();
@@ -667,20 +668,24 @@ define('crm/Views/Calendar/MonthView', [
             return request;
         },
         getSelectedDateActivityQuery: function() {
-            var activityQuery = [
+            var activityQuery, results;
+
+            activityQuery = [
                 'UserActivities.UserId eq "${0}" and Type ne "atLiterature" and (',
                 '(Timeless eq false and StartDate between @${1}@ and @${2}@) or ',
                 '(Timeless eq true and StartDate between @${3}@ and @${4}@))'
             ].join('');
-            return string.substitute(
+
+            results = string.substitute(
                 activityQuery,
                 [App.context['user'] && App.context['user']['$key'],
                 convert.toIsoStringFromDate(this.currentDate.toDate()),
                 convert.toIsoStringFromDate(this.currentDate.clone().endOf('day').toDate()),
                 this.currentDate.format('YYYY-MM-DDT00:00:00[Z]'),
                 this.currentDate.format('YYYY-MM-DDT23:59:59[Z]')
-                ]
-            );
+                ]);
+
+            return results;
         },
         getSelectedDateEventQuery: function() {
             return string.substitute(
@@ -773,11 +778,9 @@ define('crm/Views/Calendar/MonthView', [
         renderCalendar: function() {
             var calHTML = [],
                 startingDay = this.getFirstDayOfCurrentMonth().day(),
-                dayClass = '',
                 weekendClass = '',
                 day = 1,
                 dayDate = this.currentDate.clone().startOf('month'),
-                today = moment().startOf('day'),
                 monthLength = this.currentDate.daysInMonth(),
                 weekEnds = [0, 6],
                 i,
@@ -798,12 +801,11 @@ define('crm/Views/Calendar/MonthView', [
                 for (j = 0; j <= 6; j++) {
                     if (day <= monthLength && (i > 0 || j >= startingDay)) {
                         dayDate.date(day);
-                        dayClass = (dayDate.valueOf() === today.valueOf()) ? 'today' : '';
                         weekendClass = (weekEnds.indexOf(j) !== -1) ? ' weekend' : '';
                         calHTML.push(string.substitute(this.calendarDayTemplate,
                                                     [
                                                         day,
-                                                        (dayClass + weekendClass),
+                                                        weekendClass,
                                                         dayDate.format('YYYY-MM-DD')
                                                     ]));
                         day++;
@@ -855,6 +857,25 @@ define('crm/Views/Calendar/MonthView', [
             }
 
             this.getSelectedDate();
+            this.highlightToday();
+        },
+        highlightToday: function() {
+            var todayCls, todayNode;
+
+            // Remove the existing "today" highlight class because it might be out of date,
+            // like when we tick past midnight.
+            todayCls = '.calendar-day.today';
+            todayNode = query(todayCls, this.contentNode)[0];
+            if (todayNode) {
+                domClass.remove(todayNode, 'today');
+            }
+
+            // Get the updated "today"
+            todayCls = string.substitute('.calendar-day[data-date=${0}]', [moment().format('YYYY-MM-DD')]);
+            todayNode = query(todayCls, this.contentNode)[0];
+            if (todayNode) {
+                domClass.add(todayNode, 'today');
+            }
         },
         selectEntry: function(params) {
             var row = query(params.$source).closest('[data-key]')[0],

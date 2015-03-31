@@ -127,7 +127,7 @@ define('crm/FileManager', [
                 blobReader = new FileReader();// read the blob as an ArrayBuffer to work around this android issue: https://code.google.com/p/android/issues/detail?id=39882
 
                 try {
-                    Blob();// This will throw an exception if it is not supported (android)
+                    bb = new Blob();// This will throw an exception if it is not supported (android)
                     bb = [];
                 } catch(e) {
                     bb = new window.BlobBuilder();
