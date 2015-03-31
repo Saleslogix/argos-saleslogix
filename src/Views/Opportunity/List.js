@@ -104,7 +104,6 @@ define('crm/Views/Opportunity/List', [
         itemIconClass: 'fa fa-money fa-2x',
         detailView: 'opportunity_detail',
         insertView: 'opportunity_edit',
-        quickEditView: 'opportunity_quick_edit',
         queryOrderBy: 'EstimatedClose desc',
         querySelect: [
             'Account/AccountName',
@@ -177,17 +176,8 @@ define('crm/Views/Opportunity/List', [
                 id: 'quickEdit',
                 cls: 'fa fa-pencil fa-2x',
                 label: this.quickEditActionText,
+                editView: 'opportunity_quick_edit',
                 action: 'navigateToQuickEdit'
-            }, {
-                id: 'invokeQuickEdit',
-                cls: 'fa fa-pencil fa-2x',
-                label: this.quickEditActionText,
-                action: 'invokeRelatedViewAction',
-                relatedView: {
-                    widgetType: 'relatedEdit',
-                    id: 'list_account_action_quick_edit',
-                    editView: QuickEdit
-                }
             }]
             );
         },

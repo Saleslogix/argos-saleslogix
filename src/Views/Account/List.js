@@ -108,7 +108,6 @@ define('crm/Views/Account/List', [
 
         //View Properties
         detailView: 'account_detail',
-        quickEditView: 'account_quick_edit',
         itemIconClass: 'fa fa-building-o fa-2x',
         id: 'account_list',
         security: 'Entities/Account/View',
@@ -176,6 +175,7 @@ define('crm/Views/Account/List', [
                 id: 'quickEdit',
                 cls: 'fa fa-pencil fa-2x',
                 label: this.quickEditActionText,
+                editView: 'account_quick_edit',
                 enabled: true,
                 action: 'navigateToQuickEdit'
             }, {
