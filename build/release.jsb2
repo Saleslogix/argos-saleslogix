@@ -177,6 +177,10 @@
           "path": "../src"
         },
         {
+          "text": "SalesProcessUtility.js",
+          "path": "../src"
+        },
+        {
           "text": "Aggregate.js",
           "path": "../src"
         },

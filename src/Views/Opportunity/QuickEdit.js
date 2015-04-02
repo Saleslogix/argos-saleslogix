@@ -15,18 +15,26 @@
 define('crm/Views/Opportunity/QuickEdit', [
     'dojo/_base/declare',
     'dojo/_base/lang',
+    'dojo/query',
+    'dojo/dom-construct',
+    'dojo/dom-attr',
     'dojo/string',
     '../../Validator',
     '../../Template',
     'argos/Utility',
+    'crm/SalesProcessUtility',
     'argos/Edit'
 ], function(
     declare,
     lang,
+    query,
+    domConstruct,
+    domAttr,
     string,
     validator,
     template,
     utility,
+    salesProcessUtility,
     Edit
 ) {
 
@@ -37,6 +45,7 @@ define('crm/Views/Opportunity/QuickEdit', [
         opportunityStageTitleText: 'Opportunity Stage',
         opportunityText: 'opportunity',
         stageText: 'stage',
+        salesProcessText: 'locked by sales process',
 
         //View Properties
         entityName: 'Opportunity',
@@ -73,6 +82,7 @@ define('crm/Views/Opportunity/QuickEdit', [
                         property: 'Stage',
                         picklist: 'Opportunity Stage',
                         requireSelection: true,
+                        enabled: false,
                         title: this.opportunityStageTitleText,
                         type: 'picklist'
                     },
@@ -95,6 +105,43 @@ define('crm/Views/Opportunity/QuickEdit', [
 
             layout.push(details);
             return layout;
+        },
+        setValues: function(values) {
+            this.enableStage(values['$key']);
+            this.inherited(arguments);
+
+        },
+        enableStage: function(opportunityId) {
+            var promise, field, label;
+            field = this.fields['Stage'];
+            label = this.stageText;
+            if (!field) {
+                return;
+            }
+            field.disable();
+            promise = salesProcessUtility.getSalesProcessByEntityId(opportunityId);
+            if (promise) {
+                promise.then(function(salesProcess) {
+                    if (salesProcess) {
+                        field.disable();
+                        label = this.stageText + ' ' + this.salesProcessText + ':' + salesProcess.$descriptor;
+                        this.setStageLable(label);
+                    } else {
+                        field.enable();
+                    }
+                }.bind(this));
+            }
+            this.setStageLable(label);
+        },
+        setStageLable: function(label) {
+            var field, node;
+            field = this.fields['Stage'];
+            if (field && field.domNode) {
+                node = query('[for="Stage"]', field.domNode);
+                if (node && node.length > 0) {
+                    domAttr.set(node[0], 'innerHTML', label);
+                }
+            }
         }
     });
 

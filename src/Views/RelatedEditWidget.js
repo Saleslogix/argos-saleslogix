@@ -110,7 +110,7 @@ define('crm/Views/RelatedEditWidget', [
             return select;
         },
         onUpdateCompleted: function() {
-            if ((this.owner) && (this.owner._refreshClicked)) {
+            if (this.owner && this.owner._refreshClicked) {
                 this.owner._refreshClicked();
             }
             this.inherited(arguments);
