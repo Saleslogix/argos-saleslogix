@@ -177,6 +177,10 @@
           "path": "../src"
         },
         {
+          "text": "SalesProcessUtility.js",
+          "path": "../src"
+        },
+        {
           "text": "Aggregate.js",
           "path": "../src"
         },
@@ -200,6 +204,15 @@
           "text": "_CardLayoutListMixin.js",
           "path": "../src/Views"
         },
+        {
+          "text": "RelatedContextWidget.js",
+          "path": "../src/Views"
+        },
+        {
+          "text": "RelatedEditWidget.js",
+          "path": "../src/Views"
+        },
+
         {
           "text": "AddAccountContact.js",
           "path": "../src/Views"
@@ -361,6 +374,10 @@
           "path": "../src/Views/Account"
         },
         {
+          "text": "QuickEdit.js",
+          "path": "../src/Views/Account"
+        },
+        {
           "text": "List.js",
           "path": "../src/Views/Address"
         },
@@ -478,6 +495,10 @@
         },
         {
           "text": "Edit.js",
+          "path": "../src/Views/Opportunity"
+        },
+        {
+          "text": "QuickEdit.js",
           "path": "../src/Views/Opportunity"
         },
         {

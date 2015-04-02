@@ -53,6 +53,7 @@ define('crm/ApplicationModule', [
     './Views/Account/List',
     './Views/Account/Detail',
     './Views/Account/Edit',
+    './Views/Account/QuickEdit',
     './Views/Address/List',
     './Views/Address/Edit',
     './Views/Activity/List',
@@ -88,6 +89,7 @@ define('crm/ApplicationModule', [
     './Views/Opportunity/List',
     './Views/Opportunity/Detail',
     './Views/Opportunity/Edit',
+    './Views/Opportunity/QuickEdit',
     './Views/OpportunityContact/List',
     './Views/OpportunityContact/Detail',
     './Views/OpportunityContact/Edit',
@@ -123,6 +125,9 @@ define('crm/ApplicationModule', [
     './Fields/NameField',
     './Fields/PicklistField',
     './Fields/RecurrencesField',
+
+     './Views/RelatedContextWidget',
+     './Views/RelatedEditWidget',
 
     './Action',
     './Format',
@@ -165,6 +170,7 @@ define('crm/ApplicationModule', [
     AccountList,
     AccountDetail,
     AccountEdit,
+    AccountQuickEdit,
     AddressList,
     AddressEdit,
     ActivityList,
@@ -198,6 +204,7 @@ define('crm/ApplicationModule', [
     OpportunityList,
     OpportunityDetail,
     OpportunityEdit,
+    OpportunityQuickEdit,
     OpportunityContactList,
     OpportunityContactDetail,
     OpportunityContactEdit,
@@ -274,6 +281,7 @@ define('crm/ApplicationModule', [
             this.registerView(new AccountList());
             this.registerView(new AccountDetail());
             this.registerView(new AccountEdit());
+            this.registerView(new AccountQuickEdit());
             this.registerView(new AccountList({
                 id: 'account_related',
                 expose: false,
@@ -337,6 +345,7 @@ define('crm/ApplicationModule', [
             this.registerView(new GroupsSelector());
 
             this.registerView(new OpportunityEdit());
+            this.registerView(new OpportunityQuickEdit());
             this.registerView(new OpportunityList());
             this.registerView(new OpportunityDetail());
             this.registerView(new OpportunityList({

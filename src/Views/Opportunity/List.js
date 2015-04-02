@@ -24,6 +24,7 @@ define('crm/Views/Opportunity/List', [
     '../../Action',
     '../../Format',
     'argos/Format',
+    './QuickEdit',
     'argos/List',
     '../_GroupListMixin',
     '../_MetricListMixin',
@@ -37,6 +38,7 @@ define('crm/Views/Opportunity/List', [
     action,
     format,
     platformFormat,
+    QuickEdit,
     List,
     _GroupListMixin,
     _MetricListMixin,
@@ -94,6 +96,7 @@ define('crm/Views/Opportunity/List', [
         addAttachmentActionText: 'Add Attachment',
         actualCloseText: 'Closed ',
         estimatedCloseText: 'Estimated close ',
+        quickEditActionText: 'Quick Edit',
 
         //View Properties
         id: 'opportunity_list',
@@ -169,6 +172,12 @@ define('crm/Views/Opportunity/List', [
                 cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
+            }, {
+                id: 'quickEdit',
+                cls: 'fa fa-pencil fa-2x',
+                label: this.quickEditActionText,
+                editView: 'opportunity_quick_edit',
+                action: 'navigateToQuickEdit'
             }]
             );
         },
@@ -185,7 +194,6 @@ define('crm/Views/Opportunity/List', [
                     }.bind(this)
                 }
         }
-
     });
 
     lang.setObject('Mobile.SalesLogix.Views.Opportunity.List', __class);

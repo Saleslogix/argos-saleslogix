@@ -661,13 +661,6 @@ define('crm/Views/_GroupListMixin', [
             this.clear();
             this.refreshRequired = true;
         },
-        onProcessRelatedViews: function() {
-            if (this.groupsEnabled) {
-                return;
-            }
-
-            this.inherited(arguments);
-        },
         _onQueryError: function(queryOptions, error) {
             if (this.groupsEnabled && this.groupsMode) {
                 if (error.status === 404) {
@@ -905,6 +898,20 @@ define('crm/Views/_GroupListMixin', [
                     break;
             }
 
+        },
+        getContextSnapShot: function(options) {
+            var template, entry, snapShot;
+
+            if (this._groupInitalized && this.groupsMode) {
+                entry = this.entries[options.key];
+                template = this.itemRowContainerTemplate;
+                snapShot = template.apply(entry, this);
+                return snapShot;
+            } else {
+                snapShot = this.inherited(arguments);
+            }
+
+            return snapShot;
         }
     });
 

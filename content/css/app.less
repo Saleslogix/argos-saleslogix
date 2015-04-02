@@ -1042,7 +1042,7 @@ td.entry-table-description {
 
 }
 
-.card-layout {
+.card-layout, .context-snapshot {
 
     .group-label {
         color: @form-label-color;
@@ -1057,7 +1057,7 @@ td.entry-table-description {
         font-size: 16px;
     }
     .group-currency {
-        color: @color-emerald;
+        color: @currency-color;
     }
     .group-column {
         overflow: hidden;
@@ -1481,3 +1481,27 @@ canvas,
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* ios */
     -webkit-tap-highlight-color: transparent; /* android */
 }
+
+.related-edit-widget {
+    padding: 5px 5px 0px 5px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+.related-context-widget {
+    background-color: #fff;
+
+    .context-snapshot {
+        border-radius: 3px;
+        padding: 5px;
+        line-height: initial;
+        > li {
+          display: inherit;
+        }
+
+        .list-item-selector {
+            visibility: visible;
+        }
+    }
+}
+
+

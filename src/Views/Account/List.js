@@ -31,7 +31,8 @@ define('crm/Views/Account/List', [
     '../_GroupListMixin',
     '../_MetricListMixin',
     '../_CardLayoutListMixin',
-    '../_RightDrawerListMixin'
+    '../_RightDrawerListMixin',
+    '../History/RelatedView'
 ], function(
     declare,
     lang,
@@ -45,7 +46,8 @@ define('crm/Views/Account/List', [
     _GroupListMixin,
     _MetricListMixin,
     _CardLayoutListMixin,
-    _RightDrawerListMixin
+    _RightDrawerListMixin,
+    HistoryRelatedView
 ) {
 
     var __class = declare('crm.Views.Account.List', [List, _RightDrawerListMixin, _MetricListMixin, _CardLayoutListMixin, _GroupListMixin], {
@@ -69,6 +71,7 @@ define('crm/Views/Account/List', [
                 '</h4>',
             '{% } %}'
         ]),
+        groupsEnabled: true,
         enableDynamicGroupLayout: true,
         groupLayoutItemTemplate: new Simplate([
          '<div style="float:left; ">',
@@ -98,6 +101,8 @@ define('crm/Views/Account/List', [
         addAttachmentActionText: 'Add Attachment',
         phoneAbbreviationText: 'Phone: ',
         faxAbbreviationText: 'Fax: ',
+        quickEditActionText: 'quick Edit',
+        invokequickEditActionText: 'invoke quick edit',
 
         //View Properties
         detailView: 'account_detail',
@@ -125,7 +130,6 @@ define('crm/Views/Account/List', [
         ],
         resourceKind: 'accounts',
         entityName: 'Account',
-        groupsEnabled: true,
         allowSelection: true,
         enableActions: true,
         pageSize: 10,
@@ -165,12 +169,31 @@ define('crm/Views/Account/List', [
                 cls: 'fa fa-paperclip fa-2x',
                 label: this.addAttachmentActionText,
                 fn: action.addAttachment.bindDelegate(this)
+            }, {
+                id: 'quickEdit',
+                cls: 'fa fa-pencil fa-2x',
+                label: this.quickEditActionText,
+                editView: 'account_quick_edit',
+                enabled: true,
+                action: 'navigateToQuickEdit'
             }]
-
             );
         },
         formatSearchQuery: function(searchQuery) {
             return string.substitute('AccountNameUpper like "${0}%"', [this.escapeSearchQuery(searchQuery.toUpperCase())]);
+        },
+        createRelatedViewLayout: function() {
+            return this.relatedViews || (this.relatedViews = [{
+                widgetType: HistoryRelatedView,
+                id: 'list_account_notes_relate_view',
+                enabled: false,
+                autoLoad: true,
+                expandOnLoad: false,
+                relatedProperty: 'AccountId',
+                where: function(entry) {
+                    return "AccountId eq '" + entry.$key + "' and Type ne 'atDatabaseChange'";
+                }
+            }]);
         }
     });
 

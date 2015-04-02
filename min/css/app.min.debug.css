@@ -881,40 +881,50 @@ td.entry-table-description {
 .attachment-viewer-not-supported {
   margin: 10px !important;
 }
-.card-layout .group-label {
+.card-layout .group-label,
+.context-snapshot .group-label {
   color: #9a9a9a;
   font-weight: normal;
 }
-.card-layout .group-entry {
+.card-layout .group-entry,
+.context-snapshot .group-entry {
   color: #4d4d4d;
   font-weight: normal;
 }
-.card-layout .group-entry-header {
+.card-layout .group-entry-header,
+.context-snapshot .group-entry-header {
   font-weight: normal;
   font-size: 16px;
 }
-.card-layout .group-currency {
+.card-layout .group-currency,
+.context-snapshot .group-currency {
   color: #2db329;
 }
-.card-layout .group-column {
+.card-layout .group-column,
+.context-snapshot .group-column {
   overflow: hidden;
   display: inline-block;
   padding-right: 4px;
   min-width: 225px;
   vertical-align: top;
 }
-.card-layout .list-content {
+.card-layout .list-content,
+.context-snapshot .list-content {
   margin: 0;
   padding: 0;
 }
 .card-layout .list-content > li.no-data,
-.card-layout .list-content li.list-loading-indicator {
+.context-snapshot .list-content > li.no-data,
+.card-layout .list-content li.list-loading-indicator,
+.context-snapshot .list-content li.list-loading-indicator {
   min-height: inherit;
 }
-.card-layout .list-content > li.actions-row {
+.card-layout .list-content > li.actions-row,
+.context-snapshot .list-content > li.actions-row {
   background-color: #13a3f7;
 }
-.card-layout .list-content > li {
+.card-layout .list-content > li,
+.context-snapshot .list-content > li {
   min-height: 55px;
   font-weight: bold;
   list-style: none;
@@ -927,7 +937,9 @@ td.entry-table-description {
   margin: 3px;
 }
 .card-layout .list-content > li > img.icon,
-.card-layout .list-content > li * > img.icon {
+.context-snapshot .list-content > li > img.icon,
+.card-layout .list-content > li * > img.icon,
+.context-snapshot .list-content > li * > img.icon {
   border: none 0 black;
   margin: 0 .5em 0 0;
   width: 32px;
@@ -936,32 +948,43 @@ td.entry-table-description {
   top: 6px;
   float: left;
 }
-.card-layout .list-content > li > input.list-selector {
+.card-layout .list-content > li > input.list-selector,
+.context-snapshot .list-content > li > input.list-selector {
   float: left;
   margin: 2px 0 0 0px;
 }
 .card-layout .list-content > li,
-.card-layout .group-content > li {
+.context-snapshot .list-content > li,
+.card-layout .group-content > li,
+.context-snapshot .group-content > li {
   padding: 8px 6px 8px 6px;
   background-color: #fff;
   font-weight: normal;
 }
-.card-layout .list-show-selectors {
+.card-layout .list-show-selectors,
+.context-snapshot .list-show-selectors {
   padding-left: 90px;
 }
 .card-layout .list-show-selectors .list-item-content,
+.context-snapshot .list-show-selectors .list-item-content,
 .card-layout .list-item-static-selector + .list-item-content,
+.context-snapshot .list-item-static-selector + .list-item-content,
 .card-layout .list-item-content,
-.card-layout .actions-enabled + .list-item-content {
+.context-snapshot .list-item-content,
+.card-layout .actions-enabled + .list-item-content,
+.context-snapshot .actions-enabled + .list-item-content {
   padding-left: 58px;
 }
-.card-layout .list-item-content > h4 {
+.card-layout .list-item-content > h4,
+.context-snapshot .list-item-content > h4 {
   font-weight: normal;
 }
-.card-layout .list-item-content > h4 > span {
+.card-layout .list-item-content > h4 > span,
+.context-snapshot .list-item-content > h4 > span {
   font-weight: normal;
 }
-.card-layout .list-item-selector {
+.card-layout .list-item-selector,
+.context-snapshot .list-item-selector {
   visibility: hidden;
   width: 44px;
   /* todo: remove !important in the SDK */
@@ -975,10 +998,12 @@ td.entry-table-description {
   background: #bbbec0 none;
   font-size: 10px;
 }
-.card-layout .list-item-selector > span {
+.card-layout .list-item-selector > span,
+.context-snapshot .list-item-selector > span {
   line-height: 44px;
 }
-.card-layout .list-show-actions .list-item-selector {
+.card-layout .list-show-actions .list-item-selector,
+.context-snapshot .list-show-actions .list-item-selector {
   visibility: visible !important;
   width: 62px;
   height: 50px;
@@ -993,7 +1018,8 @@ td.entry-table-description {
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ececec));
   background-image: -moz-linear-gradient(top, #ffffff, #ececec);
 }
-.card-layout .list-show-actions .list-item-selector > img {
+.card-layout .list-show-actions .list-item-selector > img,
+.context-snapshot .list-show-actions .list-item-selector > img {
   position: absolute;
   top: 6px;
   left: 6px;
@@ -1001,7 +1027,8 @@ td.entry-table-description {
   width: 50px;
   height: 50px;
 }
-.card-layout .icon {
+.card-layout .icon,
+.context-snapshot .icon {
   position: relative;
   top: 6px;
   left: 6px;
@@ -1009,11 +1036,14 @@ td.entry-table-description {
   width: 12px;
   height: 12px;
 }
-.card-layout .list-item-selected > .list-item-selector {
+.card-layout .list-item-selected > .list-item-selector,
+.context-snapshot .list-item-selected > .list-item-selector {
   visibility: visible !important;
 }
 .card-layout .list-item-static-selector > img.icon,
-.card-layout .list-item-static-selector > * > img.icon {
+.context-snapshot .list-item-static-selector > img.icon,
+.card-layout .list-item-static-selector > * > img.icon,
+.context-snapshot .list-item-static-selector > * > img.icon {
   bottom: 0;
   height: 24px !important;
   left: 30px;
@@ -1023,7 +1053,8 @@ td.entry-table-description {
   width: 24px !important;
   z-index: 10;
 }
-.card-layout .actions-row > button {
+.card-layout .actions-row > button,
+.context-snapshot .actions-row > button {
   background: #13a3f7;
   border: 0 solid #000000;
   height: 44px;
@@ -1036,16 +1067,20 @@ td.entry-table-description {
   border-radius: 5px;
   color: #fff;
 }
-.card-layout .actions-row > button > span {
+.card-layout .actions-row > button > span,
+.context-snapshot .actions-row > button > span {
   font-size: 25px;
 }
-.card-layout .actions-row > button > label {
+.card-layout .actions-row > button > label,
+.context-snapshot .actions-row > button > label {
   font-size: 10px;
 }
-.card-layout .list-action-selected + .actions-row {
+.card-layout .list-action-selected + .actions-row,
+.context-snapshot .list-action-selected + .actions-row {
   display: block !important;
 }
-.card-layout .list-action-selected > .list-item-selector {
+.card-layout .list-action-selected > .list-item-selector,
+.context-snapshot .list-action-selected > .list-item-selector {
   border-color: #AAAAAA;
   background-image: none !important;
   margin: 0;
@@ -1062,7 +1097,8 @@ td.entry-table-description {
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
 }
-.card-layout .list-item-tab {
+.card-layout .list-item-tab,
+.context-snapshot .list-item-tab {
   font-weight: normal;
   overflow: hidden;
   height: 100px;
@@ -1073,27 +1109,33 @@ td.entry-table-description {
   float: left;
   clear: both;
 }
-.card-layout .list-item-indicator-content {
+.card-layout .list-item-indicator-content,
+.context-snapshot .list-item-indicator-content {
   padding-left: 80px;
   text-align: right;
 }
-.card-layout .list-item-indicator-content > span.disabled {
+.card-layout .list-item-indicator-content > span.disabled,
+.context-snapshot .list-item-indicator-content > span.disabled {
   color: #bbbec0;
 }
-.card-layout .list-item-indicator-content > span {
+.card-layout .list-item-indicator-content > span,
+.context-snapshot .list-item-indicator-content > span {
   margin: 0 3px 0 3px;
   color: #ffd500;
 }
-.card-layout .list-item-indicator-content > span > img {
+.card-layout .list-item-indicator-content > span > img,
+.context-snapshot .list-item-indicator-content > span > img {
   width: 24px;
   height: 24px;
 }
-.card-layout .list-item-footer {
+.card-layout .list-item-footer,
+.context-snapshot .list-item-footer {
   overflow: hidden;
   max-height: 28px;
   margin: 5px 0 0;
 }
-.card-layout .list-action-selected .footer-item-selector {
+.card-layout .list-action-selected .footer-item-selector,
+.context-snapshot .list-action-selected .footer-item-selector {
   background-image: none !important;
   border-color: transparent transparent #AAAAAA;
   border-style: solid;
@@ -1106,7 +1148,8 @@ td.entry-table-description {
   top: 18px;
   width: 0;
 }
-.card-layout .footer-item-selector {
+.card-layout .footer-item-selector,
+.context-snapshot .footer-item-selector {
   border: 0px none #000000;
   background: transparent;
   color: #000000;
@@ -1116,7 +1159,8 @@ td.entry-table-description {
   width: 28px;
   z-index: 10;
 }
-.card-layout .list-action-selected .footer-item-selector > img {
+.card-layout .list-action-selected .footer-item-selector > img,
+.context-snapshot .list-action-selected .footer-item-selector > img {
   border: 0 none black;
   height: 24px;
   left: -13px !important;
@@ -1260,4 +1304,23 @@ canvas,
   /* ios */
   -webkit-tap-highlight-color: transparent;
   /* android */
+}
+.related-edit-widget {
+  padding: 5px 5px 0px 5px;
+  border-radius: 3px;
+  background-color: #fff;
+}
+.related-context-widget {
+  background-color: #fff;
+}
+.related-context-widget .context-snapshot {
+  border-radius: 3px;
+  padding: 5px;
+  line-height: initial;
+}
+.related-context-widget .context-snapshot > li {
+  display: inherit;
+}
+.related-context-widget .context-snapshot .list-item-selector {
+  visibility: visible;
 }

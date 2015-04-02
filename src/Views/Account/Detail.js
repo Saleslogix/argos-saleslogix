@@ -145,134 +145,134 @@ define('crm/Views/Account/Detail', [
         },
         createLayout: function() {
             return this.layout || (this.layout = [{
-                    title: this.actionsText,
-                    list: true,
-                    cls: 'action-list',
-                    name: 'QuickActionsSection',
-                    children: [{
-                            name: 'ScheduleActivityAction',
-                            property: 'AccountName',
-                            label: this.scheduleActivityText,
-                            iconClass: 'fa fa-calendar fa-lg',
-                            action: 'scheduleActivity'
-                        }, {
-                            name: 'AddNoteAction',
-                            property: 'AccountName',
-                            label: this.addNoteText,
-                            iconClass: 'fa fa-edit fa-lg',
-                            action: 'addNote'
-                        }]
+                title: this.actionsText,
+                list: true,
+                cls: 'action-list',
+                name: 'QuickActionsSection',
+                children: [{
+                    name: 'ScheduleActivityAction',
+                    property: 'AccountName',
+                    label: this.scheduleActivityText,
+                    iconClass: 'fa fa-calendar fa-lg',
+                    action: 'scheduleActivity'
                 }, {
-                    title: this.detailsText,
-                    name: 'DetailsSection',
-                    children: [{
-                            name: 'AccountName',
-                            property: 'AccountName',
-                            label: this.accountText
-                        }, {
-                            name: 'MainPhone',
-                            property: 'MainPhone',
-                            label: this.phoneText,
-                            renderer: format.phone.bindDelegate(this, false),
-                            action: 'callMainPhone'
-                        }, {
-                            name: 'Status',
-                            property: 'Status',
-                            label: this.statusText
-                        }, {
-                            name: 'AccountManager.UserInfo',
-                            property: 'AccountManager.UserInfo',
-                            label: this.acctMgrText,
-                            tpl: template.nameLF
-                        }]
+                    name: 'AddNoteAction',
+                    property: 'AccountName',
+                    label: this.addNoteText,
+                    iconClass: 'fa fa-edit fa-lg',
+                    action: 'addNote'
+                }]
+            }, {
+                title: this.detailsText,
+                name: 'DetailsSection',
+                children: [{
+                    name: 'AccountName',
+                    property: 'AccountName',
+                    label: this.accountText
                 }, {
-                    title: this.moreDetailsText,
-                    name: 'MoreDetailsSection',
-                    collapsed: true,
-                    children: [{
-                            name: 'WebAddress',
-                            property: 'WebAddress',
-                            label: this.webText,
-                            renderer: format.link
-                        }, {
-                            name: 'Address',
-                            property: 'Address',
-                            label: this.addressText,
-                            renderer: format.address.bindDelegate(this, false)
-                        }, {
-                            name: 'Fax',
-                            property: 'Fax',
-                            label: this.faxText,
-                            renderer: format.phone.bindDelegate(this, true)
-                        }, {
-                            name: 'Type',
-                            property: 'Type',
-                            label: this.typeText
-                        }, {
-                            name: 'SubType',
-                            property: 'SubType',
-                            label: this.subTypeText
-                        }, {
-                            name: 'Industry',
-                            property: 'Industry',
-                            label: this.industryText,
-                            type: 'text'
-                        }, {
-                            name: 'BusinessDescription',
-                            property: 'BusinessDescription',
-                            label: this.businessDescriptionText,
-                            type: 'text'
-                        }, {
-                            name: 'LeadSource.Description',
-                            property: 'LeadSource.Description',
-                            label: this.importSourceText
-                        }, {
-                            name: 'Owner.OwnerDescription',
-                            property: 'Owner.OwnerDescription',
-                            label: this.ownerText
-                        }]
+                    name: 'MainPhone',
+                    property: 'MainPhone',
+                    label: this.phoneText,
+                    renderer: format.phone.bindDelegate(this, false),
+                    action: 'callMainPhone'
                 }, {
-                    title: this.relatedItemsText,
-                    list: true,
-                    name: 'RelatedItemsSection',
-                    children: [{
-                            name: 'ActivityRelated',
-                            label: this.relatedActivitiesText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}"'),
-                            view: 'activity_related'
-                        }, {
-                            name: 'ContactRelated',
-                            label: this.relatedContactsText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
-                            view: 'contact_related'
-                        }, {
-                            name: 'OpportunityRelated',
-                            label: this.relatedOpportunitiesText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
-                            view: 'opportunity_related'
-                        }, {
-                            name: 'TicketRelated',
-                            label: this.relatedTicketsText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
-                            view: 'ticket_related'
-                        }, {
-                            name: 'HistoryRelated',
-                            label: this.relatedHistoriesText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}" and Type ne "atDatabaseChange"'),
-                            view: 'history_related'
-                        }, {
-                            name: 'AddressesRelated',
-                            label: this.relatedAddressesText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
-                            view: 'address_related'
-                        }, {
-                            name: 'AttachmentRelated',
-                            label: this.relatedAttachmentText,
-                            where: this.formatRelatedQuery.bindDelegate(this, 'accountId eq "${0}"'), // must be lower case because of feed
-                            view: 'account_attachment_related',
-                            title:  this.relatedAttachmentTitleText
-                        }]
-                }]);
+                    name: 'Status',
+                    property: 'Status',
+                    label: this.statusText
+                }, {
+                    name: 'AccountManager.UserInfo',
+                    property: 'AccountManager.UserInfo',
+                    label: this.acctMgrText,
+                    tpl: template.nameLF
+                }]
+            }, {
+                title: this.moreDetailsText,
+                name: 'MoreDetailsSection',
+                collapsed: true,
+                children: [{
+                    name: 'WebAddress',
+                    property: 'WebAddress',
+                    label: this.webText,
+                    renderer: format.link
+                }, {
+                    name: 'Address',
+                    property: 'Address',
+                    label: this.addressText,
+                    renderer: format.address.bindDelegate(this, false)
+                }, {
+                    name: 'Fax',
+                    property: 'Fax',
+                    label: this.faxText,
+                    renderer: format.phone.bindDelegate(this, true)
+                }, {
+                    name: 'Type',
+                    property: 'Type',
+                    label: this.typeText
+                }, {
+                    name: 'SubType',
+                    property: 'SubType',
+                    label: this.subTypeText
+                }, {
+                    name: 'Industry',
+                    property: 'Industry',
+                    label: this.industryText,
+                    type: 'text'
+                }, {
+                    name: 'BusinessDescription',
+                    property: 'BusinessDescription',
+                    label: this.businessDescriptionText,
+                    type: 'text'
+                }, {
+                    name: 'LeadSource.Description',
+                    property: 'LeadSource.Description',
+                    label: this.importSourceText
+                }, {
+                    name: 'Owner.OwnerDescription',
+                    property: 'Owner.OwnerDescription',
+                    label: this.ownerText
+                }]
+            }, {
+                title: this.relatedItemsText,
+                list: true,
+                name: 'RelatedItemsSection',
+                children: [{
+                    name: 'ActivityRelated',
+                    label: this.relatedActivitiesText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}"'),
+                    view: 'activity_related'
+                }, {
+                    name: 'ContactRelated',
+                    label: this.relatedContactsText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
+                    view: 'contact_related'
+                }, {
+                    name: 'OpportunityRelated',
+                    label: this.relatedOpportunitiesText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
+                    view: 'opportunity_related'
+                }, {
+                    name: 'TicketRelated',
+                    label: this.relatedTicketsText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'Account.id eq "${0}"'),
+                    view: 'ticket_related'
+                }, {
+                    name: 'HistoryRelated',
+                    label: this.relatedHistoriesText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'AccountId eq "${0}" and Type ne "atDatabaseChange"'),
+                    view: 'history_related'
+                }, {
+                    name: 'AddressesRelated',
+                    label: this.relatedAddressesText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'EntityId eq "${0}"', 'Address.EntityId'),
+                    view: 'address_related'
+                }, {
+                    name: 'AttachmentRelated',
+                    label: this.relatedAttachmentText,
+                    where: this.formatRelatedQuery.bindDelegate(this, 'accountId eq "${0}"'), // must be lower case because of feed
+                    view: 'account_attachment_related',
+                    title: this.relatedAttachmentTitleText
+                }]
+            }]);
         }
     });
 
