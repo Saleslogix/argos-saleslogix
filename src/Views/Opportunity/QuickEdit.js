@@ -120,8 +120,7 @@ define('crm/Views/Opportunity/QuickEdit', [
             }
             field.disable();
             promise = salesProcessUtility.getSalesProcessByEntityId(opportunityId);
-            if (promise) {
-                promise.then(function(salesProcess) {
+            promise.then(function(salesProcess) {
                     if (salesProcess) {
                         field.disable();
                         label = this.stageText + ' ' + this.salesProcessText + ':' + salesProcess.$descriptor;
@@ -130,7 +129,6 @@ define('crm/Views/Opportunity/QuickEdit', [
                         field.enable();
                     }
                 }.bind(this));
-            }
             this.setStageLable(label);
         },
         setStageLable: function(label) {

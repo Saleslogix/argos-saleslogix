@@ -72,7 +72,7 @@ define('crm/Views/RelatedEditWidget', [
             }
             //Add the toolbar for save
             toolBarNode = domConstruct.toDom(this.toolBarTemplate.apply(entry, this));
-            on(toolBarNode, 'click', lang.hitch(this, this.onInvokeToolBarAction));
+            on(toolBarNode, 'click', this.onInvokeToolBarAction.bind(this));
             domConstruct.place(toolBarNode, this.containerNode, 'last');
 
             //Add the edit view to view
