@@ -46,6 +46,9 @@ define('crm/Views/Opportunity/QuickEdit', [
         opportunityText: 'opportunity',
         stageText: 'stage',
         salesProcessText: 'locked by sales process',
+        probabilityText: 'close prob',
+        probabilityTitleText: 'Opportunity Probability',
+        potentialText: 'sales potential',
 
         //View Properties
         entityName: 'Opportunity',
@@ -55,7 +58,13 @@ define('crm/Views/Opportunity/QuickEdit', [
         updateSecurity: 'Entities/Opportunity/Edit',
         querySelect: [
             'Account/AccountName',
+            'CloseProbability',
             'EstimatedClose',
+            'ExchangeRate',
+            'ExchangeRateCode',
+            'ExchangeRateDate',
+            'ExchangeRateLocked',
+            'SalesPotential',
             'Stage'
         ],
         init: function() {
@@ -87,6 +96,26 @@ define('crm/Views/Opportunity/QuickEdit', [
                         type: 'picklist'
                     },
                     {
+                        label: this.probabilityText,
+                        name: 'CloseProbability',
+                        property: 'CloseProbability',
+                        picklist: 'Opportunity Probability',
+                        title: this.probabilityTitleText,
+                        type: 'picklist',
+                        validator: [
+                            validator.isInt32,
+                            validator.isInteger
+                        ]
+                    }, {
+                        label: this.potentialText,
+                        name: 'SalesPotential',
+                        property: 'SalesPotential',
+                        precision: 2,
+                        type: 'multiCurrency',
+                        validationTrigger: 'keyup',
+                        validator: validator.isCurrency
+                    },
+                    {
                         label: this.estCloseText,
                         name: 'EstimatedClose',
                         property: 'EstimatedClose',
@@ -107,7 +136,9 @@ define('crm/Views/Opportunity/QuickEdit', [
             return layout;
         },
         setValues: function(values) {
+            this.inherited(arguments);
             this.enableStage(values['$key']);
+            this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
             this.inherited(arguments);
 
         },
