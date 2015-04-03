@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/Saleslogix/argos-saleslogix.svg)](https://travis-ci.org/Saleslogix/argos-saleslogix)
-
 Installation
 ------------
 ### Prerequisites
