@@ -139,7 +139,6 @@ define('crm/Views/Opportunity/QuickEdit', [
             this.inherited(arguments);
             this.enableStage(values['$key']);
             this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
-            this.inherited(arguments);
 
         },
         enableStage: function(opportunityId) {
