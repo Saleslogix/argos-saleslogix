@@ -162,6 +162,10 @@ define('crm/Fields/PicklistField', [
             return options;
         },
         navigateToListView: function() {
+            if (this.isDisabled()) {
+                return;
+            }
+
             var options = this.createNavigationOptions(),
                 view = App.getView(this.view) || getOrCreateViewFor(this.picklist);
 
