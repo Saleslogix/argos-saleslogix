@@ -374,10 +374,6 @@
           "path": "../src/Views/Account"
         },
         {
-          "text": "QuickEdit.js",
-          "path": "../src/Views/Account"
-        },
-        {
           "text": "List.js",
           "path": "../src/Views/Address"
         },
@@ -486,6 +482,10 @@
           "path": "../src/Views/LeadSource"
         },
         {
+          "text": "QuickEdit.js",
+          "path": "../src/Views/Opportunity"
+        },
+        {
           "text": "List.js",
           "path": "../src/Views/Opportunity"
         },
@@ -495,10 +495,6 @@
         },
         {
           "text": "Edit.js",
-          "path": "../src/Views/Opportunity"
-        },
-        {
-          "text": "QuickEdit.js",
           "path": "../src/Views/Opportunity"
         },
         {

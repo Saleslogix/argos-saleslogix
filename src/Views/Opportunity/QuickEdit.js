@@ -21,8 +21,8 @@ define('crm/Views/Opportunity/QuickEdit', [
     'dojo/string',
     '../../Validator',
     '../../Template',
+    '../../SalesProcessUtility',
     'argos/Utility',
-    'crm/SalesProcessUtility',
     'argos/Edit'
 ], function(
     declare,
@@ -33,8 +33,8 @@ define('crm/Views/Opportunity/QuickEdit', [
     string,
     validator,
     template,
-    utility,
     salesProcessUtility,
+    utility,
     Edit
 ) {
 
