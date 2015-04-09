@@ -114,6 +114,9 @@ define('crm/SpeedSearchWidget', [
          * @param {Object} widget
          */
         onSearchExpression: function() {
+        },
+        getFormattedSearchQuery: function() {
+            return null;
         }
     });
 
