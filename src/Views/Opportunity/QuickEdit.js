@@ -45,7 +45,7 @@ define('crm/Views/Opportunity/QuickEdit', [
         opportunityStageTitleText: 'Opportunity Stage',
         opportunityText: 'opportunity',
         stageText: 'stage',
-        salesProcessText: 'locked by sales process',
+        salesProcessText: 'stage locked by sales process:',
         probabilityText: 'close prob',
         probabilityTitleText: 'Opportunity Probability',
         potentialText: 'sales potential',
@@ -139,35 +139,35 @@ define('crm/Views/Opportunity/QuickEdit', [
             this.inherited(arguments);
             this.enableStage(values['$key']);
             this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
-
         },
         enableStage: function(opportunityId) {
-            var promise, field, label;
+            var field, label;
             field = this.fields['Stage'];
             label = this.stageText;
+
             if (!field) {
                 return;
             }
+
             field.disable();
-            promise = salesProcessUtility.getSalesProcessByEntityId(opportunityId);
-            promise.then(function(salesProcess) {
-                    if (salesProcess) {
-                        field.disable();
-                        label = this.stageText + ' ' + this.salesProcessText + ':' + salesProcess.$descriptor;
-                        this.setStageLable(label);
-                    } else {
-                        field.enable();
-                    }
-                }.bind(this));
-            this.setStageLable(label);
+            salesProcessUtility.getSalesProcessByEntityId(opportunityId).then(function(salesProcess) {
+                if (salesProcess) {
+                    field.disable();
+                    label = this.salesProcessText + salesProcess.$descriptor;
+                    this.setStageLabel(label);
+                } else {
+                    field.enable();
+                }
+            }.bind(this));
+            this.setStageLabel(label);
         },
-        setStageLable: function(label) {
+        setStageLabel: function(label) {
             var field, node;
             field = this.fields['Stage'];
             if (field && field.domNode) {
                 node = query('[for="Stage"]', field.domNode);
                 if (node && node.length > 0) {
-                    domAttr.set(node[0], 'innerHTML', label);
+                    domAttr.set(node[0], 'innerHTML', label); // TODO: SDK's _Field should provide a label setter
                 }
             }
         }
