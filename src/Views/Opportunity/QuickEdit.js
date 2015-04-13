@@ -45,6 +45,9 @@ define('crm/Views/Opportunity/QuickEdit', [
         opportunityStageTitleText: 'Opportunity Stage',
         opportunityText: 'opportunity',
         stageText: 'stage',
+        statusOpenText: 'Open',
+        statusClosedLostText:'Closed - Lost',
+        statusClosedWonText:'Closed - Won',
         salesProcessText: 'stage locked by sales process:',
         probabilityText: 'close prob',
         probabilityTitleText: 'Opportunity Probability',
@@ -65,7 +68,8 @@ define('crm/Views/Opportunity/QuickEdit', [
             'ExchangeRateDate',
             'ExchangeRateLocked',
             'SalesPotential',
-            'Stage'
+            'Stage',
+            'status'
         ],
         init: function() {
             this.inherited(arguments);
@@ -138,6 +142,7 @@ define('crm/Views/Opportunity/QuickEdit', [
         setValues: function(values) {
             this.inherited(arguments);
             this.enableStage(values['$key']);
+            this.enableProbability(values);
             this.fields['SalesPotential'].setCurrencyCode(App.getBaseExchangeRate().code);
         },
         enableStage: function(opportunityId) {
@@ -170,6 +175,25 @@ define('crm/Views/Opportunity/QuickEdit', [
                     domAttr.set(node[0], 'innerHTML', label); // TODO: SDK's _Field should provide a label setter
                 }
             }
+        },
+        enableProbability: function(entry) {
+            var field;
+            field = this.fields['CloseProbability'];
+            if (!field) {
+                return;
+            }
+            field.enable();
+            if (this.isClosed(entry)) {
+                field.disable();
+            }
+        },
+        isClosed: function(entry) {
+            var status;
+            status = entry['Status'];
+            if ((status === this.statusClosedWonText) || (status === this.statusClosedLostText)) {
+                return true;
+            }
+            return false;
         }
     });
 
