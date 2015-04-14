@@ -59,7 +59,9 @@ define('crm/Views/RelatedContextWidget', [
         },
         onRefreshView: function() {
             var node = domConstruct.toDom('<div></div>');
-            domConstruct.place(node, this.containerNode, 'only');
+            if (this.containerNode) {
+                domConstruct.place(node, this.containerNode, 'only');
+            }
             this.onLoad();
         }
     });
