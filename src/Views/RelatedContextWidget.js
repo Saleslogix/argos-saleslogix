@@ -6,52 +6,35 @@
 define('crm/Views/RelatedContextWidget', [
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'dojo/_base/event',
-    'dojo/on',
-    'dojo/string',
-    'dojo/dom-class',
-    'dojo/when',
-    'dojo/_base/Deferred',
+    'dojo/aspect',
     'dojo/dom-construct',
-    'dojo/query',
-    'dojo/dom-attr',
-    'dojo/_base/connect',
-    'dojo/_base/array',
-    'argos/Utility',
-    'argos/Format',
     'argos/RelatedViewManager',
-    'argos/_RelatedViewWidgetBase',
-    'crm/Action',
-    'argos/_ActionMixin'
+    'argos/_RelatedViewWidgetBase'
 ], function(
     declare,
     lang,
-    event,
-    on,
-    string,
-    domClass,
-    when,
-    Deferred,
+    aspect,
     domConstruct,
-    query,
-    domAttr,
-    connect,
-    array,
-    utility,
-    format,
     RelatedViewManager,
-    _RelatedViewWidgetBase,
-    action,
-    _ActionMixin
+    _RelatedViewWidgetBase
 ) {
     var rvm, __class;
-    __class = declare('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBase, _ActionMixin], {
+    __class = declare('crm.Views.RelatedContextWidget', [_RelatedViewWidgetBase], {
 
         cls: 'related-context-widget',
         contextCls: null,
         contextWrapperTemplate: new Simplate([
          '<div class="context-snapshot {%: $$.contextCls %}"></div>'
         ]),
+        onInit: function() {
+            var self = this;
+            this.onLoad();
+            if (this.owner) {
+                aspect.after(this.owner, 'show', function() {
+                    self.onRefreshView();
+                });
+            }
+        },
         onLoad: function() {
             var snapShot = this.getContextSnapShot();
             if (snapShot) {
@@ -73,6 +56,11 @@ define('crm/Views/RelatedContextWidget', [
                 domConstruct.place(snapShot, wrapper, 'last');
                 domConstruct.place(wrapper, this.containerNode, 'last');
             }
+        },
+        onRefreshView: function() {
+            var node = domConstruct.toDom('<div></div>');
+            domConstruct.place(node, this.containerNode, 'only');
+            this.onLoad();
         }
     });
     rvm = new RelatedViewManager();
