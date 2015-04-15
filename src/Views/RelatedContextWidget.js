@@ -40,6 +40,7 @@ define('crm/Views/RelatedContextWidget', [
             if (snapShot) {
                 this.processSnapShot(snapShot);
             }
+            _isLoaded = true;
         },
         getContextSnapShot: function() {
             var ctx, snapShot;
@@ -51,18 +52,19 @@ define('crm/Views/RelatedContextWidget', [
         },
         processSnapShot: function(snapShot) {
             var wrapper;
-            if (snapShot) {
+            if (this.containerNode && snapShot) {
                 wrapper = domConstruct.toDom(this.contextWrapperTemplate.apply(this));
                 domConstruct.place(snapShot, wrapper, 'last');
                 domConstruct.place(wrapper, this.containerNode, 'last');
             }
         },
         onRefreshView: function() {
-            var node = domConstruct.toDom('<div></div>');
+            var node;
             if (this.containerNode) {
+                node = domConstruct.toDom('<div></div>');
                 domConstruct.place(node, this.containerNode, 'only');
+                this.onLoad();
             }
-            this.onLoad();
         }
     });
     rvm = new RelatedViewManager();
