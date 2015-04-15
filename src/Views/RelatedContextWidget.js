@@ -40,7 +40,6 @@ define('crm/Views/RelatedContextWidget', [
             if (snapShot) {
                 this.processSnapShot(snapShot);
             }
-            _isLoaded = true;
         },
         getContextSnapShot: function() {
             var ctx, snapShot;
