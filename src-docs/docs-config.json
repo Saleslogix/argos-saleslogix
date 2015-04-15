@@ -11,6 +11,7 @@
             "{text: 'v3.0', href: 'http://developer.saleslogix.com/argos/v3.0/index.html'},",
             "{text: 'v3.1', href: 'http://developer.saleslogix.com/argos/v3.1/index.html'},",
             "{text: 'v3.2', href: 'http://developer.saleslogix.com/argos/v3.2/index.html'},",
+            "{text: 'v3.3', href: 'http://developer.saleslogix.com/argos/v3.3/index.html'},",
             "{text: 'development', href: 'http://developer.saleslogix.com/argos/development/index.html'}",
         "];",
         "</script>"
