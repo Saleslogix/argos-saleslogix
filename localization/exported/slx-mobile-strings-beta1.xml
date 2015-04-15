@@ -328,6 +328,10 @@
     <description/>
     <value>Generic View</value>
   </data>
+  <data class="argos.Views.ConfigureQuickActions" property="titleText" type="text">
+    <description/>
+    <value>Configure Quick Actions</value>
+  </data>
   <data class="argos.Views.FileSelect" property="titleText" type="text">
     <description/>
     <value>File Select</value>
@@ -375,6 +379,10 @@
   <data class="argos.Views.Signature" property="undoText" type="text">
     <description/>
     <value>Undo</value>
+  </data>
+  <data class="argos._ConfigureBase" property="titleText" type="text">
+    <description/>
+    <value>Configure</value>
   </data>
   <data class="argos._DetailBase" property="editText" type="text">
     <description/>
@@ -452,6 +460,10 @@
     <description/>
     <value>List</value>
   </data>
+  <data class="argos._ListBase" property="configureText" type="text">
+    <description/>
+    <value>Configure</value>
+  </data>
   <data class="argos._ListBase" property="errorRenderText" type="text">
     <description/>
     <value>Error rendering row template.</value>
@@ -483,6 +495,10 @@
   <data class="argos._PullToRefreshMixin" property="pullReleaseText" type="text">
     <description/>
     <value>Release to refresh...</value>
+  </data>
+  <data class="argos._RelatedViewWidgetBase" property="loadingText" type="text">
+    <description/>
+    <value>loading ... </value>
   </data>
   <data class="crm.Action" property="calledText" type="text">
     <description/>
@@ -3831,6 +3847,58 @@
   <data class="crm.Views.Opportunity.List" property="estimatedCloseText" type="text">
     <description/>
     <value>Estimated close </value>
+  </data>
+  <data class="crm.Views.Opportunity.List" property="quickEditActionText" type="text">
+    <description/>
+    <value>Quick Edit</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="estCloseText" type="text">
+    <description/>
+    <value>est close</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="detailsText" type="text">
+    <description/>
+    <value>Details</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="opportunityStageTitleText" type="text">
+    <description/>
+    <value>Opportunity Stage</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="opportunityText" type="text">
+    <description/>
+    <value>opportunity</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="stageText" type="text">
+    <description/>
+    <value>stage</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="statusOpenText" type="text">
+    <description/>
+    <value>Open</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="statusClosedLostText" type="text">
+    <description/>
+    <value>Closed - Lost</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="statusClosedWonText" type="text">
+    <description/>
+    <value>Closed - Won</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="salesProcessText" type="text">
+    <description/>
+    <value>stage locked by sales process:</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="probabilityText" type="text">
+    <description/>
+    <value>close prob</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="probabilityTitleText" type="text">
+    <description/>
+    <value>Opportunity Probability</value>
+  </data>
+  <data class="crm.Views.Opportunity.QuickEdit" property="potentialText" type="text">
+    <description/>
+    <value>sales potential</value>
   </data>
   <data class="crm.Views.OpportunityContact.Detail" property="titleText" type="text">
     <description/>
