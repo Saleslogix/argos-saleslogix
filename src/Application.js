@@ -324,10 +324,6 @@ define('crm/Application', [
                 }
             }
 
-            this.registerAppStatePromise(this.requestUserDetails());
-            this.registerAppStatePromise(this.requestUserOptions());
-            this.registerAppStatePromise(this.requestSystemOptions());
-
             if (callback) {
                 callback.call(scope || this, {user: user});
             }

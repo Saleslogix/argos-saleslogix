@@ -570,6 +570,18 @@ define('crm/ApplicationModule', [
             lang.extend(SearchWidget, {
                 searchText: this.searchText
             });
+        },
+        loadAppStatPromises: function() {
+            this.registerAppStatePromise(function() {
+                return App.requestUserDetails();
+
+            });
+            this.registerAppStatePromise(function() {
+                return App.requestUserOptions();
+            });
+            this.registerAppStatePromise(function() {
+                return App.requestSystemOptions();
+            });
         }
     });
 
