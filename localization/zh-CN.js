@@ -1,8 +1,8 @@
-﻿define('localization/en', ['dojo/_base/lang'], function(lang) {
+﻿define('localization/zh-CN', ['dojo/_base/lang'], function(lang) {
 
     return lang.setObject('Mobile.CultureInfo', {
-      "name": "en",
-      "englishName": "English (United States)",
+      "name": "zh-CN",
+      "englishName": "Chinese (Simplified)",
       "nativeName": "English (United States)",
       "numberFormat": {
         "currencyDecimalDigits": 2,
